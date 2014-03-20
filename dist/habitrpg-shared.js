@@ -1,4 +1,4 @@
-;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = require('./script/index.coffee');
 var _ = require('lodash');
 var moment = require('moment');
@@ -64,7 +64,8 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -6850,6 +6851,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   }
 }.call(this));
 
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
 //! moment.js
 //! version : 2.4.0
@@ -9167,3989 +9169,3897 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 }).call(this);
 
 },{}],5:[function(require,module,exports){
-(function() {
-  var api, classes, diminishingReturns, events, gear, gearTypes, moment, mystery, repeat, _;
+var api, classes, diminishingReturns, events, gear, gearTypes, moment, mystery, repeat, _;
 
-  _ = require('lodash');
+_ = require('lodash');
 
-  api = module.exports;
+api = module.exports;
 
-  moment = require('moment');
-
-  /*
-    ---------------------------------------------------------------
-    Gear (Weapons, Armor, Head, Shield)
-    Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
-    ---------------------------------------------------------------
-  */
+moment = require('moment');
 
 
-  classes = ['warrior', 'rogue', 'healer', 'wizard'];
+/*
+  ---------------------------------------------------------------
+  Gear (Weapons, Armor, Head, Shield)
+  Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
+  ---------------------------------------------------------------
+ */
 
-  gearTypes = ['armor', 'weapon', 'shield', 'head', 'back'];
+classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
-  events = {
-    winter: {
-      start: '2013-12-31',
-      end: '2014-02-01'
-    },
-    birthday: {
-      start: '2013-01-30',
-      end: '2014-02-01'
-    }
-  };
+gearTypes = ['armor', 'weapon', 'shield', 'head', 'back'];
 
-  mystery = {
-    201402: {
-      start: '2014-02-22',
-      end: '2014-02-28'
-    }
-  };
+events = {
+  winter: {
+    start: '2013-12-31',
+    end: '2014-02-01'
+  },
+  birthday: {
+    start: '2013-01-30',
+    end: '2014-02-01'
+  }
+};
 
-  gear = {
-    weapon: {
-      base: {
-        0: {
-          text: "No Weapon",
-          notes: 'No Weapon.',
-          value: 0
-        }
-      },
-      warrior: {
-        0: {
-          text: "Training Sword",
-          notes: 'Practice weapon. Confers no benefit.',
-          value: 0
-        },
-        1: {
-          text: "Sword",
-          notes: 'Common soldier\'s blade. Increases STR by 3.',
-          str: 3,
-          value: 20
-        },
-        2: {
-          text: "Axe",
-          notes: 'Double-bitted battle-axe. Increases STR by 6.',
-          str: 6,
-          value: 30
-        },
-        3: {
-          text: "Morning Star",
-          notes: 'Heavy club with brutal spikes. Increases STR by 9.',
-          str: 9,
-          value: 45
-        },
-        4: {
-          text: "Sapphire Blade",
-          notes: 'Sword whose edge bites like the north wind. Increases STR by 12.',
-          str: 12,
-          value: 65
-        },
-        5: {
-          text: "Ruby Sword",
-          notes: 'Weapon whose forge-glow never fades. Increases STR by 15.',
-          str: 15,
-          value: 90
-        },
-        6: {
-          text: "Golden Sword",
-          notes: 'Bane of creatures of darkness. Increases STR by 18.',
-          str: 18,
-          value: 120,
-          last: true
-        }
-      },
-      rogue: {
-        0: {
-          text: "Dagger",
-          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
-          str: 0,
-          value: 0
-        },
-        1: {
-          text: "Short Sword",
-          notes: 'Light, concealable blade. Increases STR by 2.',
-          str: 2,
-          value: 20
-        },
-        2: {
-          text: "Scimitar",
-          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
-          str: 3,
-          value: 35
-        },
-        3: {
-          text: "Kukri",
-          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
-          str: 4,
-          value: 50
-        },
-        4: {
-          text: "Nunchaku",
-          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
-          str: 6,
-          value: 70
-        },
-        5: {
-          text: "Ninja-to",
-          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        6: {
-          text: "Hook Sword",
-          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
-          str: 10,
-          value: 120,
-          last: true
-        }
-      },
-      wizard: {
-        0: {
-          twoHanded: true,
-          text: "Apprentice Staff",
-          notes: 'Practice staff. Confers no benefit.',
-          value: 0
-        },
-        1: {
-          twoHanded: true,
-          text: "Wooden Staff",
-          notes: 'Basic implement of carven wood. Increases INT by 3 and PER by 1.',
-          int: 3,
-          per: 1,
-          value: 30
-        },
-        2: {
-          twoHanded: true,
-          text: "Jeweled Staff",
-          notes: 'Focuses power through a precious stone. Increases INT by 6 and PER by 2.',
-          int: 6,
-          per: 2,
-          value: 50
-        },
-        3: {
-          twoHanded: true,
-          text: "Iron Staff",
-          notes: 'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.',
-          int: 9,
-          per: 3,
-          value: 80
-        },
-        4: {
-          twoHanded: true,
-          text: "Brass Staff",
-          notes: 'As powerful as it is heavy. Increases INT by 12 and PER by 5.',
-          int: 12,
-          per: 5,
-          value: 120
-        },
-        5: {
-          twoHanded: true,
-          text: "Archmage Staff",
-          notes: 'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.',
-          int: 15,
-          per: 7,
-          value: 160
-        },
-        6: {
-          twoHanded: true,
-          text: "Golden Staff",
-          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 10.',
-          int: 18,
-          per: 10,
-          value: 200,
-          last: true
-        }
-      },
-      healer: {
-        0: {
-          text: "Novice Rod",
-          notes: 'For healers in training. Confers no benefit.',
-          value: 0
-        },
-        1: {
-          text: "Acolyte Rod",
-          notes: 'Crafted during a healer\'s initiation. Increases INT by 2.',
-          int: 2,
-          value: 20
-        },
-        2: {
-          text: "Quartz Rod",
-          notes: 'Topped with a gem bearing curative properties. Increases INT by 3.',
-          int: 3,
-          value: 30
-        },
-        3: {
-          text: "Amethyst Rod",
-          notes: 'Purifies poison at a touch. Increases INT by 5.',
-          int: 5,
-          value: 45
-        },
-        4: {
-          text: "Physician Rod",
-          notes: 'As much a badge of office as a healing tool. Increases INT by 7.',
-          int: 7,
-          value: 65
-        },
-        5: {
-          text: "Royal Scepter",
-          notes: 'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.',
-          int: 9,
-          value: 90
-        },
-        6: {
-          text: "Golden Scepter",
-          notes: 'Soothes the pain of all who look upon it. Increases INT by 11.',
-          int: 11,
-          value: 120,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Dark Souls Blade",
-          notes: 'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.',
-          str: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
+mystery = {
+  201402: {
+    start: '2014-02-22',
+    end: '2014-02-28'
+  }
+};
 
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
-          })
-        },
-        1: {
-          text: "Crystal Blade",
-          notes: 'Its glittering facets tell the tale of a hero. Increases all attributes by 6.',
-          str: 6,
-          per: 6,
-          con: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
-          })
-        },
-        2: {
-          text: "Stephen Weber's Shaft of the Dragon",
-          notes: 'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.',
-          str: 25,
-          per: 25,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        3: {
-          text: "Mustaine's Milestone Mashing Morning Star",
-          notes: "Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.",
-          str: 17,
-          int: 17,
-          con: 17,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        critical: {
-          text: "Critical Hammer of Bug-Crushing",
-          notes: "This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.",
-          str: 40,
-          per: 40,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-
-            return !!((_ref = u.contributor) != null ? _ref.critical : void 0);
-          })
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Spear",
-          notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.',
-          str: 15,
-          value: 90
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Pole",
-          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        candycane: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
-          twoHanded: true,
-          text: "Candy Cane Staff",
-          notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.",
-          int: 15,
-          per: 7,
-          value: 160
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Wand",
-          notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.',
-          int: 9,
-          value: 90
-        }
-      }
-    },
-    armor: {
-      base: {
-        0: {
-          text: "Plain Clothing",
-          notes: 'Ordinary clothing. Confers no benefit.',
-          value: 0
-        }
-      },
-      warrior: {
-        1: {
-          text: "Leather Armor",
-          notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
-          con: 3,
-          value: 30
-        },
-        2: {
-          text: "Chain Mail",
-          notes: 'Armor of interlocked metal rings. Increases CON by 5.',
-          con: 5,
-          value: 45
-        },
-        3: {
-          text: "Plate Armor",
-          notes: 'Suit of all-encasing steel, the pride of knights. Increases CON by 7.',
-          con: 7,
-          value: 65
-        },
-        4: {
-          text: "Red Armor",
-          notes: 'Heavy plate glowing with defensive enchantments. Increases CON by 9.',
-          con: 9,
-          value: 90
-        },
-        5: {
-          text: "Golden Armor",
-          notes: 'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.',
-          con: 11,
-          value: 120,
-          last: true
-        }
-      },
-      rogue: {
-        1: {
-          text: "Oiled Leather",
-          notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
-          per: 6,
-          value: 30
-        },
-        2: {
-          text: "Black Leather",
-          notes: 'Colored with dark dye to blend into shadows. Increases PER by 9',
-          per: 9,
-          value: 45
-        },
-        3: {
-          text: "Camouflage Vest",
-          notes: 'Equally discreet in dungeon or wilderness. Increases PER by 12.',
-          per: 12,
-          value: 65
-        },
-        4: {
-          text: "Penumbral Armor",
-          notes: 'Wraps the wearer in a veil of twilight. Increases PER by 15.',
-          per: 15,
-          value: 90
-        },
-        5: {
-          text: "Umbral Armor",
-          notes: 'Allows stealth in the open in broad daylight. Increases PER by 18.',
-          per: 18,
-          value: 120,
-          last: true
-        }
-      },
-      wizard: {
-        1: {
-          text: "Magician Robe",
-          notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
-          int: 2,
-          value: 30
-        },
-        2: {
-          text: "Wizard Robe",
-          notes: 'Clothes for a wandering wonder-worker. Increases INT by 4.',
-          int: 4,
-          value: 45
-        },
-        3: {
-          text: "Robe of Mysteries",
-          notes: 'Denotes initiation into elite secrets. Increases INT by 6.',
-          int: 6,
-          value: 65
-        },
-        4: {
-          text: "Archmage Robe",
-          notes: 'Spirits and elementals bow before it. Increases INT by 9.',
-          int: 9,
-          value: 90
-        },
-        5: {
-          text: "Royal Magus Robe",
-          notes: 'Symbol of the power behind the throne. Increases INT by 12.',
-          int: 12,
-          value: 120,
-          last: true
-        }
-      },
-      healer: {
-        1: {
-          text: "Acolyte Robe",
-          notes: 'Garment showing humility and purpose. Increases CON by 6.',
-          con: 6,
-          value: 30
-        },
-        2: {
-          text: "Medic Robe",
-          notes: 'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.',
-          con: 9,
-          value: 45
-        },
-        3: {
-          text: "Defender Mantle",
-          notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
-          con: 12,
-          value: 65
-        },
-        4: {
-          text: "Physician Mantle",
-          notes: 'Projects authority and dissipates curses. Increases CON by 15.',
-          con: 15,
-          value: 90
-        },
-        5: {
-          text: "Royal Mantle",
-          notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
-          con: 18,
-          value: 120,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Shade Armor",
-          notes: 'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.',
-          con: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-          })
-        },
-        1: {
-          text: "Crystal Armor",
-          notes: 'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.',
-          con: 6,
-          str: 6,
-          per: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
-          })
-        },
-        2: {
-          text: "Jean Chalard's Noble Tunic",
-          notes: 'Makes you extra fluffy! Increases CON and INT by 25 each.',
-          int: 25,
-          con: 25,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Robe",
-          notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
-          con: 9,
-          value: 90
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Parka",
-          notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
-          per: 15,
-          value: 90
-        },
-        candycane: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
-          text: "Candy Cane Robe",
-          notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
-          int: 9,
-          value: 90
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Robe",
-          notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
-          con: 15,
-          value: 90
-        },
-        birthday: {
-          event: events.birthday,
-          text: "Absurd Party Robes",
-          notes: "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
-          value: 0
-        }
-      },
-      mystery: {
-        201402: {
-          text: 'Messenger Robes',
-          notes: "Shimmering and strong, these robes have many pockets to carry letters.",
-          mystery: mystery['201402'],
-          value: 10
-        }
-      }
-    },
-    head: {
-      base: {
-        0: {
-          text: "No Helm",
-          notes: 'No headgear.',
-          value: 0
-        }
-      },
-      warrior: {
-        1: {
-          text: "Leather Helm",
-          notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
-          str: 2,
-          value: 15
-        },
-        2: {
-          text: "Chain Coif",
-          notes: 'Hood of interlocked metal rings. Increases STR by 4.',
-          str: 4,
-          value: 25
-        },
-        3: {
-          text: "Plate Helm",
-          notes: 'Thick steel helmet, proof against any blow. Increases STR by 6.',
-          str: 6,
-          value: 40
-        },
-        4: {
-          text: "Red Helm",
-          notes: 'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.',
-          str: 9,
-          value: 60
-        },
-        5: {
-          text: "Golden Helm",
-          notes: 'Regal crown bound to shining armor. Increases STR by 12.',
-          str: 12,
-          value: 80,
-          last: true
-        }
-      },
-      rogue: {
-        1: {
-          text: "Leather Hood",
-          notes: 'Basic protective cowl. Increases PER by 2.',
-          per: 2,
-          value: 15
-        },
-        2: {
-          text: "Black Leather Hood",
-          notes: 'Useful for both defense and disguise. Increases PER by 4.',
-          per: 4,
-          value: 25
-        },
-        3: {
-          text: "Camouflage Hood",
-          notes: 'Rugged, but doesn\'t impede hearing. Increases PER by 6.',
-          per: 6,
-          value: 40
-        },
-        4: {
-          text: "Penumbral Hood",
-          notes: 'Grants perfect vision in darkness. Increases PER by 9.',
-          per: 9,
-          value: 60
-        },
-        5: {
-          text: "Umbral Hood",
-          notes: 'Conceals even thoughts from those who would probe them. Increases PER by 12.',
-          per: 12,
-          value: 80,
-          last: true
-        }
-      },
-      wizard: {
-        1: {
-          text: "Magician Hat",
-          notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
-          per: 2,
-          value: 15
-        },
-        2: {
-          text: "Cornuthaum",
-          notes: 'Traditional headgear of the itinerant wizard. Increases PER by 3.',
-          per: 3,
-          value: 25
-        },
-        3: {
-          text: "Astrologer Hat",
-          notes: 'Adorned with the rings of Saturn. Increases PER by 5.',
-          per: 5,
-          value: 40
-        },
-        4: {
-          text: "Archmage Hat",
-          notes: 'Focuses the mind for intensive spellcasting. Increases PER by 7.',
-          per: 7,
-          value: 60
-        },
-        5: {
-          text: "Royal Magus Hat",
-          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.',
-          per: 10,
-          value: 80,
-          last: true
-        }
-      },
-      healer: {
-        1: {
-          text: "Quartz Circlet",
-          notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
-          int: 2,
-          value: 15
-        },
-        2: {
-          text: "Amethyst Circlet",
-          notes: 'A taste of luxury for a humble profession. Increases INT by 3.',
-          int: 3,
-          value: 25
-        },
-        3: {
-          text: "Sapphire Circlet",
-          notes: 'Shines to let sufferers know their salvation is at hand. Increases INT by 5.',
-          int: 5,
-          value: 40
-        },
-        4: {
-          text: "Emerald Diadem",
-          notes: 'Emits an aura of life and growth. Increases INT by 7.',
-          int: 7,
-          value: 60
-        },
-        5: {
-          text: "Royal Diadem",
-          notes: 'For king, queen, or miracle-worker. Increases INT by 9.',
-          int: 9,
-          value: 80,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Shade Helm",
-          notes: 'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.',
-          int: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-          })
-        },
-        1: {
-          text: "Crystal Helm",
-          notes: 'The favored crown of those who lead by example. Increases all attributes by 6.',
-          con: 6,
-          str: 6,
-          per: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
-          })
-        },
-        2: {
-          text: "Nameless Helm",
-          notes: 'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.',
-          int: 25,
-          str: 25,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        nye: {
-          event: events.winter,
-          text: "Absurd Party Hat",
-          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
-          value: 0
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Helm",
-          notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
-          str: 9,
-          value: 60
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Helm",
-          notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
-          per: 9,
-          value: 60
-        },
-        candycane: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
-          text: "Candy Cane Hat",
-          notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
-          per: 7,
-          value: 60
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Crown",
-          notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
-          int: 7,
-          value: 60
-        }
-      },
-      mystery: {
-        201402: {
-          text: 'Winged Helm',
-          notes: "This winged circlet imbues the wearer with the speed of the wind!",
-          mystery: mystery['201402'],
-          value: 10
-        }
-      }
-    },
-    shield: {
-      base: {
-        0: {
-          text: "No Off-Hand Equipment",
-          notes: 'No shield or second weapon.',
-          value: 0
-        }
-      },
-      warrior: {
-        1: {
-          text: "Wooden Shield",
-          notes: 'Round shield of thick wood. Increases CON by 2.',
-          con: 2,
-          value: 20
-        },
-        2: {
-          text: "Buckler",
-          notes: 'Light and sturdy, quick to bring to the defense. Increases CON by 3.',
-          con: 3,
-          value: 35
-        },
-        3: {
-          text: "Reinforced Shield",
-          notes: 'Made of wood but bolstered with metal bands. Increases CON by 5.',
-          con: 5,
-          value: 50
-        },
-        4: {
-          text: "Red Shield",
-          notes: 'Rebukes blows with a burst of flame. Increases CON by 7.',
-          con: 7,
-          value: 70
-        },
-        5: {
-          text: "Golden Shield",
-          notes: 'Shining badge of the vanguard. Increases CON by 9.',
-          con: 9,
-          value: 90,
-          last: true
-        }
-      },
-      rogue: {
-        0: {
-          text: "Dagger",
-          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
-          str: 0,
-          value: 0
-        },
-        1: {
-          text: "Short Sword",
-          notes: 'Light, concealable blade. Increases STR by 2.',
-          str: 2,
-          value: 20
-        },
-        2: {
-          text: "Scimitar",
-          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
-          str: 3,
-          value: 35
-        },
-        3: {
-          text: "Kukri",
-          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
-          str: 4,
-          value: 50
-        },
-        4: {
-          text: "Nunchaku",
-          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
-          str: 6,
-          value: 70
-        },
-        5: {
-          text: "Ninja-to",
-          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        6: {
-          text: "Hook Sword",
-          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
-          str: 10,
-          value: 120,
-          last: true
-        }
-      },
-      wizard: {},
-      healer: {
-        1: {
-          text: "Medic Buckler",
-          notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
-          con: 2,
-          value: 20
-        },
-        2: {
-          text: "Kite Shield",
-          notes: 'Tapered shield with the symbol of healing. Increases CON by 4.',
-          con: 4,
-          value: 35
-        },
-        3: {
-          text: "Protector Shield",
-          notes: 'Traditional shield of defender knights. Increases CON by 6.',
-          con: 6,
-          value: 50
-        },
-        4: {
-          text: "Savior Shield",
-          notes: 'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.',
-          con: 9,
-          value: 70
-        },
-        5: {
-          text: "Royal Shield",
-          notes: 'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.',
-          con: 12,
-          value: 90,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Tormented Skull",
-          notes: 'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.',
-          per: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-          })
-        },
-        1: {
-          text: "Crystal Shield",
-          notes: 'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.',
-          con: 6,
-          str: 6,
-          per: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
-          })
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Shield",
-          notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
-          con: 7,
-          value: 70
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Pole",
-          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Shield",
-          notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
-          con: 9,
-          value: 70
-        }
-      }
-    },
-    back: {
-      base: {
-        0: {
-          text: "No Back Accessory",
-          notes: 'No Back Accessory.',
-          value: 0,
-          last: true
-        }
-      },
-      mystery: {
-        201402: {
-          text: 'Golden Wings',
-          notes: "These shining wings have feathers that glitter in the sun!",
-          mystery: mystery['201402'],
-          value: 10
-        }
-      }
-    }
-  };
-
-  /*
-    The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
-    they are needed in different froms at different points in the app
-  */
-
-
-  api.gear = {
-    tree: gear,
-    flat: {}
-  };
-
-  _.each(gearTypes, function(type) {
-    return _.each(classes.concat(['base', 'special', 'mystery']), function(klass) {
-      return _.each(gear[type][klass], function(item, i) {
-        var key, _canOwn;
-
-        key = "" + type + "_" + klass + "_" + i;
-        _.defaults(item, {
-          type: type,
-          key: key,
-          klass: klass,
-          index: i,
-          str: 0,
-          int: 0,
-          per: 0,
-          con: 0
-        });
-        if (item.event) {
-          _canOwn = item.canOwn || (function() {
-            return true;
-          });
-          item.canOwn = function(u) {
-            return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
-          };
-        }
-        if (item.mystery) {
-          item.canOwn = function(u) {
-            return u.items.gear.owned[key] != null;
-          };
-        }
-        return api.gear.flat[key] = item;
-      });
-    });
-  });
-
-  /*
-    ---------------------------------------------------------------
-    Potion
-    ---------------------------------------------------------------
-  */
-
-
-  api.potion = {
-    type: 'potion',
-    text: "Health Potion",
-    notes: "Recover 15 Health (Instant Use)",
-    value: 25,
-    key: 'potion'
-  };
-
-  /*
-     ---------------------------------------------------------------
-     Classes
-     ---------------------------------------------------------------
-  */
-
-
-  api.classes = classes;
-
-  /*
-     ---------------------------------------------------------------
-     Gear Types
-     ---------------------------------------------------------------
-  */
-
-
-  api.gearTypes = gearTypes;
-
-  /*
-    ---------------------------------------------------------------
-    Spells
-    ---------------------------------------------------------------
-    Text, notes, and mana are obvious. The rest:
-  
-    * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
-      thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
-      etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
-  
-    * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
-      web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-      own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
-      you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-      spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
-      available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
-      so you'll want to iterate over them like: `_.each(target,function(member){...})`
-  
-    Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
-  */
-
-
-  diminishingReturns = function(bonus, max, halfway) {
-    if (halfway == null) {
-      halfway = max / 2;
-    }
-    return max * (bonus / (bonus + halfway));
-  };
-
-  api.spells = {
-    wizard: {
-      fireball: {
-        text: 'Burst of Flames',
-        mana: 10,
-        lvl: 11,
-        target: 'task',
-        notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
-        cast: function(user, target) {
-          var bonus;
-
-          bonus = user._statsComputed.int * user.fns.crit('per');
-          target.value += diminishingReturns(bonus * .02, 4);
-          bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
-          user.stats.exp += diminishingReturns(bonus, 75);
-          if (user.party.quest.key) {
-            return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
-          }
-        }
-      },
-      mpheal: {
-        text: 'Ethereal Surge',
-        mana: 30,
-        lvl: 12,
-        target: 'party',
-        notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var bonus;
-
-            bonus = Math.ceil(user._statsComputed.int * .1);
-            if (bonus > 25) {
-              bonus = 25;
-            }
-            return member.stats.mp += bonus;
-          });
-        }
-      },
-      earth: {
-        text: 'Earthquake',
-        mana: 35,
-        lvl: 13,
-        target: 'party',
-        notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base, _ref;
-
-            if ((_ref = (_base = member.stats.buffs).int) == null) {
-              _base.int = 0;
-            }
-            return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
-          });
-        }
-      },
-      frost: {
-        text: 'Chilling Frost',
-        mana: 40,
-        lvl: 14,
-        target: 'self',
-        notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
-        cast: function(user, target) {
-          return user.stats.buffs.streaks = true;
-        }
+gear = {
+  weapon: {
+    base: {
+      0: {
+        text: "No Weapon",
+        notes: 'No Weapon.',
+        value: 0
       }
     },
     warrior: {
-      smash: {
-        text: 'Brutal Smash',
-        mana: 10,
-        lvl: 11,
-        target: 'task',
-        notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
-        cast: function(user, target) {
-          target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('per');
-          if (user.party.quest.key) {
-            return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
-          }
-        }
+      0: {
+        text: "Training Sword",
+        notes: 'Practice weapon. Confers no benefit.',
+        value: 0
       },
-      defensiveStance: {
-        text: 'Defensive Stance',
-        mana: 25,
-        lvl: 12,
-        target: 'self',
-        notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
-        cast: function(user, target) {
-          var _base, _ref;
-
-          if ((_ref = (_base = user.stats.buffs).con) == null) {
-            _base.con = 0;
-          }
-          return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
-        }
+      1: {
+        text: "Sword",
+        notes: 'Common soldier\'s blade. Increases STR by 3.',
+        str: 3,
+        value: 20
       },
-      valorousPresence: {
-        text: 'Valorous Presence',
-        mana: 20,
-        lvl: 13,
-        target: 'party',
-        notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base, _ref;
-
-            if ((_ref = (_base = member.stats.buffs).str) == null) {
-              _base.str = 0;
-            }
-            return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
-          });
-        }
+      2: {
+        text: "Axe",
+        notes: 'Double-bitted battle-axe. Increases STR by 6.',
+        str: 6,
+        value: 30
       },
-      intimidate: {
-        text: 'Intimidating Gaze',
-        mana: 15,
-        lvl: 14,
-        target: 'party',
-        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base, _ref;
-
-            if ((_ref = (_base = member.stats.buffs).con) == null) {
-              _base.con = 0;
-            }
-            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
-          });
-        }
+      3: {
+        text: "Morning Star",
+        notes: 'Heavy club with brutal spikes. Increases STR by 9.',
+        str: 9,
+        value: 45
+      },
+      4: {
+        text: "Sapphire Blade",
+        notes: 'Sword whose edge bites like the north wind. Increases STR by 12.',
+        str: 12,
+        value: 65
+      },
+      5: {
+        text: "Ruby Sword",
+        notes: 'Weapon whose forge-glow never fades. Increases STR by 15.',
+        str: 15,
+        value: 90
+      },
+      6: {
+        text: "Golden Sword",
+        notes: 'Bane of creatures of darkness. Increases STR by 18.',
+        str: 18,
+        value: 120,
+        last: true
       }
     },
     rogue: {
-      pickPocket: {
-        text: 'Pickpocket',
-        mana: 10,
-        lvl: 11,
-        target: 'task',
-        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
-        cast: function(user, target) {
-          var bonus;
-
-          bonus = (target.value < 0 ? 1 : target.value + 2) + (user._statsComputed.per * 0.5);
-          return user.stats.gp += 25 * (bonus / (bonus + 75));
-        }
+      0: {
+        text: "Dagger",
+        notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+        str: 0,
+        value: 0
       },
-      backStab: {
-        text: 'Backstab',
-        mana: 15,
-        lvl: 12,
-        target: 'task',
-        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
-        cast: function(user, target) {
-          var bonus, _crit;
-
-          _crit = user.fns.crit('per', .3);
-          target.value += _crit * .03;
-          bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
-          user.stats.exp += bonus;
-          return user.stats.gp += bonus;
-        }
+      1: {
+        text: "Short Sword",
+        notes: 'Light, concealable blade. Increases STR by 2.',
+        str: 2,
+        value: 20
       },
-      toolsOfTrade: {
-        text: 'Tools of the Trade',
-        mana: 25,
-        lvl: 13,
-        target: 'party',
-        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base, _ref;
-
-            if ((_ref = (_base = member.stats.buffs).per) == null) {
-              _base.per = 0;
-            }
-            return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
-          });
-        }
+      2: {
+        text: "Scimitar",
+        notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+        str: 3,
+        value: 35
       },
-      stealth: {
-        text: 'Stealth',
-        mana: 45,
-        lvl: 14,
-        target: 'self',
-        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
-        cast: function(user, target) {
-          var _base, _ref;
-
-          if ((_ref = (_base = user.stats.buffs).stealth) == null) {
-            _base.stealth = 0;
-          }
-          return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
-        }
+      3: {
+        text: "Kukri",
+        notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+        str: 4,
+        value: 50
+      },
+      4: {
+        text: "Nunchaku",
+        notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+        str: 6,
+        value: 70
+      },
+      5: {
+        text: "Ninja-to",
+        notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+        str: 8,
+        value: 90
+      },
+      6: {
+        text: "Hook Sword",
+        notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+        str: 10,
+        value: 120,
+        last: true
+      }
+    },
+    wizard: {
+      0: {
+        twoHanded: true,
+        text: "Apprentice Staff",
+        notes: 'Practice staff. Confers no benefit.',
+        value: 0
+      },
+      1: {
+        twoHanded: true,
+        text: "Wooden Staff",
+        notes: 'Basic implement of carven wood. Increases INT by 3 and PER by 1.',
+        int: 3,
+        per: 1,
+        value: 30
+      },
+      2: {
+        twoHanded: true,
+        text: "Jeweled Staff",
+        notes: 'Focuses power through a precious stone. Increases INT by 6 and PER by 2.',
+        int: 6,
+        per: 2,
+        value: 50
+      },
+      3: {
+        twoHanded: true,
+        text: "Iron Staff",
+        notes: 'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.',
+        int: 9,
+        per: 3,
+        value: 80
+      },
+      4: {
+        twoHanded: true,
+        text: "Brass Staff",
+        notes: 'As powerful as it is heavy. Increases INT by 12 and PER by 5.',
+        int: 12,
+        per: 5,
+        value: 120
+      },
+      5: {
+        twoHanded: true,
+        text: "Archmage Staff",
+        notes: 'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.',
+        int: 15,
+        per: 7,
+        value: 160
+      },
+      6: {
+        twoHanded: true,
+        text: "Golden Staff",
+        notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 10.',
+        int: 18,
+        per: 10,
+        value: 200,
+        last: true
       }
     },
     healer: {
-      heal: {
-        text: 'Healing Light',
-        mana: 15,
-        lvl: 11,
-        target: 'self',
-        notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
-        cast: function(user, target) {
-          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
-          if (user.stats.hp > 50) {
-            return user.stats.hp = 50;
-          }
-        }
+      0: {
+        text: "Novice Rod",
+        notes: 'For healers in training. Confers no benefit.',
+        value: 0
       },
-      brightness: {
-        text: 'Searing Brightness',
-        mana: 15,
-        lvl: 12,
-        target: 'self',
-        notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced.",
-        cast: function(user, target) {
-          return _.each(user.tasks, function(target) {
-            if (target.type === 'reward') {
-              return;
-            }
-            return target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40));
-          });
-        }
+      1: {
+        text: "Acolyte Rod",
+        notes: 'Crafted during a healer\'s initiation. Increases INT by 2.',
+        int: 2,
+        value: 20
       },
-      protectAura: {
-        text: 'Protective Aura',
-        mana: 30,
-        lvl: 13,
-        target: 'party',
-        notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base, _ref;
-
-            if ((_ref = (_base = member.stats.buffs).con) == null) {
-              _base.con = 0;
-            }
-            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
-          });
-        }
+      2: {
+        text: "Quartz Rod",
+        notes: 'Topped with a gem bearing curative properties. Increases INT by 3.',
+        int: 3,
+        value: 30
       },
-      heallAll: {
-        text: 'Blessing',
-        mana: 25,
-        lvl: 14,
-        target: 'party',
-        notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
-            if (member.stats.hp > 50) {
-              return member.stats.hp = 50;
-            }
-          });
-        }
+      3: {
+        text: "Amethyst Rod",
+        notes: 'Purifies poison at a touch. Increases INT by 5.',
+        int: 5,
+        value: 45
+      },
+      4: {
+        text: "Physician Rod",
+        notes: 'As much a badge of office as a healing tool. Increases INT by 7.',
+        int: 7,
+        value: 65
+      },
+      5: {
+        text: "Royal Scepter",
+        notes: 'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.',
+        int: 9,
+        value: 90
+      },
+      6: {
+        text: "Golden Scepter",
+        notes: 'Soothes the pain of all who look upon it. Increases INT by 11.',
+        int: 11,
+        value: 120,
+        last: true
       }
     },
     special: {
-      snowball: {
-        text: 'Snowball',
-        mana: 0,
-        value: 1,
-        target: 'user',
-        notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
-        cast: function(user, target) {
-          var _base, _ref;
-
-          target.stats.buffs.snowball = true;
-          if ((_ref = (_base = target.achievements).snowball) == null) {
-            _base.snowball = 0;
-          }
-          target.achievements.snowball++;
-          return user.items.special.snowball--;
-        }
+      0: {
+        text: "Dark Souls Blade",
+        notes: 'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.',
+        str: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
+        })
       },
-      salt: {
-        text: 'Salt',
-        mana: 0,
-        value: 5,
-        target: 'self',
-        notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
-        cast: function(user, target) {
-          user.stats.buffs.snowball = false;
-          return user.stats.gp -= 5;
-        }
+      1: {
+        text: "Crystal Blade",
+        notes: 'Its glittering facets tell the tale of a hero. Increases all attributes by 6.',
+        str: 6,
+        per: 6,
+        con: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
+        })
+      },
+      2: {
+        text: "Stephen Weber's Shaft of the Dragon",
+        notes: 'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.',
+        str: 25,
+        per: 25,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+        })
+      },
+      3: {
+        text: "Mustaine's Milestone Mashing Morning Star",
+        notes: "Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.",
+        str: 17,
+        int: 17,
+        con: 17,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+        })
+      },
+      critical: {
+        text: "Critical Hammer of Bug-Crushing",
+        notes: "This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.",
+        str: 40,
+        per: 40,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return !!((_ref = u.contributor) != null ? _ref.critical : void 0);
+        })
+      },
+      yeti: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: "Yeti-Tamer Spear",
+        notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.',
+        str: 15,
+        value: 90
+      },
+      ski: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: "Ski-sassin Pole",
+        notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+        str: 8,
+        value: 90
+      },
+      candycane: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'wizard';
+        }),
+        twoHanded: true,
+        text: "Candy Cane Staff",
+        notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.",
+        int: 15,
+        per: 7,
+        value: 160
+      },
+      snowflake: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: "Snowflake Wand",
+        notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.',
+        int: 9,
+        value: 90
       }
     }
-  };
-
-  _.each(api.spells, function(spellClass) {
-    return _.each(spellClass, function(spell, key) {
-      var _cast;
-
-      spell.key = key;
-      _cast = spell.cast;
-      return spell.cast = function(user, target) {
-        _cast(user, target);
-        return user.stats.mp -= spell.mana;
-      };
-    });
-  });
-
-  api.special = api.spells.special;
-
-  /*
-    ---------------------------------------------------------------
-    Drops
-    ---------------------------------------------------------------
-  */
-
-
-  api.dropEggs = {
-    Wolf: {
-      text: 'Wolf',
-      adjective: 'loyal'
+  },
+  armor: {
+    base: {
+      0: {
+        text: "Plain Clothing",
+        notes: 'Ordinary clothing. Confers no benefit.',
+        value: 0
+      }
     },
-    TigerCub: {
-      text: 'Tiger Cub',
-      mountText: 'Tiger',
-      adjective: 'fierce'
-    },
-    PandaCub: {
-      text: 'Panda Cub',
-      mountText: 'Panda',
-      adjective: 'gentle'
-    },
-    LionCub: {
-      text: 'Lion Cub',
-      mountText: 'Lion',
-      adjective: 'regal'
-    },
-    Fox: {
-      text: 'Fox',
-      adjective: 'wily'
-    },
-    FlyingPig: {
-      text: 'Flying Pig',
-      adjective: 'whimsical'
-    },
-    Dragon: {
-      text: 'Dragon',
-      adjective: 'mighty'
-    },
-    Cactus: {
-      text: 'Cactus',
-      adjective: 'prickly'
-    },
-    BearCub: {
-      text: 'Bear Cub',
-      mountText: 'Bear',
-      adjective: 'cuddly'
-    }
-  };
-
-  _.each(api.dropEggs, function(egg, key) {
-    return _.defaults(egg, {
-      canBuy: true,
-      value: 3,
-      key: key,
-      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
-      mountText: egg.text
-    });
-  });
-
-  api.questEggs = {
-    Gryphon: {
-      text: 'Gryphon',
-      adjective: 'proud',
-      canBuy: false
-    },
-    Hedgehog: {
-      text: 'Hedgehog',
-      adjective: 'spiky',
-      canBuy: false
-    }
-  };
-
-  _.each(api.questEggs, function(egg, key) {
-    return _.defaults(egg, {
-      canBuy: false,
-      value: 3,
-      key: key,
-      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
-      mountText: egg.text
-    });
-  });
-
-  api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
-
-  api.specialPets = {
-    'Wolf-Veteran': true,
-    'Wolf-Cerberus': true,
-    'Dragon-Hydra': true,
-    'Turkey-Base': true,
-    'BearCub-Polar': true
-  };
-
-  api.specialMounts = {
-    'BearCub-Polar': true,
-    'LionCub-Ethereal': true
-  };
-
-  api.hatchingPotions = {
-    Base: {
-      value: 2,
-      text: 'Base'
-    },
-    White: {
-      value: 2,
-      text: 'White'
-    },
-    Desert: {
-      value: 2,
-      text: 'Desert'
-    },
-    Red: {
-      value: 3,
-      text: 'Red'
-    },
-    Shade: {
-      value: 3,
-      text: 'Shade'
-    },
-    Skeleton: {
-      value: 3,
-      text: 'Skeleton'
-    },
-    Zombie: {
-      value: 4,
-      text: 'Zombie'
-    },
-    CottonCandyPink: {
-      value: 4,
-      text: 'Cotton Candy Pink'
-    },
-    CottonCandyBlue: {
-      value: 4,
-      text: 'Cotton Candy Blue'
-    },
-    Golden: {
-      value: 5,
-      text: 'Golden'
-    }
-  };
-
-  _.each(api.hatchingPotions, function(pot, key) {
-    return _.defaults(pot, {
-      key: key,
-      value: 2,
-      notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
-    });
-  });
-
-  api.pets = _.transform(api.dropEggs, function(m, egg) {
-    return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }));
-  });
-
-  api.questPets = _.transform(api.questEggs, function(m, egg) {
-    return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }));
-  });
-
-  api.food = {
-    Meat: {
-      text: 'Meat',
-      target: 'Base',
-      article: ''
-    },
-    Milk: {
-      text: 'Milk',
-      target: 'White',
-      article: ''
-    },
-    Potatoe: {
-      text: 'Potato',
-      target: 'Desert',
-      article: 'a '
-    },
-    Strawberry: {
-      text: 'Strawberry',
-      target: 'Red',
-      article: 'a '
-    },
-    Chocolate: {
-      text: 'Chocolate',
-      target: 'Shade',
-      article: ''
-    },
-    Fish: {
-      text: 'Fish',
-      target: 'Skeleton',
-      article: 'a '
-    },
-    RottenMeat: {
-      text: 'Rotten Meat',
-      target: 'Zombie',
-      article: ''
-    },
-    CottonCandyPink: {
-      text: 'Pink Cotton Candy',
-      target: 'CottonCandyPink',
-      article: ''
-    },
-    CottonCandyBlue: {
-      text: 'Blue Cotton Candy',
-      target: 'CottonCandyBlue',
-      article: ''
-    },
-    Cake_Skeleton: {
-      canBuy: false,
-      text: 'Bare Bones Cake',
-      target: 'Skeleton',
-      article: ''
-    },
-    Cake_Base: {
-      canBuy: false,
-      text: 'Basic Cake',
-      target: 'Base',
-      article: ''
-    },
-    Cake_CottonCandyBlue: {
-      canBuy: false,
-      text: 'Candy Blue Cake',
-      target: 'CottonCandyBlue',
-      article: ''
-    },
-    Cake_CottonCandyPink: {
-      canBuy: false,
-      text: 'Candy Pink Cake',
-      target: 'CottonCandyPink',
-      article: ''
-    },
-    Cake_Shade: {
-      canBuy: false,
-      text: 'Chocolate Cake',
-      target: 'Shade',
-      article: ''
-    },
-    Cake_White: {
-      canBuy: false,
-      text: 'Cream Cake',
-      target: 'White',
-      article: ''
-    },
-    Cake_Golden: {
-      canBuy: false,
-      text: 'Honey Cake',
-      target: 'Golden',
-      article: ''
-    },
-    Cake_Zombie: {
-      canBuy: false,
-      text: 'Rotten Cake',
-      target: 'Zombie',
-      article: ''
-    },
-    Cake_Desert: {
-      canBuy: false,
-      text: 'Sand Cake',
-      target: 'Desert',
-      article: ''
-    },
-    Cake_Red: {
-      canBuy: false,
-      text: 'Strawberry Cake',
-      target: 'Red',
-      article: ''
-    },
-    Honey: {
-      text: 'Honey',
-      target: 'Golden',
-      article: ''
-    },
-    Saddle: {
-      text: 'Saddle',
-      value: 5,
-      notes: 'Instantly raises one of your pets into a mount.'
-    }
-  };
-
-  _.each(api.food, function(food, key) {
-    return _.defaults(food, {
-      value: 1,
-      key: key,
-      notes: "Feed this to a pet and it may grow into a sturdy steed.",
-      canBuy: true
-    });
-  });
-
-  api.quests = {
-    evilsanta: {
-      canBuy: false,
-      text: "Trapper Santa",
-      notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
-      completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
-      value: 4,
-      boss: {
-        name: "Trapper Santa",
-        hp: 300,
-        str: 1
+    warrior: {
+      1: {
+        text: "Leather Armor",
+        notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
+        con: 3,
+        value: 30
       },
-      drop: {
-        items: [
-          {
-            type: 'mounts',
-            key: 'BearCub-Polar',
-            text: "Polar Bear (Mount)"
-          }
-        ],
-        gp: 20,
-        exp: 100
+      2: {
+        text: "Chain Mail",
+        notes: 'Armor of interlocked metal rings. Increases CON by 5.',
+        con: 5,
+        value: 45
+      },
+      3: {
+        text: "Plate Armor",
+        notes: 'Suit of all-encasing steel, the pride of knights. Increases CON by 7.',
+        con: 7,
+        value: 65
+      },
+      4: {
+        text: "Red Armor",
+        notes: 'Heavy plate glowing with defensive enchantments. Increases CON by 9.',
+        con: 9,
+        value: 90
+      },
+      5: {
+        text: "Golden Armor",
+        notes: 'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.',
+        con: 11,
+        value: 120,
+        last: true
       }
     },
-    evilsanta2: {
-      canBuy: false,
-      text: "Find The Cub",
-      notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!",
-      completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days.",
-      value: 4,
-      previous: 'evilsanta',
-      collect: {
-        tracks: {
-          text: 'Tracks',
-          count: 20
-        },
-        branches: {
-          text: 'Broken Twigs',
-          count: 10
-        }
+    rogue: {
+      1: {
+        text: "Oiled Leather",
+        notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
+        per: 6,
+        value: 30
       },
-      drop: {
-        items: [
-          {
-            type: 'pets',
-            key: 'BearCub-Polar',
-            text: "Polar Bear (Pet)"
-          }
-        ],
-        gp: 20,
-        exp: 100
+      2: {
+        text: "Black Leather",
+        notes: 'Colored with dark dye to blend into shadows. Increases PER by 9',
+        per: 9,
+        value: 45
+      },
+      3: {
+        text: "Camouflage Vest",
+        notes: 'Equally discreet in dungeon or wilderness. Increases PER by 12.',
+        per: 12,
+        value: 65
+      },
+      4: {
+        text: "Penumbral Armor",
+        notes: 'Wraps the wearer in a veil of twilight. Increases PER by 15.',
+        per: 15,
+        value: 90
+      },
+      5: {
+        text: "Umbral Armor",
+        notes: 'Allows stealth in the open in broad daylight. Increases PER by 18.',
+        per: 18,
+        value: 120,
+        last: true
       }
     },
-    gryphon: {
-      text: "The Fiery Gryphon",
-      notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
-      completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" @baconsaur exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!',
-      value: 4,
-      boss: {
-        name: "Fiery Gryphon",
-        hp: 300,
-        str: 1.5
+    wizard: {
+      1: {
+        text: "Magician Robe",
+        notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
+        int: 2,
+        value: 30
       },
-      drop: {
-        items: [
-          {
-            type: 'eggs',
-            key: 'Gryphon',
-            text: "Gryphon (Egg)"
-          }, {
-            type: 'eggs',
-            key: 'Gryphon',
-            text: "Gryphon (Egg)"
-          }, {
-            type: 'eggs',
-            key: 'Gryphon',
-            text: "Gryphon (Egg)"
-          }
-        ],
-        gp: 25,
-        exp: 125
+      2: {
+        text: "Wizard Robe",
+        notes: 'Clothes for a wandering wonder-worker. Increases INT by 4.',
+        int: 4,
+        value: 45
+      },
+      3: {
+        text: "Robe of Mysteries",
+        notes: 'Denotes initiation into elite secrets. Increases INT by 6.',
+        int: 6,
+        value: 65
+      },
+      4: {
+        text: "Archmage Robe",
+        notes: 'Spirits and elementals bow before it. Increases INT by 9.',
+        int: 9,
+        value: 90
+      },
+      5: {
+        text: "Royal Magus Robe",
+        notes: 'Symbol of the power behind the throne. Increases INT by 12.',
+        int: 12,
+        value: 120,
+        last: true
       }
     },
-    hedgehog: {
-      text: "The Hedgebeast",
-      notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.',
-      completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!',
-      value: 4,
-      boss: {
-        name: "Hedgebeast",
-        hp: 400,
-        str: 1.25
+    healer: {
+      1: {
+        text: "Acolyte Robe",
+        notes: 'Garment showing humility and purpose. Increases CON by 6.',
+        con: 6,
+        value: 30
       },
-      drop: {
-        items: [
-          {
-            type: 'eggs',
-            key: 'Hedgehog',
-            text: "Hedgehog (Egg)"
-          }, {
-            type: 'eggs',
-            key: 'Hedgehog',
-            text: "Hedgehog (Egg)"
-          }, {
-            type: 'eggs',
-            key: 'Hedgehog',
-            text: "Hedgehog (Egg)"
-          }
-        ],
-        gp: 30,
-        exp: 125
+      2: {
+        text: "Medic Robe",
+        notes: 'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.',
+        con: 9,
+        value: 45
+      },
+      3: {
+        text: "Defender Mantle",
+        notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
+        con: 12,
+        value: 65
+      },
+      4: {
+        text: "Physician Mantle",
+        notes: 'Projects authority and dissipates curses. Increases CON by 15.',
+        con: 15,
+        value: 90
+      },
+      5: {
+        text: "Royal Mantle",
+        notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
+        con: 18,
+        value: 120,
+        last: true
       }
     },
-    vice1: {
-      text: "Free Yourself of the Dragon's Influence",
-      notes: "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves. Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to the fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you! </p>",
-      value: 4,
-      lvl: 30,
-      boss: {
-        name: "Vice's Shade",
-        hp: 750,
-        str: 1.5
+    special: {
+      0: {
+        text: "Shade Armor",
+        notes: 'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.',
+        con: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
       },
-      drop: {
-        items: [
-          {
-            type: 'quests',
-            key: "vice2",
-            text: "Vice Part 2 (Scroll)"
-          }
-        ],
-        gp: 20,
-        exp: 100
+      1: {
+        text: "Crystal Armor",
+        notes: 'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.',
+        con: 6,
+        str: 6,
+        per: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
+        })
+      },
+      2: {
+        text: "Jean Chalard's Noble Tunic",
+        notes: 'Makes you extra fluffy! Increases CON and INT by 25 each.',
+        int: 25,
+        con: 25,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+        })
+      },
+      yeti: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: "Yeti-Tamer Robe",
+        notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
+        con: 9,
+        value: 90
+      },
+      ski: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: "Ski-sassin Parka",
+        notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
+        per: 15,
+        value: 90
+      },
+      candycane: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'wizard';
+        }),
+        text: "Candy Cane Robe",
+        notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
+        int: 9,
+        value: 90
+      },
+      snowflake: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: "Snowflake Robe",
+        notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
+        con: 15,
+        value: 90
+      },
+      birthday: {
+        event: events.birthday,
+        text: "Absurd Party Robes",
+        notes: "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
+        value: 0
       }
     },
-    vice2: {
-      text: "Find the Lair of the Wyrm",
-      notes: "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes it's way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
-      value: 4,
-      lvl: 35,
-      previous: 'vice1',
-      collect: {
-        lightCrystal: {
-          text: 'Light Crystal',
-          count: 45
-        }
-      },
-      drop: {
-        items: [
-          {
-            type: 'quests',
-            key: 'vice3',
-            text: "Vice Part 3 (Scroll)"
-          }
-        ],
-        gp: 20,
-        exp: 75
-      }
-    },
-    vice3: {
-      text: "Vice Awakens",
-      notes: "After much effort, your party has discovered Vice's lair. The hulking monster eyes your party with distaste. As shadows swirl around you, a voice whispers through your head, \"More foolish citizens of Habitica come to stop me? Cute. You'd have been wise not to come.\" The scaly titan rears back its head and prepares to attack. This is your chance! Give it everything you've got and defeat Vice once and for all!",
-      completion: "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!",
-      previous: 'vice2',
-      value: 4,
-      lvl: 40,
-      boss: {
-        name: "Vice, the Shadow Wyrm",
-        hp: 1500,
-        str: 3
-      },
-      drop: {
-        items: [
-          {
-            type: 'gear',
-            key: "weapon_special_2",
-            text: "Stephen Weber's Shaft of the Dragon"
-          }, {
-            type: 'eggs',
-            key: 'Dragon',
-            text: "Dragon (Egg)"
-          }, {
-            type: 'eggs',
-            key: 'Dragon',
-            text: "Dragon (Egg)"
-          }, {
-            type: 'hatchingPotions',
-            key: 'Shade',
-            text: "Shade Hatching Potion"
-          }, {
-            type: 'hatchingPotions',
-            key: 'Shade',
-            text: "Shade Hatching Potion"
-          }
-        ],
-        gp: 100,
-        exp: 1000
-      }
-    }
-  };
-
-  _.each(api.quests, function(v, key) {
-    return _.defaults(v, {
-      key: key,
-      canBuy: true
-    });
-  });
-
-  repeat = {
-    m: true,
-    t: true,
-    w: true,
-    th: true,
-    f: true,
-    s: true,
-    su: true
-  };
-
-  api.userDefaults = {
-    habits: [
-      {
-        type: 'habit',
-        text: '1h Productive Work',
-        notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.',
-        value: 0,
-        up: true,
-        down: false,
-        attribute: 'per'
-      }, {
-        type: 'habit',
-        text: 'Eat Junk Food',
-        notes: 'For others, it only makes sense to *lose* points.',
-        value: 0,
-        up: false,
-        down: true,
-        attribute: 'con'
-      }, {
-        type: 'habit',
-        text: 'Take The Stairs',
-        notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).',
-        value: 0,
-        up: true,
-        down: true,
-        attribute: 'str'
-      }
-    ],
-    dailys: [
-      {
-        type: 'daily',
-        text: '1h Personal Project',
-        notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.',
-        value: 0,
-        completed: false,
-        repeat: repeat,
-        attribute: 'per'
-      }, {
-        type: 'daily',
-        text: 'Exercise',
-        notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
-        value: 3,
-        completed: false,
-        repeat: repeat,
-        attribute: 'str'
-      }, {
-        type: 'daily',
-        text: '45m Reading',
-        notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.',
-        value: -10,
-        completed: false,
-        repeat: repeat,
-        attribute: 'int'
-      }
-    ],
-    todos: [
-      {
-        type: 'todo',
-        text: 'Call Mom',
-        notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
-        value: -3,
-        completed: false,
-        attribute: 'per'
-      }
-    ],
-    rewards: [
-      {
-        type: 'reward',
-        text: '1 Episode of Game of Thrones',
-        notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.',
-        value: 20
-      }, {
-        type: 'reward',
-        text: 'Cake',
-        notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.',
+    mystery: {
+      201402: {
+        text: 'Messenger Robes',
+        notes: "Shimmering and strong, these robes have many pockets to carry letters.",
+        mystery: mystery['201402'],
         value: 10
       }
-    ],
-    tags: [
-      {
-        name: 'morning'
-      }, {
-        name: 'afternoon'
-      }, {
-        name: 'evening'
+    }
+  },
+  head: {
+    base: {
+      0: {
+        text: "No Helm",
+        notes: 'No headgear.',
+        value: 0
       }
-    ]
-  };
+    },
+    warrior: {
+      1: {
+        text: "Leather Helm",
+        notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
+        str: 2,
+        value: 15
+      },
+      2: {
+        text: "Chain Coif",
+        notes: 'Hood of interlocked metal rings. Increases STR by 4.',
+        str: 4,
+        value: 25
+      },
+      3: {
+        text: "Plate Helm",
+        notes: 'Thick steel helmet, proof against any blow. Increases STR by 6.',
+        str: 6,
+        value: 40
+      },
+      4: {
+        text: "Red Helm",
+        notes: 'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.',
+        str: 9,
+        value: 60
+      },
+      5: {
+        text: "Golden Helm",
+        notes: 'Regal crown bound to shining armor. Increases STR by 12.',
+        str: 12,
+        value: 80,
+        last: true
+      }
+    },
+    rogue: {
+      1: {
+        text: "Leather Hood",
+        notes: 'Basic protective cowl. Increases PER by 2.',
+        per: 2,
+        value: 15
+      },
+      2: {
+        text: "Black Leather Hood",
+        notes: 'Useful for both defense and disguise. Increases PER by 4.',
+        per: 4,
+        value: 25
+      },
+      3: {
+        text: "Camouflage Hood",
+        notes: 'Rugged, but doesn\'t impede hearing. Increases PER by 6.',
+        per: 6,
+        value: 40
+      },
+      4: {
+        text: "Penumbral Hood",
+        notes: 'Grants perfect vision in darkness. Increases PER by 9.',
+        per: 9,
+        value: 60
+      },
+      5: {
+        text: "Umbral Hood",
+        notes: 'Conceals even thoughts from those who would probe them. Increases PER by 12.',
+        per: 12,
+        value: 80,
+        last: true
+      }
+    },
+    wizard: {
+      1: {
+        text: "Magician Hat",
+        notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
+        per: 2,
+        value: 15
+      },
+      2: {
+        text: "Cornuthaum",
+        notes: 'Traditional headgear of the itinerant wizard. Increases PER by 3.',
+        per: 3,
+        value: 25
+      },
+      3: {
+        text: "Astrologer Hat",
+        notes: 'Adorned with the rings of Saturn. Increases PER by 5.',
+        per: 5,
+        value: 40
+      },
+      4: {
+        text: "Archmage Hat",
+        notes: 'Focuses the mind for intensive spellcasting. Increases PER by 7.',
+        per: 7,
+        value: 60
+      },
+      5: {
+        text: "Royal Magus Hat",
+        notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.',
+        per: 10,
+        value: 80,
+        last: true
+      }
+    },
+    healer: {
+      1: {
+        text: "Quartz Circlet",
+        notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
+        int: 2,
+        value: 15
+      },
+      2: {
+        text: "Amethyst Circlet",
+        notes: 'A taste of luxury for a humble profession. Increases INT by 3.',
+        int: 3,
+        value: 25
+      },
+      3: {
+        text: "Sapphire Circlet",
+        notes: 'Shines to let sufferers know their salvation is at hand. Increases INT by 5.',
+        int: 5,
+        value: 40
+      },
+      4: {
+        text: "Emerald Diadem",
+        notes: 'Emits an aura of life and growth. Increases INT by 7.',
+        int: 7,
+        value: 60
+      },
+      5: {
+        text: "Royal Diadem",
+        notes: 'For king, queen, or miracle-worker. Increases INT by 9.',
+        int: 9,
+        value: 80,
+        last: true
+      }
+    },
+    special: {
+      0: {
+        text: "Shade Helm",
+        notes: 'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.',
+        int: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      },
+      1: {
+        text: "Crystal Helm",
+        notes: 'The favored crown of those who lead by example. Increases all attributes by 6.',
+        con: 6,
+        str: 6,
+        per: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
+        })
+      },
+      2: {
+        text: "Nameless Helm",
+        notes: 'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.',
+        int: 25,
+        str: 25,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+        })
+      },
+      nye: {
+        event: events.winter,
+        text: "Absurd Party Hat",
+        notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+        value: 0
+      },
+      yeti: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: "Yeti-Tamer Helm",
+        notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
+        str: 9,
+        value: 60
+      },
+      ski: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: "Ski-sassin Helm",
+        notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
+        per: 9,
+        value: 60
+      },
+      candycane: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'wizard';
+        }),
+        text: "Candy Cane Hat",
+        notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
+        per: 7,
+        value: 60
+      },
+      snowflake: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: "Snowflake Crown",
+        notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
+        int: 7,
+        value: 60
+      }
+    },
+    mystery: {
+      201402: {
+        text: 'Winged Helm',
+        notes: "This winged circlet imbues the wearer with the speed of the wind!",
+        mystery: mystery['201402'],
+        value: 10
+      }
+    }
+  },
+  shield: {
+    base: {
+      0: {
+        text: "No Off-Hand Equipment",
+        notes: 'No shield or second weapon.',
+        value: 0
+      }
+    },
+    warrior: {
+      1: {
+        text: "Wooden Shield",
+        notes: 'Round shield of thick wood. Increases CON by 2.',
+        con: 2,
+        value: 20
+      },
+      2: {
+        text: "Buckler",
+        notes: 'Light and sturdy, quick to bring to the defense. Increases CON by 3.',
+        con: 3,
+        value: 35
+      },
+      3: {
+        text: "Reinforced Shield",
+        notes: 'Made of wood but bolstered with metal bands. Increases CON by 5.',
+        con: 5,
+        value: 50
+      },
+      4: {
+        text: "Red Shield",
+        notes: 'Rebukes blows with a burst of flame. Increases CON by 7.',
+        con: 7,
+        value: 70
+      },
+      5: {
+        text: "Golden Shield",
+        notes: 'Shining badge of the vanguard. Increases CON by 9.',
+        con: 9,
+        value: 90,
+        last: true
+      }
+    },
+    rogue: {
+      0: {
+        text: "Dagger",
+        notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+        str: 0,
+        value: 0
+      },
+      1: {
+        text: "Short Sword",
+        notes: 'Light, concealable blade. Increases STR by 2.',
+        str: 2,
+        value: 20
+      },
+      2: {
+        text: "Scimitar",
+        notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+        str: 3,
+        value: 35
+      },
+      3: {
+        text: "Kukri",
+        notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+        str: 4,
+        value: 50
+      },
+      4: {
+        text: "Nunchaku",
+        notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+        str: 6,
+        value: 70
+      },
+      5: {
+        text: "Ninja-to",
+        notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+        str: 8,
+        value: 90
+      },
+      6: {
+        text: "Hook Sword",
+        notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+        str: 10,
+        value: 120,
+        last: true
+      }
+    },
+    wizard: {},
+    healer: {
+      1: {
+        text: "Medic Buckler",
+        notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
+        con: 2,
+        value: 20
+      },
+      2: {
+        text: "Kite Shield",
+        notes: 'Tapered shield with the symbol of healing. Increases CON by 4.',
+        con: 4,
+        value: 35
+      },
+      3: {
+        text: "Protector Shield",
+        notes: 'Traditional shield of defender knights. Increases CON by 6.',
+        con: 6,
+        value: 50
+      },
+      4: {
+        text: "Savior Shield",
+        notes: 'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.',
+        con: 9,
+        value: 70
+      },
+      5: {
+        text: "Royal Shield",
+        notes: 'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.',
+        con: 12,
+        value: 90,
+        last: true
+      }
+    },
+    special: {
+      0: {
+        text: "Tormented Skull",
+        notes: 'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.',
+        per: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      },
+      1: {
+        text: "Crystal Shield",
+        notes: 'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.',
+        con: 6,
+        str: 6,
+        per: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
+        })
+      },
+      yeti: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: "Yeti-Tamer Shield",
+        notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
+        con: 7,
+        value: 70
+      },
+      ski: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: "Ski-sassin Pole",
+        notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+        str: 8,
+        value: 90
+      },
+      snowflake: {
+        event: events.winter,
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: "Snowflake Shield",
+        notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
+        con: 9,
+        value: 70
+      }
+    }
+  },
+  back: {
+    base: {
+      0: {
+        text: "No Back Accessory",
+        notes: 'No Back Accessory.',
+        value: 0,
+        last: true
+      }
+    },
+    mystery: {
+      201402: {
+        text: 'Golden Wings',
+        notes: "These shining wings have feathers that glitter in the sun!",
+        mystery: mystery['201402'],
+        value: 10
+      }
+    }
+  }
+};
 
-}).call(this);
+
+/*
+  The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
+  they are needed in different froms at different points in the app
+ */
+
+api.gear = {
+  tree: gear,
+  flat: {}
+};
+
+_.each(gearTypes, function(type) {
+  return _.each(classes.concat(['base', 'special', 'mystery']), function(klass) {
+    return _.each(gear[type][klass], function(item, i) {
+      var key, _canOwn;
+      key = "" + type + "_" + klass + "_" + i;
+      _.defaults(item, {
+        type: type,
+        key: key,
+        klass: klass,
+        index: i,
+        str: 0,
+        int: 0,
+        per: 0,
+        con: 0
+      });
+      if (item.event) {
+        _canOwn = item.canOwn || (function() {
+          return true;
+        });
+        item.canOwn = function(u) {
+          return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
+        };
+      }
+      if (item.mystery) {
+        item.canOwn = function(u) {
+          return u.items.gear.owned[key] != null;
+        };
+      }
+      return api.gear.flat[key] = item;
+    });
+  });
+});
+
+
+/*
+  ---------------------------------------------------------------
+  Potion
+  ---------------------------------------------------------------
+ */
+
+api.potion = {
+  type: 'potion',
+  text: "Health Potion",
+  notes: "Recover 15 Health (Instant Use)",
+  value: 25,
+  key: 'potion'
+};
+
+
+/*
+   ---------------------------------------------------------------
+   Classes
+   ---------------------------------------------------------------
+ */
+
+api.classes = classes;
+
+
+/*
+   ---------------------------------------------------------------
+   Gear Types
+   ---------------------------------------------------------------
+ */
+
+api.gearTypes = gearTypes;
+
+
+/*
+  ---------------------------------------------------------------
+  Spells
+  ---------------------------------------------------------------
+  Text, notes, and mana are obvious. The rest:
+
+  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
+    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+    etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
+
+  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
+    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
+    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+    so you'll want to iterate over them like: `_.each(target,function(member){...})`
+
+  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+ */
+
+diminishingReturns = function(bonus, max, halfway) {
+  if (halfway == null) {
+    halfway = max / 2;
+  }
+  return max * (bonus / (bonus + halfway));
+};
+
+api.spells = {
+  wizard: {
+    fireball: {
+      text: 'Burst of Flames',
+      mana: 10,
+      lvl: 11,
+      target: 'task',
+      notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
+      cast: function(user, target) {
+        var bonus;
+        bonus = user._statsComputed.int * user.fns.crit('per');
+        target.value += diminishingReturns(bonus * .02, 4);
+        bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
+        user.stats.exp += diminishingReturns(bonus, 75);
+        if (user.party.quest.key) {
+          return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        }
+      }
+    },
+    mpheal: {
+      text: 'Ethereal Surge',
+      mana: 30,
+      lvl: 12,
+      target: 'party',
+      notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var bonus;
+          bonus = Math.ceil(user._statsComputed.int * .1);
+          if (bonus > 25) {
+            bonus = 25;
+          }
+          return member.stats.mp += bonus;
+        });
+      }
+    },
+    earth: {
+      text: 'Earthquake',
+      mana: 35,
+      lvl: 13,
+      target: 'party',
+      notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).int == null) {
+            _base.int = 0;
+          }
+          return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
+        });
+      }
+    },
+    frost: {
+      text: 'Chilling Frost',
+      mana: 40,
+      lvl: 14,
+      target: 'self',
+      notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
+      cast: function(user, target) {
+        return user.stats.buffs.streaks = true;
+      }
+    }
+  },
+  warrior: {
+    smash: {
+      text: 'Brutal Smash',
+      mana: 10,
+      lvl: 11,
+      target: 'task',
+      notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
+      cast: function(user, target) {
+        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('per');
+        if (user.party.quest.key) {
+          return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+        }
+      }
+    },
+    defensiveStance: {
+      text: 'Defensive Stance',
+      mana: 25,
+      lvl: 12,
+      target: 'self',
+      notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
+      cast: function(user, target) {
+        var _base;
+        if ((_base = user.stats.buffs).con == null) {
+          _base.con = 0;
+        }
+        return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
+      }
+    },
+    valorousPresence: {
+      text: 'Valorous Presence',
+      mana: 20,
+      lvl: 13,
+      target: 'party',
+      notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).str == null) {
+            _base.str = 0;
+          }
+          return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
+        });
+      }
+    },
+    intimidate: {
+      text: 'Intimidating Gaze',
+      mana: 15,
+      lvl: 14,
+      target: 'party',
+      notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).con == null) {
+            _base.con = 0;
+          }
+          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
+        });
+      }
+    }
+  },
+  rogue: {
+    pickPocket: {
+      text: 'Pickpocket',
+      mana: 10,
+      lvl: 11,
+      target: 'task',
+      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
+      cast: function(user, target) {
+        var bonus;
+        bonus = (target.value < 0 ? 1 : target.value + 2) + (user._statsComputed.per * 0.5);
+        return user.stats.gp += 25 * (bonus / (bonus + 75));
+      }
+    },
+    backStab: {
+      text: 'Backstab',
+      mana: 15,
+      lvl: 12,
+      target: 'task',
+      notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
+      cast: function(user, target) {
+        var bonus, _crit;
+        _crit = user.fns.crit('per', .3);
+        target.value += _crit * .03;
+        bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
+        user.stats.exp += bonus;
+        return user.stats.gp += bonus;
+      }
+    },
+    toolsOfTrade: {
+      text: 'Tools of the Trade',
+      mana: 25,
+      lvl: 13,
+      target: 'party',
+      notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).per == null) {
+            _base.per = 0;
+          }
+          return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
+        });
+      }
+    },
+    stealth: {
+      text: 'Stealth',
+      mana: 45,
+      lvl: 14,
+      target: 'self',
+      notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
+      cast: function(user, target) {
+        var _base;
+        if ((_base = user.stats.buffs).stealth == null) {
+          _base.stealth = 0;
+        }
+        return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
+      }
+    }
+  },
+  healer: {
+    heal: {
+      text: 'Healing Light',
+      mana: 15,
+      lvl: 11,
+      target: 'self',
+      notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
+      cast: function(user, target) {
+        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
+        if (user.stats.hp > 50) {
+          return user.stats.hp = 50;
+        }
+      }
+    },
+    brightness: {
+      text: 'Searing Brightness',
+      mana: 15,
+      lvl: 12,
+      target: 'self',
+      notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced.",
+      cast: function(user, target) {
+        return _.each(user.tasks, function(target) {
+          if (target.type === 'reward') {
+            return;
+          }
+          return target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40));
+        });
+      }
+    },
+    protectAura: {
+      text: 'Protective Aura',
+      mana: 30,
+      lvl: 13,
+      target: 'party',
+      notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).con == null) {
+            _base.con = 0;
+          }
+          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
+        });
+      }
+    },
+    heallAll: {
+      text: 'Blessing',
+      mana: 25,
+      lvl: 14,
+      target: 'party',
+      notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
+          if (member.stats.hp > 50) {
+            return member.stats.hp = 50;
+          }
+        });
+      }
+    }
+  },
+  special: {
+    snowball: {
+      text: 'Snowball',
+      mana: 0,
+      value: 1,
+      target: 'user',
+      notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
+      cast: function(user, target) {
+        var _base;
+        target.stats.buffs.snowball = true;
+        if ((_base = target.achievements).snowball == null) {
+          _base.snowball = 0;
+        }
+        target.achievements.snowball++;
+        return user.items.special.snowball--;
+      }
+    },
+    salt: {
+      text: 'Salt',
+      mana: 0,
+      value: 5,
+      target: 'self',
+      notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
+      cast: function(user, target) {
+        user.stats.buffs.snowball = false;
+        return user.stats.gp -= 5;
+      }
+    }
+  }
+};
+
+_.each(api.spells, function(spellClass) {
+  return _.each(spellClass, function(spell, key) {
+    var _cast;
+    spell.key = key;
+    _cast = spell.cast;
+    return spell.cast = function(user, target) {
+      _cast(user, target);
+      return user.stats.mp -= spell.mana;
+    };
+  });
+});
+
+api.special = api.spells.special;
+
+
+/*
+  ---------------------------------------------------------------
+  Drops
+  ---------------------------------------------------------------
+ */
+
+api.dropEggs = {
+  Wolf: {
+    text: 'Wolf',
+    adjective: 'loyal'
+  },
+  TigerCub: {
+    text: 'Tiger Cub',
+    mountText: 'Tiger',
+    adjective: 'fierce'
+  },
+  PandaCub: {
+    text: 'Panda Cub',
+    mountText: 'Panda',
+    adjective: 'gentle'
+  },
+  LionCub: {
+    text: 'Lion Cub',
+    mountText: 'Lion',
+    adjective: 'regal'
+  },
+  Fox: {
+    text: 'Fox',
+    adjective: 'wily'
+  },
+  FlyingPig: {
+    text: 'Flying Pig',
+    adjective: 'whimsical'
+  },
+  Dragon: {
+    text: 'Dragon',
+    adjective: 'mighty'
+  },
+  Cactus: {
+    text: 'Cactus',
+    adjective: 'prickly'
+  },
+  BearCub: {
+    text: 'Bear Cub',
+    mountText: 'Bear',
+    adjective: 'cuddly'
+  }
+};
+
+_.each(api.dropEggs, function(egg, key) {
+  return _.defaults(egg, {
+    canBuy: true,
+    value: 3,
+    key: key,
+    notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
+    mountText: egg.text
+  });
+});
+
+api.questEggs = {
+  Gryphon: {
+    text: 'Gryphon',
+    adjective: 'proud',
+    canBuy: false
+  },
+  Hedgehog: {
+    text: 'Hedgehog',
+    adjective: 'spiky',
+    canBuy: false
+  }
+};
+
+_.each(api.questEggs, function(egg, key) {
+  return _.defaults(egg, {
+    canBuy: false,
+    value: 3,
+    key: key,
+    notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
+    mountText: egg.text
+  });
+});
+
+api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
+
+api.specialPets = {
+  'Wolf-Veteran': true,
+  'Wolf-Cerberus': true,
+  'Dragon-Hydra': true,
+  'Turkey-Base': true,
+  'BearCub-Polar': true
+};
+
+api.specialMounts = {
+  'BearCub-Polar': true,
+  'LionCub-Ethereal': true
+};
+
+api.hatchingPotions = {
+  Base: {
+    value: 2,
+    text: 'Base'
+  },
+  White: {
+    value: 2,
+    text: 'White'
+  },
+  Desert: {
+    value: 2,
+    text: 'Desert'
+  },
+  Red: {
+    value: 3,
+    text: 'Red'
+  },
+  Shade: {
+    value: 3,
+    text: 'Shade'
+  },
+  Skeleton: {
+    value: 3,
+    text: 'Skeleton'
+  },
+  Zombie: {
+    value: 4,
+    text: 'Zombie'
+  },
+  CottonCandyPink: {
+    value: 4,
+    text: 'Cotton Candy Pink'
+  },
+  CottonCandyBlue: {
+    value: 4,
+    text: 'Cotton Candy Blue'
+  },
+  Golden: {
+    value: 5,
+    text: 'Golden'
+  }
+};
+
+_.each(api.hatchingPotions, function(pot, key) {
+  return _.defaults(pot, {
+    key: key,
+    value: 2,
+    notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
+  });
+});
+
+api.pets = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    return m2[egg.key + "-" + pot.key] = true;
+  }));
+});
+
+api.questPets = _.transform(api.questEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    return m2[egg.key + "-" + pot.key] = true;
+  }));
+});
+
+api.food = {
+  Meat: {
+    text: 'Meat',
+    target: 'Base',
+    article: ''
+  },
+  Milk: {
+    text: 'Milk',
+    target: 'White',
+    article: ''
+  },
+  Potatoe: {
+    text: 'Potato',
+    target: 'Desert',
+    article: 'a '
+  },
+  Strawberry: {
+    text: 'Strawberry',
+    target: 'Red',
+    article: 'a '
+  },
+  Chocolate: {
+    text: 'Chocolate',
+    target: 'Shade',
+    article: ''
+  },
+  Fish: {
+    text: 'Fish',
+    target: 'Skeleton',
+    article: 'a '
+  },
+  RottenMeat: {
+    text: 'Rotten Meat',
+    target: 'Zombie',
+    article: ''
+  },
+  CottonCandyPink: {
+    text: 'Pink Cotton Candy',
+    target: 'CottonCandyPink',
+    article: ''
+  },
+  CottonCandyBlue: {
+    text: 'Blue Cotton Candy',
+    target: 'CottonCandyBlue',
+    article: ''
+  },
+  Cake_Skeleton: {
+    canBuy: false,
+    text: 'Bare Bones Cake',
+    target: 'Skeleton',
+    article: ''
+  },
+  Cake_Base: {
+    canBuy: false,
+    text: 'Basic Cake',
+    target: 'Base',
+    article: ''
+  },
+  Cake_CottonCandyBlue: {
+    canBuy: false,
+    text: 'Candy Blue Cake',
+    target: 'CottonCandyBlue',
+    article: ''
+  },
+  Cake_CottonCandyPink: {
+    canBuy: false,
+    text: 'Candy Pink Cake',
+    target: 'CottonCandyPink',
+    article: ''
+  },
+  Cake_Shade: {
+    canBuy: false,
+    text: 'Chocolate Cake',
+    target: 'Shade',
+    article: ''
+  },
+  Cake_White: {
+    canBuy: false,
+    text: 'Cream Cake',
+    target: 'White',
+    article: ''
+  },
+  Cake_Golden: {
+    canBuy: false,
+    text: 'Honey Cake',
+    target: 'Golden',
+    article: ''
+  },
+  Cake_Zombie: {
+    canBuy: false,
+    text: 'Rotten Cake',
+    target: 'Zombie',
+    article: ''
+  },
+  Cake_Desert: {
+    canBuy: false,
+    text: 'Sand Cake',
+    target: 'Desert',
+    article: ''
+  },
+  Cake_Red: {
+    canBuy: false,
+    text: 'Strawberry Cake',
+    target: 'Red',
+    article: ''
+  },
+  Honey: {
+    text: 'Honey',
+    target: 'Golden',
+    article: ''
+  },
+  Saddle: {
+    text: 'Saddle',
+    value: 5,
+    notes: 'Instantly raises one of your pets into a mount.'
+  }
+};
+
+_.each(api.food, function(food, key) {
+  return _.defaults(food, {
+    value: 1,
+    key: key,
+    notes: "Feed this to a pet and it may grow into a sturdy steed.",
+    canBuy: true
+  });
+});
+
+api.quests = {
+  evilsanta: {
+    canBuy: false,
+    text: "Trapper Santa",
+    notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
+    completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
+    value: 4,
+    boss: {
+      name: "Trapper Santa",
+      hp: 300,
+      str: 1
+    },
+    drop: {
+      items: [
+        {
+          type: 'mounts',
+          key: 'BearCub-Polar',
+          text: "Polar Bear (Mount)"
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  evilsanta2: {
+    canBuy: false,
+    text: "Find The Cub",
+    notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!",
+    completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days.",
+    value: 4,
+    previous: 'evilsanta',
+    collect: {
+      tracks: {
+        text: 'Tracks',
+        count: 20
+      },
+      branches: {
+        text: 'Broken Twigs',
+        count: 10
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'BearCub-Polar',
+          text: "Polar Bear (Pet)"
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  gryphon: {
+    text: "The Fiery Gryphon",
+    notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
+    completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" @baconsaur exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!',
+    value: 4,
+    boss: {
+      name: "Fiery Gryphon",
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Gryphon',
+          text: "Gryphon (Egg)"
+        }, {
+          type: 'eggs',
+          key: 'Gryphon',
+          text: "Gryphon (Egg)"
+        }, {
+          type: 'eggs',
+          key: 'Gryphon',
+          text: "Gryphon (Egg)"
+        }
+      ],
+      gp: 25,
+      exp: 125
+    }
+  },
+  hedgehog: {
+    text: "The Hedgebeast",
+    notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.',
+    completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!',
+    value: 4,
+    boss: {
+      name: "Hedgebeast",
+      hp: 400,
+      str: 1.25
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Hedgehog',
+          text: "Hedgehog (Egg)"
+        }, {
+          type: 'eggs',
+          key: 'Hedgehog',
+          text: "Hedgehog (Egg)"
+        }, {
+          type: 'eggs',
+          key: 'Hedgehog',
+          text: "Hedgehog (Egg)"
+        }
+      ],
+      gp: 30,
+      exp: 125
+    }
+  },
+  vice1: {
+    text: "Free Yourself of the Dragon's Influence",
+    notes: "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves. Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to the fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you! </p>",
+    value: 4,
+    lvl: 30,
+    boss: {
+      name: "Vice's Shade",
+      hp: 750,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "vice2",
+          text: "Vice Part 2 (Scroll)"
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  vice2: {
+    text: "Find the Lair of the Wyrm",
+    notes: "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes it's way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
+    value: 4,
+    lvl: 35,
+    previous: 'vice1',
+    collect: {
+      lightCrystal: {
+        text: 'Light Crystal',
+        count: 45
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: 'vice3',
+          text: "Vice Part 3 (Scroll)"
+        }
+      ],
+      gp: 20,
+      exp: 75
+    }
+  },
+  vice3: {
+    text: "Vice Awakens",
+    notes: "After much effort, your party has discovered Vice's lair. The hulking monster eyes your party with distaste. As shadows swirl around you, a voice whispers through your head, \"More foolish citizens of Habitica come to stop me? Cute. You'd have been wise not to come.\" The scaly titan rears back its head and prepares to attack. This is your chance! Give it everything you've got and defeat Vice once and for all!",
+    completion: "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!",
+    previous: 'vice2',
+    value: 4,
+    lvl: 40,
+    boss: {
+      name: "Vice, the Shadow Wyrm",
+      hp: 1500,
+      str: 3
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "weapon_special_2",
+          text: "Stephen Weber's Shaft of the Dragon"
+        }, {
+          type: 'eggs',
+          key: 'Dragon',
+          text: "Dragon (Egg)"
+        }, {
+          type: 'eggs',
+          key: 'Dragon',
+          text: "Dragon (Egg)"
+        }, {
+          type: 'hatchingPotions',
+          key: 'Shade',
+          text: "Shade Hatching Potion"
+        }, {
+          type: 'hatchingPotions',
+          key: 'Shade',
+          text: "Shade Hatching Potion"
+        }
+      ],
+      gp: 100,
+      exp: 1000
+    }
+  }
+};
+
+_.each(api.quests, function(v, key) {
+  return _.defaults(v, {
+    key: key,
+    canBuy: true
+  });
+});
+
+repeat = {
+  m: true,
+  t: true,
+  w: true,
+  th: true,
+  f: true,
+  s: true,
+  su: true
+};
+
+api.userDefaults = {
+  habits: [
+    {
+      type: 'habit',
+      text: '1h Productive Work',
+      notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.',
+      value: 0,
+      up: true,
+      down: false,
+      attribute: 'per'
+    }, {
+      type: 'habit',
+      text: 'Eat Junk Food',
+      notes: 'For others, it only makes sense to *lose* points.',
+      value: 0,
+      up: false,
+      down: true,
+      attribute: 'con'
+    }, {
+      type: 'habit',
+      text: 'Take The Stairs',
+      notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).',
+      value: 0,
+      up: true,
+      down: true,
+      attribute: 'str'
+    }
+  ],
+  dailys: [
+    {
+      type: 'daily',
+      text: '1h Personal Project',
+      notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.',
+      value: 0,
+      completed: false,
+      repeat: repeat,
+      attribute: 'per'
+    }, {
+      type: 'daily',
+      text: 'Exercise',
+      notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
+      value: 3,
+      completed: false,
+      repeat: repeat,
+      attribute: 'str'
+    }, {
+      type: 'daily',
+      text: '45m Reading',
+      notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.',
+      value: -10,
+      completed: false,
+      repeat: repeat,
+      attribute: 'int'
+    }
+  ],
+  todos: [
+    {
+      type: 'todo',
+      text: 'Call Mom',
+      notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
+      value: -3,
+      completed: false,
+      attribute: 'per'
+    }
+  ],
+  rewards: [
+    {
+      type: 'reward',
+      text: '1 Episode of Game of Thrones',
+      notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.',
+      value: 20
+    }, {
+      type: 'reward',
+      text: 'Cake',
+      notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.',
+      value: 10
+    }
+  ],
+  tags: [
+    {
+      name: 'morning'
+    }, {
+      name: 'afternoon'
+    }, {
+      name: 'evening'
+    }
+  ]
+};
 
 
 },{"lodash":3,"moment":4}],6:[function(require,module,exports){
-var process=require("__browserify_process");(function() {
-  var $w, api, content, moment, preenHistory, sanitizeOptions, _,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+(function (process){
+var $w, api, content, moment, preenHistory, sanitizeOptions, _,
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  moment = require('moment');
+moment = require('moment');
 
-  _ = require('lodash');
+_ = require('lodash');
 
-  content = require('./content.coffee');
+content = require('./content.coffee');
 
-  api = module.exports = {};
+api = module.exports = {};
 
-  $w = function(s) {
-    return s.split(' ');
+$w = function(s) {
+  return s.split(' ');
+};
+
+
+/*
+  ------------------------------------------------------
+  Time / Day
+  ------------------------------------------------------
+ */
+
+
+/*
+  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
+  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
+  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
+ */
+
+sanitizeOptions = function(o) {
+  var dayStart, now, timezoneOffset, _ref;
+  dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
+  timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
+  now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
+  return {
+    dayStart: dayStart,
+    timezoneOffset: timezoneOffset,
+    now: now
   };
+};
 
-  /*
-    ------------------------------------------------------
-    Time / Day
-    ------------------------------------------------------
-  */
+api.startOfWeek = api.startOfWeek = function(options) {
+  var o;
+  if (options == null) {
+    options = {};
+  }
+  o = sanitizeOptions(options);
+  return moment(o.now).startOf('week');
+};
 
+api.startOfDay = function(options) {
+  var o;
+  if (options == null) {
+    options = {};
+  }
+  o = sanitizeOptions(options);
+  return moment(o.now).startOf('day').add('h', o.dayStart);
+};
 
-  /*
-    Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
-    Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-    {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
-  */
-
-
-  sanitizeOptions = function(o) {
-    var dayStart, now, timezoneOffset, _ref;
-
-    dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
-    timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
-    now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
-    return {
-      dayStart: dayStart,
-      timezoneOffset: timezoneOffset,
-      now: now
-    };
-  };
-
-  api.startOfWeek = api.startOfWeek = function(options) {
-    var o;
-
-    if (options == null) {
-      options = {};
-    }
-    o = sanitizeOptions(options);
-    return moment(o.now).startOf('week');
-  };
-
-  api.startOfDay = function(options) {
-    var o;
-
-    if (options == null) {
-      options = {};
-    }
-    o = sanitizeOptions(options);
-    return moment(o.now).startOf('day').add('h', o.dayStart);
-  };
-
-  api.dayMapping = {
-    0: 'su',
-    1: 'm',
-    2: 't',
-    3: 'w',
-    4: 'th',
-    5: 'f',
-    6: 's'
-  };
-
-  /*
-    Absolute diff from "yesterday" till now
-  */
+api.dayMapping = {
+  0: 'su',
+  1: 'm',
+  2: 't',
+  3: 'w',
+  4: 'th',
+  5: 'f',
+  6: 's'
+};
 
 
-  api.daysSince = function(yesterday, options) {
-    var o;
+/*
+  Absolute diff from "yesterday" till now
+ */
 
-    if (options == null) {
-      options = {};
-    }
-    o = sanitizeOptions(options);
-    return Math.abs(api.startOfDay(_.defaults({
-      now: yesterday
-    }, o)).diff(o.now, 'days'));
-  };
-
-  /*
-    Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
-  */
-
-
-  api.shouldDo = function(day, repeat, options) {
-    var o, selected, yesterday;
-
-    if (options == null) {
-      options = {};
-    }
-    if (!repeat) {
-      return false;
-    }
-    o = sanitizeOptions(options);
-    selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
-      now: day
-    }, o)).day()]];
-    if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
-      return selected;
-    }
-    if (options.dayStart <= o.now.hour()) {
-      return selected;
-    } else {
-      yesterday = moment(o.now).subtract(1, 'd').day();
-      return repeat[api.dayMapping[yesterday]];
-    }
-  };
-
-  /*
-    ------------------------------------------------------
-    Scoring
-    ------------------------------------------------------
-  */
+api.daysSince = function(yesterday, options) {
+  var o;
+  if (options == null) {
+    options = {};
+  }
+  o = sanitizeOptions(options);
+  return Math.abs(api.startOfDay(_.defaults({
+    now: yesterday
+  }, o)).diff(o.now, 'days'));
+};
 
 
-  api.tnl = function(lvl) {
-    if (lvl >= 100) {
-      return 0;
-    } else {
-      return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
-    }
-  };
+/*
+  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+ */
 
-  /*
-    A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
-    {max} The asymptote
-    {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
-    {halfway} (optional) the point at which the graph starts bending
-  */
-
-
-  api.diminishingReturns = function(bonus, max, halfway) {
-    if (halfway == null) {
-      halfway = max / 2;
-    }
-    return max * (bonus / (bonus + halfway));
-  };
-
-  api.monod = function(bonus, rateOfIncrease, max) {
-    return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
-  };
-
-  /*
-  Preen history for users with > 7 history entries
-  This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
-  of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
-  of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
-  */
+api.shouldDo = function(day, repeat, options) {
+  var o, selected, yesterday;
+  if (options == null) {
+    options = {};
+  }
+  if (!repeat) {
+    return false;
+  }
+  o = sanitizeOptions(options);
+  selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
+    now: day
+  }, o)).day()]];
+  if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
+    return selected;
+  }
+  if (options.dayStart <= o.now.hour()) {
+    return selected;
+  } else {
+    yesterday = moment(o.now).subtract(1, 'd').day();
+    return repeat[api.dayMapping[yesterday]];
+  }
+};
 
 
-  preenHistory = function(history) {
-    var newHistory, preen, thisMonth;
+/*
+  ------------------------------------------------------
+  Scoring
+  ------------------------------------------------------
+ */
 
-    history = _.filter(history, function(h) {
-      return !!h;
-    });
-    newHistory = [];
-    preen = function(amount, groupBy) {
-      var groups;
+api.tnl = function(lvl) {
+  if (lvl >= 100) {
+    return 0;
+  } else {
+    return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
+  }
+};
 
-      groups = _.chain(history).groupBy(function(h) {
-        return moment(h.date).format(groupBy);
-      }).sortBy(function(h, k) {
-        return k;
-      }).value();
-      groups = groups.slice(-amount);
-      groups.pop();
-      return _.each(groups, function(group) {
-        newHistory.push({
-          date: moment(group[0].date).toDate(),
-          value: _.reduce(group, (function(m, obj) {
-            return m + obj.value;
-          }), 0) / group.length
-        });
-        return true;
+
+/*
+  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+  {max} The asymptote
+  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+  {halfway} (optional) the point at which the graph starts bending
+ */
+
+api.diminishingReturns = function(bonus, max, halfway) {
+  if (halfway == null) {
+    halfway = max / 2;
+  }
+  return max * (bonus / (bonus + halfway));
+};
+
+api.monod = function(bonus, rateOfIncrease, max) {
+  return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
+};
+
+
+/*
+Preen history for users with > 7 history entries
+This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
+of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
+of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
+ */
+
+preenHistory = function(history) {
+  var newHistory, preen, thisMonth;
+  history = _.filter(history, function(h) {
+    return !!h;
+  });
+  newHistory = [];
+  preen = function(amount, groupBy) {
+    var groups;
+    groups = _.chain(history).groupBy(function(h) {
+      return moment(h.date).format(groupBy);
+    }).sortBy(function(h, k) {
+      return k;
+    }).value();
+    groups = groups.slice(-amount);
+    groups.pop();
+    return _.each(groups, function(group) {
+      newHistory.push({
+        date: moment(group[0].date).toDate(),
+        value: _.reduce(group, (function(m, obj) {
+          return m + obj.value;
+        }), 0) / group.length
       });
-    };
-    preen(50, "YYYY");
-    preen(moment().format('MM'), "YYYYMM");
-    thisMonth = moment().format('YYYYMM');
-    newHistory = newHistory.concat(_.filter(history, function(h) {
-      return moment(h.date).format('YYYYMM') === thisMonth;
-    }));
-    return newHistory;
-  };
-
-  /*
-    Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
-  */
-
-
-  api.updateStore = function(user) {
-    var changes;
-
-    if (!user) {
-      return;
-    }
-    changes = [];
-    _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
-      var found;
-
-      found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
-        return !user.items.gear.owned[item.key];
-      });
-      if (found) {
-        changes.push(found);
-      }
       return true;
     });
-    changes = changes.concat(_.filter(content.gear.flat, function(v) {
-      var _ref;
+  };
+  preen(50, "YYYY");
+  preen(moment().format('MM'), "YYYYMM");
+  thisMonth = moment().format('YYYYMM');
+  newHistory = newHistory.concat(_.filter(history, function(h) {
+    return moment(h.date).format('YYYYMM') === thisMonth;
+  }));
+  return newHistory;
+};
 
-      return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
-    }));
-    changes.push(content.potion);
-    return _.sortBy(changes, function(item) {
-      switch (item.type) {
-        case 'weapon':
-          return 1;
-        case 'armor':
-          return 2;
-        case 'head':
-          return 3;
-        case 'shield':
-          return 4;
-        case 'back':
-          return 5;
-        case 'potion':
-          return 6;
-        default:
-          return 7;
-      }
+
+/*
+  Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
+ */
+
+api.updateStore = function(user) {
+  var changes;
+  if (!user) {
+    return;
+  }
+  changes = [];
+  _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
+    var found;
+    found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
+      return !user.items.gear.owned[item.key];
     });
-  };
-
-  /*
-  ------------------------------------------------------
-  Content
-  ------------------------------------------------------
-  */
-
-
-  api.content = content;
-
-  /*
-  ------------------------------------------------------
-  Misc Helpers
-  ------------------------------------------------------
-  */
-
-
-  api.uuid = function() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-      var r, v;
-
-      r = Math.random() * 16 | 0;
-      v = (c === "x" ? r : r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  };
-
-  api.countExists = function(items) {
-    return _.reduce(items, (function(m, v) {
-      return m + (v ? 1 : 0);
-    }), 0);
-  };
-
-  /*
-  Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
-  sending up to the server for performance
-  */
-
-
-  api.taskDefaults = function(task) {
-    var defaults, _ref, _ref1, _ref2, _ref3;
-
-    if (task == null) {
-      task = {};
+    if (found) {
+      changes.push(found);
     }
-    if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
-      task.type = 'habit';
-    }
-    defaults = {
-      id: api.uuid(),
-      text: task.id != null ? task.id : '',
-      notes: '',
-      priority: 1,
-      challenge: {},
-      attribute: 'str',
-      dateCreated: new Date()
-    };
-    _.defaults(task, defaults);
-    if (task.type === 'habit') {
-      _.defaults(task, {
-        up: true,
-        down: true
-      });
-    }
-    if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
-      _.defaults(task, {
-        history: []
-      });
-    }
-    if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
-      _.defaults(task, {
-        completed: false
-      });
-    }
-    if (task.type === 'daily') {
-      _.defaults(task, {
-        streak: 0,
-        repeat: {
-          su: 1,
-          m: 1,
-          t: 1,
-          w: 1,
-          th: 1,
-          f: 1,
-          s: 1
-        }
-      });
-    }
-    task._id = task.id;
-    if ((_ref3 = task.value) == null) {
-      task.value = task.type === 'reward' ? 10 : 0;
-    }
-    if (!_.isNumber(task.priority)) {
-      task.priority = 1;
-    }
-    return task;
-  };
-
-  api.percent = function(x, y, dir) {
-    var roundFn;
-
-    switch (dir) {
-      case "up":
-        roundFn = Math.ceil;
-        break;
-      case "down":
-        roundFn = Math.floor;
-        break;
+    return true;
+  });
+  changes = changes.concat(_.filter(content.gear.flat, function(v) {
+    var _ref;
+    return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
+  }));
+  changes.push(content.potion);
+  return _.sortBy(changes, function(item) {
+    switch (item.type) {
+      case 'weapon':
+        return 1;
+      case 'armor':
+        return 2;
+      case 'head':
+        return 3;
+      case 'shield':
+        return 4;
+      case 'back':
+        return 5;
+      case 'potion':
+        return 6;
       default:
-        roundFn = Math.round;
+        return 7;
     }
-    if (x === 0) {
-      x = 1;
-    }
-    return roundFn(x / y * 100);
+  });
+};
+
+
+/*
+------------------------------------------------------
+Content
+------------------------------------------------------
+ */
+
+api.content = content;
+
+
+/*
+------------------------------------------------------
+Misc Helpers
+------------------------------------------------------
+ */
+
+api.uuid = function() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r, v;
+    r = Math.random() * 16 | 0;
+    v = (c === "x" ? r : r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+
+api.countExists = function(items) {
+  return _.reduce(items, (function(m, v) {
+    return m + (v ? 1 : 0);
+  }), 0);
+};
+
+
+/*
+Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
+sending up to the server for performance
+ */
+
+api.taskDefaults = function(task) {
+  var defaults, _ref, _ref1, _ref2;
+  if (task == null) {
+    task = {};
+  }
+  if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
+    task.type = 'habit';
+  }
+  defaults = {
+    id: api.uuid(),
+    text: task.id != null ? task.id : '',
+    notes: '',
+    priority: 1,
+    challenge: {},
+    attribute: 'str',
+    dateCreated: new Date()
   };
-
-  /*
-  Remove whitespace #FIXME are we using this anywwhere? Should we be?
-  */
-
-
-  api.removeWhitespace = function(str) {
-    if (!str) {
-      return '';
-    }
-    return str.replace(/\s/g, '');
-  };
-
-  /*
-  Encode the download link for .ics iCal file
-  */
-
-
-  api.encodeiCalLink = function(uid, apiToken) {
-    var loc, _ref;
-
-    loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
-    return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
-  };
-
-  /*
-  Gold amount from their money
-  */
-
-
-  api.gold = function(num) {
-    if (num) {
-      return Math.floor(num);
-    } else {
-      return "0";
-    }
-  };
-
-  /*
-  Silver amount from their money
-  */
-
-
-  api.silver = function(num) {
-    if (num) {
-      return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
-    } else {
-      return "00";
-    }
-  };
-
-  /*
-  Task classes given everything about the class
-  */
-
-
-  api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
-    var classes, completed, enabled, filter, repeat, type, value, _ref;
-
-    if (filters == null) {
-      filters = [];
-    }
-    if (dayStart == null) {
-      dayStart = 0;
-    }
-    if (lastCron == null) {
-      lastCron = +(new Date);
-    }
-    if (showCompleted == null) {
-      showCompleted = false;
-    }
-    if (main == null) {
-      main = false;
-    }
-    if (!task) {
-      return;
-    }
-    type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-    if ((type === 'todo' && completed !== showCompleted) && main) {
-      return 'hidden';
-    }
-    if (main) {
-      for (filter in filters) {
-        enabled = filters[filter];
-        if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
-          return 'hidden';
-        }
-      }
-    }
-    classes = type;
-    if (type === 'todo' || type === 'daily') {
-      if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
-        dayStart: dayStart
-      }))) {
-        classes += " completed";
-      } else {
-        classes += " uncompleted";
-      }
-    } else if (type === 'habit') {
-      if (task.down && task.up) {
-        classes += ' habit-wide';
-      }
-    }
-    if (value < -20) {
-      classes += ' color-worst';
-    } else if (value < -10) {
-      classes += ' color-worse';
-    } else if (value < -1) {
-      classes += ' color-bad';
-    } else if (value < 1) {
-      classes += ' color-neutral';
-    } else if (value < 5) {
-      classes += ' color-good';
-    } else if (value < 10) {
-      classes += ' color-better';
-    } else {
-      classes += ' color-best';
-    }
-    return classes;
-  };
-
-  /*
-  Friendly timestamp
-  */
-
-
-  api.friendlyTimestamp = function(timestamp) {
-    return moment(timestamp).format('MM/DD h:mm:ss a');
-  };
-
-  /*
-  Does user have new chat messages?
-  */
-
-
-  api.newChatMessages = function(messages, lastMessageSeen) {
-    if (!((messages != null ? messages.length : void 0) > 0)) {
-      return false;
-    }
-    return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
-  };
-
-  /*
-  are any tags active?
-  */
-
-
-  api.noTags = function(tags) {
-    return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
-      return t;
-    }));
-  };
-
-  /*
-  Are there tags applied?
-  */
-
-
-  api.appliedTags = function(userTags, taskTags) {
-    var arr;
-
-    arr = [];
-    _.each(userTags, function(t) {
-      if (t == null) {
-        return;
-      }
-      if (taskTags != null ? taskTags[t.id] : void 0) {
-        return arr.push(t.name);
+  _.defaults(task, defaults);
+  if (task.type === 'habit') {
+    _.defaults(task, {
+      up: true,
+      down: true
+    });
+  }
+  if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
+    _.defaults(task, {
+      history: []
+    });
+  }
+  if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+    _.defaults(task, {
+      completed: false
+    });
+  }
+  if (task.type === 'daily') {
+    _.defaults(task, {
+      streak: 0,
+      repeat: {
+        su: 1,
+        m: 1,
+        t: 1,
+        w: 1,
+        th: 1,
+        f: 1,
+        s: 1
       }
     });
-    return arr.join(', ');
-  };
+  }
+  task._id = task.id;
+  if (task.value == null) {
+    task.value = task.type === 'reward' ? 10 : 0;
+  }
+  if (!_.isNumber(task.priority)) {
+    task.priority = 1;
+  }
+  return task;
+};
 
-  api.countPets = function(originalCount, pets) {
-    var count, pet;
+api.percent = function(x, y, dir) {
+  var roundFn;
+  switch (dir) {
+    case "up":
+      roundFn = Math.ceil;
+      break;
+    case "down":
+      roundFn = Math.floor;
+      break;
+    default:
+      roundFn = Math.round;
+  }
+  if (x === 0) {
+    x = 1;
+  }
+  return roundFn(x / y * 100);
+};
 
-    count = originalCount != null ? originalCount : _.size(pets);
-    for (pet in content.questPets) {
-      if (pets[pet]) {
-        count--;
+
+/*
+Remove whitespace #FIXME are we using this anywwhere? Should we be?
+ */
+
+api.removeWhitespace = function(str) {
+  if (!str) {
+    return '';
+  }
+  return str.replace(/\s/g, '');
+};
+
+
+/*
+Encode the download link for .ics iCal file
+ */
+
+api.encodeiCalLink = function(uid, apiToken) {
+  var loc, _ref;
+  loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
+  return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
+};
+
+
+/*
+Gold amount from their money
+ */
+
+api.gold = function(num) {
+  if (num) {
+    return Math.floor(num);
+  } else {
+    return "0";
+  }
+};
+
+
+/*
+Silver amount from their money
+ */
+
+api.silver = function(num) {
+  if (num) {
+    return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
+  } else {
+    return "00";
+  }
+};
+
+
+/*
+Task classes given everything about the class
+ */
+
+api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
+  var classes, completed, enabled, filter, repeat, type, value, _ref;
+  if (filters == null) {
+    filters = [];
+  }
+  if (dayStart == null) {
+    dayStart = 0;
+  }
+  if (lastCron == null) {
+    lastCron = +(new Date);
+  }
+  if (showCompleted == null) {
+    showCompleted = false;
+  }
+  if (main == null) {
+    main = false;
+  }
+  if (!task) {
+    return;
+  }
+  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
+  if ((type === 'todo' && completed !== showCompleted) && main) {
+    return 'hidden';
+  }
+  if (main) {
+    for (filter in filters) {
+      enabled = filters[filter];
+      if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
+        return 'hidden';
       }
     }
-    for (pet in content.specialPets) {
-      if (pets[pet]) {
-        count--;
-      }
+  }
+  classes = type;
+  if (type === 'todo' || type === 'daily') {
+    if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
+      dayStart: dayStart
+    }))) {
+      classes += " completed";
+    } else {
+      classes += " uncompleted";
     }
-    return count;
-  };
-
-  api.countMounts = function(originalCount, mounts) {
-    var count, mount;
-
-    count = originalCount != null ? originalCount : _.size(mounts);
-    for (mount in content.specialMounts) {
-      if (mounts[mount]) {
-        count--;
-      }
+  } else if (type === 'habit') {
+    if (task.down && task.up) {
+      classes += ' habit-wide';
     }
-    return count;
-  };
-
-  /*
-  ------------------------------------------------------
-  User (prototype wrapper to give it ops, helper funcs, and virtuals
-  ------------------------------------------------------
-  */
-
-
-  /*
-  User is now wrapped (both on client and server), adding a few new properties:
-    * getters (_statsComputed, tasks, etc)
-    * user.fns, which is a bunch of helper functions
-      These were originally up above, but they make more sense belonging to the user object so we don't have to pass
-      the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
-    * user.ops, which is super important:
-  
-  If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
-  the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
-  of the op function). The first argument req is {query, body, params}, it's what the express controller function
-  expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
-  we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
-  params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
-  
-  If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
-  to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
-  function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
-  handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
-  everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
-  *do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
-  sure to call user.ops.OP_NAME at some point within the overridden function.
-  
-  TODO
-    * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
-      user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
-      move to $resource for user
-    * Move to $resource!
-  */
+  }
+  if (value < -20) {
+    classes += ' color-worst';
+  } else if (value < -10) {
+    classes += ' color-worse';
+  } else if (value < -1) {
+    classes += ' color-bad';
+  } else if (value < 1) {
+    classes += ' color-neutral';
+  } else if (value < 5) {
+    classes += ' color-good';
+  } else if (value < 10) {
+    classes += ' color-better';
+  } else {
+    classes += ' color-best';
+  }
+  return classes;
+};
 
 
-  api.wrap = function(user, main) {
-    if (main == null) {
-      main = true;
-    }
-    if (user._wrapped) {
+/*
+Friendly timestamp
+ */
+
+api.friendlyTimestamp = function(timestamp) {
+  return moment(timestamp).format('MM/DD h:mm:ss a');
+};
+
+
+/*
+Does user have new chat messages?
+ */
+
+api.newChatMessages = function(messages, lastMessageSeen) {
+  if (!((messages != null ? messages.length : void 0) > 0)) {
+    return false;
+  }
+  return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
+};
+
+
+/*
+are any tags active?
+ */
+
+api.noTags = function(tags) {
+  return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
+    return t;
+  }));
+};
+
+
+/*
+Are there tags applied?
+ */
+
+api.appliedTags = function(userTags, taskTags) {
+  var arr;
+  arr = [];
+  _.each(userTags, function(t) {
+    if (t == null) {
       return;
     }
-    user._wrapped = true;
-    if (main) {
-      user.ops = {
-        update: function(req, cb) {
-          _.each(req.body, function(v, k) {
-            user.fns.dotSet(k, v);
-            return true;
-          });
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        sleep: function(req, cb) {
-          user.preferences.sleep = !user.preferences.sleep;
-          return typeof cb === "function" ? cb(null, {}) : void 0;
-        },
-        revive: function(req, cb) {
-          var item, lostItem, lostStat;
-
-          _.merge(user.stats, {
-            hp: 50,
-            exp: 0,
-            gp: 0
-          });
-          if (user.stats.lvl > 1) {
-            user.stats.lvl--;
-          }
-          lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
-            if (user.stats[k]) {
-              m[k] = k;
-            }
-            return m;
-          }), {}));
-          if (lostStat) {
-            user.stats[lostStat]--;
-          }
-          lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
-            if (v) {
-              m['' + k] = '' + k;
-            }
-            return m;
-          }), {}));
-          if (item = content.gear.flat[lostItem]) {
-            user.items.gear.owned[lostItem] = false;
-            if (user.items.gear.equipped[item.type] === lostItem) {
-              user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
-            }
-            if (user.items.gear.costume[item.type] === lostItem) {
-              user.items.gear.costume[item.type] = "" + item.type + "_base_0";
-            }
-          }
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear');
-          }
-          return typeof cb === "function" ? cb((item ? {
-            code: 200,
-            message: "Your " + item.text + " broke."
-          } : null), user) : void 0;
-        },
-        reset: function(req, cb) {
-          var gear;
-
-          user.habits = [];
-          user.dailys = [];
-          user.todos = [];
-          user.rewards = [];
-          user.stats.hp = 50;
-          user.stats.lvl = 1;
-          user.stats.gp = 0;
-          user.stats.exp = 0;
-          gear = user.items.gear;
-          _.each(['equipped', 'costume'], function(type) {
-            gear[type].armor = 'armor_base_0';
-            gear[type].weapon = 'weapon_base_0';
-            gear[type].head = 'head_base_0';
-            return gear[type].shield = 'shield_base_0';
-          });
-          user.items.gear.owned = {
-            weapon_warrior_0: true
-          };
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear.owned');
-          }
-          user.preferences.costume = false;
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        reroll: function(req, cb, ga) {
-          if (user.balance < 1) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems."
-            }) : void 0;
-          }
-          user.balance--;
-          _.each(user.tasks, function(task) {
-            if (task.type !== 'reward') {
-              return task.value = 0;
-            }
-          });
-          user.stats.hp = 50;
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return ga != null ? ga.event('purchase', 'reroll').send() : void 0;
-        },
-        rebirth: function(req, cb, ga) {
-          var flags, gear, lvl, stats;
-
-          if (user.balance < 2) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems."
-            }) : void 0;
-          }
-          user.balance -= 2;
-          lvl = user.stats.lvl;
-          _.each(user.tasks, function(task) {
-            if (task.type !== 'reward') {
-              task.value = 0;
-            }
-            if (task.type === 'daily') {
-              return task.streak = 0;
-            }
-          });
-          stats = user.stats;
-          stats.buffs = {};
-          stats.hp = 50;
-          stats.lvl = 1;
-          stats["class"] = 'warrior';
-          _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
-            return stats[value] = 0;
-          });
-          gear = user.items.gear;
-          _.each(['equipped', 'costume'], function(type) {
-            gear[type].armor = 'armor_base_0';
-            gear[type].weapon = 'weapon_warrior_0';
-            gear[type].head = 'head_base_0';
-            return gear[type].shield = 'shield_base_0';
-          });
-          if (user.items.currentPet) {
-            user.ops.equip({
-              params: {
-                type: 'pet',
-                key: user.items.currentPet
-              }
-            });
-          }
-          if (user.items.currentMount) {
-            user.ops.equip({
-              params: {
-                type: 'mount',
-                key: user.items.currentMount
-              }
-            });
-          }
-          _.each(gear.owned, function(v, k) {
-            if (gear.owned[k]) {
-              gear.owned[k] = false;
-              return true;
-            }
-          });
-          gear.owned.weapon_warrior_0 = true;
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear.owned');
-          }
-          user.preferences.costume = false;
-          flags = user.flags;
-          if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
-            flags.rebirthEnabled = false;
-          }
-          flags.itemsEnabled = false;
-          flags.dropsEnabled = false;
-          flags.classSelected = false;
-          if (!user.achievements.rebirths) {
-            user.achievements.rebirths = 1;
-            user.achievements.rebirthLevel = lvl;
-          } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
-            user.achievements.rebirths++;
-            user.achievements.rebirthLevel = lvl;
-          }
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return ga != null ? ga.event('purchase', 'Rebirth').send() : void 0;
-        },
-        allocateNow: function(req, cb) {
-          _.times(user.stats.points, user.fns.autoAllocate);
-          user.stats.points = 0;
-          if (typeof user.markModified === "function") {
-            user.markModified('stats');
-          }
-          return typeof cb === "function" ? cb(null, user.stats) : void 0;
-        },
-        clearCompleted: function(req, cb) {
-          _.remove(user.todos, function(t) {
-            var _ref;
-
-            return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
-          });
-          if (typeof user.markModified === "function") {
-            user.markModified('todos');
-          }
-          return typeof cb === "function" ? cb(null, user.todos) : void 0;
-        },
-        sortTask: function(req, cb) {
-          var from, id, task, tasks, to, _ref;
-
-          id = req.params.id;
-          _ref = req.query, to = _ref.to, from = _ref.from;
-          task = user.tasks[id];
-          if (!task) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Task not found."
-            }) : void 0;
-          }
-          if (!((to != null) && (from != null))) {
-            return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
-          }
-          tasks = user["" + task.type + "s"];
-          tasks.splice(to, 0, tasks.splice(from, 1)[0]);
-          return typeof cb === "function" ? cb(null, tasks) : void 0;
-        },
-        updateTask: function(req, cb) {
-          var task, _ref;
-
-          if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Task not found"
-            }) : void 0;
-          }
-          _.merge(task, _.omit(req.body, 'checklist'));
-          if (req.body.checklist) {
-            task.checklist = req.body.checklist;
-          }
-          if (typeof task.markModified === "function") {
-            task.markModified('tags');
-          }
-          return typeof cb === "function" ? cb(null, task) : void 0;
-        },
-        deleteTask: function(req, cb) {
-          var i, task, _ref;
-
-          task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
-          if (!task) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: 'Task not found'
-            }) : void 0;
-          }
-          i = user[task.type + "s"].indexOf(task);
-          if (~i) {
-            user[task.type + "s"].splice(i, 1);
-          }
-          return typeof cb === "function" ? cb(null, {}) : void 0;
-        },
-        addTask: function(req, cb) {
-          var task;
-
-          task = api.taskDefaults(req.body);
-          user["" + task.type + "s"].unshift(task);
-          if (user.preferences.newTaskEdit) {
-            task._editing = true;
-          }
-          if (user.preferences.tagsCollapsed) {
-            task._tags = true;
-          }
-          if (user.preferences.advancedCollapsed) {
-            task._advanced = true;
-          }
-          if (typeof cb === "function") {
-            cb(null, task);
-          }
-          return task;
-        },
-        addTag: function(req, cb) {
-          var _ref;
-
-          if ((_ref = user.tags) == null) {
-            user.tags = [];
-          }
-          user.tags.push({
-            name: req.body.name,
-            id: req.body.id || api.uuid()
-          });
-          return typeof cb === "function" ? cb(null, user.tags) : void 0;
-        },
-        updateTag: function(req, cb) {
-          var i, tid;
-
-          tid = req.params.id;
-          i = _.findIndex(user.tags, {
-            id: tid
-          });
-          if (!~i) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: 'Tag not found'
-            }) : void 0;
-          }
-          user.tags[i].name = req.body.name;
-          return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
-        },
-        deleteTag: function(req, cb) {
-          var i, tag, tid;
-
-          tid = req.params.id;
-          i = _.findIndex(user.tags, {
-            id: tid
-          });
-          if (!~i) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: 'Tag not found'
-            }) : void 0;
-          }
-          tag = user.tags[i];
-          delete user.filters[tag.id];
-          user.tags.splice(i, 1);
-          _.each(user.tasks, function(task) {
-            return delete task.tags[tag.id];
-          });
-          _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
-            return typeof user.markModified === "function" ? user.markModified(type) : void 0;
-          });
-          return typeof cb === "function" ? cb(null, user.tags) : void 0;
-        },
-        feed: function(req, cb) {
-          var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
-
-          _ref = req.params, pet = _ref.pet, food = _ref.food;
-          food = content.food[food];
-          _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
-          userPets = user.items.pets;
-          if (!userPets[pet]) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":pet not found in user.items.pets"
-            }) : void 0;
-          }
-          if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":food not found in user.items.food"
-            }) : void 0;
-          }
-          if (content.specialPets[pet]) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Can't feed this pet."
-            }) : void 0;
-          }
-          if (user.items.mounts[pet]) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You already have that mount. Try feeding another pet."
-            }) : void 0;
-          }
-          message = '';
-          evolve = function() {
-            userPets[pet] = -1;
-            user.items.mounts[pet] = true;
-            if (pet === user.items.currentPet) {
-              user.items.currentPet = "";
-            }
-            return message = "You have tamed " + egg + ", let's go for a ride!";
-          };
-          if (food.key === 'Saddle') {
-            evolve();
-          } else {
-            if (food.target === potion) {
-              userPets[pet] += 5;
-              message = "" + egg + " really likes the " + food.text + "!";
-            } else {
-              userPets[pet] += 2;
-              message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
-            }
-            if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
-              evolve();
-            }
-          }
-          user.items.food[food.key]--;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: message
-          }, userPets[pet]) : void 0;
-        },
-        purchase: function(req, cb, ga) {
-          var item, key, type, _ref;
-
-          _ref = req.params, type = _ref.type, key = _ref.key;
-          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
-            }, req) : void 0;
-          }
-          item = content[type][key];
-          if (!item) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":key not found for Content." + type
-            }, req) : void 0;
-          }
-          if (user.balance < (item.value / 4)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: 'Not enough gems.'
-            }) : void 0;
-          }
-          if (!user.items[type][key]) {
-            user.items[type][key] = 0;
-          }
-          user.items[type][key]++;
-          user.balance -= item.value / 4;
-          if (typeof cb === "function") {
-            cb(null, _.pick(user, $w('items balance')));
-          }
-          return ga != null ? ga.event('purchase', key).send() : void 0;
-        },
-        buy: function(req, cb) {
-          var item, key, message;
-
-          key = req.params.key;
-          item = key === 'potion' ? content.potion : content.gear.flat[key];
-          if (!item) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
-            }) : void 0;
-          }
-          if (user.stats.gp < item.value) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: 'Not enough gold.'
-            }) : void 0;
-          }
-          if (item.key === 'potion') {
-            user.stats.hp += 15;
-            if (user.stats.hp > 50) {
-              user.stats.hp = 50;
-            }
-          } else {
-            user.items.gear.equipped[item.type] = item.key;
-            user.items.gear.owned[item.key] = true;
-            message = user.fns.handleTwoHanded(item);
-            if (message == null) {
-              message = "Bought " + item.text + ".";
-            }
-            if (!user.achievements.ultimateGear && item.last) {
-              user.fns.ultimateGear();
-            }
-          }
-          user.stats.gp -= item.value;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: message
-          }, _.pick(user, $w('items achievements stats'))) : void 0;
-        },
-        sell: function(req, cb) {
-          var key, type, _ref;
-
-          _ref = req.params, key = _ref.key, type = _ref.type;
-          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
-            }) : void 0;
-          }
-          if (!user.items[type][key]) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":key not found for user.items." + type
-            }) : void 0;
-          }
-          user.items[type][key]--;
-          user.stats.gp += content[type][key].value;
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
-        },
-        equip: function(req, cb) {
-          var item, key, message, type, _ref;
-
-          _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
-          switch (type) {
-            case 'mount':
-              user.items.currentMount = user.items.currentMount === key ? '' : key;
-              break;
-            case 'pet':
-              user.items.currentPet = user.items.currentPet === key ? '' : key;
-              break;
-            case 'costume':
-            case 'equipped':
-              item = content.gear.flat[key];
-              user.items.gear[type][item.type] = item.key;
-              message = user.fns.handleTwoHanded(item, type);
-          }
-          return typeof cb === "function" ? cb((message ? {
-            code: 200,
-            message: message
-          } : null), user.items) : void 0;
-        },
-        hatch: function(req, cb) {
-          var egg, hatchingPotion, pet, _ref;
-
-          _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
-          if (!(egg && hatchingPotion)) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Please specify query.egg & query.hatchingPotion"
-            }) : void 0;
-          }
-          if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You're missing either that egg or that potion"
-            }) : void 0;
-          }
-          pet = "" + egg + "-" + hatchingPotion;
-          if (user.items.pets[pet] && user.items.pets[pet] > 0) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You already have that pet. Try hatching a different combination!"
-            }) : void 0;
-          }
-          user.items.pets[pet] = 5;
-          user.items.eggs[egg]--;
-          user.items.hatchingPotions[hatchingPotion]--;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: "Your egg hatched! Visit your stable to equip your pet."
-          }, user.items) : void 0;
-        },
-        unlock: function(req, cb, ga) {
-          var alreadyOwns, cost, fullSet, k, path, split, v;
-
-          path = req.query.path;
-          fullSet = ~path.indexOf(",");
-          cost = fullSet ? 1.25 : 0.5;
-          alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
-          if (user.balance < cost && !alreadyOwns) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems"
-            }) : void 0;
-          }
-          if (fullSet) {
-            _.each(path.split(","), function(p) {
-              user.fns.dotSet("purchased." + p, true);
-              return true;
-            });
-          } else {
-            if (alreadyOwns) {
-              split = path.split('.');
-              v = split.pop();
-              k = split.join('.');
-              user.fns.dotSet("preferences." + k, v);
-              return typeof cb === "function" ? cb(null, req) : void 0;
-            }
-            user.fns.dotSet("purchased." + path, true);
-          }
-          user.balance -= cost;
-          if (typeof user.markModified === "function") {
-            user.markModified('purchased');
-          }
-          if (typeof cb === "function") {
-            cb(null, _.pick(user, $w('purchased preferences')));
-          }
-          return ga != null ? ga.event('purchase', path).send() : void 0;
-        },
-        changeClass: function(req, cb, ga) {
-          var klass, _ref;
-
-          klass = (_ref = req.query) != null ? _ref["class"] : void 0;
-          if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
-            user.stats["class"] = klass;
-            user.flags.classSelected = true;
-            _.each(["weapon", "armor", "shield", "head"], function(type) {
-              var foundKey;
-
-              foundKey = false;
-              _.findLast(user.items.gear.owned, function(v, k) {
-                if (~k.indexOf(type + "_" + klass) && v === true) {
-                  return foundKey = k;
-                }
-              });
-              user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
-              if (type === "weapon" || (type === "shield" && klass === "rogue")) {
-                user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
-              }
-              return true;
-            });
-          } else {
-            if (user.preferences.disableClasses) {
-              user.preferences.disableClasses = false;
-              user.preferences.autoAllocate = false;
-            } else {
-              if (!(user.balance >= .75)) {
-                return typeof cb === "function" ? cb({
-                  code: 401,
-                  message: "Not enough gems"
-                }) : void 0;
-              }
-              user.balance -= .75;
-            }
-            _.merge(user.stats, {
-              str: 0,
-              con: 0,
-              per: 0,
-              int: 0,
-              points: user.stats.lvl
-            });
-            user.flags.classSelected = false;
-            if (ga != null) {
-              ga.event('purchase', 'changeClass').send();
-            }
-          }
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
-        },
-        disableClasses: function(req, cb) {
-          user.stats["class"] = 'warrior';
-          user.flags.classSelected = true;
-          user.preferences.disableClasses = true;
-          user.preferences.autoAllocate = true;
-          user.stats.str = user.stats.lvl;
-          user.stats.points = 0;
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
-        },
-        allocate: function(req, cb) {
-          var stat;
-
-          stat = req.query.stat || 'str';
-          if (user.stats.points > 0) {
-            user.stats[stat]++;
-            user.stats.points--;
-            if (stat === 'int') {
-              user.stats.mp++;
-            }
-          }
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
-        },
-        readValentine: function(req, cb) {
-          user.items.special.valentineReceived.shift();
-          if (typeof user.markModified === "function") {
-            user.markModified('items.special.valentineReceived');
-          }
-          return typeof cb === "function" ? cb(null, 'items.special') : void 0;
-        },
-        score: function(req, cb) {
-          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
-
-          _ref = req.params, id = _ref.id, direction = _ref.direction;
-          task = user.tasks[id];
-          options = req.query || {};
-          _.defaults(options, {
-            times: 1,
-            cron: false
-          });
-          user._tmp = {};
-          stats = {
-            gp: +user.stats.gp,
-            hp: +user.stats.hp,
-            exp: +user.stats.exp
-          };
-          task.value = +task.value;
-          task.streak = ~~task.streak;
-          if ((_ref1 = task.priority) == null) {
-            task.priority = 1;
-          }
-          if (task.value > stats.gp && task.type === 'reward') {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: 'Not enough Gold'
-            }) : void 0;
-          }
-          delta = 0;
-          calculateDelta = function() {
-            return _.times(options.times, function() {
-              var currVal, nextDelta, _ref2, _ref3;
-
-              currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
-              nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-              if (((_ref2 = task.checklist) != null ? _ref2.length : void 0) > 0) {
-                if (direction === 'down' && task.type === 'daily' && options.cron) {
-                  nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
-                    return m + (i.completed ? 1 : 0);
-                  }), 0) / task.checklist.length;
-                }
-                if (task.type === 'todo' && direction === 'up') {
-                  nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
-                    return m + (i.completed ? 1 : 0);
-                  }), 0);
-                }
-              }
-              if (task.type !== 'reward') {
-                if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
-                  user.stats.training[task.attribute] += nextDelta;
-                }
-                if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
-                  user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                  if ((_ref3 = task.type) === 'daily' || _ref3 === 'todo') {
-                    user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
-                  }
-                }
-                task.value += nextDelta;
-              }
-              return delta += nextDelta;
-            });
-          };
-          addPoints = function() {
-            var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
-
-            _crit = (delta > 0 ? user.fns.crit() : 1);
-            if (_crit > 1) {
-              user._tmp.crit = _crit;
-            }
-            intBonus = 1 + (user._statsComputed.int * .025);
-            stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
-            perBonus = 1 + user._statsComputed.per * .02;
-            gpMod = delta * task.priority * _crit * perBonus;
-            return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
-          };
-          subtractPoints = function() {
-            var conBonus, hpMod;
-
-            conBonus = 1 - (user._statsComputed.con / 250);
-            if (conBonus < .1) {
-              conBonus = 0.1;
-            }
-            hpMod = delta * conBonus * task.priority * 2;
-            return stats.hp += Math.round(hpMod * 10) / 10;
-          };
-          switch (task.type) {
-            case 'habit':
-              calculateDelta();
-              if (delta > 0) {
-                addPoints();
-              } else {
-                subtractPoints();
-              }
-              th = ((_ref2 = task.history) != null ? _ref2 : task.history = []);
-              if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
-                th[th.length - 1].value = task.value;
-              } else {
-                th.push({
-                  date: +(new Date),
-                  value: task.value
-                });
-              }
-              if (typeof user.markModified === "function") {
-                user.markModified("habits." + (_.findIndex(user.habits, {
-                  id: task.id
-                })) + ".history");
-              }
-              break;
-            case 'daily':
-              if (options.cron) {
-                calculateDelta();
-                subtractPoints();
-                if (!user.stats.buffs.streaks) {
-                  task.streak = 0;
-                }
-              } else {
-                calculateDelta();
-                addPoints();
-                if (direction === 'up') {
-                  task.streak = task.streak ? task.streak + 1 : 1;
-                  if ((task.streak % 21) === 0) {
-                    user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-                  }
-                } else {
-                  if ((task.streak % 21) === 0) {
-                    user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
-                  }
-                  task.streak = task.streak ? task.streak - 1 : 0;
-                }
-              }
-              break;
-            case 'todo':
-              if (options.cron) {
-                calculateDelta();
-              } else {
-                task.dateCompleted = direction === 'up' ? new Date : void 0;
-                calculateDelta();
-                addPoints();
-                multiplier = _.max([
-                  _.reduce(task.checklist, (function(m, i) {
-                    return m + (i.completed ? 1 : 0);
-                  }), 1), 1
-                ]);
-                mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
-                if (direction === 'down') {
-                  mpDelta *= -1;
-                }
-                user.stats.mp += mpDelta;
-                if (user.stats.mp >= user._statsComputed.maxMP) {
-                  user.stats.mp = user._statsComputed.maxMP;
-                }
-                if (user.stats.mp < 0) {
-                  user.stats.mp = 0;
-                }
-              }
-              break;
-            case 'reward':
-              calculateDelta();
-              stats.gp -= Math.abs(task.value);
-              num = parseFloat(task.value).toFixed(2);
-              if (stats.gp < 0) {
-                stats.hp += stats.gp;
-                stats.gp = 0;
-              }
-          }
-          user.fns.updateStats(stats);
-          if (typeof window === 'undefined') {
-            if (direction === 'up') {
-              user.fns.randomDrop({
-                task: task,
-                delta: delta
-              });
-            }
-          }
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return delta;
-        }
-      };
+    if (taskTags != null ? taskTags[t.id] : void 0) {
+      return arr.push(t.name);
     }
-    user.fns = {
-      getItem: function(type) {
-        var item;
+  });
+  return arr.join(', ');
+};
 
-        item = content.gear.flat[user.items.gear.equipped[type]];
-        if (!item) {
-          return content.gear.flat["" + type + "_base_0"];
-        }
-        return item;
+api.countPets = function(originalCount, pets) {
+  var count, pet;
+  count = originalCount != null ? originalCount : _.size(pets);
+  for (pet in content.questPets) {
+    if (pets[pet]) {
+      count--;
+    }
+  }
+  for (pet in content.specialPets) {
+    if (pets[pet]) {
+      count--;
+    }
+  }
+  return count;
+};
+
+api.countMounts = function(originalCount, mounts) {
+  var count, mount;
+  count = originalCount != null ? originalCount : _.size(mounts);
+  for (mount in content.specialMounts) {
+    if (mounts[mount]) {
+      count--;
+    }
+  }
+  return count;
+};
+
+
+/*
+------------------------------------------------------
+User (prototype wrapper to give it ops, helper funcs, and virtuals
+------------------------------------------------------
+ */
+
+
+/*
+User is now wrapped (both on client and server), adding a few new properties:
+  * getters (_statsComputed, tasks, etc)
+  * user.fns, which is a bunch of helper functions
+    These were originally up above, but they make more sense belonging to the user object so we don't have to pass
+    the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
+  * user.ops, which is super important:
+
+If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
+the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
+of the op function). The first argument req is {query, body, params}, it's what the express controller function
+expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
+we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
+params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
+
+If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
+to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
+function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
+handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
+everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
+*do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
+sure to call user.ops.OP_NAME at some point within the overridden function.
+
+TODO
+  * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
+    user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
+    move to $resource for user
+  * Move to $resource!
+ */
+
+api.wrap = function(user, main) {
+  if (main == null) {
+    main = true;
+  }
+  if (user._wrapped) {
+    return;
+  }
+  user._wrapped = true;
+  if (main) {
+    user.ops = {
+      update: function(req, cb) {
+        _.each(req.body, function(v, k) {
+          user.fns.dotSet(k, v);
+          return true;
+        });
+        return typeof cb === "function" ? cb(null, user) : void 0;
       },
-      handleTwoHanded: function(item, type) {
-        var message, weapon, _ref;
-
-        if (type == null) {
-          type = 'equipped';
-        }
-        if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
-          user.items.gear[type].weapon = 'weapon_base_0';
-          message = "" + weapon.text + " is two-handed";
-        }
-        if (item.twoHanded) {
-          user.items.gear[type].shield = "shield_base_0";
-          message = "" + item.text + " is two-handed";
-        }
-        return message;
+      sleep: function(req, cb) {
+        user.preferences.sleep = !user.preferences.sleep;
+        return typeof cb === "function" ? cb(null, {}) : void 0;
       },
-      /*
-      Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
-      we need things to be "random", but technically predictable so that they don't go out-of-sync
-      */
-
-      predictableRandom: function(seed) {
-        var x;
-
-        if (!seed || seed === Math.PI) {
-          seed = _.reduce(user.stats, (function(m, v) {
-            if (_.isNumber(v)) {
-              return m + v;
-            } else {
-              return m;
-            }
-          }), 0);
+      revive: function(req, cb) {
+        var item, lostItem, lostStat;
+        _.merge(user.stats, {
+          hp: 50,
+          exp: 0,
+          gp: 0
+        });
+        if (user.stats.lvl > 1) {
+          user.stats.lvl--;
         }
-        x = Math.sin(seed++) * 10000;
-        return x - Math.floor(x);
-      },
-      crit: function(stat, chance) {
-        if (stat == null) {
-          stat = 'str';
-        }
-        if (chance == null) {
-          chance = .03;
-        }
-        if (user.fns.predictableRandom() <= chance * (1 + user._statsComputed[stat] / 100)) {
-          return 1.5 + (.02 * user._statsComputed[stat]);
-        } else {
-          return 1;
-        }
-      },
-      /*
-        Get a random property from an object
-        returns random property (the value)
-      */
-
-      randomVal: function(obj, options) {
-        var array, rand;
-
-        array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
-        rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
-        return array[Math.floor(rand * array.length)];
-      },
-      /*
-      This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
-      user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
-      so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
-      Angular sets object properties directly - in which case, this function will be used.
-      */
-
-      dotSet: function(path, val) {
-        var arr,
-          _this = this;
-
-        arr = path.split('.');
-        return _.reduce(arr, function(curr, next, index) {
-          var _ref;
-
-          if ((arr.length - 1) === index) {
-            curr[next] = val;
+        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+          if (user.stats[k]) {
+            m[k] = k;
           }
-          return (_ref = curr[next]) != null ? _ref : curr[next] = {};
-        }, user);
+          return m;
+        }), {}));
+        if (lostStat) {
+          user.stats[lostStat]--;
+        }
+        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+          if (v) {
+            m['' + k] = '' + k;
+          }
+          return m;
+        }), {}));
+        if (item = content.gear.flat[lostItem]) {
+          user.items.gear.owned[lostItem] = false;
+          if (user.items.gear.equipped[item.type] === lostItem) {
+            user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
+          }
+          if (user.items.gear.costume[item.type] === lostItem) {
+            user.items.gear.costume[item.type] = "" + item.type + "_base_0";
+          }
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear');
+        }
+        return typeof cb === "function" ? cb((item ? {
+          code: 200,
+          message: "Your " + item.text + " broke."
+        } : null), user) : void 0;
       },
-      dotGet: function(path) {
-        var _this = this;
-
-        return _.reduce(path.split('.'), (function(curr, next) {
-          return curr != null ? curr[next] : void 0;
-        }), user);
+      reset: function(req, cb) {
+        var gear;
+        user.habits = [];
+        user.dailys = [];
+        user.todos = [];
+        user.rewards = [];
+        user.stats.hp = 50;
+        user.stats.lvl = 1;
+        user.stats.gp = 0;
+        user.stats.exp = 0;
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_base_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        user.items.gear.owned = {
+          weapon_warrior_0: true
+        };
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        user.preferences.costume = false;
+        return typeof cb === "function" ? cb(null, user) : void 0;
       },
-      randomDrop: function(modifiers) {
-        var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3, _ref4;
-
-        task = modifiers.task;
-        chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
-        chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 20 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
-          return m + (i.completed ? 1 : 0);
-        }), 0) || 0));
-        chance = api.diminishingReturns(chance, 0.75);
-        quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
-        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < (chance * 2)) {
-          dropK = user.fns.randomVal(quest.collect, {
-            key: true
+      reroll: function(req, cb, ga) {
+        if (user.balance < 1) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "Not enough gems."
+          }) : void 0;
+        }
+        user.balance--;
+        _.each(user.tasks, function(task) {
+          if (task.type !== 'reward') {
+            return task.value = 0;
+          }
+        });
+        user.stats.hp = 50;
+        if (typeof cb === "function") {
+          cb(null, user);
+        }
+        return ga != null ? ga.event('purchase', 'reroll').send() : void 0;
+      },
+      rebirth: function(req, cb, ga) {
+        var flags, gear, lvl, stats;
+        if (user.balance < 2) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "Not enough gems."
+          }) : void 0;
+        }
+        user.balance -= 2;
+        lvl = user.stats.lvl;
+        _.each(user.tasks, function(task) {
+          if (task.type !== 'reward') {
+            task.value = 0;
+          }
+          if (task.type === 'daily') {
+            return task.streak = 0;
+          }
+        });
+        stats = user.stats;
+        stats.buffs = {};
+        stats.hp = 50;
+        stats.lvl = 1;
+        stats["class"] = 'warrior';
+        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+          return stats[value] = 0;
+        });
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_warrior_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        if (user.items.currentPet) {
+          user.ops.equip({
+            params: {
+              type: 'pet',
+              key: user.items.currentPet
+            }
           });
-          user.party.quest.progress.collect[dropK]++;
-          if (typeof user.markModified === "function") {
-            user.markModified('party.quest.progress');
+        }
+        if (user.items.currentMount) {
+          user.ops.equip({
+            params: {
+              type: 'mount',
+              key: user.items.currentMount
+            }
+          });
+        }
+        _.each(gear.owned, function(v, k) {
+          if (gear.owned[k]) {
+            gear.owned[k] = false;
+            return true;
           }
+        });
+        gear.owned.weapon_warrior_0 = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
         }
-        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25))) {
-          return;
+        user.preferences.costume = false;
+        flags = user.flags;
+        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          flags.rebirthEnabled = false;
         }
-        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
-          rarity = user.fns.predictableRandom(user.stats.gp);
-          if (rarity > .6) {
-            drop = user.fns.randomVal(_(content.food).omit('Saddle').where({
-              canBuy: true
-            }).value());
-            if ((_ref2 = (_base = user.items.food)[_name = drop.key]) == null) {
-              _base[_name] = 0;
-            }
-            user.items.food[drop.key] += 1;
-            drop.type = 'Food';
-            drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
-          } else if (rarity > .3) {
-            drop = user.fns.randomVal(_.where(content.eggs, {
-              canBuy: true
-            }));
-            if ((_ref3 = (_base1 = user.items.eggs)[_name1 = drop.key]) == null) {
-              _base1[_name1] = 0;
-            }
-            user.items.eggs[drop.key]++;
-            drop.type = 'Egg';
-            drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
-          } else {
-            acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
-            drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
-              return __indexOf.call(acceptableDrops, k) >= 0;
-            })));
-            if ((_ref4 = (_base2 = user.items.hatchingPotions)[_name2 = drop.key]) == null) {
-              _base2[_name2] = 0;
-            }
-            user.items.hatchingPotions[drop.key]++;
-            drop.type = 'HatchingPotion';
-            drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
-          }
-          user._tmp.drop = drop;
-          user.items.lastDrop.date = +(new Date);
-          return user.items.lastDrop.count++;
+        flags.itemsEnabled = false;
+        flags.dropsEnabled = false;
+        flags.classSelected = false;
+        if (!user.achievements.rebirths) {
+          user.achievements.rebirths = 1;
+          user.achievements.rebirthLevel = lvl;
+        } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
+          user.achievements.rebirths++;
+          user.achievements.rebirthLevel = lvl;
         }
+        if (typeof cb === "function") {
+          cb(null, user);
+        }
+        return ga != null ? ga.event('purchase', 'Rebirth').send() : void 0;
       },
-      /*
-        Updates user stats with new stats. Handles death, leveling up, etc
-        {stats} new stats
-        {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-      */
-
-      autoAllocate: function() {
-        return user.stats[(function() {
-          var diff, ideal, preference, stats, suggested;
-
-          switch (user.preferences.allocationMode) {
-            case "flat":
-              stats = _.pick(user.stats, $w('con str per int'));
-              return _.invert(stats)[_.min(stats)];
-            case "classbased":
-              ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
-              preference = (function() {
-                switch (user.stats["class"]) {
-                  case "wizard":
-                    return ["int", "per", "con", "str"];
-                  case "rogue":
-                    return ["per", "str", "int", "con"];
-                  case "healer":
-                    return ["con", "int", "str", "per"];
-                  default:
-                    return ["str", "con", "per", "int"];
-                }
-              })();
-              diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
-              suggested = _.findIndex(diff, (function(val) {
-                if (val === _.min(diff)) {
-                  return true;
-                }
-              }));
-              if (~suggested) {
-                return preference[suggested];
-              } else {
-                return "str";
-              }
-            case "taskbased":
-              suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
-              _.merge(user.stats.training, {
-                str: 0,
-                int: 0,
-                con: 0,
-                per: 0
-              });
-              return suggested || "str";
-            default:
-              return "str";
-          }
-        })()]++;
-      },
-      updateStats: function(stats) {
-        var tnl, _base, _base1, _ref, _ref1, _ref2, _ref3;
-
-        if (stats.hp <= 0) {
-          return user.stats.hp = 0;
+      allocateNow: function(req, cb) {
+        _.times(user.stats.points, user.fns.autoAllocate);
+        user.stats.points = 0;
+        if (typeof user.markModified === "function") {
+          user.markModified('stats');
         }
-        user.stats.hp = stats.hp;
-        user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-        tnl = api.tnl(user.stats.lvl);
-        if (user.stats.lvl >= 100) {
-          stats.gp += stats.exp / 15;
-          stats.exp = 0;
-          user.stats.lvl = 100;
+        return typeof cb === "function" ? cb(null, user.stats) : void 0;
+      },
+      clearCompleted: function(req, cb) {
+        _.remove(user.todos, function(t) {
+          var _ref;
+          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
+        });
+        if (typeof user.markModified === "function") {
+          user.markModified('todos');
+        }
+        return typeof cb === "function" ? cb(null, user.todos) : void 0;
+      },
+      sortTask: function(req, cb) {
+        var from, id, task, tasks, to, _ref;
+        id = req.params.id;
+        _ref = req.query, to = _ref.to, from = _ref.from;
+        task = user.tasks[id];
+        if (!task) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Task not found."
+          }) : void 0;
+        }
+        if (!((to != null) && (from != null))) {
+          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+        }
+        tasks = user["" + task.type + "s"];
+        tasks.splice(to, 0, tasks.splice(from, 1)[0]);
+        return typeof cb === "function" ? cb(null, tasks) : void 0;
+      },
+      updateTask: function(req, cb) {
+        var task, _ref;
+        if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Task not found"
+          }) : void 0;
+        }
+        _.merge(task, _.omit(req.body, 'checklist'));
+        if (req.body.checklist) {
+          task.checklist = req.body.checklist;
+        }
+        if (typeof task.markModified === "function") {
+          task.markModified('tags');
+        }
+        return typeof cb === "function" ? cb(null, task) : void 0;
+      },
+      deleteTask: function(req, cb) {
+        var i, task, _ref;
+        task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
+        if (!task) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: 'Task not found'
+          }) : void 0;
+        }
+        i = user[task.type + "s"].indexOf(task);
+        if (~i) {
+          user[task.type + "s"].splice(i, 1);
+        }
+        return typeof cb === "function" ? cb(null, {}) : void 0;
+      },
+      addTask: function(req, cb) {
+        var task;
+        task = api.taskDefaults(req.body);
+        user["" + task.type + "s"].unshift(task);
+        if (user.preferences.newTaskEdit) {
+          task._editing = true;
+        }
+        if (user.preferences.tagsCollapsed) {
+          task._tags = true;
+        }
+        if (user.preferences.advancedCollapsed) {
+          task._advanced = true;
+        }
+        if (typeof cb === "function") {
+          cb(null, task);
+        }
+        return task;
+      },
+      addTag: function(req, cb) {
+        if (user.tags == null) {
+          user.tags = [];
+        }
+        user.tags.push({
+          name: req.body.name,
+          id: req.body.id || api.uuid()
+        });
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
+      },
+      updateTag: function(req, cb) {
+        var i, tid;
+        tid = req.params.id;
+        i = _.findIndex(user.tags, {
+          id: tid
+        });
+        if (!~i) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: 'Tag not found'
+          }) : void 0;
+        }
+        user.tags[i].name = req.body.name;
+        return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
+      },
+      deleteTag: function(req, cb) {
+        var i, tag, tid;
+        tid = req.params.id;
+        i = _.findIndex(user.tags, {
+          id: tid
+        });
+        if (!~i) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: 'Tag not found'
+          }) : void 0;
+        }
+        tag = user.tags[i];
+        delete user.filters[tag.id];
+        user.tags.splice(i, 1);
+        _.each(user.tasks, function(task) {
+          return delete task.tags[tag.id];
+        });
+        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
+          return typeof user.markModified === "function" ? user.markModified(type) : void 0;
+        });
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
+      },
+      feed: function(req, cb) {
+        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+        _ref = req.params, pet = _ref.pet, food = _ref.food;
+        food = content.food[food];
+        _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
+        userPets = user.items.pets;
+        if (!userPets[pet]) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":pet not found in user.items.pets"
+          }) : void 0;
+        }
+        if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":food not found in user.items.food"
+          }) : void 0;
+        }
+        if (content.specialPets[pet]) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "Can't feed this pet."
+          }) : void 0;
+        }
+        if (user.items.mounts[pet]) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You already have that mount. Try feeding another pet."
+          }) : void 0;
+        }
+        message = '';
+        evolve = function() {
+          userPets[pet] = -1;
+          user.items.mounts[pet] = true;
+          if (pet === user.items.currentPet) {
+            user.items.currentPet = "";
+          }
+          return message = "You have tamed " + egg + ", let's go for a ride!";
+        };
+        if (food.key === 'Saddle') {
+          evolve();
         } else {
-          if (stats.exp >= tnl) {
-            user.stats.exp = stats.exp;
-            while (stats.exp >= tnl && user.stats.lvl < 100) {
-              stats.exp -= tnl;
-              user.stats.lvl++;
-              tnl = api.tnl(user.stats.lvl);
-              if (user.preferences.automaticAllocation) {
-                user.fns.autoAllocate();
-              } else {
-                user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-              }
-            }
-            if (user.stats.lvl === 100) {
-              stats.exp = 0;
-            }
+          if (food.target === potion) {
+            userPets[pet] += 5;
+            message = "" + egg + " really likes the " + food.text + "!";
+          } else {
+            userPets[pet] += 2;
+            message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
+          }
+          if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
+            evolve();
+          }
+        }
+        user.items.food[food.key]--;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, userPets[pet]) : void 0;
+      },
+      purchase: function(req, cb, ga) {
+        var item, key, type, _ref;
+        _ref = req.params, type = _ref.type, key = _ref.key;
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
+          }, req) : void 0;
+        }
+        item = content[type][key];
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":key not found for Content." + type
+          }, req) : void 0;
+        }
+        if (user.balance < (item.value / 4)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: 'Not enough gems.'
+          }) : void 0;
+        }
+        if (!user.items[type][key]) {
+          user.items[type][key] = 0;
+        }
+        user.items[type][key]++;
+        user.balance -= item.value / 4;
+        if (typeof cb === "function") {
+          cb(null, _.pick(user, $w('items balance')));
+        }
+        return ga != null ? ga.event('purchase', key).send() : void 0;
+      },
+      buy: function(req, cb) {
+        var item, key, message;
+        key = req.params.key;
+        item = key === 'potion' ? content.potion : content.gear.flat[key];
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
+          }) : void 0;
+        }
+        if (user.stats.gp < item.value) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: 'Not enough gold.'
+          }) : void 0;
+        }
+        if (item.key === 'potion') {
+          user.stats.hp += 15;
+          if (user.stats.hp > 50) {
             user.stats.hp = 50;
           }
-        }
-        user.stats.exp = stats.exp;
-        if ((_ref = user.flags) == null) {
-          user.flags = {};
-        }
-        if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
-          user.flags.customizationsNotification = true;
-        }
-        if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
-          user.flags.itemsEnabled = true;
-        }
-        if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
-          user.flags.partyEnabled = true;
-        }
-        if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
-          user.flags.dropsEnabled = true;
-          if (user.items.eggs["Wolf"] > 0) {
-            user.items.eggs["Wolf"]++;
-          } else {
-            user.items.eggs["Wolf"] = 1;
+        } else {
+          user.items.gear.equipped[item.type] = item.key;
+          user.items.gear.owned[item.key] = true;
+          message = user.fns.handleTwoHanded(item);
+          if (message == null) {
+            message = "Bought " + item.text + ".";
+          }
+          if (!user.achievements.ultimateGear && item.last) {
+            user.fns.ultimateGear();
           }
         }
-        if (!user.flags.classSelected && user.stats.lvl >= 10) {
-          user.flags.classSelected;
-        }
-        if (!((_ref1 = user.flags.levelDrops) != null ? _ref1.vice1 : void 0) && user.stats.lvl >= 30) {
-          if ((_ref2 = (_base = user.items.quests).vice1) == null) {
-            _base.vice1 = 0;
-          }
-          user.items.quests.vice1++;
-          ((_ref3 = (_base1 = user.flags).levelDrops) != null ? _ref3 : _base1.levelDrops = {}).vice1 = true;
-          if (typeof user.markModified === "function") {
-            user.markModified('flags.levelDrops');
-          }
-          user._tmp.drop = _.defaults(content.quests.vice1, {
-            type: 'Quest',
-            dialog: "You've found the quest \"" + content.quests.vice1.text + "\"!"
-          });
-        }
-        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
-          return user.flags.rebirthEnabled = true;
-        }
+        user.stats.gp -= item.value;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, _.pick(user, $w('items achievements stats'))) : void 0;
       },
-      /*
-        ------------------------------------------------------
-        Cron
-        ------------------------------------------------------
-      */
-
-      /*
-        At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-        For incomplete Dailys, deduct experience
-        Make sure to run this function once in a while as server will not take care of overnight calculations.
-        And you have to run it every time client connects.
-        {user}
-      */
-
-      cron: function(options) {
-        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
-
-        if (options == null) {
-          options = {};
+      sell: function(req, cb) {
+        var key, type, _ref;
+        _ref = req.params, key = _ref.key, type = _ref.type;
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
+          }) : void 0;
         }
-        now = +options.now || +(new Date);
-        daysMissed = api.daysSince(user.lastCron, _.defaults({
-          now: now
-        }, user.preferences));
-        if (!(daysMissed > 0)) {
-          return;
+        if (!user.items[type][key]) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":key not found for user.items." + type
+          }) : void 0;
         }
-        user.auth.timestamps.loggedin = new Date();
-        user.lastCron = now;
-        if (user.items.lastDrop.count > 0) {
-          user.items.lastDrop.count = 0;
+        user.items[type][key]--;
+        user.stats.gp += content[type][key].value;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
+      },
+      equip: function(req, cb) {
+        var item, key, message, type, _ref;
+        _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
+        switch (type) {
+          case 'mount':
+            user.items.currentMount = user.items.currentMount === key ? '' : key;
+            break;
+          case 'pet':
+            user.items.currentPet = user.items.currentPet === key ? '' : key;
+            break;
+          case 'costume':
+          case 'equipped':
+            item = content.gear.flat[key];
+            user.items.gear[type][item.type] = item.key;
+            message = user.fns.handleTwoHanded(item, type);
         }
-        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
-        if (user.stats.mp > user._statsComputed.maxMP) {
-          user.stats.mp = user._statsComputed.maxMP;
+        return typeof cb === "function" ? cb((message ? {
+          code: 200,
+          message: message
+        } : null), user.items) : void 0;
+      },
+      hatch: function(req, cb) {
+        var egg, hatchingPotion, pet, _ref;
+        _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
+        if (!(egg && hatchingPotion)) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Please specify query.egg & query.hatchingPotion"
+          }) : void 0;
         }
-        perfect = true;
-        clearBuffs = {
-          str: 0,
-          int: 0,
-          per: 0,
-          con: 0,
-          stealth: 0,
-          streaks: false
+        if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You're missing either that egg or that potion"
+          }) : void 0;
+        }
+        pet = "" + egg + "-" + hatchingPotion;
+        if (user.items.pets[pet] && user.items.pets[pet] > 0) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You already have that pet. Try hatching a different combination!"
+          }) : void 0;
+        }
+        user.items.pets[pet] = 5;
+        user.items.eggs[egg]--;
+        user.items.hatchingPotions[hatchingPotion]--;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: "Your egg hatched! Visit your stable to equip your pet."
+        }, user.items) : void 0;
+      },
+      unlock: function(req, cb, ga) {
+        var alreadyOwns, cost, fullSet, k, path, split, v;
+        path = req.query.path;
+        fullSet = ~path.indexOf(",");
+        cost = fullSet ? 1.25 : 0.5;
+        alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
+        if (user.balance < cost && !alreadyOwns) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "Not enough gems"
+          }) : void 0;
+        }
+        if (fullSet) {
+          _.each(path.split(","), function(p) {
+            user.fns.dotSet("purchased." + p, true);
+            return true;
+          });
+        } else {
+          if (alreadyOwns) {
+            split = path.split('.');
+            v = split.pop();
+            k = split.join('.');
+            user.fns.dotSet("preferences." + k, v);
+            return typeof cb === "function" ? cb(null, req) : void 0;
+          }
+          user.fns.dotSet("purchased." + path, true);
+        }
+        user.balance -= cost;
+        if (typeof user.markModified === "function") {
+          user.markModified('purchased');
+        }
+        if (typeof cb === "function") {
+          cb(null, _.pick(user, $w('purchased preferences')));
+        }
+        return ga != null ? ga.event('purchase', path).send() : void 0;
+      },
+      changeClass: function(req, cb, ga) {
+        var klass, _ref;
+        klass = (_ref = req.query) != null ? _ref["class"] : void 0;
+        if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
+          user.stats["class"] = klass;
+          user.flags.classSelected = true;
+          _.each(["weapon", "armor", "shield", "head"], function(type) {
+            var foundKey;
+            foundKey = false;
+            _.findLast(user.items.gear.owned, function(v, k) {
+              if (~k.indexOf(type + "_" + klass) && v === true) {
+                return foundKey = k;
+              }
+            });
+            user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
+            if (type === "weapon" || (type === "shield" && klass === "rogue")) {
+              user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
+            }
+            return true;
+          });
+        } else {
+          if (user.preferences.disableClasses) {
+            user.preferences.disableClasses = false;
+            user.preferences.autoAllocate = false;
+          } else {
+            if (!(user.balance >= .75)) {
+              return typeof cb === "function" ? cb({
+                code: 401,
+                message: "Not enough gems"
+              }) : void 0;
+            }
+            user.balance -= .75;
+          }
+          _.merge(user.stats, {
+            str: 0,
+            con: 0,
+            per: 0,
+            int: 0,
+            points: user.stats.lvl
+          });
+          user.flags.classSelected = false;
+          if (ga != null) {
+            ga.event('purchase', 'changeClass').send();
+          }
+        }
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
+      },
+      disableClasses: function(req, cb) {
+        user.stats["class"] = 'warrior';
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = true;
+        user.preferences.autoAllocate = true;
+        user.stats.str = user.stats.lvl;
+        user.stats.points = 0;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
+      },
+      allocate: function(req, cb) {
+        var stat;
+        stat = req.query.stat || 'str';
+        if (user.stats.points > 0) {
+          user.stats[stat]++;
+          user.stats.points--;
+          if (stat === 'int') {
+            user.stats.mp++;
+          }
+        }
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
+      },
+      readValentine: function(req, cb) {
+        user.items.special.valentineReceived.shift();
+        if (typeof user.markModified === "function") {
+          user.markModified('items.special.valentineReceived');
+        }
+        return typeof cb === "function" ? cb(null, 'items.special') : void 0;
+      },
+      score: function(req, cb) {
+        var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
+        _ref = req.params, id = _ref.id, direction = _ref.direction;
+        task = user.tasks[id];
+        options = req.query || {};
+        _.defaults(options, {
+          times: 1,
+          cron: false
+        });
+        user._tmp = {};
+        stats = {
+          gp: +user.stats.gp,
+          hp: +user.stats.hp,
+          exp: +user.stats.exp
         };
-        if (user.preferences.sleep === true) {
-          user.stats.buffs = clearBuffs;
-          return;
+        task.value = +task.value;
+        task.streak = ~~task.streak;
+        if (task.priority == null) {
+          task.priority = 1;
         }
-        todoTally = 0;
-        if ((_ref = (_base = user.party.quest.progress).down) == null) {
-          _base.down = 0;
+        if (task.value > stats.gp && task.type === 'reward') {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: 'Not enough Gold'
+          }) : void 0;
         }
-        user.todos.concat(user.dailys).forEach(function(task) {
-          var absVal, completed, delta, id, repeat, scheduleMisses, type, _ref1;
-
-          if (!task) {
-            return;
-          }
-          id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-          if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
-            return;
-          }
-          if (!completed) {
-            scheduleMisses = daysMissed;
-            if ((type === 'daily') && repeat) {
-              scheduleMisses = 0;
-              _.times(daysMissed, function(n) {
-                var thatDay;
-
-                thatDay = moment(now).subtract('days', n + 1);
-                if (api.shouldDo(thatDay, repeat, user.preferences)) {
-                  return scheduleMisses++;
-                }
-              });
-            }
-            if (scheduleMisses > 0) {
-              if (type === 'daily') {
-                perfect = false;
+        delta = 0;
+        calculateDelta = function() {
+          return _.times(options.times, function() {
+            var currVal, nextDelta, _ref1, _ref2;
+            currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+            nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+            if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+              if (direction === 'down' && task.type === 'daily' && options.cron) {
+                nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 0) / task.checklist.length;
               }
-              delta = user.ops.score({
-                params: {
-                  id: task.id,
-                  direction: 'down'
-                },
-                query: {
-                  times: scheduleMisses,
-                  cron: true
-                }
-              });
-              if (type === 'daily') {
-                user.party.quest.progress.down += delta;
+              if (task.type === 'todo' && direction === 'up') {
+                nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 0);
               }
             }
+            if (task.type !== 'reward') {
+              if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
+                user.stats.training[task.attribute] += nextDelta;
+              }
+              if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
+                user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+                  user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
+                }
+              }
+              task.value += nextDelta;
+            }
+            return delta += nextDelta;
+          });
+        };
+        addPoints = function() {
+          var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+          _crit = (delta > 0 ? user.fns.crit() : 1);
+          if (_crit > 1) {
+            user._tmp.crit = _crit;
           }
-          switch (type) {
-            case 'daily':
-              ((_ref1 = task.history) != null ? _ref1 : task.history = []).push({
+          intBonus = 1 + (user._statsComputed.int * .025);
+          stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+          perBonus = 1 + user._statsComputed.per * .02;
+          gpMod = delta * task.priority * _crit * perBonus;
+          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+        };
+        subtractPoints = function() {
+          var conBonus, hpMod;
+          conBonus = 1 - (user._statsComputed.con / 250);
+          if (conBonus < .1) {
+            conBonus = 0.1;
+          }
+          hpMod = delta * conBonus * task.priority * 2;
+          return stats.hp += Math.round(hpMod * 10) / 10;
+        };
+        switch (task.type) {
+          case 'habit':
+            calculateDelta();
+            if (delta > 0) {
+              addPoints();
+            } else {
+              subtractPoints();
+            }
+            th = (task.history != null ? task.history : task.history = []);
+            if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
+              th[th.length - 1].value = task.value;
+            } else {
+              th.push({
                 date: +(new Date),
                 value: task.value
               });
-              task.completed = false;
-              return _.each(task.checklist, (function(i) {
-                i.completed = false;
-                return true;
-              }));
-            case 'todo':
-              absVal = completed ? Math.abs(task.value) : task.value;
-              return todoTally += absVal;
-          }
-        });
-        user.habits.forEach(function(task) {
-          if (task.up === false || task.down === false) {
-            if (Math.abs(task.value) < 0.1) {
-              return task.value = 0;
-            } else {
-              return task.value = task.value / 2;
             }
+            if (typeof user.markModified === "function") {
+              user.markModified("habits." + (_.findIndex(user.habits, {
+                id: task.id
+              })) + ".history");
+            }
+            break;
+          case 'daily':
+            if (options.cron) {
+              calculateDelta();
+              subtractPoints();
+              if (!user.stats.buffs.streaks) {
+                task.streak = 0;
+              }
+            } else {
+              calculateDelta();
+              addPoints();
+              if (direction === 'up') {
+                task.streak = task.streak ? task.streak + 1 : 1;
+                if ((task.streak % 21) === 0) {
+                  user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+                }
+              } else {
+                if ((task.streak % 21) === 0) {
+                  user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+                }
+                task.streak = task.streak ? task.streak - 1 : 0;
+              }
+            }
+            break;
+          case 'todo':
+            if (options.cron) {
+              calculateDelta();
+            } else {
+              task.dateCompleted = direction === 'up' ? new Date : void 0;
+              calculateDelta();
+              addPoints();
+              multiplier = _.max([
+                _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 1), 1
+              ]);
+              mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
+              if (direction === 'down') {
+                mpDelta *= -1;
+              }
+              user.stats.mp += mpDelta;
+              if (user.stats.mp >= user._statsComputed.maxMP) {
+                user.stats.mp = user._statsComputed.maxMP;
+              }
+              if (user.stats.mp < 0) {
+                user.stats.mp = 0;
+              }
+            }
+            break;
+          case 'reward':
+            calculateDelta();
+            stats.gp -= Math.abs(task.value);
+            num = parseFloat(task.value).toFixed(2);
+            if (stats.gp < 0) {
+              stats.hp += stats.gp;
+              stats.gp = 0;
+            }
+        }
+        user.fns.updateStats(stats);
+        if (typeof window === 'undefined') {
+          if (direction === 'up') {
+            user.fns.randomDrop({
+              task: task,
+              delta: delta
+            });
           }
-        });
-        ((_ref1 = (_base1 = ((_ref2 = user.history) != null ? _ref2 : user.history = {})).todos) != null ? _ref1 : _base1.todos = []).push({
-          date: now,
-          value: todoTally
-        });
-        expTally = user.stats.exp;
-        lvl = 0;
-        while (lvl < (user.stats.lvl - 1)) {
-          lvl++;
-          expTally += api.tnl(lvl);
         }
-        ((_ref3 = (_base2 = user.history).exp) != null ? _ref3 : _base2.exp = []).push({
-          date: now,
-          value: expTally
-        });
-        user.fns.preenUserHistory();
-        if (typeof user.markModified === "function") {
-          user.markModified('history');
+        if (typeof cb === "function") {
+          cb(null, user);
         }
-        if (typeof user.markModified === "function") {
-          user.markModified('dailys');
-        }
-        user.stats.buffs = perfect ? ((_ref4 = (_base3 = user.achievements).perfect) != null ? _ref4 : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
-          str: lvlDiv2,
-          int: lvlDiv2,
-          per: lvlDiv2,
-          con: lvlDiv2,
-          stealth: 0,
-          streaks: false
-        }) : clearBuffs;
-        progress = user.party.quest.progress;
-        _progress = _.cloneDeep(progress);
-        _.merge(progress, {
-          down: 0,
-          up: 0
-        });
-        progress.collect = _.transform(progress.collect, (function(m, v, k) {
-          return m[k] = 0;
-        }));
-        return _progress;
-      },
-      preenUserHistory: function(minHistLen) {
-        if (minHistLen == null) {
-          minHistLen = 7;
-        }
-        _.each(user.habits.concat(user.dailys), function(task) {
-          var _ref;
-
-          if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
-            task.history = preenHistory(task.history);
-          }
-          return true;
-        });
-        _.defaults(user.history, {
-          todos: [],
-          exp: []
-        });
-        if (user.history.exp.length > minHistLen) {
-          user.history.exp = preenHistory(user.history.exp);
-        }
-        if (user.history.todos.length > minHistLen) {
-          return user.history.todos = preenHistory(user.history.todos);
-        }
-      },
-      ultimateGear: function() {
-        var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
-
-        gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
-        ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
-          return gear.last;
-        });
-        lastGearClassTypeMatrix = {};
-        _.each(content.classes, function(klass) {
-          lastGearClassTypeMatrix[klass] = {};
-          return _.each(content.gearTypes, function(type) {
-            lastGearClassTypeMatrix[klass][type] = false;
-            return true;
-          });
-        });
-        ownedLastGear.each(function(gear) {
-          if (gear.twoHanded) {
-            lastGearClassTypeMatrix[gear.klass]["shield"] = true;
-          }
-          return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
-        });
-        shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
-          return ans || _(klass).values().reduce((function(ans, gearType) {
-            return ans && gearType;
-          }), true);
-        }), false).valueOf();
-        return user.achievements.ultimateGear = shouldGrant;
+        return delta;
       }
     };
-    Object.defineProperty(user, '_statsComputed', {
-      get: function() {
-        var computed,
-          _this = this;
+  }
+  user.fns = {
+    getItem: function(type) {
+      var item;
+      item = content.gear.flat[user.items.gear.equipped[type]];
+      if (!item) {
+        return content.gear.flat["" + type + "_base_0"];
+      }
+      return item;
+    },
+    handleTwoHanded: function(item, type) {
+      var message, weapon, _ref;
+      if (type == null) {
+        type = 'equipped';
+      }
+      if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
+        user.items.gear[type].weapon = 'weapon_base_0';
+        message = "" + weapon.text + " is two-handed";
+      }
+      if (item.twoHanded) {
+        user.items.gear[type].shield = "shield_base_0";
+        message = "" + item.text + " is two-handed";
+      }
+      return message;
+    },
 
-        computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
+    /*
+    Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
+    we need things to be "random", but technically predictable so that they don't go out-of-sync
+     */
+    predictableRandom: function(seed) {
+      var x;
+      if (!seed || seed === Math.PI) {
+        seed = _.reduce(user.stats, (function(m, v) {
+          if (_.isNumber(v)) {
+            return m + v;
+          } else {
+            return m;
+          }
+        }), 0);
+      }
+      x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    },
+    crit: function(stat, chance) {
+      if (stat == null) {
+        stat = 'str';
+      }
+      if (chance == null) {
+        chance = .03;
+      }
+      if (user.fns.predictableRandom() <= chance * (1 + user._statsComputed[stat] / 100)) {
+        return 1.5 + (.02 * user._statsComputed[stat]);
+      } else {
+        return 1;
+      }
+    },
+
+    /*
+      Get a random property from an object
+      returns random property (the value)
+     */
+    randomVal: function(obj, options) {
+      var array, rand;
+      array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
+      rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
+      return array[Math.floor(rand * array.length)];
+    },
+
+    /*
+    This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
+    user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
+    so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
+    Angular sets object properties directly - in which case, this function will be used.
+     */
+    dotSet: function(path, val) {
+      var arr;
+      arr = path.split('.');
+      return _.reduce(arr, (function(_this) {
+        return function(curr, next, index) {
+          if ((arr.length - 1) === index) {
+            curr[next] = val;
+          }
+          return curr[next] != null ? curr[next] : curr[next] = {};
+        };
+      })(this), user);
+    },
+    dotGet: function(path) {
+      return _.reduce(path.split('.'), ((function(_this) {
+        return function(curr, next) {
+          return curr != null ? curr[next] : void 0;
+        };
+      })(this)), user);
+    },
+    randomDrop: function(modifiers) {
+      var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
+      task = modifiers.task;
+      chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
+      chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 20 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
+        return m + (i.completed ? 1 : 0);
+      }), 0) || 0));
+      chance = api.diminishingReturns(chance, 0.75);
+      quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
+      if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < (chance * 2)) {
+        dropK = user.fns.randomVal(quest.collect, {
+          key: true
+        });
+        user.party.quest.progress.collect[dropK]++;
+        if (typeof user.markModified === "function") {
+          user.markModified('party.quest.progress');
+        }
+      }
+      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25))) {
+        return;
+      }
+      if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
+        rarity = user.fns.predictableRandom(user.stats.gp);
+        if (rarity > .6) {
+          drop = user.fns.randomVal(_(content.food).omit('Saddle').where({
+            canBuy: true
+          }).value());
+          if ((_base = user.items.food)[_name = drop.key] == null) {
+            _base[_name] = 0;
+          }
+          user.items.food[drop.key] += 1;
+          drop.type = 'Food';
+          drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
+        } else if (rarity > .3) {
+          drop = user.fns.randomVal(_.where(content.eggs, {
+            canBuy: true
+          }));
+          if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
+            _base1[_name1] = 0;
+          }
+          user.items.eggs[drop.key]++;
+          drop.type = 'Egg';
+          drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
+        } else {
+          acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+          drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
+            return __indexOf.call(acceptableDrops, k) >= 0;
+          })));
+          if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
+            _base2[_name2] = 0;
+          }
+          user.items.hatchingPotions[drop.key]++;
+          drop.type = 'HatchingPotion';
+          drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+        }
+        user._tmp.drop = drop;
+        user.items.lastDrop.date = +(new Date);
+        return user.items.lastDrop.count++;
+      }
+    },
+
+    /*
+      Updates user stats with new stats. Handles death, leveling up, etc
+      {stats} new stats
+      {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+     */
+    autoAllocate: function() {
+      return user.stats[(function() {
+        var diff, ideal, preference, stats, suggested;
+        switch (user.preferences.allocationMode) {
+          case "flat":
+            stats = _.pick(user.stats, $w('con str per int'));
+            return _.invert(stats)[_.min(stats)];
+          case "classbased":
+            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+            preference = (function() {
+              switch (user.stats["class"]) {
+                case "wizard":
+                  return ["int", "per", "con", "str"];
+                case "rogue":
+                  return ["per", "str", "int", "con"];
+                case "healer":
+                  return ["con", "int", "str", "per"];
+                default:
+                  return ["str", "con", "per", "int"];
+              }
+            })();
+            diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
+            suggested = _.findIndex(diff, (function(val) {
+              if (val === _.min(diff)) {
+                return true;
+              }
+            }));
+            if (~suggested) {
+              return preference[suggested];
+            } else {
+              return "str";
+            }
+          case "taskbased":
+            suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
+            _.merge(user.stats.training, {
+              str: 0,
+              int: 0,
+              con: 0,
+              per: 0
+            });
+            return suggested || "str";
+          default:
+            return "str";
+        }
+      })()]++;
+    },
+    updateStats: function(stats) {
+      var tnl, _base, _base1, _ref;
+      if (stats.hp <= 0) {
+        return user.stats.hp = 0;
+      }
+      user.stats.hp = stats.hp;
+      user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
+      tnl = api.tnl(user.stats.lvl);
+      if (user.stats.lvl >= 100) {
+        stats.gp += stats.exp / 15;
+        stats.exp = 0;
+        user.stats.lvl = 100;
+      } else {
+        if (stats.exp >= tnl) {
+          user.stats.exp = stats.exp;
+          while (stats.exp >= tnl && user.stats.lvl < 100) {
+            stats.exp -= tnl;
+            user.stats.lvl++;
+            tnl = api.tnl(user.stats.lvl);
+            if (user.preferences.automaticAllocation) {
+              user.fns.autoAllocate();
+            } else {
+              user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            }
+          }
+          if (user.stats.lvl === 100) {
+            stats.exp = 0;
+          }
+          user.stats.hp = 50;
+        }
+      }
+      user.stats.exp = stats.exp;
+      if (user.flags == null) {
+        user.flags = {};
+      }
+      if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+        user.flags.customizationsNotification = true;
+      }
+      if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
+        user.flags.itemsEnabled = true;
+      }
+      if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
+        user.flags.partyEnabled = true;
+      }
+      if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
+        user.flags.dropsEnabled = true;
+        if (user.items.eggs["Wolf"] > 0) {
+          user.items.eggs["Wolf"]++;
+        } else {
+          user.items.eggs["Wolf"] = 1;
+        }
+      }
+      if (!user.flags.classSelected && user.stats.lvl >= 10) {
+        user.flags.classSelected;
+      }
+      if (!((_ref = user.flags.levelDrops) != null ? _ref.vice1 : void 0) && user.stats.lvl >= 30) {
+        if ((_base = user.items.quests).vice1 == null) {
+          _base.vice1 = 0;
+        }
+        user.items.quests.vice1++;
+        ((_base1 = user.flags).levelDrops != null ? _base1.levelDrops : _base1.levelDrops = {}).vice1 = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('flags.levelDrops');
+        }
+        user._tmp.drop = _.defaults(content.quests.vice1, {
+          type: 'Quest',
+          dialog: "You've found the quest \"" + content.quests.vice1.text + "\"!"
+        });
+      }
+      if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
+        return user.flags.rebirthEnabled = true;
+      }
+    },
+
+    /*
+      ------------------------------------------------------
+      Cron
+      ------------------------------------------------------
+     */
+
+    /*
+      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+      For incomplete Dailys, deduct experience
+      Make sure to run this function once in a while as server will not take care of overnight calculations.
+      And you have to run it every time client connects.
+      {user}
+     */
+    cron: function(options) {
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress;
+      if (options == null) {
+        options = {};
+      }
+      now = +options.now || +(new Date);
+      daysMissed = api.daysSince(user.lastCron, _.defaults({
+        now: now
+      }, user.preferences));
+      if (!(daysMissed > 0)) {
+        return;
+      }
+      user.auth.timestamps.loggedin = new Date();
+      user.lastCron = now;
+      if (user.items.lastDrop.count > 0) {
+        user.items.lastDrop.count = 0;
+      }
+      user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
+      if (user.stats.mp > user._statsComputed.maxMP) {
+        user.stats.mp = user._statsComputed.maxMP;
+      }
+      perfect = true;
+      clearBuffs = {
+        str: 0,
+        int: 0,
+        per: 0,
+        con: 0,
+        stealth: 0,
+        streaks: false
+      };
+      if (user.preferences.sleep === true) {
+        user.stats.buffs = clearBuffs;
+        return;
+      }
+      todoTally = 0;
+      if ((_base = user.party.quest.progress).down == null) {
+        _base.down = 0;
+      }
+      user.todos.concat(user.dailys).forEach(function(task) {
+        var absVal, completed, delta, id, repeat, scheduleMisses, type;
+        if (!task) {
+          return;
+        }
+        id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
+        if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
+          return;
+        }
+        if (!completed) {
+          scheduleMisses = daysMissed;
+          if ((type === 'daily') && repeat) {
+            scheduleMisses = 0;
+            _.times(daysMissed, function(n) {
+              var thatDay;
+              thatDay = moment(now).subtract('days', n + 1);
+              if (api.shouldDo(thatDay, repeat, user.preferences)) {
+                return scheduleMisses++;
+              }
+            });
+          }
+          if (scheduleMisses > 0) {
+            if (type === 'daily') {
+              perfect = false;
+            }
+            delta = user.ops.score({
+              params: {
+                id: task.id,
+                direction: 'down'
+              },
+              query: {
+                times: scheduleMisses,
+                cron: true
+              }
+            });
+            if (type === 'daily') {
+              user.party.quest.progress.down += delta;
+            }
+          }
+        }
+        switch (type) {
+          case 'daily':
+            (task.history != null ? task.history : task.history = []).push({
+              date: +(new Date),
+              value: task.value
+            });
+            task.completed = false;
+            return _.each(task.checklist, (function(i) {
+              i.completed = false;
+              return true;
+            }));
+          case 'todo':
+            absVal = completed ? Math.abs(task.value) : task.value;
+            return todoTally += absVal;
+        }
+      });
+      user.habits.forEach(function(task) {
+        if (task.up === false || task.down === false) {
+          if (Math.abs(task.value) < 0.1) {
+            return task.value = 0;
+          } else {
+            return task.value = task.value / 2;
+          }
+        }
+      });
+      ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? _base1.todos : _base1.todos = []).push({
+        date: now,
+        value: todoTally
+      });
+      expTally = user.stats.exp;
+      lvl = 0;
+      while (lvl < (user.stats.lvl - 1)) {
+        lvl++;
+        expTally += api.tnl(lvl);
+      }
+      ((_base2 = user.history).exp != null ? _base2.exp : _base2.exp = []).push({
+        date: now,
+        value: expTally
+      });
+      user.fns.preenUserHistory();
+      if (typeof user.markModified === "function") {
+        user.markModified('history');
+      }
+      if (typeof user.markModified === "function") {
+        user.markModified('dailys');
+      }
+      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
+        str: lvlDiv2,
+        int: lvlDiv2,
+        per: lvlDiv2,
+        con: lvlDiv2,
+        stealth: 0,
+        streaks: false
+      }) : clearBuffs;
+      progress = user.party.quest.progress;
+      _progress = _.cloneDeep(progress);
+      _.merge(progress, {
+        down: 0,
+        up: 0
+      });
+      progress.collect = _.transform(progress.collect, (function(m, v, k) {
+        return m[k] = 0;
+      }));
+      return _progress;
+    },
+    preenUserHistory: function(minHistLen) {
+      if (minHistLen == null) {
+        minHistLen = 7;
+      }
+      _.each(user.habits.concat(user.dailys), function(task) {
+        var _ref;
+        if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
+          task.history = preenHistory(task.history);
+        }
+        return true;
+      });
+      _.defaults(user.history, {
+        todos: [],
+        exp: []
+      });
+      if (user.history.exp.length > minHistLen) {
+        user.history.exp = preenHistory(user.history.exp);
+      }
+      if (user.history.todos.length > minHistLen) {
+        return user.history.todos = preenHistory(user.history.todos);
+      }
+    },
+    ultimateGear: function() {
+      var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
+      gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
+      ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
+        return gear.last;
+      });
+      lastGearClassTypeMatrix = {};
+      _.each(content.classes, function(klass) {
+        lastGearClassTypeMatrix[klass] = {};
+        return _.each(content.gearTypes, function(type) {
+          lastGearClassTypeMatrix[klass][type] = false;
+          return true;
+        });
+      });
+      ownedLastGear.each(function(gear) {
+        if (gear.twoHanded) {
+          lastGearClassTypeMatrix[gear.klass]["shield"] = true;
+        }
+        return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
+      });
+      shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
+        return ans || _(klass).values().reduce((function(ans, gearType) {
+          return ans && gearType;
+        }), true);
+      }), false).valueOf();
+      return user.achievements.ultimateGear = shouldGrant;
+    }
+  };
+  Object.defineProperty(user, '_statsComputed', {
+    get: function() {
+      var computed;
+      computed = _.reduce(['per', 'con', 'str', 'int'], (function(_this) {
+        return function(m, stat) {
           m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
             var item, val;
-
             val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
           }, 0);
           m[stat] += (user.stats.lvl - 1) / 2;
           return m;
-        }, {});
-        computed.maxMP = computed.int * 2 + 30;
-        return computed;
-      }
-    });
-    return Object.defineProperty(user, 'tasks', {
-      get: function() {
-        var tasks;
-
-        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-        return _.object(_.pluck(tasks, "id"), tasks);
-      }
-    });
-  };
-
-}).call(this);
+        };
+      })(this), {});
+      computed.maxMP = computed.int * 2 + 30;
+      return computed;
+    }
+  });
+  return Object.defineProperty(user, 'tasks', {
+    get: function() {
+      var tasks;
+      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
+      return _.object(_.pluck(tasks, "id"), tasks);
+    }
+  });
+};
 
 
-},{"./content.coffee":5,"__browserify_process":2,"lodash":3,"moment":4}]},{},[1])
-;
+}).call(this,require("C:\\Projects\\HabitRPG-Shared\\node_modules\\browserify\\node_modules\\insert-module-globals\\node_modules\\process\\browser.js"))
+},{"./content.coffee":5,"C:\\Projects\\HabitRPG-Shared\\node_modules\\browserify\\node_modules\\insert-module-globals\\node_modules\\process\\browser.js":2,"lodash":3,"moment":4}]},{},[1])
