@@ -61,5 +61,6 @@
     "deleteDo": "Zrób to, usuń moje konto!",
     "enterNumber": "Wpisz liczbę pomiędzy 0 a 24",
     "fillAll": "Proszę, wypełnij wszystkie pola",
-    "passSuccess": "Hasło zostało pomyślnie zmienione"
+    "passSuccess": "Hasło zostało pomyślnie zmienione",
+    "difficulty": "Difficulty"
 }

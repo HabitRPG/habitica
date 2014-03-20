@@ -10,7 +10,7 @@
     "accepted": "Aceptado",
     "rejected": "Rechazado ",
     "pending": "Pendiente",
-    "questStart": "Cuando todos los miembros aceptan o rechazan, comienza la misión. Solo los que hicieron clic en \"aceptar\" podrán participar en la misión y recibirán el botíin. Si los miembros al pendiente tardan demasiado (¿inactivos?), puedes comenzar de nuevo oprimiendo \"Comenzar\".",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Comenzar",
     "bossHP": "Vida del Jefe",
     "collected": "Recogido",

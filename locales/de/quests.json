@@ -10,7 +10,7 @@
     "accepted": "Angenommen",
     "rejected": "Abgelehnt",
     "pending": "Überlegt noch",
-    "questStart": "Sobald alle Mitglieder entweder angenommen oder abgelehnt haben beginnt das Quest. Nur diejenigen, die \"angenommen\" haben können an dem Quest teilnehmen und die Belohnungen kassieren. Wenn Mitglieder zu lange überlegen (inaktiv?), dann kannst Du ohne sie starten indem Du auf \"Beginnen\" klickst.",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Beginnen",
     "bossHP": "Boss Lebenspunkte",
     "collected": "Gesammelt",

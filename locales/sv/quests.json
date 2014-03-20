@@ -10,7 +10,7 @@
     "accepted": "Accepterade",
     "rejected": "Avslog",
     "pending": "Inte svarat än",
-    "questStart": "Uppgraget börjar när alla medlemmar antingen har accepterat eller nekat inbjudan. Endast de som har accepterat kommer kunna delta på uppdraget och ta emot bytet. Om någon medlem tar för lång tid på sig att svara (inaktiv?) kan du börja utan dem genom att klicka på \"Starta\".",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Starta",
     "bossHP": "Bossens Hälsa",
     "collected": "Samlade",

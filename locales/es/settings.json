@@ -61,5 +61,6 @@
     "deleteDo": "¡Hazlo, elimina mi cuenta!",
     "enterNumber": "Por favor, introduce un número entre 0 y 24",
     "fillAll": "Por favor, rellene todos los campos",
-    "passSuccess": "Contraseña cambiada con éxito"
+    "passSuccess": "Contraseña cambiada con éxito",
+    "difficulty": "Difficulty"
 }

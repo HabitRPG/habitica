@@ -10,7 +10,7 @@
     "accepted": "Принято",
     "rejected": "Отклонено",
     "pending": "В ожидании",
-    "questStart": "Квест начнется, когда все члены команды примут или отклонят его. Принять участие и получить выпадающие предметы смогут только те, кто нажал «принять». Если на приглашение не отвечают слишком долго (неактивный аккаунт?), вы можете начать без них, нажав «Начать».",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Начать",
     "bossHP": "Здоровье босса",
     "collected": "Собрано",

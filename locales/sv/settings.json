@@ -61,5 +61,6 @@
     "deleteDo": "Gör det, ta bort mitt konto!",
     "enterNumber": "Var vänlig ange ett nummer mellan 0 och 24",
     "fillAll": "Var vänlig fyll i alla fält",
-    "passSuccess": "Lösenord ändrades framgångsrikt"
+    "passSuccess": "Lösenord ändrades framgångsrikt",
+    "difficulty": "Difficulty"
 }

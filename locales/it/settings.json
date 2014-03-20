@@ -61,5 +61,6 @@
     "deleteDo": "Sì, resetta il mio account!",
     "enterNumber": "Inserisci un numero compreso tra 0 e 24",
     "fillAll": "Compila tutti i campi",
-    "passSuccess": "Password modificata con successo"
+    "passSuccess": "Password modificata con successo",
+    "difficulty": "Difficulty"
 }

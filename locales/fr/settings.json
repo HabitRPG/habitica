@@ -61,5 +61,6 @@
     "deleteDo": "Allez-y, supprimez mon compte !",
     "enterNumber": "Veuillez entrer un chiffre entre 0 et 24",
     "fillAll": "Veuillez remplir tous les champs",
-    "passSuccess": "Mot de passe changé avec succès "
+    "passSuccess": "Mot de passe changé avec succès ",
+    "difficulty": "Difficulty"
 }

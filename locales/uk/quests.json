@@ -10,7 +10,7 @@
     "accepted": "Прийнято",
     "rejected": "Відхилено",
     "pending": "Не розглянуто",
-    "questStart": "Коли всі учасники приймуть чи відхилять квест, він почнеться. Лише ті, хто обрав „Прийняти“, братимуть участь у квесті, та їм випадатимуть предмети. Якщо учасники занадто довго очікують (неактивні?), Ви можете розпочати без них, клацнувши „Почати“.",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Почати",
     "bossHP": "Здоров'я боса",
     "collected": "Зібрано",

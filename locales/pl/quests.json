@@ -10,7 +10,7 @@
     "accepted": "Zaakceptowano",
     "rejected": "Odrzucono",
     "pending": "Oczekujące",
-    "questStart": "W momencie gdy wszyscy członkowie zaakceptują lub odrzucą Misję, ta rozpoczyna się. Tylko ci, którzy kliknęli 'zaakceptuj' będą mogli brać udział w Misji, i otrzymają nagrodę. Jeśli któryś ze członków zbyt długo zwleka z wyborem (być może jest nieaktywny?) możesz rozpocząć Misję bez niego, klikając 'Rozpocznij'.",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Rozpocznij",
     "bossHP": "Zdrowie Bossa",
     "collected": "Zebrano",

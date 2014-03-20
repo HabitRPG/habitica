@@ -10,7 +10,7 @@
     "accepted": "Accettata",
     "rejected": "Rifiutata",
     "pending": "In attesa",
-    "questStart": "Quando tutti i membri hanno accettato o rifiutato, la missione comincia. Solo quelli che hanno cliccato \"accetta\" saranno in grado di partecipare alla missione e ricevere gli oggetti. Se ci sono membri in attesa da troppo tempo (inattivi?), puoi iniziare senza di loro cliccando su \"Inizia\".",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Inizia",
     "bossHP": "Salute del Boss",
     "collected": "Collezionati",

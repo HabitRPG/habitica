@@ -10,7 +10,7 @@
     "accepted": "Acceptée",
     "rejected": "Rejetée",
     "pending": "En attente",
-    "questStart": "Une fois que tous les membres ont soit accepté, soit refusé, la quête commence. Seuls ceux qui ont cliqué sur \"accepter\" pourront participer à la quête et recevoir les récompenses. Si certains membres mettent trop de temps à répondre (peut-être qu'ils sont inactifs ?), vous pouvez commencer sans eux en cliquant sur \"commencer\".",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Commencer",
     "bossHP": "Vie du boss",
     "collected": "Récolté",

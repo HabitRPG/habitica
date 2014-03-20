@@ -61,5 +61,6 @@
     "deleteDo": "Ja, verwijder mijn account!",
     "enterNumber": "Vul een nummer tussen 0 en 24 in",
     "fillAll": "Vul alsjeblieft alle velden in",
-    "passSuccess": "Wachtwoord is succesvol aangepast"
+    "passSuccess": "Wachtwoord is succesvol aangepast",
+    "difficulty": "Difficulty"
 }

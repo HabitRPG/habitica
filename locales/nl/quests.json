@@ -10,7 +10,7 @@
     "accepted": "Geaccepteerd",
     "rejected": "Afgewezen",
     "pending": "In Afwachting",
-    "questStart": "Wanneer alle leden geaccepteerd of afgewezen hebben zal de queeste beginnen. Alleen degenen die geaccepteerd hebben zullen meedoen met de queeste en vondsten ontvangen. Als leden te lang in afwachting zijn (inactief?) kun je zonder deze leden starten door op \"Begin\" te klikken.",
+    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
     "begin": "Begin",
     "bossHP": "Eindbaas Gezondheid",
     "collected": "Verzameld",
