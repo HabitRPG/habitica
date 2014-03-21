@@ -16,15 +16,6 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               span.glyphicon.glyphicon-calendar
             // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>
 
-          // Gold & Gems
-          span.option-box.pull-right.wallet(bo-if='main && list.type=="reward"')
-            .money
-              | {{Shared.gold(user.stats.gp)}}
-              span.shop_gold(tooltip=env.t('gold'))
-            .money
-              | {{Shared.silver(user.stats.gp)}}
-              span.shop_silver(tooltip=env.t('silver'))
-
           // Header
           h2.task-column_title {{list.header}}
 

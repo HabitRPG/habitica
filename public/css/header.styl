@@ -2,9 +2,11 @@
 -------------------- */
 .header-wrap
   width: 100% // this is for the sticky
-  padding: 0
+  padding: 54px 0 0 0 // add padding-top when navbar is fixed
+  @media screen and (max-width:768px)  // remove padding-top when navbar is static
+    padding: 0
   z-index: 100
-  background: #f5f5f5
+  background-color: darken($color-herobox, 8%)
   border-bottom: 1px solid rgba(0,0,0,0.2)
   // margin-top: -1px
   overflow-y: hidden
@@ -110,7 +112,9 @@
   display: table-cell
   vertical-align: middle
   min-width:175px
-  
+  background-color: darken($color-herobox, 4%)
+  border-right: 1px solid darken($color-herobox, 12%)
+
   .meter, .bar
     box-shadow: none
     border-radius: 0
