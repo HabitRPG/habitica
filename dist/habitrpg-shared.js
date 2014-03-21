@@ -9186,7 +9186,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
   classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
-  gearTypes = ['armor', 'weapon', 'shield', 'head', 'back'];
+  gearTypes = ['armor', 'weapon', 'shield', 'head', 'back', 'headAccessory'];
 
   events = {
     winter: {
@@ -9196,6 +9196,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     birthday: {
       start: '2013-01-30',
       end: '2014-02-01'
+    },
+    spring: {
+      start: '2014-03-21',
+      end: '2014-05-01'
     }
   };
 
@@ -9470,9 +9474,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         yeti: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
+          specialClass: 'warrior',
           text: "Yeti-Tamer Spear",
           notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.',
           str: 15,
@@ -9480,9 +9482,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         ski: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
+          specialClass: 'rogue',
           text: "Ski-sassin Pole",
           notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
           str: 8,
@@ -9490,9 +9490,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         candycane: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
+          specialClass: 'wizard',
           twoHanded: true,
           text: "Candy Cane Staff",
           notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.",
@@ -9502,13 +9500,44 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         snowflake: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
+          specialClass: 'healer',
           text: "Snowflake Wand",
           notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.',
           int: 9,
           value: 90
+        },
+        springRogue: {
+          event: events.spring,
+          specialClass: 'rogue',
+          text: 'Hook Claws',
+          notes: 'Great for scaling tall buildings, and also for shredding carpets. Limited Edition 2014 Spring Gear.',
+          value: 80,
+          str: 8
+        },
+        springWarrior: {
+          event: events.spring,
+          specialClass: 'warrior',
+          text: 'Carrot Sword',
+          notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Limited Edition 2014 Spring Gear.',
+          value: 90,
+          str: 15
+        },
+        springMage: {
+          event: events.spring,
+          specialClass: 'mage',
+          text: 'Swiss Cheese Staff',
+          notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Limited Edition 2014 Spring Gear.',
+          value: 160,
+          int: 15,
+          per: 7
+        },
+        springHealer: {
+          event: events.spring,
+          specialClass: 'healer',
+          text: 'Lovely Bone',
+          notes: 'FETCH! Limited Edition 2014 Spring Gear.',
+          value: 90,
+          int: 9
         }
       }
     },
@@ -9692,9 +9721,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         yeti: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
+          specialClass: 'warrior',
           text: "Yeti-Tamer Robe",
           notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
           con: 9,
@@ -9702,9 +9729,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         ski: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
+          specialClass: 'rogue',
           text: "Ski-sassin Parka",
           notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
           per: 15,
@@ -9712,9 +9737,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         candycane: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
+          specialClass: 'wizard',
           text: "Candy Cane Robe",
           notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
           int: 9,
@@ -9722,9 +9745,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         snowflake: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
+          specialClass: 'healer',
           text: "Snowflake Robe",
           notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
           con: 15,
@@ -9735,6 +9756,38 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           text: "Absurd Party Robes",
           notes: "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
           value: 0
+        },
+        springRogue: {
+          event: events.spring,
+          specialClass: 'rogue',
+          text: 'Sleek Cat Suit',
+          notes: 'Impeccably groomed. Limited Edition 2014 Spring Gear.',
+          value: 90,
+          per: 15
+        },
+        springWarrior: {
+          event: events.spring,
+          specialClass: 'warrior',
+          text: 'Clover-steel Armor',
+          notes: 'Soft as clover, strong as steel! Limited Edition 2014 Spring Gear.',
+          value: 90,
+          con: 9
+        },
+        springMage: {
+          event: events.spring,
+          specialClass: 'mage',
+          text: 'Rodentia Robes',
+          notes: 'Mice are nice! Limited Edition 2014 Spring Gear.',
+          value: 90,
+          int: 9
+        },
+        springHealer: {
+          event: events.spring,
+          specialClass: 'healer',
+          text: 'Fuzzy Puppy Robes',
+          notes: 'Warm and snuggly, but protects its owner from harm. Limited Edition 2014 Spring Gear.',
+          value: 90,
+          con: 15
         }
       },
       mystery: {
@@ -9932,9 +9985,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         yeti: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
+          specialClass: 'warrior',
           text: "Yeti-Tamer Helm",
           notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
           str: 9,
@@ -9942,9 +9993,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         ski: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
+          specialClass: 'rogue',
           text: "Ski-sassin Helm",
           notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
           per: 9,
@@ -9952,9 +10001,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         candycane: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
+          specialClass: 'wizard',
           text: "Candy Cane Hat",
           notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
           per: 7,
@@ -9962,13 +10009,43 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         snowflake: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
+          specialClass: 'healer',
           text: "Snowflake Crown",
           notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
           int: 7,
           value: 60
+        },
+        springRogue: {
+          event: events.spring,
+          specialClass: 'rogue',
+          text: 'Stealthy Kitty Mask',
+          notes: 'Nobody will EVER guess that you are a cat burglar! Limited Edition 2014 Spring Gear.',
+          value: 40,
+          per: 9
+        },
+        springWarrior: {
+          event: events.spring,
+          specialClass: 'warrior',
+          text: 'Clover-steel Helmet',
+          notes: 'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Limited Edition 2014 Spring Gear.',
+          value: 40,
+          per: 9
+        },
+        springMage: {
+          event: events.spring,
+          specialClass: 'mage',
+          text: 'Swiss Cheese Hat',
+          notes: 'This hat stores lots of powerful magic! Try not to nibble it. Limited Edition 2014 Spring Gear.',
+          value: 40,
+          per: 7
+        },
+        springHealer: {
+          event: events.spring,
+          specialClass: 'healer',
+          text: 'Crown of Friendship',
+          notes: "This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Limited Edition 2014 Spring Gear.",
+          value: 40,
+          int: 7
         }
       },
       mystery: {
@@ -10128,9 +10205,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         yeti: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
+          specialClass: 'warrior',
           text: "Yeti-Tamer Shield",
           notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
           con: 7,
@@ -10138,9 +10213,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         ski: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
+          specialClass: 'rogue',
           text: "Ski-sassin Pole",
           notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
           str: 8,
@@ -10148,13 +10221,38 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         snowflake: {
           event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
+          specialClass: 'healer',
           text: "Snowflake Shield",
           notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
           con: 9,
           value: 70
+        },
+        springRogue: {
+          event: events.spring,
+          specialClass: 'rogue',
+          specialClass: 'rogue',
+          text: 'Hook Claws',
+          notes: 'Great for scaling tall buildings, and also for shredding carpets. Limited Edition 2014 Spring Gear.',
+          value: 80,
+          str: 8
+        },
+        springWarrior: {
+          event: events.spring,
+          specialClass: 'warrior',
+          specialClass: 'warrior',
+          text: 'Egg Shield',
+          notes: "This shield never cracks, no matter how hard you hit it! Limited Edition 2014 Spring Gear.",
+          value: 70,
+          con: 7
+        },
+        springHealer: {
+          event: events.spring,
+          specialClass: 'healer',
+          specialClass: 'healer',
+          text: 'Squeaky Ball of Ultimate Protection',
+          notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Limited Edition 2014 Spring Gear.",
+          value: 70,
+          con: 9
         }
       }
     },
@@ -10163,8 +10261,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         0: {
           text: "No Back Accessory",
           notes: 'No Back Accessory.',
-          value: 0,
-          last: true
+          value: 0
         }
       },
       mystery: {
@@ -10173,6 +10270,46 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: "These shining wings have feathers that glitter in the sun!",
           mystery: mystery['201402'],
           value: 10
+        }
+      }
+    },
+    headAccessory: {
+      base: {
+        0: {
+          text: 'No Head Accessory',
+          notes: 'No Head Accessory',
+          value: 0,
+          last: true
+        }
+      },
+      special: {
+        springRogue: {
+          event: events.spring,
+          specialClass: 'rogue',
+          text: "Purple Cat Ears",
+          notes: "These feline ears twitch to detect incoming threats. Limited Edition 2014 Spring Gear.",
+          value: 20
+        },
+        springWarrior: {
+          event: events.spring,
+          specialClass: 'warrior',
+          text: 'Green Bunny Ears',
+          notes: "Bunny ears that keenly detect every crunch of a carrot. Limited Edition 2014 Spring Gear.",
+          value: 20
+        },
+        springMage: {
+          event: events.spring,
+          specialClass: 'mage',
+          text: 'Blue Mouse Ears',
+          notes: 'These round mouse ears are silky-soft. Limited Edition 2014 Spring Gear.',
+          value: 20
+        },
+        springHealer: {
+          event: events.spring,
+          specialClass: 'healer',
+          text: 'Yellow Dog Ears',
+          notes: 'Floppy but cute. Wanna play? Limited Edition 2014 Spring Gear.',
+          value: 20
         }
       }
     }
@@ -10210,7 +10347,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             return true;
           });
           item.canOwn = function(u) {
-            return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
+            return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end))) && (item.specialClass ? u.stats["class"] === item.specialClass : true);
           };
         }
         if (item.mystery) {
@@ -11395,7 +11532,7 @@ var process=require("__browserify_process");(function() {
       return;
     }
     changes = [];
-    _.each(['weapon', 'armor', 'shield', 'head', 'back'], function(type) {
+    _.each(['weapon', 'armor', 'shield', 'head', 'back', 'headAccessory'], function(type) {
       var found;
 
       found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
@@ -11424,10 +11561,12 @@ var process=require("__browserify_process");(function() {
           return 4;
         case 'back':
           return 5;
-        case 'potion':
+        case 'headAccessory':
           return 6;
-        default:
+        case 'potion':
           return 7;
+        default:
+          return 8;
       }
     });
   };
@@ -13100,7 +13239,7 @@ var process=require("__browserify_process");(function() {
         lastGearClassTypeMatrix = {};
         _.each(content.classes, function(klass) {
           lastGearClassTypeMatrix[klass] = {};
-          return _.each(content.gearTypes, function(type) {
+          return _.each(['armor', 'weapon', 'shield', 'head'], function(type) {
             lastGearClassTypeMatrix[klass][type] = false;
             return true;
           });
