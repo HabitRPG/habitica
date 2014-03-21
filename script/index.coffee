@@ -648,8 +648,12 @@ api.wrap = (user, main=true) ->
             user.items.currentPet = if user.items.currentPet is key then '' else key
           when 'costume','equipped'
             item = content.gear.flat[key]
-            user.items.gear[type][item.type] = item.key
-            message = user.fns.handleTwoHanded(item,type)
+            if user.items.gear[type][item.type] is key
+              user.items.gear[type][item.type] = "#{item.type}_base_0"
+              message = "#{item.text} un-equipped."
+            else
+              user.items.gear[type][item.type] = item.key
+              message = user.fns.handleTwoHanded(item,type)
         cb? (if message then {code:200,message} else null), user.items
 
       hatch: (req, cb) ->

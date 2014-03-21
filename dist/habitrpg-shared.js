@@ -12425,8 +12425,13 @@ var process=require("__browserify_process");(function() {
             case 'costume':
             case 'equipped':
               item = content.gear.flat[key];
-              user.items.gear[type][item.type] = item.key;
-              message = user.fns.handleTwoHanded(item, type);
+              if (user.items.gear[type][item.type] === key) {
+                user.items.gear[type][item.type] = "" + item.type + "_base_0";
+                message = "" + item.text + " un-equipped.";
+              } else {
+                user.items.gear[type][item.type] = item.key;
+                message = user.fns.handleTwoHanded(item, type);
+              }
           }
           return typeof cb === "function" ? cb((message ? {
             code: 200,
