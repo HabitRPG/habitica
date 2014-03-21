@@ -9524,7 +9524,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         springMage: {
           event: events.spring,
-          specialClass: 'mage',
+          specialClass: 'wizard',
           text: 'Swiss Cheese Staff',
           notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Limited Edition 2014 Spring Gear.',
           value: 160,
@@ -9775,7 +9775,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         springMage: {
           event: events.spring,
-          specialClass: 'mage',
+          specialClass: 'wizard',
           text: 'Rodentia Robes',
           notes: 'Mice are nice! Limited Edition 2014 Spring Gear.',
           value: 90,
@@ -10033,7 +10033,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         springMage: {
           event: events.spring,
-          specialClass: 'mage',
+          specialClass: 'wizard',
           text: 'Swiss Cheese Hat',
           notes: 'This hat stores lots of powerful magic! Try not to nibble it. Limited Edition 2014 Spring Gear.',
           value: 40,
@@ -10299,7 +10299,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         springMage: {
           event: events.spring,
-          specialClass: 'mage',
+          specialClass: 'wizard',
           text: 'Blue Mouse Ears',
           notes: 'These round mouse ears are silky-soft. Limited Edition 2014 Spring Gear.',
           value: 20

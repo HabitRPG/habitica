@@ -78,7 +78,7 @@ gear =
       #Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Limited Edition 2014 Spring Gear.', value: 80, str: 8
       springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Limited Edition 2014 Spring Gear.', value: 90, str: 15
-      springMage:     event: events.spring, specialClass: 'mage',    text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
+      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Limited Edition 2014 Spring Gear.', value: 90, int: 9
 
   armor:
@@ -125,7 +125,7 @@ gear =
       # Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Limited Edition 2014 Spring Gear.', value: 90, per: 15
       springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Limited Edition 2014 Spring Gear.', value: 90, con: 9
-      springMage:     event: events.spring, specialClass: 'mage',    text: 'Rodentia Robes', notes: 'Mice are nice! Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Rodentia Robes', notes: 'Mice are nice! Limited Edition 2014 Spring Gear.', value: 90, int: 9
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Limited Edition 2014 Spring Gear.', value: 90, con: 15
     mystery:
       201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
@@ -174,8 +174,8 @@ gear =
       # Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Limited Edition 2014 Spring Gear.',value: 40,per: 9
       springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Limited Edition 2014 Spring Gear.',value: 40,per: 9
-      springMage:     event: events.spring, specialClass: 'mage',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Limited Edition 2014 Spring Gear.',value: 40,per: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship',notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Limited Edition 2014 Spring Gear.",value: 40,int: 7
+      springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Limited Edition 2014 Spring Gear.',value: 40,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Limited Edition 2014 Spring Gear.", value: 40, int: 7
     mystery:
       201402: text: 'Winged Helm', notes: "This winged circlet imbues the wearer with the speed of the wind!", mystery:mystery['201402'], value: 10
 
@@ -232,7 +232,7 @@ gear =
       # Spring Event
       springRogue:   event: events.spring, specialClass: 'rogue',   text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Limited Edition 2014 Spring Gear.", value: 20
       springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Limited Edition 2014 Spring Gear.", value: 20
-      springMage:    event: events.spring, specialClass: 'mage',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Limited Edition 2014 Spring Gear.', value: 20
+      springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Limited Edition 2014 Spring Gear.', value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Limited Edition 2014 Spring Gear.', value: 20
 
 ###
