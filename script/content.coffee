@@ -553,6 +553,7 @@ api.questEggs =
   # value & other defaults set below
   Gryphon:          text: 'Gryphon',  adjective: 'proud', canBuy: false
   Hedgehog:         text: 'Hedgehog', adjective: 'spiky', canBuy: false
+  Deer:             text: 'Deer',     adjective: 'elegant', canBuy: false
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
     canBuy:false
@@ -701,6 +702,26 @@ api.quests =
       ]
       gp: 30
       exp: 125
+
+
+  ghost_stag:
+    text: "The Spirit of Spring"
+    notes: "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" @Inventrix says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\""
+    completion: "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake."
+    value: 4
+    boss:
+      name: "Ghost Stag"
+      hp: 1200
+      str: 2.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
+        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
+        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
+      ]
+      gp: 80
+      exp: 800
+
 
   vice1:
     text: "Free Yourself of the Dragon's Influence"
