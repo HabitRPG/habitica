@@ -10,11 +10,12 @@ moment = require 'moment'
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = ['armor', 'weapon', 'shield', 'head', 'back']
+gearTypes = ['armor', 'weapon', 'shield', 'head', 'back', 'headAccessory']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
   birthday: {start:'2013-01-30',end:'2014-02-01'}
+  spring: {start:'2014-03-21',end:'2014-05-01'}
 
 mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}

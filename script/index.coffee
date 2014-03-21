@@ -122,7 +122,7 @@ preenHistory = (history) ->
 api.updateStore = (user) ->
   return unless user
   changes = []
-  _.each ['weapon', 'armor', 'shield', 'head', 'back'], (type) ->
+  _.each ['weapon', 'armor', 'shield', 'head', 'back', 'headAccessory'], (type) ->
     found = _.find content.gear.tree[type][user.stats.class], (item) ->
       !user.items.gear.owned[item.key]
     changes.push(found) if found
@@ -139,8 +139,9 @@ api.updateStore = (user) ->
       when 'head'   then 3
       when 'shield' then 4
       when 'back'   then 5
-      when 'potion' then 6
-      else               7
+      when 'headAccessory'   then 6
+      when 'potion' then 7
+      else               8
 
 ###
 ------------------------------------------------------
@@ -1291,7 +1292,8 @@ api.wrap = (user, main=true) ->
       lastGearClassTypeMatrix = {}
       _.each content.classes, (klass) ->
         lastGearClassTypeMatrix[klass] = {}
-        _.each content.gearTypes, (type) ->
+        #_.each content.gearTypes, (type) ->
+        _.each ['armor', 'weapon', 'shield', 'head'], (type) ->
           lastGearClassTypeMatrix[klass][type] = false
           return true # false exits the each loop early
 
