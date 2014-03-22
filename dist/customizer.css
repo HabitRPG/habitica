@@ -3410,7 +3410,7 @@
 .shield_rogue_4 {
   background-image: url(spritesmith.png);
   background-position: -2143px -2152px;
-  width: 100px;
+  width: 96px;
   height: 90px;
   background-size: 2878px 2870px;
 }
@@ -4109,14 +4109,14 @@
 }
 .shop_weapon_special_1 {
   background-image: url(spritesmith.png);
-  background-position: -2244px -2193px;
+  background-position: -2240px -2193px;
   width: 40px;
   height: 40px;
   background-size: 2878px 2870px;
 }
 .shop_weapon_special_2 {
   background-image: url(spritesmith.png);
-  background-position: -2244px -2152px;
+  background-position: -2240px -2152px;
   width: 40px;
   height: 40px;
   background-size: 2878px 2870px;
