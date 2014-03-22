@@ -59,6 +59,8 @@ router.get('/static/extensions', function(req, res) {
 
 // --------- PayPal --------
 
+router.get('/paypal/checkout', user.paypalCheckout);
+router.get('/paypal/checkout/success', user.paypalCheckoutSuccess);
 router.get('/paypal/subscribe', user.paypalSubscribe);
 router.get('/paypal/subscribe/success', user.paypalSubscribeSuccess);
 

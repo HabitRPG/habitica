@@ -49,7 +49,9 @@
     "winston-mail": "~0.2.7",
     "winston-newrelic": "~0.1.4",
     "domain-middleware": "~0.1.0",
-    "universal-analytics": "~0.3.2"
+    "universal-analytics": "~0.3.2",
+    "paypal-express-checkout": "git://github.com/HabitRPG/node-paypal-express-checkout#habitrpg",
+    "paypal-recurring": "~1.1.0"
   },
   "private": true,
   "subdomain": "habitrpg",

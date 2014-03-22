@@ -16,14 +16,16 @@ var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
+var isProduction = nconf.get("NODE_ENV") === "production";
 
-var Paypal = require('paypal-recurring'),
-  paypal = new Paypal({
-    username:  nconf.get('PAYPAL_USERNAME'),
-    password:  nconf.get('PAYPAL_PASSWORD'),
-    signature: nconf.get('PAYPAL_SIGNATURE'),
-    environment: nconf.get("NODE_ENV") === "production" ? "production" : "sandbox"
-  });
+var paypalRecurring = new require('paypal-recurring')({
+  username:  nconf.get('PAYPAL_USERNAME'),
+  password:  nconf.get('PAYPAL_PASSWORD'),
+  signature: nconf.get('PAYPAL_SIGNATURE'),
+  environment: isProduction ? "production" : "sandbox"
+});
+var paypalCheckout = require('paypal-express-checkout')
+  .init(nconf.get('PAYPAL_USERNAME'), nconf.get('PAYPAL_PASSWORD'), nconf.get('PAYPAL_SIGNATURE'), nconf.get('BASE_URL'), nconf.get('BASE_URL'), !isProduction);
 
 // api.purchase // Shared.ops
 
@@ -389,9 +391,9 @@ api.paypalSubscribe = function(req,res,next) {
   var uuid = req.query.uuid;
   if (!uuid) return next("UUID required");
   // Authenticate a future subscription of ~5 USD
-  paypal.authenticate({
+  paypalSubscribe.authenticate({
     RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + uuid,
-    CANCELURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/fail?uuid=' + uuid,
+    CANCELURL:                      nconf.get("BASE_URL"),
     PAYMENTREQUEST_0_AMT:           5,
     L_BILLINGAGREEMENTDESCRIPTION0: "HabitRPG Subscription"
   }, function(err, data, url) {
@@ -406,7 +408,7 @@ api.paypalSubscribeSuccess = function(req,res,next) {
   // Create a subscription of 10 USD every month
   var uuid = req.query.uuid;
   if (!uuid) return next("UUID required");
-  paypal.createSubscription(req.query.token, req.query.PayerId,{
+  paypalSubscribe.createSubscription(req.query.token, req.query.PayerId,{
     AMT:              5,
     DESC:             "HabitRPG Subscription",
     BILLINGPERIOD:    "Month",
@@ -418,27 +420,34 @@ api.paypalSubscribeSuccess = function(req,res,next) {
   });
 }
 
-api.buyGemsPaypalIPN = function(req, res, next) {
-  res.send(200);
-  ipn.verify(req.body, function callback(err, msg) {
-    if (err) return next('PayPal Error: ' + msg);
-    if (req.body.payment_status == 'Completed') {
-      //Payment has been confirmed as completed
-      var parts = url.parse(req.body.custom, true);
-      var uid = parts.query.uid; //, apiToken = query.apiToken;
-      if (!uid) return next("uuid or apiToken not found when completing paypal transaction");
-      User.findById(uid, function(err, user) {
-        if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
-        if (err) return nex(err);
-        user.balance += 5;
-        user.txnCount++;
-        //user.purchased.ads = true;
-        user.save();
-        logging.info('PayPal transaction completed and user updated');
-        ga.event('checkout', 'PayPal').send()
-        ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send()
-      });
-    }
+api.paypalCheckout = function(req, res, next) {
+  var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + req.query.uuid};
+  paypalCheckout.pay(+new Date, 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
+    if (err) return next(err);
+    res.redirect(url);
+  });
+}
+
+api.paypalCheckoutSuccess = function(req,res,next) {
+  paypalCheckout.detail(req.query.token, req.query.PayerID, function(err, data, invoiceNumber, price) {
+    // see `data` vars at https://github.com/petersirka/node-paypal-express-checkout#paypal-account
+    //if (err) return next('PayPal Error: ' + msg);
+    if (err) return next(err);
+    if (data.ACK !== 'Success') return next('PayPal transaction failed, please try again');
+
+    var uuid = req.query.uuid; //, apiToken = query.apiToken;
+    User.findById(uuid , function(err, user) {
+      if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
+      if (err) return nex(err);
+      user.balance += 5;
+      user.txnCount++;
+      //user.purchased.ads = true;
+      user.save();
+      logging.info('PayPal transaction completed and user updated');
+      ga.event('checkout', 'PayPal').send();
+      ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send();
+      res.redirect('/');
+    });
   });
 }
 

@@ -96,28 +96,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.flash[type].splice($index, 1);
     }
 
-    $rootScope.initPayPalButton = function($event){
-      //debugger
-      var data = {
-        name:env.t('donationDesc'),
-        env:window.env.NODE_ENV == 'production' ? '' : 'sandbox',
-        quantity:1,
-        amount:5,
-        currency:'USD',
-        tax:0,
-        callback:window.env.BASE_URL + '/api/v2/user/buy-gems/paypal-ipn',
-        custom:'?uid='+User.user._id + '&apiToken=' + User.user.apiToken,
-        'return':window.env.BASE_URL,
-        rm:1,
-        no_shipping:1
-      };
-      PAYPAL.apps.ButtonFactory.create(window.env.PAYPAL_MERCHANT, data, 'buynow', document.getElementById('custom-paypal-button'));
-    }
-
-    $rootScope.paypalSubscribe = function(){
-      $http.get('/paypal/subscribe');
-    }
-
     $rootScope.showStripe = function(subscription) {
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,

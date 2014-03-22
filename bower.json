@@ -33,7 +33,6 @@
     "BrowserQuest": "git://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
-    "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
     "js-emoji": "git://github.com/snicker/js-emoji#master",
     "sticky": "*",
