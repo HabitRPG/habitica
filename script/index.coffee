@@ -1003,7 +1003,7 @@ api.wrap = (user, main=true) ->
       #console.log("Drop chance: " + chance)
 
       quest = content.quests[user.party.quest?.key]
-      if quest?.collect and user.fns.predictableRandom(user.stats.gp) < (chance * 2) # 2x as likely to get a collection quest drop as a pet item drop
+      if quest?.collect and user.fns.predictableRandom(user.stats.gp) < chance
         dropK = user.fns.randomVal quest.collect, {key:true}
         user.party.quest.progress.collect[dropK]++
         user.markModified? 'party.quest.progress'
