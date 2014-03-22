@@ -147,6 +147,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
       div(ng-include="'partials/options.settings.subscription.perks.html'")
       .btn.btn-primary(ng-click='showStripe(true)')=env.t('subscribe')
       //-small.muted PayPal coming soon.
+      //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
+      a.btn.btn-warning(href='/paypal/subscribe?uuid={{user._id}}') PayPal
 
     div(ng-if='user.purchased.plan.customerId')
       .well

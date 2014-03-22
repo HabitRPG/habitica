@@ -100,7 +100,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       //debugger
       var data = {
         name:env.t('donationDesc'),
-        //env:window.env.NODE_ENV == 'production' ? '' : 'sandbox',
+        env:window.env.NODE_ENV == 'production' ? '' : 'sandbox',
         quantity:1,
         amount:5,
         currency:'USD',
@@ -112,6 +112,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         no_shipping:1
       };
       PAYPAL.apps.ButtonFactory.create(window.env.PAYPAL_MERCHANT, data, 'buynow', document.getElementById('custom-paypal-button'));
+    }
+
+    $rootScope.paypalSubscribe = function(){
+      $http.get('/paypal/subscribe');
     }
 
     $rootScope.showStripe = function(subscription) {

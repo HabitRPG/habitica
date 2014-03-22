@@ -17,6 +17,14 @@ var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 
+var Paypal = require('paypal-recurring'),
+  paypal = new Paypal({
+    username:  nconf.get('PAYPAL_USERNAME'),
+    password:  nconf.get('PAYPAL_PASSWORD'),
+    signature: nconf.get('PAYPAL_SIGNATURE'),
+    environment: nconf.get("NODE_ENV") === "production" ? "production" : "sandbox"
+  });
+
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
@@ -375,6 +383,39 @@ api.cancelSubscription = function(req, res, next) {
     ga.event('unsubscribe', 'Stripe').send()
   });
 
+}
+
+api.paypalSubscribe = function(req,res,next) {
+  var uuid = req.query.uuid;
+  if (!uuid) return next("UUID required");
+  // Authenticate a future subscription of ~5 USD
+  paypal.authenticate({
+    RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + uuid,
+    CANCELURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/fail?uuid=' + uuid,
+    PAYMENTREQUEST_0_AMT:           5,
+    L_BILLINGAGREEMENTDESCRIPTION0: "HabitRPG Subscription"
+  }, function(err, data, url) {
+    // Redirect the user if everything went well with
+    // a HTTP 302 according to PayPal's guidelines
+    if (err) return next(err);
+    res.redirect(302, url);
+  });
+}
+
+api.paypalSubscribeSuccess = function(req,res,next) {
+  // Create a subscription of 10 USD every month
+  var uuid = req.query.uuid;
+  if (!uuid) return next("UUID required");
+  paypal.createSubscription(req.query.token, req.query.PayerId,{
+    AMT:              5,
+    DESC:             "HabitRPG Subscription",
+    BILLINGPERIOD:    "Month",
+    BILLINGFREQUENCY: 1,
+  }, function(err, data) {
+    if (err) return res.next(err);
+    res.send("You are now one of our customers!");
+    console.log("New customer with PROFILEID: " + data.PROFILEID)
+  });
 }
 
 api.buyGemsPaypalIPN = function(req, res, next) {

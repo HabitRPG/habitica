@@ -2,7 +2,9 @@ var nconf = require('nconf');
 var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
-var middleware = require('../middleware')
+var middleware = require('../middleware');
+var user = require('../controllers/user');
+var auth = require('../controllers/auth');
 
 // -------- App --------
 router.get('/', middleware.locals, function(req, res) {
@@ -54,5 +56,10 @@ router.get('/static/plans', middleware.locals, function(req, res) {
 router.get('/static/extensions', function(req, res) {
   res.redirect('http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations');
 });
+
+// --------- PayPal --------
+
+router.get('/paypal/subscribe', user.paypalSubscribe);
+router.get('/paypal/subscribe/success', user.paypalSubscribeSuccess);
 
 module.exports = router;
