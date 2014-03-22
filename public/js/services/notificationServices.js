@@ -7,12 +7,12 @@ angular.module("notificationServices", [])
       $.bootstrapGrowl(html, {
         ele: '#notification-area',
         type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
-        top_offset: 20,
+        top_offset: 60,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
         delay: (type=='error') ? 0 : 7000,
         allow_dismiss: true,
-        stackup_spacing: 10 // spacing between consecutive stacecked growls.
+        stackup_spacing: 10 // spacing between consecutive stacked growls.
       });
     };
 
