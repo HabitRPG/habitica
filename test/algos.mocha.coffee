@@ -6,6 +6,8 @@ expect = require 'expect.js'
 sinon = require 'sinon'
 moment = require 'moment'
 shared = require '../script/index.coffee'
+test_helper = require './test_helper'
+test_helper.addCustomMatchers()
 $w = (s)->s.split(' ')
 
 ### Helper Functions ####
@@ -74,8 +76,8 @@ expectLostPoints = (before, after, taskType) ->
     expect(after.stats.hp).to.be.lessThan before.stats.hp
     expect(after["#{taskType}s"][0].history).to.have.length(1)
   else expect(after.history.todos).to.have.length(1)
-  expect(after.stats.exp).to.be 0
-  expect(after.stats.gp).to.be 0
+  expect(after).toHaveExp 0
+  expect(after).toHaveGP 0
   expect(after["#{taskType}s"][0].value).to.be.lessThan before["#{taskType}s"][0].value
 
 expectGainedPoints = (before, after, taskType) ->
@@ -135,14 +137,14 @@ describe 'User', ->
 
   it 'calculates max MP', ->
     user = newUser()
-    expect(user._statsComputed.maxMP).to.eql 32
+    expect(user).toHaveMaxMP 32
     user.stats.int = 10
-    expect(user._statsComputed.maxMP).to.eql 50
+    expect(user).toHaveMaxMP 50
     user.stats.lvl = 5
-    expect(user._statsComputed.maxMP).to.eql 54
+    expect(user).toHaveMaxMP 54
     user.stats.class = 'wizard'
     user.items.gear.equipped.weapon = 'weapon_wizard_1'
-    expect(user._statsComputed.maxMP).to.eql 63
+    expect(user).toHaveMaxMP 63
 
   it 'handles perfect days', ->
     user = newUser()
@@ -179,10 +181,10 @@ describe 'User', ->
       user = newUser()
       user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
       user.ops.revive()
-      expect(user.stats.gp).to.eql 0
-      expect(user.stats.exp).to.eql 0
-      expect(user.stats.lvl).to.eql 1
-      expect(user.stats.hp).to.eql 50
+      expect(user).toHaveGP 0
+      expect(user).toHaveExp 0
+      expect(user).toHaveLevel 1
+      expect(user).toHaveHP 50
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: false }
 
     it "doesn't break unbreakables", ->
@@ -216,12 +218,12 @@ describe 'User', ->
       user.stats.hp = 30
       user.stats.gp = 50
       user.ops.buy {params: {key: 'potion'}}
-      expect(user.stats.hp).to.eql 45
-      expect(user.stats.gp).to.eql 25
+      expect(user).toHaveHP 45
+      expect(user).toHaveGP 25
 
       user.ops.buy {params: {key: 'potion'}}
-      expect(user.stats.hp).to.eql 50 # don't exceed max hp
-      expect(user.stats.gp).to.eql 0
+      expect(user).toHaveHP 50 # don't exceed max hp
+      expect(user).toHaveGP 0
 
     it 'buys equipment', ->
       user = newUser()
@@ -229,14 +231,14 @@ describe 'User', ->
       user.ops.buy {params: {key: 'armor_warrior_1'}}
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, armor_warrior_1: true }
       expect(user.items.gear.equipped).to.eql { armor: 'armor_warrior_1', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-      expect(user.stats.gp).to.eql 1
+      expect(user).toHaveGP 1
 
     it 'do not buy equipment without enough money', ->
       user = newUser()
       user.stats.gp = 1
       user.ops.buy {params: {key: 'armor_warrior_1'}}
       expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-      expect(user.stats.gp).to.eql 1
+      expect(user).toHaveGP 1
 
   describe 'spells', ->
     _.each shared.content.spells, (spellClass)->
@@ -478,9 +480,9 @@ describe 'Cron', ->
       after.fns.cron()
 
       # todos don't effect stats
-      expect(after.stats.hp).to.be 50
-      expect(after.stats.exp).to.be 0
-      expect(after.stats.gp).to.be 0
+      expect(after).toHaveHP 50
+      expect(after).toHaveExp 0
+      expect(after).toHaveGP 0
 
       # but they devalue
       expect(after.todos[0].value).to.be.lessThan before.todos[0].value
