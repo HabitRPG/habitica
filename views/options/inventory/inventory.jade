@@ -112,6 +112,11 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     |  {{Content.eggs.Hedgehog.value}}
                     span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.ghost_stag > 1')
+                  button.customize-option(popover='{{Content.eggs.Deer.notes}}', popover-title='{{Content.eggs.Deer.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Deer)', class='Pet_Egg_Deer')
+                  p
+                    |  {{Content.eggs.Deer.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
               menu.pets-menu(label=env.t('hatchingPotions'))
