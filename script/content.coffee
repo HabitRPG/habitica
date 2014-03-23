@@ -78,7 +78,7 @@ gear =
       #Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Limited Edition 2014 Spring Gear.', value: 80, str: 8
       springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Limited Edition 2014 Spring Gear.', value: 90, str: 15
-      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
+      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Limited Edition 2014 Spring Gear.', value: 90, int: 9
 
   armor:
