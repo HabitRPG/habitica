@@ -1327,7 +1327,7 @@ api.wrap = (user, main=true) ->
             if ~path.indexOf('items.gear')
               # get the gear stat, and multiply it by 1.5 if it's class-gear
               item = content.gear.flat[val]
-              (+item?[stat] or 0) * (if item?.klass is user.stats.class then 1.5 else 1)
+              (+item?[stat] or 0) * (if item?.klass is user.stats.class || item?.specialClass is user.stats.class then 1.5 else 1)
             else
               +val[stat] or 0
         , 0
