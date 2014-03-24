@@ -3,10 +3,10 @@ api = module.exports
 moment = require 'moment'
 
 ###
----------------------------------------------------------------
-Gear (Weapons, Armor, Head, Shield)
-Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
----------------------------------------------------------------
+  ---------------------------------------------------------------
+  Gear (Weapons, Armor, Head, Shield)
+  Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
+  ---------------------------------------------------------------
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
@@ -71,15 +71,15 @@ gear =
       3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.", str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       critical: text: "Critical Hammer of Bug-Crushing", notes:"This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.", str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
       # Winter event gear
-      yeti: event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Spear", notes:'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.', str: 15, value:90
-      ski: event: events.winter, specialClass: 'rogue' , text: "Ski-sassin Pole", notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
-      candycane: event: events.winter, specialClass: 'wizard' , twoHanded: true, text: "Candy Cane Staff", notes:"Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.", int: 15, per: 7, value:160
-      snowflake: event: events.winter, specialClass: 'healer' , text: "Snowflake Wand", notes:'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.', int: 9, value:90
+      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Spear", notes:'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.', str: 15, value:90
+      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Pole", notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
+      candycane:  event: events.winter, specialClass: 'wizard' , twoHanded: true, text: "Candy Cane Staff", notes:"Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.", int: 15, per: 7, value:160
+      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Wand", notes:'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.', int: 9, value:90
       #Spring Fling
-      springRogue: event: events.spring, specialClass: 'rogue', text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds 15 points to STR. Limited Edition 2014 Spring Gear.', value: 90, str: 15
-      springMage: event: events.spring, specialClass: 'wizard', twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Adds 15 points to INT and 7 points to PER. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
-      springHealer: event: events.spring, specialClass: 'healer', text: 'Lovely Bone', notes: 'FETCH! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds 15 points to STR. Limited Edition 2014 Spring Gear.', value: 90, str: 15
+      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Adds 15 points to INT and 7 points to PER. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
 
   armor:
     base:
@@ -113,20 +113,20 @@ gear =
       4: text: "Physician Mantle", notes:'Projects authority and dissipates curses. Increases CON by 15.', con: 15, value:90
       5: text: "Royal Mantle", notes:'Attire of those who have saved the lives of kings. Increases CON by 18.', con: 18, value:120, last: true
     special:
-      0: text: "Shade Armor", notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      0: text: "Shade Armor",   notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
       2: text: "Jean Chalard's Noble Tunic", notes:'Makes you extra fluffy! Increases CON and INT by 25 each.', int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       # Winter event
-      yeti: event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Robe", notes:'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.', con: 9, value:90
-      ski: event: events.winter, specialClass: 'rogue' , text: "Ski-sassin Parka", notes:'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.', per: 15, value:90
-      candycane: event: events.winter, specialClass: 'wizard' , text: "Candy Cane Robe", notes:'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.', int: 9, value:90
-      snowflake: event: events.winter, specialClass: 'healer' , text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
-      birthday: event: events.birthday, text: "Absurd Party Robes", notes:"As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.", value: 0
+      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Robe", notes:'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.', con: 9, value:90
+      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Parka", notes:'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.', per: 15, value:90
+      candycane:  event: events.winter, specialClass: 'wizard' , text: "Candy Cane Robe", notes:'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.', int: 9, value:90
+      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
+      birthday:   event: events.birthday, text: "Absurd Party Robes", notes:"As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.", value: 0
       # Spring Fling
-      springRogue: event: events.spring, specialClass: 'rogue', text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Adds 15 points to PER. Limited Edition 2014 Spring Gear.', value: 90, per: 15
-      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Adds 9 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 9
-      springMage: event: events.spring, specialClass: 'wizard', text: 'Rodentia Robes', notes: 'Mice are nice! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
-      springHealer: event: events.spring, specialClass: 'healer', text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Adds 15 points to PER. Limited Edition 2014 Spring Gear.', value: 90, per: 15
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Adds 9 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Rodentia Robes', notes: 'Mice are nice! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
     mystery:
       201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
 
@@ -162,20 +162,20 @@ gear =
       4: text: "Emerald Diadem", notes:'Emits an aura of life and growth. Increases INT by 7.', int: 7, value:60
       5: text: "Royal Diadem", notes:'For king, queen, or miracle-worker. Increases INT by 9.', int: 9, value:80, last: true
     special:
-      0: text: "Shade Helm", notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
       2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       #Winter event
-      nye: event: events.winter, text: "Absurd Party Hat", notes:"You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!", value: 0
-      yeti: event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Helm", notes:'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.', str: 9, value:60
-      ski: event: events.winter, specialClass: 'rogue' , text: "Ski-sassin Helm", notes:"Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.", per: 9, value:60
-      candycane: event: events.winter, specialClass: 'wizard' , text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
-      snowflake: event: events.winter, specialClass: 'healer' , text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
+      nye:        event: events.winter, text: "Absurd Party Hat", notes:"You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!", value: 0
+      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Helm", notes:'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.', str: 9, value:60
+      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Helm", notes:"Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.", per: 9, value:60
+      candycane:  event: events.winter, specialClass: 'wizard' , text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
+      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
       # Spring Fling
-      springRogue: event: events.spring, specialClass: 'rogue', text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Adds 9 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 9
-      springWarrior: event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds 9 points to STR. Limited Edition 2014 Spring Gear.',value: 40,str: 9
-      springMage: event: events.spring, specialClass: 'wizard', text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
-      springHealer: event: events.spring, specialClass: 'healer', text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
+      springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Adds 9 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 9
+      springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds 9 points to STR. Limited Edition 2014 Spring Gear.',value: 40,str: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
     mystery:
       201402: text: 'Winged Helm', notes: "This winged circlet imbues the wearer with the speed of the wind!", mystery:mystery['201402'], value: 10
 
@@ -211,13 +211,13 @@ gear =
       0: text: "Tormented Skull", notes:'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.', per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Shield", notes:'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.', con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
       #Winter event
-      yeti: event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
-      ski: event: events.winter, specialClass: 'rogue' , text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
-      snowflake: event: events.winter, specialClass: 'healer' , text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
+      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
+      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
+      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
       #Spring Fling
-      springRogue: event: events.spring, specialClass: 'rogue', text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
-      springHealer: event: events.spring, specialClass: 'healer', text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
 
   back:
     base:
@@ -230,14 +230,14 @@ gear =
       0: text: 'No Head Accessory', notes: 'No Head Accessory', value: 0, last: true
     special:
       # Spring Event
-      springRogue: event: events.spring, specialClass: 'rogue', text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
+      springRogue:   event: events.spring, specialClass: 'rogue',   text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
       springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.", value: 20
-      springMage: event: events.spring, specialClass: 'wizard', text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
-      springHealer: event: events.spring, specialClass: 'healer', text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
+      springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
+      springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
 
 ###
-The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
-they are needed in different froms at different points in the app
+  The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
+  they are needed in different froms at different points in the app
 ###
 api.gear =
   tree: gear
@@ -265,48 +265,48 @@ _.each gearTypes, (type) ->
       api.gear.flat[key] = item
 
 ###
----------------------------------------------------------------
-Potion
----------------------------------------------------------------
+  ---------------------------------------------------------------
+  Potion
+  ---------------------------------------------------------------
 ###
 
 api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
 
 ###
----------------------------------------------------------------
-Classes
----------------------------------------------------------------
+   ---------------------------------------------------------------
+   Classes
+   ---------------------------------------------------------------
 ###
 
 api.classes = classes
 
 ###
----------------------------------------------------------------
-Gear Types
----------------------------------------------------------------
+   ---------------------------------------------------------------
+   Gear Types
+   ---------------------------------------------------------------
 ###
 
 api.gearTypes = gearTypes
 
 ###
----------------------------------------------------------------
-Spells
----------------------------------------------------------------
-Text, notes, and mana are obvious. The rest:
+  ---------------------------------------------------------------
+  Spells
+  ---------------------------------------------------------------
+  Text, notes, and mana are obvious. The rest:
 
-* {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
-thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
-etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
+  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
+    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+    etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
 
-* {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
-web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
-you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
-available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
-so you'll want to iterate over them like: `_.each(target,function(member){...})`
+  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
+    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
+    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+    so you'll want to iterate over them like: `_.each(target,function(member){...})`
 
-Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
 ###
 
 #
@@ -400,7 +400,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03)
+          member.stats.buffs.con += Math.ceil(user._statsComputed.con *  .03)
 
   rogue:
     pickPocket:
@@ -421,7 +421,7 @@ api.spells =
       cast: (user, target) ->
         _crit = user.fns.crit('per', .3)
         target.value += _crit * .03
-        bonus = (if target.value < 0 then 1 else target.value+1) * _crit
+        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
@@ -525,22 +525,22 @@ _.each api.spells, (spellClass) ->
 api.special = api.spells.special
 
 ###
----------------------------------------------------------------
-Drops
----------------------------------------------------------------
+  ---------------------------------------------------------------
+  Drops
+  ---------------------------------------------------------------
 ###
 
 api.dropEggs =
   # value & other defaults set below
-  Wolf: text: 'Wolf', adjective: 'loyal'
-  TigerCub: text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
-  PandaCub: text: 'Panda Cub', mountText: 'Panda', adjective: 'gentle'
-  LionCub: text: 'Lion Cub', mountText: 'Lion', adjective: 'regal'
-  Fox: text: 'Fox', adjective: 'wily'
-  FlyingPig: text: 'Flying Pig', adjective: 'whimsical'
-  Dragon: text: 'Dragon', adjective: 'mighty'
-  Cactus: text: 'Cactus', adjective: 'prickly'
-  BearCub: text: 'Bear Cub', mountText: 'Bear', adjective: 'cuddly'
+  Wolf:             text: 'Wolf', adjective: 'loyal'
+  TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
+  PandaCub:         text: 'Panda Cub', mountText: 'Panda', adjective: 'gentle'
+  LionCub:          text: 'Lion Cub',  mountText: 'Lion', adjective: 'regal'
+  Fox:              text: 'Fox', adjective: 'wily'
+  FlyingPig:        text: 'Flying Pig', adjective: 'whimsical'
+  Dragon:           text: 'Dragon', adjective: 'mighty'
+  Cactus:           text: 'Cactus', adjective: 'prickly'
+  BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true
@@ -551,9 +551,9 @@ _.each api.dropEggs, (egg,key) ->
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon: text: 'Gryphon', adjective: 'proud', canBuy: false
-  Hedgehog: text: 'Hedgehog', adjective: 'spiky', canBuy: false
-  Deer: text: 'Deer', adjective: 'elegant', canBuy: false
+  Gryphon:          text: 'Gryphon',  adjective: 'proud', canBuy: false
+  Hedgehog:         text: 'Hedgehog', adjective: 'spiky', canBuy: false
+  Deer:             text: 'Deer',     adjective: 'elegant', canBuy: false
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
     canBuy:false
@@ -565,27 +565,27 @@ _.each api.questEggs, (egg,key) ->
 api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)
 
 api.specialPets =
-  'Wolf-Veteran': true
-  'Wolf-Cerberus': true
-  'Dragon-Hydra': true
-  'Turkey-Base': true
-  'BearCub-Polar': true
+  'Wolf-Veteran':   true
+  'Wolf-Cerberus':  true
+  'Dragon-Hydra':   true
+  'Turkey-Base':    true
+  'BearCub-Polar':  true
 
 api.specialMounts =
-  'BearCub-Polar':  true
-  'LionCub-Ethereal': true
+  'BearCub-Polar':	true
+  'LionCub-Ethereal':	true
 
 api.hatchingPotions =
-  Base: value: 2, text: 'Base'
-  White: value: 2, text: 'White'
-  Desert: value: 2, text: 'Desert'
-  Red: value: 3, text: 'Red'
-  Shade: value: 3, text: 'Shade'
-  Skeleton: value: 3, text: 'Skeleton'
-  Zombie: value: 4, text: 'Zombie'
-  CottonCandyPink: value: 4, text: 'Cotton Candy Pink'
-  CottonCandyBlue: value: 4, text: 'Cotton Candy Blue'
-  Golden: value: 5, text: 'Golden'
+  Base:             value: 2, text: 'Base'
+  White:            value: 2, text: 'White'
+  Desert:           value: 2, text: 'Desert'
+  Red:              value: 3, text: 'Red'
+  Shade:            value: 3, text: 'Shade'
+  Skeleton:         value: 3, text: 'Skeleton'
+  Zombie:           value: 4, text: 'Zombie'
+  CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
+  CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
+  Golden:           value: 5, text: 'Golden'
 _.each api.hatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
@@ -598,35 +598,35 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
     m2[egg.key + "-" + pot.key] = true
 
 api.food =
-  Meat: text: 'Meat', target: 'Base', article: ''
-  Milk: text: 'Milk', target: 'White', article: ''
-  Potatoe: text: 'Potato', target: 'Desert', article: 'a '
-  Strawberry: text: 'Strawberry', target: 'Red', article: 'a '
-  Chocolate: text: 'Chocolate', target: 'Shade', article: ''
-  Fish: text: 'Fish', target: 'Skeleton', article: 'a '
-  RottenMeat: text: 'Rotten Meat', target: 'Zombie', article: ''
-  CottonCandyPink: text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
-  CottonCandyBlue: text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
+  Meat:             text: 'Meat', target: 'Base', article: ''
+  Milk:             text: 'Milk', target: 'White', article: ''
+  Potatoe:          text: 'Potato', target: 'Desert', article: 'a '
+  Strawberry:       text: 'Strawberry', target: 'Red', article: 'a '
+  Chocolate:        text: 'Chocolate', target: 'Shade', article: ''
+  Fish:             text: 'Fish', target: 'Skeleton', article: 'a '
+  RottenMeat:       text: 'Rotten Meat', target: 'Zombie', article: ''
+  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
-  #Cheese: text: 'Cheese', target: 'Golden'
-  #Watermelon: text: 'Watermelon', target: 'Golden'
-  #SeaWeed: text: 'SeaWeed', target: 'Golden'
+  #Cheese:           text: 'Cheese', target: 'Golden'
+  #Watermelon:       text: 'Watermelon', target: 'Golden'
+  #SeaWeed:          text: 'SeaWeed', target: 'Golden'
 
-  Cake_Skeleton: canBuy: false, text: 'Bare Bones Cake', target: 'Skeleton', article: ''
-  Cake_Base: canBuy: false, text: 'Basic Cake', target: 'Base', article: ''
+  Cake_Skeleton:        canBuy: false, text: 'Bare Bones Cake', target: 'Skeleton', article: ''
+  Cake_Base:            canBuy: false, text: 'Basic Cake', target: 'Base', article: ''
   Cake_CottonCandyBlue: canBuy: false, text: 'Candy Blue Cake', target: 'CottonCandyBlue', article: ''
   Cake_CottonCandyPink: canBuy: false, text: 'Candy Pink Cake', target: 'CottonCandyPink', article: ''
-  Cake_Shade: canBuy: false, text: 'Chocolate Cake', target: 'Shade', article: ''
-  Cake_White: canBuy: false, text: 'Cream Cake', target: 'White', article: ''
-  Cake_Golden: canBuy: false, text: 'Honey Cake', target: 'Golden', article: ''
-  Cake_Zombie: canBuy: false, text: 'Rotten Cake', target: 'Zombie', article: ''
-  Cake_Desert: canBuy: false, text: 'Sand Cake', target: 'Desert', article: ''
-  Cake_Red: canBuy: false, text: 'Strawberry Cake', target: 'Red', article: ''
+  Cake_Shade:           canBuy: false, text: 'Chocolate Cake', target: 'Shade', article: ''
+  Cake_White:           canBuy: false, text: 'Cream Cake', target: 'White', article: ''
+  Cake_Golden:          canBuy: false, text: 'Honey Cake', target: 'Golden', article: ''
+  Cake_Zombie:          canBuy: false, text: 'Rotten Cake', target: 'Zombie', article: ''
+  Cake_Desert:          canBuy: false, text: 'Sand Cake', target: 'Desert', article: ''
+  Cake_Red:             canBuy: false, text: 'Strawberry Cake', target: 'Red', article: ''
 
   # Tests hack, put honey last so the faux random picks it up in unit tests
-  Honey: text: 'Honey', target: 'Golden', article: ''
+  Honey:            text: 'Honey', target: 'Golden', article: ''
 
-  Saddle: text: 'Saddle', value: 5, notes: 'Instantly raises one of your pets into a mount.'
+  Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises one of your pets into a mount.'
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed.", canBuy:true}
 
