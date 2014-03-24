@@ -112,8 +112,6 @@
   display: table-cell
   vertical-align: middle
   min-width:175px
-  background-color: darken($color-herobox, 4%)
-  border-right: 1px solid darken($color-herobox, 12%)
 
   .meter, .bar
     box-shadow: none
@@ -163,3 +161,9 @@
     right: 0.5em
     z-index: 1
     line-height: 2.25
+
+//Apply certain styles in header only
+
+header .hero-stats
+  background-color: darken($color-herobox, 4%)
+  border-right: 1px solid darken($color-herobox, 12%)
