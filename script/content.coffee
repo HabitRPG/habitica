@@ -76,10 +76,10 @@ gear =
       candycane:  event: events.winter, specialClass: 'wizard' , twoHanded: true, text: "Candy Cane Staff", notes:"Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.", int: 15, per: 7, value:160
       snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Wand", notes:'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.', int: 9, value:90
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Increases STR by 8. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Increases STR by 15. Limited Edition 2014 Spring Gear.', value: 90, str: 15
-      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Increases INT by 15 and PER by 7. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Increases INT by 9. Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds 15 points to STR. Limited Edition 2014 Spring Gear.', value: 90, str: 15
+      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Adds 15 points to INT and 7 points to PER. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
 
   armor:
     base:
@@ -123,10 +123,10 @@ gear =
       snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
       birthday:   event: events.birthday, text: "Absurd Party Robes", notes:"As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.", value: 0
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Increases PER by 15. Limited Edition 2014 Spring Gear.', value: 90, per: 15
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Increases CON by 9. Limited Edition 2014 Spring Gear.', value: 90, con: 9
-      springMage:     event: events.spring, specialClass: 'wizard',  text: 'Rodentia Robes', notes: 'Mice are nice! Increases INT by 9. Limited Edition 2014 Spring Gear.', value: 90, int: 9
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Increases CON by 15. Limited Edition 2014 Spring Gear.', value: 90, con: 15
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Adds 15 points to PER. Limited Edition 2014 Spring Gear.', value: 90, per: 15
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Adds 9 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Rodentia Robes', notes: 'Mice are nice! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
     mystery:
       201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
 
@@ -172,10 +172,10 @@ gear =
       candycane:  event: events.winter, specialClass: 'wizard' , text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
       snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Increases PER by 9. Limited Edition 2014 Spring Gear.',value: 40,per: 9
-      springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Increases STR by 9. Limited Edition 2014 Spring Gear.',value: 40,str: 9
-      springMage:     event: events.spring, specialClass: 'wizard',  text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Increases PER by 7. Limited Edition 2014 Spring Gear.',value: 40,per: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Increases INT by 7. Limited Edition 2014 Spring Gear.", value: 40, int: 7
+      springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Adds 9 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 9
+      springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds 9 points to STR. Limited Edition 2014 Spring Gear.',value: 40,str: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
     mystery:
       201402: text: 'Winged Helm', notes: "This winged circlet imbues the wearer with the speed of the wind!", mystery:mystery['201402'], value: 10
 
@@ -215,9 +215,9 @@ gear =
       ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
       snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Increases STR by 8. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Increases CON by 7. Limited Edition 2014 Spring Gear.", value: 70, con: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Increases CON by 9. Limited Edition 2014 Spring Gear.", value: 70, con: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
 
   back:
     base:
@@ -230,10 +230,10 @@ gear =
       0: text: 'No Head Accessory', notes: 'No Head Accessory', value: 0, last: true
     special:
       # Spring Event
-      springRogue:   event: events.spring, specialClass: 'rogue',   text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Limited Edition 2014 Spring Gear.", value: 20
-      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Limited Edition 2014 Spring Gear.", value: 20
-      springMage:    event: events.spring, specialClass: 'wizard',  text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Limited Edition 2014 Spring Gear.', value: 20
-      springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Limited Edition 2014 Spring Gear.', value: 20
+      springRogue:   event: events.spring, specialClass: 'rogue',   text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
+      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.", value: 20
+      springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
+      springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
