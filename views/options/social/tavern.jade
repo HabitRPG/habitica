@@ -16,6 +16,7 @@
                   button.btn.btn-lg.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
                     span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
                     span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
+                =env.t('danielText2')
       .alert.alert-info(ng-show='user.preferences.sleep')
         =env.t('innText')
 
@@ -106,7 +107,7 @@
               td
                 a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroic')
                 div
-                  p=env.t('heroicText') 
+                  p=env.t('heroicText')
             tr
               td
                 a.label.label-npc(ng-click='toggleUserTier($event)')=env.t('npc')

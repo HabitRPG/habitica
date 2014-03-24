@@ -4,7 +4,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
       .col-md-6.border-right
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('battleGearText'))=env.t('battleGear')
         li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
       .col-md-6
@@ -15,7 +15,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
             |&nbsp;
             =env.t('useCostume')
         li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
@@ -101,6 +101,21 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
                   p
                     |  {{egg.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.gryphon > 1')
+                  button.customize-option(popover='{{Content.eggs.Gryphon.notes}}', popover-title='{{Content.eggs.Gryphon.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Gryphon)', class='Pet_Egg_Gryphon')
+                  p
+                    |  {{Content.eggs.Gryphon.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.hedgehog > 1')
+                  button.customize-option(popover='{{Content.eggs.Hedgehog.notes}}', popover-title='{{Content.eggs.Hedgehog.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Hedgehog)', class='Pet_Egg_Hedgehog')
+                  p
+                    |  {{Content.eggs.Hedgehog.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.ghost_stag > 1')
+                  button.customize-option(popover='{{Content.eggs.Deer.notes}}', popover-title='{{Content.eggs.Deer.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Deer)', class='Pet_Egg_Deer')
+                  p
+                    |  {{Content.eggs.Deer.value}}
                     span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu

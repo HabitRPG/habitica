@@ -57,7 +57,7 @@ api.score = function(req, res, next) {
   // Send error responses for improper API call
   if (!id) return res.json(400, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
-    if (direction == 'unlink') return next();
+    if (direction == 'unlink' || direction == 'sort') return next();
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
   // If exists already, score it

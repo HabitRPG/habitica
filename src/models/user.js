@@ -130,14 +130,16 @@ var UserSchema = new Schema({
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
-        back: String
+        back: String,
+        headAccessory: String
       },
       costume: {
         weapon: {type: String, 'default': 'weapon_base_0'},
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
-        back: String
+        back: String,
+        headAccessory: String
       },
     },
 
@@ -233,7 +235,7 @@ var UserSchema = new Schema({
   },
   preferences: {
     armorSet: String,
-    dayStart: {type:Number, 'default': 0, min: 0, max: 24},
+    dayStart: {type:Number, 'default': 0, min: 0, max: 23},
     size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
     hair: {
       color: {type: String, 'default': 'blond'},
@@ -241,6 +243,7 @@ var UserSchema = new Schema({
       bangs: {type: Number, 'default': 0},
       beard: {type: Number, 'default': 0},
       mustache: {type: Number, 'default': 0},
+      flower: Number
     },
     hideHeader: {type:Boolean, 'default':false},
     skin: {type:String, 'default':'c06534'},
@@ -354,7 +357,7 @@ UserSchema.pre('save', function(next) {
   }
 
   //this.markModified('tasks');
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 24) {
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
 

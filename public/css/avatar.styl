@@ -27,7 +27,7 @@ future re: pets and whatnot, this is just temporary.
 	margin: 0 // need this b/c of bootstrap, remove or reset later
 	position: relative
 	cursor: pointer
-	background: #f5f5f5
+	background: $color-herobox
 	transition: border 0.25s ease-out, background 0.25s ease-out//, padding 0.13s ease-out
 	outline: 1px solid rgba(0,0,0,0.1)
 // padding: 0 // push down the sprite
@@ -53,7 +53,7 @@ future re: pets and whatnot, this is just temporary.
 .herobox.isUser:not(.hasMount):after
 	opacity: 1
 	// make it a bit special
-	background darken($better, 15%)
+	background darken($color-herobox, 15%)
 
 .character-sprites span
     position: absolute
@@ -65,6 +65,7 @@ future re: pets and whatnot, this is just temporary.
 // if not user's avatar, remove lines for party unity
 .herobox:not(.isUser)
   outline: 0
+  background-color: darken($color-herobox, 8%)
 
 // vertically center avatar sprite depending on if they have a pet
 .herobox.hasPet
@@ -77,7 +78,7 @@ future re: pets and whatnot, this is just temporary.
 // expose hero info on hover, taking
 // into account the extra pet space
 .herobox:hover, .herobox:focus
-	background: desaturate(lighten($better, 30%), 10%)
+	background: lighten($color-herobox, 30%)
 	&:after
 		opacity: 1
 
@@ -92,4 +93,4 @@ future re: pets and whatnot, this is just temporary.
 		position: absolute
 
 .herobox.isLeader
-	background: $better
+	background: lighten($color-herobox, 10%)

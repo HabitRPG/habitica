@@ -20,9 +20,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
-      $scope.gear = {
-        base: _.where(Content.gear.flat, {klass: 'base'})
-      };
+      $scope.gear = {};
       _.each(gear.owned, function(v,key){
         if (v === false) return;
         var item = Content.gear.flat[key];

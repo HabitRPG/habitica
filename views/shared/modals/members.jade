@@ -14,10 +14,12 @@ script(type='text/ng-template', id='modals/member.html')
             li(ng-show='profile.auth.timestamps.created')
               |&nbsp;
               =env.t('memberSince')
+              |&nbsp;
               | {{timestamp(profile.auth.timestamps.created)}} -
             li(ng-show='profile.auth.timestamps.loggedin')
               |&nbsp;
               =env.t('lastLoggedIn')
+              |&nbsp;
               | {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
           .label.label-info {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[profile.stats.class] }}

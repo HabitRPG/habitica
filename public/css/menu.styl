@@ -1,0 +1,112 @@
+// Custom styles for the menu aka toolbar aka navbar
+.navbar
+  width:100%;
+  top:0
+  left:0
+  z-index:998
+  color: #222
+  background-color: #f5f5f5
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.2)
+  border-radius:0px
+  margin-bottom:0px
+  min-height:52px
+  > div
+    padding-left:8px
+  .glyphicon
+      color:#5d5d5d
+  .caret
+      color:#9d9d9d
+  .gem-wallet
+    padding-top:4px
+    padding-bottom:8px
+    height:52px
+  .Pet_Currency_Gem2x.Gems
+    position:relative
+    top:8px
+  .currency
+    min-height:52px
+    padding-top:16px
+    padding-right:16px
+// Mobile menu button
+.navbar-header
+    position:absolute
+    top:0
+    right:45px
+    button
+      margin-right:0
+// Top level menu items: Tasks – Options
+.navbar-menu
+  float:left;
+  li
+    display:inline-block
+    height:52px
+    a
+      display:block
+      height:100%
+      margin-left:8px
+      padding-top:16px
+      padding-left:8px
+      padding-right:8px
+      font-size:16px
+      line-height:1
+      text-decoration:none
+      &:link,&:visited
+        color: #222
+      &:hover
+        background-color:#eee
+      &:active
+        color:#000
+    .toolbar-toggle
+      .glyphicon
+        color:#9d9d9d
+    .glyphicon-chevron-down
+      position:relative
+      top:3px
+      transition: all 0.32s linear
+    .glyphicon-chevron-down.active
+      top:0px
+      transform: rotate(180deg)
+// Information bar: Bailey – notifs – currency – subscribe button
+.navbar-info
+  float:right
+  min-height:52px
+  // padding-right:25px
+  li
+    display:inline-block
+    button
+      margin-top: 8px
+      margin-bottom: 8px
+@media screen and (max-width:768px)
+  .navbar-menu
+    float:none
+  .navbar-info
+    width:100%
+.toolbar-sync
+  margin-left:4px
+  a
+    padding:8px !important
+// Navigation submenu
+.toolbar-submenu
+  background-color:#eee
+  border-top: 1px solid rgba(0,0,0,0.2)
+  > li
+    display:inline-block
+    vertical-align:top
+    margin-top:16px
+    margin-left:16px
+    margin-bottom:8px
+    line-height:1.618
+    ul
+      list-style:none
+      li
+        padding-left:22px
+    .glyphicon
+      margin-right:8px
+      color:#9d9d9d
+@media screen and (min-width:768px)
+  .navbar
+    position:fixed
+@media screen and (max-width:768px)
+  .navbar-info.inactive
+    display:none;
