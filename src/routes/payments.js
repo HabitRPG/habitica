@@ -9,6 +9,7 @@ router.get('/paypal/checkout/success', payments.paypalCheckoutSuccess);
 router.get('/paypal/subscribe', auth.authWithUrl, payments.paypalSubscribe);
 router.get('/paypal/subscribe/success', payments.paypalSubscribeSuccess);
 router.get('/paypal/subscribe/cancel', auth.authWithUrl, payments.paypalSubscribeCancel);
+router.post('/paypal/ipn', payments.paypalIPN); // misc ipn handling
 
 router.post("/stripe/checkout", auth.auth, payments.stripeCheckout);
 //router.get("/stripe/subscribe", auth.authWithUrl, payments.stripeSubscribe); // checkout route is used (above) with ?plan= instead

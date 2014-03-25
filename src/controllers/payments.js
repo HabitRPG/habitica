@@ -213,3 +213,28 @@ api.paypalCheckoutSuccess = function(req,res,next) {
     });
   });
 }
+
+/**
+ * General IPN handler. We could use this for all paypal transaction handling (instead of the above functions), but I've
+ * found it extremely unreliable. Instead, here we'll cancel HabitRPG subscriptions for users who manually cancel their
+ * recurring paypal payments.
+ */
+api.paypalIPN = function(req, res, next) {
+  // Must respond to PayPal IPN request with an empty 200 first, if using Express uncomment the following:
+  res.send(200);
+  ipn.verify(req.body, function callback(err, msg) {
+    if (err) return logger.error(msg);
+    switch (req.body.txn_type) {
+      // TODO what's the diff b/w the two data.txn_types below? The docs recommend subscr_cancel, but I'm getting the other one instead...
+      case 'recurring_payment_profile_cancel':
+      case 'subscr_cancel':
+        User.findOne({'purchased.plan.customerId':req.body.recurring_payment_id},function(err, user){
+          if (err) return logger.error(err);
+          if (_.isEmpty(user)) return; // looks like the cancellation was already handled properly above (see api.paypalSubscribeCancel)
+          cancelSubscription(user);
+          user.save();
+        });
+        break;
+    }
+  });
+}
