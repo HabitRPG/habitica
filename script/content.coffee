@@ -19,6 +19,7 @@ events =
 
 mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}
+  201403: {start:'2014-03-24',end:'2014-04-01'}
 
 gear =
   weapon:
@@ -129,6 +130,7 @@ gear =
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
     mystery:
       201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
+      201403: text: 'Forest Walker Armor', notes: "This mossy armor of woven wood bends with the movement of the wearer.", mystery:mystery['201403'], value: 10
 
   head:
     base:
@@ -234,6 +236,8 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.", value: 20
       springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
+    mystery:
+      201403: text: 'Forest Walker Antlers', notes: "These antlers shimmer with moss and lichen.", mystery:mystery['201403'], value: 10
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

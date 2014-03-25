@@ -9207,6 +9207,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     201402: {
       start: '2014-02-22',
       end: '2014-02-28'
+    },
+    201403: {
+      start: '2014-03-24',
+      end: '2014-04-01'
     }
   };
 
@@ -9797,6 +9801,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: "Shimmering and strong, these robes have many pockets to carry letters.",
           mystery: mystery['201402'],
           value: 10
+        },
+        201403: {
+          text: 'Forest Walker Armor',
+          notes: "This mossy armor of woven wood bends with the movement of the wearer.",
+          mystery: mystery['201403'],
+          value: 10
         }
       }
     },
@@ -10308,6 +10318,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           text: 'Yellow Dog Ears',
           notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.',
           value: 20
+        }
+      },
+      mystery: {
+        201403: {
+          text: 'Forest Walker Antlers',
+          notes: "These antlers shimmer with moss and lichen.",
+          mystery: mystery['201403'],
+          value: 10
         }
       }
     }
