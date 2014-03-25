@@ -19,8 +19,11 @@ script(id='modals/buyGems.html', type='text/ng-template')
               =env.t('USD')
           tr
             td
-              .btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
-              a.btn.btn-warning(href='/paypal/checkout?uuid={{user._id}}') PayPal
+              p
+                small.muted Payment Methods:
+              //.btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
+              .btn.btn-primary(ng-click='showStripe()') Card
+              a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
 
       div(ng-include="'partials/options.settings.subscription.html'")
 

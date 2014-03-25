@@ -107,9 +107,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           window.env.t('donationDesc'),
         panelLabel: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
         token: function(data) {
-          var url = '/api/v2/user/buy-gems';
+          var url = '/stripe/checkout';
           if (subscription) url += '?plan=basic_earned';
-//          if (subscription) url += '?plan=test';
           $scope.$apply(function(){
             $http.post(url, data).success(function() {
               window.location.reload(true);
@@ -123,10 +122,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $scope.cancelSubscription = function(){
       if (!confirm(window.env.t('sureCancelSub'))) return;
-      //TODO use Stripe API to keep subscription till end of their month
-      $http.post('/api/v2/user/cancel-subscription').success(function(){
-        window.location.reload(true);
-      })
+      window.location.href = '/' + user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
     }
 
     $scope.contribText = function(contrib, backer){

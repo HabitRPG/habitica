@@ -312,7 +312,8 @@ function createSubscription(user, data) {
       planId:'basic_earned',
       customerId: data.customerId,
       dateUpdated: new Date,
-      gemsBought: 0
+      gemsBought: 0,
+      paymentMethod: data.paymentMethod
     })
     .defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date,
@@ -322,6 +323,12 @@ function createSubscription(user, data) {
   user.purchased.txnCount++;
   ga.event('subscribe', data.paymentMethod).send()
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
+}
+
+function cancelSubscription(user, data){
+  _.merge(user.purchased.plan, {planId:null, customerId:null, paymentMethod:null});
+  user.markModified('purchased.plan');
+  ga.event('unsubscribe', 'Stripe').send();
 }
 
 function buyGems(user, data) {
@@ -334,7 +341,7 @@ function buyGems(user, data) {
 /*
  Setup Stripe response when posting payment
  */
-api.buyGems = function(req, res, next) {
+api.stripeCheckout = function(req, res, next) {
   var api_key = nconf.get('STRIPE_API_KEY');
   var stripe = require("stripe")(api_key);
   var token = req.body.id;
@@ -367,13 +374,12 @@ api.buyGems = function(req, res, next) {
     }
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200, saved);
+    res.send(200);
   });
 };
 
-api.cancelSubscription = function(req, res, next) {
-  var api_key = nconf.get('STRIPE_API_KEY');
-  var stripe = require("stripe")(api_key);
+api.stripeSubscribeCancel = function(req, res, next) {
+  var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
     return res.json(401, {err: "User does not have a plan subscription"});
@@ -383,20 +389,17 @@ api.cancelSubscription = function(req, res, next) {
       stripe.customers.del(user.purchased.plan.customerId, cb);
     },
     function(response, cb) {
-      _.merge(user.purchased.plan, {planId:null, customerId:null});
-      user.markModified('purchased.plan');
+      cancelSubscription(user);
       user.save(cb);
     }
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200, saved);
-    ga.event('unsubscribe', 'Stripe').send()
+    res.redirect('/');
   });
 }
 
 api.paypalSubscribe = function(req,res,next) {
-  var uuid = req.query.uuid;
-  if (!uuid) return next("UUID required");
+  var uuid = res.locals.user._id;
   // Authenticate a future subscription of ~5 USD
   paypalRecurring.authenticate({
     RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + uuid,
@@ -432,8 +435,28 @@ api.paypalSubscribeSuccess = function(req,res,next) {
   });
 }
 
+api.paypalSubscribeCancel = function(req, res, next) {
+  var user = res.locals.user;
+  if (!user.purchased.plan.customerId)
+    return res.json(401, {err: "User does not have a plan subscription"});
+  async.waterfall([
+    function(cb) {
+      paypalRecurring.modifySubscription(user.purchased.plan.customerId, 'cancel', cb);
+    },
+    function(response, cb) {
+      cancelSubscription(user);
+      user.save(cb);
+    }
+  ], function(err, saved){
+    if (err) return next(err);
+    res.redirect('/');
+  });
+
+}
+
 api.paypalCheckout = function(req, res, next) {
-  var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + req.query.uuid};
+  var uuid = res.locals.user._id;
+  var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + uuid};
   paypalCheckout.pay(+new Date, 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
     if (err) return next(err);
     res.redirect(url);

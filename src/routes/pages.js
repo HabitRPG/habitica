@@ -59,9 +59,14 @@ router.get('/static/extensions', function(req, res) {
 
 // --------- PayPal --------
 
-router.get('/paypal/checkout', user.paypalCheckout);
+router.get('/paypal/checkout', auth.authWithUrl, user.paypalCheckout);
 router.get('/paypal/checkout/success', user.paypalCheckoutSuccess);
-router.get('/paypal/subscribe', user.paypalSubscribe);
+router.get('/paypal/subscribe', auth.authWithUrl, user.paypalSubscribe);
 router.get('/paypal/subscribe/success', user.paypalSubscribeSuccess);
+router.get('/paypal/subscribe/cancel', auth.authWithUrl, user.paypalSubscribeCancel);
+
+router.post("/stripe/checkout", auth.auth, user.stripeCheckout);
+//router.get("/stripe/subscribe", auth.authWithUrl, user.stripeSubscribe); // checkout route is used (above) with ?plan= instead
+router.get("/stripe/subscribe/cancel", auth.authWithUrl, user.stripeSubscribeCancel);
 
 module.exports = router;

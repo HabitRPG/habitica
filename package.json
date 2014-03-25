@@ -35,7 +35,6 @@
     "validator": "~1.5.1",
     "nodemailer": "~0.5.2",
     "grunt-cli": "~0.1.9",
-    "paypal-ipn": "~1.0.1",
     "express-csv": "~0.6.0",
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
     "js2xmlparser": "~0.1.2",
@@ -51,7 +50,7 @@
     "domain-middleware": "~0.1.0",
     "universal-analytics": "~0.3.2",
     "paypal-express-checkout": "git://github.com/HabitRPG/node-paypal-express-checkout#habitrpg",
-    "paypal-recurring": "~1.1.0"
+    "paypal-recurring": "git://github.com/jaybryant/paypal-recurring#656b496f43440893c984700191666a5c5c535dca"
   },
   "private": true,
   "subdomain": "habitrpg",

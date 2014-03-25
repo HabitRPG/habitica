@@ -299,16 +299,6 @@ module.exports = (swagger, v2) ->
         ]
       action: user.unlock
 
-    "/user/buy-gems":
-      spec: method: 'POST', description: "Do not use this route"
-      middleware: auth.auth
-      action:user.buyGems
-
-    "/user/cancel-subscription":
-      spec: method: 'POST', description: "Do not use this route"
-      middleware: auth.auth
-      action:user.cancelSubscription
-
     "/user/batch-update":
       spec:
         method: 'POST'
