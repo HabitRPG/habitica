@@ -18,12 +18,12 @@ var acceptablePUTPaths;
 var api = module.exports;
 var isProduction = nconf.get("NODE_ENV") === "production";
 
-var paypalRecurring = new require('paypal-recurring')({
+var PaypalRecurring = require('paypal-recurring');
+var paypalRecurring = new PaypalRecurring({
   username:  nconf.get('PAYPAL_USERNAME'),
   password:  nconf.get('PAYPAL_PASSWORD'),
-  signature: nconf.get('PAYPAL_SIGNATURE'),
-  environment: isProduction ? "production" : "sandbox"
-});
+  signature: nconf.get('PAYPAL_SIGNATURE')
+}, isProduction ? "production" : "sandbox");
 var paypalCheckout = require('paypal-express-checkout')
   .init(nconf.get('PAYPAL_USERNAME'), nconf.get('PAYPAL_PASSWORD'), nconf.get('PAYPAL_SIGNATURE'), nconf.get('BASE_URL'), nconf.get('BASE_URL'), !isProduction);
 
@@ -305,6 +305,32 @@ function revealMysteryItems(user) {
   });
 }
 
+function createSubscription(user, data) {
+  if (!user.purchased.plan) user.purchased.plan = {};
+  _(user.purchased.plan)
+    .merge({ // override with these values
+      planId:'basic_earned',
+      customerId: data.customerId,
+      dateUpdated: new Date,
+      gemsBought: 0
+    })
+    .defaults({ // allow non-override if a plan was previously used
+      dateCreated: new Date,
+      mysteryItems: []
+    });
+  revealMysteryItems(user);
+  user.purchased.txnCount++;
+  ga.event('subscribe', data.paymentMethod).send()
+  ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
+}
+
+function buyGems(user, data) {
+  user.balance += 5;
+  user.purchased.txnCount++;
+  ga.event('checkout', data.paymentMethod).send();
+  ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+}
+
 /*
  Setup Stripe response when posting payment
  */
@@ -332,29 +358,11 @@ api.buyGems = function(req, res, next) {
       }
     },
     function(response, cb) {
-      //user.purchased.ads = true;
       if (req.query.plan) {
-        if (!user.purchased.plan) user.purchased.plan = {}
-        _(user.purchased.plan)
-          .merge({ // override with these values
-            planId:'basic_earned',
-            customerId: response.id,
-            dateUpdated: new Date,
-            gemsBought: 0
-          })
-          .defaults({ // allow non-override if a plan was previously used
-            dateCreated: new Date,
-            mysteryItems: []
-          });
-        revealMysteryItems(user);
-        ga.event('subscribe', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
+        createSubscription(user, {customerId: response.id, paymentMethod: 'Stripe'});
       } else {
-        user.balance += 5;
-        ga.event('checkout', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
+        buyGems(user, {customerId: response.id, paymentMethod: 'Stripe'});
       }
-      user.txnCount++;
       user.save(cb);
     }
   ], function(err, saved){
@@ -384,14 +392,13 @@ api.cancelSubscription = function(req, res, next) {
     res.send(200, saved);
     ga.event('unsubscribe', 'Stripe').send()
   });
-
 }
 
 api.paypalSubscribe = function(req,res,next) {
   var uuid = req.query.uuid;
   if (!uuid) return next("UUID required");
   // Authenticate a future subscription of ~5 USD
-  paypalSubscribe.authenticate({
+  paypalRecurring.authenticate({
     RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + uuid,
     CANCELURL:                      nconf.get("BASE_URL"),
     PAYMENTREQUEST_0_AMT:           5,
@@ -408,15 +415,20 @@ api.paypalSubscribeSuccess = function(req,res,next) {
   // Create a subscription of 10 USD every month
   var uuid = req.query.uuid;
   if (!uuid) return next("UUID required");
-  paypalSubscribe.createSubscription(req.query.token, req.query.PayerId,{
+  paypalRecurring.createSubscription(req.query.token, req.query.PayerID,{
     AMT:              5,
     DESC:             "HabitRPG Subscription",
     BILLINGPERIOD:    "Month",
     BILLINGFREQUENCY: 1,
   }, function(err, data) {
     if (err) return res.next(err);
-    res.send("You are now one of our customers!");
-    console.log("New customer with PROFILEID: " + data.PROFILEID)
+    User.findById(uuid, function(err,user){
+      if (err) return next(err);
+      createSubscription(user, {customerId: data.PROFILEID, paymentMethod: 'Paypal'});
+      user.save(function(err,saved){
+        res.redirect('/');
+      })
+    })
   });
 }
 
@@ -438,15 +450,12 @@ api.paypalCheckoutSuccess = function(req,res,next) {
     var uuid = req.query.uuid; //, apiToken = query.apiToken;
     User.findById(uuid , function(err, user) {
       if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
-      if (err) return nex(err);
-      user.balance += 5;
-      user.txnCount++;
-      //user.purchased.ads = true;
-      user.save();
-      logging.info('PayPal transaction completed and user updated');
-      ga.event('checkout', 'PayPal').send();
-      ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send();
-      res.redirect('/');
+      if (err) return next(err);
+      buyGems(user, {customerId:req.query.PayerID, paymentMethod:'Paypal'});
+      user.save(function(){
+        if (err) return next(err);
+        res.redirect('/');
+      });
     });
   });
 }
