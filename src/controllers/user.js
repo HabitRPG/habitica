@@ -16,6 +16,16 @@ var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
+var isProduction = nconf.get("NODE_ENV") === "production";
+
+var PaypalRecurring = require('paypal-recurring');
+var paypalRecurring = new PaypalRecurring({
+  username:  nconf.get('PAYPAL_USERNAME'),
+  password:  nconf.get('PAYPAL_PASSWORD'),
+  signature: nconf.get('PAYPAL_SIGNATURE')
+}, isProduction ? "production" : "sandbox");
+var paypalCheckout = require('paypal-express-checkout')
+  .init(nconf.get('PAYPAL_USERNAME'), nconf.get('PAYPAL_PASSWORD'), nconf.get('PAYPAL_SIGNATURE'), nconf.get('BASE_URL'), nconf.get('BASE_URL'), !isProduction);
 
 // api.purchase // Shared.ops
 
@@ -258,17 +268,11 @@ api['delete'] = function(req, res, next) {
 
 /*
  ------------------------------------------------------------------------
- Unlock Preferences
+ Gems
  ------------------------------------------------------------------------
  */
 
 // api.unlock // see Shared.ops
-
-/*
- ------------------------------------------------------------------------
- Buy Gems
- ------------------------------------------------------------------------
- */
 
 api.addTenGems = function(req, res, next) {
   var user = res.locals.user;
@@ -277,128 +281,6 @@ api.addTenGems = function(req, res, next) {
     if (err) return next(err);
     res.send(204);
   })
-}
-
-// TODO delete plan
-
-function revealMysteryItems(user) {
-  _.each(shared.content.gear.flat, function(item) {
-    if (
-      item.klass === 'mystery' &&
-      moment().isAfter(item.mystery.start) &&
-      moment().isBefore(item.mystery.end) &&
-      !user.items.gear.owned[item.key] &&
-      !~user.purchased.plan.mysteryItems.indexOf(item.key)
-    ) {
-      user.purchased.plan.mysteryItems.push(item.key);
-    }
-  });
-}
-
-/*
- Setup Stripe response when posting payment
- */
-api.buyGems = function(req, res, next) {
-  var api_key = nconf.get('STRIPE_API_KEY');
-  var stripe = require("stripe")(api_key);
-  var token = req.body.id;
-  var user = res.locals.user;
-
-  async.waterfall([
-    function(cb){
-      if (req.query.plan) {
-        stripe.customers.create({
-          email: req.body.email,
-          metadata: {uuid: res.locals.user._id},
-          card: token,
-          plan: req.query.plan,
-        }, cb);
-      } else {
-        stripe.charges.create({
-          amount: "500", // $5
-          currency: "usd",
-          card: token
-        }, cb);
-      }
-    },
-    function(response, cb) {
-      //user.purchased.ads = true;
-      if (req.query.plan) {
-        if (!user.purchased.plan) user.purchased.plan = {}
-        _(user.purchased.plan)
-          .merge({ // override with these values
-            planId:'basic_earned',
-            customerId: response.id,
-            dateUpdated: new Date,
-            gemsBought: 0
-          })
-          .defaults({ // allow non-override if a plan was previously used
-            dateCreated: new Date,
-            mysteryItems: []
-          });
-        revealMysteryItems(user);
-        ga.event('subscribe', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
-      } else {
-        user.balance += 5;
-        ga.event('checkout', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
-      }
-      user.txnCount++;
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200, saved);
-  });
-};
-
-api.cancelSubscription = function(req, res, next) {
-  var api_key = nconf.get('STRIPE_API_KEY');
-  var stripe = require("stripe")(api_key);
-  var user = res.locals.user;
-  if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
-
-  async.waterfall([
-    function(cb) {
-      stripe.customers.del(user.purchased.plan.customerId, cb);
-    },
-    function(response, cb) {
-      _.merge(user.purchased.plan, {planId:null, customerId:null});
-      user.markModified('purchased.plan');
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200, saved);
-    ga.event('unsubscribe', 'Stripe').send()
-  });
-
-}
-
-api.buyGemsPaypalIPN = function(req, res, next) {
-  res.send(200);
-  ipn.verify(req.body, function callback(err, msg) {
-    if (err) return next('PayPal Error: ' + msg);
-    if (req.body.payment_status == 'Completed') {
-      //Payment has been confirmed as completed
-      var parts = url.parse(req.body.custom, true);
-      var uid = parts.query.uid; //, apiToken = query.apiToken;
-      if (!uid) return next("uuid or apiToken not found when completing paypal transaction");
-      User.findById(uid, function(err, user) {
-        if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
-        if (err) return nex(err);
-        user.balance += 5;
-        user.txnCount++;
-        //user.purchased.ads = true;
-        user.save();
-        logging.info('PayPal transaction completed and user updated');
-        ga.event('checkout', 'PayPal').send()
-        ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send()
-      });
-    }
-  });
 }
 
 /*

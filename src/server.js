@@ -123,6 +123,7 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // Custom Directives
   app.use(require('./routes/pages').middleware);
+  app.use(require('./routes/payments').middleware);
   app.use(require('./routes/auth').middleware);
   var v2 = express();
   app.use('/api/v2', v2);
