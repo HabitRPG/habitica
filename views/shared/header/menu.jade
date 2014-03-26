@@ -32,15 +32,15 @@ nav.navbar(ng-controller='AuthCtrl')
           h4 Notifs
           ul.toolbar-notifs-notifs
             li(ng-if='user.invitations.party.id')
-              a(ui-sref='options.social.party')
+              a(ui-sref='options.social.party', ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; user.preferences.menuExpanded = !user.preferences.menuExpanded')
                 span.glyphicon.glyphicon-user
                 span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
             li(ng-repeat='guild in user.invitations.guilds')
-              a(ui-sref='options.social.guilds')
+              a(ui-sref='options.social.guilds', ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; user.preferences.menuExpanded = !user.preferences.menuExpanded')
                 span.glyphicon.glyphicon-user
                 span=env.t('invitedTo', {name: '{{guild.name}}'})
             li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-              a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k})')
+              a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; user.preferences.menuExpanded = !user.preferences.menuExpanded')
                 span.glyphicon.glyphicon-comment
                 span {{v.name}}
               a(ng-click='')
