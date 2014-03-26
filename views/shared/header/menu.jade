@@ -14,20 +14,42 @@ nav.navbar(ng-controller='AuthCtrl')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
         .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
       // Invitations
-      li(ng-if='user.invitations.party.id')
-        a(ui-sref='options.social.party')
-          span.glyphicon.glyphicon-user(popover=env.t('invitedTo', {name: '{{user.invitations.party.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
-      li(ng-repeat='guild in user.invitations.guilds')
-        a(ui-sref='options.social.guilds')
-          span.glyphicon.glyphicon-user(popover=env.t('invitedTo', {name: '{{guild.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
-      // Chat notifs
-      li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-        a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k})')
-          span.glyphicon.glyphicon-comment(popover=env.t('newMsg', {name: '{{v.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+      //-li(ng-if='user.invitations.party.id')
+        //-a(ui-sref='options.social.party')
+          //-span.glyphicon.glyphicon-user(popover=env.t('invitedTo', {name: '{{user.invitations.party.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+      //-li(ng-repeat='guild in user.invitations.guilds')
+        //-a(ui-sref='options.social.guilds')
+          //-span.glyphicon.glyphicon-user(popover=env.t('invitedTo', {name: '{{guild.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
       // Mystery Item
       li(ng-if='user.purchased.plan.mysteryItems.length')
         a(ng-click='$state.go("options.inventory.drops")')
           span.glyphicon.glyphicon-gift(popover=env.t('newSubscriberItem'),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+      // Notifications
+      li.toolbar-notifs
+        a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded')
+          span.glyphicon.glyphicon-comment
+        div(ng-if='user.preferences.isNotifsExpanded')
+          h4 Notifs
+          ul.toolbar-notifs-notifs
+            li(ng-if='user.invitations.party.id')
+              a(ui-sref='options.social.party')
+                span.glyphicon.glyphicon-user
+                span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+            li(ng-repeat='guild in user.invitations.guilds')
+              a(ui-sref='options.social.guilds')
+                span.glyphicon.glyphicon-user
+                span=env.t('invitedTo', {name: '{{guild.name}}'})
+            li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
+              a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k})')
+                span.glyphicon.glyphicon-comment
+                span {{v.name}}
+              a(ng-click='')
+                span.glyphicon.glyphicon-remove-circle(popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
+          ul.toolbar-notifs-controls
+            li
+              a(ng-click='') Clear all
+            li
+              a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded')=env.t('close')
       li
         a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
           //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
