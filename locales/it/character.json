@@ -74,7 +74,7 @@
     "levelBonus": "Bonus di livello",
     "levelBonusText": "Ogni attributo riceve un bonus pari alla metà di (tuo livello - 1).",
     "allocatedPoints": "Punti allocati",
-    "allocatedPointsText": "Punti Attributo che hai guadagnato ed assegnato. Assegna punti utilizzando la colonna \"Build del personaggio\".",
+    "allocatedPointsText": "Punti Attributo che hai guadagnato ed allocato. Assegna punti ai vari attributi utilizzando la colonna \"Build del personaggio\".",
     "allocated": "Allocati",
     "buffs": "Bonus",
     "buffsText": "Bonus temporanei agli attributi, guadagnati grazie ad abilità o Trofei. Gli effetti terminano alla fine della giornata. Le abilità che puoi usare vengono mostrate nella colonna delle Ricompense, nella pagina delle tue attività.",

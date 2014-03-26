@@ -9,7 +9,7 @@
     "startCollapsed": "Liste des étiquettes réduite à l'ouverture des tâches",
     "startCollapsedPop": "Avec cette option cochée, la liste des étiquettes d'une tâche sera cachée à l'ouverture de la tâche pour modification.",
     "startAdvCollapsed": "Options Avancées des tâches réduites",
-    "startAdvCollapsedPop": "Avec cette option cochée, les Options Avancées seront cachées quand vous modifierez pour la première fois une tâche.",
+    "startAdvCollapsedPop": "Avec cette option cochée, les Options Avancées seront cachées quand vous modifierez une tâche pour la première fois.",
     "showTour": "Montrer la visite guidée",
     "restartTour": "Relance la visite guidée d'introduction vue lors de votre première visite sur HabitRPG.",
     "showBailey": "Montrer Bailey",
@@ -19,7 +19,7 @@
     "enableClass": "Activer le Système de Classe",
     "enableClassPop": "Vous avez désactivé le système de classe. Vous-vous l'activer ?",
     "showClass": "Montrer la visite guidée des classes",
-    "classTourPop": "Montre la visite guidée sur l'utilisation du système de classe.",
+    "classTourPop": "Montre la visite guidée à propos l'utilisation du système de classe.",
     "resetAccount": "Réinitialiser le compte",
     "resetAccPop": "Recommencez à zéro. Cela supprimera votre niveau, votre or, votre équipement, votre historique et vos tâches.",
     "deleteAccount": "Supprimer le compte",
@@ -62,5 +62,5 @@
     "enterNumber": "Veuillez entrer un chiffre entre 0 et 24",
     "fillAll": "Veuillez remplir tous les champs",
     "passSuccess": "Mot de passe changé avec succès ",
-    "difficulty": "Difficulty"
+    "difficulty": "Difficulté"
 }
