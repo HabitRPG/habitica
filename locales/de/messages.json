@@ -1,0 +1,12 @@
+{
+    "messageLostItem": "Dein <%= itemText() %> wurde zerstört.",
+    "messageTaskNotFound": "Aufgabe nicht gefunden.",
+    "messageTagNotFound": "Tag nicht gefunden.",
+    "messagePetNotFound": ":pet in user.items.pets nicht gefunden",
+    "messageFoodNotFound": ":food in user.items.food nicht gefunden",
+    "messageCannotFeedPet": "Dieses Haustier will und kann nicht gefüttert werden.",
+    "messageAlreadyMount": "Du hast dieses Reittier bereits. Füttere lieber ein anderes Haustier.",
+    "messageEvolve": "<%= egg %> wurde gezähmt, es ist an der Zeit aufzusitzen!",
+    "messageLikesFood": "<%= egg %> ist begeistert. <%= foodText() %> ist seine Lieblingsspeise!",
+    "messageDontEnjoyFood": "<%= egg %> ist nicht gerade begeistert. <%= foodText() %> schmeckt Deinem Haustier überhaupt nicht."
+}

@@ -1,0 +1,23 @@
+{
+    "defaultHabit1Text": "1 godzina produktywnej pracy",
+    "defaultHabit1Notes": "Jeśli tworzysz nowy Nawyk, możesz nacisnąć ikonę \"Edytuj\" i wybrać ją jako reprezentującą dobry nawyk.",
+    "defaultHabit2Text": "Zjadłeś śmieciowe jedzenie",
+    "defaultHabit2Notes": "Dla innych jedynym sensownym wyjściem jest *strata* punktów.",
+    "defaultHabit3Text": "Idź schodami",
+    "defaultHabit3Notes": "Dla reszty, oba znaki + i - mają sens (schody = zyskasz, winda + stracisz)",
+    "defaultDaily1Text": "1 godzina osobistego projektu",
+    "defaultDaily1Notes": "Po utworzeniu, wszystkie zadania są domyślnie żółte. To znaczy, że za pominięcie ich otrzymujesz średnie obrażenia, a także średnie nagrody gdy je wypełnisz. ",
+    "defaultDaily2Text": "Ćwiczenia",
+    "defaultDaily2Notes": "Codzienne obowiązki, które sumiennie wypełniasz, zmienią się z żółtych w zielone i w końcu w niebieskie, pomagając ci śledzić twoje postępy. Im bardziej niebieskie będą twoje zadania, tym mniej za nie będziesz odnosić obrażeń, gdy je pominiesz, ale dostaniesz też mniejsze nagrody za ich wypełnienie.",
+    "defaultDaily3Text": "czytanie przez 45 minut",
+    "defaultDaily3Notes": "Jeśli będziesz często pomijał Codzienne obowiązki, zmienią się w ciemniejsze odcienie pomarańczu i czerwieni. Im czerwieńsze jest zadanie, tym więcej dostajesz doświadczenia i złota za jego wypełnienie, ale i więcej obrażeń przyjmujesz za pominięcie go. To pomaga skupiać ci się twoich wadach, czyli czerwonych.",
+    "defaultTodo1Text": "Zadzwonić do mamy",
+    "defaultTodo1Notes": "Chociaż nieukończenie Do-Zrobienia w wyznaczonym odstępie czasu cię nie skrzywdzi, będzie stopniowo przechodzić z żółtego w czerwony, stajać się przez to cenniejszym. To ma zachęcić cię do wykonywania przeterminowanych Do-Zrobienia.",
+    "defaultReward1Text": "1 odcinek \"Wojny o Tron\"",
+    "defaultReward1Notes": "Twoje własne nagrody mogą przybrań wiele form. Niektórzy ludzie wstrzymują się od oglądania ulubionego programu dopóki mogą za niego zapłacić.",
+    "defaultReward2Text": "Ciasto",
+    "defaultReward2Notes": "Dla niektórych przyjemnością jest kawałek ciasta. Spróbuj stworzyć nagrody, które będą Cie najlepiej motywować.",
+    "defaultTag1": "Rano",
+    "defaultTag2": "Popołudnie",
+    "defaultTag3": "Wieczór"
+}

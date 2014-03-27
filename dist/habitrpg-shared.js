@@ -11923,7 +11923,7 @@ module.exports = {
       vars = arguments[1];
       locale = arguments[2];
     }
-    string = locale && !strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    string = locale && !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
       if (vars) {
         return _.template(string, vars);
@@ -11931,7 +11931,7 @@ module.exports = {
         return string;
       }
     } else {
-      stringNotFound = locale && !strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      stringNotFound = locale && !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
       return _.template(stringNotFound, {
         string: stringName
       });

@@ -1,0 +1,12 @@
+{
+    "messageLostItem": "Pokazil sa ti <%= itemText() %>.",
+    "messageTaskNotFound": "Úloha sa nenašla.",
+    "messageTagNotFound": "Štítok sa nenašiel.",
+    "messagePetNotFound": ":pet sa nenašlo medzi user.items.pets",
+    "messageFoodNotFound": ":food sa nenašlo v user.items.food",
+    "messageCannotFeedPet": "Toto zvieratko nemôžeš nakŕmiť.",
+    "messageAlreadyMount": "Takého tátoša už máš. Skús nakŕmiť iné zvieratko.",
+    "messageEvolve": "Skrotil si si <%= egg %>, vezmi ho na jazdu!",
+    "messageLikesFood": "<%= egg %> si pochutnalo na <%= foodText() %>!",
+    "messageDontEnjoyFood": "<%= egg %> zjedlo <%= foodText() %>, ale veľmi mu to nechutí."
+}

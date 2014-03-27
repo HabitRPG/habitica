@@ -1,0 +1,23 @@
+{
+    "defaultHabit1Text": "1u Productief Werk",
+    "defaultHabit1Notes": "Als je een nieuwe Gewoonte aanmaakt, kan je op het Bewerk icoon klikken en kiezen of het een positieve gewoonte, een negatieve gewoonte, of beide is. Voor sommige Gewoonten, zoals deze, is het alleen logisch om punten te krijgen. ",
+    "defaultHabit2Text": "Eet Ongezond Voedsel",
+    "defaultHabit2Notes": "Voor anderen, is het alleen logisch om punten te *verliezen*.",
+    "defaultHabit3Text": "Neem De Trap",
+    "defaultHabit3Notes": "Voor de rest, zowel + als - zijn logisch (trap = verkrijg, lift = verlies).",
+    "defaultDaily1Text": "1u Persoonlijk Project",
+    "defaultDaily1Notes": "Alle taken zijn standaard geel als ze gecreëerd worden. Dit betekent dat je maar matig schade krijgt als ze niet aangevinkt worden, en je maar een matige beloning krijgt als je ze voltooid.",
+    "defaultDaily2Text": "Lichaamsbeweging",
+    "defaultDaily2Notes": "Dagelijkse Taken die je consequent voltooid zullen van geel naar groen naar blauw gaan, helpend om je vooruitgang bij te houden. Hoe hoger je op de ladder komt, hoe minder schade je krijgt voor het missen en hoe minder beloning je krijgt voor het voltooien van het doel.",
+    "defaultDaily3Text": "45m Lezen",
+    "defaultDaily3Notes": "Als je een dagelijkse taak regelmatig mist, zal het donkerdere tinten oranje en rood krijgen. Hoe roder een taak is, hoe meer ervaring en goud het geeft voor het voltooien en hoe meer schade je krijgt voor falen. Dit moedigt je aan om je te focussen op je tekortkomingen, de rode taken.",
+    "defaultTodo1Text": "Bel Moeder",
+    "defaultTodo1Notes": "Hoewel het niet voltooien van een te-doen in een bepaalde periode van tijd je niet zal schaden, zullen ze wel geleidelijk veranderen van geel naar rood, en dus meer waardevol worden. Dit zal je aanmoedigen om oudere Te-Doen-taken af te ronden.",
+    "defaultReward1Text": "1 Aflevering van Game of Thrones",
+    "defaultReward1Notes": "Handmatige beloningen bestaan in vele vormen. Sommige mensen zullen wachten met het kijken van hun favoriete serie totdat ze het goud hebben om er voor te betalen.",
+    "defaultReward2Text": "Taart",
+    "defaultReward2Notes": "Andere mensen willen gewoon van een heerlijk stuk taart genieten. Probeer om beloningen te maken die jou het best motiveren.",
+    "defaultTag1": "ochtend",
+    "defaultTag2": "middag",
+    "defaultTag3": "avond"
+}

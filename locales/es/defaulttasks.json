@@ -1,0 +1,23 @@
+{
+    "defaultHabit1Text": "1hr de trabajo productivo",
+    "defaultHabit1Notes": "Cuando creas un nuevo Hábito, puedes hacer clic en el ícono de Editar y hacer que represente un hábito positivo, negativo o ambos a la vez. Para algunos hábitos, sólo tiene sentido ganar puntos.",
+    "defaultHabit2Text": "Comer comida chatarra",
+    "defaultHabit2Notes": "Para otras, sólo tiene sentido *perder* puntos.",
+    "defaultHabit3Text": "Usar las escaleras",
+    "defaultHabit3Notes": "Para el resto, tanto + como - tienen sentido (escaleras = ganancia, ascensor = pérdida).",
+    "defaultDaily1Text": "1hr proyecto personal",
+    "defaultDaily1Notes": "Todas las tareas creadas por defecto están de color amarillo Esto significa que te harán un daño moderado cuando no las haces y ganarás una recompensa moderada cuando las realizas.",
+    "defaultDaily2Text": "Hacer ejericicio",
+    "defaultDaily2Notes": "Diarias que completas consistentemente volverán de amarillo a verde a azul, ayudando con mantener un registro de tu progreso. Cuando subas la escalera, recibirás menos daño por perder la meta y recibirás menos recompensa por lograr la meta. ",
+    "defaultDaily3Text": "45min lectura",
+    "defaultDaily3Notes": "Si pierdas un diaria con frequencia, volverá colores más oscuros de naranja y rojo. Lo más rojo la meta es, lo más experiencia y oro recibirás por éxito y lo más daño recibirás por fallar.",
+    "defaultTodo1Text": "Llamar a mamá",
+    "defaultTodo1Notes": "Aunque no completar un tarea pendiente para un período de tiempo no hará daño a ti, las tareas se volverán de amarillo a rojo, volviéndose mas valioso. Esto te incentivará a completar tareas pendientes antiguas.",
+    "defaultReward1Text": "1 episodio de Juego de Tronos",
+    "defaultReward1Notes": "Recompensas personalizadas pueden tener muchas formas. Algunos eligen no ver su programa favorita hasta que tengan el oro para pagar.",
+    "defaultReward2Text": "Pastel",
+    "defaultReward2Notes": "Otras personas sólo quieren disfrutar de un buen pedazo de pastel. Intenta crear recompensas que mejor te motiven.",
+    "defaultTag1": "mañana",
+    "defaultTag2": "tarde",
+    "defaultTag3": "noche"
+}

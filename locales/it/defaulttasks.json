@@ -1,0 +1,23 @@
+{
+    "defaultHabit1Text": "1h Attività produttiva",
+    "defaultHabit1Notes": "Quando crei una nuova Habit, puoi cliccare sull'icona Modifica e scegliere se rappresenta una buona abitudine, una cattiva abitudine, o entrambe. Alcune Habit, ad esempio questa, hanno senso solo se fanno guadagnare punti.",
+    "defaultHabit2Text": "Mangia cibo spazzatura",
+    "defaultHabit2Notes": "Altre invece, hanno senso solo se fanno *perdere* punti.",
+    "defaultHabit3Text": "Usa le scale!",
+    "defaultHabit3Notes": "In altri casi, sia il + che il - vanno bene (scale = guadagni punti, ascensore = penalità)",
+    "defaultDaily1Text": "1h Progetto personale",
+    "defaultDaily1Notes": "Le attività appena create sono inizialmente di colore giallo. Questo significa che riceverai pochi danni se le trascuri e guadagnerai una ricompensa normale quando le completi.",
+    "defaultDaily2Text": "Esercizio fisico",
+    "defaultDaily2Notes": "Le Daily che completi con costanza passeranno dal colore giallo al verde, per poi diventare blu, aiutandoti a tenere traccia dei tuoi progressi. Maggiore sarà il tuo impegno, minore sarà il danno ricevuto dal non completamento e la ricompensa ricevuta.",
+    "defaultDaily3Text": "45m Lettura",
+    "defaultDaily3Notes": "Se trascuri spesso una Daily, il suo colore cambierà diventando arancione e poi rosso. Più il colore tende al rosso, più la ricompensa ricevuta dal completamento dell'attività sarà alta, così come il danno subito a causa del mancato completamento a fine giornata. Questo ti incoraggerà a concentrarti sulle tue lacune.",
+    "defaultTodo1Text": "Chiama la mamma",
+    "defaultTodo1Notes": "Non completare dei To-Do in un determinato periodo di tempo non ti penalizzerà, ma cambieranno gradualmente colore passando dal giallo al rosso, diventando più \"preziosi\". Questo serve a incoraggiarti a portare a termine gli impegni che rimandi da tempo.",
+    "defaultReward1Text": "1h Guarda la tv",
+    "defaultReward1Notes": "Le ricompense personalizzate possono essere di diversi tipi. Alcuni potrebbero voler guardare la televisione finchè hanno abbastanza oro per poterselo permettere.",
+    "defaultReward2Text": "Torta",
+    "defaultReward2Notes": "Altre persone si accontentano di un gustoso pezzo di torta. Prova a creare delle ricompense che ti spingano a dare il meglio di te.",
+    "defaultTag1": "mattino",
+    "defaultTag2": "pomeriggio",
+    "defaultTag3": "sera"
+}

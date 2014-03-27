@@ -1,0 +1,23 @@
+{
+    "defaultHabit1Text": "1h de Trabalho Produtivo",
+    "defaultHabit1Notes": "Quando você cria um novo Hábito, você pode clicar no ícone de Edição e representar o hábito como algo positivo, negativo ou ambos. Para alguns Hábitos, como esse, só faz sentido ganhar pontos.",
+    "defaultHabit2Text": "Comer Porcaria",
+    "defaultHabit2Notes": "Para outros, só fazem sentido *perder* pontos.",
+    "defaultHabit3Text": "Usar as Escadas",
+    "defaultHabit3Notes": "Para o resto, tanto + e - fazem sentido (escadas = ganhar, elevador = perder).",
+    "defaultDaily1Text": "1h de Projeto Pessoal",
+    "defaultDaily1Notes": "Todas as tarefas são amarelas quando criadas. Isso quer dizer que você só tomará dano moderado quando não completá-las e ganhará uma recompensa moderada quando completá-las.",
+    "defaultDaily2Text": "Exercitar",
+    "defaultDaily2Notes": "Tarefas Diárias que você completar sempre vão se modificar de amarelo para verde para azul, te ajudando a acompanhar seu progresso. Quanto mais alto você subir na escala, menos dano você recebe por perder a tarefa e menor é a recompensa por completá-la.",
+    "defaultDaily3Text": "45m de Leitura",
+    "defaultDaily3Notes": "Se você perder uma tarefa diária frequentemente, ela vai se modificar para tons mais escuros de laranja e vermelho. Quanto mais vermelha a tarefa, mais experiência e ouro ela concede para sucesso e mais dano ela causa para falha. Isso te encoraja a focar em suas deficiências, os vermelhos.",
+    "defaultTodo1Text": "Ligar para Mãe",
+    "defaultTodo1Notes": "Enquanto não completar um afazer em um certo período de tempo não vai te ferir, eles vão gradualmente mudando de amarelo para vermelho, se tornando mais valiosos. Isso te encoraja a terminar afazeres antigos.",
+    "defaultReward1Text": "1 Episódio de Game of Thrones",
+    "defaultReward1Notes": "Recompensas customizadas podem ser de vários tipos. Algumas pessoas vão esperar para assistir seu programa favorito até que elas tenham ouro suficiente para pagar por ele.",
+    "defaultReward2Text": "Bolo",
+    "defaultReward2Notes": "Outras pessoas só querem aproveitar um pedaço de bolo. Tente criar recompensas que mais vão te motivar.",
+    "defaultTag1": "manhã",
+    "defaultTag2": "tarde",
+    "defaultTag3": "noite"
+}

@@ -1,0 +1,12 @@
+{
+    "messageLostItem": "Сломано: <%= itemText() %>",
+    "messageTaskNotFound": "Задание не найдено.",
+    "messageTagNotFound": "Тег не найден.",
+    "messagePetNotFound": ":pet не найдено в user.items.pets",
+    "messageFoodNotFound": ":food не найдено в user.items.food",
+    "messageCannotFeedPet": "Нельзя кормить этого питомца.",
+    "messageAlreadyMount": "У вас уже есть этот скакун. Попробуйте покормить другого питомца.",
+    "messageEvolve": "Вы приручили <%= egg %>, пора кататься!",
+    "messageLikesFood": "<%= egg %> очень любит <%= foodText() %>!",
+    "messageDontEnjoyFood": "<%= egg %> съел <%= foodText() %>, но не похоже, что это ему действительно понравилось."
+}

@@ -1,0 +1,23 @@
+{
+    "defaultHabit1Text": "1h produktívnej práce",
+    "defaultHabit1Notes": "Keď vytvoríš nový návyk, môžeš kliknúť na ikonu upraviť a vybrať, či má reprezentovať pozitívny návyk, zlozvyk alebo oboje. Pre niektoré návyky, ako je tento, dáva zmysel len získavanie bodov.",
+    "defaultHabit2Text": "Nezdravé jedlo",
+    "defaultHabit2Notes": "Pre niektoré dáva zmysel len *strácať* body.",
+    "defaultHabit3Text": "Ísť po schodoch",
+    "defaultHabit3Notes": "Pre zvyšok dávajú zmysel oboje, + aj - (schody = získať, výťah = stratiť).",
+    "defaultDaily1Text": "1h práce na vlastnom projekte",
+    "defaultDaily1Notes": "Všetky úlohy sú v základe žlté, keď sa vytvoria. To znamená, že od nich dostaneš len jemné poškodenie, keď ich nesplníš a získaš len menšiu odmenu, keď ich splníš.",
+    "defaultDaily2Text": "Cvičenie",
+    "defaultDaily2Notes": "Keď budeš denné úlohy plniť pravidelne, tak sa zmenia zo žltej cez zelenú na modrú, pomôže ti to sledovať tvoj pokrok. Čím vyššie sa na rebríčku dostávaš, tým menšie poškodenie získavaš pri nesplnení a dostávaš menšiu odmenu za splnenie cieľa.",
+    "defaultDaily3Text": "45 minút čítania",
+    "defaultDaily3Notes": "Ak budeš často vynechávať denné úlohy , stmavnú cez odtiene oranžovej po červenú. Čím je úloha červenšia, tým viac skúseností a zlata dostaneš za jej splnenie, ale dostaneš aj silnejšie poškodenie, keď ju nesplníš. To ti pomáha sústrediť sa na svoje nedostatky – červené úlohy.",
+    "defaultTodo1Text": "Zavolať mame",
+    "defaultTodo1Notes": "Aj keď ťa nesplnenie dlhodobých úloh v stanovej dobe neporaní, postupne sa budú meniť zo žltej na červenú, teda sa stanú cennejšími. To ťa povzbudí k dokončeniu odkladaných úloh.",
+    "defaultReward1Text": "1 epizóda Babylonu 5",
+    "defaultReward1Notes": "Vlastné odmeny môžu mať rôzne formy. Niektorí ľudia odkladajú sledovanie svojho obľúbeného seriálu, kým nemajú dosť zlata, aby si to mohli dovoliť.",
+    "defaultReward2Text": "Koláč",
+    "defaultReward2Notes": "Iní ľudia si zas chcú vychutnať kúsok koláča. Pokús sa vytvoriť si odmeny, ktoré ťa budú motivovať.",
+    "defaultTag1": "ráno",
+    "defaultTag2": "poobede",
+    "defaultTag3": "večer"
+}

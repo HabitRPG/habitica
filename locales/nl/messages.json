@@ -1,0 +1,12 @@
+{
+    "messageLostItem": "Je <%= itemText() %> is stuk gegaan.",
+    "messageTaskNotFound": "Taak niet gevonden.",
+    "messageTagNotFound": "Label niet gevonden.",
+    "messagePetNotFound": ":pet niet gevonden in user.items.pets",
+    "messageFoodNotFound": ":food niet gevonden in user.items.food",
+    "messageCannotFeedPet": "Dit dier kan niet gevoerd worden.",
+    "messageAlreadyMount": "Je hebt dat rijdier al. Probeer een ander dier te voeren.",
+    "messageEvolve": "Je hebt <%= egg %> getemd, laten we op weg gaan!",
+    "messageLikesFood": "<%= egg %> houdt echt van de <%= foodText() %>!",
+    "messageDontEnjoyFood": "<%= egg %> eet de <%= foodText() %> maar lijkt er niet echt van te genieten."
+}

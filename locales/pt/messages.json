@@ -1,0 +1,12 @@
+{
+    "messageLostItem": "Seu <%= itemText() %> quebrou.",
+    "messageTaskNotFound": "Tarefa não encontrada.",
+    "messageTagNotFound": "Etiqueta não encontrada.",
+    "messagePetNotFound": ":mascote não encontrado em user.items.pets",
+    "messageFoodNotFound": ":comida não encontrada em user.items.food",
+    "messageCannotFeedPet": "Não foi possível alimentar esse mascote.",
+    "messageAlreadyMount": "Você já possui essa montaria. Tente alimentar outro mascote.",
+    "messageEvolve": "Você domou <%= egg %>, vamos dar um passeio.",
+    "messageLikesFood": "<%= egg %> gostou muito de <%= foodText() %>!",
+    "messageDontEnjoyFood": "<%= egg %> comeu <%= foodText() %>, mas parece não gostar muito."
+}
