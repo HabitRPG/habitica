@@ -300,26 +300,6 @@ module.exports = (swagger, v2) ->
         ]
       action: user.unlock
 
-<<<<<<< HEAD
-=======
-    "/user/buy-gems":
-      spec: method: 'POST', description: "Do not use this route"
-      middleware: [auth.auth, i18n.getUserLanguage]
-      action:user.buyGems
-
-    "/user/cancel-subscription":
-      spec: method: 'POST', description: "Do not use this route"
-      middleware: [auth.auth, i18n.getUserLanguage]
-      action:user.cancelSubscription
-
-    "/user/buy-gems/paypal-ipn":
-      spec:
-        method: 'POST'
-        description: "Don't use this route"
-      middleware: []
-      action: user.buyGemsPaypalIPN
-
->>>>>>> refactor(i18n): refactor user language detection, add to api methods
     "/user/batch-update":
       spec:
         method: 'POST'

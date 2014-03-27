@@ -3,12 +3,9 @@ var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
 var middleware = require('../middleware');
-<<<<<<< HEAD
 var user = require('../controllers/user');
 var auth = require('../controllers/auth');
-=======
 var i18n = require('../i18n');
->>>>>>> refactor(i18n): refactor user language detection, add to api methods
 
 // -------- App --------
 router.get('/', i18n.getUserLanguage, middleware.locals, function(req, res) {
