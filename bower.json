@@ -30,7 +30,7 @@
     "bootstrap": "~3.1.0",
     "bootstrap-growl": "git://github.com/ifightcrime/bootstrap-growl.git#master",
     "bootstrap-tour": "~0.8.1",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#paglias/translate",
     "BrowserQuest": "git://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
