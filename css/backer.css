@@ -23,9 +23,7 @@
 
 /* This is oversized until a move to 105 avatar box happens*/
 .weapon_special_1 {
-  height: 105px;
-  margin-left: -11px;
-  margin-top: 6px;
+  margin-left: -12px;
 }
 .broad_armor_special_1, .slim_armor_special_1, .head_special_1 {
   width: 90px;
