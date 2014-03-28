@@ -429,9 +429,11 @@ api.wrap = (user, main=true) ->
 
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
-        if user.balance < 2
+        if (user.balance < 2 && user.stats.lvl < 100)
           return cb? {code:401,message: "Not enough gems."}
-        user.balance -= 2
+        # only charge people if they are under level 100 - ryan
+        if user.stats.lvl < 100
+          user.balance -= 2
         # Save off user's level, for calculating achievement eligibility later
         lvl = user.stats.lvl
         # Turn tasks yellow, zero out streaks
