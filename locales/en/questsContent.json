@@ -20,11 +20,7 @@
 
   "questHedgehogText": "The Hedgebeast",
   "questHedgehogNotes": "Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.",
-<<<<<<< HEAD
   "questHedgehogCompletion": "Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!",
-=======
-  "questHedgehogCompletion": "Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!",
->>>>>>> fix(i18n): typo
   "questHedgehogBoss": "Hedgebeast",
   "questHedgehogDropHedgehogEgg": "Hedgehog (Egg)",
 
