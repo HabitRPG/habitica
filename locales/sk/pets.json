@@ -14,6 +14,8 @@
     "hydra": "Hydra",
     "rarePetPop1": "Ak chceš vedieť, ako môžeš získať vzácne zvieratko vďaka prispevaniu do HabitRPG, klikni na zlatú packu.",
     "rarePetPop2": "Ako získam toto zvieratko?",
+    "potion": "<%= potionType %> Potion",
+    "egg": "<%= eggType %> Egg",
     "eggs": "Vajíčka",
     "noEggs": "Nemáš žiadne vajíčka.",
     "hatchingPotions": "Liahoxíry",

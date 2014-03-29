@@ -14,6 +14,8 @@
     "hydra": "Hydre",
     "rarePetPop1": "Cliquez sur l'empreinte dorée pour savoir comment obtenir cet animal rare en contribuant à HabitRPG !",
     "rarePetPop2": "Comment obtenir ce Familier !",
+    "potion": "<%= potionType %> Potion",
+    "egg": "<%= eggType %> Egg",
     "eggs": "Œufs",
     "noEggs": "Vous n'avez pas d'œuf.",
     "hatchingPotions": "Potions d'éclosion",

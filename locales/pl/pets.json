@@ -14,6 +14,8 @@
     "hydra": "Hydra",
     "rarePetPop1": "Kliknij w złotą łapkę, aby dowiedzieć się jak możesz zdobyć tego rzadkiego chowańca poprzez pomoc w tworzeniu HabitRPG!",
     "rarePetPop2": "Jak zdobyć tego Chowańca!",
+    "potion": "<%= potionType %> Potion",
+    "egg": "<%= eggType %> Egg",
     "eggs": "Jaja",
     "noEggs": "Nie masz żadnych jaj.",
     "hatchingPotions": "Eliksiry Wyklucia",

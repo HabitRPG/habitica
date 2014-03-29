@@ -14,6 +14,8 @@
     "hydra": "Hidra",
     "rarePetPop1": "¡Clic la pata dorada para aprender más sobre obteniendo esta mascota contribuyendo a HabitRPG!",
     "rarePetPop2": "¡Como Obtener Esta Mascota!",
+    "potion": "<%= potionType %> Potion",
+    "egg": "<%= eggType %> Egg",
     "eggs": "Huevos",
     "noEggs": "No tienes huevos.",
     "hatchingPotions": "Pociónes Incubadoras",

@@ -14,6 +14,8 @@
     "hydra": "Idra",
     "rarePetPop1": "Clicca sulla zampa d'oro per scoprire come ottenere questo raro animale contribuendo a migliorare HabitRPG!",
     "rarePetPop2": "Come ottenere questo animale!",
+    "potion": "<%= potionType %> Potion",
+    "egg": "<%= eggType %> Egg",
     "eggs": "Uova",
     "noEggs": "Non hai nessun uovo.",
     "hatchingPotions": "Pozioni di schiusura",
