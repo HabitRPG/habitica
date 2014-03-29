@@ -27,6 +27,8 @@
     "questEggGryphonAdjective": "hrdý",
     "questEggHedgehogText": "Ježko",
     "questEggHedgehogAdjective": "pichľavý",
+    "questEggDeerText": "Deer",
+    "questEggDeerAdjective": "elegant",
     "eggNotes": "Nájdi liahoxír, ktorý vyleješ na vajíčko, a vyliahne sa z neho <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Základná",
     "hatchingPotionWhite": "Biela",

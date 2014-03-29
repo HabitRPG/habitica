@@ -27,6 +27,8 @@
     "questEggGryphonAdjective": "trotse",
     "questEggHedgehogText": "Egel",
     "questEggHedgehogAdjective": "puntige",
+    "questEggDeerText": "Deer",
+    "questEggDeerAdjective": "elegant",
     "eggNotes": "Vind een broed drankje om op dit ei te gieten, en het zal uitkomen als een <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Basis",
     "hatchingPotionWhite": "Wit",

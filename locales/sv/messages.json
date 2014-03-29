@@ -1,0 +1,12 @@
+{
+    "messageLostItem": "Your <%= itemText() %> broke.",
+    "messageTaskNotFound": "Task not found.",
+    "messageTagNotFound": "Tag not found.",
+    "messagePetNotFound": ":pet not found in user.items.pets",
+    "messageFoodNotFound": ":food not found in user.items.food",
+    "messageCannotFeedPet": "Can't feed this pet.",
+    "messageAlreadyMount": "You already have that mount. Try feeding another pet.",
+    "messageEvolve": "You have tamed <%= egg %>, let's go for a ride!",
+    "messageLikesFood": "<%= egg %> really likes the <%= foodText() %>!",
+    "messageDontEnjoyFood": "<%= egg %> eats the <%= foodText() %> but doesn't seem to enjoy it."
+}

@@ -85,10 +85,10 @@ gear =
       candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), twoHanded: true, text: (-> i18n.t('weaponSpecialCandycaneText')), notes: (-> i18n.t('weaponSpecialCandycaneNotes', {int: 15, per: 7})), int: 15, per: 7, value:160
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('weaponSpecialSnowflakeText')), notes: (-> i18n.t('weaponSpecialSnowflakeNotes', {int: 9})), int: 9, value:90
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds 15 points to STR. Limited Edition 2014 Spring Gear.', value: 90, str: 15
-      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Adds 15 points to INT and 7 points to PER. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('weaponSpecialSpringRogueText')), notes: (-> i18n.t('weaponSpecialSpringRogueNotes', {str: 8})), value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('weaponSpecialSpringWarriorText')), notes: (-> i18n.t('weaponSpecialSpringWarriorNotes', {str: 15})), value: 90, str: 15
+      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: (-> i18n.t('weaponSpecialSpringMageText')), notes: (-> i18n.t('weaponSpecialSpringMageNotes', {int: 15, per: 7})), value: 160, int:15, per:7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('weaponSpecialSpringHealerText')), notes: (-> i18n.t('weaponSpecialSpringHealerNotes', {int: 9})), value: 90, int: 9
 
   armor:
     base:
@@ -132,13 +132,13 @@ gear =
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('armorSpecialSnowflakeText')), notes: (-> i18n.t('armorSpecialSnowflakeNotes', {con: 15})), con: 15, value:90
       birthday:   event: events.birthday, text: (-> i18n.t('armorSpecialBirthdayText')), notes: (-> i18n.t('armorSpecialBirthdayNotes')), value: 0
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Adds 15 points to PER. Limited Edition 2014 Spring Gear.', value: 90, per: 15
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Adds 9 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Rodentia Robes', notes: 'Mice are nice! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('armorSpecialSpringRogueText')), notes: (-> i18n.t('armorSpecialSpringRogueNotes', {per: 15})), value: 90, per: 15
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('armorSpecialSpringWarriorText')), notes: (-> i18n.t('armorSpecialSpringWarriorNotes', {con: 9})), value: 90, con: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: (-> i18n.t('armorSpecialSpringMageText')), notes: (-> i18n.t('armorSpecialSpringMageNotes', {int: 9})), value: 90, int: 9
+      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('armorSpecialSpringHealerText')), notes: (-> i18n.t('armorSpecialSpringHealerNotes', {con: 15})), value: 90, con: 15
     mystery:
       201402: text: (-> i18n.t('armorMystery201402Text')), notes: (-> i18n.t('armorMystery201402Notes')), mystery:mystery['201402'], value: 10
-      201403: text: 'Forest Walker Armor', notes: "This mossy armor of woven wood bends with the movement of the wearer.", mystery:mystery['201403'], value: 10
+      201403: text: (-> i18n.t('armorMystery201403Text')), notes: (-> i18n.t('armorMystery201403Notes')), mystery:mystery['201403'], value: 10
 
   head:
     base:
@@ -182,10 +182,10 @@ gear =
       candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: (-> i18n.t('headSpecialCanycaneText')), notes: (-> i18n.t('headSpecialCanycaneNotes', {per: 7})), per: 7, value:60
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('headSpecialSnowflakeText')), notes: (-> i18n.t('headSpecialSnowflakeNotes', {int: 7})), int: 7, value:60
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Adds 9 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 9
-      springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds 9 points to STR. Limited Edition 2014 Spring Gear.',value: 40,str: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('headSpecialSpringRogueText')), notes: (-> i18n.t('headSpecialSpringRogueNotes', {per: 9})),value: 40,per: 9
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('headSpecialSpringWarriorText')), notes: (-> i18n.t('headSpecialSpringWarriorNotes', {str: 9})),value: 40,str: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: (-> i18n.t('headSpecialSpringMageText')), notes: (-> i18n.t('headSpecialSpringMageNotes', {per: 7})),value: 40,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('headSpecialSpringHealerText')), notes: (-> i18n.t('headSpecialSpringHealerNotes', {int: 7})), value: 40, int: 7
     mystery:
       201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 10
 
@@ -225,9 +225,9 @@ gear =
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('weaponSpecialSkiText')), notes: (-> i18n.t('weaponSpecialSkiNotes', {str: 8})), str: 8, value: 90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('shieldSpecialSnowflakeText')), notes: (-> i18n.t('shieldSpecialSnowflakeNotes', {con: 9})), con: 9, value: 70
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('shieldSpecialSpringRogueText')), notes: (-> i18n.t('shieldSpecialSpringRogueNotes', {str: 8})), value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('shieldSpecialSpringWarriorText')), notes: (-> i18n.t('shieldSpecialSpringWarriorNotes', {con: 7})), value: 70, con: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('shieldSpecialSpringHealerText')), notes: (-> i18n.t('shieldSpecialSpringHealerNotes', {con: 9})), value: 70, con: 9
 
   back:
     base:
@@ -249,17 +249,17 @@ gear =
 
   headAccessory:
     base:
-      0: text: 'No Head Accessory', notes: 'No Head Accessory', value: 0, last: true
+      0: text: (-> i18n.t('headAccessoryBase0Text')), notes: (-> i18n.t('headAccessoryBase0Notes')), value: 0, last: true
     special:
       # Spring Event
-      springRogue:   event: events.spring, specialClass: 'rogue',   text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
-      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
-      springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
-      springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
+      springRogue:   event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('headAccessorySpecialSpringRogueText')), notes: (-> i18n.t('headAccessorySpecialSpringRogueNotes')), value: 20
+      springWarrior: event: events.spring, specialClass: 'warrior', text: (-> i18n.t('headAccessorySpecialSpringWarriorText')), notes: (-> i18n.t('headAccessorySpecialSpringWarriorNotes')), value: 20
+      springMage:    event: events.spring, specialClass: 'wizard',  text: (-> i18n.t('headAccessorySpecialSpringMageText')), notes: (-> i18n.t('headAccessorySpecialSpringMageNotes')), value: 20
+      springHealer:  event: events.spring, specialClass: 'healer',  text: (-> i18n.t('headAccessorySpecialSpringHealerText')), notes: (-> i18n.t('headAccessorySpecialSpringHealerNotes')), value: 20
       wondercon_red: text: 'Mighty Mask', notes: 'What a powerful face accessory! Special edition convention armor.', value: 0,           mystery:mystery.wondercon
       wondercon_black: text: 'Sneaky Mask', notes: 'Your motives are definitely legitimate. Special edition convention armor.', value: 0, mystery:mystery.wondercon
     mystery:
-      201403: text: 'Forest Walker Antlers', notes: "These antlers shimmer with moss and lichen.", mystery:mystery['201403'], value: 10
+      201403: text: (-> i18n.t('headAccessoryMistery201403Text')), notes: (-> i18n.t('headAccessoryMistery201403Notes')), mystery:mystery['201403'], value: 10
       201404: text: 'Twilight Butterfly Antennae', notes: "These antennae help the wearer sense dangerous distractions!", mystery:mystery['201404'], value: 10
 
 ###
@@ -580,8 +580,9 @@ api.questEggs =
   # value & other defaults set below
   Gryphon:          text: (-> i18n.t('questEggGryphonText')),  adjective: (-> i18n.t('questEggGryphonAdjective')), canBuy: false
   Hedgehog:         text: (-> i18n.t('questEggHedgehogText')), adjective: (-> i18n.t('questEggHedgehogAdjective')), canBuy: false
-  Deer:             text: 'Deer',     adjective: 'elegant', canBuy: false
-  Egg:              text: 'Egg',     adjective: 'colorful', canBuy: false
+  Deer:             text: (-> i18n.t('questEggDeerText')), adjective: (-> i18n.t('questEggDeerAdjective')), canBuy: false
+  Egg:              text: (-> i18n.t('questEggEggText')), adjective: (-> i18n.t('questEggEggAdjective')), canBuy: false
+
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
     canBuy:false
@@ -724,28 +725,28 @@ api.quests =
       str: 1.25 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropGryphonEgg'))}
-        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropGryphonEgg'))}
-        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropGryphonEgg'))}
+        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropHedgehodEgg'))}
+        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropHedgehodEgg'))}
+        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropHedgehodEgg'))}
       ]
       gp: 30
       exp: 125
 
 
   ghost_stag:
-    text: "The Spirit of Spring"
-    notes: "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>Inventrix</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\""
-    completion: "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake."
+    text: t('questGhostStagText')
+    notes: t('questGhostStagNotes')
+    completion: t('questGhostStagCompletion')
     value: 4
     boss:
-      name: "Ghost Stag"
+      name: t('questGhostStagBoss')
       hp: 1200
       str: 2.5
     drop:
       items: [
-        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
-        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
-        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
+        {type: 'eggs', key: 'Deer', text: (-> i18n.t('questGhostStagDropDeerEgg'))}
+        {type: 'eggs', key: 'Deer', text: (-> i18n.t('questGhostStagDropDeerEgg'))}
+        {type: 'eggs', key: 'Deer', text: (-> i18n.t('questGhostStagDropDeerEgg'))}
       ]
       gp: 80
       exp: 800

@@ -27,6 +27,8 @@
     "questEggGryphonAdjective": "fier",
     "questEggHedgehogText": "Hérisson",
     "questEggHedgehogAdjective": "hérissé",
+    "questEggDeerText": "Deer",
+    "questEggDeerAdjective": "elegant",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un <%= eggText() %> <=% eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanc",

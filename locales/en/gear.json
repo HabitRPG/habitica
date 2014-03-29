@@ -82,6 +82,15 @@
   "weaponSpecialSnowflakeText": "Snowflake Wand",
   "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by <%= int %>.",
 
+  "weaponSpecialSpringRogueText": "Hook Claws",
+  "weaponSpecialSpringRogueNotes": "Great for scaling tall buildings, and also for shredding carpets. Adds <%= str %> points to STR. Limited Edition 2014 Spring Gear.",
+  "weaponSpecialSpringWarriorText": "Carrot Sword",
+  "weaponSpecialSpringWarriorNotes": "This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds <%= str %> points to STR. Limited Edition 2014 Spring Gear.",
+  "weaponSpecialSpringMageText": "Swiss Cheese Staff",
+  "weaponSpecialSpringMageNotes": "Only the most powerful rodents can brave their hunger to wield this potent staff. Adds <%= int %> points to INT and <%= per %> points to PER. Limited Edition 2014 Spring Gear.",
+  "weaponSpecialSpringHealerText": "Lovely Bone",
+  "weaponSpecialSpringHealerNotes": "FETCH! Adds <%= int %> points to INT. Limited Edition 2014 Spring Gear.",
+
   "armorBase0Text": "Plain Clothing",
   "armorBase0Notes": "Ordinary clothing. Confers no benefit.",
 
@@ -147,8 +156,20 @@
   "armorSpecialBirthdayText": "Absurd Party Robes",
   "armorSpecialBirthdayNotes": "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
 
+  "armorSpecialSpringRogueText": "Sleek Cat Suit",
+  "armorSpecialSpringRogueNotes": "Impeccably groomed. Adds <%= per %> points to PER. Limited Edition 2014 Spring Gear.",
+  "armorSpecialSpringWarriorText": "Clover-steel Armor",
+  "armorSpecialSpringWarriorNotes": "Soft as clover, strong as steel! Adds <%= con %> points to CON. Limited Edition 2014 Spring Gear.",
+  "armorSpecialSpringMageText": "Rodentia Robes",
+  "armorSpecialSpringMageNotes": "Mice are nice! Adds 9 points to <%= int %>. Limited Edition 2014 Spring Gear.",
+  "armorSpecialSpringHealerText": "Fuzzy Puppy Robes",
+  "armorSpecialSpringHealerNotes": "Warm and snuggly, but protects its owner from harm. Adds <%= con %> points to CON. Limited Edition 2014 Spring Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters.",
+
+  "armorMystery201403Text": "Forest Walker Armor",
+  "armorMystery201403Notes": "This mossy armor of woven wood bends with the movement of the wearer.",
 
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",
@@ -214,6 +235,15 @@
   "headSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by <%= per %>.",
   "headSpecialSnowflakeText": "Snowflake Crown",
   "headSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by <%= int %>.",
+  
+  "headSpecialSpringRogueText": "Stealthy Kitty Mask",
+  "headSpecialSpringRogueNotes": "Nobody will EVER guess that you are a cat burglar! Adds <%= per %> points to PER. Limited Edition 2014 Spring Gear.",
+  "headSpecialSpringWarriorText": "Clover-steel Helmet",
+  "headSpecialSpringWarriorNotes": "Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds <%= str %> points to STR. Limited Edition 2014 Spring Gear.",
+  "headSpecialSpringMageText": "Swiss Cheese Hat",
+  "headSpecialSpringMageNotes": "This hat stores lots of powerful magic! Try not to nibble it. Adds <%= per %> points to PER. Limited Edition 2014 Spring Gear.",
+  "headSpecialSpringHealerText": "Crown of Friendship",
+  "headSpecialSpringHealerNotes": "This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds <%= int %> points to INT. Limited Edition 2014 Spring Gear.",
 
   "headMystery201402Text": "Winged Helm",
   "headMystery201402Notes": "This winged circlet imbues the wearer with the speed of the wind!",
@@ -253,11 +283,32 @@
   "shieldSpecialSnowflakeText": "Snowflake Shield",
   "shieldSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by <%= con %>.",
 
+  "shieldSpecialSpringRogueText": "Hook Claws",
+  "shieldSpecialSpringRogueNotes": "Great for scaling tall buildings, and also for shredding carpets. Adds <%= str %> points to STR. Limited Edition 2014 Spring Gear.",
+  "shieldSpecialSpringWarriorText": "Egg Shield",
+  "shieldSpecialSpringWarriorNotes": "This shield never cracks, no matter how hard you hit it! Adds <%= con %> points to CON. Limited Edition 2014 Spring Gear.",
+  "shieldSpecialSpringHealerText": "Squeaky Ball of Ultimate Protection",
+  "shieldSpecialSpringHealerNotes": "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds <%= con %> points to CON. Limited Edition 2014 Spring Gear.",
+
   "backBase0Text": "No Helm",
   "backBase0Notes": "No headgear.",
 
   "backMystery201402Text": "Golden Wings",
-  "backMystery201402Notes": "These shining wings have feathers that glitter in the sun!"
+  "backMystery201402Notes": "These shining wings have feathers that glitter in the sun!",
 
+  "headAccessoryBase0Text": "No Head Accessory",
+  "headAccessoryBase0Notes": "No Head Accessory.",
+
+  "headAccessorySpecialSpringRogueText": "Purple Cat Ears",
+  "headAccessorySpecialSpringRogueNotes": "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
+  "headAccessorySpecialSpringWarriorText": "Green Bunny Ears",
+  "headAccessorySpecialSpringWarriorNotes": "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.",
+  "headAccessorySpecialSpringMageText": "Blue Mouse Ears",
+  "headAccessorySpecialSpringMageNotes": "These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
+  "headAccessorySpecialSpringHealerText": "Yellow Dog Ears",
+  "headAccessorySpecialSpringHealerNotes": "Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.",
+
+  "headAccessoryMystery201403Text": "Forest Walker Antlers",
+  "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen."
 
 }

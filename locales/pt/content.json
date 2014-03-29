@@ -27,6 +27,8 @@
     "questEggGryphonAdjective": "orgulhoso",
     "questEggHedgehogText": "Ouriço",
     "questEggHedgehogAdjective": "espinhoso",
+    "questEggDeerText": "Deer",
+    "questEggDeerAdjective": "elegant",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",
