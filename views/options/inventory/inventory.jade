@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .badge.badge-info.stack-count {{points}}
 
           li.customize-menu
-            menu.pets-menu(label=(env.t('scrolls') + ' ({{questCount}})'))
+            menu.pets-menu(label=(env.t('quests') + ' ({{questCount}})'))
               p.muted(ng-show='questCount < 1')=env.t('noScrolls')
               p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
               div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
