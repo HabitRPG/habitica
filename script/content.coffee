@@ -74,21 +74,21 @@ gear =
       5: text: t('weaponHealer5Text'), notes: t('weaponHealer5Notes', {int: 9}), int: 9, value:90
       6: text: t('weaponHealer6Text'), notes: t('weaponHealer6Notes', {int: 11}), int: 11, value:120, last: true
     special:
-      0: text: (-> i18n.t('weaponSpecial0Text')), notes: (-> i18n.t('weaponSpecial0Notes', {str: 20})), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
-      1: text: (-> i18n.t('weaponSpecial1Text')), notes: (-> i18n.t('weaponSpecial1Notes', {attrs: 6})), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes', {attrs: 25})), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
-      3: text: (-> i18n.t('weaponSpecial3Text')), notes: (-> i18n.t('weaponSpecial3Notes', {attrs: 17})), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      critical: text: (-> i18n.t('weaponSpecialCriticalText')), notes: (-> i18n.t('weaponSpecialCriticalNotes', {attrs: 40})), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
+      0: text: t('weaponSpecial0Text'), notes: t('weaponSpecial0Notes', {str: 20}), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
+      1: text: t('weaponSpecial1Text'), notes: t('weaponSpecial1Notes', {attrs: 6}), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
+      2: text: t('weaponSpecial2Text'), notes: t('weaponSpecial2Notes', {attrs: 25}), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
+      3: text: t('weaponSpecial3Text'), notes: t('weaponSpecial3Notes', {attrs: 17}), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      critical: text: t('weaponSpecialCriticalText'), notes: t('weaponSpecialCriticalNotes', {attrs: 40}), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
       # Winter event gear
-      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('weaponSpecialYetiText')), notes: (-> i18n.t('weaponSpecialYetiNotes', {str: 15})), str: 15, value:90
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('weaponSpecialSkiText')), notes: (-> i18n.t('weaponSpecialSkiNotes', {str: 8})), str: 8, value: 90
-      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), twoHanded: true, text: (-> i18n.t('weaponSpecialCandycaneText')), notes: (-> i18n.t('weaponSpecialCandycaneNotes', {int: 15, per: 7})), int: 15, per: 7, value:160
-      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('weaponSpecialSnowflakeText')), notes: (-> i18n.t('weaponSpecialSnowflakeNotes', {int: 9})), int: 9, value:90
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('weaponSpecialYetiText'), notes: t('weaponSpecialYetiNotes', {str: 15}), str: 15, value:90
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), twoHanded: true, text: t('weaponSpecialCandycaneText'), notes: t('weaponSpecialCandycaneNotes', {int: 15, per: 7}), int: 15, per: 7, value:160
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('weaponSpecialSnowflakeText'), notes: t('weaponSpecialSnowflakeNotes', {int: 9}), int: 9, value:90
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('weaponSpecialSpringRogueText')), notes: (-> i18n.t('weaponSpecialSpringRogueNotes', {str: 8})), value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('weaponSpecialSpringWarriorText')), notes: (-> i18n.t('weaponSpecialSpringWarriorNotes', {str: 15})), value: 90, str: 15
-      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: (-> i18n.t('weaponSpecialSpringMageText')), notes: (-> i18n.t('weaponSpecialSpringMageNotes', {int: 15, per: 7})), value: 160, int:15, per:7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('weaponSpecialSpringHealerText')), notes: (-> i18n.t('weaponSpecialSpringHealerNotes', {int: 9})), value: 90, int: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('weaponSpecialSpringRogueText'), notes: t('weaponSpecialSpringRogueNotes', {str: 8}), value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('weaponSpecialSpringWarriorText'), notes: t('weaponSpecialSpringWarriorNotes', {str: 15}), value: 90, str: 15
+      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialSpringMageText'), notes: t('weaponSpecialSpringMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('weaponSpecialSpringHealerText'), notes: t('weaponSpecialSpringHealerNotes', {int: 9}), value: 90, int: 9
 
   armor:
     base:
@@ -122,23 +122,23 @@ gear =
       4: text: t('armorHealer4Text'), notes: t('armorHealer4Notes', {con: 15}), con: 15, value:90
       5: text: t('armorHealer5Text'), notes: t('armorHealer5Notes', {con: 18}), con: 18, value:120, last: true
     special:
-      0: text: (-> i18n.t('armorSpecial0Text')), notes: (-> i18n.t('armorSpecial0Notes', {con: 20})), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: (-> i18n.t('armorSpecial1Text')), notes: (-> i18n.t('armorSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
-      2: text: (-> i18n.t('armorSpecial2Text')), notes: (-> i18n.t('armorSpecial2Notes', {attrs: 25})), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      0: text: t('armorSpecial0Text'), notes: t('armorSpecial0Notes', {con: 20}), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: t('armorSpecial1Text'), notes: t('armorSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
+      2: text: t('armorSpecial2Text'), notes: t('armorSpecial2Notes', {attrs: 25}), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       #Winter event
-      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('armorSpecialYetiText')), notes: (-> i18n.t('armorSpecialYetiNotes', {con: 9})), con: 9, value:90
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('armorSpecialSkiText')), notes: (-> i18n.t('armorSpecialSkiText', {per: 15})), per: 15, value:90
-      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: (-> i18n.t('armorSpecialCandycaneText')), notes: (-> i18n.t('armorSpecialCandycaneNotes', {int: 9})), int: 9, value:90
-      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('armorSpecialSnowflakeText')), notes: (-> i18n.t('armorSpecialSnowflakeNotes', {con: 15})), con: 15, value:90
-      birthday:   event: events.birthday, text: (-> i18n.t('armorSpecialBirthdayText')), notes: (-> i18n.t('armorSpecialBirthdayNotes')), value: 0
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('armorSpecialYetiText'), notes: t('armorSpecialYetiNotes', {con: 9}), con: 9, value:90
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiText', {per: 15}), per: 15, value:90
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: t('armorSpecialCandycaneText'), notes: t('armorSpecialCandycaneNotes', {int: 9}), int: 9, value:90
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('armorSpecialSnowflakeText'), notes: t('armorSpecialSnowflakeNotes', {con: 15}), con: 15, value:90
+      birthday:   event: events.birthday, text: t('armorSpecialBirthdayText'), notes: t('armorSpecialBirthdayNotes'), value: 0
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('armorSpecialSpringRogueText')), notes: (-> i18n.t('armorSpecialSpringRogueNotes', {per: 15})), value: 90, per: 15
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('armorSpecialSpringWarriorText')), notes: (-> i18n.t('armorSpecialSpringWarriorNotes', {con: 9})), value: 90, con: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text: (-> i18n.t('armorSpecialSpringMageText')), notes: (-> i18n.t('armorSpecialSpringMageNotes', {int: 9})), value: 90, int: 9
-      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('armorSpecialSpringHealerText')), notes: (-> i18n.t('armorSpecialSpringHealerNotes', {con: 15})), value: 90, con: 15
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('armorSpecialSpringRogueText'), notes: t('armorSpecialSpringRogueNotes', {per: 15}), value: 90, per: 15
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('armorSpecialSpringWarriorText'), notes: t('armorSpecialSpringWarriorNotes', {con: 9}), value: 90, con: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: t('armorSpecialSpringMageText'), notes: t('armorSpecialSpringMageNotes', {int: 9}), value: 90, int: 9
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('armorSpecialSpringHealerText'), notes: t('armorSpecialSpringHealerNotes', {con: 15}), value: 90, con: 15
     mystery:
-      201402: text: (-> i18n.t('armorMystery201402Text')), notes: (-> i18n.t('armorMystery201402Notes')), mystery:mystery['201402'], value: 10
-      201403: text: (-> i18n.t('armorMystery201403Text')), notes: (-> i18n.t('armorMystery201403Notes')), mystery:mystery['201403'], value: 10
+      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 10
+      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 10
 
   head:
     base:
@@ -172,20 +172,20 @@ gear =
       4: text: t('headHealer4Text'), notes: t('headHealer4Notes', {int: 7}), int: 7, value:60
       5: text: t('headHealer5Text'), notes: t('headHealer5Notes', {int: 9}), int: 9, value:80, last: true
     special:
-      0: text: (-> i18n.t('headSpecial0Text')), notes: (-> i18n.t('headSpecial0Notes', {int: 20})), int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: (-> i18n.t('headSpecial1Text')), notes: (-> i18n.t('headSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
-      2: text: (-> i18n.t('headSpecial2Text')), notes: (-> i18n.t('headSpecial2Notes', {attrs: 25})), int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      0: text: t('headSpecial0Text'), notes: t('headSpecial0Notes', {int: 20}), int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: t('headSpecial1Text'), notes: t('headSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
+      2: text: t('headSpecial2Text'), notes: t('headSpecial2Notes', {attrs: 25}), int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       #Winter event
-      nye:        event: events.winter, text: (-> i18n.t('headSpecialNyeText')), notes: (-> i18n.t('headSpecialNyeNotes')), value: 0
-      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('headSpecialYetiText')), notes: (-> i18n.t('headSpecialYetiNotes', {str: 9})), str: 9, value:60
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('headSpecialSkiText')), notes: (-> i18n.t('headSpecialSkiNotes', {per: 9})), per: 9, value:60
-      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: (-> i18n.t('headSpecialCanycaneText')), notes: (-> i18n.t('headSpecialCanycaneNotes', {per: 7})), per: 7, value:60
-      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('headSpecialSnowflakeText')), notes: (-> i18n.t('headSpecialSnowflakeNotes', {int: 7})), int: 7, value:60
+      nye:        event: events.winter, text: t('headSpecialNyeText'), notes: t('headSpecialNyeNotes'), value: 0
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('headSpecialYetiText'), notes: t('headSpecialYetiNotes', {str: 9}), str: 9, value:60
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('headSpecialSkiText'), notes: t('headSpecialSkiNotes', {per: 9}), per: 9, value:60
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: t('headSpecialCanycaneText'), notes: t('headSpecialCanycaneNotes', {per: 7}), per: 7, value:60
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('headSpecialSnowflakeText'), notes: t('headSpecialSnowflakeNotes', {int: 7}), int: 7, value:60
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('headSpecialSpringRogueText')), notes: (-> i18n.t('headSpecialSpringRogueNotes', {per: 9})),value: 40,per: 9
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('headSpecialSpringWarriorText')), notes: (-> i18n.t('headSpecialSpringWarriorNotes', {str: 9})),value: 40,str: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text: (-> i18n.t('headSpecialSpringMageText')), notes: (-> i18n.t('headSpecialSpringMageNotes', {per: 7})),value: 40,per: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('headSpecialSpringHealerText')), notes: (-> i18n.t('headSpecialSpringHealerNotes', {int: 7})), value: 40, int: 7
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('headSpecialSpringRogueText'), notes: t('headSpecialSpringRogueNotes', {per: 9}),value: 40,per: 9
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('headSpecialSpringWarriorText'), notes: t('headSpecialSpringWarriorNotes', {str: 9}),value: 40,str: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: t('headSpecialSpringMageText'), notes: t('headSpecialSpringMageNotes', {per: 7}),value: 40,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('headSpecialSpringHealerText'), notes: t('headSpecialSpringHealerNotes', {int: 7}), value: 40, int: 7
     mystery:
       201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 10
 
@@ -218,20 +218,20 @@ gear =
       4: text: t('shieldHealer4Text'), notes: t('shieldHealer4Notes', {con: 9}), con: 9, value:70
       5: text: t('shieldHealer5Text'), notes: t('shieldHealer5Notes', {con: 12}), con: 12, value:90, last: true
     special:
-      0: text: (-> i18n.t('shieldSpecial0Text')), notes: (-> i18n.t('shieldSpecial0Notes', {per: 20})), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: (-> i18n.t('shieldSpecial1Text')), notes: (-> i18n.t('shieldSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
+      0: text: t('shieldSpecial0Text'), notes: t('shieldSpecial0Notes', {per: 20}), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: t('shieldSpecial1Text'), notes: t('shieldSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
       #Winter event
-      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('shieldSpecialYetiText')), notes: (-> i18n.t('shieldSpecialYetiNotes', {con: 7})), con: 7, value: 70
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('weaponSpecialSkiText')), notes: (-> i18n.t('weaponSpecialSkiNotes', {str: 8})), str: 8, value: 90
-      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('shieldSpecialSnowflakeText')), notes: (-> i18n.t('shieldSpecialSnowflakeNotes', {con: 9})), con: 9, value: 70
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('shieldSpecialYetiText'), notes: t('shieldSpecialYetiNotes', {con: 7}), con: 7, value: 70
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('shieldSpecialSnowflakeText'), notes: t('shieldSpecialSnowflakeNotes', {con: 9}), con: 9, value: 70
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('shieldSpecialSpringRogueText')), notes: (-> i18n.t('shieldSpecialSpringRogueNotes', {str: 8})), value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: (-> i18n.t('shieldSpecialSpringWarriorText')), notes: (-> i18n.t('shieldSpecialSpringWarriorNotes', {con: 7})), value: 70, con: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: (-> i18n.t('shieldSpecialSpringHealerText')), notes: (-> i18n.t('shieldSpecialSpringHealerNotes', {con: 9})), value: 70, con: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('shieldSpecialSpringRogueText'), notes: t('shieldSpecialSpringRogueNotes', {str: 8}), value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('shieldSpecialSpringWarriorText'), notes: t('shieldSpecialSpringWarriorNotes', {con: 7}), value: 70, con: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('shieldSpecialSpringHealerText'), notes: t('shieldSpecialSpringHealerNotes', {con: 9}), value: 70, con: 9
 
   back:
     base:
-      0: text: (-> i18n.t('backBase0Text')), notes: (-> i18n.t('backBase0Notes')), value:0
+      0: text: t('backBase0Text'), notes: t('backBase0Notes'), value:0
     mystery:
       201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 10
       201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10
@@ -249,17 +249,17 @@ gear =
 
   headAccessory:
     base:
-      0: text: (-> i18n.t('headAccessoryBase0Text')), notes: (-> i18n.t('headAccessoryBase0Notes')), value: 0, last: true
+      0: text: t('headAccessoryBase0Text'), notes: t('headAccessoryBase0Notes'), value: 0, last: true
     special:
       # Spring Event
-      springRogue:   event: events.spring, specialClass: 'rogue',   text: (-> i18n.t('headAccessorySpecialSpringRogueText')), notes: (-> i18n.t('headAccessorySpecialSpringRogueNotes')), value: 20
-      springWarrior: event: events.spring, specialClass: 'warrior', text: (-> i18n.t('headAccessorySpecialSpringWarriorText')), notes: (-> i18n.t('headAccessorySpecialSpringWarriorNotes')), value: 20
-      springMage:    event: events.spring, specialClass: 'wizard',  text: (-> i18n.t('headAccessorySpecialSpringMageText')), notes: (-> i18n.t('headAccessorySpecialSpringMageNotes')), value: 20
-      springHealer:  event: events.spring, specialClass: 'healer',  text: (-> i18n.t('headAccessorySpecialSpringHealerText')), notes: (-> i18n.t('headAccessorySpecialSpringHealerNotes')), value: 20
+      springRogue:   event: events.spring, specialClass: 'rogue',   text: t('headAccessorySpecialSpringRogueText'), notes: t('headAccessorySpecialSpringRogueNotes'), value: 20
+      springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
+      springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
+      springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
       wondercon_red: text: 'Mighty Mask', notes: 'What a powerful face accessory! Special edition convention armor.', value: 0,           mystery:mystery.wondercon
       wondercon_black: text: 'Sneaky Mask', notes: 'Your motives are definitely legitimate. Special edition convention armor.', value: 0, mystery:mystery.wondercon
     mystery:
-      201403: text: (-> i18n.t('headAccessoryMistery201403Text')), notes: (-> i18n.t('headAccessoryMistery201403Notes')), mystery:mystery['201403'], value: 10
+      201403: text: t('headAccessoryMistery201403Text'), notes: t('headAccessoryMistery201403Notes'), mystery:mystery['201403'], value: 10
       201404: text: 'Twilight Butterfly Antennae', notes: "These antennae help the wearer sense dangerous distractions!", mystery:mystery['201404'], value: 10
 
 ###
@@ -707,9 +707,9 @@ api.quests =
       str: 1.5 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Gryphon', text: (-> i18n.t('questGryphonDropGryphonEgg'))}
-        {type: 'eggs', key: 'Gryphon', text: (-> i18n.t('questGryphonDropGryphonEgg'))}
-        {type: 'eggs', key: 'Gryphon', text: (-> i18n.t('questGryphonDropGryphonEgg'))}
+        {type: 'eggs', key: 'Gryphon', text: t('questGryphonDropGryphonEgg')}
+        {type: 'eggs', key: 'Gryphon', text: t('questGryphonDropGryphonEgg')}
+        {type: 'eggs', key: 'Gryphon', text: t('questGryphonDropGryphonEgg')}
       ]
       gp: 25
       exp: 125
@@ -725,9 +725,9 @@ api.quests =
       str: 1.25 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropHedgehodEgg'))}
-        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropHedgehodEgg'))}
-        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropHedgehodEgg'))}
+        {type: 'eggs', key: 'Hedgehog', text: t('questHedgehogDropHedgehogEgg')}
+        {type: 'eggs', key: 'Hedgehog', text: t('questHedgehogDropHedgehogEgg')}
+        {type: 'eggs', key: 'Hedgehog', text: t('questHedgehogDropHedgehogEgg')}
       ]
       gp: 30
       exp: 125
@@ -744,9 +744,9 @@ api.quests =
       str: 2.5
     drop:
       items: [
-        {type: 'eggs', key: 'Deer', text: (-> i18n.t('questGhostStagDropDeerEgg'))}
-        {type: 'eggs', key: 'Deer', text: (-> i18n.t('questGhostStagDropDeerEgg'))}
-        {type: 'eggs', key: 'Deer', text: (-> i18n.t('questGhostStagDropDeerEgg'))}
+        {type: 'eggs', key: 'Deer', text: t('questGhostStagDropDeerEgg')}
+        {type: 'eggs', key: 'Deer', text: t('questGhostStagDropDeerEgg')}
+        {type: 'eggs', key: 'Deer', text: t('questGhostStagDropDeerEgg')}
       ]
       gp: 80
       exp: 800
