@@ -14,7 +14,7 @@
     "begin": "Rozpocznij",
     "bossHP": "Zdrowie Bossa",
     "collected": "Zebrano",
-    "bossDmg1": "Aby zranić bossa, wykonuj swoje Codzienne obowiązki oraz Do-Zrobienia. Wyższe obrażenia od zadań oznaczają wyższe obrażenia bossa (wypełnianie czerwonych zadań, zaklęcia Czarodzieja, ataki Wojownika, itd). Boss zada obrażenia twojej drużynie za każdy Codzienny obowiązek, który pominiesz (pomnożone przez Siłę bossa), więc pomagaj swoim przyjaciołom przez wypełnianie swoich Codziennych obowiązków! <strong>Wszystkie obrażenia zadane bossowi i zadane przez niego, będą wyszczególnione (podczas zmiany twojego dnia).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Tylko uczestnicy będą mogli walczyć z bossem i brać udział w podziale łupów.",
     "bossColl1": "Aby zbierać przedmioty, wykonuj pozytywne zadania. Przedmioty misyjne wypadają tak samo jak zwykłe; jednakże nie zobaczysz łupów, aż do końca dnia - wtedy to wszystkie przedmioty zostaną wyszczególnione i dodane do sterty.",
     "bossColl2": "Tylko uczestnicy mogą zbierać przedmioty i brać udział w podziale łupów.",

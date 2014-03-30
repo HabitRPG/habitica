@@ -75,7 +75,7 @@
     "weaponSpecialCandycaneNotes": "Limitowana Edycja 2013 Zimowego Wyposażenia! Bardzo potężna laska maga. Chyba raczej bardzo PYSZNA! Broń dwuręczna. Zwiększa INT o <%= int %> i PER o <%= per %>.",
     "weaponSpecialSnowflakeText": "Różdżka Śnieżynki",
     "weaponSpecialSnowflakeNotes": "Limitowana Edycja 2013 Zimowego Wyposażenia! Ta różdżka iskrzy nieskończoną mocą leczniczą. Zwiększa INT o <%= int %>.",
-    "weaponSpecialSpringRogueText": "Hook Claws",
+    "weaponSpecialSpringRogueText": "Hakowate Szpony",
     "weaponSpecialSpringRogueNotes": "Great for scaling tall buildings, and also for shredding carpets. Adds <%= str %> points to STR. Limited Edition 2014 Spring Gear.",
     "weaponSpecialSpringWarriorText": "Carrot Sword",
     "weaponSpecialSpringWarriorNotes": "This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds <%= str %> points to STR. Limited Edition 2014 Spring Gear.",

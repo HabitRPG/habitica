@@ -14,7 +14,7 @@
     "begin": "Commencer",
     "bossHP": "Vie du boss",
     "collected": "Récolté",
-    "bossDmg1": "Pour blesser un boss, complétez vos tâches Quotidiennes et À faire. Plus la tâche aura un niveau élevé, plus elle blessera le boss (les tâches rouges, les sorts de Sorcier, les attaques de Guerrier, etc). Le boss attaquera votre équipe pour chaque tâche Quotidienne que vous aurez manquée (multiplié par la Force du boss). Alors protégez vos amis en complétant vos tâches Quotidiennes. <strong>Tous les dommages causés par vous et par le boss seront pris en compte par le cron (à la réinitialisation de la journée).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Seuls les participants pourront combattre le boss et partager le butin de la quête.",
     "bossColl1": "Pour obtenir des objets, accomplissez vos tâches positives. Vous trouvez les objets de quêtes de la même façon que vous trouvez les objets normaux mais vous ne les verrez que le jour suivant. À ce moment, tous les objets de quêtes que vous aurez trouvés seront comptabilisés et s'ajouteront à la pile.",
     "bossColl2": "Seuls les participants peuvent collecter des objets et partager le butin de la quête.",

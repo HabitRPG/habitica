@@ -14,7 +14,7 @@
     "begin": "Begin",
     "bossHP": "Eindbaas Gezondheid",
     "collected": "Verzameld",
-    "bossDmg1": "Om een eindbaas schade toe te brengen, moet je je Dagelijkse Taken en Te-Doen's voltooien. Hogere taak schade betekent hogere eindbaas schade (rode taken wegwerken, Magiër spreuken, Krijger aanvallen, enz). De eindbaas zal schade doen aan de partij voor elke Dagelijkse Taak die je hebt gemist (vermenigvuldigd met de Kracht van de eindbaas), dus help je vrienden door je dagelijkse taken te voltooien! <strong>Alle schade van en aan een eindbaas wordt opgeteld op cron (je dagelijkse nieuwe start).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Alleen deelnemers zullen de eindbaas bevechten en de buit delen. ",
     "bossColl1": "Om vondsten te verzamelen moet je je positieve taken doen. De vondsten van de queeste werkt hetzelfde als normale vondsten; doch zul je de vondsten niet zien tot de volgende dag, dan zal alles wat je hebt gevonden worden opgeteld en aan de buit worden toegevoegd.",
     "bossColl2": "Alleen deelnemers kunnen vondsten verzamelen en de buit delen. ",

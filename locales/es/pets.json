@@ -15,7 +15,7 @@
     "rarePetPop1": "¡Clic la pata dorada para aprender más sobre como obtener esta mascota contribuyendo a HabitRPG!",
     "rarePetPop2": "¡Como Obtener Esta Mascota!",
     "potion": "Poción <%= potionType %>",
-    "egg": "Huevo <%= eggType %>",
+    "egg": "Huevo de <%= eggType %>",
     "eggs": "Huevos",
     "noEggs": "No tienes ningún huevo.",
     "hatchingPotions": "Pociones Eclosionadoras",

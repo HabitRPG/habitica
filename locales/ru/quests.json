@@ -14,7 +14,7 @@
     "begin": "Начать",
     "bossHP": "Здоровье босса",
     "collected": "Собрано",
-    "bossDmg1": "Чтобы нанести урон боссу, выполняйте свои задачи и ежедневные задания. Чем больше урон от задания, тем больший урон вы нанесете боссу, выполнив его (красные задания, заклинания магов, атаки воинов и так далее). Босс будет наносить урон команде за каждое невыполненное ежедневное задание (урон умноженный на силу босса), поэтому помогайте своим друзьям, выполняя свои ежедневные задания! <strong>Весь урон боссу и от босса подсчитывается по расписанию (в ваш момент смены суток).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Только участники будут сражаться с боссом и разделят квестовые трофеи.",
     "bossColl1": "Чтобы собирать предметы, выполняйте положительные задания. Квестовые предметы падают точно так же, как обычные; однако, вы не увидите, что упало, до начала следующего дня — тогда всё, что вы нашли, будет посчитано и сложено в общую стопку.",
     "bossColl2": "Только участники могут собрать предметы и разделять квестовые трофеи.",

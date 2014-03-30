@@ -14,7 +14,7 @@
     "begin": "Comenzar",
     "bossHP": "Salud del Jefe",
     "collected": "Recogido",
-    "bossDmg1": "Para herir a un jefe, completa tu tareas Diarias y tús tareas Pendientes. Cuanto más dificultad(nivel de rojo) tengan las tareas, mayor daño le harás al jefe. El jefe hará daño al grupo por cada tarea Diaria que hayais dejado sin hacer (multiplicado por la Fuerza del jefe), ¡así que ayuda a tus amigos completando tus tareas!<strong> Todo el daño que hagas y que te haga el jefe se anotará al cambiar de día (según tu configuración). </strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Solo los participantes pelearan contra el jefe y compartiran el botín de la misión.",
     "bossColl1": "Para conseguir objetos de misión, haz tus tareas. Los objetos de misión aparecen como los demás; sin embargo, no los verás hasta el día siguiente, en ese momento todo lo que hayais encontrado se pondrá en común.",
     "bossColl2": "Solo los participantes pueden coger objetos y su parte del botín de la misión.",

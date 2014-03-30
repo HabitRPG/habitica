@@ -14,7 +14,7 @@
     "begin": "Começar",
     "bossHP": "Vida do Chefão",
     "collected": "Coletado",
-    "bossDmg1": "Para machucar um chefão, complete suas Tarefas Diárias e Afazeres. Dano alto da tarefa significa dano alto do chefão (completando vermelhos, magias dos Magos, ataques dos Guerreiros, etc). O chefão causará dano à equipe por cada Tarefa Diária que você não completar (multiplicado pela Força do chefão), então ajude seus amigos completando suas tarefas diárias! <strong>Todo dano contra ou a favor do chefão é registrado no cron (na sua virada do dia).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Apenas participantes lutarão contra o chefão e dividirão as recompensas da missão.",
     "bossColl1": "Para coletar itens, complete suas tarefas positivas. Itens de missão aparecem assim como itens normais; entretanto, você não verá a coleta até o dia seguinte, então tudo que você encontrou será registrado e contribuído à pilha.",
     "bossColl2": "Apenas participantes podem coletar itens e dividir as recompensas da missão.",

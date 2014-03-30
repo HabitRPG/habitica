@@ -14,7 +14,7 @@
     "begin": "Beginnen",
     "bossHP": "Boss Lebenspunkte",
     "collected": "Gesammelt",
-    "bossDmg1": "Um einen Boss zu besiegen, erfülle Deine täglichen Aufgaben und Aufgaben. Höherer Aufgaben-Schaden bedeutet höherer Boss-Schaden (rote Aufgaben, Magier Zauber, Krieger Angriffe, usw). Der Boss wird der Gruppe Schaden zufügen abhängig von den verpassten täglichen Aufgaben (multipliziert mit der Stärke des Bosses), also hilf Deinen Freunden indem du Deine täglichen Aufgaben erfüllst! <strong>Jeder den Boss betreffende Schaden wird zum Tageswechsel abgerechnet (individuell festlegbar).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Nur Teilnehmer kämpfen gegen den Boss bekommen ihren Anteil an der Beute.",
     "bossColl1": "Um Gegenstände zu sammeln musst Du Deine Aufgaben erfüllen. Quest Gegenstände sind genauso wie normale Gegenstände zu finden, aber Du kannst das Ergebnis erst zum Tageswechsel sehen. Dann wird alles, was jeder Teilnehmer gefunden hat zusammengerechnet und dem Quest zugerechnet.",
     "bossColl2": "Nur Teilnehmer können Gegenstände sammeln und erhalten ihren Anteil an der Beute.",

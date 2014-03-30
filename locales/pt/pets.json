@@ -14,7 +14,7 @@
     "hydra": "Hidra",
     "rarePetPop1": "Clique na pata de ouro para saber mais em como obter esse mascote raro através de contribuições ao HabitRPG.",
     "rarePetPop2": "Como Conseguir esse Mascote!",
-    "potion": "Poção",
+    "potion": "Poção <%= potionType %>",
     "egg": "Ovo <%= eggType %>",
     "eggs": "Ovos",
     "noEggs": "Você não possui ovos.",
