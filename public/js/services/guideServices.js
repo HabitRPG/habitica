@@ -19,7 +19,7 @@ angular.module('guideServices', []).
         {
           element: ".main-herobox",
           title: window.env.t('welcomeHabit'),
-          content: window.env.t('welcomeHabitT1') + " <a href='http://www.kickstarter.com/profile/1823740484' target='_blank'>Justin</a>, " + window.env.t('welcomeHabitT2'),
+          content: window.env.t('welcomeHabitT1') + " <a href='http://www.kickstarter.com/profile/1823740484' target='_blank'>Açai du Bleu Bèrie</a>, " + window.env.t('welcomeHabitT2'),
         }, {
           element: ".main-herobox",
           title: window.env.t('yourAvatar'),
