@@ -56,11 +56,17 @@ div(ng-if='profile.achievements.perfect || user._id == profile._id')
     small=env.t('perfectText', {perfects: "{{profile.achievements.perfect || 0 }}"})
   hr
 
-div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
+//-div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
   .achievement.achievement-armor(ng-show='profile.achievements.ultimateGear')
   div(ng-class='{muted: !profile.achievements.ultimateGear}')
     h5=env.t('ultimGearName')
     small=env.t('ultimGearText')
+  hr
+// Remove the following when ultimate gear is fixed (https://github.com/HabitRPG/habitrpg/issues/2232):
+div(ng-if='user._id == profile._id')
+  div.muted
+    h5=env.t('ultimGearName')
+    small <a href='https://github.com/HabitRPG/habitrpg/issues/2232' target='_blank'>Returning soon</a>
   hr
 
 div(ng-if='profile.achievements.beastMaster || user._id == profile._id')

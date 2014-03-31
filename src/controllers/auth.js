@@ -16,10 +16,6 @@ var NO_TOKEN_OR_UID = { err: "You must include a token and uid (user id) in your
 var NO_USER_FOUND = {err: "No user found."};
 var NO_SESSION_FOUND = { err: "You must be logged in." };
 
-/*
- beforeEach auth interceptor
- */
-
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
   var token = req.headers['x-api-key'];
@@ -46,6 +42,15 @@ api.authWithSession = function(req, res, next) { //[todo] there is probably a mo
     next();
   });
 };
+
+api.authWithUrl = function(req, res, next) {
+  User.findOne({_id:req.query._id, apiToken:req.query.apiToken}, function(err,user){
+    if (err) return next(err);
+    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    res.locals.user = user;
+    next();
+  })
+}
 
 api.registerUser = function(req, res, next) {
   var confirmPassword, e, email, password, username, _ref;

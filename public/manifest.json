@@ -20,7 +20,6 @@
             "bower_components/ngInfiniteScroll/ng-infinite-scroll.js",
             "bower_components/select2/select2.js",
             "bower_components/angular-ui-select2/src/select2.js",
-            "bower_components/JavaScriptButtons/dist/paypal-button.min.js",
 
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",

@@ -19,15 +19,11 @@ script(id='modals/buyGems.html', type='text/ng-template')
               =env.t('USD')
           tr
             td
-              .row
-                .col-md-6
-                  .btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
-                .col-md-6
-                  //-script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
-                  div#custom-paypal-button.paypal-button(ng-init='initPayPalButton()')
-              .row
-                .col-md-12
-                  small.muted=env.t('payNote')
+              p
+                small.muted Payment Methods:
+              //.btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
+              .btn.btn-primary(ng-click='showStripe()') Card
+              a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
 
       div(ng-include="'partials/options.settings.subscription.html'")
 

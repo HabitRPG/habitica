@@ -145,8 +145,12 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
     h2=env.t('individualSub')
     div(ng-if='!user.purchased.plan.customerId')
       div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-primary(ng-click='showStripe(true)')=env.t('subscribe')
+      p
+        small.muted Payment Methods:
+      .btn.btn-primary(ng-click='showStripe(true)') Card
       //-small.muted PayPal coming soon.
+      //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
+      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
 
     div(ng-if='user.purchased.plan.customerId')
       .well
@@ -156,3 +160,6 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
           span.glyphicon.glyphicon-ok
         div(ng-include="'partials/options.settings.subscription.perks.html'")
       .btn.btn-sm.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')
+      p
+        small.muted Unsubscribing removes subscriber perks (<a href='https://github.com/HabitRPG/habitrpg/issues/3180' target='_blank'>read more here</a>). We're working on persisting subscriber perks through a canceled plan's billing cycle, but for now be sure to open your mystery box before unsubscribing!
+
