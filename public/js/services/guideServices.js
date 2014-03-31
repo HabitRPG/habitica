@@ -138,6 +138,11 @@ angular.module('guideServices', []).
         $rootScope.openModal('rebirthEnabled');
     });
 
+    $rootScope.$watch('user.flags.freeRebirth', function(after, before) {
+        if (alreadyShown(before, after)) return;
+        $rootScope.openModal('freeRebirth');
+    });
+
 
     /**
      * Classes Tour

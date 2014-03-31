@@ -106,6 +106,7 @@ var UserSchema = new Schema({
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, 'default': false},
+    freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}}
   },
   history: {
