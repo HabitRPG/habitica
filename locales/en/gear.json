@@ -161,7 +161,7 @@
   "armorSpecialSpringWarriorText": "Clover-steel Armor",
   "armorSpecialSpringWarriorNotes": "Soft as clover, strong as steel! Adds <%= con %> points to CON. Limited Edition 2014 Spring Gear.",
   "armorSpecialSpringMageText": "Rodentia Robes",
-  "armorSpecialSpringMageNotes": "Mice are nice! Adds 9 points to <%= int %>. Limited Edition 2014 Spring Gear.",
+  "armorSpecialSpringMageNotes": "Mice are nice! Adds <%= int %> points to INT. Limited Edition 2014 Spring Gear.",
   "armorSpecialSpringHealerText": "Fuzzy Puppy Robes",
   "armorSpecialSpringHealerNotes": "Warm and snuggly, but protects its owner from harm. Adds <%= con %> points to CON. Limited Edition 2014 Spring Gear.",
 
