@@ -65,7 +65,7 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
-        else if(env.NODE_ENV != 'production' && !env.isStaticPage)
+        else if(env.NODE_ENV === 'development' && !env.isStaticPage)
           h4 Debug
           .btn-group-vertical
             a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day
