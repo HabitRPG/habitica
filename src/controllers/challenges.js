@@ -105,12 +105,20 @@ api.csv = function(req, res, next) {
 
 api.getMember = function(req, res, next) {
   var cid = req.params.cid, uid = req.params.uid;
-  var elemMatch = {$elemMatch:{'challenge.id':cid}};
   User.findById(uid)
-    .select({'profile.name':1, habits:elemMatch, dailys:elemMatch, todos:elemMatch, rewards:elemMatch})
+    .select('profile.name habits dailys todos rewards')
     .exec(function(err, member){
       if(err) return next(err);
       if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
+
+      // Prune un-related tasks. See http://goo.gl/9fnwei
+      // See http://stackoverflow.com/a/18546277/362790 for fix
+      _.each(['habits','dailys','todos', 'rewards'], function(type){
+        member[type] = _.filter(member[type], function(task){
+          return task.challenge && task.challenge.id && task.challenge.id == cid;
+        });
+      });
+
       res.json(member);
     })
 }
