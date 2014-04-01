@@ -7,7 +7,7 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
         .popover.static-popover.fade.right.in
           .arrow
           h3.popover-title
-            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Blade Wheatgrassington III
           .popover-content
             p=env.t('mattShall', {name: "{{user.profile.name}}"})
             h4= '{{Shared.countMounts(null,User.user.items.mounts) || 0}} / {{totalMounts}} ' + env.t('mountsTamed')
@@ -38,7 +38,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
         .popover.static-popover.fade.right.in
           .arrow
           h3.popover-title
-            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Blade Wheatgrassington III
           .popover-content
             p
               =env.t('mattBochText1') + ' '
