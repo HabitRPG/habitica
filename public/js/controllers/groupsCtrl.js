@@ -213,7 +213,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         "public": Groups.publicGuilds()
       }
       $scope.type = 'guild';
-      $scope.text = 'Guild';
+      $scope.text = window.env.t('guild');
       var newGroup = function(){
         return new Groups.Group({type:'guild', privacy:'private'});
       }
@@ -316,7 +316,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
   .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', 'Challenges', '$state', '$compile',
     function($rootScope,$scope, Groups, User, Challenges, $state, $compile) {
       $scope.type = 'party';
-      $scope.text = 'Party';
+      $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
 
