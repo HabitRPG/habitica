@@ -2,8 +2,7 @@
   .row
     form.col-md-12.form-horizontal(ng-submit='create(newGroup)')
       .form-group
-        label.control-label(for='new-group-name') 
-          env.t('newGroupName', {groupType: "{{text}}"})
+        label.control-label(for='new-group-name')=env.t('newGroupName', {groupType: "{{text}}"})
         input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder=env.t('newGroupName', {groupType: "{{text}}"}), ng-model='newGroup.name')
       .form-group
         label(for='new-group-description')=env.t('description')
