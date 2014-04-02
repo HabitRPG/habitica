@@ -27,7 +27,7 @@
     "questEggGryphonAdjective": "stolzer",
     "questEggHedgehogText": "Igel",
     "questEggHedgehogAdjective": "stacheliger",
-    "questEggDeerText": "Rehkitz",
+    "questEggDeerText": "Hirsch",
     "questEggDeerAdjective": "anmutiges",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",

@@ -14,7 +14,7 @@
     "hydra": "Idra",
     "rarePetPop1": "Clicca sulla zampa d'oro per scoprire come ottenere questo raro animale contribuendo a migliorare HabitRPG!",
     "rarePetPop2": "Come ottenere questo animale!",
-    "potion": "Pozione <%= potionType %>",
+    "potion": "Pozione <%= potionType %> ",
     "egg": "Uovo di <%= eggType %>",
     "eggs": "Uova",
     "noEggs": "Non hai nessun uovo.",
@@ -29,7 +29,7 @@
     "dropsEnabled": "Sistema di drop attivo!",
     "itemDrop": "Hai trovato un oggetto!",
     "firstDrop": "Hai appena sbloccato il sistema di drop! Ora quando completi un'attività, hai una piccola probabilità di trovare un oggetto casuale. Hai appena trovato un <strong><%= eggText %> Uovo</strong>! <%= eggNotes %>",
-    "useGems": "Se hai messo gli occhi su un animale, ma non puoi aspettare ancora per averlo, usa le Gemme in <strong>Opzioni > Inventario</strong> per comprarne uno!",
+    "useGems": "Se hai messo gli occhi su un animale, ma non vuoi aspettare ancora per averlo, usa le Gemme in <strong>Opzioni > Inventario</strong> per comprarne uno!",
     "hatchAPot": "Far nascere <%= egg %> <%= potion %>?",
     "feedPet": "Dare da mangiare <%= article %><%= text %> al tuo <%= name %>?",
     "useSaddle": "Mettere la sella a <%= pet %>?"

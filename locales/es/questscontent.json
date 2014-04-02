@@ -20,7 +20,7 @@
     "questHedgehogCompletion": "Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!",
     "questHedgehogBoss": "Erizobestia",
     "questHedgehogDropHedgehogEgg": "Hedgehog (Egg)",
-    "questGhostStagText": "The Spirit of Spring",
+    "questGhostStagText": "El Espíritu de Primavera",
     "questGhostStagNotes": "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" @Inventrix says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
     "questGhostStagCompletion": "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake.",
     "questGhostStagBoss": "Ghost Stag",
@@ -38,6 +38,6 @@
     "questVice3Completion": "Las sombras se disipan de la caverna mientras se asienta el silencio. ¡Gracias a Dios, lo habeis conseguido! ¡Habeis derrotado a Vice! Tú y tu grupo al fin podeis respirar tranquilos. Disfrutad de la victoria, bravos Habiteers, pero recordar las lecciones que habeis aprendido al combatir a Vice y seguid adelante, pues sigue habiendo tareas que realizar y peores males que conquistar.",
     "questVice3Boss": "Vice, el Wyrm Sombrío",
     "questVice3DropWeaponSpecial2": "La vara del Dragón de Stephen Weber",
-    "questVice3DropDragonEgg": "Dragón Huevo)",
+    "questVice3DropDragonEgg": "Dragón (Huevo)",
     "questVice3DropShadeHatchingPotion": "Poción de eclosión sombría."
 }

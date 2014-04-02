@@ -9,7 +9,7 @@
     "daniel": "Daniel",
     "danielText": "Bienvenue à la Taverne ! Restez un moment et rencontrez les habitants. Si vous avez besoin de vous reposer (vacances ?  maladie soudaine ?), je vous mettrai dans l'auberge - vos Quotidiennes ne vont blesseront pas pendant que vous vous reposez.",
     "danielText2": "Si vous êtes dans un combat contre un boss, vos quotidiennes ne blesseront pas les membres de votre équipe mais pendant que vous vous reposez, leurs quotidiennes manquées pourront toujours vous blesser!",
-    "alexander": "Alexandre le Marchand",
+    "alexander": "Alexander le Marchand",
     "welcomeMarket": "Bienvenue au Marché ! Achetez des œufs rares et des potions ! Vendez vos surplus ! Commandez des services utiles ! Venez voir ce que nous avons à proposer. ",
     "sellForGold": "Vendre <%= item %> pour <%= gold %> Or",
     "buyGems": "Acheter des Gemmes",
