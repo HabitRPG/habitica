@@ -1,148 +1,106 @@
 // Custom styles for the menu aka toolbar aka navbar
-.navbar
+.toolbar
   width:100%;
   top:0
   left:0
   z-index:998
   color: #222
-  background-color: #f5f5f5
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,0.2)
-  border-radius:0px
-  margin-bottom:0px
-  min-height:52px
-  > div
-    padding-left:8px
-  .glyphicon
-      color:#5d5d5d
-  .caret
-      color:#9d9d9d
-  .gem-wallet
-    padding-top:4px
-    padding-bottom:8px
-    height:52px
-  .Pet_Currency_Gem2x.Gems
-    position:relative
-    top:8px
-  .currency
-    min-height:52px
-    padding-top:16px
-    padding-right:16px
+  background-color: lighten($color-herobox, 60%)
+  border-bottom: 1px solid darken($color-herobox, 12%)
+  > ul > li
+    display: inline-block
 // Mobile menu button
-.navbar-header
-    position:absolute
-    top:0
-    right:45px
-    button
-      margin-right:0
-// Top level menu items: Tasks – Options
-.navbar-menu
+.toolbar-mobile-nav
+  float:left
+  @media screen and (min-width:768px)
+    display: none
+.toolbar-mobile
+  @extend $hrpg-button
+  @extend $hrpg-modal-dropdown-right
+// Top level menu items: Tasks – User – Social – Inventory
+.toolbar-nav
   float:left;
-  li
-    display:inline-block
-    height:52px
-    a
-      display:block
+  padding: 10px
+  @media screen and (max-width:768px)
+    display: none
+  > li
+    //border-right: 1px solid #ccc
+    margin-right: 10px
+  .toolbar-button-dropdown
+    @extend $hrpg-button-toggle
+    @extend $hrpg-modal-dropdown-right
+  .toolbar-button
+    @extend $hrpg-button
+    > a
+      display:inline-block
       height:100%
-      margin-left:8px
-      padding-top:16px
-      padding-left:8px
-      padding-right:8px
-      font-size:16px
-      line-height:1
-      text-decoration:none
       &:link,&:visited
         color: #222
       &:hover
-        background-color:#eee
+        background-color: #eee
       &:active
         color:#000
-    .toolbar-toggle
-      margin-left:0px
-      padding-left:4px
-      padding-right:4px
-      font-size:12px
-      .glyphicon
-        color:#9d9d9d
-    .glyphicon-chevron-down
-      position:relative
-      top:2px
-      transition: all 0.26s linear
-    .glyphicon-chevron-down.active
-      top:0px
-      transform: rotate(180deg)
-// Information bar: Bailey – notifs – currency – subscribe button
-.navbar-info
-  float:right
-  min-height:52px
-  // padding-right:25px
-  li
-    display:inline-block
-    button
-      margin-top: 8px
-      margin-bottom: 8px
-@media screen and (max-width:768px)
-  .navbar-menu
-    float:none
-  .navbar-info
-    width:100%
-.toolbar-sync
-  margin-left:4px
-  a
-    padding:8px !important
-// Navigation submenu
+      @media screen and (max-width:768px)
+        padding: 10px 8px
 .toolbar-submenu
-  background-color:#eee
-  border-top: 1px solid rgba(0,0,0,0.2)
-  > li
+  ul
+    padding-left: 0px !important
+  li
+    margin-right: 16px
     display:inline-block
-    vertical-align:top
-    margin-top:16px
-    margin-left:16px
-    margin-bottom:8px
-    line-height:1.618
-    ul
-      list-style:none
-      li
-        padding-left:22px
     .glyphicon
       margin-right:8px
-      color:#9d9d9d
-@media screen and (min-width:768px)
-  .navbar
-    position:fixed
+      color:#ccc
+// Information bar: Bailey – notifs – currency – subscribe button
+.toolbar-bailey, .toolbar-wallet, .toolbar-options
+  float:right
+  padding: 10px 10px 10px 0
+.toolbar-wallet
+  .gem-wallet
+    margin-left:8px
+    .Gems
+      margin-top: 3px
+    span
+      display:inline-block
+      vertical-align:top
+      padding-top:5px
+  .toolbar-currency
+    margin-left:16px
+    padding: 5px 8px !important
+    margin:0px
+    vertical-align:top   
 @media screen and (max-width:768px)
-  .navbar-info.inactive
-    display:none;
-
+  .toolbar
+    > ul
+      float: none
+      margin: 0px 4px 4px 4px
+      .toolbar-bailey
+        float:right
+.toolbar-options
+  > li
+    margin-left: 8px
+.toolbar-sync, .toolbar-settings
+  @extend $hrpg-button
+.toolbar-subscribe
+  @extend $hrpg-button-call-to-action
+@media screen and (min-width:768px)
+  .toolbar
+    position:fixed
 // Notifications icon and dropdown
 .toolbar-notifs
-  position: relative
-  z-index:11000
+  @extend $hrpg-button
+  @extend $hrpg-modal-dropdown-left-heading
+  > a span.inactive
+    opacity: 0.236 !important
   div
-    position: absolute
-    top: 54px
-    left:-128px
     width:300px
-    border:1px solid #b5b5b5
-    border-radius:4px
-    background-color:#fff
-    h4
-      font-size: 16px
-      margin:0px
-      border-radius:4px 4px 0px 0px
-      background-color: #f7f7f7
-      border-bottom:1px solid #ccc
-    h4, ul
-      padding: 10px 16px
+    @media screen and (max-width:768px)
+      width:96%
     .toolbar-notifs-notifs
       padding-bottom:16px
-      max-height: 63vh
-      overflow: auto
+      max-height: 63%
       li
-        display: block
         position: relative
-        margin-bottom:10px
         .glyphicon
           margin-right: 10px
           height: 100%
@@ -157,54 +115,14 @@
           margin-right: 0px
           color:#9d9d9d
     &:after
-      content:''
-      position:absolute
-      top:-9px
-      left:142px
-      z-index:2
-      width:16px
-      height:16px
-      border-top:1px solid #b5b5b5
-      border-left:1px solid #b5b5b5
-      background-color: #f7f7f7
-      transform: rotate(45deg)
-
-.toolbar-notifs-controls
-  text-align: right
-  border-top:1px solid #ccc
-  border-radius:0px 0px 4px 4px
-  background-color: #fff
+      right:26px
+// Settings dropdown
+.toolbar-settings
+  @extend $hrpg-modal-dropdown-left-heading
+.toolbar-controls
+  @extend $hrpg-modal-controls
   li
-    margin-left: 10px
-    a
-      display: block
-      padding: 2px 4px
-      border: 1px solid #ccc
-      border-radius: 4px
-      text-decoration:none
-      color:#222
-    a:active
-      background-color: #eee
-    @media screen and (min-width:768px)
-      a:hover
-        background-color: #f5f5f5
-      
-@media screen and (max-width:768px)
-  .toolbar-notifs
-    div
-      position:fixed
-      overflow: auto
-      z-index: 2000
-      top: 2vh
-      left: 2vw
-      width: 96vw
-      height: 96vh
-      box-shadow:
-        0 0 0 30px rgba(0,0,0,0.63)
-      &:after
-        display: none
-      .toolbar-notifs-controls
-        width: 100%
-        position: absolute
-        bottom:0
-        right:0 
+    @extend $hrpg-button
+.toolbar-settings .toolbar-controls
+  @media screen and (min-width:768px)
+    display:none

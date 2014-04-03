@@ -1,134 +1,183 @@
-nav.navbar(ng-controller='AuthCtrl')
-  ul.navbar-menu
-    li
+nav.toolbar(ng-controller='AuthCtrl')
+  ul.toolbar-mobile-nav
+    li.toolbar-mobile
+      a(ng-click='user.preferences.mobileMenuExpanded = !user.preferences.mobileMenuExpanded', ng-class='{active: user.preferences.mobileMenuExpanded}')
+        span  &#9776;
+      div(ng-if='user.preferences.mobileMenuExpanded')
+        h4
+          span=env.t('options')
+        ul.toolbar-submenu
+          li
+            span.glyphicon.glyphicon-check
+            span=env.t('tasks')
+            ul
+              li
+                a(ui-sref='tasks', ng-click='set({"preferences.menuExpanded":false})')=env.t('tasks')
+          li
+            span.glyphicon.glyphicon-user
+            span=env.t('user')
+            ul
+              li
+                a(ui-sref='options.profile.avatar', ng-click='set({"preferences.menuExpanded":false})')=env.t('avatar')
+              li
+                a(ui-sref='options.profile.stats', ng-click='set({"preferences.menuExpanded":false})')=env.t('stats')
+              li
+                a(ui-sref='options.profile.profile', ng-click='set({"preferences.menuExpanded":false})')=env.t('profile')
+          li
+            span.glyphicon.glyphicon-heart
+            span=env.t('social')
+            ul
+              li
+                a(ui-sref='options.social.tavern', ng-click='set({"preferences.menuExpanded":false})')=env.t('tavern')
+              li
+                a(ui-sref='options.social.party', ng-click='set({"preferences.menuExpanded":false})')=env.t('party')
+              li
+                a(ui-sref='options.social.guilds', ng-click='set({"preferences.menuExpanded":false})')=env.t('guilds')
+              li
+                a(ui-sref='options.social.challenges', ng-click='set({"preferences.menuExpanded":false})')=env.t('challenges')
+              li
+                a(ui-sref='options.social.hall', ng-click='set({"preferences.menuExpanded":false})')=env.t('hall')
+          li
+            span.glyphicon.glyphicon-gift
+            span=env.t('inventory')
+            ul
+              li
+                a(ui-sref='options.inventory.drops', ng-click='set({"preferences.menuExpanded":false})')=env.t('market')
+              li
+                a(ui-sref='options.inventory.pets', ng-click='set({"preferences.menuExpanded":false})')=env.t('pets')
+              li
+                a(ui-sref='options.inventory.mounts', ng-click='set({"preferences.menuExpanded":false})')=env.t('mounts')
+              li
+                a(ui-sref='options.inventory.equipment', ng-click='set({"preferences.menuExpanded":false})')=env.t('equipment')
+        ul.toolbar-controls
+          li
+            a(ng-click='set({"preferences.mobileMenuExpanded":false})')
+              | X
+  ul.toolbar-nav
+    li.toolbar-button
       a(ui-sref='tasks')
         span=env.t('tasks')
-    li
+    li.toolbar-button-dropdown
       a(ui-sref='options.profile.avatar')
-        span=env.t('options')
-    li
-      a.toolbar-toggle(ng-click='user.preferences.menuExpanded = !user.preferences.menuExpanded')
-        span.glyphicon.glyphicon-chevron-down(ng-class='{active: user.preferences.menuExpanded}')
-  .collapse.navbar-collapse(collapse="isNavbarCollapsed")
-    ul.nav.navbar-info(ng-class='{inactive: !user.preferences.menuExpanded}')
-      li.toolbar-bailey-container(ng-if='user.flags.newStuff')
-        .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
-      // Invitations
-      //-li(ng-if='user.invitations.party.id')
-        //-a(ui-sref='options.social.party')
-          //-span.glyphicon.glyphicon-user(popover=env.t('invitedTo', {name: '{{user.invitations.party.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
-      //-li(ng-repeat='guild in user.invitations.guilds')
-        //-a(ui-sref='options.social.guilds')
-          //-span.glyphicon.glyphicon-user(popover=env.t('invitedTo', {name: '{{guild.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
-      // Mystery Item
-      li(ng-if='user.purchased.plan.mysteryItems.length')
-        a(ng-click='$state.go("options.inventory.drops")')
-          span.glyphicon.glyphicon-gift(popover=env.t('newSubscriberItem'),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
-      // Notifications
-      li.toolbar-notifs
-        a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded')
-          span.glyphicon.glyphicon-comment
-        div(ng-if='user.preferences.isNotifsExpanded')
-          h4 Notifs
-          ul.toolbar-notifs-notifs
-            li(ng-if='user.invitations.party.id')
-              a(ui-sref='options.social.party', ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; user.preferences.menuExpanded = !user.preferences.menuExpanded')
-                span.glyphicon.glyphicon-user
-                span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
-            li(ng-repeat='guild in user.invitations.guilds')
-              a(ui-sref='options.social.guilds', ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; user.preferences.menuExpanded = !user.preferences.menuExpanded')
-                span.glyphicon.glyphicon-user
-                span=env.t('invitedTo', {name: '{{guild.name}}'})
-            li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-              a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; user.preferences.menuExpanded = !user.preferences.menuExpanded')
-                span.glyphicon.glyphicon-comment
-                span {{v.name}}
-              a(ng-click='')
-                span.glyphicon.glyphicon-remove-circle(popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
-          ul.toolbar-notifs-controls
-            li
-              a(ng-click='') Clear all
-            li
-              a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded')=env.t('close')
-      li
-        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
-          //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
-          span
-            .Pet_Currency_Gem2x.Gems
-            | {{user.balance * 4 | number:0}}
-      li.currency(popover=env.t('gold'), popover-placement='bottom',popover-trigger='mouseenter')
-        span
-          .shop_gold
-          | {{Shared.gold(user.stats.gp)}}
-      li.currency(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
-        span
-          .shop_silver
-          | {{Shared.silver(user.stats.gp)}}
-      li
-        button.btn.btn-primary(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
-        button.btn.btn-default(ng-if='user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover=env.t('manageSub'),popover-append-to-body='true')=env.t('subscribed')
-      li.toolbar-sync
-        a(ng-click='User.sync()',popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
-          span.glyphicon.glyphicon-refresh
-  ul.nav.toolbar-submenu(ng-if='user.preferences.menuExpanded')
-    li
-      span.glyphicon.glyphicon-user
-      span=env.t('user')
-      ul
-        li
-          a(ui-sref='options.profile.avatar', ng-click='set({"preferences.menuExpanded":false})')=env.t('avatar')
-        li
-          a(ui-sref='options.profile.stats', ng-click='set({"preferences.menuExpanded":false})')=env.t('stats')
-        li
-          a(ui-sref='options.profile.profile', ng-click='set({"preferences.menuExpanded":false})')=env.t('profile')
-        li
-          a(ng-click='logout()')
-            span=env.t('logout')
-    li
-      span.glyphicon.glyphicon-heart
-      span=env.t('social')
-      ul
-        li
-          a(ui-sref='options.social.tavern', ng-click='set({"preferences.menuExpanded":false})')=env.t('tavern')
-        li
-          a(ui-sref='options.social.party', ng-click='set({"preferences.menuExpanded":false})')=env.t('party')
-        li
-          a(ui-sref='options.social.guilds', ng-click='set({"preferences.menuExpanded":false})')=env.t('guilds')
-        li
-          a(ui-sref='options.social.challenges', ng-click='set({"preferences.menuExpanded":false})')=env.t('challenges')
-        li
-          a(ui-sref='options.social.hall', ng-click='set({"preferences.menuExpanded":false})')=env.t('hall')
-    li
-      span.glyphicon.glyphicon-gift
-      span=env.t('inventory')
-      ul
-        li
-          a(ui-sref='options.inventory.drops', ng-click='set({"preferences.menuExpanded":false})')=env.t('market')
-        li
-          a(ui-sref='options.inventory.pets', ng-click='set({"preferences.menuExpanded":false})')=env.t('pets')
-        li
-          a(ui-sref='options.inventory.mounts', ng-click='set({"preferences.menuExpanded":false})')=env.t('mounts')
-        li
-          a(ui-sref='options.inventory.equipment', ng-click='set({"preferences.menuExpanded":false})')=env.t('equipment')
-    li
-      span.glyphicon.glyphicon-wrench
-      span=env.t('settings')
-      ul
-        li
-          a(ui-sref='options.settings.settings', ng-click='set({"preferences.menuExpanded":false})')=env.t('site')
-        li
-          a(ui-sref='options.settings.api', ng-click='set({"preferences.menuExpanded":false})')=env.t('API')
-        li
-          a(ui-sref='options.settings.export', ng-click='set({"preferences.menuExpanded":false})')=env.t('export')
-        li
-          a(ui-sref='options.settings.subscription', ng-click='set({"preferences.menuExpanded":false})')=env.t('subscription')
-    li
-      span.glyphicon.glyphicon-question-sign
-      span=env.t('help')
-      ul
-        li
-          a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank', ng-click='set({"preferences.menuExpanded":false})')
-            span=env.t('FAQ')
-        li
-          a(href="https://vimeo.com/57654086", target='_blank', ng-click='set({"preferences.menuExpanded":false})')
-            span=env.t('tutorials')
+        span=env.t('user')
+      a(ng-click='user.preferences.avatarMenuExpanded = !user.preferences.avatarMenuExpanded', ng-class='{active: user.preferences.avatarMenuExpanded}')
+        span &#9776;
+      div(ng-if='user.preferences.avatarMenuExpanded')
+        ul.toolbar-submenu
+          li
+            a(ui-sref='options.profile.avatar', ng-click='set({"preferences.menuExpanded":false})')=env.t('avatar')
+          li
+            a(ui-sref='options.profile.stats', ng-click='set({"preferences.menuExpanded":false})')=env.t('stats')
+          li
+            a(ui-sref='options.profile.profile', ng-click='set({"preferences.menuExpanded":false})')=env.t('profile') 
+    li.toolbar-button-dropdown
+      a(ui-sref='options.social.tavern')
+        span=env.t('social')
+      a(ng-click='user.preferences.socialMenuExpanded = !user.preferences.socialMenuExpanded', ng-class='{active: user.preferences.socialMenuExpanded}')
+        span &#9776;
+      div(ng-if='user.preferences.socialMenuExpanded')
+        ul.toolbar-submenu
+          li
+            a(ui-sref='options.social.tavern', ng-click='set({"preferences.menuExpanded":false})')=env.t('tavern')
+          li
+            a(ui-sref='options.social.party', ng-click='set({"preferences.menuExpanded":false})')=env.t('party')
+          li
+            a(ui-sref='options.social.guilds', ng-click='set({"preferences.menuExpanded":false})')=env.t('guilds')
+          li
+            a(ui-sref='options.social.challenges', ng-click='set({"preferences.menuExpanded":false})')=env.t('challenges')
+          li
+            a(ui-sref='options.social.hall', ng-click='set({"preferences.menuExpanded":false})')=env.t('hall')
+    li.toolbar-button-dropdown
+      a(ui-sref='options.inventory.drops')
+        span=env.t('inventory')
+      a(ng-click='user.preferences.inventoryMenuExpanded = !user.preferences.inventoryMenuExpanded', ng-class='{active: user.preferences.inventoryMenuExpanded}')
+        span  &#9776;
+      div(ng-if='user.preferences.inventoryMenuExpanded')
+        ul.toolbar-submenu
+          li
+            a(ui-sref='options.inventory.drops', ng-click='set({"preferences.menuExpanded":false})')=env.t('market')
+          li
+            a(ui-sref='options.inventory.pets', ng-click='set({"preferences.menuExpanded":false})')=env.t('pets')
+          li
+            a(ui-sref='options.inventory.mounts', ng-click='set({"preferences.menuExpanded":false})')=env.t('mounts')
+          li
+            a(ui-sref='options.inventory.equipment', ng-click='set({"preferences.menuExpanded":false})')=env.t('equipment')
+  ul.toolbar-options  
+    li.toolbar-notifs
+      a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded')
+        span.glyphicon.glyphicon-comment(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0', ng-class='{inactive: _.isEmpty(user.newMessages)}')
+        span.glyphicon.glyphicon-user(ng-if='!user.purchased.plan.mysteryItems.length && (user.invitations.party.id || user.invitations.guilds.length > 0)')
+        span.glyphicon.glyphicon-gift(ng-if='user.purchased.plan.mysteryItems.length')
+      div(ng-if='user.preferences.isNotifsExpanded')
+        h4 Notifications
+        ul.toolbar-notifs-notifs
+          li(ng-if='user.purchased.plan.mysteryItems.length')
+            a(ng-click='$state.go("options.inventory.drops"); user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
+              span.glyphicon.glyphicon-gift
+              span=env.t('newSubscriberItem')
+          li(ng-if='user.invitations.party.id')
+            a(ui-sref='options.social.party', ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
+              span.glyphicon.glyphicon-user
+              span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+          li(ng-repeat='guild in user.invitations.guilds')
+            a(ui-sref='options.social.guilds', ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
+              span.glyphicon.glyphicon-user
+              span=env.t('invitedTo', {name: '{{guild.name}}'})
+          li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
+            a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
+              span.glyphicon.glyphicon-comment
+              span {{v.name}}
+            //-a(ng-click='')
+              //-span.glyphicon.glyphicon-remove-circle(popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
+        //-ul.toolbar-controls
+          //-li
+            a(ng-click='') Clear all
+          //-li
+            //-a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
+              //-| X
+    li.toolbar-sync
+      a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
+        span.glyphicon.glyphicon-refresh
+    li.toolbar-settings
+      a(ng-click='user.preferences.isSettingsExpanded = !user.preferences.isSettingsExpanded')
+        span.glyphicon.glyphicon-cog
+      div(ng-if='user.preferences.isSettingsExpanded')
+        h4=env.t('settings')
+        ul
+          li
+            a(ng-click='logout()')
+              span=env.t('logout')
+          li
+            a(ui-sref='options.settings.settings', ng-click='set({"preferences.isSettingsExpanded":false})')=env.t('site')
+          li
+            a(ui-sref='options.settings.api', ng-click='set({"preferences.isSettingsExpanded":false})')=env.t('API')
+          li
+            a(ui-sref='options.settings.export', ng-click='set({"preferences.isSettingsExpanded":false})')=env.t('export')
+          li
+            a(ui-sref='options.settings.subscription', ng-click='set({"preferences.isSettingsExpanded":false})')=env.t('subscription')
+          li
+            a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank', ng-click='set({"preferences.menuExpanded":false})')
+              span=env.t('FAQ')
+          li
+            a(href="https://vimeo.com/57654086", target='_blank', ng-click='set({"preferences.menuExpanded":false})')
+              span=env.t('tutorials')
+        ul.toolbar-controls
+          li
+            a(ng-click='set({"preferences.isSettingsExpanded":false})')=env.t('close')
+    li.toolbar-subscribe
+      button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
+  ul.toolbar-wallet
+    li.toolbar-gems
+      a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+        //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
+        span.Pet_Currency_Gem2x.Gems
+        span.gem-text {{user.balance * 4 | number:0}}
+    li.toolbar-currency(popover=env.t('gold'), popover-placement='bottom',popover-trigger='mouseenter')
+      span.shop_gold
+      span {{Shared.gold(user.stats.gp)}}
+    li.toolbar-currency(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
+      span.shop_silver
+      span {{Shared.silver(user.stats.gp)}}
+  ul.toolbar-bailey(ng-class='{inactive: !user.preferences.menuExpanded}')
+    li.toolbar-bailey-container(ng-if='user.flags.newStuff')
+      .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
