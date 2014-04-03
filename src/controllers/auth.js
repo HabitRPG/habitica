@@ -88,7 +88,7 @@ api.registerUser = function(req, res, next) {
           timestamps: {created: +new Date(), loggedIn: +new Date()}
         }
       };
-      newUser.preferences = {};
+      newUser.preferences = newUser.preferences || {};
       newUser.preferences.language = req.language; // User language detected from browser, not saved
       user = new User(newUser);
 
