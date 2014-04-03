@@ -30,21 +30,26 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // For special events code, see commit dfa27b3
 
           // Color
+          mixin colorSelection(colors,title,limited)
+            li.customize-menu(class=limited ? "well limited-edition" : "")
+              if limited
+                .label.label-info.pull-right.hint(popover=limited, popover-title=env.t('limitedEdition'), popover-placement='right', popover-trigger='mouseenter')=env.t('limitedEdition')
+              menu(label=title)
+                small.cost
+                  | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
+                  = ' ' + env.t('locked')
+                each color in colors
+                  button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
+            button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.color.#{colors.join(" && user.purchased.hair.color.")}', ng-click='unlock("hair.color.#{colors.join(",hair.color.")}")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+
           li.customize-menu
             menu(label=env.t('color'))
               each v,k in {'c8c8c8':'white','903a00':'brown','cfb853':'blond','ec720f':'red','2e2e2e':'black'}
                 button(type='button', class='customize-option hair', style='background-color:##{k};', ng-click='set({"preferences.hair.color": "#{v}"})')
               each color in ['candycane','frost','winternight','holly']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
-
-          li.customize-menu
-            menu(label=env.t('rainbowColors'))
-              small.cost
-                | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
-                = ' ' + env.t('locked')
-              each color in ['rainbow','yellow','green','purple','blue','TRUred']
-                button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
-          button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.color.rainbow && user.purchased.hair.color.yellow && user.purchased.hair.color.green && user.purchased.hair.color.purple && user.purchased.hair.color.blue && user.purchased.hair.color.TRUred', ng-click='unlock("hair.color.rainbow,hair.color.yellow,hair.color.green,hair.color.purple,hair.color.blue,hair.color.TRUred")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          +colorSelection(['rainbow','yellow','green','purple','blue','TRUred'],env.t('rainbowColors'))
+          +colorSelection(['pblue','pgreen','porange','ppink','ppurple','pyellow'],"Pastel Hair","April")
 
           h5=env.t('bodyHair')
           // Bangs
