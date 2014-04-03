@@ -1,0 +1,128 @@
+// Buttons
+// The !important declarations override Bootstrap
+$hrpg-button-master
+  list-style: none
+  > a, button
+    display: inline-block !important
+    padding: 4px 8px !important
+    text-decoration:none
+    font-size: 16px
+    color:#222
+    background-color: transparent
+    &:active
+      background-color: #aaa !important
+    @media screen and (min-width:768px)
+      &:hover
+        background-color: #eee !important
+$hrpg-button
+  @extend $hrpg-button-master
+  > a, button
+    border: 1px solid #ccc !important
+    border-radius: 4px !important
+$hrpg-button-call-to-action
+  @extend $hrpg-button
+  > a, button
+    background-color: $color-button-style-one !important
+    color: darken($color-button-style-one, 61.8%) 
+    border-color: darken($color-button-style-one, 16.18%) !important
+    @media screen and (min-width:768px)
+      &:hover
+        background-color: darken($color-button-style-one, 6.18%) !important
+$hrpg-button-toggle
+  @extend $hrpg-button-master
+  border: 1px solid #ccc !important
+  border-radius: 4px !important
+  > a:first-of-type
+    border-radius: 4px 0px 0px 4px !important
+  > a:nth-of-type(2)
+    border-radius: 0px 4px 4px 0px !important
+// Modals
+$hrpg-modal
+  position: relative
+  > a
+    .glyphicon
+      padding-left:2px
+      padding-right:2px
+$hrpg-modal-dropdown
+  @extend $hrpg-modal
+  div
+    position: absolute
+    top: 48px
+    min-width:110px
+    border:1px solid #b5b5b5
+    border-radius:4px
+    background-color:#fff
+    @media screen and (max-width:768px)
+      position:fixed
+      overflow: auto
+      z-index: 1000
+      top: 2%
+      left: 2%
+      width: 96%
+      height: 96%
+      box-shadow: 0 0 0 30px rgba(0,0,0,0.63)
+      &:after
+        display: none
+    h4
+      font-size: 16px
+      margin:0px
+      background-color: #f7f7f7
+      border-top:1px solid #ccc
+      border-bottom:1px solid #ccc
+    h4:first-of-type
+      border-top: none
+      border-radius:4px 4px 0px 0px
+    h4, ul
+      padding: 10px 16px
+    ul:last-child
+      padding-bottom:0px
+    ul
+      list-style: none
+      overflow: auto
+      li
+        margin-bottom:10px
+    &:after
+      content:''
+      position:absolute
+      top:-9px
+      z-index:2
+      width:16px
+      height:16px
+      border-top:1px solid #b5b5b5
+      border-left:1px solid #b5b5b5
+      background-color: #fff
+      transform: rotate(45deg)
+$hrpg-modal-dropdown-left
+  @extend $hrpg-modal-dropdown
+  @media screen and (min-width:768px)
+    div
+      right: 0px
+      &:after
+        right: 16px
+$hrpg-modal-dropdown-left-heading
+  @extend $hrpg-modal-dropdown-left
+  div
+    &:after
+      background-color: #f7f7f7
+$hrpg-modal-dropdown-right
+  @extend $hrpg-modal-dropdown
+  @media screen and (min-width:768px)
+    div
+      left: 0px
+      &:after
+        left: 16px
+$hrpg-modal-controls
+  text-align: right 
+  border-top:1px solid #eee
+  border-radius:0px 0px 4px 4px
+  li
+    margin-left: 10px
+    display: inline-block
+  @media screen and (max-width:768px)
+    width: 100%
+    position: fixed
+    bottom:2%
+    right:0
+    border: none
+    a
+      background-color: red 
