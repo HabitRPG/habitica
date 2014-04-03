@@ -1,3 +1,8 @@
+mixin twoGem
+  small.cost
+    | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
+    = ' ' + env.t('locked')
+
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
   .row
     .col-md-4
@@ -15,9 +20,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               button.customize-option(class='{{user.preferences.size}}_shirt_'+shirt, type='button', ng-click='set({"preferences.shirt":"'+shirt+'"})')
 
           menu(label=env.t('specialShirts'))
-            small.cost
-              | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
-              = ' ' + env.t('locked')
+            +twoGem()
             each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
               button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
           menu
@@ -35,9 +38,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               if limited
                 .label.label-info.pull-right.hint(popover=limited, popover-title=env.t('limitedEdition'), popover-placement='right', popover-trigger='mouseenter')=env.t('limitedEdition')
               menu(label=title)
-                small.cost
-                  | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
-                  = ' ' + env.t('locked')
+                +twoGem()
                 each color in colors
                   button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
             button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.color.#{colors.join(" && user.purchased.hair.color.")}', ng-click='unlock("hair.color.#{colors.join(",hair.color.")}")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
@@ -82,9 +83,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Beard
           li.customize-menu
             menu(label=env.t('beard'))
-              small.cost
-                | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
-                = ' ' + env.t('locked')
+              +twoGem()
               button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.beard":0})')
               each num in [1,2,3]
                 button(class='hair_beard_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.beard.#{num}}', ng-click='unlock("hair.beard.#{num}")')
@@ -92,9 +91,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Mustache
           li.customize-menu
             menu(label=env.t('mustache'))
-              small.cost
-                | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
-                = ' ' + env.t('locked')
+              +twoGem()
               button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.mustache":0})')
               each num in [1,2]
                 button(class='hair_mustache_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.#{num}}', ng-click='unlock("hair.mustache.#{num}")')
@@ -111,9 +108,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           // Rainbow Skin
           h5=env.t('rainbowSkins')
-          small.cost
-            | 2 <span class="Pet_Currency_Gem1x inline-gems"></span> /
-            = ' ' + env.t('locked')
+          +twoGem()
           //menu(label='Rainbow Skins (2G / skin)')
           menu
             each color in ['eb052b','f69922','f5d70f','0ff591','2b43f6','d7a9f7','800ed0','rainbow']
