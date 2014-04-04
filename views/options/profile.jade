@@ -50,7 +50,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               each color in ['candycane','frost','winternight','holly']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
           +colorSelection(['rainbow','yellow','green','purple','blue','TRUred'],env.t('rainbowColors'))
-          +colorSelection(['pblue','pgreen','porange','ppink','ppurple','pyellow'],"Pastel Hair","April")
+          +colorSelection(['pblue','pgreen','porange','ppink','ppurple','pyellow'],"Pastel Hair",env.t('limited30Apr'))
 
           h5=env.t('bodyHair')
           // Bangs
