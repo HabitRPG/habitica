@@ -51,8 +51,7 @@ nav.toolbar(ng-controller='AuthCtrl')
                 a(ui-sref='options.inventory.equipment', ng-click='set({"preferences.menuExpanded":false})')=env.t('equipment')
         ul.toolbar-controls
           li
-            a(ng-click='set({"preferences.mobileMenuExpanded":false})')
-              | X
+            a(ng-click='set({"preferences.mobileMenuExpanded":false})')=env.t('close')
   ul.toolbar-nav
     li.toolbar-button
       a(ui-sref='tasks')
@@ -63,45 +62,48 @@ nav.toolbar(ng-controller='AuthCtrl')
       a(ng-click='user.preferences.avatarMenuExpanded = !user.preferences.avatarMenuExpanded', ng-class='{active: user.preferences.avatarMenuExpanded}')
         span &#9776;
       div(ng-if='user.preferences.avatarMenuExpanded')
-        ul.toolbar-submenu
+        ul.toolbar-submenu(ng-click='set({"preferences.avatarMenuExpanded":false})')
           li
-            a(ui-sref='options.profile.avatar', ng-click='set({"preferences.menuExpanded":false})')=env.t('avatar')
+            a(ui-sref='options.profile.avatar')=env.t('avatar')
           li
-            a(ui-sref='options.profile.stats', ng-click='set({"preferences.menuExpanded":false})')=env.t('stats')
+            a(ui-sref='options.profile.stats')=env.t('stats')
           li
-            a(ui-sref='options.profile.profile', ng-click='set({"preferences.menuExpanded":false})')=env.t('profile') 
+            a(ui-sref='options.profile.profile')=env.t('profile') 
     li.toolbar-button-dropdown
       a(ui-sref='options.social.tavern')
         span=env.t('social')
       a(ng-click='user.preferences.socialMenuExpanded = !user.preferences.socialMenuExpanded', ng-class='{active: user.preferences.socialMenuExpanded}')
         span &#9776;
       div(ng-if='user.preferences.socialMenuExpanded')
-        ul.toolbar-submenu
+        ul.toolbar-submenu(ng-click='set({"preferences.socialMenuExpanded":false})')
           li
-            a(ui-sref='options.social.tavern', ng-click='set({"preferences.menuExpanded":false})')=env.t('tavern')
+            a(ui-sref='options.social.tavern')=env.t('tavern')
           li
-            a(ui-sref='options.social.party', ng-click='set({"preferences.menuExpanded":false})')=env.t('party')
+            a(ui-sref='options.social.party')=env.t('party')
           li
-            a(ui-sref='options.social.guilds', ng-click='set({"preferences.menuExpanded":false})')=env.t('guilds')
+            a(ui-sref='options.social.guilds')=env.t('guilds')
           li
-            a(ui-sref='options.social.challenges', ng-click='set({"preferences.menuExpanded":false})')=env.t('challenges')
+            a(ui-sref='options.social.challenges')=env.t('challenges')
           li
-            a(ui-sref='options.social.hall', ng-click='set({"preferences.menuExpanded":false})')=env.t('hall')
+            a(ui-sref='options.social.hall')=env.t('hall')
     li.toolbar-button-dropdown
       a(ui-sref='options.inventory.drops')
         span=env.t('inventory')
       a(ng-click='user.preferences.inventoryMenuExpanded = !user.preferences.inventoryMenuExpanded', ng-class='{active: user.preferences.inventoryMenuExpanded}')
         span  &#9776;
       div(ng-if='user.preferences.inventoryMenuExpanded')
-        ul.toolbar-submenu
+        ul.toolbar-submenu(ng-click='set({"preferences.inventoryMenuExpanded":false})')
           li
-            a(ui-sref='options.inventory.drops', ng-click='set({"preferences.menuExpanded":false})')=env.t('market')
+            a(ui-sref='options.inventory.drops')=env.t('market')
           li
-            a(ui-sref='options.inventory.pets', ng-click='set({"preferences.menuExpanded":false})')=env.t('pets')
+            a(ui-sref='options.inventory.pets')=env.t('pets')
           li
-            a(ui-sref='options.inventory.mounts', ng-click='set({"preferences.menuExpanded":false})')=env.t('mounts')
+            a(ui-sref='options.inventory.mounts')=env.t('mounts')
           li
-            a(ui-sref='options.inventory.equipment', ng-click='set({"preferences.menuExpanded":false})')=env.t('equipment')
+            a(ui-sref='options.inventory.equipment')=env.t('equipment')
+  ul.toolbar-subscribe  
+    li
+      button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
   ul.toolbar-options  
     li.toolbar-notifs
       a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded')
@@ -111,6 +113,8 @@ nav.toolbar(ng-controller='AuthCtrl')
       div(ng-if='user.preferences.isNotifsExpanded')
         h4 Notifications
         ul.toolbar-notifs-notifs
+          li(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0 && _.isEmpty(user.newMessages)')
+            | You have no new messages.
           li(ng-if='user.purchased.plan.mysteryItems.length')
             a(ng-click='$state.go("options.inventory.drops"); user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
               span.glyphicon.glyphicon-gift
@@ -127,14 +131,13 @@ nav.toolbar(ng-controller='AuthCtrl')
             a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
               span.glyphicon.glyphicon-comment
               span {{v.name}}
-            //-a(ng-click='')
-              //-span.glyphicon.glyphicon-remove-circle(popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
-        //-ul.toolbar-controls
+            a(ng-click='Groups.seenMessage(k)')
+              span.glyphicon.glyphicon-remove-circle(popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
+        ul.toolbar-controls
           //-li
-            a(ng-click='') Clear all
-          //-li
-            //-a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')
-              //-| X
+            //-a(ng-click='') Clear all
+          li
+            a(ng-click='user.preferences.isNotifsExpanded = !user.preferences.isNotifsExpanded; set({"preferences.menuExpanded":false})')=env.t('close')
     li.toolbar-sync
       a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
         span.glyphicon.glyphicon-refresh
@@ -164,18 +167,16 @@ nav.toolbar(ng-controller='AuthCtrl')
         ul.toolbar-controls
           li
             a(ng-click='set({"preferences.isSettingsExpanded":false})')=env.t('close')
-    li.toolbar-subscribe
-      button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
   ul.toolbar-wallet
     li.toolbar-gems
       a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
         //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
         span.Pet_Currency_Gem2x.Gems
         span.gem-text {{user.balance * 4 | number:0}}
-    li.toolbar-currency(popover=env.t('gold'), popover-placement='bottom',popover-trigger='mouseenter')
+    li.toolbar-currency.gold(popover=env.t('gold'), popover-placement='bottom',popover-trigger='mouseenter')
       span.shop_gold
       span {{Shared.gold(user.stats.gp)}}
-    li.toolbar-currency(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
+    li.toolbar-currency.silver(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
       span.shop_silver
       span {{Shared.silver(user.stats.gp)}}
   ul.toolbar-bailey(ng-class='{inactive: !user.preferences.menuExpanded}')

@@ -4,14 +4,15 @@
   top:0
   left:0
   z-index:998
-  color: #222
-  background-color: lighten($color-herobox, 60%)
+  background-color: $color-toolbar
   border-bottom: 1px solid darken($color-herobox, 12%)
   > ul > li
     display: inline-block
 // Mobile menu button
 .toolbar-mobile-nav
-  float:left
+  display: inline-block
+  padding-left: 0.618em
+  padding-right: 0.618em
   @media screen and (min-width:768px)
     display: none
 .toolbar-mobile
@@ -20,17 +21,18 @@
 // Top level menu items: Tasks – User – Social – Inventory
 .toolbar-nav
   float:left;
-  padding: 10px
+  padding: 0.618em
   @media screen and (max-width:768px)
     display: none
   > li
-    //border-right: 1px solid #ccc
-    margin-right: 10px
+    margin-right: 0.618em
   .toolbar-button-dropdown
     @extend $hrpg-button-toggle
     @extend $hrpg-modal-dropdown-right
+    hrpg-button-color-mixin($color-toolbar)
   .toolbar-button
     @extend $hrpg-button
+    hrpg-button-color-mixin($color-toolbar)
     > a
       display:inline-block
       height:100%
@@ -40,48 +42,44 @@
         background-color: #eee
       &:active
         color:#000
-      @media screen and (max-width:768px)
-        padding: 10px 8px
 .toolbar-submenu
-  ul
-    padding-left: 0px !important
   li
-    margin-right: 16px
+    margin-right: 1em
+  > li > ul > li
     display:inline-block
-    .glyphicon
-      margin-right:8px
-      color:#ccc
+  .glyphicon
+    margin-right: 0.618em
+    color:#ccc
 // Information bar: Bailey – notifs – currency – subscribe button
-.toolbar-bailey, .toolbar-wallet, .toolbar-options
+.toolbar-bailey, .toolbar-wallet, .toolbar-options, .toolbar-subscribe
   float:right
-  padding: 10px 10px 10px 0
+  padding: 0.618em 0.618em 0.618em 0
+  @media screen and (max-width:768px)
+    float: none
+    display: inline-block
+    padding: 0.618em 0.382em 0.618em 0
 .toolbar-wallet
   .gem-wallet
-    margin-left:8px
     .Gems
-      margin-top: 3px
+      margin-top: 0em
     span
       display:inline-block
       vertical-align:top
-      padding-top:5px
-  .toolbar-currency
-    margin-left:16px
-    padding: 5px 8px !important
-    margin:0px
-    vertical-align:top   
-@media screen and (max-width:768px)
-  .toolbar
-    > ul
-      float: none
-      margin: 0px 4px 4px 4px
-      .toolbar-bailey
-        float:right
-.toolbar-options
+      padding-top: 0.382em
+.toolbar-currency
+  padding-top: 0.236em
+  padding-bottom: 0.236em
+  vertical-align:top
+.toolbar-currency.gold
+  color: darken($neutral,61,8%)
+.toolbar-currency.silver
+  color: #999
+.toolbar-options, .toolbar-wallet
   > li
-    margin-left: 8px
+    margin-left: 0.618em
 .toolbar-sync, .toolbar-settings
   @extend $hrpg-button
-.toolbar-subscribe
+.toolbar-subscribe li
   @extend $hrpg-button-call-to-action
 @media screen and (min-width:768px)
   .toolbar
@@ -97,25 +95,23 @@
     @media screen and (max-width:768px)
       width:96%
     .toolbar-notifs-notifs
-      padding-bottom:16px
+      padding-bottom:1em
       max-height: 63%
       li
         position: relative
         .glyphicon
-          margin-right: 10px
+          margin-right: 0.618em
           height: 100%
       a
         display:inline-block
       a:nth-of-type(1)
-        margin-right: 26px
+        margin-right: 1.618em
       a:nth-of-type(2)
         position:absolute
         right:0px
         .glyphicon-remove-circle
           margin-right: 0px
           color:#9d9d9d
-    &:after
-      right:26px
 // Settings dropdown
 .toolbar-settings
   @extend $hrpg-modal-dropdown-left-heading
