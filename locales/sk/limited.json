@@ -5,8 +5,8 @@
     "annoyingFriendsText": "<%= snowballs %>-krát schytal snehovou guľou od člena družiny.",
     "valentineCard": "Valentínka",
     "adoringFriends": "Láskyplní priatelia",
-    "adoringFriendsText": "Ó, tebe a tvojmu priateľovi musí na sebe záležať! Počet poslaných alebo prijatých valentíniek: <%= cards %> .",
-    "limited31Jan": "Na predaj do 31. januára (ale nastálo v tvojich možnostiach ak si si už kúpil)",
+    "adoringFriendsText": "Ó, tebe a tvojim priateľom musí na sebe záležať! Počet poslaných alebo prijatých valentíniek: <%= cards %> .",
+    "limited30Apr": "Available for purchase until April 30th (but permanently in your options if purchased).",
     "polarBear": "Polárny medveď",
     "turkey": "Moriak",
     "polarBearPup": "Polárne medvieďa"

@@ -6,7 +6,7 @@
     "valentineCard": "Валентинка",
     "adoringFriends": "Любі друзі",
     "adoringFriendsText": "Ооо, Ви та Ваш друг, певно, дуже любі одне одному! Надіслано/отримано валентинок: <%= cards %> ",
-    "limited31Jan": "У продажу до 31 січня (опісля придбання ніколи не зникне з Ваших налаштувань).",
+    "limited30Apr": "Available for purchase until April 30th (but permanently in your options if purchased).",
     "polarBear": "Білий ведмідь",
     "turkey": "Індичка",
     "polarBearPup": "Біле ведмежа"
