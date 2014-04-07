@@ -81,7 +81,7 @@ mixin customizeProfile(mobile)
 
           // Flower
           li.customize-menu
-            menu(label="Flower")
+            menu(label=env.t('flower'))
               button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.flower":0})')
               each num in [1,2,3,4,5,6]
                 button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})')

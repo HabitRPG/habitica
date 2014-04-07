@@ -107,7 +107,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                 input.form-control(type='text', minlength="3", maxlength="16", ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required)
                 &nbsp;
                 a.hint.vertical-20(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags', popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
-                  ="More info"
+                  =env.t('moreInfo')
 
               .form-group
                 textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
@@ -121,7 +121,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                 span.input-suffix.Pet_Currency_Gem1x.inline-gems
                 &nbsp;
                 span.hint.vertical-20(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
-                  ="More info"
+                  =env.t('moreInfo')
                 span(ng-show='newChallenge.group=="habitrpg"')
                   !=env.t('publicChallenges')
 
