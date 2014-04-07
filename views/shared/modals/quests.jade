@@ -31,6 +31,7 @@ script(type='text/ng-template', id='modals/showQuest.html')
     hr    
     .npc_ian.pull-left
     p=env.t('questSend')
+    p=env.t('questWarning')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
     button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
