@@ -29,6 +29,18 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
             button(ng-if='user.items.mounts["LionCub-Ethereal"]', class="pet-button Mount_Head_LionCub-Ethereal", ng-class='{active: user.items.currentMount == "LionCub-Ethereal"}', ng-click='chooseMount("LionCub", "Ethereal")', popover=env.t('etherealLion'), popover-trigger='mouseenter', popover-placement='bottom')
               //.Mount_Head_LionCub-Ethereal
 
+mixin petList(source)
+  menu.pets(type='list')
+    li.customize-menu(ng-repeat='egg in #{source}')
+      menu
+        div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
+          button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
+            .progress(ng-show='!user.items.mounts[pet] && egg.key!="Egg"')
+              .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
+          button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
+            .PixelPaw
+          button(class="pet-evolved pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]<0')
+
 script(type='text/ng-template', id='partials/options.inventory.pets.html')
   .container-fluid
     .stable.row
@@ -49,28 +61,10 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
             h4= env.t('beastmasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
       .col-md-12
-        menu.pets(type='list')
-          li.customize-menu(ng-repeat='egg in Content.dropEggs')
-            menu
-              div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
-                button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
-                  .progress(ng-show='!user.items.mounts[pet]')
-                    .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
-                button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
-                  .PixelPaw
-                button(class="pet-evolved pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]<0')
+        +petList("Content.dropEggs")
       .col-md-12
         h4=env.t('questPets')
-        menu.pets(type='list')
-          li.customize-menu(ng-repeat='egg in Content.questEggs')
-            menu
-              div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
-                button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
-                  .progress(ng-show='!user.items.mounts[pet]')
-                    .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
-                button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
-                  .PixelPaw
-                button(class="pet-evolved pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]<0')
+        +petList("Content.questEggs")
 
       .col-md-12
         h4=env.t('rarePets')
