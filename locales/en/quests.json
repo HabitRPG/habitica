@@ -29,5 +29,6 @@
     "mustLevel": "You must be level <%= level %>.",
     "mustLvlQuest": "You must be level <%= level %> to buy this quest!",
     "sureAbort": "Are you sure you want to abort this mission? It will abort it for everyone in your party, all progress will be lost.",
-    "doubleSureAbort": "Are you double sure? Make sure they won't hate you forever!"
+    "doubleSureAbort": "Are you double sure? Make sure they won't hate you forever!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }
