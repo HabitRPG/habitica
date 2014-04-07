@@ -8,5 +8,16 @@
     "messageAlreadyMount": "Takého tátoša už máš. Skús nakŕmiť iné zvieratko.",
     "messageEvolve": "Skrotil si si <%= egg %>, vezmi ho na jazdu!",
     "messageLikesFood": "<%= egg %> si pochutnalo na <%= foodText() %>!",
-    "messageDontEnjoyFood": "<%= egg %> zjedlo <%= foodText() %>, ale veľmi mu to nechutí."
+    "messageDontEnjoyFood": "<%= egg %> zjedlo <%= foodText() %>, ale veľmi mu to nechutí.",
+    "messageBought": "Bought <%= itemText() %>",
+    "messageUnEquipped": "<%= itemText() %> un-equipped.",
+    "messageMissingEggPotion": "You're missing either that egg or that potion",
+    "messageAlreadyPet": "You already have that pet. Try hatching a different combination!",
+    "messageHatched": "Your egg hatched! Visit your stable to equip your pet.",
+    "messageNotEnoughGold": "Not Enough Gold",
+    "messageTwoHandled": "<%= gearText() %> is two-handled",
+    "messageDropFood": "You've found <%= dropArticle %><%= dropText() %>! <%= dropNotes() %>",
+    "messageDropEgg": "You've found a <%= dropText() %> Egg! <%= dropNotes() %>",
+    "messageDropPotion": "You've found a <%= dropText() %> Hatching Potion! <%= dropNotes() %>",
+    "messageFoundQuest": "You've found the quest \"<%= questText() %>\"!"
 }

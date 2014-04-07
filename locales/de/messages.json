@@ -8,5 +8,16 @@
     "messageAlreadyMount": "Du hast dieses Reittier bereits. Füttere lieber ein anderes Haustier.",
     "messageEvolve": "<%= egg %> wurde gezähmt, es ist an der Zeit aufzusitzen!",
     "messageLikesFood": "<%= egg %> ist begeistert. <%= foodText() %> ist seine Lieblingsspeise!",
-    "messageDontEnjoyFood": "<%= egg %> ist nicht gerade begeistert. <%= foodText() %> schmeckt Deinem Haustier überhaupt nicht."
+    "messageDontEnjoyFood": "<%= egg %> ist nicht gerade begeistert. <%= foodText() %> schmeckt Deinem Haustier überhaupt nicht.",
+    "messageBought": "Bought <%= itemText() %>",
+    "messageUnEquipped": "<%= itemText() %> un-equipped.",
+    "messageMissingEggPotion": "You're missing either that egg or that potion",
+    "messageAlreadyPet": "You already have that pet. Try hatching a different combination!",
+    "messageHatched": "Your egg hatched! Visit your stable to equip your pet.",
+    "messageNotEnoughGold": "Not Enough Gold",
+    "messageTwoHandled": "<%= gearText() %> is two-handled",
+    "messageDropFood": "You've found <%= dropArticle %><%= dropText() %>! <%= dropNotes() %>",
+    "messageDropEgg": "You've found a <%= dropText() %> Egg! <%= dropNotes() %>",
+    "messageDropPotion": "You've found a <%= dropText() %> Hatching Potion! <%= dropNotes() %>",
+    "messageFoundQuest": "You've found the quest \"<%= questText() %>\"!"
 }
