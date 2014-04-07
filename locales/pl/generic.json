@@ -37,11 +37,12 @@
     "notEnoughGems": "Niewystarczająca liczba Klejnotów",
     "delete": "Usuń",
     "gems": "Klejnoty",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Używane do kupowania specjalnych przedmiotów oraz usług (jaj, mikstur wykluwania, Wzmocnień, itp.). Musisz odblokować te rzeczy zanim będziesz mógł użyć Klejnotów do ich kupowania.",
     "veteran": "Weteran",
     "veteranText": "Był świadkiem \"Habit The Grey\" (naszej strony przed aktualizacją Angular) i zyskał wiele wojennych blizn od jej błędów.",
     "originalUser": "Pierwotny Użytkownik!",
-    "originalUserText": "Jeden z <em>pierwszych</em> użytkowników, tak - mówimy o alfa testerze!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "2014 HabitRPG Birthday Bash",
     "habitBirthdayText": "Brał udział w \"HabitRPG Birthday Bash of 2014\".",
     "memberSince": "- Członek od",
@@ -54,5 +55,6 @@
     "newPassSent": "Nowe hasło zostało wysłane.",
     "serverUnreach": "Serwer jest obecnie nieosiągalny.",
     "seeConsole": "(zajrzyj do konsoli Chrome po więcej szczegółów).",
-    "error": "Błąd"
+    "error": "Błąd",
+    "endTour": "End Tour"
 }

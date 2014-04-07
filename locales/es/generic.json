@@ -37,11 +37,12 @@
     "notEnoughGems": "No hay suficientes gemas. ",
     "delete": "Eliminar",
     "gems": "Gemas",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Se usan para comprar objetos especiales y servicios (huevos, pociones, etcétera). Necesitarás desbloquear estas funciones antes de poder usar las Gemas.",
     "veteran": "Veterano",
     "veteranText": "Ha sobrevivido a Habit The Grey (nuestro sito web pre-Angular) y se ha ganado muchas cicatrices por sus fallos.",
     "originalUser": "¡Usuario original!",
-    "originalUserText": "Uno de los primeros usuarios... ¡hablando de alpha testers!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "Fiesta de Cumpleaños de HabitRPG 2014",
     "habitBirthdayText": "Participó en la Fiesta de Cumpleaños de HabitRPG 2014.",
     "memberSince": "- Miembro desde",
@@ -54,5 +55,6 @@
     "newPassSent": "Nueva contraseña enviada.",
     "serverUnreach": "Error en la conexión al servidor.",
     "seeConsole": "(vea la consola de Chrome para más detalles)",
-    "error": "Error"
+    "error": "Error",
+    "endTour": "End Tour"
 }

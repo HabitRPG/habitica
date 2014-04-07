@@ -37,11 +37,12 @@
     "notEnoughGems": "Niet genoeg Edelstenen",
     "delete": "Verwijder",
     "gems": "Edelstenen",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Wordt gebruikt voor speciale artikelen en diensten (eieren, broed drankjes, versterkers, enz.). Je moet deze functies ontgrendelen voordat je Edelstenen kan gebruiken.",
     "veteran": "Veteraan",
     "veteranText": "Heeft Habit De Grijze doorstaan (onze website van vóór Angular), en heeft door diens fouten vele strijd littekens opgelopen.",
     "originalUser": "Originele Gebruiker!",
-    "originalUserText": "Eén van de <em>zeer</em> oorspronkelijke 'early adopters', een echte alpha-tester!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "2014 HabitRPG Verjaardag Feest",
     "habitBirthdayText": "Deed mee aan het 2014 HabitRPG Verjaardag Feest.",
     "memberSince": "- Lid sinds",
@@ -54,5 +55,6 @@
     "newPassSent": "Nieuw wachtwoord verstuurd.",
     "serverUnreach": "Server momenteel niet bereikbaar.",
     "seeConsole": "(zie Chrome console voor meer details).",
-    "error": "Fout"
+    "error": "Fout",
+    "endTour": "End Tour"
 }

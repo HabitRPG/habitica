@@ -37,11 +37,12 @@
     "notEnoughGems": "Nedostatok drahokamov",
     "delete": "Zmazať",
     "gems": "Drahokamy",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Používajú sa na kupovanie predmetov a služieb (vajíčka, liahoxíry, siloxíry, atď.). Najskôr musíš odomknúť dané funkcie, až potom si ich budeš môcť kúpiť za drahokamy.",
     "veteran": "Veterán",
     "veteranText": "Je ošľahaný Habitom Šedým (naša stránka pred Angularom), a utŕžil veľa jaziev z boja s krvilačnými bugmi.",
     "originalUser": "Pôvodný používateľ!",
-    "originalUserText": "Jeden z <em>prapôvodných</em> používateľov. Nebojácny alfa tester!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "Narodeninová oslava HabitRPG 2014",
     "habitBirthdayText": "V roku 2014 sa zúčastnil narodeninovej oslavy HabitRPG.",
     "memberSince": "- Členom od",
@@ -54,5 +55,6 @@
     "newPassSent": "Nové heslo odoslané.",
     "serverUnreach": "Server je dočasne nedostupný.",
     "seeConsole": "(Pre viac podrobností sa pozri do Chrome konzoly).",
-    "error": "Chyba"
+    "error": "Chyba",
+    "endTour": "End Tour"
 }

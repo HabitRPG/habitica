@@ -37,11 +37,12 @@
     "notEnoughGems": "Non hai abbastanza Gemme",
     "delete": "Elimina",
     "gems": "Gemme",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Servono per comprare oggetti speciali e servizi (uova, pozioni di schiusa, Fortificazioni, ecc.). Avrai bisogno di sbloccare queste funzionalità prima di essere in grado di usare le Gemme.",
     "veteran": "Veterano",
     "veteranText": "Ha resistito ad Habit Il Grigio (il nostro sito prima di Angular), ed ha molte cicatrici di battaglia causate dai suoi bug.",
     "originalUser": "Utente originale!",
-    "originalUserText": "Uno dei <em>primissimi</em> ad aver utilizzato Habit, si parla di alpha tester!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "Compleanno 2014 di HabitRPG",
     "habitBirthdayText": "Ha partecipato al compleanno 2014 di HabitRPG.",
     "memberSince": "- Membro dal: ",
@@ -54,5 +55,6 @@
     "newPassSent": "Nuova password inviata.",
     "serverUnreach": "Il server non è attualmente raggiungibile.",
     "seeConsole": "(guarda la console di Chrome per ulteriori dettagli).",
-    "error": "Errore"
+    "error": "Errore",
+    "endTour": "End Tour"
 }

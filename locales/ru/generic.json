@@ -37,11 +37,12 @@
     "notEnoughGems": "Недостаточно самоцветов",
     "delete": "Удалить",
     "gems": "самоцв.",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Используются для покупки особых предметов и услуг (яйца, эликсиры для инкубации, эликсир укрепления и т. д.). Вам нужно открыть эти вещи прежде, чем вы сможете потратить на них самоцветы.",
     "veteran": "Ветеран",
     "veteranText": "Выдержал Habit The Grey (наш сайт до перехода на Angular) и получил множество боевых шрамов от его багов.",
     "originalUser": "Пользователь-первопроходец!",
-    "originalUserText": "Один из <em>очень</em> ранних пользователей, самый настоящий альфа-тестер!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "Вечеринка дня рождения HabitRPG 2014",
     "habitBirthdayText": "Принял участие в праздновании дня рождения HabitRPG в 2014 г.",
     "memberSince": " - Участник с ",
@@ -54,5 +55,6 @@
     "newPassSent": "Новый пароль отправлен.",
     "serverUnreach": "Сервер сейчас недоступен.",
     "seeConsole": " (см. подробности в консоли Chrome).",
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "endTour": "End Tour"
 }

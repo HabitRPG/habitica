@@ -29,6 +29,8 @@
     "questEggHedgehogAdjective": "колючий",
     "questEggDeerText": "Олень",
     "questEggDeerAdjective": "элегантный",
+    "questEggEggText": "Egg",
+    "questEggEggAdjective": "colorful",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить это яйцо, и из него вылупится <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

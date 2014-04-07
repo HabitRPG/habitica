@@ -37,11 +37,12 @@
     "notEnoughGems": "Inte tillräckligt många Juveler",
     "delete": "Radera",
     "gems": "Juveler",
+    "moreInfo": "More Info",
     "gemsWhatFor": "Används för att köpa speciella objekt och tjänster (ägg, kläckningsdrycker, stärkningsdryck, osv.). Du måste låsa upp de funktionerna innan du kan börja använda Juveler.",
     "veteran": "Veteran",
     "veteranText": "Har uthärdat Habit Den Grå (vår hemsida innan Angular) och har samlat på sig många krigsärr från dess buggar.",
     "originalUser": "Ursprunglig Användare!",
-    "originalUserText": "En av de <em>väldigt</em> tidiga ursprungliga användarna. Snacka om alfa-testare!",
+    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "HabitRPGs Födelsedagsparty 2014",
     "habitBirthdayText": "Deltog i HabitRPGs Födelsedagsparty 2014",
     "memberSince": "- Medlem sedan",
@@ -54,5 +55,6 @@
     "newPassSent": "Nytt lösenord skickat.",
     "serverUnreach": "Servern är otillgänglig för tillfället.",
     "seeConsole": "(se Chromes kontrollpanel för fler detaljer)",
-    "error": "Fel"
+    "error": "Fel",
+    "endTour": "End Tour"
 }

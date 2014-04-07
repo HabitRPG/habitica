@@ -29,6 +29,8 @@
     "questEggHedgehogAdjective": "espinoso",
     "questEggDeerText": "Ciervo",
     "questEggDeerAdjective": "elegante",
+    "questEggEggText": "Egg",
+    "questEggEggAdjective": "colorful",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá  un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

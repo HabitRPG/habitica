@@ -29,6 +29,8 @@
     "questEggHedgehogAdjective": "stacheliger",
     "questEggDeerText": "Hirsch",
     "questEggDeerAdjective": "anmutiges",
+    "questEggEggText": "Egg",
+    "questEggEggAdjective": "colorful",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",
