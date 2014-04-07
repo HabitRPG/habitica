@@ -84,7 +84,7 @@ angular.module('guideServices', []).
           "<button class='btn btn-sm btn-default' data-role='prev'>&laquo;</button>" +
           "<button class='btn btn-sm btn-default' data-role='next'>&raquo;</button>" +
           "<button class='btn btn-sm btn-default' data-role='pause-resume' data-pause-text='Pause' data-resume-text='Resume'>Pause</button></div>" + 
-          "<button class='btn btn-sm btn-default' data-role='end'>End tour</button></div></div>",
+          "<button class='btn btn-sm btn-default' data-role='end'>" + window.env.t('endTour') + "</button></div></div>",
         onEnd: function(){
           User.set({'flags.showTour': false});
         }
