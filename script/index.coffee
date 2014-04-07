@@ -575,7 +575,7 @@ api.wrap = (user, main=true) ->
 
         return cb?({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
         return cb?({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
-        return cb?({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
+        return cb?({code:401, message:"Can't feed this pet."}) if content.specialPets[pet] or (egg is "Egg")
         return cb?({code:401, message:"You already have that mount. Try feeding another pet."}) if user.items.mounts[pet]
 
         message = ''
