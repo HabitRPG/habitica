@@ -806,25 +806,25 @@ api.quests =
       exp: 1000
 
   egg:
-    text: "Egg Hunt"
-    notes: "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\""
-    completion: "You did it! In gratitude, <strong>Megan</strong> gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\""
+    text: t('questEggHuntText')
+    notes: t('questEggHuntNotes')
+    completion: t('questEggHuntCompletion')
     value: 1
     canBuy: false
     collect:
-      plainEgg: text: 'Plain Egg', count: 100
+      plainEgg: text: t('questEggHuntCollectPlainEgg'), count: 100
     drop:
       items: [
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
       ]
       gp: 0
       exp: 0
