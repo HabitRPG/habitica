@@ -18,6 +18,16 @@
 .toolbar-mobile
   @extend $hrpg-button
   @extend $hrpg-modal-dropdown-right
+  hrpg-button-color-mixin($color-toolbar)
+  div.glyphicon
+    display:block
+    width: 2.618em
+    height: 1.618em
+    padding: 1.1em 1em 0em 1em
+    float:left
+  .toolbar-submenu
+    padding-left: 0.382em
+    display: block
 // Top level menu items: Tasks – User – Social – Inventory
 .toolbar-nav
   float:left;
@@ -36,20 +46,10 @@
     > a
       display:inline-block
       height:100%
-      &:link,&:visited
-        color: #222
-      &:hover
-        background-color: #eee
-      &:active
-        color:#000
 .toolbar-submenu
   li
     margin-right: 1em
-  > li > ul > li
     display:inline-block
-  .glyphicon
-    margin-right: 0.618em
-    color:#ccc
 // Information bar: Bailey – notifs – currency – subscribe button
 .toolbar-bailey, .toolbar-wallet, .toolbar-options, .toolbar-subscribe
   float:right
@@ -77,8 +77,17 @@
 .toolbar-options, .toolbar-wallet
   > li
     margin-left: 0.618em
+@media screen and (max-width:768px)
+  .toolbar-options
+    > li
+      padding-left:0em
+      margin-left:0em
+      margin-right: 0.618em
+  .toolbar-subscribe
+    padding-right: 0.618em
 .toolbar-sync, .toolbar-settings
   @extend $hrpg-button
+  hrpg-button-color-mixin($color-toolbar)
 .toolbar-subscribe li
   @extend $hrpg-button-call-to-action
 @media screen and (min-width:768px)
@@ -87,7 +96,8 @@
 // Notifications icon and dropdown
 .toolbar-notifs
   @extend $hrpg-button
-  @extend $hrpg-modal-dropdown-left-heading
+  @extend $hrpg-modal-dropdown-left
+  hrpg-button-color-mixin($color-toolbar)
   > a span.inactive
     opacity: 0.236 !important
   div
@@ -111,14 +121,14 @@
         right:0px
         .glyphicon-remove-circle
           margin-right: 0px
-          color:#9d9d9d
 // Settings dropdown
 .toolbar-settings
-  @extend $hrpg-modal-dropdown-left-heading
+  @extend $hrpg-modal-dropdown-left
 .toolbar-controls
   @extend $hrpg-modal-controls
   li
     @extend $hrpg-button
+    hrpg-button-color-mixin(lighten($color-toolbar,32.8%))
 .toolbar-settings .toolbar-controls
   @media screen and (min-width:768px)
     display:none
