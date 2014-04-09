@@ -27,7 +27,7 @@ table.table.table-striped(ng-show='user.flags.itemsEnabled')
 
 h4=env.t('attributes')
 table.table.table-striped
-  tr(ng-repeat='(k,v) in {str:"Strength (STR)",int:"Intelligence (INT)",con:"Constitution (CON)",per:"Perception (PER)"}')
+  tr(ng-repeat='(k,v) in {str: env.t("strength") + " (STR)",int: env.t("intelligence") + " (INT)",con: env.t("constitution") + " (CON)",per:env.t("perception") + " (PER)"}')
     td
       span.hint(ng-if='k=="str"', popover-title=env.t('strength'), popover-placement='right', popover=env.t('strengthText'), popover-trigger='mouseenter', style='margin-right:3px')
         strong {{v}}

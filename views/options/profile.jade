@@ -141,7 +141,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
         h3=env.t('characterBuild')
         h4
           =env.t('class') + ': '
-          span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
+          span {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[user.stats.class] }}&nbsp;
           a.btn.btn-danger.btn-xs(ng-click='changeClass(null)')=env.t('changeClass')
           small.cost 3 <span class="Pet_Currency_Gem1x inline-gems"/>
         table.table.table-striped
