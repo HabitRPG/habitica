@@ -9,15 +9,15 @@
     "messageEvolve": "Vous avez domptez <%= egg %>, allez faire un tour !",
     "messageLikesFood": "<%= egg %> apprécie vraiment le/la <%= foodText() %> !",
     "messageDontEnjoyFood": "<%= egg %> mange le/la <%= foodText() %> mais il n'a pas l'air d'aimer ça.",
-    "messageBought": "Bought <%= itemText() %>",
+    "messageBought": "Vous avez acheté <%= itemText() %>",
     "messageUnEquipped": "<%= itemText() %> un-equipped.",
-    "messageMissingEggPotion": "You're missing either that egg or that potion",
-    "messageAlreadyPet": "You already have that pet. Try hatching a different combination!",
-    "messageHatched": "Your egg hatched! Visit your stable to equip your pet.",
-    "messageNotEnoughGold": "Not Enough Gold",
-    "messageTwoHandled": "<%= gearText() %> is two-handled",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText() %>! <%= dropNotes() %>",
+    "messageMissingEggPotion": "Il vous manque cet œuf ou cette potion.",
+    "messageAlreadyPet": "Vous avez déjà ce familier. Essayez de faire éclore une combinaison différente !",
+    "messageHatched": "Votre œuf a éclot ! Allez voir à l’Écurie pour équiper votre familier.",
+    "messageNotEnoughGold": "Pas assez d'Or",
+    "messageTwoHandled": "<%= gearText() %> est une arme à deux mains.",
+    "messageDropFood": "Vous avez trouvé <%= dropArticle %><%= dropText() %> ! <%= dropNotes() %>",
     "messageDropEgg": "You've found a <%= dropText() %> Egg! <%= dropNotes() %>",
     "messageDropPotion": "You've found a <%= dropText() %> Hatching Potion! <%= dropNotes() %>",
-    "messageFoundQuest": "You've found the quest \"<%= questText() %>\"!"
+    "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText() %>\" !"
 }

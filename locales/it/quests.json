@@ -29,5 +29,6 @@
     "mustLevel": "Devi essere almeno di livello <%= level %>.",
     "mustLvlQuest": "Devi essere almeno di livello <%= level %> per comprare questa missione!",
     "sureAbort": "Vuoi davvero annullare la missione? Verrà annullata per tutti i membri della squadra e tutti i progressi andranno persi.",
-    "doubleSureAbort": "Sei veramente sicuro? Assicurati che non ti odieranno per sempre!"
+    "doubleSureAbort": "Sei veramente sicuro? Assicurati che non ti odieranno per sempre!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }

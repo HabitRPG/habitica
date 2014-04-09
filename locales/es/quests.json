@@ -29,5 +29,6 @@
     "mustLevel": "Necesitas ser nivel  <%= level %>.",
     "mustLvlQuest": "¡Necesitas ser nivel <%= level %> para comprar esta misión!",
     "sureAbort": "¿Estás seguro que quieres abandonar esta misión? Se terminará para todo el grupo y se perderá todo el progreso.",
-    "doubleSureAbort": "¿Estás totalmente seguro? ¡Asegurate de que no te vayan a odiar para siempre!"
+    "doubleSureAbort": "¿Estás totalmente seguro? ¡Asegurate de que no te vayan a odiar para siempre!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }

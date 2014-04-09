@@ -37,12 +37,12 @@
     "notEnoughGems": "Nicht genug Edelsteine",
     "delete": "Löschen",
     "gems": "Edelsteine",
-    "moreInfo": "More Info",
+    "moreInfo": "Mehr Informationen",
     "gemsWhatFor": "Wird benötigt um Gegenstände und Dienste zu kaufen (Eier, Schlüpftränke, Stärkungstränke, usw.). Du musst diese Features freischalten, bevor Du Edelsteine auf sie verwenden kannst.",
     "veteran": "Veteran",
     "veteranText": "Hat Habit den Grauen (unsere pre-Angular Webseite) überlebt und hat viele Kriegsnarben von den Bugs davongetragen.",
     "originalUser": "Erstbenutzer!",
-    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
+    "originalUserText": "Einer der <em>sehr</em> frühzeitigen Anwender. Wir reden hier von Alphatestern!",
     "habitBirthday": "2014 HabitRPG Birthday Party",
     "habitBirthdayText": "Hat an der HabitRPG Birthday Party von 2014 teilgenommen.",
     "memberSince": "- Teilnehmer seit",
@@ -56,5 +56,5 @@
     "serverUnreach": "Der Server ist momentan nicht erreichbar.",
     "seeConsole": "(Mehr Details in der Chrome Konsole).",
     "error": "Fehler",
-    "endTour": "End Tour"
+    "endTour": "Tour beenden"
 }

@@ -29,5 +29,6 @@
     "mustLevel": "Je moet niveau <%= level %> zijn.",
     "mustLvlQuest": "Je moet niveau <%= level %> zijn om deze queeste te kopen!",
     "sureAbort": "Weet je zeker dat je deze missie wilt afbreken? De missie zal afgebroken worden voor iedereen in jouw partij, alle vorderingen zullen verloren gaan.",
-    "doubleSureAbort": "Weet je het dubbel zeker? Zorg ervoor dat ze je niet voor altijd zullen haten!"
+    "doubleSureAbort": "Weet je het dubbel zeker? Zorg ervoor dat ze je niet voor altijd zullen haten!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }

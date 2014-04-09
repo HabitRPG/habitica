@@ -40,9 +40,9 @@
     "questVice3DropWeaponSpecial2": "Stephen Webers Drachenschaft",
     "questVice3DropDragonEgg": "Drache (Ei)",
     "questVice3DropShadeHatchingPotion": "Schatten Schlüpftrank",
-    "questEggHuntText": "Egg Hunt",
-    "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says @Megan, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
-    "questEggHuntCompletion": "You did it! In gratitude, @Megan gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
-    "questEggHuntCollectPlainEgg": "Plain Egg",
-    "questEggHuntDropPlainEgg": "Plain Egg"
+    "questEggHuntText": "Eierjagd",
+    "questEggHuntNotes": "Über Nacht sind überall eigenartige Eier aufgetaucht: in Matt's Ställen, hinter der Bar des Gasthauses und sogar zwischen den Eiern auf dem Marktplatz! Wie lästig das ist! \"Niemand weiß, woher sie kommen oder was aus ihnen schlüpfen wird\", sagt @Megan, \"aber wir können sie nicht einfach so herumliegen lassen! Macht Euch an die Arbeit und helft mir diese mysteriösen Eier zu sammeln. Wenn Du genug gesammelt hast gibt es eine Belohnung...\"",
+    "questEggHuntCompletion": "Geschafft! Aus Dankbarkeit übergibt Dir @Megan zehn dieser Eier. \"Ich glaube nicht, dass etwas aus ihnen schlüpfen wird\", sagt sie, \"und garantiert werden daraus keine Reittiere. Aber das bedeutet nicht, dass man sie nicht bunt bemalen könnte!\"",
+    "questEggHuntCollectPlainEgg": "Einfaches Ei",
+    "questEggHuntDropPlainEgg": "Einfaches Ei"
 }

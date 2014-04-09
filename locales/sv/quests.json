@@ -29,5 +29,6 @@
     "mustLevel": "Du måste vara level <%= level %>.",
     "mustLvlQuest": "Du måste vara level <%= level %> för att köpa detta uppdrag!",
     "sureAbort": "Är du säker på att du vill avbryta detta uppdrag? Det kommer avbrytas för alla i ditt sällskap och alla framsteg kommer förloras.",
-    "doubleSureAbort": "Är du helt säker? Se till att de inte kommer hata dig för alltid!"
+    "doubleSureAbort": "Är du helt säker? Se till att de inte kommer hata dig för alltid!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }

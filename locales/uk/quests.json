@@ -29,5 +29,6 @@
     "mustLevel": "Досягніть <%= level %> рівня.",
     "mustLvlQuest": "Досягніть <%= level %> рівня, аби придбати цей квест!",
     "sureAbort": "Ви справді бажаєте перервати цю місію? Це закінчить місію для всіх із Вашого гурту, увесь поступ буде втрачено.",
-    "doubleSureAbort": "Ви точно-точно впевнені? Подумайте, чи не зненавидять вони Вас назавжди!"
+    "doubleSureAbort": "Ви точно-точно впевнені? Подумайте, чи не зненавидять вони Вас назавжди!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }

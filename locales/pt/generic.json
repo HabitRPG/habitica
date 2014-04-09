@@ -37,12 +37,12 @@
     "notEnoughGems": "Gemas insuficientes",
     "delete": "Deletar",
     "gems": "Gemas",
-    "moreInfo": "More Info",
+    "moreInfo": "Mais Informação",
     "gemsWhatFor": "Usadas para comprar itens especiais e serviços (ovos, poções de eclosão, Fortificar, etc.). Você precisará liberar esses sistemas antes de poder usar as Gemas.",
     "veteran": "Veterano",
     "veteranText": "Resistiu ao Habit O Cinza (nosso website pré Angular), e ganhou muitas cicatrizes de batalhas contra os bugs.",
     "originalUser": "Usuário Original!",
-    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
+    "originalUserText": "Um dos <em>muitos</em> adotadores originais. Pense em testadores alpha!",
     "habitBirthday": "Festança de Aniversário HabitRPG 2014",
     "habitBirthdayText": "Participou na Festança de Aniversário HabitRPG 2014.",
     "memberSince": "- Membro desde",
@@ -56,5 +56,5 @@
     "serverUnreach": "Servidor não disponível no momento.",
     "seeConsole": "(veja o console do Chrome para mais detalhes).",
     "error": "Erro",
-    "endTour": "End Tour"
+    "endTour": "Finalizar Tour"
 }

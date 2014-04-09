@@ -29,5 +29,6 @@
     "mustLevel": "Musíš mať aspoň <%= level %>.  level.",
     "mustLvlQuest": "Ak si chceš kúpiť tento quest, musíš mať aspoň <%= level %>. level.",
     "sureAbort": "Si si istý, že chceš ukončiť misiu? Zruší sa všetkým v družine a stratíte všetky svoje pokroky.",
-    "doubleSureAbort": "Si si naozaj istý? Uisti sa, že ťa potom nebudú naveky neznášať!"
+    "doubleSureAbort": "Si si naozaj istý? Uisti sa, že ťa potom nebudú naveky neznášať!",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }

@@ -29,5 +29,6 @@
     "mustLevel": "Вам нужно достигнуть уровня <%= level %>.",
     "mustLvlQuest": "Вам нужно достигнуть уровня <%= level %>, чтобы купить этот квест!",
     "sureAbort": "Вы уверены, что хотите прервать эту миссию? Это прервет эту миссию для всех в вашей команде, весь прогресс будет потерян.",
-    "doubleSureAbort": "Вы точно-точно уверены? Подумайте, не будут ли они ненавидеть вас всю жизнь после этого?"
+    "doubleSureAbort": "Вы точно-точно уверены? Подумайте, не будут ли они ненавидеть вас всю жизнь после этого?",
+    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
 }
