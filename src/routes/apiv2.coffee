@@ -455,6 +455,7 @@ module.exports = (swagger, v2) ->
       spec:
         path: "/groups/{gid}/chat"
         description: "Get all chat messages"
+        parameters: [path('gid','Group to return the chat from ','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.getChat
 
