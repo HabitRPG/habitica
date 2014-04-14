@@ -3,12 +3,18 @@
  */
 angular.module("notificationServices", [])
   .factory("Notification", [function() {
+    var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
     function notify(html, type, icon) {
       var notice = $.pnotify({
         type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
 	    text: html,
-        opacity: 1,
+        opacity: .75,
         addclass: 'alert-' + type,
+        delay: 7000,
+        hide: (type == 'error') ? false : true,
+        mouse_reset: false,
+        width: "250px",
+        stack: stack_topright,
         icon: icon || false
       }).click(function() { notice.pnotify_remove() });
     };
