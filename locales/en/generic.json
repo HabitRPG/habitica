@@ -56,5 +56,6 @@
     "seeConsole": "(see Chrome console for more details).",
     "error": "Error",
     "menu": "Menu",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "clear": "Clear"
 }
