@@ -54,5 +54,7 @@
     "newPassSent": "New password sent.",
     "serverUnreach": "Server currently unreachable.",
     "seeConsole": "(see Chrome console for more details).",
-    "error": "Error"
+    "error": "Error",
+    "menu": "Menu",
+    "notifications": "Notifications"
 }
