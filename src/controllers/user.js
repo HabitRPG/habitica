@@ -76,7 +76,7 @@ api.score = function(req, res, next) {
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
   }
-  var delta = user.ops.score({params:{id:task.id, direction:direction}});
+  var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 
   user.save(function(err,saved){
     if (err) return next(err);
