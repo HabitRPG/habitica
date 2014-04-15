@@ -106,12 +106,10 @@ habitrpg.controller('SettingsCtrl',
 
     $scope['delete'] = function(){
       $http['delete'](API_URL + '/api/v2/user')
-        .success(function(){
+        .success(function(res, code){
+          if (res.err) return alert(res.err);
           localStorage.clear();
           window.location.href = '/logout';
-        })
-        .error(function(data){
-          alert(data);
         });
     }
   }
