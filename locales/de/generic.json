@@ -56,5 +56,8 @@
     "serverUnreach": "Der Server ist momentan nicht erreichbar.",
     "seeConsole": "(Mehr Details in der Chrome Konsole).",
     "error": "Fehler",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "Tour beenden"
 }

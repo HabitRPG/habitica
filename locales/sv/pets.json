@@ -32,5 +32,7 @@
     "useGems": "Om du har ögonen på ett husdjur, men inte orkar vänta på att dess ägg ska droppa, använd Juveler i <strong>Alternativ > Förråd</strong> för att köpa ett!",
     "hatchAPot": "Kläck ett <%= potion %> <%= egg %>?",
     "feedPet": "Mata <%= article %><%= text %> till din <%= name %>?",
-    "useSaddle": "Sadla <%= pet%>?"
+    "useSaddle": "Sadla <%= pet%>?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

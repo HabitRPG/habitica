@@ -12773,7 +12773,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb((item ? {
           code: 200,
           message: i18n.t('messageLostItem', {
-            itemText: item.text
+            itemText: item.text(req.language)
           }, req.language)
         } : null), user) : void 0;
       },
@@ -13085,13 +13085,13 @@ api.wrap = function(user, main) {
             userPets[pet] += 5;
             message = i18n.t('messageLikesFood', {
               egg: egg,
-              foodText: food.text
+              foodText: food.text(req.language)
             }, req.language);
           } else {
             userPets[pet] += 2;
             message = i18n.t('messageDontEnjoyFood', {
               egg: egg,
-              foodText: food.text
+              foodText: food.text(req.language)
             }, req.language);
           }
           if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
@@ -13149,7 +13149,7 @@ api.wrap = function(user, main) {
         if (user.stats.gp < item.value) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: i18n.t('notEnoughGems', req.language)
+            message: i18n.t('messageNotEnoughGold', req.language)
           }) : void 0;
         }
         if (item.key === 'potion') {
@@ -13163,7 +13163,7 @@ api.wrap = function(user, main) {
           message = user.fns.handleTwoHanded(item, null, req);
           if (message == null) {
             message = i18n.t('messageBought', {
-              itemText: item.text
+              itemText: item.text(req.language)
             }, req.language);
           }
           if (!user.achievements.ultimateGear && item.last) {
@@ -13211,7 +13211,7 @@ api.wrap = function(user, main) {
             if (user.items.gear[type][item.type] === key) {
               user.items.gear[type][item.type] = "" + item.type + "_base_0";
               message = i18n.t('messageBought', {
-                itemText: item.text
+                itemText: item.text(req.language)
               }, req.language);
             } else {
               user.items.gear[type][item.type] = item.key;
@@ -13557,13 +13557,13 @@ api.wrap = function(user, main) {
       if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
         user.items.gear[type].weapon = 'weapon_base_0';
         message = i18n.t('messageTwoHandled', {
-          gearText: weapon.text
+          gearText: weapon.text(req.language)
         }, req.language);
       }
       if (item.twoHanded) {
         user.items.gear[type].shield = "shield_base_0";
         message = i18n.t('messageTwoHandled', {
-          gearText: item.text
+          gearText: item.text(req.language)
         }, req.language);
       }
       return message;
@@ -13671,8 +13671,8 @@ api.wrap = function(user, main) {
           drop.type = 'Food';
           drop.dialog = i18n.t('messageDropFood', {
             dropArticle: drop.article,
-            dropText: drop.text,
-            dropNotes: drop.notes
+            dropText: drop.text(req.language),
+            dropNotes: drop.notes(req.language)
           }, req.language);
         } else if (rarity > .3) {
           drop = user.fns.randomVal(_.where(content.eggs, {
@@ -13684,8 +13684,8 @@ api.wrap = function(user, main) {
           user.items.eggs[drop.key]++;
           drop.type = 'Egg';
           drop.dialog = i18n.t('messageDropEgg', {
-            dropText: drop.text,
-            dropNotes: drop.notes
+            dropText: drop.text(req.language),
+            dropNotes: drop.notes(req.language)
           }, req.language);
         } else {
           acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
@@ -13698,8 +13698,8 @@ api.wrap = function(user, main) {
           user.items.hatchingPotions[drop.key]++;
           drop.type = 'HatchingPotion';
           drop.dialog = i18n.t('messageDropPotion', {
-            dropText: drop.text,
-            dropNotes: drop.notes
+            dropText: drop.text(req.language),
+            dropNotes: drop.notes(req.language)
           }, req.language);
         }
         user._tmp.drop = drop;
@@ -13845,7 +13845,7 @@ api.wrap = function(user, main) {
         user._tmp.drop = _.defaults(content.quests.vice1, {
           type: 'Quest',
           dialog: i18n.t('messageFoundQuest', {
-            questText: content.quests.vice1.text
+            questText: content.quests.vice1.text(req.language)
           }, req.language)
         });
       }

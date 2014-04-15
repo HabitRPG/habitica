@@ -56,5 +56,8 @@
     "serverUnreach": "Servern är otillgänglig för tillfället.",
     "seeConsole": "(se Chromes kontrollpanel för fler detaljer)",
     "error": "Fel",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "End Tour"
 }

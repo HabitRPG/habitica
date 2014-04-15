@@ -32,5 +32,7 @@
     "useGems": "Als je je oog hebt laten vallen op een dier, maar je kan niet langer wachten tot je het vindt, gebruik dan Edelstenen in <strong>Opties > Boedel</strong> om er één te kopen!",
     "hatchAPot": "<%= potion %> <%= egg %> uitbroeden?",
     "feedPet": "Voer <%= article %><%= text %> aan je <%= name %>?",
-    "useSaddle": "<%= pet %> zadelen?"
+    "useSaddle": "<%= pet %> zadelen?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

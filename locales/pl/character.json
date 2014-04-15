@@ -86,6 +86,7 @@
     "healer": "Uzdrowiciel",
     "rogue": "Łotrzyk",
     "mage": "Mag",
+    "mystery": "Mystery",
     "changeClass": "Zmiana Klasy, Przywracanie Punktów Atrybutów",
     "levelPopover": "Każdy poziom zapewnia ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to manualnie, lub pozwolić aby gra zdecydowała za ciebie używając jednej z opcji Automatycznego Przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",

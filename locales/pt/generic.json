@@ -56,5 +56,8 @@
     "serverUnreach": "Servidor não disponível no momento.",
     "seeConsole": "(veja o console do Chrome para mais detalhes).",
     "error": "Erro",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "Finalizar Tour"
 }

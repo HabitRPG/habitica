@@ -42,7 +42,7 @@
     "veteran": "Vétéran",
     "veteranText": "A résisté à Habit le Gris (notre site pre Angular) et a gagné de nombreuses cicatrices de guerre à cause de ses bugs.",
     "originalUser": "Utilisateur d'origine !",
-    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
+    "originalUserText": "L'un des adeptes <em>très</em> précoces d'origine. Ça c'est du test alpha !",
     "habitBirthday": "Fête d'Anniversaire 2014 d'HabitRPG",
     "habitBirthdayText": "A participé à la Fête d'Anniversaire 2014 d'HabitRPG",
     "memberSince": "- Membre depuis",
@@ -56,5 +56,8 @@
     "serverUnreach": "Serveur inaccessible.",
     "seeConsole": "(voir la console Chrome pour plus de détails).",
     "error": "Erreur",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "Terminer la visite"
 }

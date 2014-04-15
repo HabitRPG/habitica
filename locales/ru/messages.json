@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "Сломано: <%= itemText() %>",
+    "messageLostItem": "Your <%= itemText %> broke.",
     "messageTaskNotFound": "Задание не найдено.",
     "messageTagNotFound": "Тег не найден.",
     "messagePetNotFound": ":pet не найдено в user.items.pets",
@@ -7,17 +7,17 @@
     "messageCannotFeedPet": "Нельзя кормить этого питомца.",
     "messageAlreadyMount": "У вас уже есть такой скакун. Попробуйте покормить другого питомца.",
     "messageEvolve": "<%= egg %> приручен, пора кататься!",
-    "messageLikesFood": "<%= egg %> доволен. <%= foodText() %> — его любимая еда!",
-    "messageDontEnjoyFood": "<%= egg %> все съел, но не похоже, что <%= foodText() %> ему нравится.",
-    "messageBought": "Куплено: <%= itemText() %>",
-    "messageUnEquipped": "Снято: <%= itemText() %>.",
+    "messageLikesFood": "<%= egg %> really likes the <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> eats the <%= foodText %> but doesn't seem to enjoy it.",
+    "messageBought": "Bought <%= itemText %>",
+    "messageUnEquipped": "<%= itemText %> un-equipped.",
     "messageMissingEggPotion": "У вас нет нужного яйца или эликсира",
     "messageAlreadyPet": "У вас уже есть такой питомец! Попробуйте другую комбинацию!",
     "messageHatched": "Из яйца вылупился питомец! Загляните в стойла, чтобы взять его с собой.",
     "messageNotEnoughGold": "Недостаточно золота",
-    "messageTwoHandled": "<%= gearText() %> — двуручное оружие",
-    "messageDropFood": "Вы нашли: <%= dropArticle %><%= dropText() %>! <%= dropNotes() %>",
-    "messageDropEgg": "Вы нашли: <%= dropText() %> в яйце! <%= dropNotes() %>",
-    "messageDropPotion": "Вы нашли <%= dropText() %> инкубационный эликсир! <%= dropNotes() %>",
-    "messageFoundQuest": "Вы нашли квест \"<%= questText() %>\"!"
+    "messageTwoHandled": "<%= gearText %> is two-handled",
+    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropEgg": "You've found a <%= dropText %> Egg! <%= dropNotes %>",
+    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion! <%= dropNotes %>",
+    "messageFoundQuest": "You've found the quest \"<%= questText %>\"!"
 }

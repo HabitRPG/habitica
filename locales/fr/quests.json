@@ -30,5 +30,5 @@
     "mustLvlQuest": "Vous devez être au niveau <%= level %> pour acheter cette quête !",
     "sureAbort": "Vous êtes sûr(e) de vouloir annuler cette mission ? Elle sera annulée pour toute votre équipe et toute la progression sera perdue.",
     "doubleSureAbort": "Êtes-vous sûr(e) et certain(e) ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",
-    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
+    "questWarning": "N'oubliez pas : seuls les membres actuels de l'équipe seront invités. Une fois que l'invitation est envoyé, aucun nouveau membre de l'équipe ne peut rejoindre la quête !"
 }

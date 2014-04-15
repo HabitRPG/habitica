@@ -14,7 +14,7 @@
     "begin": "Začať",
     "bossHP": "Bossove zdravie",
     "collected": "Nazbieraných",
-    "bossDmg1": "Aby si ublížil bossovi, spĺňaj denné úlohy a to-do. Silnejšia rana zasadená úlohe znamená vyššie zranenie bossa (plnenie červených, mágove kúzla, útoky bojovníka, atď.). Boss zraní družinu za každú vynechanú dennú úlohu (vynásobené bossovou silou) spolu s tvojmu bežnému zraneniu, tak pomáhaj svojim kamarátom plnením svojich denných úloh! <strong>Útoky bossa a na bossa sa spočíta pri crone (na konci tvojho dňa).</strong>",
+    "bossDmg1": "Aby si ublížil bossovi, spĺňaj úlohy a denné úlohy. Čím väčšiu ranu úlohe zasadíš, tým viac bossa raníš (plnenie červených úloh, mágove kúzla, útoky bojovníka, atď.). Za každú vynechanú dennú úlohu dostane družina od bossa úder (sila úderu je vynásobená bossovou silou), ktorý sa pripošíta k bežnému zraneniu za nesplnené úlohy. Tak pomáhaj členom svojej družiny plnením svojich denných úloh! <strong>Útoky bossa a na bossa sa spočítavajú pri crone (na konci tvojho dňa).</strong>",
     "bossDmg2": "Len tí, čo sú na výprave môžu bojovať s bossom a podeliť sa o korisť.",
     "bossColl1": "Pre získanie predmetov musíš plniť svoje dobré návyky. Predmety za ukončenie výpravy padajú ako normálne predmety, ale uvidíš ich až nasledujúci deň. Vtedy sa všetko sčíta a pridá na hromadu.",
     "bossColl2": "Len tí, čo sú na výprave môžu zbierať predmety a podeliť sa o korisť.",
@@ -30,5 +30,5 @@
     "mustLvlQuest": "Ak si chceš kúpiť tento quest, musíš mať aspoň <%= level %>. level.",
     "sureAbort": "Si si istý, že chceš ukončiť misiu? Zruší sa všetkým v družine a stratíte všetky svoje pokroky.",
     "doubleSureAbort": "Si si naozaj istý? Uisti sa, že ťa potom nebudú naveky neznášať!",
-    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
+    "questWarning": "Pamätaj: pozvaní budú len súčasní členovia družiny. Po odoslaní pozvánky sa už na výpravu nebudú môcť pridať žiadni noví členovia !"
 }

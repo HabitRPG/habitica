@@ -86,6 +86,7 @@
     "healer": "Helare",
     "rogue": "Smygare",
     "mage": "Magiker",
+    "mystery": "Mystery",
     "changeClass": "Byt Klass, Återbetala Egenskapspoäng",
     "levelPopover": "Varje level ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under Automatisk Utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",

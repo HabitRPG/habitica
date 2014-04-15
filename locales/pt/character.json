@@ -86,6 +86,7 @@
     "healer": "Curandeiro",
     "rogue": "Ladino",
     "mage": "Mago",
+    "mystery": "Mistério",
     "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",

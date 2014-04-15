@@ -56,5 +56,8 @@
     "serverUnreach": "Serwer jest obecnie nieosiągalny.",
     "seeConsole": "(zajrzyj do konsoli Chrome po więcej szczegółów).",
     "error": "Błąd",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "End Tour"
 }

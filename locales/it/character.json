@@ -86,6 +86,7 @@
     "healer": "Guaritore",
     "rogue": "Assassino",
     "mage": "Mago",
+    "mystery": "Mistero",
     "changeClass": "Cambia classe, recupera Punti Attributo allocati",
     "levelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica.",
     "unallocated": "Punti Attributo non allocati",

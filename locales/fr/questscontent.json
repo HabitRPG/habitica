@@ -5,8 +5,8 @@
     "questEvilSantaBoss": "Père Trappeur",
     "questEvilSantaDropBearCubPolarMount": "Ours Polaire (Monture)",
     "questEvilSanta2Text": "Trouver le petit",
-    "questEvilSanta2Notes": "La maman de l'ourson s'enfuyait vers les étendues glacées quand elle a été capturée par le trappeur. A l'orée du bois, elle renifle l'air. Vous entendez des bruits de brindilles écrasées et de neige foulée à travers le son cristallin de la forêt. Des empreintes de pattes ! Vous suivez tous les deux la piste en courant et, après de nombreuses empreintes et brindilles brisées, vous retrouvez son ourson !",
-    "questEvilSanta2Completion": "Vous avez retrouvé l'ourson ! La maman et son petit ne sauraient être plus reconnaissant. En gage de leur gratitude, ils ont décidé de vous accompagner jusqu'à la fin des temps.",
+    "questEvilSanta2Notes": "L'ourson s'est enfui vers les étendues glacées quand sa maman a été capturée par le trappeur. A l'orée du bois, elle renifle l'air. Vous entendez des bruits de brindilles écrasées et de neige foulée à travers le son cristallin de la forêt. Des empreintes de pattes ! Vous suivez tous les deux la piste en courant. Trouvez toutes les empreintes et les brindilles brisées, et retrouvez son ourson !",
+    "questEvilSanta2Completion": "Vous avez retrouvé l'ourson ! La maman et son petit ne sauraient être plus reconnaissants. En gage de leur gratitude, ils ont décidé de vous accompagner jusqu'à la fin des temps.",
     "questEvilSanta2CollectTracks": "Piste",
     "questEvilSanta2CollectBranches": "Brindilles brisées",
     "questEvilSanta2DropBearCubPolarPet": "Ours Polaire (Familier)",
@@ -34,8 +34,8 @@
     "questVice2CollectLightCrystal": "L'Ombre de Vice",
     "questVice2DropVice3Quest": "Vice, partie 3 (Parchemin)",
     "questVice3Text": "Le Réveil de Vice",
-    "questVice3Notes": "Après de nombreux efforts, votre équipe a découvert l'antre de Vice. Le monstre massif toise votre équipe avec dégoût. Tandis que des ombres tourbillonnent autour de vous, vous entendez une voix dans votre tête, \"Encore des idiots d'habitants d'Habitica qui viennent me rendre visite? Comme c'est mignon. Vous auriez été plus avisé de ne pas venir\". Le titan écailleux bouge sa tête en arrière et se prépare à attaquer. C'est votre chance ! Donnez tout ce que vous avez et battez Vice une bonne fois pour toutes !",
-    "questVice3Completion": "Les ombres se dissipent de la caverne et un silence de plomb tombe. Ma parole, vous avez réussi ! Vous avez vaincu Vice ! Vous et votre équipe lâchez un soupir de soulagement. Profitez de votre victoire, braves Habitiens, mais retenez ce que vous avez appris en vainquant Vice et allez de l'avant. Il y a encore des tâches à accomplir et des maux potentiellement encore pire à vaincre !",
+    "questVice3Notes": "Après de nombreux efforts, votre équipe a découvert l'antre de Vice. Le monstre massif toise votre équipe avec dégoût. Tandis que des ombres tourbillonnent autour de vous, vous entendez une voix murmurer dans votre tête : \"Encore des idiots d'habitants d'Habitica qui viennent me rendre visite? Comme c'est mignon. Vous auriez été plus avisés de ne pas venir\". Le titan écailleux rejette la tête en arrière et se prépare à attaquer. C'est votre chance ! Donnez tout ce que vous avez et battez Vice une bonne fois pour toutes !",
+    "questVice3Completion": "Les ombres se dissipent de la caverne et un silence de plomb tombe. Ma parole, vous avez réussi ! Vous avez vaincu Vice ! Vous et votre équipe pouvez enfin laisser échapper un soupir de soulagement. Profitez de votre victoire, braves Habitiens, mais retenez ce que vous avez appris en vainquant Vice et allez de l'avant. Il y a encore des tâches à accomplir et des maux potentiellement pires à vaincre !",
     "questVice3Boss": "Vice, la Vouivre des Ténèbres",
     "questVice3DropWeaponSpecial2": "Hampe du Dragon de Stephen Weber",
     "questVice3DropDragonEgg": "Dragon (Œuf)",
@@ -43,6 +43,6 @@
     "questEggHuntText": "Chasse aux Œufs ",
     "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says @Megan, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
     "questEggHuntCompletion": "You did it! In gratitude, @Megan gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
-    "questEggHuntCollectPlainEgg": "Plain Egg",
-    "questEggHuntDropPlainEgg": "Plain Egg"
+    "questEggHuntCollectPlainEgg": "Œuf simple",
+    "questEggHuntDropPlainEgg": "Œuf simple"
 }

@@ -56,5 +56,8 @@
     "serverUnreach": "Error en la conexión al servidor.",
     "seeConsole": "(vea la consola de Chrome para más detalles)",
     "error": "Error",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "End Tour"
 }

@@ -32,5 +32,7 @@
     "useGems": "Ak máš zálusk na nejaké zvieratko a nemáš chuť čakať, kým ti padne, v menu <strong>Možnosti > Inventár</strong> si ho môžeš kúpiť za drahokamy!",
     "hatchAPot": "Chceš vyliahnuť takéto zvieratko: <%= potion %> <%= egg %>?",
     "feedPet": "Chceš nakŕmiť toto zvieratko: <%= name %> týmto: <%= article %><%= text %>?",
-    "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?"
+    "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

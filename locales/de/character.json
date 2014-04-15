@@ -86,6 +86,7 @@
     "healer": "Heiler",
     "rogue": "Schurke",
     "mage": "Magier",
+    "mystery": "Überraschung",
     "changeClass": "Wechsle die Klasse und erhalte alle Attributpunkte zurück",
     "levelPopover": "Jedes Level erhältst Du einen Punkt, den Du in ein Attribut Deiner Wahl setzen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster auswählst.",
     "unallocated": "Freie Attributpunkte",

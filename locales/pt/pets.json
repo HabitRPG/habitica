@@ -32,5 +32,7 @@
     "useGems": "Se você está de olho em um mascote, mas não consegue esperar mais para encontrá-lo, use Gemas em <strong>Opções > Inventário</strong> para comprar um!",
     "hatchAPot": "Chocar um <%= potion %> <%= egg %>?",
     "feedPet": "Alimentar <%= article %><%= text %> para o seu <%= name %>?",
-    "useSaddle": "Selar <%= pet %>?"
+    "useSaddle": "Selar <%= pet %>?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

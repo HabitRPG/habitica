@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "Dein <%= itemText() %> wurde zerstört.",
+    "messageLostItem": "Your <%= itemText %> broke.",
     "messageTaskNotFound": "Aufgabe nicht gefunden.",
     "messageTagNotFound": "Tag nicht gefunden.",
     "messagePetNotFound": ":pet in user.items.pets nicht gefunden",
@@ -7,17 +7,17 @@
     "messageCannotFeedPet": "Dieses Haustier will und kann nicht gefüttert werden.",
     "messageAlreadyMount": "Du hast dieses Reittier bereits. Füttere lieber ein anderes Haustier.",
     "messageEvolve": "<%= egg %> wurde gezähmt, es ist an der Zeit aufzusitzen!",
-    "messageLikesFood": "<%= egg %> ist begeistert. <%= foodText() %> ist seine Lieblingsspeise!",
-    "messageDontEnjoyFood": "<%= egg %> ist nicht gerade begeistert. <%= foodText() %> schmeckt Deinem Haustier überhaupt nicht.",
-    "messageBought": "<%= itemText() %> gekauft",
-    "messageUnEquipped": "<%= itemText() %> abgelegt.",
+    "messageLikesFood": "<%= egg %> really likes the <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> eats the <%= foodText %> but doesn't seem to enjoy it.",
+    "messageBought": "Bought <%= itemText %>",
+    "messageUnEquipped": "<%= itemText %> un-equipped.",
     "messageMissingEggPotion": "Dir fehlt entweder dieses Ei oder dieser Trank",
     "messageAlreadyPet": "Du hast dieses Haustier bereits. Versuche doch eine andere Kombination.",
     "messageHatched": "Ein Ei ist ausgeschlüpft! Besichtige die Ställe um Dein Haustier auszuwählen.",
     "messageNotEnoughGold": "Nicht genug Gold",
-    "messageTwoHandled": "<%= gearText() %> ist beidhändig",
-    "messageDropFood": " Du hast <%= dropArticle %><%= dropText() %> gefunden! <%= dropNotes() %>",
-    "messageDropEgg": "Du hast ein <%= dropText() %> Ei gefunden! <%= dropNotes() %>",
-    "messageDropPotion": "Du hast einen <%= dropText() %> Schlüpftrank gefunden!  <%= dropNotes() %>",
-    "messageFoundQuest": "Du hast das Quest \"<%= questText() %>\" gefunden!"
+    "messageTwoHandled": "<%= gearText %> is two-handled",
+    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropEgg": "You've found a <%= dropText %> Egg! <%= dropNotes %>",
+    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion! <%= dropNotes %>",
+    "messageFoundQuest": "You've found the quest \"<%= questText %>\"!"
 }

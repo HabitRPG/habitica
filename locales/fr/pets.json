@@ -32,5 +32,7 @@
     "useGems": "Si vous voulez un familier et que vous n'en pouvez plus d'attendre de le trouver, utilisez des Gemmes dans <strong>Options > Inventaire</strong> pour en acheter un !",
     "hatchAPot": "Faire éclore un <%= potion %> <%= egg %> ?",
     "feedPet": "Donner <%= article %><%= text %> à <%= name %> ?",
-    "useSaddle": "Seller <%= pet %> ?"
+    "useSaddle": "Seller <%= pet %> ?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

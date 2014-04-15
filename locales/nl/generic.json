@@ -56,5 +56,8 @@
     "serverUnreach": "Server momenteel niet bereikbaar.",
     "seeConsole": "(zie Chrome console voor meer details).",
     "error": "Fout",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "End Tour"
 }

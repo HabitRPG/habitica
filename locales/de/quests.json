@@ -30,5 +30,5 @@
     "mustLvlQuest": "Du musst Level <%= level %> sein um dieses Quest zu erwerben!",
     "sureAbort": "Bist Du sicher, dass Du dieses Quest abbrechen willst? Das Quest wird für alle Teilnehmer abgebrochen und der gesamte Fortschritt ist verloren.",
     "doubleSureAbort": "Bist Du wirklich wirklich sicher? Sei' ganz sicher, dass sie Dich nicht für immer hassen werden!",
-    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
+    "questWarning": "Bedenke: Nur die momentanen Gruppenmitglieder werden eingeladen. Wenn die Einladungen verschickt sind können neue Gruppenmitglieder dem Quest nicht nachträglich beitreten."
 }

@@ -30,5 +30,5 @@
     "mustLvlQuest": "Você precisa ser nível <%= level %> para comprar essa missão!",
     "sureAbort": "Tem certeza de que deseja abortar essa missão? Ela abortará para todas pessoas em sua equipe, todo progresso será perdido.",
     "doubleSureAbort": "Tem certeza mesmo? Certifique-se de que eles não o detestarão para sempre!",
-    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
+    "questWarning": "Lembrete: apenas membros atuais da equipe serão convidados. Assim que os convites forem enviados, novos membros não poderão participar da missão!"
 }

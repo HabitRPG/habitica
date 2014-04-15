@@ -32,5 +32,7 @@
     "useGems": "Jeśli masz na oku jakiegoś zwierzaka, ale nie możesz się już doczekać na jego znalezienie, użyj Klejnotów w <strong>Opcje > Ekwipunek</strong> aby go kupić!",
     "hatchAPot": "Wykluj <%= potion %> <%= egg %>?",
     "feedPet": "Nakarmić <%= article %><%= text %> twojego <%= name %>?",
-    "useSaddle": "Osiodłać <%= pet %>?"
+    "useSaddle": "Osiodłać <%= pet %>?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

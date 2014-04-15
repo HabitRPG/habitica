@@ -37,12 +37,12 @@
     "notEnoughGems": "Недостатньо самоцвітів",
     "delete": "Вилучити",
     "gems": "Самоцвіти",
-    "moreInfo": "More Info",
+    "moreInfo": "Більше інформаціії",
     "gemsWhatFor": "Потрібні для купівлі особливих предметів та послуг (яйця, зілля вилуплення, підсилення тощо). Вам слід розблокувати ці особливості, перш ніж витрачати самоцвіти.",
     "veteran": "Ветеран",
     "veteranText": "Вистояв у Habit The Grey (нашому тестовому сайті), та заробив купу шрамів у бою з його баґами.",
     "originalUser": "Першопроходець!",
-    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
+    "originalUserText": "Один з <em>самих перших</em> гравців. Звертайтесь, щоб стати альфа-тестером!",
     "habitBirthday": "Святкові гоцки HabitRPG 2014",
     "habitBirthdayText": "Учасник Святкових гоцок HabitRPG у 2014.",
     "memberSince": "- Грає з: ",
@@ -56,5 +56,8 @@
     "serverUnreach": "Наразі сервер недоступний.",
     "seeConsole": "(Докладніше у консолі Chrome).",
     "error": "Помилка",
-    "endTour": "End Tour"
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
+    "endTour": "Закінчити"
 }

@@ -32,5 +32,7 @@
     "useGems": "Wenn Du auf ein bestimmtes Haustier versessen bist und nicht länger warten kannst, benutzt Edelsteine unter <strong>Optionen > Inventar</strong> um es zu kaufen!",
     "hatchAPot": "Willst du ein <%= potion %> <%= egg %> ausbrüten?",
     "feedPet": "'Verfüttere <%= article %> <%= text %> an <%= name %>?",
-    "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?"
+    "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

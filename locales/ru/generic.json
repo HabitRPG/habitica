@@ -56,5 +56,8 @@
     "serverUnreach": "Сервер сейчас недоступен.",
     "seeConsole": " (см. подробности в консоли Chrome).",
     "error": "Ошибка",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "clear": "Clear",
     "endTour": "Завершить тур"
 }

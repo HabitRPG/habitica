@@ -388,7 +388,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
-        cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text}, req.language)} else null), user
+        cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
         user.habits = []
@@ -588,10 +588,10 @@ api.wrap = (user, main=true) ->
         else
           if food.target is potion
             userPets[pet] += 5
-            message = i18n.t('messageLikesFood', {egg: egg, foodText: food.text}, req.language)
+            message = i18n.t('messageLikesFood', {egg: egg, foodText: food.text(req.language)}, req.language)
           else
             userPets[pet] += 2
-            message = i18n.t('messageDontEnjoyFood', {egg: egg, foodText: food.text}, req.language)
+            message = i18n.t('messageDontEnjoyFood', {egg: egg, foodText: food.text(req.language)}, req.language)
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
@@ -616,7 +616,7 @@ api.wrap = (user, main=true) ->
 
         item = if key is 'potion' then content.potion else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.stats.gp < item.value
+        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
@@ -624,7 +624,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item, null, req)
-          message ?= i18n.t('messageBought', {itemText: item.text}, req.language)
+          message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
           if not user.achievements.ultimateGear and item.last
             user.fns.ultimateGear()
         user.stats.gp -= item.value
@@ -649,7 +649,7 @@ api.wrap = (user, main=true) ->
             item = content.gear.flat[key]
             if user.items.gear[type][item.type] is key
               user.items.gear[type][item.type] = "#{item.type}_base_0"
-              message = i18n.t('messageBought', {itemText: item.text}, req.language)
+              message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
             else
               user.items.gear[type][item.type] = item.key
               message = user.fns.handleTwoHanded(item,type,req)
@@ -926,11 +926,11 @@ api.wrap = (user, main=true) ->
       # If they're buying a shield and wearing a staff, dequip the staff
       if item.type is "shield" and (weapon = content.gear.flat[user.items.gear[type].weapon])?.twoHanded
         user.items.gear[type].weapon = 'weapon_base_0'
-        message = i18n.t('messageTwoHandled', {gearText: weapon.text}, req.language)
+        message = i18n.t('messageTwoHandled', {gearText: weapon.text(req.language)}, req.language)
       # If they're buying a staff and wearing a shield, dequip the shield
       if item.twoHanded
         user.items.gear[type].shield = "shield_base_0"
-        message = i18n.t('messageTwoHandled', {gearText: item.text}, req.language)
+        message = i18n.t('messageTwoHandled', {gearText: item.text(req.language)}, req.language)
       message
 
     ###
@@ -1021,7 +1021,7 @@ api.wrap = (user, main=true) ->
           user.items.food[drop.key] ?= 0
           user.items.food[drop.key]+= 1
           drop.type = 'Food'
-          drop.dialog = i18n.t('messageDropFood', {dropArticle: drop.article, dropText: drop.text, dropNotes: drop.notes}, req.language)
+          drop.dialog = i18n.t('messageDropFood', {dropArticle: drop.article, dropText: drop.text(req.language), dropNotes: drop.notes(req.language)}, req.language)
 
           # Eggs: 30% chance
         else if rarity > .3
@@ -1029,7 +1029,7 @@ api.wrap = (user, main=true) ->
           user.items.eggs[drop.key] ?= 0
           user.items.eggs[drop.key]++
           drop.type = 'Egg'
-          drop.dialog = i18n.t('messageDropEgg', {dropText: drop.text, dropNotes: drop.notes}, req.language)
+          drop.dialog = i18n.t('messageDropEgg', {dropText: drop.text(req.language), dropNotes: drop.notes(req.language)}, req.language)
 
           # Hatching Potion, 30% chance - break down by rarity.
         else
@@ -1050,7 +1050,7 @@ api.wrap = (user, main=true) ->
           user.items.hatchingPotions[drop.key] ?= 0
           user.items.hatchingPotions[drop.key]++
           drop.type = 'HatchingPotion'
-          drop.dialog = i18n.t('messageDropPotion', {dropText: drop.text, dropNotes: drop.notes}, req.language)
+          drop.dialog = i18n.t('messageDropPotion', {dropText: drop.text(req.language), dropNotes: drop.notes(req.language)}, req.language)
 
         # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
         # app handles it for example. Would this be better handled as an emit() ?
@@ -1146,7 +1146,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'flags.levelDrops'
         user._tmp.drop = _.defaults content.quests.vice1,
           type: 'Quest'
-          dialog: i18n.t('messageFoundQuest', {questText: content.quests.vice1.text}, req.language)
+          dialog: i18n.t('messageFoundQuest', {questText: content.quests.vice1.text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
 
