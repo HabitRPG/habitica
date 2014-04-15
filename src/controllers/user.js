@@ -397,6 +397,8 @@ api.batchUpdate = function(req, res, next) {
   res.locals.ops = [];
   var ops = _.transform(req.body, function(m,_req){
     if (_.isEmpty(_req)) return;
+    _req.language = req.language;
+
     m.push(function() {
       var cb = arguments[arguments.length-1];
       res.locals.ops.push(_req);
