@@ -8,7 +8,7 @@ angular.module("notificationServices", [])
       var notice = $.pnotify({
         type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
 	    text: html,
-        opacity: .75,
+        opacity: 1,
         addclass: 'alert-' + type,
         delay: 7000,
         hide: (type == 'error') ? false : true,
