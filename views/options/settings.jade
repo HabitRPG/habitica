@@ -9,6 +9,9 @@ script(id='partials/options.settings.html', type="text/ng-template")
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
         =env.t('dataExport')
+    li(ng-class="{ active: $state.includes('options.settings.coupon') }")
+      a(ui-sref='options.settings.coupon')
+        | Coupon
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
       a(ui-sref='options.settings.subscription')=env.t('subscription')
 
@@ -68,6 +71,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   |&nbsp;
                   =env.t('subWarning3')
 
+        //-.panel.panel-default
+          .panel-heading
+            span.hint(popover='We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)', popover-trigger='mouseenter', popover-placement='right') Coupon
+          .panel-body
+            form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
+              input.form-control(type='text', ng-model='_couponCode', placeholder='Enter Coupon Code')
+              button.btn.btn-primary(type='submit') Submit
+
         //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
         div(ng-if='user.auth.local.username')
           .panel.panel-default
@@ -90,6 +101,30 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-body
             a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
             a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+
+script(type='text/ng-template', id='partials/options.settings.coupon.html')
+  .containter-fluid
+    .row
+      .col-md-6
+        h2 Coupon
+        form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
+          input.form-control(type='text', ng-model='_couponCode', placeholder='Enter Coupon Code')
+          button.btn.btn-primary(type='submit') Submit
+        div
+          small We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)
+        div(ng-if='user.contributor.sudo')
+          hr
+          h4 Generate Codes
+          form.form(role='form',ng-submit='generateCodes(_codes)',ng-init='_codes={}')
+            .form-group
+              input.form-control(type='text',ng-model='_codes.event',placeholder="Event code (eg, 'wondercon')")
+            .form-group
+              input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
+            .form-group
+              button.btn.btn-primary(type='submit') Generate
+              a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}') Get Codes
+
+
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .containter-fluid

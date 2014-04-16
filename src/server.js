@@ -25,6 +25,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   var http = require("http");
   var path = require("path");
   var swagger = require("swagger-node-express");
+  var autoinc = require('mongoose-id-autoinc');
 
   var middleware = require('./middleware');
 
@@ -38,10 +39,12 @@ if (cluster.isMaster && (isDev || isProd)) {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
   };
-  mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
+  var db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
     if (err) throw err;
     logging.info('Connected with Mongoose');
   });
+  autoinc.init(db);
+
   // load schemas & models
   require('./models/challenge');
   require('./models/group');
@@ -125,6 +128,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(require('./routes/pages').middleware);
   app.use(require('./routes/payments').middleware);
   app.use(require('./routes/auth').middleware);
+  app.use(require('./routes/coupon').middleware);
   var v2 = express();
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);

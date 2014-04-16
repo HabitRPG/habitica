@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location', '$timeout',
-  function($scope, User, $rootScope, $http, API_URL, Guide, $location, $timeout) {
+  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location', '$timeout', 'Notification',
+  function($scope, User, $rootScope, $http, API_URL, Guide, $location, $timeout, Notification) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -111,6 +111,22 @@ habitrpg.controller('SettingsCtrl',
           localStorage.clear();
           window.location.href = '/logout';
         });
+    }
+
+    $scope.enterCoupon = function(code) {
+      $http.post(API_URL + '/api/v2/user/coupon/' + code).success(function(res,code){
+        if (code!==200) return;
+        User.sync();
+        Notification.text('Coupon applied! Check your inventory');
+      });
+    }
+    $scope.generateCodes = function(codes){
+      $http.post(API_URL + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
+        .success(function(res,code){
+          $scope._codes = {};
+          if (code!==200) return;
+          window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
+        })
     }
   }
 ]);
