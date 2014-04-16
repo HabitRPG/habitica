@@ -9186,7 +9186,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
   classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
-  gearTypes = ['armor', 'weapon', 'shield', 'head', 'back', 'headAccessory'];
+  gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory'];
 
   events = {
     winter: {
@@ -10264,6 +10264,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         }
       }
     },
+    body: {},
     back: {
       base: {
         0: {
@@ -11439,7 +11440,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
 },{"lodash":3,"moment":4}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
-  var $w, api, content, moment, preenHistory, sanitizeOptions, _,
+  var $w, api, content, moment, preenHistory, sanitizeOptions, sortOrder, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -11640,6 +11641,11 @@ var process=require("__browserify_process");(function() {
   */
 
 
+  sortOrder = _.reduce(content.gearTypes, (function(m, v, k) {
+    m[v] = k;
+    return m;
+  }), {});
+
   api.updateStore = function(user) {
     var changes;
 
@@ -11647,7 +11653,7 @@ var process=require("__browserify_process");(function() {
       return;
     }
     changes = [];
-    _.each(['weapon', 'armor', 'shield', 'head', 'back', 'headAccessory'], function(type) {
+    _.each(content.gearTypes, function(type) {
       var found;
 
       found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
@@ -11664,25 +11670,8 @@ var process=require("__browserify_process");(function() {
       return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
     }));
     changes.push(content.potion);
-    return _.sortBy(changes, function(item) {
-      switch (item.type) {
-        case 'weapon':
-          return 1;
-        case 'armor':
-          return 2;
-        case 'head':
-          return 3;
-        case 'shield':
-          return 4;
-        case 'back':
-          return 5;
-        case 'headAccessory':
-          return 6;
-        case 'potion':
-          return 7;
-        default:
-          return 8;
-      }
+    return _.sortBy(changes, function(c) {
+      return sortOrder[c.type];
     });
   };
 

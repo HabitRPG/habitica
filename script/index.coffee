@@ -119,10 +119,12 @@ preenHistory = (history) ->
 ###
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
 ###
+sortOrder = _.reduce content.gearTypes,((m,v,k)->m[v]=k;m), {}
+#sortOrder.potion = _.size(sortOrder) #potion goes last #actually, _.sortBy puts anything else last, so this is unecessary
 api.updateStore = (user) ->
   return unless user
-  changes = []
-  _.each ['weapon', 'armor', 'shield', 'head', 'back', 'headAccessory'], (type) ->
+  changes= []
+  _.each content.gearTypes, (type) ->
     found = _.find content.gear.tree[type][user.stats.class], (item) ->
       !user.items.gear.owned[item.key]
     changes.push(found) if found
@@ -132,16 +134,7 @@ api.updateStore = (user) ->
     v.klass in ['special','mystery'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
   changes.push content.potion
   # Return sorted store (array)
-  _.sortBy changes, (item) ->
-    switch item.type
-      when 'weapon' then 1
-      when 'armor'  then 2
-      when 'head'   then 3
-      when 'shield' then 4
-      when 'back'   then 5
-      when 'headAccessory'   then 6
-      when 'potion' then 7
-      else               8
+  _.sortBy changes, (c)->sortOrder[c.type]
 
 ###
 ------------------------------------------------------

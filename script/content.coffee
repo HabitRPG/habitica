@@ -10,7 +10,7 @@ moment = require 'moment'
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = ['armor', 'weapon', 'shield', 'head', 'back', 'headAccessory']
+gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
@@ -221,6 +221,8 @@ gear =
       springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
 
+  body:{}
+  
   back:
     base:
       0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
