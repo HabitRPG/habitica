@@ -9211,6 +9211,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     201403: {
       start: '2014-03-24',
       end: '2014-04-01'
+    },
+    wondercon: {
+      start: '2014-03-24',
+      end: '2014-04-01'
     }
   };
 
@@ -10264,7 +10268,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         }
       }
     },
-    body: {},
     back: {
       base: {
         0: {
@@ -10279,6 +10282,49 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: "These shining wings have feathers that glitter in the sun!",
           mystery: mystery['201402'],
           value: 10
+        }
+      },
+      special: {
+        wondercon_red: {
+          text: 'Mighty Cape',
+          notes: 'Swishes with strength and beauty. Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
+        },
+        wondercon_black: {
+          text: 'Sneaky Cape',
+          notes: 'Spun of shadows and whispers. Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
+        }
+      }
+    },
+    body: {
+      base: {
+        0: {
+          text: "No Body Accessory",
+          notes: 'No Body Accessory.',
+          value: 0
+        }
+      },
+      special: {
+        wondercon_red: {
+          text: 'Ruby Collar',
+          notes: 'An attractive ruby collar! Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
+        },
+        wondercon_gold: {
+          text: 'Golden Collar',
+          notes: 'An attractive gold collar! Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
+        },
+        wondercon_black: {
+          text: 'Ebony Collar',
+          notes: 'An attractive ebony collar! Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
         }
       }
     },
@@ -10319,6 +10365,18 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           text: 'Yellow Dog Ears',
           notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.',
           value: 20
+        },
+        wondercon_red: {
+          text: 'Mighty Mask',
+          notes: 'What a powerful face accessory! Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
+        },
+        wondercon_black: {
+          text: 'Sneaky Mask',
+          notes: 'Your motives are definitely legitimate. Special edition convention armor.',
+          value: 0,
+          mystery: mystery.wondercon
         }
       },
       mystery: {

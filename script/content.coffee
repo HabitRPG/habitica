@@ -20,6 +20,7 @@ events =
 mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}
   201403: {start:'2014-03-24',end:'2014-04-01'}
+  wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 
 gear =
   weapon:
@@ -221,13 +222,22 @@ gear =
       springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
 
-  body:{}
-  
   back:
     base:
       0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
     mystery:
       201402: text: 'Golden Wings', notes: "These shining wings have feathers that glitter in the sun!", mystery:mystery['201402'], value: 10
+    special:
+      wondercon_red: text: 'Mighty Cape', notes: 'Swishes with strength and beauty. Special edition convention armor.', value: 0, mystery:mystery.wondercon
+      wondercon_black: text: 'Sneaky Cape', notes: 'Spun of shadows and whispers. Special edition convention armor.', value: 0,   mystery:mystery.wondercon
+
+  body:
+    base:
+      0: text: "No Body Accessory", notes:'No Body Accessory.', value:0
+    special:
+      wondercon_red: text: 'Ruby Collar', notes: 'An attractive ruby collar! Special edition convention armor.', value: 0,      mystery:mystery.wondercon
+      wondercon_gold: text: 'Golden Collar', notes: 'An attractive gold collar! Special edition convention armor.', value: 0,   mystery:mystery.wondercon
+      wondercon_black: text: 'Ebony Collar', notes: 'An attractive ebony collar! Special edition convention armor.', value: 0,  mystery:mystery.wondercon
 
   headAccessory:
     base:
@@ -238,6 +248,9 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.", value: 20
       springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
+      wondercon_red: text: 'Mighty Mask', notes: 'What a powerful face accessory! Special edition convention armor.', value: 0,           mystery:mystery.wondercon
+      wondercon_black: text: 'Sneaky Mask', notes: 'Your motives are definitely legitimate. Special edition convention armor.', value: 0, mystery:mystery.wondercon
+        
     mystery:
       201403: text: 'Forest Walker Antlers', notes: "These antlers shimmer with moss and lichen.", mystery:mystery['201403'], value: 10
 
