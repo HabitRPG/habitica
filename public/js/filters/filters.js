@@ -14,3 +14,8 @@ angular.module('habitrpg')
       return $('<div/>').html(html).text();
     }
   })
+  .filter('goldRoundThousandsToK', function(){
+    return function (gp) {
+      return (gp > 999) ? (Math.floor(gp / 100) / 10.0 + 'K') : gp;
+    }
+  })

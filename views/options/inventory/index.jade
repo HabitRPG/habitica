@@ -2,7 +2,7 @@ include ./inventory
 include ./stable
 
 script(type='text/ng-template', id='partials/options.inventory.html')
-  ul.nav.nav-tabs
+  ul.options-menu
     li(ng-class="{ active: $state.includes('options.inventory.drops') }")
       a(ui-sref='options.inventory.drops')
         =env.t('market')

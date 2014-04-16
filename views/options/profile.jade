@@ -227,7 +227,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
           include ../shared/formatting-help
 
 script(id='partials/options.profile.html', type="text/ng-template")
-  ul.nav.nav-tabs
+  ul.options-menu
     li(ng-class="{ active: $state.includes('options.profile.avatar') }")
       a(ui-sref='options.profile.avatar')
         =env.t('avatar')

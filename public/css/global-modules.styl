@@ -1,0 +1,170 @@
+// Buttons
+// The !important declarations override Bootstrap
+hrpg-button-color-mixin($hrpg-button-color)
+  > a, button
+    background-color: $hrpg-button-color !important
+    color: darken($hrpg-button-color, 70%) !important 
+    border-color: darken($hrpg-button-color, 16.18%) !important
+    &:active
+      background-color: darken($hrpg-button-color, 10%) !important
+    @media screen and (min-width:768px)
+      &:hover
+        background-color: darken($hrpg-button-color, 3.82%) !important
+  > a:nth-of-type(2)
+      border-left: 1px solid darken($hrpg-button-color, 3.82%) !important
+  > div
+    border:1px solid darken($hrpg-button-color, 16.18%)
+    h4
+      color: darken($hrpg-button-color, 61.8%) 
+      background-color: $hrpg-button-color
+      border-color: darken($hrpg-button-color, 16.18%)
+    > ul:first-child:after
+      background-color: #fff
+      border-color: darken($hrpg-button-color, 16.18%)
+    h4:after
+      background-color: $hrpg-button-color
+      border-color: darken($hrpg-button-color, 16.18%)
+    a, a:link, a:visited
+      color: darken($hrpg-button-color, 70%) !important
+  .glyphicon
+    color:darken($hrpg-button-color, 60%)
+  &.active
+    a, button
+      background-color: darken($hrpg-button-color, 3.82%) !important
+      border-color: darken($hrpg-button-color, 38.2%) !important
+$hrpg-button-master
+  list-style: none
+  > a, button
+    display: inline-block !important
+    padding: 0.25em 0.5em !important
+    text-decoration:none
+    font-size: 1em
+    color:#222
+    background-color: transparent
+    &:active
+      background-color: #aaa !important
+    @media screen and (min-width:768px)
+      &:hover
+        background-color: #eee !important
+$hrpg-button
+  @extend $hrpg-button-master
+  > a, button
+    border: 1px solid #ccc !important
+    border-radius: 0.382em !important
+$hrpg-button-call-to-action
+  @extend $hrpg-button
+  hrpg-button-color-mixin($color-button-style-one)
+$hrpg-button-toggle
+  @extend $hrpg-button-master
+  border: 1px solid #ccc !important
+  border-radius: 0.382em !important
+  > a:first-of-type
+    border-radius: 0.382em 0em 0em 0.382em !important
+  > a:nth-of-type(2)
+    border-radius: 0em 0.382em 0.382em 0em !important
+// Labels
+hrpg-label-color-mixin($hrpg-label-color)
+  color: lighten($hrpg-label-color, 90%) !important 
+  background-color: $hrpg-label-color !important
+  border-color: darken($hrpg-label-color, 16.18%) !important
+  > a
+    color: lighten($hrpg-label-color, 90%) !important 
+$hrpg-label
+  padding: 0.382em 0.618em
+  border-width: 1px
+  border-style: solid
+  border-radius: 0.382em
+  font-size: 0.8em
+  line-height: 1
+  color: #fff
+// Modals
+$hrpg-modal
+  position: relative
+$hrpg-modal-dropdown
+  @extend $hrpg-modal
+  > div
+    position: absolute
+    top: 3em
+    min-width:110px
+    min-height: 68px
+    border-radius:4px
+    background-color:#fff
+    @media screen and (max-width:768px)
+      position:fixed
+      overflow: auto
+      z-index: 1000
+      top: 2%
+      left: 2%
+      width: 96%
+      height: 96%
+      box-shadow: 0 0 0 30px rgba(0,0,0,0.63)
+      &:after
+        display: none
+    h4
+      font-size: 1.2em
+      margin:0px
+      border-bottom-width: 1px
+      border-bottom-style: solid
+      border-radius:0.2em 0.2em 0em 0em
+      padding: 0.618em 0.8333em
+    ul
+      padding: 1em 1em 0em 1em
+    ul:last-child
+      padding-bottom:0px
+    ul
+      list-style: none
+      overflow: auto
+      li
+        margin-bottom: 1em
+    > ul:first-child:after, h4:after
+      content:''
+      position:absolute
+      top:-9px
+      z-index:2
+      width:16px
+      height:16px
+      border-top-width: 1px 
+      border-top-style: solid
+      border-left-width: 1px 
+      border-left-style: solid
+      transform: rotate(45deg)
+   h4:after
+     font-size: 0.8333em
+     z-index:3
+$hrpg-modal-dropdown-left
+  @extend $hrpg-modal-dropdown
+  @media screen and (min-width:768px)
+    div
+      right: 0px
+      > ul:first-child:after, h4:after
+        right: 1em
+$hrpg-modal-dropdown-right
+  @extend $hrpg-modal-dropdown
+  @media screen and (min-width:768px)
+    div
+      left: 0px
+      > ul:first-child:after, h4:after
+        left: 1em
+$hrpg-modal-controls
+  text-align: right 
+  border-radius:0px 0px 0.382em 0.382em
+  li
+    margin-left: 0.618em
+    display: inline-block
+    background-color: #fff
+  @media screen and (max-width:768px)
+    position: fixed
+    bottom:2%
+    right: 2%
+    border: none
+  @media screen and (min-width:768px)
+    display: none
+// Submenus
+$hrpg-submenu
+  @media screen and (min-width:768px)
+    padding: 1em 1em 0em 1em
+  margin-bottom: 1.618em
+  li
+    display: inline-block
+    margin-right: 1em
+    margin-bottom: 1em

@@ -7,31 +7,6 @@ script(id='partials/options.html', type="text/ng-template")
   .container-fluid
     .row
       .col-md-12
-        span.option-box.pull-right.wallet
-          include ../shared/gems
-
-        ul.nav.nav-tabs
-          li(ng-class="{ active: $state.includes('options.profile') }")
-            a(ui-sref='options.profile')
-              span.glyphicon.glyphicon-user
-              | &nbsp;
-              =env.t('profile')
-          li(ng-class="{ active: $state.includes('options.social') }")
-            a(ui-sref='options.social')
-              span.glyphicon.glyphicon-heart
-              | &nbsp;
-              =env.t('social')
-          li(ng-class="{ active: $state.includes('options.inventory') }", ng-if='user.flags.dropsEnabled')
-            a(ui-sref='options.inventory')
-              span.glyphicon.glyphicon-gift
-              | &nbsp;
-              =env.t('inventory')
-          li(ng-class="{ active: $state.includes('options.settings') }")
-            a(ui-sref='options.settings')
-              span.glyphicon.glyphicon-wrench
-              | &nbsp;
-              =env.t('settings')
-
         .tab-content
           .tab-pane.active
             div(ui-view)

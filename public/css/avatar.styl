@@ -14,10 +14,9 @@ future re: pets and whatnot, this is just temporary.
     margin: 0px auto
 
 .avatar-level
-    position absolute
-    bottom 0px
-    right 0px
-    padding 2px 3px 2px 3px
+    position: absolute
+    bottom: 2px
+    right: 2px
 
 // basic herobox styles
 .herobox
@@ -38,12 +37,10 @@ future re: pets and whatnot, this is just temporary.
 	position: absolute
 	top: 0
 	display: block
-	width: 100%
-	line-height: 2
-	color: black
-	text-align: center
-	border-bottom: 1px solid rgba(0,0,0,0.1)
-	background: darken($good, 15%)
+	margin: 2px
+	text-align: left
+	@extend $hrpg-label
+	hrpg-label-color-mixin(darken($good, 15%))
 	transition: opacity 0.2s ease-out
 
 // info revealed on hover/focus for party
@@ -53,7 +50,7 @@ future re: pets and whatnot, this is just temporary.
 .herobox.isUser:not(.hasMount):after
 	opacity: 1
 	// make it a bit special
-	background darken($color-herobox, 15%)
+	hrpg-label-color-mixin(darken($color-herobox, 15%))
 
 .character-sprites span
     position: absolute

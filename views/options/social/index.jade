@@ -58,7 +58,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.create.html')
   include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.html')
-  ul.nav.nav-tabs
+  ul.options-submenu
     li(ng-class="{ active: $state.includes('options.social.guilds.public') }")
       a(ui-sref='options.social.guilds.public')
         =env.t('publicGuilds')
@@ -74,11 +74,9 @@ script(type='text/ng-template', id='partials/options.social.guilds.html')
       div(ui-view)
 
 script(type='text/ng-template', id='partials/options.social.html')
-  ul.nav.nav-tabs
+  ul.options-menu
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
-        span.glyphicon.glyphicon-eye-close
-        | &nbsp;
         =env.t('tavern')
     li(ng-class="{ active: $state.includes('options.social.party') }")
       a(ui-sref='options.social.party')
@@ -88,13 +86,9 @@ script(type='text/ng-template', id='partials/options.social.html')
         =env.t('guilds')
     li(ng-class="{ active: $state.includes('options.social.challenges') }")
       a(ui-sref='options.social.challenges')
-        span.glyphicon.glyphicon-bullhorn
-        | &nbsp;
         =env.t('challenges')
     li(ng-class="{ active: $state.includes('options.social.hall') }")
       a(ui-sref='options.social.hall')
-        span.glyphicon.glyphicon-flag
-        | &nbsp;
         =env.t('hall')
 
   .tab-content
