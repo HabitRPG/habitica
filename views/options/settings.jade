@@ -20,68 +20,76 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
   .containter-fluid
     .row
       .personal-options.col-md-6
-        h2=env.t('settings')
-        h4=env.t('customDayStart')
-        .form-group
-          input.form-control(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
-          span.input-suffix= ':00 (' + env.t('24HrClock') + ')'
-        div
-          small
-            div=env.t('clockInfo')
-            .alert.alert-danger.alert-sm
-              =env.t('subWarning1')
-              |&nbsp;
-              a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
-              |&nbsp;
-              =env.t('subWarning3')
-        hr
-        h4=env.t('language')
-        select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
-        hr
-        h4=env.t('misc')
-        .checkbox
-          label
-            input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))=env.t('showHeader')
-        .checkbox
-          label
-            input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))=env.t('stickyHeader')
-        .checkbox
-          label
-            input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))=env.t('newTaskEdit')
-        .checkbox
-          label
-            input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))=env.t('startCollapsed')
-        .checkbox
-          label
-            input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))=env.t('startAdvCollapsed')
-        button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
-        button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
-        button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-        button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-        button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
+        .panel.panel-default
+          .panel-heading
+            =env.t('settings')
+          .panel-body
+
+            .form-horizontal
+              h5=env.t('language')
+              select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))=env.t('showHeader')
+            .checkbox
+              label
+                input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))=env.t('stickyHeader')
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))=env.t('newTaskEdit')
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))=env.t('startCollapsed')
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))=env.t('startAdvCollapsed')
+            button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
+            button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
+            button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
+            button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+            button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
+
+            div.alert.alert-warning(style='padding:2px;margin-top:7px')
+              h5.hint(popover=env.t('clockInfo'), popover-trigger='mouseenter')=env.t('customDayStart')
+              .form-group
+                .input-group
+                  input.form-control(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
+                  span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
+              small
+                  =env.t('subWarning1')
+                  |&nbsp;
+                  a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
+                  |&nbsp;
+                  =env.t('subWarning3')
 
         //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
         div(ng-if='user.auth.local.username')
-          hr
-          h4=env.t('changePass')
-          form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
-            .form-group
-              input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
-            .form-group
-              input.form-control(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
-            .form-group
-              input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
-            input.btn.btn-default(type='submit', value=env.t('submit'))
+          .panel.panel-default
+            .panel-heading
+              span=env.t('changePass')
+            .panel-body
+              form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
+                .form-group
+                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
+                .form-group
+                  input.form-control(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
+                .form-group
+                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
+                input.btn.btn-default(type='submit', value=env.t('submit'))
 
-        hr
-        h4=env.t('dangerZone')
-        a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
-        a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+
+        .panel.panel-default
+          .panel-heading
+            span=env.t('dangerZone')
+          .panel-body
+            a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
+            a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .containter-fluid
