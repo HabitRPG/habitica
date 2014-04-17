@@ -21,11 +21,11 @@ CouponSchema.statics.apply = function(user, code, next){
   var _coupon,_user;
   async.waterfall([
     function(cb) {
-      mongoose.model('Coupon').findById(code, cb);
+      mongoose.model('Coupon').findById(cc.validate(code), cb);
     },
     function(coupon, cb) {
       _coupon = coupon;
-      if (_.isEmpty(cc.validate(code)) || !coupon) return cb("Invalid coupon code");
+      if (!coupon) return cb("Invalid coupon code");
       if (coupon.user) return cb("Coupon already used");
       switch (coupon.event) {
         case 'wondercon':

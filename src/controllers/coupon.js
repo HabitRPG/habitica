@@ -15,21 +15,6 @@ api.generateCoupons = function(req,res,next) {
     if(err) return next(err);
     res.send(200);
   });
-
-//  var skip, count=req.params.count || 1;
-//  async.waterfall([
-//    function(cb) {
-//      Coupon.findOne({}, {}, {sort: '-seq'}, cb);
-//    },
-//    function(_lastCoupon,cb){
-//      skip = _lastCoupon ? _lastCoupon.seq : 0;
-//      Coupon.generate(req.params.event, count, cb);
-//    }
-//  ], function(err){
-//    if (err) return next(err);
-//    //res.redirect('/api/v2/coupons?skip='+skip+'&limit='+count);
-//    res.send(200);
-//  })
 }
 
 api.getCoupons = function(req,res,next) {
