@@ -88,5 +88,9 @@ angular.module('authCtrl', [])
             alert(data.err);
           });
       }
+
+      $scope.expandMenu = function(menu) {
+        $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
+      }
     }
 ]);
