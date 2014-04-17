@@ -47,15 +47,19 @@
       display:inline-block
       height:100%
 .toolbar-submenu
-  padding: 0em !important
   li
+    margin-right: 1em
     display:inline-block
-    width: 100%
-    margin-bottom: 0em !important
-    a
-      padding: 1em
-      display: block
+  @media screen and (min-width:768px)
+    padding: 0em !important
+    li
+      display:inline-block
       width: 100%
+      margin: 0em !important
+      a
+        padding: 1em
+        display: block
+        width: 100%
 // Information bar: Bailey – notifs – currency – subscribe button
 .toolbar-bailey, .toolbar-wallet, .toolbar-options, .toolbar-subscribe
   float:right
