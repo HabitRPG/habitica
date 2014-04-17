@@ -72,6 +72,9 @@ angular.module("notificationServices", [])
       crit: function(val) {
         notify(window.env.t('critBonus') + Math.round(val) + "%", 'crit', 'glyphicon glyphicon-certificate');
       },
+      streak: function(val) {
+        notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
+      },
       drop: function(val) {
         notify(val, 'drop', 'glyphicon glyphicon-gift');
       }

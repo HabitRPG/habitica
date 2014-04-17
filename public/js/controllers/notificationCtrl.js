@@ -67,7 +67,12 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after == before || after < before) return;
-      $rootScope.openModal('achievements/streak');
+      if (User.user.achievements.streak > 1) {
+        Notification.streak(User.user.achievements.streak);
+      }
+      else {
+        $rootScope.openModal('achievements/streak');
+      }
     });
 
     $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
@@ -76,10 +81,12 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.items.pets', function(after, before){
-      if(_.size(after) === _.size(before) || 
+      if(_.size(after) === _.size(before) ||
         Shared.countPets(null, after) < 90) return;
-      User.user.achievements.beastMaster = true;
-      $rootScope.openModal('achievements/beastMaster');
+      if (User.user.achievements.beastMaster == false) {
+        User.user.achievements.beastMaster = true;
+        $rootScope.openModal('achievements/beastMaster');
+      }
     }, true);
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
