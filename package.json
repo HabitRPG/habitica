@@ -6,7 +6,7 @@
   "dependencies": {
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#develop",
     "connect-mongo": "*",
-    "express": "3.5.0",
+    "express": "3.5.x",
     "gzippo": "*",
     "guid": "*",
     "moment": "~2.4.0",
