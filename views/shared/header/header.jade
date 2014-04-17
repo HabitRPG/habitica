@@ -19,7 +19,7 @@
         span.meter-text
           span.glyphicon.glyphicon-star
           | &nbsp;
-          | {{Math.floor(user.stats.exp)}} / {{Shared.tnl(user.stats.lvl) | number:0}}
+          | {{Math.floor(user.stats.exp) | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
             a(ng-click='toggleChart("exp")', tooltip=env.t('progress'))
