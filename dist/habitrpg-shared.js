@@ -11443,12 +11443,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         attribute: 'per'
       }, {
         type: 'daily',
-        text: 'Exercise',
+        text: 'Clean your apartment',
         notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
         value: 3,
         completed: false,
         repeat: repeat,
-        attribute: 'str'
+        attribute: 'con'
       }, {
         type: 'daily',
         text: '45m Reading',
@@ -11457,12 +11457,43 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         completed: false,
         repeat: repeat,
         attribute: 'int'
+      }, {
+        type: 'daily',
+        text: 'Exercise',
+        notes: 'You can add checklists to dailies and todos. As you progress through the checklist, you will get a proportionate reward.',
+        checklist: [
+          {
+            completed: true,
+            text: 'Stretching'
+          }, {
+            completed: false,
+            text: 'Sit-ups'
+          }, {
+            completed: false,
+            text: 'Push-ups'
+          }
+        ],
+        completed: false,
+        repeat: repeat,
+        attribute: 'str'
       }
     ],
     todos: [
       {
         type: 'todo',
-        text: 'Call Mom',
+        text: 'Use emojis :+1:',
+        notes: 'You can use emojis in all your habit, daily, and to-do titles.',
+        completed: false,
+        attribute: 'int'
+      }, {
+        type: 'todo',
+        text: '_Learn_ **Markdown** :book:',
+        notes: 'You can use Markdown for styling your task names.',
+        completed: false,
+        attribute: 'int'
+      }, {
+        type: 'todo',
+        text: 'Call Mom :telephone_receiver:',
         notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
         value: -3,
         completed: false,
