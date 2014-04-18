@@ -73,6 +73,7 @@ var TodoSchema = new Schema(
   _.defaults({
     type: {type:String, 'default': 'todo'},
     completed: {type: Boolean, 'default': false},
+    archived: {type: Boolean, 'default': false},
     dateCompleted: Date,
     date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
     collapseChecklist:collapseChecklist,
