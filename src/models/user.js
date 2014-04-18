@@ -298,21 +298,20 @@ var UserSchema = new Schema({
       con: {type: Number, 'default': 0}
     }
   },
-  tags: [
-    {
-      _id: false,
-      id: { type: String, 'default': shared.uuid },
-      name: String,
-      challenge: String
-    }
-  ],
+
+  tags: {type: [{
+    _id: false,
+    id: { type: String, 'default': shared.uuid },
+    name: String,
+    challenge: String
+  }], 'default': shared.content.userDefaults.tags},
 
   challenges: [{type: 'String', ref:'Challenge'}],
 
-  habits:   [TaskSchemas.HabitSchema],
-  dailys:   [TaskSchemas.DailySchema],
-  todos:    [TaskSchemas.TodoSchema],
-  rewards:  [TaskSchemas.RewardSchema],
+  habits:   {type:[TaskSchemas.HabitSchema], 'default': shared.content.userDefaults.habits},
+  dailys:   {type:[TaskSchemas.DailySchema], 'default': shared.content.userDefaults.dailys},
+  todos:    {type:[TaskSchemas.TodoSchema], 'default': shared.content.userDefaults.todos},
+  rewards:  {type:[TaskSchemas.RewardSchema], 'default': shared.content.userDefaults.rewards},
 
 }, {
   strict: true,
@@ -345,18 +344,6 @@ UserSchema.post('init', function(doc){
 })
 
 UserSchema.pre('save', function(next) {
-
-  // Populate new users with default content
-  if (this.isNew){
-    //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
-    this.habits = shared.content.userDefaults.habits;
-    this.dailys = shared.content.userDefaults.dailys;
-    this.todos = shared.content.userDefaults.todos;
-    this.rewards = shared.content.userDefaults.rewards;
-    this.tags = shared.content.userDefaults.tags;
-    // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-    _.each(this.tags, function(tag){tag.id = shared.uuid();})
-  }
 
   //this.markModified('tasks');
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
