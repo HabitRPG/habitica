@@ -1237,6 +1237,10 @@ api.wrap = (user, main=true) ->
           else
             task.value = task.value / 2
 
+      user.todos.forEach (task) -> # Archive todos
+        if !task.archived && task.completed && moment(now).subtract('days',3).isAfter(moment(task.dateCompleted))
+          task.archived = true
+
 
       # Finished tallying
       ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
