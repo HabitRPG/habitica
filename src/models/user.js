@@ -313,6 +313,8 @@ var UserSchema = new Schema({
   todos:    {type:[TaskSchemas.TodoSchema], 'default': shared.content.userDefaults.todos},
   rewards:  {type:[TaskSchemas.RewardSchema], 'default': shared.content.userDefaults.rewards},
 
+  extra: Schema.Types.Mixed
+
 }, {
   strict: true,
   minimize: false // So empty objects are returned
