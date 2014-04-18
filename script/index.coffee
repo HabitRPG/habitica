@@ -485,7 +485,9 @@ api.wrap = (user, main=true) ->
       # ------
 
       clearCompleted: (req, cb) ->
-        _.remove user.todos, (t)-> t.completed and !t.challenge?.id
+        user.todos = _.map user.todos, (t)->
+            t.archived = true if t.completed and !t.challenge?.id
+            t
         user.markModified? 'todos'
         cb? null, user.todos
 
