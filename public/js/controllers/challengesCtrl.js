@@ -1,18 +1,27 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$location',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $location) {
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
-    Challenges.Challenge.query(function(challenges){
-      $scope.challenges = challenges;
-      $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-      $scope.search = {
-        group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
-      };
-    });
-    // we should fix this, that's pretty brittle
+    var cid = $location.path().split("/").pop().match(/([a-f0-9\-])+$/);
+
+    if (! (cid === null || cid[0] === "" || cid[0] === "challenges")) {
+      cid = cid[0];
+      Challenges.Challenge.get({cid: cid}, function(challenge) {
+        $scope.cid = cid;
+        $scope.challenges = [challenge];
+      });
+    } else {
+      Challenges.Challenge.query(function(challenges) {
+        $scope.challenges = challenges;
+        $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
+        $scope.search = {
+          group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
+        };
+      });
+    }
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
     $scope.score = function(){}
