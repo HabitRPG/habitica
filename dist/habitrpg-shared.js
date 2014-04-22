@@ -9452,7 +9452,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           canOwn: (function(u) {
             var _ref;
 
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+            return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_2 != null);
           })
         },
         3: {

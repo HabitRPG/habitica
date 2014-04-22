@@ -69,7 +69,7 @@ gear =
     special:
       0: text: "Dark Souls Blade", notes:'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.', str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: "Crystal Blade", notes:'Its glittering facets tell the tale of a hero. Increases all attributes by 6.', str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: "Stephen Weber's Shaft of the Dragon", notes:'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.', str: 25, per: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: "Stephen Weber's Shaft of the Dragon", notes:'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.', str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
       3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.", str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       critical: text: "Critical Hammer of Bug-Crushing", notes:"This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.", str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
       # Winter event gear
