@@ -36,6 +36,7 @@ CouponSchema.statics.apply = function(user, code, next){
           user.items.gear.owned.body_special_wondercon_red     = true;
           user.items.gear.owned.body_special_wondercon_black   = true;
           user.items.gear.owned.body_special_wondercon_gold  = true;
+          user.extra = {signupEvent: 'wondercon'};
           user.save(cb);
           break;
       }
