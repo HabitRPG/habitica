@@ -1182,9 +1182,6 @@ api.wrap = (user, main=true) ->
       if user.items.lastDrop.count > 0
         user.items.lastDrop.count = 0
 
-      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
-      user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
-
       # "Perfect Day" achievement for perfect-days
       perfect = true
       clearBuffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
@@ -1257,6 +1254,11 @@ api.wrap = (user, main=true) ->
           lvlDiv2 = Math.ceil(user.stats.lvl/2)
           {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
         else clearBuffs
+
+      # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
+      
+      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
+      user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
