@@ -9,12 +9,13 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
     .col-md-4
       h3=env.t('bodyBody')
 
-      h5=env.t('bodySize')
-      .btn-group
-        button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})')=env.t('bodySlim')
-        button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})')=env.t('bodyBroad')
-
       menu(type='list')
+        li.customize-menu
+          menu(label=env.t('bodySize'))
+          .btn-group
+            button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})')=env.t('bodySlim')
+            button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})')=env.t('bodyBroad')
+
         li.customize-menu
           menu(label=env.t('shirts'))
             each shirt in ['black', 'blue', 'green', 'pink', 'white', 'yellow']
