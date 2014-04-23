@@ -58,7 +58,9 @@ angular.module("notificationServices", [])
         notify(sign(val) + " " + coins(val - bonus), 'gp');
       },
       text: function(val){
-        notify(val, 'info');
+        if (val) {
+          notify(val, 'info');
+        }
       },
       lvl: function(){
         notify(window.env.t('levelUp'), 'lvl', 'glyphicon glyphicon-chevron-up');
