@@ -57,5 +57,6 @@
     "error": "Error",
     "menu": "Menu",
     "notifications": "Notifications",
+    "noNotifications": "You have no new messages.",
     "clear": "Clear"
 }
