@@ -103,8 +103,7 @@ nav.toolbar(ng-controller='AuthCtrl')
         h4=env.t('notifications')
         div
           ul.toolbar-notifs-notifs
-            li.toolbar-notifs-no-messages(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0 && _.isEmpty(user.newMessages)')
-              | You have no new messages.
+            li.toolbar-notifs-no-messages(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0 && _.isEmpty(user.newMessages)')=env.t('noNotifications')
             li(ng-if='user.purchased.plan.mysteryItems.length')
               a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
                 span.glyphicon.glyphicon-gift
