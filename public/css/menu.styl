@@ -19,15 +19,6 @@
   @extend $hrpg-button
   @extend $hrpg-modal-dropdown-right
   hrpg-button-color-mixin($color-toolbar)
-  div.glyphicon
-    display:block
-    width: 2.618em
-    height: 1.618em
-    padding: 1.1em 1em 0em 1em
-    float:left
-  .toolbar-submenu
-    padding-left: 0.382em
-    display: block
 // Top level menu items: Tasks – User – Social – Inventory
 .toolbar-nav
   float:left;
@@ -46,20 +37,6 @@
     > a
       display:inline-block
       height:100%
-.toolbar-submenu
-  li
-    margin-right: 1em
-    display:inline-block
-  @media screen and (min-width:768px)
-    padding: 0em !important
-    li
-      display:inline-block
-      width: 100%
-      margin: 0em !important
-      a
-        padding: 1em
-        display: block
-        width: 100%
 // Information bar: Bailey – notifs – currency – subscribe button
 .toolbar-bailey, .toolbar-wallet, .toolbar-options, .toolbar-subscribe
   float:right
@@ -93,13 +70,9 @@
       padding-left:0em
       margin-left:0em
       margin-right: 0.618em
-  .toolbar-subscribe
-    padding-right: 0.618em
 .toolbar-sync, .toolbar-settings
   @extend $hrpg-button
   hrpg-button-color-mixin($color-toolbar)
-.toolbar-subscribe li
-  @extend $hrpg-button-call-to-action
 @media screen and (min-width:768px)
   .toolbar
     position:fixed
@@ -111,34 +84,43 @@
   > a span.inactive
     opacity: 0.236 !important
   div
-    width:300px
+    padding-bottom: 1em
+    width: 300px
     @media screen and (max-width:768px)
-      width:96%
+      width: 96%
     .toolbar-notifs-notifs
       padding-bottom:1em
-      max-height: 63%
       li
-        position: relative
         .glyphicon
           margin-right: 0.618em
           height: 100%
-      a
-        display:inline-block
       a:nth-of-type(1)
-        margin-right: 1.618em
+        width: 84%
       a:nth-of-type(2)
-        position:absolute
-        right:0px
+        width: 16%
+        text-align: center
         .glyphicon-remove-circle
-          margin-right: 0px
+          margin: 0px
+.toolbar-notifs-no-messages
+  padding: 0.382em 1em
 // Settings dropdown
 .toolbar-settings
   @extend $hrpg-modal-dropdown-left
 .toolbar-controls
   @extend $hrpg-modal-controls
-  li
+  .toolbar-controls-button
     @extend $hrpg-button
     hrpg-button-color-mixin(lighten($color-toolbar,32.8%))
-.toolbar-settings .toolbar-controls
-  @media screen and (min-width:768px)
+.toolbar-subscribe-button, .toolbar-controls .toolbar-subscribe-button
+  @extend $hrpg-button-call-to-action
+@media screen and (max-width:768px)
+  .toolbar-mobile, .toolbar-settings
+    .toolbar-submenu
+      padding-left: 1em
+      display: block
+      li
+        display:inline-block
+        a
+          padding-left: 0em
+  .toolbar-subscribe
     display:none

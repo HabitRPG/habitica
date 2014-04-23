@@ -5,42 +5,41 @@ nav.toolbar(ng-controller='AuthCtrl')
         span  &#9776;
       div(ng-if='_expandedMenu=="mobile"', ng-click='expandMenu(null)')
         h4=env.t('menu')
-        .glyphicon.glyphicon-check
-        ul.toolbar-submenu
-          li
-            a(ui-sref='tasks')=env.t('tasks')
-        .glyphicon.glyphicon-user
-        ul.toolbar-submenu
-          li
-            a(ui-sref='options.profile.avatar')=env.t('avatar')
-          li
-            a(ui-sref='options.profile.stats')=env.t('stats')
-          li
-            a(ui-sref='options.profile.profile')=env.t('profile')
-        .glyphicon.glyphicon-heart
-        ul.toolbar-submenu
-          li
-            a(ui-sref='options.social.tavern')=env.t('tavern')
-          li
-            a(ui-sref='options.social.party')=env.t('party')
-          li
-            a(ui-sref='options.social.guilds')=env.t('guilds')
-          li
-            a(ui-sref='options.social.challenges')=env.t('challenges')
-          li
-            a(ui-sref='options.social.hall')=env.t('hall')
-        .glyphicon.glyphicon-gift
-        ul.toolbar-submenu
-          li
-            a(ui-sref='options.inventory.drops')=env.t('market')
-          li
-            a(ui-sref='options.inventory.pets')=env.t('pets')
-          li
-            a(ui-sref='options.inventory.mounts')=env.t('mounts')
-          li
-            a(ui-sref='options.inventory.equipment')=env.t('equipment')
+        div
+          ul.toolbar-submenu
+            li
+              a(ui-sref='tasks')=env.t('tasks')
+          ul.toolbar-submenu
+            li
+              a(ui-sref='options.profile.avatar')=env.t('avatar')
+            li
+              a(ui-sref='options.profile.stats')=env.t('stats')
+            li
+              a(ui-sref='options.profile.profile')=env.t('profile')
+          ul.toolbar-submenu
+            li
+              a(ui-sref='options.social.tavern')=env.t('tavern')
+            li
+              a(ui-sref='options.social.party')=env.t('party')
+            li
+              a(ui-sref='options.social.guilds')=env.t('guilds')
+            li
+              a(ui-sref='options.social.challenges')=env.t('challenges')
+            li
+              a(ui-sref='options.social.hall')=env.t('hall')
+          ul.toolbar-submenu
+            li
+              a(ui-sref='options.inventory.drops')=env.t('market')
+            li
+              a(ui-sref='options.inventory.pets')=env.t('pets')
+            li
+              a(ui-sref='options.inventory.mounts')=env.t('mounts')
+            li
+              a(ui-sref='options.inventory.equipment')=env.t('equipment')
         ul.toolbar-controls
-          li
+          li.toolbar-subscribe-button
+            button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
+          li.toolbar-controls-button
             a(ng-click='expandMenu(null)')=env.t('close')
   ul.toolbar-nav
     li.toolbar-button
@@ -92,7 +91,7 @@ nav.toolbar(ng-controller='AuthCtrl')
           li
             a(ui-sref='options.inventory.equipment')=env.t('equipment')
   ul.toolbar-subscribe  
-    li
+    li.toolbar-subscribe-button
       button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
   ul.toolbar-options  
     li.toolbar-notifs
@@ -102,31 +101,32 @@ nav.toolbar(ng-controller='AuthCtrl')
         span.glyphicon.glyphicon-gift(ng-if='user.purchased.plan.mysteryItems.length')
       div(ng-if='_expandedMenu=="notifs"')
         h4=env.t('notifications')
-        ul.toolbar-notifs-notifs
-          li(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0 && _.isEmpty(user.newMessages)')
-            | You have no new messages.
-          li(ng-if='user.purchased.plan.mysteryItems.length')
-            a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
-              span.glyphicon.glyphicon-gift
-              span=env.t('newSubscriberItem')
-          li(ng-if='user.invitations.party.id')
-            a(ui-sref='options.social.party', ng-click='expandMenu(null)')
-              span.glyphicon.glyphicon-user
-              span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
-          li(ng-repeat='guild in user.invitations.guilds')
-            a(ui-sref='options.social.guilds', ng-click='expandMenu(null)')
-              span.glyphicon.glyphicon-user
-              span=env.t('invitedTo', {name: '{{guild.name}}'})
-          li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-            a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
-              span.glyphicon.glyphicon-comment
-              span {{v.name}}
-            a(ng-click='Groups.seenMessage(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
-              span.glyphicon.glyphicon-remove-circle
+        div
+          ul.toolbar-notifs-notifs
+            li.toolbar-notifs-no-messages(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0 && _.isEmpty(user.newMessages)')
+              | You have no new messages.
+            li(ng-if='user.purchased.plan.mysteryItems.length')
+              a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
+                span.glyphicon.glyphicon-gift
+                span=env.t('newSubscriberItem')
+            li(ng-if='user.invitations.party.id')
+              a(ui-sref='options.social.party', ng-click='expandMenu(null)')
+                span.glyphicon.glyphicon-user
+                span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+            li(ng-repeat='guild in user.invitations.guilds')
+              a(ui-sref='options.social.guilds', ng-click='expandMenu(null)')
+                span.glyphicon.glyphicon-user
+                span=env.t('invitedTo', {name: '{{guild.name}}'})
+            li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
+              a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
+                span.glyphicon.glyphicon-comment
+                span {{v.name}}
+              a(ng-click='Groups.seenMessage(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
+                span.glyphicon.glyphicon-remove-circle
         ul.toolbar-controls
           //-li
             //-a(ng-click='') Clear all
-          li
+          li.toolbar-controls-button
             a(ng-click='expandMenu(null)')=env.t('close')
     li.toolbar-sync
       a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
@@ -136,25 +136,28 @@ nav.toolbar(ng-controller='AuthCtrl')
         span.glyphicon.glyphicon-cog
       div(ng-if='_expandedMenu=="settings"')
         h4=env.t('settings')
-        ul(ng-click='expandMenu(null)')
-          li
-            a(ng-click='logout()')=env.t('logout')
-          li
-            a(ui-sref='options.settings.settings')=env.t('site')
-          li
-            a(ui-sref='options.settings.api')=env.t('API')
-          li
-            a(ui-sref='options.settings.export')=env.t('export')
-          li
-            a(ui-sref='options.settings.coupon') Coupon
-          li
-            a(ui-sref='options.settings.subscription')=env.t('subscription')
-          li
-            a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')=env.t('FAQ')
-          li
-            a(href="https://vimeo.com/57654086", target='_blank')=env.t('tutorials')
+        div
+          ul.toolbar-submenu(ng-click='expandMenu(null)')
+            li
+              a(ng-click='logout()')=env.t('logout')
+          ul.toolbar-submenu(ng-click='expandMenu(null)')
+            li
+              a(ui-sref='options.settings.settings')=env.t('site')
+            li
+              a(ui-sref='options.settings.api')=env.t('API')
+            li
+              a(ui-sref='options.settings.export')=env.t('export')
+            li
+              a(ui-sref='options.settings.coupon') Coupon
+            li
+              a(ui-sref='options.settings.subscription')=env.t('subscription')
+          ul.toolbar-submenu(ng-click='expandMenu(null)')
+            li
+              a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')=env.t('FAQ')
+            li
+              a(href="https://vimeo.com/57654086", target='_blank')=env.t('tutorials')
         ul.toolbar-controls
-          li
+          li.toolbar-controls-button
             a(ng-click='expandMenu(null)')=env.t('close')
   ul.toolbar-wallet
     li.toolbar-gems

@@ -13,17 +13,20 @@ hrpg-button-color-mixin($hrpg-button-color)
   > a:nth-of-type(2)
       border-left: 1px solid darken($hrpg-button-color, 3.82%) !important
   > div
-    border:1px solid darken($hrpg-button-color, 16.18%)
+    @media screen and (min-width:768px)
+      border:1px solid darken($hrpg-button-color, 16.18%)
     h4
       color: darken($hrpg-button-color, 61.8%) 
       background-color: $hrpg-button-color
       border-color: darken($hrpg-button-color, 16.18%)
-    > ul:first-child:after
+    > ul:first-child:after, > div:first-child:after
       background-color: #fff
       border-color: darken($hrpg-button-color, 16.18%)
     h4:after
       background-color: $hrpg-button-color
       border-color: darken($hrpg-button-color, 16.18%)
+    ul
+      border-color: $hrpg-button-color
     a, a:link, a:visited
       color: darken($hrpg-button-color, 70%) !important
   .glyphicon
@@ -86,20 +89,23 @@ $hrpg-modal-dropdown
     position: absolute
     top: 3em
     min-width:110px
-    min-height: 68px
     border-radius:4px
     background-color:#fff
     @media screen and (max-width:768px)
       position:fixed
-      overflow: auto
       z-index: 1000
       top: 2%
       left: 2%
       width: 96%
       height: 96%
       box-shadow: 0 0 0 30px rgba(0,0,0,0.63)
-      &:after
+      h4:after
         display: none
+      > div
+        height: 80%
+        overflow: auto
+        ul:last-child
+          padding-bottom: 2.618em
     h4
       font-size: 1.2em
       margin:0px
@@ -108,15 +114,26 @@ $hrpg-modal-dropdown
       border-radius:0.2em 0.2em 0em 0em
       padding: 0.618em 0.8333em
     ul
-      padding: 1em 1em 0em 1em
-    ul:last-child
-      padding-bottom:0px
-    ul
+      padding: 0.382em 0em
       list-style: none
       overflow: auto
+      border-top-width: 1px
+      border-top-style: solid
+      @media screen and (min-width:768px)
+        max-height: 320px
+        max-height: 62.8vh
       li
-        margin-bottom: 1em
-    > ul:first-child:after, h4:after
+        width: 100%
+        @media screen and (max-width:768px)
+          width: auto
+      a
+        display: inline-block
+        width: 100%
+        height: 100%
+        padding: 0.618em 1em
+    ul:first-of-type
+      border: none
+    > ul:first-child:after, > div:first-child:after, h4:after
       content:''
       position:absolute
       top:-9px
@@ -128,31 +145,30 @@ $hrpg-modal-dropdown
       border-left-width: 1px 
       border-left-style: solid
       transform: rotate(45deg)
-   h4:after
-     font-size: 0.8333em
-     z-index:3
 $hrpg-modal-dropdown-left
   @extend $hrpg-modal-dropdown
   @media screen and (min-width:768px)
     div
       right: 0px
-      > ul:first-child:after, h4:after
+      > ul:first-child:after, > div:first-child:after, h4:after
         right: 1em
 $hrpg-modal-dropdown-right
   @extend $hrpg-modal-dropdown
   @media screen and (min-width:768px)
     div
       left: 0px
-      > ul:first-child:after, h4:after
+      > ul:first-child:after, > div:first-child:after, h4:after
         left: 1em
 $hrpg-modal-controls
   text-align: right 
   border-radius:0px 0px 0.382em 0.382em
+  background-color: #fff
   li
-    margin-left: 0.618em
+    margin-right: 0.618em
+    margin-bottom: 0.382em
     display: inline-block
-    background-color: #fff
   @media screen and (max-width:768px)
+    width: 96%
     position: fixed
     bottom:2%
     right: 2%
