@@ -20,6 +20,7 @@ events =
 mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}
   201403: {start:'2014-03-24',end:'2014-04-01'}
+  201404: {start:'2014-04-24',end:'2014-05-01'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 
 gear =
@@ -227,6 +228,7 @@ gear =
       0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
     mystery:
       201402: text: 'Golden Wings', notes: "These shining wings have feathers that glitter in the sun!", mystery:mystery['201402'], value: 10
+      201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10
     special:
       wondercon_red: text: 'Mighty Cape', notes: 'Swishes with strength and beauty. Special edition convention armor.', value: 0, mystery:mystery.wondercon
       wondercon_black: text: 'Sneaky Cape', notes: 'Spun of shadows and whispers. Special edition convention armor.', value: 0,   mystery:mystery.wondercon
@@ -250,9 +252,9 @@ gear =
       springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
       wondercon_red: text: 'Mighty Mask', notes: 'What a powerful face accessory! Special edition convention armor.', value: 0,           mystery:mystery.wondercon
       wondercon_black: text: 'Sneaky Mask', notes: 'Your motives are definitely legitimate. Special edition convention armor.', value: 0, mystery:mystery.wondercon
-        
     mystery:
       201403: text: 'Forest Walker Antlers', notes: "These antlers shimmer with moss and lichen.", mystery:mystery['201403'], value: 10
+      201404: text: 'Twilight Butterfly Antennae', notes: "These antennae help the wearer sense dangerous distractions!", mystery:mystery['201404'], value: 10
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

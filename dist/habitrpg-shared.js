@@ -9212,6 +9212,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       start: '2014-03-24',
       end: '2014-04-01'
     },
+    201404: {
+      start: '2014-04-24',
+      end: '2014-05-01'
+    },
     wondercon: {
       start: '2014-03-24',
       end: '2014-04-01'
@@ -10282,6 +10286,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: "These shining wings have feathers that glitter in the sun!",
           mystery: mystery['201402'],
           value: 10
+        },
+        201404: {
+          text: 'Twilight Butterfly Wings',
+          notes: "Be a butterfly and flutter by!",
+          mystery: mystery['201404'],
+          value: 10
         }
       },
       special: {
@@ -10384,6 +10394,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           text: 'Forest Walker Antlers',
           notes: "These antlers shimmer with moss and lichen.",
           mystery: mystery['201403'],
+          value: 10
+        },
+        201404: {
+          text: 'Twilight Butterfly Antennae',
+          notes: "These antennae help the wearer sense dangerous distractions!",
+          mystery: mystery['201404'],
           value: 10
         }
       }
@@ -13278,10 +13294,6 @@ var process=require("__browserify_process");(function() {
         if (user.items.lastDrop.count > 0) {
           user.items.lastDrop.count = 0;
         }
-        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
-        if (user.stats.mp > user._statsComputed.maxMP) {
-          user.stats.mp = user._statsComputed.maxMP;
-        }
         perfect = true;
         clearBuffs = {
           str: 0,
@@ -13395,6 +13407,10 @@ var process=require("__browserify_process");(function() {
           stealth: 0,
           streaks: false
         }) : clearBuffs;
+        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
+        if (user.stats.mp > user._statsComputed.maxMP) {
+          user.stats.mp = user._statsComputed.maxMP;
+        }
         progress = user.party.quest.progress;
         _progress = _.cloneDeep(progress);
         _.merge(progress, {
