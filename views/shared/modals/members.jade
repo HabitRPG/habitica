@@ -25,7 +25,7 @@ script(type='text/ng-template', id='modals/member.html')
           .label.label-info {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
-          include ../header/avatar
+          +herobox()
           h3 Achievements
           include ../profiles/achievements
   .modal-footer
