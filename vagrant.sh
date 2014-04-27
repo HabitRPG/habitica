@@ -27,6 +27,7 @@ function autostart_habitrpg {
 echo Setting up HabitRPG...
 echo cd /vagrant >> /home/vagrant/.bashrc
 
+echo Updating repositories...
 apt-get update -qq
 
 echo Installing Mongodb...
@@ -37,8 +38,11 @@ apt-get install -qq git
 
 echo Installing npm...
 apt-get install -qq python-software-properties
+echo Adding repository node.js...
 apt-add-repository -y ppa:chris-lea/node.js
+echo Updating repositories...
 apt-get update -qq
+echo Installing node.js
 apt-get install -qq nodejs
 
 cd /vagrant
@@ -52,6 +56,7 @@ npm install
 echo Seeding Mongodb...
 node ./src/seed.js
 
-# Uncomment this line to autostart the habitrpg server when provisioning
+# Uncomment both lines to autostart the habitrpg server when provisioning
+# echo Starting HabitRPG server...
 # autostart_habitrpg
 
