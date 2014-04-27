@@ -234,18 +234,18 @@ gear =
       0: text: t('backBase0Text'), notes: t('backBase0Notes'), value:0
     mystery:
       201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 10
-      201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10
+      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 10
     special:
-      wondercon_red: text: 'Mighty Cape', notes: 'Swishes with strength and beauty. Special edition convention armor.', value: 0, mystery:mystery.wondercon
-      wondercon_black: text: 'Sneaky Cape', notes: 'Spun of shadows and whispers. Special edition convention armor.', value: 0,   mystery:mystery.wondercon
+      wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
+      wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0,   mystery:mystery.wondercon
 
   body:
     base:
-      0: text: "No Body Accessory", notes:'No Body Accessory.', value:0
+      0: text: t('bodyBase0Text'), notes:t('bodyBase0Notes'), value:0
     special:
-      wondercon_red: text: 'Ruby Collar', notes: 'An attractive ruby collar! Special edition convention armor.', value: 0,      mystery:mystery.wondercon
-      wondercon_gold: text: 'Golden Collar', notes: 'An attractive gold collar! Special edition convention armor.', value: 0,   mystery:mystery.wondercon
-      wondercon_black: text: 'Ebony Collar', notes: 'An attractive ebony collar! Special edition convention armor.', value: 0,  mystery:mystery.wondercon
+      wondercon_red: text: t('bodySpecialWonderconRedText'), notes: t('bodySpecialWonderconRedNotes'), value: 0,      mystery:mystery.wondercon
+      wondercon_gold: text: t('bodySpecialWonderconGoldText'), notes: t('bodySpecialWonderconGoldNotes'), value: 0,   mystery:mystery.wondercon
+      wondercon_black: text: t('bodySpecialWonderconBlackText'), notes: t('bodySpecialWonderconBlackNotes'), value: 0,  mystery:mystery.wondercon
 
   headAccessory:
     base:
@@ -256,11 +256,11 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
-      wondercon_red: text: 'Mighty Mask', notes: 'What a powerful face accessory! Special edition convention armor.', value: 0,           mystery:mystery.wondercon
-      wondercon_black: text: 'Sneaky Mask', notes: 'Your motives are definitely legitimate. Special edition convention armor.', value: 0, mystery:mystery.wondercon
+      wondercon_red: text: t('headAccessorySpecialWonderconRedText'), notes: t('headAccessorySpecialWonderconRedNotes'), value: 0,           mystery:mystery.wondercon
+      wondercon_black: text: t('headAccessorySpecialWonderconBlackText'), notes: t('headAccessorySpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
     mystery:
       201403: text: t('headAccessoryMistery201403Text'), notes: t('headAccessoryMistery201403Notes'), mystery:mystery['201403'], value: 10
-      201404: text: 'Twilight Butterfly Antennae', notes: "These antennae help the wearer sense dangerous distractions!", mystery:mystery['201404'], value: 10
+      201404: text: t('headAccessoryMistery201404Text'), notes: t('headAccessoryMistery201404Notes'), mystery:mystery['201404'], value: 10
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
@@ -843,12 +843,15 @@ api.userDefaults =
 
   dailys: [
     {type: 'daily', text: t('defaultDaily1Text'), notes: t('defaultDaily1Notes'), value: 0, completed: false, repeat: repeat, attribute: 'per' }
-    {type: 'daily', text: t('defaultDaily2Text'), notes: t('defaultDaily2Notes'), value: 3, completed: false, repeat: repeat, attribute: 'str' }
+    {type: 'daily', text: t('defaultDaily2Text'), notes: t('defaultDaily2Notes'), value: 3, completed: false, repeat: repeat, attribute: 'con' }
     {type: 'daily', text: t('defaultDaily3Text'), notes: t('defaultDaily3Notes'), value: -10, completed: false, repeat: repeat, attribute: 'int' }
+    {type: 'daily', text: t('defaultDaily4Text'), notes: t('defaultDaily4Notes'), checklist: [{completed: true, text: t('defaultDaily4Checklist1') }, {completed: false, text: t('defaultDaily4Checklist2')}, {completed: false, text: t('defaultDaily4Checklist3')}], completed: false, repeat: repeat, attribute: 'str' }
   ]
 
   todos: [
-    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodo1Notes'), value: -3, completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodo1Notes'), completed: false, attribute: 'int' }
+    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodo2Notes'), completed: false, attribute: 'int' }
+    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodo3Notes'), value: -3, completed: false, attribute: 'per' }
   ]
 
   rewards: [

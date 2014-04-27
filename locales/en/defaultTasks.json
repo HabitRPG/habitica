@@ -11,14 +11,26 @@
   "defaultDaily1Text": "1h Personal Project",
   "defaultDaily1Notes": "All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.",
   
-  "defaultDaily2Text": "Exercise",
+  "defaultDaily2Text": "Clean your apartment",
   "defaultDaily2Notes": "Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.",
   
   "defaultDaily3Text": "45m Reading",  
   "defaultDaily3Notes": "If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.",
 
-  "defaultTodo1Text": "Call Mom",
-  "defaultTodo1Notes": "While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.",
+  "defaultDaily4Text": "Exercise",  
+  "defaultDaily4Notes": "You can add checklists to dailies and todos. As you progress through the checklist, you will get a proportionate reward.",
+  "defaultDaily4Checklist1": "Stretching",  
+  "defaultDaily4Checklist2": "Sit-ups",  
+  "defaultDaily4Checklist3": "Push-ups",  
+
+  "defaultTodo1Text": "Use emojis :+1:",
+  "defaultTodo1Notes": "You can use emojis in all your habit, daily, and to-do titles.",
+
+  "defaultTodo2Text": "_Learn_ **Markdown** :book:",
+  "defaultTodo2Notes": "You can use Markdown for styling your task names.",
+
+  "defaultTodo3Text": "Call Mom :telephone_receiver:",
+  "defaultTodo3Notes": "While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.",
 
   "defaultReward1Text": "1 Episode of Game of Thrones",
   "defaultReward1Notes": "Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.",

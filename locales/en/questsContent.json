@@ -12,20 +12,20 @@
   "questEvilSanta2CollectBranches": "Broken Twigs",
   "questEvilSanta2DropBearCubPolarPet": "Polar Bear (Pet)",
 
-  "questGryphonText": "The Fiery Gryphon",
-  "questGryphonNotes": "The grand beastmaster, @baconsaur, has come to your party seeking help. \"Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!\"",
-  "questGryphonCompletion": "Defeated, the mighty beast ashamedly slinks back to its master.\"My word! Well done, adventurers!\" @baconsaur exclaims, \"Please, have some of the gryphon's eggs. I am sure you will raise these young ones well!\"",
+  "questGryphonText": "The Fiery Gryphon",\
+  "questGryphonNotes": "The grand beastmaster, <strong>baconsaur</strong>, has come to your party seeking help. \"Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!\"",
+  "questGryphonCompletion": "Defeated, the mighty beast ashamedly slinks back to its master.\"My word! Well done, adventurers!\" <strong>baconsaur</strong> exclaims, \"Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!",
   "questGryphonBoss": "Fiery Gryphon",
   "questGryphonDropGryphonEgg": "Gryphon (Egg)",
 
   "questHedgehogText": "The Hedgebeast",
-  "questHedgehogNotes": "Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.",
+  "questHedgehogNotes": "Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>Inventrix</strong> did just that. Oops.",
   "questHedgehogCompletion": "Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!",
   "questHedgehogBoss": "Hedgebeast",
   "questHedgehogDropHedgehogEgg": "Hedgehog (Egg)",
 
   "questGhostStagText": "The Spirit of Spring",
-  "questGhostStagNotes": "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" @Inventrix says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
+  "questGhostStagNotes": "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>Inventrix</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
   "questGhostStagCompletion": "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake.",
   "questGhostStagBoss": "Ghost Stag",
   "questGhostStagDropDeerEgg": "Deer (Egg)",
@@ -49,8 +49,8 @@
   "questVice3DropShadeHatchingPotion": "Shade Hatching Potion",
 
   "questEggHuntText": "Egg Hunt",
-  "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says @Megan, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
-  "questEggHuntCompletion": "You did it! In gratitude, @Megan gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
+  "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
+  "questEggHuntCompletion": "You did it! In gratitude, <strong>Megan</strong> gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
   "questEggHuntCollectPlainEgg": "Plain Egg",
   "questEggHuntDropPlainEgg": "Plain Egg"
 }

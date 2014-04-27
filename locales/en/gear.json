@@ -295,6 +295,23 @@
 
   "backMystery201402Text": "Golden Wings",
   "backMystery201402Notes": "These shining wings have feathers that glitter in the sun!",
+  "backMystery201404Text": "Twilight Butterfly Wings",
+  "backMystery201404Notes": "Be a butterfly and flutter by!",
+
+  "backSpecialWonderconRedText": "Mighty Cape",
+  "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Special edition convention armor.",
+  "backSpecialWonderconBlackText": "Sneaky Cape",
+  "backSpecialWonderconBlackNotes": "Spun of shadows and whispers. Special edition convention armor.",
+
+  "bodyBase0Text": "No Body Accessory",
+  "bodyBase0Notes": "No Body Accessory.",
+
+  "bodySpecialWonderconRedText": "Ruby Collar",
+  "bodySpecialWonderconRedNotes": "An attractive ruby collar! Special edition convention armor.",
+  "bodySpecialWonderconGoldText": "Golden Collar",
+  "bodySpecialWonderconGoldNotes": "An attractive gold collar! Special edition convention armor.",
+  "bodySpecialWonderconBlackText": "Ebony Collar",
+  "bodySpecialWonderconBlackNotes": "An attractive ebony collar! Special edition convention armor.",
 
   "headAccessoryBase0Text": "No Head Accessory",
   "headAccessoryBase0Notes": "No Head Accessory.",
@@ -302,13 +319,19 @@
   "headAccessorySpecialSpringRogueText": "Purple Cat Ears",
   "headAccessorySpecialSpringRogueNotes": "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
   "headAccessorySpecialSpringWarriorText": "Green Bunny Ears",
-  "headAccessorySpecialSpringWarriorNotes": "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.",
+  "headAccessorySpecialSpringWarriorNotes": "Bunny ears that keenly detect every crunch of a carrot. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
   "headAccessorySpecialSpringMageText": "Blue Mouse Ears",
   "headAccessorySpecialSpringMageNotes": "These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
   "headAccessorySpecialSpringHealerText": "Yellow Dog Ears",
   "headAccessorySpecialSpringHealerNotes": "Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.",
+  
+  "headAccessorySpecialWonderconRedText": "Mighty Mask",
+  "headAccessorySpecialWonderconRedNotes": "What a powerful face accessory! Special edition convention armor.",
+  "headAccessorySpecialWonderconBlackText": "Sneaky Mask",
+  "headAccessorySpecialWonderconBlackNotes": "Your motives are definitely legitimate. Special edition convention armor.",
 
   "headAccessoryMystery201403Text": "Forest Walker Antlers",
-  "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen."
-
+  "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen.",
+  "headAccessoryMystery201404Text": "Twilight Butterfly Antennae",
+  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!"
 }
