@@ -20,7 +20,7 @@ script(id='partials/options.settings.html', type="text/ng-template")
       div(ui-view)
 
 script(type='text/ng-template', id='partials/options.settings.settings.html')
-  .containter-fluid
+  .container-fluid
     .row
       .personal-options.col-md-6
         .panel.panel-default
@@ -103,7 +103,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.coupon.html')
-  .containter-fluid
+  .container-fluid
     .row
       .col-md-6
         h2 Coupon
@@ -127,7 +127,7 @@ script(type='text/ng-template', id='partials/options.settings.coupon.html')
 
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
-  .containter-fluid
+  .container-fluid
     .row
       .col-md-6
         h2=env.t('API')
@@ -140,7 +140,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
-  .containter-fluid
+  .container-fluid
     .row
       .col-md-6
         h2=env.t('dataExport')
@@ -183,26 +183,26 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
     label
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
-
-  .well
-    h2=env.t('individualSub')
-    div(ng-if='!user.purchased.plan.customerId')
-      div(ng-include="'partials/options.settings.subscription.perks.html'")
-      p
-        small.muted Payment Methods:
-      .btn.btn-primary(ng-click='showStripe(true)') Card
-      //-small.muted PayPal coming soon.
-      //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
-      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
-
-    div(ng-if='user.purchased.plan.customerId')
-      .well
-        p.lead
-          =env.t('subscribed')
-          | &nbsp;
-          span.glyphicon.glyphicon-ok
-        div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-sm.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')
-      p
-        small.muted Unsubscribing removes subscriber perks (<a href='https://github.com/HabitRPG/habitrpg/issues/3180' target='_blank'>read more here</a>). We're working on persisting subscriber perks through a canceled plan's billing cycle, but for now be sure to open your mystery box before unsubscribing!
-
+  .container-fluid
+    .row
+      .col-md-6
+        .well
+          h2=env.t('individualSub')
+          div(ng-if='!user.purchased.plan.customerId')
+            div(ng-include="'partials/options.settings.subscription.perks.html'")
+            p
+              small.muted Payment Methods:
+              .btn.btn-primary(ng-click='showStripe(true)') Card
+                //-small.muted PayPal coming soon.
+                //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
+              a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+            div(ng-if='user.purchased.plan.customerId')
+              .well
+                p.lead
+                  =env.t('subscribed')
+                  | &nbsp;
+                  span.glyphicon.glyphicon-ok
+                div(ng-include="'partials/options.settings.subscription.perks.html'")
+              .btn.btn-sm.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')
+              p
+                small.muted Unsubscribing removes subscriber perks (<a href='https://github.com/HabitRPG/habitrpg/issues/3180' target='_blank'>read more here</a>). We're working on persisting subscriber perks through a canceled plan's billing cycle, but for now be sure to open your mystery box before unsubscribing!
