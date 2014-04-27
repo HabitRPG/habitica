@@ -58,6 +58,7 @@
     "error": "Erreur",
     "menu": "Menu",
     "notifications": "Notifications",
-    "clear": "Clear",
+    "noNotifications": "You have no new messages.",
+    "clear": "Supprimer",
     "endTour": "Terminer la visite"
 }

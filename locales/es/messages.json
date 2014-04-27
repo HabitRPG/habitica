@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "Your <%= itemText %> broke.",
+    "messageLostItem": "Tu <%= itemText %> se rompió.",
     "messageTaskNotFound": "Tarea no encontrada.",
     "messageTagNotFound": "Etiqueta no encontrada.",
     "messagePetNotFound": ":pet no encontrada en user.items.pets",
@@ -7,8 +7,8 @@
     "messageCannotFeedPet": "No se puede alimentar a esta mascota.",
     "messageAlreadyMount": "Ya tienes esa montura. Intenta alimentar a otra mascota.",
     "messageEvolve": "Has dominado a <%= egg %>, ¡vamos a dar una vuelta!",
-    "messageLikesFood": "<%= egg %> really likes the <%= foodText %>!",
-    "messageDontEnjoyFood": "<%= egg %> eats the <%= foodText %> but doesn't seem to enjoy it.",
+    "messageLikesFood": "¡A <%= egg %> le encanta <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> come <%= foodText %> pero no parece disfrutarlo.",
     "messageBought": "Bought <%= itemText %>",
     "messageUnEquipped": "<%= itemText %> un-equipped.",
     "messageMissingEggPotion": "You're missing either that egg or that potion",

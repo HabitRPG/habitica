@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "Your <%= itemText %> broke.",
+    "messageLostItem": "Il tuo oggetto <%= itemText %> si è rotto.",
     "messageTaskNotFound": "Attività non trovata.",
     "messageTagNotFound": "Etichetta non trovata.",
     "messagePetNotFound": ":animale non trovato in user.items.pets",
@@ -7,17 +7,17 @@
     "messageCannotFeedPet": "Non puoi nutrire questo animale.",
     "messageAlreadyMount": "Possiedi già quella cavalcatura. Prova a dare da mangiare ad un altro animale.",
     "messageEvolve": "Hai appena addomesticato <%= egg %>, andiamo a farci un giro!",
-    "messageLikesFood": "<%= egg %> really likes the <%= foodText %>!",
-    "messageDontEnjoyFood": "<%= egg %> eats the <%= foodText %> but doesn't seem to enjoy it.",
-    "messageBought": "Bought <%= itemText %>",
-    "messageUnEquipped": "<%= itemText %> un-equipped.",
+    "messageLikesFood": "<%= egg %> apprezza <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> mangia <%= foodText %>, ma non sembra piacergli molto.",
+    "messageBought": "Hai comprato <%= itemText %>",
+    "messageUnEquipped": "<%= itemText %> non è più equipaggiato.",
     "messageMissingEggPotion": "Ti manca un uovo o una pozione.",
     "messageAlreadyPet": "Possiedi già quell'animale. Prova un'altra combinazione!",
     "messageHatched": "Il tuo uovo si è schiuso! Vai alla Scuderia per equipaggiarlo.",
     "messageNotEnoughGold": "Non hai abbastanza Oro",
-    "messageTwoHandled": "<%= gearText %> is two-handled",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
-    "messageDropEgg": "You've found a <%= dropText %> Egg! <%= dropNotes %>",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion! <%= dropNotes %>",
-    "messageFoundQuest": "You've found the quest \"<%= questText %>\"!"
+    "messageTwoHandled": "<%= gearText %> è un'arma a due mani.",
+    "messageDropFood": "Hai trovato <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropEgg": "Hai trovato un Uovo <%= dropText %>! <%= dropNotes %>",
+    "messageDropPotion": "Hai trovato una Pozione di Schiusura <%= dropText %>! <%= dropNotes %>",
+    "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!"
 }

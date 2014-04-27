@@ -8,6 +8,7 @@
     "addChecklist": "Dodaj Listę",
     "checklist": "Lista",
     "checklistText": "Dla Codziennych, częściowo ukończone zadania z list obniżają otrzymywane obrażenia. Na przykład: lista z 3 ukończonymi zadaniami na 4 obniża obrażenia za to nieukończone Codzienne do 25%. Ukończone zadania z listy w Do-Zrobienia dają bonus: 3 ukończone to +3 razy więcej (w całości 4 razy) Doświadczenia, Złota i Many.",
+    "expandCollapse": "Expand/Collapse",
     "text": "Treść",
     "extraNotes": "Dodatkowe Notatki",
     "direction/Actions": "Kierunek/Akcje",

@@ -8,6 +8,7 @@
     "addChecklist": "Lägg till Checklista",
     "checklist": "Checklista",
     "checklistText": "För Dagliga Uppgifter så kommer delvis färdiga checklistor minska skada. Till exempel, en lista med 3 av 4 avbockade uppgifter reducerar skadan för den ofullbordade Dagliga Uppgiften till 25%. Fullbordade uppgifter på en Att-Göra-lista ger en multiplikator: 3 avbockade uppgifter betyder +3x (totalt 4x) Erfarenhet, Guld och Mana.",
+    "expandCollapse": "Expand/Collapse",
     "text": "Text",
     "extraNotes": "Extra Anteckningar",
     "direction/Actions": "Riktning/Handling",

@@ -57,7 +57,8 @@
     "seeConsole": "(guarda la console di Chrome per ulteriori dettagli).",
     "error": "Errore",
     "menu": "Menu",
-    "notifications": "Notifications",
-    "clear": "Clear",
+    "notifications": "Notifiche",
+    "noNotifications": "You have no new messages.",
+    "clear": "Pulisci",
     "endTour": "Fine tour"
 }

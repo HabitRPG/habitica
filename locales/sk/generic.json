@@ -11,7 +11,7 @@
     "special": "Špeciálne",
     "site": "Stránka",
     "help": "Pomoc",
-    "user": "Pužívateľ",
+    "user": "Používateľ",
     "market": "Trh",
     "subscriberItem": "Záhadný predmet",
     "newSubscriberItem": "Nový tajomný predmet",
@@ -57,7 +57,8 @@
     "seeConsole": "(Pre viac podrobností sa pozri do Chrome konzoly).",
     "error": "Chyba",
     "menu": "Menu",
-    "notifications": "Notifications",
-    "clear": "Clear",
+    "notifications": "Notifikácie",
+    "noNotifications": "You have no new messages.",
+    "clear": "Čisté",
     "endTour": "Ukončiť prehliadku"
 }

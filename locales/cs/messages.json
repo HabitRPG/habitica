@@ -1,0 +1,23 @@
+{
+    "messageLostItem": "Tvůj <%= itemText %> se rozbil.",
+    "messageTaskNotFound": "Úkol nenalezen.",
+    "messageTagNotFound": "Štítek nenalezen.",
+    "messagePetNotFound": ":pet nebyl nalezen v user.items.pets",
+    "messageFoodNotFound": ":food nebylo nalezeno v user.items.food",
+    "messageCannotFeedPet": "Nemůžeš nakrmit tohoto mazlíčka.",
+    "messageAlreadyMount": "Už máš toto zvíře ve stáji. Zkus nakrmit jiného mazlíčka.",
+    "messageEvolve": "Osedlal sis <%= egg %>, pojďme si zajezdit!",
+    "messageLikesFood": "<%= egg %> opravdu chutná <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> snědl <%= foodText %>, ale nevypadá, že by mu to chutnalo.",
+    "messageBought": "Koupils <%= itemText %>",
+    "messageUnEquipped": " <%= itemText %> nevybaven.",
+    "messageMissingEggPotion": "Chybí ti buď to vejce nebo ten lektvar",
+    "messageAlreadyPet": "Už máš tohoto mazlíčka. Zkus nechat vylíhnout jinou kombinaci.",
+    "messageHatched": "Tvoje vejce se vylíhlo! Navštiv svou stáj abys vybavil svého mazlíčka",
+    "messageNotEnoughGold": "Nedostatek zlaťáků",
+    "messageTwoHandled": "<%= gearText %> je pro dvě ruce.",
+    "messageDropFood": "Našel jsi <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
+    "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
+    "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!"
+}
