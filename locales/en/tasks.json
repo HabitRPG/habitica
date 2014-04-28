@@ -51,7 +51,7 @@
     "perfectText": "Completed all active Dailies on <%= perfects %> days. With this achievement you get a +level/2 buff to all attributes for the next day.",
     "perfectSingular": "Perfect Day",
     "perfectSingularText": "Completed all active Dailies in one day. With this achievement you get a +level/2 buff to all attributes for the next day.",
-    "streakerAchievement": "You have stacked your \"Streaker\" Achievement! Every 21 days of streak, you gain 1 achievement point here.",
+    "streakerAchievement": "You have attained the \"Streaker\" Achievement! The 21-day mark is a milestone for habit formation. You can continue to stack this Achievement for every additional 21 days, on this Daily or any other!",
     "fortifyName": "Fortify Potion",
     "fortifyPop": "Return all tasks to neutral value (yellow color), and restore all lost Health.",
     "fortify": "Fortify",
