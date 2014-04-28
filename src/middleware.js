@@ -255,10 +255,3 @@ module.exports.locals = function(req, res, next) {
     next();
   });
 }
-
-module.exports.enTranslations = function(stringName, vars){
-  var language = {code:'en'};
-  var string = translations[language.code][stringName];
-  if(!string) return _.template(translations[language.code].stringNotFound, {string: stringName});
-  return vars === undefined ? string : _.template(string, vars);
-};

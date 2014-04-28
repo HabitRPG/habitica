@@ -4,21 +4,17 @@ mixin twoGem
     = ' ' + env.t('locked')
     block
 
-
-// Make it a mixin so we can call it from mobile
-mixin customizeProfile(mobile)
-  div(class='#{mobile ? "" : "row"}')
-    if mobile
-      .item.item-divider Body
-    .col-md-4.item
+script(id='partials/options.profile.avatar.html', type='text/ng-template')
+  .row
+    .col-md-4
       h3=env.t('bodyBody')
 
       menu(type='list')
         li.customize-menu
           menu(label=env.t('bodySize'))
-          .btn-group.button-bar
-            button.button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})')=env.t('bodySlim')
-            button.button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})')=env.t('bodyBroad')
+          .btn-group
+            button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})')=env.t('bodySlim')
+            button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})')=env.t('bodyBroad')
 
         li.customize-menu
           menu(label=env.t('shirts'))
@@ -32,9 +28,7 @@ mixin customizeProfile(mobile)
               button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
 
 
-    if mobile
-      .item.item-divider Head
-    .col-md-4.item
+    .col-md-4
         h3=env.t('bodyHead')
         menu(type='list')
           // For special events code, see commit dfa27b3
@@ -103,9 +97,7 @@ mixin customizeProfile(mobile)
               each num in [1,2]
                 button(class='hair_mustache_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.#{num}}', ng-click='unlock("hair.mustache.#{num}")')
 
-    if mobile
-      .item.item-divider Skin
-    .col-md-4.item
+    .col-md-4
         h3=env.t('bodySkin')
         // skin
         li.customize-menu
@@ -127,9 +119,6 @@ mixin customizeProfile(mobile)
             menu
               each color in ['monster','pumpkin','skeleton','zombie','ghost','shadow']
                 button.customize-option(type='button', class='skin_#{color}', ng-if='user.purchased.skin.#{color}', ng-click='unlock("skin.#{color}")')
-
-script(id='partials/options.profile.avatar.html', type='text/ng-template')
-  +customizeProfile()
 
 script(id='partials/options.profile.stats.html', type='text/ng-template')
   .container-fluid
