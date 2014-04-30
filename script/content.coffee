@@ -389,9 +389,9 @@ api.spells =
       mana: 10
       lvl: 11
       target: 'task'
-      notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
+      notes: "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting."
       cast: (user, target) ->
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('per')
+        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('str')
         user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
       text: 'Defensive Stance'
