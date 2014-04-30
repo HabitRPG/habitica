@@ -10359,7 +10359,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           event: events.spring,
           specialClass: 'warrior',
           text: 'Green Bunny Ears',
-          notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no status bonus. Limited Edition 2014 Spring Gear.",
+          notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
           value: 20
         },
         springMage: {
@@ -10585,9 +10585,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         mana: 10,
         lvl: 11,
         target: 'task',
-        notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
+        notes: "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
         cast: function(user, target) {
-          target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('per');
+          target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('str');
           if (user.party.quest.key) {
             return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
           }
@@ -11168,8 +11168,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     },
     gryphon: {
       text: "The Fiery Gryphon",
-      notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
-      completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" @baconsaur exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!',
+      notes: 'The grand beastmaster, <strong>baconsaur</strong>, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
+      completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" <strong>baconsaur</strong> exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!',
       value: 4,
       boss: {
         name: "Fiery Gryphon",
@@ -11198,7 +11198,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     },
     hedgehog: {
       text: "The Hedgebeast",
-      notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.',
+      notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>Inventrix</strong> did just that. Oops.',
       completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!',
       value: 4,
       boss: {
@@ -11228,7 +11228,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     },
     ghost_stag: {
       text: "The Spirit of Spring",
-      notes: "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" @Inventrix says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
+      notes: "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>Inventrix</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
       completion: "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake.",
       value: 4,
       boss: {
@@ -11344,8 +11344,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     },
     egg: {
       text: "Egg Hunt",
-      notes: "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says @Megan, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
-      completion: "You did it! In gratitude, @Megan gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
+      notes: "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
+      completion: "You did it! In gratitude, <strong>Megan</strong> gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
       value: 1,
       collect: {
         plainEgg: {
