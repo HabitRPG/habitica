@@ -56,8 +56,9 @@ mixin customizeProfile(mobile)
                 button(type='button', class='customize-option hair', style='background-color:##{k};', ng-click='set({"preferences.hair.color": "#{v}"})')
               each color in ['candycane','frost','winternight','holly']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
+              each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
+                button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
           +colorSelection(['rainbow','yellow','green','purple','blue','TRUred'],env.t('rainbowColors'))
-          +colorSelection(['pblue','pgreen','porange','ppink','ppurple','pyellow'],"Pastel Hair",env.t('limited30Apr'))
 
           li.customize-menu
             h5=env.t('bodyHair')
