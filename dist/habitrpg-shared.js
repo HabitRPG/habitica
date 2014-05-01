@@ -10520,7 +10520,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         mana: 10,
         lvl: 11,
         target: 'task',
-        notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
+        notes: 'Flames blast forth, scorching a task. You reduce the task\'s redness, deal damage to any monster you\'re battling, and gain Experience--more for blue tasks.',
         cast: function(user, target) {
           var bonus;
 
@@ -10587,7 +10587,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         target: 'task',
         notes: "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
         cast: function(user, target) {
-          target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('str');
+          target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
           if (user.party.quest.key) {
             return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
           }
@@ -10666,7 +10666,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         cast: function(user, target) {
           var bonus, _crit;
 
-          _crit = user.fns.crit('per', .3);
+          _crit = user.fns.crit('str', .3);
           target.value += _crit * .03;
           bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
           user.stats.exp += bonus;
