@@ -341,7 +341,7 @@ api.spells =
       mana: 10
       lvl: 11
       target: 'task'
-      notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
+      notes: 'Flames blast forth, scorching a task. You reduce the task\'s redness, deal damage to any monster you\'re battling, and gain Experience--more for blue tasks.'
       cast: (user, target) ->
         # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
@@ -391,7 +391,7 @@ api.spells =
       target: 'task'
       notes: "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting."
       cast: (user, target) ->
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('str')
+        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
         user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
       text: 'Defensive Stance'
@@ -440,7 +440,7 @@ api.spells =
       target: 'task'
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
       cast: (user, target) ->
-        _crit = user.fns.crit('per', .3)
+        _crit = user.fns.crit('str', .3)
         target.value += _crit * .03
         bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
