@@ -1,6 +1,6 @@
 {
   "spellWizardFireballText": "Burst of Flames",
-  "spellWizardFireballNotes": "With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).",
+  "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
 
   "spellWizardMPHealText": "Ethereal Surge",
   "spellWizardMPHealNotes": "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
@@ -12,7 +12,7 @@
   "spellWizardFrostNotes": "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
   
   "spellWarriorSmashText": "Brutal Smash",
-  "spellWarriorSmashNotes": "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
+  "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
   
   "spellWarriorDefensiveStanceText": "Defensive Stance",
   "spellWarriorDefensiveStanceNotes": "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
