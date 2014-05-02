@@ -2,17 +2,19 @@
 -------------------- */
 .header-wrap
   width: 100% // this is for the sticky
-  padding: 46px 0 0 0 // add padding-top when navbar is fixed
-  @media screen and (max-width:768px)  // remove padding-top when navbar is static
-    padding: 0
   z-index: 100
+  padding: 46px 0 0 0 // add padding-top when toolbar is fixed
   background-color: darken($color-herobox, 8%)
   border-bottom: 1px solid rgba(0,0,0,0.2)
   // margin-top: -1px
   overflow-y: hidden
   overflow-x: auto
   // position relative
-
+  @media screen and (max-width:768px)  // remove padding-top when toolbar is static
+    padding: 0 
+.toolbar.active ~ .header-wrap
+  padding: 0 // remove padding when toolbar is hidden
+ 
 /* login/menu buttons
 --------------------- */
 .user-menu
