@@ -485,7 +485,9 @@ api.wrap = (user, main=true) ->
       # ------
 
       clearCompleted: (req, cb) ->
-        _.remove user.todos, (t)-> t.completed and !t.challenge?.id
+        user.todos = _.map user.todos, (t)->
+            t.archived = true if t.completed and !t.challenge?.id
+            t
         user.markModified? 'todos'
         cb? null, user.todos
 
@@ -1233,6 +1235,10 @@ api.wrap = (user, main=true) ->
             task.value = 0
           else
             task.value = task.value / 2
+
+      user.todos.forEach (task) -> # Archive todos
+        if !task.archived && task.completed && moment(now).subtract('days',3).isAfter(moment(task.dateCompleted))
+          task.archived = true
 
 
       # Finished tallying
