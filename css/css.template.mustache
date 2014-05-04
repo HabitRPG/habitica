@@ -6,4 +6,13 @@
   height: {{px.height}};
   background-size: {{px.total_width}} {{px.total_height}};
 }
+{{#custom}}
+.customize-option.{{name}} {
+  background-image: url({{{escaped_image}}});
+  background-position: {{custom.px.offset_x}} {{custom.px.offset_y}};
+  width: {{custom.px.width}};
+  height: {{custom.px.height}};
+  background-size: {{px.total_width}} {{px.total_height}};
+}
+{{/custom}}
 {{/items}}
