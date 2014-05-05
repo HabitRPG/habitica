@@ -1,7 +1,5 @@
 var _ = require('lodash');
 var validator = require('validator');
-var check = validator.check;
-var sanitize = validator.sanitize;
 var passport = require('passport');
 var shared = require('habitrpg-shared');
 var async = require('async');
@@ -61,10 +59,8 @@ api.registerUser = function(req, res, next) {
   if (password !== confirmPassword) {
     return res.json(401, {err: ":password and :confirmPassword don't match"});
   }
-  try {
-    validator.check(email).isEmail();
-  } catch (err) {
-    return res.json(401, {err: err.message});
+  if (!validator.isEmail(email)) {
+    return res.json(401, {err: ":email invalid"});
   }
   async.waterfall([
     function(cb) {
