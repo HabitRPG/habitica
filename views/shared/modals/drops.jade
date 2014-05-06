@@ -5,7 +5,7 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
     p
       figure
         .item-drop-icon(class='Pet_Egg_Wolf')
-      span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text}}", eggNotes: "{{Content.eggs.Wolf.notes}}"})
+      span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text()}}", eggNotes: "{{Content.eggs.Wolf.notes()}}"})
     br
     p
       figure

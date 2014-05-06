@@ -28,30 +28,4 @@ describe('Root Controller', function() {
     expect(scope.contribText({level: 8, text: 'Blacksmith'}, {npc: 'NPC'})).to.eql('NPC');
   });
 
-  describe('i18n', function(){
-    var t = env.t;
-    beforeEach(function(){
-      env.translations = {
-        "text1": 'translatedText1',
-        "text2": '<%= number %> eggs',
-        "stringNotFound" : "String '<%= string %>' not found.",
-      };
-    });
-
-    it('translates strings', function(){
-      expect(t('')).to.eql("String '' not found.");
-      expect(t('text1')).to.eql('translatedText1');
-      expect(t(' text1 ')).to.eql("String ' text1 ' not found.");
-      expect(t('text3')).to.eql("String 'text3' not found.");
-    });
-
-    it('interpolates strings', function(){
-      expect(t('text2', {number: 2})).to.eql('2 eggs');
-      expect(t('text2', {number: 'ten'})).to.eql('ten eggs');
-      expect(t('text2', {n: 10, number: 'ten'})).to.eql('ten eggs');
-      expect(t('text2')).to.eql('<%= number %> eggs');
-    });
-  });
-
-
 });

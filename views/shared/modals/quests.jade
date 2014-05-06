@@ -3,7 +3,7 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
   h5 {{header}}
   table.table.table-striped
     tr(ng-repeat='drop in quest.drop.items')
-      td {{drop.text}}
+      td {{drop.text()}}
     tr
       td {{quest.drop.exp}} 
         =env.t('experience')
@@ -13,20 +13,20 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
 
 script(type='text/ng-template', id='modals/questCompleted.html')  
   .modal-header
-    h4 "{{Content.quests[user.party.quest.completed].text}}" 
+    h4 "{{Content.quests[user.party.quest.completed].text()}}" 
       =env.t('completed')
   .modal-body
-    p {{Content.quests[user.party.quest.completed].completion}}
+    p {{Content.quests[user.party.quest.completed].completion()}}
     quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
   .modal-footer
     button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('accept')
 
 script(type='text/ng-template', id='modals/showQuest.html')  
   .modal-header
-    h4 {{selectedQuest.text}}
+    h4 {{selectedQuest.text()}}
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
-    div(ng-bind-html='selectedQuest.notes')
+    div(ng-bind-html='selectedQuest.notes()')
     quest-rewards(key='{{selectedQuest.key}}')
     hr    
     .npc_ian.pull-left
@@ -38,10 +38,10 @@ script(type='text/ng-template', id='modals/showQuest.html')
 
 script(type='text/ng-template', id='modals/buyQuest.html')  
   .modal-header
-    h4 {{selectedQuest.text}}
+    h4 {{selectedQuest.text()}}
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
-    div(ng-bind-html='selectedQuest.notes')
+    div(ng-bind-html='selectedQuest.notes()')
     quest-rewards(key='{{selectedQuest.key}}')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
@@ -50,9 +50,9 @@ script(type='text/ng-template', id='modals/buyQuest.html')
 script(type='text/ng-template', id='modals/questInvitation.html')  
   .modal-header
     h4=env.t('questInvitation')
-      |&nbsp;{{Content.quests[party.quest.key].text}}
+      |&nbsp;{{Content.quests[party.quest.key].text()}}
   .modal-body
-    div(ng-bind-html='Content.quests[party.quest.key].notes')
+    div(ng-bind-html='Content.quests[party.quest.key].notes()')
     quest-rewards(key='{{party.quest.key}}')
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')

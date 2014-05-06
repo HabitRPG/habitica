@@ -15,7 +15,7 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
         menu.pets(type='list')
           li.customize-menu(ng-repeat='egg in Content.eggs')
             menu
-              div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.mountText}}', popover-placement='bottom', ng-init='mount = egg.key+"-"+potion.key')
+              div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover=env.t('mountName', {potion: '{{potion.text()}}', mount: '{{egg.mountText()}}'}), popover-placement='bottom', ng-init='mount = egg.key+"-"+potion.key')
                 button(class="pet-button Mount_Head_{{mount}}", ng-show='user.items.mounts[mount]', ng-class='{active: user.items.currentMount == mount}', ng-click='chooseMount(egg.key, potion.key)')
                   //div(class='Mount_Head_{{mount}}')
                 button(class="pet-button pet-not-owned", ng-hide='user.items.mounts[mount]')
@@ -33,7 +33,7 @@ mixin petList(source)
   menu.pets(type='list')
     li.customize-menu(ng-repeat='egg in #{source}')
       menu
-        div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
+        div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover=env.t('petName', {potion: '{{potion.text()}}', egg: '{{egg.text()}}'}), popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
           button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
             .progress(ng-show='!user.items.mounts[pet] && egg.key!="Egg"')
               .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
@@ -85,7 +85,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
         li.customize-menu
           menu.pets-menu(label=env.t('food'))
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-              button.customize-option(popover-append-to-body='true', popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+              button.customize-option(popover-append-to-body='true', popover='{{Content.food[food].notes()}}', popover-title='{{Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
               // Remove this once we have images in
-              p {{Content.food[food].text}}
+              p {{Content.food[food].text()}}

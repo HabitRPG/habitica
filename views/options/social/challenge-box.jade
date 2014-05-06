@@ -4,8 +4,7 @@
     h3.panel-title=env.t('challenges')
       &nbsp;
       a.pull-right(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58')
-        small
-          ="More info"
+        small=env.t('moreInfo')
   .panel-body.modal-fixed-height(bindonce='group.challenges')
     div(ng-if='group.challenges.length > 0')
       table.table.table-striped

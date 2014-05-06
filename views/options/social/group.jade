@@ -12,8 +12,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
       // ------ Bosses -------
       .panel.panel-default(bindonce='group', ng-if='group.type==="party" && group.quest.key')
         .panel-heading
-          h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{Content.quests[group.quest.key].text}}'
-          h3.panel-title(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
+          h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{Content.quests[group.quest.key].text()}}'
+          h3.panel-title(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text()}}
         .panel-body.modal-fixed-height
           div(ng-if='group.quest.active==false')
             table.table.table-striped
@@ -50,11 +50,11 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
                 tr(ng-repeat='(k,v) in group.quest.progress.collect', class='quest_collected_{{v >= Content.quests[group.quest.key].collect[k].count}}')
                   td
                     div.pull-left(class='quest_{{group.quest.key}}_{{k}}')
-                    | {{Content.quests[group.quest.key].collect[k].text}}
+                    | {{Content.quests[group.quest.key].collect[k].text()}}
                   td
                     {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
 
-            div(ng-bind-html='Content.quests[group.quest.key].notes')
+            div(ng-bind-html='Content.quests[group.quest.key].notes()')
             hr
             h5=env.t('participants')
             table.table.table-striped
