@@ -32,7 +32,7 @@
     "bower": "1.2.7",
     "nib": "~1.0.1",
     "jade": "~0.35.0",
-    "validator": "~1.5.1",
+    "validator": "~3.11.2",
     "nodemailer": "~0.5.2",
     "grunt-cli": "~0.1.9",
     "express-csv": "~0.6.0",
