@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var validator = require('validator');
 var passport = require('passport');
-var shared = require('habitrpg-shared');
 var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');

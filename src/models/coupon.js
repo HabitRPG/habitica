@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var async = require('async');
 var cc = require('coupon-code');

@@ -3,7 +3,6 @@
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
