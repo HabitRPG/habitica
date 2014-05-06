@@ -1,6 +1,5 @@
 /* @see ./routes.coffee for routing*/
 
-var url = require('url');
 var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
