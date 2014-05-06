@@ -13,16 +13,6 @@ var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
-var isProduction = nconf.get("NODE_ENV") === "production";
-
-var PaypalRecurring = require('paypal-recurring');
-var paypalRecurring = new PaypalRecurring({
-  username:  nconf.get('PAYPAL_USERNAME'),
-  password:  nconf.get('PAYPAL_PASSWORD'),
-  signature: nconf.get('PAYPAL_SIGNATURE')
-}, isProduction ? "production" : "sandbox");
-var paypalCheckout = require('paypal-express-checkout')
-  .init(nconf.get('PAYPAL_USERNAME'), nconf.get('PAYPAL_PASSWORD'), nconf.get('PAYPAL_SIGNATURE'), nconf.get('BASE_URL'), nconf.get('BASE_URL'), !isProduction);
 
 // api.purchase // Shared.ops
 
