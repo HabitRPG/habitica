@@ -44,7 +44,8 @@ function createSubscription(user, data) {
       customerId: data.customerId,
       dateUpdated: new Date,
       gemsBought: 0,
-      paymentMethod: data.paymentMethod
+      paymentMethod: data.paymentMethod,
+      dateTerminated: null
     })
     .defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date,
@@ -56,9 +57,15 @@ function createSubscription(user, data) {
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
 }
 
+/**
+ * Sets their subscription to be cancelled later
+ */
 function cancelSubscription(user, data){
-  _.merge(user.purchased.plan, {planId:null, customerId:null, paymentMethod:null});
-  user.markModified('purchased.plan');
+  var du = user.purchased.plan.dateUpdated, now = moment();
+  user.purchased.plan.dateTerminated =
+    moment( now.format('MM') + '/' + moment(du).format('DD') + '/' + now.format('YYYY') )
+    .add('month',1)
+    .toDate();
   ga.event('unsubscribe', 'Stripe').send();
 }
 
@@ -67,6 +74,12 @@ function buyGems(user, data) {
   user.purchased.txnCount++;
   ga.event('checkout', data.paymentMethod).send();
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+}
+
+// Expose some functions for tests
+if (nconf.get('NODE_ENV')==='testing') {
+  api.cancelSubscription = cancelSubscription;
+  api.createSubscription = createSubscription;
 }
 
 /*

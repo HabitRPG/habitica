@@ -89,6 +89,7 @@ var UserSchema = new Schema({
       paymentMethod: String, //enum: ['Paypal','Stripe', '']}
       customerId: String,
       dateCreated: Date,
+      dateTerminated: Date,
       dateUpdated: Date,
       gemsBought: {type: Number, 'default': 0},
       mysteryItems: {type: Array, 'default': []}

@@ -27,6 +27,7 @@ var Challenge = require('../src/models/challenge').model;
 
 var app = require('../src/server');
 var shared = require('habitrpg-shared');
+var payments = require('../src/controllers/payments');
 
 // ###### Helpers & Variables ######
 var model, uuid, taskPath,
@@ -117,6 +118,7 @@ describe('API', function () {
         done();
       });
     });
+
 
     describe('Todos', function(){
       it('Archives old todos',function(done){
@@ -506,8 +508,7 @@ describe('API', function () {
                   ],done);
 
 
-                  // You see all these freaking })s? This is why I prefer coffeescript!! I keep hitting stupid errors
-                  // where they're mis-matched and I'm counting )'s on my fingers for 10m just to fix them. Gaahhh..
+                  // See all these })s? This is why CoffeeScript is better.
                   //})
                 })
               })
@@ -517,5 +518,41 @@ describe('API', function () {
       });
 
     });
+
+    describe('Subscriptions', function(){
+      var user;
+      before(function(done){
+        User.findOne({_id: _id}, function (err, _user) {
+          expect(err).to.not.be.ok();
+          user = _user;
+          done();
+        });
+      })
+    })
+
+    it('Handles unsubscription', function(done){
+      var cron = function(){
+        user.lastCron = moment().subtract('d',1);
+        user.fns.cron();
+      }
+      expect(user.purchased.plan.customerId).to.not.be.ok();
+      payments.createSubscription(user,{customerId:'123',paymentMethod:'Stripe'});
+      expect(user.purchased.plan.customerId).to.be.ok();
+      shared.wrap(user);
+      cron();
+      expect(user.purchased.plan.customerId).to.be.ok();
+      payments.cancelSubscription(user);
+      cron();
+      expect(user.purchased.plan.customerId).to.be.ok();
+      expect(user.purchased.plan.dateTerminated).to.be.ok();
+      user.purchased.plan.dateTerminated = moment().subtract('d',2);
+      cron();
+      expect(user.purchased.plan.customerId).to.not.be.ok();
+      payments.createSubscription(user,{customerId:'123',paymentMethod:'Stripe'});
+      expect(user.purchased.plan.dateTerminated).to.not.be.ok();
+      done();
+    })
+
+
   });
 });
