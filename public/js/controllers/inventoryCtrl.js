@@ -78,7 +78,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!$window.confirm(window.env.t('hatchAPot', {potion: potion.key, egg: egg.key}))) return;
+		var eggName = Content.eggs[egg.key].text;
+		var potName = Content.hatchingPotions[potion.key].text;
+		
+      if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
@@ -95,8 +98,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
         User.user.ops.purchase({params:{type:type,key:item.key}});
     }
 
-    $scope.choosePet = function(egg, potion){
-      var petDisplayName = potion + " " + egg,
+    $scope.choosePet = function(egg, potion, name){
+      var petDisplayName = Content.hatchingPotions[potion].text + " " + Content.eggs[egg].text,
       pet = egg + '-' + potion;
 
       // Feeding Pet
