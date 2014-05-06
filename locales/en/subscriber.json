@@ -59,5 +59,6 @@
     "contactUs": "Contact Us",
     "checkout": "Checkout",
     "buySubsText": "Buy gems with Gold, No Ads, Support the Devs",
-    "sureCancelSub": "Are you sure you want to cancel your subscription?"
+    "sureCancelSub": "Are you sure you want to cancel your subscription?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

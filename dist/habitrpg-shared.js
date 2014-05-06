@@ -12337,10 +12337,13 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb(null, user.stats) : void 0;
         },
         clearCompleted: function(req, cb) {
-          _.remove(user.todos, function(t) {
+          user.todos = _.map(user.todos, function(t) {
             var _ref;
 
-            return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
+            if (t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0)) {
+              t.archived = true;
+            }
+            return t;
           });
           if (typeof user.markModified === "function") {
             user.markModified('todos');
@@ -13278,7 +13281,7 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
+        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
 
         if (options == null) {
           options = {};
@@ -13379,6 +13382,11 @@ var process=require("__browserify_process");(function() {
             }
           }
         });
+        user.todos.forEach(function(task) {
+          if (!task.archived && task.completed && moment(now).subtract('days', 3).isAfter(moment(task.dateCompleted))) {
+            return task.archived = true;
+          }
+        });
         ((_ref1 = (_base1 = ((_ref2 = user.history) != null ? _ref2 : user.history = {})).todos) != null ? _ref1 : _base1.todos = []).push({
           date: now,
           value: todoTally
@@ -13411,6 +13419,15 @@ var process=require("__browserify_process");(function() {
         user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
         if (user.stats.mp > user._statsComputed.maxMP) {
           user.stats.mp = user._statsComputed.maxMP;
+        }
+        plan = user.purchased.plan;
+        if (plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+          _.merge(user.purchased.plan, {
+            planId: null,
+            customerId: null,
+            paymentMethod: null
+          });
+          user.markModified('purchased.plan');
         }
         progress = user.party.quest.progress;
         _progress = _.cloneDeep(progress);

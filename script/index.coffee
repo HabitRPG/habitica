@@ -1266,6 +1266,13 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
+
+      # If user cancelled subscription, we give them until 30day's end until it terminates
+      plan = user.purchased.plan
+      if plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
+        _.merge user.purchased.plan, {planId:null, customerId:null, paymentMethod:null}
+        user.markModified 'purchased.plan'
+
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
       _.merge progress, {down:0,up:0}
