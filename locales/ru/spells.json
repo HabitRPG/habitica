@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Всплеск пламени",
-    "spellWizardFireballNotes": "С треском пламя срывается с вашего посоха сжигая задание. Вы наносите большой урон заданию и получаете дополнительный опыт (тем больше, чем зеленее задача).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Эфирная зарядка",
     "spellWizardMPHealNotes": "Поток магической энергии устремляется из ваших рук и заряжает вашу команду. Ваша команда восстанавливает ОМ.",
     "spellWizardEarthText": "Землетрясение",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Пронизывающий мороз",
     "spellWizardFrostNotes": "Лед срывается со всех поверхностей и поглащает ваши задачи, приковав их к земле. Серии ваших ежедневных заданий не обнулятся в конце дня.",
     "spellWarriorSmashText": "Удар наотмашь",
-    "spellWarriorSmashNotes": "Вы вкладываете все силы в жесточайший удар по задаче, сметая ее с ног. Краснота задания уменьшается.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Защитная стойка",
     "spellWarriorDefensiveStanceNotes": "Вы делаете передышку, чтобы расслабить тело и встать в защитную стойку, приготовившись к натиску задач. Уменьшается урон от ежедневных задач в конце дня.",
     "spellWarriorValorousPresenceText": "Присутствие духа",

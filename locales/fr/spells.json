@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Explosion de Flammes",
-    "spellWizardFireballNotes": "Des flammes jaillissent de votre bâton avec un craquement, roussissant une tâche. Vous causez des dommages importants à la tâche et gagnez de l'expérience supplémentaire (plus d'expérience pour les vertes).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Poussée Éthérée",
     "spellWizardMPHealNotes": "Un flot d'énergie magique jaillit de vos mains et recharge votre équipe. Votre équipe récupère des PM.",
     "spellWizardEarthText": "Séisme",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Givre Glacial",
     "spellWizardFrostNotes": "De la glace jaillit de toutes les surfaces, enveloppant et gelant vos tâches sur place. Vos combos de Quotidiennes ne seront pas remis à zéro à la fin de la journée.",
     "spellWarriorSmashText": "Fracas Brutal",
-    "spellWarriorSmashNotes": "Vous frappez sauvagement une tâche de toutes vos forces, la forçant à la soumission. La tâche perd de sa couleur rouge.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Posture Défensive",
     "spellWarriorDefensiveStanceNotes": "Vous prenez le temps de détendre votre corps et d'adopter une posture défensive pour vous préparer au prochain assaut des tâches. Ceci réduit les dommages des Quotidiennes à la fin de la journée.",
     "spellWarriorValorousPresenceText": "Présence Valeureuse",

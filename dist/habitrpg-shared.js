@@ -12376,270 +12376,6 @@ api.appliedTags = function(userTags, taskTags) {
     if (t == null) {
       return;
     }
-<<<<<<< HEAD
-    user._wrapped = true;
-    if (main) {
-      user.ops = {
-        update: function(req, cb) {
-          _.each(req.body, function(v, k) {
-            user.fns.dotSet(k, v);
-            return true;
-          });
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        sleep: function(req, cb) {
-          user.preferences.sleep = !user.preferences.sleep;
-          return typeof cb === "function" ? cb(null, {}) : void 0;
-        },
-        revive: function(req, cb) {
-          var item, lostItem, lostStat;
-
-          _.merge(user.stats, {
-            hp: 50,
-            exp: 0,
-            gp: 0
-          });
-          if (user.stats.lvl > 1) {
-            user.stats.lvl--;
-          }
-          lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
-            if (user.stats[k]) {
-              m[k] = k;
-            }
-            return m;
-          }), {}));
-          if (lostStat) {
-            user.stats[lostStat]--;
-          }
-          lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
-            if (v) {
-              m['' + k] = '' + k;
-            }
-            return m;
-          }), {}));
-          if (item = content.gear.flat[lostItem]) {
-            user.items.gear.owned[lostItem] = false;
-            if (user.items.gear.equipped[item.type] === lostItem) {
-              user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
-            }
-            if (user.items.gear.costume[item.type] === lostItem) {
-              user.items.gear.costume[item.type] = "" + item.type + "_base_0";
-            }
-          }
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear');
-          }
-          return typeof cb === "function" ? cb((item ? {
-            code: 200,
-            message: "Your " + item.text + " broke."
-          } : null), user) : void 0;
-        },
-        reset: function(req, cb) {
-          var gear;
-
-          user.habits = [];
-          user.dailys = [];
-          user.todos = [];
-          user.rewards = [];
-          user.stats.hp = 50;
-          user.stats.lvl = 1;
-          user.stats.gp = 0;
-          user.stats.exp = 0;
-          gear = user.items.gear;
-          _.each(['equipped', 'costume'], function(type) {
-            gear[type].armor = 'armor_base_0';
-            gear[type].weapon = 'weapon_base_0';
-            gear[type].head = 'head_base_0';
-            return gear[type].shield = 'shield_base_0';
-          });
-          user.items.gear.owned = {
-            weapon_warrior_0: true
-          };
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear.owned');
-          }
-          user.preferences.costume = false;
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        reroll: function(req, cb, ga) {
-          if (user.balance < 1) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems."
-            }) : void 0;
-          }
-          user.balance--;
-          _.each(user.tasks, function(task) {
-            if (task.type !== 'reward') {
-              return task.value = 0;
-            }
-          });
-          user.stats.hp = 50;
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return ga != null ? ga.event('purchase', 'reroll').send() : void 0;
-        },
-        rebirth: function(req, cb, ga) {
-          var flags, gear, lvl, stats;
-
-          if (user.balance < 2 && user.stats.lvl < 100) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems."
-            }) : void 0;
-          }
-          if (user.stats.lvl < 100) {
-            user.balance -= 2;
-          }
-          lvl = user.stats.lvl;
-          _.each(user.tasks, function(task) {
-            if (task.type !== 'reward') {
-              task.value = 0;
-            }
-            if (task.type === 'daily') {
-              return task.streak = 0;
-            }
-          });
-          stats = user.stats;
-          stats.buffs = {};
-          stats.hp = 50;
-          stats.lvl = 1;
-          stats["class"] = 'warrior';
-          _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
-            return stats[value] = 0;
-          });
-          gear = user.items.gear;
-          _.each(['equipped', 'costume'], function(type) {
-            gear[type].armor = 'armor_base_0';
-            gear[type].weapon = 'weapon_warrior_0';
-            gear[type].head = 'head_base_0';
-            return gear[type].shield = 'shield_base_0';
-          });
-          if (user.items.currentPet) {
-            user.ops.equip({
-              params: {
-                type: 'pet',
-                key: user.items.currentPet
-              }
-            });
-          }
-          if (user.items.currentMount) {
-            user.ops.equip({
-              params: {
-                type: 'mount',
-                key: user.items.currentMount
-              }
-            });
-          }
-          _.each(gear.owned, function(v, k) {
-            if (gear.owned[k]) {
-              gear.owned[k] = false;
-              return true;
-            }
-          });
-          gear.owned.weapon_warrior_0 = true;
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear.owned');
-          }
-          user.preferences.costume = false;
-          flags = user.flags;
-          if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
-            flags.rebirthEnabled = false;
-          }
-          flags.itemsEnabled = false;
-          flags.dropsEnabled = false;
-          flags.classSelected = false;
-          if (!user.achievements.rebirths) {
-            user.achievements.rebirths = 1;
-            user.achievements.rebirthLevel = lvl;
-          } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
-            user.achievements.rebirths++;
-            user.achievements.rebirthLevel = lvl;
-          }
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return ga != null ? ga.event('purchase', 'Rebirth').send() : void 0;
-        },
-        allocateNow: function(req, cb) {
-          _.times(user.stats.points, user.fns.autoAllocate);
-          user.stats.points = 0;
-          if (typeof user.markModified === "function") {
-            user.markModified('stats');
-          }
-          return typeof cb === "function" ? cb(null, user.stats) : void 0;
-        },
-        clearCompleted: function(req, cb) {
-          user.todos = _.map(user.todos, function(t) {
-            var _ref;
-
-            if (t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0)) {
-              t.archived = true;
-            }
-            return t;
-          });
-          if (typeof user.markModified === "function") {
-            user.markModified('todos');
-          }
-          return typeof cb === "function" ? cb(null, user.todos) : void 0;
-        },
-        sortTask: function(req, cb) {
-          var from, id, task, tasks, to, _ref;
-
-          id = req.params.id;
-          _ref = req.query, to = _ref.to, from = _ref.from;
-          task = user.tasks[id];
-          if (!task) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Task not found."
-            }) : void 0;
-          }
-          if (!((to != null) && (from != null))) {
-            return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
-          }
-          tasks = user["" + task.type + "s"];
-          tasks.splice(to, 0, tasks.splice(from, 1)[0]);
-          return typeof cb === "function" ? cb(null, tasks) : void 0;
-        },
-        updateTask: function(req, cb) {
-          var task, _ref;
-
-          if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Task not found"
-            }) : void 0;
-          }
-          _.merge(task, _.omit(req.body, ['checklist', 'id']));
-          if (req.body.checklist) {
-            task.checklist = req.body.checklist;
-          }
-          if (typeof task.markModified === "function") {
-            task.markModified('tags');
-          }
-          return typeof cb === "function" ? cb(null, task) : void 0;
-        },
-        deleteTask: function(req, cb) {
-          var i, task, _ref;
-
-          task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
-          if (!task) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: 'Task not found'
-            }) : void 0;
-          }
-          i = user[task.type + "s"].indexOf(task);
-          if (~i) {
-            user[task.type + "s"].splice(i, 1);
-          }
-          return typeof cb === "function" ? cb(null, {}) : void 0;
-        },
-        addTask: function(req, cb) {
-          var task;
-=======
     if (taskTags != null ? taskTags[t.id] : void 0) {
       return arr.push(t.name);
     }
@@ -12662,7 +12398,6 @@ api.countPets = function(originalCount, pets) {
   }
   return count;
 };
->>>>>>> chore(i18n:): implement i18n module, start moving content to locales/en/content.json, recompile
 
 api.countMounts = function(originalCount, mounts) {
   var count, mount;
@@ -12913,9 +12648,12 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user.stats) : void 0;
       },
       clearCompleted: function(req, cb) {
-        _.remove(user.todos, function(t) {
+        user.todos = _.map(user.todos, function(t) {
           var _ref;
-          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
+          if (t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0)) {
+            t.archived = true;
+          }
+          return t;
         });
         if (typeof user.markModified === "function") {
           user.markModified('todos');
@@ -13824,25 +13562,6 @@ api.wrap = function(user, main) {
         if (typeof user.markModified === "function") {
           user.markModified('flags.levelDrops');
         }
-<<<<<<< HEAD
-      },
-      /*
-        ------------------------------------------------------
-        Cron
-        ------------------------------------------------------
-      */
-
-      /*
-        At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-        For incomplete Dailys, deduct experience
-        Make sure to run this function once in a while as server will not take care of overnight calculations.
-        And you have to run it every time client connects.
-        {user}
-      */
-
-      cron: function(options) {
-        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
-=======
         user._tmp.drop = _.defaults(content.quests.vice1, {
           type: 'Quest',
           dialog: i18n.t('messageFoundQuest', {
@@ -13854,7 +13573,6 @@ api.wrap = function(user, main) {
         return user.flags.rebirthEnabled = true;
       }
     },
->>>>>>> chore(i18n:): implement i18n module, start moving content to locales/en/content.json, recompile
 
     /*
       ------------------------------------------------------
@@ -13870,7 +13588,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress;
       if (options == null) {
         options = {};
       }
@@ -13942,94 +13660,6 @@ api.wrap = function(user, main) {
               user.party.quest.progress.down += delta;
             }
           }
-<<<<<<< HEAD
-          switch (type) {
-            case 'daily':
-              ((_ref1 = task.history) != null ? _ref1 : task.history = []).push({
-                date: +(new Date),
-                value: task.value
-              });
-              task.completed = false;
-              return _.each(task.checklist, (function(i) {
-                i.completed = false;
-                return true;
-              }));
-            case 'todo':
-              absVal = completed ? Math.abs(task.value) : task.value;
-              return todoTally += absVal;
-          }
-        });
-        user.habits.forEach(function(task) {
-          if (task.up === false || task.down === false) {
-            if (Math.abs(task.value) < 0.1) {
-              return task.value = 0;
-            } else {
-              return task.value = task.value / 2;
-            }
-          }
-        });
-        user.todos.forEach(function(task) {
-          if (!task.archived && task.completed && moment(now).subtract('days', 3).isAfter(moment(task.dateCompleted))) {
-            return task.archived = true;
-          }
-        });
-        ((_ref1 = (_base1 = ((_ref2 = user.history) != null ? _ref2 : user.history = {})).todos) != null ? _ref1 : _base1.todos = []).push({
-          date: now,
-          value: todoTally
-        });
-        expTally = user.stats.exp;
-        lvl = 0;
-        while (lvl < (user.stats.lvl - 1)) {
-          lvl++;
-          expTally += api.tnl(lvl);
-        }
-        ((_ref3 = (_base2 = user.history).exp) != null ? _ref3 : _base2.exp = []).push({
-          date: now,
-          value: expTally
-        });
-        user.fns.preenUserHistory();
-        if (typeof user.markModified === "function") {
-          user.markModified('history');
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('dailys');
-        }
-        user.stats.buffs = perfect ? ((_ref4 = (_base3 = user.achievements).perfect) != null ? _ref4 : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
-          str: lvlDiv2,
-          int: lvlDiv2,
-          per: lvlDiv2,
-          con: lvlDiv2,
-          stealth: 0,
-          streaks: false
-        }) : clearBuffs;
-        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
-        if (user.stats.mp > user._statsComputed.maxMP) {
-          user.stats.mp = user._statsComputed.maxMP;
-        }
-        plan = user.purchased.plan;
-        if (plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
-          _.merge(user.purchased.plan, {
-            planId: null,
-            customerId: null,
-            paymentMethod: null
-          });
-          user.markModified('purchased.plan');
-        }
-        progress = user.party.quest.progress;
-        _progress = _.cloneDeep(progress);
-        _.merge(progress, {
-          down: 0,
-          up: 0
-        });
-        progress.collect = _.transform(progress.collect, (function(m, v, k) {
-          return m[k] = 0;
-        }));
-        return _progress;
-      },
-      preenUserHistory: function(minHistLen) {
-        if (minHistLen == null) {
-          minHistLen = 7;
-=======
         }
         switch (type) {
           case 'daily':
@@ -14045,7 +13675,6 @@ api.wrap = function(user, main) {
           case 'todo':
             absVal = completed ? Math.abs(task.value) : task.value;
             return todoTally += absVal;
->>>>>>> chore(i18n:): implement i18n module, start moving content to locales/en/content.json, recompile
         }
       });
       user.habits.forEach(function(task) {
@@ -14055,6 +13684,11 @@ api.wrap = function(user, main) {
           } else {
             return task.value = task.value / 2;
           }
+        }
+      });
+      user.todos.forEach(function(task) {
+        if (!task.archived && task.completed && moment(now).subtract('days', 3).isAfter(moment(task.dateCompleted))) {
+          return task.archived = true;
         }
       });
       ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? _base1.todos : _base1.todos = []).push({
@@ -14089,6 +13723,15 @@ api.wrap = function(user, main) {
       user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
+      }
+      plan = user.purchased.plan;
+      if (plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+        _.merge(user.purchased.plan, {
+          planId: null,
+          customerId: null,
+          paymentMethod: null
+        });
+        user.markModified('purchased.plan');
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);

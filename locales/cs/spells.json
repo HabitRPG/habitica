@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Vzplanutí ohňů",
-    "spellWizardFireballNotes": "Plameny šlehají z tvé hole a spalují úkol. Zasazuješ úkolu tvrdou ránu, a získáváš zkušenostní body navíc (nejvíc za zelené).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Éterický příval",
     "spellWizardMPHealNotes": "Tok magické energie vychází z tvých rukou a posiluje tvou družinu. Tvoje družna obnovuje svou manu.",
     "spellWizardEarthText": "Zemětřesení",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Ledový mráz",
     "spellWizardFrostNotes": "Led vyráží ze všech porvrchů, polyká tvoje úkoly a na místě je zmrazí. Tvoje šňůry denních úkolů se na konci dne neresetují. ",
     "spellWarriorSmashText": "Brutální rána",
-    "spellWarriorSmashNotes": "Divoce a vší silou udeříš jediný úkol a ten upadne do bezvědomí. Začervenání úkolu zeslábne.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Obranný postoj",
     "spellWarriorDefensiveStanceNotes": "Udělal sis chvilku na odpočinek a zaujal jsi obraný postoj, aby ses připravil na další útok. Snižuje újmu z nesplněných denních úkolů na konci dne.",
     "spellWarriorValorousPresenceText": "Chrabrá přítomnost",

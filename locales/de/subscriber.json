@@ -59,5 +59,6 @@
     "contactUs": "Kontakt",
     "checkout": "Kasse",
     "buySubsText": "Kaufe Edelsteine mit Gold, keine Werbung, Unterstützung der Entwickler",
-    "sureCancelSub": "Bist Du sicher, dass du das Abonnement kündigen willst?"
+    "sureCancelSub": "Bist Du sicher, dass du das Abonnement kündigen willst?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

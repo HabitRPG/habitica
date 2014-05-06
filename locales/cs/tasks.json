@@ -51,7 +51,7 @@
     "perfectText": "Dokončil všechny aktivní denní úkoly za <%= perfects %> dní. S tímto úspěchem získáváš následující den bonus +úroveň/2 ke všem vlastnostem.",
     "perfectSingular": "Perfektní den",
     "perfectSingularText": "Dokončil všechny aktivní denní úkoly v jeden den. S tímto úspěchem získáváš následující den bonus +úroveň/2 ke všem vlastnostem.",
-    "streakerAchievement": "Zlepšuješ si odznaky za šňůry! Za každých 21 dní po sobě získáš 1 bod k odznaku.",
+    "streakerAchievement": "You have attained the \"Streaker\" Achievement! The 21-day mark is a milestone for habit formation. You can continue to stack this Achievement for every additional 21 days, on this Daily or any other!",
     "fortifyName": "Posilňující lektvar",
     "fortifyPop": "Obnoví všechny úkoly do neutrální (žluté) barvy a obnoví ztracené zdraví.",
     "fortify": "Posilnění",

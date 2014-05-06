@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Estallido de llamas",
-    "spellWizardFireballNotes": "Con un crujido, varias llamaradas escapan de tu báculo chamuscando una tarea. Le haces un gran daño y ganas experiencia adicional (más experiencia de las verdes) .",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Corriente etérea",
     "spellWizardMPHealNotes": "Un flujo de energía mágica sale de tus manos y recarga a tu grupo. Tu grupo recupera PM. ",
     "spellWizardEarthText": "Terremoto",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Frío escalofriante.",
     "spellWizardFrostNotes": "El hielo sale de todas las superficies, se traga a tus tareas y las congela en el sitio. Las rachas de tus tareas Diarias no se reinicializarán al final del día.",
     "spellWarriorSmashText": "Golpe Brutal",
-    "spellWarriorSmashNotes": "Golpeas salvajemente a una tarea con toda tu fuerza, haciendo que se rinda. Disminuye la \"rojez\" de la tarea.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Postura defensiva",
     "spellWarriorDefensiveStanceNotes": "Gastas un momento en relajar tu cuerpo y entras en una posición defensiva para prepararte ante la siguiente ofensiva de las tareas. Reduce el daño por las tareas Diarias sin completar al final del día.",
     "spellWarriorValorousPresenceText": "Presencia Valerosa",

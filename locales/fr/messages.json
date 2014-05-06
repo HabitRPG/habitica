@@ -15,7 +15,7 @@
     "messageAlreadyPet": "Vous avez déjà ce familier. Essayez de faire éclore une combinaison différente !",
     "messageHatched": "Votre œuf a éclot ! Allez voir à l’Écurie pour équiper votre familier.",
     "messageNotEnoughGold": "Pas assez d'Or",
-    "messageTwoHandled": "<%= gearText %> est une arme à deux mains.",
+    "messageTwoHandled": "<%= gearText %> is two handed",
     "messageDropFood": "Vous avez trouvé <%= dropArticle %><%= dropText %> ! <%= dropNotes %>",
     "messageDropEgg": "Vous avez trouvé un Œuf de <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Vous avez trouvé une Potion d’Éclosion <%= dropText %> ! <%= dropNotes %>",

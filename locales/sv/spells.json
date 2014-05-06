@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Burst of Flames",
-    "spellWizardFireballNotes": "Med en knall så slår flammor ut från din stav och bränner en uppgift. Du gör mycket skada på uppgiften och får extra erfarenhet (mer erfarenhet för gröna).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Överjordisk svallvåg",
     "spellWizardMPHealNotes": "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
     "spellWizardEarthText": "Jordbävning",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Chilling Frost",
     "spellWizardFrostNotes": "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
     "spellWarriorSmashText": "Brutal Smash",
-    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Defensive Stance",
     "spellWarriorDefensiveStanceNotes": "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
     "spellWarriorValorousPresenceText": "Valorous Presence",

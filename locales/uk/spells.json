@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Спалах полум'я",
-    "spellWizardFireballNotes": "Полум’я, потріскуючи, зривається з Вашої патериці та спалює завдання. Ви завдаєте більше ушкодження та отримуєте додатковий досвід (тим більше, чим зеленіше завдання).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Ефірний заряд",
     "spellWizardMPHealNotes": "Потік магічної енергії спрямовуєтсья з Ваших рук та заряджає Ваш гурт. Ваш гурт відновлює ОМ.",
     "spellWizardEarthText": "Землетрус",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Лютий мороз",
     "spellWizardFrostNotes": "Лід зривається з усіх поверхонь та поглинає Ваші завдання, приковуючи їх до землі. Низка Ваших щоденних завдань не обнулюється наприкінці дня.",
     "spellWarriorSmashText": "Брутальний ляпас",
-    "spellWarriorSmashNotes": "Ви лупите конкретне завдання з дикою силою, підкоряючи його. Ступінь червоності завдання зменшується.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Оборонна стійка",
     "spellWarriorDefensiveStanceNotes": "Ви берете перепочинок, аби розслабити тіло та встати в оборонну стійку, готуючись до натиску завдань. Ушкодження від щоденних завдань у кінці дня зменшується.",
     "spellWarriorValorousPresenceText": "Присутність доблесті",

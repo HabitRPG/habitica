@@ -15,7 +15,7 @@
     "messageAlreadyPet": "כבר השגת חיית מחמד זו. נסה/י שילוב אחר!",
     "messageHatched": "הביצה שלך בקעה! בקר/י באורווה כדי לראות את חיית המחמד החדשה שלך.",
     "messageNotEnoughGold": "אין מספיק זהב",
-    "messageTwoHandled": "<%= gearText %> הוא דו ידני",
+    "messageTwoHandled": "<%= gearText %> is two handed",
     "messageDropFood": "מצאת <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "מצאת ביצת <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "מצאת שיקוי <%= dropText %> לבקיעה! <%= dropNotes %>",

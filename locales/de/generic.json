@@ -58,7 +58,7 @@
     "error": "Fehler",
     "menu": "Menü",
     "notifications": "Mitteilungen",
-    "noNotifications": "You have no new messages.",
-    "clear": "Aufräumen",
+    "noNotifications": "Du hast im Moment keine neuen Nachrichten.",
+    "clear": "Leeren",
     "endTour": "Tour beenden"
 }

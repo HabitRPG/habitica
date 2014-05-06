@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Eksplozja Płomieni",
-    "spellWizardFireballNotes": "Płomienie eksplodują z twojej laski z trzaskiem, parząc zadanie. Zadajesz mu wysokie obrażenia i otrzymujesz dodatkowe doświadczenie (więcej doświadczenia za zielone).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Eteryczny Przypływ",
     "spellWizardMPHealNotes": "Strumień magicznej energii spływa z twoich dłoni i wypełnia twoją drużynę. Twoja drużyna regeneruje PM.",
     "spellWizardEarthText": "Trzęsienie Ziemi",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Przeszywający Chłód",
     "spellWizardFrostNotes": "Lód wytryska z każdej powierzchni, pochłaniając twoje zadania i zamrażając je. Serie twoich Codziennych nie zresetują się pod koniec dnia.",
     "spellWarriorSmashText": "Brutalne Uderzenie",
-    "spellWarriorSmashNotes": "Brutalnie uderzasz jedno zadanie z całą mocą, zmuszając je do posłuszeństwa. Zmniejsza się czerwoność twojego zadania.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Pozycja Obronna",
     "spellWarriorDefensiveStanceNotes": "Na chwilę pozwalasz swemu ciału się odprężyć i przyjmujesz pozycję obronną, gotowy na atak twojego następnego zadania. Zmniejsza przyjmowane obrażenia z Codziennych pod koniec dnia.",
     "spellWarriorValorousPresenceText": "Bohaterska Obecność",

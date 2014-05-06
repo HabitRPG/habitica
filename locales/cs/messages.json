@@ -15,7 +15,7 @@
     "messageAlreadyPet": "Už máš tohoto mazlíčka. Zkus nechat vylíhnout jinou kombinaci.",
     "messageHatched": "Tvoje vejce se vylíhlo! Navštiv svou stáj abys vybavil svého mazlíčka",
     "messageNotEnoughGold": "Nedostatek zlaťáků",
-    "messageTwoHandled": "<%= gearText %> je pro dvě ruce.",
+    "messageTwoHandled": "<%= gearText %> is two handed",
     "messageDropFood": "Našel jsi <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",

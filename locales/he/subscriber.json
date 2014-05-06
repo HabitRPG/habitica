@@ -59,5 +59,6 @@
     "contactUs": "יצירת קשר",
     "checkout": "התנתקות",
     "buySubsText": "קניית אבני חן עם זהב, הסרת פרסומות, תמיכה במפתחים",
-    "sureCancelSub": "האם את/ה בטוח/ה שאת/ה רוצה לבטל את המינוי שלך?"
+    "sureCancelSub": "האם את/ה בטוח/ה שאת/ה רוצה לבטל את המינוי שלך?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

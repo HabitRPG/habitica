@@ -59,5 +59,6 @@
     "contactUs": "Запросить",
     "checkout": "Оформить",
     "buySubsText": "Самоцветы за золото, никакой рекламы, поддержка проекта",
-    "sureCancelSub": "Вы уверены, что хотите отменить подписку?"
+    "sureCancelSub": "Вы уверены, что хотите отменить подписку?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

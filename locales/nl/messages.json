@@ -15,7 +15,7 @@
     "messageAlreadyPet": "Je hebt dat dier al. Probeer een andere combinatie uit te laten komen!",
     "messageHatched": "Je ei is uitgekomen! Ga naar je stal om je dier mee te nemen.",
     "messageNotEnoughGold": "Niet genoeg Goud",
-    "messageTwoHandled": "<%= gearText %> is twee-handig",
+    "messageTwoHandled": "<%= gearText %> is two handed",
     "messageDropFood": "Je vond <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Je vond een <%= dropText %> Ei! <%= dropNotes %>",
     "messageDropPotion": "Je vond een <%= dropText %> Broed Drankje! <%= dropNotes %>",

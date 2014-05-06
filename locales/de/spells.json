@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Flammenstoß",
-    "spellWizardFireballNotes": "Mit einem fürchterlichen Krach brechen Flammen aus Deinem Stab hervor und versengen die anvisierte Aufgabe. Du fügst hohen Schaden zu und erhältst zusätzliche Erfahrung (und Bonuserfahrung je besser der Zustand der Aufgabe).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Ätherischer Schwall",
     "spellWizardMPHealNotes": "Eine Flut magischer Energie strömt aus Deinen Händen und erfüllt Deine Gruppe. Ihr erhaltet alle eine bestimmte Menge Mana.",
     "spellWizardEarthText": "Erdbeben",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Klirrender Frost",
     "spellWizardFrostNotes": "Eis legt sich auf alle Oberflächen, verschlingt Deine Aufgaben und friert sie fest. Deine täglichen Aufgaben verlieren ihre Strähnen am Ende des Tages nicht.",
     "spellWarriorSmashText": "Gewaltschlag",
-    "spellWarriorSmashNotes": "Du schlägst mit aller Gewalt auf eine Aufgabe ein bis sie aufgibt. Der Zustand der Aufgabe verbessert sich.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Verteidigungstellung",
     "spellWarriorDefensiveStanceNotes": "Du nimmst dir Zeit um Dich zu entspannen und nimmst eine Verteidigungsstellung gegen die kommenden Angriffe Deiner Aufgaben ein. Das reduziert den Schaden den Du heute bei Tageswechsel nimmst.",
     "spellWarriorValorousPresenceText": "Tapferer Charakter",

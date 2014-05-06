@@ -43,8 +43,8 @@
     "veteranText": "A résisté à Habit le Gris (notre site pre Angular) et a gagné de nombreuses cicatrices de guerre à cause de ses bugs.",
     "originalUser": "Utilisateur d'origine !",
     "originalUserText": "L'un des adeptes <em>très</em> précoces d'origine. Ça c'est du test alpha !",
-    "habitBirthday": "Fête d'Anniversaire 2014 d'HabitRPG",
-    "habitBirthdayText": "A participé à la Fête d'Anniversaire 2014 d'HabitRPG",
+    "habitBirthday": "Anniversaire d'Enfer 2014 d'HabitRPG",
+    "habitBirthdayText": "A participé à l'Anniversaire d'Enfer 2014 d'HabitRPG.",
     "memberSince": "- Membre depuis",
     "lastLoggedIn": "- Dernière connexion",
     "notPorted": "Cette fonction n'a pas encore été importée depuis le site original.",
@@ -58,7 +58,7 @@
     "error": "Erreur",
     "menu": "Menu",
     "notifications": "Notifications",
-    "noNotifications": "You have no new messages.",
+    "noNotifications": "Vous n'avez pas de nouveau message.",
     "clear": "Supprimer",
     "endTour": "Terminer la visite"
 }

@@ -42,7 +42,7 @@
     "veteran": "Veterano",
     "veteranText": "Ha sobrevivido a Habit The Grey (nuestro sito web pre-Angular) y se ha ganado muchas cicatrices por sus fallos.",
     "originalUser": "¡Usuario original!",
-    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
+    "originalUserText": "Uno de los primeros usuarios... ¡hablando de alpha testers!",
     "habitBirthday": "Fiesta de Cumpleaños de HabitRPG 2014",
     "habitBirthdayText": "Participó en la Fiesta de Cumpleaños de HabitRPG 2014.",
     "memberSince": "- Miembro desde",
@@ -58,7 +58,7 @@
     "error": "Error",
     "menu": "Menú",
     "notifications": "Notificaciones",
-    "noNotifications": "You have no new messages.",
-    "clear": "Clear",
-    "endTour": "End Tour"
+    "noNotifications": "No tienes mensajes nuevos.",
+    "clear": "Cerrar",
+    "endTour": "Terminar Tour"
 }

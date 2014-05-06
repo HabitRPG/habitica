@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Uiteenspatting van Vlammen",
-    "spellWizardFireballNotes": "Met een barst, spatten vlammen van jouw staf, een taak schroeiend. Je doet veel schade aan de taak en krijgt extra ervaring (meer ervaring voor groen).",
+    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
     "spellWizardMPHealText": "Etherische Golf",
     "spellWizardMPHealNotes": "Een golf van magische energie stormt uit jouw handen en herlaad je partij. Je partij herstelt MP.",
     "spellWizardEarthText": "Aardbeving",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "IJskoude Vorst",
     "spellWizardFrostNotes": "IJs barst uit van elk oppervlakte, verzwelgt je taken en bevriest ze in hun plaats. Je dagelijkse-taken series worden niet hersteld aan het einde van de dag.",
     "spellWarriorSmashText": "Wrede Slag",
-    "spellWarriorSmashNotes": "Je raakt woest een enkele taak met al je macht, het slaande in onderwerping. De taak's roodheid neemt af.",
+    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Defensieve Stand",
     "spellWarriorDefensiveStanceNotes": "Je neemt een moment om je lichaam te ontspannen en neemt een defensieve stand aan om je klaar te maken voor de volgende slachting van je taken. Vermindert schade van dagelijkse taken aan het einde van de dag.",
     "spellWarriorValorousPresenceText": "Moedige Aanwezigheid",
