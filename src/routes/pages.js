@@ -1,7 +1,5 @@
-var nconf = require('nconf');
 var express = require('express');
 var router = new express.Router();
-var _ = require('lodash');
 var middleware = require('../middleware');
 var i18n = require('../i18n');
 

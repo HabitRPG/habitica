@@ -2,7 +2,6 @@ var express = require('express');
 var router = new express.Router();
 var dataexport = require('../controllers/dataexport');
 var auth = require('../controllers/auth');
-var nconf = require('nconf');
 var i18n = require('../i18n')
 
 /* Data export */

@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var _ = require('lodash');
 var async = require('async');
 var cc = require('coupon-code');
 var autoinc = require('mongoose-id-autoinc');

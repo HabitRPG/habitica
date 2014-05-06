@@ -1,6 +1,5 @@
 var _ = require('lodash');
 var express = require('express');
-var nconf = require('nconf');
 var moment = require('moment');
 var dataexport = module.exports;
 var js2xmlparser = require("js2xmlparser");

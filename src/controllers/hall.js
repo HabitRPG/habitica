@@ -1,5 +1,3 @@
-var _ = require('lodash');
-var nconf = require('nconf');
 var async = require('async');
 var User = require('./../models/user').model;
 var api = module.exports;
