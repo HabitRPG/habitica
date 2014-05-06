@@ -2,7 +2,7 @@ nav.toolbar(ng-controller='AuthCtrl')
   ul.toolbar-mobile-nav
     li.toolbar-mobile
       a(ng-click='expandMenu("mobile")', ng-class='{active: _expandedMenu=="mobile"}')
-        span  &#9776;
+        span.glyphicon.glyphicon-th-list
       div(ng-if='_expandedMenu=="mobile"', ng-click='expandMenu(null)')
         h4=env.t('menu')
         div
@@ -49,7 +49,7 @@ nav.toolbar(ng-controller='AuthCtrl')
       a(ui-sref='options.profile.avatar')
         span=env.t('user')
       a(ng-click='expandMenu("avatar")', ng-class='{active: _expandedMenu == "avatar"}')
-        span &#9776;
+        span.glyphicon.glyphicon-th-list
       div(ng-if='_expandedMenu == "avatar"')
         ul.toolbar-submenu(ng-click='expandMenu(null)')
           li
@@ -62,7 +62,7 @@ nav.toolbar(ng-controller='AuthCtrl')
       a(ui-sref='options.social.tavern')
         span=env.t('social')
       a(ng-click='expandMenu("social")', ng-class='{active: _expandedMenu == "social"}')
-        span &#9776;
+        span.glyphicon.glyphicon-th-list
       div(ng-if='_expandedMenu == "social"')
         ul.toolbar-submenu(ng-click='expandMenu(null)')
           li
@@ -79,7 +79,7 @@ nav.toolbar(ng-controller='AuthCtrl')
       a(ui-sref='options.inventory.drops')
         span=env.t('inventory')
       a(ng-click='expandMenu("inventory")', ng-class='{active: _expandedMenu == "inventory"}')
-        span  &#9776;
+        span.glyphicon.glyphicon-th-list
       div(ng-if='_expandedMenu == "inventory"')
         ul.toolbar-submenu(ng-click='expandMenu(null)')
           li
