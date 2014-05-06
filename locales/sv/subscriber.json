@@ -59,5 +59,6 @@
     "contactUs": "Kontakta Oss",
     "checkout": "Kassa",
     "buySubsText": "Köp Juveler med Guld, Ingen Reklam, Stödj Utvecklarna",
-    "sureCancelSub": "Är du säker på att du vill avbryta ditt abonnemang?"
+    "sureCancelSub": "Är du säker på att du vill avbryta ditt abonnemang?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

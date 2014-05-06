@@ -59,5 +59,6 @@
     "contactUs": "Contact met ons",
     "checkout": "Kassa",
     "buySubsText": "Edelstenen met Goud kopen, Geen Advertenties, Ontwikkelaars Steunen",
-    "sureCancelSub": "Weet je zeker dat je je abonnement wilt opzeggen?"
+    "sureCancelSub": "Weet je zeker dat je je abonnement wilt opzeggen?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

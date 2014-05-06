@@ -14,6 +14,8 @@
     "hydra": "Hydra",
     "rarePetPop1": "Ak chceš vedieť, ako môžeš získať vzácne zvieratko vďaka prispevaniu do HabitRPG, klikni na zlatú packu.",
     "rarePetPop2": "Ako získam toto zvieratko?",
+    "potion": "Elixír <%= potionType %>",
+    "egg": "<%= eggType %> vajíčko",
     "eggs": "Vajíčka",
     "noEggs": "Nemáš žiadne vajíčka.",
     "hatchingPotions": "Liahoxíry",
@@ -30,5 +32,7 @@
     "useGems": "Ak máš zálusk na nejaké zvieratko a nemáš chuť čakať, kým ti padne, v menu <strong>Možnosti > Inventár</strong> si ho môžeš kúpiť za drahokamy!",
     "hatchAPot": "Chceš vyliahnuť takéto zvieratko: <%= potion %> <%= egg %>?",
     "feedPet": "Chceš nakŕmiť toto zvieratko: <%= name %> týmto: <%= article %><%= text %>?",
-    "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?"
+    "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

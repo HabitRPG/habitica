@@ -1,6 +1,11 @@
 _ = require 'lodash'
 api = module.exports
 moment = require 'moment'
+i18n = require './i18n.coffee'
+t = (string, vars) ->
+  (lang) -> 
+    vars ?= lang
+    i18n.t(string, vars, lang)
 
 ###
   ---------------------------------------------------------------
@@ -26,15 +31,16 @@ mystery =
 gear =
   weapon:
     base:
-      0: text: "No Weapon", notes:'No Weapon.', value:0
+      0: 
+        text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
-      0: text: "Training Sword", notes:'Practice weapon. Confers no benefit.', value:0
-      1: text: "Sword", notes:'Common soldier\'s blade. Increases STR by 3.', str: 3, value:20
-      2: text: "Axe", notes:'Double-bitted battle-axe. Increases STR by 6.', str: 6, value:30
-      3: text: "Morning Star", notes:'Heavy club with brutal spikes. Increases STR by 9.', str: 9, value:45
-      4: text: "Sapphire Blade", notes:'Sword whose edge bites like the north wind. Increases STR by 12.', str: 12, value:65
-      5: text: "Ruby Sword", notes:'Weapon whose forge-glow never fades. Increases STR by 15.', str: 15, value:90
-      6: text: "Golden Sword", notes:'Bane of creatures of darkness. Increases STR by 18.', str: 18, value:120, last: true
+      0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:0
+      1: text: t('weaponWarrior1Text'), notes: t('weaponWarrior1Notes', {str: 3}), str: 3, value:20
+      2: text: t('weaponWarrior2Text'), notes: t('weaponWarrior2Notes', {str: 6}), str: 6, value:30
+      3: text: t('weaponWarrior3Text'), notes: t('weaponWarrior3Notes', {str: 9}), str: 9, value:45
+      4: text: t('weaponWarrior4Text'), notes: t('weaponWarrior4Notes', {str: 12}), str: 12, value:65
+      5: text: t('weaponWarrior5Text'), notes: t('weaponWarrior5Notes', {str: 15}), str: 15, value:90
+      6: text: t('weaponWarrior6Text'), notes: t('weaponWarrior6Notes', {str: 18}), str: 18, value:120, last: true
     rogue:
       #Not using bows at the moment, but they would be easy to add back in to an advanced Armory feature, as Quest drops, etc.
       #0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
@@ -44,217 +50,217 @@ gear =
       #4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
       #5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
       #6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
-      0: text: "Dagger", notes: 'A rogue\'s most basic weapon. Confers no benefit.', str: 0, value: 0
-      1: text: "Short Sword", notes: 'Light, concealable blade. Increases STR by 2.', str: 2, value: 20
-      2: text: "Scimitar", notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.', str: 3, value: 35
-      3: text: "Kukri", notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.', str: 4, value: 50
-      4: text: "Nunchaku", notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.', str: 6, value: 70
-      5: text: "Ninja-to", notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.', str: 8, value: 90
-      6: text: "Hook Sword", notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.', str: 10, value: 120, last: true
+      0: text: t('weaponRogue0Text'), notes: t('weaponRogue0Notes'), str: 0, value: 0
+      1: text: t('weaponRogue1Text'), notes: t('weaponRogue1Notes', {str: 2}), str: 2, value: 20
+      2: text: t('weaponRogue2Text'), notes: t('weaponRogue2Notes', {str: 3}), str: 3, value: 35
+      3: text: t('weaponRogue3Text'), notes: t('weaponRogue3Notes', {str: 4}), str: 4, value: 50
+      4: text: t('weaponRogue4Text'), notes: t('weaponRogue4Notes', {str: 6}), str: 6, value: 70
+      5: text: t('weaponRogue5Text'), notes: t('weaponRogue5Notes', {str: 8}), str: 8, value: 90
+      6: text: t('weaponRogue6Text'), notes: t('weaponRogue6Notes', {str: 10}), str: 10, value: 120, last: true
     wizard:
-      0: twoHanded: true, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
-      1: twoHanded: true, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
-      2: twoHanded: true, text: "Jeweled Staff", notes:'Focuses power through a precious stone. Increases INT by 6 and PER by 2.', int: 6, per: 2, value:50
-      3: twoHanded: true, text: "Iron Staff", notes:'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.', int: 9, per: 3, value:80
-      4: twoHanded: true, text: "Brass Staff", notes:'As powerful as it is heavy. Increases INT by 12 and PER by 5.', int:12, per: 5, value:120
-      5: twoHanded: true, text: "Archmage Staff", notes:'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.', int: 15, per: 7, value:160
-      6: twoHanded: true, text: "Golden Staff", notes:'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 10.', int: 18, per: 10, value:200, last: true
+      0: twoHanded: true, text: t('weaponWizard0Text'), notes: t('weaponWizard0Notes'), value:0
+      1: twoHanded: true, text: t('weaponWizard1Text'), notes: t('weaponWizard1Notes', {int: 3, per: 1}), int: 3, per: 1, value:30
+      2: twoHanded: true, text: t('weaponWizard2Text'), notes: t('weaponWizard2Notes', {int: 6, per: 2}), int: 6, per: 2, value:50
+      3: twoHanded: true, text: t('weaponWizard3Text'), notes: t('weaponWizard3Notes', {int: 9, per: 3}), int: 9, per: 3, value:80
+      4: twoHanded: true, text: t('weaponWizard4Text'), notes: t('weaponWizard4Notes', {int: 12, per: 5}), int:12, per: 5, value:120
+      5: twoHanded: true, text: t('weaponWizard5Text'), notes: t('weaponWizard5Notes', {int: 15, per: 7}), int: 15, per: 7, value:160
+      6: twoHanded: true, text: t('weaponWizard6Text'), notes: t('weaponWizard6Notes', {int: 18, per: 10}), int: 18, per: 10, value:200, last: true
     healer:
-      0: text: "Novice Rod", notes:'For healers in training. Confers no benefit.', value:0
-      1: text: "Acolyte Rod", notes:'Crafted during a healer\'s initiation. Increases INT by 2.', int: 2, value:20
-      2: text: "Quartz Rod", notes:'Topped with a gem bearing curative properties. Increases INT by 3.', int: 3, value:30
-      3: text: "Amethyst Rod", notes:'Purifies poison at a touch. Increases INT by 5.', int: 5, value:45
-      4: text: "Physician Rod", notes:'As much a badge of office as a healing tool. Increases INT by 7.', int:7, value:65
-      5: text: "Royal Scepter", notes:'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.', int: 9, value:90
-      6: text: "Golden Scepter", notes:'Soothes the pain of all who look upon it. Increases INT by 11.', int: 11, value:120, last: true
+      0: text: t('weaponHealer0Text'), notes: t('weaponHealer0Notes'), value:0
+      1: text: t('weaponHealer1Text'), notes: t('weaponHealer1Notes', {int: 2}), int: 2, value:20
+      2: text: t('weaponHealer2Text'), notes: t('weaponHealer2Notes', {int: 3}), int: 3, value:30
+      3: text: t('weaponHealer3Text'), notes: t('weaponHealer3Notes', {int: 5}), int: 5, value:45
+      4: text: t('weaponHealer4Text'), notes: t('weaponHealer4Notes', {int: 7}), int:7, value:65
+      5: text: t('weaponHealer5Text'), notes: t('weaponHealer5Notes', {int: 9}), int: 9, value:90
+      6: text: t('weaponHealer6Text'), notes: t('weaponHealer6Notes', {int: 11}), int: 11, value:120, last: true
     special:
-      0: text: "Dark Souls Blade", notes:'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.', str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
-      1: text: "Crystal Blade", notes:'Its glittering facets tell the tale of a hero. Increases all attributes by 6.', str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: "Stephen Weber's Shaft of the Dragon", notes:'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.', str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
-      3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.", str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      critical: text: "Critical Hammer of Bug-Crushing", notes:"This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.", str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
+      0: text: t('weaponSpecial0Text'), notes: t('weaponSpecial0Notes', {str: 20}), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
+      1: text: t('weaponSpecial1Text'), notes: t('weaponSpecial1Notes', {attrs: 6}), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
+      2: text: t('weaponSpecial2Text'), notes: t('weaponSpecial2Notes', {attrs: 25}), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
+      3: text: t('weaponSpecial3Text'), notes: t('weaponSpecial3Notes', {attrs: 17}), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      critical: text: t('weaponSpecialCriticalText'), notes: t('weaponSpecialCriticalNotes', {attrs: 40}), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
       # Winter event gear
-      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Spear", notes:'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.', str: 15, value:90
-      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Pole", notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
-      candycane:  event: events.winter, specialClass: 'wizard' , twoHanded: true, text: "Candy Cane Staff", notes:"Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.", int: 15, per: 7, value:160
-      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Wand", notes:'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.', int: 9, value:90
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('weaponSpecialYetiText'), notes: t('weaponSpecialYetiNotes', {str: 15}), str: 15, value:90
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), twoHanded: true, text: t('weaponSpecialCandycaneText'), notes: t('weaponSpecialCandycaneNotes', {int: 15, per: 7}), int: 15, per: 7, value:160
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('weaponSpecialSnowflakeText'), notes: t('weaponSpecialSnowflakeNotes', {int: 9}), int: 9, value:90
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes: 'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Carrot Sword', notes: 'This mighty sword can slice foes with ease! It also makes a delicious mid-battle snack. Adds 15 points to STR. Limited Edition 2014 Spring Gear.', value: 90, str: 15
-      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: 'Swiss Cheese Staff', notes: 'Only the most powerful rodents can brave their hunger to wield this potent staff. Adds 15 points to INT and 7 points to PER. Limited Edition 2014 Spring Gear.', value: 160, int:15, per:7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Lovely Bone', notes: 'FETCH! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('weaponSpecialSpringRogueText'), notes: t('weaponSpecialSpringRogueNotes', {str: 8}), value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('weaponSpecialSpringWarriorText'), notes: t('weaponSpecialSpringWarriorNotes', {str: 15}), value: 90, str: 15
+      springMage:     event: events.spring, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialSpringMageText'), notes: t('weaponSpecialSpringMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('weaponSpecialSpringHealerText'), notes: t('weaponSpecialSpringHealerNotes', {int: 9}), value: 90, int: 9
 
   armor:
     base:
-      0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
+      0: text: t('armorBase0Text'), notes: t('armorBase0Notes'), value:0
     warrior:
       #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
-      1: text: "Leather Armor", notes:'Jerkin of sturdy boiled hide. Increases CON by 3.', con: 3, value:30
-      2: text: "Chain Mail", notes:'Armor of interlocked metal rings. Increases CON by 5.', con: 5, value:45
-      3: text: "Plate Armor", notes:'Suit of all-encasing steel, the pride of knights. Increases CON by 7.', con: 7, value:65
-      4: text: "Red Armor", notes:'Heavy plate glowing with defensive enchantments. Increases CON by 9.', con: 9, value:90
-      5: text: "Golden Armor", notes:'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.', con: 11, value:120, last: true
+      1: text: t('armorWarrior1Text'), notes: t('armorWarrior1Notes', {con: 3}), con: 3, value:30
+      2: text: t('armorWarrior2Text'), notes: t('armorWarrior2Notes', {con: 5}), con: 5, value:45
+      3: text: t('armorWarrior3Text'), notes: t('armorWarrior3Notes', {con: 7}), con: 7, value:65
+      4: text: t('armorWarrior4Text'), notes: t('armorWarrior4Notes', {con: 9}), con: 9, value:90
+      5: text: t('armorWarrior5Text'), notes: t('armorWarrior5Notes', {con: 11}), con: 11, value:120, last: true
     rogue:
       #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
-      1: text: "Oiled Leather", notes:'Leather armor treated to reduce noise. Increases PER by 6.', per: 6, value:30
-      2: text: "Black Leather", notes:'Colored with dark dye to blend into shadows. Increases PER by 9', per: 9, value:45
-      3: text: "Camouflage Vest", notes:'Equally discreet in dungeon or wilderness. Increases PER by 12.', per: 12, value:65
-      4: text: "Penumbral Armor", notes:'Wraps the wearer in a veil of twilight. Increases PER by 15.', per: 15, value:90
-      5: text: "Umbral Armor", notes:'Allows stealth in the open in broad daylight. Increases PER by 18.', per: 18, value:120, last: true
+      1: text: t('armorRogue1Text'), notes: t('armorRogue1Notes', {per: 6}), per: 6, value:30
+      2: text: t('armorRogue2Text'), notes: t('armorRogue2Notes', {per: 9}), per: 9, value:45
+      3: text: t('armorRogue3Text'), notes: t('armorRogue3Notes', {per: 12}), per: 12, value:65
+      4: text: t('armorRogue4Text'), notes: t('armorRogue4Notes', {per: 15}), per: 15, value:90
+      5: text: t('armorRogue5Text'), notes: t('armorRogue5Notes', {per: 18}), per: 18, value:120, last: true
     wizard:
       #0: text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0
-      1: text: "Magician Robe", notes:'Hedge-mage\'s outfit. Increases INT by 2.', int: 2, value:30
-      2: text: "Wizard Robe", notes:'Clothes for a wandering wonder-worker. Increases INT by 4.', int: 4, value:45
-      3: text: "Robe of Mysteries", notes:'Denotes initiation into elite secrets. Increases INT by 6.', int: 6, value:65
-      4: text: "Archmage Robe", notes:'Spirits and elementals bow before it. Increases INT by 9.', int: 9, value:90
-      5: text: "Royal Magus Robe", notes:'Symbol of the power behind the throne. Increases INT by 12.', int: 12, value:120, last: true
+      1: text: t('armorWizard1Text'), notes: t('armorWizard1Notes', {int: 2}), int: 2, value:30
+      2: text: t('armorWizard2Text'), notes: t('armorWizard2Notes', {int: 4}), int: 4, value:45
+      3: text: t('armorWizard3Text'), notes: t('armorWizard3Notes', {int: 6}), int: 6, value:65
+      4: text: t('armorWizard4Text'), notes: t('armorWizard4Notes', {int: 9}), int: 9, value:90
+      5: text: t('armorWizard5Text'), notes: t('armorWizard5Notes', {int: 12}), int: 12, value:120, last: true
     healer:
       #0: text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0
-      1: text: "Acolyte Robe", notes:'Garment showing humility and purpose. Increases CON by 6.', con: 6, value:30
-      2: text: "Medic Robe", notes:'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.', con: 9, value:45
-      3: text: "Defender Mantle", notes:'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.', con: 12, value:65
-      4: text: "Physician Mantle", notes:'Projects authority and dissipates curses. Increases CON by 15.', con: 15, value:90
-      5: text: "Royal Mantle", notes:'Attire of those who have saved the lives of kings. Increases CON by 18.', con: 18, value:120, last: true
+      1: text: t('armorHealer1Text'), notes: t('armorHealer1Notes', {con: 6}), con: 6, value:30
+      2: text: t('armorHealer2Text'), notes: t('armorHealer2Notes', {con: 9}), con: 9, value:45
+      3: text: t('armorHealer3Text'), notes: t('armorHealer3Notes', {con: 12}), con: 12, value:65
+      4: text: t('armorHealer4Text'), notes: t('armorHealer4Notes', {con: 15}), con: 15, value:90
+      5: text: t('armorHealer5Text'), notes: t('armorHealer5Notes', {con: 18}), con: 18, value:120, last: true
     special:
-      0: text: "Shade Armor",   notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
-      2: text: "Jean Chalard's Noble Tunic", notes:'Makes you extra fluffy! Increases CON and INT by 25 each.', int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      # Winter event
-      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Robe", notes:'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.', con: 9, value:90
-      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Parka", notes:'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.', per: 15, value:90
-      candycane:  event: events.winter, specialClass: 'wizard' , text: "Candy Cane Robe", notes:'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.', int: 9, value:90
-      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
-      birthday:   event: events.birthday, text: "Absurd Party Robes", notes:"As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.", value: 0
+      0: text: t('armorSpecial0Text'), notes: t('armorSpecial0Notes', {con: 20}), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: t('armorSpecial1Text'), notes: t('armorSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
+      2: text: t('armorSpecial2Text'), notes: t('armorSpecial2Notes', {attrs: 25}), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      #Winter event
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('armorSpecialYetiText'), notes: t('armorSpecialYetiNotes', {con: 9}), con: 9, value:90
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiText', {per: 15}), per: 15, value:90
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: t('armorSpecialCandycaneText'), notes: t('armorSpecialCandycaneNotes', {int: 9}), int: 9, value:90
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('armorSpecialSnowflakeText'), notes: t('armorSpecialSnowflakeNotes', {con: 15}), con: 15, value:90
+      birthday:   event: events.birthday, text: t('armorSpecialBirthdayText'), notes: t('armorSpecialBirthdayNotes'), value: 0
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Adds 15 points to PER. Limited Edition 2014 Spring Gear.', value: 90, per: 15
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Clover-steel Armor', notes: 'Soft as clover, strong as steel! Adds 9 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text: 'Rodentia Robes', notes: 'Mice are nice! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('armorSpecialSpringRogueText'), notes: t('armorSpecialSpringRogueNotes', {per: 15}), value: 90, per: 15
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('armorSpecialSpringWarriorText'), notes: t('armorSpecialSpringWarriorNotes', {con: 9}), value: 90, con: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: t('armorSpecialSpringMageText'), notes: t('armorSpecialSpringMageNotes', {int: 9}), value: 90, int: 9
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('armorSpecialSpringHealerText'), notes: t('armorSpecialSpringHealerNotes', {con: 15}), value: 90, con: 15
     mystery:
-      201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
-      201403: text: 'Forest Walker Armor', notes: "This mossy armor of woven wood bends with the movement of the wearer.", mystery:mystery['201403'], value: 10
+      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 10
+      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 10
 
   head:
     base:
-      0: text: "No Helm", notes:'No headgear.', value:0
+      0: text: t('headBase0Text'), notes: t('headBase0Notes'), value:0
     warrior:
       #0: text: "No Helm", notes:'No headgear.', value:0
-      1: text: "Leather Helm", notes:'Cap of sturdy boiled hide. Increases STR by 2.', str: 2, value:15
-      2: text: "Chain Coif", notes:'Hood of interlocked metal rings. Increases STR by 4.', str: 4, value:25
-      3: text: "Plate Helm", notes:'Thick steel helmet, proof against any blow. Increases STR by 6.', str: 6, value:40
-      4: text: "Red Helm", notes:'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.', str: 9, value:60
-      5: text: "Golden Helm", notes:'Regal crown bound to shining armor. Increases STR by 12.', str: 12, value:80, last: true
+      1: text: t('headWarrior1Text'), notes: t('headWarrior1Notes', {str: 2}), str: 2, value:15
+      2: text: t('headWarrior2Text'), notes: t('headWarrior2Notes', {str: 4}), str: 4, value:25
+      3: text: t('headWarrior3Text'), notes: t('headWarrior3Notes', {str: 6}), str: 6, value:40
+      4: text: t('headWarrior4Text'), notes: t('headWarrior4Notes', {str: 9}), str: 9, value:60
+      5: text: t('headWarrior5Text'), notes: t('headWarrior5Notes', {str: 12}), str: 12, value:80, last: true
     rogue:
       #0: text: "No Hood", notes:'No headgear.', value:0
-      1: text: "Leather Hood", notes:'Basic protective cowl. Increases PER by 2.', per: 2, value:15
-      2: text: "Black Leather Hood", notes:'Useful for both defense and disguise. Increases PER by 4.', per: 4, value:25
-      3: text: "Camouflage Hood", notes:'Rugged, but doesn\'t impede hearing. Increases PER by 6.', per: 6, value:40
-      4: text: "Penumbral Hood", notes:'Grants perfect vision in darkness. Increases PER by 9.', per: 9, value:60
-      5: text: "Umbral Hood", notes:'Conceals even thoughts from those who would probe them. Increases PER by 12.', per: 12, value:80, last: true
+      1: text: t('headRogue1Text'), notes: t('headRogue1Notes', {per: 2}), per: 2, value:15
+      2: text: t('headRogue2Text'), notes: t('headRogue2Notes', {per: 4}), per: 4, value:25
+      3: text: t('headRogue3Text'), notes: t('headRogue3Notes', {per: 6}), per: 6, value:40
+      4: text: t('headRogue4Text'), notes: t('headRogue4Notes', {per: 9}), per: 9, value:60
+      5: text: t('headRogue5Text'), notes: t('headRogue5Notes', {per: 12}), per: 12, value:80, last: true
     wizard:
       #0: text: "No Hat", notes:'No headgear.', value:0
-      1: text: "Magician Hat", notes:'Simple, comfortable, and fashionable. Increases PER by 2.', per: 2, value:15
-      2: text: "Cornuthaum", notes:'Traditional headgear of the itinerant wizard. Increases PER by 3.', per: 3, value:25
-      3: text: "Astrologer Hat", notes:'Adorned with the rings of Saturn. Increases PER by 5.', per: 5, value:40
-      4: text: "Archmage Hat", notes:'Focuses the mind for intensive spellcasting. Increases PER by 7.', per: 7, value:60
-      5: text: "Royal Magus Hat", notes:'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.', per: 10, value:80, last: true
+      1: text: t('headWizard1Text'), notes: t('headWizard1Notes', {per: 2}), per: 2, value:15
+      2: text: t('headWizard2Text'), notes: t('headWizard2Notes', {per: 3}), per: 3, value:25
+      3: text: t('headWizard3Text'), notes: t('headWizard3Notes', {per: 5}), per: 5, value:40
+      4: text: t('headWizard4Text'), notes: t('headWizard4Notes', {per: 7}), per: 7, value:60
+      5: text: t('headWizard5Text'), notes: t('headWizard5Notes', {per: 10}), per: 10, value:80, last: true
     healer:
       #0: text: "No Circlet", notes:'No headgear.', value:0
-      1: text: "Quartz Circlet", notes:'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.', int: 2, value:15
-      2: text: "Amethyst Circlet", notes:'A taste of luxury for a humble profession. Increases INT by 3.', int: 3, value:25
-      3: text: "Sapphire Circlet", notes:'Shines to let sufferers know their salvation is at hand. Increases INT by 5.', int: 5, value:40
-      4: text: "Emerald Diadem", notes:'Emits an aura of life and growth. Increases INT by 7.', int: 7, value:60
-      5: text: "Royal Diadem", notes:'For king, queen, or miracle-worker. Increases INT by 9.', int: 9, value:80, last: true
+      1: text: t('headHealer1Text'), notes: t('headHealer1Notes', {int: 2}), int: 2, value:15
+      2: text: t('headHealer2Text'), notes: t('headHealer2Notes', {int: 3}), int: 3, value:25
+      3: text: t('headHealer3Text'), notes: t('headHealer3Notes', {int: 5}), int: 5, value:40
+      4: text: t('headHealer4Text'), notes: t('headHealer4Notes', {int: 7}), int: 7, value:60
+      5: text: t('headHealer5Text'), notes: t('headHealer5Notes', {int: 9}), int: 9, value:80, last: true
     special:
-      0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
-      2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      0: text: t('headSpecial0Text'), notes: t('headSpecial0Notes', {int: 20}), int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: t('headSpecial1Text'), notes: t('headSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
+      2: text: t('headSpecial2Text'), notes: t('headSpecial2Notes', {attrs: 25}), int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       #Winter event
-      nye:        event: events.winter, text: "Absurd Party Hat", notes:"You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!", value: 0
-      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Helm", notes:'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.', str: 9, value:60
-      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Helm", notes:"Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.", per: 9, value:60
-      candycane:  event: events.winter, specialClass: 'wizard' , text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
-      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
+      nye:        event: events.winter, text: t('headSpecialNyeText'), notes: t('headSpecialNyeNotes'), value: 0
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('headSpecialYetiText'), notes: t('headSpecialYetiNotes', {str: 9}), str: 9, value:60
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('headSpecialSkiText'), notes: t('headSpecialSkiNotes', {per: 9}), per: 9, value:60
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: t('headSpecialCanycaneText'), notes: t('headSpecialCanycaneNotes', {per: 7}), per: 7, value:60
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('headSpecialSnowflakeText'), notes: t('headSpecialSnowflakeNotes', {int: 7}), int: 7, value:60
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Adds 9 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 9
-      springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds 9 points to STR. Limited Edition 2014 Spring Gear.',value: 40,str: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('headSpecialSpringRogueText'), notes: t('headSpecialSpringRogueNotes', {per: 9}),value: 40,per: 9
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('headSpecialSpringWarriorText'), notes: t('headSpecialSpringWarriorNotes', {str: 9}),value: 40,str: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: t('headSpecialSpringMageText'), notes: t('headSpecialSpringMageNotes', {per: 7}),value: 40,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('headSpecialSpringHealerText'), notes: t('headSpecialSpringHealerNotes', {int: 7}), value: 40, int: 7
     mystery:
-      201402: text: 'Winged Helm', notes: "This winged circlet imbues the wearer with the speed of the wind!", mystery:mystery['201402'], value: 10
+      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 10
 
   shield:
     base:
-      0: text: "No Off-Hand Equipment", notes:'No shield or second weapon.', value:0
+      0: text: t('shieldBase0Text'), notes: t('shieldBase0Notes'), value:0
       #changed because this is what shows up for all classes, including those without shields
     warrior:
       #0: text: "No Shield", notes:'No shield.', value:0
-      1: text: "Wooden Shield", notes:'Round shield of thick wood. Increases CON by 2.', con: 2, value:20
-      2: text: "Buckler", notes:'Light and sturdy, quick to bring to the defense. Increases CON by 3.', con: 3, value:35
-      3: text: "Reinforced Shield", notes:'Made of wood but bolstered with metal bands. Increases CON by 5.', con: 5, value:50
-      4: text: "Red Shield", notes:'Rebukes blows with a burst of flame. Increases CON by 7.', con: 7, value:70
-      5: text: "Golden Shield", notes:'Shining badge of the vanguard. Increases CON by 9.', con: 9, value:90, last: true
+      1: text: t('shieldWarrior1Text'), notes: t('shieldWarrior1Notes', {con: 2}), con: 2, value:20
+      2: text: t('shieldWarrior2Text'), notes: t('shieldWarrior2Notes', {con: 3}), con: 3, value:35
+      3: text: t('shieldWarrior3Text'), notes: t('shieldWarrior3Notes', {con: 5}), con: 5, value:50
+      4: text: t('shieldWarrior4Text'), notes: t('shieldWarrior4Notes', {con: 7}), con: 7, value:70
+      5: text: t('shieldWarrior5Text'), notes: t('shieldWarrior5Notes', {con: 9}), con: 9, value:90, last: true
     rogue:
-      0: text: "Dagger", notes: 'A rogue\'s most basic weapon. Confers no benefit.', str: 0, value: 0
-      1: text: "Short Sword", notes: 'Light, concealable blade. Increases STR by 2.', str: 2, value: 20
-      2: text: "Scimitar", notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.', str: 3, value: 35
-      3: text: "Kukri", notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.', str: 4, value: 50
-      4: text: "Nunchaku", notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.', str: 6, value: 70
-      5: text: "Ninja-to", notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.', str: 8, value: 90
-      6: text: "Hook Sword", notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.', str: 10, value: 120, last: true
+      0: text: t('weaponRogue0Text'), notes: t('weaponRogue0Notes'), str: 0, value: 0
+      1: text: t('weaponRogue1Text'), notes: t('weaponRogue1Notes', {str: 2}), str: 2, value: 20
+      2: text: t('weaponRogue2Text'), notes: t('weaponRogue2Notes', {str: 3}), str: 3, value: 35
+      3: text: t('weaponRogue3Text'), notes: t('weaponRogue3Notes', {str: 4}), str: 4, value: 50
+      4: text: t('weaponRogue4Text'), notes: t('weaponRogue4Notes', {str: 6}), str: 6, value: 70
+      5: text: t('weaponRogue5Text'), notes: t('weaponRogue5Notes', {str: 8}), str: 8, value: 90
+      6: text: t('weaponRogue6Text'), notes: t('weaponRogue6Notes', {str: 10}), str: 10, value: 120, last: true
     wizard: {}
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0
-      1: text: "Medic Buckler", notes:'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.', con: 2, value:20
-      2: text: "Kite Shield", notes:'Tapered shield with the symbol of healing. Increases CON by 4.', con: 4, value:35
-      3: text: "Protector Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50
-      4: text: "Savior Shield", notes:'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.', con: 9, value:70
-      5: text: "Royal Shield", notes:'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.', con: 12, value:90, last: true
+      1: text: t('shieldHealer1Text'), notes: t('shieldHealer1Notes', {con: 2}), con: 2, value:20
+      2: text: t('shieldHealer2Text'), notes: t('shieldHealer2Notes', {con: 4}), con: 4, value:35
+      3: text: t('shieldHealer3Text'), notes: t('shieldHealer3Notes', {con: 6}), con: 6, value:50
+      4: text: t('shieldHealer4Text'), notes: t('shieldHealer4Notes', {con: 9}), con: 9, value:70
+      5: text: t('shieldHealer5Text'), notes: t('shieldHealer5Notes', {con: 12}), con: 12, value:90, last: true
     special:
-      0: text: "Tormented Skull", notes:'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.', per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Shield", notes:'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.', con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
+      0: text: t('shieldSpecial0Text'), notes: t('shieldSpecial0Notes', {per: 20}), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: t('shieldSpecial1Text'), notes: t('shieldSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
       #Winter event
-      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
-      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
-      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('shieldSpecialYetiText'), notes: t('shieldSpecialYetiNotes', {con: 7}), con: 7, value: 70
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('shieldSpecialSnowflakeText'), notes: t('shieldSpecialSnowflakeNotes', {con: 9}), con: 9, value: 70
       #Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: 'Squeaky Ball of Ultimate Protection', notes: "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Adds 9 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 9
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('shieldSpecialSpringRogueText'), notes: t('shieldSpecialSpringRogueNotes', {str: 8}), value: 80, str: 8
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('shieldSpecialSpringWarriorText'), notes: t('shieldSpecialSpringWarriorNotes', {con: 7}), value: 70, con: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('shieldSpecialSpringHealerText'), notes: t('shieldSpecialSpringHealerNotes', {con: 9}), value: 70, con: 9
 
   back:
     base:
-      0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
+      0: text: t('backBase0Text'), notes: t('backBase0Notes'), value:0
     mystery:
-      201402: text: 'Golden Wings', notes: "These shining wings have feathers that glitter in the sun!", mystery:mystery['201402'], value: 10
-      201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10
+      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 10
+      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 10
     special:
-      wondercon_red: text: 'Mighty Cape', notes: 'Swishes with strength and beauty. Special edition convention armor.', value: 0, mystery:mystery.wondercon
-      wondercon_black: text: 'Sneaky Cape', notes: 'Spun of shadows and whispers. Special edition convention armor.', value: 0,   mystery:mystery.wondercon
+      wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
+      wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0,   mystery:mystery.wondercon
 
   body:
     base:
-      0: text: "No Body Accessory", notes:'No Body Accessory.', value:0
+      0: text: t('bodyBase0Text'), notes:t('bodyBase0Notes'), value:0
     special:
-      wondercon_red: text: 'Ruby Collar', notes: 'An attractive ruby collar! Special edition convention armor.', value: 0,      mystery:mystery.wondercon
-      wondercon_gold: text: 'Golden Collar', notes: 'An attractive gold collar! Special edition convention armor.', value: 0,   mystery:mystery.wondercon
-      wondercon_black: text: 'Ebony Collar', notes: 'An attractive ebony collar! Special edition convention armor.', value: 0,  mystery:mystery.wondercon
+      wondercon_red: text: t('bodySpecialWonderconRedText'), notes: t('bodySpecialWonderconRedNotes'), value: 0,      mystery:mystery.wondercon
+      wondercon_gold: text: t('bodySpecialWonderconGoldText'), notes: t('bodySpecialWonderconGoldNotes'), value: 0,   mystery:mystery.wondercon
+      wondercon_black: text: t('bodySpecialWonderconBlackText'), notes: t('bodySpecialWonderconBlackNotes'), value: 0,  mystery:mystery.wondercon
 
   headAccessory:
     base:
-      0: text: 'No Head Accessory', notes: 'No Head Accessory', value: 0, last: true
+      0: text: t('headAccessoryBase0Text'), notes: t('headAccessoryBase0Notes'), value: 0, last: true
     special:
       # Spring Event
-      springRogue:   event: events.spring, specialClass: 'rogue',   text: "Purple Cat Ears", notes: "These feline ears twitch to detect incoming threats. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
-      springWarrior: event: events.spring, specialClass: 'warrior', text: 'Green Bunny Ears', notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no stat bonus. Limited Edition 2014 Spring Gear.", value: 20
-      springMage:    event: events.spring, specialClass: 'wizard',    text: 'Blue Mouse Ears', notes: 'These round mouse ears are silky-soft. Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
-      springHealer:  event: events.spring, specialClass: 'healer',  text: 'Yellow Dog Ears', notes: 'Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.', value: 20
-      wondercon_red: text: 'Mighty Mask', notes: 'What a powerful face accessory! Special edition convention armor.', value: 0,           mystery:mystery.wondercon
-      wondercon_black: text: 'Sneaky Mask', notes: 'Your motives are definitely legitimate. Special edition convention armor.', value: 0, mystery:mystery.wondercon
+      springRogue:   event: events.spring, specialClass: 'rogue',   text: t('headAccessorySpecialSpringRogueText'), notes: t('headAccessorySpecialSpringRogueNotes'), value: 20
+      springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
+      springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
+      springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
+      wondercon_red: text: t('headAccessorySpecialWonderconRedText'), notes: t('headAccessorySpecialWonderconRedNotes'), value: 0,           mystery:mystery.wondercon
+      wondercon_black: text: t('headAccessorySpecialWonderconBlackText'), notes: t('headAccessorySpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
     mystery:
-      201403: text: 'Forest Walker Antlers', notes: "These antlers shimmer with moss and lichen.", mystery:mystery['201403'], value: 10
-      201404: text: 'Twilight Butterfly Antennae', notes: "These antennae help the wearer sense dangerous distractions!", mystery:mystery['201404'], value: 10
+      201403: text: t('headAccessoryMistery201403Text'), notes: t('headAccessoryMistery201403Notes'), mystery:mystery['201403'], value: 10
+      201404: text: t('headAccessoryMistery201404Text'), notes: t('headAccessoryMistery201404Notes'), mystery:mystery['201404'], value: 10
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
@@ -291,7 +297,7 @@ _.each gearTypes, (type) ->
   ---------------------------------------------------------------
 ###
 
-api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
+api.potion = type: 'potion', text: t('potionText'), notes: t('potionNotes'), value: 25, key: 'potion'
 
 ###
    ---------------------------------------------------------------
@@ -337,11 +343,11 @@ api.spells =
 
   wizard:
     fireball:
-      text: 'Burst of Flames'
+      text: t('spellWizardFireballText')
       mana: 10
       lvl: 11
       target: 'task'
-      notes: 'Flames blast forth, scorching a task. You reduce the task\'s redness, deal damage to any monster you\'re battling, and gain Experience--more for blue tasks.'
+      notes: t('spellWizardFireballNotes')
       cast: (user, target) ->
         # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
@@ -352,11 +358,11 @@ api.spells =
         user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
 
     mpheal:
-      text: 'Ethereal Surge'
+      text: t('spellWizardMPHealText')
       mana: 30
       lvl: 12
       target: 'party'
-      notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
+      notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
           bonus = Math.ceil(user._statsComputed.int * .1)
@@ -364,60 +370,60 @@ api.spells =
           member.stats.mp += bonus
 
     earth:
-      text: 'Earthquake'
+      text: t('spellWizardEarthText')
       mana: 35
       lvl: 13
       target: 'party'
-      notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
+      notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
           member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
 
     frost:
-      text: 'Chilling Frost'
+      text: t('spellWizardFrostText'),
       mana: 40
       lvl: 14
       target: 'self'
-      notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day."
+      notes: t('spellWizardFrostNotes'),
       cast: (user, target) ->
         user.stats.buffs.streaks = true
 
   warrior:
     smash:
-      text: 'Brutal Smash'
+      text: t('spellWarriorSmashText')
       mana: 10
       lvl: 11
       target: 'task'
-      notes: "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting."
+      notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
         user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
-      text: 'Defensive Stance'
+      text: t('spellWarriorDefensiveStanceText')
       mana: 25
       lvl: 12
       target: 'self'
-      notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
+      notes: t('spellWarriorDefensiveStanceNotes')
       cast: (user, target) ->
         user.stats.buffs.con ?= 0
         user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
     valorousPresence:
-      text: 'Valorous Presence'
+      text: t('spellWarriorValorousPresenceText')
       mana: 20
       lvl: 13
       target: 'party'
-      notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
+      notes: t('spellWarriorValorousPresenceNotes')
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.str ?= 0
           member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
     intimidate:
-      text: 'Intimidating Gaze'
+      text: t('spellWarriorIntimidateText')
       mana: 15
       lvl: 14
       target: 'party'
-      notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
+      notes: t('spellWarriorIntimidateNotes')
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
@@ -425,20 +431,20 @@ api.spells =
 
   rogue:
     pickPocket:
-      text: 'Pickpocket'
+      text: t('spellRoguePickPocketText')
       mana: 10
       lvl: 11
       target: 'task'
-      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task."
+      notes: t('spellRoguePickPocketNotes')
       cast: (user, target) ->
         bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
         user.stats.gp += 25 * (bonus / (bonus + 75))
     backStab:
-      text: 'Backstab'
+      text: t('spellRogueBackStabText')
       mana: 15
       lvl: 12
       target: 'task'
-      notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
+      notes: t('spellRogueBackStabNotes')
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
         target.value += _crit * .03
@@ -447,22 +453,22 @@ api.spells =
         user.stats.gp += bonus
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
-      text: 'Tools of the Trade'
+      text: t('spellRogueToolsOfTradeText')
       mana: 25
       lvl: 13
       target: 'party'
-      notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day."
+      notes: t('spellRogueToolsOfTradeNotes')
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
           member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
     stealth:
-      text: 'Stealth'
+      text: t('spellRogueStealthText')
       mana: 45
       lvl: 14
       target: 'self'
-      notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
+      notes: t('spellRogueStealthNotes')
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
         ## scales to user's # of dailies; maxes out at 100% at 100 per ##
@@ -470,41 +476,41 @@ api.spells =
 
   healer:
     heal:
-      text: 'Healing Light'
+      text: t('spellHealerHealText')
       mana: 15
       lvl: 11
       target: 'self'
-      notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
+      notes: t('spellHealerHealNotes')
       cast: (user, target) ->
         user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
     brightness:
-      text: 'Searing Brightness'
+      text: t('spellHealerBrightnessText')
       mana: 15
       lvl: 12
       target: 'self'
-      notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced."
+      notes: t('spellHealerBrightnessNotes')
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
           target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
     protectAura:
-      text: 'Protective Aura'
+      text: t('spellHealerProtectAuraText')
       mana: 30
       lvl: 13
       target: 'party'
-      notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
+      notes: t('spellHealerProtectAuraNotes')
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
           member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
     heallAll:
-      text: 'Blessing'
+      text: t('spellHealerHealAllText')
       mana: 25
       lvl: 14
       target: 'party'
-      notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
+      notes: t('spellHealerHealAllNotes')
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04
@@ -512,11 +518,11 @@ api.spells =
 
   special:
     snowball:
-      text: 'Snowball'
+      text: t('spellSpecialSnowballText')
       mana: 0
       value: 1
       target: 'user'
-      notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day."
+      notes: t('spellSpecialSnowballNotes')
       cast: (user, target) ->
         target.stats.buffs.snowball = true
         target.achievements.snowball ?= 0
@@ -524,11 +530,11 @@ api.spells =
         user.items.special.snowball--
 
     salt:
-      text: 'Salt'
+      text: t('spellSpecialSaltText')
       mana: 0
       value: 5
       target: 'self'
-      notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!'
+      notes: t('spellSpecialSaltNotes')
       cast: (user, target) ->
         user.stats.buffs.snowball = false
         user.stats.gp -= 5
@@ -553,35 +559,36 @@ api.special = api.spells.special
 
 api.dropEggs =
   # value & other defaults set below
-  Wolf:             text: 'Wolf', adjective: 'loyal'
-  TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
-  PandaCub:         text: 'Panda Cub', mountText: 'Panda', adjective: 'gentle'
-  LionCub:          text: 'Lion Cub',  mountText: 'Lion', adjective: 'regal'
-  Fox:              text: 'Fox', adjective: 'wily'
-  FlyingPig:        text: 'Flying Pig', adjective: 'whimsical'
-  Dragon:           text: 'Dragon', adjective: 'mighty'
-  Cactus:           text: 'Cactus', adjective: 'prickly'
-  BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
+  Wolf:             text: t('dropEggWolfText'), adjective: t('dropEggWolfAdjective')
+  TigerCub:         text: t('dropEggTigerCubText'), mountText: t('dropEggTigerCubMountText'), adjective: t('dropEggTigerCubAdjective')
+  PandaCub:         text: t('dropEggPandaCubText'), mountText: t('dropEggPandaCubMountText'), adjective: t('dropEggPandaCubAdjective')
+  LionCub:          text: t('dropEggLionCubText'),  mountText: t('dropEggLionCubMountText'), adjective: t('dropEggLionCubAdjective')
+  Fox:              text: t('dropEggFoxText'), adjective: t('dropEggFoxAdjective')
+  FlyingPig:        text: t('dropEggFlyingPigText'), adjective: t('dropEggFlyingPigAdjective')
+  Dragon:           text: t('dropEggDragonText'), adjective: t('dropEggDragonAdjective')
+  Cactus:           text: t('dropEggCactusText'), adjective: t('dropEggCactusAdjective')
+  BearCub:          text: t('dropEggBearCubText'),  mountText: t('dropEggBearCubMountText'), adjective: t('dropEggBearCubAdjective')
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true
     value: 3
     key: key
-    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
+    notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
     mountText: egg.text
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon:          text: 'Gryphon',  adjective: 'proud', canBuy: false
-  Hedgehog:         text: 'Hedgehog', adjective: 'spiky', canBuy: false
-  Deer:             text: 'Deer',     adjective: 'elegant', canBuy: false
-  Egg:              text: 'Egg',     adjective: 'colorful', canBuy: false
+  Gryphon:          text: (-> i18n.t('questEggGryphonText')),  adjective: (-> i18n.t('questEggGryphonAdjective')), canBuy: false
+  Hedgehog:         text: (-> i18n.t('questEggHedgehogText')), adjective: (-> i18n.t('questEggHedgehogAdjective')), canBuy: false
+  Deer:             text: (-> i18n.t('questEggDeerText')), adjective: (-> i18n.t('questEggDeerAdjective')), canBuy: false
+  Egg:              text: (-> i18n.t('questEggEggText')), adjective: (-> i18n.t('questEggEggAdjective')), canBuy: false
+
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
     canBuy:false
     value: 3
     key: key
-    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
+    notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
     mountText: egg.text
 
 api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)
@@ -598,18 +605,18 @@ api.specialMounts =
   'LionCub-Ethereal':	true
 
 api.hatchingPotions =
-  Base:             value: 2, text: 'Base'
-  White:            value: 2, text: 'White'
-  Desert:           value: 2, text: 'Desert'
-  Red:              value: 3, text: 'Red'
-  Shade:            value: 3, text: 'Shade'
-  Skeleton:         value: 3, text: 'Skeleton'
-  Zombie:           value: 4, text: 'Zombie'
-  CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
-  CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
-  Golden:           value: 5, text: 'Golden'
+  Base:             value: 2, text: t('hatchingPotionBase')
+  White:            value: 2, text: t('hatchingPotionWhite')
+  Desert:           value: 2, text: t('hatchingPotionDesert')
+  Red:              value: 3, text: t('hatchingPotionRed')
+  Shade:            value: 3, text: t('hatchingPotionShade')
+  Skeleton:         value: 3, text: t('hatchingPotionSkeleton')
+  Zombie:           value: 4, text: t('hatchingPotionZombie')
+  CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
+  CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
+  Golden:           value: 5, text: t('hatchingPotionGolden')
 _.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text})}
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
@@ -620,204 +627,204 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
     m2[egg.key + "-" + pot.key] = true
 
 api.food =
-  Meat:             text: 'Meat', target: 'Base', article: ''
-  Milk:             text: 'Milk', target: 'White', article: ''
-  Potatoe:          text: 'Potato', target: 'Desert', article: 'a '
-  Strawberry:       text: 'Strawberry', target: 'Red', article: 'a '
-  Chocolate:        text: 'Chocolate', target: 'Shade', article: ''
-  Fish:             text: 'Fish', target: 'Skeleton', article: 'a '
-  RottenMeat:       text: 'Rotten Meat', target: 'Zombie', article: ''
-  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
+  Meat:             text: t('foodMeat'), target: 'Base', article: ''
+  Milk:             text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:          text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:       text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:        text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:             text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:       text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:  text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:  text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
 
-  Cake_Skeleton:        canBuy: false, text: 'Bare Bones Cake', target: 'Skeleton', article: ''
-  Cake_Base:            canBuy: false, text: 'Basic Cake', target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy: false, text: 'Candy Blue Cake', target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy: false, text: 'Candy Pink Cake', target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy: false, text: 'Chocolate Cake', target: 'Shade', article: ''
-  Cake_White:           canBuy: false, text: 'Cream Cake', target: 'White', article: ''
-  Cake_Golden:          canBuy: false, text: 'Honey Cake', target: 'Golden', article: ''
-  Cake_Zombie:          canBuy: false, text: 'Rotten Cake', target: 'Zombie', article: ''
-  Cake_Desert:          canBuy: false, text: 'Sand Cake', target: 'Desert', article: ''
-  Cake_Red:             canBuy: false, text: 'Strawberry Cake', target: 'Red', article: ''
+  Cake_Skeleton:        canBuy: false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
+  Cake_Base:            canBuy: false, text: t('foodCakeBase'), target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy: false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy: false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy: false, text: t('foodCakeShade'), target: 'Shade', article: ''
+  Cake_White:           canBuy: false, text: t('foodCakeWhite'), target: 'White', article: ''
+  Cake_Golden:          canBuy: false, text: t('foodCakeGolden'), target: 'Golden', article: ''
+  Cake_Zombie:          canBuy: false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
+  Cake_Desert:          canBuy: false, text: t('foodCakeDesert'), target: 'Desert', article: ''
+  Cake_Red:             canBuy: false, text: t('foodCakeRed'), target: 'Red', article: ''
 
   # Tests hack, put honey last so the faux random picks it up in unit tests
-  Honey:            text: 'Honey', target: 'Golden', article: ''
+  Honey:            text: t('foodHoney'), target: 'Golden', article: ''
 
-  Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises one of your pets into a mount.'
+  Saddle:           text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed.", canBuy:true}
+  _.defaults food, {value: 1, key, notes: t('foodNotes'), canBuy:true}
 
 api.quests =
 
   evilsanta:
     canBuy:false
-    text: "Trapper Santa" # title of the quest (eg, Deep into Vice's Layer)
-    notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!"
-    completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!"
+    text: t('questEvilSantaText') # title of the quest (eg, Deep into Vice's Layer)
+    notes: t('questEvilSantaNotes')
+    completion: t('questEvilSantaCompletion')
     value: 4 # Gem cost to buy, GP sell-back
     #mechanic: enum['perfectDailies', ...]
     boss:
-      name: "Trapper Santa" # name of the boss himself (eg, Vice)
+      name: t('questEvilSantaBoss') # name of the boss himself (eg, Vice)
       hp: 300
       str: 1 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'mounts', key: 'BearCub-Polar', text: "Polar Bear (Mount)"}
+        {type: 'mounts', key: 'BearCub-Polar', text: t('questEvilSantaDropBearCubPolarMount')}
       ]
       gp: 20
       exp: 100 # Exp bonus from defeating the boss
 
   evilsanta2:
     canBuy:false
-    text: "Find The Cub"
-    notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!"
-    completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days."
+    text: t('questEvilSanta2Text')
+    notes: t('questEvilSanta2Notes')
+    completion: t('questEvilSanta2Completion')
     value: 4
     previous: 'evilsanta'
     collect:
-      tracks: text: 'Tracks', count: 20
-      branches: text: 'Broken Twigs', count: 10
+      tracks: text: t('questEvilSanta2CollectTracks'), count: 20
+      branches: text: t('questEvilSanta2CollectBranches'), count: 10
     drop:
       items: [
-        {type: 'pets', key: 'BearCub-Polar', text: "Polar Bear (Pet)"}
+        {type: 'pets', key: 'BearCub-Polar', text: t('questEvilSanta2DropBearCubPolarPet')}
       ]
       gp: 20
       exp: 100
 
   gryphon:
-    text: "The Fiery Gryphon"
-    notes: 'The grand beastmaster, <strong>baconsaur</strong>, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"'
-    completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" <strong>baconsaur</strong> exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!'
+    text: t('questGryphonText')
+    notes: t('questGryphonNotes')
+    completion: t('questGryphonCompletion')
     value: 4 # Gem cost to buy, GP sell-back
     boss:
-      name: "Fiery Gryphon" # name of the boss himself (eg, Vice)
+      name: t('questGryphonBoss') # name of the boss himself (eg, Vice)
       hp: 300
       str: 1.5 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
-        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
-        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
+        {type: 'eggs', key: 'Gryphon', text: t('questGryphonDropGryphonEgg')}
+        {type: 'eggs', key: 'Gryphon', text: t('questGryphonDropGryphonEgg')}
+        {type: 'eggs', key: 'Gryphon', text: t('questGryphonDropGryphonEgg')}
       ]
       gp: 25
       exp: 125
       
   hedgehog:
-    text: "The Hedgebeast"
-    notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>Inventrix</strong> did just that. Oops.'
-    completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!'
+    text: t('questHedgehogText')
+    notes: t('questHedgehogNotes')
+    completion: t('questHedgehogCompletion')
     value: 4 # Gem cost to buy, GP sell-back
     boss:
-      name: "Hedgebeast" # name of the boss himself (eg, Vice)
+      name: t('questHedgehogBoss') # name of the boss himself (eg, Vice)
       hp: 400
       str: 1.25 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
-        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
-        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
+        {type: 'eggs', key: 'Hedgehog', text: t('questHedgehogDropHedgehogEgg')}
+        {type: 'eggs', key: 'Hedgehog', text: t('questHedgehogDropHedgehogEgg')}
+        {type: 'eggs', key: 'Hedgehog', text: t('questHedgehogDropHedgehogEgg')}
       ]
       gp: 30
       exp: 125
 
 
   ghost_stag:
-    text: "The Spirit of Spring"
-    notes: "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>Inventrix</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\""
-    completion: "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake."
+    text: t('questGhostStagText')
+    notes: t('questGhostStagNotes')
+    completion: t('questGhostStagCompletion')
     value: 4
     boss:
-      name: "Ghost Stag"
+      name: t('questGhostStagBoss')
       hp: 1200
       str: 2.5
     drop:
       items: [
-        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
-        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
-        {type: 'eggs', key: 'Deer', text: "Deer (Egg)"}
+        {type: 'eggs', key: 'Deer', text: t('questGhostStagDropDeerEgg')}
+        {type: 'eggs', key: 'Deer', text: t('questGhostStagDropDeerEgg')}
+        {type: 'eggs', key: 'Deer', text: t('questGhostStagDropDeerEgg')}
       ]
       gp: 80
       exp: 800
 
 
   vice1:
-    text: "Free Yourself of the Dragon's Influence"
-    notes: "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves: Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you! </p>"
+    text: t('questVice1Text')
+    notes: t('questVice1Notes')
     value: 4
     lvl: 30
     boss:
-      name: "Vice's Shade"
+      name: t('questVice1Boss')
       hp: 750
       str: 1.5
     drop:
       items: [
-        {type: 'quests', key: "vice2", text: "Vice Part 2 (Scroll)"}
+        {type: 'quests', key: "vice2", text: t('questVice1DropVice2Quest')}
       ]
       gp: 20
       exp: 100
 
   vice2:
-    text: "Find the Lair of the Wyrm"
-    notes: "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes it's way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon."
+    text: t('questVice2Text')
+    notes: t('questVice2Notes')
     value: 4
     lvl: 35
     previous: 'vice1'
     collect:
-      lightCrystal: text: 'Light Crystal', count: 45
+      lightCrystal: text: t('questVice2CollectLightCrystal'), count: 45
     drop:
       items: [
-        {type: 'quests', key: 'vice3', text: "Vice Part 3 (Scroll)"}
+        {type: 'quests', key: 'vice3', text: t('questVice2DropVice3Quest')}
       ]
       gp: 20
       exp: 75
 
   vice3:
-    text: "Vice Awakens"
-    notes: "After much effort, your party has discovered Vice's lair. The hulking monster eyes your party with distaste. As shadows swirl around you, a voice whispers through your head, \"More foolish citizens of Habitica come to stop me? Cute. You'd have been wise not to come.\" The scaly titan rears back its head and prepares to attack. This is your chance! Give it everything you've got and defeat Vice once and for all!"
-    completion: "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!"
+    text: t('questVice3Text')
+    notes: t('questVice3Notes')
+    completion: t('questVice3Completion')
     previous: 'vice2'
     value: 4
     lvl: 40
     boss:
-      name: "Vice, the Shadow Wyrm"
+      name: t('questVice3Boss')
       hp: 1500
       str: 3
     drop:
       items: [
-        {type: 'gear', key: "weapon_special_2", text: "Stephen Weber's Shaft of the Dragon"}
-        {type: 'eggs', key: 'Dragon', text: "Dragon (Egg)"}
-        {type: 'eggs', key: 'Dragon', text: "Dragon (Egg)"}
-        {type: 'hatchingPotions', key: 'Shade', text: "Shade Hatching Potion"}
-        {type: 'hatchingPotions', key: 'Shade', text: "Shade Hatching Potion"}
+        {type: 'gear', key: "weapon_special_2", text: t('questVice3DropWeaponSpecial2')}
+        {type: 'eggs', key: 'Dragon', text: t('questVice3DropDragonEgg')}
+        {type: 'eggs', key: 'Dragon', text: t('questVice3DropDragonEgg')}
+        {type: 'hatchingPotions', key: 'Shade', text: t('questVice3DropShadeHatchingPotion')}
+        {type: 'hatchingPotions', key: 'Shade', text: t('questVice3DropShadeHatchingPotion')}
       ]
       gp: 100
       exp: 1000
 
   egg:
-    text: "Egg Hunt"
-    notes: "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\""
-    completion: "You did it! In gratitude, <strong>Megan</strong> gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\""
+    text: t('questEggHuntText')
+    notes: t('questEggHuntNotes')
+    completion: t('questEggHuntCompletion')
     value: 1
     canBuy: false
     collect:
-      plainEgg: text: 'Plain Egg', count: 100
+      plainEgg: text: t('questEggHuntCollectPlainEgg'), count: 100
     drop:
       items: [
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
-        {type: 'eggs', key: 'Egg', text: "Plain Egg"}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
+        {type: 'eggs', key: 'Egg', text: t('questEggHuntDropPlainEgg')}
       ]
       gp: 0
       exp: 0
@@ -829,31 +836,31 @@ _.each api.quests, (v,key) ->
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
-    {type: 'habit', text: '1h Productive Work', notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.', value: 0, up: true, down: false, attribute: 'per' }
-    {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points.', value: 0, up: false, down: true, attribute: 'con'}
-    {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).', value: 0, up: true, down: true, attribute: 'str'}
+    {type: 'habit', text: t('defaultHabit1Text'), notes: t('defaultHabit1Notes'), value: 0, up: true, down: false, attribute: 'per' }
+    {type: 'habit', text: t('defaultHabit2Text'), notes: t('defaultHabit2Notes'), value: 0, up: false, down: true, attribute: 'con'}
+    {type: 'habit', text: t('defaultHabit3Text'), notes: t('defaultHabit3Notes'), value: 0, up: true, down: true, attribute: 'str'}
   ]
 
   dailys: [
-    {type: 'daily', text: '1h Personal Project', notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.', value: 0, completed: false, repeat: repeat, attribute: 'per' }
-    {type: 'daily', text: 'Clean your apartment', notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.', value: 3, completed: false, repeat: repeat, attribute: 'con' }
-    {type: 'daily', text: '45m Reading', notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false, repeat: repeat, attribute: 'int' }
-    {type: 'daily', text: 'Exercise', notes: 'You can add checklists to dailies and todos. As you progress through the checklist, you will get a proportionate reward.', checklist: [{completed: true, text: 'Stretching' }, {completed: false, text: 'Sit-ups'}, {completed: false, text: 'Push-ups'}], completed: false, repeat: repeat, attribute: 'str' }
+    {type: 'daily', text: t('defaultDaily1Text'), notes: t('defaultDaily1Notes'), value: 0, completed: false, repeat: repeat, attribute: 'per' }
+    {type: 'daily', text: t('defaultDaily2Text'), notes: t('defaultDaily2Notes'), value: 3, completed: false, repeat: repeat, attribute: 'con' }
+    {type: 'daily', text: t('defaultDaily3Text'), notes: t('defaultDaily3Notes'), value: -10, completed: false, repeat: repeat, attribute: 'int' }
+    {type: 'daily', text: t('defaultDaily4Text'), notes: t('defaultDaily4Notes'), checklist: [{completed: true, text: t('defaultDaily4Checklist1') }, {completed: false, text: t('defaultDaily4Checklist2')}, {completed: false, text: t('defaultDaily4Checklist3')}], completed: false, repeat: repeat, attribute: 'str' }
   ]
 
   todos: [
-    {type: 'todo', text: 'Use emojis :+1:', notes: 'You can use emojis in all your habit, daily, and to-do titles.', completed: false, attribute: 'int' }
-    {type: 'todo', text: '_Learn_ **Markdown** :book:', notes: 'You can use Markdown for styling your task names.', completed: false, attribute: 'int' }
-    {type: 'todo', text: 'Call Mom :telephone_receiver:', notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.', value: -3, completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodo1Notes'), completed: false, attribute: 'int' }
+    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodo2Notes'), completed: false, attribute: 'int' }
+    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodo3Notes'), value: -3, completed: false, attribute: 'per' }
   ]
 
   rewards: [
-    {type: 'reward', text: '1 Episode of Game of Thrones', notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.', value: 20 }
-    {type: 'reward', text: 'Cake', notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.', value: 10 }
+    {type: 'reward', text: t('defaultReward1Text'), notes: t('defaultReward1Notes'), value: 20 }
+    {type: 'reward', text: t('defaultReward2Text'), notes: t('defaultReward2Notes'), value: 10 }
   ]
 
   tags: [
-    {name: 'morning'}
-    {name: 'afternoon'}
-    {name: 'evening'}
+    {name: t('defaultTag1')}
+    {name: t('defaultTag2')}
+    {name: t('defaultTag3')}
   ]

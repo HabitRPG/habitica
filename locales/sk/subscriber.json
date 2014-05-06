@@ -59,5 +59,6 @@
     "contactUs": "Kontakt",
     "checkout": "Zaplatiť",
     "buySubsText": "Nakupovanie drahokamov za zlato, žiadne reklamy, podpora pre vývojárov",
-    "sureCancelSub": "Si si istý, že chceš zrušiť predplatné?"
+    "sureCancelSub": "Si si istý, že chceš zrušiť predplatné?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

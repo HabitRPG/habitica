@@ -59,5 +59,6 @@
     "contactUs": "Skontaktuj się z nami",
     "checkout": "Kasa",
     "buySubsText": "Kupuj klejnoty za Złoto, zero Reklam, wspieraj Twórców",
-    "sureCancelSub": "Jesteś pewien, że chcesz anulować swoją subskrypcję?"
+    "sureCancelSub": "Jesteś pewien, że chcesz anulować swoją subskrypcję?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

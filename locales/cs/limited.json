@@ -1,0 +1,13 @@
+{
+    "limitedEdition": "Limitovaná edice",
+    "winterColors": "Zimní barvy",
+    "annoyingFriends": "Otravní přátelé",
+    "annoyingFriendsText": "Byl zkoulován <%= snowballs %> krát od členů družiny.",
+    "valentineCard": "Valentýnka",
+    "adoringFriends": "Nejlepší přátelé",
+    "adoringFriendsText": "Jůů, se svými přáteli musíš opravdu dobře vycházet! Odeslal jsi anebo přijal  <%= cards %> Valentýnských přání.",
+    "limited30Apr": "V prodeji do 30. dubna (po zakoupení zůstává jako možnost na pořád).",
+    "polarBear": "Lední medvěd",
+    "turkey": "Krocan",
+    "polarBearPup": "Lední medvídě"
+}

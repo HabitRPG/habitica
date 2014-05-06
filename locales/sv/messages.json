@@ -1,0 +1,23 @@
+{
+    "messageLostItem": "<%= itemText %> gick sönder.",
+    "messageTaskNotFound": "Uppgift hittades inte.",
+    "messageTagNotFound": "Tagg hittades inte.",
+    "messagePetNotFound": ":pet not found in user.items.pets",
+    "messageFoodNotFound": ":food not found in user.items.food",
+    "messageCannotFeedPet": "Kan inte mata detta husdjur.",
+    "messageAlreadyMount": "Du har redan det riddjuret. Försök att mata ett annat djur.",
+    "messageEvolve": "Du har tämjt <%= egg %>. Ta en ridtur!",
+    "messageLikesFood": "<%= egg %> gillar verkligen <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> eats the <%= foodText %> but doesn't seem to enjoy it.",
+    "messageBought": "Bought <%= itemText %>",
+    "messageUnEquipped": "<%= itemText %> un-equipped.",
+    "messageMissingEggPotion": "You're missing either that egg or that potion",
+    "messageAlreadyPet": "You already have that pet. Try hatching a different combination!",
+    "messageHatched": "Your egg hatched! Visit your stable to equip your pet.",
+    "messageNotEnoughGold": "Not Enough Gold",
+    "messageTwoHandled": "<%= gearText %> is two handed",
+    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropEgg": "You've found a <%= dropText %> Egg! <%= dropNotes %>",
+    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion! <%= dropNotes %>",
+    "messageFoundQuest": "You've found the quest \"<%= questText %>\"!"
+}

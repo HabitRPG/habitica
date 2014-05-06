@@ -37,6 +37,7 @@
     "notEnoughGems": "Gemas insuficientes",
     "delete": "Deletar",
     "gems": "Gemas",
+    "moreInfo": "Mais Informação",
     "gemsWhatFor": "Usadas para comprar itens especiais e serviços (ovos, poções de eclosão, Fortificar, etc.). Você precisará liberar esses sistemas antes de poder usar as Gemas.",
     "veteran": "Veterano",
     "veteranText": "Resistiu ao Habit O Cinza (nosso website pré Angular), e ganhou muitas cicatrizes de batalhas contra os bugs.",
@@ -54,5 +55,10 @@
     "newPassSent": "Nova senha enviada.",
     "serverUnreach": "Servidor não disponível no momento.",
     "seeConsole": "(veja o console do Chrome para mais detalhes).",
-    "error": "Erro"
+    "error": "Erro",
+    "menu": "Menu",
+    "notifications": "Notificações",
+    "noNotifications": "Você não possui novas mensagens.",
+    "clear": "Limpar",
+    "endTour": "Finalizar Tour"
 }

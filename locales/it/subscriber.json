@@ -59,5 +59,6 @@
     "contactUs": "Contattaci",
     "checkout": "Checkout",
     "buySubsText": "Compra le gemme con l'oro, nessuna pubblicità, supporta gli sviluppatori",
-    "sureCancelSub": "Vuoi davvero annullare il tuo abbonamento?"
+    "sureCancelSub": "Vuoi davvero annullare il tuo abbonamento?",
+    "subCanceled": "Subscription cancelled and will become inactive on"
 }

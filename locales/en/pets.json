@@ -14,6 +14,8 @@
     "hydra": "Hydra",
     "rarePetPop1": "Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!",
     "rarePetPop2": "How to Get this Pet!",
+    "potion": "<%= potionType %> Potion",
+    "egg": "<%= eggType %> Egg",
     "eggs": "Eggs",
     "noEggs": "You don't have any eggs.",
     "hatchingPotions": "Hatching Potions",
@@ -30,5 +32,7 @@
     "useGems": "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!",
     "hatchAPot": "Hatch a <%= potion %> <%= egg %>?",
     "feedPet": "Feed <%= article %><%= text %> to your <%= name %>?",
-    "useSaddle": "Saddle <%= pet %>?"
+    "useSaddle": "Saddle <%= pet %>?",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>"
 }

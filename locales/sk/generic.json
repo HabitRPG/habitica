@@ -11,7 +11,7 @@
     "special": "Špeciálne",
     "site": "Stránka",
     "help": "Pomoc",
-    "user": "Pužívateľ",
+    "user": "Používateľ",
     "market": "Trh",
     "subscriberItem": "Záhadný predmet",
     "newSubscriberItem": "Nový tajomný predmet",
@@ -37,6 +37,7 @@
     "notEnoughGems": "Nedostatok drahokamov",
     "delete": "Zmazať",
     "gems": "Drahokamy",
+    "moreInfo": "Viac informácií",
     "gemsWhatFor": "Používajú sa na kupovanie predmetov a služieb (vajíčka, liahoxíry, siloxíry, atď.). Najskôr musíš odomknúť dané funkcie, až potom si ich budeš môcť kúpiť za drahokamy.",
     "veteran": "Veterán",
     "veteranText": "Je ošľahaný Habitom Šedým (naša stránka pred Angularom), a utŕžil veľa jaziev z boja s krvilačnými bugmi.",
@@ -54,5 +55,10 @@
     "newPassSent": "Nové heslo odoslané.",
     "serverUnreach": "Server je dočasne nedostupný.",
     "seeConsole": "(Pre viac podrobností sa pozri do Chrome konzoly).",
-    "error": "Chyba"
+    "error": "Chyba",
+    "menu": "Menu",
+    "notifications": "Notifikácie",
+    "noNotifications": "Nemáš žiadne správy",
+    "clear": "Čisté",
+    "endTour": "Ukončiť prehliadku"
 }

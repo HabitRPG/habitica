@@ -1,8 +1,10 @@
 moment = require('moment')
 _ = require('lodash')
 content = require('./content.coffee')
-
+i18n = require('./i18n.coffee')
 api = module.exports = {}
+
+api.i18n = i18n
 
 # little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
 $w = (s)->s.split(' ')
@@ -386,7 +388,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
-        cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), user
+        cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
         user.habits = []
@@ -411,7 +413,7 @@ api.wrap = (user, main=true) ->
 
       reroll: (req, cb, ga) ->
         if user.balance < 1
-          return cb? {code:401,message: "Not enough gems."}
+          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         user.balance--
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -423,7 +425,7 @@ api.wrap = (user, main=true) ->
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
         if (user.balance < 2 && user.stats.lvl < 100)
-          return cb? {code:401,message: "Not enough gems."}
+          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         # only charge people if they are under level 100 - ryan
         if user.stats.lvl < 100
           user.balance -= 2
@@ -495,14 +497,14 @@ api.wrap = (user, main=true) ->
         {id} = req.params
         {to, from} = req.query
         task = user.tasks[id]
-        return cb?({code:404, message: "Task not found."}) unless task
+        return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless task
         return cb?('?to=__&from=__ are required') unless to? and from?
         tasks = user["#{task.type}s"]
         tasks.splice to, 0, tasks.splice(from, 1)[0]
         cb? null, tasks
 
       updateTask: (req, cb) ->
-        return cb?({code:404,message:"Task not found"}) unless task = user.tasks[req.params?.id]
+        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task = user.tasks[req.params?.id]
         _.merge task, _.omit(req.body,['checklist','id'])
         task.checklist = req.body.checklist if req.body.checklist
         task.markModified? 'tags'
@@ -510,7 +512,7 @@ api.wrap = (user, main=true) ->
 
       deleteTask: (req, cb) ->
         task = user.tasks[req.params?.id]
-        return cb?({code:404,message:'Task not found'}) unless task
+        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task
         i = user[task.type + "s"].indexOf(task)
         user[task.type + "s"].splice(i, 1) if ~i
         cb? null, {}
@@ -538,14 +540,14 @@ api.wrap = (user, main=true) ->
       updateTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
-        return cb?({code:404,message:'Tag not found'}) if !~i
+        return cb?({code:404,message:i18n.t('messageTagNotFound', req.language)}) if !~i
         user.tags[i].name = req.body.name
         cb? null, user.tags[i]
 
       deleteTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
-        return cb?({code:404,message:'Tag not found'}) if !~i
+        return cb?({code:404,message:i18n.t('messageTagNotFound', req.language)}) if !~i
         tag = user.tags[i]
         delete user.filters[tag.id]
         user.tags.splice i, 1
@@ -568,10 +570,10 @@ api.wrap = (user, main=true) ->
         [egg, potion] = pet.split('-')
         userPets = user.items.pets
 
-        return cb?({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
-        return cb?({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
-        return cb?({code:401, message:"Can't feed this pet."}) if content.specialPets[pet] or (egg is "Egg")
-        return cb?({code:401, message:"You already have that mount. Try feeding another pet."}) if user.items.mounts[pet]
+        return cb?({code:404, message:i18n.t('messagePetNotFound', req.language)}) unless userPets[pet]
+        return cb?({code:404, message:i18n.t('messageFoodNotFound', req.language)}) unless user.items.food?[food.key]
+        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet] or (egg is "Egg")
+        return cb?({code:401, message:i18n.t('messageAlreadyMount', req.language)}) if user.items.mounts[pet]
 
         message = ''
         evolve = ->
@@ -579,17 +581,17 @@ api.wrap = (user, main=true) ->
           # changed to -1 to mark "owned" pets
           user.items.mounts[pet] = true
           user.items.currentPet = "" if pet is user.items.currentPet
-          message = "You have tamed #{egg}, let's go for a ride!"
+          message = i18n.t('messageAlreadyMount', {egg: egg}, req.language)
 
         if food.key is 'Saddle'
           evolve()
         else
           if food.target is potion
             userPets[pet] += 5
-            message = "#{egg} really likes the #{food.text}!"
+            message = i18n.t('messageLikesFood', {egg: egg, foodText: food.text(req.language)}, req.language)
           else
             userPets[pet] += 2
-            message = "#{egg} eats the #{food.text} but doesn't seem to enjoy it."
+            message = i18n.t('messageDontEnjoyFood', {egg: egg, foodText: food.text(req.language)}, req.language)
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
@@ -601,7 +603,7 @@ api.wrap = (user, main=true) ->
         return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
         item = content[type][key]
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message:'Not enough gems.'}) if user.balance < (item.value / 4)
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < (item.value / 4)
         user.items[type][key] = 0  unless user.items[type][key]
         user.items[type][key]++
         user.balance -= (item.value / 4)
@@ -614,15 +616,15 @@ api.wrap = (user, main=true) ->
 
         item = if key is 'potion' then content.potion else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
-        return cb?({code:401, message:'Not enough gold.'}) if user.stats.gp < item.value
+        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
         else
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
-          message = user.fns.handleTwoHanded(item)
-          message ?= "Bought #{item.text}."
+          message = user.fns.handleTwoHanded(item, null, req)
+          message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
           if not user.achievements.ultimateGear and item.last
             user.fns.ultimateGear()
         user.stats.gp -= item.value
@@ -647,29 +649,29 @@ api.wrap = (user, main=true) ->
             item = content.gear.flat[key]
             if user.items.gear[type][item.type] is key
               user.items.gear[type][item.type] = "#{item.type}_base_0"
-              message = "#{item.text} un-equipped."
+              message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
             else
               user.items.gear[type][item.type] = item.key
-              message = user.fns.handleTwoHanded(item,type)
+              message = user.fns.handleTwoHanded(item,type,req)
         cb? (if message then {code:200,message} else null), user.items
 
       hatch: (req, cb) ->
         {egg, hatchingPotion} = req.params
         return cb?({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
-        return cb?({code:401,message:"You're missing either that egg or that potion"}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:401,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
         pet = "#{egg}-#{hatchingPotion}"
-        return cb?({code:401, message:"You already have that pet. Try hatching a different combination!"}) if user.items.pets[pet] and user.items.pets[pet] > 0
+        return cb?({code:401, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
         user.items.pets[pet] = 5
         user.items.eggs[egg]--
         user.items.hatchingPotions[hatchingPotion]--
-        cb? {code:200, message:"Your egg hatched! Visit your stable to equip your pet."}, user.items
+        cb? {code:200, message:i18n.t('messageHatched', req.language)}, user.items
 
       unlock: (req, cb, ga) ->
         {path} = req.query
         fullSet = ~path.indexOf(",")
         cost = if fullSet then 1.25 else 0.5 # 5G per set, 2G per individual
         alreadyOwns = !fullSet and user.fns.dotGet("purchased." + path) is true
-        return cb?({code:401, message: "Not enough gems"}) if user.balance < cost and !alreadyOwns
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < cost and !alreadyOwns
         if fullSet
           _.each path.split(","), (p) ->
             user.fns.dotSet("purchased.#{p}", true);true
@@ -717,7 +719,7 @@ api.wrap = (user, main=true) ->
             user.preferences.disableClasses = false
             user.preferences.autoAllocate = false
           else
-            return cb?({code:401,message:"Not enough gems"}) unless user.balance >= .75
+            return cb?({code:401,message:i18n.t('notEnoughGems', req.language)}) unless user.balance >= .75
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
           user.flags.classSelected = false
@@ -766,7 +768,7 @@ api.wrap = (user, main=true) ->
 
         # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
         if task.value > stats.gp and task.type is 'reward'
-          return cb? {code:401,message:'Not enough Gold'}
+          return cb? {code:401,message:i18n.t('messageNotEnoughGold', req.language)}
 
         delta = 0
 
@@ -900,11 +902,11 @@ api.wrap = (user, main=true) ->
               stats.hp += stats.gp
               stats.gp = 0
 
-        user.fns.updateStats stats
+        user.fns.updateStats stats, req
 
         # Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
         if typeof window is 'undefined'
-          user.fns.randomDrop({task, delta}) if direction is 'up'
+          user.fns.randomDrop({task, delta}, req) if direction is 'up'
 
         cb? null, user
         return delta
@@ -920,15 +922,15 @@ api.wrap = (user, main=true) ->
       return content.gear.flat["#{type}_base_0"] unless item
       item
 
-    handleTwoHanded: (item, type='equipped') ->
+    handleTwoHanded: (item, type='equipped', req) ->
       # If they're buying a shield and wearing a staff, dequip the staff
       if item.type is "shield" and (weapon = content.gear.flat[user.items.gear[type].weapon])?.twoHanded
         user.items.gear[type].weapon = 'weapon_base_0'
-        message = "#{weapon.text} is two-handed"
+        message = i18n.t('messageTwoHandled', {gearText: weapon.text(req.language)}, req.language)
       # If they're buying a staff and wearing a shield, dequip the shield
       if item.twoHanded
         user.items.gear[type].shield = "shield_base_0"
-        message = "#{item.text} is two-handed"
+        message = i18n.t('messageTwoHandled', {gearText: item.text(req.language)}, req.language)
       message
 
     ###
@@ -978,7 +980,7 @@ api.wrap = (user, main=true) ->
     # Scoring
     # ----------------------------------------------------------------------
 
-    randomDrop: (modifiers) ->
+    randomDrop: (modifiers, req) ->
       {task} = modifiers
 
       # % chance of getting a drop
@@ -1019,7 +1021,7 @@ api.wrap = (user, main=true) ->
           user.items.food[drop.key] ?= 0
           user.items.food[drop.key]+= 1
           drop.type = 'Food'
-          drop.dialog = "You've found #{drop.article}#{drop.text}! #{drop.notes}"
+          drop.dialog = i18n.t('messageDropFood', {dropArticle: drop.article, dropText: drop.text(req.language), dropNotes: drop.notes(req.language)}, req.language)
 
           # Eggs: 30% chance
         else if rarity > .3
@@ -1027,7 +1029,7 @@ api.wrap = (user, main=true) ->
           user.items.eggs[drop.key] ?= 0
           user.items.eggs[drop.key]++
           drop.type = 'Egg'
-          drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+          drop.dialog = i18n.t('messageDropEgg', {dropText: drop.text(req.language), dropNotes: drop.notes(req.language)}, req.language)
 
           # Hatching Potion, 30% chance - break down by rarity.
         else
@@ -1048,7 +1050,7 @@ api.wrap = (user, main=true) ->
           user.items.hatchingPotions[drop.key] ?= 0
           user.items.hatchingPotions[drop.key]++
           drop.type = 'HatchingPotion'
-          drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
+          drop.dialog = i18n.t('messageDropPotion', {dropText: drop.text(req.language), dropNotes: drop.notes(req.language)}, req.language)
 
         # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
         # app handles it for example. Would this be better handled as an emit() ?
@@ -1089,7 +1091,7 @@ api.wrap = (user, main=true) ->
           else "str" # if all else fails, dump into STR
       )()]++
 
-    updateStats: (stats) ->
+    updateStats: (stats, req) ->
       # Game Over
       return user.stats.hp=0 if stats.hp <= 0
 
@@ -1144,7 +1146,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'flags.levelDrops'
         user._tmp.drop = _.defaults content.quests.vice1,
           type: 'Quest'
-          dialog: "You've found the quest \"#{content.quests.vice1.text}\"!"
+          dialog: i18n.t('messageFoundQuest', {questText: content.quests.vice1.text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
 
