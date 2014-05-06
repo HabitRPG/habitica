@@ -9,7 +9,6 @@ var User = require('./../models/user').model;
 var ga = require('./../utils').ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
-var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 
