@@ -189,7 +189,7 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
     });
 
     var foundText = _.reduce(progress.collect, function(m,v,k){
-      m.push(v + ' ' + quest.collect[k].text);
+      m.push(v + ' ' + quest.collect[k].text('en'));
       return m;
     }, []);
     foundText = foundText ? foundText.join(', ') : 'nothing';
@@ -221,7 +221,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
     var down = progress.down * quest.boss.str; // multiply by boss strength
 
     group.quest.progress.hp -= progress.up;
-    group.sendChat("`" + user.profile.name + " attacks " + quest.boss.name + " for " + (progress.up.toFixed(1)) + " damage, " + quest.boss.name + " attacks party for " + Math.abs(down).toFixed(1) + " damage.`");
+    group.sendChat("`" + user.profile.name + " attacks " + quest.boss.name('en') + " for " + (progress.up.toFixed(1)) + " damage, " + quest.boss.name + " attacks party for " + Math.abs(down).toFixed(1) + " damage.`");
 
     // Everyone takes damage
     var series = [
@@ -232,7 +232,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
 
     // Boss slain, finish quest
     if (group.quest.progress.hp <= 0) {
-      group.sendChat('`You defeated ' + quest.boss.name + '! Questing party members receive the rewards of victory.`');
+      group.sendChat('`You defeated ' + quest.boss.name('en') + '! Questing party members receive the rewards of victory.`');
       // Participants: Grant rewards & achievements, finish quest
       series.push(function(cb2){
         group.finishQuest(quest,cb2);
