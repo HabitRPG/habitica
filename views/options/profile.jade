@@ -81,7 +81,7 @@ mixin customizeProfile(mobile)
 
           // Flower
           li.customize-menu
-            menu(label="Flower")
+            menu(label=env.t('flower'))
               button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.flower":0})')
               each num in [1,2,3,4,5,6]
                 button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})')
@@ -141,7 +141,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
         h3=env.t('characterBuild')
         h4
           =env.t('class') + ': '
-          span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
+          span {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[user.stats.class] }}&nbsp;
           a.btn.btn-danger.btn-xs(ng-click='changeClass(null)')=env.t('changeClass')
           small.cost 3 <span class="Pet_Currency_Gem1x inline-gems"/>
         table.table.table-striped

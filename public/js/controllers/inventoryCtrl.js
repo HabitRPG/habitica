@@ -104,7 +104,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
           if (!$window.confirm(window.env.t('useSaddle', {pet: pet}))) return;
-        } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text}))) {
+        } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
@@ -124,7 +124,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       var item =  Content.quests[quest];
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)
-        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text}));
+        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text()}));
       if (item.lvl && item.lvl > user.stats.lvl)
         return alert(window.env.t('mustLevel', {level: item.lvl}));
       $rootScope.selectedQuest = item;

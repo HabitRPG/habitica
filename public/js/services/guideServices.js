@@ -78,6 +78,13 @@ angular.module('guideServices', []).
       });
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
+        template: "<div class='popover'>" +
+          "<div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div>" +
+          "<div class='popover-navigation'><div class='btn-group'>" +
+          "<button class='btn btn-sm btn-default' data-role='prev'>&laquo;</button>" +
+          "<button class='btn btn-sm btn-default' data-role='next'>&raquo;</button>" +
+          "<button class='btn btn-sm btn-default' data-role='pause-resume' data-pause-text='Pause' data-resume-text='Resume'>Pause</button></div>" + 
+          "<button class='btn btn-sm btn-default' data-role='end'>" + window.env.t('endTour') + "</button></div></div>",
         onEnd: function(){
           User.set({'flags.showTour': false});
         }

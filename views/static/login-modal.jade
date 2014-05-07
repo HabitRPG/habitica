@@ -6,7 +6,7 @@ script(id='modals/login.html', type='text/ng-template')
     a(href='/auth/facebook')
       img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
     //can we add in google auth? I like google auth
-    h3 Or
+    h3=env.t('or')
     ul.nav.nav-tabs
       li.active
         a(data-toggle='tab',data-target='#login-tab')=env.t('login')

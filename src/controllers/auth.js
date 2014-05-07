@@ -88,6 +88,8 @@ api.registerUser = function(req, res, next) {
           timestamps: {created: +new Date(), loggedIn: +new Date()}
         }
       };
+      newUser.preferences = newUser.preferences || {};
+      newUser.preferences.language = req.language; // User language detected from browser, not saved
       user = new User(newUser);
 
       // temporary for conventions
@@ -255,7 +257,11 @@ api.setupPassport = function(router) {
         },
         function(user, cb){
           if (user) return cb(null, user);
+
           user = new User({
+            preferences: {
+              language: req.language // User language detected from browser, not saved
+            },
             auth: {
               facebook: req.user,
               timestamps: {created: +new Date(), loggedIn: +new Date()}

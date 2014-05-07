@@ -12,9 +12,5 @@ if(window.moment && window.env.language && window.env.language.momentLang && win
   window.moment.lang(window.env.language.momentLangCode);
 }
 
-window.env.t = function(stringName, vars){
-  var string = window.env.translations[stringName];
-  if(!string) return window._.template(window.env.translations.stringNotFound, {string: stringName});
-
-  return vars === undefined ? string : window._.template(string, vars);    
-}
+window.habitrpgShared.i18n.strings = window.env.translations;
+window.env.t = window.habitrpgShared.i18n.t;

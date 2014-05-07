@@ -76,7 +76,7 @@ api.score = function(req, res, next) {
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
   }
-  var delta = user.ops.score({params:{id:task.id, direction:direction}});
+  var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 
   user.save(function(err,saved){
     if (err) return next(err);
@@ -336,7 +336,7 @@ api.cast = function(req, res, next) {
 
           if (group) {
             series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+              var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
               group.sendChat(message);
               group.save(cb2);
             })
@@ -397,6 +397,8 @@ api.batchUpdate = function(req, res, next) {
   res.locals.ops = [];
   var ops = _.transform(req.body, function(m,_req){
     if (_.isEmpty(_req)) return;
+    _req.language = req.language;
+
     m.push(function() {
       var cb = arguments[arguments.length-1];
       res.locals.ops.push(_req);

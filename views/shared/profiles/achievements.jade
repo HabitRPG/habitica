@@ -28,6 +28,7 @@ div(ng-if='profile.contributor.level || user._id == profile._id')
       span.label.label-default(ng-if='!profile.contributor.level')=env.t('contribName')
     small
       =env.t('contribText')
+      |&nbsp;
       a(href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', target='_blank')=env.t('readMore') 
       | .
   hr
