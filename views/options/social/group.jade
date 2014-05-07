@@ -41,7 +41,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
                   .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
                   span.meter-text
                     span.glyphicon.glyphicon-heart
-                    &nbsp;
+                    | &nbsp;
                     | {{Math.ceil(group.quest.progress.hp)}} / {{Content.quests[group.quest.key].boss.hp}}
 
             div(ng-if='Content.quests[group.quest.key].collect')
@@ -52,7 +52,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
                     div.pull-left(class='quest_{{group.quest.key}}_{{k}}')
                     | {{Content.quests[group.quest.key].collect[k].text()}}
                   td
-                    {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
+                    | {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
 
             div(ng-bind-html='Content.quests[group.quest.key].notes()')
             hr
@@ -156,7 +156,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
             //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
             .form-group
               input.form-control(type='text', placeholder=env.t('userId'), ng-model='group.invitee')
-              &nbsp;
+              | &nbsp;
               input.btn.btn-default(type='submit', value=env.t('invite'))
 
 

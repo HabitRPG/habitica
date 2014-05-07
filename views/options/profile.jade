@@ -148,7 +148,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
           tr
             td
               strong.inline
-                {{user.stats.points}}&nbsp;
+                | {{user.stats.points}}&nbsp;
               strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))=env.t('unallocated')
             td
           tr
@@ -174,7 +174,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
                 div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
                   a.btn.btn-primary.btn-xs(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
                     span.glyphicon.glyphicon-download
-                    &nbsp;
+                    | &nbsp;
                     =env.t('distributePoints')
           tr
             td= env.t('allocateCon') + ' {{user.stats.con}}'
