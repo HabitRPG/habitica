@@ -7,11 +7,9 @@ mixin twoGem
 
 // Make it a mixin so we can call it from mobile
 mixin customizeProfile(mobile)
-  div(class='#{mobile ? "" : "row"}')
-    if mobile
-      .item.item-divider Body
-    .col-md-4.item
-      h3=env.t('bodyBody')
+  div(class=mobile ? 'padding' : 'row')
+    .col-md-4
+      h3(class=mobile?'item item-divider':'')=env.t('bodyBody')
 
       menu(type='list')
         li.customize-menu
@@ -32,10 +30,8 @@ mixin customizeProfile(mobile)
               button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
 
 
-    if mobile
-      .item.item-divider Head
-    .col-md-4.item
-        h3=env.t('bodyHead')
+    .col-md-4
+        h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
         menu(type='list')
           // For special events code, see commit dfa27b3
 
@@ -104,10 +100,8 @@ mixin customizeProfile(mobile)
               each num in [1,2]
                 button(class='hair_mustache_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.#{num}}', ng-click='unlock("hair.mustache.#{num}")')
 
-    if mobile
-      .item.item-divider Skin
-    .col-md-4.item
-        h3=env.t('bodySkin')
+    .col-md-4
+        h3(class=mobile?'item item-divider':'')=env.t('bodySkin')
         // skin
         li.customize-menu
           menu(label=env.t('basicSkins'))
