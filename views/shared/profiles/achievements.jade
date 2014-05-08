@@ -11,6 +11,9 @@
 // <div class='achievement achievement-shield'></div>
 // <div class='achievement achievement-karaoke'></div>
 
+if mobile
+  .item.item-divider=env.t('achievements')
+
 div(ng-if='profile.backer.npc')
   .achievement.achievement-helm
   h5

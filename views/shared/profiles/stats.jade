@@ -1,4 +1,4 @@
-h4=env.t('stats')
+h4(class=mobile?'item item-divider':'')=env.t('stats')
 table.table.table-striped
   tr
     td
@@ -17,15 +17,17 @@ table.table.table-striped
       strong=env.t('experience')
       | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
 
-h4.stats-equipment(ng-show='user.flags.itemsEnabled')=env.t('equipment')
-table.table.table-striped(ng-show='user.flags.itemsEnabled')
-  // FIXME this isn't refreshing properly. On first party modal, correct. Second party modal click gives the previous gear. It's always one behind.
-  tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
-    td
-      strong {{piece.text()}}:&nbsp;
-      span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
+// FIXME get translations working before can use this
+unless mobile
+  h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
+  table.table.table-striped(ng-show='user.flags.itemsEnabled')
+    // FIXME this isn't refreshing properly. On first party modal, correct. Second party modal click gives the previous gear. It's always one behind.
+    tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+      td
+        strong {{piece.text()}}:&nbsp;
+        span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
 
-h4=env.t('attributes')
+h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped
   tr(ng-repeat='(k,v) in {str: env.t("strength") + " (STR)",int: env.t("intelligence") + " (INT)",con: env.t("constitution") + " (CON)",per:env.t("perception") + " (PER)"}')
     td
@@ -68,7 +70,7 @@ table.table.table-striped
       strong.hint(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))=env.t('streaksFrozen')
     td
 
-h4(ng-show='user.flags.dropsEnabled')=env.t('pets')
+h4(class=mobile?'item item-divider':'',ng-show='user.flags.dropsEnabled')=env.t('pets')
 table.table.table-striped(ng-show='user.flags.dropsEnabled')
   tr
     td
