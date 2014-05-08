@@ -95,3 +95,14 @@ module.exports = {
   getUserLanguage: getUserLanguage,
   momentLangs: momentLangs
 };
+
+
+// Export en strings only, temporary solution for mobile
+// This is copied from middleware.js#module.exports.locals#t()
+module.exports.enTranslations = function(){ // stringName and vars are the allowed parameters
+  var language = _.find(avalaibleLanguages, {code: 'en'});
+  //language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
+  var args = Array.prototype.slice.call(arguments, 0);
+  args.push(language.code);
+  return shared.i18n.t.apply(null, args);
+};
