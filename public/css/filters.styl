@@ -1,25 +1,34 @@
 .filters
-  
-  margin-top: 5px
-  margin-bottom: 5px
-  
-  .filter-description
-    margin-top: 7px
-    margin-right: 7px
-    padding-left: 7px
-
+  padding-top: 1em
+  padding-bottom: 0.382em
+  margin-left: 0.382em
+  margin-right: 0em
+  ul, li
+    float: left
+  ul
+    list-style: none
+    margin-right: 1em 
+  .filters-controls
+    @extend $hrpg-button-bar
+    hrpg-button-bar-mixin($color-options-menu)
+    li
+      @extend $hrpg-button-master
+      hrpg-button-color-mixin($color-options-menu)
+  .filters-tags, .filters-edit
+    margin-bottom: 0.618em
+  .filters-tags
+    position: relative
+    left: -1em
+    @extend $hrpg-tag-master
+    hrpg-tag-color-mixin($color-filter-tag)
+    &.challenge
+      hrpg-tag-color-mixin($color-filter-tag-challenge)
+      form
+        display: none
   markdown
     display: inline-block
-
-  .glyphicon-bullhorn
-    margin-right: 5px
-
-  .input-group 
-    float: left
-    width: 1px // Trick for proper alignment
-    margin-left: 3px
-    margin-right: 3px
-    margin-top: 5px
-
-    .form-control
-      width: auto
+  .hrpg-input-group    
+    display: inline-block
+    margin-right: 0.618em
+    @extend $hrpg-button-with-input
+    hrpg-button-color-mixin($color-options-submenu)   
