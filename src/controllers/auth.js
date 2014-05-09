@@ -136,7 +136,7 @@ api.loginLocal = function(req, res, next) {
 };
 
 /*
- POST /user/auth/facebook
+ POST /user/auth/facebook/accept
  */
 
 
