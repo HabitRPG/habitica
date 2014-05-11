@@ -491,7 +491,7 @@ questStart = function(req, res, next) {
   var user = res.locals.user;
   var force = req.query.force;
 
-  if group.quest.active = false {
+  if (group.quest.active == false) {
     group.markModified('quest');
 
     // Not ready yet, wait till everyone's accepted, rejected, or we force-start
