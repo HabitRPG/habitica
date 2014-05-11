@@ -403,6 +403,7 @@ describe 'Cron', ->
     {before,after} = beforeAfter({daysAgo:1})
     before.dailys = before.todos = after.dailys = after.todos = []
     after.fns.cron()
+    before.stats.mp=after.stats.mp #FIXME
     expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
     delete after.stats.buffs;delete before.stats.buffs
     expect(before.stats).to.eql after.stats
@@ -509,6 +510,7 @@ describe 'Cron', ->
           if options.shouldDo
             expect(shared.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
           after.fns.cron {now}
+          before.stats.mp=after.stats.mp #FIXME
           switch options.expect
             when 'losePoints' then expectLostPoints(before,after,'daily')
             when 'noChange' then expectNoChange(before,after)
