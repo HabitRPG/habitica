@@ -1270,8 +1270,8 @@ api.wrap = (user, main=true) ->
 
 
       # If user cancelled subscription, we give them until 30day's end until it terminates
-      plan = user.purchased.plan
-      if plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
+      plan = user.purchased?.plan
+      if plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
         _.merge user.purchased.plan, {planId:null, customerId:null, paymentMethod:null}
         user.markModified 'purchased.plan'
 
