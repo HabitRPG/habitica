@@ -597,7 +597,6 @@ describe 'Helper', ->
     expect(shared.tnl 2).to.eql 160
     expect(shared.tnl 10).to.eql 260
     expect(shared.tnl 99).to.eql 3580
-    expect(shared.tnl 100).to.eql 0
 
   it 'calculates the start of the day', ->
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
