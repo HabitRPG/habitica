@@ -364,6 +364,14 @@ UserSchema.pre('save', function(next) {
         }else{
           newTask.text = task.text(self.preferences.language);
           newTask.notes = task.notes(self.preferences.language);
+
+          if(newTask.checklist){
+            newTask.checklist = _.map(newTask.checklist, function(checklistItem){
+              var newChecklistItem = checklistItem;
+              newChecklistItem.text = checklistItem.text(self.preferences.language);
+              return newChecklistItem;
+            });
+          }
         }
 
         return newTask;
