@@ -21,5 +21,11 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level",
     "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.",
     "rebirthName": "Orb of Rebirth",
-    "reborn": "Reborn, max level <%= reLevel %>"
+    "reborn": "Reborn, max level <%= reLevel %>",
+    "welcome100": "Welcome to Level 100!",
+    "intro100": "Now that you've hit level 100, you have the option to use the Orb of Rebirth for free at any time.",
+    "followup100": "While you can continue to level up, it will no long boost your stats and no more content will unlock, to keep Habit fun for folks of all play styles.",
+    "rebirth100Info": "If you're ready to start a new adventure, you can Rebirth now... or see how much further you can push yourself.",
+    "rebirthWait": "I'll wait...",
+    "rebirthNow": "Rebirth Now!"
 }
