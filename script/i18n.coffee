@@ -13,6 +13,8 @@ module.exports =
       vars = arguments[1]
       locale = arguments[2]
 
+    locale ?= 'en'
+
     string = if (locale and !module.exports.strings) then module.exports.translations[locale][stringName] else module.exports.strings[stringName]
 
     if string
