@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "פרץ להבות",
-    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
+    "spellWizardFireballNotes": "להבות מתפרצות קדימה וחורכות את המשימה. את/ה מפחית/ה את האדימות של המשימה, גורם/ת נזק למפלצת בה את/ה נלחם/ת, ומקבל/ת ניסיון -- יותר ככל שהמשימה כחולה יותר.",
     "spellWizardMPHealText": "פרץ אתרי",
     "spellWizardMPHealNotes": "זרם של אנרגייה קסומה זורם מידייך וטוען מחדש את החברי שלך. כל אנשי החבורה מקבלים מאנה נוספת.",
     "spellWizardEarthText": "רעידת אדמה",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "קור מקפיא",
     "spellWizardFrostNotes": "קרח מתפרץ מכל וכל, בולע את המשימות שלך ומקפיא אותן במקום. מד הרצף של המטלות היומיות שלך לא יתאפס בסוף היום",
     "spellWarriorSmashText": "חבטה אכזרית",
-    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
+    "spellWarriorSmashNotes": "את/ה מכה מטלה יחידה בכל כוחך, ומתעלל/ת בה עד חורמה. האדימות של המטלה פוחתת, ואת/ה גם גורם/ת נזק נוסף למפלצת בה את/ה נלחם/ת",
     "spellWarriorDefensiveStanceText": "עמדה הגנתית",
     "spellWarriorDefensiveStanceNotes": "את/ה לוח/ת רגע כדי להרגיע את גופך ולהכין את עצמך למאבק הבא נגד המטלות. מפחית נזק ממטלות יומיות בסוף היום.",
     "spellWarriorValorousPresenceText": "נוכחות אמיצה",

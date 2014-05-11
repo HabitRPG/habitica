@@ -15,7 +15,7 @@
     "messageAlreadyPet": "У вас уже есть такой питомец! Попробуйте другую комбинацию!",
     "messageHatched": "Из яйца вылупился питомец! Загляните в стойла, чтобы взять его с собой.",
     "messageNotEnoughGold": "Недостаточно золота",
-    "messageTwoHandled": "<%= gearText %> is two handed",
+    "messageTwoHandled": "<%= gearText %> — двуручное оружие",
     "messageDropFood": "Вы нашли: <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Вы нашли: <%= dropText %> в яйце! <%= dropNotes %>",
     "messageDropPotion": "Вы нашли <%= dropText %> инкубационный эликсир! <%= dropNotes %>",

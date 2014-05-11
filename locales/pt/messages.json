@@ -15,7 +15,7 @@
     "messageAlreadyPet": "Você já possui esse mascote. Tente uma combinação diferente!",
     "messageHatched": "Seu ovo chocou! Visite seu estábulo para equipar seu mascote.",
     "messageNotEnoughGold": "Ouro Insuficiente",
-    "messageTwoHandled": "<%= gearText %> is two handed",
+    "messageTwoHandled": "<%= gearText %> é de duas mãos.",
     "messageDropFood": "Você encontrou <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Você encontrou um Ovo de <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Você encontrou uma Poção de Eclosão <%= dropText %>! <%= dropNotes %>",
