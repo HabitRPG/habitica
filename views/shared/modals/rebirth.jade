@@ -41,11 +41,22 @@ script(type='text/ng-template', id='modals/rebirth.html')
       =env.t('rebirthEarnAchievement')      
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
-    span(ng-if='user.balance < 2')
+    span(ng-if='user.balance < 2 && user.stats.lvl < 100')
       a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Rebirth"})')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
-    span(ng-if='user.balance >= 2', ng-controller='SettingsCtrl')
+    span(ng-if='user.balance >= 2 || user.stats.lvl >= 100', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); rebirth()')=env.t('beReborn')
       span.gem-cost
         | 8&nbsp;
         =env.t('gems')
+script(type='text/ng-template', id='modals/freeRebirth.html')
+  .modal-header
+    h4=env.t('welcome100')
+    figure
+      .rebirth_orb
+    p=env.t('intro100')
+    p=env.t('followup100')
+    p=env.t('rebirth100Info')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('rebirthWait')
+    a.btn.btn-danger(ng-click='$close(); rebirth()')=env.t('rebirthNow')
