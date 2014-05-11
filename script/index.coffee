@@ -604,7 +604,7 @@ api.wrap = (user, main=true) ->
         item = content[type][key]
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
         return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < (item.value / 4)
-        user.items[type][key] = 0  unless user.items[type][key]
+        user.items[type][key] = 0  unless user.items[type][key] > 0
         user.items[type][key]++
         user.balance -= (item.value / 4)
         cb? null, _.pick(user,$w 'items balance')
