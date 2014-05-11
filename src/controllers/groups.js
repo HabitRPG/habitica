@@ -491,6 +491,7 @@ questStart = function(req, res, next) {
   var user = res.locals.user;
   var force = req.query.force;
 
+  // check if quest already running
   if group.quest.active = false {
     group.markModified('quest');
 
