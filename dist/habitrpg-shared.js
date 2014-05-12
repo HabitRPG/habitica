@@ -11853,6 +11853,9 @@ module.exports = {
       vars = arguments[1];
       locale = arguments[2];
     }
+    if (locale == null) {
+      locale = 'en';
+    }
     string = locale && !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
       if (vars) {
@@ -11997,11 +12000,7 @@ api.shouldDo = function(day, repeat, options) {
  */
 
 api.tnl = function(lvl) {
-  if (lvl >= 100) {
-    return 0;
-  } else {
-    return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
-  }
+  return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
 };
 
 
@@ -12569,7 +12568,11 @@ api.wrap = function(user, main) {
         if (user.stats.lvl < 100) {
           user.balance -= 2;
         }
-        lvl = user.stats.lvl;
+        if (user.stats.lvl < 100) {
+          lvl = user.stats.lvl;
+        } else {
+          lvl = 100;
+        }
         _.each(user.tasks, function(task) {
           if (task.type !== 'reward') {
             task.value = 0;
@@ -12865,7 +12868,7 @@ api.wrap = function(user, main) {
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (!user.items[type][key]) {
+        if (!(user.items[type][key] > 0)) {
           user.items[type][key] = 0;
         }
         user.items[type][key]++;
@@ -13506,25 +13509,16 @@ api.wrap = function(user, main) {
       user.stats.hp = stats.hp;
       user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
       tnl = api.tnl(user.stats.lvl);
-      if (user.stats.lvl >= 100) {
-        stats.gp += stats.exp / 15;
-        stats.exp = 0;
-        user.stats.lvl = 100;
-      } else {
-        if (stats.exp >= tnl) {
-          user.stats.exp = stats.exp;
-          while (stats.exp >= tnl && user.stats.lvl < 100) {
-            stats.exp -= tnl;
-            user.stats.lvl++;
-            tnl = api.tnl(user.stats.lvl);
-            if (user.preferences.automaticAllocation) {
-              user.fns.autoAllocate();
-            } else {
-              user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-            }
-          }
-          if (user.stats.lvl === 100) {
-            stats.exp = 0;
+      if (stats.exp >= tnl) {
+        user.stats.exp = stats.exp;
+        while (stats.exp >= tnl) {
+          stats.exp -= tnl;
+          user.stats.lvl++;
+          tnl = api.tnl(user.stats.lvl);
+          if (user.preferences.automaticAllocation) {
+            user.fns.autoAllocate();
+          } else {
+            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
           }
           user.stats.hp = 50;
         }
@@ -13570,7 +13564,10 @@ api.wrap = function(user, main) {
         });
       }
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
-        return user.flags.rebirthEnabled = true;
+        user.flags.rebirthEnabled = true;
+      }
+      if (!(user.flags.freeRebirth = true && user.stats.lvl >= 100)) {
+        return user.flags.freeRebirth = true;
       }
     },
 
@@ -13588,7 +13585,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref;
       if (options == null) {
         options = {};
       }
@@ -13712,7 +13709,7 @@ api.wrap = function(user, main) {
       if (typeof user.markModified === "function") {
         user.markModified('dailys');
       }
-      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
+      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
         str: lvlDiv2,
         int: lvlDiv2,
         per: lvlDiv2,
@@ -13724,8 +13721,8 @@ api.wrap = function(user, main) {
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
       }
-      plan = user.purchased.plan;
-      if (plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
+      if (plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
         _.merge(user.purchased.plan, {
           planId: null,
           customerId: null,
@@ -13804,7 +13801,11 @@ api.wrap = function(user, main) {
             val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
           }, 0);
-          m[stat] += (user.stats.lvl - 1) / 2;
+          if (user.stats.lvl < 100) {
+            m[stat] += (user.stats.lvl - 1) / 2;
+          } else {
+            m[stat] += 50;
+          }
           return m;
         };
       })(this), {});
@@ -13822,5 +13823,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
