@@ -130,7 +130,7 @@ div(ng-if='profile.achievements.quests || user._id == profile._id')
     h5=env.t('completedQuests')
     table.table.table-striped
       tr(ng-repeat='(k,v) in profile.achievements.quests')
-        td {{Content.quests[k].text}}
+        td {{Content.quests[k].text()}}
         td x{{v}}
   hr
 

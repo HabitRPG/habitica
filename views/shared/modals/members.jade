@@ -22,7 +22,7 @@ script(type='text/ng-template', id='modals/member.html')
               |&nbsp;
               | {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
-          .label.label-info {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[profile.stats.class] }}
+          .label.label-info {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
           +herobox()
