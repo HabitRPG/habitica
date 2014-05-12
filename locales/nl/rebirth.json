@@ -21,5 +21,11 @@
     "rebirthOrb": "Gebruikte een Bol der Hergeboorte om opnieuw te beginnen na het bereiken van Niveau",
     "rebirthPop": "Begin een nieuw personage vanaf Niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt. ",
     "rebirthName": "Bol der Hergeboorte",
-    "reborn": "Hergeboren, maximale niveau <%= reLevel %>"
+    "reborn": "Hergeboren, maximale niveau <%= reLevel %>",
+    "welcome100": "Welcome to Level 100!",
+    "intro100": "Now that you've hit level 100, you have the option to use the Orb of Rebirth for free at any time.",
+    "followup100": "While you can continue to level up, it will no long boost your stats and no more content will unlock, to keep Habit fun for folks of all play styles.",
+    "rebirth100Info": "If you're ready to start a new adventure, you can Rebirth now... or see how much further you can push yourself.",
+    "rebirthWait": "I'll wait...",
+    "rebirthNow": "Rebirth Now!"
 }
