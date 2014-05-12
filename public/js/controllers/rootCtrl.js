@@ -121,7 +121,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       });
     }
 
-    $scope.cancelSubscription = function(){
+    $rootScope.cancelSubscription = function(){
       if (!confirm(window.env.t('sureCancelSub'))) return;
       window.location.href = '/' + user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
     }
