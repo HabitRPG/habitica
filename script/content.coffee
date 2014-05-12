@@ -259,8 +259,8 @@ gear =
       wondercon_red: text: t('headAccessorySpecialWonderconRedText'), notes: t('headAccessorySpecialWonderconRedNotes'), value: 0,           mystery:mystery.wondercon
       wondercon_black: text: t('headAccessorySpecialWonderconBlackText'), notes: t('headAccessorySpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
     mystery:
-      201403: text: t('headAccessoryMistery201403Text'), notes: t('headAccessoryMistery201403Notes'), mystery:mystery['201403'], value: 10
-      201404: text: t('headAccessoryMistery201404Text'), notes: t('headAccessoryMistery201404Notes'), mystery:mystery['201404'], value: 10
+      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 10
+      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 10
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
