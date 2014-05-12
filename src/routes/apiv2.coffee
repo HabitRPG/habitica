@@ -481,7 +481,6 @@ module.exports = (swagger, v2) ->
         parameters: [
           path 'gid','Group id','string'
         ]
-      middleware: [i18n.getUserLanguage]
       action: groups.seenMessage
 
     "/groups/{gid}/chat/{messageId}":
@@ -663,7 +662,7 @@ module.exports = (swagger, v2) ->
       #type: 'Pet'
       errorResponses: []
       method: 'GET'
-    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth, i18n.getUserLanguage, cron] else []
+    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth, i18n.getUserLanguage, cron] else [i18n.getUserLanguage]
     swagger["add#{route.spec.method}"](route);true
 
 
