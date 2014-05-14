@@ -102,26 +102,13 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     |  {{egg.value}}
                     span.Pet_Currency_Gem1x.inline-gems
-                div(ng-show='user.achievements.quests.gryphon > 1')
-                  button.customize-option(popover='{{Content.eggs.Gryphon.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.Gryphon.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Gryphon)', class='Pet_Egg_Gryphon')
-                  p
-                    |  {{Content.eggs.Gryphon.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
-                div(ng-show='user.achievements.quests.hedgehog > 1')
-                  button.customize-option(popover='{{Content.eggs.Hedgehog.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.Hedgehog.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Hedgehog)', class='Pet_Egg_Hedgehog')
-                  p
-                    |  {{Content.eggs.Hedgehog.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
-                div(ng-show='user.achievements.quests.ghost_stag > 1')
-                  button.customize-option(popover='{{Content.eggs.Deer.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.Deer.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Deer)', class='Pet_Egg_Deer')
-                  p
-                    |  {{Content.eggs.Deer.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
-                div(ng-show='user.achievements.quests.rat > 1')
-                  button.customize-option(popover='{{Content.eggs.Rat.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.Rat.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Rat)', class='Pet_Egg_Rat')
-                  p
-                    |  {{Content.eggs.Rat.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
+                //- buyable quest eggs
+                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat'}
+                  div(ng-show='user.achievements.quests.#{quest} > 1')
+                    button.customize-option(popover='{{Content.eggs.#{egg}.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.#{egg}.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.#{egg})', class='Pet_Egg_#{egg}')
+                    p
+                      |  {{Content.eggs.#{egg}.value}}
+                      span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
               menu.pets-menu(label=env.t('hatchingPotions'))
