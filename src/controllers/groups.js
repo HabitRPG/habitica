@@ -488,8 +488,9 @@ api.removeMember = function(req, res, next){
 
 questStart = function(req, res, next) {
   var group = res.locals.group;
-  var user = res.locals.user;
   var force = req.query.force;
+
+  if (group.quest.active) return res.json(400,{err:'Quest already began.'});
 
   group.markModified('quest');
 
@@ -516,7 +517,7 @@ questStart = function(req, res, next) {
     if (group.quest.members[m] == true) {
       // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
       //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
-      updates['$set']['party.quest.key'] = key
+      updates['$set']['party.quest.key'] = key;
       updates['$set']['party.quest.progress.down'] = 0;
       updates['$set']['party.quest.progress.collect'] = collected;
       updates['$set']['party.quest.completed'] = null;
