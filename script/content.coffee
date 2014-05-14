@@ -578,11 +578,11 @@ _.each api.dropEggs, (egg,key) ->
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon:          text: (-> i18n.t('questEggGryphonText')),  adjective: (-> i18n.t('questEggGryphonAdjective')), canBuy: false
-  Hedgehog:         text: (-> i18n.t('questEggHedgehogText')), adjective: (-> i18n.t('questEggHedgehogAdjective')), canBuy: false
-  Deer:             text: (-> i18n.t('questEggDeerText')), adjective: (-> i18n.t('questEggDeerAdjective')), canBuy: false
-  Egg:              text: (-> i18n.t('questEggEggText')), adjective: (-> i18n.t('questEggEggAdjective')), canBuy: false
-  Rat:              text: (-> i18n.t('questEggRatText')), adjective: (-> i18n.t('questEggRatAdjective')), canBuy: false
+  Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: false
+  Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: false
+  Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
+  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false
+  Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,

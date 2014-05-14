@@ -11149,48 +11149,28 @@ _.each(api.dropEggs, function(egg, key) {
 
 api.questEggs = {
   Gryphon: {
-    text: (function() {
-      return i18n.t('questEggGryphonText');
-    }),
-    adjective: (function() {
-      return i18n.t('questEggGryphonAdjective');
-    }),
+    text: t('questEggGryphonText'),
+    adjective: t('questEggGryphonAdjective'),
     canBuy: false
   },
   Hedgehog: {
-    text: (function() {
-      return i18n.t('questEggHedgehogText');
-    }),
-    adjective: (function() {
-      return i18n.t('questEggHedgehogAdjective');
-    }),
+    text: t('questEggHedgehogText'),
+    adjective: t('questEggHedgehogAdjective'),
     canBuy: false
   },
   Deer: {
-    text: (function() {
-      return i18n.t('questEggDeerText');
-    }),
-    adjective: (function() {
-      return i18n.t('questEggDeerAdjective');
-    }),
+    text: t('questEggDeerText'),
+    adjective: t('questEggDeerAdjective'),
     canBuy: false
   },
   Egg: {
-    text: (function() {
-      return i18n.t('questEggEggText');
-    }),
-    adjective: (function() {
-      return i18n.t('questEggEggAdjective');
-    }),
+    text: t('questEggEggText'),
+    adjective: t('questEggEggAdjective'),
     canBuy: false
   },
   Rat: {
-    text: (function() {
-      return i18n.t('questEggRatText');
-    }),
-    adjective: (function() {
-      return i18n.t('questEggRatAdjective');
-    }),
+    text: t('questEggRatText'),
+    adjective: t('questEggRatAdjective'),
     canBuy: false
   }
 };
@@ -13862,5 +13842,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

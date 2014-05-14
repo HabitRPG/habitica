@@ -31,6 +31,8 @@
     "questEggDeerAdjective": "אלגנטי",
     "questEggEggText": "ביצה",
     "questEggEggAdjective": "צבעוני",
+    "questEggRatText": "Rat",
+    "questEggRatAdjective": "dirty",
     "eggNotes": "מצא/י שיקוי בקיעה, בזוק/בזקי אותו על הביצה הזו, והיא תהפוך ל <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

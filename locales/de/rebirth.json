@@ -22,10 +22,10 @@
     "rebirthPop": "Starte einen neuen Charakter mit Level 1, aber behalte Erfolge, Sammlungen und Aufgaben mit Verlauf bei.",
     "rebirthName": "Sphäre der Wiedergeburt",
     "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
-    "welcome100": "Welcome to Level 100!",
-    "intro100": "Now that you've hit level 100, you have the option to use the Orb of Rebirth for free at any time.",
-    "followup100": "While you can continue to level up, it will no long boost your stats and no more content will unlock, to keep Habit fun for folks of all play styles.",
-    "rebirth100Info": "If you're ready to start a new adventure, you can Rebirth now... or see how much further you can push yourself.",
-    "rebirthWait": "I'll wait...",
-    "rebirthNow": "Rebirth Now!"
+    "welcome100": "Willkommen auf Level 100!",
+    "intro100": "Jetzt, da du Level 100 erreicht hast, hast du die Möglichkeit jederzeit eine Sphäre der Wiedergeburt zu verwenden.",
+    "followup100": "Du kannst zwar weiterhin aufsteigen, aber Du erhältst keine Attributboni mehr und es gibt nichts mehr freizuschalten. So bleibt HabitRPG für alle Spielstile unterhaltsam.",
+    "rebirth100Info": "Wenn Du ein neues Abenteuer beginnen willst, dann kannst du wiedergeboren werden...oder Du kannst austesten wie weit Du noch kommst.",
+    "rebirthWait": "Ich werde hier warten...",
+    "rebirthNow": "Werde wiedergeboren!"
 }

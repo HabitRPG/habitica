@@ -31,6 +31,8 @@
     "questEggDeerAdjective": "вишуканий",
     "questEggEggText": "Яйце",
     "questEggEggAdjective": "кольоровий",
+    "questEggRatText": "Rat",
+    "questEggRatAdjective": "dirty",
     "eggNotes": "Знайдіть зілля вилуплення, аби вилити його на яйце, з нього вийде <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Простий",
     "hatchingPotionWhite": "Білий",

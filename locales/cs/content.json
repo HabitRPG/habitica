@@ -31,6 +31,8 @@
     "questEggDeerAdjective": "elegantní",
     "questEggEggText": "Vajíčko",
     "questEggEggAdjective": "barevný",
+    "questEggRatText": "Rat",
+    "questEggRatAdjective": "dirty",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a to se vylíhne v  <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Základní",
     "hatchingPotionWhite": "Bílý",

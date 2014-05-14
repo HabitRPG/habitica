@@ -15,7 +15,7 @@
     "messageAlreadyPet": "Du hast dieses Haustier bereits. Versuche doch eine andere Kombination.",
     "messageHatched": "Ein Ei ist ausgeschlüpft! Besichtige die Ställe um Dein Haustier auszuwählen.",
     "messageNotEnoughGold": "Nicht genug Gold",
-    "messageTwoHandled": "<%= gearText %> is two handed",
+    "messageTwoHandled": "<%= gearText %> wird beidhändig gehalten",
     "messageDropFood": "<%= dropArticle %><%= dropText %> gefunden! <%= dropNotes %>",
     "messageDropEgg": "Du hast ein <%= dropText %> Ei gefunden! <%= dropNotes %>",
     "messageDropPotion": "Du hast einen <%= dropText %>  Schlüpftrank gefunden! <%= dropNotes %>",

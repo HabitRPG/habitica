@@ -22,10 +22,10 @@
     "rebirthPop": "Commencez un nouveau personnage au Niveau 1 en conservant les succès, les objets de collection et les tâches avec historique.",
     "rebirthName": "Orbe de Renaissance",
     "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
-    "welcome100": "Welcome to Level 100!",
-    "intro100": "Now that you've hit level 100, you have the option to use the Orb of Rebirth for free at any time.",
-    "followup100": "While you can continue to level up, it will no long boost your stats and no more content will unlock, to keep Habit fun for folks of all play styles.",
-    "rebirth100Info": "If you're ready to start a new adventure, you can Rebirth now... or see how much further you can push yourself.",
-    "rebirthWait": "I'll wait...",
+    "welcome100": "Bienvenue au Niveau 100 !",
+    "intro100": "Maintenant que vous avez atteint le niveau 100, vous pouvez utiliser l'Orbe de Renaissance à tout moment, gratuitement. ",
+    "followup100": "Vous pouvez continuer à gagner des niveaux, mais cela n'augmentera plus vos caractéristiques et ne débloquera plus de contenu supplémentaire, de façon à garder HabitRPG amusant pour tous quel que soit le style de jeu.",
+    "rebirth100Info": "Si vous êtes prêt à débuter une nouvelle aventure, vous pouvez Renaître dès maintenant... ou découvrir jusqu'où vous êtes capable d'aller.",
+    "rebirthWait": "Je vais attendre...",
     "rebirthNow": "Rebirth Now!"
 }

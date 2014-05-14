@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Explosão de Chamas",
-    "spellWizardFireballNotes": "Flames blast forth, scorching a task. You reduce the task's redness, deal damage to any monster you're battling, and gain Experience--more for blue tasks.",
+    "spellWizardFireballNotes": "Chamas explodem adiante, chamuscando uma tarefa. Você reduz a vermelhidão da tarefa, causa dano a qualquer monstro que estiver lutando contra e ganha Experiência -- mais para tarefas azuis.",
     "spellWizardMPHealText": "Onda Etérea",
     "spellWizardMPHealNotes": "Uma corrente de energia mágica sai de suas mãos e recarrega sua equipe. Sua equipe recupera PM.",
     "spellWizardEarthText": "Terremoto",
@@ -8,7 +8,7 @@
     "spellWizardFrostText": "Geada Arrepiante",
     "spellWizardFrostNotes": "Gelo irrompe de todas as superfícies, engolindo suas tarefas e congelando-as no lugar. Os contadores de combo de suas tarefas diárias não vão se alterar até o fim do dia.",
     "spellWarriorSmashText": "Destruição Brutal",
-    "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
+    "spellWarriorSmashNotes": "Você selvagemente ataca uma única tarefa com todo seu poder. A vermelhidão da tarefa diminui, e você causa dano extra a qualquer monstro que você esteja lutando contra.",
     "spellWarriorDefensiveStanceText": "Postura Defensiva",
     "spellWarriorDefensiveStanceNotes": "Você toma um momento para relaxar seu corpo e entrar em uma posição defensiva para se preparar para a próxima investida de suas tarefas. Reduz o dano das tarefas diárias ao final do dia.",
     "spellWarriorValorousPresenceText": "Presença Valente",
