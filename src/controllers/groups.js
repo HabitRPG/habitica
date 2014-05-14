@@ -491,57 +491,59 @@ questStart = function(req, res, next) {
   var user = res.locals.user;
   var force = req.query.force;
 
-  group.markModified('quest');
+  if (group.quest.active == false) {
+    group.markModified('quest');
 
-  // Not ready yet, wait till everyone's accepted, rejected, or we force-start
-  var statuses = _.values(group.quest.members);
-  if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
-    return group.save(function(err,saved){
-      if (err) return next(err);
-      res.json(saved);
-    })
-  }
-
-  var parallel = [],
-    questMembers = {},
-    key = group.quest.key,
-    quest = shared.content.quests[key],
-    collected = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
-
-  // TODO will this handle appropriately when people leave/join party between quest invite?
-  _.each(group.members, function(m){
-    var updates = {$set:{},$inc:{'_v':1}};
-    if (m == group.quest.leader)
-      updates['$inc']['items.quests.'+key] = -1;
-    if (group.quest.members[m] == true) {
-      // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
-      //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
-      updates['$set']['party.quest.key'] = key
-      updates['$set']['party.quest.progress.down'] = 0;
-      updates['$set']['party.quest.progress.collect'] = collected;
-      updates['$set']['party.quest.completed'] = null;
-      questMembers[m] = true;
-    } else {
-      updates['$set']['party.quest'] = Group.cleanQuestProgress();
+    // Not ready yet, wait till everyone's accepted, rejected, or we force-start
+    var statuses = _.values(group.quest.members);
+    if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
+      return group.save(function(err,saved){
+        if (err) return next(err);
+        res.json(saved);
+      })
     }
-    parallel.push(function(cb2){
-      User.update({_id:m},updates,cb2);
+
+    var parallel = [],
+      questMembers = {},
+      key = group.quest.key,
+      quest = shared.content.quests[key],
+      collected = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
+
+    // TODO will this handle appropriately when people leave/join party between quest invite?
+    _.each(group.members, function(m){
+      var updates = {$set:{},$inc:{'_v':1}};
+      if (m == group.quest.leader)
+        updates['$inc']['items.quests.'+key] = -1;
+      if (group.quest.members[m] == true) {
+        // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
+        //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
+        updates['$set']['party.quest.key'] = key
+        updates['$set']['party.quest.progress.down'] = 0;
+        updates['$set']['party.quest.progress.collect'] = collected;
+        updates['$set']['party.quest.completed'] = null;
+        questMembers[m] = true;
+      } else {
+        updates['$set']['party.quest'] = Group.cleanQuestProgress();
+      }
+      parallel.push(function(cb2){
+        User.update({_id:m},updates,cb2);
+      });
+    })
+
+    group.quest.active = true;
+    if (quest.boss)
+      group.quest.progress.hp = quest.boss.hp;
+    else
+      group.quest.progress.collect = collected;
+    group.quest.members = questMembers;
+    group.markModified('quest'); // members & progress.collect are both Mixed types
+    parallel.push(function(cb2){group.save(cb2)});
+
+    async.parallel(parallel,function(err, results){
+      if (err) return next(err);
+      return res.json(group);
     });
-  })
-
-  group.quest.active = true;
-  if (quest.boss)
-    group.quest.progress.hp = quest.boss.hp;
-  else
-    group.quest.progress.collect = collected;
-  group.quest.members = questMembers;
-  group.markModified('quest'); // members & progress.collect are both Mixed types
-  parallel.push(function(cb2){group.save(cb2)});
-
-  async.parallel(parallel,function(err, results){
-    if (err) return next(err);
-    return res.json(group);
-  });
+  };
 }
 
 api.questAccept = function(req, res, next) {
