@@ -53,7 +53,7 @@
     "perfectText": "Hat alle täglichen Aufgaben an <%= perfects %> Tagen erfüllt. Mit diesem Erfolg erhältst Du eine +level/2 Stärkung aller Attribute für den nächsten Tag.",
     "perfectSingular": "Perfekt(e) Tag(e)",
     "perfectSingularText": "Hat alle täglichen Aufgaben an einem Tagen erfüllt. Mit diesem Erfolg erhältst Du eine +level/2 Stärkung aller Attribute für den nächsten Tag.",
-    "streakerAchievement": "Du hast den \"Streaker\"-Erfolg erlangt! Die 21-Tages-Marke ist ein Meilenstein für Habit - Formationen. Du kannst Bullshit this is neither german nor english ...",
+    "streakerAchievement": "Du hast den \"Streaker\"-Erfolg erlangt! Die 21-Tages-Marke ist ein Meilenstein für das Bilden von Gewohnheiten. Du erhältst diesen Erfolg alle 21 Tage neu (gestapelt), auch für die selbe tägliche Aufgabe.",
     "fortifyName": "Verstärkungstrank",
     "fortifyPop": "Setzt alle Aufgaben auf den Anfangswert (gelb) zurück und füllt Deine Lebenspunkte wieder auf.",
     "fortify": "Verstärken",
