@@ -45,6 +45,9 @@
   "questEggEggText": "Egg",
   "questEggEggAdjective": "colorful",
 
+  "questEggRatText": "Rat",
+  "questEggRatAdjective": "dirty",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective() %> <%= eggText() %>.",
 
   "hatchingPotionBase": "Base",

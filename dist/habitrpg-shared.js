@@ -11183,6 +11183,15 @@ api.questEggs = {
       return i18n.t('questEggEggAdjective');
     }),
     canBuy: false
+  },
+  Rat: {
+    text: (function() {
+      return i18n.t('questEggRatText');
+    }),
+    adjective: (function() {
+      return i18n.t('questEggRatAdjective');
+    }),
+    canBuy: false
   }
 };
 
@@ -11693,6 +11702,36 @@ api.quests = {
       ],
       gp: 0,
       exp: 0
+    }
+  },
+  rat: {
+    text: t('questRatText'),
+    notes: t('questRatNotes'),
+    completion: t('questRatCompletion'),
+    value: 4,
+    boss: {
+      name: t('questRatBoss'),
+      hp: 1200,
+      str: 2.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Rat',
+          text: t('questRatDropRatEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rat',
+          text: t('questRatDropRatEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rat',
+          text: t('questRatDropRatEgg')
+        }
+      ],
+      gp: 80,
+      exp: 800
     }
   }
 };
@@ -13823,5 +13862,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

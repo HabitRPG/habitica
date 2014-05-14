@@ -582,6 +582,7 @@ api.questEggs =
   Hedgehog:         text: (-> i18n.t('questEggHedgehogText')), adjective: (-> i18n.t('questEggHedgehogAdjective')), canBuy: false
   Deer:             text: (-> i18n.t('questEggDeerText')), adjective: (-> i18n.t('questEggDeerAdjective')), canBuy: false
   Egg:              text: (-> i18n.t('questEggEggText')), adjective: (-> i18n.t('questEggEggAdjective')), canBuy: false
+  Rat:              text: (-> i18n.t('questEggRatText')), adjective: (-> i18n.t('questEggRatAdjective')), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -828,6 +829,24 @@ api.quests =
       ]
       gp: 0
       exp: 0
+
+  rat:
+    text: t('questRatText')
+    notes: t('questRatNotes')
+    completion: t('questRatCompletion')
+    value: 4
+    boss:
+      name: t('questRatBoss')
+      hp: 1200
+      str: 2.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Rat', text: t('questRatDropRatEgg')}
+        {type: 'eggs', key: 'Rat', text: t('questRatDropRatEgg')}
+        {type: 'eggs', key: 'Rat', text: t('questRatDropRatEgg')}
+      ]
+      gp: 80
+      exp: 800
 
 
 _.each api.quests, (v,key) ->
