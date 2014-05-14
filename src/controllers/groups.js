@@ -217,6 +217,7 @@ api.getChat = function(req, res, next) {
 api.postChat = function(req, res, next) {
   var user = res.locals.user
   var group = res.locals.group;
+  if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
   var lastClientMsg = req.query.previousMsg;
   var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
