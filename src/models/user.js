@@ -355,22 +355,21 @@ UserSchema.pre('save', function(next) {
     var self = this;
     _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
       self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
-        var newTask = task;
+        var newTask = _.cloneDeep(task);
 
         // Render task's text and notes in user's language
         if(taskType === 'tags'){
           // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
           newTask.id = shared.uuid();
-          newTask.name = task.name(self.preferences.language);
+          newTask.name = newTask.name(self.preferences.language);
         }else{
-          newTask.text = task.text(self.preferences.language);
-          newTask.notes = task.notes(self.preferences.language);
+          newTask.text = newTask.text(self.preferences.language);
+          newTask.notes = newTask.notes(self.preferences.language);
 
           if(newTask.checklist){
             newTask.checklist = _.map(newTask.checklist, function(checklistItem){
-              var newChecklistItem = checklistItem;
-              newChecklistItem.text = checklistItem.text(self.preferences.language);
-              return newChecklistItem;
+              checklistItem.text = checklistItem.text(self.preferences.language);
+              return checklistItem;
             });
           }
         }
