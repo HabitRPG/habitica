@@ -117,6 +117,11 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     |  {{Content.eggs.Deer.value}}
                     span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.rat > 1')
+                  button.customize-option(popover='{{Content.eggs.Rat.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.Rat.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Rat)', class='Pet_Egg_Rat')
+                  p
+                    |  {{Content.eggs.Rat.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
               menu.pets-menu(label=env.t('hatchingPotions'))
