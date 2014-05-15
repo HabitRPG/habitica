@@ -28,7 +28,7 @@
     "beastMastText": "A găsit toţi cei 90 de companioni (extraordinar de greu, arată-i respect!)",
     "dropsEnabled": "Câştiguri activate!",
     "itemDrop": "Ai câştigat ceva!",
-    "firstDrop": "Ai deblocat sistemul de câştiguri! Acum când îndeplinești o sarcină ai o mică şansă de a găsi un obiect. Chiar acum ai găsit un <strong><%= eggText %> Ou</strong>! <%= eggNotes %>",
+    "firstDrop": "Ai deblocat sistemul de câştiguri! Acum când îndeplinești un țel ai o mică şansă de a găsi un obiect. Chiar acum ai găsit un <strong><%= eggText %> Ou</strong>! <%= eggNotes %>",
     "useGems": "Ai pus ochii pe un companion, dar nu mai ai răbdare până ca să-l găsești. Folosește Nestemate în <strong>Opțiuni > Inventar</strong> pentru a-l cumpăra!",
     "hatchAPot": "Eclozezi  <%= potion %> <%= egg %> ?",
     "feedPet": "Hrăneşti <%= name %> cu <%= article %><%= text %>?",

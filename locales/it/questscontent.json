@@ -27,7 +27,7 @@
     "questGhostStagDropDeerEgg": "Cervo (uovo)",
     "questRatText": "Il Ratto Re",
     "questRatNotes": "Garbage! Massive piles of unchecked dailies are lying all across Habitica. The problem has become so serious that hordes of rats are now seen everywhere. You notice @Pandah petting one of the beasts lovingly. She explains that rats are gentle creatures that feed on unchecked dailies. The real problem is that the dailies have fallen into the sewer, creating a dangerous pit that must be cleared. As you descend into the sewers, a massive rat, with blood red eyes and mangled yellow teeth, attacks you, defending its horde. Will you cower in fear or face the fabled Rat King?",
-    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspiried by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let out down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
+    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspired by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
     "questRatBoss": "Ratto Re",
     "questRatDropRatEgg": "Ratto (Uovo)",
     "questVice1Text": "Liberati dall'Influsso del Drago",
@@ -36,7 +36,7 @@
     "questVice1DropVice2Quest": "Vyce - Parte 2 (Pergamena)",
     "questVice2Text": "Trova il Covo della Viverna",
     "questVice2Notes": "Ora che l'influsso di Vyce è stato dissipato, senti tornare dentro te un'ondata di forza che non sapevi di avere. Confidenti in voi stessi e nella vostra capacità di contrastare l'influsso del dragone, tu ed il tuo gruppo fate ritorno al Monte Habitica. Appena arrivati all'entrata della caverna, vi fermate. Banchi d'ombra, quasi come nebbia, aleggiano intorno all'ingresso, rendendo quasi impossibile vedere cosa c'è davanti a voi. Le luci delle lanterne sembrano terminare di colpo appena entrano in contatto con le ombre. Si dice che solo la luce magica sia in grado di perforare la nebbia infernale del drago. Se troverete abbastanza cristalli di luce, potreste usarli per farvi strada fino al drago.",
-    "questVice2CollectLightCrystal": "L'Ombra di Vyce",
+    "questVice2CollectLightCrystal": "Light Crystals",
     "questVice2DropVice3Quest": "Vyce - Parte 3  (Pergamena)",
     "questVice3Text": "Il Risveglio di Vyce",
     "questVice3Notes": "Dopo innumerevoli sforzi, il tuo gruppo ha scoperto la tana di Vyce. Il gigantesco mostro guarda la tua squadra con disgusto. Mentre un'ombra turbina intorno a te, una voce sussurra nella tua testa: \"Altri sciocchi cittadini di Habitica venuti a fermarmi? Che carini. Sarebbe stato più saggio non venire.\" Lo squamoso titano alza di nuovo la testa e si prepara ad attaccare. Questa è la tua occasione! Dai il meglio di te e sconfiggi Vyce volta per tutte!",
@@ -48,6 +48,6 @@
     "questEggHuntText": "Caccia all'Uovo",
     "questEggHuntNotes": "Durante la notte, delle strane uova hanno cominciato ad apparire ovunque: nelle scuderie di Matt, dietro il bancone della Taverna e persino tra le altre uova nel Mercato! Che seccatura! \"Nessuno sa da dove vengano, o cosa racchiudono al loro interno\", dice <strong>Megan</strong>, \"ma non possiamo fare finta di niente e lasciarle in giro! Cerca dappertutto facendo molta attenzione e aiutami a raccogliere tutte queste uova misteriose. Magari se le trovi tutte ci sarà una piccola sorpresa...\"",
     "questEggHuntCompletion": "Ce l'hai fatta! <strong>Megan</strong> ti dà dieci delle uova. \"Non credo che si schiuderanno, quindi sicuramente non potrai cavalcarle, ma ciò non significa che tu non possa tingerle con dei bellissimi colori!\"",
-    "questEggHuntCollectPlainEgg": "Uovo Semplice",
+    "questEggHuntCollectPlainEgg": "Plain Eggs",
     "questEggHuntDropPlainEgg": "Uovo Semplice"
 }

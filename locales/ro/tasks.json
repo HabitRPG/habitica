@@ -14,8 +14,8 @@
     "direction/Actions": "Direcție/Acțiuni",
     "advancedOptions": "Opțiuni avansate",
     "difficulty": "Dificultate",
-    "difficultyHelpTitle": "Cât de dificilă e această sarcină?",
-    "difficultyHelpContent": "Multiplică valoarea în puncte. Folosește cu măsură, contează în schimb pe algoritmii noștri organici de ajustare a valorii. Totuși, unele sarcini sunt vădit mai valoroase (scrisul unei dizertații vs. spălatul pe dinți). Click pentru mai multe informații.",
+    "difficultyHelpTitle": "Cât de dificil e acest țel?",
+    "difficultyHelpContent": "Multiplică valoarea în puncte. Folosește cu măsură, contează în schimb pe algoritmii noștri organici de ajustare a valorii. Totuși, unele țeluri sunt vădit mai valoroase (scrisul unei dizertații vs. spălatul pe dinți). Click pentru mai multe informații.",
     "easy": "Ușor",
     "medium": "Mediu",
     "hard": "Greu",
@@ -55,9 +55,9 @@
     "perfectSingularText": "A îndeplinit toate Cotidienele active într-o zi. Cu această realizare primești un spor de +nivel/2 la toate atributele pentru ziua următoare.",
     "streakerAchievement": "Ai realizat gradul \"Streaker\" ! A 21-a zi este o bornă pe drumul creeari de obiceiuri. Poţi continua să acumulezi această realizare pentru fiecare 21 de zile adiţionale în această activitate zilnică sau în oricare alta.",
     "fortifyName": "Poțiune fortifiantă",
-    "fortifyPop": "Readu toate sarcinile la valoarea neutră (culoarea galbenă) și refă toată Sănătatea pierdută.",
+    "fortifyPop": "Readu toate țelurile la valoarea neutră (culoarea galbenă) și refă toată Sănătatea pierdută.",
     "fortify": "Fortifică",
-    "fortifyText": "Fortifierea va readuce toate sarcinile la valoarea neutră (galben), ca și cum abia le-ai fi adăugat, și va reface Sănătatea la maxim. Consideră asta o opțiune de caz extrem! Sarcinile roșii furnizează un bun imbold pentru a progresa. Dar dacă tot roșul ăsta te umple cu disperare, și începutul fiecărei zile se dovedește letal, cheltuie Nestematele și ia o pauză!",
-    "sureDelete": "Ești sigur că vrei să ștergi această sarcină?",
+    "fortifyText": "Fortifierea va readuce toate țelurile la valoarea neutră (galben), ca și cum abia le-ai fi adăugat, și va reface Sănătatea la maxim. Consideră asta o opțiune de caz extrem! Sarcinile roșii furnizează un bun imbold pentru a progresa. Dar dacă tot roșul ăsta te umple cu disperare, și începutul fiecărei zile se dovedește letal, cheltuie Nestematele și ia o pauză!",
+    "sureDelete": "Ești sigur că vrei să ștergi acest țel?",
     "streakCoins": "Bonus de șir!"
 }

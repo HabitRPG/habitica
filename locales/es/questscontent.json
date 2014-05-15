@@ -27,7 +27,7 @@
     "questGhostStagDropDeerEgg": "Ciervo (Huevo)",
     "questRatText": "The Rat King",
     "questRatNotes": "Garbage! Massive piles of unchecked dailies are lying all across Habitica. The problem has become so serious that hordes of rats are now seen everywhere. You notice @Pandah petting one of the beasts lovingly. She explains that rats are gentle creatures that feed on unchecked dailies. The real problem is that the dailies have fallen into the sewer, creating a dangerous pit that must be cleared. As you descend into the sewers, a massive rat, with blood red eyes and mangled yellow teeth, attacks you, defending its horde. Will you cower in fear or face the fabled Rat King?",
-    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspiried by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let out down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
+    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspired by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
     "questRatBoss": "Rat King",
     "questRatDropRatEgg": "Rat (Egg)",
     "questVice1Text": "Liberate de la influencia del Dragón.",
@@ -36,7 +36,7 @@
     "questVice1DropVice2Quest": "Vice Parte 2 (Pergamino)",
     "questVice2Text": "Encuentra la guarida del Wyrm",
     "questVice2Notes": "Con la influencia de Vice disipada, sientes una fuerza que habías olvidado posser, volver a tu interior. Seguros de vosotros mismos y de vuestra habilidad para soportar el hechizo del dragón, avanzais hacia el monte Habitica. Os aproximais a la entrada de las cavernas y parais. Jirones de sombras, como la niebla, se retuercen en la entrada. Es imposible ver nada a través de ellas, y la luz de tu linterna parece frenarse al tocar las sombras. Se dice que solo la luz mágica es capaz de penetrar en la neblina infernal del dragón. Si eres capaz de encontrar suficientes cristales de luz, podrías llegar hasta donde se encuentra el dragón.",
-    "questVice2CollectLightCrystal": "Sombra de Vice",
+    "questVice2CollectLightCrystal": "Light Crystals",
     "questVice2DropVice3Quest": "Vice Parte 3 (Pergamino)",
     "questVice3Text": "Vice Despierta",
     "questVice3Notes": "Tras mucho esfuerzo, tu grupo a descubierto la guarida de Vice. El enorme monstruo observa a tu grupo con desaprovación. Una sombra se retuerce a tu alrededor, y una voz susurra en tu interior... \"¿Más necios de Habitica que intentan pararme? Encantador..., hubiera sido más inteligente no haber venido.\" El escamado titán alza su cabeza y se prepara para atacar. ¡Es tu oportunidad!¡Da lo mejor de tí y derrota a Vice de una vez por todas!",
@@ -48,6 +48,6 @@
     "questEggHuntText": "Cacería de huevos",
     "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
     "questEggHuntCompletion": "¡Lo lograste! En agradecimiento, <strong>Megan</strong> te da diez de los huevos. \"No creo que vayan a salir del cascaron, exactamente,\" dice, \"y seguramente no crezcan para ser monturas. ¡Pero eso no quiere decir que no puedas teñirlos de hermosos colores!\"",
-    "questEggHuntCollectPlainEgg": "Plain Egg",
+    "questEggHuntCollectPlainEgg": "Plain Eggs",
     "questEggHuntDropPlainEgg": "Plain Egg"
 }

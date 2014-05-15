@@ -27,7 +27,7 @@
     "questGhostStagDropDeerEgg": "Hert (Ei)",
     "questRatText": "The Rat King",
     "questRatNotes": "Garbage! Massive piles of unchecked dailies are lying all across Habitica. The problem has become so serious that hordes of rats are now seen everywhere. You notice @Pandah petting one of the beasts lovingly. She explains that rats are gentle creatures that feed on unchecked dailies. The real problem is that the dailies have fallen into the sewer, creating a dangerous pit that must be cleared. As you descend into the sewers, a massive rat, with blood red eyes and mangled yellow teeth, attacks you, defending its horde. Will you cower in fear or face the fabled Rat King?",
-    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspiried by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let out down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
+    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspired by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
     "questRatBoss": "Rat King",
     "questRatDropRatEgg": "Rat (Egg)",
     "questVice1Text": "Bevrijd Jezelf van de Draak's Invloed",
@@ -36,7 +36,7 @@
     "questVice1DropVice2Quest": "Vice Deel 2 (Rol)",
     "questVice2Text": "Vind het Hol van de Draak",
     "questVice2Notes": "Nu de invloed van Vice over je is verdreven, voel je een golf van kracht, die je niet wist dat je had, terugkomen. Met zelfvertrouwen en het vermogen om de draak's invloed te weerstaan, gaat je partij op weg naar Berg Habitica. Je nadert de entree van de berggrotten en pauzeert. Het is bijna onmogelijk om iets te zien. Het licht van de lantaarns lijkt abrupt te eindigen waar de schaduwen beginnen. Er wordt gezegd dat alleen magisch licht kan doordringen in de draak's duivelse nevel. Als je genoeg licht kristallen kan vinden, kan je op weg naar de draak.",
-    "questVice2CollectLightCrystal": "Vice's Schaduw",
+    "questVice2CollectLightCrystal": "Light Crystals",
     "questVice2DropVice3Quest": "Vice Deel 3 (Rol)",
     "questVice3Text": "Vice Ontwaakt",
     "questVice3Notes": "Na veel inspanning, heeft je partij Vice's schuilplaats ontdekt. Het kolossale monster bekijkt je partij met afkeer. Terwijl schaduwen om je heen wervelen, fluistert een stem in je hoofd, \"Meer dwaze inwoners van Habitica zijn gekomen om mij te stoppen? Schattig. Je was wijs geweest om niet te komen.\" De geschubde titaan trekt zijn hoofd terug en maakt zich klaar om aan te vallen. Dit is jouw kans! Geef het alles wat je hebt en versla Vice voor eens en altijd!",
@@ -48,6 +48,6 @@
     "questEggHuntText": "Eierjacht",
     "questEggHuntNotes": "'s Nachts zijn overal vreemde, eenvoudige eieren verschenen. In de stallen van Matt, achter de toog van de Taverne, en zelfs tussen de eieren van de huisdieren op de Markt! Wat een overlast! \"Niemand weet waar ze vandaan komen, of wat er uit zal komen,\" zegt <strong>Megan</strong>, \"maar we kunnen ze niet zomaar laten liggen! Werk en zoek hard om me te helpen deze mysterieuze eieren te verzamelen. Als we er genoeg vinden, blijven er misschien enkele over voor jou...\"",
     "questEggHuntCompletion": "Het is je gelukt! Uit dankbaarheid geeft <strong>Megan</strong> je tien van de eieren. \"Ik denk niet dat ze uit zullen komen,\" zegt ze, \"en echt groot zullen ze niet worden, maar dat wilt niet zeggen dat je ze niet in vrolijke kleuren kan verven!\"",
-    "questEggHuntCollectPlainEgg": "Simpel ei",
+    "questEggHuntCollectPlainEgg": "Plain Eggs",
     "questEggHuntDropPlainEgg": "Simpel ei"
 }

@@ -30,5 +30,5 @@
     "mustLvlQuest": "Musisz mieć co najmniej poziom <%= level %>, żeby kupić tę misję!",
     "sureAbort": "Na pewno chcesz przerwać tę misje? Zostanie ona przerwana dla wszystkich w twojej drużynie, a cały postęp zostanie stracony.",
     "doubleSureAbort": "Czy jesteś pewien? Drużyna się na Ciebie nie obrazi?",
-    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!"
+    "questWarning": "Pamiętaj: tylko obecni członkowie drużyny zostaną zaproszeni. Kiedy już zaproszenie zostanie wysłane, żadni nowi członkowie nie będą mogli dołączyć do misji!"
 }
