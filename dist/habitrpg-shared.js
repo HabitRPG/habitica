@@ -10238,8 +10238,8 @@ gear = {
         canOwn: (function(u) {
           return u.stats["class"] === 'wizard';
         }),
-        text: t('headSpecialCanycaneText'),
-        notes: t('headSpecialCanycaneNotes', {
+        text: t('headSpecialCandycaneText'),
+        notes: t('headSpecialCandycaneNotes', {
           per: 7
         }),
         per: 7,

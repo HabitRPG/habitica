@@ -179,7 +179,7 @@ gear =
       nye:        event: events.winter, text: t('headSpecialNyeText'), notes: t('headSpecialNyeNotes'), value: 0
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: t('headSpecialYetiText'), notes: t('headSpecialYetiNotes', {str: 9}), str: 9, value:60
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: t('headSpecialSkiText'), notes: t('headSpecialSkiNotes', {per: 9}), per: 9, value:60
-      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: t('headSpecialCanycaneText'), notes: t('headSpecialCanycaneNotes', {per: 7}), per: 7, value:60
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: t('headSpecialCandycaneText'), notes: t('headSpecialCandycaneNotes', {per: 7}), per: 7, value:60
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: t('headSpecialSnowflakeText'), notes: t('headSpecialSnowflakeNotes', {int: 7}), int: 7, value:60
       # Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: t('headSpecialSpringRogueText'), notes: t('headSpecialSpringRogueNotes', {per: 9}),value: 40,per: 9
