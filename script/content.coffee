@@ -518,7 +518,7 @@ api.spells =
 
   special:
     snowball:
-      text: t('spellSpecialSnowballText')
+      text: t('spellSpecialSnowballAuraText')
       mana: 0
       value: 1
       target: 'user'
