@@ -9180,12 +9180,15 @@ moment = require('moment');
 i18n = require('./i18n.coffee');
 
 t = function(string, vars) {
-  return function(lang) {
+  var func;
+  func = function(lang) {
     if (vars == null) {
       vars = lang;
     }
     return i18n.t(string, vars, lang);
   };
+  func.i18nLangFunc = true;
+  return func;
 };
 
 

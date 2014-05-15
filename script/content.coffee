@@ -3,9 +3,11 @@ api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
 t = (string, vars) ->
-  (lang) -> 
+  func = (lang) -> 
     vars ?= lang
     i18n.t(string, vars, lang)
+  func.i18nLangFunc = true #Trick to recognize this type of function
+  func
 
 ###
   ---------------------------------------------------------------
