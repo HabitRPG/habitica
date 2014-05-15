@@ -41,6 +41,9 @@ module.exports = (swagger, v2) ->
     '/content':
       spec:
         description: "Get all available content objects. This is essential, since Habit often depends on item keys (eg, when purchasing a weapon)."
+        parameters: [
+          query("language","Optional language to use for content's strings. Default is english.","string")
+        ]
       action: user.getContent
 
 

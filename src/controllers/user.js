@@ -17,7 +17,16 @@ var api = module.exports;
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
-  res.json(shared.content);
+  var language = req.query.language; //|| 'en' in i18n
+  var content = _.cloneDeep(shared.content);
+  var walk = function(obj){
+    _.each(obj, function(item, key, source){
+      if(_.isPlainObject(item) || _.isArray(item)) return walk(item);
+      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(language);
+    });
+  }
+  walk(content);
+  res.json(content);
 }
 
 /*
