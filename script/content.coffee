@@ -522,7 +522,7 @@ api.spells =
       mana: 0
       value: 1
       target: 'user'
-      notes: t('spellSpecialSnowballNotes')
+      notes: t('spellSpecialSnowballAuraNotes')
       cast: (user, target) ->
         target.stats.buffs.snowball = true
         target.achievements.snowball ?= 0

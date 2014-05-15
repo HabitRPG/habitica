@@ -11045,7 +11045,7 @@ api.spells = {
       mana: 0,
       value: 1,
       target: 'user',
-      notes: t('spellSpecialSnowballNotes'),
+      notes: t('spellSpecialSnowballAuraNotes'),
       cast: function(user, target) {
         var _base;
         target.stats.buffs.snowball = true;
