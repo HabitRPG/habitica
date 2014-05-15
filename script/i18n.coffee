@@ -14,11 +14,10 @@ module.exports =
       locale = arguments[2]
 
     locale = 'en' if (!locale? or (!module.exports.strings and !module.exports.translations[locale]))
-
     string = if (!module.exports.strings) then module.exports.translations[locale][stringName] else module.exports.strings[stringName]
 
     if string
-      if vars then _.template(string, vars) else string
+      _.template(string, (vars or {}))
     else
       stringNotFound = if (!module.exports.strings) then module.exports.translations[locale].stringNotFound else module.exports.strings.stringNotFound
       _.template(stringNotFound, {string: stringName})
