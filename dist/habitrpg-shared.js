@@ -11872,10 +11872,10 @@ module.exports = {
       vars = arguments[1];
       locale = arguments[2];
     }
-    if (locale == null) {
+    if ((locale == null) || (!module.exports.strings && !module.exports.translations[locale])) {
       locale = 'en';
     }
-    string = locale && !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
       if (vars) {
         return _.template(string, vars);
@@ -11883,7 +11883,7 @@ module.exports = {
         return string;
       }
     } else {
-      stringNotFound = locale && !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
       return _.template(stringNotFound, {
         string: stringName
       });
@@ -12971,7 +12971,7 @@ api.wrap = function(user, main) {
             item = content.gear.flat[key];
             if (user.items.gear[type][item.type] === key) {
               user.items.gear[type][item.type] = "" + item.type + "_base_0";
-              message = i18n.t('messageUnEquipped', {
+              message = i18n.t('messageBought', {
                 itemText: item.text(req.language)
               }, req.language);
             } else {
