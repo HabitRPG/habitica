@@ -9,3 +9,5 @@ CHANGELOG.md
 *.log
 newrelic_agent.log
 .bower-cache*
+*.swp
+*.swx
