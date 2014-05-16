@@ -11880,11 +11880,7 @@ module.exports = {
     }
     string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
-      if (vars) {
-        return _.template(string, vars);
-      } else {
-        return string;
-      }
+      return _.template(string, vars || {});
     } else {
       stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
       return _.template(stringNotFound, {
@@ -12673,12 +12669,9 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user.stats) : void 0;
       },
       clearCompleted: function(req, cb) {
-        user.todos = _.map(user.todos, function(t) {
+        _.remove(user.todos, function(t) {
           var _ref;
-          if (t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0)) {
-            t.archived = true;
-          }
-          return t;
+          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
         });
         if (typeof user.markModified === "function") {
           user.markModified('todos');
@@ -13705,11 +13698,6 @@ api.wrap = function(user, main) {
           }
         }
       });
-      user.todos.forEach(function(task) {
-        if (!task.archived && task.completed && moment(now).subtract('days', 3).isAfter(moment(task.dateCompleted))) {
-          return task.archived = true;
-        }
-      });
       ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? _base1.todos : _base1.todos = []).push({
         date: now,
         value: todoTally
@@ -13845,5 +13833,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Development/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
