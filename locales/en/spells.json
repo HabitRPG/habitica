@@ -47,8 +47,8 @@
   "spellHealerHealAllText": "Blessing",
   "spellHealerHealAllNotes": "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
 
-  "spellSpecialSnowballAuraText": "Snowball",
-  "spellSpecialSnowballAuraNotes": "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
+  "spellSpecialSnowballText": "Snowball",
+  "spellSpecialSnowballNotes": "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
 
   "spellSpecialSaltText": "Salt",
   "spellSpecialSaltNotes": "Someone has snowballed you. Ha ha, very funny. Now get this snow off me!"
