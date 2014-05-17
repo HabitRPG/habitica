@@ -20,7 +20,8 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
       .form-group
         input.btn.btn-default(type='submit')=env.t('loadUser')
     form(ng-show='hero', ng-submit='saveHero(hero)')
-      h3 {{hero.profile.name}}
+      a(ng-click='clickMember(hero._id, true)')
+        h3 {{hero.profile.name}}
       .form-group
         input.form-control(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
       .form-group
