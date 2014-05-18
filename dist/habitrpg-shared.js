@@ -12831,7 +12831,7 @@ api.wrap = function(user, main) {
           if (pet === user.items.currentPet) {
             user.items.currentPet = "";
           }
-          return message = i18n.t('messageAlreadyMount', {
+          return message = i18n.t('messageEvolve', {
             egg: egg
           }, req.language);
         };

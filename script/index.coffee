@@ -581,7 +581,7 @@ api.wrap = (user, main=true) ->
           # changed to -1 to mark "owned" pets
           user.items.mounts[pet] = true
           user.items.currentPet = "" if pet is user.items.currentPet
-          message = i18n.t('messageAlreadyMount', {egg: egg}, req.language)
+          message = i18n.t('messageEvolve', {egg: egg}, req.language)
 
         if food.key is 'Saddle'
           evolve()
