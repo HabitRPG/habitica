@@ -27,7 +27,7 @@
     "questGhostStagDropDeerEgg": "Căprioară (ou)",
     "questRatText": "Regele Șobolan",
     "questRatNotes": "Gunoi! Grămezi uriașe de cotidiene neterminate zac aruncate peste tot prin Habitica. Problema a devenit atât de gravă încât au apărut cete de șobolani peste tot. Îl vezi pe @Pandah mângâindu-și drăgăstos una dintre bestii. Ea îți spune că șobolanii sunt făpturi blânde care se hrănesc cu cotidienele neterminate. Adevărata problemă este că ele au căzut în canal, creând o fosă periculoasă care trebuie curățată. În timp ce cobori în canal, un șobolan masiv, cu ochii injectați și dinți galbeni stâlciți te atacă pentru a-și apăra ceata. Te vei face mic de frică sau îl vei înfrunta pe legendarul Rege Șobolan?",
-    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspired by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
+    "questRatCompletion": "Ultima ta lovitură epuizează puterile colosalului șobolan, ochii lui stingându-se într-un gri palid. Bestia se despică în mai mulți șobolani mărunți care o iau la fugă speriați. O observi pe @Pandah stând în spatele tău, privind la măreața făptură de altă dată. Îți spune că cetățenii Habiticii au fost inspirați de curajul tău și acum își împlinesc repede toate cotidienele neterminate. Ea te avertizează că trebuie să fim vigilenți, pentru că dacă ne vom lăsa garda jos, Regele Șobolan se va întoarce. Ca răsplată, @Pandah îți oferă mai multe ouă de șobolan. Văzându-ți expresia neliniștită a feței zâmbește: „Sunt niște companioni minunați.”",
     "questRatBoss": "Rege Șobolan",
     "questRatDropRatEgg": "Șobolan (ou)",
     "questVice1Text": "Eliberează-te de influența Dragonului",
@@ -36,7 +36,7 @@
     "questVice1DropVice2Quest": "Viciu partea 2 (răvaș)",
     "questVice2Text": "Găsește Viziuna Balaurului",
     "questVice2Notes": "Odată ce influența Viciului asupra voastră s-a risipit, simțiți o tărie pe care nu știați că o aveați întorcându-se la voi. Încrezători în voi înșivă și în capacitatea voastră de a rezista influenței balaurului, echipa ta îți urmează drumul spre Mt. Habitica. Vă apropiați de intrarea în cavernele muntelui și vă opriți. Valuri de umbre, aproape ca o ceață, plutesc prin deschizătură. E aproape imposibil să vedeți ceva în față. Lumina felinarelor voastre pare să se sfârșească abrupt acolo unde încep umbrele. Se spune că numai lumina magică poate să răzbată prin negura infernală a dragonului. Dacă puteți găsi destule cristale de lumină, ați putea înainte până la dragon.",
-    "questVice2CollectLightCrystal": "Light Crystals",
+    "questVice2CollectLightCrystal": "Cristale de lumină",
     "questVice2DropVice3Quest": "Viciu partea 3 (răvaș)",
     "questVice3Text": "Viciul se trezește",
     "questVice3Notes": "După multe strădanii, echipa ta a descoperit viziuna Viciului. Matahala de monstru îți privește echipa cu dezgust. În jurul vostru se învârtejează umbre, iar o voce îți șoptește în cap: „Alți cetățeni netoți ai Habiticii care vin să mă oprească? Drăguț. Ar fi fost înțelept să nu veniți.” Uriașul solzos își retrage capul și se pregătește să atace. Asta e șansa voastră! Dă-i tot ce poți și învinge Viciul o dată pentru totdeauna.",
@@ -48,6 +48,6 @@
     "questEggHuntText": "Vânătoarea de ouă",
     "questEggHuntNotes": "Peste noapte, au apărut peste tot ouă simple ciudate: în grajdurile lui Matt, în spatele tejghelei din Cârciumă și chiar și printre ouăle de companioni din Piață! Ce pacoste! „Nimeni nu știe de unde au venit sau în ce vor ecloza”, spune <strong>Megan</strong>, „dar nu le putem lăsa pur și simplu acolo unde sunt! Lucrează și caută din greu și ajută-mă să adun ouălea astea misterioase. Poate dacă strângi destule, vor rămâne câteva în plus și pentru tine...”",
     "questEggHuntCompletion": "Ai reușit! Drept mulțumire, <strong>Megan</strong> îți dă zece dintre ouă. „Nu cred că eclozează, propriu-zis”, spune ea, „și cu siguranță nu vor crește în animale de călărit. Dar asta nu înseamnă că nu le poți vopsi în culori frumoase!”",
-    "questEggHuntCollectPlainEgg": "Plain Eggs",
+    "questEggHuntCollectPlainEgg": "Ouă simple",
     "questEggHuntDropPlainEgg": "Ou simplu"
 }

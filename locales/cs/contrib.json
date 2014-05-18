@@ -14,7 +14,7 @@
     "heroicText": "V hrdinech je zahrnut personál HabitRPG a přispěvatelé na úrovni personálu. Pokud máš tento titul, byl ti udělen (nebo jsme tě najali!).",
     "npcText": "NPC podpořily hru nejvyšší částkou na Kickstarteru. Můžeš je najít strážící funkce stránky!",
     "modalContribAchievement": "Ocenění pomocníka",
-    "contribModal": "<%= name %>, ty úžasná osobo! Nyní jsi za pomoc Habit RPG na úrovni přispěvatele <%= name %> . Podívej se na",
+    "contribModal": "<%= name %>, ty úžasná osobo! Nyní jsi za pomoc Habit RPG na úrovni přispěvatele <%= name %> . Podívej se ",
     "contribLink": "jaké ceny jsi za svou pomoc získal!",
     "contribName": "Přispěvatel",
     "contribText": "Pomohl HabitRPG (programování, design, pixel art, právní pomoc, dokumentace, atd.). Chceš toto ocenění?",

@@ -16,7 +16,7 @@
     "messageAlreadyPet": "¡Ya tienes esa mascota, intenta una combinacion diferente!",
     "messageHatched": "¡Tu huevo ha hecho eclosion! Visita tu establo para equipar tu mascota.",
     "messageNotEnoughGold": "No tienes suficiente Oro",
-    "messageTwoHandled": "<%= gearText %> is two handed",
+    "messageTwoHandled": "<%= gearText %> es de dos manos.",
     "messageDropFood": "¡Has encontrado <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "¡Has encontrado un huevo de <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "¡Has encontrado una pocion de eclosion de <%= dropText %>! <%= dropNotes %>",

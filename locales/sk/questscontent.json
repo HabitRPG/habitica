@@ -27,7 +27,7 @@
     "questGhostStagDropDeerEgg": "Jeleň (vajce)",
     "questRatText": "Krysí kráľ",
     "questRatNotes": "Odpad! Obrovské hromady neodškrtnutých denných úloh ležia po celej Habitike. Problém je tak vážny, že sa všade pohybujú hordy krýs. Zbadal si @Pandah, ako láskyplne hladí jednu z týchto zverí. Vysvetlí ti, že krysy sú nežné stvorenie, ktoré sa kŕmia na neodškrtnutých denných úlohách. Skutočným problém ale je, že denné úlohy padajú do kanálov a vytvárajú nebezpečné priestory, ktoré sa musia vyčistiť. Ako zostupuješ do kanálov, napadne ťa masívny potkan s krvavočervenými očami a hroznými žltými zubami, ktorý chráni svoju hordu. Skryješ sa od strachu alebo budeš čeliť legendárnemu Krysiemu kráľovi?",
-    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspired by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
+    "questRatCompletion": "Tvoj posledný útok vysaje gargantuovskú krysiu silu, jeho oči blednú do chmúrne šedej. Beštia sa rozdelí na veľa maličkých krýs, ktoré sa rozpŕchnu v strachu. Všimneš si @Pandah stojacu za tebou pozerajúc na na bývalé ohromné stvorenie. Oznamuje ti, že tvoja odvaha inšpirovala občanov Habitiky a rýchlo splňujú svoje denné úlohy. Varuje ťa, musiš byť bdelý, keď len na chvíľu poľavíš, Krysí kráľ sa vráti. Ako odmenu ti @Pandah ponúkne krysie vajcia. Pri pohľade na tvoj znepokojený výraz sa usmeje, \"Sú úžasní domáci maznáčikovia.\"",
     "questRatBoss": "Krysí kráľ",
     "questRatDropRatEgg": "Krysa (vajce)",
     "questVice1Text": "Osloboď sa od dračieho vplyvu",
@@ -36,7 +36,7 @@
     "questVice1DropVice2Quest": "Neresť, časť 2 (zvitok)",
     "questVice2Text": "Nájdi brloh sane",
     "questVice2Notes": "S rozplynutím vplyvu Neresti cítiš ako sa ti navracia sila, o ktorej si ani len nevedel, že máš. Sebaistí sebou a svojimi schopnosťami odolať saniemu vplyvu sa tvoja družina vydáva smerom k hore Habitika. Priblížite sa ku vchodu do jaskyne pod horou a zastavujete. V vchodu vychádzajú vlniace sa tiene, takmer ako hmla. Je takmer nemožné vidieť pred seba. Svetlo z vašich lampášov akoby náhle končilo na hranici tieňov. Vraví sa, že len magické svetlo dokáže preniknúť dračím pekelným oparom. Ak sa ti podarí nájsť dosť svetelných kryštálov, možno sa dostaneš až k drakovi.",
-    "questVice2CollectLightCrystal": "Light Crystals",
+    "questVice2CollectLightCrystal": "Svetelné kryštály",
     "questVice2DropVice3Quest": "Neresť, časť 3 (zvitok)",
     "questVice3Text": "Neresť sa prebúdza",
     "questVice3Notes": "Po dlhých snahách sa tvojej družine podarilo nájsť brloh Neresti. Mohutné oči monštra si prezerajú tvoju družinu s opovrhnutím. Ako jej tieň zakrúži okolo teba, v hlave ti šepká hlas: \"Ďalší pobláznení občania Habitiky, čo ma prišli zastaviť? Aké milé. Bolo by rozumnejšie nechodiť sem.\" Šupinatý titán cúvne a pripraví sa na útok. Teraz je tvoja šanca! Daj do toho všetko a poraz Neresť raz a navždy!",
@@ -48,6 +48,6 @@
     "questEggHuntText": "Lov na vajíčka",
     "questEggHuntNotes": "Cez noc sa všade objavili divné prosté vajíčka: v Mattových stajniach, za pokladňou v Hostinci a dokonca medzi vajíčkami na Tržnici! To je neporiadok! \"Nikto nevie odkiaľ sa vzdali alebo čo sa z nich môže vyliahnuť,\" vraví <strong>Megan</strong>, \"ale nemôžeme ich tu len tak nechať rozhádzané! Buďte usilovní a dôkladne hľadajte a pomôžte mi zozbierať všetky tieto záhadné vajíčka. Možno ak ich nazbierate dosť, niečo navyše ostane pre vás...\"",
     "questEggHuntCompletion": "Dokázali ste to! Z vďaky vám <strong>Megan</strong> dáva desať vajíčok. \"Nemyslím si, že sa z nich niečo vyliahne,\" hovorí, \"a určite z nich nevyrastie tátoš. Ale to neznamená, že ich nemôžete pomaľovať krásnymi farbami!\"",
-    "questEggHuntCollectPlainEgg": "Plain Eggs",
+    "questEggHuntCollectPlainEgg": "Čisté vajíčko",
     "questEggHuntDropPlainEgg": "Čisté vajíčko"
 }

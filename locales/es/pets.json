@@ -33,6 +33,6 @@
     "hatchAPot": "¿Eclosionar un <%= egg %> <%= potion %>?",
     "feedPet": "¿Dar de comer <%= article %><%= text %>a su <%= name %>?",
     "useSaddle": "¿Ensillar <%= pet %>?",
-    "petName": "<%= potion %> <%= egg %>",
-    "mountName": "<%= potion %> <%= mount %>"
+    "petName": "<%= egg %> <%= potion %>",
+    "mountName": "<%= mount %> <%= potion %>"
 }

@@ -27,7 +27,7 @@
     "questGhostStagDropDeerEgg": "Cervo (Ovo)",
     "questRatText": "O Rei Rato",
     "questRatNotes": "Lixo! Enormes pilhas de tarefas diárias não checadas estão por toda Habitica. O problema ficou tão sério que hordas de ratos agora são vistas em todo lugar. Você repara @Pandah acariciando um dos animais. Ela explica que ratos são criaturas gentis que se alimentam de tarefas diárias não checadas. O problema é que as tarefas caíram no esgoto, criando um perigoso poço, que deve ser limpado. À medida que você desce o esgoto, um enorme rato, com olhos vermelhos e dentes amarelos, te ataca, defendendo sua horda. Você se acovardará ou enfrentará o lendário Rei Rato?",
-    "questRatCompletion": "Your final strike saps the gargantuan rat's strength, his eyes fading to a dull grey. The beast splits into many tiny rats, which scurry off in fright. You notice @Pandah standing behind you, looking at the once mighty creature. She explains that the citizens of Habitica have been inspired by your courage and are quickly completing all their unchecked dailies. She warns you that we must be vigilant, for should we let down our guard, the Rat King will return. As payment, @Pandah offers you several rat eggs. Noticing your uneasy expression, she smiles, \"They make wonderful pets.\"",
+    "questRatCompletion": "Seu golpe final exaure a força do rato gigantesco, seus olhos desbotando para um cinza fosco. A besta se divide em vários pequenos ratos, que fogem de medo. Você repara @Pandah parada atrás de você, olhando para o que foi a poderosa criatura. Ela conta que os habitantes de Habitica foram inspirados por sua coragem e estão rapidamente completando suas tarefas diárias não checadas. Ela o avisa que devemos ser vigilantes, pois, se baixarmos a guarda, o Rei Rato voltará. Como pagamento, @Pandah te oferece vários ovos de rato. Vendo sua expressão apreensiva, ela sorri, \"Eles são ótimos mascotes.\"",
     "questRatBoss": "Rei Rato",
     "questRatDropRatEgg": "Rato (Ovo)",
     "questVice1Text": "Liberte-se do Controle do Dragão",
@@ -36,7 +36,7 @@
     "questVice1DropVice2Quest": "Vício Parte 2 (Pergaminho)",
     "questVice2Text": "Encontre o Covil do Dragão",
     "questVice2Notes": "Com a influência do Vício sob você dissipada, você sente uma onda de força que não sabia que tinha voltar para você. Confiante em si mesmo e em suas habilidades em resistir a influência do dragão, sua equipe consegue chegar ao Monte Habitica. Você se aproxima da entrada das cavernas da montanha e para. Ondas de escuridão, quase como nuvens, saem da abertura. É quase impossível enxergar qualquer coisa à sua frente. A luz das lanternas parecem acabar abruptamente onde a escuridão começa. Dizem que apenas luz mágica pode atravessar a neblina infernal do dragão. Se conseguirem encontrar cristais de luz suficientes, poderão encontrar o caminho até o dragão.",
-    "questVice2CollectLightCrystal": "Light Crystals",
+    "questVice2CollectLightCrystal": "Cristais de Luz",
     "questVice2DropVice3Quest": "Vício Parte 3 (Pergaminho)",
     "questVice3Text": "Vício Desperta",
     "questVice3Notes": "Depois de muito esforço, sua equipe descobriu o covil do Vício. O poderoso monstro olha sua equipe à distância. Conforme a escuridão o cerca, uma voz sussurra na sua cabeça, \"Mais cidadãos tolos de Habitica vieram me parar? Que fofo. Teria sido inteligente não virem.\" O titã escamoso recua sua cabeça e se prepara para atacar. Essa é sua chance! Dê tudo de si e derrote o Vício de uma vez por todas!",
@@ -48,6 +48,6 @@
     "questEggHuntText": "Caça ao Ovo",
     "questEggHuntNotes": "Durante a noite, estranhos ovos simples apareceram em todo o lado: no estábulo do Matt, atrás do balcão na Taverna e até no meio dos ovos de mascotes no Mercado! Que incômodo! \"Ninguém sabe de onde eles vieram, ou no que eles chocarão\", diz <strong>Megan</strong>, \"mas nós não podemos simplesmente deixá-los espalhados por aí! Trabalhe duro procurando e me ajude a juntar esses ovos misteriosos. Talvez se você juntar ovos suficientes, poderão sobrar alguns para você...\"",
     "questEggHuntCompletion": "Você conseguiu! Em gratidão, <strong>Megan</strong> dá-te dez dos ovos. \"Eu não acho que eles chocam, exatamente\", diz ela, \"e eles com certeza não vão virar montarias. Mas isso não quer dizer que você não os possa pintar de várias cores!\"",
-    "questEggHuntCollectPlainEgg": "Plain Eggs",
+    "questEggHuntCollectPlainEgg": "Ovos Comuns",
     "questEggHuntDropPlainEgg": "Ovo Simples"
 }

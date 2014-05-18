@@ -32,7 +32,7 @@
     "useGems": "Ai pus ochii pe un companion, dar nu mai ai răbdare până ca să-l găsești. Folosește Nestemate în <strong>Opțiuni > Inventar</strong> pentru a-l cumpăra!",
     "hatchAPot": "Eclozezi  <%= potion %> <%= egg %> ?",
     "feedPet": "Hrăneşti <%= name %> cu <%= article %><%= text %>?",
-    "useSaddle": "Înşeuează <%= pet %>?",
+    "useSaddle": "Înşeuezi <%= pet %>?",
     "petName": "<%= egg %> <%= potion %>",
     "mountName": "<%= mount %> <%= potion %>"
 }
