@@ -991,7 +991,7 @@ api.wrap = (user, main=true) ->
         task.priority *                                 # Task priority: +50% for Medium, +100% for Hard
         (1 + (task.streak / 100 or 0)) *                # Streak bonus: +1% per streak
         (1 + (user._statsComputed.per / 100)) *         # PERception: +1% per point
-        (1 + (user.contributor.level / 20 or 0)) *      # Contrib levels: +5% per level
+        (1 + (user.contributor.level / 40 or 0)) *      # Contrib levels: +2.5% per level
         (1 + (user.achievements.rebirths / 20 or 0)) *  # Rebirths: +5% per achievement
         (1 + (user.achievements.streak / 200 or 0)) *   # Streak achievements: +0.5% per achievement
         (user._tmp.crit or 1) *                         # Use the crit multiplier if we got one
@@ -1008,7 +1008,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'party.quest.progress'
         #console.log {progress:user.party.quest.progress}
 
-      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25))
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + user.contributor.level)
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
         # current breakdown - 1% (adjustable) chance on drop
