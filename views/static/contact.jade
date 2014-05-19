@@ -5,8 +5,32 @@ block vars
 block title
   title=env.t('contact')
 block content
-  // Probably just add linkks to the respective contact locations?
-  // Bugs? Github
+  .row
+    .col-md-12
+      .page-header
+        h1 Contact Us
+      p
+        | Report Account Problems&colon;&nbsp;
+        a(href='mailto:admin@habitrpg.com') admin&commat;habitrpg&period;com
+        br
+        | Report a Bug&colon; Github&period;
+        br
+        | Report Community Issues&colon;&nbsp;
+        a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
+        // In the future: separate "community@habitrpg" account
+        // that multiple people can monitor but it hasn't happened yet.]
+        br
+        | General Questions about the Site&colon; Newbies Guild&period;
+        br
+        | Business Inquiries&colon;&nbsp;
+        a(href='mailto:vicky@habitrpg.com') vicky&commat;habitrpg&period;com
+        br
+        | Merchandise Inquiries&colon;&nbsp;
+        a(href='mailto:store@habitrpg.com') store&commat;habitrpg&period;com
+        br
+        | Marketing&sol;Social Media Inquiries&colon;&nbsp;
+        a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
+
   // Feature requests? Trello
   // Enterprise? Click the "pricing" tab
   /// etc
