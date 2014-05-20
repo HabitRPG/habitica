@@ -48,7 +48,7 @@
     "weaponHealer1Text": "Vara de acólito",
     "weaponHealer1Notes": "Confeccionada durante la iniciación de un sanador. Aumenta INT en <%= int %>.",
     "weaponHealer2Text": "Vara de cuarzo",
-    "weaponHealer2Notes": "Coronado con una joya con propiedades curativas. Aumenta INT en <% = int%>.",
+    "weaponHealer2Notes": "Coronado con una joya con propiedades curativas. Aumenta INT en <%= int%>.",
     "weaponHealer3Text": "Vara de amatista",
     "weaponHealer3Notes": "Elimina el veneno con un toque. Aumenta INT en <%= int %>.",
     "weaponHealer4Text": "Vara del médico",

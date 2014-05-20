@@ -156,7 +156,7 @@
     "headBase0Text": "Bez helmy",
     "headBase0Notes": "Bez pokrývky hlavy.",
     "headWarrior1Text": "Kožená čapica",
-    "headWarrior1Notes": "Čiapka z odolnej prevarenej kože. Zvyšuje SIL o <%= con %>.",
+    "headWarrior1Notes": "Cap of sturdy boiled hide. Increases STR by <%= str %>.",
     "headWarrior2Text": "Krúžková helma",
     "headWarrior2Notes": "Kukla vyrobená z pospájaných kovových krúžkov. Zvyšuje SIL o <%= str %>.",
     "headWarrior3Text": "Plátová helma",

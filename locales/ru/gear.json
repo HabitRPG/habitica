@@ -70,7 +70,7 @@
     "weaponSpecialYetiText": "Копье укротителя Йети",
     "weaponSpecialYetiNotes": "Экипировка ограниченного выпуска зимы 2013! Это копье позволяет своему владельцу управлять йети. Увеличивает СИЛ на <%= str %>.",
     "weaponSpecialSkiText": "Палка лыжника-ассасина",
-    "weaponSpecialSkiNotes": "Экипировка ограниченного выпуска зимы 2013! Оружие предназначенное для истребления орд врагов! Также помогает делать идеальные параллельные повороты. Увеличивает СИЛ на <%= int %> и ВОС на <%= per %>.",
+    "weaponSpecialSkiNotes": "Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by <%= str %>.",
     "weaponSpecialCandycaneText": "Карамельный посох",
     "weaponSpecialCandycaneNotes": "Экипировка ограниченного выпуска зимы 2013! Восхитительный магический посох. Восхитительно вкусный, разумеется! Двуручное оружие. Увеличивает ИНТ на <%= int %> и ВОС на <%= per %>.",
     "weaponSpecialSnowflakeText": "Палочка «Снежинка»",

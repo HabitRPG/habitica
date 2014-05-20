@@ -244,7 +244,7 @@
     "shieldHealer5Text": "Koninklijk Schild",
     "shieldHealer5Notes": "Geschonken aan degenen die het meest toegewijd zijn aan de verdediging van het koninkrijk. Verhoogt LIC met <%= con %>.",
     "shieldSpecial0Text": "Verscheurde Schedel",
-    "shieldSpecial0Notes": "Ziet achter de sluier van de dood, en laat zien wat het daar vindt om vijanden te beangstigen. Verhoogt PER met <%= con %>.",
+    "shieldSpecial0Notes": "Ziet achter de sluier van de dood, en laat zien wat het daar vindt om vijanden te beangstigen. Verhoogt PER met <%= per %>.",
     "shieldSpecial1Text": "Kristallen Schild",
     "shieldSpecial1Notes": "Verbrijzelt pijlen en verbuigt de woorden van de nee-zeggers. Verhoogt alle attributen met <%= attrs %>.",
     "shieldSpecialYetiText": "Yeti-Temmend Schild",
