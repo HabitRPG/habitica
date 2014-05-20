@@ -1,5 +1,5 @@
 {
-    "potionText": "Poţiune",
+    "potionText": "Health Potion",
     "potionNotes": "Vindecă 15 puncte de sănătate (instantaneu)",
     "dropEggWolfText": "Lup",
     "dropEggWolfAdjective": "loial",
@@ -35,7 +35,7 @@
     "questEggRatAdjective": "murdar",
     "eggNotes": "Găseşte o poţiune de eclozare ca să o verşi pe acest ou şi va ieşi <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "de bază",
-    "hatchingPotionWhite": "Alb(ă)",
+    "hatchingPotionWhite": "Alb",
     "hatchingPotionDesert": "de Deşert",
     "hatchingPotionRed": "Roşu",
     "hatchingPotionShade": "Fantomă",

@@ -10,7 +10,7 @@
     "messageLikesFood": "<%= egg %> adoră să mănânce <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> mănîncă <%= foodText %>, dar se pare că nu îi place.",
     "messageBought": "Ai cumpărat <%= itemText %>",
-    "messageEquipped": " <%= itemText %> equipped.",
+    "messageEquipped": "<%= itemText %> echipat.",
     "messageUnEquipped": "<%= itemText %> dezechipat.",
     "messageMissingEggPotion": "Îţi lipseşte ori oul ori poţiunea necesară",
     "messageAlreadyPet": "Deja ai acest companion. Încearcă o altă combinaţie pentru eclozare!",

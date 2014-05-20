@@ -1,5 +1,5 @@
 {
-    "potionText": "Lektvar",
+    "potionText": "Health Potion",
     "potionNotes": "Obnoví 15 bodů zdraví (okamžitě)",
     "dropEggWolfText": "vlk",
     "dropEggWolfAdjective": "věrný",
@@ -62,7 +62,7 @@
     "foodCakeWhite": "Krémový dort",
     "foodCakeGolden": "Medový dort",
     "foodCakeZombie": "Zkažený dort",
-    "foodCakeDesert": "Písčitý dort",
+    "foodCakeDesert": "Písečný dort",
     "foodCakeRed": "Jahodový dort",
     "foodHoney": "Med",
     "foodSaddleText": "Sedlo",

@@ -29,7 +29,7 @@
     "dropsEnabled": "Nalézání přemětů povoleno",
     "itemDrop": "Nalezen předmět",
     "firstDrop": "Odemknuto nalézání předmětů! Od teď máš malou šanci nalézt předmět při dokončení úkolů. Právě nalezeno <strong> vejce zvířátka <%= eggText %></strong>! <%= eggNotes %>",
-    "useGems": "Pokud ti padl do oka mazlíček a nemůžeš se dočkat až ho najdeš, použij Drahokamy v  <strong> Nastavení > Inventář </strong>  a kup si ho!",
+    "useGems": "Pokud ti padl do oka mazlíček a nemůžeš se dočkat až ho najdeš, použij drahokamy v  <strong> Nastavení > Inventář </strong>  a kup si ho!",
     "hatchAPot": "<%= potion %> <%= egg %>, jsi si jistý?",
     "feedPet": "Myslíš, že <%= name %> si pochutná na něčem takovém jako je <%= article %><%= text %> ?",
     "useSaddle": "Koho osedláme? Bude to <%= pet %>?",

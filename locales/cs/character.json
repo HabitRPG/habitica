@@ -116,7 +116,7 @@
     "respawn": "Oživení!",
     "youDied": "Zemřel jsi!",
     "continue": "Pokračovat",
-    "dieText": "Propadl jsi o úroveň níž a přišel jsi o všechny zlaťáky a náhodný kus vybavení. Povstaň, Habiťane, a zkus to znovu! Zbav se zlozvyků, poctivě plň denní úkoly a v případě zaváhání udrž smrt na uzdě pomocí léčivého lektvaru.",
+    "dieText": "Propadl jsi o úroveň níž a přišel jsi o všechny zlaťáky a náhodný kus vybavení. Povstaň, Habiťane, a zkus to znovu! Zbav se zlozvyků, poctivě plň denní úkoly a v případě zaváhání se vyhni smrti pomocí léčivého lektvaru.",
     "sureReset": "Jsi si jistý? Toto resetuje povolání tvé postavy a přidělené body vlastností (které budeš mít šanci všechny přiřadit podle potřeby) a přijde tě to na 3 drahokamy",
     "purchaseFor5": "Koupit za 5 drahokamů?",
     "purchaseFor2": "Koupit za 2 drahokamy?",
@@ -124,6 +124,6 @@
     "invalidTarget": "Neplatný cíl",
     "youCast": "Seslal jsi <%= spell %>.",
     "youCastTarget": "Seslal jsi <%= spell %> na <%= target %>.",
-    "youCastParty": "Seslal jsi  na družinu <%= spell %>.",
+    "youCastParty": "Seslal jsi na družinu <%= spell %>.",
     "critBonus": "Kritický zásah! Bonus:"
 }

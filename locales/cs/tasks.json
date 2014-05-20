@@ -1,6 +1,6 @@
 {
-    "clearCompleted": "Vymaž hotové",
-    "lotOfToDos": "Dokončené úkoly jsou automaticky archivovány po 3 dnech. Můžeš se na ně podívat v Nastavení > Možnosti > Export Dat.",
+    "clearCompleted": "Vymaž dokončené",
+    "lotOfToDos": "Dokončené úkoly v úkolníčku jsou automaticky archivovány po 3 dnech. Můžeš se na ně podívat v Nastavení > Možnosti > Export Dat.",
     "habits": "Zvyky",
     "newHabit": "Nový zvyk",
     "edit": "Upravit",
