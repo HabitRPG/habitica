@@ -28,6 +28,7 @@ mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}
   201403: {start:'2014-03-24',end:'2014-04-01'}
   201404: {start:'2014-04-24',end:'2014-05-01'}
+  201405: {start:'2014-05-21',end:'2014-06-01'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 
 gear =
@@ -141,6 +142,7 @@ gear =
     mystery:
       201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 0
       201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 0
+      201405: text: t('armorMystery201405Text'), notes: t('armorMystery201405Notes'), mystery:mystery['201405'], value: 0
 
   head:
     base:
@@ -190,6 +192,7 @@ gear =
       springHealer:   event: events.spring, specialClass: 'healer',  text: t('headSpecialSpringHealerText'), notes: t('headSpecialSpringHealerNotes', {int: 7}), value: 40, int: 7
     mystery:
       201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 0
+      201405: text: t('headMystery201405Text'), notes: t('headMystery201405Notes'), mystery:mystery['201405'], value: 0
 
   shield:
     base:

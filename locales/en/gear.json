@@ -171,6 +171,9 @@
   "armorMystery201403Text": "Forest Walker Armor",
   "armorMystery201403Notes": "This mossy armor of woven wood bends with the movement of the wearer.",
 
+  "armorMystery201405Text": "Flame of Heart",
+  "armorMystery201405Notes": "Nothing can hurt you when you are swathed in flames!",
+
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",
 
@@ -247,6 +250,9 @@
 
   "headMystery201402Text": "Winged Helm",
   "headMystery201402Notes": "This winged circlet imbues the wearer with the speed of the wind!",
+  
+  "headMystery201405Text": "Flame of Mind",
+  "headMystery201405Notes": "Burn away the procrastination!",
 
   "shieldBase0Text": "No Off-Hand Equipment",
   "shieldBase0Notes": "No shield or second weapon.",
