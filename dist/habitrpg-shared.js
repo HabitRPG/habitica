@@ -9183,7 +9183,9 @@ t = function(string, vars) {
   var func;
   func = function(lang) {
     if (vars == null) {
-      vars = lang;
+      vars = {
+        a: 'a'
+      };
     }
     return i18n.t(string, vars, lang);
   };
@@ -13398,7 +13400,7 @@ api.wrap = function(user, main) {
       var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
       task = modifiers.task;
       chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
-      chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 20 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
+      chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 40 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
         return m + (i.completed ? 1 : 0);
       }), 0) || 0));
       chance = api.diminishingReturns(chance, 0.75);
@@ -13412,7 +13414,7 @@ api.wrap = function(user, main) {
           user.markModified('party.quest.progress');
         }
       }
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25))) {
+      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + user.contributor.level)) {
         return;
       }
       if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
