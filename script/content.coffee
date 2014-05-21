@@ -139,8 +139,8 @@ gear =
       springMage:     event: events.spring, specialClass: 'wizard',    text: t('armorSpecialSpringMageText'), notes: t('armorSpecialSpringMageNotes', {int: 9}), value: 90, int: 9
       springHealer:   event: events.spring, specialClass: 'healer',  text: t('armorSpecialSpringHealerText'), notes: t('armorSpecialSpringHealerNotes', {con: 15}), value: 90, con: 15
     mystery:
-      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 10
-      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 10
+      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 0
+      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 0
 
   head:
     base:
@@ -189,7 +189,7 @@ gear =
       springMage:     event: events.spring, specialClass: 'wizard',    text: t('headSpecialSpringMageText'), notes: t('headSpecialSpringMageNotes', {per: 7}),value: 40,per: 7
       springHealer:   event: events.spring, specialClass: 'healer',  text: t('headSpecialSpringHealerText'), notes: t('headSpecialSpringHealerNotes', {int: 7}), value: 40, int: 7
     mystery:
-      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 10
+      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 0
 
   shield:
     base:
@@ -235,8 +235,8 @@ gear =
     base:
       0: text: t('backBase0Text'), notes: t('backBase0Notes'), value:0
     mystery:
-      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 10
-      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 10
+      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 0
+      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0,   mystery:mystery.wondercon
@@ -261,8 +261,8 @@ gear =
       wondercon_red: text: t('headAccessorySpecialWonderconRedText'), notes: t('headAccessorySpecialWonderconRedNotes'), value: 0,           mystery:mystery.wondercon
       wondercon_black: text: t('headAccessorySpecialWonderconBlackText'), notes: t('headAccessorySpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
     mystery:
-      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 10
-      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 10
+      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 0
+      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 0
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

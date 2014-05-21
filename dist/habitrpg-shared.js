@@ -9977,13 +9977,13 @@ gear = {
         text: t('armorMystery201402Text'),
         notes: t('armorMystery201402Notes'),
         mystery: mystery['201402'],
-        value: 10
+        value: 0
       },
       201403: {
         text: t('armorMystery201403Text'),
         notes: t('armorMystery201403Notes'),
         mystery: mystery['201403'],
-        value: 10
+        value: 0
       }
     }
   },
@@ -10308,7 +10308,7 @@ gear = {
         text: t('headMystery201402Text'),
         notes: t('headMystery201402Notes'),
         mystery: mystery['201402'],
-        value: 10
+        value: 0
       }
     }
   },
@@ -10573,13 +10573,13 @@ gear = {
         text: t('backMystery201402Text'),
         notes: t('backMystery201402Notes'),
         mystery: mystery['201402'],
-        value: 10
+        value: 0
       },
       201404: {
         text: t('backMystery201404Text'),
         notes: t('backMystery201404Notes'),
         mystery: mystery['201404'],
-        value: 10
+        value: 0
       }
     },
     special: {
@@ -10682,13 +10682,13 @@ gear = {
         text: t('headAccessoryMystery201403Text'),
         notes: t('headAccessoryMystery201403Notes'),
         mystery: mystery['201403'],
-        value: 10
+        value: 0
       },
       201404: {
         text: t('headAccessoryMystery201404Text'),
         notes: t('headAccessoryMystery201404Notes'),
         mystery: mystery['201404'],
-        value: 10
+        value: 0
       }
     }
   }
