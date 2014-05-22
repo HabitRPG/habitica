@@ -188,6 +188,17 @@ for $stage in $stages
     color: #222
     text-decoration: none
 
+// Use table-style vertical aligning to vertically align in a
+// fluid height container
+.task-action-lbl
+  display: table
+  height: 100%
+  width: 100%
+
+.task-action-lbl-cell
+  display: table-cell
+  vertical-align: middle
+
 // checkbox
 .task-checker input[type=checkbox]
   margin: 0
