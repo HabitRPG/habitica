@@ -13414,7 +13414,7 @@ api.wrap = function(user, main) {
           user.markModified('party.quest.progress');
         }
       }
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + user.contributor.level)) {
+      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0))) {
         return;
       }
       if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
