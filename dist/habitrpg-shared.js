@@ -12977,6 +12977,9 @@ api.wrap = function(user, main) {
               message = user.fns.handleTwoHanded(item, type, req);
             }
         }
+        if (typeof user.markModified === "function") {
+          user.markModified("items.gear." + type);
+        }
         return typeof cb === "function" ? cb((message ? {
           code: 200,
           message: message
