@@ -53,6 +53,9 @@ npm install -g grunt-cli bower
 echo Installing HabitRPG
 npm install
 
+echo Installing Bower packages
+sudo -u vagrant bower install -f
+
 echo Seeding Mongodb...
 node ./src/seed.js
 
