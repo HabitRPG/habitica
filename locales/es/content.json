@@ -1,5 +1,5 @@
 {
-    "potionText": "Health Potion",
+    "potionText": "Pócima de Salud",
     "potionNotes": "Recuperar 15 de Salud (uso instantáneo)",
     "dropEggWolfText": "Lobo",
     "dropEggWolfAdjective": "leal",
@@ -31,8 +31,8 @@
     "questEggDeerAdjective": "elegante",
     "questEggEggText": "Huevo",
     "questEggEggAdjective": "Colorido",
-    "questEggRatText": "Rat",
-    "questEggRatAdjective": "dirty",
+    "questEggRatText": "Rata",
+    "questEggRatAdjective": "sucio",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá  un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

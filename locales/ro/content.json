@@ -1,5 +1,5 @@
 {
-    "potionText": "Health Potion",
+    "potionText": "Poțiune de sănătate",
     "potionNotes": "Vindecă 15 puncte de sănătate (instantaneu)",
     "dropEggWolfText": "Lup",
     "dropEggWolfAdjective": "loial",
@@ -41,8 +41,8 @@
     "hatchingPotionShade": "Fantomă",
     "hatchingPotionSkeleton": "Schelet",
     "hatchingPotionZombie": "Zombi",
-    "hatchingPotionCottonCandyPink": "roz vată de zahăr",
-    "hatchingPotionCottonCandyBlue": "albastru vată de zahăr",
+    "hatchingPotionCottonCandyPink": "roz",
+    "hatchingPotionCottonCandyBlue": "albastru",
     "hatchingPotionGolden": "Auriu",
     "hatchingPotionNotes": "Varsă asta pe un ou şi acesta va ecloza într-un animal de companie <%= potText() %>.",
     "foodMeat": "Carne",
