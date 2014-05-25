@@ -5,19 +5,21 @@ var fs = require('fs'),
     shared = require('habitrpg-shared'),
     translations = {};
 
+var localePath = path.join(__dirname, "/../node_modules/habitrpg-shared/locales/")
+
 var loadTranslations = function(locale){
-  var files = fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale));
+  var files = fs.readdirSync(path.join(localePath, locale));
   translations[locale] = {};
   _.each(files, function(file){
-    _.merge(translations[locale], require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, file)));
+    _.merge(translations[locale], require(path.join(localePath, locale, file)));
   });
 };
 
 // First fetch english so we can merge with missing strings in other languages
 loadTranslations('en');
 
-fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/")).forEach(function(file) {
-  if(file === 'en' || file === 'README.md' || file.indexOf('.') === 0) return;
+fs.readdirSync(localePath).forEach(function(file) {
+  if(file === 'en' || fs.statSync(path.join(localePath, file)).isDirectory() === false) return;
   loadTranslations(file);
   // Merge missing strings from english
   _.defaults(translations[file], translations.en);
