@@ -17,7 +17,7 @@ var loadTranslations = function(locale){
 loadTranslations('en');
 
 fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/")).forEach(function(file) {
-  if(file === 'en' || file === 'README.md') return;
+  if(file === 'en' || file === 'README.md' || file.indexOf('.') === 0) return;
   loadTranslations(file);
   // Merge missing strings from english
   _.defaults(translations[file], translations.en);
