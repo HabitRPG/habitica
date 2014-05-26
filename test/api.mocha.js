@@ -428,11 +428,14 @@ describe('API', function () {
 
                 // level up user so str is > 0
                 request.put(baseURL+'/user').send({'stats.lvl':5}).end(function(res){
-                  request.post(baseURL+'/user/class/cast/valorousPresence?targetType=party').end(function(res){
-                    request.get(baseURL+'/members/'+member._id).end(function(res){
-                      expect(res.body.stats.buffs.str).to.be.above(0);
-                      expect(diff(res.body,member).length).to.be(1);
-                      done();
+                  // Refill mana so user can cast
+                  request.put(baseURL+'/user').send({'stats.mp':100}).end(function(res){
+                    request.post(baseURL+'/user/class/cast/valorousPresence?targetType=party').end(function(res){
+                      request.get(baseURL+'/members/'+member._id).end(function(res){
+                        expect(res.body.stats.buffs.str).to.be.above(0);
+                        expect(diff(res.body,member).length).to.be(1);
+                        done();
+                      })
                     })
                   })
                 })
