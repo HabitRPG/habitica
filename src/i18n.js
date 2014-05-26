@@ -11,6 +11,7 @@ var loadTranslations = function(locale){
   var files = fs.readdirSync(path.join(localePath, locale));
   translations[locale] = {};
   _.each(files, function(file){
+    if(path.extname(file) !== '.json') return;
     _.merge(translations[locale], require(path.join(localePath, locale, file)));
   });
 };
