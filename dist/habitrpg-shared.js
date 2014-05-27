@@ -12985,7 +12985,7 @@ api.wrap = function(user, main) {
             item = content.gear.flat[key];
             if (user.items.gear[type][item.type] === key) {
               user.items.gear[type][item.type] = "" + item.type + "_base_0";
-              message = i18n.t('messageEquipped', {
+              message = i18n.t('messageUnEquipped', {
                 itemText: item.text(req.language)
               }, req.language);
             } else {

@@ -649,7 +649,7 @@ api.wrap = (user, main=true) ->
             item = content.gear.flat[key]
             if user.items.gear[type][item.type] is key
               user.items.gear[type][item.type] = "#{item.type}_base_0"
-              message = i18n.t('messageEquipped', {itemText: item.text(req.language)}, req.language)
+              message = i18n.t('messageUnEquipped', {itemText: item.text(req.language)}, req.language)
             else
               user.items.gear[type][item.type] = item.key
               message = user.fns.handleTwoHanded(item,type,req)
