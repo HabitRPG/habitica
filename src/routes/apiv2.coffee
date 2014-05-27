@@ -193,7 +193,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Equip an item (either pets, mounts, or gear)"
         parameters: [
-          path 'type',"Type to equip",'string',['pets','mounts','gear']
+          path 'type',"Type to equip",'string',['pet','mount','equipped', 'costume']
           path 'key',"The object key you're equipping (call /content route for available keys)",'string'
         ]
       action: user.equip
