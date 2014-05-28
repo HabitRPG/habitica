@@ -1,5 +1,6 @@
 {
     "quests": "Queesten",
+    "quest": "quest",
     "completed": "Voltooid!",
     "youReceived": "Je hebt ontvangen",
     "questSend": "Wanneer je \"Uitnodigen\" aanklikt zal er een uitnodiging worden verstuurd naar je partij leden. Wanneer alle leden geaccepteerd of afgewezen hebben zal de queeste beginnen. Zie de status hier: Opties > Sociaal > Partij.",

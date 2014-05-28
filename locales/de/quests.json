@@ -1,5 +1,6 @@
 {
     "quests": "Quests",
+    "quest": "quest",
     "completed": "Erfüllt!",
     "youReceived": "Du hast folgendes erhalten:",
     "questSend": "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an Deine Gruppenmitglieder. Wenn alle Mitglieder angenommen oder abgelehnt haben beginnt das Quest. Statusabfrage unter Optionen > Soziales > Gruppe.",

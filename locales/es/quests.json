@@ -1,5 +1,6 @@
 {
     "quests": "Misiones",
+    "quest": "quest",
     "completed": "¡Completado!",
     "youReceived": "Has recibido",
     "questSend": "Haciendo clic en ”Invitar” mandarás una invitación a los miembros de tu grupo. Cuando todos los miembros hayan decidido, se dará comienzo a la misión. El estado se puede ver en Opciones > Social > Grupo.",

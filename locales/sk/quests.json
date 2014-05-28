@@ -1,5 +1,6 @@
 {
     "quests": "Výpravy",
+    "quest": "quest",
     "completed": "Dokončná!",
     "youReceived": "Získal si",
     "questSend": "Kliknutím na \"Pozvať\" sa odošle pozvánka všetkým členom družiny. Keď všetci členovia prijmú alebo odmietnu, výprava začne. Stav výpravy nájdeš v menu Nastavenia > Spoločnosť > Družina",

@@ -1,5 +1,6 @@
 {
     "quests": "Missões",
+    "quest": "quest",
     "completed": "Completo!",
     "youReceived": "Você Recebeu",
     "questSend": "Clicar em \"Convidar\" enviará um convite para os membros da sua equipe. Quando todos membros aceitarem ou rejeitarem, a missão começará. Veja o estado da missão em Opções > Social > Equipe.",

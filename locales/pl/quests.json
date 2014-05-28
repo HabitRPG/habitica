@@ -1,5 +1,6 @@
 {
     "quests": "Misje",
+    "quest": "quest",
     "completed": "Zakończone!",
     "youReceived": "Otrzymałeś",
     "questSend": "Naciśnięcie \"Zaproś\" wyśle zaproszenie do członków twojej drużyny. Gdy już wszyscy członkowie zaakceptują lub odrzucą zaproszenie, misja zostanie rozpoczęta. Możesz zobaczyć jej status pod Opcje > Społeczne > Drużyna.",
