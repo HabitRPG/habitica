@@ -49,7 +49,7 @@
     "resetText2": "Dit wordt sterk afgeraden omdat je alle historische data, die nuttig is om je voortgang in de tijd te volgen, zal verliezen. Echter, sommige mensen vinden het nuttig in het begin na een tijd met de applicatie te hebben gespeeld.",
     "deleteText": "Weet je het zeker? Dit zal je account voorgoed verwijderen, en het kan nooit meer hersteld worden! Je zal een nieuw account moeten registreren om HabitRPG opnieuw te gebruiken. Gespaarde of uitgegeven Edelstenen zullen niet vergoed worden. Als je absoluut zeker bent, type <strong><%= deleteWord %></strong> in het tekstvak hieronder.",
     "API": "API",
-    "APIText": "Kopieër deze voor gebruik in toepassingen van derden.",
+    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "API Token",
     "resetDo": "Ja, reset mijn account!",
     "fixValues": "Waarden Bijstellen",

@@ -49,7 +49,7 @@
     "resetText2": "Это крайне не рекомендуется, потому что вы потеряете историю, которая может быть использована для построения графиков вашего прогресса в течение времени. Однако, некоторым игрокам может пригодится эта функция — в начале, после того, как они попробуют приложение.",
     "deleteText": "Вы уверены? Ваш аккаунт будет удален навсегда без возможности восстановления! Вам понадобится зарегистрировать новый аккаунт, если вы захотите пользоваться HabitRPG снова. Стоимость потраченных и находящихся в банке самоцветов не будет компенсирована. Если вы абсолютно уверены, напишите <strong><%= deleteWord %></strong> в текстовом поле ниже.",
     "API": "API",
-    "APIText": "Скопируйте это для использования в сторонних приложениях.",
+    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "Токен API",
     "resetDo": "Да, сделать сброс учетной записи!",
     "fixValues": "Исправить данные",

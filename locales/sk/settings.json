@@ -49,7 +49,7 @@
     "resetText2": "Táto možnosť sa naozaj neodporúča, pretože prídeš o všetky dáta histórie, ktoré sú užitočné vo vykresľovaní pokroku v čase do grafov. Ale niektorí to považujú za užitočné, po tom ako sa chvíľu hrajú v aplikácii.",
     "deleteText": "Si si istý? Toto navždy zmaže tvoje konto a už sa nebude dať obnoviť! Ak budeš chcieť opäť používať HabitRPG, budeš sa musieť opäť registrovať s novým kontom. Odložené alebo použité drahokamy sa ti nepreplatia. Ak si si absolútne istý, napíš do textového poľa <strong><%= deleteWord %></strong>.",
     "API": "API",
-    "APIText": "Kopírovať pre použitie v aplikáciách tretích strán.",
+    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "API Token",
     "resetDo": "Sprav to, zresetuj mi konto!",
     "fixValues": "Upraviť hodnoty",

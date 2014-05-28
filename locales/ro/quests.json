@@ -29,6 +29,6 @@
     "mustLevel": "Trebuie să fii la nivelul <%= level %>.",
     "mustLvlQuest": "Trebuie să ai nivelul <%= level %> ca să cumperi această aventură!",
     "sureAbort": "Sigur vrei să abandonezi misiunea aceasta? Ea va fi abandonată de către toți coechipierii tăi, tot avansul va fi pierdut.",
-    "doubleSureAbort": "Dublu sigur? Asigură-te că nu te vor urî pentru totdeauna!",
+    "doubleSureAbort": "Eşti sigur sigur ? Asigură-te că nu te vor urî pentru totdeauna!",
     "questWarning": "Reține: doar membrii actuali ai echipei vor fi invitați. Odată ce invitația a fost trimisă, niciun membru nou intrat în echipă nu se va mai putea alătura aventurii!"
 }

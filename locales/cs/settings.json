@@ -49,7 +49,7 @@
     "resetText2": "Toto důrazně nedoporučujeme, protože ztratíš všechnu historii, která je užitečná pro vizualizaci tvého pokroku. Nicméně, někteří lidé považují za užitečné začít hrát od znovu, pokud již hrají nějakou dobu. ",
     "deleteText": "Jsi si jist? Tímto smažeš svůj účet navždy a již nebude moci být obnoven! Budeš se muset znovu registrovat a vytvořit nový účet. Zakoupené a použité drahokamy nebudou proplaceny a budou ztraceny. Pokud si jsi absolutně jist, napiš <strong><%= deleteWord %></strong> do řádku níže.",
     "API": "API",
-    "APIText": "Zkopíruj je pro použití v aplikacích třetích stran. ",
+    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "API Token",
     "resetDo": "Udělej to, zresetuj můj účet!",
     "fixValues": "Opravit hodnoty",

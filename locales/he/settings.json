@@ -49,7 +49,7 @@
     "resetText2": "זה ממש לא מומלץ כי תאבד/י מידע היסטורי, השימושי למעקב אחר ההתקדמות שלך לאורך זמן, אם כי, ישנם האנשים שזה שימושי עבורם אחרי שהם משחקים עם היישום לזמן מה.",
     "deleteText": "האם את/ה בטוח/ה? זה ימחק את המשתמש שלך לנצח, ולעולם לא תוכל/י להחזיר אותו! תיאלצ/י להיאשם בחשבון חדש לhabitRPG. אבני חן שנאגרו או בוזבזו לא יוחזרו לך. אם את/ה בטוח/ה ב100%, הקלד/י <strong><%= deleteWord %></strong> לתיבת הטקסט למטה.",
     "API": "API",
-    "APIText": "העתק/העתיקי זאת עבור יישומי צד שלישי",
+    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "אסימון API",
     "resetDo": "עשה זאת! אתחל את החשבון שלי!",
     "fixValues": "תקן ערכים",

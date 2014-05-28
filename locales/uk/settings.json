@@ -49,7 +49,7 @@
     "resetText2": "Дуже не рекомендуємо це, оскільки Ви втратите всю історію, яка б могла бути використана для ґрафіків Вашого поступу за весь час. Однак, декому це буде корисно, якщо вони спершу просто пограли, а тепер бажають узятися до справи з розумом.",
     "deleteText": "Ви впевнені? Акаунт буде повністю вилучено назавжди, і його неможливо буде відновити! Вам треба буде знову реєструватися, аби грати у HabitRPG. Накопичені й витрачені самоцвіти не буде повернено. Якщо Ви цілковито впевнені, надрукуйте <strong><%= deleteWord %></strong> у текстовому полі нижче.",
     "API": "API",
-    "APIText": "Скопіюйте це задля використання у сторонніх застосунках.",
+    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
     "APIToken": "Токен API",
     "resetDo": "Так, зробіть повне скидання акаунту!",
     "fixValues": "Виправити дані",

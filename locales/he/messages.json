@@ -17,7 +17,7 @@
     "messageHatched": "הביצה שלך בקעה! בקר/י באורווה כדי לראות את חיית המחמד החדשה שלך.",
     "messageNotEnoughGold": "אין מספיק זהב",
     "messageTwoHandled": "<%= gearText %> הוא דו ידני",
-    "messageDropFood": "מצאת <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropFood": "מצאת <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "מצאת ביצת <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "מצאת שיקוי <%= dropText %> לבקיעה! <%= dropNotes %>",
     "messageFoundQuest": "מצאת את המשימה \"<%= questText %>\"!"
