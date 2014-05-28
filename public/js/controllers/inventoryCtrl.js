@@ -78,7 +78,9 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!$window.confirm(window.env.t('hatchAPot', {potion: potion.key, egg: egg.key}))) return;
+      var eggName = Content.eggs[egg.key].text();
+      var potName = Content.hatchingPotions[potion.key].text();
+      if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
@@ -88,7 +90,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       var gems = User.user.balance * 4;
 
       if(gems < item.value) return $rootScope.openModal('buyGems');
-      var string = (type == 'hatchingPotions') ? 'hatching potion' : (type == 'eggs') ? 'egg' : (type == 'quests') ? 'quest' : (item.key == 'Saddle') ? 'saddle' : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
+      var string = (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
       var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
 
       if($window.confirm(message))
@@ -96,14 +98,14 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.choosePet = function(egg, potion){
-      var petDisplayName = potion + " " + egg,
+      var petDisplayName = env.t('petName', {potion: Content.hatchingPotions[potion].text(), egg: Content.eggs[egg].text()}),
       pet = egg + '-' + potion;
 
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
-          if (!$window.confirm(window.env.t('useSaddle', {pet: pet}))) return;
+          if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
         }
