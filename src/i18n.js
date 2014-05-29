@@ -41,6 +41,7 @@ var momentLangs = {};
 // Handle different language codes from MomentJS and /locales
 var momentLangsMapping = {
   'en': 'en-gb',
+  'en_GB': 'en-gb',
   'no': 'nn'
 };
 
@@ -56,12 +57,16 @@ _.each(langCodes, function(code){
   }catch (e){}
 });
 
+// Remove en_GB from langCodes checked by browser to avaoi it being 
+// used in place of plain original 'en'
+var defaultLangCodes = _.without(langCodes, 'en_GB');
+
 var getUserLanguage = function(req, res, next){
   var getFromBrowser = function(){
     var acceptable = _(req.acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
     }).uniq().value();
-    var matches = _.intersection(acceptable, langCodes);
+    var matches = _.intersection(acceptable, defaultLangCodes);
     return matches.length > 0 ? matches[0] : 'en';
   };
 
