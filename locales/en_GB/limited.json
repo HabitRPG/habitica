@@ -1,0 +1,13 @@
+{
+    "limitedEdition": "Limited Edition",
+    "winterColors": "Winter Colours",
+    "annoyingFriends": "Annoying Friends",
+    "annoyingFriendsText": "Got snowballed <%= snowballs %> times by party members.",
+    "valentineCard": "Valentine's Day Card",
+    "adoringFriends": "Adoring Friends",
+    "adoringFriendsText": "Aww, you and your friend must really care about each other! Sent or received <%= cards %> Valentine's Day cards.",
+    "limited30Apr": "Available for purchase until 30 April (but permanently in your options if purchased).",
+    "polarBear": "Polar Bear",
+    "turkey": "Turkey",
+    "polarBearPup": "Polar Bear Cub"
+}
