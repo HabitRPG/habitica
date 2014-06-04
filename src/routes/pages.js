@@ -20,36 +20,10 @@ router.get('/', i18n.getUserLanguage, middleware.locals, function(req, res) {
 
 // -------- Marketing --------
 
-router.get('/static/front', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/front', {env: res.locals.habitrpg});
-});
-
-router.get('/static/privacy', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/privacy', {env: res.locals.habitrpg});
-});
-
-router.get('/static/terms', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/terms', {env: res.locals.habitrpg});
-});
-
-router.get('/static/api', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/api', {env: res.locals.habitrpg});
-});
-
-router.get('/static/features', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/features', {env: res.locals.habitrpg});
-});
-
-router.get('/static/videos', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/videos', {env: res.locals.habitrpg});
-});
-
-router.get('/static/contact', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/contact', {env: res.locals.habitrpg});
-});
-
-router.get('/static/plans', i18n.getUserLanguage, middleware.locals, function(req, res) {
-  res.render('static/plans', {env: res.locals.habitrpg});
+'front,privacy,terms,api,features,videos,contact,plans'.split(',').forEach(function(route){
+  router.get('/static/'+route, i18n.getUserLanguage, middleware.locals, function(req, res){
+    res.render('static/'+route, {env: res.locals.habitrpg});
+  });
 });
 
 // --------- Redirects --------
