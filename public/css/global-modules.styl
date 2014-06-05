@@ -1,3 +1,11 @@
+// Text shadow mixin
+hrpg-text-shadow-mixin($hrpg-text-shadow-base-color)
+  if lightness($hrpg-text-shadow-base-color) >= 50%
+    text-shadow:
+     -1px -1px 2px darken($hrpg-text-shadow-base-color,61.8%),  
+      1px -1px 2px darken($hrpg-text-shadow-base-color,61.8%),
+      -1px 1px 2px darken($hrpg-text-shadow-base-color,61.8%),
+       1px 1px 2px darken($hrpg-text-shadow-base-color,61.8%);
 // Buttons
 // The !important declarations override Bootstrap
 hrpg-button-color-mixin($hrpg-button-color)
@@ -94,7 +102,7 @@ $hrpg-button-with-input
     border-radius: 0em 0.382em 0.382em 0em
 //Button bar
 hrpg-button-bar-mixin($hrpg-button-bar-color)
-  border-color: darken($hrpg-button-bar-color, 16.18)
+  border-color: darken($hrpg-button-bar-color, 16.18%)
   li
     border-right-color: darken($hrpg-button-bar-color,3.82%)
   li:first-of-type
@@ -107,9 +115,10 @@ $hrpg-button-bar
   margin-bottom: 0.618em
   li
     border-right: 1px solid darken(#fff,3.82%)
+    float:left
   li:first-of-type
     color: darken(#fff,61.8%)
-    padding: 0.25em 0.5em
+    padding: 0.25em 0.618em
     border-radius: 0.382em 0em 0em 0.382em
     border-right: 1px solid darken(#fff,6.18%)
   li:last-of-type
@@ -120,7 +129,8 @@ $hrpg-button-bar
 hrpg-label-color-mixin($hrpg-label-color)
   color: lighten($hrpg-label-color, 90%) !important 
   background-color: $hrpg-label-color !important
-  border-color: darken($hrpg-label-color, 16.18%) !important
+  border-color: darken($hrpg-label-color, 32.8%) !important
+  hrpg-text-shadow-mixin(lighten($hrpg-label-color, 90%))
   > a
     color: lighten($hrpg-label-color, 90%) !important 
 $hrpg-label
@@ -238,19 +248,20 @@ $hrpg-submenu
 // Tags
 hrpg-tag-color-mixin($hrpg-tag-color)
   background-color: darken($hrpg-tag-color,3.82%)
-  &.active
-    > a, > a span
-      color: darken($hrpg-tag-color,3.82%)
-      background-color: darken($hrpg-tag-color,32.8%)
-      &:before
-        border-right-color: darken($hrpg-tag-color,32.8%)
   > a, > a span
     color: darken($hrpg-tag-color,61.8%)
     &:before
       border-right-color: darken($hrpg-tag-color,3.82%)
+    hrpg-text-shadow-mixin(darken($hrpg-tag-color,61.8%))
+  &.active
+    > a, > a span
+      color: darken($hrpg-tag-color,3.82%)
+      hrpg-text-shadow-mixin(darken($hrpg-tag-color,3.82%))
+      background-color: darken($hrpg-tag-color,32.8%)
+      &:before
+        border-right-color: darken($hrpg-tag-color,32.8%)
   @media screen and (min-width:768px)
     &:hover, &:hover > a, &:hover > a span
-      //color: darken($hrpg-tag-color,3.82%)
       background-color: darken($hrpg-tag-color,16.8%)
     &:hover > a:before
       border-right-color: darken($hrpg-tag-color,16.18%)
@@ -263,6 +274,7 @@ hrpg-tag-color-mixin($hrpg-tag-color)
 $hrpg-tag-master
   display: inline-block
   position: relative
+  left: -1em
   width: auto
   margin-left: 1.618em
   &.active > a

@@ -11,7 +11,7 @@
   overflow-x: auto
   // position relative
   @media screen and (max-width:768px)  // remove padding-top when toolbar is static
-    padding: 0 
+    padding: 0
 .toolbar.active ~ .header-wrap
   padding: 0 // remove padding when toolbar is hidden
  
@@ -109,61 +109,58 @@
 /* progress bars
 -------------------- */
 .hero-stats
-  padding: 0 1.25em
+  padding: 0.8em 1em 0
   margin: 0
   display: table-cell
   vertical-align: middle
   min-width:175px
-
-  .meter, .bar
-    box-shadow: none
-    border-radius: 0
-
+  @media screen and (max-width:768px)
+    padding: 0.382em 0.382em 0
   .meter
     position: relative
-    background: white
-    opacity: 1
-    outline: 1px solid rgba(0,0,0,0.2)
-    outline-offset: -1px
-    overflow: hidden // firefox outline fix
+    overflow: hidden
+    border: 1px solid #333
+    border-radius: 0.382em    
     height: 2.25em
-    margin: 0 0 1em
-    cursor: help;
-    color: #111
-    &:last-of-type
-      margin-bottom: 0
-    &:after
-      content: attr(title)
-      position: absolute
-      left: -1em
-      top 0.4em
-      font-weight: 400
-      z-index: -1
-      transition: all 0.25s ease-out
-   
+    margin: 0 0 0.8em
     .bar
-      border: 1px solid rgba(0,0,0,0.1)
+      border-radius: 0.382em 0 0 0.382em
       height: 100%
       transition: width 0.25s ease-out
-
-  .meter:hover:after
-    left: 1em
-    z-index: 1
-
-  .health .bar
-    background: darken($worse, 38%)
-  .experience .bar
-    background: darken($neutral, 30%)
-  .mana .bar
-    background: darken($best, 30%)
-
+      border-right: 1px solid #333
+  hrpg-status-bar-mixin($hrpg-status-bar-color)
+    background: lighten($hrpg-status-bar-color, 32.8%)
+    color: darken($hrpg-status-bar-color, 70%)
+    border-color: darken($hrpg-status-bar-color, 32.8%)
+    .bar
+      background: darken($hrpg-status-bar-color, 16.18%)
+      border-color: darken($hrpg-status-bar-color, 32.8%)
+    .meter-text.title
+      margin-top: 0.333333em
+      @extend $hrpg-label
+      hrpg-label-color-mixin(darken($hrpg-status-bar-color,32.8%))
+      span
+        margin-right: 0.382em
+  .health
+    hrpg-status-bar-mixin($color-hp)
+  .experience
+    hrpg-status-bar-mixin($color-xp)
+    .meter-text
+      span
+        margin-right: 0.236em
+        a
+          color: darken($color-xp, 70%)
+  .mana
+    hrpg-status-bar-mixin($color-mp)
   .meter-text
     position: absolute
     top: 0
-    right: 0.5em
-    z-index: 1
     line-height: 2.25
-
+    &.title
+      left: 0.382em
+    &.value
+      right: 0.382em
+      
 //Apply certain styles in header only
 
 header .hero-stats
