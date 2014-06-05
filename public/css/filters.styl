@@ -1,11 +1,10 @@
 .filters
   padding-top: 1em
-  padding-bottom: 0.382em
+  padding-bottom: 0.618em
   margin-left: 0.382em
   margin-right: 0em
-  ul, li
-    float: left
   ul
+    float: left
     list-style: none
     margin-right: 1em 
   .filters-controls
@@ -15,20 +14,21 @@
       @extend $hrpg-button-master
       hrpg-button-color-mixin($color-options-menu)
   .filters-tags, .filters-edit
-    margin-bottom: 0.618em
+    float: left
+  .filters-edit
+    margin-bottom: 0.382em
   .filters-tags
-    position: relative
-    left: -1em
     @extend $hrpg-tag-master
     hrpg-tag-color-mixin($color-filter-tag)
+    margin-bottom: 0.618em
     &.challenge
       hrpg-tag-color-mixin($color-filter-tag-challenge)
       form
         display: none
   markdown
     display: inline-block
-  .hrpg-input-group    
+  .hrpg-input-group   
     display: inline-block
     margin-right: 0.618em
     @extend $hrpg-button-with-input
-    hrpg-button-color-mixin($color-options-submenu)   
+    hrpg-button-color-mixin($color-options-submenu)
