@@ -1,4 +1,4 @@
-HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=develop)](https://travis-ci.org/HabitRPG/habitrpg) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.png)](https://codeclimate.com/github/HabitRPG/habitrpg)
+HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=develop)](https://travis-ci.org/HabitRPG/habitrpg) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.png)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 ===============
 
 [HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
