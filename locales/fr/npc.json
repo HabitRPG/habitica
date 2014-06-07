@@ -24,6 +24,8 @@
     "donationDesc": "20 Gemmes, Don à HabitRPG",
     "payWithCard": "Payer par Carte Bancaire",
     "payNote": "Note : Paypal met parfois longtemps à transmettre. Nous vous recommandons de payer par carte.",
+    "card": "Card",
+    "paymentMethods": "Payment Methods:",
     "welcomeHabit": "Bienvenue sur HabitRPG",
     "welcomeHabitT1": "Bienvenue sur HabitRPG, une application de suivi d'habitudes qui aborde vos tâches à la façon d'un Jeu de Rôle. Je suis ",
     "welcomeHabitT2": "votre guide !",

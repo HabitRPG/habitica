@@ -24,6 +24,8 @@
     "donationDesc": "20 Nestemate, Donație pentru dezvoltatori",
     "payWithCard": "Plătește cu Card",
     "payNote": "Notă: câteodată PayPal ia mai mult timp pentru a confirma. Recomandăm plata cu cardul.",
+    "card": "Card",
+    "paymentMethods": "Payment Methods:",
     "welcomeHabit": "Bine ați venit la HabitRPG",
     "welcomeHabitT1": "Bine ai venit la HabitRPG, o aplicație de urmărit obiceiuri care îți tratează țelurile ca un Joc de Rol. Eu sunt",
     "welcomeHabitT2": "ghidul tău!",

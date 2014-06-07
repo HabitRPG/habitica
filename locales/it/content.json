@@ -32,7 +32,7 @@
     "questEggEggText": "Uovo",
     "questEggEggAdjective": "colorato",
     "questEggRatText": "Ratto",
-    "questEggRatAdjective": "sporco",
+    "questEggRatAdjective": "uno sporco",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

@@ -24,6 +24,8 @@
     "donationDesc": "20 Gems, Donation to HabitRPG",
     "payWithCard": "Оплатити карткою",
     "payNote": "Примітка: PayPal інколи працює занадто повільно. Ми радимо платити карткою.",
+    "card": "Card",
+    "paymentMethods": "Payment Methods:",
     "welcomeHabit": "Ласкаво просимо до HabitRPG",
     "welcomeHabitT1": "Welcome to HabitRPG, a habit-tracker which treats your tasks like a Role Playing Game. I'm",
     "welcomeHabitT2": "Ваш провідник!",

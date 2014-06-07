@@ -24,6 +24,8 @@
     "donationDesc": "20 Gems, Donation to HabitRPG",
     "payWithCard": "Zapłać Kartą",
     "payNote": "Uwaga: Transakcje PayPal czasami długo czekają na realizację. Zalecamy płatność kartą.",
+    "card": "Card",
+    "paymentMethods": "Payment Methods:",
     "welcomeHabit": "Witaj w HabitRPG",
     "welcomeHabitT1": "Welcome to HabitRPG, a habit-tracker which treats your tasks like a Role Playing Game. I'm",
     "welcomeHabitT2": "twoim przewodnikiem!",

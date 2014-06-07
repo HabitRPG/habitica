@@ -37,7 +37,7 @@
     "notEnoughGems": "Niewystarczająca liczba Klejnotów",
     "delete": "Usuń",
     "gems": "Klejnoty",
-    "moreInfo": "More Info",
+    "moreInfo": "Więcej Info",
     "gemsWhatFor": "Używane do kupowania specjalnych przedmiotów oraz usług (jaj, mikstur wykluwania, Wzmocnień, itp.). Musisz odblokować te rzeczy zanim będziesz mógł użyć Klejnotów do ich kupowania.",
     "veteran": "Weteran",
     "veteranText": "Był świadkiem \"Habit The Grey\" (naszej strony przed aktualizacją Angular) i zyskał wiele wojennych blizn od jej błędów.",
@@ -57,8 +57,8 @@
     "seeConsole": "(zajrzyj do konsoli Chrome po więcej szczegółów).",
     "error": "Błąd",
     "menu": "Menu",
-    "notifications": "Notifications",
-    "noNotifications": "You have no new messages.",
-    "clear": "Clear",
+    "notifications": "Powiadomienia",
+    "noNotifications": "Nie masz nowych wiadomości",
+    "clear": "Wyczyść",
     "endTour": "End Tour"
 }

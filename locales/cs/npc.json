@@ -24,6 +24,8 @@
     "donationDesc": "20 drahokamů, Příspěvek vývojářům",
     "payWithCard": "Zaplatit kartou",
     "payNote": "Poznámka: Zpracování platby přes PayPal někdy trvá delší dobu. Doporučujeme platit kartou.",
+    "card": "Card",
+    "paymentMethods": "Payment Methods:",
     "welcomeHabit": "Vítej v HabitRPG",
     "welcomeHabitT1": "Vítej v HabitRPG, aplikaci, kde sleduješ své zvyky a získáváš body za úkoly jako ve hře. Já jsem",
     "welcomeHabitT2": ", tvůj průvodce!",

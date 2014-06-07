@@ -49,7 +49,7 @@
     "resetText2": "E' altamente sconsigliato poichè in questo modo perderai la cronologia delle tue attività, la quale è utile per controllare i tuoi progressi. Tuttavia, qualcuno trova questa opzione utile all'inizio, dopo aver giocato con HabitRPG per un po' di tempo.",
     "deleteText": "Vuoi davvero procedere? In questo modo eliminerai il tuo account per sempre, non potrà mai più essere recuperato! Dovrai registrare un nuovo account per continuare ad usare HabitRPG. Le gemme accumulate o spese non verranno risarcite. Se sei assolutamente sicuro, digita <strong><%= deleteWord %></strong> nella casella di testo qui sotto.",
     "API": "API",
-    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
+    "APIText": "Copia questi valori per utilizzarli in applicazioni di terze parti. Ad ogni modo, pensa al tuo API Token come a una password: tienilo segreto. Occasionalmente potrebbe venirti richiesto l'ID Utente, ma non scrivere mai il tuo API Token dove può essere visto da altre persone, nemmeno su GitHub.",
     "APIToken": "API Token",
     "resetDo": "Sì, resetta il mio account!",
     "fixValues": "Sistema valori",
