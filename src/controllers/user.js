@@ -226,8 +226,10 @@ api.cron = function(req, res, next) {
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
+
   if (ranCron) res.locals.wasModified = true;
   if (!ranCron) return next(null,user);
+  Group.tavernBoss(user,progress);
   if (!quest) return user.save(next);
 
   // If user is on a quest, roll for boss & player, or handle collections
