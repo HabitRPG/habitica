@@ -3,14 +3,15 @@
 
 include ./challenges.jade
 include ./hall.jade
+include ./boss.jade
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
 
 script(type='text/ng-template', id='partials/options.social.party.html')
-  div(ng-show='group._id')
+  div(ng-if='group._id')
     include ./group
-  div(ng-hide='group._id')
+  div(ng-if='!group._id')
     div(ng-show='user.invitations.party.id')
       h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
       a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
