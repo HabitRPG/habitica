@@ -19,9 +19,9 @@ script(id='modals/buyGems.html', type='text/ng-template')
           tr
             td
               p
-                small.muted Payment Methods:
+                small.muted=env.t('paymentMethods')
               //.btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
-              .btn.btn-primary(ng-click='showStripe()') Card
+              .btn.btn-primary(ng-click='showStripe()')=env.t('card')
               a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
 
       div(ng-include="'partials/options.settings.subscription.html'")
