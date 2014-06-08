@@ -607,11 +607,11 @@ api.questAbort = function(req, res, next){
     },
     // Refund party leader quest scroll
     function(cb){
-      var update = {$inc:{}};
-      update['$inc']['items.quests.' + group.quest.key] = 1;
-      User.update({_id:group.quest.leader}, update, cb);
-    },
-    function(cb) {
+      if (group.quest.active) {
+        var update = {$inc:{}};
+        update['$inc']['items.quests.' + group.quest.key] = 1;
+        User.update({_id:group.quest.leader}, update);
+      }
       group.quest = {key:null,progress:{},leader:null};
       group.markModified('quest');
       group.save(cb);
