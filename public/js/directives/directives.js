@@ -69,11 +69,13 @@ habitrpg
           }, {
             header: window.env.t('dailies'),
             type: 'daily',
-            placeHolder: window.env.t('newDaily')
+            placeHolder: window.env.t('newDaily'),
+            view: "remaining"
           }, {
             header: window.env.t('todos'),
             type: 'todo',
-            placeHolder: window.env.t('newTodo')
+            placeHolder: window.env.t('newTodo'),
+            view: "remaining"
           }, {
             header: window.env.t('rewards'),
             type: 'reward',
