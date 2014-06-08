@@ -70,11 +70,13 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
         h4=env.t('rarePets')
         menu
           div
-            button(ng-if='user.items.pets["Wolf-Veteran"]', class="pet-button Pet-Wolf-Veteran", ng-class='{active: user.items.currentPet == "Wolf-Veteran"}', ng-click='choosePet("Wolf", "Veteran")', popover=env.t('veteranWolf'), popover-trigger='mouseenter', popover-placement='bottom')
-            button(ng-if='user.items.pets["Wolf-Cerberus"]', class="pet-button Pet-Wolf-Cerberus", ng-class='{active: user.items.currentPet == "Wolf-Cerberus"}', ng-click='choosePet("Wolf", "Cerberus")', popover=env.t('cerberusPup'), popover-trigger='mouseenter', popover-placement='bottom')
-            button(ng-if='user.items.pets["Turkey-Base"]', class="pet-button Pet-Turkey-Base", ng-class='{active: user.items.currentPet == "Turkey-Base"}', ng-click='choosePet("Turkey", "Base")', popover=env.t('turkey'), popover-trigger='mouseenter', popover-placement='bottom')
-            button(ng-if='user.items.pets["BearCub-Polar"]', class="pet-button Pet-BearCub-Polar", ng-class='{active: user.items.currentPet == "BearCub-Polar"}', ng-click='choosePet("BearCub", "Polar")', popover=env.t('polarBearPup'), popover-trigger='mouseenter', popover-placement='bottom')
-            button(ng-if='user.items.pets["Dragon-Hydra"]', class="pet-button Pet-Dragon-Hydra", ng-class='{active: user.items.currentPet == "Dragon-Hydra"}', ng-click='choosePet("Dragon", "Hydra")', popover=env.t('hydra'), popover-trigger='mouseenter', popover-placement='bottom')
+            mixin vetPet(egg,pot,t)
+              button(ng-if='user.items.pets["#{egg}-#{pot}"]', class="pet-button Pet-#{egg}-#{pot}", ng-class='{active: user.items.currentPet == "#{egg}-#{pot}"}', ng-click='choosePet("#{egg}", "#{pot}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
+            +vetPet("Wolf","Veteran","veteranWolf")
+            +vetPet("Wolf","Cerberus","cerberusPup")
+            +vetPet("Turkey","Base","turkey")
+            +vetPet("BearCub","Polar","polarBearPup")
+            +vetPet("Dragon","Hydra","hydra")
             a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
               button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover=env.t('rarePetPop1'), popover-title=env.t('rarePetPop2'))
                 .PixelPaw-Gold
