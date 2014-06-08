@@ -52,7 +52,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       | &nbsp;
 
   // left-hand side checkbox
-  .task-controls.task-primary
+  .task-controls.task-primary(ng-if='!task._editing')
 
     // Habits
     span(bo-if='task.type=="habit"')
