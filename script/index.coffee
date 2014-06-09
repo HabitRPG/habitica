@@ -670,7 +670,13 @@ api.wrap = (user, main=true) ->
       unlock: (req, cb, ga) ->
         {path} = req.query
         fullSet = ~path.indexOf(",")
-        cost = if fullSet then 1.25 else 0.5 # 5G per set, 2G per individual
+        cost =
+          # (Backgrounds) 15G per set, 7G per individual
+          if ~path.indexOf('background.') # FIXME, store prices of things in content.coffee instead of hard-coded here?
+            if fullSet then 3.75 else 1.75
+          # (Skin, hair, etc) 5G per set, 2G per individual
+          else
+            if fullSet then 1.25 else 0.5
         alreadyOwns = !fullSet and user.fns.dotGet("purchased." + path) is true
         return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < cost and !alreadyOwns
         if fullSet
@@ -679,6 +685,7 @@ api.wrap = (user, main=true) ->
         else
           if alreadyOwns
             split = path.split('.');v=split.pop();k=split.join('.')
+            v='' if k is 'background' and v==user.preferences.background
             user.fns.dotSet("preferences.#{k}",v)
             return cb? null, req
           user.fns.dotSet "purchased." + path, true

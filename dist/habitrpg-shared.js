@@ -11779,6 +11779,39 @@ _.each(api.quests, function(v, key) {
   });
 });
 
+api.backgrounds = {
+  beach: {
+    text: function() {
+      return "Beach";
+    },
+    notes: function() {
+      return " Lounge upon a warm beach.";
+    }
+  },
+  fairy_ring: {
+    text: function() {
+      return "Fairy Ring";
+    },
+    notes: function() {
+      return "Dance in a fairy ring.";
+    }
+  },
+  forest: {
+    text: function() {
+      return "Forest";
+    },
+    notes: function() {
+      return "Stroll through a summer forest.";
+    }
+  }
+};
+
+_.each(api.backgrounds, function(v, key) {
+  return _.defaults(v, {
+    key: key
+  });
+});
+
 repeat = {
   m: true,
   t: true,
@@ -13070,7 +13103,7 @@ api.wrap = function(user, main) {
         var alreadyOwns, cost, fullSet, k, path, split, v;
         path = req.query.path;
         fullSet = ~path.indexOf(",");
-        cost = fullSet ? 1.25 : 0.5;
+        cost = ~path.indexOf('background.') ? fullSet ? 3.75 : 1.75 : fullSet ? 1.25 : 0.5;
         alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
         if (user.balance < cost && !alreadyOwns) {
           return typeof cb === "function" ? cb({
@@ -13088,6 +13121,9 @@ api.wrap = function(user, main) {
             split = path.split('.');
             v = split.pop();
             k = split.join('.');
+            if (k === 'background' && v === user.preferences.background) {
+              v = '';
+            }
             user.fns.dotSet("preferences." + k, v);
             return typeof cb === "function" ? cb(null, req) : void 0;
           }

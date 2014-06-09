@@ -872,9 +872,21 @@ api.quests =
       gp: 80
       exp: 800
 
-
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
+
+api.backgrounds =
+  beach:
+    text: ->"Beach"
+    notes: ->" Lounge upon a warm beach."
+  fairy_ring:
+    text: ->"Fairy Ring"
+    notes: ->"Dance in a fairy ring."
+  forest:
+    text: ->"Forest"
+    notes: ->"Stroll through a summer forest."
+_.each api.backgrounds, (v,key)->
+  _.defaults v,{key}
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
