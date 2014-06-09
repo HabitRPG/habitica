@@ -11388,16 +11388,18 @@ _.each(api.questEggs, function(egg, key) {
 api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
 
 api.specialPets = {
-  'Wolf-Veteran': true,
-  'Wolf-Cerberus': true,
-  'Dragon-Hydra': true,
-  'Turkey-Base': true,
-  'BearCub-Polar': true
+  'Wolf-Veteran': 'veteranWolf',
+  'Wolf-Cerberus': 'cerberusPup',
+  'Dragon-Hydra': 'hydra',
+  'Turkey-Base': 'turkey',
+  'BearCub-Polar': 'polarBearPup',
+  'MantisShrimp-Base': 'mantisShrimp'
 };
 
 api.specialMounts = {
-  'BearCub-Polar': true,
-  'LionCub-Ethereal': true
+  'BearCub-Polar': 'polarBear',
+  'LionCub-Ethereal': 'etherealLion',
+  'MantisShrimp-Base': 'mantisShrimp'
 };
 
 api.hatchingPotions = {
@@ -11593,6 +11595,38 @@ _.each(api.food, function(food, key) {
 });
 
 api.quests = {
+  dilatory: {
+    text: t("questDilatoryText"),
+    notes: t("questDilatoryNotes"),
+    value: 0,
+    canBuy: false,
+    boss: {
+      name: t("questDilatoryBoss"),
+      hp: 1200,
+      str: 1,
+      def: 1,
+      rage: {
+        title: t("questDilatoryBossRageTitle"),
+        description: t("questDilatoryBossRageDescription"),
+        value: 1000
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'MantisShrimp-Base',
+          text: t('questDilatoryDropMantisShrimpPet')
+        }, {
+          type: 'mounts',
+          key: 'MantisShrimp-Base',
+          text: t('questDilatoryDropMantisShrimpMount')
+        }
+      ],
+      gp: 90,
+      exp: 900
+    }
+  },
   evilsanta: {
     canBuy: false,
     text: t('questEvilSantaText'),
@@ -11944,10 +11978,24 @@ api.quests = {
 };
 
 _.each(api.quests, function(v, key) {
-  return _.defaults(v, {
+  var b;
+  _.defaults(v, {
     key: key,
     canBuy: true
   });
+  b = v.boss;
+  if (b) {
+    _.defaults(b, {
+      str: 1,
+      def: 1
+    });
+    if (b.rage) {
+      return _.defaults(b.rage, {
+        title: t('bossRageTitle'),
+        description: t('bossRageDescription')
+      });
+    }
+  }
 });
 
 api.backgrounds = {
