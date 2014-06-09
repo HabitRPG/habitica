@@ -39,7 +39,8 @@ var GroupSchema = new Schema({
     leader: {type:String, ref:'User'},
     progress:{
       hp: Number,
-      collect: {type:Schema.Types.Mixed, 'default':{}} // {feather: 5, ingot: 3}
+      collect: {type:Schema.Types.Mixed, 'default':{}}, // {feather: 5, ingot: 3}
+      breaker: Number, // limit break / "energy stored in shell", for explosion-attacks
     },
 
     //Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click

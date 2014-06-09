@@ -18,7 +18,7 @@ mixin boss(tavern)
         //-TODO Both force-start & cancel should only be available to quest-initiator
 
       div(ng-if='group.quest.active==true')
-        div(ng-if='Content.quests[group.quest.key].boss')
+        div(ng-if='Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
           div(class="quest_{{group.quest.key}}")
           //-
             .progress
@@ -28,12 +28,19 @@ mixin boss(tavern)
               | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
           .hero-stats
             .meter.health(tooltip=env.t('bossHP'))
-              .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
+              .bar(style='width: {{Shared.percent(progress.hp, boss.hp)}}%;')
               span.meter-text.title
                 span.glyphicon.glyphicon-heart
                 | HP
               span.meter-text.value
-                | {{Math.ceil(group.quest.progress.hp)}} / {{Content.quests[group.quest.key].boss.hp}}
+                | {{Math.ceil(progress.hp)}} / {{boss.hp}}
+            .meter.mana(ng-if='boss.breaker',popover="Stored energy before this boss unleashes a powerful attack.",popover-title="Breaker",popover-trigger='mouseenter')
+              .bar(style='width: {{Shared.percent(progress.breaker, boss.breaker)}}%;')
+              span.meter-text.title
+                span.glyphicon.glyphicon-fire
+                | Breaker
+              span.meter-text.value
+                | {{Math.ceil(progress.breaker)}} / {{boss.breaker}}
         div(ng-if='Content.quests[group.quest.key].collect')
           h4=env.t('collected') + ':'
           table.table.table-striped
