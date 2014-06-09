@@ -82,6 +82,7 @@ var UserSchema = new Schema({
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
     hair: {type: Schema.Types.Mixed, 'default': {}},
     shirt: {type: Schema.Types.Mixed, 'default': {}},
+    background: {type: Schema.Types.Mixed, 'default': {}},
     txnCount: {type: Number, 'default':0},
     mobileChat: Boolean,
     plan: {
@@ -266,7 +267,8 @@ var UserSchema = new Schema({
     newTaskEdit: {type: Boolean, 'default': false},
     tagsCollapsed: {type: Boolean, 'default': false},
     advancedCollapsed: {type: Boolean, 'default': false},
-    toolbarCollapsed: {type:Boolean, 'default':false}
+    toolbarCollapsed: {type:Boolean, 'default':false},
+    background: String
   },
   profile: {
     blurb: String,

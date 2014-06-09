@@ -56,6 +56,10 @@ window.habitrpg = angular.module('habitrpg',
           url: "/avatar",
           templateUrl: "partials/options.profile.avatar.html"
         })
+        .state('options.profile.backgrounds', {
+          url: '/backgrounds',
+          templateUrl: "partials/options.profile.backgrounds.html"
+        })
         .state('options.profile.stats', {
           url: "/stats",
           templateUrl: "partials/options.profile.stats.html"

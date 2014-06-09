@@ -18,6 +18,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.profile.avatar')=env.t('avatar')
               li
+                a(ui-sref='options.profile.backgrounds') Backgrounds
+              li
                 a(ui-sref='options.profile.stats')=env.t('stats')
               li
                 a(ui-sref='options.profile.profile')=env.t('profile')
@@ -60,6 +62,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.profile.avatar')=env.t('avatar')
             li
+              a(ui-sref='options.profile.backgrounds') Backgrounds
+            li
               a(ui-sref='options.profile.stats')=env.t('stats')
             li
               a(ui-sref='options.profile.profile')=env.t('profile') 
@@ -95,7 +99,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(ui-sref='options.inventory.mounts')=env.t('mounts')
             li
               a(ui-sref='options.inventory.equipment')=env.t('equipment')
-    ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')  
+    ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
     ul.toolbar-options  

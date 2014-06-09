@@ -154,5 +154,12 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       $rootScope.selectedQuest = item;
       $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
     }
+
+    $scope.chooseBackground = function(k,bg){
+      //if (!user.purchased.background[bg])
+      if (k===user.preferences.background)
+        User.set({'preferences.background':''});
+      User.set({'preferences.background':k});
+    }
   }
 ]);
