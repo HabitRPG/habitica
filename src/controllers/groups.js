@@ -610,7 +610,7 @@ api.questAbort = function(req, res, next){
       if (group.quest.active) {
         var update = {$inc:{}};
         update['$inc']['items.quests.' + group.quest.key] = 1;
-        User.update({_id:group.quest.leader}, update);
+        User.update({_id:group.quest.leader}, update).exec();
       }
       group.quest = {key:null,progress:{},leader:null};
       group.markModified('quest');
