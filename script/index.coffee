@@ -653,7 +653,7 @@ api.wrap = (user, main=true) ->
             else
               user.items.gear[type][item.type] = item.key
               message = user.fns.handleTwoHanded(item,type,req)
-        user.markModified? "items.gear.#{type}"
+            user.markModified? "items.gear.#{type}"
         cb? (if message then {code:200,message} else null), user.items
 
       hatch: (req, cb) ->
