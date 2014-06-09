@@ -588,6 +588,7 @@ api.questEggs =
   Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
   Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false
   Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
+  Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -849,6 +850,24 @@ api.quests =
         {type: 'eggs', key: 'Rat', text: t('questRatDropRatEgg')}
         {type: 'eggs', key: 'Rat', text: t('questRatDropRatEgg')}
         {type: 'eggs', key: 'Rat', text: t('questRatDropRatEgg')}
+      ]
+      gp: 80
+      exp: 800
+
+  octopus:
+    text: t('questOctopusText')
+    notes: t('questOctopusNotes')
+    completion: t('questOctopusCompletion')
+    value: 4
+    boss:
+      name: t('questOctopusBoss')
+      hp: 1200
+      str: 2.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Octopus', text: t('questOctopusDropOctopusEgg')}
+        {type: 'eggs', key: 'Octopus', text: t('questOctopusDropOctopusEgg')}
+        {type: 'eggs', key: 'Octopus', text: t('questOctopusDropOctopusEgg')}
       ]
       gp: 80
       exp: 800

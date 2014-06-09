@@ -11193,6 +11193,11 @@ api.questEggs = {
     text: t('questEggRatText'),
     adjective: t('questEggRatAdjective'),
     canBuy: false
+  },
+  Octopus: {
+    text: t('questEggOctopusText'),
+    adjective: t('questEggOctopusAdjective'),
+    canBuy: false
   }
 };
 
@@ -11729,6 +11734,36 @@ api.quests = {
           type: 'eggs',
           key: 'Rat',
           text: t('questRatDropRatEgg')
+        }
+      ],
+      gp: 80,
+      exp: 800
+    }
+  },
+  octopus: {
+    text: t('questOctopusText'),
+    notes: t('questOctopusNotes'),
+    completion: t('questOctopusCompletion'),
+    value: 4,
+    boss: {
+      name: t('questOctopusBoss'),
+      hp: 1200,
+      str: 2.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Octopus',
+          text: t('questOctopusDropOctopusEgg')
+        }, {
+          type: 'eggs',
+          key: 'Octopus',
+          text: t('questOctopusDropOctopusEgg')
+        }, {
+          type: 'eggs',
+          key: 'Octopus',
+          text: t('questOctopusDropOctopusEgg')
         }
       ],
       gp: 80,
@@ -12992,9 +13027,9 @@ api.wrap = function(user, main) {
               user.items.gear[type][item.type] = item.key;
               message = user.fns.handleTwoHanded(item, type, req);
             }
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified("items.gear." + type);
+            if (typeof user.markModified === "function") {
+              user.markModified("items.gear." + type);
+            }
         }
         return typeof cb === "function" ? cb((message ? {
           code: 200,
