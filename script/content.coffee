@@ -876,16 +876,16 @@ _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
 
 api.backgrounds =
-  'June 2014':
+  backgrounds062014:
     beach:
-      text: ->"Beach"
-      notes: ->" Lounge upon a warm beach."
+      text: t('backgroundBeachText')
+      notes: t('backgroundBeachNotes')
     fairy_ring:
-      text: ->"Fairy Ring"
-      notes: ->"Dance in a fairy ring."
+      text: t('backgroundFairyRingText')
+      notes: t('backgroundFairyRingNotes')
     forest:
-      text: ->"Forest"
-      notes: ->"Stroll through a summer forest."
+      text: t('backgroundForestText')
+      notes: t('backgroundForestNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =

@@ -11780,30 +11780,18 @@ _.each(api.quests, function(v, key) {
 });
 
 api.backgrounds = {
-  'June 2014': {
+  backgrounds062014: {
     beach: {
-      text: function() {
-        return "Beach";
-      },
-      notes: function() {
-        return " Lounge upon a warm beach.";
-      }
+      text: t('backgroundBeachText'),
+      notes: t('backgroundBeachNotes')
     },
     fairy_ring: {
-      text: function() {
-        return "Fairy Ring";
-      },
-      notes: function() {
-        return "Dance in a fairy ring.";
-      }
+      text: t('backgroundFairyRingText'),
+      notes: t('backgroundFairyRingNotes')
     },
     forest: {
-      text: function() {
-        return "Forest";
-      },
-      notes: function() {
-        return "Stroll through a summer forest.";
-      }
+      text: t('backgroundForestText'),
+      notes: t('backgroundForestNotes')
     }
   }
 };
