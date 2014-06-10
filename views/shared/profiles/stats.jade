@@ -29,7 +29,7 @@ unless mobile
 
 h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped
-  tr(ng-repeat='(k,v) in {str: env.t("strength") + " (STR)",int: env.t("intelligence") + " (INT)",con: env.t("constitution") + " (CON)",per:env.t("perception") + " (PER)"}')
+  tr(ng-repeat='(k,v) in {str: env.t("strength"),int: env.t("intelligence"),con: env.t("constitution"),per:env.t("perception")"}')
     td
       span.hint(ng-if='k=="str"', popover-title=env.t('strength'), popover-placement='right', popover=env.t('strengthText'), popover-trigger='mouseenter', style='margin-right:3px')
         strong {{v}}
@@ -61,7 +61,7 @@ table.table.table-striped
   tr(ng-if='profile.stats.buffs.stealth')
     td
       span.hint(popover-title=env.t('stealth'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('stealthNewDay'))
-        strong 
+        strong
           =env.t('stealth')
       strong : {{profile.stats.buffs.stealth}}&nbsp;
     td
