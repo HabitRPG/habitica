@@ -165,7 +165,8 @@ module.exports.locals = function(req, res, next) {
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },
-    siteVersion: siteVersion
+    siteVersion: siteVersion,
+    Content: shared.content
   }
 
   next();

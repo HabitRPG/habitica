@@ -238,12 +238,14 @@ script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
   .container-fluid
     .row
       menu(type='list')
-        li.customize-menu(ng-repeat='(k,bgs) in Content.backgrounds')
-          menu(label='{{k}}')
-            +gemCost(7)
-              button.btn.btn-xs(ng-hide="ownsSet('background',bgs)", ng-click='unlock(setKeys("background",bgs))')!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-            //-menu(label='{{k | date : "short"}}')
-            button.customize-option(type='button',ng-repeat='(k,bg) in bgs',class='background_{{k}}',ng-click='unlock("background."+k)',popover-title='{{bg.text()}}',popover='{{bg.notes()}}',popover-trigger='mouseenter')
+        each bgs,k in env.Content.backgrounds
+          li.customize-menu
+            menu(label=env.t(k))
+              +gemCost(7)
+                //-button.btn.btn-xs(ng-hide="ownsSet('background',Content.backgrounds['#{k}'])",ng-click="unlock(setKeys('background',Content.backgrounds['#{k}']))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+                button.btn.btn-xs(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})",ng-click="unlock(setKeys('background',#{JSON.stringify(bgs)}))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+              each bg,k in bgs
+                button.customize-option(type='button',class='background_#{k}',ng-click='unlock("background.#{k}")',popover-title=bg.text(),popover=bg.notes(),popover-trigger='mouseenter')
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.options-menu
@@ -252,8 +254,7 @@ script(id='partials/options.profile.html', type="text/ng-template")
         =env.t('avatar')
     li(ng-class="{ active: $state.includes('options.profile.backgrounds') }")
       a(ui-sref='options.profile.backgrounds')
-        //-=env.t('profile')
-        | Backgrounds
+        =env.t('backgrounds')
     li(ng-class="{ active: $state.includes('options.profile.stats') }")
       a(ui-sref='options.profile.stats')
         =env.t('statsAch')
