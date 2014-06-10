@@ -138,7 +138,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
         // text & notes
         fieldset.option-group
           label.option-title=env.t('text')
-          input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
+          input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id', at-emoji)
 
           label.option-title=env.t('extraNotes')
           textarea.option-content(rows='3', ng-model='task.notes')

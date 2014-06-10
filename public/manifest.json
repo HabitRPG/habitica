@@ -6,6 +6,8 @@
             "bower_components/pnotify/jquery.pnotify.min.js",
             "bower_components/bootstrap-growl/jquery.bootstrap-growl.js",
             "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
+            "bower_components/Caret.js/dist/jquery.caret.min.js",
+            "bower_components/jquery.atwho/dist/js/jquery.atwho.min.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-sanitize/angular-sanitize.js",
             "bower_components/marked/lib/marked.js",
@@ -21,7 +23,6 @@
             "bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
             "bower_components/select2/select2.js",
             "bower_components/angular-ui-select2/src/select2.js",
-
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
             "bower_components/bootstrap/dist/js/bootstrap.js",
@@ -69,7 +70,8 @@
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
-            "bower_components/habitrpg-shared/dist/habitrpg-shared.css"
+            "bower_components/habitrpg-shared/dist/habitrpg-shared.css",
+            "bower_components/jquery.atwho/dist/css/jquery.atwho.min.css"
         ]
     },
     "static": {
