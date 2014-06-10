@@ -65,5 +65,16 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       User.user.ops.unlock({query:{path:path}})
     }
 
+    $scope.ownsSet = function(type,_set) {
+      return !_.find(_set,function(v,k){
+        return !User.user.purchased[type][k];
+      });
+    }
+    $scope.setKeys = function(type,_set){
+      return _.map(_set, function(v,k){
+        return type+'.'+k;
+      }).join(',');
+    }
+
   }
 ]);
