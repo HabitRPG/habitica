@@ -14,6 +14,8 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
+      a(ng-click='User.user.ops.sortTask({params:{id:task.id},query:{from:$index, to:0}})')
+        span.glyphicon.glyphicon-open
       a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', tooltip=env.t('expandCollapse'))
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
       span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
