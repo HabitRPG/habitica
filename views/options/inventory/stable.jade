@@ -34,15 +34,18 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
 
 mixin petList(source)
   menu.pets(type='list')
-    li.customize-menu(ng-repeat='egg in #{source}')
-      menu
-        div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover=env.t('petName', {potion: '{{potion.text()}}', egg: '{{egg.text()}}'}), popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
-          button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood && !user.items.mounts[pet]}', ng-click='choosePet(egg.key, potion.key)')
-            .progress(ng-show='!user.items.mounts[pet] && egg.key!="Egg"')
-              .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
-          button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
-            .PixelPaw
-          button(class="pet-evolved pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]<0')
+    each egg in source
+      li.customize-menu
+        menu
+          each potion in env.Content.hatchingPotions
+            - pet = egg.key+"-"+potion.key
+            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(), egg: egg.text()}), popover-placement='bottom')
+              button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+                .progress(ng-show='!user.items.mounts["#{pet}"] && "#{egg.key}"!="Egg"')
+                  .progress-bar.progress-bar-success(style='width:{{user.items.pets["#{pet}"]/.5}}%')
+              button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
+                .PixelPaw
+              button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
 
 script(type='text/ng-template', id='partials/options.inventory.pets.html')
   .container-fluid
@@ -64,10 +67,10 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
             h4= env.t('beastmasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
       .col-md-12
-        +petList("Content.dropEggs")
+        +petList(env.Content.dropEggs)
       .col-md-12
         h4=env.t('questPets')
-        +petList("Content.questEggs")
+        +petList(env.Content.questEggs)
 
       .col-md-12
         h4=env.t('rarePets')
