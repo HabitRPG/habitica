@@ -38,7 +38,7 @@
     "express-csv": "~0.6.0",
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
     "js2xmlparser": "~0.1.2",
-    "mongoose": "~3.8.1",
+    "mongoose": "~3.8.12",
     "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg",
     "passport": "~0.1.18",
     "passport-facebook": "~1.0.2",
