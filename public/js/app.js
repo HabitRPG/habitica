@@ -15,8 +15,8 @@ window.habitrpg = angular.module('habitrpg',
   .constant("MOBILE_APP", false)
   //.constant("STORAGE_GROUPS_ID", "") // if we decide to take groups offline
 
-  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'STORAGE_SETTINGS_ID',
-    function($stateProvider, $urlRouterProvider, $httpProvider, STORAGE_SETTINGS_ID) {
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$provide', 'STORAGE_SETTINGS_ID',
+    function($stateProvider, $urlRouterProvider, $httpProvider, $provide, STORAGE_SETTINGS_ID) {
 
       $urlRouterProvider
         // Setup default selected tabs
@@ -212,39 +212,41 @@ window.habitrpg = angular.module('habitrpg',
       }
 
       // Handle errors
-      $httpProvider.responseInterceptors.push(['$rootScope', '$q', function ($rootScope, $q) {
-        function success(response) {
-          return response;
-        }
-        function error(response) {
-          // Offline
-          if (response.status == 0 ||
-            // don't know why we're getting 404 here, should be 0
-            (response.status == 404 && _.isEmpty(response.data))) {
-            $rootScope.$broadcast('responseText', window.env.t('serverUnreach'));
+      $provide.factory('myHttpInterceptor', ['$rootScope','$q',function($rootScope,$q) {
+        return {
+          response: function(response) {
+            return response;
+          },
+          responseError: function(response) {
+            // Offline
+            if (response.status == 0 ||
+              // don't know why we're getting 404 here, should be 0
+              (response.status == 404 && _.isEmpty(response.data))) {
+              $rootScope.$broadcast('responseText', window.env.t('serverUnreach'));
 
-          // Needs refresh
-          } else if (response.needRefresh) {
-            $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
+              // Needs refresh
+            } else if (response.needRefresh) {
+              $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
 
-          // 400 range?
-          } else if (response < 500) {
-            $rootScope.$broadcast('responseText', response.data.err || response.data);
+              // 400 range?
+            } else if (response < 500) {
+              $rootScope.$broadcast('responseText', response.data.err || response.data);
 
-          // Error
-          } else {
-            var error = '<strong>Please reload</strong>, ' +
-              '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'" ' +
-              window.env.t('seeConsole');
-            $rootScope.$broadcast('responseError', error);
-            console.error(response);
+              // Error
+            } else {
+              var error = '<strong>Please reload</strong>, ' +
+                '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'" ' +
+                window.env.t('seeConsole');
+              $rootScope.$broadcast('responseError', error);
+              console.error(response);
+            }
+
+            return response;
+            // this completely halts the chain, meaning we can't queue offline actions
+            //if (canRecover(response)) return responseOrNewPromise
+            //return $q.reject(response);
           }
-
-          //return $q.reject(response); // this completely halts the chain, meaning we can't queue offline actions
-          return response;
-        }
-        return function (promise) {
-          return promise.then(success, error);
-        }
+        };
       }]);
+      $httpProvider.interceptors.push('myHttpInterceptor');
   }])
