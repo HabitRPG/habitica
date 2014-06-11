@@ -79,6 +79,10 @@ GroupSchema.methods.toJSON = function(){
   removeDuplicates(doc);
   doc._isMember = this._isMember;
 
+  //fix(groups): temp fix to remove chat entries stored as strings (not sure why that's happening..).
+  // Required as angular 1.3 is strict on dupes, and no message.id to `track by`
+  _.remove(doc.chat,function(msg){return !msg.id});
+
   // @see pre('save') comment above
   this.memberCount = _.size(this.members);
   this.challengeCount = _.size(this.challenges);
