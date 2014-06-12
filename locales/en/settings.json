@@ -41,9 +41,11 @@
     "misc": "Misc",
     "showHeader": "Show Header",
     "changePass": "Change Password",
+    "changeUsername": "Change Username",
     "oldPass": "Old Password",
     "newPass": "New Password",
     "confirmPass": "Confirm New Password",
+    "newUsername": "New Username",
     "dangerZone": "Danger Zone",
     "resetText1": "This resets your entire account - your tasks will be deleted and your character will start over.",
     "resetText2": "This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.",
@@ -62,5 +64,6 @@
     "enterNumber": "Please enter a number between 0 and 24",
     "fillAll": "Please fill out all fields",
     "passSuccess": "Password successfully changed",
+    "usernameSuccess": "Username successfully changed",
     "difficulty": "Difficulty"
 }
