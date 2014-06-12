@@ -51,7 +51,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       var fullSet = ~path.indexOf(',');
       var cost =
         ~path.indexOf('background.') ?
-          (fullSet ? 3.25 : 1.75) : // (Backgrounds) 15G per set, 7G per individual
+          (fullSet ? 3.75 : 1.75) : // (Backgrounds) 15G per set, 7G per individual
           (fullSet ? 1.25 : 0.5); // (Hair, skin, etc) 5G per set, 2G per individual
 
 
