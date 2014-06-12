@@ -195,6 +195,31 @@ api.resetPassword = function(req, res, next){
   });
 };
 
+api.changeUsername = function(req, res, next) {
+  var user = res.locals.user,
+    password = req.body.password
+    newUsername = req.body.newUsername;
+
+  User.findOne({'auth.local.username': newUsername}, function(err, result) {
+    if (err) next(err);
+
+    if(result)
+        return res.json(401, {err: "Username already taken"});
+
+    var salt = user.auth.local.salt,
+      hashed_password = utils.encryptPassword(password, salt);
+
+    if (hashed_password !== user.auth.local.hashed_password)
+      return res.json(401, {err:"Incorrect password"});
+
+    user.auth.local.username = newUsername;
+    user.save(function(err, saved){
+        if (err) next(err);
+        res.send(200);
+    })
+  });
+}
+
 api.changePassword = function(req, res, next) {
   var user = res.locals.user,
     oldPassword = req.body.oldPassword,
