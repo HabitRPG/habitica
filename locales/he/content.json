@@ -33,6 +33,8 @@
     "questEggEggAdjective": "צבעוני",
     "questEggRatText": "עכברוש",
     "questEggRatAdjective": "מלוכלך",
+    "questEggOctopusText": "Octopus",
+    "questEggOctopusAdjective": "slippery",
     "eggNotes": "מצא/י שיקוי בקיעה, בזוק/בזקי אותו על הביצה הזו, והיא תהפוך ל <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

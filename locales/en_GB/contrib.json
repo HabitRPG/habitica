@@ -1,7 +1,7 @@
 {
     "friend": "Friend",
     "friendFirst": "When your <strong>first</strong> submission is deployed, you will receive the HabitRPG Contributor's badge. Your name in Tavern chat will proudly display that you are a contributor. As a bounty for your work, you will also receive <strong>2 Gems</strong>.",
-    "friendSecond": "When your <strong>second</strong> submission is deployed, the <strong>Crystal Armor</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems.</strong>",
+    "friendSecond": "When your <strong>second</strong> submission is deployed, the <strong>Crystal Armour</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems.</strong>",
     "elite": "Elite",
     "eliteThird": "When your <strong>third</strong> submission is deployed, the <strong>Crystal Helmet</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems</strong>.",
     "eliteFourth": "When your <strong>fourth</strong> submission is deployed, the <strong>Crystal Sword</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems</strong>.",
@@ -9,7 +9,7 @@
     "championFifth": "When your <strong>fifth</strong> submission is deployed, the <strong>Crystal Shield</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems</strong>.",
     "championSixth": "When your <strong>sixth</strong> submission is deployed, you will receive a <strong>Hydra Pet</strong>. You will also receive <strong>2 Gems</strong>.",
     "legendary": "Legendary",
-    "legSeventh": "When your <strong>seventh</strong> submission is deployed, you will receive <strong>2 Gems</strong> and become a member of the honored Contributor's Guild and be privy to the behind-the-scenes details of HabitRPG! Further contributions do not increase your level, but you may continue to earn Gem bounties and titles.",
+    "legSeventh": "When your <strong>seventh</strong> submission is deployed, you will receive <strong>2 Gems</strong> and become a member of the honoured Contributor's Guild and be privy to the behind-the-scenes details of HabitRPG! Further contributions do not increase your level, but you may continue to earn Gem bounties and titles.",
     "heroic": "Heroic",
     "heroicText": "The Heroic level contains HabitRPG staff and staff-level contributors. If you have this title, you were appointed to it (or hired!).",
     "npcText": "NPCs backed HabitRPG's Kickstarter at the highest tier. You can find their avatars watching over site features!",
@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, you awesome person! You're now a level <%= level %> contributor for helping HabitRPG. See",
     "contribLink": "what prizes you've earned for your contribution!",
     "contribName": "Contributor",
-    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? ",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc.). Want this badge? ",
     "readMore": "Read More",
     "kickstartName": "Kickstarter Backer - $<%= tier %> Tier",
     "kickstartText": "Backed the Kickstarter Project",
@@ -49,7 +49,7 @@
     "conLearnHow": "Learn how to contribute to HabitRPG",
     "removeAds": "Subscribe to remove ads",
     "whyAds": "Why Ads?",
-    "whyAdsContent1": "Habit is an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.",
+    "whyAdsContent1": "Habit is an open source project and can use all the help it can get—consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.",
     "whyAdsContent2": "'Hey, I backed the Kickstarter!' - follow",
     "whyAdsContent3": "these instructions"
 }

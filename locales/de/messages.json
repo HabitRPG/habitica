@@ -8,7 +8,7 @@
     "messageAlreadyMount": "Du hast dieses Reittier bereits. Füttere lieber ein anderes Haustier.",
     "messageEvolve": "<%= egg %> wurde gezähmt, es ist an der Zeit aufzusitzen!",
     "messageLikesFood": "<%= egg %> ist begeistert. <%= foodText %> ist seine Lieblingsspeise!",
-    "messageDontEnjoyFood": "<%= egg %> ist von <%= foodText %> nicht gerade befeister, aber würgt es hinunter.",
+    "messageDontEnjoyFood": "<%= egg %> ist von <%= foodText %> nicht gerade begeistert, aber würgt das Futter hinunter.",
     "messageBought": "<%= itemText %> gekauft",
     "messageEquipped": "<%= itemText %> angelegt.",
     "messageUnEquipped": "<%= itemText %> abgelegt.",

@@ -33,6 +33,8 @@
     "questEggEggAdjective": "kleurrijk",
     "questEggRatText": "Rat",
     "questEggRatAdjective": "vuil",
+    "questEggOctopusText": "Octopus",
+    "questEggOctopusAdjective": "slippery",
     "eggNotes": "Vind een broed drankje om op dit ei te gieten, en het zal uitkomen als een <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Basis",
     "hatchingPotionWhite": "Wit",

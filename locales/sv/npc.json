@@ -59,7 +59,7 @@
     "classGearText": "Först av allt: drabbas inte av panik! Din gamla utrustning är i ditt förråd och du har nu på dig lärlingsutrustningen för <strong><%= klass %></strong>. Att bära din klass utrustning ger dig en 50% egenskapsbonus. Men du får självklart byta tillbaka till din gamla utrustning om du hellre vill det.",
     "classStats": "Det här är din klass egenskaper, vilka påverkar ditt spelande. Varje gång du går upp i level får du en poäng att tilldela valfri egenskap. Håll musen över varje egenskap för mer information.",
     "autoAllocate": "Dela ut automatiskt",
-    "autoAllocateText": "Om 'automatisk utdelning' är ikryssad delas egenskaper ut automatiskt baserat på dina uppgifters egenskaper, som du hittar i <strong>UPPGIFT > Redigera > Avancerad > Egenskaper</strong>. Så om du ofta går på gym och din Dagliga 'Gym'-uppgift är inställd på 'Fysisk' så kommer du automatiskt få STY.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
     "spells": "Formler",
     "spellsText": "Du kan nu låsa upp formler specifika för din klass. Du kommer se din första på level 11. Din mana fylls på med 10 poäng om dagen, plus 1 poäng per avklarad",
     "toDo": "Att-Göra",

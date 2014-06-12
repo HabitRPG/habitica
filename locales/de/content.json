@@ -33,6 +33,8 @@
     "questEggEggAdjective": "farbenfroh",
     "questEggRatText": "Ratterich",
     "questEggRatAdjective": "dreckiger",
+    "questEggOctopusText": "Octopus",
+    "questEggOctopusAdjective": "slippery",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

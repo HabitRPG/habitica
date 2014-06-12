@@ -12,7 +12,7 @@
     "spellWarriorDefensiveStanceText": "Защитная стойка",
     "spellWarriorDefensiveStanceNotes": "Вы делаете передышку, чтобы расслабить тело и встать в защитную стойку, приготовившись к натиску задач. Уменьшается урон от ежедневных задач в конце дня.",
     "spellWarriorValorousPresenceText": "Присутствие духа",
-    "spellWarriorValorousPresenceNotes": "Ваше присутствие воодушевляет команду. Обретенная храбрость дает им заряд силы. Компаньоны получают прибавку к СИЛ.",
+    "spellWarriorValorousPresenceNotes": "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their Strength.",
     "spellWarriorIntimidateText": "Устрашающий взор",
     "spellWarriorIntimidateNotes": "Ваш пронизывающий взгляд вселяет страх в сердца врагов вашей команды. Компаньоны получают некоторую прибавку к защите.",
     "spellRoguePickPocketText": "Карманная кража",

@@ -33,6 +33,8 @@
     "questEggEggAdjective": "kolorowe",
     "questEggRatText": "Szczur",
     "questEggRatAdjective": "brudny",
+    "questEggOctopusText": "Octopus",
+    "questEggOctopusAdjective": "slippery",
     "eggNotes": "Znajdź Eliksir Wyklucia i wylej go na to jajo, a wykluje się z niego <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Zwyczajny",
     "hatchingPotionWhite": "Biały",

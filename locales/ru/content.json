@@ -33,6 +33,8 @@
     "questEggEggAdjective": "красочный",
     "questEggRatText": "Крыс",
     "questEggRatAdjective": "грязный",
+    "questEggOctopusText": "Octopus",
+    "questEggOctopusAdjective": "slippery",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить на это яйцо, и из него вылупится <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

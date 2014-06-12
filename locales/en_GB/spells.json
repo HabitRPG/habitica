@@ -12,7 +12,7 @@
     "spellWarriorDefensiveStanceText": "Defensive Stance",
     "spellWarriorDefensiveStanceNotes": "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
     "spellWarriorValorousPresenceText": "Valorous Presence",
-    "spellWarriorValorousPresenceNotes": "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a boost to their STR.",
+    "spellWarriorValorousPresenceNotes": "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their Strength.",
     "spellWarriorIntimidateText": "Intimidating Gaze",
     "spellWarriorIntimidateNotes": "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defence.",
     "spellRoguePickPocketText": "Pickpocket",

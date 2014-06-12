@@ -33,6 +33,8 @@
     "questEggEggAdjective": "Colorido",
     "questEggRatText": "Rata",
     "questEggRatAdjective": "sucio",
+    "questEggOctopusText": "Octopus",
+    "questEggOctopusAdjective": "slippery",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá  un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",
