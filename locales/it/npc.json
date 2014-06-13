@@ -59,7 +59,7 @@
     "classGearText": "Per prima cosa: non preoccuparti! Il tuo vecchio equipaggiamento è nel tuo inventario, ora stai indossando quello da <strong><%= klass %></strong> apprendista. Indossare un equipaggiamento apposito per la tua classe conferisce un bonus del 50% alle tue statistiche. In ogni caso, sentiti libero di tornare al tuo vecchio equipaggiamento.",
     "classStats": "Questi sono gli attributi relativi alla tua Classe, influiscono sul gameplay. Ogni volta che aumenti di livello, ti viene dato un punto da assegnare ad un determinato attributo. Posiziona il cursore su ognuno di essi per avere informazioni aggiuntive.",
     "autoAllocate": "Assegnazione automatica dei punti",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
+    "autoAllocateText": "Se l'opzione \"allocazione automatica\" è selezionata, il tuo avatar guadagna automaticamente statistiche basate sugli attributi delle attività che completi, che puoi trovare in <strong>ATTIVITA' > Modifica > Avanzate > Attributi</strong>. Per esempio, se vai spesso in palestra, e la tua Daily \"Palestra\" è impostata sull'attributo \"Fisico\", guadagnerai Forza automaticamente.",
     "spells": "Incantesimi",
     "spellsText": "Ora puoi sbloccare incantesimi specifici per la tua classe. Potrai vedere il primo una volta raggiunto il livello 11. Il tuo mana si rigenera di 10 punti al giorno, più 1 punto per ogni",
     "toDo": "To-Do",
