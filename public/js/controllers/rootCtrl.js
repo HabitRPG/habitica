@@ -163,6 +163,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         backgroundColor: {
           fill: 'transparent'
         },
+        hAxis: {slantedText:true, slantedTextAngle: 90},
+        height:270,
         width:300
       };
       chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
