@@ -41,12 +41,12 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.task-notes
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
-              .task-controls
+              .task-controls.task-primary
                 a.money.btn-buy.item-btn(ng-click='buy(item)')
                   span.reward-cost {{item.value}}
                   span.shop_gold
               // main content
-              span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
+              span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
               p.task-text {{item.text()}}
 
           // Events
@@ -84,7 +84,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.task-notes
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
-              .task-controls
+              .task-controls.task-primary
                 a.money.btn-buy.item-btn(ng-click='castStart(spell)')
                   span.reward-cost
                     strong {{spell.mana}}
