@@ -2,7 +2,7 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
   .container-fluid
     .stable.row
       .col-md-2
-        .npc_matt
+        div(class="#{env.worldDmg.stable ? 'npc_matt_broken' : 'npc_matt'}")
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
@@ -27,10 +27,9 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
         h4=env.t('rareMounts')
         menu
           div
-            button(ng-if='user.items.mounts["BearCub-Polar"]', class="pet-button Mount_Head_BearCub-Polar", ng-class='{active: user.items.currentMount == "BearCub-Polar"}', ng-click='chooseMount("BearCub", "Polar")', popover=env.t('polarBear'), popover-trigger='mouseenter', popover-placement='bottom')
-              //.Mount_Head_BearCub-Polar
-            button(ng-if='user.items.mounts["LionCub-Ethereal"]', class="pet-button Mount_Head_LionCub-Ethereal", ng-class='{active: user.items.currentMount == "LionCub-Ethereal"}', ng-click='chooseMount("LionCub", "Ethereal")', popover=env.t('etherealLion'), popover-trigger='mouseenter', popover-placement='bottom')
-              //.Mount_Head_LionCub-Ethereal
+            each t,k in env.Content.specialMounts
+              - var animal = k.split('-')[0], color = k.split('-')[1]
+              button(ng-if='user.items.mounts["#{animal}-#{color}"]', class="pet-button Mount_Head_#{animal}-#{color}", ng-class='{active: user.items.currentMount == "#{animal}-#{color}"}', ng-click='chooseMount("#{animal}", "#{color}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
 
 mixin petList(source)
   menu.pets(type='list')
@@ -51,7 +50,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
   .container-fluid
     .stable.row
       .col-md-2
-        .npc_matt
+        div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
@@ -76,13 +75,9 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
         h4=env.t('rarePets')
         menu
           div
-            mixin vetPet(egg,pot,t)
+            each t,k in env.Content.specialPets
+              - var egg = k.split('-')[0], pot = k.split('-')[1]
               button(ng-if='user.items.pets["#{egg}-#{pot}"]', class="pet-button Pet-#{egg}-#{pot}", ng-class='{active: user.items.currentPet == "#{egg}-#{pot}"}', ng-click='choosePet("#{egg}", "#{pot}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
-            +vetPet("Wolf","Veteran","veteranWolf")
-            +vetPet("Wolf","Cerberus","cerberusPup")
-            +vetPet("Turkey","Base","turkey")
-            +vetPet("BearCub","Polar","polarBearPup")
-            +vetPet("Dragon","Hydra","hydra")
             a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
               button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover=env.t('rarePetPop1'), popover-title=env.t('rarePetPop2'))
                 .PixelPaw-Gold

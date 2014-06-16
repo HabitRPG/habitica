@@ -148,6 +148,7 @@ module.exports.locals = function(req, res, next) {
   // Load moment.js language file only when not on static pages
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
+  var tavern = require('./models/group').tavern;
   res.locals.habitrpg = {
     NODE_ENV: nconf.get('NODE_ENV'),
     BASE_URL: nconf.get('BASE_URL'),
@@ -166,7 +167,10 @@ module.exports.locals = function(req, res, next) {
       return shared.i18n.t.apply(null, args);
     },
     siteVersion: siteVersion,
-    Content: shared.content
+    Content: shared.content,
+
+    tavern: tavern, // for world boss
+    worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
   }
 
   next();

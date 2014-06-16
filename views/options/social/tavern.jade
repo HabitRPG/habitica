@@ -7,7 +7,7 @@
       table
         tr
           td
-            .npc_daniel
+            div(class="#{env.worldDmg.tavern ? 'npc_daniel_broken' : 'npc_daniel'}")
           td
             .popover.static-popover.fade.right.in
               .arrow

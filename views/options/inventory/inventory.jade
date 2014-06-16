@@ -82,7 +82,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           table.npc_alex_container
             tr
               td
-                .npc_alex.pull-left
+                .pull-left(class="#{env.worldDmg.market ? 'npc_alex_broken' : 'npc_alex'}")
               td
                 .popover.static-popover.fade.right.in
                   .arrow

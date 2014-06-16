@@ -34,13 +34,13 @@ mixin boss(tavern)
                 | HP
               span.meter-text.value
                 | {{Math.ceil(progress.hp)}} / {{boss.hp}}
-            .meter.mana(ng-if='boss.breaker',popover="Stored energy before this boss unleashes a powerful attack.",popover-title="Breaker",popover-trigger='mouseenter')
-              .bar(style='width: {{Shared.percent(progress.breaker, boss.breaker)}}%;')
+            .meter.mana(ng-if='boss.rage',popover="{{::boss.rage.description()}}",popover-title="{{::boss.rage.title()}}",popover-trigger='mouseenter',popover-placement='right')
+              .bar(style='width: {{Shared.percent(progress.rage, boss.rage.value)}}%;')
               span.meter-text.title
                 span.glyphicon.glyphicon-fire
-                | Breaker
+                | Rage
               span.meter-text.value
-                | {{Math.ceil(progress.breaker)}} / {{boss.breaker}}
+                | {{Math.ceil(progress.rage)}} / {{boss.rage.value}}
         div(ng-if='Content.quests[group.quest.key].collect')
           h4=env.t('collected') + ':'
           table.table.table-striped

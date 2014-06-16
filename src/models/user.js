@@ -204,10 +204,7 @@ var UserSchema = new Schema({
       // Then add quest pets
       _.transform(shared.content.questPets, function(m,v,k){ m[k] = Boolean; }),
       // Then add additional pets (backer, contributor)
-      {
-        'LionCub-Ethereal': Boolean,
-        'BearCub-Polar': Boolean
-      }
+      _.transform(shared.content.specialMounts, function(m,v,k){ m[k] = Boolean; })
     ),
     currentMount: String,
 
