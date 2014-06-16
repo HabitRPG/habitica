@@ -221,47 +221,31 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
   })
 }
 
-// initialize tavernBoss as "not active". We check every 100 crons if there is an active tavern boss. If so,
-// we keep him up as a global variable so we don't have to load him on every cron. Every 100 crons, we'll refresh him
-// to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000}}}})`
-var tavernBoss = null;
-var _refreshTavernBoss = function(){
-  mongoose.model('Group').findById('habitrpg',function(err,tavern){
-    if (err) return logging.error(err);
-    tavernBoss = tavern.quest;
-  });
-};
-var refreshTavernBoss = _.after(100,_refreshTavernBoss);
+// to set a boss: `db.groups.update({_id:'habitrpg'},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,breaker:1500}}}})`
 GroupSchema.statics.tavernBoss = function(user,progress) {
-  refreshTavernBoss();
-  if (tavernBoss) {
-    tavernBoss.progress.hp -= progress.up;
-    tavernBoss.progress.breaker += progress.down;
-    // TODO stats for scene damage (progress.down)
-    if (tavernBoss.progress.hp <= 0) {
-      async.waterfall([
-        function(cb){
-          mongoose.model('Group').findById('habitrpg',cb);
-        }, function(group,cb){
-          var quest = shared.content.quests[group.quest.key];
-          group.sendChat('`Congratulations Habiticans, you have slain ' + quest.boss.name('en') + '! Everyone has received their rewards.`');
-          group.finishQuest(quest,null);
-          group.save(cb);
-        }
-      ],function(err,result){
-        if (err) return logging.error(err);
-        tavernBoss = null;
-      });
-    } else {
-      mongoose.model('Group').update(
-        {_id:'habitrpg'},
-        {$inc:{
-          'quest.progress.hp':-progress.up,
-          'quest.progress.breaker':progress.down
-        }}
-      ).exec();
+  async.waterfall([
+    function(cb){
+      mongoose.model('Group').findById('habitrpg',{quest:1},cb);
+    },
+    function(tavern,cb){
+      if (!tavern.quest || !tavern.quest.key) return cb(true);
+
+      // TODO stats for scene damage (progress.down)
+      if (tavern.quest.progress.hp <= 0) {
+        var quest = shared.content.quests[tavern.quest.key];
+        tavern.sendChat('`Congratulations Habiticans, you have slain ' + quest.boss.name('en') + '! Everyone has received their rewards.`');
+        tavern.finishQuest(quest, null);
+        tavern.save(cb);
+      } else {
+        tavern.quest.progress.hp -= progress.up;
+        tavern.quest.progress.breaker += progress.down;
+        tavern.save(cb);
+      }
     }
-  }
+  ],function(err,res){
+    if (err === true) return; // no current quest
+    if (err) return logging.error(err);
+  })
 }
 
 GroupSchema.statics.bossQuest = function(user, progress, cb) {
@@ -297,5 +281,3 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
 
 module.exports.schema = GroupSchema;
 module.exports.model = mongoose.model("Group", GroupSchema);
-
-_refreshTavernBoss();
