@@ -34,7 +34,7 @@
     "questEggRatText": "Rat",
     "questEggRatAdjective": "sale",
     "questEggOctopusText": "Pieuvre",
-    "questEggOctopusAdjective": "glissant",
+    "questEggOctopusAdjective": "glissante",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "de base",
     "hatchingPotionWhite": "Blanc",

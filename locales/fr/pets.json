@@ -17,7 +17,7 @@
     "potion": "Potion <%= potionType %>",
     "egg": "Œuf de <%= eggType%>",
     "eggs": "Œufs",
-    "eggSingular": "oeuf",
+    "eggSingular": "œuf",
     "noEggs": "Vous n'avez pas d'œuf.",
     "hatchingPotions": "Potions d'éclosion",
     "hatchingPotion": "potion d'éclosion",
