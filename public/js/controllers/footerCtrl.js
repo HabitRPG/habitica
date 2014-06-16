@@ -42,7 +42,7 @@
     /**
      * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
      */
-    if (window.env.NODE_ENV === 'development') {
+    if (_.contains(['development','test'],window.env.NODE_ENV)) {
       $scope.addMissedDay = function(){
         if (!confirm("Are you sure you want to reset the day?")) return;
         var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
