@@ -26,7 +26,7 @@ script(type='text/ng-template', id='modals/member.html')
           include ../profiles/stats
         .col-md-6
           +herobox()
-          h3 Achievements
+          h3=env.t('achievements')
           include ../profiles/achievements
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('ok')
