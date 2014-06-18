@@ -38,7 +38,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))=env.t('showHeader')
             .checkbox
               label
-                input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
+                input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false', ng-disabled="user.preferences.hideHeader!==false")
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))=env.t('stickyHeader')
             .checkbox
               label
