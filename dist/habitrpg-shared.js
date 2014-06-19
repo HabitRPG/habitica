@@ -9217,6 +9217,10 @@ events = {
   spring: {
     start: '2014-03-21',
     end: '2014-05-01'
+  },
+  summer: {
+    start: '2014-06-20',
+    end: '2014-08-01'
   }
 };
 
@@ -9657,6 +9661,49 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSummerRogueText'),
+        notes: t('weaponSpecialSummerRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('weaponSpecialSummerWarriorText'),
+        notes: t('weaponSpecialSummerWarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialSummerMageText'),
+        notes: t('weaponSpecialSummerMageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('weaponSpecialSummerHealerText'),
+        notes: t('weaponSpecialSummerHealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
       }
     }
   },
@@ -9970,6 +10017,46 @@ gear = {
         specialClass: 'healer',
         text: t('armorSpecialSpringHealerText'),
         notes: t('armorSpecialSpringHealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('armorSpecialSummerRogueText'),
+        notes: t('armorSpecialSummerRogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('armorSpecialSummerWarriorText'),
+        notes: t('armorSpecialSummerWarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        text: t('armorSpecialSummerMageText'),
+        notes: t('armorSpecialSummerMageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('armorSpecialSummerHealerText'),
+        notes: t('armorSpecialSummerHealerNotes', {
           con: 15
         }),
         value: 90,
@@ -10311,6 +10398,46 @@ gear = {
         }),
         value: 40,
         int: 7
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('headSpecialSummerRogueText'),
+        notes: t('headSpecialSummerRogueNotes', {
+          per: 9
+        }),
+        value: 40,
+        per: 9
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('headSpecialSummerWarriorText'),
+        notes: t('headSpecialSummerWarriorNotes', {
+          str: 9
+        }),
+        value: 40,
+        str: 9
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        text: t('headSpecialSummerMageText'),
+        notes: t('headSpecialSummerMageNotes', {
+          per: 7
+        }),
+        value: 40,
+        per: 7
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('headSpecialSummerHealerText'),
+        notes: t('headSpecialSummerHealerNotes', {
+          int: 7
+        }),
+        value: 40,
+        int: 7
       }
     },
     mystery: {
@@ -10573,6 +10700,36 @@ gear = {
         }),
         value: 70,
         con: 9
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('shieldSpecialSummerRogueText'),
+        notes: t('shieldSpecialSummerRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('shieldSpecialSummerWarriorText'),
+        notes: t('shieldSpecialSummerWarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('shieldSpecialSummerHealerText'),
+        notes: t('shieldSpecialSummerHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
       }
     }
   },
@@ -10639,6 +10796,20 @@ gear = {
         notes: t('bodySpecialWonderconBlackNotes'),
         value: 0,
         mystery: mystery.wondercon
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('bodySpecialSummerHealerText'),
+        notes: t('bodySpecialSummerHealerNotes'),
+        value: 20
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        text: t('bodySpecialSummerMageText'),
+        notes: t('bodySpecialSummerMageNotes'),
+        value: 20
       }
     }
   },
@@ -10691,6 +10862,20 @@ gear = {
         notes: t('headAccessorySpecialWonderconBlackNotes'),
         value: 0,
         mystery: mystery.wondercon
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('headAccessorySpecialSummerRogueText'),
+        notes: t('headAccessorySpecialSummerRogueNotes'),
+        value: 20
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('headAccessorySpecialSummerWarriorText'),
+        notes: t('headAccessorySpecialSummerWarriorNotes'),
+        value: 20
       }
     },
     mystery: {
