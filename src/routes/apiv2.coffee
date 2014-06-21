@@ -162,7 +162,7 @@ module.exports = (swagger, v2) ->
         description: "Sell inventory items back to Alexander"
         parameters: [
           #TODO verify these are the correct types
-          path('type',"The type of object you're selling back.",'string',['gear','eggs','hatchingPotions','food'])
+          path('type',"The type of object you're selling back.",'string',['eggs','hatchingPotions','food'])
           path('key',"The object key you're selling back (call /content route for available keys)",'string')
         ]
       action: user.sell
@@ -172,7 +172,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Purchase a gem-purchaseable item from Alexander"
         parameters:[
-          path('type',"The type of object you're purchasing.",'string',['gear','eggs','hatchingPotions','food'])
+          path('type',"The type of object you're purchasing.",'string',['eggs','hatchingPotions','food','quests','special'])
           path('key',"The object key you're purchasing (call /content route for available keys)",'string')
         ]
       action: user.purchase
@@ -191,7 +191,7 @@ module.exports = (swagger, v2) ->
     "/user/inventory/equip/{type}/{key}":
       spec:
         method: 'POST'
-        description: "Equip an item (either pets, mounts, or gear)"
+        description: "Equip an item (either pet, mount, equipped or costume)"
         parameters: [
           path 'type',"Type to equip",'string',['pet','mount','equipped', 'costume']
           path 'key',"The object key you're equipping (call /content route for available keys)",'string'
@@ -372,7 +372,7 @@ module.exports = (swagger, v2) ->
     "/groups/{gid}:GET":
       spec:
         path: '/groups/{gid}'
-        description: "Get a group"
+        description: "Get a group. The party the user currently is in can be accessed with the gid 'party'."
         parameters: [path('gid','Group ID','string')]
       middleware: [auth.auth, i18n.getUserLanguage]
       action: groups.get
