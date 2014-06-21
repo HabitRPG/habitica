@@ -1,0 +1,20 @@
+block vars
+doctype 5
+html(ng-app='habitrpgStatic')
+
+  head
+    block title
+      title=env.t('newStuff')
+
+    script(type='text/javascript').
+      window.env = !{JSON.stringify(env)};
+
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=3')
+
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    != env.getManifestFiles("static")
+
+  body
+    include ../shared/new-stuff
