@@ -499,7 +499,10 @@ describe 'Cron', ->
       task due days, user custom day start, timezoneOffset, etc - then runs cron, jumps to tomorrow and runs cron,
       and so on - testing each possible outcome along the way
       ###
-
+      
+      # this is hacky but should fix things for the moment
+      user.flags.freeRebirth = true
+      
       runCron = (options) ->
         _.each [480, 240, 0, -120], (timezoneOffset) -> # test different timezones
           now = shared.startOfWeek({timezoneOffset}).add('hours', options.currentHour||0)
