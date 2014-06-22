@@ -893,6 +893,7 @@ api.wrap = (user, main=true) ->
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
               mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
+              mpDelta *= user._tmp.crit or 1
               mpDelta *= -1 if direction is 'down'  # unticking a todo
               user.stats.mp += mpDelta
               user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
