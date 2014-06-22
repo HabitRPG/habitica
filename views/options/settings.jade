@@ -34,7 +34,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
             .checkbox
               label
-                input(type='checkbox', ng-click='hideHeader()', ng-checked='user.preferences.hideHeader!==true')
+                input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))=env.t('showHeader')
             .checkbox
               label
