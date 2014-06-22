@@ -11,20 +11,12 @@
               h3.popover-title
                 a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
               .popover-content
-           p
-             =env.t('danielTavern1') + ' '
-             | <a target='_blank' href='https://habitrpg.com/#/options/groups/guilds/426c2c1a-eed0-4997-9b73-d30fc1397688'>
-             =env.t('danielTavern2')
-             | </a>
-             = ' ' + env.t('danielTavern3')
-             | <a target='_blank' href='https://github.com/HabitRPG/habitrpg/issues?state=open'>
-             =env.t('danielTavern4')
-             | </a>
-            = ' ' + env.t('danielTavern5')
+               =env.t('danielText')
                 div
                   button.btn.btn-lg.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
                     span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
                     span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
+                =env.t('danielText2')
       .alert.alert-info(ng-show='user.preferences.sleep')
         =env.t('innText')
 
