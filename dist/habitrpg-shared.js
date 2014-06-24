@@ -9241,6 +9241,10 @@ mystery = {
     start: '2014-05-21',
     end: '2014-06-01'
   },
+  201406: {
+    start: '2014-06-23',
+    end: '2014-07-01'
+  },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
@@ -9570,9 +9574,7 @@ gear = {
       },
       yeti: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'warrior';
-        }),
+        specialClass: 'warrior',
         text: t('weaponSpecialYetiText'),
         notes: t('weaponSpecialYetiNotes', {
           str: 15
@@ -9582,9 +9584,7 @@ gear = {
       },
       ski: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'rogue';
-        }),
+        specialClass: 'rogue',
         text: t('weaponSpecialSkiText'),
         notes: t('weaponSpecialSkiNotes', {
           str: 8
@@ -9594,9 +9594,7 @@ gear = {
       },
       candycane: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'wizard';
-        }),
+        specialClass: 'wizard',
         twoHanded: true,
         text: t('weaponSpecialCandycaneText'),
         notes: t('weaponSpecialCandycaneNotes', {
@@ -9609,9 +9607,7 @@ gear = {
       },
       snowflake: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'healer';
-        }),
+        specialClass: 'healer',
         text: t('weaponSpecialSnowflakeText'),
         notes: t('weaponSpecialSnowflakeNotes', {
           int: 9
@@ -9930,9 +9926,7 @@ gear = {
       },
       yeti: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'warrior';
-        }),
+        specialClass: 'warrior',
         text: t('armorSpecialYetiText'),
         notes: t('armorSpecialYetiNotes', {
           con: 9
@@ -9942,9 +9936,7 @@ gear = {
       },
       ski: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'rogue';
-        }),
+        specialClass: 'rogue',
         text: t('armorSpecialSkiText'),
         notes: t('armorSpecialSkiText', {
           per: 15
@@ -9954,9 +9946,7 @@ gear = {
       },
       candycane: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'wizard';
-        }),
+        specialClass: 'wizard',
         text: t('armorSpecialCandycaneText'),
         notes: t('armorSpecialCandycaneNotes', {
           int: 9
@@ -9966,9 +9956,7 @@ gear = {
       },
       snowflake: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'healer';
-        }),
+        specialClass: 'healer',
         text: t('armorSpecialSnowflakeText'),
         notes: t('armorSpecialSnowflakeNotes', {
           con: 15
@@ -10080,6 +10068,12 @@ gear = {
         text: t('armorMystery201405Text'),
         notes: t('armorMystery201405Notes'),
         mystery: mystery['201405'],
+        value: 0
+      },
+      201406: {
+        text: t('armorMystery201406Text'),
+        notes: t('armorMystery201406Notes'),
+        mystery: mystery['201406'],
         value: 0
       }
     }
@@ -10313,9 +10307,7 @@ gear = {
       },
       yeti: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'warrior';
-        }),
+        specialClass: 'warrior',
         text: t('headSpecialYetiText'),
         notes: t('headSpecialYetiNotes', {
           str: 9
@@ -10325,9 +10317,7 @@ gear = {
       },
       ski: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'rogue';
-        }),
+        specialClass: 'rogue',
         text: t('headSpecialSkiText'),
         notes: t('headSpecialSkiNotes', {
           per: 9
@@ -10337,9 +10327,7 @@ gear = {
       },
       candycane: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'wizard';
-        }),
+        specialClass: 'wizard',
         text: t('headSpecialCandycaneText'),
         notes: t('headSpecialCandycaneNotes', {
           per: 7
@@ -10349,9 +10337,7 @@ gear = {
       },
       snowflake: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'healer';
-        }),
+        specialClass: 'healer',
         text: t('headSpecialSnowflakeText'),
         notes: t('headSpecialSnowflakeNotes', {
           int: 7
@@ -10451,6 +10437,12 @@ gear = {
         text: t('headMystery201405Text'),
         notes: t('headMystery201405Notes'),
         mystery: mystery['201405'],
+        value: 0
+      },
+      201406: {
+        text: t('headMystery201406Text'),
+        notes: t('headMystery201406Notes'),
+        mystery: mystery['201406'],
         value: 0
       }
     }
@@ -10637,9 +10629,7 @@ gear = {
       },
       yeti: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'warrior';
-        }),
+        specialClass: 'warrior',
         text: t('shieldSpecialYetiText'),
         notes: t('shieldSpecialYetiNotes', {
           con: 7
@@ -10649,9 +10639,7 @@ gear = {
       },
       ski: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'rogue';
-        }),
+        specialClass: 'rogue',
         text: t('weaponSpecialSkiText'),
         notes: t('weaponSpecialSkiNotes', {
           str: 8
@@ -10661,9 +10649,7 @@ gear = {
       },
       snowflake: {
         event: events.winter,
-        canOwn: (function(u) {
-          return u.stats["class"] === 'healer';
-        }),
+        specialClass: 'healer',
         text: t('shieldSpecialSnowflakeText'),
         notes: t('shieldSpecialSnowflakeNotes', {
           con: 9
