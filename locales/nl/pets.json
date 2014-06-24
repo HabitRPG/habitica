@@ -27,7 +27,7 @@
     "noFood": "Je hebt geen voedsel of zadels.",
     "beastAchievement": "Je hebt de \"Dieren Meester\" Prestatie verdiend voor het verzamelen van alle dieren!",
     "beastMastName": "Dieren Meester",
-    "beastMastText": "Heeft alle 90 dieren gevonden (ontzettend moeilijk, geef deze gebruiker respect!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Vondsten Vrijgespeeld!",
     "itemDrop": "Je hebt iets gevonden!",
     "firstDrop": "Je hebt het Vondsten Systeem vrijgespeeld! Als je nu een taak volbrengt, heb je een kleine kans om een voorwerp te vinden. Je vond net een <strong><%= eggText %> Ei</strong>! <%= eggNotes %>",

@@ -27,7 +27,7 @@
     "noFood": "Nemáš žiadne krmivo ani sedlá.",
     "beastAchievement": "Za zozbieranie všetkých zvieratiek si získal odznak \"Pán šeliem\"!",
     "beastMastName": "Pán šeliem",
-    "beastMastText": "Našiel všetkých 90 zvieratiek (šialene náročné, zaslúži si potlesk!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Padanie predmetov povolené!",
     "itemDrop": "Vypadol predmet!",
     "firstDrop": "Odomkol si padanie predmetov! Odteraz, keď dokončíš úlohu, máš malú šancu na nájdenie predmetu. Práve si našiel vajíčko, z ktorého sa môže vyliahnuť <strong><%= eggText %> </strong>! <%= eggNotes %>",

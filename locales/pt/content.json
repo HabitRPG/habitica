@@ -33,7 +33,7 @@
     "questEggEggAdjective": "colorido",
     "questEggRatText": "Rato",
     "questEggRatAdjective": "sujo",
-    "questEggOctopusText": "Octopus",
+    "questEggOctopusText": "Polvo",
     "questEggOctopusAdjective": "escorregadiu",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",

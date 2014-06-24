@@ -27,7 +27,7 @@
     "noFood": "Du har inte någon mat eller några sadlar.",
     "beastAchievement": "Du har förtjänat bedriften \"Djurmästare\" genom att ha samlat alla husdjur!",
     "beastMastName": "Djurmästare",
-    "beastMastText": "Har hittat alla 90 husdjur (vansinnigt svårt, ge denna användare stora applåder!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Dropsystem Aktiverat!",
     "itemDrop": "Ett föremål har droppat!",
     "firstDrop": "Du har låst upp dropsystemet! Nu när du fullbordar uppgifter har du en liten chans att hitta ett föremål. Du hittade nyss ett <strong><%= eggText %> Ägg</strong>! <%= eggNotes %>",

@@ -27,7 +27,7 @@
     "noFood": "Non hai cibo o selle.",
     "beastAchievement": "Hai ottenuto il trofeo \"Re delle Bestie\" per aver collezionato tutti gli animali!",
     "beastMastName": "Re delle Bestie",
-    "beastMastText": "Ha trovato tutti i 90 animali (incredibilmente difficile, fate i complimenti a questo utente!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Sistema di drop attivo!",
     "itemDrop": "Hai trovato un oggetto!",
     "firstDrop": "Hai appena sbloccato il sistema di drop! Ora quando completi un'attività, hai una piccola probabilità di trovare un oggetto casuale. Hai appena trovato un <strong><%= eggText %> Uovo</strong>! <%= eggNotes %>",

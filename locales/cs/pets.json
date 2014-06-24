@@ -27,7 +27,7 @@
     "noFood": "Nemáš žádné jídlo ani žádná sedla.",
     "beastAchievement": "Získal jsi ocenění \"Pán šelem\" za získání všech mazlíčků!",
     "beastMastName": "Pán šelem",
-    "beastMastText": "Nalezl všech 90 mazlíčků (šíleně obtížné, zaslouží si uznání!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Nalézání přemětů povoleno",
     "itemDrop": "Nalezen předmět",
     "firstDrop": "Odemknuto nalézání předmětů! Od teď máš malou šanci nalézt předmět při dokončení úkolů. Právě nalezeno <strong> vejce zvířátka <%= eggText %></strong>! <%= eggNotes %>",

@@ -27,7 +27,7 @@
     "noFood": "No tienes comida ni sillas de montar",
     "beastAchievement": "¡Has ganado el logro \"Maestro de Bestias\" por conseguir todas las mascotas!",
     "beastMastName": "Maestro de Bestias",
-    "beastMastText": "Ha recogido las 90 mascotas (increíblemente difícil, ¡darle la enhorabuena a este usuario!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "¡Botín Activado!",
     "itemDrop": "¡Un objeto ha caído!",
     "firstDrop": "¡Has desbloqueado el Sistema de Botín! Ahora, cuando realizas tareas, tendrás una pequeña probabilidad de encontrar un objeto. Has encontrado un <strong><%= eggText %> Huevo</strong>! <%= eggNotes %>",

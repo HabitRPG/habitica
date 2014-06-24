@@ -2,7 +2,7 @@
     "tavern": "Taverne",
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
-    "innText": "Pendant que vous vous reposez, vos tâches quotidiennes sont bloquées et ne sont pas affectées par les changements de jour. Que vous sortiez demain ou au bout d'une semaine, vous repartirez dans le même état que quand vous êtes arrivé·e. En revanche, faites attention : si vous êtes en train d'accomplir une Quête, les Boss continueront à vous punir pour les erreurs de vos coéquipiers !",
+    "innText": "How's your stay in the Inn? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",

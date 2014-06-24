@@ -27,7 +27,7 @@
     "noFood": "Nu ai deloc mâncare sau şei",
     "beastAchievement": "Ai primit medalia de \"Stăpânul fiarelor\" pentru că ai strâns toţi companionii!",
     "beastMastName": "Stăpânul fiarelor",
-    "beastMastText": "A găsit toţi cei 90 de companioni (extraordinar de greu, arată-i respect!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Câştiguri activate!",
     "itemDrop": "Ai câştigat ceva!",
     "firstDrop": "Ai deblocat sistemul de câştiguri! Acum când îndeplinești un țel ai o mică şansă de a găsi un obiect. Chiar acum ai găsit un <strong><%= eggText %> Ou</strong>! <%= eggNotes %>",

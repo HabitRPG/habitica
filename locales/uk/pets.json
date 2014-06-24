@@ -27,7 +27,7 @@
     "noFood": "У Вас немає жодної їжі чи сідла.",
     "beastAchievement": "Ви здобули досягнення „Звіролов“ за збір усіх улюбленців!",
     "beastMastName": "Звіролов",
-    "beastMastText": "Знайшов усіх 90 улюбленців (це, збіса, важко, похваліть цього гравця!)",
+    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "dropsEnabled": "Випадають предмети, ага!",
     "itemDrop": "Вам випав предмет!",
     "firstDrop": "Ви розблокували випадання предметів! Тепер, закінчивши завдання, Ви маєте крихітний шанс знайти предмет. Ви щойно знайшли <strong><%= eggText %> яйце</strong>! <%= eggNotes %>",
