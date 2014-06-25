@@ -14,21 +14,21 @@
 if mobile
   .item.item-divider=env.t('achievements')
 
-div(ng-if='profile.backer.npc')
+div(ng-if='::profile.backer.npc')
   .achievement.achievement-helm
   h5
     span.label.label-npc
-      | {{profile.backer.npc}} 
+      | {{::profile.backer.npc}}
       =env.t('npc')
   small=env.t('npcText')
   hr
 
-div(ng-if='profile.contributor.level || user._id == profile._id')
-  .achievement.achievement-firefox(ng-if='profile.contributor.level')
-  div(ng-class='{muted: !profile.contributor.level}')
+div(ng-if='::profile.contributor.level || user._id == profile._id')
+  .achievement.achievement-firefox(ng-if='::profile.contributor.level')
+  div(ng-class='::{muted: !profile.contributor.level}')
     h5
-      span.label.label-default(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
-      span.label.label-default(ng-if='!profile.contributor.level')=env.t('contribName')
+      span.label.label-default(ng-if='::profile.contributor.level', class='label-contributor-{{::profile.contributor.level}}') {{::contribText(profile.contributor, profile.backer)}}
+      span.label.label-default(ng-if='::!profile.contributor.level')=env.t('contribName')
     small
       =env.t('contribText')
       |&nbsp;
@@ -36,9 +36,9 @@ div(ng-if='profile.contributor.level || user._id == profile._id')
       | .
   hr
 
-div(ng-if='profile.backer.tier')
+div(ng-if='::profile.backer.tier')
   .achievement.achievement-heart
-  h5=env.t('kickstartName', {tier: "{{profile.backer.tier}}"})
+  h5=env.t('kickstartName', {tier: "{{::profile.backer.tier}}"})
   small=env.t('kickstartText')
   hr
 
@@ -72,7 +72,7 @@ div(ng-if='profile.achievements.perfect || user._id == profile._id')
     small=env.t('ultimGearText')
   hr
 // Remove the following when ultimate gear is fixed (https://github.com/HabitRPG/habitrpg/issues/2232):
-div(ng-if='user._id == profile._id')
+div(ng-if='::user._id == profile._id')
   div.muted
     h5=env.t('ultimGearName')
     small <a href='https://github.com/HabitRPG/habitrpg/issues/2232' target='_blank'>Returning soon</a>
@@ -95,7 +95,7 @@ div(ng-if='profile.achievements.rebirths')
     |&nbsp;{{profile.achievements.rebirthLevel}}.
   hr
 
-div(ng-if='profile.achievements.helpedHabit')
+div(ng-if='::profile.achievements.helpedHabit')
   .achievement.achievement-tree
   h5=env.t('helped')
   small
@@ -104,12 +104,12 @@ div(ng-if='profile.achievements.helpedHabit')
     a(href='http://community.habitrpg.com/node/290', target='_blank')=env.t('helpedText2')
   hr
 
-div(ng-if='profile.achievements.originalUser || profile.achievements.veteran')
+div(ng-if=':: profile.achievements.originalUser || profile.achievements.veteran')
   .achievement.achievement-cake
-  div(ng-if='profile.achievements.veteran')
+  div(ng-if='::profile.achievements.veteran')
     h5=env.t('veteran')
     small=env.t('veteranText')
-  div(ng-if='profile.achievements.originalUser')
+  div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
     small!=env.t('originalUserText')
   hr
@@ -121,7 +121,7 @@ div(ng-if='profile.achievements.challenges || user._id == profile._id')
     h5=env.t('challengeWinner')
     table.table.table-striped
       tr(ng-repeat='chal in profile.achievements.challenges')
-        td {{chal}}
+        td {{::chal}}
   hr
 
 div(ng-if='profile.achievements.quests || user._id == profile._id')
@@ -130,7 +130,7 @@ div(ng-if='profile.achievements.quests || user._id == profile._id')
     h5=env.t('completedQuests')
     table.table.table-striped
       tr(ng-repeat='(k,v) in profile.achievements.quests')
-        td {{Content.quests[k].text()}}
+        td {{::Content.quests[k].text()}}
         td x{{v}}
   hr
 
@@ -141,16 +141,16 @@ div(ng-if='profile.achievements.snowball')
     =env.t('annoyingFriendsText', {snowballs: "{{profile.achievements.snowball}}"})
   hr
 
-div(ng-if='profile.achievements.habitBirthday')
+div(ng-if='::profile.achievements.habitBirthday')
   .achievement.achievement-habitBirthday
   h5=env.t('habitBirthday')
   small
     =env.t('habitBirthdayText')
   hr
 
-div(ng-if='profile.achievements.valentine')
+div(ng-if='::profile.achievements.valentine')
   .achievement.achievement-valentine
   h5=env.t('adoringFriends')
   small
-    =env.t('adoringFriendsText', {cards: "{{profile.achievements.valentine}}"})
+    =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
   hr
