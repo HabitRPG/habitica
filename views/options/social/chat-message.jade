@@ -1,8 +1,9 @@
-li.chat-message(ng-repeat='message in group.chat', ng-class=':: {highlight: isUserMentioned(user,message), "own-message": user._id == message.uuid}')
-  div(class='scrollable-message')
-    a.label.label-default.chat-message(class='hidden-label')
-      span {{::message.user}}
-    | &nbsp;
+li.chat-message(ng-repeat='message in group.chat', ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}')
+  .scrollable-message
+    span(ng-if='::message.uuid!="system"')
+      a.label.label-default.chat-message.hidden-label
+        span {{::message.user}}
+      | &nbsp;
     markdown(ng-model='::message.text')
     | -
     span.muted.time(from-now='::message.timestamp')

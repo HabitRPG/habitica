@@ -231,6 +231,7 @@ process.nextTick(function(){
   });
 })
 GroupSchema.statics.tavernBoss = function(user,progress) {
+  if (!progress) return;
   async.waterfall([
     function(cb){
       mongoose.model('Group').findOne(tavernQ,cb);
@@ -241,10 +242,10 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
-        tavern.sendChat('`Congratulations Habiticans, you have slain ' + quest.boss.name('en') + '! Everyone has received their rewards.`');
+        tavern.sendChat(quest.completion('en'));
         tavern.finishQuest(quest, function(){});
         tavern.save(cb);
-        tavern = undefined;
+        module.exports.tavern = undefined;
       } else {
         // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
         // use those first - which allows us to update the boss on the go if things are too easy/hard.
@@ -259,7 +260,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
             tavern.sendChat('`'+quest.boss.name('en')+' tries to unleash '+quest.boss.rage.title('en')+', but is too tired.`');
             tavern.quest.progress.rage = 0 //quest.boss.rage.value;
           } else {
-            tavern.sendChat('`'+quest.boss.rage.title('en')+' unleashed! '+quest.boss.name('en')+' has destroyed the '+scene+'!`');
+            tavern.sendChat(quest.boss.rage[scene]('en'));
             tavern.quest.extra.worldDmg[scene] = true;
             tavern.markModified('quest.extra.worldDmg');
             tavern.quest.progress.rage = 0;
