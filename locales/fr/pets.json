@@ -27,7 +27,7 @@
     "noFood": "Vous n'avez ni nourriture ni selle.",
     "beastAchievement": "Vous avez remporté le succès \"Maître des Bêtes\" pour avoir collectionné tout les familiers !",
     "beastMastName": "Maître des Bêtes",
-    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMastText": "A trouvé les 90 familiers (extrêmement difficile, félicitez cet utilisateur !)",
     "dropsEnabled": "Butins activés !",
     "itemDrop": "Vous avez trouvé un objet !",
     "firstDrop": "Vous avez débloqué le système de Butins ! À présent lorsque vous complétez des tâches, vous avez une petite chance de trouver un objet. Vous venez juste de trouver un <strong>Œuf <%= eggText %></strong> ! <%= eggNotes %>",

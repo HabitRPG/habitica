@@ -27,7 +27,7 @@
     "noFood": "אין לך אוכל או אוכפים",
     "beastAchievement": "הרווחת את הישג \"אדון החיות\" על איסוף כל חיות המחמד!",
     "beastMastName": "אדון חיות",
-    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMastText": "מצא/ה את כל 90 חיות המחמד הבסיסיות (משימה קשה להחריד! תנו לו/ה בכפיים!)",
     "dropsEnabled": "ניתן לבזוז!",
     "itemDrop": "יש לך דבר חדש!",
     "firstDrop": "הרווחת את מערכת הביזה! מעתה, בכל פעם שתשלים משימה, יהיה לך סיכוי קטן למצוא חפץ בעל ערך. הרגע מצאת <strong><%= eggText %> ביצה</strong>! <%= eggNotes %>",

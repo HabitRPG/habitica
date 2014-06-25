@@ -27,7 +27,7 @@
     "noFood": "Du hast im Moment weder Futter noch magische Sättel.",
     "beastAchievement": "Du hast den \"Meister aller Bestien\" Erfolg dafür erhalten, dass Du alle Haustiere gesammelt hast!",
     "beastMastName": "Meister aller Bestien",
-    "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMastText": "Hat alle 90 Haustiere gesammelt (unglaublich schwer, dieser Spieler verdient Respekt!)",
     "dropsEnabled": "Beutesystem Aktiviert!",
     "itemDrop": "Du hast einen Gegenstand gefunden!",
     "firstDrop": "Du hast das Beute-System freigeschaltet! Wenn Du von jetzt an Aufgaben erfüllst, hast Du eine kleine Chance einen Gegenstand zu finden. Du hast gerade ein <strong><%= eggText %> Ei</strong>! <%= eggNotes %> gefunden",
