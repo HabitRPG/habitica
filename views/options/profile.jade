@@ -173,21 +173,22 @@ mixin profileStats
                       &nbsp;
                       =env.t('distributePoints')
             tr
-              td= env.t('allocateCon') + ' {{user.stats.con}}'
+              td= env.t('allocateStr') + ' {{user.stats.str}}'
               td
-                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateConPop')) +
-             tr
+                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateStrPop')) +
+            tr
               td= env.t('allocateInt') + ' {{user.stats.int}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateIntPop')) +
             tr
+              td= env.t('allocateCon') + ' {{user.stats.con}}'
+              td
+                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateConPop')) +
+            tr
               td= env.t('allocatePer') + ' {{user.stats.per}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatePerPop')) +
-            tr
-              td= env.t('allocateStr') + ' {{user.stats.str}}'
-              td
-                a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateStrPop')) +
+            
            
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
         include ../shared/profiles/achievements
