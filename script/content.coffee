@@ -704,7 +704,7 @@ api.quests =
   dilatory:
     text: t("questDilatoryText")
     notes: t("questDilatoryNotes")
-    #completion: t("questDilatoryCompletion")
+    completion: t("questDilatoryCompletion")
     value: 0
     canBuy: false
     boss:
@@ -716,6 +716,11 @@ api.quests =
         title: t("questDilatoryBossRageTitle")
         description: t("questDilatoryBossRageDescription")
         value: 1000
+
+        # special, they won't always look like this
+        tavern:t('questDilatoryBossRageTavern')
+        stables:t('questDilatoryBossRageStables')
+        market:t('questDilatoryBossRageMarket')
     drop:
       items: [
         {type: 'pets', key: 'MantisShrimp-Base', text: t('questDilatoryDropMantisShrimpPet')}
