@@ -17,6 +17,7 @@
     "collected": "Recogido",
     "bossDmg1": "Para hacer daño al jefe, complete sus tareas diarias y pendientes. Entre más alto el daño a una tarea, más daño ocasionado al jefe (completando rojas, hechizos del Mago, ataques del Guerrero, etc.). El jefe dañará al grupo por cada tarea diario que olvides (multiplicada por la Fuerza del jefe) además de su daño regular, así que debes mantener a tu grupo sano, ¡completando tus tareas diarias!<strong>Todo el daño hacia y desde el jefe será contabilizado al final del día (según tu configuración)</strong>",
     "bossDmg2": "Solo los participantes pelearan contra el jefe y compartiran el botín de la misión.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Para conseguir objetos de misión, haz tus tareas. Los objetos de misión aparecen como los demás; sin embargo, no los verás hasta el día siguiente, en ese momento todo lo que hayais encontrado se pondrá en común.",
     "bossColl2": "Solo los participantes pueden coger objetos y su parte del botín de la misión.",
     "abort": "Abandonar",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "¡Necesitas ser nivel <%= level %> para comprar esta misión!",
     "sureAbort": "¿Estás seguro que quieres abandonar esta misión? Se terminará para todo el grupo y se perderá todo el progreso.",
     "doubleSureAbort": "¿Estás totalmente seguro? ¡Asegurate de que no te vayan a odiar para siempre!",
-    "questWarning": "Recordatorio: solo los miembros actuales del grupo serán invitados. Una vez enviada la invitación, los nuevos miembros del grupo ¡no podrán unirse a la misión!"
+    "questWarning": "Recordatorio: solo los miembros actuales del grupo serán invitados. Una vez enviada la invitación, los nuevos miembros del grupo ¡no podrán unirse a la misión!",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }

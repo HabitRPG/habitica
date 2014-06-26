@@ -17,6 +17,7 @@
     "collected": "Collezionati",
     "bossDmg1": "Per ferire un boss, completa le tue Daily e i tuoi To-Do. Maggiore è il valore dell'attività, maggiore sarà il danno inflitto al boss (attività di colore rosso, gli incantesimi dei Maghi, gli attacchi dei Guerrieri, ecc.). Il boss infliggerà un danno alla tua squadra per ogni Daily incompleta (moltiplicato per la Forza del boss), quindi aiuta i tuoi amici completando le tue Daily! <strong>Tutto il danno inflitto e ricevuto da un boss viene calcolato al cambio di giorno (che avviene all'ora da te scelta nelle impostazioni).</strong>",
     "bossDmg2": "Solo i partecipanti potranno combattere il boss e condividere il bottino della missione.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Per ottenere gli oggetti, completa delle attività positive. Gli oggetti delle missioni compaiono come quelli normali; non li vedrai però fino al giorno dopo, quando tutto quello che hai trovato verrà raccolto e aggiunto agli oggetti già trovati.",
     "bossColl2": "Solo i partecipanti potranno collezionare gli oggetti e condividere il bottino della missione.",
     "abort": "Annulla",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "Devi essere almeno di livello <%= level %> per comprare questa missione!",
     "sureAbort": "Vuoi davvero annullare la missione? Verrà annullata per tutti i membri della squadra e tutti i progressi andranno persi.",
     "doubleSureAbort": "Sei veramente sicuro? Assicurati che non ti odieranno per sempre!",
-    "questWarning": "Ricorda: solo chi è attualmente parte della squadra sarà invitato. Una volta che l'invito è stato spedito, nessun nuovo membro potrà partecipare alla missione!"
+    "questWarning": "Ricorda: solo chi è attualmente parte della squadra sarà invitato. Una volta che l'invito è stato spedito, nessun nuovo membro potrà partecipare alla missione!",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }

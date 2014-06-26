@@ -17,6 +17,7 @@
     "collected": "Adunate",
     "bossDmg1": "Pentru a răni un monstru, îndeplinește-ți Cotidienele și Sarcinile. Cu cât faci daune mai mari țelurilor cu atât vei vătăma mai mult monstrul (îndeplinirea sarcinilor roșii, vrăjile de Mag, atacurile de Războinic etc.) Monstrul va vătăma echipa pentru fiecare Cotidiană pe care o ratezi (înmulțită cu Forța monstrului) în plus față de vătămarea normală, așa că ai grijă de sănătatea echipei tale îndeplinindu-ți sarcinile! <strong>Toate vătămările de la și către monstru sunt contorizate zilnic (la sfârșitul zilei tale).</strong>",
     "bossDmg2": "Doar participanții se vor lupta cu monstrul și vor împărți prada aventurii.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Pentru a aduna obiecte, îndeplinește țeluri pozitive. Obiectele specifice aventurii apar la fel ca obiectele obișnuite; totuși, nu le vei vedea decât a doua zi, atunci tot ce vei fi adunat va fi socotit și adăugat grămezii.",
     "bossColl2": "Doar participanții pot aduna obiecte și împărți prada aventurii.",
     "abort": "Abandon",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "Trebuie să ai nivelul <%= level %> ca să cumperi această aventură!",
     "sureAbort": "Sigur vrei să abandonezi misiunea aceasta? Ea va fi abandonată de către toți coechipierii tăi, tot avansul va fi pierdut.",
     "doubleSureAbort": "Eşti sigur sigur ? Asigură-te că nu te vor urî pentru totdeauna!",
-    "questWarning": "Reține: doar membrii actuali ai echipei vor fi invitați. Odată ce invitația a fost trimisă, niciun membru nou intrat în echipă nu se va mai putea alătura aventurii!"
+    "questWarning": "Reține: doar membrii actuali ai echipei vor fi invitați. Odată ce invitația a fost trimisă, niciun membru nou intrat în echipă nu se va mai putea alătura aventurii!",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }

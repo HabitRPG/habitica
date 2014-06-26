@@ -17,6 +17,7 @@
     "collected": "Získáno",
     "bossDmg1": "Abys zranil bosse, plň své Denní úkoly a úkoly v Úkolníčku. Více bodů získaných za úkol znamená větší zranění bosse (plnění červených úkolů, kouzla Mága, útoky Válečníka, atd.). Boss  zraní družinu za každý nesplněný Denní úkol (újma je násobena jeho Silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění bossovi i vám se přičítají na kronu (na konci dne).</strong>",
     "bossDmg2": "Jen ti, kteří přijmou pozvání, budou bojovat proti bossovi a rozdělí si odměnu za výpravu.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Pro získání předmětů plň své pozitivní úkoly. Předměty z výpravy budeš nacházet stejně jako normální předměty, uvidíš je však až další den, kdy se vše, co jste našli, shromáždí a přidá na hromadu.",
     "bossColl2": "Jen ti, kteří přijmou pozvání, mohou sbírat předměty a rozdělit si odměnu za výpravu.",
     "abort": "Ukončit",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "Aby sis mohl koupit tuto výpravu, musíš být na úrovni <%= level %> ! ",
     "sureAbort": "Jsi si jist, že chceš zrušit misi? Zruší se pro všechny v družině a veškerý pokrok bude ztracen.",
     "doubleSureAbort": "Jsi si určitě jistý? Ujisti se, že tě pak ostatní nebudou do smrti nenávidět!",
-    "questWarning": "Nezapomeň: přizváni budou jen aktuální členové družiny. Jakmile jsou pozvánky rozeslány, žádní noví členové družiny se připojit nemohou!"
+    "questWarning": "Nezapomeň: přizváni budou jen aktuální členové družiny. Jakmile jsou pozvánky rozeslány, žádní noví členové družiny se připojit nemohou!",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }

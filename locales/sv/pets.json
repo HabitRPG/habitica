@@ -12,6 +12,7 @@
     "veteranWolf": "Veteranvarg",
     "cerberusPup": "Cerberusvalp",
     "hydra": "Hydra",
+    "mantisShrimp": "Mantis Shrimp",
     "rarePetPop1": "Tryck på den gyllene tassen för att lära dig mer om hur du kan erhålla detta sällsynta husdjur genom att bidra till HabitRPG.",
     "rarePetPop2": "Hur du får detta husdjur!",
     "potion": "<%= potionType %> Potion",

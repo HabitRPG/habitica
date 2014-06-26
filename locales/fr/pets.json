@@ -12,6 +12,7 @@
     "veteranWolf": "Loup de Vétéran",
     "cerberusPup": "Chiot Cerbère",
     "hydra": "Hydre",
+    "mantisShrimp": "Mantis Shrimp",
     "rarePetPop1": "Cliquez sur l'empreinte dorée pour savoir comment obtenir cet animal rare en contribuant à HabitRPG !",
     "rarePetPop2": "Comment obtenir ce Familier !",
     "potion": "Potion <%= potionType %>",

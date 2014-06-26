@@ -17,6 +17,7 @@
     "collected": "Récolté",
     "bossDmg1": "Pour blesser un boss, complétez vos tâches Quotidiennes et À faire. Plus la tâche aura un niveau élevé, plus elle blessera le boss (compléter les tâches rouges, lancer des sorts de Sorcier, des attaques de Guerrier, etc). Le boss causera des dommages à votre équipe pour chaque tâche Quotidienne que vous aurez manquée (multiplié par la Force du boss) en plus des dommages normaux, alors protégez vos amis en complétant vos tâches Quotidiennes ! <strong>Tous les dommages causés par vous et par le boss sont pris en compte par le cron (à la réinitialisation de votre journée).</strong>",
     "bossDmg2": "Seuls les participants pourront combattre le boss et partager le butin de la quête.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Pour obtenir des objets, accomplissez vos tâches positives. Vous trouvez les objets de quêtes de la même façon que vous trouvez les objets normaux mais vous ne les verrez que le jour suivant. À ce moment, tous les objets de quêtes que vous aurez trouvés seront comptabilisés et s'ajouteront à la pile.",
     "bossColl2": "Seuls les participants peuvent collecter des objets et partager le butin de la quête.",
     "abort": "Abandonner",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "Vous devez être au niveau <%= level %> pour acheter cette quête !",
     "sureAbort": "Vous êtes sûr(e) de vouloir annuler cette mission ? Elle sera annulée pour toute votre équipe et toute la progression sera perdue.",
     "doubleSureAbort": "Êtes-vous sûr(e) et certain(e) ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",
-    "questWarning": "N'oubliez pas : seuls les membres actuels de l'équipe seront invités. Une fois que l'invitation est envoyé, aucun nouveau membre de l'équipe ne peut rejoindre la quête !"
+    "questWarning": "N'oubliez pas : seuls les membres actuels de l'équipe seront invités. Une fois que l'invitation est envoyé, aucun nouveau membre de l'équipe ne peut rejoindre la quête !",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }

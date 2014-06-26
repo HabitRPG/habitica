@@ -17,6 +17,7 @@
     "collected": "נאסף",
     "bossDmg1": "כדי לפגוע באויב, השלימ/י את המטלות היומיות והמשימות ארוכות הטווח שלך. נזק גדול יותר למשימה אומר נזק גדול יותר לאויב (השלמת משימות אדומות, לחשי קוסמים, התקפות לוחמים וכיוב') האויב יגרום נזק לכל החבורה עבור כל מטלה יומית שפספסת (כפול הכוח של האויב הזה) בנוסף לנזק הרגיל שלהן, אז  שמור/שמרי על החבורה שלך בריאה על ידי השלמת המטלות היומיות שלך!  <strong> כל הנזק שנגרם לבוס וממנו מתנהל בזמן ה\"כרון\" (החלפת היום שלך). </strong>",
     "bossDmg2": "רק משתתפים שנלחמים בבוס חולקים בביזת המשימה.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "כדי לאסוף חפצים, בצע/י מטלות חיוביות. חפצי קווסט נופלים ממש כמו חפצים רגילים, אם כי, את/ה לא תראה/י אותם עד היום הבא, בו כל מה שמצאה החבורה ייאסף לערימת המשימה.",
     "bossColl2": "רק משתתפים במשימה יכולים לאסוף חפצים ולהתחלק בשלל המשימה.",
     "abort": "בטל",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "עליך להיות ברמה <%= level %> כדי לקנות את המשימה הזו!",
     "sureAbort": "האם את/ה בטוח/ה שברצונך לבטל את המשימה הזו? היא תבוטל עבור כל החבורה שלך, וההתקדמות שלכם תאבד.",
     "doubleSureAbort": "האם את/ה באמת באמת בטוח/ה? כל החבורה שלך עלולה לשנוא אותך לנצח!",
-    "questWarning": "זכור/זכרי: רק מי שבחבורה שלך כרגע יוזמן. ברגע שההזמנה נשלחת, אף חבר חדש לא יכול להצטרף למשימה!"
+    "questWarning": "זכור/זכרי: רק מי שבחבורה שלך כרגע יוזמן. ברגע שההזמנה נשלחת, אף חבר חדש לא יכול להצטרף למשימה!",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }

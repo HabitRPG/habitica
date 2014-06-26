@@ -17,6 +17,7 @@
     "collected": "Zebrano",
     "bossDmg1": "Aby zranić bossa, wykonuj swoje Codzienne obowiązki oraz Do-Zrobienia. Wyższe obrażenia od zadań oznaczają wyższe obrażenia bossa (wypełnianie czerwonych zadań, zaklęcia Czarodzieja, ataki Wojownika itd). Boss zada obrażenia twojej drużynie za każdy Codzienny obowiązek, który pominiesz (pomnożone przez Siłę bossa), więc utrzymuj swoją drużynę w zdrowiu przez wypełnianie swoich Codziennych obowiązków! <strong>Wszystkie obrażenia zadane bossowi i zadane przez niego, będą wyszczególnione (podczas zmiany twojego dnia).</strong>",
     "bossDmg2": "Tylko uczestnicy będą mogli walczyć z bossem i brać udział w podziale łupów.",
+    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Aby zbierać przedmioty, wykonuj pozytywne zadania. Przedmioty misyjne wypadają tak samo jak zwykłe; jednakże nie zobaczysz łupów, aż do końca dnia - wtedy to wszystkie przedmioty zostaną wyszczególnione i dodane do sterty.",
     "bossColl2": "Tylko uczestnicy mogą zbierać przedmioty i brać udział w podziale łupów.",
     "abort": "Przerwij",
@@ -31,5 +32,7 @@
     "mustLvlQuest": "Musisz mieć co najmniej poziom <%= level %>, żeby kupić tę misję!",
     "sureAbort": "Na pewno chcesz przerwać tę misje? Zostanie ona przerwana dla wszystkich w twojej drużynie, a cały postęp zostanie stracony.",
     "doubleSureAbort": "Czy jesteś pewien? Drużyna się na Ciebie nie obrazi?",
-    "questWarning": "Pamiętaj: tylko obecni członkowie drużyny zostaną zaproszeni. Kiedy już zaproszenie zostanie wysłane, żadni nowi członkowie nie będą mogli dołączyć do misji!"
+    "questWarning": "Pamiętaj: tylko obecni członkowie drużyny zostaną zaproszeni. Kiedy już zaproszenie zostanie wysłane, żadni nowi członkowie nie będą mogli dołączyć do misji!",
+    "bossRageTitle": "Rage",
+    "bossRageDescription": "Whe this bar fills, the boss will unleash a special attack"
 }
