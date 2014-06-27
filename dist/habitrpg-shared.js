@@ -11598,6 +11598,7 @@ api.quests = {
   dilatory: {
     text: t("questDilatoryText"),
     notes: t("questDilatoryNotes"),
+    completion: t("questDilatoryCompletion"),
     value: 0,
     canBuy: false,
     boss: {
@@ -11608,7 +11609,10 @@ api.quests = {
       rage: {
         title: t("questDilatoryBossRageTitle"),
         description: t("questDilatoryBossRageDescription"),
-        value: 1000
+        value: 1000,
+        tavern: t('questDilatoryBossRageTavern'),
+        stables: t('questDilatoryBossRageStables'),
+        market: t('questDilatoryBossRageMarket')
       }
     },
     drop: {
@@ -13246,14 +13250,32 @@ api.wrap = function(user, main) {
         _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
         switch (type) {
           case 'mount':
+            if (!user.items.mounts[key]) {
+              return typeof cb === "function" ? cb({
+                code: 404,
+                message: ":You do not own this mount."
+              }) : void 0;
+            }
             user.items.currentMount = user.items.currentMount === key ? '' : key;
             break;
           case 'pet':
+            if (!user.items.pets[key]) {
+              return typeof cb === "function" ? cb({
+                code: 404,
+                message: ":You do not own this pet."
+              }) : void 0;
+            }
             user.items.currentPet = user.items.currentPet === key ? '' : key;
             break;
           case 'costume':
           case 'equipped':
             item = content.gear.flat[key];
+            if (!user.items.gear.owned[key]) {
+              return typeof cb === "function" ? cb({
+                code: 404,
+                message: ":You do not own this gear."
+              }) : void 0;
+            }
             if (user.items.gear[type][item.type] === key) {
               user.items.gear[type][item.type] = "" + item.type + "_base_0";
               message = i18n.t('messageUnEquipped', {
