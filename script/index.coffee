@@ -642,11 +642,14 @@ api.wrap = (user, main=true) ->
         [type, key] = [req.params.type || 'equipped', req.params.key]
         switch type
           when 'mount'
+            return cb?({code:404,message:":You do not own this mount."}) unless user.items.mounts[key]
             user.items.currentMount = if user.items.currentMount is key then '' else key
           when 'pet'
+            return cb?({code:404,message:":You do not own this pet."}) unless user.items.pets[key]
             user.items.currentPet = if user.items.currentPet is key then '' else key
           when 'costume','equipped'
             item = content.gear.flat[key]
+            return cb?({code:404,message:":You do not own this gear."}) unless user.items.gear.owned[key]
             if user.items.gear[type][item.type] is key
               user.items.gear[type][item.type] = "#{item.type}_base_0"
               message = i18n.t('messageUnEquipped', {itemText: item.text(req.language)}, req.language)
