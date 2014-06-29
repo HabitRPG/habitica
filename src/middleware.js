@@ -168,6 +168,7 @@ module.exports.locals = function(req, res, next) {
     },
     siteVersion: siteVersion,
     Content: shared.content,
+    mods: require('./models/user').mods,
 
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}

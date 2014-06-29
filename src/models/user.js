@@ -442,3 +442,7 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
+
+mongoose.model("User").find({'contributor.admin':true},function(err,mods){
+  module.exports.mods = _.map(mods,function(m){return ' '+ m.profile.name});
+});
