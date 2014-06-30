@@ -4,7 +4,7 @@
     "weaponWarrior0Text": "Тренировочный меч",
     "weaponWarrior0Notes": "Тренировочное оружие. Бонусов не дает.",
     "weaponWarrior1Text": "Меч",
-    "weaponWarrior1Notes": "Common soldier's blade. Increases Strength by <%= str %>.",
+    "weaponWarrior1Notes": "Простой солдатский клинок. Увеличивает Силу на <%= str %>.",
     "weaponWarrior2Text": "Топор",
     "weaponWarrior2Notes": "Double-bitted battle-axe. Increases Strength by <%= str %>",
     "weaponWarrior3Text": "Булава",

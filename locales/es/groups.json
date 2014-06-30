@@ -15,6 +15,8 @@
     "tavernTalk": "Conversaciones de Taberna",
     "tavernAlert1": "Nota: Si estás informando sobre un error, los desarrolladores no van a verlo aquí. Por favor,",
     "tavernAlert2": "utiliza Github en vez de hacerlo aquí.",
+    "moderatorIntro1": "Tavern and guild moderators are: ",
+    "moderatorIntro2": ". Moderators' names are always highlighted in orange or purple.",
     "party": "Grupo",
     "createAParty": "Crear un Grupo",
     "noPartyText": "O no tienes un grupo o tú grupo está tardando en cargar. Puedes crear uno e invitar algunos amigos, o si quieres puedes unirte a un grupo existente. Haz que introduzcan:",

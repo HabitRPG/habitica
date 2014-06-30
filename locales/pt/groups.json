@@ -15,6 +15,8 @@
     "tavernTalk": "Conversas da Taverna",
     "tavernAlert1": " Nota: se estiver reportando um bug, os desenvolvedores não o verão aqui. Por favor,",
     "tavernAlert2": "use o GitHub",
+    "moderatorIntro1": "Tavern and guild moderators are: ",
+    "moderatorIntro2": ". Moderators' names are always highlighted in orange or purple.",
     "party": "Equipe",
     "createAParty": "Criar uma Equipe",
     "noPartyText": "Você não está em uma equipe ou sua equipe está demorando para carregar. Você pode criar uma e convidar amigos, ou se quiser entrar em uma existente, peça para digitarem:",

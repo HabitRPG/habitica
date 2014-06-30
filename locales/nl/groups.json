@@ -15,6 +15,8 @@
     "tavernTalk": "Herberg Gesprek",
     "tavernAlert1": "Let op: als je een fout wilt melden, zien de ontwikkelaars dat hier niet. Graag",
     "tavernAlert2": "Github hiervoor gebruiken",
+    "moderatorIntro1": "Tavern and guild moderators are: ",
+    "moderatorIntro2": ". Moderators' names are always highlighted in orange or purple.",
     "party": "Partij",
     "createAParty": "Creëer een Partij",
     "noPartyText": "Je zit óf niet in een partij, óf je partij neemt een tijdje om te laden. Je kan of een partij creëren en vrienden uitnodigen, of als je aan een bestaande partij toegevoegd wilt worden, laat de partij invoeren:",
