@@ -710,14 +710,14 @@ api.quests =
     boss:
       name: t("questDilatoryBoss")
       # We ran an average of progress{up,down} on users over 5 days: {up:805025,down:1324423}. /5*30 (we want the
-      # event to last 30 days) = {hp:5mil,8mil}
+      # event to last 30 days) = {hp:5mil,8mil}. Because Dilatory should cast Rage 3x during that time, 8mil*3=24mil
       hp: 5000000
       str: 1
       def: 1
       rage:
         title: t("questDilatoryBossRageTitle")
         description: t("questDilatoryBossRageDescription")
-        value: 8000000
+        value: 24000000
 
         # special, they won't always look like this
         tavern:t('questDilatoryBossRageTavern')
