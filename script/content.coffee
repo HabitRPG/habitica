@@ -709,13 +709,15 @@ api.quests =
     canBuy: false
     boss:
       name: t("questDilatoryBoss")
-      hp: 1200
+      # We ran an average of progress{up,down} on users over 5 days: {up:805025,down:1324423}. /5*30 (we want the
+      # event to last 30 days) = {hp:5mil,8mil}
+      hp: 5000000
       str: 1
       def: 1
       rage:
         title: t("questDilatoryBossRageTitle")
         description: t("questDilatoryBossRageDescription")
-        value: 1000
+        value: 8000000
 
         # special, they won't always look like this
         tavern:t('questDilatoryBossRageTavern')

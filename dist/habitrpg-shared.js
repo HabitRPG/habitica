@@ -11603,13 +11603,13 @@ api.quests = {
     canBuy: false,
     boss: {
       name: t("questDilatoryBoss"),
-      hp: 1200,
+      hp: 5000000,
       str: 1,
       def: 1,
       rage: {
         title: t("questDilatoryBossRageTitle"),
         description: t("questDilatoryBossRageDescription"),
-        value: 1000,
+        value: 8000000,
         tavern: t('questDilatoryBossRageTavern'),
         stables: t('questDilatoryBossRageStables'),
         market: t('questDilatoryBossRageMarket')
