@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Clear Completed",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Options > Settings > Data Export.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Habits",
     "newHabit": "New Habit",
     "edit": "Edit",
