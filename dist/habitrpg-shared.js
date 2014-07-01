@@ -11609,7 +11609,7 @@ api.quests = {
       rage: {
         title: t("questDilatoryBossRageTitle"),
         description: t("questDilatoryBossRageDescription"),
-        value: 24000000,
+        value: 4000000,
         tavern: t('questDilatoryBossRageTavern'),
         stables: t('questDilatoryBossRageStables'),
         market: t('questDilatoryBossRageMarket')
