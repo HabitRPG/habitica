@@ -212,6 +212,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         guilds: Groups.myGuilds(),
         "public": Groups.publicGuilds()
       }
+
       $scope.type = 'guild';
       $scope.text = window.env.t('guild');
       var newGroup = function(){
@@ -219,15 +220,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
       $scope.newGroup = newGroup()
       $scope.create = function(group){
-        if (User.user.balance < 1) return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
+        if (User.user.balance < 1)
+          return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
 
         if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){
-            User.user.balance--;
-            $scope.groups.guilds.push(saved);
-            if(saved.privacy === 'public') $scope.groups.public.push(saved);
-            $state.go('options.social.guilds.detail', {gid: saved._id});
-            $scope.newGroup = newGroup();
+            $rootScope.hardRedirect('/#/options/groups/guilds/' + saved._id);
           });
         }
       }
@@ -241,38 +239,20 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
 
         group.$join(function(joined){
-          var i = _.findIndex(User.user.invitations.guilds, {id:joined._id});
-          if (~i) User.user.invitations.guilds.splice(i,1);
-          $scope.groups.guilds.push(joined);
-          if(joined.privacy == 'public'){
-            joined._isMember = true;
-            joined.memberCount++;
-          }
-          $state.go('options.social.guilds.detail', {gid: joined._id});
+          $rootScope.hardRedirect('/#/options/groups/guilds/' + joined._id);
         })
       }
 
-     $scope.leave = function(keep) {
+      $scope.leave = function(keep) {
          if (keep == 'cancel') {
-             $scope.selectedGroup = undefined;
+           $scope.selectedGroup = undefined;
+           $scope.popoverEl.popover('destroy');
          } else {
-         var group = $scope.selectedGroup;
-             Groups.Group.leave({gid: group._id, keep:keep}, undefined, function(){
-          $scope.groups.guilds.splice(_.indexOf($scope.groups.guilds, group), 1);
-          // remove user from group members if guild is public so that he can re-join it immediately
-          if(group.privacy == 'public' || !group.privacy){ //public guilds with only some fields fetched
-            var i = _.findIndex($scope.groups.public, {_id: group._id});
-            if(~i){
-              var guild = $scope.groups.public[i];
-              guild.memberCount--;
-              guild._isMember = false;
-            }
-          }
-          $state.go('options.social.guilds');
-        });
+           Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+             $rootScope.hardRedirect('/#/options/groups/guilds');
+           });
+         }
       }
-         $scope.popoverEl.popover('destroy');
-     }
 
       $scope.clickLeave = function(group, $event){
           $scope.selectedGroup = group;
@@ -323,32 +303,29 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       Groups.seenMessage($scope.group._id);
 
       $scope.create = function(group){
-        group.$save(function(newGroup){
-          $scope.group = newGroup;
+        group.$save(function(){
+          $rootScope.hardRedirect('/#/options/social/party');
         });
       }
 
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
-        // there a better way to access GroupsCtrl.groups.party?
-        group.$join(function(groupJoined){
-          $scope.group = groupJoined;
+        group.$join(function(){
+          $rootScope.hardRedirect('/#/options/social/party');
         });
       }
 
-     // TODO: refactor guild and party leave into one function
-     $scope.leave = function(keep) {
-         if (keep == 'cancel') {
-             $scope.selectedGroup = undefined;
-         } else {
-             var group = $scope.selectedGroup;
-             Groups.Group.leave({gid: group._id, keep:keep}, undefined, function(){
-          $scope.group = undefined;
-        });
-             $state.go('options.social.party');
-        };
-         $scope.popoverEl.popover('destroy');
-     }
+      // TODO: refactor guild and party leave into one function
+      $scope.leave = function(keep) {
+        if (keep == 'cancel') {
+          $scope.selectedGroup = undefined;
+          $scope.popoverEl.popover('destroy');
+        } else {
+          Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+            $rootScope.hardRedirect('/#/options/social/party');
+          });
+        }
+      }
 
       // TODO: refactor guild and party clickLeave into one function
       $scope.clickLeave = function(group, $event){
