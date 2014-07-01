@@ -33,14 +33,14 @@ mixin boss(tavern)
                 span.glyphicon.glyphicon-heart
                 | HP
               span.meter-text.value
-                | {{Math.ceil(progress.hp)}} / {{boss.hp}}
+                | {{Math.ceil(progress.hp) | goldRoundThousandsToK}} / {{boss.hp | goldRoundThousandsToK}}
             .meter.mana(ng-if='boss.rage',popover="{{::boss.rage.description()}}",popover-title="{{::boss.rage.title()}}",popover-trigger='mouseenter',popover-placement='right')
               .bar(style='width: {{Shared.percent(progress.rage, boss.rage.value)}}%;')
               span.meter-text.title
                 span.glyphicon.glyphicon-fire
                 | Rage
               span.meter-text.value
-                | {{Math.ceil(progress.rage)}} / {{boss.rage.value}}
+                | {{Math.ceil(progress.rage)  | goldRoundThousandsToK}} / {{boss.rage.value | goldRoundThousandsToK}}
         div(ng-if='::Content.quests[group.quest.key].collect')
           h4=env.t('collected') + ':'
           table.table.table-striped
