@@ -9221,6 +9221,10 @@ events = {
   summer: {
     start: '2014-06-20',
     end: '2014-08-01'
+  },
+  gaymerx: {
+    start: '2014-07-02',
+    end: '2014-08-01'
   }
 };
 
@@ -10049,6 +10053,12 @@ gear = {
         }),
         value: 90,
         con: 15
+      },
+      gaymerx: {
+        event: events.gaymerx,
+        text: t('armorSpecialGaymerxText'),
+        notes: t('armorSpecialGaymerxNotes'),
+        value: 0
       }
     },
     mystery: {
@@ -10424,6 +10434,12 @@ gear = {
         }),
         value: 40,
         int: 7
+      },
+      gaymerx: {
+        event: events.gaymerx,
+        text: t('headSpecialGaymerxText'),
+        notes: t('headSpecialGaymerxNotes'),
+        value: 0
       }
     },
     mystery: {
