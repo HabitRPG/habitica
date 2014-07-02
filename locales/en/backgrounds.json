@@ -7,5 +7,13 @@
   "backgroundFairyRingText":"Fairy Ring",
   "backgroundFairyRingNotes":"Dance in a fairy ring.",
   "backgroundForestText":"Forest",
-  "backgroundForestNotes":"Stroll through a summer forest."
+  "backgroundForestNotes":"Stroll through a summer forest.",
+
+  "backgrounds072014": "SET 2: Released July 2014",
+  "backgroundCoralReefText":"Coral Reef",
+  "backgroundCoralReefNotes":"Swim in a coral reef.",
+  "backgroundOpenWatersText":"Open Waters",
+  "backgroundOpenWatersNotes":"Enjoy the open waters.",
+  "backgroundSeafarerShipText":"Seafarer Ship",
+  "backgroundSeafarerShipNotes":"Sail aboard a Seafarer Ship."
 }

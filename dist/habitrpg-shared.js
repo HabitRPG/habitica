@@ -12016,6 +12016,20 @@ api.backgrounds = {
       text: t('backgroundForestText'),
       notes: t('backgroundForestNotes')
     }
+  },
+  backgrounds072014: {
+    open_waters: {
+      text: t('backgroundOpenWatersText'),
+      notes: t('backgroundOpenWatersNotes')
+    },
+    coral_reef: {
+      text: t('backgroundCoralReefText'),
+      notes: t('backgroundCoralReefNotes')
+    },
+    seafarer_ship: {
+      text: t('backgroundSeafarerShipText'),
+      notes: t('backgroundSeafarerShipNotes')
+    }
   }
 };
 

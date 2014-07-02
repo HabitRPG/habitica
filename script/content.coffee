@@ -946,14 +946,24 @@ _.each api.quests, (v,key) ->
 api.backgrounds =
   backgrounds062014:
     beach:
-      text: t('backgroundBeachText')
+      text:  t('backgroundBeachText')
       notes: t('backgroundBeachNotes')
     fairy_ring:
-      text: t('backgroundFairyRingText')
+      text:  t('backgroundFairyRingText')
       notes: t('backgroundFairyRingNotes')
     forest:
-      text: t('backgroundForestText')
+      text:  t('backgroundForestText')
       notes: t('backgroundForestNotes')
+  backgrounds072014:
+    open_waters:
+      text:  t('backgroundOpenWatersText')
+      notes: t('backgroundOpenWatersNotes')
+    coral_reef:
+      text:  t('backgroundCoralReefText')
+      notes: t('backgroundCoralReefNotes')
+    seafarer_ship:
+      text:  t('backgroundSeafarerShipText')
+      notes: t('backgroundSeafarerShipNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
