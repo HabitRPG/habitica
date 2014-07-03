@@ -1,11 +1,10 @@
 // Text shadow mixin
 hrpg-text-shadow-mixin($hrpg-text-shadow-base-color)
-  if lightness($hrpg-text-shadow-base-color) >= 50%
     text-shadow:
-     -1px -1px 2px darken($hrpg-text-shadow-base-color,61.8%),  
-      1px -1px 2px darken($hrpg-text-shadow-base-color,61.8%),
-      -1px 1px 2px darken($hrpg-text-shadow-base-color,61.8%),
-       1px 1px 2px darken($hrpg-text-shadow-base-color,61.8%);
+     -1px -1px 1px darken($hrpg-text-shadow-base-color,70%),  
+      1px -1px 1px darken($hrpg-text-shadow-base-color,70%),
+      -1px 1px 1px darken($hrpg-text-shadow-base-color,70%),
+       1px 1px 1px darken($hrpg-text-shadow-base-color,70%);
 // Buttons
 // The !important declarations override Bootstrap
 hrpg-button-color-mixin($hrpg-button-color)
@@ -127,20 +126,26 @@ $hrpg-button-bar
       border-radius: 0em 0.382em 0.382em 0em
 // Labels
 hrpg-label-color-mixin($hrpg-label-color)
-  color: lighten($hrpg-label-color, 90%) !important 
   background-color: $hrpg-label-color !important
-  border-color: darken($hrpg-label-color, 32.8%) !important
-  hrpg-text-shadow-mixin(lighten($hrpg-label-color, 90%))
-  > a
-    color: lighten($hrpg-label-color, 90%) !important 
+  hrpg-text-shadow-mixin($hrpg-label-color)
 $hrpg-label
   padding: 0.382em 0.618em
-  border-width: 1px
-  border-style: solid
-  border-radius: 0.382em
+  border: 1px solid #fff
+  outline: 1px solid #999
+  overflow: hidden
+  background-color: #999
   font-size: 0.8em
   line-height: 1
+  font-weight: bold
+  letter-spacing: 0.0618em;
   color: #fff
+  > a
+    color: #fff
+  text-shadow:
+   -1px -1px 1px #333,  
+    1px -1px 1px #333,
+    -1px 1px 1px #333,
+     1px 1px 1px #333;
 // Modals
 $hrpg-modal
   position: relative
@@ -252,11 +257,9 @@ hrpg-tag-color-mixin($hrpg-tag-color)
     color: darken($hrpg-tag-color,61.8%)
     &:before
       border-right-color: darken($hrpg-tag-color,3.82%)
-    hrpg-text-shadow-mixin(darken($hrpg-tag-color,61.8%))
   &.active
     > a, > a span
       color: darken($hrpg-tag-color,3.82%)
-      hrpg-text-shadow-mixin(darken($hrpg-tag-color,3.82%))
       background-color: darken($hrpg-tag-color,32.8%)
       &:before
         border-right-color: darken($hrpg-tag-color,32.8%)
