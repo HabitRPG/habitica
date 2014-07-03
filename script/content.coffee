@@ -395,7 +395,7 @@ api.spells =
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
+        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30)
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -438,7 +438,7 @@ api.spells =
       notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
-        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2)
     defensiveStance:
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
