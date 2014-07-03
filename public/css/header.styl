@@ -109,38 +109,37 @@
 /* progress bars
 -------------------- */
 .hero-stats
-  padding: 0.8em 1em 0
+  padding: 1.1em 1em 0
   margin: 0
   display: table-cell
   vertical-align: middle
   min-width:175px
   @media screen and (max-width:768px)
-    padding: 0.382em 0.382em 0
+    padding: 1.1em 0.618em 0
+  
+  .meter-label
+    float: left
+    @extend $hrpg-label
+    hrpg-label-color-mixin(darken($color-herobox, 16.18%))
+    width: 2.618em
+    text-align:center
+    margin-right: 0.618em    
   .meter
     position: relative
     overflow: hidden
-    border: 1px solid #333
-    border-radius: 0.382em    
-    height: 2.25em
-    margin: 0 0 0.8em
+    border: 1px solid #fff
+    height: 1.618em
+    margin: 0 0 1em
+    outline: 1px solid #999
     .bar
-      border-radius: 0.382em 0 0 0.382em
       height: 100%
       transition: width 0.25s ease-out
-      border-right: 1px solid #333
   hrpg-status-bar-mixin($hrpg-status-bar-color)
-    background: lighten($hrpg-status-bar-color, 32.8%)
-    color: darken($hrpg-status-bar-color, 70%)
-    border-color: darken($hrpg-status-bar-color, 32.8%)
+    background: lighten($hrpg-status-bar-color, 70%)
+    color: darken($hrpg-status-bar-color, 90%)
     .bar
-      background: darken($hrpg-status-bar-color, 16.18%)
-      border-color: darken($hrpg-status-bar-color, 32.8%)
-    .meter-text.title
-      margin-top: 0.333333em
-      @extend $hrpg-label
-      hrpg-label-color-mixin(darken($hrpg-status-bar-color,32.8%))
-      span
-        margin-right: 0.382em
+      background: darken($hrpg-status-bar-color, 32.8%)
+      border-color: darken($hrpg-status-bar-color, 70%)
   .health
     hrpg-status-bar-mixin($color-hp)
   .experience
@@ -149,15 +148,14 @@
       span
         margin-right: 0.236em
         a
-          color: darken($color-xp, 70%)
+          color: darken($color-xp, 80%)
   .mana
     hrpg-status-bar-mixin($color-mp)
   .meter-text
     position: absolute
     top: 0
-    line-height: 2.25
-    &.title
-      left: 0.382em
+    z-index: 4
+    line-height: 1.618
     &.value
       right: 0.382em
       
@@ -166,3 +164,4 @@
 header .hero-stats
   background-color: darken($color-herobox, 4%)
   border-right: 1px solid darken($color-herobox, 12%)
+        

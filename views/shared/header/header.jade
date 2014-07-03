@@ -7,28 +7,25 @@
       +herobox({main:1})
     // stat bars
     .hero-stats
-      .meter.health(tooltip=env.t('health'))
+      .meter-label(tooltip=env.t('health'))
+        span.glyphicon.glyphicon-heart
+      .meter.health
         .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
-        span.meter-text.title
-          span.glyphicon.glyphicon-heart
-          | HP
         span.meter-text.value
           | {{Math.ceil(user.stats.hp)}} / 50
-      .meter.experience(tooltip=env.t('experience'))
+      .meter-label(tooltip=env.t('experience'))
+        span.glyphicon.glyphicon-star
+      .meter.experience
         .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
-        span.meter-text.title
-          span.glyphicon.glyphicon-star
-          | XP 
         span.meter-text.value
           span(ng-show='user.history.exp', tooltip=env.t('progress'))
             a(ng-click='toggleChart("exp")').glyphicon.glyphicon-signal 
           span
           | {{Math.floor(user.stats.exp) | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
-      .meter.mana(tooltip='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+      .meter-label(tooltip='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        span.glyphicon.glyphicon-fire
+      .meter.mana(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
-        span.meter-text.title
-          span.glyphicon.glyphicon-fire
-          | MP
         span.meter-text.value
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
