@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "נקה מטלות שבוצעו",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "משימות שהושלמו נמחקות אוטומטית תוך 3 ימים. אתה יכול למצוא אותן באפשרויות > הגדרות > ייצוא נתונים.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "הרגלים",
     "newHabit": "הרגל חדש",
     "edit": "עריכה",
@@ -36,7 +37,7 @@
     "complete": "הושלמו",
     "rewards": "פרסים",
     "gold": "זהב",
-    "silver": "כסף",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "פרס חדש",
     "price": "מחיר",
     "tags": "תגיות",

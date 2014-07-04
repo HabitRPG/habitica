@@ -61,7 +61,7 @@
     "autoAllocate": "Připisovat automaticky",
     "autoAllocateText": "Pokud je zaškrtnuto 'automatické připisování', získává tvůj avatar body automaticky na základě atributů tvých úkolů, které najdeš v <strong>ÚKOL > Editovat > Pokročilé > Attributy</strong>. Např. pokud budeš chodit často do posilovny a tvoje denní 'posilovna' je nastavena na 'fyzický', budeš automaticky získávat sílu.",
     "spells": "Kouzla",
-    "spellsText": "Nyní můžeš odemknout kouzla specifická pro toto povolání. První uvidíš po dosažení úrovně 11. Tvá mana se dobíjí o 10 bodů denně, plus 1 bod při splnění",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "úkolu",
     "moreClass": "Pro více informací o systému povolání, přejdi na "
 }

@@ -61,7 +61,7 @@
     "autoAllocate": "Distribuição Automática",
     "autoAllocateText": "Se 'distribuição automática' estiver marcado, seu avatar aumentará suas estatísticas automaticamente, baseado nos atributos das suas tarefas, que você pode encontrar em <strong>Tarefas > Editar > Avançado > Atributos</strong>. Ou seja, se você vai à academia frequentemente e sua tarefa diária \"Academia\" está marcada como \"Físico\", você ganhará Força automaticamente.",
     "spells": "Magias",
-    "spellsText": "Agora você pode liberar magias específicas da sua classe. Você verá sua primeira no nível 11. Você recupera 10 pontos de mana por dia, mais 1 ponto por completar",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "Afazeres",
     "moreClass": "Para mais informações sobre o sistema de classes, veja"
 }

@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Удалить завершенные",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Завершенные задачи автоматически архивируются через 3 дня. Вы может найти их в меню Параметры > Настройки > Экспорт данных.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Привычки",
     "newHabit": "Новая привычка",
     "edit": "Изменить",
@@ -36,7 +37,7 @@
     "complete": "Завершенные",
     "rewards": "Награды",
     "gold": "Золото",
-    "silver": "Серебро",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Новая награда",
     "price": "Цена",
     "tags": "Теги",

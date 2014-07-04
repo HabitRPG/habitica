@@ -61,7 +61,7 @@
     "autoAllocate": "Automatické prideľovanie",
     "autoAllocateText": "Ak je nastavené automatické prideľovanie, tvoj avatar získava vlastnosti na základe atribútov tvojich úloh, ktoré nájdeš v menu <strong>ÚLOHY > Upraviť > Pokročilé > Vlastnosti</strong>. Napríklad, ak chodíš často do posilňovne a tvoja denná úloha \"Posilňovňa\" má nastavený atribút \"fyzické\", automaticky získaš Silu.",
     "spells": "Kúzla",
-    "spellsText": "Teraz môžeš odomknúť kúzla špecifické pre triedu. Prvé uvidíš na 11. leveli. Tvoja mana sa obnovuje rýchlosťou 10 bodov za deň a 1 bod za každé dokončené",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "Úlohy",
     "moreClass": "Pre viac informácií o povolaniach si pozri"
 }

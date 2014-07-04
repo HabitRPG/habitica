@@ -124,5 +124,5 @@
     "youCast": "You cast <%= spell %>.",
     "youCastTarget": "You cast <%= spell %> on <%= target %>.",
     "youCastParty": "You cast <%= spell %> for the party.",
-    "critBonus": "Critical Hit! Bonus: "
+    "critBonus": "Critical Hit! Bonus:"
 }

@@ -124,5 +124,5 @@
     "youCast": "Lanzas <%= spell %>.",
     "youCastTarget": "Lanzas <%= spell %> a <%= target %>.",
     "youCastParty": "Lanzas <%= spell %> para el grupo.",
-    "critBonus": "¡Golpe Crítico! Bonus: "
+    "critBonus": "Critical Hit! Bonus:"
 }

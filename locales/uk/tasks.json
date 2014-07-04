@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Прибрати доконані",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Доконані завдання автоматично архівуються щотри дні. Ви можете побачити їх через Різне > Налаштування > Експорт даних.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Звички",
     "newHabit": "Додати звичку",
     "edit": "Редагувати",
@@ -36,7 +37,7 @@
     "complete": "Виконані",
     "rewards": "Нагороди",
     "gold": "Золото",
-    "silver": "Срібло",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Додати нагороду",
     "price": "Ціна",
     "tags": "Ярлики",

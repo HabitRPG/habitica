@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, вы замечательны! За поддержку HabitRPG вы становитесь участником <%= level %> уровня. Взгляните,",
     "contribLink": "какие награды вы получили за ваш вклад!",
     "contribName": "Участник",
-    "contribText": "Внесен вклад в HabitRPG (код, дизайн, пиксельная графика, юридическая помощь, документы и прочее). Хотите этот значок?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Узнать больше",
     "kickstartName": "Ранг спонсора Kickstarter — $<%= tier %>",
     "kickstartText": "Cпонсор проекта на Kickstarter",

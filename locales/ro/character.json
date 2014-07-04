@@ -124,5 +124,5 @@
     "youCast": "Ai făcut vraja <%= spell %>.",
     "youCastTarget": "Ai făcut vraja <%= spell %> pe <%= target %>.",
     "youCastParty": "Ai făcut vraja <%= spell %> pentru echipă.",
-    "critBonus": "Lovitură critică! Bonus:"
+    "critBonus": "Critical Hit! Bonus:"
 }

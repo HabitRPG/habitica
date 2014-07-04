@@ -61,7 +61,7 @@
     "autoAllocate": "Automatyczne Rozlokowanie",
     "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
     "spells": "Zaklęcia",
-    "spellsText": "Możesz teraz odblokować zaklęcia przynależne twojej klasie. Pierwsze z nich zobaczysz na 11 poziomie. Twoja mana odnawia się o 10 punktów każdego dnia, plus 1 punkt za wykonane",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "Do-Zrobienia",
     "moreClass": "Po więcej informacji na temat systemu klas, zajrzyj"
 }

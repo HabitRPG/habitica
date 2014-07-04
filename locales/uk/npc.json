@@ -61,7 +61,7 @@
     "autoAllocate": "Авторозподіл",
     "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
     "spells": "Закляття",
-    "spellsText": "Ви можете розблокувати класові закляття. Перше Ви отримаєте на 11-му рівні. За добу відновлюється 10 одиниць мани, а кожне виконане завдання дає ще 1.",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "Зробити",
     "moreClass": "Детальніше про систему класів можна дізнатися у"
 }

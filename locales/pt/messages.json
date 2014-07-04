@@ -10,7 +10,7 @@
     "messageLikesFood": "<%= egg %> gostou muito de <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> comeu <%= foodText %>, mas parece não gostar muito.",
     "messageBought": "Comprou <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipado.",
+    "messageEquipped": "<%= itemText %> equipped.",
     "messageUnEquipped": "<%= itemText %> desequipado.",
     "messageMissingEggPotion": "Está faltando o ovo ou a poção.",
     "messageAlreadyPet": "Você já possui esse mascote. Tente uma combinação diferente!",

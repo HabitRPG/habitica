@@ -5,7 +5,7 @@
     "youReceived": "Hai ricevuto",
     "questSend": "Cliccando \"Invita\" manderai un invito ai membri della tua squadra. Quando tutti i membri avranno accettato o rifiutato, la missione inizierà. Vedi lo stato sotto Opzioni > Social > Squadra.",
     "inviteParty": "Invita squadra",
-    "questInvitation": "Invito alla missione:",
+    "questInvitation": "Quest Invitation:",
     "askLater": "Chiedi più tardi",
     "buyQuest": "Compra missione",
     "accepted": "Accettata",
@@ -34,5 +34,5 @@
     "doubleSureAbort": "Sei veramente sicuro? Assicurati che non ti odieranno per sempre!",
     "questWarning": "Ricorda: solo chi è attualmente parte della squadra sarà invitato. Una volta che l'invito è stato spedito, nessun nuovo membro potrà partecipare alla missione!",
     "bossRageTitle": "Furia",
-    "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
+    "bossRageDescription": "Quando questa barra sarà completamente piena, il boss eseguirà un attacco speciale"
 }

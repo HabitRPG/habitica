@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, jij geweldig persoon! Je bent nu een niveau <%= level %> bijdrager voor het helpen van HabitRPG. Zie",
     "contribLink": "welke prijzen je hebt verdiend voor je bijdrage!",
     "contribName": "Bijdrager",
-    "contribText": "Heeft bijgedragen aan HabitRPG (code, ontwerp, pixel kunst, juridisch advies, documenten, enz.). Wil je deze insigne?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Lees meer",
     "kickstartName": "Kickstarter Helper - $<%= tier %> Niveau",
     "kickstartText": "Heeft het Kickstarter Project gesteund",

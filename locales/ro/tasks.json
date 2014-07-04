@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Șterge pe cele împlinite",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Sarcinile îndeplinite sunt arhivate automat după 3 zile. Le poți accessa de la Opțiuni > Setări > Export date.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Obiceiuri",
     "newHabit": "Obicei nou",
     "edit": "Modifică",
@@ -36,7 +37,7 @@
     "complete": "Îndeplinite",
     "rewards": "Recompense",
     "gold": "Aur",
-    "silver": "Argint",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Răsplată nouă",
     "price": "Preț",
     "tags": "Etichete",

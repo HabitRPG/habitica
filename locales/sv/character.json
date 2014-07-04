@@ -124,5 +124,5 @@
     "youCast": "Du kastar <%= spell %>.",
     "youCastTarget": "Du kastar <%= spell %> på <%= target %>.",
     "youCastParty": "Du kastar <%= spell %> på sällskapet.",
-    "critBonus": "Kritisk träff! Bonus:"
+    "critBonus": "Critical Hit! Bonus:"
 }

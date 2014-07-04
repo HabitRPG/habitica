@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, ty úžasná osobo! Nyní jsi za pomoc Habit RPG na úrovni přispěvatele <%= name %> . Podívej se ",
     "contribLink": "jaké ceny jsi za svou pomoc získal!",
     "contribName": "Přispěvatel",
-    "contribText": "Pomohl HabitRPG (programování, design, pixel art, právní pomoc, dokumentace, atd.). Chceš toto ocenění?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Číst dál",
     "kickstartName": "Podporovatel z Kickstarteru ve výši - $<%= tier %>",
     "kickstartText": "Podpořil projekt na Kickstarteru",

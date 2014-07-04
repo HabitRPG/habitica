@@ -55,13 +55,13 @@
     "mp": "MP",
     "xp": "EP",
     "health": "Gezondheid",
-    "allocateStr": "Points allocated to Strength:",
+    "allocateStr": "Punten toegewezen aan Kracht:",
     "allocateStrPop": "Voeg punt toe aan Kracht",
-    "allocateCon": "Points allocated to Constitution:",
+    "allocateCon": "Punten toegewezen aan Lichaam:",
     "allocateConPop": "Voeg punt toe aan Lichaam",
-    "allocatePer": "Points allocated to Perception:",
+    "allocatePer": "Punten toegewezen aan Perceptie:",
     "allocatePerPop": "Voeg punt toe aan Perceptie",
-    "allocateInt": "Points allocated to Intelligence:",
+    "allocateInt": "Punten toegewezen aan Intilligentie:",
     "allocateIntPop": "Voeg punt toe aan Intelligentie",
     "stats": "Statistieken",
     "strength": "Kracht",
@@ -124,5 +124,5 @@
     "youCast": "Je hebt <%= spell %> uitgesproken.",
     "youCastTarget": "Je hebt <%= spell %> uitgesproken over <%= target %>.",
     "youCastParty": "Je hebt <%= spell %> uitgesproken over de groep.",
-    "critBonus": "Voltreffer! Bonus:"
+    "critBonus": "Critical Hit! Bonus:"
 }

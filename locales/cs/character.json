@@ -124,5 +124,5 @@
     "youCast": "Seslal jsi <%= spell %>.",
     "youCastTarget": "Seslal jsi <%= spell %> na <%= target %>.",
     "youCastParty": "Seslal jsi na družinu <%= spell %>.",
-    "critBonus": "Kritický zásah! Bonus:"
+    "critBonus": "Critical Hit! Bonus:"
 }

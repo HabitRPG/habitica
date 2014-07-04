@@ -5,7 +5,7 @@
     "youReceived": "Du hast folgendes erhalten:",
     "questSend": "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an Deine Gruppenmitglieder. Wenn alle Mitglieder angenommen oder abgelehnt haben beginnt das Quest. Statusabfrage unter Optionen > Soziales > Gruppe.",
     "inviteParty": "Gruppe einladen",
-    "questInvitation": "Quest Einladung:",
+    "questInvitation": "Quest Invitation:",
     "askLater": "Später fragen",
     "buyQuest": "Quest kaufen",
     "accepted": "Angenommen",
@@ -34,5 +34,5 @@
     "doubleSureAbort": "Bist Du wirklich wirklich sicher? Sei' ganz sicher, dass sie Dich nicht für immer hassen werden!",
     "questWarning": "Bedenke: Nur die momentanen Gruppenmitglieder werden eingeladen. Wenn die Einladungen verschickt sind können neue Gruppenmitglieder dem Quest nicht nachträglich beitreten.",
     "bossRageTitle": "Zorn",
-    "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
+    "bossRageDescription": "Wenn sich dieser Balken füllt, wird der Boss eine Spezialattacke ausführen"
 }

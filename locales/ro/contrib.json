@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, eşti o persoană nemaipomenită! Acum eşti la nivelul <%= level %> de contribuţie in dezvoltarea HabitRPG. Vezi",
     "contribLink": "ce premii ai câștigat pentru contribuția ta!",
     "contribName": "Contribuitor",
-    "contribText": "A contribuit la HabitRPG (cod, design, artă de pixel, sfaturi cu legislația, documentație, etc). Vrei această insignă?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Citește mai mult",
     "kickstartName": "Susținător Kickstarter - Nivel $<%= tier %> ",
     "kickstartText": "A susținut proiectul Kickstarter",

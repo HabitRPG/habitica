@@ -61,7 +61,7 @@
     "autoAllocate": "Automatische Verteilung",
     "autoAllocateText": "Falls Du eine automatische Verteilung wählst, werden die Punkte automatisch verteilt, abhängig von den Attributen Deiner Aufgaben, die Du unter <strong>Aufgabe > Bearbeiten > Erweitert > Attribute</strong> finden kannst. Ein Beispiel: Wenn Du oft im Fitnessstudio bist und die entsprechende Aufgabe auf \"körperlich\" gesetzt ist, bekommst Du automatisch Stärke.",
     "spells": "Fähigkeiten",
-    "spellsText": "Du kannst Klassenspezifische Fähigkeiten freischalten. Du wirst die erste mit Level 11 kennen lernen. Dein Mana regeneriert sich 10 Punkte pro Tag plus 1 Punkt pro erfüllte",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "Aufgabe",
     "moreClass": "Für mehr Informationen über das Klassensystem klicke"
 }

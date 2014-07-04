@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Voltooide taken wissen",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Voltooide Te-Doen-taken worden na 3 dagen automatisch gearchiveerd. Je kan ze hier inzien: Opties > Instellingen > Data Export.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Gewoontes",
     "newHabit": "Nieuwe Gewoonte",
     "edit": "Bewerken",
@@ -36,7 +37,7 @@
     "complete": "Voltooid",
     "rewards": "Beloningen",
     "gold": "Goud",
-    "silver": "Zilver",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Nieuwe Beloning",
     "price": "Prijs",
     "tags": "Labels",

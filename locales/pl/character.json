@@ -124,5 +124,5 @@
     "youCast": "Rzucasz <%= spell %>.",
     "youCastTarget": "Rzucasz <%= spell %> na <%= target %>.",
     "youCastParty": "Rzucasz <%= spell %> na drużynę.",
-    "critBonus": "Uderzenie krytyczne! Bonus:"
+    "critBonus": "Critical Hit! Bonus:"
 }

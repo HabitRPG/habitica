@@ -124,5 +124,5 @@
     "youCast": "Vous avez lancé <%= spell %>.",
     "youCastTarget": "Vous avez lancé <%= spell %> sur <%= target %>.",
     "youCastParty": "Vous avez lancé <%= spell%> pour l'équipe.",
-    "critBonus": "Coup critique ! Bonus :"
+    "critBonus": "Critical Hit! Bonus:"
 }

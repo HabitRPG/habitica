@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, du fantastiska människa! Du är nu en level <%= level %> medarbetare för att ha hjälpt HabitRPG. Se",
     "contribLink": "vilka priser du har förtjänat för din insats!",
     "contribName": "Medarbetare",
-    "contribText": "Har bidragit till HabitRPG (kod, design, pixelkonst, juridisk rådgivning, dokument, osv). Vill du ha denna medalj?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Läs Mer",
     "kickstartName": "Kickstarter Stödjare - $<%= tier %> Nivån",
     "kickstartText": "Stödde Kickstarter-projektet",

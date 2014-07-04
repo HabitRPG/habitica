@@ -61,7 +61,7 @@
     "autoAllocate": "Distribution automatique",
     "autoAllocateText": "Si \"attribution automatique\" est sélectionné, votre avatar gagne des attributs automatiquement selon les attributs de vos tâches, que vous pouvez trouver dans <strong>TÂCHES > Modifier > Avancé > Attributs</strong>. Par exemple, si vous allez souvent à la salle de sport et que votre Quotidienne \"Sport\" a l'attribut \"Physique\", vous gagnerez de la FOR automatiquement.",
     "spells": "Sorts",
-    "spellsText": "Vous pouvez dès à présent débloquer des sorts spécifiques à votre classe. Vous verrez votre premier sort au niveau 11. Votre mana se régénère de 10 points par jour, plus 1 point quand vous complétez une",
+    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
     "toDo": "À faire",
     "moreClass": "Pour plus d'informations sur le système de classes, voir"
 }

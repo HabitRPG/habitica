@@ -1,11 +1,11 @@
 {
     "quests": "Queesten",
-    "quest": "quest",
+    "quest": "zoektocht",
     "completed": "Voltooid!",
     "youReceived": "Je hebt ontvangen",
     "questSend": "Wanneer je \"Uitnodigen\" aanklikt zal er een uitnodiging worden verstuurd naar je partij leden. Wanneer alle leden geaccepteerd of afgewezen hebben zal de queeste beginnen. Zie de status hier: Opties > Sociaal > Partij.",
     "inviteParty": "Nodig Partij uit",
-    "questInvitation": "Queeste Uitnodiging:",
+    "questInvitation": "Quest Invitation:",
     "askLater": "Vraag Later",
     "buyQuest": "Koop Queeste",
     "accepted": "Geaccepteerd",
@@ -33,6 +33,6 @@
     "sureAbort": "Weet je zeker dat je deze missie wilt afbreken? De missie zal afgebroken worden voor iedereen in jouw partij, alle vorderingen zullen verloren gaan.",
     "doubleSureAbort": "Weet je het dubbel zeker? Zorg ervoor dat ze je niet voor altijd zullen haten!",
     "questWarning": "Onthoud: alleen huidige partij leden zullen worden uitgenodigd. Als de uitnodiging is verzonden, kunnen er geen nieuwe leden met de queeste meer meedoen.",
-    "bossRageTitle": "Rage",
+    "bossRageTitle": "Woede",
     "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
 }

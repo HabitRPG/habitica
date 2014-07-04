@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, vous êtes une personne géniale ! Vous êtes maintenant un contributeur niveau <%= level %> pour avoir aidé HabitRPG. Voyez vous même",
     "contribLink": "quelles récompenses vous avez gagnées grâce à votre contribution !",
     "contribName": "Contributeur",
-    "contribText": "A contribué à construire HabitRPG (code, design, pixel art, conseils juridiques, documents, etc). Vous voulez ce badge ?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Plus d'informations",
     "kickstartName": "Souteneur Kickstater - Palier <%= tier %>$",
     "kickstartText": "A soutenu le projet Kickstarter",

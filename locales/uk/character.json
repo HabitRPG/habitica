@@ -124,5 +124,5 @@
     "youCast": "Ви наклали <%= spell %>.",
     "youCastTarget": "Ви наклали <%= spell %> на <%= target %>.",
     "youCastParty": "Ви наклали <%= spell %> на команду.",
-    "critBonus": "Критичний удар! Бонус:"
+    "critBonus": "Critical Hit! Bonus:"
 }

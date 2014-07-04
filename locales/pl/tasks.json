@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Wyczyść Zakończone",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Wykonane Do-Zrobienia są automatycznie archiwizowane po 3 dniach. Możesz uzyskać do nich dostęp z zakładki Opcje > Ustawienia > Eksport Danych.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Nawyki",
     "newHabit": "Nowy Nawyk",
     "edit": "Edytuj",
@@ -36,7 +37,7 @@
     "complete": "Zakończone",
     "rewards": "Nagrody",
     "gold": "Złoto",
-    "silver": "Srebro",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Nowa Nagroda",
     "price": "Cena",
     "tags": "Tagi",

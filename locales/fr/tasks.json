@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Supprimer les tâches accomplies",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Les tâches À faire accomplies sont automatiquement archivées après 3 jours. Vous pouvez y avoir accès depuis Options > Paramètres > Exporter les données",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Habitudes",
     "newHabit": "Nouvelle Habitude",
     "edit": "Modifier",
@@ -36,7 +37,7 @@
     "complete": "Accomplies",
     "rewards": "Récompenses",
     "gold": "Or",
-    "silver": "Argent",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Nouvelle Récompense",
     "price": "Prix",
     "tags": "Étiquettes",

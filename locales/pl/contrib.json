@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, jesteś niesmowity! Zobywasz <%= level %> poziom kontrybutora za pomoc przy rozwijaniu HabitRPG. Zobacz",
     "contribLink": "jakie nagrody uzyskałeś za twój wkład!",
     "contribName": "Kontrybutor",
-    "contribText": "Przyczynił się do rozwoju HabitRPG (kod, design, grafika pixelowa, porada prawna, pliki, itd.). Chcesz tą odznakę?",
+    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
     "readMore": "Dowiedz się więcej",
     "kickstartName": "Wspieracz z Kickstarter- $<%= tier %> Ranga",
     "kickstartText": "Wspomógł projekt Kickstarter",

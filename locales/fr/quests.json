@@ -5,7 +5,7 @@
     "youReceived": "Vous remportez",
     "questSend": "Cliquer sur \"Inviter\" enverra une invitation aux membres de votre équipe. Quand tous les membres auront accepté ou refusé, la quête commencera. Voir l'avancement dans Options > Social > Équipe.",
     "inviteParty": "Inviter l'équipe",
-    "questInvitation": "Invitation à une quête :",
+    "questInvitation": "Quest Invitation:",
     "askLater": "Redemander plus tard",
     "buyQuest": "Acheter une quête",
     "accepted": "Acceptée",
@@ -34,5 +34,5 @@
     "doubleSureAbort": "Êtes-vous sûr(e) et certain(e) ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",
     "questWarning": "N'oubliez pas : seuls les membres actuels de l'équipe seront invités. Une fois que l'invitation est envoyé, aucun nouveau membre de l'équipe ne peut rejoindre la quête !",
     "bossRageTitle": "Rage",
-    "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
+    "bossRageDescription": "Une fois cette jauge pleine, le boss lancera une attaque spéciale"
 }

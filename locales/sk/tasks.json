@@ -1,6 +1,7 @@
 {
-    "clearCompleted": "Vyčisti hotové",
+    "clearCompleted": "Delete Completed",
     "lotOfToDos": "Splnené úlohy sa po 3 dňoch automaticky archivujú. Ostanú prístupné cez Možnosti > Nastavenia > Export dát",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
     "habits": "Návyky",
     "newHabit": "Nový návyk",
     "edit": "Upraviť",
@@ -36,7 +37,7 @@
     "complete": "Hotové",
     "rewards": "Odmeny",
     "gold": "Zlato",
-    "silver": "Striebro",
+    "silver": "Silver (100 silver = 1 gold)",
     "newReward": "Nová odmena",
     "price": "Cena",
     "tags": "Štítky",
