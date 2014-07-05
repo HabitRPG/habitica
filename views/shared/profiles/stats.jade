@@ -40,7 +40,7 @@ table.table.table-striped
         ul.list-unstyled(ng-init='g=Content.gear.flat;e=profile.items.gear.equipped')
           li(ng-show='profile.stats.lvl > 1')
             span.hint(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))=env.t('level')
-            |: {{(profile.stats.lvl - 1) / 2}}&nbsp;
+            |: {{((profile.stats.lvl - 1) / 2) > 50 && 50 || ((profile.stats.lvl - 1) / 2)}}&nbsp;
           li(ng-show='g[e.weapon].#{k} + g[e.armor].#{k} + g[e.head].#{k} + g[e.shield].#{k} > 0')
             span.hint(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))=env.t('equipment')
             |: {{g[e.weapon].#{k} + g[e.armor].#{k} + g[e.head].#{k} + g[e.shield].#{k} || 0}}&nbsp;
