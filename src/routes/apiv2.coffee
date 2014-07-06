@@ -63,7 +63,7 @@ module.exports = (swagger, v2) ->
     "/user/tasks/{id}/{direction}":
       spec:
         #notes: "Simple scoring of a task."
-        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you."
+        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you. When random events occur, the <b>user._tmp</b> variable will be filled. Critical hits can be accessed through <b>user._tmp.crit</b>. The Streakbonus can be accessed through <b>user._tmp.streakBonus</b>. Both will contain the multiplier value. When random drops occur, the following values are available: <b>user._tmp.drop = {text,type,dialog,value,key,notes}</b>"
         parameters: [
           path("id", "ID of the task to score. If this task doesn't exist, a task will be created automatically", "string")
           path("direction", "Either 'up' or 'down'", "string")
