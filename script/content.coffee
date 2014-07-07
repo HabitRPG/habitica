@@ -624,6 +624,7 @@ api.questEggs =
   Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false
   Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
   Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
+  Seahorse:          text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -939,6 +940,24 @@ api.quests =
       ]
       gp: 80
       exp: 800
+
+  dilatory_derby:
+    text:  t('questSeahorseText')
+    notes: t('questSeahorseNotes')
+    completion: t('questSeahorseCompletion')
+    value: 4
+    boss:
+      name: t('questSeahorseBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Seahorse', text: t('questSeahorseDropSeahorseEgg')}
+        {type: 'eggs', key: 'Seahorse', text: t('questSeahorseDropSeahorseEgg')}
+        {type: 'eggs', key: 'Seahorse', text: t('questSeahorseDropSeahorseEgg')}
+      ]
+      gp: 25
+      exp: 125
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
