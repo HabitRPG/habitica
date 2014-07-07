@@ -403,6 +403,10 @@ UserSchema.pre('save', function(next) {
 
   this.achievements.beastMaster = petCount >= 90;
 
+   //prevent users from gaining too much hp and mp
+  if (this.stats.hp > 50) {this.stats.hp = 50}
+  if (this.stats.mp > this._statsComputed.maxMP) {this.stats.mp = this._statsComputed.maxMP }
+
   //our own version incrementer
   this._v++;
   next();
