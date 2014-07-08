@@ -12905,9 +12905,13 @@ api.wrap = function(user, main) {
           gear[type].head = 'head_base_0';
           return gear[type].shield = 'shield_base_0';
         });
-        user.items.gear.owned = {
-          weapon_warrior_0: true
-        };
+        _.each(gear.owned, function(v, k) {
+          if (gear.owned[k]) {
+            gear.owned[k] = false;
+          }
+          return true;
+        });
+        gear.owned.weapon_warrior_0 = true;
         if (typeof user.markModified === "function") {
           user.markModified('items.gear.owned');
         }

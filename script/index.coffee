@@ -405,7 +405,8 @@ api.wrap = (user, main=true) ->
           gear[type].weapon = 'weapon_base_0'
           gear[type].head   = 'head_base_0'
           gear[type].shield = 'shield_base_0'
-        user.items.gear.owned = {weapon_warrior_0:true}
+        _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
+        gear.owned.weapon_warrior_0 = true
         user.markModified? 'items.gear.owned'
         user.preferences.costume = false
         cb? null, user
