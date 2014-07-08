@@ -35,6 +35,8 @@
     "questEggRatAdjective": "sucio",
     "questEggOctopusText": "Pulpo",
     "questEggOctopusAdjective": "Resbaladizo",
+    "questEggSeahorseText": "Seahorse",
+    "questEggSeahorseAdjective": "prize",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá  un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

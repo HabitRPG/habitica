@@ -1,7 +1,7 @@
 {
-    "clearCompleted": "Delete Completed",
+    "clearCompleted": "Löschen Erfolgreich",
     "lotOfToDos": "Erfüllte Aufgaben werden automatisch nach 3 Tagen archiviert. Du kannst auf sie zugreifen unter Optionen > Einstellungen > Dateien Exportieren.",
-    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
+    "deleteToDosExplanation": "Wenn Du den unteren Knopf klickst, werden alle Deine erfüllten und archivierten Aufgaben dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "habits": "Gewohnheiten",
     "newHabit": "Neue Gewohnheit",
     "edit": "Bearbeiten",
@@ -37,7 +37,7 @@
     "complete": "Erfüllt",
     "rewards": "Belohnungen",
     "gold": "Gold",
-    "silver": "Silver (100 silver = 1 gold)",
+    "silver": "Silber (100 Silber = 1 Gold)",
     "newReward": "Neue Belohnung",
     "price": "Preis",
     "tags": "Tags",

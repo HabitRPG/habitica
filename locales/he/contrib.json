@@ -17,7 +17,7 @@
     "contribModal": "<%= name %>, את/ה בנאדם סופר מגניב! זכית ברמת תורם <%= level %> עבור עזרתך לhabitRPG. ראה/י",
     "contribLink": "אילו פרסים הרווחת עבור תרומתך!",
     "contribName": "תורם/ת",
-    "contribText": "Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge?",
+    "contribText": "תרם/ה להאביט (קוד, עיצוב, אמנות, עצה משפטית, מסמכים וכיוב'). רוצה תג כזה לעצמך?",
     "readMore": "קרא/י עוד",
     "kickstartName": "גבאי קיקסטארטר - רמת ה $<%= tier %> .",
     "kickstartText": "גיבה את פרוייקט הקיקסטראטר שהתחיל את האתר.",

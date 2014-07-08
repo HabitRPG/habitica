@@ -124,5 +124,5 @@
     "youCast": "Hai lanciato <%= spell %>.",
     "youCastTarget": "Hai lanciato <%= spell %> su <%= target %>.",
     "youCastParty": "Hai lanciato l'incantesimo <%= spell %> per la squadra.",
-    "critBonus": "Critical Hit! Bonus:"
+    "critBonus": "Colpo critico! Bonus:"
 }

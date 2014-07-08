@@ -35,6 +35,8 @@
     "questEggRatAdjective": "брудне",
     "questEggOctopusText": "Octopus",
     "questEggOctopusAdjective": "slippery",
+    "questEggSeahorseText": "Seahorse",
+    "questEggSeahorseAdjective": "prize",
     "eggNotes": "Знайдіть зілля вилуплення, аби вилити його на яйце, з нього вийде <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Простий",
     "hatchingPotionWhite": "Білий",

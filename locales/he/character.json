@@ -124,5 +124,5 @@
     "youCast": "הטלת <%= spell %>.",
     "youCastTarget": "הטלת <%= spell %> על <%= target %>.",
     "youCastParty": "הטלת <%= spell %> בשביל החבר'ה שלך. כל הכבוד!",
-    "critBonus": "Critical Hit! Bonus:"
+    "critBonus": "פגיעה חמורה! בונוס:"
 }

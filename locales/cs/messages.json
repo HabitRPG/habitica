@@ -10,7 +10,7 @@
     "messageLikesFood": "Kdo by řekl, že <%= egg %> bude mít rád něco takového, jako je <%= foodText %>!",
     "messageDontEnjoyFood": "<%= foodText %> zdá se není pro zvířátko, jakým je <%= egg %>, žádnou pochoutkou.",
     "messageBought": "<%= itemText %>, koupeno",
-    "messageEquipped": "<%= itemText %> equipped.",
+    "messageEquipped": "Vzal sis <%= itemText %>.",
     "messageUnEquipped": " <%= itemText %> nemá žádnou výbavu.",
     "messageMissingEggPotion": "Chybí ti buď to vejce nebo ten lektvar",
     "messageAlreadyPet": "Tohoto mazlíčka už máš. Zkus vylíhnout jinou kombinaci.",

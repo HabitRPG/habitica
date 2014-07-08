@@ -35,6 +35,8 @@
     "questEggRatAdjective": "uno sporco",
     "questEggOctopusText": "Polpo",
     "questEggOctopusAdjective": "un viscido",
+    "questEggSeahorseText": "Seahorse",
+    "questEggSeahorseAdjective": "prize",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

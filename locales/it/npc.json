@@ -61,7 +61,7 @@
     "autoAllocate": "Assegnazione automatica dei punti",
     "autoAllocateText": "Se l'opzione \"allocazione automatica\" è selezionata, il tuo avatar guadagna automaticamente statistiche basate sugli attributi delle attività che completi, che puoi trovare in <strong>ATTIVITA' > Modifica > Avanzate > Attributi</strong>. Per esempio, se vai spesso in palestra, e la tua Daily \"Palestra\" è impostata sull'attributo \"Fisico\", guadagnerai Forza automaticamente.",
     "spells": "Incantesimi",
-    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
+    "spellsText": "Ora puoi sbloccare incantesimi specifici per la tua classe. Potrai vedere il primo una volta raggiunto il livello 11. Il tuo mana si rigenera di 10 punti al giorno, più 1 punto per ogni",
     "toDo": "To-Do",
     "moreClass": "Per avere maggiori informazioni sul sistema delle classi, vedi"
 }
