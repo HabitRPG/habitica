@@ -304,14 +304,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       $scope.create = function(group){
         group.$save(function(){
-          $rootScope.hardRedirect('/#/options/social/party');
+          $rootScope.hardRedirect('/#/options/groups/party');
         });
       }
 
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         group.$join(function(){
-          $rootScope.hardRedirect('/#/options/social/party');
+          $rootScope.hardRedirect('/#/options/groups/party');
         });
       }
 
@@ -322,7 +322,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $scope.popoverEl.popover('destroy');
         } else {
           Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
-            $rootScope.hardRedirect('/#/options/social/party');
+            $rootScope.hardRedirect('/#/options/groups/party');
           });
         }
       }
