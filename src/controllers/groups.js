@@ -335,37 +335,38 @@ api.leave = function(req, res, next) {
       user.save(cb);
     },
     // Remove user from group challenges
-      function(cb){
-        async.waterfall([
+    function(cb){
+      async.waterfall([
         // Find relevant challenges
-          function(cb) {
-            Challenge.find({$and:[
-              {_id: {$in: user.challenges}}, // Challenges I am in
-              {group: group._id}, // that belong to the group I am leaving
-            ]}, cb);
-          },
-          function(challenges, cb) {
-            // Update each challenge
-            Challenge.update({_id:{$in: _.pluck(challenges, '_id')}},
-                             {$pull:{members:user._id}},
-                             {multi: true}, function(err) {
-                               if (err) return cb(err);
-                               cb(null, challenges);
-                             });
-          },
-          function(challenges, cb) {
-            // Unlink the challenge tasks from user
-            async.waterfall(challenges.map(function(chal) {
-              return function(cb) {
-                var i = user.challenges.indexOf(chal._id)
-                if (~i) user.challenges.splice(i,1);
-                user.unlink({cid:chal._id, keep:keep}, function(err){
-                  if (err) return cb(err);
-                  cb(null);
-                });
-             }}), cb);
-          }], cb);
-      },
+        function(cb2) {
+          Challenge.find({
+            _id: {$in: user.challenges}, // Challenges I am in
+            group: group._id // that belong to the group I am leaving
+          }, cb2);
+        },
+        // Update each challenge
+        function(challenges, cb2) {
+          Challenge.update(
+            {_id:{$in: _.pluck(challenges, '_id')}},
+            {$pull:{members:user._id}},
+            {multi: true},
+            function(err) {
+             cb2(err, challenges); // pass `challenges` above to cb
+            }
+          );
+        },
+        // Unlink the challenge tasks from user
+        function(challenges, cb2) {
+          async.waterfall(challenges.map(function(chal) {
+            return function(cb3) {
+              var i = user.challenges.indexOf(chal._id)
+              if (~i) user.challenges.splice(i,1);
+              user.unlink({cid:chal._id, keep:keep}, cb3);
+            }
+          }), cb2);
+        }
+      ], cb);
+    },
     function(cb){
       var update = {$pull:{members:user._id}};
       if (group.type == 'party' && group.quest.key){

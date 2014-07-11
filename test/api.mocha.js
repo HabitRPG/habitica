@@ -533,7 +533,7 @@ describe('API', function () {
                     },
                     function(_user,cb){
                       user = _user;
-                      request.get(baseURL+'/groups/party').end(function(res){cb(null,res.body)});
+                      Group.findById(group._id,cb);
                     },
                     function(_group,cb){
                       var cummExp = shared.content.quests.vice3.drop.exp + shared.content.quests.dilatory.drop.exp;
@@ -563,7 +563,7 @@ describe('API', function () {
                           expect(_.find(_group.members,{_id:party[0]._id}).items.gear.owned.weapon_special_2).to.be(true);
                           expect(_.find(_group.members,{_id:party[1]._id}).items.gear.owned.weapon_special_2).to.be(true);
                           expect(_.find(_group.members,{_id:party[2]._id}).items.gear.owned.weapon_special_2).to.not.be.ok();
-                          cb2
+                          cb2()
                         }
 
                       ],cb)
