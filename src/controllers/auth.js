@@ -178,7 +178,7 @@ api.resetPassword = function(req, res, next){
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
     hashed_password = utils.encryptPassword(newPassword, salt);
 
-  User.findOne({'auth.local.email':email}, function(err, user){
+  User.findOne({'auth.local.email':new RegExp("^"+email+"$","i")}, function(err, user){
     if (err) return next(err);
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
