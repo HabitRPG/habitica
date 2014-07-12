@@ -155,8 +155,11 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   updates['$inc']['stats.gp'] = +quest.drop.gp;
   updates['$inc']['stats.exp'] = +quest.drop.exp;
   updates['$inc']['_v'] = 1;
-  if (group._id !== 'habitrpg')
-    updates['$set']['party.quest'] = cleanQuestProgress({completed:questK});
+  if (group._id == 'habitrpg') {
+    updates['$set']['party.quest.completed'] = questK; // Just show the notif
+  } else {
+    updates['$set']['party.quest'] = cleanQuestProgress({completed: questK}); // clear quest progress
+  }
 
   _.each(quest.drop.items, function(item){
     var dropK = item.key;
@@ -233,6 +236,11 @@ process.nextTick(function(){
 })
 GroupSchema.statics.tavernBoss = function(user,progress) {
   if (!progress) return;
+
+  // hack: prevent crazy damage to world boss
+  progress.up = Math.min(300, Math.abs(progress.up||0));
+  progress.down = -Math.min(300, Math.abs(progress.down||0));
+
   async.waterfall([
     function(cb){
       mongoose.model('Group').findOne(tavernQ,cb);
