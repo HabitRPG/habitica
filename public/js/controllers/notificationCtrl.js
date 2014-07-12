@@ -126,7 +126,7 @@ habitrpg.controller('NotificationCtrl',
 
     // Completed quest modal
     $rootScope.$watch('user.party.quest.completed', function(after, before){
-      if (after == before || after != true) return;
+      if (!after) return;
       $rootScope.openModal('questCompleted', {controller:'InventoryCtrl'});
     });
 
