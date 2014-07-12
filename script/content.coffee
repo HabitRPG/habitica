@@ -202,15 +202,15 @@ gear =
       candycane:  event: events.winter, specialClass: 'wizard', text: t('headSpecialCandycaneText'), notes: t('headSpecialCandycaneNotes', {per: 7}), per: 7, value:60
       snowflake:  event: events.winter, specialClass: 'healer', text: t('headSpecialSnowflakeText'), notes: t('headSpecialSnowflakeNotes', {int: 7}), int: 7, value:60
       # Spring Fling
-      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('headSpecialSpringRogueText'), notes: t('headSpecialSpringRogueNotes', {per: 9}),value: 40,per: 9
-      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('headSpecialSpringWarriorText'), notes: t('headSpecialSpringWarriorNotes', {str: 9}),value: 40,str: 9
-      springMage:     event: events.spring, specialClass: 'wizard',    text: t('headSpecialSpringMageText'), notes: t('headSpecialSpringMageNotes', {per: 7}),value: 40,per: 7
-      springHealer:   event: events.spring, specialClass: 'healer',  text: t('headSpecialSpringHealerText'), notes: t('headSpecialSpringHealerNotes', {int: 7}), value: 40, int: 7
+      springRogue:    event: events.spring, specialClass: 'rogue',   text: t('headSpecialSpringRogueText'), notes: t('headSpecialSpringRogueNotes', {per: 9}),value: 60,per: 9
+      springWarrior:  event: events.spring, specialClass: 'warrior', text: t('headSpecialSpringWarriorText'), notes: t('headSpecialSpringWarriorNotes', {str: 9}),value: 60,str: 9
+      springMage:     event: events.spring, specialClass: 'wizard',    text: t('headSpecialSpringMageText'), notes: t('headSpecialSpringMageNotes', {per: 7}),value: 60,per: 7
+      springHealer:   event: events.spring, specialClass: 'healer',  text: t('headSpecialSpringHealerText'), notes: t('headSpecialSpringHealerNotes', {int: 7}), value: 60, int: 7
       # Summer
-      summerRogue:    event: events.summer, specialClass: 'rogue',   text: t('headSpecialSummerRogueText'), notes: t('headSpecialSummerRogueNotes', {per: 9}),value: 40,per: 9
-      summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('headSpecialSummerWarriorText'), notes: t('headSpecialSummerWarriorNotes', {str: 9}),value: 40,str: 9
-      summerMage:     event: events.summer, specialClass: 'wizard',    text: t('headSpecialSummerMageText'), notes: t('headSpecialSummerMageNotes', {per: 7}),value: 40,per: 7
-      summerHealer:   event: events.summer, specialClass: 'healer',  text: t('headSpecialSummerHealerText'), notes: t('headSpecialSummerHealerNotes', {int: 7}), value: 40, int: 7
+      summerRogue:    event: events.summer, specialClass: 'rogue',   text: t('headSpecialSummerRogueText'), notes: t('headSpecialSummerRogueNotes', {per: 9}),value: 60,per: 9
+      summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('headSpecialSummerWarriorText'), notes: t('headSpecialSummerWarriorNotes', {str: 9}),value: 60,str: 9
+      summerMage:     event: events.summer, specialClass: 'wizard',    text: t('headSpecialSummerMageText'), notes: t('headSpecialSummerMageNotes', {per: 7}),value: 60,per: 7
+      summerHealer:   event: events.summer, specialClass: 'healer',  text: t('headSpecialSummerHealerText'), notes: t('headSpecialSummerHealerNotes', {int: 7}), value: 60, int: 7
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
