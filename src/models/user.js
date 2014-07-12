@@ -403,6 +403,13 @@ UserSchema.pre('save', function(next) {
 
   this.achievements.beastMaster = petCount >= 90;
 
+  var progress = this.party && this.party.quest && this.party.quest.progress;
+  if (progress) {
+    // hack: prevent crazy damage to bosses (see https://github.com/HabitRPG/habitrpg/issues/3712)
+    progress.up = Math.min(300, Math.abs(progress.up||0));
+    progress.down = -Math.min(300, Math.abs(progress.down||0));
+  }
+
   //our own version incrementer
   this._v++;
   next();
