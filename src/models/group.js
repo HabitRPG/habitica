@@ -237,6 +237,10 @@ process.nextTick(function(){
 GroupSchema.statics.tavernBoss = function(user,progress) {
   if (!progress) return;
 
+  // hack: prevent crazy damage to world boss
+  progress.up = Math.min(900, Math.abs(progress.up||0));
+  progress.down = -Math.min(900, Math.abs(progress.down||0));
+
   async.waterfall([
     function(cb){
       mongoose.model('Group').findOne(tavernQ,cb);
