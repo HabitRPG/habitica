@@ -100,3 +100,14 @@
     };
   });
 })()
+
+habitrpg.directive('questRewards', ['$rootScope', function($rootScope){
+  return {
+    restrict: 'AE',
+    templateUrl: 'partials/options.social.party.quest-rewards.html',
+    link: function(scope, element, attrs){
+      scope.header = attrs.header || 'Rewards';
+      scope.quest = $rootScope.Content.quests[attrs.key];
+    }
+  }
+}]);
