@@ -130,4 +130,29 @@ habitrpg.directive('questRewards', ['$rootScope', function($rootScope){
       scope.quest = $rootScope.Content.quests[attrs.key];
     }
   }
-}])
+}]);
+
+habitrpg.directive('atEmoji', function($rootScope, $timeout){
+  var emojis = [], emoji_config;
+
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs){
+      $timeout(function(){
+        if($rootScope._.isEmpty(emojis)){
+          $rootScope._.forEach(emoji.map.colons, function(key, value){
+            emojis.push(value);
+          });
+
+          emoji_config = {
+            at: ":",
+            data: emojis,
+            tpl:"<li data-value=':${name}:'>${name} <img src='bower_components/habitrpg-shared/img/emoji/${name}.png'  height='20' width='20' /></li>"
+          };
+        }
+
+        $(element).atwho(emoji_config);
+      }, 500);
+    }
+  }
+});

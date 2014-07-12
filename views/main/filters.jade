@@ -25,7 +25,7 @@
         li.filters-edit(bindonce='user.tags', ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags')
           //- Edit tags
           form.hrpg-input-group(ng-show='_editing')
-            input(type='text', ng-model='tag.name')
+            input(type='text', ng-model='tag.name', at-emoji)
             button(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
               span.glyphicon.glyphicon-trash
           //- List of Tags
