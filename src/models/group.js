@@ -155,7 +155,8 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   updates['$inc']['stats.gp'] = +quest.drop.gp;
   updates['$inc']['stats.exp'] = +quest.drop.exp;
   updates['$inc']['_v'] = 1;
-  updates['$set']['party.quest'] = cleanQuestProgress({completed:questK});
+  if (group._id !== 'habitrpg')
+    updates['$set']['party.quest'] = cleanQuestProgress({completed:questK});
 
   _.each(quest.drop.items, function(item){
     var dropK = item.key;
@@ -237,7 +238,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
       mongoose.model('Group').findOne(tavernQ,cb);
     },
     function(tavern,cb){
-      if (!tavern.quest || !tavern.quest.key) return cb(true);
+      if (!(tavern && tavern.quest && tavern.quest.key)) return cb(true);
       module.exports.tavern = tavern;
 
       var quest = shared.content.quests[tavern.quest.key];
