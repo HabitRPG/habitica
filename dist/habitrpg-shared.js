@@ -11017,7 +11017,9 @@ api.spells = {
         target.value += diminishingReturns(bonus * .02, 4);
         bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
         user.stats.exp += diminishingReturns(bonus, 75);
-        return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        if (user.party.quest.key) {
+          return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        }
       }
     },
     mpheal: {
@@ -11073,7 +11075,9 @@ api.spells = {
       notes: t('spellWarriorSmashNotes'),
       cast: function(user, target) {
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
-        return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+        if (user.party.quest.key) {
+          return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+        }
       }
     },
     defensiveStance: {
