@@ -124,5 +124,5 @@
     "youCast": "Você conjurou <%= spell %>.",
     "youCastTarget": "Você conjurou <%= spell %> em <%= target %>.",
     "youCastParty": "Você conjurou <%= spell %> para a equipe.",
-    "critBonus": "Critical Hit! Bonus:"
+    "critBonus": "Golpe Crítico! Bônus: "
 }
