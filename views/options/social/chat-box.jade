@@ -5,10 +5,10 @@ form.chat-form(ng-submit='postChat(group,message.content)')
       ul.list-at-user
         li(ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
           span.username.label.label-default(ng-class=':: userLevelStyle(user)') {{::user.user}}
-  .row
-    .col-md-9
+  .chat-controls
+    .chat-formatting
       include ../../shared/formatting-help
-    .col-md-3
-      input.btn.btn-default.chat-btn(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
-      button.btn.btn-default(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
-        span.glyphicon.glyphicon-refresh.pull-right
+    .chat-buttons
+      input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
+      button(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
+        span.glyphicon.glyphicon-refresh
