@@ -142,6 +142,32 @@ api.stripeSubscribeCancel = function(req, res, next) {
   });
 }
 
+api.stripeSubscribeEdit = function(req, res, next) {
+  var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
+  var token = req.body.id;
+  var user = res.locals.user;
+  var user_id = user.purchased.plan.customerId;
+  var sub_id;
+
+  async.waterfall([
+    function(cb){
+      stripe.customers.listSubscriptions(user_id, cb);
+    },
+    function(response, cb) {
+      sub_id = response.data[0].id;
+      console.warn(sub_id);
+      console.warn([user_id, sub_id, { card: token }]);
+      stripe.customers.updateSubscription(user_id, sub_id, { card: token }, cb);
+    },
+    function(response, cb) {
+      user.save(cb);
+    }
+  ], function(err, saved){
+    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
+    res.send(200);
+  });
+}
+
 api.paypalSubscribe = function(req,res,next) {
   var uuid = res.locals.user._id;
   // Authenticate a future subscription of ~5 USD
