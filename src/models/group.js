@@ -238,8 +238,8 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
   if (!progress) return;
 
   // hack: prevent crazy damage to world boss
-  progress.up = Math.min(900, Math.abs(progress.up||0));
-  progress.down = -Math.min(900, Math.abs(progress.down||0));
+  var dmg = Math.min(900, Math.abs(progress.up||0)),
+    rage = -Math.min(900, Math.abs(progress.down||0));
 
   async.waterfall([
     function(cb){
@@ -259,8 +259,8 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
         // use those first - which allows us to update the boss on the go if things are too easy/hard.
         if (!tavern.quest.extra) tavern.quest.extra = {};
-        tavern.quest.progress.hp -= progress.up / (tavern.quest.extra.def || quest.boss.def);
-        tavern.quest.progress.rage -= progress.down * (tavern.quest.extra.str || quest.boss.str);
+        tavern.quest.progress.hp -= dmg / (tavern.quest.extra.def || quest.boss.def);
+        tavern.quest.progress.rage -= rage * (tavern.quest.extra.str || quest.boss.str);
         if (tavern.quest.progress.rage >= quest.boss.rage.value) {
           if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
           var wd = tavern.quest.extra.worldDmg;
