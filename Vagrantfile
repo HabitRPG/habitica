@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "thepeopleseason/habitrpg"
+  config.vm.box = "habitrpg"
   config.ssh.forward_agent = true
 
   config.vm.hostname = "habitrpg"
