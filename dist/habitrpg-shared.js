@@ -10362,7 +10362,7 @@ gear = {
         notes: t('headSpecialSpringRogueNotes', {
           per: 9
         }),
-        value: 40,
+        value: 60,
         per: 9
       },
       springWarrior: {
@@ -10372,7 +10372,7 @@ gear = {
         notes: t('headSpecialSpringWarriorNotes', {
           str: 9
         }),
-        value: 40,
+        value: 60,
         str: 9
       },
       springMage: {
@@ -10382,7 +10382,7 @@ gear = {
         notes: t('headSpecialSpringMageNotes', {
           per: 7
         }),
-        value: 40,
+        value: 60,
         per: 7
       },
       springHealer: {
@@ -10392,7 +10392,7 @@ gear = {
         notes: t('headSpecialSpringHealerNotes', {
           int: 7
         }),
-        value: 40,
+        value: 60,
         int: 7
       },
       summerRogue: {
@@ -10402,7 +10402,7 @@ gear = {
         notes: t('headSpecialSummerRogueNotes', {
           per: 9
         }),
-        value: 40,
+        value: 60,
         per: 9
       },
       summerWarrior: {
@@ -10412,7 +10412,7 @@ gear = {
         notes: t('headSpecialSummerWarriorNotes', {
           str: 9
         }),
-        value: 40,
+        value: 60,
         str: 9
       },
       summerMage: {
@@ -10422,7 +10422,7 @@ gear = {
         notes: t('headSpecialSummerMageNotes', {
           per: 7
         }),
-        value: 40,
+        value: 60,
         per: 7
       },
       summerHealer: {
@@ -10432,7 +10432,7 @@ gear = {
         notes: t('headSpecialSummerHealerNotes', {
           int: 7
         }),
-        value: 40,
+        value: 60,
         int: 7
       },
       gaymerx: {
