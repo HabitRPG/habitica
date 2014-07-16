@@ -11682,6 +11682,10 @@ api.quests = {
           type: 'food',
           key: 'CottonCandyBlue',
           text: t('foodCottonCandyBlue')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney')
         }
       ],
       gp: 0,
