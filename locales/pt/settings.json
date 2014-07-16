@@ -1,8 +1,8 @@
 {
     "settings": "Configurações",
     "language": "Idioma",
-    "americanEnglishGovern": "In the event of a discrepancy in the translations, the American English version governs.",
-    "helpWithTranslation": "Would you like to help with the translation of HabiRPG? Great! Then visit <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">this</a> Trello card.",
+    "americanEnglishGovern": "No caso de uma discrepância nas traduções, a versão em Inglês Americano domina.",
+    "helpWithTranslation": "Gostaria de ajudar com a tradução do HabitRPG? Fantástico! Então visite <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">este</a> cartão do Trello.",
     "showHeaderPop": "Mostrar seu avatar, barras de Vida/Experiência, e equipe.",
     "stickyHeader": "Cabeçalho Fixo",
     "stickyHeaderPop": "Fixa o cabeçalho no topo da tela. Desmarcado significa que ele rolará para fora da vista.",
