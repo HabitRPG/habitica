@@ -38,7 +38,7 @@ api.getPatrons = function(req,res,next){
 
 api.getHero = function(req,res,next) {
   User.findById(req.params.uid)
-    .select('contributor balance profile.name purchased')
+    .select('contributor balance profile.name purchased items')
     .exec(function(err, user){
       if (err) return next(err)
       if (!user) return res.json(400,{err:'User not found'});
@@ -61,6 +61,17 @@ api.updateHero = function(req,res,next) {
       member.contributor = req.body.contributor;
       member.purchased.ads = req.body.purchased.ads;
       if (member.contributor.level >= 6) member.items.pets['Dragon-Hydra'] = 5;
+      if (req.body.itemPath && req.body.itemVal
+        && req.body.itemPath.indexOf('items.')===0
+        && User.schema.paths[req.body.itemPath]) {
+        // TODO remove below after verified. Seems express handles type-casting just fine
+        //var itemVal = req.body.itemVal;itemVal =
+        //  itemVal === 'false' ? false: itemVal === 'true' ? true: // boolean
+        //  _.isNaN(parseInt(itemVal)) ? itemVal :                  // string
+        //  _.isDate(itemVal) ? itemVal :                           // date
+        //  parseInt(itemVal);                                      // number
+        shared.dotSet(member, req.body.itemPath, req.body.itemVal);
+      }
       member.save(cb);
     }
   ], function(err, saved){

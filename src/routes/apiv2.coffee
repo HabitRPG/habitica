@@ -46,6 +46,10 @@ module.exports = (swagger, v2) ->
         ]
       action: user.getContent
 
+    '/content/paths':
+      spec:
+        description: "Show user model tree"
+      action: user.getModelPaths
 
     "/export/history":
       spec:

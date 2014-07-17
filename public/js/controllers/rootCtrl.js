@@ -28,6 +28,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.env = window.env;
     $rootScope.Math = Math;
     $rootScope.Groups = Groups;
+    $rootScope.toJson = angular.toJson;
 
     // Angular UI Router
     $rootScope.$state = $state;
