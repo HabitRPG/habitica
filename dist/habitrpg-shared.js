@@ -12306,8 +12306,29 @@ api = module.exports = {};
 
 api.i18n = i18n;
 
-$w = function(s) {
+$w = api.$w = function(s) {
   return s.split(' ');
+};
+
+api.dotSet = function(obj, path, val) {
+  var arr;
+  arr = path.split('.');
+  return _.reduce(arr, (function(_this) {
+    return function(curr, next, index) {
+      if ((arr.length - 1) === index) {
+        curr[next] = val;
+      }
+      return curr[next] != null ? curr[next] : curr[next] = {};
+    };
+  })(this), obj);
+};
+
+api.dotGet = function(obj, path) {
+  return _.reduce(path.split('.'), ((function(_this) {
+    return function(curr, next) {
+      return curr != null ? curr[next] : void 0;
+    };
+  })(this)), obj);
 };
 
 
@@ -13802,23 +13823,10 @@ api.wrap = function(user, main) {
     Angular sets object properties directly - in which case, this function will be used.
      */
     dotSet: function(path, val) {
-      var arr;
-      arr = path.split('.');
-      return _.reduce(arr, (function(_this) {
-        return function(curr, next, index) {
-          if ((arr.length - 1) === index) {
-            curr[next] = val;
-          }
-          return curr[next] != null ? curr[next] : curr[next] = {};
-        };
-      })(this), user);
+      return api.dotSet(user, path, val);
     },
     dotGet: function(path) {
-      return _.reduce(path.split('.'), ((function(_this) {
-        return function(curr, next) {
-          return curr != null ? curr[next] : void 0;
-        };
-      })(this)), user);
+      return api.dotGet(user, path);
     },
     randomDrop: function(modifiers, req) {
       var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;

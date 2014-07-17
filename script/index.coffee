@@ -7,7 +7,16 @@ api = module.exports = {}
 api.i18n = i18n
 
 # little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
-$w = (s)->s.split(' ')
+$w = api.$w = (s)->s.split(' ')
+api.dotSet = (obj,path,val)->
+  arr = path.split('.')
+  _.reduce arr, (curr, next, index) =>
+    if (arr.length - 1) == index
+      curr[next] = val
+    (curr[next] ?= {})
+  , obj
+api.dotGet = (obj,path)->
+  _.reduce path.split('.'), ((curr, next) => curr?[next]), obj
 
 ###
   ------------------------------------------------------
@@ -975,18 +984,8 @@ api.wrap = (user, main=true) ->
     so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
     Angular sets object properties directly - in which case, this function will be used.
     ###
-    dotSet: (path, val) ->
-      arr = path.split('.')
-      _.reduce arr, (curr, next, index) =>
-        if (arr.length - 1) == index
-          curr[next] = val
-        (curr[next] ?= {})
-      , user
-
-    dotGet: (path) ->
-      _.reduce path.split('.'), ((curr, next) => curr?[next]), user
-
-
+    dotSet: (path, val)-> api.dotSet user,path,val
+    dotGet: (path)-> api.dotGet user,path
 
     # ----------------------------------------------------------------------
     # Scoring
