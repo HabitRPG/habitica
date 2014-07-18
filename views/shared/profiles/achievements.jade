@@ -154,3 +154,11 @@ div(ng-if='::profile.achievements.valentine')
   small
     =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
   hr
+
+div(ng-if='::profile.achievements.quests.dilatory')
+  .achievement.achievement-dilatory
+  h5=env.t('achievementDilatory')
+  small
+    =env.t('achievementDilatoryText')
+  hr
+
