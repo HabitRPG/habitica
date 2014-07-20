@@ -3,7 +3,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
   span.task-action-btn.tile.flush.neutral
     .Pet_Currency_Gem2x.Gems
     | {{group.balance * 4 | number:0 }}
-    =env.t('guildGems')
+    =' ' + env.t('guildGems')
 
 .container-fluid
   .row
