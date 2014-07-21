@@ -9249,6 +9249,10 @@ mystery = {
     start: '2014-06-23',
     end: '2014-07-01'
   },
+  201407: {
+    start: '2014-07-23',
+    end: '2014-08-01'
+  },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
@@ -10085,6 +10089,12 @@ gear = {
         notes: t('armorMystery201406Notes'),
         mystery: mystery['201406'],
         value: 0
+      },
+      201407: {
+        text: t('armorMystery201407Text'),
+        notes: t('armorMystery201407Notes'),
+        mystery: mystery['201407'],
+        value: 0
       }
     }
   },
@@ -10459,6 +10469,12 @@ gear = {
         text: t('headMystery201406Text'),
         notes: t('headMystery201406Notes'),
         mystery: mystery['201406'],
+        value: 0
+      },
+      201407: {
+        text: t('headMystery201407Text'),
+        notes: t('headMystery201407Notes'),
+        mystery: mystery['201407'],
         value: 0
       }
     }
@@ -13707,6 +13723,7 @@ api.wrap = function(user, main) {
                 }), 1), 1
               ]);
               mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
+              mpDelta *= user._tmp.crit || 1;
               if (direction === 'down') {
                 mpDelta *= -1;
               }
