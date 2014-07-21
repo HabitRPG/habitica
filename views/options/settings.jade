@@ -219,4 +219,5 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               | &nbsp;
               span.glyphicon.glyphicon-ok
             div(ng-include="'partials/options.settings.subscription.perks.html'")
+            .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated', ng-click='showStripeEdit()') Update Card
             .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')

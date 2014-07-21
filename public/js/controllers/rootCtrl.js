@@ -122,6 +122,26 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       });
     }
 
+    $rootScope.showStripeEdit = function(){
+      StripeCheckout.open({
+        key: window.env.STRIPE_PUB_KEY,
+        address: false,
+        name: 'Update',
+        description: 'Update the card to be charged for your subscription',
+        panelLabel: 'Update Card',
+        token: function(data) {
+          var url = '/stripe/subscribe/edit?plan=basic_earned';
+          $scope.$apply(function(){
+            $http.post(url, data).success(function() {
+              window.location.reload(true);
+            }).error(function(err) {
+              alert(err);
+            });
+          })
+        }
+      });
+    }
+
     $rootScope.cancelSubscription = function(){
       if (!confirm(window.env.t('sureCancelSub'))) return;
       window.location.href = '/' + user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
