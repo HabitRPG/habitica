@@ -44,6 +44,8 @@ echo Updating repositories...
 apt-get update -qq
 echo Installing node.js
 apt-get install -qq nodejs
+echo Installing graphicsmagick
+apt-get install -qq graphicsmagick graphicsmagick-imagemagick-compat phantomjs
 
 cd /vagrant
 
@@ -54,7 +56,7 @@ echo Installing HabitRPG
 npm install
 
 echo Installing Bower packages
-sudo -u vagrant bower install -f
+sudo -u vagrant bower --config.interactive=false install -f
 
 echo Seeding Mongodb...
 node ./src/seed.js
