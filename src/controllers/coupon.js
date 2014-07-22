@@ -24,7 +24,7 @@ api.getCoupons = function(req,res,next) {
   Coupon.find({},{}, options, function(err,coupons){
     //res.header('Content-disposition', 'attachment; filename=coupons.csv');
     res.csv([['code']].concat(_.map(coupons, function(c){
-      return ['HabitRPG - To redeem your code, go to goo.gl/azsGaH and enter '+c._id];
+      return ["Hi, it's nice to meet you! Want some exclusive UnConventional Armor? You can redeem the coupon code at the end of this message at http://habitrpg.com/#/options/settings/coupon (If you haven't already created an account, you'll need to do that first.) See you in the game! COUPON CODE: "+ c._id];
     })));
   });
 }
