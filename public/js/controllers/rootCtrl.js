@@ -83,6 +83,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         scope: options.scope, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
         backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
+
       });
     }
 

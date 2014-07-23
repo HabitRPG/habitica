@@ -8,7 +8,19 @@ script(type='text/ng-template', id='modals/reset.html')
     button.btn.btn-default(ng-click='$close();')=env.t('neverMind')
     button.btn.btn-danger(ng-click='$close(); reset()')=env.t('resetDo')
 
-script(type='text/ng-template', id='modals/restore.html')  
+script(type='text/ng-template', id='modals/suspended.html')
+  .modal-header
+    h4 Account Suspended
+  .modal-body
+    p This account has been suspended. Please contact <a href='mailto:leslie@habitrpg.com' target='_blank'>leslie@habitrpg.com</a> for further assistance.
+    hr
+    p Account UUID: {{::user._id}}
+    a(ng-click='logout()')
+      span.glyphicon.glyphicon-log-out
+      |&nbsp;
+      =env.t('logout')
+
+script(type='text/ng-template', id='modals/restore.html')
   .modal-header
     h4=env.t('fixValues')
   .modal-body

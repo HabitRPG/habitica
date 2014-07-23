@@ -14,6 +14,12 @@ var api = module.exports;
 var NO_TOKEN_OR_UID = { err: "You must include a token and uid (user id) in your request"};
 var NO_USER_FOUND = {err: "No user found."};
 var NO_SESSION_FOUND = { err: "You must be logged in." };
+var accountSuspended = function(uuid){
+  return {
+    err: 'Account has been suspended, please contact leslie@habitrpg.com with your UUID ('+uuid+') for assistance.',
+    code: 'ACCOUNT_SUSPENDED'
+  };
+}
 
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
@@ -22,6 +28,7 @@ api.auth = function(req, res, next) {
   User.findOne({_id: uid,apiToken: token}, function(err, user) {
     if (err) return next(err);
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
 
     res.locals.wasModified = req.query._v ? +user._v !== +req.query._v : true;
     res.locals.user = user;
@@ -121,9 +128,10 @@ api.loginLocal = function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
   if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
-  User.findOne({'auth.local.username': username}, function(err, user){
+  User.findOne({'auth.local.username': username}, {auth:1}, function(err, user){
     if (err) return next(err);
     if (!user) return res.json(401, {err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
+    if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
     // We needed the whole user object first so we can get his salt to encrypt password comparison
     User.findOne({
       'auth.local.username': username,
@@ -144,30 +152,17 @@ api.loginLocal = function(req, res, next) {
 api.loginFacebook = function(req, res, next) {
   var email, facebook_id, name, _ref;
   _ref = req.body, facebook_id = _ref.facebook_id, email = _ref.email, name = _ref.name;
-  if (!facebook_id) {
-    return res.json(401, {
-      err: 'No facebook id provided'
-    });
-  }
-  return User.findOne({
-    'auth.facebook.id': facebook_id
-  }, function(err, user) {
+  if (!facebook_id)
+    return res.json(401, {err: 'No facebook id provided'});
+  User.findOne({'auth.facebook.id': facebook_id}, function(err, user) {
     if (err) {
-      return res.json(401, {
-        err: err
-      });
-    }
-    if (user) {
-      return res.json(200, {
-        id: user.id,
-        token: user.apiToken
-      });
+      return res.json(401, {err: err});
+    } else if (user) {
+      if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
+      return res.json(200, {id: user.id,token: user.apiToken});
     } else {
       /* FIXME: create a new user instead*/
-
-      return res.json(403, {
-        err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."
-      });
+      return res.json(403, {err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."});
     }
   });
 };

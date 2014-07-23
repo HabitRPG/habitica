@@ -59,6 +59,14 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
             small.muted Enter the <strong>item value</strong>. E.g., <code>5</code> or <code>false</code> or <code>head_warrior_3</code> (respectively from above examples).
           h4 Current Items
           pre {{::toJson(hero.items,true)}}
+        accordion-group(heading='Auth')
+          h4 Auth
+          pre {{::toJson(hero.auth)}}
+          .form-group
+            .checkbox
+              label
+                input(type='checkbox', ng-model='hero.auth.blocked')
+                | Blocked
 
       // h4 Backer Status
       // Add backer stuff like tier, disable adds, etcs

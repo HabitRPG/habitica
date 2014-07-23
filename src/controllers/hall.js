@@ -39,6 +39,7 @@ api.getPatrons = function(req,res,next){
 api.getHero = function(req,res,next) {
   User.findById(req.params.uid)
     .select('contributor balance profile.name purchased items')
+    .select('auth.local.username auth.local.email auth.facebook auth.blocked')
     .exec(function(err, user){
       if (err) return next(err)
       if (!user) return res.json(400,{err:'User not found'});
@@ -64,14 +65,9 @@ api.updateHero = function(req,res,next) {
       if (req.body.itemPath && req.body.itemVal
         && req.body.itemPath.indexOf('items.')===0
         && User.schema.paths[req.body.itemPath]) {
-        // TODO remove below after verified. Seems express handles type-casting just fine
-        //var itemVal = req.body.itemVal;itemVal =
-        //  itemVal === 'false' ? false: itemVal === 'true' ? true: // boolean
-        //  _.isNaN(parseInt(itemVal)) ? itemVal :                  // string
-        //  _.isDate(itemVal) ? itemVal :                           // date
-        //  parseInt(itemVal);                                      // number
-        shared.dotSet(member, req.body.itemPath, req.body.itemVal);
+        shared.dotSet(member, req.body.itemPath, req.body.itemVal); // Sanitization at 5c30944 (deemed unnecessary)
       }
+      if (req.body.auth.blocked) member.auth.blocked = req.body.auth.blocked;
       member.save(cb);
     }
   ], function(err, saved){
