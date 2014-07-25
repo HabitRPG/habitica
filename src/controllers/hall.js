@@ -67,7 +67,7 @@ api.updateHero = function(req,res,next) {
         && User.schema.paths[req.body.itemPath]) {
         shared.dotSet(member, req.body.itemPath, req.body.itemVal); // Sanitization at 5c30944 (deemed unnecessary)
       }
-      if (req.body.auth.blocked) member.auth.blocked = req.body.auth.blocked;
+      if (_.isBoolean(req.body.auth.blocked)) member.auth.blocked = req.body.auth.blocked;
       member.save(cb);
     }
   ], function(err, saved){
