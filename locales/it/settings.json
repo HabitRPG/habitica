@@ -43,9 +43,11 @@
     "misc": "Altro",
     "showHeader": "Mostra header",
     "changePass": "Cambia password",
+    "changeUsername": "Change Username",
     "oldPass": "Vecchia password",
     "newPass": "Nuova password",
     "confirmPass": "Conferma la nuova password",
+    "newUsername": "New Username",
     "dangerZone": "Zona pericolosa",
     "resetText1": "ATTENZIONE! Questo resetterà diversi aspetti del tuo account. E' altamente sconsigliato, ma qualcuno trova questa opzione utile all'inizio, dopo aver provato il sito per un po' di tempo.",
     "resetText2": "Perderai tutti i tuoi livelli, l'oro e i punti esperienza. Tutte le tue attività verranno cancellate permanentemente, insieme alla cronologia dei progressi. Perderai inoltre tutto il tuo equipaggiamento, ma potrai recuperare ogni cosa, compresi gli oggetti in edizione limitata e gli Oggetti Misteriosi per gli abbonati (tieni presente che alcuni oggetti potrebbero richiedere l'appartenenza ad una determinata classe per essere acquistati). Manterrai la tua classe, i tuoi animali e le cavalcature. Generalmente viene utilizzata la Sfera della Rinascita, un'alternativa molto più sicura che ti permette di mantenere le tue attività.",
@@ -64,5 +66,6 @@
     "enterNumber": "Inserisci un numero compreso tra 0 e 24",
     "fillAll": "Compila tutti i campi",
     "passSuccess": "Password modificata con successo",
+    "usernameSuccess": "Username successfully changed",
     "difficulty": "Difficoltà"
 }

@@ -102,13 +102,13 @@
     "distributePointsPop": "Repartizează toate punctele nealocate în funcție de sistemul de repartizare ales.",
     "chooseClass1": "Alege-ți",
     "chooseClass2": "Clasa!",
-    "chooseClass3": "Or opt out to chose later.",
+    "chooseClass3": "Or opt out to choose later.",
     "warriorText": "Războinicii dau \"lovituri critice\" mai des şi mai puternice care oferă aleator bonusuri în Aur, Experienţă şi ale şanselor de a câştiga obiecte în cazul îndeplinirii unui țel. De asemenea, rănesc puternic monştrii speciali. Fă-te Războinic dacă eşti motivat de câştiguri imprevizibile în stil jackpot sau dacă vrei să loveşti masiv monştrii din aventuri!",
     "mageText": "Magii învață rapid, câștigând Experiență și Nivele mai repede decât alte clase. Primesc și multă Mana pentru a-și folosi abilitățile speciale. Fă-te Vrăjitor dacă îți plac aspectele tactice de joc din Habit sau dacă ești puternic motivat de creșterile de nivel și deblocarea facilităților avansate!",
     "rogueText": "Bandiților le place să acumuleze bogății. Ei primesc mai mult Aur decât oricine altcineva și se pricep să găsească obiecte aleator. Discreția specifică le permite să scape de consecințele Cotidienelor ratate. Fă-te Bandit dacă ești puternic motivat de Răsplăți și Realizări, luptându-te pentru pradă și insigne!",
     "healerText": "Vindecătorii sunt protejaţi împotriva loviturilor şi aplică această protecţie și altora. Cotidienele ratate şi obiceiurile proaste nu îi deranjează aşa mult şi au modalităţi de recuperare a sănătăţii în caz de eşec. Fă-te Vindecător dacă îţi face plăcere să-i ajuţi pe alții din echipa ta sau dacă te inspiră ideea de a trişa Moartea prin muncă asiduă!",
     "optOut": "Refuză",
-    "optOutText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior and your points handled automatically. You can enable classes later under Settings.",
+    "optOutText": "Nu vrei să te încurci cu clasele? Vrei să alegi mai târziu ? — Nu alegi acum - vei fi un războinic, iar punctele tale vor fi repartizate automat. Poți alege mai târziu o clasă de la Setări.",
     "select": "Alege",
     "stealth": "Discreție",
     "stealthNewDay": "Când începe o zi nouă, vei evita vătămarea cauzată de multe Cotidiene ratate.",
@@ -125,5 +125,5 @@
     "youCast": "Ai făcut vraja <%= spell %>.",
     "youCastTarget": "Ai făcut vraja <%= spell %> pe <%= target %>.",
     "youCastParty": "Ai făcut vraja <%= spell %> pentru echipă.",
-    "critBonus": "Critical Hit! Bonus:"
+    "critBonus": "Lovitură critică! Bonus:"
 }

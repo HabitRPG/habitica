@@ -43,9 +43,11 @@
     "misc": "Variados",
     "showHeader": "Mostrar Cabeçalho",
     "changePass": "Alterar Senha",
+    "changeUsername": "Change Username",
     "oldPass": "Senha Antiga",
     "newPass": "Senha Nova",
     "confirmPass": "Confirmar Senha Nova",
+    "newUsername": "New Username",
     "dangerZone": "Zona de Perigo",
     "resetText1": "ADVERTÊNCIA! Isso redefine várias partes da sua conta. Isso é altamente desencorajado, mas algumas pessoas acham útil no início, após brincarem com o site por um curto período de tempo.",
     "resetText2": "Você perderá todos os seus níveis, ouro e pontos de experiência. Todas as suas tarefas serão deletadas permanentemente e você perderá toda o histórico das suas tarefas. Você perderá todo seu equipamento, porém poderá comprá-lo novamente, incluindo todos os equipamentos de edição limitada ou Itens Misteriosos de assinante que você já possui (você precisará de estar na classe correta para comprar novamente os equipamentos específicos da classe). Você manterá sua classe atual, seus mascotes e montarias. Você pode preferir usar uma Orbe do Renascimento em vez disso, que é uma opção muito mais segura e manterá suas tarefas.",
@@ -64,5 +66,6 @@
     "enterNumber": "Favor digitar um número entre 0 e 24",
     "fillAll": "Favor preencher todos campos",
     "passSuccess": "Senha alterada com sucesso",
+    "usernameSuccess": "Username successfully changed",
     "difficulty": "Dificuldade"
 }

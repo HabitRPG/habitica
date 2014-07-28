@@ -43,9 +43,11 @@
     "misc": "Altele",
     "showHeader": "Arată antet",
     "changePass": "Schimbă parola",
+    "changeUsername": "Change Username",
     "oldPass": "Parola veche",
     "newPass": "Parola nouă",
     "confirmPass": "Confirmă parola nouă",
+    "newUsername": "New Username",
     "dangerZone": "Zona de pericol",
     "resetText1": "ATENŢIE! Aceasta îţi va reseta multe setari ale contului. Este foarte nerecomandat dar totuşi unii utilizatori găsesc aceasta resetare folositoare la început după ce s-au distrat cu site-ul pentru puţin timp.",
     "resetText2": "Vei pierde toate nivelurile, aurul şi punctele de exeprienţă. Toate sarcinile vor fi şterse permanent şi vei pierde şi istoricul lor. Vei pierde tot echipamentul dar îl vei putea cumpăra din nou incluzând toate ediţiile limitate say itemurile misterioase de abonat pe care deja le deţineai (va trebui să fi setat pe clasa respectivului echipament specific). Vei păstra clasa curentă şi companionii împreună cu animalele de călărit. Poate preferi să utilizezi Globul Renaşterii care este o opţiune mai sigură şi care-ţi păstrează sarcinile curente.",
@@ -64,5 +66,6 @@
     "enterNumber": "Te rog introdu un număr între 0 și 24",
     "fillAll": "Te rog completează toate câmpurile",
     "passSuccess": "Parola a fost schimbată cu succes",
+    "usernameSuccess": "Username successfully changed",
     "difficulty": "Dificultate"
 }
