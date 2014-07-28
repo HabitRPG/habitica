@@ -27,8 +27,23 @@ function autostart_habitrpg {
 echo Setting up HabitRPG...
 echo cd /vagrant >> /home/vagrant/.bashrc
 
+# Prevent warnings: "dpkg-preconfigure: unable to re-open stdin ..."
+export DEBIAN_FRONTEND=noninteractive
+
 echo Updating repositories...
 apt-get update -qq
+
+echo Installing Unix build tools - needed for node-gyp to use make...
+apt-get install -qq build-essential
+
+echo Installing GraphicsMagick - provides gm and convert...
+apt-get install -qq graphicsmagick
+
+echo Installing phantomjs and dependency...
+apt-get install -qq phantomjs libicu48
+
+echo Installing requirements for grunt-spritesmith...
+apt-get install -qq pkg-config libcairo2-dev libjpeg-dev
 
 echo Installing Mongodb...
 apt-get install -qq mongodb
@@ -54,7 +69,7 @@ echo Installing HabitRPG
 npm install
 
 echo Installing Bower packages
-sudo -u vagrant bower install -f
+sudo -H -u vagrant bower --config.interactive=false install -f
 
 echo Seeding Mongodb...
 node ./src/seed.js
