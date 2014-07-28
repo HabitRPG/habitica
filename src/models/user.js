@@ -46,6 +46,7 @@ var UserSchema = new Schema({
     valentine: Number
   },
   auth: {
+    blocked: Boolean,
     facebook: Schema.Types.Mixed,
     local: {
       email: String,
@@ -405,6 +406,7 @@ UserSchema.pre('save', function(next) {
 
   //our own version incrementer
   this._v++;
+
   next();
 });
 

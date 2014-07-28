@@ -37,24 +37,41 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           label
             input(type='checkbox', ng-model='hero.contributor.admin')
             =env.t('admin')
+      hr
 
-        hr
+      .form-group
+        label=env.t('balance')
+        input.form-control(type='number', step="any", ng-model='hero.balance')
+        small!= '`user.balance`' + env.t('notGems')
+      .form-group
+        .checkbox
+          label
+            input(type='checkbox', ng-model='hero.purchased.ads')
+            =env.t('hideAds')
+      accordion
+        accordion-group(heading='Items')
+          h4 Update Item
+          .form-group.well
+            input.form-control(type='text',placeholder='Path (eg, items.pets.BearCub-Base)',ng-model='hero.itemPath')
+            small.muted Enter the <strong>item path</strong>. E.g., <code>items.pets.BearCub-Zombie</code> or <code>items.gear.owned.head_special_0</code> or <code>items.gear.equipped.head</code>. <a href='/api/v2/content/paths' target='_blank'>See all paths here.</a> When in doubt, ask Tyler.
+            br
+            input.form-control(type='text',placeholder='Value (eg, 5)',ng-model='hero.itemVal')
+            small.muted Enter the <strong>item value</strong>. E.g., <code>5</code> or <code>false</code> or <code>head_warrior_3</code> (respectively from above examples).
+          h4 Current Items
+          pre {{::toJson(hero.items,true)}}
+        accordion-group(heading='Auth')
+          h4 Auth
+          pre {{::toJson(hero.auth)}}
+          .form-group
+            .checkbox
+              label
+                input(type='checkbox', ng-model='hero.auth.blocked')
+                | Blocked
 
-        .form-group
-          label=env.t('balance')
-          input.form-control(type='number', step="any", ng-model='hero.balance')
-          small!= '`user.balance`' + env.t('notGems')
-
-        .form-group
-          .checkbox
-            label
-              input(type='checkbox', ng-model='hero.purchased.ads')
-              =env.t('hideAds')
-
-        // h4 Backer Status
-        // Add backer stuff like tier, disable adds, etcs
-        .form-group
-          input.form-control.btn.btn-primary(type='submit')=env.t('save')
+      // h4 Backer Status
+      // Add backer stuff like tier, disable adds, etcs
+      .form-group
+        input.form-control.btn.btn-primary(type='submit')=env.t('save')
 
 
   table.table.table-striped

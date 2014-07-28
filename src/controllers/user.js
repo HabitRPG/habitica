@@ -29,6 +29,13 @@ api.getContent = function(req, res, next) {
   res.json(content);
 }
 
+api.getModelPaths = function(req,res,next){
+  res.json(_.reduce(User.schema.paths,function(m,v,k){
+    m[k] = v.instance || 'Boolean';
+    return m;
+  },{}));
+}
+
 /*
   ------------------------------------------------------------------------
   Tasks

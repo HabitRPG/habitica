@@ -228,7 +228,12 @@ window.habitrpg = angular.module('habitrpg',
             } else if (response.needRefresh) {
               $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
 
-              // 400 range?
+            } else if (response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
+              confirm(response.data.err);
+              localStorage.clear();
+              window.location.href = '/logout';
+
+            // 400 range?
             } else if (response < 500) {
               $rootScope.$broadcast('responseText', response.data.err || response.data);
 

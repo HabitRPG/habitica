@@ -13,6 +13,7 @@ router.get('/paypal/subscribe/cancel', auth.authWithUrl, i18n.getUserLanguage, p
 router.post('/paypal/ipn', i18n.getUserLanguage, payments.paypalIPN); // misc ipn handling
 
 router.post("/stripe/checkout", auth.auth, i18n.getUserLanguage, payments.stripeCheckout);
+router.post("/stripe/subscribe/edit", auth.auth, i18n.getUserLanguage, payments.stripeSubscribeEdit)
 //router.get("/stripe/subscribe", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribe); // checkout route is used (above) with ?plan= instead
 router.get("/stripe/subscribe/cancel", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribeCancel);
 

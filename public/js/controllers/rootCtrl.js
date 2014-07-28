@@ -28,6 +28,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.env = window.env;
     $rootScope.Math = Math;
     $rootScope.Groups = Groups;
+    $rootScope.toJson = angular.toJson;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -82,6 +83,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         scope: options.scope, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
         backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
+
       });
     }
 
@@ -110,6 +112,26 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         token: function(data) {
           var url = '/stripe/checkout';
           if (subscription) url += '?plan=basic_earned';
+          $scope.$apply(function(){
+            $http.post(url, data).success(function() {
+              window.location.reload(true);
+            }).error(function(err) {
+              alert(err);
+            });
+          })
+        }
+      });
+    }
+
+    $rootScope.showStripeEdit = function(){
+      StripeCheckout.open({
+        key: window.env.STRIPE_PUB_KEY,
+        address: false,
+        name: 'Update',
+        description: 'Update the card to be charged for your subscription',
+        panelLabel: 'Update Card',
+        token: function(data) {
+          var url = '/stripe/subscribe/edit?plan=basic_earned';
           $scope.$apply(function(){
             $http.post(url, data).success(function() {
               window.location.reload(true);

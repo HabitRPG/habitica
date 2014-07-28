@@ -83,6 +83,18 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               input.form-control(type='text', ng-model='_couponCode', placeholder='Enter Coupon Code')
               button.btn.btn-primary(type='submit') Submit
 
+        div(ng-if='user.auth.local.username')
+          .panel.panel-default
+            .panel-heading
+              span=env.t('changeUsername')
+            .panel-body
+              form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
+                .form-group
+                  input.form-control(type='text', placeholder=env.t('newUsername'), ng-model='changeUser.newUsername', required)
+                .form-group
+                  input.form-control(type='password', placeholder=env.t('password'), ng-model='changeUser.password', required)
+                input.btn.btn-default(type='submit', value=env.t('submit'))
+
         //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
         div(ng-if='user.auth.local.username')
           .panel.panel-default
@@ -207,4 +219,5 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               | &nbsp;
               span.glyphicon.glyphicon-ok
             div(ng-include="'partials/options.settings.subscription.perks.html'")
-            .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
+            .btn.btn-primary(ng-if=':: !user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
+            .btn.btn-sm.btn-danger(ng-if=':: !user.purchased.plan.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
