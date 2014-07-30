@@ -20,3 +20,4 @@ src/*/*/*.map
 test/*.js
 test/*.map
 public/docs
+*.sublime-workspace
