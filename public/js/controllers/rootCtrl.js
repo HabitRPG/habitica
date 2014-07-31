@@ -163,16 +163,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       var history = [], matrix, data, chart, options;
       switch (id) {
         case 'exp':
-          $rootScope.charts.exp = !$rootScope.charts.exp;
           history = User.user.history.exp;
+          $rootScope.charts.exp = (history.length == 0) ? false : !$rootScope.charts.exp;
           break;
         case 'todos':
-          $rootScope.charts.todos = !$rootScope.charts.todos;
           history = User.user.history.todos;
+          $rootScope.charts.todos = (history.length == 0) ? false : !$rootScope.charts.todos;
           break;
         default:
-          $rootScope.charts[id] = !$rootScope.charts[id];
           history = task.history;
+          $rootScope.charts[id] = (history.length == 0) ? false : !$rootScope.charts[id];
           if (task && task._editing) task._editing = false;
       }
       matrix = [['Date', 'Score']];
