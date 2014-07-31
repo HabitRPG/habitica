@@ -238,7 +238,11 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
 script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
   .container-fluid
     menu(type='list')
-      each bgs,k in env.Content.backgrounds
+      // backgrounds are listed in content file in chronological order, but
+      // we want to display them with most recent at top (reversed)
+      - var bgsKeys = Object.keys(env.Content.backgrounds);
+      - for (var i = bgsKeys.length-1; i >= 0; i--) {
+        - var k = bgsKeys[i], bgs = env.Content.backgrounds[k];
         li.customize-menu
           menu(label=env.t(k))
             +gemCost(7)
@@ -246,6 +250,7 @@ script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
               button.btn.btn-xs(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})",ng-click="unlock(setKeys('background',#{JSON.stringify(bgs)}))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
             each bg,k in bgs
               button.customize-option(type='button',class='background_#{k}',ng-click='unlock("background.#{k}")',popover-title=bg.text(),popover=bg.notes(),popover-trigger='mouseenter')
+      - }
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.options-menu
