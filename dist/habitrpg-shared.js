@@ -12982,6 +12982,9 @@ api.wrap = function(user, main) {
           gear[type].head = 'head_base_0';
           return gear[type].shield = 'shield_base_0';
         });
+        if (typeof gear.owned === 'undefined') {
+          gear.owned = {};
+        }
         _.each(gear.owned, function(v, k) {
           if (gear.owned[k]) {
             gear.owned[k] = false;
