@@ -1155,7 +1155,7 @@ api.wrap = (user, main=true) ->
           dialog: i18n.t('messageFoundQuest', {questText: content.quests.vice1.text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
-      if !user.flags.freeRebirth = true and user.stats.lvl >= 100
+      if user.stats.lvl >= 100 and !user.flags.freeRebirth = true
         user.flags.freeRebirth = true
 
     ###
