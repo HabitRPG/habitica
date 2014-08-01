@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 //    totalDims.width += dims.width;
 //    totalDims.height += dims.height;
 //  })
-  var COUNT = 4;//Math.ceil( (totalDims.width * totalDims.height) / (1024*1024*3) );
+  var COUNT = 6;//Math.ceil( (totalDims.width * totalDims.height) / (1024*1024*3) );
   //console.log({totalDims:totalDims,COUNT:COUNT});
 
   var sprite = {};
