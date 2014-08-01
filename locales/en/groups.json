@@ -16,7 +16,7 @@
     "tavernAlert1": "Note: if you're reporting a bug, the developers won't see it here. Please",
     "tavernAlert2": "use Github instead",
     "moderatorIntro1": "Tavern and guild moderators are: ",
-    "moderatorIntro2": ". Moderators' names are always highlighted in orange or purple.",
+    "moderatorIntro2": ". Moderators' names are always highlighted in purple or blue.",
     "party": "Party",
     "createAParty": "Create A Party",
     "noPartyText": "You are either not in a party or your party is taking a while to load. You can either create one and invite friends, or if you want to join an existing party, have them enter:",
