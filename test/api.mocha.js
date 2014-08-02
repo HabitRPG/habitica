@@ -545,9 +545,9 @@ describe('API', function () {
                         // Tavern Boss
                         function(cb2){
                           Group.findById('habitrpg',function(err,tavern){
-                            expect(user.items.pets['MantisShrimp-Base']).to.be(true);
                             //use an explicit get because mongoose wraps the null in an object
                             expect(_.isEmpty(tavern.get('quest'))).to.be(true);
+                            expect(user.items.pets['MantisShrimp-Base']).to.be(5);
                             expect(user.items.mounts['MantisShrimp-Base']).to.be(true);
                             expect(user.items.eggs.Dragon).to.be(2);
                             expect(user.items.hatchingPotions.Shade).to.be(2);
