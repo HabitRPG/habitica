@@ -43,11 +43,11 @@
     "misc": "Verschiedenes",
     "showHeader": "Header anzeigen",
     "changePass": "Passwort ändern",
-    "changeUsername": "Change Username",
+    "changeUsername": "Benutzername ändern",
     "oldPass": "Altes Passwort",
     "newPass": "Neues Passwort",
     "confirmPass": "Neues Passwort bestätigen",
-    "newUsername": "New Username",
+    "newUsername": "Neuer Benutzername",
     "dangerZone": "Gefahrenzone",
     "resetText1": "WARNUNG! Es werden große Teile Deines Accounts zurückgesetzt. Wir raten dringend davon ab. Jedoch finden einige Spieler diese Funktion sinnvoll, um nach einem anfänglichen Testen der Seite neu beginnen zu können.",
     "resetText2": "Du verlierst alle Level, Dein Gold und Erfahrungspunkte. Darüber hinaus werden alle aktuellen und vergangenen Aufgaben gelöscht. Außerdem verlierst Du deine Ausrüstung, die Du Dir jedoch zurück kaufen kannst. Darunter fallen Sonderausrüstungsgegenstände oder Mystery-Gegenstände von Abonnenten (Du musst in der gleichen Klasse sein, um klassenabhängige Gegenstände zurück kaufen zu können). Du behältst deine aktuelle Klasse, deine Haus- und Reittiere. Statt dieser Option empfehlen wir die Kugel der Wiedergeburt zu verwenden, da dadurch alle Deine Aufgaben erhalten bleiben.",
@@ -66,6 +66,6 @@
     "enterNumber": "Bitte gib' eine Zahl zwischen 0 und 24 ein",
     "fillAll": "Bitte fülle alle Felder aus",
     "passSuccess": "Passwort erfolgreich geändert",
-    "usernameSuccess": "Username successfully changed",
+    "usernameSuccess": "Benutzername erfolgreich geändert",
     "difficulty": "Schwierigkeit"
 }

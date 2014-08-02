@@ -32,7 +32,7 @@
     "mustLvlQuest": "Je moet niveau <%= level %> zijn om deze queeste te kopen!",
     "sureAbort": "Weet je zeker dat je deze missie wilt afbreken? De missie zal afgebroken worden voor iedereen in jouw partij, alle vorderingen zullen verloren gaan.",
     "doubleSureAbort": "Weet je het dubbel zeker? Zorg ervoor dat ze je niet voor altijd zullen haten!",
-    "questWarning": "Onthoud: alleen huidige partij leden zullen worden uitgenodigd. Als de uitnodiging is verzonden, kunnen er geen nieuwe leden met de queeste meer meedoen.",
+    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
     "bossRageTitle": "Woede",
     "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
 }

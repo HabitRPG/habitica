@@ -1,7 +1,7 @@
 {
-    "clearCompleted": "Delete Completed",
+    "clearCompleted": "Borrar Completados",
     "lotOfToDos": "Las tareas Pendientes realizadas se archivan automáticamente pasados 3 días. Puedes acceder a ellas desde Opciones > Ajustes > Exportar Datos.",
-    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted. Export them first if you want to keep a record of them.",
+    "deleteToDosExplanation": "Si le das clic al botón debajo, todas sus tareas completadas y tareas archivadas se borraran permanentemente. Expórtelas primero si quieres llevar un registro de ellas.",
     "habits": "Hábitos",
     "newHabit": "Nuevo Hábito",
     "edit": "Editar",
@@ -37,7 +37,7 @@
     "complete": "Completadas",
     "rewards": "Recompensas",
     "gold": "Oro",
-    "silver": "Silver (100 silver = 1 gold)",
+    "silver": "Plata (100 plata = 1 oro)",
     "newReward": "Nueva Recompensa",
     "price": "Precio",
     "tags": "Etiquetas",

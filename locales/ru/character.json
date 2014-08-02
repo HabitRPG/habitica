@@ -17,7 +17,7 @@
     "bodySize": "Телосложение",
     "bodySlim": "Стройное",
     "bodyBroad": "Тучное",
-    "unlockSet": "Unlock Set - <%= cost %>",
+    "unlockSet": "Разблокировать набор - <%= cost %>",
     "locked": "закрытые",
     "shirts": "Рубашки",
     "specialShirts": "Особые рубашки",

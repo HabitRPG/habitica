@@ -14,7 +14,7 @@
     "user": "Użytkownik",
     "market": "Targ",
     "subscriberItem": "Tajemniczy Przedmiot",
-    "newSubscriberItem": "Nowy Tajemniczy Przedmiot",
+    "newSubscriberItem": "Nowy tajemniczy przedmiot",
     "subscriberItemText": "Każdego miesiąca, subskrybenci otrzymają tajemniczy przedmiot.",
     "all": "Wszystkie",
     "none": "Żadne",
@@ -37,12 +37,12 @@
     "notEnoughGems": "Niewystarczająca liczba Klejnotów",
     "delete": "Usuń",
     "gems": "Klejnoty",
-    "moreInfo": "Więcej Info",
+    "moreInfo": "Więcej informacji",
     "gemsWhatFor": "Używane do kupowania specjalnych przedmiotów oraz usług (jaj, mikstur wykluwania, Wzmocnień, itp.). Musisz odblokować te rzeczy zanim będziesz mógł użyć Klejnotów do ich kupowania.",
     "veteran": "Weteran",
     "veteranText": "Był świadkiem \"Habit The Grey\" (naszej strony przed aktualizacją Angular) i zyskał wiele wojennych blizn od jej błędów.",
     "originalUser": "Pierwotny Użytkownik!",
-    "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
+    "originalUserText": "Jeden z <em>najwcześniejszych</em> użytkowników – najprawdziwszy alfa-tester!",
     "habitBirthday": "2014 HabitRPG Birthday Bash",
     "habitBirthdayText": "Brał udział w \"HabitRPG Birthday Bash of 2014\".",
     "achievementDilatory": "Savior of Dilatory",
@@ -62,5 +62,5 @@
     "notifications": "Powiadomienia",
     "noNotifications": "Nie masz nowych wiadomości",
     "clear": "Wyczyść",
-    "endTour": "End Tour"
+    "endTour": "Zamknij przewodnik"
 }

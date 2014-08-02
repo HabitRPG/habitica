@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Lyžovražedná hůl",
     "weaponSpecialSkiNotes": "Limitovaná edice Zimního vybavení 2013! Zbraň schopná ničení hord nepřátel! Také pomáhá svému uživateli dělat pěkně souběžné obraty. Zvyšuje sílu o <%= str %>.",
     "weaponSpecialCandycaneText": "Cukrátková hůl",
-    "weaponSpecialCandycaneNotes": "Limitovaná edice Zimního vybavení 2013! Mocná kouzelnická hůl. Silně VYNIKAJÍCÍ, máme na mysli! Zbraň pro obě ruce. Zvyšuje Inteligenci o <%= int%> a Vnímání o <%= per%>.",
+    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
     "weaponSpecialSnowflakeText": "Vločková hůlka",
     "weaponSpecialSnowflakeNotes": "Limitovaná edice Zimního vybavení 2013! Tato hůlka září nekonečnou léčebnou silou. Zvyšuje Inteligenci o <%= int %>.",
     "weaponSpecialSpringRogueText": "Hákové drápy",

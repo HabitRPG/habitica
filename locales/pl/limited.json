@@ -1,13 +1,13 @@
 {
-    "limitedEdition": "Edycja Limitowana",
-    "winterColors": "Zimowe Barwy",
-    "annoyingFriends": "Złośliwi Znajomi",
+    "limitedEdition": "Edycja limitowana",
+    "winterColors": "Zimowe barwy",
+    "annoyingFriends": "Złośliwi znajomi",
     "annoyingFriendsText": "Dostał <%= snowballs %> razy kulką ze śniegu od członków Drużyny.",
     "valentineCard": "Kartka Walentynkowa",
-    "adoringFriends": "Adorowani Przyjaciele",
-    "adoringFriendsText": "Aww, ty i twój przyjaciel/przyjaciółka musicie naprawdę troszczyć się o siebie! Wysłałeś lub otrzymałeś <%= cards %> Kartek Walentynkowych.",
+    "adoringFriends": "Kochani przyjaciele",
+    "adoringFriendsText": "Och, Ty i Twój przyjaciel musicie naprawdę troszczyć się o siebie! Wysłałeś lub otrzymałeś <%= cards %> walentynek.",
     "limited30Apr": "Available for purchase until April 30th (but permanently in your options if purchased).",
-    "polarBear": "Niedźwiedź Polarny",
+    "polarBear": "Niedźwiedź polarny",
     "turkey": "Indor",
-    "polarBearPup": "Niedźwiadek Polarny"
+    "polarBearPup": "Niedźwiadek polarny"
 }

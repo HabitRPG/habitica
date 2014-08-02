@@ -16,7 +16,7 @@
     "tavernAlert1": "Примечание: если вы хотите сообщить об ошибке, разработчики не прочтут ваше сообщение здесь. Пожалуйста,",
     "tavernAlert2": "сделайте это на Github",
     "moderatorIntro1": "Tavern and guild moderators are:",
-    "moderatorIntro2": ". Moderators' names are always highlighted in orange or purple.",
+    "moderatorIntro2": ".",
     "party": "Команда",
     "createAParty": "Создать команду",
     "noPartyText": "Вы не в команде, либо ее загрузка долго длится. Вы можете создать новую команду и пригласить друзей или, если хотите присоединиться к существующей — пусть ее участники введут:",

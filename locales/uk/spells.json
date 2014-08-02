@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Землетрус",
     "spellWizardEarthNotes": "Земля під завданнями Вашого гурту лускається та страшно трясеться, сповільнюючи завдання та відкриває їх для Ваших атак. Ваш гурт отримує додаткову надбавку досвіду.",
     "spellWizardFrostText": "Лютий мороз",
-    "spellWizardFrostNotes": "Лід зривається з усіх поверхонь та поглинає Ваші завдання, приковуючи їх до землі. Низка Ваших щоденних завдань не обнулюється наприкінці дня.",
+    "spellWizardFrostNotes": "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day. Incomplete dailies will still damage you!",
     "spellWarriorSmashText": "Брутальний ляпас",
     "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Оборонна стійка",

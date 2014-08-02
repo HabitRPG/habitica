@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Earthquake",
     "spellWizardEarthNotes": "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a boost to experience.",
     "spellWizardFrostText": "Chilling Frost",
-    "spellWizardFrostNotes": "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
+    "spellWizardFrostNotes": "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day. Incomplete dailies will still damage you!",
     "spellWarriorSmashText": "Brutal Smash",
     "spellWarriorSmashNotes": "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting.",
     "spellWarriorDefensiveStanceText": "Defensive Stance",

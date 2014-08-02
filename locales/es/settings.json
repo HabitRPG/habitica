@@ -43,11 +43,11 @@
     "misc": "Varios",
     "showHeader": "Mostrar encabezamiento",
     "changePass": "Cambiar contraseña",
-    "changeUsername": "Change Username",
+    "changeUsername": "Cambiar Nombre de Usuario",
     "oldPass": "Contraseña antigua",
     "newPass": "Contraseña nueva",
     "confirmPass": "Confirmar la nueva contraseña",
-    "newUsername": "New Username",
+    "newUsername": "Nuevo Nombre de Usuario",
     "dangerZone": "Zona Peligrosa",
     "resetText1": "WARNING! This resets many parts of your account. This is highly discouraged, but some people find it useful in the beginning after playing with the site for a short time.",
     "resetText2": "You will lose all your levels, gold, and experience points. All your tasks will be deleted permanently and you will lose all of your task's historical data. You will lose all your equipment but you will be able to buy it all back, including all limited edition equipment or subscriber Mystery items that you already own (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks.",
@@ -66,6 +66,6 @@
     "enterNumber": "Por favor, introduce un número entre 0 y 24",
     "fillAll": "Por favor, rellene todos los campos",
     "passSuccess": "Contraseña cambiada con éxito",
-    "usernameSuccess": "Username successfully changed",
+    "usernameSuccess": "Nombre de Usuario cambiado con éxito",
     "difficulty": "Dificultad"
 }

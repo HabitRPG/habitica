@@ -32,7 +32,7 @@
     "mustLvlQuest": "Aby sis mohl koupit tuto výpravu, musíš být na úrovni <%= level %> ! ",
     "sureAbort": "Jsi si jist, že chceš zrušit misi? Zruší se pro všechny v družině a veškerý pokrok bude ztracen.",
     "doubleSureAbort": "Jsi si určitě jistý? Ujisti se, že tě pak ostatní nebudou do smrti nenávidět!",
-    "questWarning": "Nezapomeň: přizváni budou jen aktuální členové družiny. Jakmile jsou pozvánky rozeslány, žádní noví členové družiny se připojit nemohou!",
+    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
     "bossRageTitle": "Zuřivost",
     "bossRageDescription": "Když se tato lišta naplní, boss předvede speciální útok."
 }

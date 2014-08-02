@@ -32,7 +32,7 @@
     "mustLvlQuest": "Du måste vara level <%= level %> för att köpa detta uppdrag!",
     "sureAbort": "Är du säker på att du vill avbryta detta uppdrag? Det kommer avbrytas för alla i ditt sällskap och alla framsteg kommer förloras.",
     "doubleSureAbort": "Är du helt säker? Se till att de inte kommer hata dig för alltid!",
-    "questWarning": "Remember: only current party members will be invited. Once the invitation is sent, no new party members can join the quest!",
+    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
     "bossRageTitle": "Rage",
     "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
 }

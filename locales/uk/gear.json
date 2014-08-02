@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Палка лижника-вбивці",
     "weaponSpecialSkiNotes": "Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases Strength by <%= str %>.",
     "weaponSpecialCandycaneText": "Карамельна патериця",
-    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Strength by <%= per %>.",
+    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
     "weaponSpecialSnowflakeText": "Паличка \"Сніжинка\"",
     "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Strength by <%= int %>.",
     "weaponSpecialSpringRogueText": "Бойові кігті",

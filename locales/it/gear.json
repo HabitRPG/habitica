@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Asta del Nevassassino",
     "weaponSpecialSkiNotes": "Edizione limitata dell'inverno 2013! Un'arma capace di distruggere intere orde di nemici! Aumenta la Forza di <%= str %>.",
     "weaponSpecialCandycaneText": "Verga Caramellata",
-    "weaponSpecialCandycaneNotes": "Edizione limitata dell'inverno 2013! Un potente bastone magico. Anzi, DELIZIOSAMENTE potente! Arma a due mani. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>.",
+    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
     "weaponSpecialSnowflakeText": "Bacchetta Fioccodineve",
     "weaponSpecialSnowflakeNotes": "Edizione limitata dell'inverno 2013! Questa bacchetta sprigiona un'illimitata potenza curativa. Aumenta l'Intelligenza di <%= int %>.",
     "weaponSpecialSpringRogueText": "Artigli a uncino",

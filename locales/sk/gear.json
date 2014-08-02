@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Lyžossassinská palica",
     "weaponSpecialSkiNotes": "Z limitovanej edície - Zimná výzbroj 2013! Zbraň schopná rozdrviť celé hordy nepriateľov! Tiež pomáha vlastníkovi robiť krásne otočky. Zvyšuje silu o <%= str %>.",
     "weaponSpecialCandycaneText": "Lízatková palica",
-    "weaponSpecialCandycaneNotes": "Z limitovanej edície - Zimná výzbroj 2013! Moc silná čarodejnícka palica. Tým myslíme, moc CHUTNÁ! Obojručná zbraň. Zvyšuje inteligenciu o <%= int %> a POS o <%= per %>.",
+    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
     "weaponSpecialSnowflakeText": "Vločkový prútik",
     "weaponSpecialSnowflakeNotes": "Limitovaná edícia 2013 zimná výzbroj! Táto palička iskrí neobmedzenou uzdravovacou energiou. Zvyšuje inteligenciu o <%= int %>.",
     "weaponSpecialSpringRogueText": "Hákové pazúre",

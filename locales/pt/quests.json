@@ -32,7 +32,7 @@
     "mustLvlQuest": "Você precisa ser nível <%= level %> para comprar essa missão!",
     "sureAbort": "Tem certeza de que deseja abortar essa missão? Ela abortará para todas pessoas em sua equipe, todo progresso será perdido.",
     "doubleSureAbort": "Tem certeza mesmo? Certifique-se de que eles não o detestarão para sempre!",
-    "questWarning": "Lembrete: apenas membros atuais da equipe serão convidados. Assim que os convites forem enviados, novos membros não poderão participar da missão!",
+    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
     "bossRageTitle": "Ira",
     "bossRageDescription": "Quando essa barra encher, o chefão irá soltar um ataque especial"
 }
