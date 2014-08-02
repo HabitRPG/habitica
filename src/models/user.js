@@ -446,5 +446,9 @@ module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
 
 mongoose.model("User").find({'contributor.admin':true},function(err,mods){
-  module.exports.mods = _.map(mods,function(m){return ' '+ m.profile.name});
+  module.exports.mods = _.map(mods,function(m){
+    var lvl = (m.backer && m.backer.npc) ? 'label-npc' :
+        'label-contributor-' + m.contributor.level;
+    return ' <span class="label ' + lvl + '">'+ m.profile.name + '</span>'
+  });
 });
