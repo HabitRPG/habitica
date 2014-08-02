@@ -48,12 +48,20 @@ future re: pets and whatnot, this is just temporary.
 
 // info revealed on hover/focus for party
 // always visible on the user's own avatar
+// except that the user's own name is hidden
+// if the user has a mount or background
 .herobox:after
 	opacity: 0
-.herobox.isUser:not(.hasMount):after
+.herobox.isUser.notBackground:not(.hasMount):after
 	opacity: 1
 	// make it a bit special
 	hrpg-label-color-mixin(darken($color-herobox, 16.18%))
+
+// when a buff/rebirth exists, add space between the icon and the level
+.glyphicon-circle-arrow-up
+	padding-right: 4px
+.glyphicon-plus-sign
+	padding-left: 4px
 
 .character-sprites span
     position: absolute
