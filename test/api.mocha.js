@@ -545,8 +545,9 @@ describe('API', function () {
                         // Tavern Boss
                         function(cb2){
                           Group.findById('habitrpg',function(err,tavern){
-                            expect(_.isEmpty(tavern.quest)).to.be(true);
                             expect(user.items.pets['MantisShrimp-Base']).to.be(true);
+                            //use an explicit get because mongoose wraps the null in an object
+                            expect(_.isEmpty(tavern.get('quest'))).to.be(true);
                             expect(user.items.mounts['MantisShrimp-Base']).to.be(true);
                             expect(user.items.eggs.Dragon).to.be(2);
                             expect(user.items.hatchingPotions.Shade).to.be(2);
@@ -556,7 +557,8 @@ describe('API', function () {
 
                         // Party Boss
                         function(cb2){
-                          expect(_.isEmpty(_group.quest)).to.be(true);
+                          //use an explicit get because mongoose wraps the null in an object
+                          expect(_.isEmpty(_group.get('quest'))).to.be(true);
                           expect(user.items.gear.owned.weapon_special_2).to.be(true);
                           expect(user.items.eggs.Dragon).to.be(2);
                           expect(user.items.hatchingPotions.Shade).to.be(2);
