@@ -75,46 +75,62 @@
           table.table.table-striped.panel-tiers
             tr
               td
-                a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend') + ' (1-2)'
+                a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('tier') + ' 1 (' + env.t('friend') + ')'
                 div
                   p
                     span.achievement.achievement-firefox
                     !=env.t('friendFirst')
-                  hr
+            tr
+              td
+                a.label.label-contributor-2(ng-click='toggleUserTier($event)')=env.t('tier') + ' 2 (' + env.t('friend') + ')'
+                div
                   p
                     span.shop-sprite.item-img(class='shop_armor_special_1')
                     !=env.t('friendSecond')
             tr
               td
-                a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('elite') + ' (3-4)'
+                a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('tier') + ' 3 (' + env.t('elite') + ')'
                 div
                   p
                     span.shop-sprite.item-img(class='shop_head_special_1')
                     !=env.t('eliteThird')
-                  hr
+            tr
+              td
+                a.label.label-contributor-4(ng-click='toggleUserTier($event)')=env.t('tier') + ' 4 (' + env.t('elite') + ')'
+                div
                   p
                     span.shop-sprite.item-img(class='shop_weapon_special_1')
                     !=env.t('eliteFourth')
             tr
               td
-                a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('champion') + ' (5-6)'
+                a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('tier') + ' 5 (' + env.t('champion') + ')'
                 div
                   p
                     span.shop-sprite.item-img(class='shop_shield_special_1')
                     !=env.t('championFifth')
-                  hr
+            tr
+              td
+                a.label.label-contributor-6(ng-click='toggleUserTier($event)')=env.t('tier') + ' 6 (' + env.t('champion') + ')'
+                div
                   p
                     div(class='Pet-Dragon-Hydra pull-left')
                     !=env.t('championSixth')
             tr
               td
-                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendary') + ' (7)'
+                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('tier') + ' 7 (' + env.t('legendary') + ')'
                 div
                   p
-                    !=env.t('legSeventh')
+                  !=env.t('legSeventh')
             tr
               td
-                a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroic')
+                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('moderator') + ' (' + env.t('guardian') + ')'
+                // FOR NEW MOD LEVEL: line above will change from -7 to -8
+                div
+                  p=env.t('guardianText')
+                  // FOR NEW MOD LEVEL: edit guardianText to remove this: "Not all Tier 7 contributors are moderators. All current moderators are listed below the Tavern chat box."
+            tr
+              td
+                a.label.label-contributor-9(ng-click='toggleUserTier($event)')=env.t('staff') + ' (' + env.t('heroic') + ')'
                 div
                   p=env.t('heroicText')
             tr
