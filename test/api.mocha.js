@@ -562,9 +562,17 @@ describe('API', function () {
                           expect(user.items.gear.owned.weapon_special_2).to.be(true);
                           expect(user.items.eggs.Dragon).to.be(2);
                           expect(user.items.hatchingPotions.Shade).to.be(2);
-                          expect(_.find(_group.members,{_id:party[0]._id}).items.gear.owned.weapon_special_2).to.be(true);
-                          expect(_.find(_group.members,{_id:party[1]._id}).items.gear.owned.weapon_special_2).to.be(true);
-                          expect(_.find(_group.members,{_id:party[2]._id}).items.gear.owned.weapon_special_2).to.not.be.ok();
+
+                          // need to fetch users to get updated data
+                          User.findById(party[0].id,function(err,mbr){
+                            expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
+                          });
+                          User.findById(party[1].id,function(err,mbr){
+                            expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
+                          });
+                          User.findById(party[2].id,function(err,mbr){
+                            expect(mbr.items.gear.owned.weapon_special_2).to.not.be.ok();
+                          });
                           cb2()
                         }
 
