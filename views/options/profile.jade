@@ -65,15 +65,18 @@ mixin customizeProfile(mobile)
               each num in [1,2,3]
                 button(class='hair_bangs_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":#{num}})')
 
-            // Base
+            // Base hairstyles (free)
             menu(label=env.t('hairBase'))
+              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})')
+              each num in [1,3]
+                button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{num}})')
+
+            // Purchasable hairstyles
+            menu(label=env.t('hairSet1'))
               +gemCost(2)
                 button.btn.btn-xs(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")')!= env.t('unlockSet',{cost:5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})')
-              each v,k in {1:true,2:false,3:true,4:false,5:false,6:false,7:false,8:false}
-                case v
-                  when true:  button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{k}})')
-                  when false: button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.#{k}}', ng-click='unlock("hair.base.#{k}")')
+              each num in [2,4,5,6,7,8]
+                button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.#{num}}', ng-click='unlock("hair.base.#{num}")')
 
           // Flower
           li.customize-menu
