@@ -81,7 +81,7 @@ var getUserLanguage = function(req, res, next){
     req.language = lang;
     next();
   };
-  console.log(req.query.lang)
+
   if(req.query.lang){
     req.language = translations[req.query.lang] ? (req.query.lang) : 'en';
     next();
