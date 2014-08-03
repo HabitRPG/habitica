@@ -81,8 +81,11 @@ var getUserLanguage = function(req, res, next){
     req.language = lang;
     next();
   };
-
-  if(req.locals && req.locals.user){
+  console.log(req.query.lang)
+  if(req.query.lang){
+    req.language = translations[req.query.lang] ? (req.query.lang) : 'en';
+    next();
+  }else if(req.locals && req.locals.user){
     getFromUser(req.locals.user);
   }else if(req.session && req.session.userId){
     User.findOne({_id: req.session.userId}, function(err, user){

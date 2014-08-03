@@ -380,8 +380,6 @@ UserSchema.pre('save', function(next) {
         return newTask;
       });
     });
-
-    this.preferences.language = undefined;
   }
 
   //this.markModified('tasks');

@@ -47,7 +47,9 @@ angular.module('authCtrl', [])
         if ($scope.registrationForm.$invalid) {
           return;
         }
-        $http.post(API_URL + "/api/v2/register", $scope.registerVals).success(function(data, status, headers, config) {
+        var url = API_URL + "/api/v2/register";
+        if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
+        $http.post(url, $scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
         }).error(errorAlert);
       };

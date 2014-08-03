@@ -4,6 +4,17 @@
   .controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'API_URL',
   function($scope, $rootScope, User, $http, Notification, API_URL) {
 
+    if(typeof habitrpg === "undefined"){
+      $scope.languages = env.avalaibleLanguages;
+      $scope.selectedLanguage = _.find(env.avalaibleLanguages, {code: env.language.code});
+
+      $rootScope.selectedLanguage = $scope.selectedLanguage;
+      
+      $scope.changeLang = function(){
+        window.location = '?lang='+$scope.selectedLanguage.code;
+      }
+    }
+
     /**
      External Scripts
      JS files not needed right away (google charts) or entirely optional (analytics)
