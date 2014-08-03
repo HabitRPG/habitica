@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification',
-  function ($scope, $rootScope, Shared, User, Guide, Notification) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification) {
 
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after <= 0){
@@ -62,7 +62,23 @@ habitrpg.controller('NotificationCtrl',
         }
         User.user.items[type][after.key]++;
       }
-      Notification.drop(User.user._tmp.drop.dialog);
+
+      if(drop.type === 'HatchingPotion'){
+        var text = Content.hatchingPotions[drop.key].text();
+        var notes = Content.hatchingPotions[drop.key].notes();
+        Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}));
+      }else if(drop.type === 'Egg'){
+        var text = Content.eggs[drop.key].text();
+        var notes = Content.eggs[drop.key].notes();
+        Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}));
+      }else if(drop.type === 'Food'){
+        var text = Content.food[drop.key].text();
+        var notes = Content.food[drop.key].notes();
+        Notification.drop(env.t('messageDropFood', {dropArticle: drop.article, dropText: text, dropNotes: notes}));
+      }else{
+        // Keep support for another type of drops that might be added
+        Notification.drop(User.user._tmp.drop.dialog);
+      }
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
