@@ -242,18 +242,18 @@ var UserSchema = new Schema({
   preferences: {
     armorSet: String,
     dayStart: {type:Number, 'default': 0, min: 0, max: 23},
-    size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
+    size: {type:String, enum: ['broad','slim'], 'default': 'slim'},
     hair: {
-      color: {type: String, 'default': 'blond'},
-      base: {type: Number, 'default': 0},
-      bangs: {type: Number, 'default': 0},
+      color: {type: String, 'default': 'red'},
+      base: {type: Number, 'default': 3},
+      bangs: {type: Number, 'default': 1},
       beard: {type: Number, 'default': 0},
       mustache: {type: Number, 'default': 0},
-      flower: Number
+      flower: {type: Number, 'default': 1}
     },
     hideHeader: {type:Boolean, 'default':false},
-    skin: {type:String, 'default':'c06534'},
-    shirt: {type: String, 'default': 'white'},
+    skin: {type:String, 'default':'915533'},
+    shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
     language: String,
     automaticAllocation: Boolean,
