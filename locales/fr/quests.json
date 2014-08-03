@@ -32,7 +32,7 @@
     "mustLvlQuest": "Vous devez être au niveau <%= level %> pour acheter cette quête !",
     "sureAbort": "Vous êtes sûr(e) de vouloir annuler cette mission ? Elle sera annulée pour toute votre équipe et toute la progression sera perdue.",
     "doubleSureAbort": "Êtes-vous sûr(e) et certain(e) ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",
-    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
+    "questWarning": "Si de nouveaux joueurs rejoignent le groupe avant que la quête ne soit lancée, il recevront également une invitation. Cependant, une fois la quête débutée, aucun nouveau membre du groupe ne pourra rejoindre celle-ci.",
     "bossRageTitle": "Rage",
     "bossRageDescription": "Une fois cette jauge pleine, le boss lancera une attaque spéciale"
 }

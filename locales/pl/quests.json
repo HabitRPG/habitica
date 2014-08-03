@@ -32,7 +32,7 @@
     "mustLvlQuest": "Musisz mieć co najmniej poziom <%= level %>, żeby kupić tę misję!",
     "sureAbort": "Na pewno chcesz przerwać tę misje? Zostanie ona przerwana dla wszystkich w twojej drużynie, a cały postęp zostanie stracony.",
     "doubleSureAbort": "Czy jesteś pewien? Drużyna się na Ciebie nie obrazi?",
-    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
-    "bossRageTitle": "Rage",
-    "bossRageDescription": "When this bar fills, the boss will unleash a special attack"
+    "questWarning": "Jeśli nowi gracze dołączą do drużyny zanim rozpocznie się misja, również dostaną zaproszenie do niej. Jednakże kiedy już misja się zacznie, żadni nowi członkowie drużyny nie będą mogli  dołączyć do misji.",
+    "bossRageTitle": "Furia",
+    "bossRageDescription": "Kiedy wypełni się ten pasek, boss wykona specjalny atak."
 }

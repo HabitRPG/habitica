@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Bâton de Ski-ssassin",
     "weaponSpecialSkiNotes": "Équipement en Édition Limitée de l'Hiver 2013 ! Une arme capable de détruire des hordes d'ennemis ! Elle permet aussi à son porteur d'effectuer des jolis virages parallèles. Augmente la Force de <%= str %>.",
     "weaponSpecialCandycaneText": "Bâton de Sucre d'orge",
-    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
+    "weaponSpecialCandycaneNotes": "Équipement en Édition Limitée de l'Hiver 2013 ! Un bâton de mage puissant. Puissamment DÉLICIEUX, on veut dire ! Arme à deux mains. Augmente l'Intelligence de <%= int %> points et la Perception de <%= per %>.",
     "weaponSpecialSnowflakeText": "Baguette Flocon de neige",
     "weaponSpecialSnowflakeNotes": "Équipement en Édition Limitée de l'Hiver 2013 ! Cette baguette brille d'un pouvoir de guérison illimité. Augmente l'Intelligence de <%= int %>.",
     "weaponSpecialSpringRogueText": "Griffes-crochet",

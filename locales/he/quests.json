@@ -32,7 +32,7 @@
     "mustLvlQuest": "עליך להיות ברמה <%= level %> כדי לקנות את המשימה הזו!",
     "sureAbort": "האם את/ה בטוח/ה שברצונך לבטל את המשימה הזו? היא תבוטל עבור כל החבורה שלך, וההתקדמות שלכם תאבד.",
     "doubleSureAbort": "האם את/ה באמת באמת בטוח/ה? כל החבורה שלך עלולה לשנוא אותך לנצח!",
-    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
+    "questWarning": "אם שחקנים חדשים מצטרפים לחבורה לפני תחילת המשימה, גם הם יקבלו הזמנה. לעומת זאת, ברגע שהמשימה תתחיל, אף אחד מהחבורה לא יוכל להצטרף אליה.",
     "bossRageTitle": "זעם",
     "bossRageDescription": "כאשר המד הזה יתמלא, האויב ישחרר מתקפה מיוחדת"
 }

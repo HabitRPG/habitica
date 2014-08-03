@@ -10,7 +10,7 @@
     "messageLikesFood": "<%= egg %> доволен. <%= foodText %> — его любимая еда!",
     "messageDontEnjoyFood": "<%= egg %> все съел, но не похоже, что <%= foodText %> ему нравится.",
     "messageBought": "Куплено: <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipped.",
+    "messageEquipped": "Надето: <%= itemText %>.",
     "messageUnEquipped": "Снято: <%= itemText %>",
     "messageMissingEggPotion": "У вас нет нужного яйца или эликсира",
     "messageAlreadyPet": "У вас уже есть такой питомец! Попробуйте другую комбинацию!",
