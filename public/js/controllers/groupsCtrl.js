@@ -201,6 +201,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       'level': window.env.t('sortLevel'),
       'random': window.env.t('sortRandom'),
       'pets': window.env.t('sortPets'),
+      'username': window.env.t('sortUsername'),
+      'habitrpg_date_joined' : window.env.t('sortHabitrpgJoined'),
       'party_date_joined': window.env.t('sortJoined'),
     };
 
