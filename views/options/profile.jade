@@ -235,9 +235,8 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
           textarea.form-control(rows=5, placeholder=env.t('displayBlurb'), ng-model='editingProfile.blurb')
           include ../shared/formatting-help
 
-script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
-  .container-fluid
-    menu(type='list')
+mixin backgrounds(mobile)
+  div(class=mobile ? 'padding' : 'container-fluid')
       // backgrounds are listed in content file in chronological order, but
       // we want to display them with most recent at top (reversed)
       - var bgsKeys = Object.keys(env.Content.backgrounds);
@@ -251,6 +250,9 @@ script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
             each bg,k in bgs
               button.customize-option(type='button',class='background_#{k}',ng-click='unlock("background.#{k}")',popover-title=bg.text(),popover=bg.notes(),popover-trigger='mouseenter')
       - }
+
+script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
+  +backgrounds()
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.options-menu
