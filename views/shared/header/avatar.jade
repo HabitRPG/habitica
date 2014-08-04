@@ -73,7 +73,7 @@ mixin avatar(opts)
 
 mixin herobox(opts)
   - if (!opts) {opts = {minimal:false,main:false}}
-  figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', class='background_{{profile.preferences.background}} #{opts.main ? "isUser" : ""} #{opts.minimal ? "minimal" : ""}', ng-class='{hasPet: (#{!opts.minimal} && profile.items.currentPet), hasMount: (#{!opts.minimal} && profile.items.currentMount), notBackground: !profile.preferences.background, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
+  figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', class='background_{{profile.preferences.background}} #{opts.main ? "isUser" : ""} #{opts.minimal ? "minimal" : ""}', ng-class='{hasPet: (#{!opts.minimal} && profile.items.currentPet), hasMount: (#{!opts.minimal} && profile.items.currentMount), noBackgroundImage: !profile.preferences.background, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
     .avatar-name(ng-class='userLevelStyle(profile)')
       {{profile.profile.name}}
     +avatar(opts)

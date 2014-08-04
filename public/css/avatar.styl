@@ -1,4 +1,4 @@
-/* herobox & avatar
+/* herobox and avatar
 ======================
 * this is the canonical `herobox` avatar component
 * it can be placed anywhere on the site and look the
@@ -10,81 +10,71 @@ future re: pets and whatnot, this is just temporary.
 ---------------------------------------------------- */
 
 .profile-modal-header
-    width:560px
-    margin: 0px auto
+  width:560px
+  margin: 0px auto
 
-// basic herobox styles
 .herobox
-	height: 10.5em // higher to acct for the name area
-	width: 10em
-	max-width: 10em
-	margin: 0 // need this b/c of bootstrap, remove or reset later
-	position: relative
-	cursor: pointer
-// users can have image backgrounds
-.herobox.noBackgroundImage
-	background: $color-herobox
-	transition: border 0.25s ease-out, background 0.25s ease-out//, padding 0.13s ease-out
-	outline: 1px solid rgba(0,0,0,0.1)
-// padding: 0 // push down the sprite
-
-// herobox avatar level (always visible) and name (hidden by default)
-.herobox .avatar-level
-	position: absolute
-	bottom: 2px
-	right: 2px
-	@extend $hrpg-label
-.herobox .avatar-name
-	position: absolute
-	top:  2px
-	left: 2px
-	@extend $hrpg-label
-	opacity: 0
-	transition: opacity 0.2s ease-out
-// user's own name is visible if not using mount or background
-.herobox.isUser.notBackground:not(.hasMount) .avatar-name
-	opacity: 1
-// avatar name becomes visible on hover
-.herobox:hover .avatar-name, .herobox:focus .avatar-name
-	opacity: 1
-.herobox.noBackgroundImage:hover, .herobox.noBackgroundImage:focus
-	background: lighten($color-herobox, 30%)
-
-// when a buff/rebirth exists, add space between the icon and the level
-.glyphicon-circle-arrow-up
-	padding-right: 4px
-.glyphicon-plus-sign
-	padding-left: 4px
-
-.character-sprites span
-	position: absolute
-
-#profileStable
-	.active
-		border 1px solid black
-
-// if not user's avatar, remove lines for party unity
-.herobox.noBackgroundImage:not(.isUser)
-	outline: 0
-	background-color: darken($color-herobox, 8%)
-
-// vertically center avatar sprite depending on if they have a pet
-.herobox.hasPet
-	padding-top: 1.75em
-.herobox:not(.hasPet)
-	padding-top: 2em
-.herobox.hasMount
+  // Base styles
+  height: 10.5em // higher to acct for the name area
+  width: 10em
+  max-width: 10em
+  margin: 0 // need this b/c of bootstrap, remove or reset later
+  position: relative
+  cursor: pointer
+  
+  // Username and Level
+  .avatar-level, .avatar-name
+    position: absolute
+    @extend $hrpg-label
+  .avatar-level
+    bottom: 2px
+   	right: 2px
+    // when a buff/rebirth exists, add space between the icon and the level
+    .glyphicon-circle-arrow-up
+      padding-right: 4px
+    .glyphicon-plus-sign
+      padding-left: 4px
+  .avatar-name
+    top: 2px
+    left: 2px
+    opacity: 0 // Hide username by default
+    transition: opacity 0.2s ease-out
+  
+  // Show username if not using mount or background
+  &.isUser.noBackgroundImage:not(.hasMount)
+    .avatar-name
+      opacity: 1
+  
+  // Show username on hover and focus
+  &:hover, &:focus
+    .avatar-name
+      opacity: 1
+  
+  // Sprite positioning – Base styles
+  .character-sprites
+    width: 6.428571429em // 90px
+    height: 6.428571429em
+    margin: 0 auto
+    span
+      position: absolute
+  padding-top: 2em
+  
+  // Sprite positioning – Position avatar sprite differently if they have a pet or a mount
+  &.hasPet
+    padding-top: 1.75em    
+  &.hasMount
     padding-top:0em
+  
+  // Backgrounds – Set a background color when no background image is set
+  &.noBackgroundImage
+    background: darken($color-herobox, 8%)
+    &:hover, &:focus
+      background: darken($color-herobox, 6%)
+    &.isUser
+      background: $color-herobox // Set a different background color for the current user
+      &:hover, &:focus
+        background: lighten($color-herobox, 16.18%)	
 
-// positioning the sprites, etc
-.herobox
-	.character-sprites
-		width: 6.428571429em // 90px
-		height: 6.428571429em
-		margin: 0 auto
-
-	.character-sprites span, .pet
-		position: absolute
-
-.herobox.isLeader.noBackgroundImage
-	background: lighten($color-herobox, 10%)
+//Need to find a way to indicate who is leader without using background-color as it won't work when a background image is applied
+//.herobox.isLeader.noBackgroundImage
+//background: lighten($color-herobox, 10%)
