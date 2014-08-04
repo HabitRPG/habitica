@@ -36,7 +36,7 @@
     "guildBankPop2": "Klejnoty które Przywódca Twojej Gildii może przydzielać jako nagrody w Wyzwaniach.",
     "guildGems": "Klejnoty Gildii",
     "editGroup": "Edytuj grupę",
-    "newGroupName": "<%= groupType %> Name",
+    "newGroupName": "<%= groupType %> - nazwa",
     "groupName": "Nazwa grupy",
     "groupDescr": "Opis pokazywany na liście publicznych Gildii (kodowanie Markdown dostępne)",
     "logoUrl": "Link do logo",
