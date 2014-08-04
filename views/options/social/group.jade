@@ -59,6 +59,12 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
             ng-options='k as v for (k , v) in partyOrderChoices',
             ng-change='set({"party.order": user.party.order})'
             )
+          select#partyOrderAscending(
+            ng-model='user.party.orderAscending',
+            ng-controller='ChatCtrl',
+            ng-options='k as v for (k , v) in partyOrderAscendingChoices',
+            ng-change='set({"party.orderAscending": user.party.orderAscending})'
+            )
           table.table.table-striped(bindonce='group')
             tr(ng-repeat='member in group.members')
               td

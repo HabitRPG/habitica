@@ -33,7 +33,10 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
                 return true;
           }
         }
-      ).reverse()
+      )
+      if (User.user.party.orderAscending == "descending") {
+      	$scope.partyMinusSelf = $scope.partyMinusSelf.reverse()
+      }
     });
   }
 ]);

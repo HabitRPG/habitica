@@ -206,6 +206,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       'party_date_joined': window.env.t('sortJoined'),
     };
 
+    $scope.partyOrderAscendingChoices = {
+      'ascending': window.env.t('ascendingSort'),
+      'descending': window.env.t('descendingSort')
+    }
+
   }])
 
   .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile',
