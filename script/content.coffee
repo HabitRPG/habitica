@@ -1002,6 +1002,16 @@ api.backgrounds =
     seafarer_ship:
       text:  t('backgroundSeafarerShipText')
       notes: t('backgroundSeafarerShipNotes')
+  backgrounds082014:
+    volcano:
+      text:  t('backgroundVolcanoText')
+      notes: t('backgroundVolcanoNotes')
+    clouds:
+      text:  t('backgroundCloudsText')
+      notes: t('backgroundCloudsNotes')
+    dusty_canyons:
+      text:  t('backgroundDustyCanyonsText')
+      notes: t('backgroundDustyCanyonsNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =

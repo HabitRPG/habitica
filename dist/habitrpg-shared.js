@@ -12137,6 +12137,20 @@ api.backgrounds = {
       text: t('backgroundSeafarerShipText'),
       notes: t('backgroundSeafarerShipNotes')
     }
+  },
+  backgrounds082014: {
+    volcano: {
+      text: t('backgroundVolcanoText'),
+      notes: t('backgroundVolcanoNotes')
+    },
+    clouds: {
+      text: t('backgroundCloudsText'),
+      notes: t('backgroundCloudsNotes')
+    },
+    dusty_canyons: {
+      text: t('backgroundDustyCanyonsText'),
+      notes: t('backgroundDustyCanyonsNotes')
+    }
   }
 };
 
@@ -14035,7 +14049,7 @@ api.wrap = function(user, main) {
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
         user.flags.rebirthEnabled = true;
       }
-      if (!(user.flags.freeRebirth = true && user.stats.lvl >= 100)) {
+      if (user.stats.lvl >= 100 && !user.flags.freeRebirth) {
         return user.flags.freeRebirth = true;
       }
     },
