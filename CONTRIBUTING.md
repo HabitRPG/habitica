@@ -9,7 +9,7 @@ You might find help with your issue on the [Frequently Asked Questions](http://h
 
 # Requesting a feature
 
-HabitRPG uses [Trello](https://trello.com/b/EpoYEYod/habitrpg) to track feature requests. [Read more](https://trello.com/c/8gzGlle8/142-how-to-submit-a-new-request).
+HabitRPG uses [Trello](https://trello.com/b/EpoYEYod/habitrpg) to track feature requests. [Read more](https://trello.com/c/odmhIqyW/440-read-first-table-of-contents).
 
 
 # Contributing Code
