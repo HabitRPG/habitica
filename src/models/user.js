@@ -249,7 +249,7 @@ var UserSchema = new Schema({
       bangs: {type: Number, 'default': 1},
       beard: {type: Number, 'default': 0},
       mustache: {type: Number, 'default': 0},
-      flower: Number
+      flower: {type: Number, 'default': 1}
     },
     hideHeader: {type:Boolean, 'default':false},
     skin: {type:String, 'default':'915533'},
