@@ -545,8 +545,9 @@ describe('API', function () {
                         // Tavern Boss
                         function(cb2){
                           Group.findById('habitrpg',function(err,tavern){
-                            expect(_.isEmpty(tavern.quest)).to.be(true);
-                            expect(user.items.pets['MantisShrimp-Base']).to.be(true);
+                            //use an explicit get because mongoose wraps the null in an object
+                            expect(_.isEmpty(tavern.get('quest'))).to.be(true);
+                            expect(user.items.pets['MantisShrimp-Base']).to.be(5);
                             expect(user.items.mounts['MantisShrimp-Base']).to.be(true);
                             expect(user.items.eggs.Dragon).to.be(2);
                             expect(user.items.hatchingPotions.Shade).to.be(2);
@@ -556,16 +557,34 @@ describe('API', function () {
 
                         // Party Boss
                         function(cb2){
-                          expect(_.isEmpty(_group.quest)).to.be(true);
+                          //use an explicit get because mongoose wraps the null in an object
+                          expect(_.isEmpty(_group.get('quest'))).to.be(true);
                           expect(user.items.gear.owned.weapon_special_2).to.be(true);
                           expect(user.items.eggs.Dragon).to.be(2);
                           expect(user.items.hatchingPotions.Shade).to.be(2);
-                          expect(_.find(_group.members,{_id:party[0]._id}).items.gear.owned.weapon_special_2).to.be(true);
-                          expect(_.find(_group.members,{_id:party[1]._id}).items.gear.owned.weapon_special_2).to.be(true);
-                          expect(_.find(_group.members,{_id:party[2]._id}).items.gear.owned.weapon_special_2).to.not.be.ok();
-                          cb2()
-                        }
 
+                          // need to fetch users to get updated data
+                          async.parallel([
+                            function(cb3){
+                              User.findById(party[0].id,function(err,mbr){
+                                expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
+                                cb3();
+                              });
+                            },
+                            function(cb3){
+                              User.findById(party[1].id,function(err,mbr){
+                                expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
+                                cb3();
+                              });
+                            },
+                            function(cb3){
+                              User.findById(party[2].id,function(err,mbr){
+                                expect(mbr.items.gear.owned.weapon_special_2).to.not.be.ok();
+                                cb3();
+                              });
+                            }
+                          ], cb2);
+                        }
                       ],cb)
                     }
                   ],done);
