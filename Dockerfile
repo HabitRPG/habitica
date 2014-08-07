@@ -8,30 +8,34 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
 
-### Deps
+### Utils
 
-RUN apt-get install -y git vim graphicsmagick nodejs phantomjs npm pkgconf libcairo2-dev
+RUN apt-get install -y git vim graphicsmagick nodejs phantomjs npm pkgconf libcairo2-dev libjpeg8-dev
 
 ### Installation
 
-RUN mkdir -p /opt/habitrpg/build
-
 RUN cd /opt && git clone https://github.com/HabitRPG/habitrpg.git
+
+#RUN cd /opt/habitrpg && git checkout -t origin/develop
 
 RUN cd /opt/habitrpg && git pull
 
-RUN cd /opt/habitrpg && npm install -g grunt-cli bower
+RUN cd /opt/habitrpg && npm install -g grunt-cli bower nodemon
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-RUN cd /opt/habitrpg && npm install || true
+RUN cd /opt/habitrpg && npm install
+
+# Add config file
+
+ADD ./config.json /opt/habitrpg/
+
+RUN mkdir -p /opt/habitrpg/build
 
 RUN cd /opt/habitrpg && bower install --allow-root
 
-# Add config file
-ADD ./config.json /opt/habitrpg/
-
 # Run server
 
-CMD cd /opt/habitrpg && ip a && grunt run:dev
+RUN cd /opt/habitrpg && grunt build:prod 
 
+CMD cd /opt/habitrpg && grunt nodemon
