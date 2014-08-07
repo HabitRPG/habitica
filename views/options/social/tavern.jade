@@ -123,11 +123,9 @@
                   !=env.t('legSeventh')
             tr
               td
-                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('moderator') + ' (' + env.t('guardian') + ')'
-                // FOR NEW MOD LEVEL: line above will change from -7 to -8
+                a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('moderator') + ' (' + env.t('guardian') + ')'
                 div
                   p=env.t('guardianText')
-                  // FOR NEW MOD LEVEL: edit guardianText to remove this: "Not all Tier 7 contributors are moderators. All current moderators are listed below the Tavern chat box."
             tr
               td
                 a.label.label-contributor-9(ng-click='toggleUserTier($event)')=env.t('staff') + ' (' + env.t('heroic') + ')'
