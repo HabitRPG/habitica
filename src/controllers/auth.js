@@ -171,13 +171,14 @@ api.resetPassword = function(req, res, next){
   var email = req.body.email,
     salt = utils.makeSalt(),
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
-    hashed_password = utils.encryptPassword(newPassword, salt);
+    hashed_password = utils.encryptPassword(newPassword, salt),
+    resultMsg = 'New password sent to ' + email + 'if an account is registered with that email address';
 
   // escape email for regex, then search case-insensitive. See http://stackoverflow.com/a/3561711/362790
   var emailRegExp = new RegExp('^' + email.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
   User.findOne({'auth.local.email':emailRegExp}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
+    if (!user) return res.send(resultMsg);
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
     utils.sendEmail({
@@ -188,7 +189,7 @@ api.resetPassword = function(req, res, next){
       html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL')
     });
     user.save();
-    return res.send('New password sent to '+ email);
+    return res.send(resultMsg);
   });
 };
 
