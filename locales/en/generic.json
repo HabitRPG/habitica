@@ -54,7 +54,7 @@
     "untilNoFace": "Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).",
     "noReachServer": "Server not currently reachable, try again later",
     "errorUpCase": "ERROR:",
-    "newPassSent": "New password sent if an account is registered to this email address.",
+    "newPassSent": "New password sent.",
     "serverUnreach": "Server currently unreachable.",
     "seeConsole": "(see Chrome console for more details).",
     "error": "Error",
