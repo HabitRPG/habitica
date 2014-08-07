@@ -564,18 +564,27 @@ describe('API', function () {
                           expect(user.items.hatchingPotions.Shade).to.be(2);
 
                           // need to fetch users to get updated data
-                          User.findById(party[0].id,function(err,mbr){
-                            expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
-                          });
-                          User.findById(party[1].id,function(err,mbr){
-                            expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
-                          });
-                          User.findById(party[2].id,function(err,mbr){
-                            expect(mbr.items.gear.owned.weapon_special_2).to.not.be.ok();
-                          });
-                          cb2()
+                          async.parallel([
+                            function(cb3){
+                              User.findById(party[0].id,function(err,mbr){
+                                expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
+                                cb3();
+                              });
+                            },
+                            function(cb3){
+                              User.findById(party[1].id,function(err,mbr){
+                                expect(mbr.items.gear.owned.weapon_special_2).to.be(true);
+                                cb3();
+                              });
+                            },
+                            function(cb3){
+                              User.findById(party[2].id,function(err,mbr){
+                                expect(mbr.items.gear.owned.weapon_special_2).to.not.be.ok();
+                                cb3();
+                              });
+                            }
+                          ], cb2);
                         }
-
                       ],cb)
                     }
                   ],done);
