@@ -35,3 +35,8 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
         #main(ui-view)
 
     include ./shared/footer
+
+    // Load audio last
+    audio#sound(autoplay)
+        source#oggSource(type="audio/ogg")
+        source#mp3Source(type="audio/mp3")

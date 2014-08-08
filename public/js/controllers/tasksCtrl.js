@@ -1,11 +1,13 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', '$http', 'API_URL', '$timeout', 'Shared',
-  function($scope, $location, User, Notification, $http, API_URL, $timeout, Shared) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'API_URL', '$timeout', 'Shared',
+  function($scope, $rootScope, $location, User, Notification, $http, API_URL, $timeout, Shared) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
     $scope.score = function(task, direction) {
+      if (direction === 'down') $rootScope.playSound('Minus_Habit');
+      if (direction === 'up') $rootScope.playSound('Plus_Habit');
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 

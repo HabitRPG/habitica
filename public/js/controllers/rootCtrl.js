@@ -49,6 +49,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       return style;
     }
 
+    $rootScope.playSound = function(id){
+      if (!User.user.preferences.sound) return;
+      var select = document.getElementById('audioTheme');
+      var theme = select.options[select.selectedIndex].value;
+      var file =  'audio/' + theme + '/' + id;
+      document.getElementById('oggSource').src = file + '.ogg';
+      document.getElementById('mp3Source').src = file + '.mp3';
+      document.getElementById('sound').load();
+    }
+
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 

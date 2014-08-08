@@ -31,7 +31,7 @@
     "bootstrap-growl": "git://github.com/ifightcrime/bootstrap-growl.git#master",
     "bootstrap-tour": "~0.8.1",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
-    "BrowserQuest": "git://github.com/mozilla/BrowserQuest.git",
+    "BrowserQuest": "git://github.com/browserquest/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",

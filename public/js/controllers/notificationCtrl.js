@@ -4,13 +4,14 @@ habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification) {
 
-    $rootScope.$watch('user.stats.hp', function(after, before) {
+    $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
         $rootScope.openModal('death', {keyboard:false, backdrop:'static'});
       }
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
+      if (after < 0) $rootScope.playSound('Minus_Habit');
     });
 
     $rootScope.$watch('user.stats.exp', function(after, before) {
@@ -18,6 +19,10 @@ habitrpg.controller('NotificationCtrl',
       if (User.user.stats.lvl == 0) return;
       Notification.exp(after - before);
     });
+
+    $rootScope.$watch('user.achievements', function(){
+      $rootScope.playSound('Achievement_Unlocked');
+    }, true);
 
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
@@ -53,6 +58,7 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (after == before || !after) return;
+      $rootScope.playSound('Achievement_Unlocked');
       if (after.type !== 'gear') {
         var type = (after.type == 'Food') ? 'food' :
           (after.type == 'HatchingPotion') ? 'hatchingPotions' : // can we use camelcase and remove this line?
@@ -85,6 +91,7 @@ habitrpg.controller('NotificationCtrl',
       if(before == undefined || after == before || after < before) return;
       if (User.user.achievements.streak > 1) {
         Notification.streak(User.user.achievements.streak);
+        $rootScope.playSound('Achievement_Unlocked');
       }
       else {
         $rootScope.openModal('achievements/streak');
