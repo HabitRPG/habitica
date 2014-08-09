@@ -50,9 +50,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.playSound = function(id){
-      if (!User.user.preferences.sound) return;
-      var select = document.getElementById('audioTheme');
-      var theme = select.options[select.selectedIndex].value;
+      if (!user.preferences.sound) return;
+      var theme = user.preferences.soundTheme;
       var file =  'audio/' + theme + '/' + id;
       document.getElementById('oggSource').src = file + '.ogg';
       document.getElementById('mp3Source').src = file + '.mp3';

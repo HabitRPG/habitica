@@ -6,8 +6,20 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.user = User.user;
 
     $scope.score = function(task, direction) {
-      if (direction === 'down') $rootScope.playSound('Minus_Habit');
-      if (direction === 'up') $rootScope.playSound('Plus_Habit');
+      switch (task.type) {
+          case 'reward':
+              $rootScope.playSound('Reward');
+              break;
+          case 'daily':
+              $rootScope.playSound('Daily');
+              break;
+          case 'todo':
+              $rootScope.playSound('ToDo');
+              break;
+          default:
+              if (direction === 'down') $rootScope.playSound('Minus_Habit');
+              else if (direction === 'up') $rootScope.playSound('Plus_Habit');
+      }
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
