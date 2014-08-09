@@ -102,8 +102,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
-    ul.toolbar-options  
-      li.toolbar-notifs
+    ul.toolbar-options
+      li.toolbar-notifs(ng-if='user.invitations.party.id || user.purchased.plan.mysteryItems.length || user.invitations.guilds.length || user.newMessages')
         a(ng-click='expandMenu("notifs")')
           span.glyphicon.glyphicon-comment(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0', ng-class='{inactive: _.isEmpty(user.newMessages)}')
           span.glyphicon.glyphicon-user(ng-if='!user.purchased.plan.mysteryItems.length && (user.invitations.party.id || user.invitations.guilds.length > 0)')
