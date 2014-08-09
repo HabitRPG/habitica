@@ -144,12 +144,13 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
           div
             ul.toolbar-submenu(ng-click='expandMenu(null)')
               li
-                a(ng-if='user.preferences.sound', ng-click='set("preferences.sound",false)')
-                  i.glyphicon.glyphicon-volume_down(tooltip=env.t('soundOff'))
+                label=env.t('switchSound')
+                a(ng-if='user.preferences.sound', ng-click='switchAudio(false)')
+                  span.glyphicon.glyphicon-volume-down(tooltip=env.t('soundOff'))
+                a(ng-if='!user.preferences.sound', ng-click='switchAudio(true)')
+                  span.glyphicon.glyphicon-volume-off(tooltip=env.t('soundOn'))
               li
-                a(ng-if='!user.preferences.sound', ng-click='set("preferences.sound",true)')
-                  i.glyphicon.glyphicon-mute(tooltip=env.t('soundOn'))
-              li
+                label(for='audioTheme')=env.t('selectTheme')
                 select#audioTheme(
                     style='width:140px',
                     ng-controller='SettingsCtrl',
