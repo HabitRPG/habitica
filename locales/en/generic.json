@@ -65,5 +65,7 @@
     "endTour": "End Tour",
     "music": "Music",
     "soundOff": "Turn the sound off",
-    "soundOn": "Turn the sound on"
+    "soundOn": "Turn the sound on",
+    "switchSound": "Switch on/off",
+    "selectTheme": "Select Audio theme"
 }
