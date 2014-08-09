@@ -48,6 +48,15 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         style += ' label-contributor-'+user.contributor.level;
       return style;
     }
+    $scope.userAdminGlyphiconStyle = function(user,style){
+      style = style || '';
+      if(user && user.contributor && user.contributor.level)
+        if(user.contributor.level==8)
+          style += ' glyphicon glyphicon-star'; // moderator
+        if(user.contributor.level==9)
+          style += ' glyphicon glyphicon-tower'; // staff
+      return style;
+    }
 
     $rootScope.playSound = function(id){
       if (!user.preferences.sound) return;
