@@ -136,9 +136,6 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               //-a(ng-click='') Clear all
             li.toolbar-controls-button
               a(ng-click='expandMenu(null)')=env.t('close')
-      li.toolbar-sync
-        a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
-          span.glyphicon.glyphicon-refresh
       li.toolbar-audio
         a(ng-click='expandMenu("music")')
           span.glyphicon.glyphicon-music
@@ -160,6 +157,9 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                     ng-options='k as v for (k , v) in soundThemes',
                     ng-change='set("preferences.soundTheme", user.preferences.soundTheme)'
                 )
+      li.toolbar-sync
+        a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
+          span.glyphicon.glyphicon-refresh
       li.toolbar-settings
         a(ng-click='expandMenu("settings")')
           span.glyphicon.glyphicon-cog
