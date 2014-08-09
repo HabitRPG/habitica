@@ -67,7 +67,7 @@ var UserSchema = new Schema({
   },
 
   contributor: {
-    level: Number, // 1-7, see https://trello.com/c/wkFzONhE/277-contributor-gear
+    level: Number, // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitrpg/issues/3801
     admin: Boolean,
     sudo: Boolean,
     text: String, // Artisan, Friend, Blacksmith, etc
