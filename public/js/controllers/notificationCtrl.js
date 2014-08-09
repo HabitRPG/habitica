@@ -85,6 +85,7 @@ habitrpg.controller('NotificationCtrl',
         // Keep support for another type of drops that might be added
         Notification.drop(User.user._tmp.drop.dialog);
       }
+      $rootScope.playSound('Item_Drop');
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
@@ -144,6 +145,7 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (after > before) {
         Notification.lvl();
+        $rootScope.playSound('Level_Up');
       }
     });
 
