@@ -96,7 +96,10 @@ angular.module('authCtrl', [])
       }
 
       $scope.checkNewMessages = function() {
-        return _.filter(User.user.newMessages, function(msg) {return msg.value === true;}).length;
+        return _.filter(User.user.newMessages, function(msg) {return msg.value === true;}).length ||
+            User.user.invitations.party.id ||
+            User.user.purchased.plan.mysteryItems.length ||
+            User.user.invitations.guilds.length === 0;
       };
     }
 ]);
