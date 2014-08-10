@@ -13212,6 +13212,15 @@ api.wrap = function(user, main) {
         });
         return typeof cb === "function" ? cb(null, user.tags) : void 0;
       },
+      sortTag: function(req, cb) {
+        var from, to, _ref;
+        _ref = req.query, to = _ref.to, from = _ref.from;
+        if (!((to != null) && (from != null))) {
+          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+        }
+        user.tags.splice(to, 0, user.tags.splice(from, 1)[0]);
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
+      },
       updateTag: function(req, cb) {
         var i, tid;
         tid = req.params.id;
@@ -14301,5 +14310,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
