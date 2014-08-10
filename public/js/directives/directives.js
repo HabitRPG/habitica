@@ -60,6 +60,24 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
     });
   }
 }]);
+habitrpg.directive('tagsSortable', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    var el = element;
+    $(element).sortable({
+      axis: "x",
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        User.user.ops.sortTag({query:{
+            from: ui.item.data('startIndex') - 3,
+            to:ui.item.index() - 3
+        }});
+      }
+    });
+  }
+}]);
+
 
 
 habitrpg
