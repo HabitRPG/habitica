@@ -70,7 +70,8 @@
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
-            "bower_components/habitrpg-shared/dist/habitrpg-shared.css"
+            "bower_components/habitrpg-shared/dist/habitrpg-shared.css",
+            "fontello/css/fontelico.css"
         ]
     },
     "static": {

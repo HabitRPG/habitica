@@ -67,7 +67,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         if(level==8)
           style += ' glyphicon glyphicon-star'; // moderator
         if(level==9)
-          style += ' glyphicon glyphicon-tower'; // staff
+          style += ' glyphicon icon-crown'; // staff
       return style;
     }
 
