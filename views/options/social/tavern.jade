@@ -31,6 +31,9 @@
           table.table.table-striped
             tr
               td
+                a(ng-click='openModal("communityGuidelines")')=env.t('communityGuidelines')
+            tr
+              td
                 a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG')=env.t('lfgPosts')
             tr
               td
@@ -151,11 +154,8 @@
               {{mod.profile.name}}&nbsp;
               span(ng-class='userAdminGlyphiconStyle(mod)')
         p
-          =env.t('communityGuidelinesRead1')
-          |&nbsp;
-          a(ng-click='openModal("communityGuidelines")')
-            =env.t('communityGuidelines')
-          |&nbsp;
+          =env.t('communityGuidelinesRead1') + ' '
+          a(ng-click='openModal("communityGuidelines")')=env.t('communityGuidelines') + ' '
           =env.t('communityGuidelinesRead2')
 
       ul.list-unstyled.tavern-chat
