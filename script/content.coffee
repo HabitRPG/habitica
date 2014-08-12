@@ -973,6 +973,55 @@ api.quests =
       gp: 25
       exp: 125
 
+  atom1:
+    text:  t('questAtom1Text')
+    notes: t('questAtom1Notes')
+    value: 4
+    lvl: 15
+    collect:
+      soapBars: text: t('questAtom1CollectSoapBars'), count: 20
+    drop:
+      items: [
+        {type: 'quests', key: "atom2", text: t('questAtom1Drop')}
+      ]
+      gp: 7
+      exp: 50
+  atom2:
+    text:  t('questAtom2Text')
+    notes: t('questAtom2Notes')
+    previous: 'atom1'
+    value: 4
+    lvl: 15
+    boss:
+      name: t('questAtom2Boss')
+      hp: 300
+      str: 1
+    drop:
+      items: [
+        {type: 'quests', key: "atom3", text: t('questAtom2Drop')}
+      ]
+      gp: 20
+      exp: 100
+  atom3:
+    text:  t('questAtom3Text')
+    notes: t('questAtom3Notes')
+    previous: 'atom2'
+    completion: t('questAtom3Completion')
+    value: 4
+    lvl: 15
+    boss:
+      name: t('questAtom3Boss')
+      hp: 800
+      str: 1.5
+    drop:
+      items: [
+        {type: 'gear', key: "head_special_2", text: t('headSpecial2Text')}
+        {type: 'hatchingPotions', key: "Base", text: t('questAtom3DropPotion')}
+        {type: 'hatchingPotions', key: "Base", text: t('questAtom3DropPotion')}
+      ]
+      gp: 25
+      exp: 125
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss

@@ -1145,14 +1145,16 @@ api.wrap = (user, main=true) ->
         if user.items.eggs["Wolf"] > 0 then user.items.eggs["Wolf"]++ else user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
-      if !user.flags.levelDrops?.vice1 and user.stats.lvl >= 30
-        user.items.quests.vice1 ?= 0
-        user.items.quests.vice1++
-        (user.flags.levelDrops ?= {}).vice1 = true
-        user.markModified? 'flags.levelDrops'
-        user._tmp.drop = _.defaults content.quests.vice1,
-          type: 'Quest'
-          dialog: i18n.t('messageFoundQuest', {questText: content.quests.vice1.text(req.language)}, req.language)
+      # Level Drops
+      _.each {vice1:30, atom1:15}, (lvl,k)->
+        if !user.flags.levelDrops?[k] and user.stats.lvl >= lvl
+          user.items.quests[k] ?= 0
+          user.items.quests[k]++
+          (user.flags.levelDrops ?= {})[k] = true
+          user.markModified? 'flags.levelDrops'
+          user._tmp.drop = _.defaults content.quests[k],
+            type: 'Quest'
+            dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
       if user.stats.lvl >= 100 and !user.flags.freeRebirth
