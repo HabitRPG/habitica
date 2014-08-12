@@ -1,0 +1,7 @@
+script(type='text/ng-template', id='modals/communityGuidelines.html')
+  .modal-header
+    h4=env.t('communityGuidelines')
+  .modal-body.community-guidelines-modal.modal-fixed-height
+    include ../../../public/community-guidelines/index.html
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close') 
