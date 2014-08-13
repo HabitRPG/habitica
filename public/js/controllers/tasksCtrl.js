@@ -44,7 +44,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
 
     $scope.saveTask = function(task, stayOpen) {
       if (task.checklist)
+      {
         task.checklist = _.filter(task.checklist,function(i){return !!i.text});
+        if (task.completed == false &&
+            task.checklist.length == $scope.checklistCompletion(task.checklist)) {
+          task.completed = true;
+          $scope.changeCheck(task);
+        }
+      }
       User.user.ops.updateTask({params:{id:task.id},body:task});
       if (!stayOpen) task._editing = false;
     };
