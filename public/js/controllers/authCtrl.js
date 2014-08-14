@@ -94,5 +94,12 @@ angular.module('authCtrl', [])
       $scope.expandMenu = function(menu) {
         $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
       }
+
+      $scope.checkNewMessages = function() {
+        return _.filter(User.user.newMessages, function(msg) {return msg.value === true;}).length ||
+            User.user.invitations.party.id ||
+            User.user.purchased.plan.mysteryItems.length ||
+            User.user.invitations.guilds.length === 0;
+      };
     }
 ]);
