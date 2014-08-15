@@ -78,3 +78,8 @@ footer.footer(ng-controller='FooterCtrl')
             a.btn.btn-default(ng-click='addOneLevel()') +1 Level
 
   div(ng-init='deferredScripts()')
+
+  // Load audio last
+  audio#sound(autoplay)
+      source#oggSource(type="audio/ogg")
+      source#mp3Source(type="audio/mp3")

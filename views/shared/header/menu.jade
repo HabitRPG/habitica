@@ -136,6 +136,28 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               //-a(ng-click='') Clear all
             li.toolbar-controls-button
               a(ng-click='expandMenu(null)')=env.t('close')
+      li.toolbar-audio
+        a(ng-click='expandMenu("music")')
+          span.glyphicon.glyphicon-music
+        div(ng-if='_expandedMenu=="music"')
+          h4=env.t('music')
+          div
+            ul.toolbar-submenu(ng-click='expandMenu(null)')
+              li
+                label=env.t('switchSound')
+                a(ng-if='user.preferences.sound', ng-click='switchAudio(false)')
+                  span.glyphicon.glyphicon-volume-down(tooltip=env.t('soundOff'))
+                a(ng-if='!user.preferences.sound', ng-click='switchAudio(true)')
+                  span.glyphicon.glyphicon-volume-off(tooltip=env.t('soundOn'))
+              li
+                label(for='audioTheme')=env.t('selectTheme')
+                select#audioTheme(
+                    style='width:140px',
+                    ng-controller='SettingsCtrl',
+                    ng-model='user.preferences.soundTheme',
+                    ng-options='k as v for (k , v) in soundThemes',
+                    ng-change='set("preferences.soundTheme", user.preferences.soundTheme)'
+                )
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh

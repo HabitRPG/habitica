@@ -79,7 +79,7 @@ angular.module('authCtrl', [])
             // Using controller: 'AuthCtrl' it causes problems
           });
         }
-      }
+      };
 
       $scope.passwordReset = function(email){
         $http.post(API_URL + '/api/v2/user/reset-password', {email:email})
@@ -89,10 +89,14 @@ angular.module('authCtrl', [])
           .error(function(data){
             alert(data.err);
           });
-      }
+      };
 
       $scope.expandMenu = function(menu) {
         $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
-      }
+      };
+
+      $scope.switchAudio = function(bool) {
+        User.set({"preferences.sound": bool});
+      };
     }
 ]);

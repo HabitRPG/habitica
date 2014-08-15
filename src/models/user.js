@@ -255,6 +255,8 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
+    sound: Boolean,
+    soundTheme: {type:String, 'default':'danielTheBard'},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},

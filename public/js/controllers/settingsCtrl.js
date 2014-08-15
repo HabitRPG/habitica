@@ -142,5 +142,10 @@ habitrpg.controller('SettingsCtrl',
           window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
         })
     }
+
+    // Audio list of themes
+    $scope.soundThemes = {
+      'danielTheBard': 'Daniel the Bard'
+    };
   }
 ]);
