@@ -35,11 +35,6 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
       .form-group
         textarea.form-control(cols=5, placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
         include ../../shared/formatting-help
-      .form-group
-        .checkbox
-          label
-            input(type='checkbox', ng-model='hero.contributor.admin')
-            =env.t('admin')
       hr
 
       .form-group
