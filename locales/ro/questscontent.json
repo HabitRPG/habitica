@@ -70,5 +70,18 @@
     "questSeahorseNotes": "It's Derby Day, and Habiticans from all over the continent have traveled to Dilatory to race their pet seahorses! Suddenly, a great splashing and snarling breaks out at the racetrack, and you hear Seahorse Keeper @Kiwibot shouting above the roar of the waves. \"The gathering of seahorses has attracted a fierce Sea Stallion!\" she cries. \"He's smashing through the stables and destroying the ancient track! Can anyone calm him down?\"",
     "questSeahorseCompletion": "The now-tame Sea Stallion swims docilely to your side. \"Oh, look!\" Kiwibot says. \"He wants us to take care of his children.\" She gives you three eggs. \"Raise them well,\" she says. \"You're welcome at the Dilatory Derby any day!\"",
     "questSeahorseBoss": "Cal de mare",
-    "questSeahorseDropSeahorseEgg": "Căluţ de mare (Ou)"
+    "questSeahorseDropSeahorseEgg": "Căluţ de mare (Ou)",
+    "questAtom1Text": "Attack of the Mundane Questline, Pt. 1: Dish Disaster!",
+    "questAtom1Notes": "You reach the shores of Washed-Up Lake for some well-earned relaxation... But the lake is polluted with unwashed dishes! How did this happen? Well, you simply cannot allow the lake to be in this state. There is only one thing you can do: clean the dishes and save your vacation spot! Better find some soap to clean up this mess. A lot of soap...",
+    "questAtom1CollectSoapBars": "Bars of Soap",
+    "questAtom1Drop": "The SnackLess Monster (Scroll)",
+    "questAtom2Text": "Attack of the Mundane Questline, Pt. 2: The SnackLess Monster",
+    "questAtom2Notes": "Phew, this place is looking a lot nicer with all these dishes cleaned. Maybe, you can finally have some fun now. Oh - there seems to be a pizza box floating in the lake. Well, what's one more thing to clean really? But alas, it is no mere pizza box! With a sudden rush the box lifts from the water to reveal itself to be the head of a monster. It cannot be! The fabled SnackLess Monster?! It is said it has existed hidden in the lake since prehistoric times: a creature spawned from the leftover food and trash of the ancient Habiticans. Yuck!",
+    "questAtom2Boss": "The SnackLess Monster",
+    "questAtom2Drop": "The Laundromancer Scroll (Scroll)",
+    "questAtom3Text": "Attack of the Mundane Questline, Pt. 3: The Laundromancer",
+    "questAtom3Notes": "With a deafening cry, and five delicious types of cheese bursting from its mouth, the SnackLess Monster falls to pieces. \"HOW DARE YOU!\" booms a voice from beneath the water's surface. A robed, blue figure emerges from the water, wielding a magic toilet brush. Filthy laundry begins to bubble up to the surface of the lake. \"I am the Laundromancer!\" he angrily announces. \"You have some nerve - washing my delightfully dirty dishes, destroying my pet, and entering my domain with such clean clothes. Prepare to feel the soggy wrath of my anti-laundry magic!\"",
+    "questAtom3Completion": "The wicked Laundromancer has been defeated! Clean laundry falls in piles all around you. Things are looking much better around here. As you begin to wade through the freshly pressed armor, a glint of metal catches your eye, and your gaze falls upon a gleaming helm. The original owner of this shining item may be unknown, but as you put it on, you feel the warming presence of a generous spirit. Too bad they didn't sew on a nametag.",
+    "questAtom3Boss": "The Laundromancer",
+    "questAtom3DropPotion": "Basic Hatching Potion"
 }

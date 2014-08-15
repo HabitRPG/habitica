@@ -48,7 +48,7 @@
     "hatchingPotionCottonCandyPink": "Cukierkoworóżowy",
     "hatchingPotionCottonCandyBlue": "Cukierkowoniebieski",
     "hatchingPotionGolden": "Złoty",
-    "hatchingPotionNotes": "Wylej to na jajko, a wykluje się  <%= potText() %> chowaniec.",
+    "hatchingPotionNotes": "Wylej go na jajko, a wykluje się  <%= potText() %> chowaniec.",
     "foodMeat": "Mięso",
     "foodMilk": "Mleko",
     "foodPotatoe": "Ziemniak",
@@ -70,6 +70,6 @@
     "foodCakeRed": "Truskawkowe ciasto",
     "foodHoney": "Miód",
     "foodSaddleText": "Siodło",
-    "foodSaddleNotes": "Natychmiastowo zmienia twojego chowańca w wierzchowca.",
+    "foodSaddleNotes": "Natychmiastowo zmienia jednego z Twoich chowańców w wierzchowca.",
     "foodNotes": "Nakarm tym chowańca, a wyrośnie z niego wytrzymały wierzchowiec."
 }

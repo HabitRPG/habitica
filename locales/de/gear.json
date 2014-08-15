@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Schaft des Ski-ssassinen ",
     "weaponSpecialSkiNotes": "Limited Edition 2013 Winter-Set! Zermalmt ganze Horden von Gegnern! Außerdem unterstützt er den Träger dabei, elegante Parallelkurven zu fahren. Erhöht Stärke um <%= str %>.",
     "weaponSpecialCandycaneText": "Zuckerstangenstab",
-    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
+    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter-Set! Ein mächtiger Zauberstab.  Mächtig KÖSTLICH, wollten wir sagen! Zweihändige Waffe. Erhöht Intelligenz um <%= int %> und Warnehmung um <%= per %>.",
     "weaponSpecialSnowflakeText": "Zauberstab der Schneeflocke",
     "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter-Set! Dieser Zauberstab funkelt vor unerschöpflicher Heilkraft. Erhöht Stärke um <%= int %>.",
     "weaponSpecialSpringRogueText": "Hakenkrallen",
