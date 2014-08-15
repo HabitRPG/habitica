@@ -32,7 +32,7 @@
     "mustLvlQuest": "Du musst Level <%= level %> sein um dieses Quest zu erwerben!",
     "sureAbort": "Bist Du sicher, dass Du dieses Quest abbrechen willst? Das Quest wird für alle Teilnehmer abgebrochen und der gesamte Fortschritt ist verloren.",
     "doubleSureAbort": "Bist Du wirklich wirklich sicher? Sei' ganz sicher, dass sie Dich nicht für immer hassen werden!",
-    "questWarning": "Wenn neue Mitglieder der Gruppe beitreten, bevor die Quest anfängt, werden auch sie eine Einladung bekommen. Aber sobald die Quest angefangen hat, können neue Gruppenmitglieder der Quest nicht mehr beitreten. ",
+    "questWarning": "Wenn neue Mitglieder der Gruppe beitreten, bevor das Quest anfängt, werden auch sie eine Einladung bekommen. Aber sobald das Quest angefangen hat, können neue Gruppenmitglieder dem Quest nicht mehr beitreten. ",
     "bossRageTitle": "Zorn",
     "bossRageDescription": "Wenn sich dieser Balken füllt, wird der Boss eine Spezialattacke ausführen"
 }

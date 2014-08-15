@@ -33,7 +33,7 @@
     "challengeTagPop": "Provocările apar în listele de etichete și țeluri. Așa că, deși trebuie să ai un titlu descriptiv mai sus, vei avea nevoie și de un „nume scurt”. Ex. „Scapă de 5 kilograme în 3 luni” va deveni „-5kg” (Clic pentru mai multe informații)",
     "challengeDescr": "Descriere",
     "prize": "Premiu",
-    "prizePop": "Dacă cineva poate „câștiga” provocarea ta, poți premia opțional câștigătorul cu un premiu în Nestemate. Max = #nestemate pe care le deții (+ nestematele breslei, dacă tu ai creat breasla acestei provocări). Notă: Acest premiu nu poate fi schimbat mai târziu.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and will not be refunded if challenge is cancelled.",
     "publicChallenges": "Minim 1 Nestemată pentru <strong>provocări publice</strong> (ajută la prevenirea spamului, pe bune).",
     "officialChallenge": "Provocare oficială HabitRPG",
     "by": "de",

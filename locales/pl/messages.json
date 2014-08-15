@@ -1,7 +1,7 @@
 {
     "messageLostItem": "Przedmiot: <%= itemText %> zniszczył się.",
     "messageTaskNotFound": "Nie znaleziono zadania.",
-    "messageTagNotFound": "Nie znaleziono tagu.",
+    "messageTagNotFound": "Nie znaleziono taga.",
     "messagePetNotFound": ":pet nie znaleziono w user.items.pets",
     "messageFoodNotFound": ":food nie znaleziono w user.items.food",
     "messageCannotFeedPet": "Nie możesz nakarmić tego chowańca.",
@@ -18,7 +18,7 @@
     "messageNotEnoughGold": "Nie masz wystarczająco dużo złota",
     "messageTwoHandled": "<%= gearText %> to broń dwuręczna.",
     "messageDropFood": "Znalazłeś: <%= dropText %>! <%= dropNotes %>",
-    "messageDropEgg": "Znalazłeś jajo z: <%= dropText %>! <%= dropNotes %>",
+    "messageDropEgg": "Znalazłeś jajo: <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Znalazłeś <%= dropText %> eliksir wyklucia! <%= dropNotes %>",
     "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!"
 }

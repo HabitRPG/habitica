@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "Mastro Assa-ski-no",
     "weaponSpecialSkiNotes": "Equipamento Edição Limitada de Inverno 2013! Uma arma capaz de destruir hordas de inimigos! Também ajuda o usuário a fazer bons giros paralelos. Aumenta Força em <%= str %>.",
     "weaponSpecialCandycaneText": "Cajado de Bastão Doce",
-    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
+    "weaponSpecialCandycaneNotes": "Edição Limitada Equipamento de Inverno  2013! Um pessoal do mago poderoso. Poderosamente DELICIOSO, queremos dizer! Duas armas de mão. Aumenta a inteligência em <%= int %> e Percepção em <%= per %>.",
     "weaponSpecialSnowflakeText": "Varinha Floco de Neve",
     "weaponSpecialSnowflakeNotes": "Equipamento Edição Limitada de Inverno 2013! Essa varinha brilha com poder ilimitado de cura. Aumenta Inteligência em <%= int %>.",
     "weaponSpecialSpringRogueText": "Garras de Gancho",

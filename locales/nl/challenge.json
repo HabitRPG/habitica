@@ -33,7 +33,7 @@
     "challengeTagPop": "Uitdagingen zijn te zien op label-lijsten en op taak-omschrijvingen. Dus hoewel je een omschrijvende titel boven wil, heb je ook een 'korte naam' nodig. Bijv. '5 kilo afvallen in drie maanden' kan worden '-5kg' (Klik voor meer informatie).",
     "challengeDescr": "Beschrijving",
     "prize": "Prijs",
-    "prizePop": "Als iemand je uitdaging kan 'winnen', kun je deze winnaar eventueel een prijs in Edelstenen geven. Maximum = aantal edelstenen die je bezit (+ gilde-edelstenen, als jij het gilde van deze uitdaging heb aangemaakt). Let op: deze prijs kan later niet veranderd worden.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and will not be refunded if challenge is cancelled.",
     "publicChallenges": "Minimaal 1 Edelsteen voor <strong> publieke uitdagingen </strong> (helpt spam voorkomen, echt).",
     "officialChallenge": "Officiële HabitRPG Uitdaging",
     "by": "door",

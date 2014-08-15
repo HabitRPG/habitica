@@ -72,7 +72,7 @@
     "weaponSpecialSkiText": "מוט מתנקש-סקי",
     "weaponSpecialSkiNotes": "ציוד חורף ממדורה מוגבלת של 2013! נשק שעוזר גם לשחוט צבאות גדולים של אויבים, וגם לבצע פניות חדות במדרון. מגבירה את הכוח ב<%= str %> נקודות.",
     "weaponSpecialCandycaneText": "מטה סוכרייה על מקל",
-    "weaponSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
+    "weaponSpecialCandycaneNotes": "ציוד חורף ממדורה מוגבלת של 2013! מטה מכשף רב עצמה. כלומר, בעל טעם רב עצמה! נשק דו ידני. מגביר את התבונה ב<%= int %> נקודות ואת התפיסה ב<%= per %> נקודות.",
     "weaponSpecialSnowflakeText": "שרביט פתית",
     "weaponSpecialSnowflakeNotes": "ציוד חורף ממדורה מוגבלת של 2013! שרביט זה מנצנץ עם רוח ריפוי בלתי נלאה! או פשוט שלג שמסרב להינמס. מגביר את התבונה ב<%= int %> נקודות.",
     "weaponSpecialSpringRogueText": "טפרי קרס",

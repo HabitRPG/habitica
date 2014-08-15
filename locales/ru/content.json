@@ -34,7 +34,7 @@
     "questEggRatText": "Крыс",
     "questEggRatAdjective": "грязный",
     "questEggOctopusText": "Осьминог",
-    "questEggOctopusAdjective": "slippery",
+    "questEggOctopusAdjective": "скользкий",
     "questEggSeahorseText": "Морской конек",
     "questEggSeahorseAdjective": "Приз",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить на это яйцо, и из него вылупится <%= eggAdjective() %> <%= eggText() %>.",
