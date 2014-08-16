@@ -1,0 +1,15 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title HabitRPG &VerticalLine; =env.t('communityGuidelines')
+
+block content
+  .row
+    .col-md-12
+      .page-header
+        h1=env.t('communityGuidelines')
+      p.pagemeta
+        | Last updated August 20&comma; 2014
