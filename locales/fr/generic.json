@@ -62,5 +62,8 @@
     "notifications": "Notifications",
     "noNotifications": "Vous n'avez pas de nouveau message.",
     "clear": "Effacer",
-    "endTour": "Terminer la visite"
+    "endTour": "Terminer la visite",
+    "audioTheme": "Audio Theme",
+    "audioTheme_off": "Off",
+    "audioTheme_danielTheBard": "Daniel The Bard"
 }

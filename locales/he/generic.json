@@ -62,5 +62,8 @@
     "notifications": "התראות",
     "noNotifications": "אין לך הודעות חדשות.",
     "clear": "נקה",
-    "endTour": "סיים סיור"
+    "endTour": "סיים סיור",
+    "audioTheme": "Audio Theme",
+    "audioTheme_off": "Off",
+    "audioTheme_danielTheBard": "Daniel The Bard"
 }

@@ -33,7 +33,7 @@
     "challengeTagPop": "Wettbewerbe erscheinen als Tag-Liste und Aufgabenbeschreibungen. Also ist es einerseits sinnvoll, oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine \"Kurzfassung\". Dazu kannst Du zum Beispiel \"Verliere 5 Kilo in 3 Monaten\" mit \"-5kg\" abkürzen. (Klicke auf das '?' für mehr Informationen).",
     "challengeDescr": "Beschreibung",
     "prize": "Preis",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and will not be refunded if challenge is cancelled.",
+    "prizePop": "Wenn jemand Deinen Wettbewerb 'gewinnen' kann, dann kannst Du, wenn Du willst, dem Gewinner einen Edelstein-Preis zusprechen. Maximal #Edelsteine in Deinem Inventar (+guild.gems, wenn Du die dazugehörige Gilde gegründet hast). Beachte: Diese Preise können später nicht mehr geändert werden und werden nicht ersetzt, wenn der Wettbewerb abgebrochen wird.",
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
     "officialChallenge": "Offizieller HabitRPG Wettbewerb",
     "by": "von",
