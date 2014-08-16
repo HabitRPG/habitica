@@ -42,7 +42,8 @@ var momentLangs = {};
 var momentLangsMapping = {
   'en': 'en-gb',
   'en_GB': 'en-gb',
-  'no': 'nn'
+  'no': 'nn',
+  'zh': 'zh-cn'
 };
 
 var momentLangs = {};
