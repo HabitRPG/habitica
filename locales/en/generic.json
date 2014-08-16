@@ -63,9 +63,7 @@
     "noNotifications": "You have no new messages.",
     "clear": "Clear",
     "endTour": "End Tour",
-    "music": "Music",
-    "soundOff": "Turn the sound off",
-    "soundOn": "Turn the sound on",
-    "switchSound": "Switch on/off",
-    "selectTheme": "Select Audio theme"
+    "audioTheme": "Audio Theme",
+    "audioTheme_off": "Off",
+    "audioTheme_danielTheBard": "Daniel The Bard"
 }
