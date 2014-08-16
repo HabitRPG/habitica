@@ -94,9 +94,5 @@ angular.module('authCtrl', [])
       $scope.expandMenu = function(menu) {
         $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
       };
-
-      $scope.switchAudio = function(bool) {
-        User.set({"preferences.sound": bool});
-      };
     }
 ]);

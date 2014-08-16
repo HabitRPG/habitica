@@ -137,27 +137,17 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li.toolbar-controls-button
               a(ng-click='expandMenu(null)')=env.t('close')
       li.toolbar-audio
-        a(ng-click='expandMenu("music")')
-          span.glyphicon.glyphicon-music
-        div(ng-if='_expandedMenu=="music"')
-          h4=env.t('music')
+        a(ng-click='expandMenu("audio")')
+          span.glyphicon(ng-class="{'glyphicon-volume-off':user.preferences.sound=='off', 'glyphicon-volume-up':user.preferences.sound!='off'}")
+        div(ng-if='_expandedMenu=="audio"',style='min-width:150px')
+          h4=env.t('audioTheme')
           div
             ul.toolbar-submenu(ng-click='expandMenu(null)')
-              li
-                label=env.t('switchSound')
-                a(ng-if='user.preferences.sound', ng-click='switchAudio(false)')
-                  span.glyphicon.glyphicon-volume-down(tooltip=env.t('soundOff'))
-                a(ng-if='!user.preferences.sound', ng-click='switchAudio(true)')
-                  span.glyphicon.glyphicon-volume-off(tooltip=env.t('soundOn'))
-              li
-                label(for='audioTheme')=env.t('selectTheme')
-                select#audioTheme(
-                    style='width:140px',
-                    ng-controller='SettingsCtrl',
-                    ng-model='user.preferences.soundTheme',
-                    ng-options='k as v for (k , v) in soundThemes',
-                    ng-change='set("preferences.soundTheme", user.preferences.soundTheme)'
-                )
+              // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
+              for theme in ['off','danielTheBard']
+                li
+                  a(ng-class="{'bg-primary':user.preferences.sound=='#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
+
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh
