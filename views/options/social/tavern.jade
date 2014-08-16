@@ -31,7 +31,7 @@
           table.table.table-striped
             tr
               td
-                a(ng-click='openModal("communityGuidelines")')=env.t('communityGuidelines')
+                a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
             tr
               td
                 a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG')=env.t('lfgPosts')
@@ -156,7 +156,7 @@
         p
           =env.t('communityGuidelinesRead1')
           | &nbsp;
-          a(ng-click='openModal("communityGuidelines")')=env.t('communityGuidelines')
+          a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
           | &nbsp;
           =env.t('communityGuidelinesRead2')
 
