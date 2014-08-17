@@ -75,9 +75,9 @@ mixin herobox(opts)
   - if (!opts) {opts = {minimal:false,main:false}}
   figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', class='background_{{profile.preferences.background}} #{opts.main ? "isUser" : ""} #{opts.minimal ? "minimal" : ""}', ng-class='{hasPet: (#{!opts.minimal} && profile.items.currentPet), hasMount: (#{!opts.minimal} && profile.items.currentMount), noBackgroundImage: !profile.preferences.background, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
     .avatar-name(ng-class='userLevelStyle(profile)')
-      {{profile.profile.name}}
+      |{{profile.profile.name}}
     +avatar(opts)
     .avatar-level(ng-class='userLevelStyle(profile)')
       span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'))
-      span(tooltip=env.t('level')){{profile.stats.lvl}}
+      span(tooltip=env.t('level')) {{profile.stats.lvl}}
       span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}))
