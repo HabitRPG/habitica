@@ -64,6 +64,6 @@
     "clear": "Очистить",
     "endTour": "Завершить тур",
     "audioTheme": "Музыкальное сопровождение",
-    "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme_off": "Выкл.",
+    "audioTheme_danielTheBard": "Бард Даниэль"
 }
