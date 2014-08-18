@@ -23,25 +23,25 @@ angular.module('groupServices', ['ngResource']).
           });
 
         // Defer loading everything until they're requested
-        var party, myGuilds, publicGuilds, tavern;
+        var data = {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined};
 
         return {
           party: function(cb){
-            if (!party) return (party = Group.get({gid: 'party'}, cb));
-            return (cb) ? cb(party) : party;
+            if (!data.party) return (data.party = Group.get({gid: 'party'}, cb));
+            return (cb) ? cb(party) : data.party;
           },
           publicGuilds: function(){
             //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
-            if (!publicGuilds) publicGuilds = Group.query({type:'public'});
-            return publicGuilds;
+            if (!data.publicGuilds) data.publicGuilds = Group.query({type:'public'});
+            return data.publicGuilds;
           },
           myGuilds: function(){
-            if (!myGuilds) myGuilds = Group.query({type:'guilds'});
-            return myGuilds;
+            if (!data.myGuilds) data.myGuilds = Group.query({type:'guilds'});
+            return data.myGuilds;
           },
           tavern: function(){
-            if (!tavern) tavern = Group.get({gid:'habitrpg'});
-            return tavern;
+            if (!data.tavern) data.tavern = Group.get({gid:'habitrpg'});
+            return data.tavern;
           },
 
           // On enter, set chat message to "seen"
@@ -49,6 +49,10 @@ angular.module('groupServices', ['ngResource']).
             $http.post('/api/v2/groups/'+gid+'/chat/seen');
             if (User.user.newMessages) User.user.newMessages[gid] = false;
           },
+
+          // Pass reference to party, myGuilds, publicGuilds, tavern; inside data in order to
+          // be able to modify them directly (otherwise will be stick with cached version)
+          data: data,
 
           Group: Group
         }
