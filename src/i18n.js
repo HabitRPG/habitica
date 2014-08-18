@@ -43,7 +43,8 @@ var momentLangsMapping = {
   'en': 'en-gb',
   'en_GB': 'en-gb',
   'no': 'nn',
-  'zh': 'zh-cn'
+  'zh': 'zh-cn',
+  'es_419': 'es'
 };
 
 var momentLangs = {};
@@ -68,7 +69,27 @@ var getUserLanguage = function(req, res, next){
       return lang.slice(0, 2);
     }).uniq().value();
     var matches = _.intersection(acceptable, defaultLangCodes);
-    return matches.length > 0 ? matches[0] : 'en';
+    if(matches.length > 0 && matches[0].toLowerCase() === 'es'){
+      var acceptedCompleteLang = _.find(req.acceptedLanguages, function(accepted){
+        return accepted.slice(0, 2) == 'es';
+      });
+
+      if(acceptedCompleteLang){
+        acceptedCompleteLang = acceptedCompleteLang.toLowerCase();
+      }else{
+        return 'en';
+      }
+
+      var latinAmericanSpanishes = ['es-419', 'es-mx', 'es-gt', 'es-cr', 'es-pa', 'es-do', 'es-ve', 'es-co', 'es-pe',
+                                  'es-ar', 'es-ec', 'es-cl', 'es-uy', 'es-py', 'es-bo', 'es-sv', 'es-hn',
+                                  'es-ni', 'es-pr'];
+
+      return (latinAmericanSpanishes.indexOf(acceptedCompleteLang) !== -1) ? 'es_419' : 'es';
+    }else if(matches.length > 0){
+      return matches[0].toLowerCase();
+    }else{
+      return 'en';
+    }
   };
 
   var getFromUser = function(user){
