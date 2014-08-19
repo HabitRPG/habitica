@@ -548,6 +548,13 @@ api.wrap = (user, main=true) ->
           id: req.body.id or api.uuid()
         cb? null, user.tags
 
+      sortTag: (req, cb) ->
+        {to, from} = req.query
+        return cb?('?to=__&from=__ are required') unless to? and from?
+        user.tags.splice to, 0, user.tags.splice(from, 1)[0]
+        cb? null, user.tags
+
+
       updateTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
