@@ -627,7 +627,8 @@ api.questEggs =
   Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false
   Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
   Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
-  Seahorse:          text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
+  Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
+  Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1021,6 +1022,24 @@ api.quests =
       ]
       gp: 25
       exp: 125
+
+  harpy:
+    text:       t('questHarpyText')
+    notes:      t('questHarpyNotes')
+    completion: t('questHarpyCompletion')
+    value: 4
+    boss:
+      name: t('questHarpyBoss')
+      hp: 600
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Parrot', text: t('questHarpyDropParrotEgg')}
+        {type: 'eggs', key: 'Parrot', text: t('questHarpyDropParrotEgg')}
+        {type: 'eggs', key: 'Parrot', text: t('questHarpyDropParrotEgg')}
+      ]
+      gp: 43
+      exp: 350
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}

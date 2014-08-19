@@ -11902,6 +11902,11 @@ api.questEggs = {
     text: t('questEggSeahorseText'),
     adjective: t('questEggSeahorseAdjective'),
     canBuy: false
+  },
+  Parrot: {
+    text: t('questEggParrotText'),
+    adjective: t('questEggParrotAdjective'),
+    canBuy: false
   }
 };
 
@@ -12658,6 +12663,36 @@ api.quests = {
       ],
       gp: 25,
       exp: 125
+    }
+  },
+  harpy: {
+    text: t('questHarpyText'),
+    notes: t('questHarpyNotes'),
+    completion: t('questHarpyCompletion'),
+    value: 4,
+    boss: {
+      name: t('questHarpyBoss'),
+      hp: 600,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Parrot',
+          text: t('questHarpyDropParrotEgg')
+        }, {
+          type: 'eggs',
+          key: 'Parrot',
+          text: t('questHarpyDropParrotEgg')
+        }, {
+          type: 'eggs',
+          key: 'Parrot',
+          text: t('questHarpyDropParrotEgg')
+        }
+      ],
+      gp: 43,
+      exp: 350
     }
   }
 };
@@ -14559,7 +14594,7 @@ api.wrap = function(user, main) {
       })()]++;
     },
     updateStats: function(stats, req) {
-      var tnl, _base, _base1, _ref;
+      var tnl;
       if (stats.hp <= 0) {
         return user.stats.hp = 0;
       }
@@ -14604,22 +14639,28 @@ api.wrap = function(user, main) {
       if (!user.flags.classSelected && user.stats.lvl >= 10) {
         user.flags.classSelected;
       }
-      if (!((_ref = user.flags.levelDrops) != null ? _ref.vice1 : void 0) && user.stats.lvl >= 30) {
-        if ((_base = user.items.quests).vice1 == null) {
-          _base.vice1 = 0;
+      _.each({
+        vice1: 30,
+        atom1: 15
+      }, function(lvl, k) {
+        var _base, _base1, _ref;
+        if (!((_ref = user.flags.levelDrops) != null ? _ref[k] : void 0) && user.stats.lvl >= lvl) {
+          if ((_base = user.items.quests)[k] == null) {
+            _base[k] = 0;
+          }
+          user.items.quests[k]++;
+          ((_base1 = user.flags).levelDrops != null ? _base1.levelDrops : _base1.levelDrops = {})[k] = true;
+          if (typeof user.markModified === "function") {
+            user.markModified('flags.levelDrops');
+          }
+          return user._tmp.drop = _.defaults(content.quests[k], {
+            type: 'Quest',
+            dialog: i18n.t('messageFoundQuest', {
+              questText: content.quests[k].text(req.language)
+            }, req.language)
+          });
         }
-        user.items.quests.vice1++;
-        ((_base1 = user.flags).levelDrops != null ? _base1.levelDrops : _base1.levelDrops = {}).vice1 = true;
-        if (typeof user.markModified === "function") {
-          user.markModified('flags.levelDrops');
-        }
-        user._tmp.drop = _.defaults(content.quests.vice1, {
-          type: 'Quest',
-          dialog: i18n.t('messageFoundQuest', {
-            questText: content.quests.vice1.text(req.language)
-          }, req.language)
-        });
-      }
+      });
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
         user.flags.rebirthEnabled = true;
       }
@@ -14875,5 +14916,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
