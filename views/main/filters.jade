@@ -22,17 +22,16 @@
           form.hrpg-input-group
             input(type='text', ng-model='_newTag', placeholder=env.t('newTag'))
             button(ng-click='createTag(_newTag)')=env.t('add')
-      ul(ng-if='!areTagsHidden || _editing', ui-sortable='sortableOptions', ng-model='user.tags')
-        li.filters-edit(bindonce='user.tags', ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags')
-          //- Edit tags
-          form.hrpg-input-group(ng-show='_editing')
-            input(type='text', ng-model='tag.name')
-            button(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
-              span.glyphicon.glyphicon-trash
-          //- List of Tags
-        li.filters-tags(ng-if='!_editing', bindonce='user.tags',
-        ng-class='{active: user.filters[tag.id], challenge: tag.challenge}', ng-repeat='tag in user.tags')
-          a(ng-click='toggleFilter(tag)')
-            span.glyphicon.glyphicon-bullhorn(bo-if="tag.challenge")
-            markdown(ng-model='tag.name')
-            // <li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">
+      div(ng-if='!areTagsHidden || _editing')
+        ul(ng-if='_editing')
+          li.filters-edit(ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags', bindonce='user.tags')
+            form.hrpg-input-group
+              input(type='text', ng-model='tag.name')
+              button(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
+                span.glyphicon.glyphicon-trash
+        ul(ng-if='!_editing', ui-sortable='sortableOptions', ng-model='user.tags')
+          li.filters-tags(ng-class='{active: user.filters[tag.id], challenge: tag.challenge}', ng-repeat='tag in user.tags', bindonce='user.tags')
+            a(ng-click='toggleFilter(tag)')
+              span.glyphicon.glyphicon-bullhorn(ng-if="::tag.challenge")
+              markdown(ng-model='tag.name')
+              // <li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">
