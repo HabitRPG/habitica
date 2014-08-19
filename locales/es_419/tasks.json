@@ -53,7 +53,7 @@
     "perfectName": "Días Perfectas",
     "perfectText": "Completaste todas las Diarias activas durante <%= perfects %> días. Con este logro recibes a +nivel/2 a todos los atributos para el próximo día.",
     "perfectSingular": "Día Perfecto",
-    "perfectSingularText": "Completaste todas las Diarias activas durante <%= perfects %> dias. Con este logro recibes una mejora de +nivel/2 a todas tus atributos durante el día siguiente.",
+    "perfectSingularText": "Completed all active Dailies in one day. With this achievement you get a +level/2 buff to all attributes for the next day.",
     "streakerAchievement": "Has obtenido el logro \"Buena Racha\"! La marca de 21 días es un escalón importante para la formación de hábitos. Puedes seguir amontonando este Logro para cada 21 días adicionales en esta diaria o cualquier otra!",
     "fortifyName": "Poción de Fortalecimiento.",
     "fortifyPop": "Devuelve todas sus tareas a un valor neutral (amarillo), y recupera toda la salud perdida.",
