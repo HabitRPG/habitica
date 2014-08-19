@@ -131,6 +131,7 @@ module.exports = (swagger, v2) ->
         ]
       action: user.sortTask
 
+
     "/user/tasks/clear-completed":
       spec:
         method: 'POST'
@@ -326,6 +327,16 @@ module.exports = (swagger, v2) ->
           body '','New tag (see UserSchema.tags)','object'
         ]
       action: user.addTag
+
+    "/user/tags/sort":
+      spec:
+        method: 'POST'
+        description: 'Sort tags'
+        parameters: [
+          query("from","Index where you're sorting from (0-based)","integer")
+          query("to","Index where you're sorting to (0-based)","integer")
+        ]
+      action: user.sortTag
 
     "/user/tags/{id}:PUT":
       spec:

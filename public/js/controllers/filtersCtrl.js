@@ -34,4 +34,22 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
       $scope._newTag = '';
     };
 
+
+    $scope.sortableOptions = {
+      // Because we're manually handling sorting via splice (index.coffee#user.ops), we cancel jQuery UI
+      update: function(e,ui) {
+        ui.item.sortable.cancel();
+      },
+      stop: function(e, ui) {
+        User.user.ops.sortTag({
+          query: {from: ui.item.sortable.index, to:ui.item.sortable.dropindex}
+        });
+        //User.user.ops.sortTag({query:{
+        //  from: ui.item.data('startIndex') - 3,
+        //  to:ui.item.index() - 3
+        //}});
+      },
+      axis: 'x',
+      //distance: 5
+    };
 }]);

@@ -299,6 +299,7 @@ api.addTenGems = function(req, res, next) {
 // api.deleteTag // handled in Shared.ops
 // api.addTag // handled in Shared.ops
 // api.updateTag // handled in Shared.ops
+// api.sortTag // handled in Shared.ops
 
 /*
  ------------------------------------------------------------------------
