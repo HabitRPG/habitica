@@ -22,6 +22,8 @@ footer.footer(ng-controller='FooterCtrl')
                 |&nbsp;
                 =env.t('companyDonate')
           li
+            a(href='/static/contact')=env.t('companyContact')
+          li
             a(href='/static/features')=env.t('companyAbout')
           li
             a(target='_blank', href='http://blog.habitrpg.com/')=env.t('companyBlog')
