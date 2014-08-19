@@ -30,7 +30,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           hr
 
           // Actual List
-          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', habitrpg-sortable)
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', ui-sortable='sortableOptions', ng-model='obj[list.type + "s"]')
             include ./task
 
           // Static Rewards

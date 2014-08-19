@@ -40,28 +40,6 @@ habitrpg.directive('whenScrolled', function() {
   };
 });
 
-/**
- * Add sortable
- */
-habitrpg.directive('habitrpgSortable', ['User', function(User) {
-  return function($scope, element, attrs, ngModel) {
-    $(element).sortable({
-      axis: "y",
-      distance: 5,
-      start: function (event, ui) {
-        ui.item.data('startIndex', ui.item.index());
-      },
-      stop: function (event, ui) {
-        var taskType = angular.element(ui.item[0]).scope().task.type + 's';
-        var startIndex = ui.item.data('startIndex');
-        var task = User.user[taskType][startIndex];
-        User.user.ops.sortTask({params:{id:task.id},query:{from:startIndex, to:ui.item.index()}});
-      }
-    });
-  }
-}]);
-
-
 habitrpg
   .directive('habitrpgTasks', ['$rootScope', 'User', function($rootScope, User) {
     return {

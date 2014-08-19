@@ -84,6 +84,21 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         });
     };
 
+    $scope.sortableOptions = {
+      // Because we're manually handling sorting via splice (index.coffee#user.ops), we cancel jQuery UI
+      update: function(e,ui) {
+        ui.item.sortable.cancel();
+      },
+      stop: function(e, ui) {
+        User.user.ops.sortTask({
+          params: {id: ui.item.scope().task.id},
+          query: {from: ui.item.sortable.index, to:ui.item.sortable.dropindex}
+        });
+      },
+      axis: 'y',
+      //distance: 5
+    };
+
     /*
      ------------------------
      To-Dos
@@ -177,5 +192,4 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       $.getScript('//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     }
-
   }]);
