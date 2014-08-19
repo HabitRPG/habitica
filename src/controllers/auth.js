@@ -258,7 +258,7 @@ api.setupPassport = function(router) {
   //   redirecting the user to facebook.com.  After authorization, Facebook will
   //   redirect the user back to this application at /auth/facebook/callback
   router.get('/auth/facebook',
-    passport.authenticate('facebook'),
+    passport.authenticate('facebook', {scope: 'email'}),
     i18n.getUserLanguage,
     function(req, res){
       // The request will be redirected to Facebook for authentication, so this
