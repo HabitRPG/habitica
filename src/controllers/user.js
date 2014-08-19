@@ -48,8 +48,8 @@ api.getModelPaths = function(req,res,next){
   ---------------
 */
 
-findTask = function(req, res, next) {
-  return task = res.locals.user.tasks[req.params.id];
+var findTask = function(req, res) {
+  return res.locals.user.tasks[req.params.id];
 };
 
 /*
