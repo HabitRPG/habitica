@@ -40,6 +40,7 @@ mixin boss(tavern, mobile)
               span.meter-text.value
                 | {{Math.ceil(progress.rage)  | goldRoundThousandsToK}} / {{boss.rage.value | goldRoundThousandsToK}}
         div(ng-if='::Content.quests[group.quest.key].collect')
+          div(class="quest_{{::group.quest.key}}")
           h4=env.t('collected') + ':'
           table.table.table-striped
             tr(ng-repeat='(k,v) in group.quest.progress.collect', class='quest_collected_{{v >= Content.quests[group.quest.key].collect[k].count}}')
