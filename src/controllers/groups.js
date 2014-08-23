@@ -257,8 +257,8 @@ api.seenMessage = function(req,res,next){
   // Skip the auth step, we want this to be fast. If !found with uuid/token, then it just doesn't save
   // Check for req.params.gid to exist
   if(req.params.gid){
-    var update = {$set:{}};
-    update['$set']['newMessages.'+req.params.gid+'.value'] = false;
+    var update = {$unset:{}};
+    update['$unset']['newMessages.'+req.params.gid] = '';
     User.update({_id:req.headers['x-api-user'], apiToken:req.headers['x-api-key']},update).exec();
   }
   res.send(200);
