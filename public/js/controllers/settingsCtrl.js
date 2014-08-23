@@ -15,6 +15,16 @@ habitrpg.controller('SettingsCtrl',
 //        });
 //    }
 
+    $scope.hideHeader = function(){
+      User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
+      if (User.user.preferences.hideHeader && User.user.preferences.stickyHeader){
+        User.set({"preferences.stickyHeader":false});
+        $rootScope.$on('userSynced', function(){
+          window.location.reload();
+        });           
+      }
+  	}
+
     $scope.toggleStickyHeader = function(){
       $rootScope.$on('userSynced', function(){
         window.location.reload();
