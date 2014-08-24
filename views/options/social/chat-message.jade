@@ -4,6 +4,7 @@ li.chat-message(ng-repeat='message in group.chat', ng-class=':: {highlight: isUs
       a.label.label-default.chat-message.hidden-label
         span {{::message.user}}&nbsp;
         span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
+        // this invisible username label is here to push the message text far enough right that the visible label can be floated to this point without covering up any of the text
     markdown(ng-model='::message.text')
     | -
     span.muted.time(from-now='::message.timestamp')
