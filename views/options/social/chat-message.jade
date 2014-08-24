@@ -1,9 +1,9 @@
 li.chat-message(ng-repeat='message in group.chat', ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}')
   .scrollable-message
-    a.label.label-default.chat-message(ng-if=':: message.user', ng-class='userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
-      span(tooltip='{{::contribText(message.contributor, message.backer)}}') {{::message.user}}&nbsp;
-      span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
-    | &nbsp;
+    span(ng-if='::message.uuid!="system"')
+      a.label.label-default.chat-message.hidden-label
+        span {{::message.user}}
+      | &nbsp;
     markdown(ng-model='::message.text')
     | -
     span.muted.time(from-now='::message.timestamp')
@@ -13,3 +13,6 @@ li.chat-message(ng-repeat='message in group.chat', ng-class=':: {highlight: isUs
     | &nbsp;
     a(ng-if=':: user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
       span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+  a.label.label-default.chat-message(ng-if=':: message.user', class='float-label', ng-class='userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
+      span(tooltip='{{::contribText(message.contributor, message.backer)}}') {{::message.user}}&nbsp;
+      span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
