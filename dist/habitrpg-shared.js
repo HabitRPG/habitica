@@ -9749,6 +9749,10 @@ mystery = {
     start: '2014-07-23',
     end: '2014-08-01'
   },
+  201408: {
+    start: '2014-08-23',
+    end: '2014-09-01'
+  },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
@@ -10591,6 +10595,12 @@ gear = {
         notes: t('armorMystery201407Notes'),
         mystery: mystery['201407'],
         value: 0
+      },
+      201408: {
+        text: t('armorMystery201408Text'),
+        notes: t('armorMystery201408Notes'),
+        mystery: mystery['201408'],
+        value: 0
       }
     }
   },
@@ -10971,6 +10981,12 @@ gear = {
         text: t('headMystery201407Text'),
         notes: t('headMystery201407Notes'),
         mystery: mystery['201407'],
+        value: 0
+      },
+      201408: {
+        text: t('headMystery201408Text'),
+        notes: t('headMystery201408Notes'),
+        mystery: mystery['201408'],
         value: 0
       }
     }
@@ -14925,5 +14941,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
