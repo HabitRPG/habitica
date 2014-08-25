@@ -13,7 +13,9 @@ block content
       .page-header
         h1=env.t('communityGuidelines')
       p.pagemeta
-        | Last updated August 19&comma; 2014
+        |Last updated&nbsp;
+        =env.t('August')
+        |&nbsp;19&comma; 2014
       h2=env.t('commGuideHeadingWelcome')
       p=env.t('commGuidePara001')
       p=env.t('commGuidePara002')
@@ -289,8 +291,8 @@ block content
         li LadyAlys
         li LadyKatFrog
         li Lefnire (bureaucrat)
-      p Wiki Administrators Emeritus are:
-        |&nbsp;
+      p=env.t('commGuidePara018')
+        |:&nbsp;
         em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat)
 
       h2=env.t('commGuideHeadingInfractionsEtc')
