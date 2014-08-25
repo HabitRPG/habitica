@@ -2,7 +2,7 @@ var _id = '';
 var update = {
   $push: {
     'purchased.plan.mysteryItems':{
-      $each:['head_mystery_201407','armor_mystery_201407']
+      $each:['head_mystery_201408','armor_mystery_201408']
     }
   }
 };
