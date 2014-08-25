@@ -77,7 +77,7 @@ mixin herobox(opts)
     .avatar-name(ng-class='userLevelStyle(profile)')
       |{{profile.profile.name}}
     +avatar(opts)
-    .avatar-level(ng-class='userLevelStyle(profile)')
+    .avatar-level(ng-class='userLevelStyle(profile)',tooltip=env.t('level'))
       span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'))
-      span(tooltip=env.t('level')) {{profile.stats.lvl}}
+      span() {{profile.stats.lvl}}
       span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}))
