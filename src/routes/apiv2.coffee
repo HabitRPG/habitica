@@ -152,6 +152,11 @@ module.exports = (swagger, v2) ->
 
 
     # Inventory
+    "/user/inventory/buy":
+      spec:
+         description: "Get a list of buyable gear"
+      action: user.getBuyList
+
     "/user/inventory/buy/{key}":
       spec:
         method: 'POST'

@@ -161,6 +161,12 @@ api.getTask = function(req, res, next) {
 */
 // api.buy // handled in Shard.ops
 
+api.getBuyList = function (req, res, next) {
+   var list = shared.updateStore(res.locals.user);
+
+   return res.json(200, list);
+};
+
 /*
   ------------------------------------------------------------------------
   User
