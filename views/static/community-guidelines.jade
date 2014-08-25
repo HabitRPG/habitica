@@ -1,5 +1,18 @@
 extends ./layout
 
+block extraHead
+  style
+    .pull-left  { margin-right: 20px }
+    .peopleList { list-style-type: none }
+    .listColumns2 {
+      width: 50%;
+      columns:         2;
+      -moz-columns:    2;
+      -webkit-columns: 2;
+      // 2-column list: Allow a single ul/ol list to split into two columns.
+      // (Will not work in IE. Not important enough to make a workaround.)
+    }
+
 block vars
   - var layoutEnv = env
 
@@ -24,24 +37,25 @@ block content
       h2=env.t('commGuideHeadingBeing')
       p=env.t('commGuidePara005')
 
-      img(class='pull-right' src='/community-guidelines-images/beingHabitican.png', alt='')
-      ul
-        li
-          strong=env.t('commGuideList01A')
-          |&nbsp;
-          =env.t('commGuideList01Apart2')
-        li
-          strong=env.t('commGuideList01B')
-          |&nbsp;
-          =env.t('commGuideList01Bpart2')
-        li
-          strong=env.t('commGuideList01C')
-          |&nbsp;
-          =env.t('commGuideList01Cpart2')
-        li
-          strong=env.t('commGuideList01D')
-          |&nbsp;
-          =env.t('commGuideList01Dpart2')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/beingHabitican.png', alt='')
+        ul
+          li
+            strong=env.t('commGuideList01A')
+            |&nbsp;
+            =env.t('commGuideList01Apart2')
+          li
+            strong=env.t('commGuideList01B')
+            |&nbsp;
+            =env.t('commGuideList01Bpart2')
+          li
+            strong=env.t('commGuideList01C')
+            |&nbsp;
+            =env.t('commGuideList01Cpart2')
+          li
+            strong=env.t('commGuideList01D')
+            |&nbsp;
+            =env.t('commGuideList01Dpart2')
 
       h2=env.t('commGuideHeadingMeet')
       p=env.t('commGuidePara006')
@@ -51,33 +65,37 @@ block content
         strong=env.t('commGuidePara008')
       p
         strong=env.t('commGuidePara009')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/staff.png', alt='')
-      ul(class='peopleList')
-        li
-          strong Lefnire (Tyler Renelle)
-        li
-          strong redphoenix (caffeinatedvee on Trello, veeeeeee on GitHub) (Vicky Hsu)
-        li
-          strong Lemoness (Siena Leslie)
-        li
-          strong SabreCat (Sabe)
-        li
-          strong paglias (Matteo)
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/staff.png', alt='')
+        ul(class='peopleList')
+          li
+            strong Lefnire (Tyler Renelle)
+          li
+            strong redphoenix (caffeinatedvee on Trello, veeeeeee on GitHub) (Vicky Hsu)
+          li
+            strong Lemoness (Siena Leslie)
+          li
+            strong SabreCat (Sabe)
+          li
+            strong paglias (Matteo)
+
       p=env.t('commGuidePara010')
       p
         strong=env.t('commGuidePara011')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/moderators.png', alt='')
-      ul(class='peopleList')
-        li
-          strong Ryan (deilann on GitHub/Wikia)
-        li
-          strong Alys (LadyAlys on Wikia)
-        li
-          strong Breadstrings
-        li
-          strong Megan
-        li
-          strong Daniel the Bard
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/moderators.png', alt='')
+        ul(class='peopleList')
+          li
+            strong Ryan (deilann on GitHub/Wikia)
+          li
+            strong Alys (LadyAlys on Wikia)
+          li
+            strong Breadstrings
+          li
+            strong Megan
+          li
+            strong Daniel the Bard
+
       p=env.t('commGuidePara012')
         |&nbsp;(
         a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
@@ -88,332 +106,335 @@ block content
         |&nbsp;
         em Slappybag, litenull, Shaner, Bobbyroberts99, wc8
       h2=env.t('commGuideHeadingPublicSpaces')
-      img(class='pull-right' src='/community-guidelines-images/publicSpaces.png', alt='')
-      p=env.t('commGuidePara015')
-      p=env.t('commGuidePara016')
-      p
-        strong=env.t('commGuidePara017')
-        |&nbsp;
-        =env.t('commGuidePara017part2')
-      ul
-        li
-          strong=env.t('commGuideList02A')
-        li
-          strong=env.t('commGuideList02B')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/publicSpaces.png', alt='')
+        p=env.t('commGuidePara015')
+        p=env.t('commGuidePara016')
+        p
+          strong=env.t('commGuidePara017')
           |&nbsp;
-          =env.t('commGuideList02Bpart2')
-        li
-          strong=env.t('commGuideList02C')
+          =env.t('commGuidePara017part2')
+        ul
+          li
+            strong=env.t('commGuideList02A')
+          li
+            strong=env.t('commGuideList02B')
+            |&nbsp;
+            =env.t('commGuideList02Bpart2')
+          li
+            strong=env.t('commGuideList02C')
+            |&nbsp;
+            =env.t('commGuideList02Cpart2')
+          li
+            strong=env.t('commGuideList02D')
+            |&nbsp;
+            =env.t('commGuideList02Dpart2')
+          li
+            strong=env.t('commGuideList02E')
+            |&nbsp;
+            =env.t('commGuideList02Epart2')
+          li
+            strong=env.t('commGuideList02F')
+            |&nbsp;
+            =env.t('commGuideList02Fpart2')
+          li
+            strong=env.t('commGuideList02G')
+            |&nbsp;
+            =env.t('commGuideList02Gpart2')
+          li
+            strong=env.t('commGuideList02H')
+            |&nbsp;
+            =env.t('commGuideList02Hpart2')
+            |&nbsp;
+            a(href='mailto:mods@habitrpg.com') mods&commat;habitrpg&period;com
+            |&nbsp;
+            =env.t('commGuideList02Hpart3')
+        p
+          strong=env.t('commGuidePara019')
           |&nbsp;
-          =env.t('commGuideList02Cpart2')
-        li
-          strong=env.t('commGuideList02D')
+          =env.t('commGuidePara019part2')
+        p=env.t('commGuidePara021')
+
+      h3=env.t('commGuideHeadingTavern')
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/tavern.png', alt='')
+        p=env.t('commGuidePara022')
+        p
+          strong=env.t('commGuidePara023')
+        p=env.t('commGuidePara024')
           |&nbsp;
-          =env.t('commGuideList02Dpart2')
-        li
-          strong=env.t('commGuideList02E')
+          strong=env.t('commGuidePara024part2')
           |&nbsp;
-          =env.t('commGuideList02Epart2')
-        li
-          strong=env.t('commGuideList02F')
+          =env.t('commGuidePara024part3')
+        p
+          strong=env.t('commGuidePara027')
           |&nbsp;
-          =env.t('commGuideList02Fpart2')
-        li
-          strong=env.t('commGuideList02G')
+          =env.t('commGuidePara027part2')
+
+      h3=env.t('commGuideHeadingPublicGuilds')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/publicGuilds.png', alt='')
+        p
+          strong=env.t('commGuidePara029')
           |&nbsp;
-          =env.t('commGuideList02Gpart2')
-        li
-          strong=env.t('commGuideList02H')
+          =env.t('commGuidePara029part2')
           |&nbsp;
-          =env.t('commGuideList02Hpart2')
+          strong=env.t('commGuidePara029part3')
+        p
+          strong=env.t('commGuidePara031')
+          |&nbsp;
+          =env.t('commGuidePara031part2')
+        p
+          strong=env.t('commGuidePara033')
+          |&nbsp;
+          =env.t('commGuidePara033part2')
           |&nbsp;
           a(href='mailto:mods@habitrpg.com') mods&commat;habitrpg&period;com
           |&nbsp;
-          =env.t('commGuideList02Hpart3')
-      p 
-        strong=env.t('commGuidePara019')
-        |&nbsp;
-        =env.t('commGuidePara019part2')
-      p=env.t('commGuidePara021')
+          =env.t('commGuidePara033part3')
+        p
+          strong=env.t('commGuidePara035')
+          |&nbsp;
+          =env.t('commGuidePara035part2')
+        p
+          strong=env.t('commGuidePara037')
 
-      h3=env.t('commGuideHeadingTavern')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/tavern.png', alt='')
-      p=env.t('commGuidePara022')
-      p
-        strong=env.t('commGuidePara023')
-      p=env.t('commGuidePara024')
-        |&nbsp;
-        strong=env.t('commGuidePara024part2')
-        |&nbsp;
-        =env.t('commGuidePara024part3')
-      p
-        strong=env.t('commGuidePara027')
-        |&nbsp;
-        =env.t('commGuidePara027part2')
-      div(style='clear:both')
-      h3=env.t('commGuideHeadingPublicGuilds')
-      img(class='pull-right' src='/community-guidelines-images/publicGuilds.png', alt='')
-      p
-        strong=env.t('commGuidePara029')
-        |&nbsp;
-        =env.t('commGuidePara029part2')
-        |&nbsp;
-        strong=env.t('commGuidePara029part3')
-      p
-        strong=env.t('commGuidePara031')
-        |&nbsp;
-        =env.t('commGuidePara031part2')
-      p
-        strong=env.t('commGuidePara033')
-        |&nbsp;
-        =env.t('commGuidePara033part2')
-        |&nbsp;
-        a(href='mailto:mods@habitrpg.com') mods&commat;habitrpg&period;com
-        |&nbsp;
-        =env.t('commGuidePara033part3')
-      p
-        strong=env.t('commGuidePara035')
-        |&nbsp;
-        =env.t('commGuidePara035part2')
-      p
-        strong=env.t('commGuidePara037')
       h3=env.t('commGuideHeadingBackCorner')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/backCorner.png', alt='')
-      p
-        strong=env.t('commGuidePara038')
-        |&nbsp;
-        =env.t('commGuidePara038part2')
-      p=env.t('commGuidePara039')
-        |&nbsp;
-        strong=env.t('commGuidePara039part2')
-        |&nbsp;
-        =env.t('commGuidePara039part3')
-      div(style='clear:both')
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/backCorner.png', alt='')
+        p
+          strong=env.t('commGuidePara038')
+          |&nbsp;
+          =env.t('commGuidePara038part2')
+        p=env.t('commGuidePara039')
+          |&nbsp;
+          strong=env.t('commGuidePara039part2')
+          |&nbsp;
+          =env.t('commGuidePara039part3')
+
       h3=env.t('commGuideHeadingTrello')
-      img(class='pull-right' src='/community-guidelines-images/trello.png', alt='')
-      p
-        strong=env.t('commGuidePara040')
-        |&nbsp;
-        =env.t('commGuidePara040part2')
-        |&nbsp;
-        strong=env.t('commGuidePara040part3')
-        |&nbsp;
-        =env.t('commGuidePara040part4')
-      p
-        strong=env.t('commGuidePara041')
-
-      ul
-        li=env.t('The')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/trello.png', alt='')
+        p
+          strong=env.t('commGuidePara040')
           |&nbsp;
-          strong=env.t('commGuideList03A')
+          =env.t('commGuidePara040part2')
           |&nbsp;
-          =env.t('commGuideList03Apart2')
-        li=env.t('The')
+          strong=env.t('commGuidePara040part3')
           |&nbsp;
-          strong=env.t('commGuideList03B')
+          =env.t('commGuidePara040part4')
+        p
+          strong=env.t('commGuidePara041')
+        ul
+          li=env.t('The')
+            |&nbsp;
+            strong=env.t('commGuideList03A')
+            |&nbsp;
+            =env.t('commGuideList03Apart2')
+          li=env.t('The')
+            |&nbsp;
+            strong=env.t('commGuideList03B')
+            |&nbsp;
+            =env.t('commGuideList03Bpart2')
+          li=env.t('The')
+            |&nbsp;
+            strong=env.t('commGuideList03C')
+            |&nbsp;
+            =env.t('commGuideList03Cpart2')
+          li=env.t('The')
+            |&nbsp;
+            strong=env.t('commGuideList03D')
+            |&nbsp;
+            =env.t('commGuideList03Dpart2')
+          li=env.t('The')
+            |&nbsp;
+            strong=env.t('commGuideList03E')
+            |&nbsp;
+            =env.t('commGuideList03Epart2')
+        p
+          strong=env.t('commGuidePara042')
           |&nbsp;
-          =env.t('commGuideList03Bpart2')
-        li=env.t('The')
-          |&nbsp;
-          strong=env.t('commGuideList03C')
-          |&nbsp;
-          =env.t('commGuideList03Cpart2')
-        li=env.t('The')
-          |&nbsp;
-          strong=env.t('commGuideList03D')
-          |&nbsp;
-          =env.t('commGuideList03Dpart2')
-        li=env.t('The')
-          |&nbsp;
-          strong=env.t('commGuideList03E')
-          |&nbsp;
-          =env.t('commGuideList03Epart2')
-
-      p
-        strong=env.t('commGuidePara042')
-        |&nbsp;
-        =env.t('commGuidePara042part2')
+          =env.t('commGuidePara042part2')
 
       h3=env.t('commGuideHeadingGitHub')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/github.gif', alt='')
-      p
-        strong=env.t('commGuidePara043')
-        |&nbsp;
-        =env.t('commGuidePara043part2')
-        |&nbsp;
-        strong=env.t('commGuidePara043part3')
-        |&nbsp;
-        =env.t('commGuidePara043part4')
-      p
-        strong=env.t('commGuidePara044')
-      ul(class='listColumns2 peopleList')
-        li lefnire (Tyler)
-        li Alys
-        li benmanley (Pixel)
-        li colegleason (Cole)
-        li deilann (Ryan)
-        li djuretic
-        li Fandekasp
-        li Lemoness
-        li litenull
-        li paglias
-        li SabreCat
-        li Sinza-
-        li snicker
-        li thepeopleseason
-        li wc8
-        li zakkain
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/github.gif', alt='')
+        p
+          strong=env.t('commGuidePara043')
+          |&nbsp;
+          =env.t('commGuidePara043part2')
+          |&nbsp;
+          strong=env.t('commGuidePara043part3')
+          |&nbsp;
+          =env.t('commGuidePara043part4')
+        p
+          strong=env.t('commGuidePara044')
+        ul(class='listColumns2 peopleList')
+          li lefnire (Tyler)
+          li Alys
+          li benmanley (Pixel)
+          li colegleason (Cole)
+          li deilann (Ryan)
+          li djuretic
+          li Fandekasp
+          li Lemoness
+          li litenull
+          li paglias
+          li SabreCat
+          li Sinza-
+          li snicker
+          li thepeopleseason
+          li wc8
+          li zakkain
 
       h3=env.t('commGuideHeadingWiki')
-      img(class='pull-right' src='/community-guidelines-images/wiki.png', alt='')
-      p
-        strong=env.t('commGuidePara045')
-        |&nbsp;
-        =env.t('commGuidePara045part2')
-      p=env.t('commGuidePara046')
-      p
-        strong=env.t('commGuidePara047')
-      p=env.t('commGuidePara048')
-      ul
-        li=env.t('commGuideList04A')
-        li=env.t('commGuideList04B')
-        li=env.t('commGuideList04C')
-        li=env.t('commGuideList04D')
-        li=env.t('commGuideList04E')
-        li=env.t('commGuideList04F')
-        li=env.t('commGuideList04G')
-        li=env.t('commGuideList04H')
-      p
-        strong=env.t('commGuidePara049')
-      ul(class='peopleList')
-        li Breadstrings (bureaucrat)
-        li JiggerD
-        li LadyAlys
-        li LadyKatFrog
-        li Lefnire (bureaucrat)
-      p=env.t('commGuidePara018')
-        |:&nbsp;
-        em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat)
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/wiki.png', alt='')
+        p
+          strong=env.t('commGuidePara045')
+          |&nbsp;
+          =env.t('commGuidePara045part2')
+        p=env.t('commGuidePara046')
+        p
+          strong=env.t('commGuidePara047')
+        p=env.t('commGuidePara048')
+        ul
+          li=env.t('commGuideList04A')
+          li=env.t('commGuideList04B')
+          li=env.t('commGuideList04C')
+          li=env.t('commGuideList04D')
+          li=env.t('commGuideList04E')
+          li=env.t('commGuideList04F')
+          li=env.t('commGuideList04G')
+          li=env.t('commGuideList04H')
+        p
+          strong=env.t('commGuidePara049')
+        ul(class='peopleList')
+          li Breadstrings (bureaucrat)
+          li JiggerD
+          li LadyAlys
+          li LadyKatFrog
+          li Lefnire (bureaucrat)
+        p=env.t('commGuidePara018')
+          |:&nbsp;
+          em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat)
 
       h2=env.t('commGuideHeadingInfractionsEtc')
       h3=env.t('commGuideHeadingInfractions')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/infractions.png', alt='')
-      p=env.t('commGuidePara050')
-      p
-        strong=env.t('commGuidePara051')
-        |&nbsp;
-        =env.t('commGuidePara051part2')
-
-      h4=env.t('commGuideHeadingSevereInfractions')
-      p=env.t('commGuidePara052')
-      p=env.t('commGuidePara053')
-      ul
-        li=env.t('commGuideList05A')
-        li=env.t('commGuideList05B')
-        li=env.t('commGuideList05C')
-        li=env.t('commGuideList05D')
-        li=env.t('commGuideList05E')
-
-      h4=env.t('commGuideHeadingModerateInfractions')
-      p=env.t('commGuidePara054')
-      p=env.t('commGuidePara055')
-      ul
-        li=env.t('commGuideList06A')
-          |&nbsp;(
-          a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
-          |).
-        li=env.t('commGuideList06B')
-        li=env.t('commGuideList06C')
-        li=env.t('commGuideList06D')
-
-      h4=env.t('commGuideHeadingMinorInfractions')
-      p=env.t('commGuidePara056')
-      p=env.t('commGuidePara057')
-      ul
-        li=env.t('commGuideList07A')
-        li=env.t('commGuideList07B')
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/infractions.png', alt='')
+        p=env.t('commGuidePara050')
+        p
+          strong=env.t('commGuidePara051')
+          |&nbsp;
+          =env.t('commGuidePara051part2')
+        h4=env.t('commGuideHeadingSevereInfractions')
+        p=env.t('commGuidePara052')
+        p=env.t('commGuidePara053')
+        ul
+          li=env.t('commGuideList05A')
+          li=env.t('commGuideList05B')
+          li=env.t('commGuideList05C')
+          li=env.t('commGuideList05D')
+          li=env.t('commGuideList05E')
+        h4=env.t('commGuideHeadingModerateInfractions')
+        p=env.t('commGuidePara054')
+        p=env.t('commGuidePara055')
+        ul
+          li=env.t('commGuideList06A')
+            |&nbsp;(
+            a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
+            |).
+          li=env.t('commGuideList06B')
+          li=env.t('commGuideList06C')
+          li=env.t('commGuideList06D')
+        h4=env.t('commGuideHeadingMinorInfractions')
+        p=env.t('commGuidePara056')
+        p=env.t('commGuidePara057')
+        ul
+          li=env.t('commGuideList07A')
+          li=env.t('commGuideList07B')
 
       h3=env.t('commGuideHeadingConsequences')
-      img(class='pull-right' src='/community-guidelines-images/consequences.png', alt='')
-      p=env.t('commGuidePara058')
-      p
-        strong=env.t('commGuidePara059')
-        |&nbsp;
-        =env.t('commGuidePara059part2')
-      p
-        strong=env.t('commGuidePara060')
-      ul
-        li=env.t('commGuideList08A')
-        li=env.t('commGuideList08B')
-        li=env.t('commGuideList08C')
-
-      h4=env.t('commGuideHeadingSevereConsequences')
-      ul
-        li=env.t('commGuideList09A')
-        li=env.t('commGuideList09B')
-        li=env.t('commGuideList09C')
-
-      h4=env.t('commGuideHeadingModerateConsequences')
-      ul
-        li=env.t('commGuideList10A')
-        li=env.t('commGuideList10B')
-        li=env.t('commGuideList10C')
-        li=env.t('commGuideList10D')
-        li=env.t('commGuideList10E')
-        li=env.t('commGuideList10F')
-
-      h4=env.t('commGuideHeadingMinorConsequences')
-      ul
-        li=env.t('commGuideList11A')
-        li=env.t('commGuideList11B')
-        li=env.t('commGuideList11C')
-        li=env.t('commGuideList11D')
-        li=env.t('commGuideList11E')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/consequences.png', alt='')
+        p=env.t('commGuidePara058')
+        p
+          strong=env.t('commGuidePara059')
+          |&nbsp;
+          =env.t('commGuidePara059part2')
+        p
+          strong=env.t('commGuidePara060')
+        ul
+          li=env.t('commGuideList08A')
+          li=env.t('commGuideList08B')
+          li=env.t('commGuideList08C')
+        h4=env.t('commGuideHeadingSevereConsequences')
+        ul
+          li=env.t('commGuideList09A')
+          li=env.t('commGuideList09B')
+          li=env.t('commGuideList09C')
+        h4=env.t('commGuideHeadingModerateConsequences')
+        ul
+          li=env.t('commGuideList10A')
+          li=env.t('commGuideList10B')
+          li=env.t('commGuideList10C')
+          li=env.t('commGuideList10D')
+          li=env.t('commGuideList10E')
+          li=env.t('commGuideList10F')
+        h4=env.t('commGuideHeadingMinorConsequences')
+        ul
+          li=env.t('commGuideList11A')
+          li=env.t('commGuideList11B')
+          li=env.t('commGuideList11C')
+          li=env.t('commGuideList11D')
+          li=env.t('commGuideList11E')
 
       h3=env.t('commGuideHeadingRestoration')
-      img(class='pull-left paddedImage' src='/community-guidelines-images/restoration.png', alt='')
-      p=env.t('commGuidePara061')
-        |&nbsp;
-        strong=env.t('commGuidePara061part2')
-      p=env.t('commGuidePara062')
-        |&nbsp;
-        strong=env.t('commGuidePara062part2')
-      p
-        strong=env.t('commGuidePara063')
-        |&nbsp;
-        =env.t('commGuidePara063part2')
+      div(class='clearfix')
+        img(class='pull-left paddedImage', src='/community-guidelines-images/restoration.png', alt='')
+        p=env.t('commGuidePara061')
+          |&nbsp;
+          strong=env.t('commGuidePara061part2')
+        p=env.t('commGuidePara062')
+          |&nbsp;
+          strong=env.t('commGuidePara062part2')
+        p
+          strong=env.t('commGuidePara063')
+          |&nbsp;
+          =env.t('commGuidePara063part2')
 
-      div(style='clear:both')
       h2=env.t('commGuideHeadingContributing')
-      img(class='pull-right' src='/community-guidelines-images/contributing.png', alt='')
-      p=env.t('commGuidePara064')
-      ol
-        li=env.t('commGuideList12A')
-        li=env.t('commGuideList12B')
-        li=env.t('commGuideList12C')
-        li=env.t('commGuideList12D')
-        li=env.t('commGuideList12E')
-        li=env.t('commGuideList12F')
-        li=env.t('commGuideList12G')
-      p=env.t('commGuidePara065')
-      p=env.t('commGuidePara066')
-      ul
-        li
-          strong=env.t('commGuideList13A')
-          |&nbsp;
-          =env.t('commGuideList13Apart2')
-        li
-          strong=env.t('commGuideList13B')
-          |&nbsp;
-          =env.t('commGuideList13Bpart2')
-        li
-          strong=env.t('commGuideList13C')
-          |&nbsp;
-          =env.t('commGuideList13Cpart2')
-        li
-          strong=env.t('commGuideList13D')
-          |&nbsp;
-          =env.t('commGuideList13Dpart2')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/contributing.png', alt='')
+        p=env.t('commGuidePara064')
+        ol
+          li=env.t('commGuideList12A')
+          li=env.t('commGuideList12B')
+          li=env.t('commGuideList12C')
+          li=env.t('commGuideList12D')
+          li=env.t('commGuideList12E')
+          li=env.t('commGuideList12F')
+          li=env.t('commGuideList12G')
+        p=env.t('commGuidePara065')
+        p=env.t('commGuidePara066')
+        ul
+          li
+            strong=env.t('commGuideList13A')
+            |&nbsp;
+            =env.t('commGuideList13Apart2')
+          li
+            strong=env.t('commGuideList13B')
+            |&nbsp;
+            =env.t('commGuideList13Bpart2')
+          li
+            strong=env.t('commGuideList13C')
+            |&nbsp;
+            =env.t('commGuideList13Cpart2')
+          li
+            strong=env.t('commGuideList13D')
+            |&nbsp;
+            =env.t('commGuideList13Dpart2')
 
       h2=env.t('commGuideHeadingFinal')
       p=env.t('commGuidePara067')
