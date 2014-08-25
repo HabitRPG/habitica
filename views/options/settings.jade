@@ -75,32 +75,23 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   |&nbsp;
                   =env.t('subWarning3')
 
-        //-.panel.panel-default
+        .panel.panel-default
           .panel-heading
-            span.hint(popover='We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)', popover-trigger='mouseenter', popover-placement='right') Coupon
+            span Registration
           .panel-body
-            form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
-              input.form-control(type='text', ng-model='_couponCode', placeholder='Enter Coupon Code')
-              button.btn.btn-primary(type='submit') Submit
-
-        div(ng-if='user.auth.local.username')
-          .panel.panel-default
-            .panel-heading
-              span=env.t('changeUsername')
-            .panel-body
+            p(ng-if='user.auth.facebook.id') Registered with Facebook
+            div(ng-if='user.auth.local.username')
+              p Username: {{user.auth.local.username}}
+              p Email: {{user.auth.local.email}}
+              hr
+              h5=env.t('changeUsername')
               form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
                 .form-group
                   input.form-control(type='text', placeholder=env.t('newUsername'), ng-model='changeUser.newUsername', required)
                 .form-group
                   input.form-control(type='password', placeholder=env.t('password'), ng-model='changeUser.password', required)
                 input.btn.btn-default(type='submit', value=env.t('submit'))
-
-        //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
-        div(ng-if='user.auth.local.username')
-          .panel.panel-default
-            .panel-heading
-              span=env.t('changePass')
-            .panel-body
+              h5=env.t('changePass')
               form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
                 .form-group
                   input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
