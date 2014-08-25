@@ -167,5 +167,9 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$on('responseText', function(ev, error){
       Notification.text(error);
     });
+
+    // Show new-stuff modal on load
+    if (User.user.flags.newStuff)
+      $rootScope.openModal('newStuff');
   }
 ]);
