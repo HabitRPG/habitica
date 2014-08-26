@@ -14,13 +14,13 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
-      a(ng-click='User.user.ops.sortTask({params:{id:task.id},query:{from:$index, to:0}})', tooltip=env.t('pushTaskToTop'))
+      a.task-action(ng-click='User.user.ops.sortTask({params:{id:task.id},query:{from:$index, to:0}})', tooltip=env.t('pushTaskToTop'))
         span.glyphicon.glyphicon-open
       a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', tooltip=env.t('expandCollapse'))
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
       span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
-      a(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
+      a.task-action(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
         | &nbsp;
         span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
       | &nbsp;
@@ -40,12 +40,12 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
           | &nbsp;
       // delete
-      a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip=env.t('delete'))
+      a.task-action(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip=env.t('delete'))
         span.glyphicon.glyphicon-trash
         | &nbsp;
 
     // chart
-    a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
+    a.task-action(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
       span.glyphicon.glyphicon-signal
       | &nbsp;
     // notes
