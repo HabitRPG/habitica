@@ -4,9 +4,19 @@
  * Services that persists and retrieves user from localStorage.
  */
 
-angular.module('userServices', []).
-  factory('User', ['$rootScope', '$http', '$location', '$window', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'MOBILE_APP', 'Notification',
-    function($rootScope, $http, $location, $window, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID, MOBILE_APP, Notification) {
+angular.module('userServices', [])
+  .service('ApiUrlService', ['API_URL', function(currentApiUrl){
+    this.setApiUrl = function(newUrl){
+      currentApiUrl = newUrl;
+    };
+    
+    this.getApiUrl = function(){
+      return currentApiUrl;
+    };
+  }])
+
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'MOBILE_APP', 'Notification', 'ApiUrlService',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, MOBILE_APP, Notification, ApiUrlService) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -58,6 +68,8 @@ angular.module('userServices', []).
 
         // Save the current filters
         var current_filters = user.filters;
+        
+        var API_URL = ApiUrlService.getApiUrl();
 
         $http.post(API_URL + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
