@@ -68,12 +68,16 @@ block content
       p
         strong=env.t('commGuidePara009')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/staff.png', alt='')
-        ul(class='peopleList')
+        img(class='pull-left', src='/community-guidelines-images/staff.png', alt='')
+        ul(class='pull-left list-unstyled')
           li
             strong Lefnire (Tyler Renelle)
           li
-            strong redphoenix (caffeinatedvee on Trello, veeeeeee on GitHub) (Vicky Hsu)
+            strong redphoenix (caffeinatedvee&nbsp;
+              =env.t('commGuidePara009a')
+              |, veeeeeee&nbsp;
+              =env.t('commGuidePara009b')
+              |) (Vicky Hsu)
           li
             strong Lemoness (Siena Leslie)
           li
@@ -85,12 +89,20 @@ block content
       p
         strong=env.t('commGuidePara011')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/moderators.png', alt='')
-        ul(class='peopleList')
+        img(class='pull-left', src='/community-guidelines-images/moderators.png', alt='')
+        ul(class='pull-left list-unstyled')
           li
-            strong Ryan (deilann on GitHub/Wikia)
+            strong Bailey (It's Bailey&nbsp;
+              =env.t('commGuidePara011a')
+              |)
           li
-            strong Alys (LadyAlys on Wikia)
+            strong Ryan (deilann&nbsp;
+              =env.t('commGuidePara011b')
+              |)
+          li
+            strong Alys (LadyAlys&nbsp;
+              =env.t('commGuidePara011c')
+              |)
           li
             strong Breadstrings
           li
@@ -159,7 +171,7 @@ block content
 
       h3=env.t('commGuideHeadingTavern')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/tavern.png', alt='')
+        img(class='pull-left', src='/community-guidelines-images/tavern.png', alt='')
         p=env.t('commGuidePara022')
         p
           strong=env.t('commGuidePara023')
@@ -203,7 +215,7 @@ block content
 
       h3=env.t('commGuideHeadingBackCorner')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/backCorner.png', alt='')
+        img(class='pull-left', src='/community-guidelines-images/backCorner.png', alt='')
         p
           strong=env.t('commGuidePara038')
           |&nbsp;
@@ -260,7 +272,7 @@ block content
 
       h3=env.t('commGuideHeadingGitHub')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/github.gif', alt='')
+        img(class='pull-left', src='/community-guidelines-images/github.gif', alt='')
         p
           strong=env.t('commGuidePara043')
           |&nbsp;
@@ -324,7 +336,7 @@ block content
       h2=env.t('commGuideHeadingInfractionsEtc')
       h3=env.t('commGuideHeadingInfractions')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/infractions.png', alt='')
+        img(class='pull-left', src='/community-guidelines-images/infractions.png', alt='')
         p=env.t('commGuidePara050')
         p
           strong=env.t('commGuidePara051')
@@ -394,7 +406,7 @@ block content
 
       h3=env.t('commGuideHeadingRestoration')
       div(class='clearfix')
-        img(class='pull-left paddedImage', src='/community-guidelines-images/restoration.png', alt='')
+        img(class='pull-left', src='/community-guidelines-images/restoration.png', alt='')
         p=env.t('commGuidePara061')
           |&nbsp;
           strong=env.t('commGuidePara061part2')
