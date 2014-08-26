@@ -1,12 +1,35 @@
 extends ./layout
+//-Trick needed to pass 'env' to ./layout
 block vars
   - var layoutEnv = env
   - var menuItem = 'contact'
+
 block title
-  title=env.t('contact')
+  title=env.t('contactUs')
+
 block content
-  // Probably just add linkks to the respective contact locations?
-  // Bugs? Github
-  // Feature requests? Trello
-  // Enterprise? Click the "pricing" tab
-  /// etc
+  .row
+    .col-md-12
+      .page-header
+        h1=env.t('contactUs')
+      p
+        | Report Account Problems: 
+        a(href='mailto:admin@habitrpg.com') admin&commat;gmail&period;com
+        br
+        | Report a Bug: 
+        a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues?q=is%3Aopen') Github
+        br
+        | Report Community Issues: 
+        a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
+        br
+        | General Questions about the Site: 
+        a(target='_blank', href='http://habitrpg.wikia.com/wiki/The_Keep:The_Newbies_Guild') Newbies Guild
+        br
+        | Business Inquiries: 
+        a(href='mailto:vicky@habitrpg.com') vicky&commat;habitrpg&period;com
+        br
+        | Merchandise Inquiries: 
+        a(href='mailto:store@habitrpg.com') store&commat;habitrpg&period;com
+        br
+        | Marketing/Social Media Inquiries: 
+        a(href='mailto:leslie@habitrpg.com') leslie&commat;habitrpg&period;com
