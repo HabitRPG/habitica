@@ -234,8 +234,12 @@ window.habitrpg = angular.module('habitrpg',
               window.location.href = '/logout';
 
             // 400 range?
-            } else if (response < 500) {
+            } else if (response.status < 500) {
               $rootScope.$broadcast('responseText', response.data.err || response.data);
+              // Need to reject the prompse so the error is handled correctly
+              if (response.status === 401) {
+                return $q.reject(response);
+              } 
 
               // Error
             } else {
