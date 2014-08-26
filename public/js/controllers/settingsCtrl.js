@@ -23,7 +23,7 @@ habitrpg.controller('SettingsCtrl',
           window.location.reload();
         });           
       }
-  	}
+    }
 
     $scope.toggleStickyHeader = function(){
       $rootScope.$on('userSynced', function(){
@@ -85,7 +85,7 @@ habitrpg.controller('SettingsCtrl',
           $scope.changeUser = {};
         })
         .error(function(data){
-          alert(data);
+          alert(data.err);
         });
     }
 
@@ -94,12 +94,13 @@ habitrpg.controller('SettingsCtrl',
         return alert(window.env.t('fillAll'));
       }
       $http.post(API_URL + '/api/v2/user/change-password', changePass)
-        .success(function(){
+        .success(function(data, status, headers, config){
+          if (data.err) return alert(data.err);
           alert(window.env.t('passSuccess'));
           $scope.changePass = {};
         })
-        .error(function(data){
-          alert(data);
+        .error(function(data, status, headers, config){
+          alert(data.err);
         });
     }
 

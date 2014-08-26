@@ -124,8 +124,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           $scope.$apply(function(){
             $http.post(url, data).success(function() {
               window.location.reload(true);
-            }).error(function(err) {
-              alert(err);
+            }).error(function(data) {
+              alert(data.err);
             });
           })
         }
@@ -144,8 +144,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           $scope.$apply(function(){
             $http.post(url, data).success(function() {
               window.location.reload(true);
-            }).error(function(err) {
-              alert(err);
+            }).error(function(data) {
+              alert(data.err);
             });
           })
         }
