@@ -38,8 +38,8 @@ html(ng-app='habitrpgStatic')
               a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
             li(class='#{menuItem=="plans" ? "active" : ""}')
               a(href='/static/plans')=env.t('groupPlans')
-            //li(class='#{menuItem=="contact" ? "active" : ""}')
-              a(href='/static/contact')=env.t('contact')
+            li(class='#{menuItem=="contact" ? "active" : ""}')
+              a(href='/static/contact')=env.t('contactUs')
 
           button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')=env.t('playButton')
 
