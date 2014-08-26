@@ -444,6 +444,6 @@ UserSchema.methods.unlink = function(options, cb) {
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
 
-mongoose.model("User").find({$query:{'contributor.admin':true}, $orderby:{'contributor.level':-1, 'profile.name':1}},function(err,mods){
+mongoose.model("User").find({$query:{'contributor.admin':true}, $orderby:{'contributor.level':-1, 'backer.npc':-1, 'profile.name':1}},function(err,mods){
   module.exports.mods = mods
 });
