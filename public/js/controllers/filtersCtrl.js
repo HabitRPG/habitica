@@ -41,9 +41,9 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
         ui.item.sortable.cancel();
       },
       stop: function(e, ui) {
-        User.user.ops.sortTag({
-          query: {from: ui.item.sortable.index, to:ui.item.sortable.dropindex}
-        });
+        var from = ui.item.sortable.index, to = ui.item.sortable.dropindex;
+        if (!from || !to) return;
+        User.user.ops.sortTag({query: {from: from, to: to}});
       },
       axis: 'x',
       //distance: 5
