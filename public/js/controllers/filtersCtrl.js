@@ -44,10 +44,6 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
         User.user.ops.sortTag({
           query: {from: ui.item.sortable.index, to:ui.item.sortable.dropindex}
         });
-        //User.user.ops.sortTag({query:{
-        //  from: ui.item.data('startIndex') - 3,
-        //  to:ui.item.index() - 3
-        //}});
       },
       axis: 'x',
       //distance: 5
