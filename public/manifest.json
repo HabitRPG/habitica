@@ -26,11 +26,10 @@
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
             "bower_components/bootstrap/dist/js/bootstrap.js",
 
-            "bower_components/jquery-ui/ui/minified/core.min.js",
-            "bower_components/jquery-ui/ui/minified/widget.min.js",
-            "bower_components/jquery-ui/ui/minified/mouse.min.js",
-            "bower_components/jquery-ui/ui/minified/sortable.min.js",
-            "bower_components/angular-ui-sortable/sortable.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
 
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
 

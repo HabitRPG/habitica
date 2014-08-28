@@ -29,7 +29,7 @@
               input(type='text', ng-model='tag.name')
               button(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
                 span.glyphicon.glyphicon-trash
-        ul(ng-if='!_editing', ui-sortable='sortableOptions', ng-model='user.tags')
+        ul(ng-if='!_editing', hrpg-sort-tags)
           li.filters-tags(ng-class='{active: user.filters[tag.id], challenge: tag.challenge}', ng-repeat='tag in user.tags', bindonce='user.tags')
             a(ng-click='toggleFilter(tag)')
               span.glyphicon.glyphicon-bullhorn(ng-if="::tag.challenge")

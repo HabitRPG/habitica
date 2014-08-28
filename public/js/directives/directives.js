@@ -98,3 +98,34 @@ habitrpg.directive('fromNow', ['$interval', function($interval){
     });
   }
 }]);
+
+habitrpg.directive('hrpgSortTasks', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "y",
+      distance: 5,
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        var task = angular.element(ui.item[0]).scope().task,
+          startIndex = ui.item.data('startIndex');
+        User.user.ops.sortTask({ params: {id: task.id}, query: {from: startIndex, to: ui.item.index()} });
+      }
+    });
+  }
+}]);
+
+habitrpg.directive('hrpgSortTags', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "x",
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        User.user.ops.sortTag({query:{ from: ui.item.data('startIndex'), to:ui.item.index() }});
+      }
+    });
+  }
+}]);

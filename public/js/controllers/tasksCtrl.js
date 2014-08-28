@@ -84,20 +84,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         });
     };
 
-    $scope.sortableOptions = {
-      // Because we're manually handling sorting via splice (index.coffee#user.ops), we cancel jQuery UI
-      update: function(e,ui) {
-        ui.item.sortable.cancel();
-      },
-      stop: function(e, ui) {
-        var from = ui.item.sortable.index, to = ui.item.sortable.dropindex;
-        if (!from || !to) return;
-        User.user.ops.sortTask({ params: {id: ui.item.scope().task.id}, query: {from: from, to: to} });
-      },
-      axis: 'y',
-      //distance: 5
-    };
-
     /*
      ------------------------
      To-Dos
