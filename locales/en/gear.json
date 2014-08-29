@@ -391,18 +391,21 @@
   "headAccessorySpecialSpringHealerText": "Yellow Dog Ears",
   "headAccessorySpecialSpringHealerNotes": "Floppy but cute. Wanna play? Confers no stat bonus. Limited Edition 2014 Spring Gear.",
 
-  "headAccessorySpecialSummerRogueText": "Roguish Eyepatch",
-  "headAccessorySpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no stat bonus. Limited Edition 2014 Summer Gear.",
-  "headAccessorySpecialSummerWarriorText": "Dashing Eyepatch",
-  "headAccessorySpecialSummerWarriorNotes": "It doesn't take a rapscallion to see how stylish this is! Confers no stat bonus. Limited Edition 2014 Summer Gear.",
-
-  "headAccessorySpecialWonderconRedText": "Mighty Mask",
-  "headAccessorySpecialWonderconRedNotes": "What a powerful face accessory! Special edition convention armor.",
-  "headAccessorySpecialWonderconBlackText": "Sneaky Mask",
-  "headAccessorySpecialWonderconBlackNotes": "Your motives are definitely legitimate. Special edition convention armor.",
-
   "headAccessoryMystery201403Text": "Forest Walker Antlers",
   "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen.",
   "headAccessoryMystery201404Text": "Twilight Butterfly Antennae",
-  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!"
+  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!",
+
+  "eyewearBase0Text": "No Eyewear",
+  "eyewearBase0Notes": "No Eyewear.",
+
+  "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
+  "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no stat bonus. Limited Edition 2014 Summer Gear.",
+  "eyewearSpecialSummerWarriorText": "Dashing Eyepatch",
+  "eyewearSpecialSummerWarriorNotes": "It doesn't take a rapscallion to see how stylish this is! Confers no stat bonus. Limited Edition 2014 Summer Gear.",
+
+  "eyewearSpecialWonderconRedText": "Mighty Mask",
+  "eyewearSpecialWonderconRedNotes": "What a powerful face accessory! Special edition convention armor.",
+  "eyewearSpecialWonderconBlackText": "Sneaky Mask",
+  "eyewearSpecialWonderconBlackNotes": "Your motives are definitely legitimate. Special edition convention armor."
 }
