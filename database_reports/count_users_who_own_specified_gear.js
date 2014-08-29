@@ -1,6 +1,6 @@
 var itemsOfInterest = [
-    'headAccessory_special_wondercon_red',
-    'headAccessory_special_wondercon_black',
+    'eyewear_special_wondercon_red',
+    'eyewear_special_wondercon_black',
     'back_special_wondercon_black',
     'back_special_wondercon_red',
     'body_special_wondercon_red',
@@ -55,15 +55,15 @@ print("\n");
 
 CSV DATA:
 
-"date","headAccessory_special_wondercon_red","headAccessory_special_wondercon_black","back_special_wondercon_black","back_special_wondercon_red","body_special_wondercon_red","body_special_wondercon_black","body_special_wondercon_gold"
+"date","eyewear_special_wondercon_red","eyewear_special_wondercon_black","back_special_wondercon_black","back_special_wondercon_red","body_special_wondercon_red","body_special_wondercon_black","body_special_wondercon_gold"
 "2014-08-17","5","4","3","3","3","3","3"
 
 READABLE DATA:
 
 2014-08-17
 {
-  "headAccessory_special_wondercon_red": 5,
-  "headAccessory_special_wondercon_black": 4,
+  "eyewear_special_wondercon_red": 5,
+  "eyewear_special_wondercon_black": 4,
   "back_special_wondercon_black": 3,
   "back_special_wondercon_red": 3,
   "body_special_wondercon_red": 3,

@@ -139,6 +139,7 @@ var UserSchema = new Schema({
         shield: {type: String, 'default': 'shield_base_0'},
         back: String,
         headAccessory: String,
+        eyewear: String,
         body: String
       },
       costume: {
@@ -148,6 +149,7 @@ var UserSchema = new Schema({
         shield: {type: String, 'default': 'shield_base_0'},
         back: String,
         headAccessory: String,
+        eyewear: String,
         body: String
       },
     },
