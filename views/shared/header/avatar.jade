@@ -78,6 +78,6 @@ mixin herobox(opts)
       |{{profile.profile.name}}
     +avatar(opts)
     .avatar-level(ng-class='userLevelStyle(profile)')
-      span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'))
-      span(tooltip=env.t('level')) {{profile.stats.lvl}}
-      span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}))
+      span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'), tooltip-append-to-body="true")
+      span(tooltip=env.t('level'), tooltip-append-to-body="true") {{profile.stats.lvl}}
+      span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}), tooltip-append-to-body="true")
