@@ -95,24 +95,31 @@ if (cluster.isMaster && (isDev || isProd)) {
    ));
 
   // ------------  Server Configuration ------------
+  var morgan = require("morgan");
+  var compression = require("compression");
+  var favicon = require("static-favicon");
+  var bodyParser = require("body-parser");
+  var methodOverride = require("method-override");
+  var cookieParser = require("cookie-parser");
+  var cookieSession = require("cookie-session");
+
   var publicDir = path.join(__dirname, "/../public");
 
   app.set("port", nconf.get('PORT'));
   middleware.apiThrottle(app);
   app.use(middleware.domainMiddleware(server,mongoose));
-  if (!isProd) app.use(express.logger("dev"));
-  app.use(express.compress());
+  if (!isProd) app.use(morgan("dev"));
+  app.use(compression());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
-  app.use(express.favicon(publicDir + '/favicon.ico'));
+  app.use(favicon(publicDir + '/favicon.ico'));
   app.use(middleware.cors);
   app.use(middleware.forceSSL);
-  app.use(express.urlencoded());
-  app.use(express.json());
-  app.use(express.methodOverride());
+  app.use(bodyParser());
+  app.use(methodOverride());
   //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  app.use(express.cookieParser());
-  app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
+  app.use(cookieParser());
+  app.use(cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
   //app.use(express.session());
 
   // Initialize Passport!  Also use passport.session() middleware, to support
@@ -120,7 +127,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use(app.router);
 
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
@@ -129,14 +135,14 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(express['static'](publicDir));
 
   // Custom Directives
-  app.use(require('./routes/pages').middleware);
-  app.use(require('./routes/payments').middleware);
-  app.use(require('./routes/auth').middleware);
-  app.use(require('./routes/coupon').middleware);
+  app.use(require('./routes/pages'));
+  app.use(require('./routes/payments'));
+  app.use(require('./routes/auth'));
+  app.use(require('./routes/coupon'));
   var v2 = express();
   app.use('/api/v2', v2);
-  app.use('/api/v1', require('./routes/apiv1').middleware);
-  app.use('/export', require('./routes/dataexport').middleware);
+  app.use('/api/v1', require('./routes/apiv1'));
+  app.use('/export', require('./routes/dataexport'));
   require('./routes/apiv2.coffee')(swagger, v2);
   app.use(middleware.errorHandler);
 
