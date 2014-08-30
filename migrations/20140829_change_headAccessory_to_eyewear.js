@@ -27,7 +27,6 @@ var fields = {'migration':1,
     };
 
 var progressCount = 1000;
-var progressCount = 1;
 var count = 0;
 liveUsers.findEach({ $and: [
   { migration: {$ne:migrationName} },
