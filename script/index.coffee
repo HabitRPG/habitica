@@ -461,6 +461,7 @@ api.wrap = (user, main=true) ->
         # Deequip character, set back to base armor and training sword
         gear = user.items.gear
         _.each ['equipped', 'costume'], (type) ->
+          gear[type] = {}; # deequip weapon, eyewear, headAccessory, etc, plus future new types
           gear[type].armor  = 'armor_base_0'
           gear[type].weapon = 'weapon_warrior_0'
           gear[type].head   = 'head_base_0'
