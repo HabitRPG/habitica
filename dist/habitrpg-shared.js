@@ -14480,7 +14480,7 @@ api.wrap = function(user, main) {
     randomVal: function(obj, options) {
       var array, rand;
       array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
-      rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
+      rand = user.fns.predictableRandom(options != null ? options.seed : void 0);
       return array[Math.floor(rand * array.length)];
     },
 
