@@ -15,7 +15,7 @@
     "market": "Targ",
     "subscriberItem": "Tajemniczy przedmiot",
     "newSubscriberItem": "Nowy tajemniczy przedmiot",
-    "subscriberItemText": "Każdego miesiąca, subskrybenci otrzymają tajemniczy przedmiot.",
+    "subscriberItemText": "Każdego miesiąca, abonenci otrzymają tajemniczy przedmiot.",
     "all": "Wszystkie",
     "none": "Żadne",
     "or": "Lub",
@@ -38,7 +38,7 @@
     "delete": "Usuń",
     "gems": "Klejnoty",
     "moreInfo": "Więcej informacji",
-    "gemsWhatFor": "Używane do kupowania specjalnych przedmiotów oraz usług (jaj, mikstur wykluwania, Wzmocnień, itp.). Musisz odblokować te rzeczy zanim będziesz mógł użyć Klejnotów do ich kupowania.",
+    "gemsWhatFor": "Kupione za prawdziwe pieniądze. Są używane do kupowania specjalnych przedmiotów i usług (jaja, eliksiry wyklucia, Wzmocnienie itp.). Musisz najpierw odblokować te cechy zanim użyjesz klejnoty.",
     "veteran": "Weteran",
     "veteranText": "Przetrwał \"Habita Szarego\" (naszej strony przed aktualizacją Angular) i zdobył wiele wojennych blizn od jej błędów.",
     "originalUser": "Pierwotny użytkownik!",
@@ -63,7 +63,7 @@
     "noNotifications": "Nie masz nowych wiadomości",
     "clear": "Wyczyść",
     "endTour": "Zamknij przewodnik",
-    "audioTheme": "Audio Theme",
-    "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme": "Zestaw dźwięków",
+    "audioTheme_off": "Wyłączone",
+    "audioTheme_danielTheBard": "Bard Daniel"
 }

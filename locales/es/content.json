@@ -37,6 +37,8 @@
     "questEggOctopusAdjective": "Resbaladizo",
     "questEggSeahorseText": "Caballito de mar",
     "questEggSeahorseAdjective": "premio",
+    "questEggParrotText": "Parrot",
+    "questEggParrotAdjective": "vibrant",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá  un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

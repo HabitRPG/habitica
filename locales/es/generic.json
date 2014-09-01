@@ -38,7 +38,7 @@
     "delete": "Eliminar",
     "gems": "Gemas",
     "moreInfo": "Más información",
-    "gemsWhatFor": "Se usan para comprar objetos especiales y servicios (huevos, pociones, etcétera). Necesitarás desbloquear estas funciones antes de poder usar las Gemas.",
+    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
     "veteran": "Veterano",
     "veteranText": "Ha sobrevivido a Habit The Grey (nuestro sito web pre-Angular) y se ha ganado muchas cicatrices por sus fallos.",
     "originalUser": "¡Usuario original!",
@@ -63,7 +63,7 @@
     "noNotifications": "No tienes mensajes nuevos.",
     "clear": "Cerrar",
     "endTour": "Terminar Visita Guiada",
-    "audioTheme": "Audio Theme",
-    "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme": "Tema de audio",
+    "audioTheme_off": "Apagar",
+    "audioTheme_danielTheBard": "Daniel el Bardo"
 }

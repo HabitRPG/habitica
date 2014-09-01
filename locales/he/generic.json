@@ -38,7 +38,7 @@
     "delete": "מחק",
     "gems": "אבני חן",
     "moreInfo": "מידע נוסף",
-    "gemsWhatFor": "משמות לקניית חפצים ושירותים מיוחדים (ביצים, שיקויי בקיעה, חיזוק וכיוב'). תצטרך/י להשיג את הגישה לדברים הללו לפני שתקנה/י אבני חן.",
+    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
     "veteran": "ותיק/ה",
     "veteranText": "סבל את ההאביט האפור (האתר הישן שלנו), וצבר אינספור צלקות קרב מהבאגים שלו",
     "originalUser": "משתמש מקורי!",
@@ -63,7 +63,7 @@
     "noNotifications": "אין לך הודעות חדשות.",
     "clear": "נקה",
     "endTour": "סיים סיור",
-    "audioTheme": "Audio Theme",
-    "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme": "ערכת מנגינות",
+    "audioTheme_off": "כבויה",
+    "audioTheme_danielTheBard": "דניאל הפייטן"
 }

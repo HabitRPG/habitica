@@ -1,6 +1,6 @@
 {
     "potionText": "Gezondheidsdrankje",
-    "potionNotes": "Herstel 15 Gezondheid (Direct Gebruik)",
+    "potionNotes": "Herwin 15 Gezondheid (Direct Gebruik)",
     "dropEggWolfText": "Wolf",
     "dropEggWolfAdjective": "loyale",
     "dropEggTigerCubText": "Tijgerwelp",
@@ -37,6 +37,8 @@
     "questEggOctopusAdjective": "glibberige",
     "questEggSeahorseText": "Zeepaardje",
     "questEggSeahorseAdjective": "eersteklas",
+    "questEggParrotText": "Parrot",
+    "questEggParrotAdjective": "vibrant",
     "eggNotes": "Vind een broed drankje om op dit ei te gieten, en het zal uitkomen als een <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Basis",
     "hatchingPotionWhite": "Wit",

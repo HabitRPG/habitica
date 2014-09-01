@@ -51,14 +51,15 @@
     "streakSingular": "Enchaîneur",
     "streakSingularText": "A réussi un combo de 21 jours pour une tâche journalière.",
     "perfectName": "Jours Parfaits",
-    "perfectText": "A terminé toutes les Quotidiennes sur <%= perfects %> jours. Avec ce succès, vous gagnez un bonus correspondant à votre niveau divisé par deux pour tous les attributs le jour suivant.",
+    "perfectText": "A terminé toutes les Quotidiennes sur <%= perfects %> jours. Avec ce succès, vous gagnez un bonus de +niveau/2 points pour tous les attributs le jour suivant.",
     "perfectSingular": "Jour Parfait",
-    "perfectSingularText": "A terminé toutes les tâches Quotidiennes d'une journée. Avec ce succès, vous gagnez un bonus correspondant à votre niveau divisé par deux pour tous les attributs le jour suivant.",
+    "perfectSingularText": "A terminé toutes les tâches Quotidiennes d'une journée. Avec ce succès, vous gagnez un bonus de +niveau/2 points pour tous les attributs le jour suivant.",
     "streakerAchievement": "Vous avez débloqué le succès \"Combo\" ! Le cap des 21 jours est une étape importante dans la mise en place des habitudes. Vous pouvez continuer à incrémenter ce succès pour chaque 21 jours supplémentaires, sur cette Quotidienne ou une autre !",
     "fortifyName": "Potion de Fortification",
     "fortifyPop": "Fait revenir toutes les tâches à une valeur neutre (couleur jaune) et restaure tous les points de santé que vous aviez perdus.",
     "fortify": "Fortification",
-    "fortifyText": "La potion de fortification ramènera toutes vos tâches à un état neutre (jaune), comme si vous veniez de les ajouter, et remplira votre barre de santé. N'utilisez cette option qu'en dernier ressort ! Les tâches de niveau rouges sont une bonne invitation à s'améliorer. Mais si voir tout ce rouge vous remplit de désespoir et que chaque nouveau jour semble être un danger mortel, dépenser vos gemmes et accordez vous un sursis !",
+    "fortifyText": "La potion de fortification ramènera toutes vos tâches à un niveau neutre (jaune), comme si vous veniez de les ajouter, et remplira votre barre de santé. N'utilisez cette option qu'en dernier ressort ! Les tâches de couleur rouge sont une bonne invitation à s'améliorer. Mais si voir tout ce rouge vous remplit de désespoir et que chaque nouveau jour vous semble un danger mortel, dépenser vos gemmes et accordez vous un sursis !",
     "sureDelete": "Êtes-vous sûr de vouloir supprimez cette tâche?",
-    "streakCoins": "Bonus de combo ! "
+    "streakCoins": "Bonus de combo ! ",
+    "pushTaskToTop": "Déplacer la tâche en tête de liste"
 }

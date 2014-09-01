@@ -33,7 +33,7 @@
     "challengeTagPop": "Wyzwania pojawiają się na liście tagów oraz w opisach zadań. Dlatego oprócz pełnej nazwy, wpisanej wyżej, potrzebny będzie także jej \"skrót\". Na przykład \"Schudnąć 5 kilogramów w 3 miesiące\" może dostać skrót \"−5kg\" (Kliknij, by dowiedzieć się więcej).",
     "challengeDescr": "Opis",
     "prize": "Nagroda",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and will not be refunded if challenge is cancelled.",
+    "prizePop": "Jeśli Twoje wyzwanie można wygrać, możesz nagrodzić zwycięzcę Klejnotami. Maksymalna nagroda to liczba posiadanych przez Ciebie klejnotów (plus liczba Klejnotów w Banku Gildii, jeśli  to Ty stworzyłeś gildię przypisaną do wyzwania). Uwaga: Raz ogłoszonej nagrody nie można już zmienić a Klejnoty nie zostaną zwrócone w przypadku anulowania wyzwania.",
     "publicChallenges": "Przy <strong>publicznych wyzwaniach</strong> minimalna nagroda to 1 klejnot (metoda antyspamowa, naprawdę działa).",
     "officialChallenge": "Oficjalne wyzwanie HabitRPG",
     "by": "stworzone przez",

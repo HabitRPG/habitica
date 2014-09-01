@@ -53,12 +53,13 @@
     "perfectName": "Días Perfectas",
     "perfectText": "Completaste todas las Diarias activas durante <%= perfects %> días. Con este logro recibes a +nivel/2 a todos los atributos para el próximo día.",
     "perfectSingular": "Día Perfecto",
-    "perfectSingularText": "Completed all active Dailies in one day. With this achievement you get a +level/2 buff to all attributes for the next day.",
+    "perfectSingularText": "Completaste todas las Diarias activas durante un dia. Con este logro recibes una mejora de +nivel/2 a todas tus atributos durante el día siguiente.",
     "streakerAchievement": "Has obtenido el logro \"Buena Racha\"! La marca de 21 días es un escalón importante para la formación de hábitos. Puedes seguir amontonando este Logro para cada 21 días adicionales en esta diaria o cualquier otra!",
     "fortifyName": "Poción de Fortalecimiento.",
     "fortifyPop": "Devuelve todas sus tareas a un valor neutral (amarillo), y recupera toda la salud perdida.",
     "fortify": "Fortalecer",
     "fortifyText": "Fortalecer devuelve todas tus tareas a un valor neutral  (amarillo), como si las acabaras de añadir, y llena a tope tu salud. ¡Considera esto como tu última opción! Las tareas rojas proporcionan un incentivo para mejorar. ¡Si tanto rojo te llena de desesperación y el comienzo de cada día resulta fatal, gasta las gemas y tomate un suspiro!",
     "sureDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
-    "streakCoins": "¡Bonus de Racha!"
+    "streakCoins": "¡Bonus de Racha!",
+    "pushTaskToTop": "Push task to top"
 }

@@ -37,6 +37,8 @@
     "questEggOctopusAdjective": "klouzavá",
     "questEggSeahorseText": "Mořský koník",
     "questEggSeahorseAdjective": "cena",
+    "questEggParrotText": "Parrot",
+    "questEggParrotAdjective": "vibrant",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a z něj se vylíhne  <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Základní",
     "hatchingPotionWhite": "Bílý",

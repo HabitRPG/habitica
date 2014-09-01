@@ -18,7 +18,7 @@
     "subscriberItemText": "Ogni mese, gli abbonati riceveranno un oggetto misterioso.",
     "all": "Tutti",
     "none": "Nessuno",
-    "or": "O",
+    "or": "Oppure",
     "and": "e",
     "loginSuccess": "Login eseguito con successo!",
     "youSure": "Sei sicuro?",
@@ -38,7 +38,7 @@
     "delete": "Elimina",
     "gems": "Gemme",
     "moreInfo": "Maggiori informazioni",
-    "gemsWhatFor": "Servono per comprare oggetti speciali e servizi (uova, pozioni di schiusura, pozioni di Fortificazione, ecc.). Avrai bisogno di sbloccare queste funzionalità prima di essere in grado di usare le Gemme.",
+    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
     "veteran": "Veterano",
     "veteranText": "Ha resistito ad Habit Il Grigio (il nostro sito prima di Angular), ed ha molte cicatrici di battaglia causate dai suoi bug.",
     "originalUser": "Utente originale!",
@@ -63,7 +63,7 @@
     "noNotifications": "Non ci sono nuovi messaggi.",
     "clear": "Pulisci",
     "endTour": "Fine tour",
-    "audioTheme": "Audio Theme",
+    "audioTheme": "Tema sonoro",
     "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme_danielTheBard": "Daniel il Bardo"
 }

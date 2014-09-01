@@ -60,5 +60,6 @@
     "fortify": "Fortificar",
     "fortifyText": "Fortificar reverterá todas suas tarefas para o valor neutro (amarelo), como se tivesse acabado de adicioná-las, e completará sua vida até estar cheia. Considere essa opção como último recurso! Tarefas vermelhas oferecem um grande incentivo para melhorar. Mas se todo vermelho o encher de desespero, e o começo de cada dia provar ser letal, gaste as Gemas e pegue um adiantamento!",
     "sureDelete": "Tem certeza de que deseja deletar essa tarefa?",
-    "streakCoins": "Bônus de Combo!"
+    "streakCoins": "Bônus de Combo!",
+    "pushTaskToTop": "Push task to top"
 }

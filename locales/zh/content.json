@@ -37,6 +37,8 @@
     "questEggOctopusAdjective": "狡猾的",
     "questEggSeahorseText": "海马",
     "questEggSeahorseAdjective": "奖励",
+    "questEggParrotText": "鹦鹉",
+    "questEggParrotAdjective": "充满活力的",
     "eggNotes": "把孵化药水倒在宠物蛋上会把它孵化成一只<%= eggAdjective() %><%= eggText() %>。",
     "hatchingPotionBase": "普通",
     "hatchingPotionWhite": "白色",

@@ -37,6 +37,8 @@
     "questEggOctopusAdjective": "escorregadiu",
     "questEggSeahorseText": "Cavalo-Marinho",
     "questEggSeahorseAdjective": "Prêmio",
+    "questEggParrotText": "Parrot",
+    "questEggParrotAdjective": "vibrant",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",

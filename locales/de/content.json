@@ -37,6 +37,8 @@
     "questEggOctopusAdjective": "glitschiger",
     "questEggSeahorseText": "Seehengst",
     "questEggSeahorseAdjective": "wertvoller",
+    "questEggParrotText": "Papagei",
+    "questEggParrotAdjective": "lebhaft",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

@@ -38,7 +38,7 @@
     "delete": "Deletar",
     "gems": "Gemas",
     "moreInfo": "Mais Informação",
-    "gemsWhatFor": "Usadas para comprar itens especiais e serviços (ovos, poções de eclosão, Fortificar, etc.). Você precisará liberar esses sistemas antes de poder usar as Gemas.",
+    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
     "veteran": "Veterano",
     "veteranText": "Resistiu ao Habit O Cinza (nosso website pré Angular), e ganhou muitas cicatrizes de batalhas contra os bugs.",
     "originalUser": "Usuário Original!",
@@ -63,7 +63,7 @@
     "noNotifications": "Você não possui novas mensagens.",
     "clear": "Limpar",
     "endTour": "Finalizar Tour",
-    "audioTheme": "Audio Theme",
-    "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme": "Tema de Áudio",
+    "audioTheme_off": "Desligar",
+    "audioTheme_danielTheBard": "Daniel O Bardo"
 }

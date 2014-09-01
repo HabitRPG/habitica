@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "Je <%= itemText %> is stuk gegaan.",
+    "messageLostItem": "Je <%= itemText %> is stukgegaan.",
     "messageTaskNotFound": "Taak niet gevonden.",
     "messageTagNotFound": "Label niet gevonden.",
     "messagePetNotFound": ":pet niet gevonden in user.items.pets",

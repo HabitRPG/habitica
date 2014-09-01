@@ -1,7 +1,7 @@
 {
     "challenge": "Uitdaging",
-    "brokenChaLink": "Gebroken Uitdaging Link",
-    "brokenTask": "Gebroken Uitdaging Link; deze taak was onderdeel van een uitdaging, maar is daaruit verwijderd. Wat wil je ermee doen?",
+    "brokenChaLink": "Gebroken link naar Uitdaging",
+    "brokenTask": "Gebroken link naar Uitdaging; deze taak was onderdeel van een uitdaging, maar is daaruit verwijderd. Wat wil je ermee doen?",
     "keepIt": "Behouden",
     "removeIt": "Verwijderen",
     "brokenChallenge": "Gebroken Uitdaging Link: deze taak was deel van een uitdaging, maar de uitdaging (of groep) is verwijderd. Wat wil je doen met de verweesde taken?",

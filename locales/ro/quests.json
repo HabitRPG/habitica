@@ -15,9 +15,9 @@
     "begin": "Începe",
     "bossHP": "Sănătatea Monstrului",
     "collected": "Adunate",
-    "bossDmg1": "Pentru a răni un monstru, îndeplinește-ți Cotidienele și Sarcinile. Cu cât faci daune mai mari țelurilor cu atât vei vătăma mai mult monstrul (îndeplinirea sarcinilor roșii, vrăjile de Mag, atacurile de Războinic etc.) Monstrul va vătăma echipa pentru fiecare Cotidiană pe care o ratezi (înmulțită cu Forța monstrului) în plus față de vătămarea normală, așa că ai grijă de sănătatea echipei tale îndeplinindu-ți sarcinile! <strong>Toate vătămările de la și către monstru sunt contorizate zilnic (la sfârșitul zilei tale).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Doar participanții se vor lupta cu monstrul și vor împărți prada aventurii.",
-    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
+    "tavernBossInfo": "Pentru a răni un monstru general termină-ţi cotidienele şi sarcinile. Sarcini importante înseamnă şi lovituri puternice contra acestuia.(finalizarea sarcinilor înroşite, vrăjile magilor, loviturile războnicului, etc.) Pentru fiecare cotidiană nefăcută Furia monstrului va creşte (îmnulţită cu puterea acestuia). Dacă Furia atinge maximul ceva rău ţi se va întâmpla - aşa că bifează cotidienele <strong>Toate loviturile se adună şi se execută la sfârşitul zilei (când se resetează aceasta)</strong>",
     "bossColl1": "Pentru a aduna obiecte, îndeplinește țeluri pozitive. Obiectele specifice aventurii apar la fel ca obiectele obișnuite; totuși, nu le vei vedea decât a doua zi, atunci tot ce vei fi adunat va fi socotit și adăugat grămezii.",
     "bossColl2": "Doar participanții pot aduna obiecte și împărți prada aventurii.",
     "abort": "Abandon",
@@ -30,9 +30,9 @@
     "mustComplete": "Trebuie mai întâi să termini <%= quest %>.",
     "mustLevel": "Trebuie să fii la nivelul <%= level %>.",
     "mustLvlQuest": "Trebuie să ai nivelul <%= level %> ca să cumperi această aventură!",
-    "sureAbort": "Sigur vrei să abandonezi misiunea aceasta? Ea va fi abandonată de către toți coechipierii tăi, tot avansul va fi pierdut.",
+    "sureAbort": "Are you sure you want to abort this mission? It will abort it for everyone in your party and all progress will be lost.",
     "doubleSureAbort": "Eşti sigur sigur ? Asigură-te că nu te vor urî pentru totdeauna!",
-    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
+    "questWarning": "Dacă jucători noi se înscriu în echipă înainte ca aventura să pornească aceştia vor primi şi ei o invitaţie. Dacă totuşi aventura începuse deja nici un nou jucător nu se poate alătura acesteia.",
     "bossRageTitle": "Furie",
     "bossRageDescription": "Când această bară se umple, monstrul dezlănţuie un atac special"
 }

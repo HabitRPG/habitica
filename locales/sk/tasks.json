@@ -60,5 +60,6 @@
     "fortify": "Posilniť",
     "fortifyText": "Siloxír vráti všetky tvoje úlohy do neutrálneho (žltého) stavu, akoby si ich len teraz pridal a úplne ti doplní zdravie. Ber to ako poslednú možnosť! Červené úlohy dobre povzbudzujú k zlepšeniu. Ale ak ťa veľa červenej napĺňa zúfalstvom a začiatok každého dňa je pre teba smrtiaci, obetuj zopár drahokamov a získaj milosť.",
     "sureDelete": "Si si istý, že chceš zmazať túto úlohu?",
-    "streakCoins": "Bonus za sériu!"
+    "streakCoins": "Bonus za sériu!",
+    "pushTaskToTop": "Push task to top"
 }

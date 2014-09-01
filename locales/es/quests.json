@@ -15,9 +15,9 @@
     "begin": "Comenzar",
     "bossHP": "Salud del Jefe",
     "collected": "Recogido",
-    "bossDmg1": "Para hacer daño al jefe, complete sus tareas diarias y pendientes. Entre más alto el daño a una tarea, más daño ocasionado al jefe (completando rojas, hechizos del Mago, ataques del Guerrero, etc.). El jefe dañará al grupo por cada tarea diario que olvides (multiplicada por la Fuerza del jefe) además de su daño regular, así que debes mantener a tu grupo sano, ¡completando tus tareas diarias!<strong>Todo el daño hacia y desde el jefe será contabilizado al final del día (según tu configuración)</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Solo los participantes pelearan contra el jefe y compartiran el botín de la misión.",
-    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
+    "tavernBossInfo": "Para hacerle daño a un jefe del mundo, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando los rojos, hechizos de los Magos, ataques de los Guerreros, etc). Por cada Diaria que no completas (multiplicado por la Fuerza del jefe) aumentará la ira del jefe. Una vez que su ira llegue a lo máximo, algo malo pasará - ¡ entonces debes completar tus diarias! <strong>Todo el daño que ocasionen tu y el jefe es calculada durante el cron (al reinicio de tu día).</strong>",
     "bossColl1": "Para conseguir objetos de misión, haz tus tareas. Los objetos de misión aparecen como los demás; sin embargo, no los verás hasta el día siguiente, en ese momento todo lo que hayais encontrado se pondrá en común.",
     "bossColl2": "Solo los participantes pueden coger objetos y su parte del botín de la misión.",
     "abort": "Abandonar",
@@ -30,9 +30,9 @@
     "mustComplete": "Primero necesitas terminar <%= quest %>.",
     "mustLevel": "Necesitas ser nivel  <%= level %>.",
     "mustLvlQuest": "¡Necesitas ser nivel <%= level %> para comprar esta misión!",
-    "sureAbort": "¿Estás seguro que quieres abandonar esta misión? Se terminará para todo el grupo y se perderá todo el progreso.",
+    "sureAbort": "Are you sure you want to abort this mission? It will abort it for everyone in your party and all progress will be lost.",
     "doubleSureAbort": "¿Estás totalmente seguro? ¡Asegurate de que no te vayan a odiar para siempre!",
-    "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
+    "questWarning": "Si nuevos miembros se unen al equipo antes de que comience la misión, también recibirán una invitación. Sin embargo, una vez que la misión ha comenzado, nuevos miembros no se pueden unir a la misión.",
     "bossRageTitle": "Ira",
     "bossRageDescription": "Cuando se llena esta barra, el jefe va a desatar un ataque especial"
 }

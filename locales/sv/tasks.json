@@ -60,5 +60,6 @@
     "fortify": "Stärk",
     "fortifyText": "Den Stärkande Drycken återställer alla uppgifter till ett neutralt (gult) värde, som om du nyss lagt till dem, och återställer all förlorad Hälsa. Se det här som en sista utväg! Röda uppgifter ger uppmuntran att bättra sig. Men om allt det röda fyller dig med förtvivlan och början av varje dag känns hemsk, spendera Juvelerna och bli benådad.",
     "sureDelete": "Är du säker att du vill ta bort denna uppgift?",
-    "streakCoins": "Följdbonus!"
+    "streakCoins": "Följdbonus!",
+    "pushTaskToTop": "Push task to top"
 }
