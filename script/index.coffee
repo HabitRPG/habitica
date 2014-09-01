@@ -984,7 +984,7 @@ api.wrap = (user, main=true) ->
     ###
     randomVal: (obj, options) ->
        array =  if options?.key then _.keys(obj) else _.values(obj)
-       rand = user.fns.predictableRandom(option?.seed)
+       rand = user.fns.predictableRandom(options?.seed)
        array[Math.floor(rand * array.length)]
 
     ###
