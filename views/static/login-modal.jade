@@ -17,7 +17,7 @@ script(id='modals/login.html', type='text/ng-template')
       .tab-pane.active#login-tab
         form(ng-submit='auth()', method='POST')
           .form-group
-            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
+            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username')+' or Email', name='username')
           .form-group
             input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
             //-.control-group
