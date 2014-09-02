@@ -134,9 +134,9 @@ api.loginLocal = function(req, res, next) {
     if (!user) return res.json(401, {err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
     if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
     // We needed the whole user object first so we can get his salt to encrypt password comparison
-    User.findOne({$and:[login,
-      {'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)}
-    ]}
+    User.findOne(
+      {$and: [login, {'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)}]}
+    , {_id:1, apiToken:1}
     , function(err, user){
       if (err) return next(err);
       if (!user) return res.json(401,{err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
