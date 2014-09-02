@@ -1083,6 +1083,16 @@ api.backgrounds =
     dusty_canyons:
       text:  t('backgroundDustyCanyonsText')
       notes: t('backgroundDustyCanyonsNotes')
+  backgrounds092014:
+    thunderstorm:
+      text:  t('backgroundThunderstormText')
+      notes: t('backgroundThunderstormNotes')
+    autumn_forest:
+      text:  t('backgroundAutumnForestText')
+      notes: t('backgroundAutumnForestNotes')
+    harvest_fields:
+      text:  t('backgroundHarvestFieldsText')
+      notes: t('backgroundHarvestFieldsNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =

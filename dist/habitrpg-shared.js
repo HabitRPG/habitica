@@ -10822,7 +10822,7 @@ gear = {
         value: 200,
         canOwn: (function(u) {
           var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.head_special_2 != null);
         })
       },
       nye: {
@@ -12776,6 +12776,20 @@ api.backgrounds = {
       text: t('backgroundDustyCanyonsText'),
       notes: t('backgroundDustyCanyonsNotes')
     }
+  },
+  backgrounds092014: {
+    thunderstorm: {
+      text: t('backgroundThunderstormText'),
+      notes: t('backgroundThunderstormNotes')
+    },
+    autumn_forest: {
+      text: t('backgroundAutumnForestText'),
+      notes: t('backgroundAutumnForestNotes')
+    },
+    harvest_fields: {
+      text: t('backgroundHarvestFieldsText'),
+      notes: t('backgroundHarvestFieldsNotes')
+    }
   }
 };
 
@@ -13384,14 +13398,19 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     return 'hidden';
   }
   if (main) {
-    for (filter in filters) {
-      enabled = filters[filter];
-      if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
-        return 'hidden';
+    if (!task._editing) {
+      for (filter in filters) {
+        enabled = filters[filter];
+        if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
+          return 'hidden';
+        }
       }
     }
   }
   classes = type;
+  if (task._editing) {
+    classes += " beingEdited";
+  }
   if (type === 'todo' || type === 'daily') {
     if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
       dayStart: dayStart

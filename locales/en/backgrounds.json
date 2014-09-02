@@ -23,5 +23,13 @@
   "backgroundDustyCanyonsText":"Dusty Canyon",
   "backgroundDustyCanyonsNotes":"Wander through a Dusty Canyon.",
   "backgroundVolcanoText":"Volcano",
-  "backgroundVolcanoNotes":"Heat up inside a Volcano."
+  "backgroundVolcanoNotes":"Heat up inside a Volcano.",
+
+  "backgrounds092014": "SET 4: Released September 2014",
+  "backgroundThunderstormText":"Thunderstorm",
+  "backgroundThunderstormNotes":"Conduct lightning in a Thunderstorm.",
+  "backgroundAutumnForestText":"Autumn Forest",
+  "backgroundAutumnForestNotes":"Stroll through an Autumn Forest.",
+  "backgroundHarvestFieldsText":"Harvest Fields",
+  "backgroundHarvestFieldsNotes":"Cultivate your Harvest Fields."
 }
