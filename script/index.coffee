@@ -245,12 +245,18 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
 
   # Filters
   if main # only show when on your own list
-    for filter, enabled of filters
-      if enabled and not task.tags?[filter]
-        # All the other classes don't matter
-        return 'hidden'
+    if !task._editing # always show task being edited (even when tag removed)
+      for filter, enabled of filters
+        if enabled and not task.tags?[filter]
+          # All the other classes don't matter
+          return 'hidden'
 
   classes = type
+
+  if task._editing
+    classes += " beingEdited" # Assists filtering by third-party themes.
+    # Example: theme normally hides daily when not scheduled for today,
+    # BUT keeps showing daily when being edited to unschedule it for today
 
   # show as completed if completed (naturally) or not required for today
   if type in ['todo', 'daily']
