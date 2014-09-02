@@ -8,8 +8,13 @@ mixin boss(tavern, mobile)
       div(ng-if='group.quest.active==false')
         table.table.table-striped
           tr(ng-repeat='member in group.members')
-            td {{::member.profile.name}}
+            td
+              span(ng-if=':: group.quest.leader==member._id')
+                |*&nbsp;
+              {{::member.profile.name}}
             td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
+        |*&nbsp;
+        =env.t('questOwner')
         hr
         .npc_ian.pull-left
         p=env.t('questStart')
@@ -56,7 +61,12 @@ mixin boss(tavern, mobile)
           h5=env.t('participants')
           table.table.table-striped
             tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
-              td {{::v.profile.name}}
+              td
+                span(ng-if=':: group.quest.leader==v._id')
+                  |*&nbsp;
+                {{::v.profile.name}}
+          |*&nbsp;
+          =env.t('questOwner')
         quest-rewards(key='{{::group.quest.key}}')
 
         div(ng-if='::Content.quests[group.quest.key].boss')
