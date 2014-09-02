@@ -198,7 +198,7 @@ gear =
     special:
       0: text: t('headSpecial0Text'), notes: t('headSpecial0Notes', {int: 20}), int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: t('headSpecial1Text'), notes: t('headSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
-      2: text: t('headSpecial2Text'), notes: t('headSpecial2Notes', {attrs: 25}), int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: t('headSpecial2Text'), notes: t('headSpecial2Notes', {attrs: 25}), int: 25, str: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.head_special_2?)
       #Winter event
       nye:        event: events.winter, text: t('headSpecialNyeText'), notes: t('headSpecialNyeNotes'), value: 0
       yeti:       event: events.winter, specialClass: 'warrior', text: t('headSpecialYetiText'), notes: t('headSpecialYetiNotes', {str: 9}), str: 9, value:60
