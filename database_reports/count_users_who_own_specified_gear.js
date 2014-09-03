@@ -37,11 +37,7 @@ var thingsOfInterest = {
 var mongo = require('mongoskin');
 var _ = require('lodash');
 
-////////////////    UNCOMMENT ONE OF THESE mongo.db LINES:    ////////////////
-// var dbUsers = mongo.db('lefnire:mAdn3s5s@charlotte.mongohq.com:10015/habitrpg_large?auto_reconnect').collection('users');   // @lefnire production?
-// var dbUsers = mongo.db('localhost:27017/habitrpg_old?auto_reconnect').collection('users');   // @lefnire habitrpg_old
-// var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');   // for local testing by script author (e.g., vagrant install)
-if (typeof dbUsers == 'undefined') { exiting(1, 'Uncomment one of the "var dbUsers" lines!'); }
+var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');
 
 var thingsFound = {};  // each key is one "thing" from thingsOfInterest,
         // and the value for that key is the number of users who own it
@@ -66,7 +62,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
         var data_path = obj['data_path'];
         var items = obj['items'];
         var identifyOwnershipWith = obj['identifyOwnershipWith'];
-        var userOwns = path(user, data_path);
+        var userOwns = path(user, data_path, {});
 
         _.each(items,function(item){
             if ( (identifyOwnershipWith == 'exists' && item in userOwns) ||
@@ -130,7 +126,7 @@ function path(obj, path, def) {
         if(!obj || typeof obj !== 'object') return def;
         obj = obj[path[i]];
     }
-    if(obj === 'undefined') return def;
+    if(!obj || typeof obj === 'undefined') return def;
     return obj;
 }
 
