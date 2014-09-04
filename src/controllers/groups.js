@@ -571,13 +571,13 @@ api.questAccept = function(req, res, next) {
   var user = res.locals.user;
   var key = req.query.key;
 
-  if (!group) return res.json(400, {err: "Must be in a party to start quests (this will change in the future)."});
+  if (!group) return res.json(400, {err: "Must be in a party to start quests."});
 
   // If ?key=xxx is provided, we're starting a new quest and inviting the party. Otherwise, we're a party member accepting the invitation
   if (key) {
     var quest = shared.content.quests[key];
     if (!quest) return res.json(404,{err:'Quest ' + key + ' not found'});
-    if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to being this quest."});
+    if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to begin this quest."});
     if (group.quest.key) return res.json(400, {err: 'Party already on a quest (and only have one quest at a time)'});
     if (!user.items.quests[key]) return res.json(400, {err: "You don't own that quest scroll"});
     group.quest.key = key;
@@ -609,8 +609,23 @@ api.questReject = function(req, res, next) {
   questStart(req,res,next);
 }
 
+api.questCancel = function(req, res, next){
+  // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
+  var group = res.locals.group;
+  async.parallel([
+    function(cb){
+      group.quest = {key:null,progress:{},leader:null};
+      group.markModified('quest');
+      group.save(cb);
+    }
+  ], function(err){
+    if (err) return next(err);
+    res.json(group);
+  })
+}
 
 api.questAbort = function(req, res, next){
+  // Abort a quest AFTER it has begun (see questCancel for BEFORE)
   var group = res.locals.group;
   async.parallel([
     function(cb){
@@ -639,3 +654,4 @@ api.questAbort = function(req, res, next){
     res.json(group);
   })
 }
+
