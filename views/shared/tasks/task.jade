@@ -82,7 +82,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       fieldset.option-group
         label.checkbox(ng-repeat='item in task.checklist')
           input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
-          | {{item.text}}
+          markdown(ng-model='item.text',target='_blank')
 
   // edit/options dialog
   div(ng-if='task._editing')
