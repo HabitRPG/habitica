@@ -530,7 +530,6 @@ questStart = function(req, res, next) {
     quest = shared.content.quests[key],
     collected = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
 
-  // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
     var updates = {$set:{},$inc:{'_v':1}};
     if (m == group.quest.leader)

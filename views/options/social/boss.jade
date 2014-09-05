@@ -67,7 +67,7 @@ mixin boss(tavern, mobile)
                 {{::v.profile.name}}
           |*&nbsp;
           =env.t('questOwner')
-        quest-rewards(key='{{::group.quest.key}}')
+        quest-rewards(key='{{::group.quest.key}}', header-participant=env.t('youReceivedFuture'), header-quest-owner=env.t('questOwnerReceivedFuture'))
 
         div(ng-if='::Content.quests[group.quest.key].boss')
           .npc_ian.pull-left

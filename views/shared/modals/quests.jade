@@ -3,10 +3,11 @@ include ./quest-rewards
 script(type='text/ng-template', id='modals/questCompleted.html')  
   .modal-header
     h4 "{{::Content.quests[user.party.quest.completed].text()}}"
+      &nbsp;
       =env.t('completed')
   .modal-body
     p {{::Content.quests[user.party.quest.completed].completion()}}
-    quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
+    quest-rewards(key='{{user.party.quest.completed}}', header-participant=env.t('youReceived'), header-quest-owner=env.t('questOwnerReceived'))
   .modal-footer
     button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('ok')
 
@@ -16,7 +17,7 @@ script(type='text/ng-template', id='modals/showQuest.html')
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes()')
-    quest-rewards(key='{{selectedQuest.key}}')
+    quest-rewards(key='{{selectedQuest.key}}', header-participant=env.t('rewardsAllParticipants'), header-quest-owner=env.t('rewardsQuestOwner'))
     hr    
     .npc_ian.pull-left
     p=env.t('questSend')
@@ -31,7 +32,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes()')
-    quest-rewards(key='{{selectedQuest.key}}')
+    quest-rewards(key='{{selectedQuest.key}}', header-participant=env.t('rewardsAllParticipants'), header-quest-owner=env.t('rewardsQuestOwner'))
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
     button.btn.btn-primary(ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest')
@@ -42,7 +43,7 @@ script(type='text/ng-template', id='modals/questInvitation.html')
       |&nbsp;{{Content.quests[party.quest.key].text()}}
   .modal-body
     div(ng-bind-html='Content.quests[party.quest.key].notes()')
-    quest-rewards(key='{{party.quest.key}}')
+    quest-rewards(key='{{party.quest.key}}', header-participant=env.t('youReceivedFuture'), header-quest-owner=env.t('questOwnerReceivedFuture'))
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
     button.btn.btn-default(ng-click='party.$questReject(); $close()')=env.t('reject')

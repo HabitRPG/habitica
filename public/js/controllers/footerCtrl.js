@@ -54,6 +54,11 @@
      * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
      */
     if (_.contains(['development','test'],window.env.NODE_ENV)) {
+      $scope.setHealthLow = function(){
+        User.set({
+          'stats.hp': 1
+        });
+      }
       $scope.addMissedDay = function(){
         if (!confirm("Are you sure you want to reset the day?")) return;
         var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
@@ -65,11 +70,16 @@
           User.log({});
         })
       }
+      $scope.addGold = function(){
+        User.set({
+          'stats.gp': User.user.stats.gp + 500,
+        });
+      }
       $scope.addLevelsAndGold = function(){
         User.set({
           'stats.exp': User.user.stats.exp + 10000,
-          'stats.gp': User.user.stats.gp + 10000,
-          'stats.mp': User.user.stats.mp + 10000
+          'stats.gp':  User.user.stats.gp  + 10000,
+          'stats.mp':  User.user.stats.mp  + 10000
         });
       }
       $scope.addOneLevel = function(){
@@ -77,6 +87,10 @@
           'stats.exp': User.user.stats.exp + (Math.round(((Math.pow(User.user.stats.lvl, 2) * 0.25) + (10 * User.user.stats.lvl) + 139.75) / 10) * 10)
         });
       }
+      $scope.addBossQuestProgressUp = function(){
+        User.set({
+          'party.quest.progress.up': User.user.party.quest.progress.up + 1000
+        });
+      }
     }
-
   }])

@@ -150,6 +150,7 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   var group = this;
   var questK = quest.key;
   var updates = {$inc:{},$set:{}};
+  var updatesForOwner = {$inc:{},$set:{}};
 
   updates['$inc']['achievements.quests.' + questK] = 1;
   updates['$inc']['stats.gp'] = +quest.drop.gp;
@@ -162,29 +163,49 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   }
 
   _.each(quest.drop.items, function(item){
+    applyOneItem(quest.drop.items, item, updates);
+  });
+  if (quest.drop.itemsForOwner) {
+    _.each(quest.drop.itemsForOwner, function(item){
+      applyOneItem(quest.drop.itemsForOwner, item, updatesForOwner);
+    });
+  }
+
+  function applyOneItem(items, item, upd){
     var dropK = item.key;
     switch (item.type) {
       case 'gear':
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates['$set']['items.gear.owned.'+dropK] = true;
+        upd['$set']['items.gear.owned.'+dropK] = true;
         break;
       case 'eggs':
       case 'food':
       case 'hatchingPotions':
       case 'quests':
-        updates['$inc']['items.'+item.type+'.'+dropK] = _.where(quest.drop.items,{type:item.type,key:item.key}).length;
+        upd['$inc']['items.'+item.type+'.'+dropK] = _.where(items,{type:item.type,key:item.key}).length;
         break;
       case 'pets':
-        updates['$set']['items.pets.'+dropK] = 5;
+        upd['$set']['items.pets.'+dropK] = 5;
         break;
       case 'mounts':
-        updates['$set']['items.mounts.'+dropK] = true;
+        upd['$set']['items.mounts.'+dropK] = true;
         break;
     }
-  })
+  }
+
   var q = group._id === 'habitrpg' ? {} : {_id:{$in:_.keys(group.quest.members)}};
   group.quest = {};group.markModified('quest');
-  mongoose.model('User').update(q, updates, {multi:true}, cb);
+  var series = [
+    function(cb2){
+      mongoose.model('User').update(q, updates, {multi:true}, cb2);
+    }
+  ];
+  if (quest.drop.itemsForOwner) {
+    var qForOwner = {_id:group.quest.leader};
+    series.push(function(cb2){
+      mongoose.model('User').update(qForOwner, updatesForOwner, cb2);
+    });
+  }
+  async.series(series,cb);
 }
 
 // FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
