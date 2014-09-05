@@ -641,6 +641,7 @@ api.wrap = (user, main=true) ->
         item = if key is 'potion' then content.potion else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
+        return cb?({code:401, message: "You can't own this item"}) if item.canOwn? and !item.canOwn(user)
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
