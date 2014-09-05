@@ -141,6 +141,9 @@ window.habitrpg = angular.module('habitrpg',
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
                 $scope.challenge._locked = true;
               });
+              $scope.shouldShowDetailsOfChallenge = function(challenge) {
+                return challenge._id == $stateParams.cid;
+              };
             }]
         })
         .state('options.social.challenges.detail.member', {

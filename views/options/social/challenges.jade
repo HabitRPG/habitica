@@ -135,7 +135,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
         // Challenges list
         .panel-group
-          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges')
+          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges', ng-class='{scrolled-to-window-center: shouldShowDetailsOfChallenge(challenge)}')
             .panel-heading
               ul.pull-right.challenge-accordion-header-specs
                 li(ng-if='challenge.official')
@@ -163,6 +163,6 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
               a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
-            .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
-              .accordion-inner(ng-if='$stateParams.cid == challenge._id')
+            .panel-body(ng-class='{collapse: !shouldShowDetailsOfChallenge(challenge)}')
+              .accordion-inner(ng-if='shouldShowDetailsOfChallenge(challenge)')
                 div(ui-view)
