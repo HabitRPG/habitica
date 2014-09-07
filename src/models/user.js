@@ -112,7 +112,8 @@ var UserSchema = new Schema({
     rebirthEnabled: {type: Boolean, 'default': false},
     freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
-    chatRevoked: Boolean
+    chatRevoked: Boolean,
+    communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

@@ -122,6 +122,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.set({'flags.newStuff':false});
     }
 
+    $rootScope.acceptCommunityGuidelines = function() {
+      $rootScope.set({'flags.communityGuidelinesAccepted':true});
+    }
+
     $rootScope.notPorted = function(){
       alert(window.env.t('notPorted'));
     }
