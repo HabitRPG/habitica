@@ -11,7 +11,6 @@ mixin boss(tavern, mobile)
             td
               span(ng-if=':: group.quest.leader && group.quest.leader==member._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
                 |*&nbsp;
-                // XXX does this trigger badly when ex-leader reenters group?
               {{::member.profile.name}}
             td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
 
