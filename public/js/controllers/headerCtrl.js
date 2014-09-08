@@ -22,12 +22,21 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
               case 'pets':
                 return member.items.pets.length;
                 break;
+              case 'username':
+                return member.profile.name;
+                break;
+              case 'habitrpg_date_joined':
+                return member.auth.timestamps.created;
+                break
               default:
                 // party date joined
                 return true;
           }
         }
-      ).reverse()
+      )
+      if (User.user.party.orderAscending == "descending") {
+      	$scope.partyMinusSelf = $scope.partyMinusSelf.reverse()
+      }
     });
   }
 ]);
