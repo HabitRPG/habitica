@@ -39,7 +39,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
   .col-md-3
     input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
   table.table.table-striped
-    tr(ng-repeat='group in groups.public | filter:guildSearch track by group._id')
+    tr(ng-repeat='group in groups.public | filter:guildSearch')
       td
         ul.pull-right.challenge-accordion-header-specs
           li='{{::group.memberCount}} ' + env.t('members')
@@ -65,7 +65,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.html')
     li(ng-class="{ active: $state.includes('options.social.guilds.public') }")
       a(ui-sref='options.social.guilds.public')
         =env.t('publicGuilds')
-    li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds track by group._id')
+    li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds')
       a(ui-sref="options.social.guilds.detail({gid:group._id})")
         | {{group.name}}
     li(ng-class="{ active: $state.includes('options.social.guilds.create') }")
