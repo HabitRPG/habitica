@@ -465,10 +465,18 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questReject
 
+    "/groups/{gid}/questCancel":
+      spec:
+        method: 'POST'
+        description: 'Cancel quest before it starts (in invitation stage)'
+        parameters: [path('gid','Group to cancel quest in','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.questCancel
+
     "/groups/{gid}/questAbort":
       spec:
         method: 'POST'
-        description: 'Abort quest'
+        description: 'Abort quest after it has started (all progress will be lost)'
         parameters: [path('gid','Group to abort quest in','string')]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questAbort
