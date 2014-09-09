@@ -14,10 +14,11 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
-      a(ng-click='User.user.ops.sortTask({params:{id:task.id},query:{from:$index, to:0}})', tooltip=env.t('pushTaskToTop'))
+      a(ng-click='pushTask(task,$index,"top")', tooltip=env.t('pushTaskToTop'))
         span.glyphicon.glyphicon-open
-      a(ng-click='User.user.ops.sortTask({params:{id:task.id},query:{from:$index, to:-1}})', tooltip=env.t('pushTaskToBottom'))
+      a(ng-click='pushTask(task,$index,"bottom")', tooltip=env.t('pushTaskToBottom'))
         span.glyphicon.glyphicon-import
+        // glyphicon-import or glyphicon-save or glyphicon-sort-by-attributes
       a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', tooltip=env.t('expandCollapse'))
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
       span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
@@ -72,7 +73,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Daily & Todos
     span.task-checker.action-yesno(bo-if='task.type=="daily" || task.type=="todo"')
-      input.visuallyhidden.focusable(ng-if='$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='User.user.ops.sortTask({params:{id:task.id},query:{from:$index, to:-1}}); changeCheck(task)')
+      input.visuallyhidden.focusable(ng-if='$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='pushTask(task,$index,"bottom"); changeCheck(task)')
       input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
       label(for='box-{{obj._id}}_{{task.id}}')
 
