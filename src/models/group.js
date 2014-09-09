@@ -193,6 +193,7 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   }
 
   var q = group._id === 'habitrpg' ? {} : {_id:{$in:_.keys(group.quest.members)}};
+  var qForOwner = {_id:group.quest.leader};
   group.quest = {};group.markModified('quest');
   var series = [
     function(cb2){
@@ -200,7 +201,6 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
     }
   ];
   if (quest.drop.itemsForOwner) {
-    var qForOwner = {_id:group.quest.leader};
     series.push(function(cb2){
       mongoose.model('User').update(qForOwner, updatesForOwner, cb2);
     });
