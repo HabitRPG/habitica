@@ -1,5 +1,9 @@
 // @see ../routes for routing
 
+function clone(a) {
+   return JSON.parse(JSON.stringify(a));
+}
+
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
@@ -560,9 +564,19 @@ questStart = function(req, res, next) {
   group.markModified('quest'); // members & progress.collect are both Mixed types
   parallel.push(function(cb2){group.save(cb2)});
 
+  parallel.push(function(cb){
+    populateQuery(group.type, Group.findById(group._id)).exec(cb);
+  });
+
   async.parallel(parallel,function(err, results){
     if (err) return next(err);
-    return res.json(group);
+
+    var lastIndex = results.length -1;
+    var groupClone = clone(group);
+    
+    groupClone.members = results[lastIndex].members;
+
+    return res.json(groupClone);
   });
 }
 
@@ -633,9 +647,16 @@ api.questAbort = function(req, res, next){
       group.quest = {key:null,progress:{},leader:null};
       group.markModified('quest');
       group.save(cb);
+    }, function(cb){
+      populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
-  ], function(err){
+  ], function(err, results){
     if (err) return next(err);
-    res.json(group);
+
+    var groupClone = clone(group);
+
+    groupClone.members = results[2].members;
+
+    res.json(groupClone);
   })
 }
