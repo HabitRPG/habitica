@@ -165,11 +165,9 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   _.each(quest.drop.items, function(item){
     applyOneItem(quest.drop.items, item, updates);
   });
-  if (quest.drop.itemsForOwner) {
-    _.each(quest.drop.itemsForOwner, function(item){
-      applyOneItem(quest.drop.itemsForOwner, item, updatesForOwner);
-    });
-  }
+  _.each(quest.drop.itemsForOwner, function(item){
+    applyOneItem(quest.drop.itemsForOwner, item, updatesForOwner);
+  });
 
   function applyOneItem(items, item, upd){
     var dropK = item.key;
