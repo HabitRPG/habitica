@@ -13213,6 +13213,7 @@ api.wrap = function(user, main) {
         });
         gear = user.items.gear;
         _.each(['equipped', 'costume'], function(type) {
+          gear[type] = {};
           gear[type].armor = 'armor_base_0';
           gear[type].weapon = 'weapon_warrior_0';
           gear[type].head = 'head_base_0';
@@ -13252,12 +13253,17 @@ api.wrap = function(user, main) {
         flags.itemsEnabled = false;
         flags.dropsEnabled = false;
         flags.classSelected = false;
+        flags.levelDrops = {};
         if (!user.achievements.rebirths) {
           user.achievements.rebirths = 1;
           user.achievements.rebirthLevel = lvl;
         } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;
+        }
+        user.stats.buffs = {};
+        if (typeof user.markModified === "function") {
+          user.markModified('stats');
         }
         if (typeof cb === "function") {
           cb(null, user);
@@ -14471,5 +14477,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
