@@ -9,7 +9,6 @@ var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
-var Challenge = require('./challenge').model;
 
 // User Schema
 // -----------

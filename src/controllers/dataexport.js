@@ -1,12 +1,12 @@
 var _ = require('lodash');
-var csv = require('express-csv');
 var express = require('express');
-var nconf = require('nconf');
 var moment = require('moment');
 var dataexport = module.exports;
 var js2xmlparser = require("js2xmlparser");
 var pd = require('pretty-data').pd;
 var User = require('../models/user').model;
+
+require('express-csv');
 
 
 /*

@@ -1,4 +1,3 @@
-var nconf = require('nconf');
 var express = require('express');
 var router = new express.Router();
 var auth = require('../controllers/auth');

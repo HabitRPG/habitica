@@ -1,7 +1,5 @@
 /* @see ./routes.coffee for routing*/
 
-var url = require('url');
-var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
@@ -10,7 +8,6 @@ var User = require('./../models/user').model;
 var ga = require('./../utils').ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
-var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 

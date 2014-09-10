@@ -1,8 +1,9 @@
 var _ = require('lodash');
 var Coupon = require('./../models/coupon').model;
 var api = module.exports;
-var csv = require('express-csv');
 var async = require('async');
+
+require('express-csv');
 
 api.ensureAdmin = function(req, res, next) {
   var user = res.locals.user;

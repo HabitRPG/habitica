@@ -6,7 +6,6 @@ var User = require('./models/user').model
 var limiter = require('connect-ratelimit');
 var logging = require('./logging');
 var domainMiddleware = require('domain-middleware');
-var cluster = require('cluster');
 var i18n = require('./i18n.js');
 var shared = require('habitrpg-shared');
 
@@ -137,7 +136,7 @@ var getManifestFiles = function(page){
       code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
     });
   }
-  
+
   return code;
 }
 
@@ -162,7 +161,7 @@ module.exports.locals = function(req, res, next) {
     isStaticPage: isStaticPage,
     translations: i18n.translations[language.code],
     t: function(){ // stringName and vars are the allowed parameters
-      var args = Array.prototype.slice.call(arguments, 0); 
+      var args = Array.prototype.slice.call(arguments, 0);
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },

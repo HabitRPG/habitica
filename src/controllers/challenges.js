@@ -1,16 +1,14 @@
 // @see ../routes for routing
 
 var _ = require('lodash');
-var nconf = require('nconf');
 var async = require('async');
-var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
-var csv = require('express-csv');
 var api = module.exports;
 
+require('express-csv');
 
 /*
   ------------------------------------------------------------------------

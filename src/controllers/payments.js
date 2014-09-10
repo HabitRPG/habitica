@@ -8,8 +8,6 @@ var nconf = require('nconf');
 var async = require('async');
 var User = require('./../models/user').model;
 var ga = require('./../utils').ga;
-var logging = require('./../logging');
-var userAPI = require('./user');
 var api = module.exports;
 var isProduction = nconf.get("NODE_ENV") === "production";
 

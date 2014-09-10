@@ -55,7 +55,6 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // ------------  Passport Configuration ------------
   var passport = require('passport')
-  var util = require('util')
   var FacebookStrategy = require('passport-facebook').Strategy;
   // Passport session setup.
   //   To support persistent login sessions, Passport needs to be able to
