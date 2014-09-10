@@ -13522,6 +13522,12 @@ api.wrap = function(user, main) {
             message: i18n.t('messageNotEnoughGold', req.language)
           }) : void 0;
         }
+        if ((item.canOwn != null) && !item.canOwn(user)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You can't own this item"
+          }) : void 0;
+        }
         if (item.key === 'potion') {
           user.stats.hp += 15;
           if (user.stats.hp > 50) {
@@ -14465,5 +14471,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
