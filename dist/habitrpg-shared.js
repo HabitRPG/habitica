@@ -11406,7 +11406,8 @@ api.questEggs = {
   Egg: {
     text: t('questEggEggText'),
     adjective: t('questEggEggAdjective'),
-    canBuy: false
+    canBuy: false,
+    noMount: true
   },
   Rat: {
     text: t('questEggRatText'),
@@ -14471,5 +14472,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
