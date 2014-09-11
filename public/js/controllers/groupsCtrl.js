@@ -202,6 +202,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       'random': window.env.t('sortRandom'),
       'pets': window.env.t('sortPets'),
       'party_date_joined': window.env.t('sortJoined'),
+      'name': window.env.t('sortName'),
+      'backgrounds': window.env.t('sortBackgrounds'),
     };
 
   }])
