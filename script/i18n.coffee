@@ -17,7 +17,15 @@ module.exports =
     string = if (!module.exports.strings) then module.exports.translations[locale][stringName] else module.exports.strings[stringName]
 
     if string
-      _.template(string, (vars or {}))
+      try{
+        return _.template(string, (vars or {}))
+      }catch (e){
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.'
+      }
     else
       stringNotFound = if (!module.exports.strings) then module.exports.translations[locale].stringNotFound else module.exports.strings.stringNotFound
-      _.template(stringNotFound, {string: stringName})
+      try{
+        return _.template(stringNotFound, {string: stringName})
+      }catch (e){
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.'
+      }
