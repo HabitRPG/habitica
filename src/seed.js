@@ -1,3 +1,18 @@
+/*
+ * This script is no longer required due to this code in src/models/group.js:
+ *    // initialize tavern if !exists (fresh installs)
+ *    Group.count({_id:'habitrpg'},function(err,ct){
+ *      ...
+ *    })
+ *
+ * However we're keeping this script in case future seed updates are needed.
+ *
+ * Reference: https://github.com/HabitRPG/habitrpg/issues/3852#issuecomment-55334572
+ */
+
+
+/*
+
 require('coffee-script') // for habitrpg-shared
 var nconf = require('nconf');
 var utils = require('./utils');
@@ -36,3 +51,5 @@ async.waterfall([
   logging.info("Done initializing database");
   mongoose.disconnect();
 })
+
+*/

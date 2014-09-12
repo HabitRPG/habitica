@@ -71,8 +71,9 @@ npm install
 echo Installing Bower packages
 sudo -H -u vagrant bower --config.interactive=false install -f
 
-echo Seeding Mongodb...
-node ./src/seed.js
+## # echo Seeding Mongodb...
+## node ./src/seed.js
+## no longer required - see comments in src/seed.js
 
 # Uncomment both lines to autostart the habitrpg server when provisioning
 # echo Starting HabitRPG server...
