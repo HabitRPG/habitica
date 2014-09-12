@@ -196,9 +196,9 @@ describe 'User', ->
     it "doesn't break unbreakables", ->
       ce = shared.countExists
       user = newUser()
-      // breakables (includes default weapon_warrior_0):
+      # breakables (includes default weapon_warrior_0):
       user.items.gear.owned['shield_warrior_1'] = true
-      // unbreakables because off-class or 0 value:
+      # unbreakables because off-class or 0 value:
       user.items.gear.owned['shield_rogue_1'] = true
       user.items.gear.owned['head_special_nye'] = true
       expect(ce user.items.gear.owned).to.be 4
