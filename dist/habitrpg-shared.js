@@ -14171,7 +14171,7 @@ api.wrap = function(user, main) {
           if (v && k !== 'toObject') {
             itm = content.gear.flat['' + k];
             if (itm) {
-              if (itm.value > 0 && (itm.klass === cl || (itm.klass === 'special' && (!itm.specialClass || itm.specialClass === cl)))) {
+              if ((itm.value > 0 || k === 'weapon_warrior_0') && (itm.klass === cl || (itm.klass === 'special' && (!itm.specialClass || itm.specialClass === cl)))) {
                 m['' + k] = '' + k;
               }
             }

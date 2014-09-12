@@ -410,7 +410,7 @@ api.wrap = (user, main=true) ->
         user.stats[lostStat]-- if lostStat
 
         # Lose a gear piece
-        # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one.
+        # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one. The only exception is that the weapon_warrior_0 free item can be lost so that a new player who dies does experience equipment loss.
         # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
         cl = user.stats.class
         lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->
@@ -418,7 +418,7 @@ api.wrap = (user, main=true) ->
             # 'toObject' appears as first key when run on server. No idea why.
             itm = content.gear.flat[''+k]
             if itm
-              if itm.value > 0 && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
+              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
                 m[''+k]=''+k
             # else
               # console.log "Can't get item for " + k
