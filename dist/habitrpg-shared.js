@@ -11406,7 +11406,8 @@ api.questEggs = {
   Egg: {
     text: t('questEggEggText'),
     adjective: t('questEggEggAdjective'),
-    canBuy: false
+    canBuy: false,
+    noMount: true
   },
   Rat: {
     text: t('questEggRatText'),

@@ -627,7 +627,7 @@ api.questEggs =
   Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: false
   Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: false
   Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
-  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false
+  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false, noMount: true
   Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
   Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
   Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
