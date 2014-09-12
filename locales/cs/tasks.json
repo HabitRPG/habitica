@@ -61,5 +61,6 @@
     "fortifyText": "Posilnění vrátí všechny tvé úkoly do neutrálního (žlutého) stavu, ve kterém byly v okamžitku přidání, a doplní zdraví na maximum. Považuj to za poslední možnou variantu. Červené úkoly poskytují dobrou motivaci ke zlepšení. Ale pokud tě všechna ta červená naplňuje zoufalstvím a začátek každého dne se ukáže jako smrtící, investuj drahokamy a oddechni si.",
     "sureDelete": "Určitě chceš odstranit tento úkol?",
     "streakCoins": "Bonus za šňůru!",
-    "pushTaskToTop": "Push task to top"
+    "pushTaskToTop": "Přesunout úkol na vrchol",
+    "pushTaskToBottom": "Push task to bottom"
 }

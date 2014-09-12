@@ -65,5 +65,9 @@
     "endTour": "Terminar Visita Guiada",
     "audioTheme": "Tema de audio",
     "audioTheme_off": "Apagar",
-    "audioTheme_danielTheBard": "Daniel el Bardo"
+    "audioTheme_danielTheBard": "Daniel el Bardo",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

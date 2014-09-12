@@ -38,7 +38,7 @@
     "delete": "Удалить",
     "gems": "самоцв.",
     "moreInfo": "Узнать больше",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Покупаются за настоящие деньги. Используются для покупки особых предметов и услуг (яйца, эликсиры для инкубации, эликсиры укрепления и т.д.). Вам нужно будет разблокировать эти вещи прежде, чем вы сможете потратить на них самоцветы.",
     "veteran": "Ветеран",
     "veteranText": "Получено множество боевых шрамов от багов Habit The Grey (наш сайт до перехода на Angular) и проявлена небывалая стойкость.",
     "originalUser": "Пользователь-первопроходец!",
@@ -65,5 +65,9 @@
     "endTour": "Завершить тур",
     "audioTheme": "Музыкальное сопровождение",
     "audioTheme_off": "Выкл.",
-    "audioTheme_danielTheBard": "Бард Даниэль"
+    "audioTheme_danielTheBard": "Бард Даниэль",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

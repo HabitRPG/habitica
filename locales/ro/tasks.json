@@ -61,5 +61,6 @@
     "fortifyText": "Fortifierea va readuce toate țelurile la valoarea neutră (galben), ca și cum abia le-ai fi adăugat, și va reface Sănătatea la maxim. Consideră asta o opțiune de caz extrem! Sarcinile roșii furnizează un bun imbold pentru a progresa. Dar dacă tot roșul ăsta te umple cu disperare, și începutul fiecărei zile se dovedește letal, cheltuie Nestematele și ia o pauză!",
     "sureDelete": "Ești sigur că vrei să ștergi acest țel?",
     "streakCoins": "Bonus de realizare în șir!",
-    "pushTaskToTop": "Urcă sarcina în vârf"
+    "pushTaskToTop": "Urcă sarcina în vârf",
+    "pushTaskToBottom": "Push task to bottom"
 }

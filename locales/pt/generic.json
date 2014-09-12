@@ -38,7 +38,7 @@
     "delete": "Deletar",
     "gems": "Gemas",
     "moreInfo": "Mais Informação",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Comprado usando dinheiro real. Usado para adquirir itens especiais e serviços (ovos, poções de eclosão, de fortificação, etc.). Você precisará desbloquear estas funcionalidades antes de poder usar as Gemas.",
     "veteran": "Veterano",
     "veteranText": "Resistiu ao Habit O Cinza (nosso website pré Angular), e ganhou muitas cicatrizes de batalhas contra os bugs.",
     "originalUser": "Usuário Original!",
@@ -65,5 +65,9 @@
     "endTour": "Finalizar Tour",
     "audioTheme": "Tema de Áudio",
     "audioTheme_off": "Desligar",
-    "audioTheme_danielTheBard": "Daniel O Bardo"
+    "audioTheme_danielTheBard": "Daniel O Bardo",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

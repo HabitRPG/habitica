@@ -37,7 +37,7 @@
     "questEggOctopusAdjective": "חלקלק",
     "questEggSeahorseText": "סוס-ים",
     "questEggSeahorseAdjective": "רב-ערך",
-    "questEggParrotText": "Parrot",
+    "questEggParrotText": "תוכי",
     "questEggParrotAdjective": "vibrant",
     "eggNotes": "מצא/י שיקוי בקיעה, בזוק/בזקי אותו על הביצה הזו, והיא תהפוך ל <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "רגיל",

@@ -61,5 +61,6 @@
     "fortifyText": "Versterken brengt al je taken terug op een neutrale (gele) staat, alsof je ze net toegevoegd hebt, tevens wordt je Gezondheid weer helemaal gevuld. Beschouw dit als een laatste hulpmiddel! Rode taken zijn een goede motivatie om beter te worden. Maar als al dat rood je wanhopig maakt en het begin van elke dag lijkt dodelijk, spendeer de Edelstenen en krijg een uitstel van executie!",
     "sureDelete": "Weet je zeker dat je deze taak wilt verwijderen?",
     "streakCoins": "Serie Bonus!",
-    "pushTaskToTop": "Push task to top"
+    "pushTaskToTop": "Zet taak bovenaan",
+    "pushTaskToBottom": "Push task to bottom"
 }

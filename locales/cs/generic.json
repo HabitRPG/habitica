@@ -65,5 +65,9 @@
     "endTour": "Ukončit prohlídku",
     "audioTheme": "Audio Theme",
     "audioTheme_off": "Off",
-    "audioTheme_danielTheBard": "Daniel The Bard"
+    "audioTheme_danielTheBard": "Daniel The Bard",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

@@ -61,5 +61,6 @@
     "fortifyText": "Fortalecer devuelve todas tus tareas a un valor neutral  (amarillo), como si las acabaras de añadir, y pone a tope tu salud. ¡Considera esto como tu última opción! Las tareas rojas proporcionan un incentivo para mejorar. Si tanto rojo te llena de deseperación y el comienzo de cada día se vuelve mortal, gasta las gemas y tomate un suspiro.",
     "sureDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
     "streakCoins": "¡Bonus de Racha!",
-    "pushTaskToTop": "Empujar tarea a la cima"
+    "pushTaskToTop": "Empujar tarea a la cima",
+    "pushTaskToBottom": "Push task to bottom"
 }

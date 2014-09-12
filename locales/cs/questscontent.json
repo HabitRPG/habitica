@@ -39,7 +39,7 @@
     "questHarpyNotes": "The brave adventurer @UncommonCriminal has disappeared into the forest, following the trail of a winged monster that was sighted several days ago. You are about to begin a search when a wounded parrot lands on your arm, an ugly scar marring its beautiful plumage. Attached to its leg is a scrawled note explaining that while defending the parrots, @UncommonCriminal was captured by a vicious Harpy, and desperately needs your help to escape. Will you follow the bird, defeat the Harpy, and save @UncommonCriminal?",
     "questHarpyCompletion": "A final blow to the Harpy brings it down, feathers flying in all directions. After a quick climb to its nest you find @UncommonCriminal, surrounded by parrot eggs. As a team, you quickly place the eggs back in the nearby nests. The scarred parrot who found you caws loudly, dropping several eggs in your arms. \"The Harpy attack has left some eggs in need of protection,\" explains @UncommonCriminal. \"It seems you have been made an honorary parrot.\"",
     "questHarpyBoss": "Harpy",
-    "questHarpyDropParrotEgg": "Parrot (Egg)",
+    "questHarpyDropParrotEgg": "Papoušek (vajíčko)",
     "questVice1Text": "Osvoboď se od vlivu draka",
     "questVice1Notes": "<p>Říká se, že v jeskyních hory Habitika leží zlo. Stvůra, jejíž přítomnost svádí silné hrdiny země k lenosti a špatným zvykům! Tou stvůrou je obrovský ze stínů zrozený drak nepředstavitelné síly: Zlořád, zrádný stínový drak. Chrabří Habiťané, postavte se mu a zdolejte tuto příšernou stvůru jednou provždy. Ale pouze pokud věříte, že se dokážete postavit jeho nezměrné síle. </p><h3>Zlořád část 1:</h3><p>Jak chceš bojovat se stvůrou, když už nad tebou má moc? Nepodlehni lenosti a zlozvykům! Tvrdě pracuj, abys mohl odolat drakovu temnému vlivu a přemohl jeho vliv na tebe!</p>",
     "questVice1Boss": "Zlořádův stín",
@@ -88,5 +88,5 @@
     "questAtom3Notes": "With a deafening cry, and five delicious types of cheese bursting from its mouth, the SnackLess Monster falls to pieces. \"HOW DARE YOU!\" booms a voice from beneath the water's surface. A robed, blue figure emerges from the water, wielding a magic toilet brush. Filthy laundry begins to bubble up to the surface of the lake. \"I am the Laundromancer!\" he angrily announces. \"You have some nerve - washing my delightfully dirty dishes, destroying my pet, and entering my domain with such clean clothes. Prepare to feel the soggy wrath of my anti-laundry magic!\"",
     "questAtom3Completion": "The wicked Laundromancer has been defeated! Clean laundry falls in piles all around you. Things are looking much better around here. As you begin to wade through the freshly pressed armor, a glint of metal catches your eye, and your gaze falls upon a gleaming helm. The original owner of this shining item may be unknown, but as you put it on, you feel the warming presence of a generous spirit. Too bad they didn't sew on a nametag.",
     "questAtom3Boss": "The Laundromancer",
-    "questAtom3DropPotion": "Basic Hatching Potion"
+    "questAtom3DropPotion": "Základní líhnoucí lektvar"
 }

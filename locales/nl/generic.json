@@ -65,5 +65,9 @@
     "endTour": "Beëindig Toer",
     "audioTheme": "Herkenningsmelodie",
     "audioTheme_off": "Uit",
-    "audioTheme_danielTheBard": "Daniel de Bard"
+    "audioTheme_danielTheBard": "Daniel de Bard",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

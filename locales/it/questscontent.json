@@ -35,11 +35,11 @@
     "questOctopusCompletion": "Con un colpo finale, l'enorme creatura scappa via, tornando nel vortice dal quale era uscita. Non riesci a capire se @Urse è contenta della tua vittoria o dispiaciuta di aver visto la bestia andarsene. Senza dire una parola, i tuoi compagni di squadra ti fanno notare tre grandi e viscide uova, adagiate in una pozzanghera circondata da monete d'oro. \"Probabilmente sono solo uova di polpo\", dici con una punta di nervosismo. Mentre tornate a casa, @Urse scrive freneticamente sul suo diario e tu sospetti che questa non sarà l'ultima volta che sentirai parlare del grande Octothulu.",
     "questOctopusBoss": "Octothulu",
     "questOctopusDropOctopusEgg": "Polpo (uovo)",
-    "questHarpyText": "Help! Harpy!",
+    "questHarpyText": "Aiuto! Un'arpia!",
     "questHarpyNotes": "The brave adventurer @UncommonCriminal has disappeared into the forest, following the trail of a winged monster that was sighted several days ago. You are about to begin a search when a wounded parrot lands on your arm, an ugly scar marring its beautiful plumage. Attached to its leg is a scrawled note explaining that while defending the parrots, @UncommonCriminal was captured by a vicious Harpy, and desperately needs your help to escape. Will you follow the bird, defeat the Harpy, and save @UncommonCriminal?",
     "questHarpyCompletion": "A final blow to the Harpy brings it down, feathers flying in all directions. After a quick climb to its nest you find @UncommonCriminal, surrounded by parrot eggs. As a team, you quickly place the eggs back in the nearby nests. The scarred parrot who found you caws loudly, dropping several eggs in your arms. \"The Harpy attack has left some eggs in need of protection,\" explains @UncommonCriminal. \"It seems you have been made an honorary parrot.\"",
-    "questHarpyBoss": "Harpy",
-    "questHarpyDropParrotEgg": "Parrot (Egg)",
+    "questHarpyBoss": "Arpia",
+    "questHarpyDropParrotEgg": "Pappagallo (uovo)",
     "questVice1Text": "Liberati dall'Influsso del Drago",
     "questVice1Notes": "<p>Dicono che una terribile minaccia si celi nelle caverne del monte Habitica. Un mostro la cui presenza stravolge la volontà dei forti eroi della terra, spingendoli verso le cattive abitudini e la pigrizia! La bestia è un enorme drago dall'immenso potere, ed è composto delle ombre stesse. Vyce, l'infida Viverna Oscura. Coraggio Habiteers, alzatevi e sconfiggete questa immonda creatura una volta per tutte, ma solo se vi ritenete all'altezza della sua incredibile potenza. </p><h3>Vyce Parte 1: </h3><p>Come potete aspettarvi di sconfiggere la bestia se essa ha già il controllo su di voi? Non cadete vittime della pigrizia e di Vyce! Lavorate duramente per liberarvi dall'influsso dell'oscuro drago!</p>",
     "questVice1Boss": "Ombra di Vyce",
@@ -87,6 +87,6 @@
     "questAtom3Text": "Attacco delle Quest Ordinarie, Parte 3: Il Bucatomante",
     "questAtom3Notes": "Con un urlo assordante, e cinque deliziosi tipi di formaggio che cadono dalla sua bocca, il Mostro di Snackless cade in pezzi. \"COME OSI!\" echeggia una voce da sotto la superficie dell'acqua. Una figura che indossa una tunica blu emerge dall'acqua, brandendo uno spazzolino da water magico. Dalla superficie del lago, inizia ad emergere biancheria sporchissima. \"Sono il Bucatomante!\" annuncia rabbioso. \"Sei davvero coraggioso - lavare i miei piatti deliziosamente sporchi, distruggere il mio servitore, ed entrare nel mio regno con abiti così puliti. Preparati a sentire la sozza furia della mia magia anti-bucato\"!",
     "questAtom3Completion": "Il pazzo Bucatomante è stato sconfitto! Bucato pulito si deposita a pile intorno a te. Le cose sembrano andare molto bene da queste parti. Mentre inizi a farti strada tra le armature stirate da poco, un bagliore di metallo attrae la tua attenzione, ed il tuo sguardo si posa su un elmo luccicante. Non sai chi possa aver indossato prima questo oggetto luminoso, ma mentre lo indossi, senti la calda presenza di uno spirito generoso. Un peccato che non ci abbiano cucito sopra un'etichetta col nome.",
-    "questAtom3Boss": "The Laundromancer",
+    "questAtom3Boss": "Il Bucatomante",
     "questAtom3DropPotion": "Pozione di schiusura base"
 }

@@ -61,5 +61,6 @@
     "fortifyText": "Wzmocnienie przywróci wszystkie zadania do wartości neutralnej (żółty kolor), tak jakbyś dopiero co je dodał, a w dodatku uzdrowi cię do pełna. Traktuj tą opcję jako ostatnią deskę ratunku! Czerwone zadania zapewniają dobrą motywację do poprawienia się. Jednak jeśli te wszystkie czerwone zadania przyprawiają cię o rozpacz, a rozpoczęcie każdego nowego dnia jest śmiertelnie niebezpieczne, poświęć Klejnoty i poczuj ulgę!",
     "sureDelete": "Jesteś pewien, że chcesz usunąć to zadanie?",
     "streakCoins": "Premia za serię!",
-    "pushTaskToTop": "Prześlij zadanie na górę"
+    "pushTaskToTop": "Prześlij zadanie na górę",
+    "pushTaskToBottom": "Push task to bottom"
 }

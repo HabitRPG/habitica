@@ -38,7 +38,7 @@
     "delete": "מחק",
     "gems": "אבני חן",
     "moreInfo": "מידע נוסף",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "נרכשים בכסף אמתי. משמשים עבור קניית חפצים ושירותים מיוחדים (ביצים, שיקויי בקיעה, חיזוק וכו'). תצטרך לשחרר גימיקים אלו לפני שתוכל להשתמש באבני חן.",
     "veteran": "ותיק/ה",
     "veteranText": "סבל את ההאביט האפור (האתר הישן שלנו), וצבר אינספור צלקות קרב מהבאגים שלו",
     "originalUser": "משתמש מקורי!",
@@ -65,5 +65,9 @@
     "endTour": "סיים סיור",
     "audioTheme": "ערכת מנגינות",
     "audioTheme_off": "כבויה",
-    "audioTheme_danielTheBard": "דניאל הפייטן"
+    "audioTheme_danielTheBard": "דניאל הפייטן",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

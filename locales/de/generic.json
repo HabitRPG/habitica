@@ -38,7 +38,7 @@
     "delete": "Löschen",
     "gems": "Edelsteine",
     "moreInfo": "Mehr Informationen",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Kann mit echtem Geld gekauft werden. Wird benötigt, um besondere Gegenstände und Dienste zu kaufen (Eier, Schlüpftränke, Stärkungstränke, usw.). Du musst diese Features erst freischalten, bevor du Edelsteine dafür verwenden kannst. ",
     "veteran": "Veteran",
     "veteranText": "Hat Habit den Grauen (unsere pre-Angular Webseite) überlebt und hat viele Kriegsnarben von den Bugs davongetragen.",
     "originalUser": "Erstbenutzer!",
@@ -65,5 +65,9 @@
     "endTour": "Tour beenden",
     "audioTheme": "Audio Theme",
     "audioTheme_off": "Aus",
-    "audioTheme_danielTheBard": "Daniel der Barde"
+    "audioTheme_danielTheBard": "Daniel der Barde",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

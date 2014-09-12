@@ -33,7 +33,7 @@
     "challengeTagPop": "Le sfide compaiono nelle liste dei tag (etichette), quindi oltre al titolo descrittivo avrai bisogno anche di un nome breve e facilmente riconoscibile. Per esempio, 'Perdi 10 kg in 3 mesi' potrebbe diventare '-10kg' (Clicca il '?' per saperne di più).",
     "challengeDescr": "Descrizione",
     "prize": "Premio",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and will not be refunded if challenge is cancelled.",
+    "prizePop": "Se qualcuno può 'vincere' la tua sfida, puoi eventualmente ricompensarlo con un premio in Gemme. Massimo = #gems che hai (+ guild.gems, se la sfida è di gilda). Nota: questo premio non potrà essere modificato e non sarà rimborsato se viene annullato.",
     "publicChallenges": "Serve un minimo di 1 Gemma per le <strong> sfide pubbliche </strong> (aiuta a prevenire lo spam, lo fa davvero).",
     "officialChallenge": "Sfida Ufficiale HabitRPG",
     "by": "di ",

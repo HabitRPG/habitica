@@ -38,7 +38,7 @@
     "delete": "Usuń",
     "gems": "Klejnoty",
     "moreInfo": "Więcej informacji",
-    "gemsWhatFor": "Kupione za prawdziwe pieniądze. Są używane do kupowania specjalnych przedmiotów i usług (jaja, eliksiry wyklucia, Wzmocnienie itp.). Musisz najpierw odblokować te cechy zanim użyjesz klejnoty.",
+    "gemsWhatFor": "Kupione za prawdziwe pieniądze. Są używane do kupowania specjalnych przedmiotów i usług (jaja, eliksiry wyklucia, Wzmocnienie itp.). Musisz najpierw odblokować te funkcje zanim będziesz w stanie użyć Klejnotów.",
     "veteran": "Weteran",
     "veteranText": "Przetrwał \"Habita Szarego\" (naszej strony przed aktualizacją Angular) i zdobył wiele wojennych blizn od jej błędów.",
     "originalUser": "Pierwotny użytkownik!",
@@ -65,5 +65,9 @@
     "endTour": "Zamknij przewodnik",
     "audioTheme": "Zestaw dźwięków",
     "audioTheme_off": "Wyłączone",
-    "audioTheme_danielTheBard": "Bard Daniel"
+    "audioTheme_danielTheBard": "Bard Daniel",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

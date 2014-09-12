@@ -61,5 +61,6 @@
     "fortifyText": "Verstärken wird alle Deine Aufgaben auf ihren Anfangswert (gelb) zurücksetzen, so als ob Du sie gerade erst Hinzugefügt hättest und füllt Deine Lebenspunkte wieder auf. Sieh' das als letzten Ausweg! Rote Aufgaben bieten einen guten Anreiz sich zu bessern. Aber wenn zu viel Rot Dich zur Verzweiflung treibt, und jeder Tag tödlich endet, dann investiere Deine Edelsteine hier und hol' erstmal Luft!",
     "sureDelete": "Bist Du sicher, dass Du diese Aufgabe löschen möchtest?",
     "streakCoins": "Strähnen Bonus!",
-    "pushTaskToTop": "Aufgabe nach oben verschieben"
+    "pushTaskToTop": "Aufgabe nach oben verschieben",
+    "pushTaskToBottom": "Push task to bottom"
 }

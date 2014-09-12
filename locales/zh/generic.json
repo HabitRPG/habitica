@@ -65,5 +65,9 @@
     "endTour": "结束教程",
     "audioTheme": "声音主题",
     "audioTheme_off": "关",
-    "audioTheme_danielTheBard": "诗人丹尼尔"
+    "audioTheme_danielTheBard": "诗人丹尼尔",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

@@ -38,7 +38,7 @@
     "delete": "Șterge",
     "gems": "Nestemate",
     "moreInfo": "Mai multe informații",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Cumpărate cu bani reali. Folosite pentru cumpărarea obiectelor și serviciilor speciale (ouă, poțiuni de eclozare, Fortificare etc.). Va trebui să deblochezi acele facilități înainte să poți folosi Nestemate.",
     "veteran": "Veteran",
     "veteranText": "A îndurat Habit cel Gri (situl nostru pre Angular) și a dobândit multe cicatrici de luptă de la erorile lui.",
     "originalUser": "Utilizator Original!",
@@ -65,5 +65,9 @@
     "endTour": "Termină Tur",
     "audioTheme": "Tema Audio",
     "audioTheme_off": "Oprita",
-    "audioTheme_danielTheBard": "Daniel Lăutarul"
+    "audioTheme_danielTheBard": "Daniel Lăutarul",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }

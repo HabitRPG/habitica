@@ -65,5 +65,9 @@
     "endTour": "Terminer la visite",
     "audioTheme": "Thème Audio",
     "audioTheme_off": "Arrêt",
-    "audioTheme_danielTheBard": "Daniel le Barde"
+    "audioTheme_danielTheBard": "Daniel le Barde",
+    "askQuestion": "Ask a Question",
+    "reportBug": "Report a Bug",
+    "contributeToHRPG": "Contribute to HabitRPG",
+    "overview": "Overview for New Users"
 }
