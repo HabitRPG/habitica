@@ -3,6 +3,24 @@
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
   function($scope, $rootScope, Shared, Groups, $http, API_URL, $q, User, Members, $state) {
 
+      $scope.isMemberOfPendingQuest = function(userid, group){
+		if (!group.quest || !group.quest.members) return false;
+		if (group.quest.active) return false; // quest is started, not pending
+		return userid in group.quest.members && group.quest.members[userid] != false;
+	  }
+
+      $scope.isMemberOfRunningQuest = function(userid, group){
+		if (!group.quest || !group.quest.members) return false;
+		if (!group.quest.active) return false; // quest is pending, not started
+		return group.quest.members[userid];
+	  }
+
+      $scope.isMemberOfGroup = function(userid, group){
+		if (!group.members) return false;
+		var memberIds = _.map(group.members, function(x){return x._id});
+        return ~(memberIds.indexOf(userid));
+      }
+
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
       }
@@ -362,11 +380,17 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         User.set({'invitations.party':{}});
       }
 
+      $scope.questCancel = function(){
+        if (!confirm(window.env.t('sureCancel'))) return;
+        $rootScope.party.$questCancel();
+      }
+
       $scope.questAbort = function(){
         if (!confirm(window.env.t('sureAbort'))) return;
         if (!confirm(window.env.t('doubleSureAbort'))) return;
         $rootScope.party.$questAbort();
       }
+
     }
   ])
 

@@ -19,6 +19,7 @@ angular.module('groupServices', ['ngResource']).
             removeMember: {method: "POST", url: API_URL + '/api/v2/groups/:gid/removeMember'},
             questAccept: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questAccept'},
             questReject: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questReject'},
+            questCancel: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questCancel'},
             questAbort: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questAbort'}
           });
 

@@ -464,7 +464,15 @@ api.removeMember = function(req, res, next){
   }
 
   if(_.contains(group.members, uuid)){
-    Group.update({_id:group._id},{$pull:{members:uuid},$inc:{memberCount:-1}}, function(err, saved){
+    var update = {$pull:{members:uuid}};
+    if(group.quest && group.quest.members){
+      // remove member from quest
+      update['$unset'] = {};
+      update['$unset']['quest.members.' + uuid] = "";
+      // TODO: run cleanQuestProgress and return scroll to member if member was quest owner
+    }
+    update['$inc'] = {memberCount: -1};
+    Group.update({_id:group._id},update, function(err, saved){
       if (err) return next(err);
       
       // Sending an empty 204 because Group.update doesn't return the group
@@ -530,7 +538,6 @@ questStart = function(req, res, next) {
     quest = shared.content.quests[key],
     collected = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
 
-  // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
     var updates = {$set:{},$inc:{'_v':1}};
     if (m == group.quest.leader)
@@ -571,13 +578,13 @@ api.questAccept = function(req, res, next) {
   var user = res.locals.user;
   var key = req.query.key;
 
-  if (!group) return res.json(400, {err: "Must be in a party to start quests (this will change in the future)."});
+  if (!group) return res.json(400, {err: "Must be in a party to start quests."});
 
   // If ?key=xxx is provided, we're starting a new quest and inviting the party. Otherwise, we're a party member accepting the invitation
   if (key) {
     var quest = shared.content.quests[key];
     if (!quest) return res.json(404,{err:'Quest ' + key + ' not found'});
-    if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to being this quest."});
+    if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to begin this quest."});
     if (group.quest.key) return res.json(400, {err: 'Party already on a quest (and only have one quest at a time)'});
     if (!user.items.quests[key]) return res.json(400, {err: "You don't own that quest scroll"});
     group.quest.key = key;
@@ -609,8 +616,30 @@ api.questReject = function(req, res, next) {
   questStart(req,res,next);
 }
 
+api.questCancel = function(req, res, next){
+  // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
+  // Quest scroll has not yet left quest owner's inventory so no need to return it.
+  // Do not wipe quest progress for members because they'll want it to be applied to the next quest that's started.
+  var group = res.locals.group;
+  async.parallel([
+    function(cb){
+      if (! group.quest.active) {
+        // Do not cancel active quests because this function does
+        // not do the clean-up required for that.
+        // TODO: return an informative error when quest is active
+        group.quest = {key:null,progress:{},leader:null};
+        group.markModified('quest');
+        group.save(cb);
+      }
+    }
+  ], function(err){
+    if (err) return next(err);
+    res.json(group);
+  })
+}
 
 api.questAbort = function(req, res, next){
+  // Abort a quest AFTER it has begun (see questCancel for BEFORE)
   var group = res.locals.group;
   async.parallel([
     function(cb){
@@ -639,3 +668,4 @@ api.questAbort = function(req, res, next){
     res.json(group);
   })
 }
+

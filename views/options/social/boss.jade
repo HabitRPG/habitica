@@ -9,18 +9,26 @@ mixin boss(tavern, mobile)
         table.table.table-striped
           tr(ng-repeat='member in group.members')
             td
-              span(ng-if=':: group.quest.leader==member._id')
+              span(ng-if=':: group.quest.leader && group.quest.leader==member._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
                 |*&nbsp;
               {{::member.profile.name}}
             td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
-        |*&nbsp;
-        =env.t('questOwner')
+
+        span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
+          |*&nbsp;
+          =env.t('questOwner')
+        span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && ! isMemberOfPendingQuest(group.quest.leader,group)')
+          =env.t('questOwnerNotInPendingQuest')
+        span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
+          =env.t('questOwnerNotInPendingQuestParty')
         hr
         .npc_ian.pull-left
         p=env.t('questStart')
-        button.btn.btn-sm.btn-warning(ng-if=':: !group.quest.leader || group.quest.leader==user._id', ng-click='party.$questAccept({"force":true})')=env.t('begin')
-        //-TODO Cancel button
-        //-TODO Both force-start & cancel should only be available to quest-initiator
+
+        // only the quest owner sees the begin button:
+        button.btn.btn-sm.btn-warning(ng-if=':: group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)', ng-click='party.$questAccept({"force":true})')=env.t('begin')
+        // only the quest owner sees the cancel button UNLESS the quest owner is no longer in the quest/party and then everyone sees it:
+        button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)) || (! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group) || ! isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
 
       div(ng-if='group.quest.active==true')
         div(ng-if='::Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
@@ -62,11 +70,17 @@ mixin boss(tavern, mobile)
           table.table.table-striped
             tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
               td
-                span(ng-if=':: group.quest.leader==v._id')
+                span(ng-if=':: group.quest.leader && group.quest.leader==v._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
                   |*&nbsp;
                 {{::v.profile.name}}
-          |*&nbsp;
-          =env.t('questOwner')
+          span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
+            |*&nbsp;
+            =env.t('questOwner')
+          span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && ! isMemberOfRunningQuest(group.quest.leader,group)')
+            =env.t('questOwnerNotInRunningQuest')
+          span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
+            =env.t('questOwnerNotInRunningQuestParty')
+
         quest-rewards(key='{{::group.quest.key}}')
 
         div(ng-if='::Content.quests[group.quest.key].boss')
@@ -84,6 +98,6 @@ mixin boss(tavern, mobile)
           br
           p=env.t('bossColl2')
 
-
         unless tavern
-          button.btn.btn-xs.btn-danger(ng-if='::!group.quest.leader || group.quest.leader==user._id', ng-click='questAbort()')=env.t('abort')
+          // only the quest owner sees the abort button UNLESS the quest owner is no longer in the quest/party and then everyone sees it:
+          button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)) || ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group) || ! isMemberOfRunningQuest(group.quest.leader,group)', ng-click='questAbort()')=env.t('abort')
