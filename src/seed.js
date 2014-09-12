@@ -6,6 +6,8 @@
  *    })
  *
  * However we're keeping this script in case future seed updates are needed.
+ *
+ * Reference: https://github.com/HabitRPG/habitrpg/issues/3852#issuecomment-55334572
  */
 
 
