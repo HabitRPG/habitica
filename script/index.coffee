@@ -467,6 +467,7 @@ api.wrap = (user, main=true) ->
         # Deequip character, set back to base armor and training sword
         gear = user.items.gear
         _.each ['equipped', 'costume'], (type) ->
+          gear[type] = {}; # deequip weapon, eyewear, headAccessory, etc, plus future new types
           gear[type].armor  = 'armor_base_0'
           gear[type].weapon = 'weapon_warrior_0'
           gear[type].head   = 'head_base_0'
@@ -485,6 +486,7 @@ api.wrap = (user, main=true) ->
         flags.itemsEnabled = false
         flags.dropsEnabled = false
         flags.classSelected = false
+        flags.levelDrops = {}
         # Award an achievement if this is their first Rebirth, or if they made it further than last time
         if not (user.achievements.rebirths)
           user.achievements.rebirths = 1
@@ -492,6 +494,8 @@ api.wrap = (user, main=true) ->
         else if (lvl > user.achievements.rebirthLevel or lvl is 100)
           user.achievements.rebirths++
           user.achievements.rebirthLevel = lvl
+        user.stats.buffs = {}
+        user.markModified? 'stats'
         cb? null, user
         ga?.event('purchase', 'Rebirth').send()
 
