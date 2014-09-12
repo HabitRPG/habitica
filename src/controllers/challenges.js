@@ -33,7 +33,8 @@ api.list = function(req, res, next) {
             {members:{$in:[user._id]}}, // all challenges I belong to (is this necessary? thought is a left a group, but not its challenge)
             {group:{$in:gids}}, // all challenges in my groups
             {group: 'habitrpg'} // public group
-          ]
+          ],
+          _id:{$ne:'95533e05-1ff9-4e46-970b-d77219f199e9'} // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug
         })
         .select('name leader description group memberCount prize official')
         .select({members:{$elemMatch:{$in:[user._id]}}})
