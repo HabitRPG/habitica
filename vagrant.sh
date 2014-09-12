@@ -71,8 +71,13 @@ npm install
 echo Installing Bower packages
 sudo -H -u vagrant bower --config.interactive=false install -f
 
-echo Seeding Mongodb...
-node ./src/seed.js
+## # echo Seeding Mongodb...
+## node ./src/seed.js
+## no longer required due to this code in src/models/group.js:
+##    // initialize tavern if !exists (fresh installs)
+##    Group.count({_id:'habitrpg'},function(err,ct){
+##    ...
+##    })
 
 # Uncomment both lines to autostart the habitrpg server when provisioning
 # echo Starting HabitRPG server...
