@@ -13290,7 +13290,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user.todos) : void 0;
       },
       sortTask: function(req, cb) {
-        var from, id, task, tasks, to, _ref;
+        var from, id, movedTask, task, tasks, to, _ref;
         id = req.params.id;
         _ref = req.query, to = _ref.to, from = _ref.from;
         task = user.tasks[id];
@@ -13304,7 +13304,12 @@ api.wrap = function(user, main) {
           return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
         }
         tasks = user["" + task.type + "s"];
-        tasks.splice(to, 0, tasks.splice(from, 1)[0]);
+        movedTask = tasks.splice(from, 1)[0];
+        if (to === -1) {
+          tasks.push(movedTask);
+        } else {
+          tasks.splice(to, 0, movedTask);
+        }
         return typeof cb === "function" ? cb(null, tasks) : void 0;
       },
       updateTask: function(req, cb) {

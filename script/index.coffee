@@ -521,7 +521,11 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless task
         return cb?('?to=__&from=__ are required') unless to? and from?
         tasks = user["#{task.type}s"]
-        tasks.splice to, 0, tasks.splice(from, 1)[0]
+        movedTask = tasks.splice(from, 1)[0]
+        if to == -1 # we've used the Push To Bottom feature
+          tasks.push(movedTask)
+        else  # any other sort method uses only positive 'to' values
+          tasks.splice(to, 0, movedTask)
         cb? null, tasks
 
       updateTask: (req, cb) ->
