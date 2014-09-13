@@ -5,9 +5,12 @@ var shared = require('habitrpg-shared');
 var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');
+var request = require('request');
 var User = require('../models/user').model;
 var ga = require('./../utils').ga;
 var i18n = require('./../i18n');
+
+var isProd = nconf.get('NODE_ENV') === 'production';
 
 var api = module.exports;
 
@@ -109,6 +112,26 @@ api.registerUser = function(req, res, next) {
       }
 
       user.save(cb);
+      if(isProd){
+        request({
+          url: nconf.get('EMAIL_SERVER_URL') + '/job',
+          method: 'POST',
+          auth: {
+            user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+            pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+          },
+          json: {
+            type: 'email', 
+            data: {
+              emailType: 'welcome',
+              to: {
+                name: username,
+                email: email
+              }
+            }
+          }
+        });
+      }
       ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
@@ -294,6 +317,26 @@ api.setupPassport = function(router) {
             }
           });
           user.save(cb);
+          if(isProd && req.user.emails && req.user.emails[0] && req.user.emails[0].value){
+            request({
+              url: nconf.get('EMAIL_SERVER_URL') + '/job',
+              method: 'POST',
+              auth: {
+                user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+                pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+              },
+              json: {
+                type: 'email', 
+                data: {
+                  emailType: 'welcome',
+                  to: {
+                    name: req.user.displayName || req.user.username,
+                    email: req.user.emails[0].value
+                  }
+                }
+              }
+            });
+          }
           ga.event('register', 'Facebook').send()
         }
       ], function(err, saved){
