@@ -411,6 +411,7 @@ api.wrap = (user, main=true) ->
 
         # Lose a gear piece
         # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one. The only exception is that the weapon_warrior_0 free item can be lost so that a new player who dies before buying any gear does experience equipment loss.
+        # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
         cl = user.stats.class
         gearOwned = if (typeof user.items.gear.owned.toObject is "undefined") then user.items.gear.owned else user.items.gear.owned.toObject()
         losableItems = {}
