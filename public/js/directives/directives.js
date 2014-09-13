@@ -129,3 +129,13 @@ habitrpg.directive('hrpgSortTags', ['User', function(User) {
     });
   }
 }]);
+
+habitrpg.directive('scrolledToWindowCenter', ['$interval', function($interval) {
+  return {
+    restrict: 'C',
+    controller: function($scope, $element) {
+      var elTop = $($element).offset().top;
+      $(window).scrollTop(elTop - $(window).height()/2);
+    }
+  };
+});
