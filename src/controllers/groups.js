@@ -33,6 +33,7 @@ var populateQuery = function(type, q){
   q.populate('invites', nameFields);
   q.populate({
     path: 'challenges',
+    match: (type=='habitrpg') ? {_id:{$ne:'95533e05-1ff9-4e46-970b-d77219f199e9'}} : undefined, // remove the Spread the Word Challenge for now, will revisit when we fix the closing-challenge bug
     select: challengeFields,
     options: {sort: {official: -1, timestamp: -1}}
   });
