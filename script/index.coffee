@@ -411,20 +411,16 @@ api.wrap = (user, main=true) ->
 
         # Lose a gear piece
         # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one. The only exception is that the weapon_warrior_0 free item can be lost so that a new player who dies before buying any gear does experience equipment loss.
-        # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
         cl = user.stats.class
-        lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->
-          if v && k != 'toObject'
-            # 'toObject' appears as first key when run on server. No idea why.
+        gearOwned = if (typeof user.items.gear.owned.toObject is "undefined") then user.items.gear.owned else user.items.gear.owned.toObject()
+        losableItems = {}
+        _.each gearOwned, (v,k) ->
+          if v
             itm = content.gear.flat[''+k]
             if itm
               if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
-                m[''+k]=''+k
-            # else
-              # console.log "Can't get item for " + k
-              # # in case other wierd things like 'toObject' turn up
-          m), {})
-
+                losableItems[''+k]=''+k
+        lostItem = user.fns.randomVal losableItems
         if item = content.gear.flat[lostItem]
           user.items.gear.owned[lostItem] = false
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem

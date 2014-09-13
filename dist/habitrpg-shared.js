@@ -14147,7 +14147,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, {}) : void 0;
       },
       revive: function(req, cb) {
-        var cl, item, lostItem, lostStat;
+        var cl, gearOwned, item, losableItems, lostItem, lostStat;
         _.merge(user.stats, {
           hp: 50,
           exp: 0,
@@ -14166,18 +14166,20 @@ api.wrap = function(user, main) {
           user.stats[lostStat]--;
         }
         cl = user.stats["class"];
-        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+        gearOwned = typeof user.items.gear.owned.toObject === "undefined" ? user.items.gear.owned : user.items.gear.owned.toObject();
+        losableItems = {};
+        _.each(gearOwned, function(v, k) {
           var itm;
-          if (v && k !== 'toObject') {
+          if (v) {
             itm = content.gear.flat['' + k];
             if (itm) {
               if ((itm.value > 0 || k === 'weapon_warrior_0') && (itm.klass === cl || (itm.klass === 'special' && (!itm.specialClass || itm.specialClass === cl)))) {
-                m['' + k] = '' + k;
+                return losableItems['' + k] = '' + k;
               }
             }
           }
-          return m;
-        }), {}));
+        });
+        lostItem = user.fns.randomVal(losableItems);
         if (item = content.gear.flat[lostItem]) {
           user.items.gear.owned[lostItem] = false;
           if (user.items.gear.equipped[item.type] === lostItem) {
