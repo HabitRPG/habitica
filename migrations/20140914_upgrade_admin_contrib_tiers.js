@@ -59,7 +59,7 @@ function displayData() {
         console.log(name);
     });
     console.warn('\n' + count +
-            ' users processed 11 according to the Hall)\n');
+            ' users processed (should be 11 according to the Hall)\n');
     return exiting(0);
 }
 
