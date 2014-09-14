@@ -59,7 +59,7 @@ function displayData() {
         console.log(name);
     });
     console.warn('\n' + count +
-            ' users processed (should be 12 -- 11 listed in the Hall plus Its Bailey)\n');
+            ' users processed 11 according to the Hall)\n');
     return exiting(0);
 }
 
