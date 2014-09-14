@@ -1,16 +1,18 @@
-div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAccepted')
-  p If you would like to post messages in the Tavern or any party or guild chat, please first read our
-    |&nbsp;
-    a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
-    |&nbsp;and then click the button below to indicate that you accept them.
-  .chat-controls
-    div
-      button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
-    .chat-buttons
-      button(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
-        span.glyphicon.glyphicon-refresh
+//div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAccepted')
+//  p If you would like to post messages in the Tavern or any party or guild chat, please first read our
+//    |&nbsp;
+//    a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+//    |&nbsp;and then click the button below to indicate that you accept them.
+//  .chat-controls
+//    div
+//      button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
+//    .chat-buttons
+//      button(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
+//        span.glyphicon.glyphicon-refresh
 
-form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
+//form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
+//////////// When we want to block the ability to chat until the Community Guidelines have been accepted, delete the one line immediately below this comment and un-comment all lines above.
+form.chat-form(ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
     textarea.form-control(rows=4, ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete)
     span.user-list(ng-show='!isAtListHidden')

@@ -1,7 +1,7 @@
 extends ./layout
 
 block extraHead
-  style
+  style.
     .pull-left  { margin-right: 20px }
     .peopleList { list-style-type: none }
     .listColumns2 {
@@ -27,8 +27,8 @@ block content
         h1=env.t('communityGuidelines')
       p.pagemeta
         |Last updated&nbsp;
-        =env.t('August')
-        |&nbsp;26&comma; 2014
+        =env.t('September')
+        |&nbsp;14&comma; 2014
       h2=env.t('commGuideHeadingWelcome')
       div(class='clearfix')
         img(class='pull-left', src='/community-guidelines-images/intro.png', alt='')
