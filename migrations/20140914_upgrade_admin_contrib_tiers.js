@@ -1,4 +1,4 @@
-var migrationName = '20140810_upgrade_admin_contrib_tiers';
+var migrationName = '20140914_upgrade_admin_contrib_tiers';
 var authorName = 'Alys'; // in case script author needs to know when their ...
 var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
 
