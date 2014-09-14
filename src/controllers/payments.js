@@ -64,24 +64,27 @@ function createSubscription(user, data) {
       email = user.auth.facebook.emails[0].value;
       name = user.auth.facebook.displayName || user.auth.facebook.username;
     }
-    request({
-      url: nconf.get('EMAIL_SERVER_URL') + '/job',
-      method: 'POST',
-      auth: {
-        user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-        pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-      },
-      json: {
-        type: 'email', 
-        data: {
-          emailType: 'subscription-begins',
-          to: {
-            name: req.user.displayName || req.user.username,
-            email: req.user.emails[0].value
+
+    if(email)
+      request({
+        url: nconf.get('EMAIL_SERVER_URL') + '/job',
+        method: 'POST',
+        auth: {
+          user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+          pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+        },
+        json: {
+          type: 'email', 
+          data: {
+            emailType: 'subscription-begins',
+            to: {
+              name: req.user.displayName || req.user.username,
+              email: req.user.emails[0].value
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
 }
@@ -112,24 +115,27 @@ function buyGems(user, data) {
       email = user.auth.facebook.emails[0].value;
       name = user.auth.facebook.displayName || user.auth.facebook.username;
     }
-    request({
-      url: nconf.get('EMAIL_SERVER_URL') + '/job',
-      method: 'POST',
-      auth: {
-        user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-        pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-      },
-      json: {
-        type: 'email', 
-        data: {
-          emailType: 'donation',
-          to: {
-            name: req.user.displayName || req.user.username,
-            email: req.user.emails[0].value
+
+    if(email){
+      request({
+        url: nconf.get('EMAIL_SERVER_URL') + '/job',
+        method: 'POST',
+        auth: {
+          user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+          pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+        },
+        json: {
+          type: 'email', 
+          data: {
+            emailType: 'donation',
+            to: {
+              name: req.user.displayName || req.user.username,
+              email: req.user.emails[0].value
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 }
 
