@@ -65,7 +65,7 @@ function createSubscription(user, data) {
       name = user.auth.facebook.displayName || user.auth.facebook.username;
     }
 
-    if(email)
+    if(email){
       request({
         url: nconf.get('EMAIL_SERVER_URL') + '/job',
         method: 'POST',
