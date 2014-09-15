@@ -5,8 +5,10 @@
  */
 
 angular.module('challengeServices', ['ngResource']).
-    factory('Challenges', ['API_URL', '$resource', 'User', '$q', 'Members',
-      function(API_URL, $resource, User, $q, Members) {
+    factory('Challenges', ['ApiUrlService', '$resource', 'User', '$q', 'Members',
+      function(ApiUrlService, $resource, User, $q, Members) {
+        var API_URL = ApiUrlService.getApiUrl();
+      
         var Challenge = $resource(API_URL + '/api/v2/challenges/:cid',
           {cid:'@_id'},
           {

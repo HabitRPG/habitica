@@ -5,8 +5,10 @@
  */
 
 angular.module('groupServices', ['ngResource']).
-    factory('Groups', ['API_URL', '$resource', '$q', '$http', 'User',
-      function(API_URL, $resource, $q, $http, User) {
+    factory('Groups', ['ApiUrlService', '$resource', '$q', '$http', 'User',
+      function(ApiUrlService, $resource, $q, $http, User) {
+        var API_URL = ApiUrlService.getApiUrl();
+      
         var Group = $resource(API_URL + '/api/v2/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
