@@ -36,8 +36,9 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
   // Public Groups
-  .col-md-3
-    input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
+  .row
+    .col-md-12
+      input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
   table.table.table-striped
     tr(ng-repeat='group in groups.public | filter:guildSearch')
       td
