@@ -1,8 +1,8 @@
 "use strict";
 
 (typeof habitrpg !== 'undefined' ? habitrpg : habitrpgStatic)
-  .controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'API_URL',
-  function($scope, $rootScope, User, $http, Notification, API_URL) {
+  .controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'ApiUrlService',
+  function($scope, $rootScope, User, $http, Notification, ApiUrlService) {
 
     if(typeof habitrpg === "undefined"){
       $scope.languages = env.avalaibleLanguages;
@@ -66,7 +66,7 @@
         Notification.text('-1 day, remember to refresh');
       }
       $scope.addTenGems = function(){
-        $http.post(API_URL + '/api/v2/user/addTenGems').success(function(){
+        $http.post(ApiUrlService.get() + '/api/v2/user/addTenGems').success(function(){
           User.log({});
         })
       }

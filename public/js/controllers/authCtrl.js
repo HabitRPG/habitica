@@ -5,8 +5,8 @@
  */
 
 angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL', '$modal',
-    function($scope, $rootScope, User, $http, $location, $window, API_URL, $modal) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal) {
       var runAuth;
       var showedFacebookMessage;
 
@@ -47,7 +47,7 @@ angular.module('authCtrl', [])
         if ($scope.registrationForm.$invalid) {
           return;
         }
-        var url = API_URL + "/api/v2/register";
+        var url = ApiUrlService.get() + "/api/v2/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, $scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
@@ -62,7 +62,7 @@ angular.module('authCtrl', [])
         if ($scope.useUUID) {
           runAuth($scope.loginUsername, $scope.loginPassword);
         } else {
-          $http.post(API_URL + "/api/v2/user/auth/local", data)
+          $http.post(ApiUrlService.get() + "/api/v2/user/auth/local", data)
             .success(function(data, status, headers, config) {
               runAuth(data.id, data.token);
             }).error(errorAlert);
@@ -82,7 +82,7 @@ angular.module('authCtrl', [])
       };
 
       $scope.passwordReset = function(email){
-        $http.post(API_URL + '/api/v2/user/reset-password', {email:email})
+        $http.post(ApiUrlService.get() + '/api/v2/user/reset-password', {email:email})
           .success(function(){
             alert(window.env.t('newPassSent'));
           })
