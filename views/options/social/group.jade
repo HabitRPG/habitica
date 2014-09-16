@@ -50,15 +50,15 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-heading
           h3.panel-title=env.t('members')
         .panel-body.modal-fixed-height
-          span
+          div(ng-if='group.type=="party"')
             =env.t('partyList')
-            |&nbsp;
-          select#partyOrder(
-            ng-model='user.party.order',
-            ng-controller='ChatCtrl',
-            ng-options='k as v for (k , v) in partyOrderChoices',
-            ng-change='set({"party.order": user.party.order})'
-            )
+            br
+            select#partyOrder(
+              ng-model='user.party.order',
+              ng-controller='ChatCtrl',
+              ng-options='k as v for (k , v) in partyOrderChoices',
+              ng-change='set({"party.order": user.party.order})'
+              )
           table.table.table-striped(bindonce='group')
             tr(ng-repeat='member in group.members')
               td
