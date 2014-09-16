@@ -305,7 +305,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         var i = _.findIndex(User.user.invitations.guilds, {id:guild.id});
         if (~i){
           User.user.invitations.guilds.splice(i, 1);
-          User.set('invitations.guilds', User.user.invitations.guilds);
+          User.set({'invitations.guilds':User.user.invitations.guilds});
         }
       }
     }
