@@ -25,6 +25,7 @@ events =
   spring: {start:'2014-03-21',end:'2014-05-01'}
   summer: {start:'2014-06-20',end:'2014-08-01'}
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
+  fall: {start:'2014-09-21',end:'2014-11-01'}
 
 mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}
@@ -102,6 +103,11 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('weaponSpecialSummerWarriorText'), notes: t('weaponSpecialSummerWarriorNotes', {str: 15}), value: 90, str: 15
       summerMage:     event: events.summer, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialSummerMageText'), notes: t('weaponSpecialSummerMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('weaponSpecialSummerHealerText'), notes: t('weaponSpecialSummerHealerNotes', {int: 9}), value: 90, int: 9
+      #Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('weaponSpecialFallRogueText'), notes: t('weaponSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('weaponSpecialFallWarriorText'), notes: t('weaponSpecialFallWarriorNotes', {str: 15}), value: 90, str: 15
+      fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
 
   armor:
     base:
@@ -154,6 +160,11 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('armorSpecialSummerWarriorText'), notes: t('armorSpecialSummerWarriorNotes', {con: 9}), value: 90, con: 9
       summerMage:     event: events.summer, specialClass: 'wizard',    text: t('armorSpecialSummerMageText'), notes: t('armorSpecialSummerMageNotes', {int: 9}), value: 90, int: 9
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('armorSpecialSummerHealerText'), notes: t('armorSpecialSummerHealerNotes', {con: 15}), value: 90, con: 15
+      # Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('armorSpecialFallRogueText'), notes: t('armorSpecialFallRogueNotes', {per: 15}), value: 90, per: 15
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('armorSpecialFallWarriorText'), notes: t('armorSpecialFallWarriorNotes', {con: 9}), value: 90, con: 9
+      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('armorSpecialFallMageText'), notes: t('armorSpecialFallMageNotes', {int: 9}), value: 90, int: 9
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('armorSpecialFallHealerText'), notes: t('armorSpecialFallHealerNotes', {con: 15}), value: 90, con: 15
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
@@ -215,6 +226,11 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('headSpecialSummerWarriorText'), notes: t('headSpecialSummerWarriorNotes', {str: 9}),value: 60,str: 9
       summerMage:     event: events.summer, specialClass: 'wizard',    text: t('headSpecialSummerMageText'), notes: t('headSpecialSummerMageNotes', {per: 7}),value: 60,per: 7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('headSpecialSummerHealerText'), notes: t('headSpecialSummerHealerNotes', {int: 7}), value: 60, int: 7
+      # Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('headSpecialFallRogueText'), notes: t('headSpecialFallRogueNotes', {per: 9}),value: 60,per: 9
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('headSpecialFallWarriorText'), notes: t('headSpecialFallWarriorNotes', {str: 9}),value: 60,str: 9
+      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('headSpecialFallMageText'), notes: t('headSpecialFallMageNotes', {per: 7}),value: 60,per: 7
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('headSpecialFallHealerText'), notes: t('headSpecialFallHealerNotes', {int: 7}), value: 60, int: 7
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
@@ -267,6 +283,10 @@ gear =
       summerRogue:    event: events.summer, specialClass: 'rogue',   text: t('shieldSpecialSummerRogueText'), notes: t('shieldSpecialSummerRogueNotes', {str: 8}), value: 80, str: 8
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('shieldSpecialSummerWarriorText'), notes: t('shieldSpecialSummerWarriorNotes', {con: 7}), value: 70, con: 7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('shieldSpecialSummerHealerText'), notes: t('shieldSpecialSummerHealerNotes', {con: 9}), value: 70, con: 9
+      #Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
 
   back:
     base:
