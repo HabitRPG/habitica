@@ -12438,7 +12438,7 @@ module.exports = {
   strings: null,
   translations: {},
   t: function(stringName) {
-    var locale, string, stringNotFound, vars;
+    var e, locale, string, stringNotFound, vars;
     vars = arguments[1];
     if (_.isString(arguments[1])) {
       vars = null;
@@ -12452,12 +12452,22 @@ module.exports = {
     }
     string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
-      return _.template(string, vars || {});
+      try {
+        return _.template(string, vars || {});
+      } catch (_error) {
+        e = _error;
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
+      }
     } else {
       stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
-      return _.template(stringNotFound, {
-        string: stringName
-      });
+      try {
+        return _.template(stringNotFound, {
+          string: stringName
+        });
+      } catch (_error) {
+        e = _error;
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
+      }
     }
   }
 };
@@ -13263,9 +13273,6 @@ api.wrap = function(user, main) {
           user.achievements.rebirthLevel = lvl;
         }
         user.stats.buffs = {};
-        if (typeof user.markModified === "function") {
-          user.markModified('stats');
-        }
         if (typeof cb === "function") {
           cb(null, user);
         }
