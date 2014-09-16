@@ -11428,6 +11428,11 @@ api.questEggs = {
     text: t('questEggParrotText'),
     adjective: t('questEggParrotAdjective'),
     canBuy: false
+  },
+  Rooster: {
+    text: t('questEggRoosterText'),
+    adjective: t('questEggRoosterAdjective'),
+    canBuy: false
   }
 };
 
@@ -12215,6 +12220,36 @@ api.quests = {
       gp: 43,
       exp: 350
     }
+  },
+  rooster: {
+    text: t('questRoosterText'),
+    notes: t('questRoosterNotes'),
+    completion: t('questRoosterCompletion'),
+    value: 4,
+    boss: {
+      name: t('questRoosterBoss'),
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Rooster',
+          text: t('questRoosterDropRoosterEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rooster',
+          text: t('questRoosterDropRoosterEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rooster',
+          text: t('questRoosterDropRoosterEgg')
+        }
+      ],
+      gp: 25,
+      exp: 125
+    }
   }
 };
 
@@ -12438,7 +12473,7 @@ module.exports = {
   strings: null,
   translations: {},
   t: function(stringName) {
-    var locale, string, stringNotFound, vars;
+    var e, locale, string, stringNotFound, vars;
     vars = arguments[1];
     if (_.isString(arguments[1])) {
       vars = null;
@@ -12452,12 +12487,22 @@ module.exports = {
     }
     string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
-      return _.template(string, vars || {});
+      try {
+        return _.template(string, vars || {});
+      } catch (_error) {
+        e = _error;
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
+      }
     } else {
       stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
-      return _.template(stringNotFound, {
-        string: stringName
-      });
+      try {
+        return _.template(stringNotFound, {
+          string: stringName
+        });
+      } catch (_error) {
+        e = _error;
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
+      }
     }
   }
 };
@@ -14483,5 +14528,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
