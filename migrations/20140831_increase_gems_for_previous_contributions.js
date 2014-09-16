@@ -31,11 +31,7 @@ var mongo = require('mongoskin');
 var _ = require('lodash');
 
 
-///////////////////    UNCOMMENT ONE OF THESE LINES:    ///////////////////
-// var dbUsers = mongo.db('lefnire:mAdn3s5s@charlotte.mongohq.com:10015/habitrpg_large?auto_reconnect').collection('users'); // @lefnire habitrpg_large
-// var dbUsers = mongo.db('localhost:27017/habitrpg_old?auto_reconnect').collection('users'); // @lefnire habitrpg_old
-// var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users'); // for local testing by script author (e.g., vagrant install)
-if (typeof dbUsers == 'undefined') { exiting(1, 'Uncomment one of the "var dbUsers" lines!'); }
+var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');
 
 
 var query = { $and: [
@@ -46,7 +42,6 @@ var query = { $and: [
 
 var fields = {'migration':1,
     'contributor.level':1,
-    'auth.local.username':1,
     'balance':1,
 };
 
@@ -75,7 +70,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
 
     // Capture current state of user:
     userResults[user._id] =
-        user._id + '  ' + user.auth.local.username + ':\n' +
+        user._id + ' ' + ':\n' +
         '  contrib tier          :  ' + tier + '\n' +
         '  balance before        :  ' + user.balance + '\n' +
         '  balance (gems) added  :  ' + extraBalance + ' (' +
@@ -91,7 +86,6 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
 function fetchFinalBalances() {
     var query = {_id: {$in: Object.keys(userResults)}};
     var fields = {
-        'auth.local.username':1,
         'balance':1,
     };
 
@@ -104,7 +98,7 @@ function fetchFinalBalances() {
         }
         count1++;
         userResults[user._id] = userResults[user._id] +
-            user._id + '  ' + user.auth.local.username + ':\n' +
+            user._id + ' ' + ':\n' +
             '  actual balance after  :  ' + user.balance + '\n';
         if (count1%progressCount == 0) console.warn(count1 + ' ' + user._id);
     });
