@@ -1053,7 +1053,7 @@ api.wrap = (user, main=true) ->
 
         # Food: 40% chance
         if rarity > .6
-          drop = user.fns.randomVal _(content.food).omit('Saddle').where({canBuy:true}).value()
+          drop = user.fns.randomVal _.where(content.food, {canDrop:true})
           user.items.food[drop.key] ?= 0
           user.items.food[drop.key]+= 1
           drop.type = 'Food'

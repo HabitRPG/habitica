@@ -680,38 +680,48 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
     m2[egg.key + "-" + pot.key] = true
 
+#TODO after the fall event, set Base set to canBuy:true (or remove, since it's default) and set Fall set to canBuy:false
 api.food =
-  Meat:             text: t('foodMeat'), target: 'Base', article: ''
-  Milk:             text: t('foodMilk'), target: 'White', article: ''
-  Potatoe:          text: t('foodPotatoe'), target: 'Desert', article: 'a '
-  Strawberry:       text: t('foodStrawberry'), target: 'Red', article: 'a '
-  Chocolate:        text: t('foodChocolate'), target: 'Shade', article: ''
-  Fish:             text: t('foodFish'), target: 'Skeleton', article: 'a '
-  RottenMeat:       text: t('foodRottenMeat'), target: 'Zombie', article: ''
-  CottonCandyPink:  text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:  text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
-  #Cheese:           text: 'Cheese', target: 'Golden'
-  #Watermelon:       text: 'Watermelon', target: 'Golden'
-  #SeaWeed:          text: 'SeaWeed', target: 'Golden'
+  # Base
+  Meat:                 canBuy:true, canDrop:false, text: t('foodMeat'), target: 'Base', article: ''
+  Milk:                 canBuy:true, canDrop:false, text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:              canBuy:true, canDrop:false, text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:           canBuy:true, canDrop:false, text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:            canBuy:true, canDrop:false, text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:                 canBuy:true, canDrop:false, text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:           canBuy:true, canDrop:false, text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:      canBuy:true, canDrop:false, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:      canBuy:true, canDrop:false, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Honey:                canBuy:true, canDrop:false, text: t('foodHoney'), target: 'Golden', article: ''
 
-  Cake_Skeleton:        canBuy: false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
-  Cake_Base:            canBuy: false, text: t('foodCakeBase'), target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy: false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy: false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy: false, text: t('foodCakeShade'), target: 'Shade', article: ''
-  Cake_White:           canBuy: false, text: t('foodCakeWhite'), target: 'White', article: ''
-  Cake_Golden:          canBuy: false, text: t('foodCakeGolden'), target: 'Golden', article: ''
-  Cake_Zombie:          canBuy: false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
-  Cake_Desert:          canBuy: false, text: t('foodCakeDesert'), target: 'Desert', article: ''
-  Cake_Red:             canBuy: false, text: t('foodCakeRed'), target: 'Red', article: ''
+  Saddle:               canBuy:true, canDrop:false, text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 
-  # Tests hack, put honey last so the faux random picks it up in unit tests
-  Honey:            text: t('foodHoney'), target: 'Golden', article: ''
+  # Cake
+  Cake_Skeleton:        canBuy:false, canDrop:false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
+  Cake_Base:            canBuy:false, canDrop:false, text: t('foodCakeBase'), target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy:false, canDrop:false, text: t('foodCakeShade'), target: 'Shade', article: ''
+  Cake_White:           canBuy:false, canDrop:false, text: t('foodCakeWhite'), target: 'White', article: ''
+  Cake_Golden:          canBuy:false, canDrop:false, text: t('foodCakeGolden'), target: 'Golden', article: ''
+  Cake_Zombie:          canBuy:false, canDrop:false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
+  Cake_Desert:          canBuy:false, canDrop:false, text: t('foodCakeDesert'), target: 'Desert', article: ''
+  Cake_Red:             canBuy:false, canDrop:false, text: t('foodCakeRed'), target: 'Red', article: ''
 
-  Saddle:           text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
+  # Fall
+  Candy_Skeleton:        canBuy:true, canDrop:true, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
+  Candy_Base:            canBuy:true, canDrop:true, text: t('foodCandyBase'), target: 'Base', article: ''
+  Candy_CottonCandyBlue: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Candy_CottonCandyPink: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Candy_Shade:           canBuy:true, canDrop:true, text: t('foodCandyShade'), target: 'Shade', article: ''
+  Candy_White:           canBuy:true, canDrop:true, text: t('foodCandyWhite'), target: 'White', article: ''
+  Candy_Golden:          canBuy:true, canDrop:true, text: t('foodCandyGolden'), target: 'Golden', article: ''
+  Candy_Zombie:          canBuy:true, canDrop:true, text: t('foodCandyZombie'), target: 'Zombie', article: ''
+  Candy_Desert:          canBuy:true, canDrop:true, text: t('foodCandyDesert'), target: 'Desert', article: ''
+  Candy_Red:             canBuy:true, canDrop:true, text: t('foodCandyRed'), target: 'Red', article: ''
+
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: t('foodNotes'), canBuy:true}
+  _.defaults food, {value: 1, key, notes: t('foodNotes')}
 
 api.quests =
 
