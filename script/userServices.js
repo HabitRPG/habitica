@@ -1,20 +1,19 @@
 'use strict';
 
-/**
- * Services that persists and retrieves user from localStorage.
- */
-
 angular.module('userServices', [])
   .service('ApiUrlService', ['API_URL', function(currentApiUrl){
     this.setApiUrl = function(newUrl){
       currentApiUrl = newUrl;
     };
     
-    this.getApiUrl = function(){
+    this.get = function(){
       return currentApiUrl;
     };
   }])
-
+  
+/**
+ * Services that persists and retrieves user from localStorage.
+ */
   .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'MOBILE_APP', 'Notification', 'ApiUrlService',
     function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, MOBILE_APP, Notification, ApiUrlService) {
       var authenticated = false;
@@ -68,10 +67,8 @@ angular.module('userServices', [])
 
         // Save the current filters
         var current_filters = user.filters;
-        
-        var API_URL = ApiUrlService.getApiUrl();
 
-        $http.post(API_URL + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
+        $http.post(ApiUrlService.get() + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
             //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
             if (!queue.length) {
