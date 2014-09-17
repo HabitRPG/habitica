@@ -7,22 +7,20 @@
 angular.module('groupServices', ['ngResource']).
     factory('Groups', ['ApiUrlService', '$resource', '$q', '$http', 'User',
       function(ApiUrlService, $resource, $q, $http, User) {
-        var API_URL = ApiUrlService.getApiUrl();
-      
-        var Group = $resource(API_URL + '/api/v2/groups/:gid',
+        var Group = $resource(ApiUrlService.get() + '/api/v2/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
             //query: {method: "GET", isArray:false},
-            postChat: {method: "POST", url: API_URL + '/api/v2/groups/:gid/chat'},
-            deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v2/groups/:gid/chat/:messageId'},
-            join: {method: "POST", url: API_URL + '/api/v2/groups/:gid/join'},
-            leave: {method: "POST", url: API_URL + '/api/v2/groups/:gid/leave'},
-            invite: {method: "POST", url: API_URL + '/api/v2/groups/:gid/invite'},
-            removeMember: {method: "POST", url: API_URL + '/api/v2/groups/:gid/removeMember'},
-            questAccept: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questAccept'},
-            questReject: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questReject'},
-            questCancel: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questCancel'},
-            questAbort: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questAbort'}
+            postChat: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat'},
+            deleteChatMessage: {method: "DELETE", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat/:messageId'},
+            join: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/join'},
+            leave: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/leave'},
+            invite: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/invite'},
+            removeMember: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/removeMember'},
+            questAccept: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/questAccept'},
+            questReject: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/questReject'},
+            questCancel: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/questCancel'},
+            questAbort: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/questAbort'}
           });
 
         // Defer loading everything until they're requested
@@ -49,7 +47,7 @@ angular.module('groupServices', ['ngResource']).
 
           // On enter, set chat message to "seen"
           seenMessage: function(gid){
-            $http.post('/api/v2/groups/'+gid+'/chat/seen');
+            $http.post(ApiUrlService.get() + '/api/v2/groups/'+gid+'/chat/seen');
             if (User.user.newMessages) delete User.user.newMessages[gid];
           },
 

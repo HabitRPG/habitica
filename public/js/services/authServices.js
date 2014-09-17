@@ -29,9 +29,7 @@ factory('Facebook',
                           email: response.email
                       }
 
-                      var API_URL = ApiUrlService.getApiUrl();
-
-                      $http.post(API_URL + '/api/v2/user/auth/facebook', data).success(function(data, status, headers, config) {
+                      $http.post(ApiUrlService.get() + '/api/v2/user/auth/facebook', data).success(function(data, status, headers, config) {
                           User.authenticate(data.id, data.token, function(err) {
                               if (!err) {
                                   alert(window.env.t('loginSuccess'));
