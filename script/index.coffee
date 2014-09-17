@@ -495,7 +495,7 @@ api.wrap = (user, main=true) ->
           user.achievements.rebirths++
           user.achievements.rebirthLevel = lvl
         user.stats.buffs = {}
-        user.markModified? 'stats'
+        # user.markModified? 'stats'
         cb? null, user
         ga?.event('purchase', 'Rebirth').send()
 

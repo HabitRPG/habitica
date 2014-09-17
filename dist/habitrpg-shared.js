@@ -13308,9 +13308,6 @@ api.wrap = function(user, main) {
           user.achievements.rebirthLevel = lvl;
         }
         user.stats.buffs = {};
-        if (typeof user.markModified === "function") {
-          user.markModified('stats');
-        }
         if (typeof cb === "function") {
           cb(null, user);
         }
