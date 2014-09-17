@@ -199,7 +199,7 @@ api.percent = (x,y, dir) ->
     when "down" then roundFn = Math.floor
     else roundFn = Math.round
   x=1 if x==0
-  roundFn(x/y*100)
+  Math.max(0,roundFn(x/y*100))
 
 ###
 Remove whitespace #FIXME are we using this anywwhere? Should we be?
