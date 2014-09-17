@@ -10,7 +10,6 @@ var User = require('./../models/user').model;
 var ga = require('./../utils').ga;
 var logging = require('./../logging');
 var userAPI = require('./user');
-var request = require('request');
 var api = module.exports;
 var isProduction = nconf.get("NODE_ENV") === "production";
 
@@ -55,37 +54,6 @@ function createSubscription(user, data) {
   revealMysteryItems(user);
   user.purchased.txnCount++;
   ga.event('subscribe', data.paymentMethod).send()
-  if(isProduction){
-    var email, name;
-    if(user.auth.local){
-      email = user.auth.local.email;
-      name = user.profile.name || user.auth.local.username;
-    }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
-      email = user.auth.facebook.emails[0].value;
-      name = user.auth.facebook.displayName || user.auth.facebook.username;
-    }
-
-    if(email){
-      request({
-        url: nconf.get('EMAIL_SERVER_URL') + '/job',
-        method: 'POST',
-        auth: {
-          user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-          pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-        },
-        json: {
-          type: 'email', 
-          data: {
-            emailType: 'subscription-begins',
-            to: {
-              name: req.user.displayName || req.user.username,
-              email: req.user.emails[0].value
-            }
-          }
-        }
-      });
-    }
-  }
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
 }
 
@@ -106,37 +74,6 @@ function buyGems(user, data) {
   user.purchased.txnCount++;
   ga.event('checkout', data.paymentMethod).send();
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
-  if(isProduction){
-    var email, name;
-    if(user.auth.local){
-      email = user.auth.local.email;
-      name = user.profile.name || user.auth.local.username;
-    }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
-      email = user.auth.facebook.emails[0].value;
-      name = user.auth.facebook.displayName || user.auth.facebook.username;
-    }
-
-    if(email){
-      request({
-        url: nconf.get('EMAIL_SERVER_URL') + '/job',
-        method: 'POST',
-        auth: {
-          user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-          pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-        },
-        json: {
-          type: 'email', 
-          data: {
-            emailType: 'donation',
-            to: {
-              name: req.user.displayName || req.user.username,
-              email: req.user.emails[0].value
-            }
-          }
-        }
-      });
-    }
-  }
 }
 
 // Expose some functions for tests
