@@ -81,6 +81,9 @@ function createSubscription(user, data) {
               name: name,
               email: email
             }
+          },
+          options: {
+            attemps: 5
           }
         }
       });
@@ -132,6 +135,9 @@ function buyGems(user, data) {
               name: name,
               email: email
             }
+          },
+          options: {
+            attemps: 5
           }
         }
       });

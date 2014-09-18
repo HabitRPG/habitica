@@ -128,6 +128,9 @@ api.registerUser = function(req, res, next) {
                 name: username,
                 email: email
               }
+            },
+            options: {
+              attemps: 5
             }
           }
         });
@@ -333,6 +336,9 @@ api.setupPassport = function(router) {
                     name: req.user.displayName || req.user.username,
                     email: req.user.emails[0].value
                   }
+                },
+                options: {
+                  attemps: 5
                 }
               }
             });
