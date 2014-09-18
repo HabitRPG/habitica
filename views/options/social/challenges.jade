@@ -50,7 +50,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
       =env.t('exportChallengeCSV')
     h3=env.t('hows')
     menu
-      button.customize-option(ng-repeat='member in challenge.members', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
+      button.customize-option(ng-repeat='member in challenge.members track by member._id', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
   div(ui-view)
 
   // Accordion version if we choose that instead
@@ -135,7 +135,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
         // Challenges list
         .panel-group
-          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges')
+          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges track by challenge._id ')
             .panel-heading
               ul.pull-right.challenge-accordion-header-specs
                 li(ng-if='challenge.official')
