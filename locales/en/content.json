@@ -84,6 +84,8 @@
   "foodRottenMeat": "Rotten Meat",
   "foodCottonCandyPink": "Pink Cotton Candy",
   "foodCottonCandyBlue": "Blue Cotton Candy",
+  "foodHoney": "Honey",
+
   "foodCakeSkeleton": "Bare Bones Cake",
   "foodCakeBase": "Basic Cake",
   "foodCakeCottonCandyBlue": "Candy Blue Cake",
@@ -94,7 +96,17 @@
   "foodCakeZombie": "Rotten Cake",
   "foodCakeDesert": "Sand Cake",
   "foodCakeRed": "Strawberry Cake",
-  "foodHoney": "Honey",
+
+  "foodCandySkeleton": "Bare Bones Candy",
+  "foodCandyBase": "Basic Candy",
+  "foodCandyCottonCandyBlue": "Sour Blue Candy",
+  "foodCandyCottonCandyPink": "Sour Pink Candy",
+  "foodCandyShade": "Chocolate Candy",
+  "foodCandyWhite": "Vanilla Candy",
+  "foodCandyGolden": "Honey Candy ",
+  "foodCandyZombie": "Rotten Candy",
+  "foodCandyDesert": "Sand Candy",
+  "foodCandyRed": "Cinnamon Candy",
 
   "foodSaddleText": "Saddle",
   "foodSaddleNotes": "Instantly raises one of your pets into a mount.",

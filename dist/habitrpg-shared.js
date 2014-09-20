@@ -9225,6 +9225,10 @@ events = {
   gaymerx: {
     start: '2014-07-02',
     end: '2014-08-01'
+  },
+  fall: {
+    start: '2014-09-21',
+    end: '2014-11-01'
   }
 };
 
@@ -9712,6 +9716,49 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('weaponSpecialFallRogueText'),
+        notes: t('weaponSpecialFallRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('weaponSpecialFallWarriorText'),
+        notes: t('weaponSpecialFallWarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      fallMage: {
+        event: events.fall,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialFallMageText'),
+        notes: t('weaponSpecialFallMageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('weaponSpecialFallHealerText'),
+        notes: t('weaponSpecialFallHealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
       }
     }
   },
@@ -10057,6 +10104,46 @@ gear = {
         specialClass: 'healer',
         text: t('armorSpecialSummerHealerText'),
         notes: t('armorSpecialSummerHealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('armorSpecialFallRogueText'),
+        notes: t('armorSpecialFallRogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('armorSpecialFallWarriorText'),
+        notes: t('armorSpecialFallWarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      fallMage: {
+        event: events.fall,
+        specialClass: 'wizard',
+        text: t('armorSpecialFallMageText'),
+        notes: t('armorSpecialFallMageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('armorSpecialFallHealerText'),
+        notes: t('armorSpecialFallHealerNotes', {
           con: 15
         }),
         value: 90,
@@ -10455,6 +10542,46 @@ gear = {
         value: 60,
         int: 7
       },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('headSpecialFallRogueText'),
+        notes: t('headSpecialFallRogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('headSpecialFallWarriorText'),
+        notes: t('headSpecialFallWarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      fallMage: {
+        event: events.fall,
+        specialClass: 'wizard',
+        text: t('headSpecialFallMageText'),
+        notes: t('headSpecialFallMageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('headSpecialFallHealerText'),
+        notes: t('headSpecialFallHealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -10760,6 +10887,36 @@ gear = {
         specialClass: 'healer',
         text: t('shieldSpecialSummerHealerText'),
         notes: t('shieldSpecialSummerHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('shieldSpecialFallRogueText'),
+        notes: t('shieldSpecialFallRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('shieldSpecialFallWarriorText'),
+        notes: t('shieldSpecialFallWarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('shieldSpecialFallHealerText'),
+        notes: t('shieldSpecialFallHealerNotes', {
           con: 9
         }),
         value: 70,
@@ -11533,119 +11690,221 @@ api.questPets = _.transform(api.questEggs, function(m, egg) {
 
 api.food = {
   Meat: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodMeat'),
     target: 'Base',
     article: ''
   },
   Milk: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodMilk'),
     target: 'White',
     article: ''
   },
   Potatoe: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a '
   },
   Strawberry: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a '
   },
   Chocolate: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodChocolate'),
     target: 'Shade',
     article: ''
   },
   Fish: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a '
   },
   RottenMeat: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: ''
   },
   CottonCandyPink: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   CottonCandyBlue: {
+    canBuy: true,
+    canDrop: false,
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
+  Honey: {
+    canBuy: true,
+    canDrop: false,
+    text: t('foodHoney'),
+    target: 'Golden',
+    article: ''
+  },
+  Saddle: {
+    canBuy: true,
+    canDrop: false,
+    text: t('foodSaddleText'),
+    value: 5,
+    notes: t('foodSaddleNotes')
+  },
   Cake_Skeleton: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
     article: ''
   },
   Cake_Base: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeBase'),
     target: 'Base',
     article: ''
   },
   Cake_CottonCandyBlue: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Cake_CottonCandyPink: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   Cake_Shade: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeShade'),
     target: 'Shade',
     article: ''
   },
   Cake_White: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeWhite'),
     target: 'White',
     article: ''
   },
   Cake_Golden: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeGolden'),
     target: 'Golden',
     article: ''
   },
   Cake_Zombie: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeZombie'),
     target: 'Zombie',
     article: ''
   },
   Cake_Desert: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeDesert'),
     target: 'Desert',
     article: ''
   },
   Cake_Red: {
     canBuy: false,
+    canDrop: false,
     text: t('foodCakeRed'),
     target: 'Red',
     article: ''
   },
-  Honey: {
-    text: t('foodHoney'),
+  Candy_Skeleton: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandySkeleton'),
+    target: 'Skeleton',
+    article: ''
+  },
+  Candy_Base: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyBase'),
+    target: 'Base',
+    article: ''
+  },
+  Candy_CottonCandyBlue: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyCottonCandyBlue'),
+    target: 'CottonCandyBlue',
+    article: ''
+  },
+  Candy_CottonCandyPink: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyCottonCandyPink'),
+    target: 'CottonCandyPink',
+    article: ''
+  },
+  Candy_Shade: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyShade'),
+    target: 'Shade',
+    article: ''
+  },
+  Candy_White: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyWhite'),
+    target: 'White',
+    article: ''
+  },
+  Candy_Golden: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyGolden'),
     target: 'Golden',
     article: ''
   },
-  Saddle: {
-    text: t('foodSaddleText'),
-    value: 5,
-    notes: t('foodSaddleNotes')
+  Candy_Zombie: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyZombie'),
+    target: 'Zombie',
+    article: ''
+  },
+  Candy_Desert: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyDesert'),
+    target: 'Desert',
+    article: ''
+  },
+  Candy_Red: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCandyRed'),
+    target: 'Red',
+    article: ''
   }
 };
 
@@ -11653,8 +11912,7 @@ _.each(api.food, function(food, key) {
   return _.defaults(food, {
     value: 1,
     key: key,
-    notes: t('foodNotes'),
-    canBuy: true
+    notes: t('foodNotes')
   });
 });
 
@@ -14104,9 +14362,9 @@ api.wrap = function(user, main) {
       if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
         rarity = user.fns.predictableRandom(user.stats.gp);
         if (rarity > .6) {
-          drop = user.fns.randomVal(_(content.food).omit('Saddle').where({
-            canBuy: true
-          }).value());
+          drop = user.fns.randomVal(_.where(content.food, {
+            canDrop: true
+          }));
           if ((_base = user.items.food)[_name = drop.key] == null) {
             _base[_name] = 0;
           }

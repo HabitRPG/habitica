@@ -25,6 +25,7 @@ events =
   spring: {start:'2014-03-21',end:'2014-05-01'}
   summer: {start:'2014-06-20',end:'2014-08-01'}
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
+  fall: {start:'2014-09-21',end:'2014-11-01'}
 
 mystery =
   201402: {start:'2014-02-22',end:'2014-02-28'}
@@ -102,6 +103,11 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('weaponSpecialSummerWarriorText'), notes: t('weaponSpecialSummerWarriorNotes', {str: 15}), value: 90, str: 15
       summerMage:     event: events.summer, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialSummerMageText'), notes: t('weaponSpecialSummerMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('weaponSpecialSummerHealerText'), notes: t('weaponSpecialSummerHealerNotes', {int: 9}), value: 90, int: 9
+      #Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('weaponSpecialFallRogueText'), notes: t('weaponSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('weaponSpecialFallWarriorText'), notes: t('weaponSpecialFallWarriorNotes', {str: 15}), value: 90, str: 15
+      fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
 
   armor:
     base:
@@ -154,6 +160,11 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('armorSpecialSummerWarriorText'), notes: t('armorSpecialSummerWarriorNotes', {con: 9}), value: 90, con: 9
       summerMage:     event: events.summer, specialClass: 'wizard',    text: t('armorSpecialSummerMageText'), notes: t('armorSpecialSummerMageNotes', {int: 9}), value: 90, int: 9
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('armorSpecialSummerHealerText'), notes: t('armorSpecialSummerHealerNotes', {con: 15}), value: 90, con: 15
+      # Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('armorSpecialFallRogueText'), notes: t('armorSpecialFallRogueNotes', {per: 15}), value: 90, per: 15
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('armorSpecialFallWarriorText'), notes: t('armorSpecialFallWarriorNotes', {con: 9}), value: 90, con: 9
+      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('armorSpecialFallMageText'), notes: t('armorSpecialFallMageNotes', {int: 9}), value: 90, int: 9
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('armorSpecialFallHealerText'), notes: t('armorSpecialFallHealerNotes', {con: 15}), value: 90, con: 15
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
@@ -215,6 +226,11 @@ gear =
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('headSpecialSummerWarriorText'), notes: t('headSpecialSummerWarriorNotes', {str: 9}),value: 60,str: 9
       summerMage:     event: events.summer, specialClass: 'wizard',    text: t('headSpecialSummerMageText'), notes: t('headSpecialSummerMageNotes', {per: 7}),value: 60,per: 7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('headSpecialSummerHealerText'), notes: t('headSpecialSummerHealerNotes', {int: 7}), value: 60, int: 7
+      # Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('headSpecialFallRogueText'), notes: t('headSpecialFallRogueNotes', {per: 9}),value: 60,per: 9
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('headSpecialFallWarriorText'), notes: t('headSpecialFallWarriorNotes', {str: 9}),value: 60,str: 9
+      fallMage:     event: events.fall, specialClass: 'wizard',    text: t('headSpecialFallMageText'), notes: t('headSpecialFallMageNotes', {per: 7}),value: 60,per: 7
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('headSpecialFallHealerText'), notes: t('headSpecialFallHealerNotes', {int: 7}), value: 60, int: 7
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
@@ -267,6 +283,10 @@ gear =
       summerRogue:    event: events.summer, specialClass: 'rogue',   text: t('shieldSpecialSummerRogueText'), notes: t('shieldSpecialSummerRogueNotes', {str: 8}), value: 80, str: 8
       summerWarrior:  event: events.summer, specialClass: 'warrior', text: t('shieldSpecialSummerWarriorText'), notes: t('shieldSpecialSummerWarriorNotes', {con: 7}), value: 70, con: 7
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('shieldSpecialSummerHealerText'), notes: t('shieldSpecialSummerHealerNotes', {con: 9}), value: 70, con: 9
+      #Fall
+      fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
+      fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
+      fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
 
   back:
     base:
@@ -680,38 +700,48 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
     m2[egg.key + "-" + pot.key] = true
 
+#TODO after the fall event, set Base set to canBuy:true (or remove, since it's default) and set Fall set to canBuy:false
 api.food =
-  Meat:             text: t('foodMeat'), target: 'Base', article: ''
-  Milk:             text: t('foodMilk'), target: 'White', article: ''
-  Potatoe:          text: t('foodPotatoe'), target: 'Desert', article: 'a '
-  Strawberry:       text: t('foodStrawberry'), target: 'Red', article: 'a '
-  Chocolate:        text: t('foodChocolate'), target: 'Shade', article: ''
-  Fish:             text: t('foodFish'), target: 'Skeleton', article: 'a '
-  RottenMeat:       text: t('foodRottenMeat'), target: 'Zombie', article: ''
-  CottonCandyPink:  text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:  text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
-  #Cheese:           text: 'Cheese', target: 'Golden'
-  #Watermelon:       text: 'Watermelon', target: 'Golden'
-  #SeaWeed:          text: 'SeaWeed', target: 'Golden'
+  # Base
+  Meat:                 canBuy:true, canDrop:false, text: t('foodMeat'), target: 'Base', article: ''
+  Milk:                 canBuy:true, canDrop:false, text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:              canBuy:true, canDrop:false, text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:           canBuy:true, canDrop:false, text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:            canBuy:true, canDrop:false, text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:                 canBuy:true, canDrop:false, text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:           canBuy:true, canDrop:false, text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:      canBuy:true, canDrop:false, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:      canBuy:true, canDrop:false, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Honey:                canBuy:true, canDrop:false, text: t('foodHoney'), target: 'Golden', article: ''
 
-  Cake_Skeleton:        canBuy: false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
-  Cake_Base:            canBuy: false, text: t('foodCakeBase'), target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy: false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy: false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy: false, text: t('foodCakeShade'), target: 'Shade', article: ''
-  Cake_White:           canBuy: false, text: t('foodCakeWhite'), target: 'White', article: ''
-  Cake_Golden:          canBuy: false, text: t('foodCakeGolden'), target: 'Golden', article: ''
-  Cake_Zombie:          canBuy: false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
-  Cake_Desert:          canBuy: false, text: t('foodCakeDesert'), target: 'Desert', article: ''
-  Cake_Red:             canBuy: false, text: t('foodCakeRed'), target: 'Red', article: ''
+  Saddle:               canBuy:true, canDrop:false, text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 
-  # Tests hack, put honey last so the faux random picks it up in unit tests
-  Honey:            text: t('foodHoney'), target: 'Golden', article: ''
+  # Cake
+  Cake_Skeleton:        canBuy:false, canDrop:false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
+  Cake_Base:            canBuy:false, canDrop:false, text: t('foodCakeBase'), target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy:false, canDrop:false, text: t('foodCakeShade'), target: 'Shade', article: ''
+  Cake_White:           canBuy:false, canDrop:false, text: t('foodCakeWhite'), target: 'White', article: ''
+  Cake_Golden:          canBuy:false, canDrop:false, text: t('foodCakeGolden'), target: 'Golden', article: ''
+  Cake_Zombie:          canBuy:false, canDrop:false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
+  Cake_Desert:          canBuy:false, canDrop:false, text: t('foodCakeDesert'), target: 'Desert', article: ''
+  Cake_Red:             canBuy:false, canDrop:false, text: t('foodCakeRed'), target: 'Red', article: ''
 
-  Saddle:           text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
+  # Fall
+  Candy_Skeleton:        canBuy:true, canDrop:true, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
+  Candy_Base:            canBuy:true, canDrop:true, text: t('foodCandyBase'), target: 'Base', article: ''
+  Candy_CottonCandyBlue: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Candy_CottonCandyPink: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Candy_Shade:           canBuy:true, canDrop:true, text: t('foodCandyShade'), target: 'Shade', article: ''
+  Candy_White:           canBuy:true, canDrop:true, text: t('foodCandyWhite'), target: 'White', article: ''
+  Candy_Golden:          canBuy:true, canDrop:true, text: t('foodCandyGolden'), target: 'Golden', article: ''
+  Candy_Zombie:          canBuy:true, canDrop:true, text: t('foodCandyZombie'), target: 'Zombie', article: ''
+  Candy_Desert:          canBuy:true, canDrop:true, text: t('foodCandyDesert'), target: 'Desert', article: ''
+  Candy_Red:             canBuy:true, canDrop:true, text: t('foodCandyRed'), target: 'Red', article: ''
+
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: t('foodNotes'), canBuy:true}
+  _.defaults food, {value: 1, key, notes: t('foodNotes')}
 
 api.quests =
 
