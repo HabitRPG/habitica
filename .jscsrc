@@ -1,0 +1,20 @@
+{
+    "preset": "google",
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "validateJSDoc": {
+      "checkParamNames": true,
+      "checkRedundantParams": true,
+      "requireParamTypes": true
+    },
+    "excludeFiles": [
+      "src/i18n.js",
+      "src/logging.js",
+      "src/middleware.js",
+      "src/server.js",
+      "src/seed.js",
+      "src/utils.js",
+      "src/controllers/*.js",
+      "src/routes/*.js",
+      "src/models/*.js"
+    ]
+}
