@@ -129,3 +129,34 @@ habitrpg.directive('hrpgSortTags', ['User', function(User) {
     });
   }
 }]);
+
+habitrpg
+  .directive( 'popoverHtmlPopup', ['$sce', function($sce) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
+        link: function(scope, element, attrs) {
+          scope.$watch('content', function(value, oldValue) {
+            scope.unsafeContent = $sce.trustAsHtml(scope.content);
+          });
+        },
+        templateUrl: 'template/popover/popover-html.html'
+    };
+  }])
+  .directive( 'popoverHtml', [ '$compile', '$timeout', '$parse', '$window', '$tooltip', 
+    function ( $compile, $timeout, $parse, $window, $tooltip ) {
+      return $tooltip( 'popoverHtml', 'popover', 'click' );
+    }
+  ])
+  .run(["$templateCache", function($templateCache) {
+    $templateCache.put("template/popover/popover-html.html",
+      "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+      "  <div class=\"arrow\"></div>\n" +
+      "\n" +
+      "  <div class=\"popover-inner\">\n" +
+      "      <h3 class=\"popover-title\" ng-bind=\"title\" ng-show=\"title\"></h3>\n" +
+      "      <div class=\"popover-content\" ng-bind-html=\"unsafeContent\" style=\"word-wrap: break-word\">    </div>\n" +
+      "  </div>\n" +
+      "</div>\n");
+  }]);
