@@ -15,7 +15,7 @@
     "market": "Targ",
     "subscriberItem": "Tajemniczy przedmiot",
     "newSubscriberItem": "Nowy tajemniczy przedmiot",
-    "subscriberItemText": "Każdego miesiąca, abonenci otrzymają tajemniczy przedmiot.",
+    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for the exact date.",
     "all": "Wszystkie",
     "none": "Żadne",
     "or": "Lub",
@@ -66,8 +66,8 @@
     "audioTheme": "Zestaw dźwięków",
     "audioTheme_off": "Wyłączone",
     "audioTheme_danielTheBard": "Bard Daniel",
-    "askQuestion": "Ask a Question",
-    "reportBug": "Report a Bug",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "askQuestion": "Zadaj pytanie",
+    "reportBug": "Zgłoś błąd",
+    "contributeToHRPG": "Wspomóż HabitRPG",
+    "overview": "Zarys dla nowych użytkowników"
 }

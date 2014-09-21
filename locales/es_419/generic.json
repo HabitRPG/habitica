@@ -15,7 +15,7 @@
     "market": "Mercado",
     "subscriberItem": "Objeto misterio",
     "newSubscriberItem": "Nuevo objeto misterio",
-    "subscriberItemText": "Cada mes, los suscriptores recibirán un objeto misterio.",
+    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for the exact date.",
     "all": "Todo",
     "none": "Ninguno",
     "or": "O",
@@ -66,8 +66,8 @@
     "audioTheme": "Tema de audio",
     "audioTheme_off": "Apagar",
     "audioTheme_danielTheBard": "Daniel el Bardo",
-    "askQuestion": "Ask a Question",
-    "reportBug": "Report a Bug",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "askQuestion": "Preguntar",
+    "reportBug": "Reportar un bug",
+    "contributeToHRPG": "Contribuir a HabitRPG",
+    "overview": "Resumen para nuevos usuarios"
 }

@@ -33,7 +33,7 @@
     "challengeTagPop": "Los Desafíos aparecen en la lista de etiquetas y en las herramientas de tarea. Así que, aunque el título debería ser descriptivo, también se necesita una 'abreviatura'. P ej, 'Perder 5 kilos en 3 meses' se puede convertir en '-5 kg' (Haz clic para más información).",
     "challengeDescr": "Descripción",
     "prize": "Premio",
-    "prizePop": "Si alguien puede 'ganar' tu desafió, tienes la opción de premiar al ganador con una Gema. Máximo = #gemas que tienes (+las gemas del gremio, si eres tu quien creo el gremio de este desafió). Nota: Este premio no se puede cambiar más tarde y no será devuelto si se cancela el desafió.",
+    "prizePop": "Si alguien puede 'ganar' tu desafío, tienes la opción de premiar al ganador con una Gema. Máximo = #gemas que tienes (+las gemas del gremio, si eres tú quien creó el gremio de este desafío). Nota: Este premio no se puede cambiar más tarde y no será devuelto si se cancela el desafío.",
     "publicChallenges": "Mínimo 1 Gema para <strong> desafíos públicos </strong> (ayuda a prevenir el spam, de verdad que sí).",
     "officialChallenge": "Desafío oficial de HabitRPG",
     "by": "por",

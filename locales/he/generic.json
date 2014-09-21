@@ -1,6 +1,6 @@
 {
     "languageName": "עברית",
-    "stringNotFound": "לא מצאתי '<%= string %>'",
+    "stringNotFound": "המחרוזת '<%= string %>' לא נמצאה.",
     "titleIndex": "HabitRPG | חייך כמשחק תפקידים",
     "habitica": "האביטיקה",
     "expandToolbar": "הרחב סרגל כלים",
@@ -15,7 +15,7 @@
     "market": "שוק",
     "subscriberItem": "חפץ מסתורי",
     "newSubscriberItem": "חפץ מסתורי חדש",
-    "subscriberItemText": "בכל חודש, מנויים יקבלו חפץ מסתורי.",
+    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for the exact date.",
     "all": "הכל",
     "none": "כלום",
     "or": "או",
@@ -66,8 +66,8 @@
     "audioTheme": "ערכת מנגינות",
     "audioTheme_off": "כבויה",
     "audioTheme_danielTheBard": "דניאל הפייטן",
-    "askQuestion": "Ask a Question",
-    "reportBug": "Report a Bug",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "askQuestion": "שאל/י שאלה",
+    "reportBug": "דיווח על תקלה",
+    "contributeToHRPG": "תרומה לאתר",
+    "overview": "סיור למשתמשים חדשים"
 }

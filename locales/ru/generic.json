@@ -15,7 +15,7 @@
     "market": "Рынок",
     "subscriberItem": "Таинственный предмет",
     "newSubscriberItem": "Новый таинственный предмет",
-    "subscriberItemText": "Каждый месяц подписчики будут получать таинственные предметы.",
+    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for the exact date.",
     "all": "Все",
     "none": "Ничего",
     "or": "Или",
@@ -49,7 +49,7 @@
     "achievementDilatoryText": "Помог уничтожить Повелителя Откладываемых-На-Завтра Заданий на протяжении фестиваля лета 2014.",
     "memberSince": " - Участник с ",
     "lastLoggedIn": " - Последний вход",
-    "notPorted": "Эта функция еще не портирована со старого сайта.",
+    "notPorted": "Эта функция еще не перенесена со старого сайта.",
     "buyThis": "Купить <%= text %> за <%= price %> из ваших <%= gems %> самоцветов?",
     "untilNoFace": "Пока мы не добавим Facebook, используйте ваш UUID и API Token для входа (смотрите https://habitrpg.com > Опции > Настройки).",
     "noReachServer": "Сервер сейчас недоступен, попробуйте позже",
@@ -66,8 +66,8 @@
     "audioTheme": "Музыкальное сопровождение",
     "audioTheme_off": "Выкл.",
     "audioTheme_danielTheBard": "Бард Даниэль",
-    "askQuestion": "Ask a Question",
-    "reportBug": "Report a Bug",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "askQuestion": "Задать вопрос",
+    "reportBug": "Сообщить о проблеме",
+    "contributeToHRPG": "Внести вклад в HabitRPG",
+    "overview": "Информация для новичков."
 }
