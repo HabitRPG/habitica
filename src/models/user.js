@@ -404,6 +404,7 @@ UserSchema.pre('save', function(next) {
   this.achievements.beastMaster = petCount >= 90;
 
   //our own version incrementer
+  if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
   this._v++;
 
   next();
