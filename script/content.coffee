@@ -35,6 +35,7 @@ mystery =
   201406: {start:'2014-06-23',end:'2014-07-01'}
   201407: {start:'2014-07-23',end:'2014-08-01'}
   201408: {start:'2014-08-23',end:'2014-09-01'}
+  201409: {start:'2014-09-24',end:'2014-10-01'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 
 gear =
@@ -174,6 +175,7 @@ gear =
       201406: text: t('armorMystery201406Text'), notes: t('armorMystery201406Notes'), mystery:mystery['201406'], value: 0
       201407: text: t('armorMystery201407Text'), notes: t('armorMystery201407Notes'), mystery:mystery['201407'], value: 0
       201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:mystery['201408'], value: 0
+      201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:mystery['201409'], value: 0
 
   head:
     base:
@@ -327,6 +329,7 @@ gear =
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 0
+      201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:mystery['201409'], value: 0
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

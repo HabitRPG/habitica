@@ -222,6 +222,9 @@
   "armorMystery201408Text": "Sun Robes",
   "armorMystery201408Notes": "These robes are woven with sunlight and gold. August 2014 Subscriber Item. Confers no benefit.",
 
+  "armorMystery201409Text": "Strider Vest",
+  "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
+
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",
 
@@ -438,5 +441,7 @@
   "headAccessoryMystery201403Text": "Forest Walker Antlers",
   "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen.",
   "headAccessoryMystery201404Text": "Twilight Butterfly Antennae",
-  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!"
+  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!",
+  "headAccessoryMystery201409Text": "Autumn Antlers",
+  "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
 }
