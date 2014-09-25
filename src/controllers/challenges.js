@@ -108,6 +108,8 @@ api.getMember = function(req, res, next) {
   var cid = req.params.cid;
   var uid = req.params.uid;
 
+  // We need to start using the aggregation framework instead of in-app filtering, see http://docs.mongodb.org/manual/aggregation/
+
   // See http://stackoverflow.com/a/18546277/362790
   // However, this doesn't work. If not all $match conditions are met (eg, if a challenge doesn't have any one of habit/daily/todo/reward
   // then the $match fails and that user object is removed from the results. See http://stackoverflow.com/questions/23636175/filter-subdocument-array-while-still-returning-parent-data-if-empty
