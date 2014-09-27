@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Cukrátková hůl",
     "weaponSpecialCandycaneNotes": "Limitovaná edice Zimního vybavení 2013! Mocná kouzelnická hůl. Silně VYNIKAJÍCÍ, máme na mysli! Zbraň pro obě ruce. Zvyšuje Inteligenci o <%= int%> a Vnímání o <%= per%>.",
     "weaponSpecialSnowflakeText": "Vločková hůlka",
-    "weaponSpecialSnowflakeNotes": "Limitovaná edice Zimního vybavení 2013! Tato hůlka září nekonečnou léčebnou silou. Zvyšuje Inteligenci o <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
     "weaponSpecialSpringRogueText": "Hákové drápy",
     "weaponSpecialSpringRogueNotes": "Úžasný pro zmenšování vysokých budov, a také skartování koberců. Přidá <%= str %> bodů k Síle. Limitovaná edice 2014 Jarní výbava",
     "weaponSpecialSpringWarriorText": "Mrkvový meč",
@@ -195,6 +195,8 @@
     "armorMystery201407Notes": "Popsán jako \"šplouchavý\", \"příliš tlustý\" a \"upřímně, docela neskladný\", tento oděv je nejlepším přítelem každého neohroženého podmořského objevitele. Předmět pro předplatitele červenec 2014. Nepřidává žádný benefit.",
     "armorMystery201408Text": "Sluneční šat",
     "armorMystery201408Notes": "Tento šat je utkán ze slunečního svitu a zlata. Předmět pro předplatitele srpen 2014. Nepřidává žádný benefit.",
+    "armorMystery201409Text": "Strider Vest",
+    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
     "headBase0Text": "Žádná přilba",
     "headBase0Notes": "Žádná pokrývka hlavy",
     "headWarrior1Text": "Kožená helma",
@@ -380,5 +382,7 @@
     "headAccessoryMystery201403Text": "Paroží lesáka",
     "headAccessoryMystery201403Notes": "Tohle paroží se třpytí mechem a lišejníkem.",
     "headAccessoryMystery201404Text": "Měsíční motýlí tykadla",
-    "headAccessoryMystery201404Notes": "Tato tykadla pomáhají svému nositeli vycítit nebezpečná rozptýlení!"
+    "headAccessoryMystery201404Notes": "Tato tykadla pomáhají svému nositeli vycítit nebezpečná rozptýlení!",
+    "headAccessoryMystery201409Text": "Autumn Antlers",
+    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
 }

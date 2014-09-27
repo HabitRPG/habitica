@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Verga Caramellata",
     "weaponSpecialCandycaneNotes": "Edizione limitata dell'inverno 2013! Un potente bastone magico. Anzi, DELIZIOSAMENTE potente! Arma a due mani. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>.",
     "weaponSpecialSnowflakeText": "Bacchetta Fioccodineve",
-    "weaponSpecialSnowflakeNotes": "Edizione limitata dell'inverno 2013! Questa bacchetta sprigiona un'illimitata potenza curativa. Aumenta l'Intelligenza di <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
     "weaponSpecialSpringRogueText": "Artigli a uncino",
     "weaponSpecialSpringRogueNotes": "Ottimi per arrampicarsi sugli edifici più alti, oltre a fare a brandelli i tappeti. Aumenta la Forza di <%= str %>. Edizione limitata, primavera 2014.",
     "weaponSpecialSpringWarriorText": "Spada Carota",
@@ -195,6 +195,8 @@
     "armorMystery201407Notes": "Spesso descritto come \"umidiccio\", \"eccessivamente spesso\" e \"francamente, un po' ingombrante\", questo completo è il miglior amico di ogni intrepido esploratore sottomarino. Oggetto per abbonati, luglio 2014. Non conferisce alcun bonus.",
     "armorMystery201408Text": "Veste del Sole",
     "armorMystery201408Notes": "Queste vesti vengono tessute con fili d'oro e raggi di sole. Oggetto per abbonati, agosto 2014. Non conferisce alcun bonus.",
+    "armorMystery201409Text": "Strider Vest",
+    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
     "headBase0Text": "Nessun elmo",
     "headBase0Notes": "Non indossi nessun copricapo.",
     "headWarrior1Text": "Elmo di cuoio",
@@ -380,5 +382,7 @@
     "headAccessoryMystery201403Text": "Corna del Proteggiforeste",
     "headAccessoryMystery201403Notes": "Queste corna sono ricoperte di muschio e licheni.",
     "headAccessoryMystery201404Text": "Antenne di Farfalla d'Alba",
-    "headAccessoryMystery201404Notes": "Queste antenne aiutano chi le indossa a percepire le distrazioni pericolose!"
+    "headAccessoryMystery201404Notes": "Queste antenne aiutano chi le indossa a percepire le distrazioni pericolose!",
+    "headAccessoryMystery201409Text": "Autumn Antlers",
+    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
 }

@@ -15,7 +15,7 @@
     "market": "市场",
     "subscriberItem": "神秘物品",
     "newSubscriberItem": "新的神秘物品",
-    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for the exact date.",
+    "subscriberItemText": "每个月，订阅者会收到一个神秘物品。这通常会在月底前一个星期发布。看维基的“神秘物品”页面的确切日期。",
     "all": "全部",
     "none": "无",
     "or": "或",
@@ -68,6 +68,6 @@
     "audioTheme_danielTheBard": "诗人丹尼尔",
     "askQuestion": "问个问题",
     "reportBug": "报告一个问题",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "contributeToHRPG": "为HabitRPG作出贡献",
+    "overview": "新手教学"
 }

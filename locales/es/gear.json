@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Báculo Bastón de Caramelo",
     "weaponSpecialCandycaneNotes": "¡Equipo de Edición Limitada del Invierno 2013! Un poderoso báculo de mago. ¡Poderosamente DELICIOSO queremos decir! Arma de dos manos. Aumenta la INT en <%= int %> y la PER en <%= per %>.",
     "weaponSpecialSnowflakeText": "Varita de Copo de Nieve",
-    "weaponSpecialSnowflakeNotes": "¡Equipo de Edición Limitada del Invierno 2013! Esta varita chisporrotea con un ilimitado poder sanador. Aumenta la INT en <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
     "weaponSpecialSpringRogueText": "Garras de gancho",
     "weaponSpecialSpringRogueNotes": "Great for scaling tall buildings, and also for shredding carpets. Adds <%= str %> points to Strength. Limited Edition 2014 Spring Gear.",
     "weaponSpecialSpringWarriorText": "Espada zanahoria",
@@ -195,6 +195,8 @@
     "armorMystery201407Notes": "Described alternatively as \"splooshy\", \"overly thick\" and \"frankly, kind of cumbersome\", this suit is the best friend of any intrepid undersea explorer. July 2014 Subscriber Item. Confers no benefit.",
     "armorMystery201408Text": "Sun Robes",
     "armorMystery201408Notes": "These robes are woven with sunlight and gold. August 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Strider Vest",
+    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
     "headBase0Text": "Sin casco",
     "headBase0Notes": "Sin equipo de cabeza.",
     "headWarrior1Text": "Yelmo de Cuero.",
@@ -380,5 +382,7 @@
     "headAccessoryMystery201403Text": "Astas del caminante del bosque",
     "headAccessoryMystery201403Notes": "Estas astas brillan con musgos y líquenes.",
     "headAccessoryMystery201404Text": "Antenas de mariposa crepuscular",
-    "headAccessoryMystery201404Notes": "¡Estas antenas ayudan a quien las viste a sentir las peligrosas distracciones!"
+    "headAccessoryMystery201404Notes": "¡Estas antenas ayudan a quien las viste a sentir las peligrosas distracciones!",
+    "headAccessoryMystery201409Text": "Autumn Antlers",
+    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
 }

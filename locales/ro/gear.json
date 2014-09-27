@@ -195,6 +195,8 @@
     "armorMystery201407Notes": "Described alternatively as \"splooshy\", \"overly thick\" and \"frankly, kind of cumbersome\", this suit is the best friend of any intrepid undersea explorer. July 2014 Subscriber Item. Confers no benefit.",
     "armorMystery201408Text": "Roba soarelui",
     "armorMystery201408Notes": "These robes are woven with sunlight and gold. August 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Strider Vest",
+    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
     "headBase0Text": "Fără cască",
     "headBase0Notes": "Fără echipament pentru cap",
     "headWarrior1Text": "Cască de piele",
@@ -380,5 +382,7 @@
     "headAccessoryMystery201403Text": "Coarnele umblătorului prin pădure",
     "headAccessoryMystery201403Notes": "Aceste coarne sclipesc cu mușchi și licheni.",
     "headAccessoryMystery201404Text": "Antene de fluture de amurg",
-    "headAccessoryMystery201404Notes": "Aceste antene îl ajută pe purtător să simtă distracțiile dăunătoare!"
+    "headAccessoryMystery201404Notes": "Aceste antene îl ajută pe purtător să simtă distracțiile dăunătoare!",
+    "headAccessoryMystery201409Text": "Autumn Antlers",
+    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
 }

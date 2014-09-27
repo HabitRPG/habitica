@@ -1,13 +1,13 @@
 {
-    "limitedEdition": "Beperkte Oplage",
+    "limitedEdition": "Beperkte oplage",
     "winterColors": "Winterkleuren",
-    "annoyingFriends": "Irritante Vrienden",
-    "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door partijleden.",
-    "valentineCard": "Valentijnsdag Kaart",
-    "adoringFriends": "Adorerende Vrienden",
-    "adoringFriendsText": "Aww, jij en je vriend moeten wel heel erg veel om elkaar geven! Verzond of kreeg <%= cards %> Valentijnsdag kaarten.",
-    "limited30Apr": "Te koop tot 30 April (maar permanent in je Opties zodra gekocht).",
+    "annoyingFriends": "Irritante vrienden",
+    "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
+    "valentineCard": "Valentijnskaart",
+    "adoringFriends": "Liefhebbende vrienden",
+    "adoringFriendsText": "Aww, jij en je vriend moeten wel heel erg veel om elkaar geven! Verzond of kreeg <%= cards %> Valentijnskaarten.",
+    "limited30Apr": "Te koop tot 30 April (maar permanent in je opties zodra gekocht).",
     "polarBear": "IJsbeer",
     "turkey": "Kalkoen",
-    "polarBearPup": "IJsbeer Welp"
+    "polarBearPup": "IJsbeerwelp"
 }

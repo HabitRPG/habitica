@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "מטה סוכרייה על מקל",
     "weaponSpecialCandycaneNotes": "ציוד חורף ממדורה מוגבלת של 2013! מטה מכשף רב עצמה. כלומר, בעל טעם רב עצמה! נשק דו ידני. מגביר את התבונה ב<%= int %> נקודות ואת התפיסה ב<%= per %> נקודות.",
     "weaponSpecialSnowflakeText": "שרביט פתית",
-    "weaponSpecialSnowflakeNotes": "ציוד חורף ממדורה מוגבלת של 2013! שרביט זה מנצנץ עם רוח ריפוי בלתי נלאה! או פשוט שלג שמסרב להינמס. מגביר את התבונה ב<%= int %> נקודות.",
+    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
     "weaponSpecialSpringRogueText": "טפרי קרס",
     "weaponSpecialSpringRogueNotes": "שימושיים בטיפוס על בניינים. וגם בקריעת שטיחים. מוסיף <%= str %> לכוח שלך. ציוד ממהדורה מוגבלת של אביב 2014.",
     "weaponSpecialSpringWarriorText": "חרב גזר",
@@ -195,6 +195,8 @@
     "armorMystery201407Notes": "ניתן לתאר אותה כ\"שפריצית\", \"עבה מדי\", ו\"בכנות, די מסורבלת\", אך החליפה הזו היא החברה הטובה ביותר של כל חוקר/ת ארצות תת-ימיות. לבוש תורמים של יולי 2014. לא מקנה תוסף לתכונות.",
     "armorMystery201408Text": "חלוקי שמש",
     "armorMystery201408Notes": "חלוקים אלה נרקמו מקרני שמש וזהב. אוגוסט 2014 חפץ מנויים. לא מעניק בונוס.",
+    "armorMystery201409Text": "Strider Vest",
+    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
     "headBase0Text": "ללא קסדה",
     "headBase0Notes": "בלי שום כיסוי ראש בכלל.",
     "headWarrior1Text": "קסדת עור",
@@ -380,5 +382,7 @@
     "headAccessoryMystery201403Text": "קרני מהלך היער",
     "headAccessoryMystery201403Notes": "הקרניים האלו מכוסות בטחב וחזזיות.",
     "headAccessoryMystery201404Text": "אנטנות פרפר הדמדומים",
-    "headAccessoryMystery201404Notes": "האנטנות מסייעות ללובש לחוש בהסחות דעת מסוכנות!"
+    "headAccessoryMystery201404Notes": "האנטנות מסייעות ללובש לחוש בהסחות דעת מסוכנות!",
+    "headAccessoryMystery201409Text": "Autumn Antlers",
+    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
 }

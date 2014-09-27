@@ -48,7 +48,7 @@
     "showTags": "Afficher",
     "streakName": "Combo réussis",
     "streakText": "A réussi <%= streaks %> combo(s) de 21 jours dans ses tâches quotidiennes",
-    "streakSingular": "Enchaîneur",
+    "streakSingular": "Combo",
     "streakSingularText": "A réussi un combo de 21 jours pour une tâche journalière.",
     "perfectName": "Jours Parfaits",
     "perfectText": "A terminé toutes les Quotidiennes sur <%= perfects %> jours. Avec ce succès, vous gagnez un bonus de +niveau/2 points pour tous les attributs le jour suivant.",
