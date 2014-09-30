@@ -34,6 +34,7 @@ var UserSchema = new Schema({
     helpedHabit: Boolean,
     ultimateGear: Boolean,
     beastMaster: Boolean,
+    beastMasterCount: Number,
     veteran: Boolean,
     snowball: Number,
     streak: Number,
@@ -401,7 +402,9 @@ UserSchema.pre('save', function(next) {
     if(_.isFunction(v)) return m;
     return m+(v?1:0)},0), this.items.pets);
 
-  this.achievements.beastMaster = petCount >= 90;
+  if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
+    this.achievements.beastMaster = true
+  }
 
   //our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
