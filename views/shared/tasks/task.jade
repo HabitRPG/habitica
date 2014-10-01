@@ -1,4 +1,4 @@
-li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}')
+li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", data-popover-placement="top")
   // right-hand side control buttons
   .task-meta-controls
 
@@ -147,7 +147,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
 
           label.option-title=env.t('extraNotes')
-          textarea.option-content(rows='3', ng-model='task.notes')
+          textarea.option-content(rows='3', ng-model='task.notes', ng-model-options="{debounce: 1000}")
 
         // if Habit, plus/minus command options
         fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
