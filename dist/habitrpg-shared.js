@@ -12738,7 +12738,6 @@ api.userDefaults = {
 };
 
 
-
 },{"./i18n.coffee":6,"lodash":3,"moment":4}],6:[function(require,module,exports){
 var _;
 
@@ -12781,7 +12780,6 @@ module.exports = {
     }
   }
 };
-
 
 
 },{"lodash":3}],7:[function(require,module,exports){
@@ -14137,7 +14135,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, 'items.special') : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
+        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -14164,29 +14162,53 @@ api.wrap = function(user, main) {
         }
         delta = 0;
         calculateDelta = function() {
-          return _.times(options.times, function() {
-            var currVal, nextDelta, _ref1, _ref2;
-            currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
-            nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-            if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-              if (direction === 'down' && task.type === 'daily' && options.cron) {
-                nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
-                  return m + (i.completed ? 1 : 0);
-                }), 0) / task.checklist.length;
-              }
-              if (task.type === 'todo') {
-                nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
-                  return m + (i.completed ? 1 : 0);
-                }), 0);
-              }
+          var currVal, nextDelta, _ref1;
+          currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+          nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+          if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+            if (direction === 'down' && task.type === 'daily' && options.cron) {
+              nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0) / task.checklist.length;
             }
+            if (task.type === 'todo') {
+              nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0);
+            }
+          }
+          return nextDelta;
+        };
+        calculateReverseDelta = function() {
+          var calc, closeEnough, currVal, diff, testVal;
+          currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+          testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+          closeEnough = 0.0001;
+          while (true) {
+            calc = testVal + Math.pow(0.9747, testVal);
+            diff = currVal - calc;
+            if (Math.abs(diff) < closeEnough) {
+              break;
+            }
+            if (diff > 0) {
+              testVal -= diff;
+            } else {
+              testVal += diff;
+            }
+          }
+          return testVal - currVal;
+        };
+        changeTaskValue = function(reverse) {
+          return _.times(options.times, function() {
+            var nextDelta, _ref1;
+            nextDelta = reverse ? calculateReverseDelta() : calculateDelta();
             if (task.type !== 'reward') {
               if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                 user.stats.training[task.attribute] += nextDelta;
               }
               if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
                   user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
                 }
               }
@@ -14218,7 +14240,7 @@ api.wrap = function(user, main) {
         };
         switch (task.type) {
           case 'habit':
-            calculateDelta();
+            changeTaskValue();
             if (delta > 0) {
               addPoints();
             } else {
@@ -14241,13 +14263,16 @@ api.wrap = function(user, main) {
             break;
           case 'daily':
             if (options.cron) {
-              calculateDelta();
+              changeTaskValue();
               subtractPoints();
               if (!user.stats.buffs.streaks) {
                 task.streak = 0;
               }
             } else {
-              calculateDelta();
+              changeTaskValue(delta < 0);
+              if (delta < 0) {
+                delta = calculateDelta();
+              }
               addPoints();
               if (direction === 'up') {
                 task.streak = task.streak ? task.streak + 1 : 1;
@@ -14264,10 +14289,13 @@ api.wrap = function(user, main) {
             break;
           case 'todo':
             if (options.cron) {
-              calculateDelta();
+              changeTaskValue();
             } else {
               task.dateCompleted = direction === 'up' ? new Date : void 0;
-              calculateDelta();
+              changeTaskValue(delta < 0);
+              if (delta < 0) {
+                delta = calculateDelta();
+              }
               addPoints();
               multiplier = _.max([
                 _.reduce(task.checklist, (function(m, i) {
@@ -14289,7 +14317,7 @@ api.wrap = function(user, main) {
             }
             break;
           case 'reward':
-            calculateDelta();
+            changeTaskValue();
             stats.gp -= Math.abs(task.value);
             num = parseFloat(task.value).toFixed(2);
             if (stats.gp < 0) {
@@ -14843,6 +14871,5 @@ api.wrap = function(user, main) {
 };
 
 
-
-}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/brando37/Documents/Projects/habitrpg/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/brando37/Documents/Projects/habitrpg/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

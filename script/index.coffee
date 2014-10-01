@@ -845,28 +845,60 @@ api.wrap = (user, main=true) ->
         delta = 0
 
         calculateDelta = ->
+          # Calculates the next task.value based on direction
+          # Uses a capped inverse log y=.95^x, y>= -5
+
+          # Min/max on task redness
+          currVal =
+            if task.value < -47.27 then -47.27
+            else if task.value > 21.27 then 21.27
+            else task.value
+          nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
+
+          # Checklists
+          if task.checklist?.length > 0
+            # If the Daily, only dock them them a portion based on their checklist completion
+            if direction is 'down' and task.type is 'daily' and options.cron
+              nextDelta *= (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
+            # If To-Do, point-match the TD per checklist item completed
+            if task.type is 'todo'
+              nextDelta *= (1 + _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0))
+          nextDelta
+
+        calculateReverseDelta = ->
+          # Approximates the reverse delta for the task value
+          # This is meant to return the task value to its original value when unchecking a task.
+          # First, calculate the the value using the normal way for our first guess although
+          # it will be a bit off
+          currVal =
+            if task.value < -47.27 then -47.27
+            else if task.value > 21.27 then 21.27
+            else task.value
+          testVal = currVal + Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
+
+          # Now keep moving closer to the original value until we get "close enough"
+          closeEnough = 0.0001
+          while true
+            # Check how close we are to the original value by computing the delta off our guess
+            # and looking at the difference between that and our current value.
+            calc = (testVal) + Math.pow(0.9747, testVal)
+            diff = currVal-calc
+            if Math.abs(diff) < closeEnough
+              break
+            if diff > 0
+              testVal -= diff
+            else
+              testVal += diff
+          # When we get close enough, return the difference between our approximated value
+          # and the current value.  This will be the delta calculated from the original value
+          # before the task was checked.
+          testVal - currVal
+
+        changeTaskValue = (reverse) ->
           # If multiple days have passed, multiply times days missed
           _.times options.times, ->
             # Each iteration calculate the nextDelta, which is then accumulated in the total delta.
-            # Calculates the next task.value based on direction
-            # Uses a capped inverse log y=.95^x, y>= -5
-
-            # Min/max on task redness
-            currVal =
-              if task.value < -47.27 then -47.27
-              else if task.value > 21.27 then 21.27
-              else task.value
-            nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
-
-            # Checklists
-            if task.checklist?.length > 0
-              # If the Daily, only dock them them a portion based on their checklist completion
-              if direction is 'down' and task.type is 'daily' and options.cron
-                nextDelta *= (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
-              # If To-Do, point-match the TD per checklist item completed
-              if task.type is 'todo'
-                nextDelta *= (1 + _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0))
-
+            nextDelta = if reverse then calculateReverseDelta() else calculateDelta()
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
               # ===== STRENGTH =====
@@ -915,7 +947,7 @@ api.wrap = (user, main=true) ->
 
         switch task.type
           when 'habit'
-            calculateDelta()
+            changeTaskValue()
             # Add habit value to habit-history (if different)
             if (delta > 0) then addPoints() else subtractPoints()
 
@@ -929,11 +961,13 @@ api.wrap = (user, main=true) ->
 
           when 'daily'
             if options.cron
-              calculateDelta()
+              changeTaskValue()
               subtractPoints()
               task.streak = 0 unless user.stats.buffs.streaks
             else
-              calculateDelta()
+              changeTaskValue(delta < 0)
+              if delta < 0
+                delta = calculateDelta()
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               if direction is 'up'
                 task.streak = if task.streak then task.streak + 1 else 1
@@ -948,11 +982,13 @@ api.wrap = (user, main=true) ->
 
           when 'todo'
             if options.cron
-              calculateDelta()
+              changeTaskValue()
               #don't touch stats on cron
             else
               task.dateCompleted = if direction is 'up' then new Date else undefined
-              calculateDelta()
+              changeTaskValue(delta < 0)
+              if delta < 0
+                delta = calculateDelta()
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
@@ -965,7 +1001,7 @@ api.wrap = (user, main=true) ->
 
           when 'reward'
           # Don't adjust values for rewards
-            calculateDelta()
+            changeTaskValue()
             # purchase item
             stats.gp -= Math.abs(task.value)
             num = parseFloat(task.value).toFixed(2)
