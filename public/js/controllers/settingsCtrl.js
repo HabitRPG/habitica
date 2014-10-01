@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location', '$timeout', 'Notification',
-  function($scope, User, $rootScope, $http, API_URL, Guide, $location, $timeout, Notification) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrlService', 'Guide', '$location', '$timeout', 'Notification',
+  function($scope, User, $rootScope, $http, ApiUrlService, Guide, $location, $timeout, Notification) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -79,7 +79,7 @@ habitrpg.controller('SettingsCtrl',
       if (!changeUser.newUsername || !changeUser.password) {
         return alert(window.env.t('fillAll'));
       }
-      $http.post(API_URL + '/api/v2/user/change-username', changeUser)
+      $http.post(ApiUrlService.get() + '/api/v2/user/change-username', changeUser)
         .success(function(){
           alert(window.env.t('usernameSuccess'));
           $scope.changeUser = {};
@@ -93,7 +93,7 @@ habitrpg.controller('SettingsCtrl',
       if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
         return alert(window.env.t('fillAll'));
       }
-      $http.post(API_URL + '/api/v2/user/change-password', changePass)
+      $http.post(ApiUrlService.get() + '/api/v2/user/change-password', changePass)
         .success(function(data, status, headers, config){
           if (data.err) return alert(data.err);
           alert(window.env.t('passSuccess'));
@@ -130,7 +130,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope['delete'] = function(){
-      $http['delete'](API_URL + '/api/v2/user')
+      $http['delete'](ApiUrlService.get() + '/api/v2/user')
         .success(function(res, code){
           if (res.err) return alert(res.err);
           localStorage.clear();
@@ -139,14 +139,14 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.enterCoupon = function(code) {
-      $http.post(API_URL + '/api/v2/user/coupon/' + code).success(function(res,code){
+      $http.post(ApiUrlService.get() + '/api/v2/user/coupon/' + code).success(function(res,code){
         if (code!==200) return;
         User.sync();
         Notification.text('Coupon applied! Check your inventory');
       });
     }
     $scope.generateCodes = function(codes){
-      $http.post(API_URL + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
+      $http.post(ApiUrlService.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
         .success(function(res,code){
           $scope._codes = {};
           if (code!==200) return;

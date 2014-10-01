@@ -9,8 +9,8 @@ var facebook = {}
 
 angular.module('authServices', ['userServices']).
 factory('Facebook',
-    ['$http', '$location', 'User', 'API_URL',
-    function($http, $location, User, API_URL) {
+    ['$http', '$location', 'User', 'ApiUrlService',
+    function($http, $location, User, ApiUrlService) {
       //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
       var auth, user = User.user;
 
@@ -29,7 +29,7 @@ factory('Facebook',
                           email: response.email
                       }
 
-                      $http.post(API_URL + '/api/v2/user/auth/facebook', data).success(function(data, status, headers, config) {
+                      $http.post(ApiUrlService.get() + '/api/v2/user/auth/facebook', data).success(function(data, status, headers, config) {
                           User.authenticate(data.id, data.token, function(err) {
                               if (!err) {
                                   alert(window.env.t('loginSuccess'));

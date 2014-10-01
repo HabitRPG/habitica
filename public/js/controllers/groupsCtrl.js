@@ -1,25 +1,24 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
-  function($scope, $rootScope, Shared, Groups, $http, API_URL, $q, User, Members, $state) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state',
+  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state) {
+    $scope.isMemberOfPendingQuest = function(userid, group) {
+      if (!group.quest || !group.quest.members) return false;
+      if (group.quest.active) return false; // quest is started, not pending
+      return userid in group.quest.members && group.quest.members[userid] != false;
+    }
 
-      $scope.isMemberOfPendingQuest = function(userid, group){
-		if (!group.quest || !group.quest.members) return false;
-		if (group.quest.active) return false; // quest is started, not pending
-		return userid in group.quest.members && group.quest.members[userid] != false;
-	  }
+    $scope.isMemberOfRunningQuest = function(userid, group) {
+      if (!group.quest || !group.quest.members) return false;
+      if (!group.quest.active) return false; // quest is pending, not started
+      return group.quest.members[userid];
+    }
 
-      $scope.isMemberOfRunningQuest = function(userid, group){
-		if (!group.quest || !group.quest.members) return false;
-		if (!group.quest.active) return false; // quest is pending, not started
-		return group.quest.members[userid];
-	  }
-
-      $scope.isMemberOfGroup = function(userid, group){
-		if (!group.members) return false;
-		var memberIds = _.map(group.members, function(x){return x._id});
-        return ~(memberIds.indexOf(userid));
-      }
+    $scope.isMemberOfGroup = function(userid, group){
+      if (!group.members) return false;
+      var memberIds = _.map(group.members, function(x){return x._id});
+      return ~(memberIds.indexOf(userid));
+    }
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -145,7 +144,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     });
   }])
   
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'API_URL', 'Notification', function($scope, Groups, User, $http, API_URL, Notification){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', function($scope, Groups, User, $http, ApiUrlService, Notification){
     $scope.message = {content:''};
     $scope._sending = false;
     
@@ -207,7 +206,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
       //Chat.Chat.like({gid:group._id,mid:message.id});
 
-      $http.post(API_URL + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
+      $http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
     }
 
     $scope.sync = function(group){
