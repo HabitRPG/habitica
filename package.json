@@ -42,7 +42,7 @@
     "optimist": "~0.5.2",
     "passport": "~0.2.1",
     "passport-facebook": "~1.0.2",
-    "paypal-express-checkout": "~1.0.1",
+    "paypal-express-checkout": "git://github.com/HabitRPG/node-paypal-express-checkout#habitrpg",
     "paypal-ipn": "~1.0.1",
     "paypal-recurring": "git://github.com/jaybryant/paypal-recurring#656b496f43440893c984700191666a5c5c535dca",
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
