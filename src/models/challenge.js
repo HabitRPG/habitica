@@ -69,7 +69,7 @@ ChallengeSchema.methods.isOutdated = function(newData) {
  * @return nothing, user is modified directly. REMEMBER to save the user!
  */
 ChallengeSchema.methods.syncToUser = function(user, cb) {
-  if (!user) return cb();
+  if (!user) return;
   var self = this;
   self.shortName = self.shortName || self.name;
 
