@@ -1384,6 +1384,10 @@ api.wrap = (user, main=true) ->
 
       user.achievements.ultimateGear = shouldGrant
 
+    nullify: ->
+      user.ops = null
+      user.fns = null
+      user = null
 
   # ----------------------------------------------------------------------
   # Virtual Attributes
