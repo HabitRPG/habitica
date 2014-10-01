@@ -444,13 +444,16 @@ api.batchUpdate = function(req, res, next) {
   });
 
   // call all the operations, then return the user object to the requester
-  async.waterfall(ops, function(err,user) {
+  async.waterfall(ops, function(err,_user) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return next(err);
 
-    var response = user.toJSON();
+    var response = _user.toJSON();
     response.wasModified = res.locals.wasModified;
+
+    user.fns.nullify();
+    user = res.locals.user = oldSend = oldJson = oldSave = null;
 
     // return only drops & streaks
     if (response._tmp && response._tmp.drop){
