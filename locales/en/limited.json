@@ -1,5 +1,6 @@
 {
     "limitedEdition": "Limited Edition",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Winter Colors",
     "annoyingFriends": "Annoying Friends",
     "annoyingFriendsText": "Got snowballed <%= snowballs %> times by party members.",
