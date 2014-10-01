@@ -14,7 +14,7 @@ mixin customizeProfile(mobile)
         .label.label-info.pull-right.hint(popover=limited, popover-title=env.t(status+'Edition'), popover-placement='right', popover-trigger='mouseenter')=env.t(status+'Edition')
       menu(label=env.t(title))
         +gemCost(2)
-          button.btn.btn-xs(ng-hide='#{status=="disabled"} || user.purchased.#{path}.#{colors.join(" && user.purchased."+path+".")}')!= env.t('unlockSet',{cost:5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-xs(ng-hide='#{status=="disabled"} || user.purchased.#{path}.#{colors.join(" && user.purchased."+path+".")}', ng-click='unlock("#{path}.#{colors.join(","+path+".")}")')!= env.t('unlockSet',{cost:5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
         each color in colors
           button.customize-option(type='button', class='#{path=="skin" ? "skin_"+color : "customize-option hair hair_bangs_1_"+color}', ng-class='{locked: !user.purchased.#{path}.#{color}}', ng-if='#{status!="disabled"} || user.purchased.#{path}.#{color}', ng-click='unlock("#{path}.#{color}")')
 
