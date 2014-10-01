@@ -37,7 +37,7 @@ var HabitSchema = new Schema(
     up: {type: Boolean, 'default': true},
     down: {type: Boolean, 'default': true}
   }, TaskSchema)
-  , { _id: false, minimize:false }
+  , { _id: false }
 );
 
 var collapseChecklist = {type:Boolean, 'default':false};
@@ -66,7 +66,7 @@ var DailySchema = new Schema(
     checklist:checklist,
     streak: {type: Number, 'default': 0}
   }, TaskSchema)
-  , { _id: false, minimize:false }
+  , { _id: false }
 )
 
 var TodoSchema = new Schema(
@@ -78,14 +78,14 @@ var TodoSchema = new Schema(
     collapseChecklist:collapseChecklist,
     checklist:checklist
   }, TaskSchema)
-  , { _id: false, minimize:false }
+  , { _id: false }
 );
 
 var RewardSchema = new Schema(
   _.defaults({
     type: {type:String, 'default': 'reward'}
   }, TaskSchema)
-  , { _id: false, minimize:false }
+  , { _id: false }
 );
 
 /**
