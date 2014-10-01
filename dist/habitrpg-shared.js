@@ -12738,6 +12738,7 @@ api.userDefaults = {
 };
 
 
+
 },{"./i18n.coffee":6,"lodash":3,"moment":4}],6:[function(require,module,exports){
 var _;
 
@@ -12780,6 +12781,7 @@ module.exports = {
     }
   }
 };
+
 
 
 },{"lodash":3}],7:[function(require,module,exports){
@@ -13834,6 +13836,48 @@ api.wrap = function(user, main) {
         }
         return ga != null ? ga.event('purchase', key).send() : void 0;
       },
+      release: function(req, cb) {
+        var pet;
+        if (user.balance < 1) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        } else {
+          user.balance--;
+          for (pet in content.pets) {
+            user.items.pets[pet] = 0;
+          }
+          if (!user.achievements.beastMasterCount) {
+            user.achievements.beastMasterCount = 0;
+          }
+          user.achievements.beastMasterCount++;
+          user.items.currentPet = "";
+        }
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      release2: function(req, cb) {
+        var pet;
+        if (user.balance < 2) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        } else {
+          user.balance -= 2;
+          user.items.currentMount = "";
+          user.items.currentPet = "";
+          for (pet in content.pets) {
+            user.items.mounts[pet] = false;
+            user.items.pets[pet] = 0;
+          }
+          if (!user.achievements.beastMasterCount) {
+            user.achievements.beastMasterCount = 0;
+          }
+          user.achievements.beastMasterCount++;
+        }
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
       buy: function(req, cb) {
         var item, key, message;
         key = req.params.key;
@@ -14797,6 +14841,7 @@ api.wrap = function(user, main) {
     }
   });
 };
+
 
 
 }).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
