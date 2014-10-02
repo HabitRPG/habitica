@@ -100,7 +100,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
                   button.customize-option(popover='{{::egg.notes()}}', popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{::egg.key}}')
                   p
-                    |  {{::egg.value}}
+                    span.cost-integer
+                      |  {{::egg.value}}
                     span.Pet_Currency_Gem1x.inline-gems
                 //- buyable quest eggs
                 each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster'}
@@ -115,7 +116,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 div(ng-repeat='pot in Content.hatchingPotions')
                   button.customize-option(popover='{{::pot.notes()}}', popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{::pot.key}}')
                   p
-                    |  {{::pot.value}}
+                    span.cost-integer
+                      |  {{::pot.value}}
                     span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
@@ -123,7 +125,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 div(ng-repeat='food in Content.food', ng-if='food.canBuy')
                   button.customize-option(popover='{{::food.notes()}}', popover-title='{{::food.text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{::food.key}}')
                   p
-                    |  {{::food.value}}
+                    span.cost-integer
+                      |  {{::food.value}}
                     span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
@@ -132,7 +135,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 div(ng-repeat='quest in Content.quests', ng-if='quest.canBuy')
                   button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                   p
-                    |  {{::quest.value}}
+                    span.cost-integer
+                      |  {{::quest.value}}
                     span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
@@ -140,17 +144,20 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 div
                   button.customize-option(popover=env.t('fortifyPop'), popover-title=env.t('fortifyName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("reroll")', class='inventory_special_fortify')
                   p
-                    | 4
+                    span.cost-integer
+                      | 4
                     span.Pet_Currency_Gem1x.inline-gems
                 //-div
                   button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
                   p
-                    |  {{::Content.spells.special.snowball.value}}
+                    span.cost-integer
+                      |  {{::Content.spells.special.snowball.value}}
                     span.Pet_Currency_Gem1x.inline-gems
                 div(ng-show='user.flags.rebirthEnabled')
                   button.customize-option(popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("rebirth")', class='rebirth_orb')
                   p(ng-show='user.stats.lvl < 100')
-                    | 8
+                    span.cost-integer
+                      | 8
                     span.Pet_Currency_Gem1x.inline-gems
                 div(ng-show='petCount >= 90')
                   button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("pet-key")', class='pet_key')
@@ -161,5 +168,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
                     span.Pet_Currency_Gem.inline-gems
                   p
-                    | 20
+                    span.cost-integer
+                      | 20
                     span.shop_gold
