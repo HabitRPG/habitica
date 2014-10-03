@@ -58,11 +58,14 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 button.customize-option(popover='{{::Content.food[food].notes()}}', popover-title='{{::Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                   .badge.badge-info.stack-count {{points}}
 
-          li.customize-menu(ng-if='user.items.special.snowball')
-            menu.pets-menu(label=env.t('special'))
-              div
-                button.customize-option(popover='{{::Content.special.snowball.notes()}}', popover-title='{{::Content.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
-                  .badge.badge-info.stack-count {{user.items.special.snowball}}
+          mixin specialItem(k)
+            li.customize-menu(ng-if='user.items.special.#{k}')
+              menu.pets-menu(label=env.t('special'))
+                div
+                  button.customize-option(popover='{{::Content.special.#{k}.notes()}}', popover-title='{{::Content.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.#{k})', class='inventory_special_#{k}')
+                    .badge.badge-info.stack-count {{user.items.special.#{k}}}
+          +specialItem('snowball')
+          +specialItem('spookDust')
 
           li.customize-menu(ng-if='user.items.special.valentineReceived[0]')
             menu.pets-menu(label=env.t('valentineCard'))
@@ -142,11 +145,15 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     | 4
                     span.Pet_Currency_Gem1x.inline-gems
-                //-div
-                  button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
-                  p
-                    |  {{::Content.spells.special.snowball.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
+                mixin buySpecialSpell(k,gp)
+                  div
+                    button.customize-option(popover='{{::Content.spells.special.#{k}.notes()}}', popover-title='{{::Content.spells.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.#{k})', class='inventory_special_#{k}')
+                    p
+                      |  {{::Content.spells.special.#{k}.value}}
+                      span(class='#{gp ? "shop_gold" : "Pet_Currency_Gem1x inline-gems"}')
+                //-+buySpecialSpell('snowball',false)
+                +buySpecialSpell('spookDust',true)
+
                 div(ng-show='user.flags.rebirthEnabled')
                   button.customize-option(popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("rebirth")', class='rebirth_orb')
                   p(ng-show='user.stats.lvl < 100')

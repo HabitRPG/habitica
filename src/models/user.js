@@ -37,6 +37,7 @@ var UserSchema = new Schema({
     beastMasterCount: Number,
     veteran: Boolean,
     snowball: Number,
+    spookDust: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -155,6 +156,7 @@ var UserSchema = new Schema({
 
     special:{
       snowball: {type: Number, 'default': 0},
+      spookDust: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array // array of strings, by sender name
     },
@@ -296,7 +298,8 @@ var UserSchema = new Schema({
       con: {type: Number, 'default': 0},
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
-      snowball: {type: Boolean, 'default': false}
+      snowBall: {type: Boolean, 'default': false},
+      spookDust: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},

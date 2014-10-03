@@ -13,7 +13,9 @@ mixin avatar(opts)
 
     span(ng-if='profile.stats.buffs.snowball')
       span.snowman
-    span(ng-if='!profile.stats.buffs.snowball')
+    span(ng-if='profile.stats.buffs.spookDust')
+      span.spookman
+    span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust')
       // Back Accessory
       span(class='{{profile.items.gear.equipped.back}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.back}}', ng-if='profile.preferences.costume')
