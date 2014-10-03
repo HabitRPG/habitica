@@ -12641,9 +12641,9 @@ api.backgrounds = {
       text: t('backgroundHauntedHouseText'),
       notes: t('backgroundHauntedHouseNotes')
     },
-    spooky_forest: {
-      text: t('backgroundSpookyForestText'),
-      notes: t('backgroundSpookyForestNotes')
+    pumpkin_patch: {
+      text: t('backgroundPumpkinPatchText'),
+      notes: t('backgroundPumpkinPatchNotes')
     }
   }
 };

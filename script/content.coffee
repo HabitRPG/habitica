@@ -1174,9 +1174,9 @@ api.backgrounds =
     haunted_house:
       text:  t('backgroundHauntedHouseText')
       notes: t('backgroundHauntedHouseNotes')
-    spooky_forest:
-      text:  t('backgroundSpookyForestText')
-      notes: t('backgroundSpookyForestNotes')
+    pumpkin_patch:
+      text:  t('backgroundPumpkinPatchText')
+      notes: t('backgroundPumpkinPatchNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =

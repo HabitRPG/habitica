@@ -220,16 +220,16 @@
   width: 141px;
   height: 147px;
 }
-.background_seafarer_ship {
+.background_pumpkin_patch {
   background-image: url(spritesmith0.png);
   background-position: -565px -148px;
   width: 140px;
   height: 147px;
 }
-.background_spooky_forest {
+.background_seafarer_ship {
   background-image: url(spritesmith0.png);
   background-position: -565px -296px;
-  width: 141px;
+  width: 140px;
   height: 147px;
 }
 .background_thunderstorm {
