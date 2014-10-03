@@ -1145,6 +1145,16 @@ api.backgrounds =
     harvest_fields:
       text:  t('backgroundHarvestFieldsText')
       notes: t('backgroundHarvestFieldsNotes')
+  backgrounds102014:
+    graveyard:
+      text:  t('backgroundGraveyardText')
+      notes: t('backgroundGraveyardNotes')
+    haunted_house:
+      text:  t('backgroundHauntedHouseText')
+      notes: t('backgroundHauntedHouseNotes')
+    spooky_forest:
+      text:  t('backgroundSpookyForestText')
+      notes: t('backgroundSpookyForestNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
