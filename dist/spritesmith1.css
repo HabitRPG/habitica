@@ -3310,3 +3310,15 @@
   width: 60px;
   height: 60px;
 }
+.skin_pumpkin {
+  background-image: url(spritesmith1.png);
+  background-position: -364px -1456px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.skin_pumpkin {
+  background-image: url(spritesmith1.png);
+  background-position: -389px -1471px;
+  width: 60px;
+  height: 60px;
+}

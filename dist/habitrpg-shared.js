@@ -11479,6 +11479,33 @@ api.spells = {
         user.stats.buffs.snowball = false;
         return user.stats.gp -= 5;
       }
+    },
+    spookDust: {
+      text: t('spellSpecialSpookDustText'),
+      mana: 0,
+      value: 15,
+      target: 'user',
+      notes: t('spellSpecialSpookDustNotes'),
+      cast: function(user, target) {
+        var _base;
+        target.stats.buffs.spookDust = true;
+        if ((_base = target.achievements).spookDust == null) {
+          _base.spookDust = 0;
+        }
+        target.achievements.spookDust++;
+        return user.items.special.spookDust--;
+      }
+    },
+    opaquePotion: {
+      text: t('spellSpecialOpaquePotionText'),
+      mana: 0,
+      value: 5,
+      target: 'self',
+      notes: t('spellSpecialOpaquePotionNotes'),
+      cast: function(user, target) {
+        user.stats.buffs.spookDust = false;
+        return user.stats.gp -= 5;
+      }
     }
   }
 };

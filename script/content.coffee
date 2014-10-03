@@ -608,6 +608,28 @@ api.spells =
         user.stats.buffs.snowball = false
         user.stats.gp -= 5
 
+    spookDust:
+      text: t('spellSpecialSpookDustText')
+      mana: 0
+      value: 15
+      target: 'user'
+      notes: t('spellSpecialSpookDustNotes')
+      cast: (user, target) ->
+        target.stats.buffs.spookDust = true
+        target.achievements.spookDust ?= 0
+        target.achievements.spookDust++
+        user.items.special.spookDust--
+
+    opaquePotion:
+      text: t('spellSpecialOpaquePotionText')
+      mana: 0
+      value: 5
+      target: 'self'
+      notes: t('spellSpecialOpaquePotionNotes')
+      cast: (user, target) ->
+        user.stats.buffs.spookDust = false
+        user.stats.gp -= 5
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->
