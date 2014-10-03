@@ -115,22 +115,7 @@ api.getMember = function(req, res, next) {
   var uid = req.params.uid;
 
   // We need to start using the aggregation framework instead of in-app filtering, see http://docs.mongodb.org/manual/aggregation/
-
-  // See http://stackoverflow.com/a/18546277/362790
-  // However, this doesn't work. If not all $match conditions are met (eg, if a challenge doesn't have any one of habit/daily/todo/reward
-  // then the $match fails and that user object is removed from the results. See http://stackoverflow.com/questions/23636175/filter-subdocument-array-while-still-returning-parent-data-if-empty
-//  User.aggregate()
-//  .match({_id: uid})
-//  .unwind('habits').match({'habits.challenge.id': cid})
-//  .unwind('dailys').match({'dailys.challenge.id': cid})
-//  .unwind('todos').match({'todos.challenge.id': cid})
-//  .unwind('rewards').match({'rewards.challenge.id': cid})
-//  .group({_id:'$_id', 'profile.name':'$profile.name', habits:{$push: '$habits'}, dailys:{$push:'$dailys'}, todos:{$push:'$todos'}, rewards:{$push:'$rewards'}})
-//  .exec(function(err, member){
-//    if (err) return next(err);
-//    if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
-//    res.json(member[0]);
-//  });
+  // See code at 32c0e75 for unwind/group example
 
   //http://stackoverflow.com/questions/24027213/how-to-match-multiple-array-elements-without-using-unwind
   var proj = {'profile.name':'$profile.name'};

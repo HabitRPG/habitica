@@ -8,6 +8,7 @@ async = require("async")
 diff = require("deep-diff")
 superagentDefaults = require("superagent-defaults")
 request = superagentDefaults()
+moment = require("moment")
 conf = require("nconf")
 conf.argv().env().file(file: __dirname + "../config.json").defaults()
 conf.set "port", "1337"

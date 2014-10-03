@@ -41,7 +41,7 @@ ChallengeSchema.methods.toJSON = function(){
 function syncableAttrs(task) {
   var t = (task.toObject) ? task.toObject() : task; // lodash doesn't seem to like _.omit on EmbeddedDocument
   // only sync/compare important attrs
-  var omitAttrs = 'history tags completed streak notes'.split(' ');
+  var omitAttrs = 'challenge history tags completed streak notes'.split(' ');
   if (t.type != 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
