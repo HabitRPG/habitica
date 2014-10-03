@@ -48,7 +48,7 @@
     "universal-analytics": "~0.3.2",
     "validator": "~3.19.0",
     "winston": "~0.8.0",
-    "winston-mail": "~0.2.7",
+    "winston-mail": "~0.2.9",
     "winston-newrelic": "~0.1.4"
   },
   "private": true,
