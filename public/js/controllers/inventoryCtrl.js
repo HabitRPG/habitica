@@ -87,11 +87,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.purchase = function(type, item){
-      if (item.key=='spookDust') {
-        // FIXME stupid method of special-handling spookDust, since it can be purchased with gold and the system only accomodates gem-purchasable holiday spells
-        if (user.stats.gp < item.value) return alert(window.env.t('messageNotEnoughGold'));
-        return User.set({'stats.gp':user.stats.gp-item.value, 'items.special.spookDust':(user.items.special.spookDust || 0)+1});
-      }
+      if (item.key=='spookDust') return User.user.ops.buySpookDust({});
 
       var gems = User.user.balance * 4;
 
