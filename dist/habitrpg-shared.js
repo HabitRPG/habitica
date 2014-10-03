@@ -13845,6 +13845,25 @@ api.wrap = function(user, main) {
           message: message
         }, userPets[pet]) : void 0;
       },
+      buySpookDust: function(req, cb) {
+        var item, _base;
+        item = content.special.spookDust;
+        if (user.stats.gp < item.value) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageNotEnoughGold', req.language)
+          }) : void 0;
+        }
+        user.stats.gp -= item.value;
+        if ((_base = user.items.special).spookDust == null) {
+          _base.spookDust = 0;
+        }
+        user.items.special.spookDust++;
+        if (typeof user.markModified === "function") {
+          user.markModified('items.special');
+        }
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
+      },
       purchase: function(req, cb, ga) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
