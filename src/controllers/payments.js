@@ -11,6 +11,7 @@ var ga = require('./../utils').ga;
 var logging = require('./../logging');
 var userAPI = require('./user');
 var request = require('request');
+var moment = require('moment');
 var api = module.exports;
 var isProduction = nconf.get("NODE_ENV") === "production";
 
@@ -37,57 +38,65 @@ function revealMysteryItems(user) {
   });
 }
 
+function getMailingInfo(user) {
+  var email, name;
+  if(user.auth.local){
+    email = user.auth.local.email;
+    name = user.profile.name || user.auth.local.username;
+  }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
+    email = user.auth.facebook.emails[0].value;
+    name = user.auth.facebook.displayName || user.auth.facebook.username;
+  }
+  return {'email': email, 'name': name};
+}
+
+function emailUser(user, emailType) {
+  mailingInfo = getMailingInfo(user);
+  if(mailingInfo.email){
+    request({
+      url: nconf.get('EMAIL_SERVER_URL') + '/job',
+      method: 'POST',
+      auth: {
+        user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+        pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+      },
+      json: {
+        type: 'email',
+        data: {
+          emailType: emailType,
+          to: {
+            name: mailingInfo.name,
+            email: mailingInfo.email
+          }
+        },
+        options: {
+          attemps: 5
+        }
+      }
+    });
+  }
+}
+
 function createSubscription(user, data) {
   if (!user.purchased.plan) user.purchased.plan = {};
   _(user.purchased.plan)
     .merge({ // override with these values
       planId:'basic_earned',
       customerId: data.customerId,
-      dateUpdated: new Date,
+      dateUpdated: new Date(),
       gemsBought: 0,
       paymentMethod: data.paymentMethod,
       dateTerminated: null
     })
     .defaults({ // allow non-override if a plan was previously used
-      dateCreated: new Date,
+      dateCreated: new Date(),
       mysteryItems: []
     });
   revealMysteryItems(user);
   user.purchased.txnCount++;
-  ga.event('subscribe', data.paymentMethod).send()
+  ga.event('subscribe', data.paymentMethod).send();
   if(isProduction){
-    var email, name;
-    if(user.auth.local){
-      email = user.auth.local.email;
-      name = user.profile.name || user.auth.local.username;
-    }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
-      email = user.auth.facebook.emails[0].value;
-      name = user.auth.facebook.displayName || user.auth.facebook.username;
-    }
-
-    if(email){
-      request({
-        url: nconf.get('EMAIL_SERVER_URL') + '/job',
-        method: 'POST',
-        auth: {
-          user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-          pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-        },
-        json: {
-          type: 'email', 
-          data: {
-            emailType: 'subscription-begins',
-            to: {
-              name: name,
-              email: email
-            }
-          },
-          options: {
-            attemps: 5
-          }
-        }
-      });
-    }
+    emailUser(user, 'subscription-begins');
   }
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
 }
@@ -110,38 +119,7 @@ function buyGems(user, data) {
   ga.event('checkout', data.paymentMethod).send();
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
   if(isProduction){
-    var email, name;
-    if(user.auth.local){
-      email = user.auth.local.email;
-      name = user.profile.name || user.auth.local.username;
-    }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
-      email = user.auth.facebook.emails[0].value;
-      name = user.auth.facebook.displayName || user.auth.facebook.username;
-    }
-
-    if(email){
-      request({
-        url: nconf.get('EMAIL_SERVER_URL') + '/job',
-        method: 'POST',
-        auth: {
-          user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-          pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-        },
-        json: {
-          type: 'email', 
-          data: {
-            emailType: 'donation',
-            to: {
-              name: name,
-              email: email
-            }
-          },
-          options: {
-            attemps: 5
-          }
-        }
-      });
-    }
+    emailUser(user, 'donation');
   }
 }
 
@@ -209,7 +187,7 @@ api.stripeSubscribeCancel = function(req, res, next) {
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.redirect('/');
   });
-}
+};
 
 api.stripeSubscribeEdit = function(req, res, next) {
   var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
@@ -235,7 +213,7 @@ api.stripeSubscribeEdit = function(req, res, next) {
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200);
   });
-}
+};
 
 api.paypalSubscribe = function(req,res,next) {
   var uuid = res.locals.user._id;
@@ -251,7 +229,7 @@ api.paypalSubscribe = function(req,res,next) {
     if (err) return next(err);
     res.redirect(302, url);
   });
-}
+};
 
 api.paypalSubscribeSuccess = function(req,res,next) {
   // Create a subscription of 10 USD every month
@@ -272,7 +250,7 @@ api.paypalSubscribeSuccess = function(req,res,next) {
       })
     })
   });
-}
+};
 
 api.paypalSubscribeCancel = function(req, res, next) {
   var user = res.locals.user;
@@ -290,17 +268,16 @@ api.paypalSubscribeCancel = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/');
   });
-
-}
+};
 
 api.paypalCheckout = function(req, res, next) {
   var uuid = res.locals.user._id;
   var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + uuid};
-  paypalCheckout.pay(+new Date, 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
+  paypalCheckout.pay(+new Date(), 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
     if (err) return next(err);
     res.redirect(url);
   });
-}
+};
 
 api.paypalCheckoutSuccess = function(req,res,next) {
   paypalCheckout.detail(req.query.token, req.query.PayerID, function(err, data, invoiceNumber, price) {
@@ -320,7 +297,7 @@ api.paypalCheckoutSuccess = function(req,res,next) {
       });
     });
   });
-}
+};
 
 /**
  * General IPN handler. We could use this for all paypal transaction handling (instead of the above functions), but I've
@@ -345,4 +322,4 @@ api.paypalIPN = function(req, res, next) {
         break;
     }
   });
-}
+};
