@@ -298,7 +298,7 @@ var UserSchema = new Schema({
       con: {type: Number, 'default': 0},
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
-      snowBall: {type: Boolean, 'default': false},
+      snowball: {type: Boolean, 'default': false},
       spookDust: {type: Boolean, 'default': false}
     },
     training: {
