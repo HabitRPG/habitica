@@ -32,7 +32,7 @@
     "js2xmlparser": "~0.1.2",
     "lodash": "~2.2.1",
     "moment": "~2.4.0",
-    "mongoose": "git://github.com/LearnBoost/mongoose.git#0a597591e1ada0737e6969bdc29897e3b0451f77",
+    "mongoose": "~3.8.17",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "nconf": "*",
     "newrelic": "~1.11.2",
