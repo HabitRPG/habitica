@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Zuurstokstaf",
     "weaponSpecialCandycaneNotes": "Beperkte oplage winteruitrusting 2013! Een machtige magiërsstaf. Machtig LEKKER, bedoelen we! Twee-handig wapen. Verhoogt Intelligentie met <%= int %> en Perceptie met <%= per %>. ",
     "weaponSpecialSnowflakeText": "Sneeuwvloktoverstaf",
-    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Beperkte oplage winteruitrusting 2013! Deze staf schittert met onbeperkte genezingskracht. Verhoogt Intelligentie met <%= int%>.",
     "weaponSpecialSpringRogueText": "Gehaakte klauwen",
     "weaponSpecialSpringRogueNotes": "Ideaal voor het beklimmen van hoge gebouwen, en ook voor het versnipperen van tapijt. Voegt <%= str %> punten toe aan Kracht. Beperkte oplage lente-uitrusting 2014.",
     "weaponSpecialSpringWarriorText": "Wortelzwaard",
@@ -195,8 +195,8 @@
     "armorMystery201407Notes": "Hoewel afwisselend beschreven met \"klotsend\", \"te dik\" en \"eigenlijk behoorlijk onhandig\" is dit pak de beste vriend van iedere onversaagde oceaanverkenner. Abonnee-uitrusting juni 2014. Geeft geen voordelen. ",
     "armorMystery201408Text": "Zonnemantel",
     "armorMystery201408Notes": "Dit gewaad is geweven uit zonlicht en goud. Abonnee-uitrusting augustus 2014. Verleent geen voordelen. ",
-    "armorMystery201409Text": "Strider Vest",
-    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Stapper-vest",
+    "armorMystery201409Notes": "Een vest bedekt met bladeren, dat zijn drager camoufleert. Abonnee-uitrusting september 2014. Verleent geen voordelen.",
     "headBase0Text": "Geen helm",
     "headBase0Notes": "Geen hoofdbescherming.",
     "headWarrior1Text": "Leren helm",
@@ -383,6 +383,6 @@
     "headAccessoryMystery201403Notes": "Dit gewei glinstert van het mos en korstmos",
     "headAccessoryMystery201404Text": "Voelsprieten van de Schemervlinder",
     "headAccessoryMystery201404Notes": "Deze voelsprieten helpen de drager om gevaarlijke afleidingen op te merken!",
-    "headAccessoryMystery201409Text": "Autumn Antlers",
-    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
+    "headAccessoryMystery201409Text": "Herfstgewei",
+    "headAccessoryMystery201409Notes": "Dit krachtige gewei verkleurt gelijk met de bladeren. "
 }

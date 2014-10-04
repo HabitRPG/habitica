@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "Sněhová koule",
     "spellSpecialSnowballAuraNotes": "Hoď sněhovou koulí po členu družiny, co by se tak mohlo stát? Vydrží mu až do druhého dne.",
     "spellSpecialSaltText": "Sůl",
-    "spellSpecialSaltNotes": "Někdo po tobě hodil sněhovou kouli. Ha ha, strašně vtipné. A teď ze mě dostaňte ten sníh!"
+    "spellSpecialSaltNotes": "Někdo po tobě hodil sněhovou kouli. Ha ha, strašně vtipné. A teď ze mě dostaňte ten sníh!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

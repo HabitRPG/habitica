@@ -1,8 +1,8 @@
 {
     "defaultHabit1Text": "1 Timme Produktivt Arbete",
-    "defaultHabit1Notes": "When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.",
+    "defaultHabit1Notes": "När du skapar en ny Vana, kan du klicka på Redigera ikonen och välja ifall den ska representera en dålig vana, en bra vana, eller både och. För vissa Vanor, som den här, är det vettigast att tjäna poäng.",
     "defaultHabit2Text": "Eat Junk Food",
-    "defaultHabit2Notes": "For others, it only makes sense to *lose* points.",
+    "defaultHabit2Notes": "För andra är det mest vettigt att *förlora* poäng.",
     "defaultHabit3Text": "Ta Trapporna",
     "defaultHabit3Notes": "For the rest, both + and - make sense (stairs = gain, elevator = lose).",
     "defaultDaily1Text": "1 Timme Personligt Projekt",

@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Báculo de caramelo",
     "weaponSpecialCandycaneNotes": "¡Equipamiento de edición limitada de invierno 2013! Un bastón de un mago poderoso. Queremos decir, ¡poderosamente DELICIOSO! Una arma de dos manos. Incrementa Intelligencia por <%= int %> y Percepción por <%= per%>.",
     "weaponSpecialSnowflakeText": "Varita de copo de nieve",
-    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "¡Equipamiento de edición limitada de invierno 2013! Esta vara mágica brilla con poder curativo ilimitado. Aumenta Inteligencia por <%= int %>.",
     "weaponSpecialSpringRogueText": "Garras de gancho",
     "weaponSpecialSpringRogueNotes": "Ideal para escalar edificios altos, y también para triturar alfombras. Añade <%= str %>  puntos a Fuerza. Equipamiento de edición limitada de primavera 2014.",
     "weaponSpecialSpringWarriorText": "Espada de zanahoria",
@@ -195,8 +195,8 @@
     "armorMystery201407Notes": "Descrito por turnos como \"splooshy\", \"demasiado grueso\" y \"francamente, un poco incómodo\", este traje es el mejor amigo de cualquier intrépido explorador submarino. Articulo de suscriptor de julio 2014. No otorga ningún beneficio.",
     "armorMystery201408Text": "Túnica del sol",
     "armorMystery201408Notes": "Esta túnica está tejido con la luz del sol y oro. Artículo de suscriptor de agosto 2014. No otorga ningún beneficio.",
-    "armorMystery201409Text": "Strider Vest",
-    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Chaleco de senderista",
+    "armorMystery201409Notes": "Un chaleco cubierto de hojas que camufla el usuario. Artículo de suscriptor de septiembre 2014. No otorga ningún beneficio.",
     "headBase0Text": "Sin casco",
     "headBase0Notes": "Sin protector de cabeza.",
     "headWarrior1Text": "Casco de cuero",
@@ -383,6 +383,6 @@
     "headAccessoryMystery201403Notes": "Estas astas brillan con musgo y liquen.",
     "headAccessoryMystery201404Text": "Antenas de mariposa crepúscular",
     "headAccessoryMystery201404Notes": "¡Estas antenas ayudan al usuario sentir distracciones peligrosas!",
-    "headAccessoryMystery201409Text": "Autumn Antlers",
-    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
+    "headAccessoryMystery201409Text": "Astas de otoño",
+    "headAccessoryMystery201409Notes": "Estas astas poderosas cambian de color con las hojas."
 }

@@ -29,6 +29,7 @@
     "beastAchievement": "Du har förtjänat bedriften \"Djurmästare\" genom att ha samlat alla husdjur!",
     "beastMastName": "Djurmästare",
     "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMastText2": "and has released their pets a total of <%= count %> times",
     "dropsEnabled": "Dropsystem Aktiverat!",
     "itemDrop": "Ett föremål har droppat!",
     "firstDrop": "Du har låst upp dropsystemet! Nu när du fullbordar uppgifter har du en liten chans att hitta ett föremål. Du hittade nyss ett <strong><%= eggText %> Ägg</strong>! <%= eggNotes %>",
@@ -37,5 +38,15 @@
     "feedPet": "Mata <%= article %><%= text %> till din <%= name %>?",
     "useSaddle": "Sadla <%= pet%>?",
     "petName": "<%= potion %> <%= egg %>",
-    "mountName": "<%= potion %> <%= mount %>"
+    "mountName": "<%= potion %> <%= mount %>",
+    "petKeyName": "Key to the Kennels",
+    "petKeyPop": "Let your pets roam free, release them to start their own adventure, and give yourself the thrill of Beastmaster once more!",
+    "petKeyBegin": "Key to the Kennels: Experience Beastmaster Once More!",
+    "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",
+    "petKeyInfo2": "The Key to the Kennels resets all of your non-quest pets back to as if you'd never found them. Once you've used it, you'll be able to stack the Beastmaster achievement, showing off how many times you've been able to best the RNG.",
+    "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
+    "petKeyPets": "Release My Pets",
+    "petKeyMounts": "Release Both Please",
+    "petKeyNeverMind": "Not Yet",
+    "gemsEach": "gems each"
 }

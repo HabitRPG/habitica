@@ -16,7 +16,7 @@
     "justin": "Justin",
     "USD": "USD",
     "newStuff": "Cosas Nuevas",
-    "cool": "Tell Me Later",
+    "cool": "Dime luego",
     "dismissAlert": "Ignora Esta Alerta",
     "donateText1": "Añade 20 Gemas a tu cuenta. Las Gemas se usan para comprar objetos especiales en el juego, como camisetas y peinados.",
     "donateText2": "Ayuda a HabitRPG",
@@ -59,9 +59,9 @@
     "classGearText": "Primero: ¡No te preocupes! Tu equipo viejo está en tu inventario y ahora llevas tu equipamiento de aprendiz de <strong><%= klass %></strong>. Llevar el equipo de tu clase te da un bonus del 50% a tus atributos. Sin embargo, eres libre de ponerte tu antiguo equipo.",
     "classStats": "Estas son las estadísticas de tu clase, afectan el estilo de juego. Cada vez que subas de nivel, recibirás un punto para distribuir a un atributo en particular. Sobrevuela cada atributo para más información.",
     "autoAllocate": "Asignación Automática",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
+    "autoAllocateText": "Si 'distribución automática' está seleccionado, tu avatar gana estadísticas automáticamente basado en los atributos de sus tareas, que puedes encontrar en <strong>TAREA > Editar > Avanzado > Atributos</strong> Por ejemplo, si haces ejercicio con frecuencia, y si tu Diaria de 'Ejercicio' está fijado en 'Físico', vas a ganar Fuerza automáticamente.",
     "spells": "Hechizos",
-    "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed",
+    "spellsText": "Ahora podrás desvelar hechizos especificos a tu clase. El primero se desvela a nivel 11. Tu maná se rellena 10 puntos al día, mas 1 punto para cada completado ",
     "toDo": "Tarea Pendiente",
     "moreClass": "Para mas información sobre el sistema de clase, mira en"
 }

@@ -29,6 +29,7 @@
     "beastAchievement": "¡Has ganado el logro \"Maestro de Bestias\" por conseguir todas las mascotas!",
     "beastMastName": "Maestro de Bestias",
     "beastMastText": "Ha encontrado todos los 90 mascotas (increíblemente difícil, felicita a este usuario!)",
+    "beastMastText2": "and has released their pets a total of <%= count %> times",
     "dropsEnabled": "¡Botín Activado!",
     "itemDrop": "¡Un objeto ha caído!",
     "firstDrop": "¡Has desbloqueado el Sistema de Botín! Ahora, cuando realizas tareas, tendrás una pequeña probabilidad de encontrar un objeto. Has encontrado un <strong><%= eggText %> Huevo</strong>! <%= eggNotes %>",
@@ -37,5 +38,15 @@
     "feedPet": "¿Dar de comer <%= article %><%= text %>a su <%= name %>?",
     "useSaddle": "¿Ensillar <%= pet %>?",
     "petName": "<%= egg %> <%= potion %>",
-    "mountName": "<%= mount %> <%= potion %>"
+    "mountName": "<%= mount %> <%= potion %>",
+    "petKeyName": "Key to the Kennels",
+    "petKeyPop": "Let your pets roam free, release them to start their own adventure, and give yourself the thrill of Beastmaster once more!",
+    "petKeyBegin": "Key to the Kennels: Experience Beastmaster Once More!",
+    "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",
+    "petKeyInfo2": "The Key to the Kennels resets all of your non-quest pets back to as if you'd never found them. Once you've used it, you'll be able to stack the Beastmaster achievement, showing off how many times you've been able to best the RNG.",
+    "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
+    "petKeyPets": "Release My Pets",
+    "petKeyMounts": "Release Both Please",
+    "petKeyNeverMind": "Not Yet",
+    "gemsEach": "gems each"
 }

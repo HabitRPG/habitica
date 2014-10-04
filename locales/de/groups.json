@@ -42,7 +42,7 @@
     "logoUrl": "Logo URL",
     "assignLeader": "Gruppenleiter bestimmen",
     "members": "Mitglied(er)",
-    "partyList": "Order for party members in header (reload browser after changing order)",
+    "partyList": "Reihenfolge der Gruppenmitglieder im Header (aktualisiere deinen Browser, wenn du die Reihenfolge geändert hast)",
     "banTip": "Mitglied ausschließen",
     "moreMembers": "weitere(s) Mitglied(er)",
     "invited": "Eingeladen",

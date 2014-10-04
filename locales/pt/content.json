@@ -40,7 +40,7 @@
     "questEggParrotText": "Arara",
     "questEggParrotAdjective": "vibrante",
     "questEggRoosterText": "Galo",
-    "questEggRoosterAdjective": "escorando",
+    "questEggRoosterAdjective": "pomposo",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",

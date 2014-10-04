@@ -1,8 +1,11 @@
 {
     "limitedEdition": "Begränsad Upplaga",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Vinterfärger",
     "annoyingFriends": "Jobbiga Vänner",
     "annoyingFriendsText": "Fick <%= snowballs %> snöbollar kastad på sig av sällskapsmedlemmar.",
+    "alarmingFriends": "Alarming Friends",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Alla Hjärtans Dag-kort",
     "adoringFriends": "Beundrande Vänner",
     "adoringFriendsText": "Aww, du och din vän måste verkligen bry er om varandra! Skickade eller tog emot <%= cards %> Alla Hjärtans Dag-kort.",

@@ -1,8 +1,11 @@
 {
     "limitedEdition": "Beperkte oplage",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Winterkleuren",
     "annoyingFriends": "Irritante vrienden",
     "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
+    "alarmingFriends": "Alarming Friends",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Valentijnskaart",
     "adoringFriends": "Liefhebbende vrienden",
     "adoringFriendsText": "Aww, jij en je vriend moeten wel heel erg veel om elkaar geven! Verzond of kreeg <%= cards %> Valentijnskaarten.",

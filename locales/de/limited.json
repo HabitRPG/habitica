@@ -1,8 +1,11 @@
 {
     "limitedEdition": "Limited Edition",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Winter Farben",
     "annoyingFriends": "Nervige Freunde",
     "annoyingFriendsText": "Hat sich <%= snowballs %> Schneebälle von Gruppenmitgliedern eingefangen.",
+    "alarmingFriends": "Alarming Friends",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Valentinstagskarte",
     "adoringFriends": "Heiß geliebte Freunde",
     "adoringFriendsText": "Ohh, Deine Freunde und Du, Ihr müsst euch ja wirklich gern haben. Du hast insgesamt <%= cards %>  Valentinstagskarten gesendet und bekommen.",

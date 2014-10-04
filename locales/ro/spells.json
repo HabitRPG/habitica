@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "Bulgăre de zăpadă",
     "spellSpecialSnowballAuraNotes": "Aruncă un bulgăre de zăpadă într-unul din coechipierii tăi, ce s-ar putea întâmpla? Durează pînă cînd se termină ziua coechipierului.",
     "spellSpecialSaltText": "Sare",
-    "spellSpecialSaltNotes": "Cineva te-a lovit cu un bulgăre de zăpadă. Ha ha, foarte amuzant. Acum dă zăpada asta jos de pe mine!"
+    "spellSpecialSaltNotes": "Cineva te-a lovit cu un bulgăre de zăpadă. Ha ha, foarte amuzant. Acum dă zăpada asta jos de pe mine!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

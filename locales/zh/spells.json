@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "雪球",
     "spellSpecialSnowballAuraNotes": "向队友发射一个雪球，能有什么问题呢？持续到队友的下一天之前。",
     "spellSpecialSaltText": "盐",
-    "spellSpecialSaltNotes": "有人向你扔了雪球。哈哈，很好玩。现在把这些雪从我身上弄下来！"
+    "spellSpecialSaltNotes": "有人向你扔了雪球。哈哈，很好玩。现在把这些雪从我身上弄下来！",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

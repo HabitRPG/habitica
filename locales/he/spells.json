@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "כדור שלג",
     "spellSpecialSnowballAuraNotes": "השליכו כדור שלג על חבר מהקבוצה שלכם, מה כבר יקרה? נמשך עד היום הבא של החבר הפגוע.",
     "spellSpecialSaltText": "מלח",
-    "spellSpecialSaltNotes": "מישהו/י זרק/ה עלייך כדור שלג. פפחחחחחח, זה קורע, משהו היסטרי. טוב, נו, בוא נוריד את השלג הזה ממך!"
+    "spellSpecialSaltNotes": "מישהו/י זרק/ה עלייך כדור שלג. פפחחחחחח, זה קורע, משהו היסטרי. טוב, נו, בוא נוריד את השלג הזה ממך!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

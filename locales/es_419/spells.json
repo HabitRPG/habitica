@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "Bola de nieve",
     "spellSpecialSnowballAuraNotes": "Lanzas una bola de nieve a un miembro del grupo, ¿qué podría salir mal? Dura hasta el nuevo día del compañero. ",
     "spellSpecialSaltText": "Sal",
-    "spellSpecialSaltNotes": "Alguien te ha lanzado una bola de nieve. Ja Ja, muy gracioso. ¡Ahora quítame esta nieve de encima!"
+    "spellSpecialSaltNotes": "Alguien te ha lanzado una bola de nieve. Ja Ja, muy gracioso. ¡Ahora quítame esta nieve de encima!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

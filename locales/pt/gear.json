@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Cajado de Bastão Doce",
     "weaponSpecialCandycaneNotes": "Equipamento Edição Limitada de Inverno 2013! Um poderoso cajado de mago. Poderosamente DELICIOSO, queremos dizer! Arma de duas mãos. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>.",
     "weaponSpecialSnowflakeText": "Varinha Floco de Neve",
-    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Equipamento Edição Limitada de Inverno 2013! Esta varinha brilha com ilimitado poder de cura. Aumenta Inteligência em <%= int %> pontos.",
     "weaponSpecialSpringRogueText": "Garras de Gancho",
     "weaponSpecialSpringRogueNotes": "Ótimo para escalar altos prédios, e também para rasgar carpetes. Adiciona <%= str %> pontos em Força. Equipamento Edição Limitada de Primavera 2014.",
     "weaponSpecialSpringWarriorText": "Espada de Cenoura",
@@ -195,8 +195,8 @@
     "armorMystery201407Notes": "Descrito alternativamente como \"esquisito\", \"muito espesso\" e \"francamente, meio incômodo\", este traje é o melhor amigo de qualquer explorador submarino intrépido. Item de Assinante de Julho de 2014. Não concede benefícios.",
     "armorMystery201408Text": "Túnica Solar",
     "armorMystery201408Notes": "Estas vestes são tecidas com luz solar e ouro. Item de Assinante de Agosto de 2014. Não concede benefícios.",
-    "armorMystery201409Text": "Strider Vest",
-    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Vestimenta do Andarilho",
+    "armorMystery201409Notes": "Uma vestimenta coberta de folhas que camufla seu usuário. Item de Assinante de Setembro de 2014. Não concede benefícios.",
     "headBase0Text": "Sem Elmo",
     "headBase0Notes": "Sem capacete.",
     "headWarrior1Text": "Elmo de Couro",
@@ -383,6 +383,6 @@
     "headAccessoryMystery201403Notes": "Esses chifres brilham com musgo e líquen.",
     "headAccessoryMystery201404Text": "Antenas de Borboleta de Crepúsculo",
     "headAccessoryMystery201404Notes": "Essas antenas ajudam seu usuário a detectar perigosas distrações!",
-    "headAccessoryMystery201409Text": "Autumn Antlers",
-    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
+    "headAccessoryMystery201409Text": "Galhadas de Outono",
+    "headAccessoryMystery201409Notes": "Estas poderosas galhadas mudam de cor com as folhas."
 }

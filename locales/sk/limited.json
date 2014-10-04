@@ -1,8 +1,11 @@
 {
     "limitedEdition": "Limitovaná edícia",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Zimné farby",
     "annoyingFriends": "Otravní kamaráti",
     "annoyingFriendsText": "<%= snowballs %>-krát schytal snehovou guľou od člena družiny.",
+    "alarmingFriends": "Alarming Friends",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Valentínka",
     "adoringFriends": "Láskyplní priatelia",
     "adoringFriendsText": "Ó, tebe a tvojim priateľom musí na sebe záležať! Počet poslaných alebo prijatých valentíniek: <%= cards %> .",

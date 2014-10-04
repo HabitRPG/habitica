@@ -1,8 +1,11 @@
 {
     "limitedEdition": "Edición limitada",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Colores de invierno",
     "annoyingFriends": "Amigos molestos",
     "annoyingFriendsText": "Tus compañeros te han lanzado <%= snowballs %> bolas de nieve.",
+    "alarmingFriends": "Alarming Friends",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Tarjeta del día de San Valentin",
     "adoringFriends": "Amigos cariñosos",
     "adoringFriendsText": "Aww, tú y tu amigo se quieren mucho el uno al otro. Enviaste o recibiste <%= cards %> tarjetas del día de San Valentín.",

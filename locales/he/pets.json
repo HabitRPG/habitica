@@ -29,6 +29,7 @@
     "beastAchievement": "הרווחת את הישג \"אדון החיות\" על איסוף כל חיות המחמד!",
     "beastMastName": "אדון חיות",
     "beastMastText": "מצא/ה את כל 90 חיות המחמד הבסיסיות (משימה קשה להחריד! תנו לו/ה בכפיים!)",
+    "beastMastText2": "and has released their pets a total of <%= count %> times",
     "dropsEnabled": "ניתן לבזוז!",
     "itemDrop": "יש לך דבר חדש!",
     "firstDrop": "מערכת הביזה כעת פתוחה בפניך! מעתה, בכל פעם שתושלם משימה, יהיה לך סיכוי קטן למצוא חפץ בעל ערך. הרגע מצאת <strong><%= eggText %> ביצה</strong>! <%= eggNotes %>",
@@ -37,5 +38,15 @@
     "feedPet": "להאכיל את ה<%= name %> שלך ב <%= text %>?",
     "useSaddle": "לשים אוכף על ה<%= pet %> שלך?",
     "petName": "<%= egg %> <%= potion %>",
-    "mountName": " <%= mount %> <%= potion %>"
+    "mountName": " <%= mount %> <%= potion %>",
+    "petKeyName": "Key to the Kennels",
+    "petKeyPop": "Let your pets roam free, release them to start their own adventure, and give yourself the thrill of Beastmaster once more!",
+    "petKeyBegin": "Key to the Kennels: Experience Beastmaster Once More!",
+    "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",
+    "petKeyInfo2": "The Key to the Kennels resets all of your non-quest pets back to as if you'd never found them. Once you've used it, you'll be able to stack the Beastmaster achievement, showing off how many times you've been able to best the RNG.",
+    "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
+    "petKeyPets": "Release My Pets",
+    "petKeyMounts": "Release Both Please",
+    "petKeyNeverMind": "Not Yet",
+    "gemsEach": "gems each"
 }

@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Cukierkowa laska",
     "weaponSpecialCandycaneNotes": "Limitowana Edycja 2013 Zimowego Wyposażenia! Bardzo potężna laska maga. Chyba raczej bardzo PYSZNA! Broń dwuręczna. Zwiększa Inteligencję o <%= int %> i Percepcję o <%= per %>.",
     "weaponSpecialSnowflakeText": "Różdżka śnieżynki",
-    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Limitowana Edycja 2013 Zimowego Wyposażenia! Ta różdżka iskrzy nieskończoną mocą leczniczą. Zwiększa Inteligencję o <%= int %>.",
     "weaponSpecialSpringRogueText": "Hakowate pazury",
     "weaponSpecialSpringRogueNotes": "Doskonałe do wspinania na wysokie budynki oraz niszczenia dywanów. Dodaje  <%= str %> punktów Siły. Limitowana Edycja 2014 Wiosennego Wyposażenia.",
     "weaponSpecialSpringWarriorText": "Marchewkowy miecz",
@@ -195,8 +195,8 @@
     "armorMystery201407Notes": "Opisywany też jako \"pluskaty\", \"za gruby\" i \"szczerze, trochę kłopotliwy\", ten strój jest najlepszym przyjacielem nieustraszonego morskiego odkrywcy. Przedmiot dla Abonentów z lipca 2014. Nie ma na nic wpływu.",
     "armorMystery201408Text": "Szaty Słońca",
     "armorMystery201408Notes": "Te szaty są plecione z promyków słońca i złota. Przedmiot dla Abonentów z sierpnia 2014. Nie ma na nic wpływu.",
-    "armorMystery201409Text": "Strider Vest",
-    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Kamizelka obieżyświata",
+    "armorMystery201409Notes": "Pokryta listowiem kamizelka, która kamufluje noszącego. Przedmiot dla Abonentów z września 2014. Nie ma na nic wpływu.",
     "headBase0Text": "Bez hełmu",
     "headBase0Notes": "Bez nakrycia głowy.",
     "headWarrior1Text": "Skórzany hełm",
@@ -383,6 +383,6 @@
     "headAccessoryMystery201403Notes": "To poroże lśni od mchu i porostów.",
     "headAccessoryMystery201404Text": "Czułki motyla zmierzchu",
     "headAccessoryMystery201404Notes": "Te czułki umożliwiają noszącemu wykrycie niebezpiecznych źródeł rozproszenia!",
-    "headAccessoryMystery201409Text": "Autumn Antlers",
-    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
+    "headAccessoryMystery201409Text": "Jesienne poroże",
+    "headAccessoryMystery201409Notes": "To potężne poroże zmienia swój kolor wraz z kolorem liści."
 }

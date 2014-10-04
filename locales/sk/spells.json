@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "Snehová guľa",
     "spellSpecialSnowballAuraNotes": "Hoď snehovou guľou po členovi svojej družiny. Čo zlé by sa mohlo stať? Trvá do konca jeho dňa.",
     "spellSpecialSaltText": "Soľ",
-    "spellSpecialSaltNotes": "Niekto do teba hodil snehovú guľu. Ha ha, veľmi vtipné. Teraz zo mňa dostaň ten sneh!"
+    "spellSpecialSaltNotes": "Niekto do teba hodil snehovú guľu. Ha ha, veľmi vtipné. Teraz zo mňa dostaň ten sneh!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

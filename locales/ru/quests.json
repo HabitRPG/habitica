@@ -22,10 +22,10 @@
     "bossColl2": "Только участники могут собрать предметы и разделять квестовые трофеи.",
     "abort": "Прервать",
     "questOwner": "Создатель квеста",
-    "questOwnerNotInPendingQuest": "The quest owner has left the quest and can no longer begin it. It is recommended that you cancel it now. The quest owner will retain possession of the quest scroll.",
-    "questOwnerNotInRunningQuest": "The quest owner has left the quest. You can abort the quest if you need to. You can also allow it to keep running and all remaining participants will receive the quest rewards when the quest finishes.",
-    "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",
-    "questOwnerNotInRunningQuestParty": "The quest owner has left the party. You can abort the quest if you need to but you can also leave it running and all remaining participants will receive the quest rewards when the quest finishes.",
+    "questOwnerNotInPendingQuest": "Владелец квеста забросил его, и он не может быть выполнен. Вам рекомендуется отменить квест. Владелец квеста сохранит владение свитком",
+    "questOwnerNotInRunningQuest": "Владелец квеста бросил его. . Вы можете отменить квест, если нужно, но можно и оставить, тогда все оставшиеся члены группы получат награду, когда квест завершится.",
+    "questOwnerNotInPendingQuestParty": "Владелец квеста покинул группу, и квест нельзя выполнять. Вам рекомендуется отменить квест. Свиток вернется к владельцу квеста.",
+    "questOwnerNotInRunningQuestParty": "Владелец квеста покинул группу. Вы можете отменить квест, если нужно, но можно и оставить, тогда все оставшиеся члены группы получат награду, когда квест завершится.",
     "scrolls": "Квестовые свитки",
     "noScrolls": "У вас нет квестовых свитков.",
     "scrollsText1": "Для квестов нужна команда. Если вы хотите выполнить квест в одиночку,",
@@ -35,10 +35,10 @@
     "mustComplete": "Вам нужно сначала завершить <%= quest %>.",
     "mustLevel": "Вам нужно достигнуть уровня <%= level %>.",
     "mustLvlQuest": "Вам нужно достигнуть уровня <%= level %>, чтобы купить этот квест!",
-    "sureCancel": "Are you sure you want to cancel this quest? All invitation acceptances will be lost. The quest owner will retain possession of the quest scroll.",
-    "sureAbort": "Are you sure you want to abort this mission? It will abort it for everyone in your party and all progress will be lost. The quest scroll will be returned to the quest owner.",
+    "sureCancel": "Вы уверены, что хотите отменить квест? Приглашение будет потеряно. Свиток сохранится у владельца квеста.",
+    "sureAbort": "Вы уверены, что хотите отменить эту миссию? Она отменится для всех членов группы, весь прогресс будет утерян. Свиток вернется к владельцу квеста.",
     "doubleSureAbort": "Вы точно-точно уверены? Подумайте, не будут ли они ненавидеть вас всю жизнь после этого?",
     "questWarning": "Получайте приглашение на участие в квесте до его начала, т.к. после старта ни один новый член команды не сможет к нему присоединиться. ",
     "bossRageTitle": "Ярость",
-    "bossRageDescription": "Когда это "
+    "bossRageDescription": "Когда этот бар заполнится, у босса откроется специальная атака."
 }

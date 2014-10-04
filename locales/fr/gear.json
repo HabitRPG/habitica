@@ -74,7 +74,7 @@
     "weaponSpecialCandycaneText": "Bâton de Sucre d'orge",
     "weaponSpecialCandycaneNotes": "Un bâton de mage puissant. Puissamment DÉLICIEUX, on veut dire ! Arme à deux mains. Augmente l'Intelligence de <%= int %> points et la Perception de <%= per %>. Équipement en Édition Limitée de l'Hiver 2013.",
     "weaponSpecialSnowflakeText": "Baguette Flocon de neige",
-    "weaponSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>.",
+    "weaponSpecialSnowflakeNotes": "Cette baguette brille d'un pouvoir de guérison illimité. Augmente l'Intelligence de <%= int %>. Équipement en Édition Limitée de l'Hiver 2013.",
     "weaponSpecialSpringRogueText": "Griffes-crochet",
     "weaponSpecialSpringRogueNotes": "Idéal pour escalader de grands immeubles, mais aussi pour déchirer les carpettes. Augmente la Force de <%= str %> points. Équipement en Édition Limitée du Printemps 2014. ",
     "weaponSpecialSpringWarriorText": "Épée Carotte",
@@ -195,8 +195,8 @@
     "armorMystery201407Notes": "Alternativement décrite comme \"splooshy\", \"bien trop épaisse\" et \"franchement, un peu encombrante\", cette tenue est le meilleur compagnon de tout explorateur intrépide des bas-fonds. Equipement d'Abonné de Juillet 2014. N'apporte aucun bonus",
     "armorMystery201408Text": "Robe Solaire",
     "armorMystery201408Notes": "Cette robe est tissée à partir de rayons solaires et d'or. Equipement d'Abonné, Août 2014. N'apporte aucun bonus.",
-    "armorMystery201409Text": "Strider Vest",
-    "armorMystery201409Notes": "A leaf-covered vest that camouflages the wearer. September 2014 Subscriber Item. Confers no benefit.",
+    "armorMystery201409Text": "Gilet de randonneur",
+    "armorMystery201409Notes": "Une veste recouverte de feuilles qui camoufle son porteur. Equipement d'Abonné de Septembre 2014. N'apporte aucun bonus.",
     "headBase0Text": "Pas de casque",
     "headBase0Notes": "Pas de couvre-chef.",
     "headWarrior1Text": "Heaume de Cuir",
@@ -383,6 +383,6 @@
     "headAccessoryMystery201403Notes": "Ces bois miroitent de mousse et de lichens.",
     "headAccessoryMystery201404Text": "Antennes du Papillon Crépusculaire",
     "headAccessoryMystery201404Notes": "Ces antennes aident son porteur à pressentir de dangereux égarements !",
-    "headAccessoryMystery201409Text": "Autumn Antlers",
-    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
+    "headAccessoryMystery201409Text": "Ramure d'Automne",
+    "headAccessoryMystery201409Notes": "Ces puissants bois changent de couleur en harmonie avec les feuilles. Equipement d'Abonné de Septembre 2014. N'apporte aucun bonus."
 }

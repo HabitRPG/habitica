@@ -1,8 +1,11 @@
 {
     "limitedEdition": "Обмежене видання",
+    "seasonalEdition": "Seasonal Edition",
     "winterColors": "Зимові барви",
     "annoyingFriends": "Набридливі друзі",
     "annoyingFriendsText": "Ухопив сніжку <%= snowballs %> разів від спільників гурту.",
+    "alarmingFriends": "Alarming Friends",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Валентинка",
     "adoringFriends": "Любі друзі",
     "adoringFriendsText": "Ооо, Ви та Ваш друг, певно, дуже любі одне одному! Надіслано/отримано валентинок: <%= cards %> ",

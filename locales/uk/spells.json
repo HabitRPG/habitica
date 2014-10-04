@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "Сніжка",
     "spellSpecialSnowballAuraNotes": "Жбурніть сніжкою в когось із гурту, що поганого з того буде? Ефект діятиме цілий день.",
     "spellSpecialSaltText": "Сіль",
-    "spellSpecialSaltNotes": "Хтось жбурнув у Вас сніжкою. Ха-ха, дуже смішно. Ану ж струсіть із мене цей сніг!"
+    "spellSpecialSaltNotes": "Хтось жбурнув у Вас сніжкою. Ха-ха, дуже смішно. Ану ж струсіть із мене цей сніг!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

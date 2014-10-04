@@ -34,5 +34,9 @@
     "spellSpecialSnowballAuraText": "Snöboll",
     "spellSpecialSnowballAuraNotes": "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
     "spellSpecialSaltText": "Salt",
-    "spellSpecialSaltNotes": "Någon kastade en snöboll på dig. Ha ha, väldigt roligt. Se nu till att få bort den här snön från mig!"
+    "spellSpecialSaltNotes": "Någon kastade en snöboll på dig. Ha ha, väldigt roligt. Se nu till att få bort den här snön från mig!",
+    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }
