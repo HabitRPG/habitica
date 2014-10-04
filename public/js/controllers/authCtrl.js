@@ -94,5 +94,30 @@ angular.module('authCtrl', [])
       $scope.expandMenu = function(menu) {
         $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
       };
+
+      function selectNotificationValue(mysteryValue, invitationValue, messageValue, noneValue) {
+        var user = $scope.user;
+        if (user.purchased.plan.mysteryItems.length) {
+          return mysteryValue;
+        } else if ((user.invitations.party && user.invitations.party.id) || user.invitations.guilds.length > 0) {
+          return invitationValue;
+        } else if (!(_.isEmpty(user.newMessages))) {
+          return messageValue;
+        } else {
+          return noneValue;
+        }
+      };
+
+      $scope.iconClasses = function() {
+        return selectNotificationValue(
+            "glyphicon-gift",
+            "glyphicon-user",
+            "glyphicon-comment",
+            "glyphicon-comment inactive");
+      };
+
+      $scope.hasNoNotifications = function() {
+        return selectNotificationValue(false, false, false, true);
+      }
     }
 ]);
