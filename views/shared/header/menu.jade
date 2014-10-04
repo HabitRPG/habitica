@@ -155,6 +155,10 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.social.guilds', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
+              li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
+                a(ui-sref='options.profile.stats', ng-click='expandMenu(null)')
+                  span.glyphicon.glyphicon-plus-sign
+                  span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
                 a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
                   span.glyphicon.glyphicon-comment
