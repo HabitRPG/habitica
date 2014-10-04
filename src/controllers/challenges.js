@@ -38,9 +38,9 @@ api.list = function(req, res, next) {
         })
         .select('name leader description group memberCount prize official')
         .select({members:{$elemMatch:{$in:[user._id]}}})
+        .sort('-official -timestamp')
         .populate('group', '_id name')
         .populate('leader', 'profile.name')
-        .sort('-official -timestamp')
         .exec(cb);
     }
   ], function(err, challenges){
@@ -49,6 +49,7 @@ api.list = function(req, res, next) {
       c._isMember = c.members.length > 0;
     })
     res.json(challenges);
+    user = null;
   });
 }
 
@@ -77,14 +78,13 @@ api.csv = function(req, res, next) {
     function(_challenge,cb) {
       challenge = _challenge;
       if (!challenge) return cb('Challenge ' + cid + ' not found');
-       User.aggregate([
-      {$match:{'_id':{ '$in': challenge.members}}}, //yes, we want members
-      {$project:{'profile.name':1,tasks:{$setUnion:["$habits","$dailys","$todos","$rewards"]}}},
-        {$unwind:"$tasks"},
-         {$match:{"tasks.challenge.id":cid}},
-         {$sort:{'tasks.type':1,'tasks.id':1}},
-         {$group:{_id:"$_id", "tasks":{$push:"$tasks"},"name":{$first:"$profile.name"}}}
-       
+      User.aggregate([
+        {$match:{'_id':{ '$in': challenge.members}}}, //yes, we want members
+        {$project:{'profile.name':1,tasks:{$setUnion:["$habits","$dailys","$todos","$rewards"]}}},
+          {$unwind:"$tasks"},
+           {$match:{"tasks.challenge.id":cid}},
+           {$sort:{'tasks.type':1,'tasks.id':1}},
+           {$group:{_id:"$_id", "tasks":{$push:"$tasks"},"name":{$first:"$profile.name"}}}
       ], cb);
     }
   ],function(err,users){
@@ -107,6 +107,7 @@ api.csv = function(req, res, next) {
     });
     res.header('Content-disposition', 'attachment; filename='+cid+'.csv');
     res.csv(output);
+    challenge = cid = null;
   })
 }
 
@@ -137,8 +138,9 @@ api.getMember = function(req, res, next) {
   .project(proj)
   .exec(function(err, member){
     if (err) return next(err);
-      if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
+    if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
     res.json(member[0]);
+    uid = cid = null;
   });
 }
 
@@ -181,7 +183,7 @@ api.create = function(req, res, next){
 				// User pays for all of prize
 				user.balance -= prizeCost;
 			}
-      cb(null)
+      cb(null);
     });
   }
 
@@ -206,6 +208,7 @@ api.create = function(req, res, next){
   async.waterfall(waterfall, function(err){
     if (err) return next(err);
     res.json(chal);
+    user = group = chal = null;
   });
 }
 
@@ -229,8 +232,6 @@ api.update = function(req, res, next){
       Challenge.findByIdAndUpdate(cid, {$set:attrs}, cb);
     },
     function(saved, cb) {
-      // after saving, we're done as far as the client's concerned. We kick of syncing (heavy task) in the background
-      cb(null, saved);
 
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
       if (before.isOutdated(req.body)) {
@@ -243,10 +244,13 @@ api.update = function(req, res, next){
         })
       }
 
+      // after saving, we're done as far as the client's concerned. We kick off syncing (heavy task) in the background
+      cb(null, saved);
     }
   ], function(err, saved){
     if(err) next(err);
     res.json(saved);
+    cid = user = before = null;
   })
 }
 
@@ -284,6 +288,7 @@ function closeChal(cid, broken, cb) {
         })
       })
       async.parallel(parallel, cb2);
+      removed = null;
     }
   ], cb);
 }
@@ -306,6 +311,7 @@ api['delete'] = function(req, res, next){
   ], function(err){
     if (err) return next(err);
     res.send(200);
+    user = cid = null;
   });
 }
 
@@ -340,6 +346,7 @@ api.selectWinner = function(req, res, next) {
   ], function(err){
     if (err) return next(err);
     res.send(200);
+    user = cid = chal = null;
   })
 }
 
@@ -369,6 +376,7 @@ api.join = function(req, res, next){
     if(err) return next(err);
     chal._isMember = true;
     res.json(chal);
+    user = cid = null;
   });
 }
 
@@ -401,6 +409,7 @@ api.leave = function(req, res, next){
     if(err) return next(err);
     if (chal) chal._isMember = false;
     res.json(chal);
+    user = cid = keep = null;
   });
 }
 
@@ -417,5 +426,6 @@ api.unlink = function(req, res, next) {
   user.unlink({cid:cid, keep:req.query.keep, tid:tid}, function(err, saved){
     if (err) return next(err);
     res.send(200);
+    user = tid = cid = null;
   });
 }

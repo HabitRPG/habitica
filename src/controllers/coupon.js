@@ -5,8 +5,7 @@ var csv = require('express-csv');
 var async = require('async');
 
 api.ensureAdmin = function(req, res, next) {
-  var user = res.locals.user;
-  if (!user.contributor.sudo) return res.json(401, {err:"You don't have admin access"});
+  if (!res.locals.user.contributor.sudo) return res.json(401, {err:"You don't have admin access"});
   next();
 }
 

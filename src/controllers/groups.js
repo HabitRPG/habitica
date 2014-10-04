@@ -117,6 +117,8 @@ api.list = function(req, res, next) {
       return m.concat(_.isArray(v) ? v : [v]);
     }, [])
     res.json(arr);
+
+    user = groupFields = sort = type = null;
   })
 };
 
@@ -139,6 +141,7 @@ api.get = function(req, res, next) {
     if (err) return next(err);
     if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
     res.json(group);
+    gid = null;
   });
 };
 
@@ -162,6 +165,7 @@ api.create = function(req, res, next) {
     ],function(err,saved){
       if (err) return next(err);
       res.json(saved);
+      group = user = null;
     });
 
   }else{
@@ -180,6 +184,7 @@ api.create = function(req, res, next) {
       if (err == 'Already in a party, try refreshing.') return res.json(400,{err:err});
       if (err) return next(err);
       return res.json(populated);
+      group = user = null;
     })
   }
 }
@@ -236,6 +241,7 @@ api.postChat = function(req, res, next) {
   group.save(function(err, saved){
     if (err) return next(err);
     return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+    group = chatUpdated = null;
   });
 }
 
@@ -254,7 +260,8 @@ api.deleteChatMessage = function(req, res, next){
 
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
     if(err) return next(err);
-    return chatUpdated ? res.json({chat: group.chat}) : res.send(204);
+    chatUpdated ? res.json({chat: group.chat}) : res.send(204);
+    group = chatUpdated = null;
   });
 }
 
@@ -324,6 +331,7 @@ api.join = function(req, res, next) {
 
     // Return the group? Or not?
     res.json(results[1]);
+    group = null;
   });
 }
 
@@ -400,13 +408,13 @@ api.leave = function(req, res, next) {
   ],function(err){
     if (err) return next(err);
     return res.send(204);
+    user = group = keep = null;
   })
 }
 
 api.invite = function(req, res, next) {
   var group = res.locals.group;
   var uuid = req.query.uuid;
-  var user = res.locals.user;
 
   User.findById(uuid, function(err,invite){
     if (err) return next(err);
@@ -454,6 +462,7 @@ api.invite = function(req, res, next) {
 
         // Have to return whole group and its members for angular to show the invited user
         res.json(results[2]);
+        group = uuid = null;
       });
     }
   });
@@ -463,7 +472,7 @@ api.removeMember = function(req, res, next){
   var group = res.locals.group;
   var uuid = req.query.uuid;
   var user = res.locals.user;
-  
+
   if(group.leader !== user._id){
     return res.json(401, {err: "Only group leader can remove a member!"});
   }
@@ -479,7 +488,7 @@ api.removeMember = function(req, res, next){
     update['$inc'] = {memberCount: -1};
     Group.update({_id:group._id},update, function(err, saved){
       if (err) return next(err);
-      
+
       // Sending an empty 204 because Group.update doesn't return the group
       // see http://mongoosejs.com/docs/api.html#model_Model.update
       return res.send(204);
@@ -506,11 +515,13 @@ api.removeMember = function(req, res, next){
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
         return res.send(204);
+        group = uuid = null;
       });
 
     });
   }else{
     return res.json(400, {err: "User not found among group's members!"});
+    group = uuid = null;
   }
 }
 
@@ -581,9 +592,10 @@ questStart = function(req, res, next) {
 
     var lastIndex = results.length -1;
     var groupClone = clone(group);
-    
+
     groupClone.members = results[lastIndex].members;
 
+    group = null;
     return res.json(groupClone);
   });
 }
@@ -650,6 +662,7 @@ api.questCancel = function(req, res, next){
   ], function(err){
     if (err) return next(err);
     res.json(group);
+    group = null;
   })
 }
 
@@ -688,6 +701,6 @@ api.questAbort = function(req, res, next){
     groupClone.members = results[2].members;
 
     res.json(groupClone);
+    group = null;
   })
 }
-

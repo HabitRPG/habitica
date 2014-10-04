@@ -281,6 +281,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
   ],function(err,res){
     if (err === true) return; // no current quest
     if (err) return logging.error(err);
+    dmg = rage = null;
   })
 }
 

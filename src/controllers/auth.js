@@ -41,10 +41,9 @@ api.auth = function(req, res, next) {
 };
 
 api.authWithSession = function(req, res, next) { //[todo] there is probably a more elegant way of doing this...
-  var uid = req.session.userId;
   if (!(req.session && req.session.userId))
     return res.json(401, NO_SESSION_FOUND);
-  User.findOne({_id: uid}, function(err, user) {
+  User.findOne({_id: req.session.userId}, function(err, user) {
     if (err) return next(err);
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
     res.locals.user = user;
@@ -62,33 +61,25 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
-  var confirmPassword, e, email, password, username, _ref;
-  _ref = req.body, email = _ref.email, username = _ref.username, password = _ref.password, confirmPassword = _ref.confirmPassword;
-  if (!(username && password && email)) {
-    return res.json(401, {err: ":username, :email, :password, :confirmPassword required"});
-  }
-  if (password !== confirmPassword) {
-    return res.json(401, {err: ":password and :confirmPassword don't match"});
-  }
-  if (!validator.isEmail(email)) {
-    return res.json(401, {err: ":email invalid"});
-  }
+  var confirmPassword = req.body.confirmPassword,
+    email = req.body.email,
+    password = req.body.password,
+    username = req.body.username;
+  if (!(username && password && email)) return res.json(401, {err: ":username, :email, :password, :confirmPassword required"});
+  if (password !== confirmPassword) return res.json(401, {err: ":password and :confirmPassword don't match"});
+  if (!validator.isEmail(email)) return res.json(401, {err: ":email invalid"});
   async.waterfall([
     function(cb) {
       User.findOne({'auth.local.email': email}, cb);
     },
     function(found, cb) {
-      if (found) {
-        return cb("Email already taken");
-      }
+      if (found) return cb("Email already taken");
       User.findOne({'auth.local.username': username}, cb);
     }, function(found, cb) {
       var newUser, salt, user;
-      if (found) {
-        return cb("Username already taken");
-      }
+      if (found) return cb("Username already taken");
       salt = utils.makeSalt();
-      var newUser = {
+      newUser = {
         auth: {
           local: {
             username: username,
@@ -138,10 +129,9 @@ api.registerUser = function(req, res, next) {
       ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
-    if (err) {
-      return res.json(401, {err: err});
-    }
+    if (err) return res.json(401, {err: err});
     res.json(200, saved);
+    email = password = username = null;
   });
 };
 
@@ -167,6 +157,7 @@ api.loginLocal = function(req, res, next) {
       if (err) return next(err);
       if (!user) return res.json(401,{err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
       res.json({id: user._id,token: user.apiToken});
+      password = null;
     });
   });
 };
@@ -177,10 +168,8 @@ api.loginLocal = function(req, res, next) {
 
 
 api.loginFacebook = function(req, res, next) {
-  var email, facebook_id, name, _ref;
-  _ref = req.body, facebook_id = _ref.facebook_id, email = _ref.email, name = _ref.name;
-  if (!facebook_id)
-    return res.json(401, {err: 'No facebook id provided'});
+  var facebook_id = req.body.facebook_id;
+  if (!facebook_id) return res.json(401, {err: 'No facebook id provided'});
   User.findOne({'auth.facebook.id': facebook_id}, function(err, user) {
     if (err) {
       return res.json(401, {err: err});
@@ -215,31 +204,31 @@ api.resetPassword = function(req, res, next){
       html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL')
     });
     user.save();
-    return res.send('New password sent to '+ email);
+    res.send('New password sent to '+ email);
+    email = salt = newPassword = hashed_password = null;
   });
 };
 
 api.changeUsername = function(req, res, next) {
   var user = res.locals.user,
-    password = req.body.password
+    password = req.body.password,
     newUsername = req.body.newUsername;
 
   User.findOne({'auth.local.username': newUsername}, function(err, result) {
     if (err) next(err);
+    if(result) return res.json(401, {err: "Username already taken"});
 
-    if(result)
-        return res.json(401, {err: "Username already taken"});
-
-    var salt = user.auth.local.salt,
-      hashed_password = utils.encryptPassword(password, salt);
+    var salt = user.auth.local.salt;
+    var hashed_password = utils.encryptPassword(password, salt);
 
     if (hashed_password !== user.auth.local.hashed_password)
       return res.json(401, {err:"Incorrect password"});
 
     user.auth.local.username = newUsername;
     user.save(function(err, saved){
-        if (err) next(err);
-        res.send(200);
+      if (err) next(err);
+      res.send(200);
+      user = password = newUsername = null;
     })
   });
 }

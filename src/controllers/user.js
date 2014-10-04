@@ -68,6 +68,8 @@ api.score = function(req, res, next) {
     user = res.locals.user,
     task;
 
+  var clearMemory = function(){user = task = id = direction = null;}
+
   // Send error responses for improper API call
   if (!id) return res.json(400, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
@@ -104,22 +106,28 @@ api.score = function(req, res, next) {
       _tmp: user._tmp
     }, saved.toJSON().stats));
 
-    // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response
-    // and the user doesn't care what happens back there
-    if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
-    if (task.type == 'reward') return; // we don't want to update the reward GP cost
+    if (
+      (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
+      || (task.type == 'reward') // we don't want to update the reward GP cost
+    ) return clearMemory();
     Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal){
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
-        return user.save();
+        user.save();
+        return clearMemory();
       }
       var t = chal.tasks[task.id];
-      if (!t) return chal.syncToUser(user); // this task was removed from the challenge, notify user
+      // this task was removed from the challenge, notify user
+      if (!t) {
+        chal.syncToUser(user);
+        return clearMemory();
+      }
       t.value += delta;
       if (t.type == 'habit' || t.type == 'daily')
         t.history.push({value: t.value, date: +new Date});
       chal.save();
+      clearMemory();
     });
   });
 };
@@ -164,7 +172,6 @@ api.getTask = function(req, res, next) {
 
 api.getBuyList = function (req, res, next) {
    var list = shared.updateStore(res.locals.user);
-
    return res.json(200, list);
 };
 
@@ -231,6 +238,7 @@ api.update = function(req, res, next) {
     if (!_.isEmpty(errors)) return res.json(401, {err: errors});
     if (err) return next(err);
     res.json(200, user);
+    user = errors = null;
   });
 };
 
@@ -262,8 +270,9 @@ api.cron = function(req, res, next) {
       User.findById(user._id, cb);
     }
   ], function(err, saved) {
-    user = res.locals.user = saved;
+    res.locals.user = saved;
     next(err,saved);
+    user = progress = quest = null;
   });
 
 };
@@ -314,11 +323,12 @@ api.addTenGems = function(req, res, next) {
  ------------------------------------------------------------------------
  */
 api.cast = function(req, res, next) {
-  var user = res.locals.user;
-  var targetType = req.query.targetType;
-  var targetId = req.query.targetId;
-  var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
-  var spell = shared.content.spells[klass][req.params.spell];
+  var user = res.locals.user,
+    targetType = req.query.targetType,
+    targetId = req.query.targetId,
+    klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class,
+    spell = shared.content.spells[klass][req.params.spell];
+
   if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
   if (spell.mana > user.stats.mp) return res.json(400, {err: 'Not enough mana to cast spell'});
 
@@ -327,6 +337,7 @@ api.cast = function(req, res, next) {
     var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
     if (err) return next(err);
     res.json(saved);
+    user = targetType = targetId = klass = spell = null;
   }
 
   switch (targetType) {
@@ -369,6 +380,8 @@ api.cast = function(req, res, next) {
               group.save(cb2);
             })
           }
+
+          series.push(function(cb2){g = group = series = found = null;cb2();})
 
           async.series(series, cb);
         },

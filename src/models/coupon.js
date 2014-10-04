@@ -49,6 +49,7 @@ CouponSchema.statics.apply = function(user, code, next){
   ], function(err){
     if (err) return next(err);
     next(null,_user);
+    _coupon = _user = null;
   })
 }
 

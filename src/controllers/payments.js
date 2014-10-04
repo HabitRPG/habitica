@@ -14,6 +14,7 @@ var request = require('request');
 var moment = require('moment');
 var api = module.exports;
 var isProduction = nconf.get("NODE_ENV") === "production";
+var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
 
 var PaypalRecurring = require('paypal-recurring');
 var paypalRecurring = new PaypalRecurring({
@@ -51,7 +52,7 @@ function getMailingInfo(user) {
 }
 
 function emailUser(user, emailType) {
-  mailingInfo = getMailingInfo(user);
+  var mailingInfo = getMailingInfo(user);
   if(mailingInfo.email){
     request({
       url: nconf.get('EMAIL_SERVER_URL') + '/job',
@@ -131,8 +132,6 @@ if (nconf.get('NODE_ENV')==='testing') {
  Setup Stripe response when posting payment
  */
 api.stripeCheckout = function(req, res, next) {
-  var api_key = nconf.get('STRIPE_API_KEY');
-  var stripe = require("stripe")(api_key);
   var token = req.body.id;
   var user = res.locals.user;
 
@@ -164,11 +163,11 @@ api.stripeCheckout = function(req, res, next) {
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200);
+    user = token = null;
   });
 };
 
 api.stripeSubscribeCancel = function(req, res, next) {
-  var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
     return res.json(401, {err: "User does not have a plan subscription"});
@@ -184,11 +183,11 @@ api.stripeSubscribeCancel = function(req, res, next) {
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.redirect('/');
+    user = null;
   });
 };
 
 api.stripeSubscribeEdit = function(req, res, next) {
-  var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
   var token = req.body.id;
   var user = res.locals.user;
   var user_id = user.purchased.plan.customerId;
@@ -210,14 +209,14 @@ api.stripeSubscribeEdit = function(req, res, next) {
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200);
+    token = user = user_id = sub_id;
   });
 };
 
 api.paypalSubscribe = function(req,res,next) {
-  var uuid = res.locals.user._id;
   // Authenticate a future subscription of ~5 USD
   paypalRecurring.authenticate({
-    RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + uuid,
+    RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + res.locals.user._id,
     CANCELURL:                      nconf.get("BASE_URL"),
     PAYMENTREQUEST_0_AMT:           5,
     L_BILLINGAGREEMENTDESCRIPTION0: "HabitRPG Subscription"
@@ -265,12 +264,12 @@ api.paypalSubscribeCancel = function(req, res, next) {
   ], function(err, saved){
     if (err) return next(err);
     res.redirect('/');
+    user = null;
   });
 };
 
 api.paypalCheckout = function(req, res, next) {
-  var uuid = res.locals.user._id;
-  var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + uuid};
+  var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + res.locals.user._id};
   paypalCheckout.pay(+new Date(), 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
     if (err) return next(err);
     res.redirect(url);
@@ -292,6 +291,7 @@ api.paypalCheckoutSuccess = function(req,res,next) {
       user.save(function(){
         if (err) return next(err);
         res.redirect('/');
+        uuid = null;
       });
     });
   });
