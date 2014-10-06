@@ -11657,7 +11657,8 @@ api.specialPets = {
   'Dragon-Hydra': 'hydra',
   'Turkey-Base': 'turkey',
   'BearCub-Polar': 'polarBearPup',
-  'MantisShrimp-Base': 'mantisShrimp'
+  'MantisShrimp-Base': 'mantisShrimp',
+  'JackOLantern-Base': 'jackolantern'
 };
 
 api.specialMounts = {
@@ -12779,7 +12780,6 @@ api.userDefaults = {
 };
 
 
-
 },{"./i18n.coffee":6,"lodash":3,"moment":4}],6:[function(require,module,exports){
 var _;
 
@@ -12822,7 +12822,6 @@ module.exports = {
     }
   }
 };
-
 
 
 },{"lodash":3}],7:[function(require,module,exports){
@@ -14906,7 +14905,6 @@ api.wrap = function(user, main) {
     }
   });
 };
-
 
 
 }).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))

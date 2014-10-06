@@ -697,6 +697,7 @@ api.specialPets =
   'Turkey-Base':        'turkey'
   'BearCub-Polar':      'polarBearPup'
   'MantisShrimp-Base':  'mantisShrimp'
+  'JackOLantern-Base':  'jackolantern'
 
 api.specialMounts =
   'BearCub-Polar':	'polarBear'
