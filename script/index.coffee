@@ -877,7 +877,7 @@ api.wrap = (user, main=true) ->
           testVal = currVal + Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
 
           # Now keep moving closer to the original value until we get "close enough"
-          closeEnough = 0.0001
+          closeEnough = 0.00001
           while true
             # Check how close we are to the original value by computing the delta off our guess
             # and looking at the difference between that and our current value.
@@ -889,16 +889,25 @@ api.wrap = (user, main=true) ->
               testVal -= diff
             else
               testVal += diff
+
           # When we get close enough, return the difference between our approximated value
           # and the current value.  This will be the delta calculated from the original value
           # before the task was checked.
-          testVal - currVal
+          nextDelta = testVal - currVal
 
-        changeTaskValue = (reverse) ->
+          # Checklists
+          if task.checklist?.length > 0
+            # If To-Do, point-match the TD per checklist item completed
+            if task.type is 'todo'
+              nextDelta *= (1 + _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0))
+          nextDelta
+
+
+        changeTaskValue = ->
           # If multiple days have passed, multiply times days missed
           _.times options.times, ->
             # Each iteration calculate the nextDelta, which is then accumulated in the total delta.
-            nextDelta = if reverse then calculateReverseDelta() else calculateDelta()
+            nextDelta = if not options.cron and direction is 'down' then calculateReverseDelta() else calculateDelta()
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
               # ===== STRENGTH =====
@@ -930,9 +939,11 @@ api.wrap = (user, main=true) ->
           gpMod = (delta * task.priority * _crit * perBonus)
           stats.gp +=
             if task.streak
-              streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
+              currStreak = if direction is 'down' then task.streak-1 else task.streak
+              streakBonus = currStreak / 100 + 1 # eg, 1-day streak is 1.01, 2-day is 1.02, etc
               afterStreak = gpMod * streakBonus
-              user._tmp.streakBonus = afterStreak - gpMod if (gpMod > 0) # keep this on-hand for later, so we can notify streak-bonus
+              if currStreak > 0
+                user._tmp.streakBonus = afterStreak - gpMod if (gpMod > 0) # keep this on-hand for later, so we can notify streak-bonus
               afterStreak
             else gpMod
 
@@ -965,9 +976,9 @@ api.wrap = (user, main=true) ->
               subtractPoints()
               task.streak = 0 unless user.stats.buffs.streaks
             else
-              changeTaskValue(delta < 0)
-              if delta < 0
-                delta = calculateDelta()
+              changeTaskValue()
+              if direction is 'down'
+                delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               if direction is 'up'
                 task.streak = if task.streak then task.streak + 1 else 1
@@ -986,9 +997,9 @@ api.wrap = (user, main=true) ->
               #don't touch stats on cron
             else
               task.dateCompleted = if direction is 'up' then new Date else undefined
-              changeTaskValue(delta < 0)
-              if delta < 0
-                delta = calculateDelta()
+              changeTaskValue()
+              if direction is 'down'
+                delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])

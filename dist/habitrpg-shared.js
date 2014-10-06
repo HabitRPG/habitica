@@ -14180,10 +14180,10 @@ api.wrap = function(user, main) {
           return nextDelta;
         };
         calculateReverseDelta = function() {
-          var calc, closeEnough, currVal, diff, testVal;
+          var calc, closeEnough, currVal, diff, nextDelta, testVal, _ref1;
           currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
           testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-          closeEnough = 0.0001;
+          closeEnough = 0.00001;
           while (true) {
             calc = testVal + Math.pow(0.9747, testVal);
             diff = currVal - calc;
@@ -14196,12 +14196,20 @@ api.wrap = function(user, main) {
               testVal += diff;
             }
           }
-          return testVal - currVal;
+          nextDelta = testVal - currVal;
+          if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+            if (task.type === 'todo') {
+              nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0);
+            }
+          }
+          return nextDelta;
         };
-        changeTaskValue = function(reverse) {
+        changeTaskValue = function() {
           return _.times(options.times, function() {
             var nextDelta, _ref1;
-            nextDelta = reverse ? calculateReverseDelta() : calculateDelta();
+            nextDelta = !options.cron && direction === 'down' ? calculateReverseDelta() : calculateDelta();
             if (task.type !== 'reward') {
               if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                 user.stats.training[task.attribute] += nextDelta;
@@ -14218,7 +14226,7 @@ api.wrap = function(user, main) {
           });
         };
         addPoints = function() {
-          var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+          var afterStreak, currStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
           _crit = (delta > 0 ? user.fns.crit() : 1);
           if (_crit > 1) {
             user._tmp.crit = _crit;
@@ -14227,7 +14235,7 @@ api.wrap = function(user, main) {
           stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
           perBonus = 1 + user._statsComputed.per * .02;
           gpMod = delta * task.priority * _crit * perBonus;
-          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+          return stats.gp += task.streak ? (currStreak = direction === 'down' ? task.streak - 1 : task.streak, streakBonus = currStreak / 100 + 1, afterStreak = gpMod * streakBonus, currStreak > 0 ? gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0 : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
           var conBonus, hpMod;
@@ -14269,8 +14277,8 @@ api.wrap = function(user, main) {
                 task.streak = 0;
               }
             } else {
-              changeTaskValue(delta < 0);
-              if (delta < 0) {
+              changeTaskValue();
+              if (direction === 'down') {
                 delta = calculateDelta();
               }
               addPoints();
@@ -14292,8 +14300,8 @@ api.wrap = function(user, main) {
               changeTaskValue();
             } else {
               task.dateCompleted = direction === 'up' ? new Date : void 0;
-              changeTaskValue(delta < 0);
-              if (delta < 0) {
+              changeTaskValue();
+              if (direction === 'down') {
                 delta = calculateDelta();
               }
               addPoints();
