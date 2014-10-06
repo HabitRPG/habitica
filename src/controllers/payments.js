@@ -93,11 +93,9 @@ function createSubscription(user, data) {
       mysteryItems: []
     });
   revealMysteryItems(user);
+  if(isProduction) emailUser(user, 'subscription-begins');
   user.purchased.txnCount++;
   ga.event('subscribe', data.paymentMethod).send();
-  if(isProduction){
-    emailUser(user, 'subscription-begins');
-  }
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
 }
 
@@ -106,21 +104,21 @@ function createSubscription(user, data) {
  */
 function cancelSubscription(user, data){
   var du = user.purchased.plan.dateUpdated, now = moment();
+  if(isProduction) emailUser(user, 'cancel-subscription');
   user.purchased.plan.dateTerminated =
     moment( now.format('MM') + '/' + moment(du).format('DD') + '/' + now.format('YYYY') )
     .add('month',1)
     .toDate();
   ga.event('unsubscribe', 'Stripe').send();
+
 }
 
 function buyGems(user, data) {
   user.balance += 5;
   user.purchased.txnCount++;
+  if(isProduction) emailUser(user, 'donation');
   ga.event('checkout', data.paymentMethod).send();
   ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
-  if(isProduction){
-    emailUser(user, 'donation');
-  }
 }
 
 // Expose some functions for tests
