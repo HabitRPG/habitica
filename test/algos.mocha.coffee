@@ -93,6 +93,11 @@ expectNoChange = (before,after) ->
   _.each $w('stats items gear dailys todos rewards flags preferences'), (attr)->
     expect(after[attr]).to.eql before[attr]
 
+expectClosePoints = (before, after, taskType) ->
+  expect( Math.abs(after.stats.exp - before.stats.exp) ).to.be.lessThan 0.0001
+  expect( Math.abs(after.stats.gp - before.stats.gp) ).to.be.lessThan 0.0001
+  expect( Math.abs(after["#{taskType}s"][0].value - before["#{taskType}s"][0].value) ).to.be.lessThan 0.0001
+
 expectDayResetNoDamage = (b,a) ->
   [before,after] = [_.cloneDeep(b), _.cloneDeep(a)]
   _.each after.dailys, (task,i) ->
@@ -379,9 +384,19 @@ describe 'Simple Scoring', ->
     @after.ops.score {params: {id: @after.dailys[0].id, direction: 'up'}}
     expectGainedPoints(@before, @after,'daily')
 
+  it 'Dailys : Up, Down', ->
+    @after.ops.score {params: {id: @after.dailys[0].id, direction: 'up'}}
+    @after.ops.score {params: {id: @after.dailys[0].id, direction: 'down'}}
+    expectClosePoints(@before, @after, 'daily')
+
   it 'Todos : Up', ->
     @after.ops.score {params: {id: @after.todos[0].id, direction: 'up'}}
     expectGainedPoints(@before, @after,'todo')
+
+  it 'Todos : Up, Down', ->
+    @after.ops.score {params: {id: @after.todos[0].id, direction: 'up'}}
+    @after.ops.score {params: {id: @after.todos[0].id, direction: 'down'}}
+    expectClosePoints(@before, @after, 'todo')
 
 describe 'Cron', ->
 
