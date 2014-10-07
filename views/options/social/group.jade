@@ -61,12 +61,12 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               )
           table.table.table-striped(bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')
-              td
+              td.media
                 // allow leaders to ban members
-                div(ng-show='group.leader == user.id && user.id!=member._id')
-                  a(ng-click='removeMember(group, member, true)')
+                div.pull-left(ng-show='group.leader == user.id && user.id!=member._id')
+                  a.media-object(ng-click='removeMember(group, member, true)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
-                a
+                a.media-body
                   span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
                     | {{member.profile.name}}
             tr(ng-if='group.memberCount > group.members.length')
