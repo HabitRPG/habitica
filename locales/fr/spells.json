@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Lancez une boule de neige à un membre de votre équipe. Est-ce que cela pourrait vraiment mal tourner ? L'effet dure jusqu'à la fin de la journée de ce membre.",
     "spellSpecialSaltText": "Sel",
     "spellSpecialSaltNotes": "Quelqu'un vous a envoyé une boule de neige. Ha, ha, ha, très drôle. Enlevez-moi cette neige de là, maintenant !",
-    "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
-    "spellSpecialOpaquePotionText": "Opaque Potion",
-    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
+    "spellSpecialSpookDustText": "Étincelles Effrayantes",
+    "spellSpecialSpookDustNotes": "Transformez vos amis en un drap flottant avec des yeux !",
+    "spellSpecialOpaquePotionText": "Potion Opaque",
+    "spellSpecialOpaquePotionNotes": "Annule les effets des Étincelles Effrayantes"
 }

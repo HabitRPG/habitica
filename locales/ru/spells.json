@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Киньте снежок в члена команды, разве это может повредить? Эффект длится до наступления нового дня компаньона.",
     "spellSpecialSaltText": "Соль",
     "spellSpecialSaltNotes": "Кто-то кинул в вас снежок. Ха-ха, очень смешно. А теперь стряхните с меня снег!",
-    "spellSpecialSpookDustText": "Spooky Sparkles",
+    "spellSpecialSpookDustText": "Зловещие искры",
     "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Opaque Potion",
-    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
+    "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр"
 }

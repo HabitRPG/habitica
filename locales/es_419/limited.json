@@ -1,16 +1,17 @@
 {
     "limitedEdition": "Edición limitada",
-    "seasonalEdition": "Seasonal Edition",
+    "seasonalEdition": "Edición estacional",
     "winterColors": "Colores de invierno",
     "annoyingFriends": "Amigos molestos",
     "annoyingFriendsText": "Tus compañeros te han lanzado <%= snowballs %> bolas de nieve.",
-    "alarmingFriends": "Alarming Friends",
-    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
+    "alarmingFriends": "Amigos atemorizadores",
+    "alarmingFriendsText": "Tus compañeros te han asustado <%= spookDust %> veces.",
     "valentineCard": "Tarjeta del día de San Valentin",
     "adoringFriends": "Amigos cariñosos",
     "adoringFriendsText": "Aww, tú y tu amigo se quieren mucho el uno al otro. Enviaste o recibiste <%= cards %> tarjetas del día de San Valentín.",
     "limited30Apr": "Disponibles para comprar hasta el 30 de abril (pero siempre disponible cuando se haya comprado).",
     "polarBear": "Oso polar",
     "turkey": "Pavo",
-    "polarBearPup": "Cachorro de oso polar"
+    "polarBearPup": "Cachorro de oso polar",
+    "jackolantern": "Jack-O-Lantern"
 }

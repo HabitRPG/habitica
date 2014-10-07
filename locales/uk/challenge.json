@@ -33,7 +33,7 @@
     "challengeTagPop": "Випробування з'являються у переліках з ярликами та панелях. Згори йде опис, а знизу — скорочення. Наприклад: „скинути 10 фунтів за 3 місяці“ позначиться „-10 фнт.“ (Клацніть для довідки).",
     "challengeDescr": "Опис",
     "prize": "Винагорода",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and will not be refunded if challenge is cancelled.",
+    "prizePop": "Якщо хтось може „перемогти“ у вашому випробуванні, ви можете призначити переможцеві винагороду у самоцвітах. Max = #gems ваших власних (+ guild.gems, якщо ви створили випробування в гільдії). Зауважте: цю винагороду не можна буде потім змінити і, у разі відхилення випробування, її не буде відшкодовано.",
     "publicChallenges": "Щонайменше 1 самоцвіт для <strong> громадських випробувань </strong> (допомагає запобігти спаму, справді).",
     "officialChallenge": "Офіційне випробування HabitRPG",
     "by": "від",

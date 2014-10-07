@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Wirf einen Schneeball auf Gruppenmitglieder. Was kann schon schief gehen? Dauert bis zum Tageswechsel an.",
     "spellSpecialSaltText": "Salz",
     "spellSpecialSaltNotes": "Jemand hat Dich mit Schnee eingeseift. Haha, sehr lustig. Jetzt ist aber Schluss!",
-    "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
-    "spellSpecialOpaquePotionText": "Opaque Potion",
-    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
+    "spellSpecialSpookDustText": "Spukglitter",
+    "spellSpecialSpookDustNotes": "Verwandle Deine Freunde in schwebende Bettlaken mit Augen!",
+    "spellSpecialOpaquePotionText": "Trank der Entgeisterung.",
+    "spellSpecialOpaquePotionNotes": "Beendet den Effekt von Spukglitter"
 }
