@@ -9,7 +9,7 @@ if(window.moment && window.env.language && window.env.language.momentLang && win
   script.type = 'text/javascript';
   script.text = window.env.language.momentLang;
   head.appendChild(script);
-  window.moment.lang(window.env.language.momentLangCode);
+  window.moment.locale(window.env.language.momentLangCode);
 }
 
 window.habitrpgShared.i18n.strings = window.env.translations;

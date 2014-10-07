@@ -108,7 +108,7 @@ function cancelSubscription(user, data){
   if(isProduction) emailUser(user, 'cancel-subscription');
   user.purchased.plan.dateTerminated =
     moment( now.format('MM') + '/' + moment(du).format('DD') + '/' + now.format('YYYY') )
-    .add('month',1)
+    .add(1, 'month')
     .toDate();
   ga.event('unsubscribe', 'Stripe').send();
 

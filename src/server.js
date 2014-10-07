@@ -109,7 +109,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(middleware.forceSSL);
   app.use(express.urlencoded());
   app.use(express.json());
-  app.use(express.methodOverride());
+  app.use(require('method-override')());
   //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
   app.use(express.cookieParser());
   app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
