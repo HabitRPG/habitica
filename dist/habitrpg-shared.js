@@ -13451,7 +13451,9 @@ api.startOfDay = function(options) {
     options = {};
   }
   o = sanitizeOptions(options);
-  return moment(o.now).startOf('day').add('h', o.dayStart);
+  return moment(o.now).startOf('day').add({
+    hours: o.dayStart
+  });
 };
 
 api.dayMapping = {
@@ -13503,7 +13505,9 @@ api.shouldDo = function(day, repeat, options) {
   if (options.dayStart <= o.now.hour()) {
     return selected;
   } else {
-    yesterday = moment(o.now).subtract(1, 'd').day();
+    yesterday = moment(o.now).subtract({
+      days: 1
+    }).day();
     return repeat[api.dayMapping[yesterday]];
   }
 };
@@ -15299,7 +15303,9 @@ api.wrap = function(user, main) {
             scheduleMisses = 0;
             _.times(daysMissed, function(n) {
               var thatDay;
-              thatDay = moment(now).subtract('days', n + 1);
+              thatDay = moment(now).subtract({
+                days: n + 1
+              });
               if (api.shouldDo(thatDay, repeat, user.preferences)) {
                 return scheduleMisses++;
               }
@@ -15489,5 +15495,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/matteo/Dev/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Dev/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

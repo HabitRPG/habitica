@@ -5,7 +5,7 @@
     "browserify": "~3.30.2",
     "coffeeify": "0.6.0",
     "coffee-script": "1.7.1",
-    "moment": "~2.4.0",
+    "moment": "~2.8.3",
     "lodash": "~2.4.1",
     "grunt-spritesmith": "~1.22.0"
   },
