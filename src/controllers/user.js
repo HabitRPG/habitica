@@ -477,7 +477,7 @@ api.batchUpdate = function(req, res, next) {
     }else if(response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
       response.todos = _.where(response.todos, function(t) {
-        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract('days',3));
+        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
       });
       res.json(200, response);
 
