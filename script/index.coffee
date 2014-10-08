@@ -42,7 +42,7 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
 
 api.startOfDay = (options={}) ->
   o = sanitizeOptions(options)
-  moment(o.now).startOf('day').add('h', o.dayStart)
+  moment(o.now).startOf('day').add({hours:o.dayStart})
 
 api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
@@ -64,7 +64,7 @@ api.shouldDo = (day, repeat, options={}) ->
   if options.dayStart <= o.now.hour() # we're past the dayStart mark, is it due today?
     return selected
   else # we're not past dayStart mark, check if it was due "yesterday"
-    yesterday = moment(o.now).subtract(1,'d').day() # have to wrap o.now so as not to modify original
+    yesterday = moment(o.now).subtract({days:1}).day() # have to wrap o.now so as not to modify original
     return repeat[api.dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
 
 
@@ -1332,7 +1332,7 @@ api.wrap = (user, main=true) ->
           if (type is 'daily') and repeat
             scheduleMisses = 0
             _.times daysMissed, (n) ->
-              thatDay = moment(now).subtract('days', n + 1)
+              thatDay = moment(now).subtract({days: n + 1})
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
             perfect = false if type is 'daily'
