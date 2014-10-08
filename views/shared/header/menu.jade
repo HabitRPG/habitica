@@ -137,14 +137,12 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
     ul.toolbar-options  
       li.toolbar-notifs
         a(ng-click='expandMenu("notifs")')
-          span.glyphicon.glyphicon-comment(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0', ng-class='{inactive: _.isEmpty(user.newMessages)}')
-          span.glyphicon.glyphicon-user(ng-if='!user.purchased.plan.mysteryItems.length && (user.invitations.party.id || user.invitations.guilds.length > 0)')
-          span.glyphicon.glyphicon-gift(ng-if='user.purchased.plan.mysteryItems.length')
+          span.glyphicon(ng-class='iconClasses()')
         div(ng-if='_expandedMenu=="notifs"')
           h4=env.t('notifications')
           div
             ul.toolbar-notifs-notifs
-              li.toolbar-notifs-no-messages(ng-if='!user.invitations.party.id && !user.purchased.plan.mysteryItems.length && user.invitations.guilds.length === 0 && _.isEmpty(user.newMessages)')=env.t('noNotifications')
+              li.toolbar-notifs-no-messages(ng-if='hasNoNotifications()')=env.t('noNotifications')
               li(ng-if='user.purchased.plan.mysteryItems.length')
                 a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
                   span.glyphicon.glyphicon-gift
@@ -157,6 +155,10 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.social.guilds', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
+              li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
+                a(ui-sref='options.profile.stats', ng-click='expandMenu(null)')
+                  span.glyphicon.glyphicon-plus-sign
+                  span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
                 a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
                   span.glyphicon.glyphicon-comment
