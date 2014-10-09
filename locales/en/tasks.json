@@ -35,6 +35,8 @@
     "dueDate": "Due Date",
     "remaining": "Remaining",
     "complete": "Complete",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Rewards",
     "gold": "Gold",
     "silver": "Silver (100 silver = 1 gold)",
