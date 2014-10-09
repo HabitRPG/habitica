@@ -70,7 +70,7 @@ habitrpg
             header: window.env.t('dailies'),
             type: 'daily',
             placeHolder: window.env.t('newDaily'),
-            view: "remaining"
+            view: "all"
           }, {
             header: window.env.t('todos'),
             type: 'todo',
