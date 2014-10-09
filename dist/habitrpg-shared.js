@@ -15191,10 +15191,10 @@ api.wrap = function(user, main) {
       if (user.flags == null) {
         user.flags = {};
       }
-      if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+      if (!user.flags.customizationsNotification && (user.stats.exp > 5 || user.stats.lvl > 1)) {
         user.flags.customizationsNotification = true;
       }
-      if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
+      if (!user.flags.itemsEnabled && (user.stats.exp > 10 || user.stats.lvl > 1)) {
         user.flags.itemsEnabled = true;
       }
       if (!user.flags.partyEnabled && user.stats.lvl >= 3) {

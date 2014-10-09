@@ -1242,9 +1242,9 @@ api.wrap = (user, main=true) ->
 
       # Set flags when they unlock features
       user.flags ?= {}
-      if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
+      if !user.flags.customizationsNotification and (user.stats.exp > 5 or user.stats.lvl > 1)
         user.flags.customizationsNotification = true
-      if !user.flags.itemsEnabled and user.stats.lvl >= 2
+      if !user.flags.itemsEnabled and (user.stats.exp > 10 or user.stats.lvl > 1)
         user.flags.itemsEnabled = true
       if !user.flags.partyEnabled and user.stats.lvl >= 3
         user.flags.partyEnabled = true
