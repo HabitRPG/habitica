@@ -20,7 +20,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       //   span.glyphicon.glyphicon-import
       //   // glyphicon-import or glyphicon-save or glyphicon-sort-by-attributes
       a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', tooltip=env.t('expandCollapse'))
-        {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
+        |{{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
       span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
