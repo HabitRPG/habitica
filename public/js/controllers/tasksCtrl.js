@@ -193,7 +193,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
 
     $scope.shouldShow = function(task, list, prefs){
-      if (task.type == 'habit' || task.type == 'reward')
+      if (task.type == 'habit' || task.type == 'todo' || task.type == 'reward')
         return true;
       var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task.repeat, prefs) : true;
       switch (list.view) {
