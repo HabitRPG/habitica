@@ -71,7 +71,8 @@ function emailUser(user, emailType) {
           }
         },
         options: {
-          attemps: 5
+          attemps: 5,
+          backoff: {delay: (10*60*1000), type: 'fixed'}
         }
       }
     });
@@ -108,7 +109,7 @@ function cancelSubscription(user, data){
   if(isProduction) emailUser(user, 'cancel-subscription');
   user.purchased.plan.dateTerminated =
     moment( now.format('MM') + '/' + moment(du).format('DD') + '/' + now.format('YYYY') )
-    .add({months:1})
+    .add(1, 'month')
     .toDate();
   ga.event('unsubscribe', 'Stripe').send();
 

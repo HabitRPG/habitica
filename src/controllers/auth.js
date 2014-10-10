@@ -24,6 +24,31 @@ var accountSuspended = function(uuid){
   };
 }
 
+var emailUser = function(name, email, emailType){
+  request({
+    url: nconf.get('EMAIL_SERVER_URL') + '/job',
+    method: 'POST',
+    auth: {
+      user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+      pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+    },
+    json: {
+      type: 'email', 
+      data: {
+        emailType: emailType,
+        to: {
+          name: name,
+          email: email
+        }
+      },
+      options: {
+        attemps: 5,
+        backoff: {delay: 10*60*1000, type: 'fixed'}
+      }
+    }
+  });
+}
+
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
   var token = req.headers['x-api-key'];
@@ -103,29 +128,7 @@ api.registerUser = function(req, res, next) {
       }
 
       user.save(cb);
-      if(isProd){
-        request({
-          url: nconf.get('EMAIL_SERVER_URL') + '/job',
-          method: 'POST',
-          auth: {
-            user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-            pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-          },
-          json: {
-            type: 'email', 
-            data: {
-              emailType: 'welcome',
-              to: {
-                name: username,
-                email: email
-              }
-            },
-            options: {
-              attemps: 5
-            }
-          }
-        });
-      }
+      if(isProd) emailUser(username, email, 'welcome');
       ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
@@ -310,27 +313,7 @@ api.setupPassport = function(router) {
           });
           user.save(cb);
           if(isProd && req.user.emails && req.user.emails[0] && req.user.emails[0].value){
-            request({
-              url: nconf.get('EMAIL_SERVER_URL') + '/job',
-              method: 'POST',
-              auth: {
-                user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-                pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-              },
-              json: {
-                type: 'email', 
-                data: {
-                  emailType: 'welcome',
-                  to: {
-                    name: req.user.displayName || req.user.username,
-                    email: req.user.emails[0].value
-                  }
-                },
-                options: {
-                  attemps: 5
-                }
-              }
-            });
+            emailUser((req.user.displayName || req.user.username), req.user.emails[0].value, 'welcome');
           }
           ga.event('register', 'Facebook').send()
         }
