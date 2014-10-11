@@ -1,6 +1,6 @@
 {
     "clearCompleted": "מחיקה הושלמה",
-    "lotOfToDos": "משימות שהושלמו נמחקות אוטומטית תוך 3 ימים. אתה יכול למצוא אותן באפשרויות > הגדרות > ייצוא נתונים.",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "לחיצה על הכפתור למטה תמחק לצמיתות את כל המטרות הגמורות והמטרות הגנוזות שלך. חשוב לייצא אותן קודם אם היית רוצה לשמור תיעוד שלהם",
     "habits": "הרגלים",
     "newHabit": "הרגל חדש",
@@ -35,6 +35,8 @@
     "dueDate": "תאריך השלמה",
     "remaining": "נותרו",
     "complete": "הושלמו",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "פרסים",
     "gold": "זהב",
     "silver": "כסף (100 כסף = זהב 1)",

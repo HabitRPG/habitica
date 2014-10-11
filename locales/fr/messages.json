@@ -14,7 +14,7 @@
     "messageUnEquipped": "<%= itemText %> retiré·e·s.",
     "messageMissingEggPotion": "Il vous manque au choix cet œuf ou cette potion.",
     "messageAlreadyPet": "Vous avez déjà ce familier. Essayez de faire éclore une combinaison différente !",
-    "messageHatched": "Votre œuf a éclot ! Allez voir à l’Écurie pour équiper votre familier.",
+    "messageHatched": "Votre œuf a éclos ! Allez voir à l’Écurie pour équiper votre familier.",
     "messageNotEnoughGold": "Pas assez d'Or",
     "messageTwoHandled": "<%= gearText %> est une arme à deux mains.",
     "messageDropFood": "Vous avez trouvé <%= dropArticle %><%= dropText %> ! <%= dropNotes %>",

@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Vymaž dokončené",
-    "lotOfToDos": "Dokončené úkoly v úkolníčku jsou automaticky archivovány po 3 dnech. Můžeš se na ně podívat v Nastavení > Možnosti > Export Dat.",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Po kliknutí na toto tlačítko se permanentně smažou všechny tvé splněné a archivované úkoly. Chceš-li si o nich vést záznamy, nejdřív si je exportuj.",
     "habits": "Zvyky",
     "newHabit": "Nový zvyk",
@@ -35,6 +35,8 @@
     "dueDate": "Termín splnění",
     "remaining": "Zbývající",
     "complete": "Dokončené",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Odměny",
     "gold": "Zlaťáky",
     "silver": "Stříbro (100 stříbrňáků = 1 zlaťák)",

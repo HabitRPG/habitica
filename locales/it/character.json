@@ -93,6 +93,7 @@
     "changeClass": "Cambia classe, recupera Punti Attributo allocati",
     "levelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica.",
     "unallocated": "Punti Attributo non allocati",
+    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
     "autoAllocation": "Allocazione automatica ",
     "autoAllocationPop": "Assegna automaticamente i punti agli attributi, in base alle tue preferenze, quando sali di livello.",
     "evenAllocation": "Distribuisci i punti uniformemente ",

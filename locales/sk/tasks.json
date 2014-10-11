@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Zmaž hotové",
-    "lotOfToDos": "Splnené úlohy sa po 3 dňoch automaticky archivujú. Ostanú prístupné cez Možnosti > Nastavenia > Export dát",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Ak klikneš na tlačítko nižšie, všetky tvoje dokončené ToDo a archivované ToDo sa nenávratne zmažú. Ak si chceš uchovať históriu, najskôr použi export.",
     "habits": "Návyky",
     "newHabit": "Nový návyk",
@@ -35,6 +35,8 @@
     "dueDate": "Dokončiť do",
     "remaining": "Ostáva",
     "complete": "Hotové",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Odmeny",
     "gold": "Zlato",
     "silver": "Grajciar (100 grajciarov = 1 zlatka)",

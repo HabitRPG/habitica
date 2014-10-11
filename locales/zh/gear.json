@@ -94,7 +94,7 @@
     "weaponSpecialFallRogueText": "银质十字架",
     "weaponSpecialFallRogueNotes": "驱走亡灵。也有效抵御狼人。增加<%= str %>点力量。2014年秋季限量版装备。",
     "weaponSpecialFallWarriorText": "實驗手爪",
-    "weaponSpecialFallWarriorNotes": "This grabby claw is at the very cutting edge of technology. Adds <%= str %> points to Strength. Limited Edition 2014 Autumn Gear.",
+    "weaponSpecialFallWarriorNotes": "这只手爪代表着现代科技的最前沿。增加<%= str %>点力量。2014年秋季限量版装备。",
     "weaponSpecialFallMageText": "飞天扫帚",
     "weaponSpecialFallMageNotes": "This enchanted broom flies faster than a dragon! Adds <%= int %> points to Intelligence and <%= per %> points to Perception. Limited Edition 2014 Autumn Gear.",
     "weaponSpecialFallHealerText": "圣甲虫魔杖",
@@ -254,7 +254,7 @@
     "headSpecialCandycaneText": "糖果手杖帽子",
     "headSpecialCandycaneNotes": "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases Perception by <%= per %>.",
     "headSpecialSnowflakeText": "雪花王冠",
-    "headSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases Intelligence by <%= int %>.",
+    "headSpecialSnowflakeNotes": "2013年冬季限量版装备！戴上这王冠就不会怕冷。增加<%= int %>点智力。",
     "headSpecialSpringRogueText": "隐蔽猫面具",
     "headSpecialSpringRogueNotes": "Nobody will EVER guess that you are a cat burglar! Adds <%= per %> points to Perception. Limited Edition 2014 Spring Gear.",
     "headSpecialSpringWarriorText": "四叶草钢头盔",
@@ -262,7 +262,7 @@
     "headSpecialSpringMageText": "瑞士奶酪帽子",
     "headSpecialSpringMageNotes": "这顶帽子里隐藏着强劲的魔力！最好不要采几块偷吃吧。增加<%= per %>点感知。2014年春季限量版装备。",
     "headSpecialSpringHealerText": "友谊冠",
-    "headSpecialSpringHealerNotes": "This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds <%= int %> points to Intelligence. Limited Edition 2014 Spring Gear.",
+    "headSpecialSpringHealerNotes": "这顶王冠象征着忠诚和友谊。毕竟狗是冒险家最好的朋友！增加<%= int %>点智力。2014年春季限量版装备。",
     "headSpecialSummerRogueText": "海盗帽子",
     "headSpecialSummerRogueNotes": "Only the most productive of pirates can wear this fine hat. Adds <%= per %> points to Perception. Limited Edition 2014 Summer Gear.",
     "headSpecialSummerWarriorText": "流氓頭巾",
@@ -383,6 +383,6 @@
     "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen.",
     "headAccessoryMystery201404Text": "暮光之城蝴蝶触角",
     "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!",
-    "headAccessoryMystery201409Text": "Autumn Antlers",
-    "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves."
+    "headAccessoryMystery201409Text": "秋季鹿茸",
+    "headAccessoryMystery201409Notes": "和秋叶一起变色的鹿茸。"
 }

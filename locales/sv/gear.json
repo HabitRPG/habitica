@@ -41,7 +41,7 @@
     "weaponWizard4Notes": "As powerful as it is heavy. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
     "weaponWizard5Text": "Archmage Staff",
     "weaponWizard5Notes": "Assists in weaving the most complex of spells. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
-    "weaponWizard6Text": "Golden Staff",
+    "weaponWizard6Text": "Guldsvärd",
     "weaponWizard6Notes": "Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases Intelligence by <%= int %> and Perception by <%= per %>.",
     "weaponHealer0Text": "Novice Rod",
     "weaponHealer0Notes": "For healers in training. Confers no benefit.",

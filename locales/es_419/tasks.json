@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borrar hábitos completados",
-    "lotOfToDos": "Las Pendientes realizadas se archivan automáticamente después de 3 días. Puedes acceder a ellas desde Opciones > Ajustes > Exportar datos.",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Si haces clic en el siguiente botón, todas tus Pendientes completados y Pendientes archivados serán permanentemente borradqs. Exportalas primero si quieres mantener un registro de ellas.",
     "habits": "Hábitos",
     "newHabit": "Nuevo hábito",
@@ -35,6 +35,8 @@
     "dueDate": "Fecha de vencimiento",
     "remaining": "Sin hacer",
     "complete": "Completadas",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Recompensas",
     "gold": "Oro",
     "silver": "Plata (100 monedas de plata = 1 moneda de oro)",

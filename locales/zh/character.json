@@ -93,6 +93,7 @@
     "changeClass": "更改职业，重新分配属性点",
     "levelPopover": "每一级你可以获得一个可自由分配的属性点。你可以手动分配，或者让系统为你自动分配。",
     "unallocated": "未分配的属性点",
+    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
     "autoAllocation": "自动分配",
     "autoAllocationPop": "升级后,请将技能点分配到你喜欢的属性.",
     "evenAllocation": "平均分配属性点",

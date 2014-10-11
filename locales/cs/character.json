@@ -93,6 +93,7 @@
     "changeClass": "Změň povolání, znovu přiřaď body vlastností",
     "levelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení.",
     "unallocated": "Nepřidělené body vlastností",
+    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
     "autoAllocation": "Automatické přidělení",
     "autoAllocationPop": "Když dosáhneš další úrovně, umístí body do vlastností v závislosti na tvých preferencích.",
     "evenAllocation": "Přiřazovat body vlastností rovnoměrně",

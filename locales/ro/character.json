@@ -93,6 +93,7 @@
     "changeClass": "Schimbă-ți Clasa, Restituie Punctele de atribut",
     "levelPopover": "Fiecare nivel îți oferă un punct pe care-l poți repartiza unui atribut la alegerea ta. Poți face acest lucru manual, sau poți lăsa jocul să decidă pentru tine folosind una din opțiunile de Alocare Automată.",
     "unallocated": "Puncte de Atribut Nealocate",
+    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
     "autoAllocation": "Alocare automată",
     "autoAllocationPop": "Distribuie punctele în atribute în conformitate cu preferințele tale atunci când crești un nivel.",
     "evenAllocation": "Distribuie punctele de atribut în mod egal",

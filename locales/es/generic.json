@@ -15,7 +15,7 @@
     "market": "Mercado",
     "subscriberItem": "Objeto Misterioso",
     "newSubscriberItem": "Nuevo Objeto Misterioso",
-    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for the exact date.",
+    "subscriberItemText": "Cada mes, los suscriptores recibirán un objeto misterioso. Esto normalmente sucede aproximadamente una semana antes del final de mes. Comprueba la pagina de la wiki sobre \"Objetos Misteriosos\" para ver la fecha exacta. ",
     "all": "Todo",
     "none": "Ninguno",
     "or": "O",
@@ -38,7 +38,7 @@
     "delete": "Eliminar",
     "gems": "Gemas",
     "moreInfo": "Más información",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Se adquiere mediante dinero real. Usado para compras objectos especiales y servicios (huevos, pociónes incubadoras, Fortificar, etcétera). Necesitarás desocultar estas funciones antes de poder usar Gemas.",
     "veteran": "Veterano",
     "veteranText": "Ha sobrevivido a Habit The Grey (nuestro sito web pre-Angular) y se ha ganado muchas cicatrices por sus fallos.",
     "originalUser": "¡Usuario original!",
@@ -66,8 +66,8 @@
     "audioTheme": "Tema de audio",
     "audioTheme_off": "Apagar",
     "audioTheme_danielTheBard": "Daniel el Bardo",
-    "askQuestion": "Ask a Question",
-    "reportBug": "Report a Bug",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "askQuestion": "Hacer una Pregunta",
+    "reportBug": "Notificar un error",
+    "contributeToHRPG": "Contribuir con HabitRPG",
+    "overview": "Resumen para Nuevos Usuarios"
 }

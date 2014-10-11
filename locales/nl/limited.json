@@ -1,11 +1,11 @@
 {
     "limitedEdition": "Beperkte oplage",
-    "seasonalEdition": "Seasonal Edition",
+    "seasonalEdition": "Seizoenseditie",
     "winterColors": "Winterkleuren",
     "annoyingFriends": "Irritante vrienden",
     "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
-    "alarmingFriends": "Alarming Friends",
-    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
+    "alarmingFriends": "Verontrustende vrienden",
+    "alarmingFriendsText": "Is <%= spookDust %> keer bespookt door groepsleden.",
     "valentineCard": "Valentijnskaart",
     "adoringFriends": "Liefhebbende vrienden",
     "adoringFriendsText": "Aww, jij en je vriend moeten wel heel erg veel om elkaar geven! Verzond of kreeg <%= cards %> Valentijnskaarten.",
@@ -13,5 +13,5 @@
     "polarBear": "IJsbeer",
     "turkey": "Kalkoen",
     "polarBearPup": "IJsbeerwelp",
-    "jackolantern": "Jack-O-Lantern"
+    "jackolantern": "Jack-O-Lantern-pompoen"
 }

@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Supprimer les tâches accomplies",
-    "lotOfToDos": "Les tâches À faire accomplies sont automatiquement archivées après 3 jours. Vous pouvez y avoir accès depuis Options > Paramètres > Exporter les données",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches A Faire complétées et archivées seront supprimées définitivement. Exportez-les d'abord si vous souhaitez en garder une trace.",
     "habits": "Habitudes",
     "newHabit": "Nouvelle Habitude",
@@ -35,6 +35,8 @@
     "dueDate": "Date d'échéance",
     "remaining": "Restantes",
     "complete": "Accomplies",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Récompenses",
     "gold": "Or",
     "silver": "Argent (100 argent = 1 or)",

@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Deletar Completos",
-    "lotOfToDos": "Afazeres completos são automaticamente arquivados depois de 3 dias. Você pode acessá-los através de Opções > Configurações > Exportação de Dados.",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
     "habits": "Hábitos",
     "newHabit": "Novo Hábito",
@@ -35,6 +35,8 @@
     "dueDate": "Prazo",
     "remaining": "Restante",
     "complete": "Completo",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Recompensas",
     "gold": "Ouro",
     "silver": "Prata (100 prata = 1 ouro)",

@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Вилучення виконано",
-    "lotOfToDos": "Доконані завдання автоматично архівуються щотри дні. Ви можете побачити їх через Різне > Налаштування > Експорт даних.",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Якщо натиснути на кнопку внизу, то всі з виконаних Зробити та архівних Зробити будуть остаточно вилучені. Якщо хочете зберегти запис про них, спершу експортуйте їх.",
     "habits": "Звички",
     "newHabit": "Додати звичку",
@@ -35,6 +35,8 @@
     "dueDate": "Виконати до",
     "remaining": "Залишилося",
     "complete": "Виконані",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Нагороди",
     "gold": "Золото",
     "silver": "Срібло (100 монет срібла = 1 золото)",

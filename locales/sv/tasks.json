@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Delete Completed",
-    "lotOfToDos": "Fullbordade Att-Göra-uppgifter är automatiskt arkiverade efter 3 dagar. Du kan komma åt dem från Alternativ > Inställningar > Data Export",
+    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Om du klickar på knappen nedan, kommer alla dina Att-Göra uppgifter, och arkiverade Att-Göra uppgifter att bli permanent raderade. Exportera dem först om du vill behålla datan.",
     "habits": "Vanor",
     "newHabit": "Ny vana",
@@ -35,6 +35,8 @@
     "dueDate": "Förfallodag",
     "remaining": "Återstående",
     "complete": "Fullbordade",
+    "due": "Due",
+    "grey": "Grey",
     "rewards": "Belöningar",
     "gold": "Guld",
     "silver": "Silver (100 silver = 1 guld)",

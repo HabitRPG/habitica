@@ -93,6 +93,7 @@
     "changeClass": "Changer de classe et rembourser les points d'attribut.",
     "levelPopover": "Vous pouvez affecter un point à un attribut de votre choix à chaque niveau gagné. Cette attribution peut se faire manuellement ou en laissant le jeu décider pour vous, en utilisant une des options d'Attribution Automatique.",
     "unallocated": "Points d'Attribut non alloués",
+    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
     "autoAllocation": "Attribution automatique",
     "autoAllocationPop": "Alloue des points à des attributs selon vos préférences, lors d'un gain de niveau.",
     "evenAllocation": "Distribuer équitablement les points d'attribut",

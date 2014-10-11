@@ -93,6 +93,7 @@
     "changeClass": "Byt Klass, Återbetala Egenskapspoäng",
     "levelPopover": "Varje level ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under Automatisk Utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",
+    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
     "autoAllocation": "Automatisk Utdelning",
     "autoAllocationPop": "Placerar poäng hos egenskaper enligt dina preferenser när du går upp i level.",
     "evenAllocation": "Dela ut egenskapspoäng jämnt",
