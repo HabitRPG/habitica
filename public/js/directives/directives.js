@@ -118,6 +118,24 @@ habitrpg.directive('hrpgSortTasks', ['User', function(User) {
   }
 }]);
 
+habitrpg.directive('hrpgSortChecklist', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "y",
+      distance: 5,
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        var task = angular.element(ui.item[0]).scope().task,
+          startIndex = ui.item.data('startIndex');
+        //$scope.saveTask(task, true);
+		$scope.swapChecklistItems(task, startIndex, ui.item.index());
+      }
+    });
+  }
+}]);
+
 habitrpg.directive('hrpgSortTags', ['User', function(User) {
   return function($scope, element, attrs, ngModel) {
     $(element).sortable({
