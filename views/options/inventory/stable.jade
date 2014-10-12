@@ -1,80 +1,96 @@
 script(type='text/ng-template', id='partials/options.inventory.mounts.html')
-  .stable
-    table(style='width:100%')
-      tr
-        td(style='width:144px')
-          .npc_matt
-        td
-          .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-            .popover-content
-              p.
-                Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
-              h4 {{mountCount}} / {{totalPets}} Mounts Tamed
-    menu.pets(type='list')
-      li.customize-menu(ng-repeat='egg in Content.eggs')
+  .container-fluid
+    .stable.row
+      .col-md-2
+        div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
+      .col-md-10
+        .popover.static-popover.fade.right.in
+          .arrow
+          h3.popover-title
+            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+          .popover-content
+            p=env.t('mattShall', {name: "{{user.profile.name}}"})
+            h4= '{{Shared.countMounts(null,User.user.items.mounts) || 0}} / {{totalMounts}} ' + env.t('mountsTamed')
+      .col-md-12
+        menu.pets(type='list')
+          each egg in env.Content.eggs
+            -if(!egg.noMount) {
+              li.customize-menu
+                menu
+                  each potion in env.Content.hatchingPotions
+                    - mount = egg.key+"-"+potion.key
+                    div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
+                      button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
+                        //div(class='Mount_Head_{{mount}}')
+                      button(class="pet-button pet-not-owned", ng-hide='user.items.mounts["#{mount}"]')
+                        .PixelPaw
+            -}
+      .col-md-12
+        h4=env.t('rareMounts')
         menu
-          div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.mountText}}', popover-placement='bottom', ng-init='mount = egg.key+"-"+potion.key')
-            button(class="pet-button Mount_Head_{{mount}}", ng-show='user.items.mounts[mount]', ng-class='{active: user.items.currentMount == mount}', ng-click='chooseMount(egg.key, potion.key)')
-              //div(class='Mount_Head_{{mount}}')
-            button(class="pet-button pet-not-owned", ng-hide='user.items.mounts[mount]')
-              .PixelPaw
+          div
+            each t,k in env.Content.specialMounts
+              - var animal = k.split('-')[0], color = k.split('-')[1]
+              button(ng-if='user.items.mounts["#{animal}-#{color}"]', class="pet-button Mount_Head_#{animal}-#{color}", ng-class='{active: user.items.currentMount == "#{animal}-#{color}"}', ng-click='chooseMount("#{animal}", "#{color}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
 
-    h4 Rare Mounts
-    menu
-      div
-        button(ng-if='user.items.mounts["BearCub-Polar"]', class="pet-button Mount_Head_BearCub-Polar", ng-class='{active: user.items.currentMount == "BearCub-Polar"}', ng-click='chooseMount("BearCub", "Polar")', popover='Polar Bear', popover-trigger='mouseenter', popover-placement='bottom')
-          //.Mount_Head_BearCub-Polar
-        button(ng-if='user.items.mounts["LionCub-Ethereal"]', class="pet-button Mount_Head_LionCub-Ethereal", ng-class='{active: user.items.currentMount == "LionCub-Ethereal"}', ng-click='chooseMount("LionCub", "Ethereal")', popover='Ethereal Lion', popover-trigger='mouseenter', popover-placement='bottom')
-          //.Mount_Head_LionCub-Ethereal
+mixin petList(source)
+  menu.pets(type='list')
+    each egg in source
+      li.customize-menu
+        menu
+          each potion in env.Content.hatchingPotions
+            - pet = egg.key+"-"+potion.key
+            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
+              button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+                .progress(ng-show='!user.items.mounts["#{pet}"] && "#{egg.key}"!="Egg"')
+                  .progress-bar.progress-bar-success(style='width:{{user.items.pets["#{pet}"]/.5}}%')
+              button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
+                .PixelPaw
+              button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
 
 script(type='text/ng-template', id='partials/options.inventory.pets.html')
-  .stable
-    table(style='width:100%')
-      tr
-        td(style='width:144px')
-          .npc_matt
-        td
-          .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-            .popover-content
-              p.
-                Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. Feed them and they'll grow into powerful steeds. <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>Have a look-see</a> at all the pets you can collect.
-              h4 {{petCount}} / {{totalPets}} Pets Found
+  .container-fluid
+    .stable.row
+      .col-md-2
+        div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
+      .col-md-10
+        .popover.static-popover.fade.right.in
+          .arrow
+          h3.popover-title
+            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+          .popover-content
+            p
+              =env.t('mattBochText1') + ' '
+              | <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>
+              =env.t('mattBochText2')
+              | </a>
+              = ' ' + env.t('mattBochText3')
+            h4= env.t('beastmasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
-    menu.pets(type='list')
-      li.customize-menu(ng-repeat='egg in Content.eggs')
+      .col-md-12
+        +petList(env.Content.dropEggs)
+      .col-md-12
+        h4=env.t('questPets')
+        +petList(env.Content.questEggs)
+
+      .col-md-12
+        h4=env.t('rarePets')
         menu
-          div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
-            button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
-              .progress(ng-class='{"progress-success": user.items.pets[pet]<50}')
-                .bar(style="width: {{user.items.pets[pet]/.5}}%;")
-            button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
-              .PixelPaw
+          div
+            each t,k in env.Content.specialPets
+              - var egg = k.split('-')[0], pot = k.split('-')[1]
+              button(ng-if='user.items.pets["#{egg}-#{pot}"]', class="pet-button Pet-#{egg}-#{pot}", ng-class='{active: user.items.currentPet == "#{egg}-#{pot}"}', ng-click='choosePet("#{egg}", "#{pot}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
+              button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover=env.t('rarePetPop1'), popover-title=env.t('rarePetPop2'))
+                .PixelPaw-Gold
 
-    h4 Rare Pets
-    menu
-      div
-        button(ng-if='user.items.pets["Wolf-Veteran"]', class="pet-button Pet-Wolf-Veteran", ng-class='{active: user.items.currentPet == "Wolf-Veteran"}', ng-click='choosePet("Wolf", "Veteran")', popover='Veteran Wolf', popover-trigger='mouseenter', popover-placement='bottom')
-        button(ng-if='user.items.pets["Wolf-Cerberus"]', class="pet-button Pet-Wolf-Cerberus", ng-class='{active: user.items.currentPet == "Wolf-Cerberus"}', ng-click='choosePet("Wolf", "Cerberus")', popover='Cerberus Pup', popover-trigger='mouseenter', popover-placement='bottom')
-        button(ng-if='user.items.pets["Turkey-Base"]', class="pet-button Pet-Turkey-Base", ng-class='{active: user.items.currentPet == "Turkey-Base"}', ng-click='choosePet("Turkey", "Base")', popover='Turkey', popover-trigger='mouseenter', popover-placement='bottom')
-        button(ng-if='user.items.pets["BearCub-Polar"]', class="pet-button Pet-BearCub-Polar", ng-class='{active: user.items.currentPet == "BearCub-Polar"}', ng-click='choosePet("BearCub", "Polar")', popover='Polar Bear Cub', popover-trigger='mouseenter', popover-placement='bottom')
-        button(ng-if='user.items.pets["Dragon-Hydra"]', class="pet-button Pet-Dragon-Hydra", ng-class='{active: user.items.currentPet == "Dragon-Hydra"}', ng-click='choosePet("Dragon", "Hydra")', popover='Hydra', popover-trigger='mouseenter', popover-placement='bottom')
-        a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
-          button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover="Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!", popover-title='How to Get this Pet!')
-            .PixelPaw-Gold
-
-  .well.food-tray
-    p(ng-show='foodCount < 1') You don't have any food.
-    menu.inventory-list(type='list', ng-if='foodCount > 0')
-      li.customize-menu
-        menu.pets-menu(label='Food')
-          div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-            button.customize-option(popover-append-to-body='true', popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
-              .badge.badge-info.stack-count {{points}}
-            // Remove this once we have images in
-            p {{Content.food[food].text}}
+    .well.food-tray
+      p(ng-show='foodCount < 1')=env.t('noFood')
+      menu.inventory-list(type='list', ng-if='foodCount > 0')
+        li.customize-menu
+          menu.pets-menu(label=env.t('food'))
+            div(ng-repeat='(food,points) in ownedItems(user.items.food)')
+              button.customize-option(popover-append-to-body='true', popover='{{:: Content.food[food].notes()}}', popover-title='{{:: Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
+                .badge.badge-info.stack-count {{points}}
+              // Remove this once we have images in
+              p {{:: Content.food[food].text()}}

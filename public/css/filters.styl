@@ -1,36 +1,34 @@
-/* Filters */
 .filters
-  padding-left: 19px
-  padding-right: 19px
-  
-.filters .nav
-  margin-bottom: 0
-
-.filter-description
-  margin-top: 7px
-  margin-right: 7px
-
-/* Filters applied to tasks */
-.task.filtered-out
-  display: none
-
-.tag-label:hover
-  background-color: #3a87ad
-  cursor: pointer
-
- .tag-editing
- 	padding 2px 0 0 2px
-
- .tag-editing .tag-editing-pill
- 	height:auto
-  
-.tag-list
-  overflow-y: auto
-  white-space: nowrap
-  
-  .nav-pills
-    height: 43px
-    
+  padding: 1em 15px 0.382em
+  margin-left: 0.382em
+  margin-right: 0em
+  @extend $clearfix
+  ul
+    float: left
+    list-style: none
+    margin-right: 1em 
+  .filters-controls
+    @extend $hrpg-button-bar
+    hrpg-button-bar-mixin($color-options-menu)
     li
-      display: inline-block
-      float: none
+      @extend $hrpg-button-master
+      hrpg-button-color-mixin($color-options-menu)
+  .filters-tags, .filters-edit
+    float: left
+  .filters-edit
+    margin-bottom: 0.382em
+  .filters-tags
+    @extend $hrpg-tag-master
+    hrpg-tag-color-mixin($color-filter-tag)
+    margin-bottom: 0.618em
+    &.challenge
+      hrpg-tag-color-mixin($color-filter-tag-challenge)
+      form
+        display: none
+  markdown
+    display: inline-block
+  .hrpg-input-group   
+    display: inline-block
+    margin-right: 0.618em
+    @extend $hrpg-button-with-input
+    hrpg-button-color-mixin($color-options-submenu)

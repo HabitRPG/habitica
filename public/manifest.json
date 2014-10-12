@@ -1,8 +1,9 @@
 {
     "app": {
         "js": [
-            "bower_components/jquery/jquery.js",
+            "bower_components/jquery/dist/jquery.min.js",
             "bower_components/jquery.cookie/jquery.cookie.js",
+            "bower_components/pnotify/jquery.pnotify.min.js",
             "bower_components/bootstrap-growl/jquery.bootstrap-growl.js",
             "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
             "bower_components/angular/angular.js",
@@ -10,7 +11,6 @@
             "bower_components/marked/lib/marked.js",
             "bower_components/angular-ui-router/release/angular-ui-router.js",
             "bower_components/angular-resource/angular-resource.min.js",
-            "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/angular-ui-utils/ui-utils.min.js",
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "bower_components/Angular-At-Directive/src/at.js",
@@ -18,10 +18,13 @@
             "bower_components/angular-bindonce/bindonce.js",
             "bower_components/js-emoji/emoji.js",
             "bower_components/sticky/jquery.sticky.js",
+            "bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
+            "bower_components/select2/select2.js",
+            "bower_components/angular-ui-select2/src/select2.js",
 
-            "bower_components/bootstrap/docs/assets/js/bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+            "bower_components/bootstrap/dist/js/bootstrap.js",
 
             "bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js",
@@ -30,10 +33,14 @@
 
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
 
+            "js/env.js",
+
             "js/app.js",
+            "js/services/sharedServices.js",
             "js/services/authServices.js",
             "js/services/notificationServices.js",
             "bower_components/habitrpg-shared/script/userServices.js",
+            "bower_components/habitrpg-shared/script/directives.js",
             "js/services/groupServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
@@ -55,33 +62,38 @@
             "js/controllers/inventoryCtrl.js",
             "js/controllers/footerCtrl.js",
             "js/controllers/challengesCtrl.js",
-            "js/controllers/adminCtrl.js"
+            "js/controllers/hallCtrl.js"
         ],
         "css": [
-            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
+            "bower_components/bootstrap/dist/css/bootstrap.css",
             "app.css",
+            "bower_components/pnotify/jquery.pnotify.default.css",
+            "bower_components/pnotify/jquery.pnotify.default.icons.css",
             "bower_components/habitrpg-shared/dist/habitrpg-shared.css"
         ]
     },
     "static": {
         "js": [
-            "bower_components/jquery/jquery.js",
+            "bower_components/jquery/dist/jquery.min.js",
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
             "bower_components/angular/angular.js",
-
-            "bower_components/bootstrap/docs/assets/js/bootstrap.js",
+            "bower_components/angular-ui/build/angular-ui.js",
+            "bower_components/angular-bootstrap/ui-bootstrap.js",
+            "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+            "bower_components/bootstrap/dist/js/bootstrap.js",
+            "bower_components/jquery-colorbox/jquery.colorbox-min.js",
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
+            "js/env.js",
             "js/static.js",
             "js/services/notificationServices.js",
             "bower_components/habitrpg-shared/script/userServices.js",
-            "js/controllers/authCtrl.js"
+            "js/controllers/authCtrl.js",
+            "js/controllers/footerCtrl.js"
         ],
         "css": [
-            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
-            "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
-            "bower_components/bootstrap/docs/assets/css/docs.css",
-    
+            "bower_components/bootstrap/dist/css/bootstrap.css",
+            "bower_components/jquery-colorbox/example1/colorbox.css",
             "static.css"
         ]
     }

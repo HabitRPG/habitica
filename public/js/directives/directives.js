@@ -26,7 +26,7 @@ habitrpg.directive('habitrpgAdsense', function() {
     template: '<div ng-transclude></div>',
     link: function ($scope, element, attrs) {}
   }
-})
+});
 
 habitrpg.directive('whenScrolled', function() {
   return function(scope, elm, attr) {
@@ -39,128 +39,6 @@ habitrpg.directive('whenScrolled', function() {
     });
   };
 });
-
-/**
- * Add sortable
- */
-habitrpg.directive('habitrpgSortable', ['User', function(User) {
-  return function($scope, element, attrs, ngModel) {
-    $(element).sortable({
-      axis: "y",
-      distance: 5,
-      start: function (event, ui) {
-        ui.item.data('startIndex', ui.item.index());
-      },
-      stop: function (event, ui) {
-        var taskType = angular.element(ui.item[0]).scope().task.type + 's';
-        var startIndex = ui.item.data('startIndex');
-        var task = User.user[taskType][startIndex];
-        User.user.ops.sortTask({params:{id:task.id},query:{from:startIndex, to:ui.item.index()}});
-      }
-    });
-  }
-}]);
-
-/**
- * Markdown
- * See http://www.heikura.me/#!/angularjs-markdown-directive
- */
-(function(){
-  var md = function () {
-    marked.setOptions({
-      gfm:true,
-      pedantic:false,
-      sanitize:true
-      // callback for code highlighter
-      // Uncomment this (and htljs.tabReplace below) if we add in highlight.js (http://www.heikura.me/#!/angularjs-markdown-directive)
-//      highlight:function (code, lang) {
-//        if (lang != undefined)
-//          return hljs.highlight(lang, code).value;
-//
-//        return hljs.highlightAuto(code).value;
-//      }
-    });
-    
-    emoji.img_path = 'bower_components/habitrpg-shared/img/emoji/unicode/';
-
-    var toHtml = function (markdown) {
-      if (markdown == undefined)
-        return '';
-      
-      markdown = marked(markdown);
-      markdown = emoji.replace_colons(markdown);
-      markdown = emoji.replace_unified(markdown);
-      
-      return markdown;
-    };
-    
-    // [nickgordon20131123] this hacky override wraps images with a link to the image in a new window, and also adds some classes in case we want to style
-    marked.InlineLexer.prototype.outputLink = function(cap, link) {
-      var escape = function(html, encode) {
-        return html
-          .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      };
-      if (cap[0].charAt(0) !== '!') {
-        return '<a class="markdown-link" href="'
-          + escape(link.href)
-          + '"'
-          + (link.title
-          ? ' title="'
-          + escape(link.title)
-          + '"'
-          : '')
-          + '>'
-          + this.output(cap[1])
-          + '</a>';
-      } else {
-        return '<a class="markdown-img-link" href="'
-          + escape(link.href)
-          + '"'
-          + (link.title
-          ? ' title="'
-          + escape(link.title)
-          + '"'
-          : '')
-          + '><img class="markdown-img" src="'
-          + escape(link.href)
-          + '" alt="'
-          + escape(cap[1])
-          + '"'
-          + (link.title
-          ? ' title="'
-          + escape(link.title)
-          + '"'
-          : '')
-          + '></a>';
-      }
-    }
-    
-    //hljs.tabReplace = '    ';
-
-    return {
-      toHtml:toHtml
-    };
-  }();
-
-  habitrpg.directive('markdown', function() {
-    return {
-      restrict: 'E',
-      link: function(scope, element, attrs) {
-        scope.$watch(attrs.ngModel, function(value, oldValue) {
-          var markdown = value;
-          var linktarget = attrs.target || '_self';
-          var html = md.toHtml(markdown);
-          html = html.replace(' href','target="'+linktarget+'" href');
-          element.html(html);
-        });
-      }
-    };
-  });
-})()
 
 habitrpg
   .directive('habitrpgTasks', ['$rootScope', 'User', function($rootScope, User) {
@@ -175,6 +53,8 @@ habitrpg
       controller: ['$scope', '$rootScope', function($scope, $rootScope){
         $scope.editTask = function(task){
           task._editing = !task._editing;
+          task._tags = User.user.preferences.tagsCollapsed;
+          task._advanced = User.user.preferences.advancedCollapsed;
           if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
         };
       }],
@@ -183,21 +63,23 @@ habitrpg
         scope.main = attrs.main;
         $rootScope.lists = [
           {
-            header: env.t('Habits'),
+            header: window.env.t('habits'),
             type: 'habit',
-            placeHolder: env.t('newHabit')
+            placeHolder: window.env.t('newHabit')
           }, {
-            header: env.t('Dailies'),
+            header: window.env.t('dailies'),
             type: 'daily',
-            placeHolder: env.t('newDaily')
+            placeHolder: window.env.t('newDaily'),
+            view: "all"
           }, {
-            header: env.t('Todos'),
+            header: window.env.t('todos'),
             type: 'todo',
-            placeHolder: env.t('newTodo')
+            placeHolder: window.env.t('newTodo')
+            // view: "remaining"
           }, {
-            header: env.t('Rewards'),
+            header: window.env.t('rewards'),
             type: 'reward',
-            placeHolder: env.t('newReward')
+            placeHolder: window.env.t('newReward')
           }
         ];
 
@@ -219,13 +101,82 @@ habitrpg.directive('fromNow', ['$interval', function($interval){
   }
 }]);
 
-habitrpg.directive('questRewards', ['$rootScope', function($rootScope){
-  return {
-    restrict: 'AE',
-    templateUrl: 'partials/options.social.party.quest-rewards.html',
-    link: function(scope, element, attrs){
-      scope.header = attrs.header || 'Rewards';
-      scope.quest = $rootScope.Content.quests[attrs.key];
-    }
+habitrpg.directive('hrpgSortTasks', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "y",
+      distance: 5,
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        var task = angular.element(ui.item[0]).scope().task,
+          startIndex = ui.item.data('startIndex');
+        User.user.ops.sortTask({ params: {id: task.id}, query: {from: startIndex, to: ui.item.index()} });
+      }
+    });
   }
-}])
+}]);
+
+habitrpg.directive('hrpgSortChecklist', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "y",
+      distance: 5,
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        var task = angular.element(ui.item[0]).scope().task,
+          startIndex = ui.item.data('startIndex');
+        //$scope.saveTask(task, true);
+		$scope.swapChecklistItems(task, startIndex, ui.item.index());
+      }
+    });
+  }
+}]);
+
+habitrpg.directive('hrpgSortTags', ['User', function(User) {
+  return function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "x",
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        User.user.ops.sortTag({query:{ from: ui.item.data('startIndex'), to:ui.item.index() }});
+      }
+    });
+  }
+}]);
+
+habitrpg
+  .directive( 'popoverHtmlPopup', ['$sce', function($sce) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
+        link: function(scope, element, attrs) {
+          scope.$watch('content', function(value, oldValue) {
+            scope.unsafeContent = $sce.trustAsHtml(scope.content);
+          });
+        },
+        templateUrl: 'template/popover/popover-html.html'
+    };
+  }])
+  .directive( 'popoverHtml', [ '$compile', '$timeout', '$parse', '$window', '$tooltip', 
+    function ( $compile, $timeout, $parse, $window, $tooltip ) {
+      return $tooltip( 'popoverHtml', 'popover', 'click' );
+    }
+  ])
+  .run(["$templateCache", function($templateCache) {
+    $templateCache.put("template/popover/popover-html.html",
+      "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+      "  <div class=\"arrow\"></div>\n" +
+      "\n" +
+      "  <div class=\"popover-inner\">\n" +
+      "      <h3 class=\"popover-title\" ng-bind=\"title\" ng-show=\"title\"></h3>\n" +
+      "      <div class=\"popover-content\" ng-bind-html=\"unsafeContent\" style=\"word-wrap: break-word\">    </div>\n" +
+      "  </div>\n" +
+      "</div>\n");
+  }]);

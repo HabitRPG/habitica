@@ -6,6 +6,7 @@
  */
 
 db.users.find().forEach(function(user){
-    var found = _.any(user.tasks, {text: "Replace Me"})
-    if (found) printjson({id:user._id, auth:user.auth});
+  user.tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
+  var found = _.any(user.tasks, {text: ""})
+  if (found) printjson({id:user._id, auth:user.auth});
 })

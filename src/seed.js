@@ -1,6 +1,23 @@
+/*
+ * This script is no longer required due to this code in src/models/group.js:
+ *    // initialize tavern if !exists (fresh installs)
+ *    Group.count({_id:'habitrpg'},function(err,ct){
+ *      ...
+ *    })
+ *
+ * However we're keeping this script in case future seed updates are needed.
+ *
+ * Reference: https://github.com/HabitRPG/habitrpg/issues/3852#issuecomment-55334572
+ */
+
+
+/*
+
 require('coffee-script') // for habitrpg-shared
 var nconf = require('nconf');
-require('./config');
+var utils = require('./utils');
+var logging = require('./logging');
+utils.setupConfig();
 var async = require('async');
 var mongoose = require('mongoose');
 User = require('./models/user').model;
@@ -14,14 +31,15 @@ async.waterfall([
     Group.findById('habitrpg', cb);
   },
   function(tavern, cb){
-    console.log({tavern:tavern,cb:cb});
+    logging.info({tavern:tavern,cb:cb});
     if (!tavern) {
       tavern = new Group({
         _id: 'habitrpg',
         chat: [],
         leader: '9',
         name: 'HabitRPG',
-        type: 'guild'
+        type: 'guild',
+        privacy:'public'
       });
       tavern.save(cb)
     } else {
@@ -30,5 +48,8 @@ async.waterfall([
   }
 ],function(err){
   if (err) throw err;
-  console.log("Done initializing database");
+  logging.info("Done initializing database");
+  mongoose.disconnect();
 })
+
+*/

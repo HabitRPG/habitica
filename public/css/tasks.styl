@@ -1,8 +1,7 @@
 // 1. Set up color classes
 // ========================
 
-// color variables
-@import "./color-vars.styl";
+// Color variables are defined in "./global-colors.styl"
 
 // array of keywords and their associated color vars
 $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
@@ -23,6 +22,8 @@ for $stage in $stages
 .completed
   background-color: $completed
   color: #999
+  .glyphicon
+    color: #333
   .task-checker label
     background-color: darken($completed, 30%)
   .task-action-btn
@@ -31,23 +32,40 @@ for $stage in $stages
 .reward
   background-color: white
 
-
-
 // 2. Columns & Tasks
 // ===================
+
+.tasks-lists
+  
+  .row
+    margin-left: -5px
+    margin-right: -5px
+
+    .col-md-3 
+      padding-left: 10px // Override Bootstrap 15px padding
+      padding-right: 10px // Override Bootstrap 15px padding
+      margin-bottom: 15px
 
 // main columns
 // ------------
 .task-column
   padding: 1.5em
-  background: #f5f5f5
-  border: 1px solid #ccc
+  background: $color-tasks
+  border: 1px solid darken($color-tasks,16.18%)
   font-family: 'Lato', sans-serif
+  h2
+    color: darken($color-tasks,61.8%)
 
   .task-column_title
     margin: 0 0 0.5em
     padding: 0
+    font-weight: 300
 
+// 50% width columns with scrollbars for tablets
+@media (min-width: 768px) and (max-width: 970px) 
+  .task-column
+    max-height: 18.6em
+    overflow-y: scroll
 
 // add new task form
 // -----------------
@@ -109,8 +127,11 @@ for $stage in $stages
   position: relative
   &:hover
     cursor: move
-  &:last-child
+  :last-child
     margin-bottom: 0
+
+  label
+    font-weight: 400
 
 // task content
 .task-text
@@ -124,19 +145,14 @@ for $stage in $stages
     height:1.5em
     background-size:1.5em
 
-// task due date (for to-dos)
-.task-date
-  font-size: 70%
-
 .habit-wide .task-text
   padding-left: 7em
 
 // when a task is being dragged
-.task.ui-sortable-helper {
+.task.ui-sortable-helper
   box-shadow: 0 0 3px rgba(0,0,0,0.15), 0 0 5px rgba(0,0,0,0.1)
   transform: scale(1.05)
   outline: 1px solid rgba(0,0,0,0.2)
-}
 
 // primary task commands
 // ----------------------
@@ -270,19 +286,33 @@ for $stage in $stages
 // -----------------------
 .task-meta-controls
   float: right
-  margin: 0.75em 0.5em 0 0.25em
+  margin: 0.75em 0.5em 0 0.5em
   height: 1em
   opacity: 0.25
-  a > i
-    margin-left: 0.125em
-  .task-notes
-    margin-left: 0.125em
+
+  a
+    text-decoration: none
+    
+  // improve alignment of task icons
+  .glyphicon-signal
+    margin-left: 0.25em
+  .glyphicon-remove, .glyphicon-ok, a.badge
+    margin-right: 0.25em
+  .glyphicon-tags
+    margin-left: 0.1em
+    margin-right: 0.4em
+  a.badge
+    position: relative; top:-2px
 
 .task:hover .task-meta-controls
   opacity: 1
 
 .popover
   line-height: 1.5
+
+  // prevent box-shadow from being clipped/overlapped
+  margin-bottom: 10px
+  margin-right: 5px
 
 // task editing
 // ------------
@@ -292,7 +322,6 @@ form
 [class$="-options"]
   padding: 1em 1em 0
   color: #333
-  z-index: 0
   position: relative
   //background-color:
 
@@ -356,6 +385,9 @@ form
   text-align: center
   margin: 0
 
+  &.task-attributes
+    text-align: left
+
 .task-action-btn.tile
   border: 0
   font-size: 1.15em
@@ -389,6 +421,9 @@ form
   &:first-child
     border-right: 0
 
+.task-options
+  .task-action-btn.tile
+    margin: 3px
 
 // todos ui
 // --------
@@ -420,6 +455,7 @@ form
     text-align: inherit
     background-color:inherit
     box-shadow: none
+    width: 80%
 
   /* Add interaction cues on hover and focus */
   input.inline-edit:hover,input.inline-edit:focus
@@ -428,6 +464,7 @@ form
 
   .checklist-icons
     opacity:0
+    width: 5%
 
   li
     min-height: 20px
@@ -436,5 +473,6 @@ form
 
     [type="checkbox"]
       margin: 0px 10px 3px 0px
+      width: 4%
   li:hover .checklist-icons
     opacity:1

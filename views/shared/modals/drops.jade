@@ -1,28 +1,40 @@
-div(modal='modals.dropsEnabled')
+script(type='text/ng-template', id='modals/dropsEnabled.html')  
   .modal-header
-    h3 Drops Enabled!
+    h4=env.t('dropsEnabled')
   .modal-body
-    //-p // TODO how to handle random first drop?
-      span.item-drop-icon(class='Pet_Egg_{{user.items.eggs.0.key}}', style='margin-left: 0px')
-      | You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a
-      strong  {{user.items.eggs.0.text}} Egg
-      | ! {{user.items.eggs.0.notes}}.
     p
-      span.item-drop-icon(class='Pet_Egg_Wolf', style='margin-left: 0px')
-      span.
-        You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a <strong>{{Content.eggs.Wolf.text}}</strong> Egg! {{Content.eggs.Wolf.notes}}
+      figure
+        .item-drop-icon(class='Pet_Egg_Wolf')
+      span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text()}}", eggNotes: "{{Content.eggs.Wolf.notes()}}"})
     br
-    p.
-      <span class='Pet_Currency_Gem item-drop-icon'></span> If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!
-  .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false') Close
-
-div(modal='modals.drop')
-  .modal-header
-    h3 An item has dropped!
-  .modal-body
     p
-      span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.key}}')
-      | {{user._tmp.drop.dialog}}
+      figure
+        .item-drop-icon(class='Pet_Currency_Gem')
+      span!=env.t('useGems')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.drop = false') Close
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+
+script(type='text/ng-template', id='modals/pet-key.html')
+  .modal-header
+    h4=env.t('petKeyBegin')
+  .modal-body
+    include ../gems
+    figure
+      .npc_alex
+    p=env.t('petKeyInfo')
+    br
+    p=env.t('petKeyInfo2')
+    br
+    p=env.t('petKeyInfo3')  
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('petKeyNeverMind')
+    span(ng-if='user.balance < 1')
+      a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
+      span.gem-cost=env.t('notEnoughGems')
+    span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
+      a.btn.btn-danger(ng-click='$close(); release()')=env.t('petKeyPets')
+    span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
+      a.btn.btn-danger(ng-click='$close(); release2()')=env.t('petKeyMounts')
+      span.gem-cost
+        | 4&nbsp;
+        =env.t('gemsEach')

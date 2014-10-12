@@ -1,24 +1,9 @@
 "use strict";
 
-window.env = window.env || {}; //FIX tests
-
-if(window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
-  var head = document.getElementsByTagName('head')[0];
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.text = window.env.language.momentLang;
-  head.appendChild(script);
-  moment.lang(window.env.language.momentLangCode);
-}
-
-window.env.t = function(string){
-  return (window.env.translations[string] || window.env.translations.stringNotFound);
-}
-
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
-     'authServices', 'notificationServices', 'guideServices',
-     'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'pasvaz.bindonce'])
+     'authServices', 'notificationServices', 'guideServices', 'authCtrl',
+     'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'pasvaz.bindonce', 'infinite-scroll', 'ui.select2'])
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
   // temporary hack until they have a better solution
@@ -30,8 +15,8 @@ window.habitrpg = angular.module('habitrpg',
   .constant("MOBILE_APP", false)
   //.constant("STORAGE_GROUPS_ID", "") // if we decide to take groups offline
 
-  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'STORAGE_SETTINGS_ID',
-    function($stateProvider, $urlRouterProvider, $httpProvider, STORAGE_SETTINGS_ID) {
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$provide', 'STORAGE_SETTINGS_ID',
+    function($stateProvider, $urlRouterProvider, $httpProvider, $provide, STORAGE_SETTINGS_ID) {
 
       $urlRouterProvider
         // Setup default selected tabs
@@ -39,6 +24,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/profile', '/options/profile/avatar')
         .when('/options/groups', '/options/groups/tavern')
         .when('/options/groups/guilds', '/options/groups/guilds/public')
+        .when('/options/groups/hall', '/options/groups/hall/heroes')
         .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
 
@@ -70,6 +56,10 @@ window.habitrpg = angular.module('habitrpg',
           url: "/avatar",
           templateUrl: "partials/options.profile.avatar.html"
         })
+        .state('options.profile.backgrounds', {
+          url: '/backgrounds',
+          templateUrl: "partials/options.profile.backgrounds.html"
+        })
         .state('options.profile.stats', {
           url: "/stats",
           templateUrl: "partials/options.profile.stats.html"
@@ -84,16 +74,34 @@ window.habitrpg = angular.module('habitrpg',
           url: "/groups",
           templateUrl: "partials/options.social.html"
         })
+
         .state('options.social.tavern', {
           url: "/tavern",
           templateUrl: "partials/options.social.tavern.html",
           controller: 'TavernCtrl'
         })
+
         .state('options.social.party', {
           url: '/party',
           templateUrl: "partials/options.social.party.html",
           controller: 'PartyCtrl'
         })
+
+        .state('options.social.hall', {
+          url: '/hall',
+          templateUrl: "partials/options.social.hall.html"
+        })
+        .state('options.social.hall.heroes', {
+          url: '/heroes',
+          templateUrl: "partials/options.social.hall.heroes.html",
+          controller: 'HallHeroesCtrl'
+        })
+        .state('options.social.hall.patrons', {
+          url: '/patrons',
+          templateUrl: "partials/options.social.hall.patrons.html",
+          controller: 'HallPatronsCtrl'
+        })
+
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
@@ -110,8 +118,12 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.guilds.detail', {
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
-          controller: ['$scope', 'Groups', '$stateParams', function($scope, Groups, $stateParams){
-            $scope.group = Groups.Group.get({gid:$stateParams.gid});
+          controller: ['$scope', 'Groups', '$stateParams',
+          function($scope, Groups, $stateParams){
+            Groups.Group.get({gid:$stateParams.gid}, function(group){
+              $scope.group = group;
+              Groups.seenMessage(group._id);
+            });
           }]
         })
 
@@ -183,12 +195,13 @@ window.habitrpg = angular.module('habitrpg',
           url: "/export",
           templateUrl: "partials/options.settings.export.html"
         })
-
-        // Options > Settings
-        .state('options.admin', {
-          url: "/admin",
-          controller: 'AdminCtrl',
-          templateUrl: "partials/options.admin.html"
+        .state('options.settings.coupon', {
+          url: "/coupon",
+          templateUrl: "partials/options.settings.coupon.html"
+        })
+        .state('options.settings.subscription', {
+          url: "/subscription",
+          templateUrl: "partials/options.settings.subscription.html"
         })
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
@@ -199,24 +212,50 @@ window.habitrpg = angular.module('habitrpg',
       }
 
       // Handle errors
-      var interceptor = ['$rootScope', '$q', function ($rootScope, $q) {
-        function success(response) {
-          return response;
-        }
-        function error(response) {
-          //var status = response.status;
-          response.data = (response.data.err) ? response.data.err : response.data;
-          if (response.status == 0) response.data = 'Server currently unreachable.';
-          if (response.status == 500) response.data += ' (see Chrome console for more details).';
+      $provide.factory('myHttpInterceptor', ['$rootScope','$q',function($rootScope,$q) {
+        return {
+          response: function(response) {
+            return response;
+          },
+          responseError: function(response) {
+            // Offline
+            if (response.status == 0 ||
+              // don't know why we're getting 404 here, should be 0
+              (response.status == 404 && _.isEmpty(response.data))) {
+              $rootScope.$broadcast('responseText', window.env.t('serverUnreach'));
 
-          var error = response.status == 0 ? response.data : ('Error ' + response.status + ': ' + response.data);
-          $rootScope.$broadcast('responseError', error);
-          console.log(arguments);
-          return $q.reject(response);
-        }
-        return function (promise) {
-          return promise.then(success, error);
-        }
-      }];
-      $httpProvider.responseInterceptors.push(interceptor);
+              // Needs refresh
+            } else if (response.needRefresh) {
+              $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
+
+            } else if (response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
+              confirm(response.data.err);
+              localStorage.clear();
+              window.location.href = '/logout';
+
+            // 400 range?
+            } else if (response.status < 500) {
+              $rootScope.$broadcast('responseText', response.data.err || response.data);
+              // Need to reject the prompse so the error is handled correctly
+              if (response.status === 401) {
+                return $q.reject(response);
+              } 
+
+              // Error
+            } else {
+              var error = '<strong>Please reload</strong>, ' +
+                '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'" ' +
+                window.env.t('seeConsole');
+              $rootScope.$broadcast('responseError', error);
+              console.error(response);
+            }
+
+            return response;
+            // this completely halts the chain, meaning we can't queue offline actions
+            //if (canRecover(response)) return responseOrNewPromise
+            //return $q.reject(response);
+          }
+        };
+      }]);
+      $httpProvider.interceptors.push('myHttpInterceptor');
   }])

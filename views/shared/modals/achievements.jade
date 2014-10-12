@@ -1,46 +1,53 @@
-
 // Streak
-div(modal='modals.achievements.streak')
+script(id='modals/achievements/streak.html', type='text/ng-template')
   .modal-header
-    h3 Achievement!
+    h4=env.t('modalAchievement')
   .modal-body
     .achievement.achievement-thermometer
-    | You have stacked your "Streaker" Achievement! Every 21 days of streak, you gain 1 achievement point here.
+    =env.t('streakerAchievement')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.achievements.streak = false') Ok
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
 // Max Gear
-div(modal='modals.achievements.ultimateGear')
+script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
   .modal-header
-    h3 Achievement!
+    h4=env.t('modalAchievement')
   .modal-body
     .achievement.achievement-armor
-    | You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
+    =env.t('gearAchievement')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.achievements.ultimateGear = false') Ok
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
 // Beast Master
-div(modal='modals.achievements.beastMaster')
+script(id='modals/achievements/beastMaster.html', type='text/ng-template')
   .modal-header
-    h3 Achievement!
+    h4=env.t('modalAchievement')
   .modal-body
     p
       .achievement.achievement-rat
-      | You have earned the "Beast Master" Achievement for collecting all the pets!
+      =env.t('beastAchievement')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.achievements.beastMaster = false') Ok
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
 // Contributor
-div(modal='user.flags.contributor')
- .modal-header
-   h3 Contributor Achievement!
- .modal-body
-   .npc_justin.float-left
-   p.
-     {{user.profile.name}}, you awesome person! You're now a level {{user.contributor.level}} contributor for helping HabitRPG. See <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>what prizes you've earned for your contribution!</a>
+// activated by user.flags.contributor
+script(id='modals/achievements/contributor.html', type='text/ng-template')
+  .modal-header
+    h4=env.t('modalContribAchievement')
+  .modal-body
+    .npc_justin.float-left
+    p
+      !=env.t('contribModal', {name: "{{user.profile.name}}", level: "{{user.contributor.level}}"}) + ' '
+      a(href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank')=env.t('contribLink')
+  .modal-footer
+    button.btn.btn-default(ng-click='set({"flags.contributor":false}); $close()')=env.t('ok')
 
- .modal-footer
-   button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false})') Ok
-
-
-
+//Rebirth
+script(id='modals/achievements/rebirth.html', type='text/ng-template')
+  .modal-header
+    h4=env.t('modalAchievement')
+  .modal-body
+    .achievement.achievement-sun
+    =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')

@@ -3,13 +3,13 @@ var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
-var Group = require('./group').model;
 
 var ChallengeSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
   name: String,
   shortName: String,
   description: String,
+  official: {type: Boolean,'default':false},
   habits:   [TaskSchemas.HabitSchema],
   dailys:   [TaskSchemas.DailySchema],
   todos:    [TaskSchemas.TodoSchema],
@@ -28,16 +28,8 @@ ChallengeSchema.virtual('tasks').get(function () {
   return tasks;
 });
 
-// FIXME this isn't always triggered, since we sometimes use update() or findByIdAndUpdate()
-// @see https://github.com/LearnBoost/mongoose/issues/964
-ChallengeSchema.pre('save', function(next){
-  this.memberCount = _.size(this.members);
-  next()
-})
-
 ChallengeSchema.methods.toJSON = function(){
   var doc = this.toObject();
-  doc.memberCount = doc.members ? _.size(doc.members) : doc.memberCount; // @see pre('save') comment above
   doc._isMember = this._isMember;
   return doc;
 }
@@ -49,7 +41,7 @@ ChallengeSchema.methods.toJSON = function(){
 function syncableAttrs(task) {
   var t = (task.toObject) ? task.toObject() : task; // lodash doesn't seem to like _.omit on EmbeddedDocument
   // only sync/compare important attrs
-  var omitAttrs = 'history tags completed streak'.split(' ');
+  var omitAttrs = 'challenge history tags completed streak notes'.split(' ');
   if (t.type != 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -58,13 +50,13 @@ function syncableAttrs(task) {
  * Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
  */
 function comparableData(obj) {
-  return (
-    _.chain(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
+  return JSON.stringify(
+    _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
       .sortBy('id') // we don't want to update if they're sort-order is different
       .transform(function(result, task){
         result.push(syncableAttrs(task));
-      }))
-    .toString(); // for comparing arrays easily
+      })
+      .value())
 }
 
 ChallengeSchema.methods.isOutdated = function(newData) {
@@ -80,6 +72,11 @@ ChallengeSchema.methods.syncToUser = function(user, cb) {
   if (!user) return;
   var self = this;
   self.shortName = self.shortName || self.name;
+
+  // Add challenge to user.challenges
+  if (!_.contains(user.challenges, self._id)) {
+      user.challenges.push(self._id);
+  }
 
   // Sync tags
   var tags = user.tags || [];
@@ -101,6 +98,7 @@ ChallengeSchema.methods.syncToUser = function(user, cb) {
   _.each(self.tasks, function(task){
     var list = user[task.type+'s'];
     var userTask = user.tasks[task.id] || (list.push(syncableAttrs(task)), list[list.length-1]);
+    if (!userTask.notes) userTask.notes = task.notes; // don't override the notes, but provide it if not provided
     userTask.challenge = {id:self._id};
     userTask.tags = userTask.tags || {};
     userTask.tags[self._id] = true;

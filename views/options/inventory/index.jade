@@ -2,19 +2,19 @@ include ./inventory
 include ./stable
 
 script(type='text/ng-template', id='partials/options.inventory.html')
-  ul.nav.nav-tabs
+  ul.options-menu
     li(ng-class="{ active: $state.includes('options.inventory.drops') }")
       a(ui-sref='options.inventory.drops')
-        | Market
+        =env.t('market')
     li(ng-class="{ active: $state.includes('options.inventory.pets') }")
       a(ui-sref='options.inventory.pets')
-        | Pets
+        =env.t('pets')
     li(ng-class="{ active: $state.includes('options.inventory.mounts') }")
       a(ui-sref='options.inventory.mounts')
-        | Mounts
+        =env.t('mounts')
     li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.equipment') }")
       a(ui-sref='options.inventory.equipment')
-        | Equipment
+        =env.t('equipment')
 
   .tab-content
     .tab-pane.active

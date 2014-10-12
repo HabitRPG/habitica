@@ -1,9 +1,9 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide',
-  function($rootScope, $scope, $location, User, $http, $state, Guide) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared',
+  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared) {
     $scope.profile = User.user;
-    $scope.profile.petCount = $rootScope.Shared.countPets(null, $scope.profile.items.pets);
+    $scope.profile.petCount = Shared.countPets(null, $scope.profile.items.pets);
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
     };
@@ -18,14 +18,14 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.changeClass = function(klass){
       if (!klass) {
-        if (!confirm("Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems"))
+        if (!confirm(window.env.t('sureReset')))
           return;
         return User.user.ops.changeClass({});
       }
 
       User.user.ops.changeClass({query:{class:klass}});
       $scope.selectedClass = undefined;
-      $rootScope.Shared.updateStore(User.user);
+      Shared.updateStore(User.user);
       $state.go('options.profile.stats');
       window.setTimeout(Guide.classesTour, 10);
     }
@@ -49,16 +49,31 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
      */
     $scope.unlock = function(path){
       var fullSet = ~path.indexOf(',');
-      var cost = fullSet ? 1.25 : 0.5; // 5G per set, 2G per individual
+      var cost =
+        ~path.indexOf('background.') ?
+          (fullSet ? 3.75 : 1.75) : // (Backgrounds) 15G per set, 7G per individual
+          (fullSet ? 1.25 : 0.5); // (Hair, skin, etc) 5G per set, 2G per individual
+
 
       if (fullSet) {
-        if (confirm("Purchase for 5 Gems?") !== true) return;
-        if (User.user.balance < cost) return $rootScope.modals.buyGems = true;
+        if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
+        if (User.user.balance < cost) return $rootScope.openModal('buyGems');
       } else if (!User.user.fns.dotGet('purchased.' + path)) {
-        if (confirm("Purchase for 2 Gems?") !== true) return;
-        if (User.user.balance < cost) return $rootScope.modals.buyGems = true;
+        if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
+        if (User.user.balance < cost) return $rootScope.openModal('buyGems');
       }
       User.user.ops.unlock({query:{path:path}})
+    }
+
+    $scope.ownsSet = function(type,_set) {
+      return !_.find(_set,function(v,k){
+        return !User.user.purchased[type][k];
+      });
+    }
+    $scope.setKeys = function(type,_set){
+      return _.map(_set, function(v,k){
+        return type+'.'+k;
+      }).join(',');
     }
 
   }

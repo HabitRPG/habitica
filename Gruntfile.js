@@ -4,6 +4,26 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
+    git_changelog: {
+        minimal: {
+            options: {
+                repo_url: 'https://github.com/habitrpg/habitrpg',
+                appName : 'HabitRPG',
+                branch_name: 'develop'
+            }
+        },
+        extended: {
+            options: {
+                file: 'EXTENDEDCHANGELOG.md',
+                repo_url: 'https://github.com/habitrpg/habitrpg',
+                appName : 'HabitRPG',
+                branch_name: 'develop',
+                grep_commits: '^perf|^style|^fix|^feat|^docs|^refactor|^chore|BREAKING'
+            }
+        }
+    },
 
     karma: {
       unit: {
@@ -36,7 +56,13 @@ module.exports = function(grunt) {
 
     copy: {
       build: {
-        files: [{expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'}]
+        files: [
+          {expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/dist/spritesmith.png', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/img/sprites/backer-only/*.gif', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/img/sprites/npc_ian.gif', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'build/'}
+        ]
       }
     },
 
@@ -48,16 +74,18 @@ module.exports = function(grunt) {
         },
         src: [
           'build/*.js', 'build/*.css', 'build/favicon.ico',
-          'build/bower_components/bootstrap/docs/assets/css/*.css',
-          'build/bower_components/habitrpg-shared/dist/*.css'
+          'build/bower_components/habitrpg-shared/dist/*.png',
+          'build/bower_components/habitrpg-shared/img/sprites/backer-only/*.gif',
+          'build/bower_components/habitrpg-shared/img/sprites/npc_ian.gif',
+          'build/bower_components/bootstrap/dist/fonts/*'
         ],
-        dest: 'make-sure-i-do-not-exist'
+        dest: 'build/*.css'
       }
     },
 
-    nodemon: {
+    nodemon: { 
       dev: {
-        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*', '.idea*', '.git*']
+        script: '<%= pkg.main %>'
       }
     },
 
@@ -85,27 +113,35 @@ module.exports = function(grunt) {
     var files = grunt.file.readJSON('./public/manifest.json');
     var uglify = {};
     var cssmin = {};
+
     _.each(files, function(val, key){
+
       var js = uglify['build/' + key + '.js'] = [];
+
       _.each(files[key]['js'], function(val){
         js.push('public/' + val);
       });
+
+      var css = cssmin['build/' + key + '.css'] = [];
+
       _.each(files[key]['css'], function(val){
-        if(val == 'app.css' || val == 'static.css'){
-          cssmin['build/' + val] = ['build/' + val]
-        }else{
-          cssmin['build/' + val] = ['public/' + val]
-        }
+        var path = (val == 'app.css' || val == 'static.css') ? 'build/' : 'public/';
+        css.push(path + val)
       });
+
     });
+
     grunt.config.set('uglify.build.files', uglify);
-    grunt.config.set('uglify.build.options', {compress: false})
+    grunt.config.set('uglify.build.options', {compress: false});
+
     grunt.config.set('cssmin.build.files', cssmin);
+    // Rewrite urls to relative path
+    grunt.config.set('cssmin.build.options', {'target': 'public/css/whatever-css.css'});
   });
 
   // Register tasks.
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['loadManifestFiles', 'clean:build', 'stylus', 'cssmin', 'copy:build']);
+  grunt.registerTask('build:dev', ['stylus']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
@@ -120,5 +156,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('git-changelog');
 
 };

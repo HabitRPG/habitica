@@ -3,6 +3,7 @@
 habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
   function($scope, Groups, User) {
 
+    $scope.Math = window.Math;
 
     $scope.party = Groups.party(function(){
       $scope.partyMinusSelf = _.sortBy(
@@ -20,6 +21,12 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
                 break;
               case 'pets':
                 return member.items.pets.length;
+                break;
+              case 'name':
+                return member.profile.name;
+                break;
+              case 'backgrounds':
+                return member.preferences.background;
                 break;
               default:
                 // party date joined

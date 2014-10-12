@@ -15,6 +15,7 @@ var _ = require('lodash');
 var TaskSchema = {
   //_id:{type: String,'default': helpers.uuid},
   id: {type: String,'default': shared.uuid},
+  dateCreated: {type:Date, 'default':Date.now},
   text: String,
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
@@ -36,9 +37,10 @@ var HabitSchema = new Schema(
     up: {type: Boolean, 'default': true},
     down: {type: Boolean, 'default': true}
   }, TaskSchema)
-  , { _id: false }
+  , { _id: false, minimize:false }
 );
 
+var collapseChecklist = {type:Boolean, 'default':false};
 var checklist = [{
   completed:{type:Boolean,'default':false},
   text: String,
@@ -60,27 +62,30 @@ var DailySchema = new Schema(
       s:  {type: Boolean, 'default': true},
       su: {type: Boolean, 'default': true}
     },
+    collapseChecklist:collapseChecklist,
     checklist:checklist,
     streak: {type: Number, 'default': 0}
   }, TaskSchema)
-  , { _id: false }
+  , { _id: false, minimize:false }
 )
 
 var TodoSchema = new Schema(
   _.defaults({
     type: {type:String, 'default': 'todo'},
     completed: {type: Boolean, 'default': false},
+    dateCompleted: Date,
     date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
+    collapseChecklist:collapseChecklist,
     checklist:checklist
   }, TaskSchema)
-  , { _id: false }
+  , { _id: false, minimize:false }
 );
 
 var RewardSchema = new Schema(
   _.defaults({
     type: {type:String, 'default': 'reward'}
   }, TaskSchema)
-  , { _id: false }
+  , { _id: false, minimize:false }
 );
 
 /**

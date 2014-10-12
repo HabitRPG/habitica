@@ -15,33 +15,17 @@
 .modal-header .gem-wallet
   padding-top: 0px
 
+.equipment-title
+  display: inline-block
+  vertical-align: bottom
+  margin-right: 20px
 
-// pets (this will all change when pet system is overhauled)
-.pet-grid
-  padding-top: 1.5em
-  border-top: rgba(0,0,0,0.1)
-  table
-    width: 100%
-  td
-    padding: 0.5em
-    //width: 25%
-    &.active-pet
-      background-color: $bad
-      outline: 1px solid rgba(0,0,0,0.1)
-      outline-offset: -1px
-    &:hover, &:focus
-      background-color: darken($better, 10%)
-    > div
-      margin:auto
-      margin-bottom:.5em
-  p
-    text-align:center
-    width:6.5em
-    height:2.5em
+.stable .static-popover
+  max-width: 550px
 
 menu.pets div 
   display: inline-block
-  padding-top: -30px
+  vertical-align: top
 
 .current-pet
     left: 0px
@@ -57,12 +41,14 @@ menu.pets div
 //    display:block
 
 .food-tray
-  position:fixed
-  right:0px
-  bottom:0px
-  width:30%
+  position: fixed
+  right: 15px
+  bottom: 0px
+  width: 30%
+  max-width: 17em;
   height: 50%
-  overflow-y: scroll
+  overflow-y: auto
+  z-index: 1
 
 .inventory-list
   p
@@ -122,6 +108,13 @@ menu.pets .customize-menu
     -moz-filter: brightness(0%)
     -o-filter: brightness(0%)
     -ms-filter: brightness(0%)*/
+
+    .PixelPaw
+      margin-top: 36px // align paw with pets, at the bottom of the button
+
+// styles for pets that have been fed until they evolve into a mount
+.pet-evolved
+    opacity: 0.1
 
 .selectableInventory
   background-color: lightgreen !important

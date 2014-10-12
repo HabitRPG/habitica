@@ -3,6 +3,59 @@ var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
 var User = require('./models/user').model
+var limiter = require('connect-ratelimit');
+var logging = require('./logging');
+var domainMiddleware = require('domain-middleware');
+var cluster = require('cluster');
+var i18n = require('./i18n.js');
+var shared = require('habitrpg-shared');
+
+module.exports.apiThrottle = function(app) {
+  if (nconf.get('NODE_ENV') !== 'production') return;
+  app.use(limiter({
+    end:false,
+    catagories:{
+      normal: {
+        // 2 req/s, but split as minutes
+        totalRequests: 80,
+        every:         60000
+      }
+    }
+  })).use(function(req,res,next){
+    //logging.info(res.ratelimit);
+    if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
+    next();
+  });
+}
+
+module.exports.domainMiddleware = function(server,mongoose) {
+  return domainMiddleware({
+    server: {
+      close:function(){
+        server.close();
+        mongoose.connection.close();
+      }
+    },
+    killTimeout: 10000
+  });
+}
+
+module.exports.errorHandler = function(err, req, res, next) {
+  //res.locals.domain.emit('error', err);
+  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
+  var stack = (err.stack ? err.stack : err.message ? err.message : err) +
+    "\n ----------------------------\n" +
+    "\n\noriginalUrl: " + req.originalUrl +
+    "\n\nauth: " + req.headers['x-api-user'] + ' | ' + req.headers['x-api-key'] +
+    "\n\nheaders: " + JSON.stringify(req.headers) +
+    "\n\nbody: " + JSON.stringify(req.body) +
+    (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
+  logging.error(stack);
+  var message = err.message ? err.message : err;
+  message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
+  res.json(500,{err:message}); //res.end(err.message);
+}
+
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
@@ -71,128 +124,55 @@ var getManifestFiles = function(page){
 
   if(!files) throw new Error("Page not found!");
 
-  var css = '';
-
-  _.each(files.css, function(file){
-    css += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">'; 
-  });
+  var code = '';
 
   if(nconf.get('NODE_ENV') === 'production'){
-    return css + '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>'; 
+    code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(page + '.css') + '">';
+    code += '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
   }else{
-    var results = css;
+    _.each(files.css, function(file){
+      code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">';
+    });
     _.each(files.js, function(file){
-      results += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>'; 
+      code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
     });
-    return results;
   }
-
-}
-
-// Translations
-
-var translations = {};
-
-var loadTranslations = function(locale){
-  var files = require(path.join(__dirname, "/../locales/", locale, 'app.json')).files;
-  translations[locale] = {};
-  _.each(files, function(file){
-    _.merge(translations[locale], require(path.join(__dirname, "/../locales/", locale, file)));
-  });
-}
-
-// First fetch english so we can merge with missing strings in other languages
-loadTranslations('en');
-
-fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
-  if(file === 'en') return;
-  loadTranslations(file);
-  // Merge missing strings from english
-  _.defaults(translations[file], translations.en);
-});
-
-var langCodes = Object.keys(translations);
-
-var avalaibleLanguages = _.map(langCodes, function(langCode){
-  return {
-    code: langCode,
-    name: translations[langCode].languageName
-  }
-});
-
-// Load MomentJS localization files
-var momentLangs = {};
-
-// Handle different language codes from MomentJS and /locales
-var momentLangsMapping = {
-  'en': 'en-gb',
-  'no': 'nn'
-};
-
-var momentLangs = {};
-
-_.each(langCodes, function(code){
-  var lang = _.find(avalaibleLanguages, {code: code});
-  lang.momentLangCode = (momentLangsMapping[code] || code);
-  try{
-    // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
-    var f = fs.readFileSync(path.join(__dirname, '/../node_modules/moment/lang/' + lang.momentLangCode + '.js'), 'utf8');
-    momentLangs[code] = f;
-  }catch (e){}
-});
-
-var getUserLanguage = function(req, callback){
-  var getFromBrowser = function(){
-    var acceptable = _(req.acceptedLanguages).map(function(lang){
-      return lang.slice(0, 2);
-    }).uniq().value();
-
-    var matches = _.intersection(acceptable, langCodes);
-    return matches.length > 0 ? matches[0] : 'en';
-  };
-
-  if(req.session && req.session.userId){
-    User.findOne({_id: req.session.userId}, function(err, user){
-      if(err) return callback(err);
-      if(user && user.preferences.language && translations[user.preferences.language]){
-        return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
-      }else{
-        var langCode = getFromBrowser();
-        if(user && translations[langCode]){
-          user.preferences.language = langCode;
-          user.save(); //callback?
-        }
-        return callback(null, _.find(avalaibleLanguages, {code: langCode}))
-      }
-    });
-  }else{
-    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));    
-  }
+  
+  return code;
 }
 
 module.exports.locals = function(req, res, next) {
-  getUserLanguage(req, function(err, language){
-    if(err) return res.json(500, {err: err});
+  var language = _.find(i18n.avalaibleLanguages, {code: req.language});
+  var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
 
-    language.momentLang = (momentLangs[language.code] || undefined);
-    
-    res.locals.habitrpg = {
-      NODE_ENV: nconf.get('NODE_ENV'),
-      BASE_URL: nconf.get('BASE_URL'),
-      PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
-      IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-      STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
-      getManifestFiles: getManifestFiles,
-      getBuildUrl: getBuildUrl,
-      avalaibleLanguages: avalaibleLanguages,
-      language: language,
-      translations: translations[language.code],
-      t: function(string){
-        return (translations[language.code][string] || translations[language.code].stringNotFound);
-      },
-      siteVersion: siteVersion
-    }
+  // Load moment.js language file only when not on static pages
+  language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
-    next(); 
-  });
+  var tavern = require('./models/group').tavern;
+  res.locals.habitrpg = {
+    NODE_ENV: nconf.get('NODE_ENV'),
+    BASE_URL: nconf.get('BASE_URL'),
+    GA_ID: nconf.get("GA_ID"),
+    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
+    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+    getManifestFiles: getManifestFiles,
+    getBuildUrl: getBuildUrl,
+    avalaibleLanguages: i18n.avalaibleLanguages,
+    language: language,
+    isStaticPage: isStaticPage,
+    translations: i18n.translations[language.code],
+    t: function(){ // stringName and vars are the allowed parameters
+      var args = Array.prototype.slice.call(arguments, 0); 
+      args.push(language.code);
+      return shared.i18n.t.apply(null, args);
+    },
+    siteVersion: siteVersion,
+    Content: shared.content,
+    mods: require('./models/user').mods,
+
+    tavern: tavern, // for world boss
+    worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
+  }
+
+  next();
 }

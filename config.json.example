@@ -11,7 +11,17 @@
     "SMTP_USER":"user@domain.com",
     "SMTP_PASS":"password",
     "SMTP_SERVICE":"Gmail",
+    "SMTP_HOST":"smtp.gmail.com",
+    "SMTP_PORT": 587,
+    "SMTP_TLS": true,
     "STRIPE_API_KEY":"aaaabbbbccccddddeeeeffff00001111",
     "STRIPE_PUB_KEY":"22223333444455556666777788889999",
-    "PAYPAL_MERCHANT":"paypal-merchant@gmail.com"
+    "NEW_RELIC_LICENSE_KEY":"NEW_RELIC_LICENSE_KEY",
+    "GA_ID": "GA_ID",
+    "PAYPAL_USERNAME": "PAYPAL_USERNAME",
+    "PAYPAL_PASSWORD": "PAYPAL_PASSWORD",
+    "PAYPAL_SIGNATURE": "PAYPAL_SIGNATURE",
+    "EMAIL_SERVER_URL": "http://example.com",
+    "EMAIL_SERVER_AUTH_USER": "user",
+    "EMAIL_SERVER_AUTH_PASSWORD": "password"
 }

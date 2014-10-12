@@ -8,9 +8,16 @@ npm-debug.log
 lib
 public/bower_components
 build
+newrelic_agent.log
+.bower-tmp
+.bower-registry
+.bower-cache
+.vagrant
 
+*.log
 src/*/*.map
 src/*/*/*.map
 test/*.js
 test/*.map
 public/docs
+*.sublime-workspace

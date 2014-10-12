@@ -1,56 +1,63 @@
 footer.footer(ng-controller='FooterCtrl')
   .container
     .row
-      .span3
-        h4 Mobile
-        ul.unstyled
+      .col-sm-3
+        h4=env.t('footerMobile')
+        ul.list-unstyled
           li
-            a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank') iOS
+            a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank')=env.t('mobileIOS')
           li
-            a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank') Android
-      .span3
-        h4 Company
-        ul.unstyled
-          if (!env.isFrontPage)
+            a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank')=env.t('mobileAndroid')
+        if env.isStaticPage
+          h4=env.t('language')
+          select(ng-change='changeLang()', ng-model='selectedLanguage', ng-options='language.name for language in languages')
+
+      .col-sm-3
+        h4=env.t('footerCompany')
+        ul.list-unstyled
+          if (!env.isStaticPage)
             li
-              .btn.btn-small.btn-success(ng-click='modals.buyGems = true')
-                i.icon-heart.icon-white
-                |  Donate
+              .btn.btn-sm.btn-success(ng-click='openModal("buyGems",{track:"Gems > Donate"})')
+                span.glyphicon.glyphicon-heart
+                |&nbsp;
+                =env.t('companyDonate')
           li
-            a(href='/static/about') About
+            a(href='/static/features')=env.t('companyAbout')
           li
-            a(target='_blank', href='http://blog.habitrpg.com/') Blog
+            a(target='_blank', href='http://blog.habitrpg.com/')=env.t('companyBlog')
           li
-            a(href='/static/extensions') Extensions
+            a(href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('companyExtensions')
           li
-            a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ') FAQ
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
           li
-            a(href='/static/privacy') Privacy
+            a(href='/static/privacy')=env.t('companyPrivacy')
           li
-            a(href='/static/terms') Terms
-      .span3
-        h4 Community
-        ul.unstyled
+            a(href='/static/terms')=env.t('companyTerms')
           li
-            a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues') Submit Bug
+            a(href='/static/contact')=env.t('contactUs')
+      .col-sm-3
+        h4=env.t('footerCommunity')
+        ul.list-unstyled
           li
-            a(target='_blank', href='https://trello.com/c/8gzGlle8') Request Feature
+            a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('communityBug')
           li
-            a(target='_blank', href='https://github.com/lefnire/habitrpg/wiki/API') API
+            a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')
           li
-            a(href='/static/extensions') Add-ons & Extensions
+            a(target='_blank', href='https://habitrpg.com/static/api')=env.t('API')
           li
-            a(target='_blank', href='http://community.habitrpg.com/forum') Forum
+            a(href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('communityExtensions')
           li
-            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile') Kickstarter
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum')=env.t('communityForum')
           li
-            a(target='_blank', href='https://www.facebook.com/Habitrpg') Facebook
+            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile')=env.t('communityKickstarter')
           li
-            a(target='_blank', href='http://www.reddit.com/r/habitrpg/') Reddit
-      .span3
-        if (env.NODE_ENV=='production')
-          h4 Social
-          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title='HabitRPG - Gamify Your Life')
+            a(target='_blank', href='https://www.facebook.com/Habitrpg')=env.t('communityFacebook')
+          li
+            a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
+      .col-sm-3
+        if (env.NODE_ENV == 'production' && !env.IS_MOBILE)
+          h4=env.t('footerSocial')
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title=env.t('socialTitle'))
             table
               tr
                 td
@@ -59,19 +66,25 @@ footer.footer(ng-controller='FooterCtrl')
                 td
                   a.addthis_button_tweet(tw:via='habitrpg')
               tr
-                td(align='left')
+                td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
               tr
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
-        else
+        else if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
           h4 Debug
-          ul.unstyled
-            li
-              a.btn(ng-click='addMissedDay()') +1 Missed Day
-            li
-              a.btn(ng-click='addTenGems()') +10 Gems
-            li
-              a.btn(ng-click='addLevelsAndGold()') +Exp +GP
+          .btn-group-vertical
+            a.btn.btn-default(ng-click='setHealthLow()') Health = 1
+            a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day
+            a.btn.btn-default(ng-click='addTenGems()') +10 Gems
+            a.btn.btn-default(ng-click='addGold()') +GP
+            a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP +MP
+            a.btn.btn-default(ng-click='addOneLevel()') +1 Level
+            a.btn.btn-default(ng-click='addBossQuestProgressUp()') +1000 Boss Quest Progress Up
 
   div(ng-init='deferredScripts()')
+
+  // Load audio last
+  audio#sound(autoplay)
+      source#oggSource(type="audio/ogg")
+      source#mp3Source(type="audio/mp3")

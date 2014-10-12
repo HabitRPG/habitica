@@ -2,10 +2,13 @@ var nconf = require('nconf');
 var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
-var middleware = require('../middleware')
+var middleware = require('../middleware');
+var user = require('../controllers/user');
+var auth = require('../controllers/auth');
+var i18n = require('../i18n');
 
 // -------- App --------
-router.get('/', middleware.locals, function(req, res) {
+router.get('/', i18n.getUserLanguage, middleware.locals, function(req, res) {
   if (!req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
     return res.redirect('/static/front')
 
@@ -17,40 +20,18 @@ router.get('/', middleware.locals, function(req, res) {
 
 // -------- Marketing --------
 
-router.get('/static/front', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/front', {env: env});
-});
+var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff'];
 
-router.get('/static/privacy', middleware.locals, function(req, res) {
-  res.render('static/privacy', {env: res.locals.habitrpg});
-});
-
-router.get('/static/terms', middleware.locals, function(req, res) {
-  res.render('static/terms', {env: res.locals.habitrpg});
-});
+_.each(pages, function(name){
+  router.get('/static/' + name, i18n.getUserLanguage, middleware.locals, function(req, res) {
+    res.render('static/' + name, {env: res.locals.habitrpg});
+  });
+})
 
 // --------- Redirects --------
 
-router.get('/splash.html', function(req, res) {
-  res.redirect('/static/front');
-});
-
-router.get('/static/about', function(req, res) {
-  res.redirect('http://community.habitrpg.com/node/97');
-});
-
-router.get('/static/team', function(req, res) {
-  res.redirect('http://community.habitrpg.com/node/96');
-});
-
 router.get('/static/extensions', function(req, res) {
-  res.redirect('http://community.habitrpg.com/extensions');
-});
-
-router.get('/static/faq', function(req, res) {
-  res.redirect('http://community.habitrpg.com/faq-page');
+  res.redirect('http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations');
 });
 
 module.exports = router;

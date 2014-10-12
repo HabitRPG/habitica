@@ -1,32 +1,30 @@
-div(modal='modals.buyGems')
-  .modal-header
-    include ../gems
-    h3 Buy Gems / Donate
-
+script(id='modals/buyGems.html', type='text/ng-template')
   .modal-body
-    table
-      tr
-        td
-          .npc_justin
-        td
-          .popover.static-popover.fade.right.in.wide-popover
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='https://twitter.com/bowenNstuff') Justin
-            .popover-content
-              p <span class='label label-info'>$5 USD</span> will:
-              ul.modal-indented-list
-                li Add 20 gems to your account, which are used to buy special items.
-                li Disable ads.
-                li Donate to the developers (as an open source project, we can use all the help we can get).
-    br
-    .row-fluid
-      .span6.well
-        h3 Pay with Card
-        .btn.btn-primary(ng-click='showStripe()') Pay with Card
-      .span6.well
-        h3 Pay with PayPal
-        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
+    .buy-gems
+      include ../gems
+      .well
+        h3=env.t('buyGems')
+        table.table
+          tr
+            td
+              span.dashed-underline(popover=env.t('donateText1'),popover-trigger='mouseenter',popover-placement='right')
+                | +20 <span class="Pet_Currency_Gem1x inline-gems"/>
+          tr
+            td
+              span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='right')
+                =env.t('donateText2')
+          tr
+            td.alert.alert-info $5&nbsp;
+              =env.t('USD')
+          tr
+            td
+              p
+                small.muted=env.t('paymentMethods')
+              //.btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
+              .btn.btn-primary(ng-click='showStripe()')=env.t('card')
+              a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+
+      div(ng-include="'partials/options.settings.subscription.html'")
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.buyGems = false') Cancel
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')

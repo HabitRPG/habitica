@@ -1,7 +1,24 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
-  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $state) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state',
+  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state) {
+    $scope.isMemberOfPendingQuest = function(userid, group) {
+      if (!group.quest || !group.quest.members) return false;
+      if (group.quest.active) return false; // quest is started, not pending
+      return userid in group.quest.members && group.quest.members[userid] != false;
+    }
+
+    $scope.isMemberOfRunningQuest = function(userid, group) {
+      if (!group.quest || !group.quest.members) return false;
+      if (!group.quest.active) return false; // quest is pending, not started
+      return group.quest.members[userid];
+    }
+
+    $scope.isMemberOfGroup = function(userid, group){
+      if (!group.members) return false;
+      var memberIds = _.map(group.members, function(x){return x._id});
+      return ~(memberIds.indexOf(userid));
+    }
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -29,12 +46,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid);
-          $rootScope.modals.member = true;
+          $rootScope.openModal('member', {controller:'MemberModalCtrl'});
         }
       }
 
       $scope.removeMember = function(group, member, isMember){
-        var yes = confirm("Do you really want to remove this member from the party?")
+        var yes = confirm(window.env.t('sureKick'))
         if(yes){
           Groups.Group.removeMember({gid: group._id, uuid: member._id }, undefined, function(){
             if(isMember){
@@ -58,15 +75,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members',
-    function($scope, $rootScope, Members) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared',
+    function($scope, $rootScope, Members, Shared) {
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format('MM/DD/YYYY');
       }
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
         if(member)
-          member.petCount = $rootScope.Shared.countPets(null, member.items.pets);
+          member.petCount = Shared.countPets(null, member.items.pets);
         $scope.profile = member;
       });
     }
@@ -99,8 +116,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     $scope.$watch('group.chat',$scope.chatChanged);
     
     $scope.caretChanged = function(newCaretPos) {
-      var relativeelement = $('.-options');
-      var textarea = $('.chat-textarea');
+      var relativeelement = $('.chat-form div:first');
+      var textarea = $('.chat-form textarea');
       var userlist = $('.list-at-user');
       var offset = {
         x: textarea.offset().left - relativeelement.offset().left,
@@ -127,7 +144,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     });
   }])
   
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', function($scope, Groups, User, $http, ApiUrlService, Notification){
     $scope.message = {content:''};
     $scope._sending = false;
     
@@ -178,42 +195,56 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
     }
 
+    $scope.likeChatMessage = function(group,message) {
+      if (message.uuid == User.user._id)
+        return Notification.text(window.env.t('foreverAlone'));
+      if (!message.likes) message.likes = {};
+      if (message.likes[User.user._id]) {
+        delete message.likes[User.user._id];
+      } else {
+        message.likes[User.user._id] = true;
+      }
+      //Chat.Chat.like({gid:group._id,mid:message.id});
+
+      $http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
+    }
+
     $scope.sync = function(group){
       group.$get();
     }
 
     // List of Ordering options for the party members list
     $scope.partyOrderChoices = {
-      'level': 'Sort by Level',
-      'random': 'Sort randomly',
-      'pets': 'Sort by number of pets',
-      'party_date_joined': 'Sort by Party date joined',
+      'level': window.env.t('sortLevel'),
+      'random': window.env.t('sortRandom'),
+      'pets': window.env.t('sortPets'),
+      'party_date_joined': window.env.t('sortJoined'),
+      'name': window.env.t('sortName'),
+      'backgrounds': window.env.t('sortBackgrounds'),
     };
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
-    function($scope, Groups, User, $rootScope, $state, $location) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile) {
       $scope.groups = {
         guilds: Groups.myGuilds(),
         "public": Groups.publicGuilds()
       }
+
       $scope.type = 'guild';
-      $scope.text = 'Guild';
+      $scope.text = window.env.t('guild');
       var newGroup = function(){
-        return new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
+        return new Groups.Group({type:'guild', privacy:'private'});
       }
       $scope.newGroup = newGroup()
       $scope.create = function(group){
-        if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
+        if (User.user.balance < 1)
+          return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
 
-        if (confirm("Create Guild for 4 Gems?")) {
+        if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){
-            User.user.balance--;
-            $scope.groups.guilds.push(saved);
-            if(saved.privacy === 'public') $scope.groups.public.push(saved);
-            $state.go('options.social.guilds.detail', {gid: saved._id});
-            $scope.newGroup = newGroup();
+            $rootScope.hardRedirect('/#/options/groups/guilds/' + saved._id);
           });
         }
       }
@@ -227,73 +258,122 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         }
 
         group.$join(function(joined){
-          var i = _.findIndex(User.user.invitations.guilds, {id:joined._id});
-          if (~i) User.user.invitations.guilds.splice(i,1);
-          $scope.groups.guilds.push(joined);
-          if(joined.privacy == 'public'){
-            joined._isMember = true;
-            joined.memberCount++;
-          }
-          $state.go('options.social.guilds.detail', {gid: joined._id});
+          $rootScope.hardRedirect('/#/options/groups/guilds/' + joined._id);
         })
       }
 
-      $scope.leave = function(group){
-        if (confirm("Are you sure you want to leave this guild?") !== true) {
-          return;
-        }
-        Groups.Group.leave({gid: group._id}, undefined, function(){
-          $scope.groups.guilds.splice(_.indexOf($scope.groups.guilds, group), 1);
-          // remove user from group members if guild is public so that he can re-join it immediately
-          if(group.privacy == 'public' || !group.privacy){ //public guilds with only some fields fetched
-            var i = _.findIndex($scope.groups.public, {_id: group._id});
-            if(~i){
-              var guild = $scope.groups.public[i];
-              guild.memberCount--;
-              guild._isMember = false;
-            }
-          }
-          $state.go('options.social.guilds');
-        });
+      $scope.leave = function(keep) {
+         if (keep == 'cancel') {
+           $scope.selectedGroup = undefined;
+           $scope.popoverEl.popover('destroy');
+         } else {
+           Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+             $rootScope.hardRedirect('/#/options/groups/guilds');
+           });
+         }
+      }
+
+      $scope.clickLeave = function(group, $event){
+          $scope.selectedGroup = group;
+          $scope.popoverEl = $($event.target);
+          var html, title;
+          Challenges.Challenge.query(function(challenges) {
+              challenges = _.pluck(_.filter(challenges, function(c) {
+                  return c.group._id == group._id;
+              }), '_id');
+              if (_.intersection(challenges, User.user.challenges).length > 0) {
+                  html = $compile(
+              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+          )($scope);
+                  title = window.env.t('leaveGroupCha');
+              } else {
+                  html = $compile(
+                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+                  )($scope);
+                  title = window.env.t('leaveGroup')
+              }
+          $scope.popoverEl.popover('destroy').popover({
+              html: true,
+              placement: 'top',
+              trigger: 'manual',
+                  title: title,
+              content: html
+          }).popover('show');
+          });
       }
 
       $scope.reject = function(guild){
         var i = _.findIndex(User.user.invitations.guilds, {id:guild.id});
         if (~i){
           User.user.invitations.guilds.splice(i, 1);
-          User.set('invitations.guilds', User.user.invitations.guilds);
+          User.set({'invitations.guilds':User.user.invitations.guilds});
         }
       }
     }
   ])
 
-  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', '$state',
-    function($rootScope,$scope, Groups, User, $state) {
+  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', 'Challenges', '$state', '$compile',
+    function($rootScope,$scope, Groups, User, Challenges, $state, $compile) {
       $scope.type = 'party';
-      $scope.text = 'Party';
+      $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
-      $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
+      $scope.newGroup = new Groups.Group({type:'party'});
+
+      Groups.seenMessage($scope.group._id);
+
       $scope.create = function(group){
-        group.$save(function(newGroup){
-          $scope.group = newGroup;
+        group.$save(function(){
+          $rootScope.hardRedirect('/#/options/groups/party');
         });
       }
 
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
-        // there a better way to access GroupsCtrl.groups.party?
-        group.$join(function(groupJoined){
-          $scope.group = groupJoined;
+        group.$join(function(){
+          $rootScope.hardRedirect('/#/options/groups/party');
         });
       }
 
-      $scope.leave = function(group){
-        if (confirm("Are you sure you want to leave this party?") !== true) {
-          return;
+      // TODO: refactor guild and party leave into one function
+      $scope.leave = function(keep) {
+        if (keep == 'cancel') {
+          $scope.selectedGroup = undefined;
+          $scope.popoverEl.popover('destroy');
+        } else {
+          Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+            $rootScope.hardRedirect('/#/options/groups/party');
+          });
         }
-        Groups.Group.leave({gid: group._id}, undefined, function(){
-          $scope.group = undefined;
-        });
+      }
+
+      // TODO: refactor guild and party clickLeave into one function
+      $scope.clickLeave = function(group, $event){
+          $scope.selectedGroup = group;
+          $scope.popoverEl = $($event.target);
+          var html, title;
+          Challenges.Challenge.query(function(challenges) {
+              challenges = _.pluck(_.filter(challenges, function(c) {
+                  return c.group._id == group._id;
+              }), '_id');
+              if (_.intersection(challenges, User.user.challenges).length > 0) {
+                  html = $compile(
+              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+          )($scope);
+                  title = window.env.t('leavePartyCha');
+              } else {
+                  html = $compile(
+                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
+                  )($scope);
+                  title = window.env.t('leaveParty');
+              }
+          $scope.popoverEl.popover('destroy').popover({
+              html: true,
+              placement: 'top',
+              trigger: 'manual',
+                  title: title,
+              content: html
+          }).popover('show');
+          });
       }
 
       $scope.reject = function(){
@@ -301,11 +381,17 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         User.set({'invitations.party':{}});
       }
 
+      $scope.questCancel = function(){
+        if (!confirm(window.env.t('sureCancel'))) return;
+        $rootScope.party.$questCancel();
+      }
+
       $scope.questAbort = function(){
-        if (!confirm("Are you sure you want to abort this mission? It will abort it for everyone in your party, and you'll lose your quest scroll.")) return;
-        if (!confirm("Are you double sure? Make sure they won't hate you forever!")) return;
+        if (!confirm(window.env.t('sureAbort'))) return;
+        if (!confirm(window.env.t('doubleSureAbort'))) return;
         $rootScope.party.$questAbort();
       }
+
     }
   ])
 
