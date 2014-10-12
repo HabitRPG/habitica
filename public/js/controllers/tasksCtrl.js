@@ -142,11 +142,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         $event.preventDefault();
       } 
     }
-	$scope.swapChecklistItems = function(task, oldIndex, newIndex) {
-		var toSwap = task.checklist.splice(oldIndex, 1)[0];
-		task.checklist.splice(newIndex, 0, toSwap);
-		$scope.saveTask(task, true);
-	}
+    $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
+      var toSwap = task.checklist.splice(oldIndex, 1)[0];
+      task.checklist.splice(newIndex, 0, toSwap);
+      $scope.saveTask(task, true);
+    }
     $scope.navigateChecklist = function(task,$index,$event){
       focusChecklist(task, $event.keyCode == '40' ? $index+1 : $index-1);
     }
