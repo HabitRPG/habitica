@@ -1,4 +1,4 @@
-li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", data-popover-placement="top", ng-show='shouldShow(task, list, user.preferences)')
+li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward")}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", data-popover-placement="top", ng-show='shouldShow(task, list, user.preferences)')
   // right-hand side control buttons
   .task-meta-controls
 
