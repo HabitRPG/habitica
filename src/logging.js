@@ -12,8 +12,8 @@ if (logger == null) {
         if (!nconf.get('DISABLE_ERROR_EMAILS')) {
           logger.add(winston.transports.Mail, {
               to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
-              from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
-              subject: "HabitRPG Error",
+              from: 'HabitRPG <' + nconf.get('SMTP_USER') + '>',
+              subject: 'HabitRPG Error',
               host: nconf.get('SMTP_HOST'),
               port: nconf.get('SMTP_PORT'),
               tls: nconf.get('SMTP_TLS'),
@@ -23,7 +23,7 @@ if (logger == null) {
           });
         }
     } else {
-        logger.add(winston.transports.Console, {colorize:true});
+        logger.add(winston.transports.Console, {colorize: true});
         logger.add(winston.transports.File, {filename: 'habitrpg.log'});
     }
 }

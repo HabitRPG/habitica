@@ -1,5 +1,5 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
-var cluster = require("cluster");
+var cluster = require('cluster');
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
@@ -10,7 +10,7 @@ var isDev = nconf.get('NODE_ENV') === 'development';
 
 if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
-  _.times(_.min([require('os').cpus().length,2]), function(){
+  _.times(_.min([require('os').cpus().length, 2]), function() {
     cluster.fork();
   });
 
@@ -21,10 +21,10 @@ if (cluster.isMaster && (isDev || isProd)) {
 
 } else {
   require('coffee-script'); // remove this once we've fully converted over
-  var express = require("express");
-  var http = require("http");
-  var path = require("path");
-  var swagger = require("swagger-node-express");
+  var express = require('express');
+  var http = require('http');
+  var path = require('path');
+  var swagger = require('swagger-node-express');
   var autoinc = require('mongoose-id-autoinc');
 
   // Setup translations
@@ -54,8 +54,8 @@ if (cluster.isMaster && (isDev || isProd)) {
   require('./models/user');
 
   // ------------  Passport Configuration ------------
-  var passport = require('passport')
-  var util = require('util')
+  var passport = require('passport');
+  var util = require('util');
   var FacebookStrategy = require('passport-facebook').Strategy;
   // Passport session setup.
   //   To support persistent login sessions, Passport needs to be able to
@@ -77,9 +77,9 @@ if (cluster.isMaster && (isDev || isProd)) {
   //   credentials (in this case, an accessToken, refreshToken, and Facebook
   //   profile), and invoke a callback with a user object.
   passport.use(new FacebookStrategy({
-      clientID: nconf.get("FACEBOOK_KEY"),
-      clientSecret: nconf.get("FACEBOOK_SECRET"),
-      callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
+      clientID: nconf.get('FACEBOOK_KEY'),
+      clientSecret: nconf.get('FACEBOOK_SECRET'),
+      callbackURL: nconf.get('BASE_URL') + '/auth/facebook/callback'
   },
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -95,15 +95,15 @@ if (cluster.isMaster && (isDev || isProd)) {
    ));
 
   // ------------  Server Configuration ------------
-  var publicDir = path.join(__dirname, "/../public");
+  var publicDir = path.join(__dirname, '/../public');
 
-  app.set("port", nconf.get('PORT'));
+  app.set('port', nconf.get('PORT'));
   middleware.apiThrottle(app);
-  app.use(middleware.domainMiddleware(server,mongoose));
-  if (!isProd) app.use(express.logger("dev"));
+  app.use(middleware.domainMiddleware(server, mongoose));
+  if (!isProd) app.use(express.logger('dev'));
   app.use(express.compress());
-  app.set("views", __dirname + "/../views");
-  app.set("view engine", "jade");
+  app.set('views', __dirname + '/../views');
+  app.set('view engine', 'jade');
   app.use(express.favicon(publicDir + '/favicon.ico'));
   app.use(middleware.cors);
   app.use(middleware.forceSSL);
@@ -124,8 +124,8 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
-  app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](publicDir + "/bower_components/habitrpg-shared/img/emoji/unicode", { maxAge: maxAge }));
+  app.use(express['static'](path.join(__dirname, '/../build'), { maxAge: maxAge }));
+  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](publicDir + '/bower_components/habitrpg-shared/img/emoji/unicode', { maxAge: maxAge }));
   app.use(express['static'](publicDir));
 
   // Custom Directives
@@ -141,8 +141,8 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(middleware.errorHandler);
 
   server.on('request', app);
-  server.listen(app.get("port"), function() {
-    return logging.info("Express server listening on port " + app.get("port"));
+  server.listen(app.get('port'), function() {
+    return logging.info('Express server listening on port ' + app.get('port'));
   });
 
   module.exports = server;

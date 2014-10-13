@@ -69,6 +69,7 @@
   "devDependencies": {
     "protractor": "~0.14.0",
     "grunt-karma": "~0.6.2",
+    "grunt-jscs": "~0.7.0",
     "karma-script-launcher": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
     "karma-firefox-launcher": "~0.1.0",
