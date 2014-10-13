@@ -12177,6 +12177,11 @@ api.questEggs = {
     text: t('questEggRoosterText'),
     adjective: t('questEggRoosterAdjective'),
     canBuy: false
+  },
+  Spider: {
+    text: t('questEggSpiderText'),
+    adjective: t('questEggSpiderAdjective'),
+    canBuy: false
   }
 };
 
@@ -13096,6 +13101,36 @@ api.quests = {
       gp: 25,
       exp: 125
     }
+  },
+  spider: {
+    text: t('questSpiderText'),
+    notes: t('questSpiderNotes'),
+    completion: t('questSpiderCompletion'),
+    value: 4,
+    boss: {
+      name: t('questSpiderBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Spider',
+          text: t('questSpiderDropSpiderEgg')
+        }, {
+          type: 'eggs',
+          key: 'Spider',
+          text: t('questSpiderDropSpiderEgg')
+        }, {
+          type: 'eggs',
+          key: 'Spider',
+          text: t('questSpiderDropSpiderEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
+    }
   }
 };
 
@@ -13730,7 +13765,7 @@ api.percent = function(x, y, dir) {
   if (x === 0) {
     x = 1;
   }
-  return roundFn(x / y * 100);
+  return Math.max(0, roundFn(x / y * 100));
 };
 
 

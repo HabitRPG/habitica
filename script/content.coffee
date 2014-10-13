@@ -678,6 +678,7 @@ api.questEggs =
   Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
   Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
   Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: false
+  Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1118,6 +1119,24 @@ api.quests =
       ]
       gp: 25
       exp: 125
+
+  spider:
+    text:       t('questSpiderText')
+    notes:      t('questSpiderNotes')
+    completion: t('questSpiderCompletion')
+    value: 4
+    boss:
+      name: t('questSpiderBoss')
+      hp: 400
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Spider', text: t('questSpiderDropSpiderEgg')}
+        {type: 'eggs', key: 'Spider', text: t('questSpiderDropSpiderEgg')}
+        {type: 'eggs', key: 'Spider', text: t('questSpiderDropSpiderEgg')}
+      ]
+      gp: 31
+      exp: 200
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
