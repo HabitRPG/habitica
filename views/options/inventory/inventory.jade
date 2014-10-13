@@ -106,7 +106,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     |  {{::egg.value}}
                     span.Pet_Currency_Gem1x.inline-gems
                 //- buyable quest eggs
-                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster'}
+                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider'}
                   div(ng-show='user.achievements.quests.#{quest} > 1')
                     button.customize-option(popover='{{::Content.eggs.#{egg}.notes()}}', popover-title!=env.t("egg", {eggType: "{{::Content.eggs.#{egg}.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.#{egg})', class='Pet_Egg_#{egg}')
                     p
