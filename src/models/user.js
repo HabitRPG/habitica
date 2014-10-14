@@ -10,6 +10,7 @@ var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
 var Challenge = require('./challenge').model;
+var moment = require('moment');
 
 // User Schema
 // -----------
@@ -175,9 +176,7 @@ var UserSchema = new Schema({
       // Then add quest pets
       _.transform(shared.content.questPets, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
-      _.transform(shared.content.specialPets, function(m,v,k){
-        m[k] = k=='JackOLantern-Base' ? {type:Number, 'default':5} : Number;
-      })
+      _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
     ),
     currentPet: String, // Cactus-Desert
 
@@ -410,6 +409,10 @@ UserSchema.pre('save', function(next) {
   if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
     this.achievements.beastMaster = true
   }
+
+  // TODO remove this after 11/01
+  if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    this.items.pets['JackOLantern-Base'] = 5;
 
   //our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
