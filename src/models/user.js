@@ -175,7 +175,9 @@ var UserSchema = new Schema({
       // Then add quest pets
       _.transform(shared.content.questPets, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
-      _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
+      _.transform(shared.content.specialPets, function(m,v,k){
+        m[k] = k=='JackOLantern-Base' ? {type:Number, 'default':5} : Number;
+      })
     ),
     currentPet: String, // Cactus-Desert
 
