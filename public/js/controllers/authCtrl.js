@@ -82,13 +82,17 @@ angular.module('authCtrl', [])
       };
 
       $scope.passwordReset = function(email){
-        $http.post(ApiUrlService.get() + '/api/v2/user/reset-password', {email:email})
-          .success(function(){
-            alert(window.env.t('newPassSent'));
-          })
-          .error(function(data){
-            alert(data.err);
-          });
+        if(email == null || email.length == 0) {
+          alert(window.env.t('invalidEmail'));
+        } else {
+          $http.post(ApiUrlService.get() + '/api/v2/user/reset-password', {email:email})
+            .success(function(){
+              alert(window.env.t('newPassSent'));
+            })
+            .error(function(data){
+                alert(data.err);
+            });
+          }
       };
 
       $scope.expandMenu = function(menu) {
