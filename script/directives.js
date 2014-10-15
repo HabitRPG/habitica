@@ -92,7 +92,12 @@
         scope.$watch(attrs.ngModel, function(value, oldValue) {
           var markdown = value;
           var linktarget = attrs.target || '_self';
+          var userName = scope.User.user.profile.name;
+          var userHighlight = "@"+userName;
           var html = md.toHtml(markdown);
+          
+          html = html.replace(userHighlight, "<u>@"+userName+"</u>");
+          
           html = html.replace(' href','target="'+linktarget+'" href');
           element.html(html);
         });
