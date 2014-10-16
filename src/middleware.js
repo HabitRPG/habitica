@@ -10,6 +10,7 @@ var cluster = require('cluster');
 var i18n = require('./i18n.js');
 var shared = require('habitrpg-shared');
 var request = require('request');
+var os = require('os');
 var moment = require('moment');
 
 module.exports.apiThrottle = function(app) {
@@ -33,22 +34,21 @@ module.exports.apiThrottle = function(app) {
 module.exports.domainMiddleware = function(server,mongoose) {
   if (nconf.get('NODE_ENV')=='production') {
     var mins = 3;
-
-    //// Detect memory leak as high memory usage on the system. Tried this on prod for a few days, seems we can get blacked out even *without* memory being maxed.
-    //setInterval(function(){
-    //  if (os.freemem() / os.totalmem() < 0.3) throw 'Memory leak';
-    //}, mins*60*1000);
-
     setInterval(function(){
-      // see https://docs.newrelic.com/docs/apm/apis/api-v2-examples/average-response-time-examples-api-v2, https://rpm.newrelic.com/api/explore/applications/data
-      request({
-        //url: 'https://api.newrelic.com/v2/applications/APPLICATION_ID/metrics/data.json?names[]=HttpDispatcher&values[]=average_call_time&values[]=call_count&from=2014-10-14T2014-03-01T20:59:00+00:00:44:00+00:00&to=2014-10-14Tto=2014-03-01T21:59:00+00:00:14:00+00:00&summarize=true',
-        url: 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=HttpDispatcher&values[]=average_response_time&from='+moment().subtract({minutes:mins}).utc().format()+'&to='+moment().utc().format()+'&summarize=true',
-        headers: {'X-Api-Key': nconf.get('NEW_RELIC_API_KEY')}
-      }, function(err, response, body){
-        var avgResponseTime = JSON.parse(body).metric_data.metrics[0].timeslices[0].values.average_response_time;
-        if (avgResponseTime > 650 || avgResponseTime == 0) throw 'Memory leak';
-      })
+      if (os.freemem() / os.totalmem() < 0.3) {
+        // Detect memory leak as high memory usage on the system.
+        throw 'Memory leak';
+      } else {
+        // see https://docs.newrelic.com/docs/apm/apis/api-v2-examples/average-response-time-examples-api-v2, https://rpm.newrelic.com/api/explore/applications/data
+        request({
+          //url: 'https://api.newrelic.com/v2/applications/APPLICATION_ID/metrics/data.json?names[]=HttpDispatcher&values[]=average_call_time&values[]=call_count&from=2014-10-14T2014-03-01T20:59:00+00:00:44:00+00:00&to=2014-10-14Tto=2014-03-01T21:59:00+00:00:14:00+00:00&summarize=true',
+          url: 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=HttpDispatcher&values[]=average_response_time&from='+moment().subtract({minutes:mins}).utc().format()+'&to='+moment().utc().format()+'&summarize=true',
+          headers: {'X-Api-Key': nconf.get('NEW_RELIC_API_KEY')}
+        }, function(err, response, body){
+          var avgResponseTime = JSON.parse(body).metric_data.metrics[0].timeslices[0].values.average_response_time;
+          if (avgResponseTime > 650 || avgResponseTime == 0) throw 'Memory leak';
+        })
+      }
     }, mins*60*1000);
   }
 
