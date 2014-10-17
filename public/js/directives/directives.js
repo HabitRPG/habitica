@@ -61,6 +61,12 @@ habitrpg
       link: function(scope, element, attrs) {
         // $scope.obj needs to come from controllers, so we can pass by ref
         scope.main = attrs.main;
+        var dailiesView;
+        if(User.user.preferences.dailyDueDefaultView) {
+          dailiesView = "remaining";
+        } else {
+          dailiesView = "all";
+        }
         $rootScope.lists = [
           {
             header: window.env.t('habits'),
@@ -70,7 +76,7 @@ habitrpg
             header: window.env.t('dailies'),
             type: 'daily',
             placeHolder: window.env.t('newDaily'),
-            view: "all"
+            view: dailiesView
           }, {
             header: window.env.t('todos'),
             type: 'todo',
