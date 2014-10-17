@@ -5,7 +5,7 @@ script(type='text/ng-template', id='modals/questCompleted.html')
     h4 "{{::Content.quests[user.party.quest.completed].text()}}"
       =env.t('completed')
   .modal-body
-    p {{::Content.quests[user.party.quest.completed].completion()}}
+    p(ng-bind-html='::Content.quests[user.party.quest.completed].completion()')
     quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
   .modal-footer
     button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('ok')
