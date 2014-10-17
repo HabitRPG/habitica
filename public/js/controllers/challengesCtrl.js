@@ -229,4 +229,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.search.group = _.transform($scope.groups, function(m,g){m[g._id] = false});
     }
 
+   $scope.shouldShow = function(task, list, prefs){
+     return true;
+   };
 }]);
