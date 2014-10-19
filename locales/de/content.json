@@ -41,6 +41,8 @@
     "questEggParrotAdjective": "lebhaft",
     "questEggRoosterText": "Hahn",
     "questEggRoosterAdjective": "stolzierender",
+    "questEggSpiderText": "Spider",
+    "questEggSpiderAdjective": "creepy",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

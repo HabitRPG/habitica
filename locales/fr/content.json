@@ -41,6 +41,8 @@
     "questEggParrotAdjective": "dynamique",
     "questEggRoosterText": "Coq",
     "questEggRoosterAdjective": "vantard",
+    "questEggSpiderText": "Spider",
+    "questEggSpiderAdjective": "creepy",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "de Base",
     "hatchingPotionWhite": "Blanc",

@@ -12,7 +12,7 @@
     "veteranWolf": "Lup veteran",
     "cerberusPup": "Pui de Cerber",
     "hydra": "Hidră",
-    "mantisShrimp": "Crabul călugăr",
+    "mantisShrimp": "Crevete călugăr",
     "rarePetPop1": "Apasă pe laba de aur pentru a afla mai multe despre cum poți obține acest companion rar contribuind la HabitRPG!",
     "rarePetPop2": "Cum să primeşti acest companion",
     "potion": "Poţiune <%= potionType %>",
@@ -28,8 +28,8 @@
     "noFood": "Nu ai deloc mâncare sau şei",
     "beastAchievement": "Ai primit medalia de \"Stăpânul fiarelor\" pentru că ai strâns toţi companionii!",
     "beastMastName": "Stăpânul fiarelor",
-    "beastMastText": "A găsit toţi cei 90 de companioni (extraordinar de greu, felicită-l!)",
-    "beastMastText2": "and has released their pets a total of <%= count %> times",
+    "beastMastText": "A găsit toţi cei 90 de companioni (extraordinar de greu, felicită-l/o!)",
+    "beastMastText2": "și a dat drumul companionilor de <%= count %> ori",
     "dropsEnabled": "Câştiguri activate!",
     "itemDrop": "Ai câştigat ceva!",
     "firstDrop": "Ai deblocat sistemul de câştiguri! Acum când îndeplinești un țel ai o mică şansă de a găsi un obiect. Chiar acum ai găsit un <strong><%= eggText %> Ou</strong>! <%= eggNotes %>",
@@ -45,8 +45,8 @@
     "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",
     "petKeyInfo2": "The Key to the Kennels resets all of your non-quest pets back to as if you'd never found them. Once you've used it, you'll be able to stack the Beastmaster achievement, showing off how many times you've been able to best the RNG.",
     "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
-    "petKeyPets": "Release My Pets",
+    "petKeyPets": "Dă drumul companionilor",
     "petKeyMounts": "Release Both Please",
-    "petKeyNeverMind": "Not Yet",
-    "gemsEach": "gems each"
+    "petKeyNeverMind": "Încă nu",
+    "gemsEach": "nestemate fiecare"
 }

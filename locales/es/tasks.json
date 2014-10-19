@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borrar Completados",
-    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
+    "lotOfToDos": "Las tareas finalizadas se archivan automáticamente después de 3 días. Puedes acceder a ellos desde Ajustes > Exportar.",
     "deleteToDosExplanation": "Si le das clic al botón debajo, todas sus tareas completadas y tareas archivadas se borraran permanentemente. Expórtelas primero si quieres llevar un registro de ellas.",
     "habits": "Hábitos",
     "newHabit": "Nuevo Hábito",
@@ -35,8 +35,8 @@
     "dueDate": "Fecha de Vencimiento",
     "remaining": "Sin Hacer",
     "complete": "Completadas",
-    "due": "Due",
-    "grey": "Grey",
+    "due": "Por vencer",
+    "grey": "Gris",
     "rewards": "Recompensas",
     "gold": "Oro",
     "silver": "Plata (100 plata = 1 oro)",

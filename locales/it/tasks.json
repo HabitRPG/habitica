@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Elimina attività completate",
-    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
+    "lotOfToDos": "Le To-Do completate vengono automaticamente archiviate dopo 3 giorni. Puoi accedervi in Impostazioni > Esporta dati.",
     "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutti i tuoi To-Do completati e quelli archiviati verranno cancellati in modo permanente. Esportali dall'apposito menù nelle impostazioni se vuoi mantenerne una copia.",
     "habits": "Habits",
     "newHabit": "Nuova Habit",
@@ -36,7 +36,7 @@
     "remaining": "Rimanenti",
     "complete": "Complete",
     "due": "Due",
-    "grey": "Grey",
+    "grey": "Grigio",
     "rewards": "Ricompense",
     "gold": "Oro",
     "silver": "Argento (100 argento = 1 oro)",

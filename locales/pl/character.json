@@ -93,7 +93,7 @@
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
-    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
+    "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",
     "autoAllocation": "Automatyczne przydzielanie",
     "autoAllocationPop": "Rozmieszcza punkty według twoich upodobań przy awansie na kolejny poziom.",
     "evenAllocation": "Rozdzielaj punkty równomiernie",

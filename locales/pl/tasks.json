@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Usuń zakończone",
-    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
+    "lotOfToDos": "Wykonane Do-Zrobienia są automatycznie archiwizowane po 3 dniach. Możesz uzyskać do nich dostęp z zakładki Ustawienia > Eksport.",
     "deleteToDosExplanation": "Klikając tu, nieodwołalnie usuniesz wszystkie zakończone i zarchiwizowane Do-Zrobienia. Jeśli chcesz wciąż mieć do nich dostęp, wyeksportuj je.",
     "habits": "Nawyki",
     "newHabit": "Nowy Nawyk",
@@ -35,8 +35,8 @@
     "dueDate": "Planowana data",
     "remaining": "Aktywne",
     "complete": "Zakończone",
-    "due": "Due",
-    "grey": "Grey",
+    "due": "Dzisiejsze",
+    "grey": "Szare",
     "rewards": "Nagrody",
     "gold": "Złoto",
     "silver": "Srebro (100 srebra = 1 złota)",

@@ -93,7 +93,7 @@
     "changeClass": "Cambiar de clase, Devolver puntos de atributo",
     "levelPopover": "Con cada nivel consigues un punto para asignar a un atributo de tu elección. Lo puedes asignar manualmente o dejar que el juego decida por ti usando una de las opciones de Asignación automática.",
     "unallocated": "Puntos de atributo no asignados",
-    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
+    "haveUnallocated": "Tienes <%= points %> Punto(s) de atributo no asignados.",
     "autoAllocation": "Asignación automática",
     "autoAllocationPop": "Asigna puntos en los atributos de acuerdo a tus preferencias cuando subes de nivel.",
     "evenAllocation": "Distribuir los puntos uniformemente",

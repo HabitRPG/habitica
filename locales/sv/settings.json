@@ -54,7 +54,7 @@
     "deleteText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong><%= deleteWord %></strong> into the text box below.",
     "API": "API",
     "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
-    "APIToken": "API Token (this is a password - see warning above!)",
+    "APIToken": "API Token (detta är ett lösenord - se varningen ovanför)",
     "resetDo": "Gör det, återställ mitt konto!",
     "fixValues": "Ändra Värden",
     "fixValuesText1": "Om du har stött på en bugg eller gjort ett misstag som orättvist ändrat din karaktär (skada du inte borde ha fått, Guld du inte egentligen förtjänat, osv.) så kan du manuellt rätta dina nummer här. Ja, det här gör det möjligt att fuska: använd denna funktion klokt, annars saboterar du din egen vanebildning!",
@@ -66,6 +66,6 @@
     "enterNumber": "Var vänlig ange ett nummer mellan 0 och 24",
     "fillAll": "Var vänlig fyll i alla fält",
     "passSuccess": "Lösenord ändrades framgångsrikt",
-    "usernameSuccess": "Username successfully changed",
+    "usernameSuccess": "Användarnamn bytt",
     "difficulty": "Svårhetsgrad"
 }

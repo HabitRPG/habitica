@@ -41,6 +41,8 @@
     "questEggParrotAdjective": "vibrante",
     "questEggRoosterText": "Galo",
     "questEggRoosterAdjective": "pomposo",
+    "questEggSpiderText": "Spider",
+    "questEggSpiderAdjective": "creepy",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",

@@ -39,7 +39,7 @@
     "useSaddle": "¿Ensillar <%= pet %>?",
     "petName": "<%= egg %> <%= potion %>",
     "mountName": "<%= mount %> <%= potion %>",
-    "petKeyName": "Key to the Kennels",
+    "petKeyName": "Llave de la caseta",
     "petKeyPop": "Deja a tus mascotas vagar libremente, suéltalas para que comienzan su propia aventura y vuelve a sentir la emoción de ser el Maestro de Bestias una vez más.",
     "petKeyBegin": "Key to the Kennels: Experience Beastmaster Once More!",
     "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",

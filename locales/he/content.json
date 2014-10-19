@@ -41,6 +41,8 @@
     "questEggParrotAdjective": "ססגוני",
     "questEggRoosterText": "תרנגול",
     "questEggRoosterAdjective": "מקרקר",
+    "questEggSpiderText": "Spider",
+    "questEggSpiderAdjective": "creepy",
     "eggNotes": "מצא/י שיקוי בקיעה, בזוק/בזקי אותו על הביצה הזו, והיא תהפוך ל <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

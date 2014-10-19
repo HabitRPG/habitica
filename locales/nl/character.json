@@ -93,7 +93,7 @@
     "changeClass": "Verander Klasse, geef Eigenschapspunten terug",
     "levelPopover": "Elk Niveau geeft je één punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit handmatig doen of het spel voor jou laten beslissen door gebruik te maken van één van de Automatische Verdelingsopties. ",
     "unallocated": "Nog niet toegewezen Eigenschapspunten",
-    "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
+    "haveUnallocated": "Je hebt <%= points %> Eigenschapspunt(en) nog niet toegewezen.",
     "autoAllocation": "Automatische Verdeling",
     "autoAllocationPop": "Wijst punten toe aan eigenschappen op basis van jouw voorkeuren, wanneer je een niveau omhoog gaat. ",
     "evenAllocation": "Verdeel eigenschapspunten gelijkmatig",

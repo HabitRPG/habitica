@@ -22,7 +22,7 @@
     "spellRogueToolsOfTradeText": "Орудия труда",
     "spellRogueToolsOfTradeNotes": "Вы делитесь своим воровским инструментом с компаньонами, чтобы помочь им в «приобретении» золота. Получение золота за задачи и шанс выпадения предметов увеличиваются для всей команды в течение этого дня.",
     "spellRogueStealthText": "Уйти в тень",
-    "spellRogueStealthNotes": "You duck into the shadows, pulling up your hood. Many Dailies won't find you this night; fewer yet the higher your Perception.",
+    "spellRogueStealthNotes": "Вы погружаетесь в тень, натягивая капюшон. Чем выше ваше Восприятие, тем меньше ежедневных заданий обнаружат вас этой ночью.",
     "spellHealerHealText": "Исцеляющий свет",
     "spellHealerHealNotes": "Свет окутывает ваше тело, исцеляя раны. Вы получаете прибавку к  здоровью.",
     "spellHealerBrightnessText": "Ослепляющая вспышка",

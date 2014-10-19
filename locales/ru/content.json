@@ -41,6 +41,8 @@
     "questEggParrotAdjective": "яркий",
     "questEggRoosterText": "Петух",
     "questEggRoosterAdjective": "напыщенный",
+    "questEggSpiderText": "Spider",
+    "questEggSpiderAdjective": "creepy",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить на это яйцо, и из него вылупится <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

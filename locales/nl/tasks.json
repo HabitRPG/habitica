@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Voltooide taken verwijderen",
-    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
+    "lotOfToDos": "Voltooide To-do's worden na 3 dagen automatisch gearchiveerd. Je kunt ze hier inzien: Instellingen > Data Exporteren.",
     "deleteToDosExplanation": "Als je op de knop hieronder klikt, zullen al je voltooide en gearchiveerde To-do's permanent verwijderd worden. Als je ze wilt bewaren, exporteer ze dan eerst.",
     "habits": "Gewoontes",
     "newHabit": "Nieuwe Gewoonte",
@@ -35,8 +35,8 @@
     "dueDate": "Einddatum",
     "remaining": "Nog te doen",
     "complete": "Voltooid",
-    "due": "Due",
-    "grey": "Grey",
+    "due": "Einddatum",
+    "grey": "Grijs",
     "rewards": "Beloningen",
     "gold": "Goud",
     "silver": "Zilver (100 zilver = 1 goud)",
