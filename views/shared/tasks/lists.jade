@@ -29,6 +29,35 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
           hr
 
+          mixin taskColumnTabs(position)
+            // Daily Tabs
+            div(bo-if='main && list.type=="daily"', class='tabbable tabs-below')
+              // remaining/completed tabs
+              ul.nav.nav-tabs
+                li(ng-class='{active: list.view == "all"}')
+                  a(ng-click='list.view = "all"')=env.t('all')
+                li(ng-class='{active: list.view == "remaining"}')
+                  a(ng-click='list.view = "remaining"')=env.t('due')
+                li(ng-class='{active: list.view == "complete"}')
+                  a(ng-click='list.view = "complete"')=env.t('grey')
+            // Todo Tabs
+            div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
+              // div(ng-show='list.view == "complete" || list.view == "all"')
+              // li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
+              if position=="bottom"
+                div(ng-show='list.showCompleted')
+                  .alert
+                    =env.t('lotOfToDos')
+                  button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
+              // remaining/completed tabs
+              ul.nav.nav-tabs
+                li(ng-class='{active: !list.showCompleted}')
+                  a(ng-click='list.showCompleted = false')=env.t('remaining')
+                li(ng-class='{active: list.showCompleted}')
+                  a(ng-click='list.showCompleted= true')=env.t('complete')
+
+          +taskColumnTabs('top')
+
           // Actual List
           ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
             include ./task
@@ -101,27 +130,4 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             // Habit3
             ins.adsbygoogle(ng-init='initAds()', style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
 
-          // Daily Tabs
-          div(bo-if='main && list.type=="daily"', class='tabbable tabs-below')
-            // remaining/completed tabs
-            ul.nav.nav-tabs
-              li(ng-class='{active: list.view == "all"}')
-                a(ng-click='list.view = "all"')=env.t('all')
-              li(ng-class='{active: list.view == "remaining"}')
-                a(ng-click='list.view = "remaining"')=env.t('due')
-              li(ng-class='{active: list.view == "complete"}')
-                a(ng-click='list.view = "complete"')=env.t('grey')
-
-          // Todo Tabs
-          div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
-            // div(ng-show='list.view == "complete" || list.view == "all"')
-            div(ng-show='list.showCompleted')
-              .alert
-                =env.t('lotOfToDos')
-              button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
-            // remaining/completed tabs
-            ul.nav.nav-tabs
-              li(ng-class='{active: !list.showCompleted}')
-                a(ng-click='list.showCompleted = false')=env.t('remaining')
-              li(ng-class='{active: list.showCompleted}')
-                a(ng-click='list.showCompleted= true')=env.t('complete')
+          +taskColumnTabs('bottom')
