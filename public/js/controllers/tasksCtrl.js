@@ -200,16 +200,22 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.shouldShow = function(task, list, prefs){
       if (task._editing) // never hide a task while being edited
         return true;
-      if (task.type == 'habit' || task.type == 'todo' || task.type == 'reward')
+      if (task.type == 'todo')  // TODO: convert To-Dos to use this new system and probably add a "Dated" column (i.e., "Incomplete" (includes dated), "Dated" (has due date and is not complete), "Complete")
         return true;
       var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task.repeat, prefs) : true;
       switch (list.view) {
-      case "remaining":
-        return !task.completed && shouldDo;
-      case "complete":
-        return task.completed || !shouldDo;
-      case "all":
-        return true;
+        case "yellowred":  // Habits
+          return task.value < 1;
+        case "greenblue":  // Habits
+          return task.value >= 1;
+        case "remaining":  // Dailies and To-Dos
+          return !task.completed && shouldDo;
+        case "complete":   // Dailies and To-Dos
+          return task.completed || !shouldDo;
+        case "ingamerewards":   // All skills/rewards except the user's own
+          return false; // Because "rewards" list includes only the user's own
+        case "all":
+          return true;
       }
     }
   }]);

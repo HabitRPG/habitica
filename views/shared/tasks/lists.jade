@@ -30,6 +30,15 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           hr
 
           mixin taskColumnTabs(position)
+            // Habits Tabs
+            div(bo-if='main && list.type=="habit"', class='tabbable tabs-below')
+              ul.nav.nav-tabs
+                li(ng-class='{active: list.view == "all"}')
+                  a(ng-click='list.view = "all"')=env.t('all')
+                li(ng-class='{active: list.view == "yellowred"}')
+                  a(ng-click='list.view = "yellowred"')=env.t('yellowred')
+                li(ng-class='{active: list.view == "greenblue"}')
+                  a(ng-click='list.view = "greenblue"')=env.t('greenblue')
             // Daily Tabs
             div(bo-if='main && list.type=="daily"', class='tabbable tabs-below')
               // remaining/completed tabs
@@ -55,6 +64,13 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   a(ng-click='list.showCompleted = false')=env.t('remaining')
                 li(ng-class='{active: list.showCompleted}')
                   a(ng-click='list.showCompleted= true')=env.t('complete')
+            // Rewards Tabs
+            div(bo-if='main && list.type=="reward"', class='tabbable tabs-below')
+              ul.nav.nav-tabs
+                li(ng-class='{active: list.view == "all"}')
+                  a(ng-click='list.view = "all"')=env.t('all')
+                li(ng-class='{active: list.view == "ingamerewards"}')
+                  a(ng-click='list.view = "ingamerewards"')=env.t('ingamerewards')
 
           +taskColumnTabs('top')
 
