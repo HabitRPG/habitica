@@ -268,6 +268,7 @@ var UserSchema = new Schema({
     stickyHeader: {type: Boolean, 'default': true},
     disableClasses: {type: Boolean, 'default': false},
     newTaskEdit: {type: Boolean, 'default': false},
+    dailyDueDefaultView: {type: Boolean, 'default': false},
     tagsCollapsed: {type: Boolean, 'default': false},
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
