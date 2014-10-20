@@ -143,7 +143,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
                 input.inline-edit(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
 
 
-      form.edit-form(ng-submit='saveTask(task)')
+      form(ng-submit='saveTask(task)')
         // text & notes
         fieldset.option-group
           label.option-title=env.t('text')
@@ -217,6 +217,6 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"')=env.t('social')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"', popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')=env.t('other')
 
-        button.task-action-btn.tile.spacious(type='submit')=env.t('saveAndClose')
+        button.task-action-btn.tile.spacious(type='submit', bo-id='"btn-task-"+task.id')=env.t('saveAndClose')
 
   div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')
