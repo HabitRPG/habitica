@@ -31,7 +31,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
         span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
         | &nbsp;
       // save
-      a(ng-hide='!task._editing', ng-click='editTask(task);saveTask(task)', tooltip=env.t('save'))
+      a(ng-hide='!task._editing', ng-click='submitTask(task)', tooltip=env.t('save'))
         span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
       | &nbsp;
       //challenges
@@ -143,7 +143,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
                 input.inline-edit(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
 
 
-      form(ng-submit='saveTask(task)')
+      form.edit-form(ng-submit='saveTask(task)')
         // text & notes
         fieldset.option-group
           label.option-title=env.t('text')

@@ -71,6 +71,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (!stayOpen) task._editing = false;
     };
 
+    $scope.submitTask = function(task) {
+      $("#task-" + task.id + " form.edit-form button[type='submit']").click();
+    }
+
     /**
      * Reset $scope.task to $scope.originalTask
      */
