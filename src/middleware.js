@@ -33,22 +33,22 @@ module.exports.apiThrottle = function(app) {
 
 module.exports.domainMiddleware = function(server,mongoose) {
   if (nconf.get('NODE_ENV')=='production') {
-    var mins = 3;
+    var mins = 3, // how often to run this check
+      useAvg = false, // use average over 3 minutes, or simply the last minute's report
+      url = 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=Apdex&values[]=score';
     setInterval(function(){
-      if (os.freemem() / os.totalmem() < 0.3) {
-        // Detect memory leak as high memory usage on the system.
-        throw 'Memory leak';
-      } else {
-        // see https://docs.newrelic.com/docs/apm/apis/api-v2-examples/average-response-time-examples-api-v2, https://rpm.newrelic.com/api/explore/applications/data
-        request({
-          //url: 'https://api.newrelic.com/v2/applications/APPLICATION_ID/metrics/data.json?names[]=HttpDispatcher&values[]=average_call_time&values[]=call_count&from=2014-10-14T2014-03-01T20:59:00+00:00:44:00+00:00&to=2014-10-14Tto=2014-03-01T21:59:00+00:00:14:00+00:00&summarize=true',
-          url: 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=HttpDispatcher&values[]=average_response_time&from='+moment().subtract({minutes:mins}).utc().format()+'&to='+moment().utc().format()+'&summarize=true',
-          headers: {'X-Api-Key': nconf.get('NEW_RELIC_API_KEY')}
-        }, function(err, response, body){
-          var avgResponseTime = JSON.parse(body).metric_data.metrics[0].timeslices[0].values.average_response_time;
-          if (avgResponseTime > 650 || avgResponseTime == 0) throw 'Memory leak';
-        })
-      }
+      // see https://docs.newrelic.com/docs/apm/apis/api-v2-examples/average-response-time-examples-api-v2, https://rpm.newrelic.com/api/explore/applications/data
+      request({
+        url: useAvg ? url+'&from='+moment().subtract({minutes:mins}).utc().format()+'&to='+moment().utc().format()+'&summarize=true' : url,
+        headers: {'X-Api-Key': nconf.get('NEW_RELIC_API_KEY')}
+      }, function(err, response, body){
+        var ts = JSON.parse(body).metric_data.metrics[0].timeslices,
+          score = ts[ts.length-1].values.score,
+          apdexBad = score < .75 || score == 1,
+          memory = os.freemem() / os.totalmem(),
+          memoryHigh = false; //memory < 0.1;
+        if (apdexBad || memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
+      })
     }, mins*60*1000);
   }
 
