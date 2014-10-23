@@ -1254,7 +1254,7 @@ api.wrap = (user, main=true) ->
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
       # Level Drops
-      _.each {vice1:30, atom1:15}, (lvl,k)->
+      _.each {vice1:30, atom1:15, moonstone1:60}, (lvl,k)->
         if !user.flags.levelDrops?[k] and user.stats.lvl >= lvl
           user.items.quests[k] ?= 0
           user.items.quests[k]++

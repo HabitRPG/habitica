@@ -1138,6 +1138,61 @@ api.quests =
       gp: 31
       exp: 200
 
+  moonstone1:
+    text: t('questMoonstone1Text')
+    notes: t('questMoonstone1Notes')
+    value: 4
+    lvl: 60
+    collect:
+      moonstone: text: t('questMoonstone1CollectMoonstone'), count: 500
+    drop:
+      items: [
+        {type: 'quests', key: "moonstone2", text: t('questMoonstone1DropMoonstone2Quest')}
+      ]
+      gp: 50
+      exp: 100
+  moonstone2:
+    text: t('questMoonstone2Text')
+    notes: t('questMoonstone2Notes')
+    value: 4
+    lvl: 65
+    previous: 'moonstone1'
+    boss:
+      name: t('questMoonstone2Boss')
+      hp: 1500
+      str: 3
+    drop:
+      items: [
+        {type: 'quests', key: 'moonstone3', text: t('questMoonstone2DropMoonstone3Quest')}
+      ]
+      gp: 500
+      exp: 1000
+  moonstone3:
+    text: t('questMoonstone3Text')
+    notes: t('questMoonstone3Notes')
+    completion: t('questMoonstone3Completion')
+    previous: 'moonstone2'
+    value: 4
+    lvl: 70
+    boss:
+      name: t('questMoonstone3Boss')
+      hp: 2000
+      str: 3.5
+    drop:
+      items: [
+        {type: 'gear', key: "armor_special_2", text: t('armorSpecial2Text')}
+        {type: 'food', key: 'RottenMeat', text: t('questMoonstone3DropRottenMeat')}
+        {type: 'food', key: 'RottenMeat', text: t('questMoonstone3DropRottenMeat')}
+        {type: 'food', key: 'RottenMeat', text: t('questMoonstone3DropRottenMeat')}
+        {type: 'food', key: 'RottenMeat', text: t('questMoonstone3DropRottenMeat')}
+        {type: 'food', key: 'RottenMeat', text: t('questMoonstone3DropRottenMeat')}
+        {type: 'hatchingPotions', key: 'Zombie', text: t('questMoonstone3DropZombiePotion')}
+        {type: 'hatchingPotions', key: 'Zombie', text: t('questMoonstone3DropZombiePotion')}
+        {type: 'hatchingPotions', key: 'Zombie', text: t('questMoonstone3DropZombiePotion')}
+      ]
+      gp: 900
+      exp: 1500
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss
