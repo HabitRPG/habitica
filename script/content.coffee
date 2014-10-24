@@ -144,7 +144,7 @@ gear =
     special:
       0: text: t('armorSpecial0Text'), notes: t('armorSpecial0Notes', {con: 20}), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: t('armorSpecial1Text'), notes: t('armorSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
-      2: text: t('armorSpecial2Text'), notes: t('armorSpecial2Notes', {attrs: 25}), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: t('armorSpecial2Text'), notes: t('armorSpecial2Notes', {attrs: 25}), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300 or u.items.gear.owned.armor_special_2?)
       #Winter event
       yeti:       event: events.winter, specialClass: 'warrior', text: t('armorSpecialYetiText'), notes: t('armorSpecialYetiNotes', {con: 9}), con: 9, value:90
       ski:        event: events.winter, specialClass: 'rogue', text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiText', {per: 15}), per: 15, value:90
