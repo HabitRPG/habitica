@@ -9809,6 +9809,10 @@ mystery = {
     start: '2014-09-24',
     end: '2014-10-01'
   },
+  201410: {
+    start: '2014-10-24',
+    end: '2014-11-01'
+  },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
@@ -10746,6 +10750,12 @@ gear = {
         notes: t('armorMystery201409Notes'),
         mystery: mystery['201409'],
         value: 0
+      },
+      201410: {
+        text: t('armorMystery201410Text'),
+        notes: t('armorMystery201410Notes'),
+        mystery: mystery['201410'],
+        value: 0
       }
     }
   },
@@ -11497,6 +11507,12 @@ gear = {
         text: t('backMystery201404Text'),
         notes: t('backMystery201404Notes'),
         mystery: mystery['201404'],
+        value: 0
+      },
+      201409: {
+        text: t('backMystery201409Text'),
+        notes: t('backMystery201409Notes'),
+        mystery: mystery['201409'],
         value: 0
       }
     },

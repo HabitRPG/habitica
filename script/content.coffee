@@ -36,6 +36,7 @@ mystery =
   201407: {start:'2014-07-23',end:'2014-08-01'}
   201408: {start:'2014-08-23',end:'2014-09-01'}
   201409: {start:'2014-09-24',end:'2014-10-01'}
+  201410: {start:'2014-10-24',end:'2014-11-01'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 
 gear =
@@ -176,6 +177,7 @@ gear =
       201407: text: t('armorMystery201407Text'), notes: t('armorMystery201407Notes'), mystery:mystery['201407'], value: 0
       201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:mystery['201408'], value: 0
       201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:mystery['201409'], value: 0
+      201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:mystery['201410'], value: 0
 
   head:
     base:
@@ -296,6 +298,7 @@ gear =
     mystery:
       201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 0
       201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 0
+      201409: text: t('backMystery201409Text'), notes: t('backMystery201409Notes'), mystery:mystery['201409'], value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0,   mystery:mystery.wondercon
