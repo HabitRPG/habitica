@@ -34,15 +34,15 @@ var _ = require('lodash');
 var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');
 
 
-var query = { $and: [
-    { 'migration': {$ne: migrationName} },
-    { 'contributor.level': {$gt: 0} },
-    { 'contributor.level': {$lt: 9} }
-]};
+var query = {
+    'contributor.level': {$gt: 0, $lt: 9},
+    'migration': {$ne: migrationName}
+};
 
-var fields = {'migration':1,
+var fields = {
+    'migration':1,
     'contributor.level':1,
-    'balance':1,
+    'balance':1
 };
 
 var userResults = {}; // each key is a UUID, each value is a string
@@ -51,7 +51,7 @@ var userResults = {}; // each key is a UUID, each value is a string
 console.warn('Updating users...');
 var progressCount = 50;
 var count = 0;
-dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
+dbUsers.findEach(query, fields, function(err, user) {
     if (err) { return exiting(1, 'ERROR! ' + err); }
     if (!user) {
         console.warn('All users found. Fetching final balances...');
@@ -90,7 +90,7 @@ function fetchFinalBalances() {
     };
 
     var count1 = 0;
-    dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
+    dbUsers.findEach(query, fields, function(err, user) {
         if (err) { return exiting(1, 'ERROR! ' + err); }
         if (!user) {
             console.warn('All final balances found.');
