@@ -150,6 +150,34 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('qrCode')
         img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
+        hr
+
+        h2 Webhooks
+        table.table.table-striped
+          thead(ng-if='user.preferences.webhooks[0]')
+            tr
+              th Enabled
+              th Webhook URL
+              th
+          tbody
+            tr(ng-repeat='webhook in user.preferences.webhooks')
+              td
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook)')
+              td
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook)'}")
+              td
+                span.pull-left(ng-show='webhook._editing') *
+                a.checklist-icons(ng-click='deleteWebhook($index)')
+                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+            tr
+              td(colspan=2)
+                form.form-horizontal(ng-submit='addWebhook(_newWebhook)')
+                  .form-group.col-sm-10
+                    input.form-control(type='url', ng-model='_newWebhook', placeholder='Webhook URL')
+                  .col-sm-2
+                    button.btn.btn-sm.btn-primary(type='submit') Add
+
+
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .container-fluid
     .row

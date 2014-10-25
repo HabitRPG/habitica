@@ -274,7 +274,8 @@ var UserSchema = new Schema({
     tagsCollapsed: {type: Boolean, 'default': false},
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
-    background: String
+    background: String,
+    webhooks: {type:Array, 'default': []}
   },
   profile: {
     blurb: String,

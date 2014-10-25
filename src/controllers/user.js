@@ -14,6 +14,7 @@ var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
+var request = require('request');
 
 // api.purchase // Shared.ops
 
@@ -105,6 +106,15 @@ api.score = function(req, res, next) {
       delta: delta,
       _tmp: user._tmp
     }, saved.toJSON().stats));
+
+    // Webhooks
+    _.each(user.preferences.webhooks, function(h){
+      request.post({
+        url: h.url,
+        //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
+        body: {direction:direction, task: task, delta: delta, user: _.pick(user, ['_id', 'stats', '_tmp'])}, json:true
+      });
+    });
 
     if (
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
