@@ -13,11 +13,8 @@ var _ = require('lodash');
 
 var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');
 
-var query = { $and: [
-  { 'migration': {$ne: migrationName} },
-  { 'contributor.admin':true },
-  { 'contributor.level':{$gte:7} }
-]};
+var query =
+  { 'contributor.level':{$gte:7}, 'contributor.admin':true, 'migration': {$ne: migrationName} };
 
 var fields = {'migration':1,
     'contributor.admin':1,
