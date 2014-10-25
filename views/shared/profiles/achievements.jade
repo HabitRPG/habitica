@@ -171,3 +171,11 @@ div(ng-if='::profile.achievements.quests.dilatory')
     =env.t('achievementDilatoryText')
   hr
 
+//- FIXME add these strings to locales
+div(ng-if='::profile.achievements.costumeContest')
+  .achievement.achievement-costumeContest
+  h5=env.t('costumeContest')
+  small
+  =env.t('costumeContestText')
+  hr
+

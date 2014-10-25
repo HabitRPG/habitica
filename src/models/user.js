@@ -46,7 +46,8 @@ var UserSchema = new Schema({
     rebirthLevel: Number,
     perfect: Number,
     habitBirthday: Boolean,
-    valentine: Number
+    valentine: Number,
+    costumeContest: Boolean
   },
   auth: {
     blocked: Boolean,
