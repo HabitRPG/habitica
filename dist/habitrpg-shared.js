@@ -10532,7 +10532,7 @@ gear = {
         value: 200,
         canOwn: (function(u) {
           var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300 || (u.items.gear.owned.armor_special_2 != null);
         })
       },
       yeti: {
@@ -11509,10 +11509,10 @@ gear = {
         mystery: mystery['201404'],
         value: 0
       },
-      201409: {
-        text: t('backMystery201409Text'),
-        notes: t('backMystery201409Notes'),
-        mystery: mystery['201409'],
+      201410: {
+        text: t('backMystery201410Text'),
+        notes: t('backMystery201410Notes'),
+        mystery: mystery['201410'],
         value: 0
       }
     },
