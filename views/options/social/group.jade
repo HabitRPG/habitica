@@ -78,12 +78,12 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           h4(ng-show='group.invites.length > 0')=env.t('invited')
           table.table.table-striped
             tr(ng-repeat='invite in group.invites')
-              td
+              td.media
                 // allow leaders to ban members
-                div(ng-show='group.leader == user.id')
-                  a(ng-click='removeMember(group, invite, false)')
+                div.pull-left(ng-show='group.leader == user.id')
+                  a.media-object(ng-click='removeMember(group, invite, false)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
-                a
+                a.media-body
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
         .panel-footer
