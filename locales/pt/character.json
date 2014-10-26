@@ -42,7 +42,7 @@
     "equipmentBonusText": "Bônus de atributo concedido pelo seu equipamento de batalha. Veja a aba de Equipamento dentro de Inventário para selecionar seu equipamento de batalha.",
     "classBonus": "Bônus de Equipamento da Classe",
     "classBonusText": "Sua classe (Guerreiro, se você ainda não liberou ou selecionou outra classe) usa seu próprio equipamento com mais eficiência que equipamentos de outras classes. Usar equipamentos da própria classe garante um aumento de 50% ao bônus de atributo concedido pelo equipamento.",
-    "classEquipBonus": "Bônus de Equipamento da Classe",
+    "classEquipBonus": "Class Bonus",
     "battleGear": "Equipamento de Batalha",
     "battleGearText": "Esse é o equipamento que você usa em batalha, ele afeta os números ao interagir com suas tarefas.",
     "costume": "Traje",

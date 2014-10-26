@@ -42,7 +42,7 @@
     "equipmentBonusText": "Bonusy k atribútom, ktoré ti poskytuje bojová výzbroj. Ak ju chceš zmeniť, nájdeš ju v záložke \"výstroj\" v inventári.",
     "classBonus": "Bonus za výstroj povolania",
     "classBonusText": "Tvoje povolanie (ak nemáš zvolené iné povolanie, si bojovník) používa vlastný výstroj efektívnejšie ako výstroj iných povolaní. Výstroj tvojho aktuálneho povolania dostane pri použití 50% bonus k atribútom, ktoré vylepšuje.",
-    "classEquipBonus": "Bonus za výstroj povolania",
+    "classEquipBonus": "Class Bonus",
     "battleGear": "Bojová výzbroj",
     "battleGearText": "Toto je výzbroj, ktorú nosíš do boja. Ovplyvňuje výpočty pri interakcii s tvojimi úlohami.",
     "costume": "Kostým",

@@ -8,6 +8,8 @@
     "stickyHeaderPop": "Affix the header to the top of the screen. Unchecked means it scrolls out of view.",
     "newTaskEdit": "Open new tasks in edit mode",
     "newTaskEditPop": "With this option set, new tasks will immediately open for you to add details like notes and tags.",
+    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
+    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "startCollapsed": "Tag list in tasks starts collapsed",
     "startCollapsedPop": "With this option set, the list of task tags will be hidden when you first open a task for editing.",
     "startAdvCollapsed": "Advanced Options in tasks start collapsed",

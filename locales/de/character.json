@@ -42,7 +42,7 @@
     "equipmentBonusText": "Attributboni, die von Deiner Kampfausrüstung stammen. Im Ausrüstungs Tab unter Inventar kannst Du Deine Kampfausrüstung zusammenstellen.",
     "classBonus": "Klassenbonus der Ausrüstung",
     "classBonusText": "Deine Klasse (Krieger, wenn Du keine andere Klasse freigeschaltet oder gewählt hast) kann ihre eigene Ausrüstung besser nutzen, als die Ausrüstung anderer Klassen. Ausrüstung Deiner aktuellen Klasse verleiht einen 50% größeren Attributbonus als klassenfremde Ausrüstung.",
-    "classEquipBonus": "Klassen Ausrüstungsbonus",
+    "classEquipBonus": "Class Bonus",
     "battleGear": "Kampfausrüstung",
     "battleGearText": "Mit dieser Ausrüstung ziehst Du in den Kampf, sie beeinflusst die Berechnung, wenn Du auf Aufgaben klickst.",
     "costume": "Verkleidung",

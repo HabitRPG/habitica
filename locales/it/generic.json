@@ -16,7 +16,7 @@
     "subscriberItem": "Oggetto misterioso",
     "newSubscriberItem": "Nuovo oggetto misterioso!",
     "subscriberItemText": "Ogni mese, gli abbonati riceveranno un oggetto misterioso. Questo in genere viene rivelato circa una settimana prima della fine del mese. Leggi la pagina 'Mystery Item' nella wiki per conoscere le date esatte.",
-    "all": "Tutti",
+    "all": "Tutto",
     "none": "Nessuno",
     "or": "Oppure",
     "and": "e",
@@ -38,7 +38,7 @@
     "delete": "Elimina",
     "gems": "Gemme",
     "moreInfo": "Maggiori informazioni",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Vengono acquistate con soldi reali. Servono per comprare oggetti speciali e servizi (uova, pozioni di schiusura, pozioni di Fortificazione, ecc.). Avrai bisogno di sbloccare queste funzionalità prima di essere in grado di usare le Gemme.",
     "veteran": "Veterano",
     "veteranText": "Ha resistito ad Habit Il Grigio (il nostro sito prima di Angular), ed ha molte cicatrici di battaglia causate dai suoi bug.",
     "originalUser": "Utente originale!",
@@ -68,6 +68,6 @@
     "audioTheme_danielTheBard": "Daniel il Bardo",
     "askQuestion": "Fai una domanda",
     "reportBug": "Segnala un bug",
-    "contributeToHRPG": "Contribute to HabitRPG",
-    "overview": "Overview for New Users"
+    "contributeToHRPG": "Contribuisci a migliorare HabitRPG",
+    "overview": "Panoramica per nuovi utenti (in inglese)"
 }

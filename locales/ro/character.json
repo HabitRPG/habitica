@@ -42,7 +42,7 @@
     "equipmentBonusText": "Bonusuri de atribut furnizate de echipamentul pe care îl porți. Uită-te la tab-ul de Echipament de sub Inventar ca să-ți alegi echipamentul de luptă.",
     "classBonus": "Bonus de Echipament de Clasă",
     "classBonusText": "Clasa ta (Războinic, dacă n-ai deblocat sau n-ai ales altă clasă) folosește mai eficient echipamentul ei decât echipamentul altor clase. Îmbrăcămintea echipată din clasa ta curentă sporește cu 50% bonusului de atribut pe care îl acordă.",
-    "classEquipBonus": "Bonus de Echipare de Clasă",
+    "classEquipBonus": "Class Bonus",
     "battleGear": "Echipament de luptă",
     "battleGearText": "Aceasta este îmbrăcămintea pe care o porți la luptă, afectează numerele atunci când interacționezi cu țelurile tale.",
     "costume": "Costum",

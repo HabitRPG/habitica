@@ -8,6 +8,8 @@
     "stickyHeaderPop": "L'header della pagina verrà fissato alla parte alta dello schermo. Se l'opzione non viene attivata, l'header rimarrà al suo posto.",
     "newTaskEdit": "Apri le nuove attività in modalità di modifica",
     "newTaskEditPop": "Selezionando questa opzione, le attività appena create verranno aperte permettendoti di aggiungere subito dettagli come note e etichette.",
+    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
+    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "startCollapsed": "Comprimi lista tag/etichette",
     "startCollapsedPop": "Selezionando questa opzione, la lista dei tag dell'attività che stai modificando verrà inizialmente nascosta.",
     "startAdvCollapsed": "Comprimi opzioni avanzate",

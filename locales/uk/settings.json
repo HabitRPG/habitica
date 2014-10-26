@@ -8,6 +8,8 @@
     "stickyHeaderPop": "Закріплює область персонажа вгорі сторінки. Якщо вимкнути, то ця область буде прокручуватися разом зі сторінкою.",
     "newTaskEdit": "Відкривати нові завдання у режимі редагування",
     "newTaskEditPop": "Якщо ввімкнено, нові завдання одразу відкриваються для додавання подробиць, наче нотатки.",
+    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
+    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "startCollapsed": "Перелік теґів завдань показувати згорнутим",
     "startCollapsedPop": "Якщо ввімкнено, перелік міток завдання буде приховано, коли Ви вперше відкриваєте завдання.",
     "startAdvCollapsed": "Додаткове показувати згорнутим",

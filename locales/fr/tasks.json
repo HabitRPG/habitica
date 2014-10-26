@@ -49,7 +49,7 @@
     "hideTags": "Masquer",
     "showTags": "Afficher",
     "streakName": "Combo réussis",
-    "streakText": "A réussi <%= streaks %> combo(s) de 21 jours dans ses tâches quotidiennes",
+    "streakText": "A réussi <%= streaks %> combo(s) de 21 jours dans ses tâches Quotidiennes",
     "streakSingular": "Combo",
     "streakSingularText": "A réussi un combo de 21 jours pour une tâche journalière.",
     "perfectName": "Jours Parfaits",

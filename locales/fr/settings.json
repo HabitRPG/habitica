@@ -8,6 +8,8 @@
     "stickyHeaderPop": "Fixe le bandeau au dessus de l'écran. Si cette case est décochée, il défilera hors de vue.",
     "newTaskEdit": "Ouvrir une nouvelle tâche dans le mode modification ",
     "newTaskEditPop": "Avec cette option cochée, les nouvelles tâches s'ouvriront immédiatement de manière à vous permettre d'ajouter des détails tels que des notes et des étiquettes.",
+    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
+    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "startCollapsed": "Liste des étiquettes réduite à l'ouverture des tâches",
     "startCollapsedPop": "Avec cette option cochée, la liste des étiquettes d'une tâche sera cachée à l'ouverture de la tâche pour modification.",
     "startAdvCollapsed": "Options Avancées des tâches réduites",

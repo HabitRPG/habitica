@@ -8,6 +8,8 @@
     "stickyHeaderPop": "מדביק את ה\"כותרת\" - התמונה שלך ושל מדי הבריאות/ניסיון - לראש המסך. אם התיבה לא מסומנת הכותרת תיעלם בירידה למטה.",
     "newTaskEdit": "פתח מטלות חדשות במצב עריכה",
     "newTaskEditPop": "אם האפשרות הזו מסומנת, מטלות חדשות ייפתחו מיידית כך שתוכל/י להוסיף פרטים ותגיות.",
+    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
+    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "startCollapsed": "רשימת תגיות במטלה מתחילה סגורה",
     "startCollapsedPop": "אם האפשרות הזו מסומנת, רשימת התגיות של המטלה תהיה מוסתרת כשתפתח/י את המטלה לעריכה",
     "startAdvCollapsed": "אפשרויות מתקדמות של מטלות מתחילות סגורות",

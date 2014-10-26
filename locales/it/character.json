@@ -42,7 +42,7 @@
     "equipmentBonusText": "Attributi bonus forniti dall'equipaggiamento di battaglia che indossi. Vedi la scheda Equipaggiamento (sotto Inventario) per scegliere il tuo equipaggiamento di battaglia.",
     "classBonus": "Bonus equipaggiamento di Classe",
     "classBonusText": "La tua classe (Guerriero, se non ne hai sbloccata o scelta un'altra) sfrutta il suo equipaggiamento più efficientemente di quello delle altre classi. Gli oggetti equipaggiati adatti alla tua classe incrementano del 50% il bonus che danno all'attributo di base.",
-    "classEquipBonus": "Bonus equip. di Classe",
+    "classEquipBonus": "Class Bonus",
     "battleGear": "Assetto di battaglia",
     "battleGearText": "Questo è l'equipaggiamento che porterai in battaglia, esso modifica alcuni valori quando interagisci con le tue attività.",
     "costume": "Costume",

@@ -8,6 +8,8 @@
     "stickyHeaderPop": "Prilepí záhlavie k vrchu obrazovky. Nezaškrtnuté znamená, že sa odroluje mimo viditeľnú časť.",
     "newTaskEdit": "Otvárať nové úlohy v režime úpravy",
     "newTaskEditPop": "Keď zvolíš túto možnosť, novovytvorené úlohy sa budú rovno otvárať tak, aby si k nim mohol pridať podrobnosti ako poznámky a štítky.",
+    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
+    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "startCollapsed": "Zrolovaný zoznam štítkov v úlohách",
     "startCollapsedPop": "Keď je zvolená táto možnosť, keď začneš upravovať úlohu, zoznam štítkov bude skrytý.",
     "startAdvCollapsed": "Zrolované pokročilé možnosti v úlohách ",

@@ -42,7 +42,7 @@
     "equipmentBonusText": "Egenskapsbonusar från din nuvarande stridsutrustning. Gå in på fliken Utrustning under Förråd för att välja din stridsutrustning.",
     "classBonus": "Klassutrustningsbonus",
     "classBonusText": "Din klass (Krigare, om du inte har låst upp eller valt en annan klass) använder sin egna utrustning mer effektivt än utrustning från andra klasser. Att använda utrustning från din nuvarande klass ger en 50% höjning på egenskapsbonusen den ger.",
-    "classEquipBonus": "Klassutrustningsbonus",
+    "classEquipBonus": "Class Bonus",
     "battleGear": "Stridsredskap",
     "battleGearText": "Det här är utrustningen du bär till strid, vilket påverkar nummer när de interagerar med dina uppgifter.",
     "costume": "Dräkt",
