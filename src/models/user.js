@@ -71,7 +71,7 @@ var UserSchema = new Schema({
   },
 
   contributor: {
-    level: Number, // 1-7, see https://trello.com/c/wkFzONhE/277-contributor-gear
+    level: Number, // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitrpg/issues/3801
     admin: Boolean,
     sudo: Boolean,
     text: String, // Artisan, Friend, Blacksmith, etc
@@ -116,7 +116,8 @@ var UserSchema = new Schema({
     rebirthEnabled: {type: Boolean, 'default': false},
     freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
-    chatRevoked: Boolean
+    chatRevoked: Boolean,
+    communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -458,10 +459,6 @@ UserSchema.methods.unlink = function(options, cb) {
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
 
-mongoose.model("User").find({'contributor.admin':true},function(err,mods){
-  module.exports.mods = _.map(mods,function(m){
-    var lvl = (m.backer && m.backer.npc) ? 'label-npc' :
-        'label-contributor-' + m.contributor.level;
-    return ' <span class="label ' + lvl + '">'+ m.profile.name + '</span>'
-  });
+mongoose.model("User").find({$query:{'contributor.admin':true}, $orderby:{'contributor.level':-1, 'backer.npc':-1, 'profile.name':1}},function(err,mods){
+  module.exports.mods = mods
 });

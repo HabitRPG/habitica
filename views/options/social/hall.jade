@@ -28,15 +28,13 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         label=env.t('contribLevel')
         input.form-control(type='number', step="any", ng-model='hero.contributor.level')        
         small=env.t('contribHallText')
+        |&nbsp;
         a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
+        |,&nbsp;
+        a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/3801')=env.t('moreDetails2')
       .form-group
         textarea.form-control(cols=5, placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
         include ../../shared/formatting-help
-      .form-group
-        .checkbox
-          label
-            input(type='checkbox', ng-model='hero.contributor.admin')
-            =env.t('admin')
       hr
 
       .form-group
@@ -88,7 +86,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
             a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)')
               | {{hero.profile.name}}&nbsp;
-              span.glyphicon.glyphicon-star
+              span(ng-class='userAdminGlyphiconStyle(hero)')
           span(ng-if='!hero.contributor.admin')
             a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
         td(ng-if='user.contributor.admin') {{hero._id}}

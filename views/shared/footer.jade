@@ -39,6 +39,8 @@ footer.footer(ng-controller='FooterCtrl')
         h4=env.t('footerCommunity')
         ul.list-unstyled
           li
+            a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+          li
             a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('communityBug')
           li
             a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')

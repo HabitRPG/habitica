@@ -31,6 +31,9 @@
           table.table.table-striped
             tr
               td
+                a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+            tr
+              td
                 a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG')=env.t('lfgPosts')
             tr
               td
@@ -123,11 +126,9 @@
                   !=env.t('legSeventh')
             tr
               td
-                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('moderator') + ' (' + env.t('guardian') + ')'
-                // FOR NEW MOD LEVEL: line above will change from -7 to -8
+                a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('moderator') + ' (' + env.t('guardian') + ')'
                 div
                   p=env.t('guardianText')
-                  // FOR NEW MOD LEVEL: edit guardianText to remove this: "Not all Tier 7 contributors are moderators. All current moderators are listed below the Tavern chat box."
             tr
               td
                 a.label.label-contributor-9(ng-click='toggleUserTier($event)')=env.t('staff') + ' (' + env.t('heroic') + ')'
@@ -145,6 +146,19 @@
       h3=env.t('tavernTalk')
       include ./chat-box
       .alert.alert-info.alert-sm
-        != ' ' + env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.<br />' + env.t('moderatorIntro1') + env.mods + env.t('moderatorIntro2')
+        != ' ' + env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.<br />' + env.t('moderatorIntro1')
+        span(ng-repeat='mod in env.mods')
+          | &nbsp;
+          span(ng-if='mod.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
+            a.label.label-default(ng-class='userLevelStyle(mod)', ng-click='clickMember(mod._id, true)')
+              {{mod.profile.name}}&nbsp;
+              span(ng-class='userAdminGlyphiconStyle(mod)')
+        p
+          =env.t('communityGuidelinesRead1')
+          | &nbsp;
+          a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+          | &nbsp;
+          =env.t('communityGuidelinesRead2')
+
       ul.list-unstyled.tavern-chat
         include ./chat-message

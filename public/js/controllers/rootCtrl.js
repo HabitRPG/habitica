@@ -42,10 +42,32 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // styling helpers
     $scope.userLevelStyle = function(user,style){
       style = style || '';
-      if(user && user.backer && user.backer.npc)
-        style += ' label-npc';
+      var npc = (user && user.backer && user.backer.npc) ? user.backer.npc : '';
+      var level = (user && user.contributor && user.contributor.level) ? user.contributor.level : '';
+      style += $scope.userLevelStyleFromLevel(level,npc,style)
+      return style;
+    }
+    $scope.userAdminGlyphiconStyle = function(user,style){
+      style = style || '';
       if(user && user.contributor && user.contributor.level)
-        style += ' label-contributor-'+user.contributor.level;
+        style += $scope.userAdminGlyphiconStyleFromLevel(user.contributor.level,style)
+      return style;
+    }
+    $scope.userLevelStyleFromLevel = function(level,npc,style){
+      style = style || '';
+      if(npc)
+        style += ' label-npc';
+      if(level)
+        style += ' label-contributor-'+level;
+      return style;
+    }
+    $scope.userAdminGlyphiconStyleFromLevel = function(level,style){
+      style = style || '';
+      if(level)
+        if(level==8)
+          style += ' glyphicon glyphicon-star'; // moderator
+        if(level==9)
+          style += ' glyphicon icon-crown'; // staff
       return style;
     }
 
@@ -98,6 +120,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.dismissAlert = function() {
       $rootScope.set({'flags.newStuff':false});
+    }
+
+    $rootScope.acceptCommunityGuidelines = function() {
+      $rootScope.set({'flags.communityGuidelinesAccepted':true});
     }
 
     $rootScope.notPorted = function(){

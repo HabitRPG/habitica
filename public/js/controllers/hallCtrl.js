@@ -8,6 +8,7 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
       $scope.hero = Hero.get({uid:uuid});
     }
     $scope.saveHero = function(hero) {
+      $scope.hero.contributor.admin = ($scope.hero.contributor.level > 7) ? true : false;
       hero.$save(function(){
         Notification.text("User updated");
         $scope.hero = undefined;
