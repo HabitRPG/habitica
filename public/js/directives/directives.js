@@ -71,7 +71,8 @@ habitrpg
           {
             header: window.env.t('habits'),
             type: 'habit',
-            placeHolder: window.env.t('newHabit')
+            placeHolder: window.env.t('newHabit'),
+            view: "all"
           }, {
             header: window.env.t('dailies'),
             type: 'daily',
@@ -85,7 +86,8 @@ habitrpg
           }, {
             header: window.env.t('rewards'),
             type: 'reward',
-            placeHolder: window.env.t('newReward')
+            placeHolder: window.env.t('newReward'),
+            view: "all"
           }
         ];
 
