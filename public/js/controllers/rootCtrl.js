@@ -188,7 +188,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (backer && backer.npc) return backer.npc;
       var l = contrib && contrib.level;
       if (l && l > 0) {
-        var level = (l < 3) ? window.env.t('friend') : (l < 5) ? window.env.t('elite') : (l < 7) ? window.env.t('champion') : (l < 8) ? window.env.t('legendary') : window.env.t('heroic');
+        var level = (l < 3) ? window.env.t('friend') : (l < 5) ? window.env.t('elite') : (l < 7) ? window.env.t('champion') : (l < 8) ? window.env.t('legendary') : (l < 9) ? window.env.t('guardian') : window.env.t('heroic');
         return level + ' ' + contrib.text;
       }
     }
