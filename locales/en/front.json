@@ -49,6 +49,7 @@
     "passMan": "In case you are using a password manager (like 1Password) and have problems logging in, try typing username and password manually.",
     "forgotPass": "Forgot Password",
     "emailNewPass": "Email New Password",
+    "invalidEmail": "A valid email address is required in order to perform a password reset.",
     "email": "Email",
     "passConfirm": "Confirm Password",
     "accept1Terms": "By clicking the button below, I agree to the",
