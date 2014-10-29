@@ -39,12 +39,12 @@ script(id='modals/login.html', type='text/ng-template')
                 a(data-toggle="collapse" data-parent="#forgot-password" href="#forgot-password-panel")=env.t('forgotPass')
           
             .panel-body.collapse#forgot-password-panel
-              form(ng-submit='passwordReset(passwordResetEmail)')
+              form(name='passwordResetForm', ng-submit='passwordReset(passwordResetEmail)', novalidate)
                 //.alert.alert-success {.success.passwordReset}
                 //.control-group.{#if..errors.passwordReset}error{/}
                 h3=env.t('emailNewPass')
                 .form-group
-                  input.form-control(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
+                  input.form-control(type='email', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
                   //span.help-inline {.errors.passwordReset}
                 .form-group
                   input.btn.btn-default(type='submit', value=env.t('submit'))
