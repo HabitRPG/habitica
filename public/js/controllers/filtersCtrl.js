@@ -20,7 +20,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
         tagsSnap = _.object(_.pluck(tagsSnap,'id'), tagsSnap);
         $scope._editing = true;
       }
-    }
+    };
 
     $scope.toggleFilter = function(tag) {
       user.filters[tag.id] = !user.filters[tag.id];
@@ -32,5 +32,11 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     $scope.createTag = function(name) {
       User.user.ops.addTag({body:{name:name, id:Shared.uuid()}});
       $scope._newTag = '';
+    };
+    
+    $scope.checkKeyForSaving = function($event) {
+      if($event.keyCode === 13) {
+        $scope.saveOrEdit();
+      }
     };
 }]);
