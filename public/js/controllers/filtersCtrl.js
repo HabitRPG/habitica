@@ -33,10 +33,4 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
       User.user.ops.addTag({body:{name:name, id:Shared.uuid()}});
       $scope._newTag = '';
     };
-    
-    $scope.checkKeyForSaving = function($event) {
-      if($event.keyCode === 13) {
-        $scope.saveOrEdit();
-      }
-    };
 }]);
