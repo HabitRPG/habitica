@@ -64,11 +64,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.deleteTask({params:{id:list[$index].id}})
     };
 
-    $scope.saveTask = function(task, stayOpen) {
+    $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
       if (task.checklist)
         task.checklist = _.filter(task.checklist,function(i){return !!i.text});
       User.user.ops.updateTask({params:{id:task.id},body:task});
       if (!stayOpen) task._editing = false;
+      if (isSaveAndClose)
+        $("#task-" + task.id).parent().children('.popover').removeClass('in');
     };
 
     /**
