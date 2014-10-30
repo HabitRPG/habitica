@@ -318,11 +318,13 @@ api.countPets = (originalCount, pets) ->
     count-- if pets[pet]
   count
 
-api.countMounts= (originalCount, mounts) ->
-  count = if originalCount? then originalCount else _.size(mounts)
+api.countMounts = (originalCount, mounts) ->
+  count2 = if originalCount? then originalCount else _.size(mounts)
+  for mount of content.questPets
+    count2-- if mounts[mount]
   for mount of content.specialMounts
-    count-- if mounts[mount]
-  count
+    count2-- if mounts[mount]
+  count2
 
 ###
 ------------------------------------------------------
