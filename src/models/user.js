@@ -413,9 +413,10 @@ UserSchema.pre('save', function(next) {
     this.achievements.beastMaster = true
   }
 
-  // TODO remove this after 11/01
-  if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
-    this.items.pets['JackOLantern-Base'] = 5;
+  // EXAMPLE CODE for allowing all existing and new players to be
+  // automatically granted an item during a certain time period:
+  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    // this.items.pets['JackOLantern-Base'] = 5;
 
   //our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
