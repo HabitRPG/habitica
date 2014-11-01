@@ -202,8 +202,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.shouldShow = function(task, list, prefs){
       if (task._editing) // never hide a task while being edited
         return true;
-      if (task.type == 'todo')  // TODO: convert To-Dos to use this new system and probably add a "Dated" column (i.e., "Incomplete" (includes dated), "Dated" (has due date and is not complete), "Complete")
-        return true;
       var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task.repeat, prefs) : true;
       switch (list.view) {
         case "yellowred":  // Habits
