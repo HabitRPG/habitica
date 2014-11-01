@@ -98,7 +98,7 @@
           
           html = html.replace(userHighlight, "<u>@"+userName+"</u>");
           
-          html = html.replace(' href','target="'+linktarget+'" href');
+          html = html.replace(' href',' target="'+linktarget+'" href');
           element.html(html);
         });
       }
@@ -109,7 +109,7 @@
     return function(input){
       var html = md.toHtml(input);
       
-      html = html.replace(' href','target="_self" href');
+      html = html.replace(' href',' target="_self" href');
       
       return html;
     };
