@@ -51,8 +51,6 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   a(ng-click='list.view = "complete"')=env.t('grey')
             // Todo Tabs
             div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
-              // div(ng-show='list.view == "complete" || list.view == "all"')
-              // li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
               if position=="bottom"
                 div(ng-show='list.showCompleted')
                   .alert
