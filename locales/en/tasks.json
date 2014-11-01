@@ -38,7 +38,7 @@
     "remaining": "Active",
     "complete": "Done",
     "dated": "Dated",
-    "datedNotSorted": "Dated To-Dos are NOT sorted by date. (They probably will be in future.)",
+    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "Due",
     "grey": "Grey",
     "rewards": "Rewards",
