@@ -57,7 +57,7 @@ mixin customizeProfile(mobile)
               each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
-          +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'seasonal')
+          +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
 
           li.customize-menu
             menu(label=env.t('bodyHair'))
@@ -120,7 +120,7 @@ mixin customizeProfile(mobile)
 
           // Special Events
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
-          +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'seasonal')
+          +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
 
 
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
