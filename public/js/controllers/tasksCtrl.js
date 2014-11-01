@@ -212,6 +212,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           return !task.completed && shouldDo;
         case "complete":   // Dailies and To-Dos
           return task.completed || !shouldDo;
+        case "dated":  // To-Dos
+          return !task.completed && task.date;
         case "ingamerewards":   // All skills/rewards except the user's own
           return false; // Because "rewards" list includes only the user's own
         case "all":
