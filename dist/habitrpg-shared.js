@@ -12300,70 +12300,70 @@ api.questPets = _.transform(api.questEggs, function(m, egg) {
 api.food = {
   Meat: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodMeat'),
     target: 'Base',
     article: ''
   },
   Milk: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodMilk'),
     target: 'White',
     article: ''
   },
   Potatoe: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a '
   },
   Strawberry: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a '
   },
   Chocolate: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodChocolate'),
     target: 'Shade',
     article: ''
   },
   Fish: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a '
   },
   RottenMeat: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: ''
   },
   CottonCandyPink: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   CottonCandyBlue: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Honey: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodHoney'),
     target: 'Golden',
     article: ''
@@ -12446,71 +12446,71 @@ api.food = {
     article: ''
   },
   Candy_Skeleton: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandySkeleton'),
     target: 'Skeleton',
     article: ''
   },
   Candy_Base: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyBase'),
     target: 'Base',
     article: ''
   },
   Candy_CottonCandyBlue: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Candy_CottonCandyPink: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   Candy_Shade: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyShade'),
     target: 'Shade',
     article: ''
   },
   Candy_White: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyWhite'),
     target: 'White',
     article: ''
   },
   Candy_Golden: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyGolden'),
     target: 'Golden',
     article: ''
   },
   Candy_Zombie: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyZombie'),
     target: 'Zombie',
     article: ''
   },
   Candy_Desert: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyDesert'),
     target: 'Desert',
     article: ''
   },
   Candy_Red: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyRed'),
     target: 'Red',
     article: ''
