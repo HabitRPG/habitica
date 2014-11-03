@@ -384,6 +384,8 @@ api.wrap = (user, main=true) ->
         cb? null, {}
 
       revive: (req, cb) ->
+        return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp > 0
+
         # Reset stats
         _.merge user.stats, {hp:50, exp:0, gp:0}
         user.stats.lvl-- if user.stats.lvl > 1
