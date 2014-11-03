@@ -14148,7 +14148,7 @@ api.wrap = function(user, main) {
       },
       revive: function(req, cb) {
         var item, lostItem, lostStat;
-        if (!(user.stats.hp > 0)) {
+        if (!(user.stats.hp <= 0)) {
           return typeof cb === "function" ? cb({
             code: 400,
             message: "Cannot revive if not dead"
