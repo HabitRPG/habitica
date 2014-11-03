@@ -5,7 +5,7 @@
     "annoyingFriends": "Вредные друзья",
     "annoyingFriendsText": "Прилетело снежков в спину от членов команды: <%= snowballs %>.",
     "alarmingFriends": "Alarming Friends",
-    "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
+    "alarmingFriendsText": "Напуган членами команды <%= spookDust %> раз.",
     "valentineCard": "Валентинка",
     "adoringFriends": "Любимые друзья",
     "adoringFriendsText": "Вы так внимательны друг к другу! Отправлено и получено валентинок: <%= cards %>.",

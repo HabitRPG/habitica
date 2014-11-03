@@ -1,10 +1,10 @@
 {
     "limitedEdition": "מהדורה מוגבלת",
-    "seasonalEdition": "Seasonal Edition",
+    "seasonalEdition": "מהדורה עונתית",
     "winterColors": "צבעי חורף",
     "annoyingFriends": "חברים מרגיזים",
     "annoyingFriendsText": "חטף <%= snowballs %> בפרצוף שלו משאר האנשים בחבורה.",
-    "alarmingFriends": "Alarming Friends",
+    "alarmingFriends": "קרא לחבר'ה",
     "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "כרטיס יום האהבה",
     "adoringFriends": "חברים תומכים",

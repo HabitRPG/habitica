@@ -69,5 +69,17 @@
     "askQuestion": "Zadaj pytanie",
     "reportBug": "Zgłoś błąd",
     "contributeToHRPG": "Wspomóż HabitRPG",
-    "overview": "Zarys dla nowych użytkowników"
+    "overview": "Zarys dla nowych użytkowników",
+    "January": "Styczeń",
+    "February": "Luty",
+    "March": "Marzec",
+    "April": "Kwiecień",
+    "May": "Maj",
+    "June": "Czerwiec",
+    "July": "Lipiec",
+    "August": "Sierpień",
+    "September": "Wrześcień",
+    "October": "Październik",
+    "November": "Listopad",
+    "December": "Grudzień"
 }

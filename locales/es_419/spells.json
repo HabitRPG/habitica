@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Explosión de llamas",
-    "spellWizardFireballNotes": "Estallan llamas, quemando una tarea. Reduces la rojez de la tarea, le haces daño a cualquier monstruo que está batallando, y ganas Experiencia--más para las tareas azules.",
+    "spellWizardFireballNotes": "Estallan llamas, quemando una tarea. Reduces la rojez de la tarea, le haces daño a cualquier monstruo que con el que estés batallando y ganas Experiencia--más por las tareas azules.",
     "spellWizardMPHealText": "Corriente etérea",
     "spellWizardMPHealNotes": "Un flujo de energía mágica sale de tus manos y recarga a tu grupo. Tu grupo recupera PM. ",
     "spellWizardEarthText": "Terremoto",
@@ -15,8 +15,8 @@
     "spellWarriorValorousPresenceNotes": "Tu presencia envalentona el equipo. Su valentía renovada les da un aumento de fuerza. Miembros del equipo adquieren una mejora a su Fuerza.",
     "spellWarriorIntimidateText": "Mirada intimidante",
     "spellWarriorIntimidateNotes": "Tu mirada llena de miedo el corazón de los enemigos de tu equipo. El equipo gana una mejora moderada a la defensa.",
-    "spellRoguePickPocketText": "Caterista",
-    "spellRoguePickPocketNotes": "Tus dedos ágiles se deslizan en los bolsillos de la tarea y encuentran algunos tesoros. Obtienes un bono de oro inmediato de esa tarea. ¡Más gorda (azul) esté la tarea, más oro te robas!",
+    "spellRoguePickPocketText": "Carterista",
+    "spellRoguePickPocketNotes": "Tus dedos ágiles se deslizan en los bolsillos de la tarea y encuentran algunos tesoros. Obtienes un bono de oro inmediato de esa tarea. ¡Entre más gorda (azul) esté la tarea, más oro te robas!",
     "spellRogueBackStabText": "Puñalada",
     "spellRogueBackStabNotes": "Sin hacer ni un ruido, te colocas detrás de una tarea y la apuñalas en la espalda. Le haces un gran daño a la tarea, con una mayor probabilidad de impacto crítico.",
     "spellRogueToolsOfTradeText": "Herramientas del oficio",
@@ -28,7 +28,7 @@
     "spellHealerBrightnessText": "Claridad abrasadora",
     "spellHealerBrightnessNotes": "Lanzas una ráfaga de luz que ciega a todas tus tareas. La rojez de tus tareas se reduce.",
     "spellHealerProtectAuraText": "Aura protectora",
-    "spellHealerProtectAuraNotes": "Un aura mágica rodea a los miembros del equipo protegiendolos del daño. Los miembros de tu equipo ganan una mejora a su defensa.",
+    "spellHealerProtectAuraNotes": "Un aura mágica rodea a los miembros del equipo protegiendolos del daño. Los miembros de tu equipo ganan una mejora en su defensa.",
     "spellHealerHealAllText": "Bendición",
     "spellHealerHealAllNotes": "Una luz tranquilizadora envuelve a tu equipo y les cura sus heridas. Los miembros de tu equipo ganan un incremento de salud.",
     "spellSpecialSnowballAuraText": "Bola de nieve",
@@ -36,7 +36,7 @@
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguien te ha lanzado una bola de nieve. Ja Ja, muy gracioso. ¡Ahora quítame esta nieve de encima!",
     "spellSpecialSpookDustText": "Brillantina espeluznante",
-    "spellSpecialSpookDustNotes": "¡Convierta tus amigos en una manta flotante con ojos!",
+    "spellSpecialSpookDustNotes": "¡Convierte a tus amigos en una manta flotante con ojos!",
     "spellSpecialOpaquePotionText": "Poción opaca",
     "spellSpecialOpaquePotionNotes": "Cancela los efectos de la brillantina espeluznante."
 }

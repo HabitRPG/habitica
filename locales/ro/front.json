@@ -45,6 +45,7 @@
     "passMan": "În cazul în care folosești un manager de parole (ca 1Password) și ai probleme cu autentificarea, încearcă să tastezi numele de utilizator și parola manual.",
     "forgotPass": "Am uitat parola",
     "emailNewPass": "Trimite-mi un email cu o parolă nouă",
+    "invalidEmail": "A valid email address is required in order to perform a password reset.",
     "email": "Email",
     "passConfirm": "Confirmă parola",
     "accept1Terms": "Prin apăsarea butonului de mai jos, sunt de acord cu",

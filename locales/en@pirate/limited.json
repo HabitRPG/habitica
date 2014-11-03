@@ -1,0 +1,17 @@
+{
+    "limitedEdition": "Limit'd Edition",
+    "seasonalEdition": "Seasonal Edition",
+    "winterColors": "Winter Colours",
+    "annoyingFriends": "Annoyin' Mates",
+    "annoyingFriendsText": "Got snowballed <%= snowballs %> times by crew-mates.",
+    "alarmingFriends": "Alarmin' Buckos",
+    "alarmingFriendsText": "Got spooked <%= spookDust %> times by crew mates.",
+    "valentineCard": "Valentine's Day Card",
+    "adoringFriends": "Adorin' Mates",
+    "adoringFriendsText": "Avast; ye an' yer mate must really care 'bout each other! Sent er received <%= cards %> Valentine's Day cards.",
+    "limited30Apr": "Available fer purchase 'til April 30th (but permanently in ye options if purchased).",
+    "polarBear": "Polar Bear",
+    "turkey": "Turkey",
+    "polarBearPup": "Polar Bear Cub",
+    "jackolantern": "Jack-O-Lantern"
+}

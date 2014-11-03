@@ -45,6 +45,7 @@
     "passMan": "No caso de usar um administrador de senhas (como 1Password) e tiver problemas ao se conectar, tente digitar seu usuário e senha manualmente.",
     "forgotPass": "Esqueci Senha",
     "emailNewPass": "Enviar Nova Senha",
+    "invalidEmail": "A valid email address is required in order to perform a password reset.",
     "email": "Email",
     "passConfirm": "Confirmar Senha",
     "accept1Terms": "Ao clicar no botão abaixo, eu concordo com os ",

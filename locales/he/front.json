@@ -45,6 +45,7 @@
     "passMan": "במקרה שאת/ה משתמש/ת במנהל סיסמאות (כמו 1Password) ויש לך בעיות להתחבר, נסה/י להקליד שם משתמש וסיסמא באופן ידני.",
     "forgotPass": "שכח סיסמא",
     "emailNewPass": "שלח לי סיסמא חדשה בדוא\"ל",
+    "invalidEmail": "A valid email address is required in order to perform a password reset.",
     "email": "דואר אלקטרוני",
     "passConfirm": "אמת/י סיסמה",
     "accept1Terms": "בלחיצה על הכפתור למטה אני מסכים/ה עם",

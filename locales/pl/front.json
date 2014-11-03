@@ -45,6 +45,7 @@
     "passMan": "Jeśli korzystasz z menedżera haseł (na przykład 1Password) i nie możesz się zalogować, spróbuj wpisać ręcznie nazwę użytkownika i hasło.",
     "forgotPass": "Zapomniałem hasła",
     "emailNewPass": "Wyślij nowe hasło mailem",
+    "invalidEmail": "Do zresetowania hasła potrzebny jest ważny adres e-mail.",
     "email": "Email",
     "passConfirm": "Potwierdź hasło",
     "accept1Terms": "Klikając w poniższy przycisk, oświadczam, że zgadzam się z",

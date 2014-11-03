@@ -69,5 +69,17 @@
     "askQuestion": "שאל/י שאלה",
     "reportBug": "דיווח על תקלה",
     "contributeToHRPG": "תרומה לאתר",
-    "overview": "סיור למשתמשים חדשים"
+    "overview": "סיור למשתמשים חדשים",
+    "January": "ינואר",
+    "February": "פברואר",
+    "March": "מרץ",
+    "April": "אפריל",
+    "May": "מאי",
+    "June": "יוני",
+    "July": "יולי",
+    "August": "אוגוסט",
+    "September": "ספטמבר",
+    "October": "אוקטובר",
+    "November": "נובמבר",
+    "December": "דצמבר"
 }

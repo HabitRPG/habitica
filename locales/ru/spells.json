@@ -16,7 +16,7 @@
     "spellWarriorIntimidateText": "Устрашающий взор",
     "spellWarriorIntimidateNotes": "Ваш пронизывающий взгляд вселяет страх в сердца врагов вашей команды. Компаньоны получают некоторую прибавку к защите.",
     "spellRoguePickPocketText": "Карманная кража",
-    "spellRoguePickPocketNotes": "Your nimble fingers run through the task's pockets and find some treasures for youself. You gain an immediate gold bonus from a task. The 'fatter' (bluer) your task, the more gold you steal!",
+    "spellRoguePickPocketNotes": "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an immediate gold bonus from a task. The 'fatter' (bluer) your task, the more gold you steal!",
     "spellRogueBackStabText": "Удар из тени",
     "spellRogueBackStabNotes": "Беззвучно вы возникаете за спиной задачи и наносите удар. Вы наносите повышенный урон задачи с увеличенной вероятностью критического удара.",
     "spellRogueToolsOfTradeText": "Орудия труда",
@@ -36,7 +36,7 @@
     "spellSpecialSaltText": "Соль",
     "spellSpecialSaltNotes": "Кто-то кинул в вас снежок. Ха-ха, очень смешно. А теперь стряхните с меня снег!",
     "spellSpecialSpookDustText": "Зловещие искры",
-    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
-    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialSpookDustNotes": "Превратите друзей в парящее облачко с глазами!",
+    "spellSpecialOpaquePotionText": "Эликсир непрозрачности",
     "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр"
 }

@@ -42,7 +42,7 @@
     "equipmentBonusText": "Bonos a los atributos proporcionados por tu equipamiento. Revisa la pestaña de Equipamiento en Inventario para seleccionar tu equipo.",
     "classBonus": "Bono de Equipamiento de la clase",
     "classBonusText": "Tu clase (Guerrero, si no has desbloqueado y seleccionado otra clase) usa su propio equipamento de manera más eficaz que el de otras clases. El equipamento de tu clase actual da un 50% más de puntos al atributo al que bonifica.",
-    "classEquipBonus": "Class Bonus",
+    "classEquipBonus": "Bono por Equipamiento de clase",
     "battleGear": "Equipamiento de combate",
     "battleGearText": "Este es el equipo que usas en combate, afecta los resultados cuando interactúa con tus tareas.",
     "costume": "Disfraz",

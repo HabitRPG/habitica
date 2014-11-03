@@ -45,6 +45,7 @@
     "passMan": "У випадку проблеми входу при використанні менеджера паролів (на зразок 1Password), спробуйте самостійно набрати псевдо та пароль. ",
     "forgotPass": "Забули пароль",
     "emailNewPass": "Надіслати новий пароль",
+    "invalidEmail": "A valid email address is required in order to perform a password reset.",
     "email": "Email",
     "passConfirm": "Підтвердіть пароль",
     "accept1Terms": "Натискаючи кнопку внизу, я приймаю",

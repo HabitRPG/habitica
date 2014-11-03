@@ -42,7 +42,7 @@
     "questEggRoosterText": "תרנגול",
     "questEggRoosterAdjective": "מקרקר",
     "questEggSpiderText": "עכביש",
-    "questEggSpiderAdjective": "creepy",
+    "questEggSpiderAdjective": "מבחיל",
     "eggNotes": "מצא/י שיקוי בקיעה, בזוק/בזקי אותו על הביצה הזו, והיא תהפוך ל <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

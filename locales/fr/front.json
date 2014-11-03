@@ -45,6 +45,7 @@
     "passMan": "Si vous utilisez un gestionnaire de mots de passe (comme 1Password) et que vous avez des soucis pour vous connecter, essayez de rentrer vos nom d'utilisateur et mot de passe manuellement.",
     "forgotPass": "Mot de passe oublié",
     "emailNewPass": "Envoyer un nouveau mot de passe par e-mail",
+    "invalidEmail": "Une adresse mail valide est nécessaire pour lancer une réinitialisation du mot de passe.",
     "email": "E-mail",
     "passConfirm": "Confirmer le Mot de passe",
     "accept1Terms": "En cliquant sur le bouton ci-dessous, j'accepte les",

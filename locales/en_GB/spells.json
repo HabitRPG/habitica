@@ -16,7 +16,7 @@
     "spellWarriorIntimidateText": "Intimidating Gaze",
     "spellWarriorIntimidateNotes": "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defence.",
     "spellRoguePickPocketText": "Pickpocket",
-    "spellRoguePickPocketNotes": "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
+    "spellRoguePickPocketNotes": "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an immediate gold bonus from a task. The 'fatter' (bluer) your task, the more gold you steal!",
     "spellRogueBackStabText": "Backstab",
     "spellRogueBackStabNotes": "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
     "spellRogueToolsOfTradeText": "Tools of the Trade",

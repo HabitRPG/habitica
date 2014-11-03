@@ -45,6 +45,7 @@
     "passMan": "Falls Du einen Passwort-Manager verwendest (wie 1Password) und Probleme hast Dich einzuloggen, versuche Deinen Benutzernamen und Dein Passwort manuell einzugeben.",
     "forgotPass": "Passwort vergessen",
     "emailNewPass": "E-Mail neues Passwort",
+    "invalidEmail": "A valid email address is required in order to perform a password reset.",
     "email": "E-Mail",
     "passConfirm": "Passwort bestätigen",
     "accept1Terms": "Durch Klicken auf diesen Knopf, stimme ich den",

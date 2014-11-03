@@ -39,7 +39,7 @@
     "useSaddle": "לשים אוכף על ה<%= pet %> שלך?",
     "petName": "<%= egg %> <%= potion %>",
     "mountName": " <%= mount %> <%= potion %>",
-    "petKeyName": "Key to the Kennels",
+    "petKeyName": "מפתח למכלאות",
     "petKeyPop": "Let your pets roam free, release them to start their own adventure, and give yourself the thrill of Beastmaster once more!",
     "petKeyBegin": "Key to the Kennels: Experience Beastmaster Once More!",
     "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",
@@ -47,6 +47,6 @@
     "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
     "petKeyPets": "Release My Pets",
     "petKeyMounts": "Release Both Please",
-    "petKeyNeverMind": "Not Yet",
+    "petKeyNeverMind": "עוד לא",
     "gemsEach": "gems each"
 }
