@@ -80,7 +80,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   passport.use(new FacebookStrategy({
     clientID: nconf.get("FACEBOOK_KEY"),
     clientSecret: nconf.get("FACEBOOK_SECRET"),
-    callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback?buster=" + shared.uuid() // see http://goo.gl/dwaqS9
+    callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
   },
     function(accessToken, refreshToken, profile, done) {
       // To keep the example simple, the user's Facebook profile is returned to

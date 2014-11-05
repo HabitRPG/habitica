@@ -37,7 +37,7 @@
     "nib": "~1.0.1",
     "nodemailer": "~0.5.2",
     "passport": "~0.2.1",
-    "passport-facebook": "~1.0.3",
+    "passport-facebook": "Fonger/passport-facebook#a8f98adcddad99caa9a918bc7b76462c92c5c9fd",
     "paypal-express-checkout": "git://github.com/HabitRPG/node-paypal-express-checkout#habitrpg",
     "paypal-ipn": "~1.0.1",
     "paypal-recurring": "git://github.com/jaybryant/paypal-recurring#656b496f43440893c984700191666a5c5c535dca",
