@@ -117,6 +117,9 @@ var UserSchema = new Schema({
     freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
     chatRevoked: Boolean,
+    // Used to track the status of recapture emails sent to each user,
+    // can be 0 - no email sent - 1, 2 or 3 - 3 means no more email will be sent to the user
+    recaptureEmailsPhase: {type: Number, 'default': 0},
     communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
   history: {
