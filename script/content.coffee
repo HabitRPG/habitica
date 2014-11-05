@@ -1254,6 +1254,16 @@ api.backgrounds =
     pumpkin_patch:
       text:  t('backgroundPumpkinPatchText')
       notes: t('backgroundPumpkinPatchNotes')
+  backgrounds112014:
+    harvest_feast:
+      text:  t('backgroundHarvestFeastText')
+      notes: t('backgroundHarvestFeastNotes')
+    sunset_meadow:
+      text:  t('backgroundSunsetMeadowText')
+      notes: t('backgroundSunsetMeadowNotes')
+    starry_skies:
+      text:  t('backgroundStarrySkiesText')
+      notes: t('backgroundStarrySkiesNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
