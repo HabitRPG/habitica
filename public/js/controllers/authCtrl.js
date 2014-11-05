@@ -5,26 +5,15 @@
  */
 
 angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal) {
-      var runAuth;
-      var showedFacebookMessage;
-
-      $scope.useUUID = false;
-      $scope.toggleUUID = function() {
-        if (showedFacebookMessage === false) {
-          alert(window.env.t('untilNoFace'));
-          showedFacebookMessage = true;
-        }
-        $scope.useUUID = !$scope.useUUID;
-      };
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal', 'Facebook',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal, Facebook) {
 
       $scope.logout = function() {
         localStorage.clear();
         window.location.href = '/logout';
       };
 
-      runAuth = function(id, token) {
+      var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
           $window.location.href = '/';
         });
@@ -59,14 +48,10 @@ angular.module('authCtrl', [])
           username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
           password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
         };
-        if ($scope.useUUID) {
-          runAuth($scope.loginUsername, $scope.loginPassword);
-        } else {
-          $http.post(ApiUrlService.get() + "/api/v2/user/auth/local", data)
-            .success(function(data, status, headers, config) {
-              runAuth(data.id, data.token);
-            }).error(errorAlert);
-        }
+        $http.post(ApiUrlService.get() + "/api/v2/user/auth/local", data)
+          .success(function(data, status, headers, config) {
+            runAuth(data.id, data.token);
+          }).error(errorAlert);
       };
 
       $scope.playButtonClick = function(){
@@ -125,6 +110,25 @@ angular.module('authCtrl', [])
 
       $scope.hasNoNotifications = function() {
         return selectNotificationValue(false, false, false, false, true);
+      }
+
+      // ------ Facebook ----------
+      // See https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.2 for boilerplate
+      $scope.fbLogin = function(){
+        var thenLogin = function(response){
+          $http.post(ApiUrlService.get() + "/api/v2/user/auth/facebook", response.authResponse)
+            .success(function(data, status, headers, config) {
+              runAuth(data.id, data.token);
+            }).error(errorAlert);
+        }
+        Facebook.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            thenLogin(response);
+          } else {
+            Facebook.login(thenLogin)
+          }
+
+        });
       }
     }
 ]);

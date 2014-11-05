@@ -73,20 +73,15 @@ if (cluster.isMaster && (isDev || isProd)) {
     done(null, obj);
   });
 
-  // Use the FacebookStrategy within Passport.
-  //   Strategies in Passport require a `verify` function, which accept
-  //   credentials (in this case, an accessToken, refreshToken, and Facebook
-  //   profile), and invoke a callback with a user object.
+  // FIXME
+  // This auth strategy is no longer used. It's just kept around for auth.js#loginFacebook() (passport._strategies.facebook.userProfile)
+  // The proper fix would be to move to a general OAuth module simply to verify accessTokens
   passport.use(new FacebookStrategy({
     clientID: nconf.get("FACEBOOK_KEY"),
     clientSecret: nconf.get("FACEBOOK_SECRET"),
-    callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
+    //callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
   },
     function(accessToken, refreshToken, profile, done) {
-      // To keep the example simple, the user's Facebook profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Facebook account with a user record in your database,
-      // and return that user instead.
       done(null, profile);
     }
    ));

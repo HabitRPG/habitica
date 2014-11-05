@@ -3,8 +3,9 @@ script(id='modals/login.html', type='text/ng-template')
     button.close(type='button', ng-click='$close()') ×
     h4.modal-title=env.t('loginAndReg')
   .modal-body(ng-controller='AuthCtrl')
-    a(href='/auth/facebook')
+    a(href='#', ng-click='fbLogin()')
       img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
+
     //can we add in google auth? I like google auth
     h3=env.t('or')
     ul.nav.nav-tabs

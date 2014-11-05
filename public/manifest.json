@@ -83,6 +83,7 @@
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
             "bower_components/bootstrap/dist/js/bootstrap.js",
             "bower_components/jquery-colorbox/jquery.colorbox-min.js",
+            "bower_components/angular-facebook/lib/angular-facebook.js",
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "js/env.js",

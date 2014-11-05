@@ -168,22 +168,43 @@ api.loginLocal = function(req, res, next) {
 /*
  POST /user/auth/facebook
  */
-
-
 api.loginFacebook = function(req, res, next) {
-  var facebook_id = req.body.facebook_id;
-  if (!facebook_id) return res.json(401, {err: 'No facebook id provided'});
-  User.findOne({'auth.facebook.id': facebook_id}, function(err, user) {
-    if (err) {
-      return res.json(401, {err: err});
-    } else if (user) {
-      if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
-      return res.json(200, {id: user.id,token: user.apiToken});
-    } else {
-      /* FIXME: create a new user instead*/
-      return res.json(403, {err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."});
+  var accessToken = req.body.accessToken;
+  async.waterfall([
+    function(cb){
+      // TODO is this private function here safe to use?
+      passport._strategies.facebook.userProfile(accessToken, cb);
+    },
+    function(profile, cb) {
+      User.findOne({'auth.facebook.id': profile.id}, {_id:1, apiToken:1, auth:1}, function(err, user){
+        if (err) return cb(err);
+        cb(null, {user:user, profile:profile});
+      });
+    },
+    function(data, cb){
+      if (data.user) return cb(null, data.user);
+      // Create new user
+      var prof = data.profile;
+      var user = new User({
+        preferences: {
+          language: req.language // User language detected from browser, not saved
+        },
+        auth: {
+          facebook: prof,
+          timestamps: {created: +new Date(), loggedIn: +new Date()}
+        }
+      });
+      user.save(cb);
+      if(isProd && prof.emails && prof.emails[0] && prof.emails[0].value){
+        emailUser((prof.displayName || prof.username), prof.emails[0].value, 'welcome');
+      }
+      ga.event('register', 'Facebook').send();
     }
-  });
+  ], function(err, user){
+    if (err) return res.json(401, {err: err.toString ? err.toString() : err});
+    if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
+    return res.json(200, {id: user.id, token:user.apiToken});
+  })
 };
 
 api.resetPassword = function(req, res, next){
@@ -271,66 +292,4 @@ api.setupPassport = function(router) {
     res.redirect('/');
   })
 
-  // GET /auth/facebook
-  //   Use passport.authenticate() as route middleware to authenticate the
-  //   request.  The first step in Facebook authentication will involve
-  //   redirecting the user to facebook.com.  After authorization, Facebook will
-  //   redirect the user back to this application at /auth/facebook/callback
-  router.get('/auth/facebook',
-    passport.authenticate('facebook', {scope: 'email'}),
-    i18n.getUserLanguage,
-    function(req, res){
-      // The request will be redirected to Facebook for authentication, so this
-      // function will not be called.
-    });
-
-  // GET /auth/facebook/callback
-  //   Use passport.authenticate() as route middleware to authenticate the
-  //   request.  If authentication fails, the user will be redirected back to the
-  //   login page.  Otherwise, the primary route function function will be called,
-  //   which, in this example, will redirect the user to the home page.
-  router.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    i18n.getUserLanguage,
-    function(req, res) {
-      //res.redirect('/');
-
-      async.waterfall([
-        function(cb){
-          User.findOne({'auth.facebook.id':req.user.id}, cb)
-        },
-        function(user, cb){
-          if (user) return cb(null, user);
-
-          user = new User({
-            preferences: {
-              language: req.language // User language detected from browser, not saved
-            },
-            auth: {
-              facebook: req.user,
-              timestamps: {created: +new Date(), loggedIn: +new Date()}
-            }
-          });
-          user.save(cb);
-          if(isProd && req.user.emails && req.user.emails[0] && req.user.emails[0].value){
-            emailUser((req.user.displayName || req.user.username), req.user.emails[0].value, 'welcome');
-          }
-          ga.event('register', 'Facebook').send()
-        }
-      ], function(err, saved){
-        if (err) return res.redirect('/static/front?err=' + err);
-        req.session.userId = saved._id;
-        res.redirect('/static/front?_id='+saved._id+'&apiToken='+saved.apiToken);
-      })
-    });
-
-  // Simple route middleware to ensure user is authenticated.
-  //   Use this route middleware on any resource that needs to be protected.  If
-  //   the request is authenticated (typically via a persistent login session),
-  //   the request will proceed.  Otherwise, the user will be redirected to the
-  //   login page.
-//  function ensureAuthenticated(req, res, next) {
-//    if (req.isAuthenticated()) { return next(); }
-//    res.redirect('/login')
-//  }
 };

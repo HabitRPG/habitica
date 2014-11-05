@@ -1,18 +1,23 @@
 "use strict";
 
-window.habitrpgStatic = angular.module('habitrpgStatic', ['notificationServices', 'userServices', 'chieffancypants.loadingBar', 'authCtrl', 'ui.bootstrap'])
+window.habitrpgStatic = angular.module('habitrpgStatic', ['notificationServices', 'userServices', 'chieffancypants.loadingBar', 'authCtrl', 'ui.bootstrap', 'facebook'])
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
   .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
   .constant("MOBILE_APP", false)
 
-habitrpgStatic.controller("PlansCtrl", ['$rootScope',
+.config(['FacebookProvider', function(FacebookProvider){
+  FacebookProvider.init(window.env.FACEBOOK_KEY);
+}])
+
+.controller("PlansCtrl", ['$rootScope',
   function($rootScope) {
     $rootScope.clickContact = function(){
       window.ga && ga('send', 'event', 'button', 'click', 'Contact Us (Plans)');
     }
   }
 ])
+
 .controller('AboutCtrl',[function(){
   $(document).ready(function(){
     $('a.gallery').colorbox({
