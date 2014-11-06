@@ -5,8 +5,8 @@
  */
 
 angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal', 'Facebook',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal, Facebook) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -112,22 +112,20 @@ angular.module('authCtrl', [])
         return selectNotificationValue(false, false, false, false, true);
       }
 
-      // ------ Facebook ----------
-      // See https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.2 for boilerplate
-      $scope.fbLogin = function(){
-        var thenLogin = function(response){
-          $http.post(ApiUrlService.get() + "/api/v2/user/auth/facebook", response.authResponse)
+      // ------ Social ----------
+
+      hello.init({
+        facebook : window.env.FACEBOOK_KEY,
+      });
+
+      $scope.socialLogin = function(network){
+        hello(network).login({scope:'email'}).then(function(auth){
+          $http.post(ApiUrlService.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
               runAuth(data.id, data.token);
             }).error(errorAlert);
-        }
-        Facebook.getLoginStatus(function(response) {
-          if (response.status === 'connected') {
-            thenLogin(response);
-          } else {
-            Facebook.login(thenLogin)
-          }
-
+        }, function( e ){
+          alert("Signin error: " + e.error.message );
         });
       }
     }

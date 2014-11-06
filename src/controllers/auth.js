@@ -166,17 +166,20 @@ api.loginLocal = function(req, res, next) {
 };
 
 /*
- POST /user/auth/facebook
+ POST /user/auth/social
  */
-api.loginFacebook = function(req, res, next) {
-  var accessToken = req.body.accessToken;
+api.loginSocial = function(req, res, next) {
+  var access_token = req.body.authResponse.access_token,
+    network = req.body.network;
+  if (network!=='facebook')
+    return res.json(401, {err:"Only Facebook supported currently."});
   async.waterfall([
     function(cb){
-      // TODO is this private function here safe to use?
-      passport._strategies.facebook.userProfile(accessToken, cb);
+      passport._strategies[network].userProfile(access_token, cb);
     },
     function(profile, cb) {
-      User.findOne({'auth.facebook.id': profile.id}, {_id:1, apiToken:1, auth:1}, function(err, user){
+      var q = {};q['auth.'+network+'.id'] = profile.id;
+      User.findOne(q, {_id:1, apiToken:1, auth:1}, function(err, user){
         if (err) return cb(err);
         cb(null, {user:user, profile:profile});
       });
@@ -185,20 +188,22 @@ api.loginFacebook = function(req, res, next) {
       if (data.user) return cb(null, data.user);
       // Create new user
       var prof = data.profile;
-      var user = new User({
+      var user = {
         preferences: {
           language: req.language // User language detected from browser, not saved
         },
         auth: {
-          facebook: prof,
           timestamps: {created: +new Date(), loggedIn: +new Date()}
         }
-      });
+      };
+      user.auth[network] = prof;
+      user = new User(user);
       user.save(cb);
+
       if(isProd && prof.emails && prof.emails[0] && prof.emails[0].value){
         emailUser((prof.displayName || prof.username), prof.emails[0].value, 'welcome');
       }
-      ga.event('register', 'Facebook').send();
+      ga.event('register', network).send();
     }
   ], function(err, user){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
@@ -206,6 +211,12 @@ api.loginFacebook = function(req, res, next) {
     return res.json(200, {id: user.id, token:user.apiToken});
   })
 };
+
+/**
+ * DELETE /user/auth/social
+ * TODO implement
+ */
+api.deleteSocial = function(req,res,next){next()}
 
 api.resetPassword = function(req, res, next){
   var email = req.body.email,

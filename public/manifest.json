@@ -21,6 +21,7 @@
             "bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
             "bower_components/select2/select2.js",
             "bower_components/angular-ui-select2/src/select2.js",
+            "bower_components/hello/dist/hello.all.min.js",
 
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
@@ -66,6 +67,7 @@
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
+            "bower_components/css-social-buttons/css/zocial.css",
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
@@ -83,7 +85,7 @@
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
             "bower_components/bootstrap/dist/js/bootstrap.js",
             "bower_components/jquery-colorbox/jquery.colorbox-min.js",
-            "bower_components/angular-facebook/lib/angular-facebook.js",
+            "bower_components/hello/dist/hello.all.min.js",
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "js/env.js",
@@ -95,6 +97,7 @@
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
+            "bower_components/css-social-buttons/css/zocial.css",
             "bower_components/jquery-colorbox/example1/colorbox.css",
             "static.css"
         ]
