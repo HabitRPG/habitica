@@ -24,5 +24,4 @@ form.chat-form(ng-submit='postChat(group,message.content)')
       include ../../shared/formatting-help
     .chat-buttons
       input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
-      button(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
-        span.glyphicon.glyphicon-refresh
+      button(type="button", ng-click='sync(group)')=env.t('toolTipMsg')
