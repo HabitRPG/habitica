@@ -7,7 +7,7 @@ var shared = require('habitrpg-shared');
 var nconf = require('nconf');
 var async = require('async');
 var User = require('./../models/user').model;
-var ga = require('./../utils').ga;
+var utils = require('./../utils');
 var logging = require('./../logging');
 var userAPI = require('./user');
 var request = require('request');
@@ -39,46 +39,6 @@ function revealMysteryItems(user) {
   });
 }
 
-function getMailingInfo(user) {
-  var email, name;
-  if(user.auth.local){
-    email = user.auth.local.email;
-    name = user.profile.name || user.auth.local.username;
-  }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
-    email = user.auth.facebook.emails[0].value;
-    name = user.auth.facebook.displayName || user.auth.facebook.username;
-  }
-  return {'email': email, 'name': name};
-}
-
-function emailUser(user, emailType) {
-  var mailingInfo = getMailingInfo(user);
-  if(mailingInfo.email){
-    request({
-      url: nconf.get('EMAIL_SERVER_URL') + '/job',
-      method: 'POST',
-      auth: {
-        user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-        pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-      },
-      json: {
-        type: 'email',
-        data: {
-          emailType: emailType,
-          to: {
-            name: mailingInfo.name,
-            email: mailingInfo.email
-          }
-        },
-        options: {
-          attemps: 5,
-          backoff: {delay: (10*60*1000), type: 'fixed'}
-        }
-      }
-    });
-  }
-}
-
 function createSubscription(user, data) {
   if (!user.purchased.plan) user.purchased.plan = {};
   _(user.purchased.plan)
@@ -95,10 +55,10 @@ function createSubscription(user, data) {
       mysteryItems: []
     });
   revealMysteryItems(user);
-  if(isProduction) emailUser(user, 'subscription-begins');
+  if(isProduction) utils.txnEmail(user, 'subscription-begins');
   user.purchased.txnCount++;
-  ga.event('subscribe', data.paymentMethod).send();
-  ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
+  utils.ga.event('subscribe', data.paymentMethod).send();
+  utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
 }
 
 /**
@@ -106,21 +66,21 @@ function createSubscription(user, data) {
  */
 function cancelSubscription(user, data){
   var du = user.purchased.plan.dateUpdated, now = moment();
-  if(isProduction) emailUser(user, 'cancel-subscription');
+  if(isProduction) utils.txnEmail(user, 'cancel-subscription');
   user.purchased.plan.dateTerminated =
     moment( now.format('MM') + '/' + moment(du).format('DD') + '/' + now.format('YYYY') )
     .add({months:1})
     .toDate();
-  ga.event('unsubscribe', 'Stripe').send();
+  utils.ga.event('unsubscribe', 'Stripe').send();
 
 }
 
 function buyGems(user, data) {
   user.balance += 5;
   user.purchased.txnCount++;
-  if(isProduction) emailUser(user, 'donation');
-  ga.event('checkout', data.paymentMethod).send();
-  ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+  if(isProduction) utils.txnEmail(user, 'donation');
+  utils.ga.event('checkout', data.paymentMethod).send();
+  utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
 }
 
 // Expose some functions for tests

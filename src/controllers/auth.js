@@ -24,31 +24,6 @@ var accountSuspended = function(uuid){
   };
 }
 
-var emailUser = function(name, email, emailType){
-  request({
-    url: nconf.get('EMAIL_SERVER_URL') + '/job',
-    method: 'POST',
-    auth: {
-      user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-      pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-    },
-    json: {
-      type: 'email', 
-      data: {
-        emailType: emailType,
-        to: {
-          name: name,
-          email: email
-        }
-      },
-      options: {
-        attemps: 5,
-        backoff: {delay: 10*60*1000, type: 'fixed'}
-      }
-    }
-  });
-}
-
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
   var token = req.headers['x-api-key'];
@@ -128,7 +103,7 @@ api.registerUser = function(req, res, next) {
       }
 
       user.save(cb);
-      if(isProd) emailUser(username, email, 'welcome');
+      if(isProd) utils.txnEmail({name:username, email:email}, 'welcome');
       ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
@@ -201,7 +176,7 @@ api.loginSocial = function(req, res, next) {
       user.save(cb);
 
       if(isProd && prof.emails && prof.emails[0] && prof.emails[0].value){
-        emailUser((prof.displayName || prof.username), prof.emails[0].value, 'welcome');
+        utils.txnEmail({name:prof.displayName || prof.username, email:prof.emails[0].value}, 'welcome');
       }
       ga.event('register', network).send();
     }
