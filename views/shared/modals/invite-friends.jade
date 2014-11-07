@@ -1,0 +1,39 @@
+script(type='text/ng-template', id='modals/invite-friends.html')
+  .modal-header
+    h4 Invite Friends
+  .modal-body
+    p.alert.alert-info Invite friends to your party who <strong>already play</strong> HabitRPG. Have them send you their <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> and enter it here.
+
+    form.form-inline(ng-submit='invite(party)')
+      //-.alert.alert-danger(ng-show='_groupError') {{_groupError}}
+      .form-group
+        input.form-control(type='text', placeholder=env.t('userId'), ng-model='party.invitee')
+        |&nbsp;
+        button.btn.btn-primary(type='submit') Invite Existing User
+
+    hr
+
+    p.alert.alert-info Invite friends to your party who <strong>don't yet play</strong> HabitRPG. This will send them an invite email, and automatically invite them to your party.
+
+    table.table.table-striped
+      thead
+        tr
+          th Name
+          th Email
+      tbody
+        tr(ng-repeat='email in emails')
+          td
+            input.form-control(type='text', ng-model='email.name')
+          td
+            input.form-control(type='email', ng-model='email.email')
+        tr
+          td(colspan=2)
+            button.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+              i.glyphicon.glyphicon-plus
+        tr
+          td(colspan=2)
+            button.btn.btn-primary.pull-right(ng-click='inviteEmails(emails)') Invite New User(s)
+
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()') Close
+

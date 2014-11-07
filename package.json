@@ -44,6 +44,7 @@
     "paypal-ipn": "~1.0.1",
     "paypal-recurring": "git://github.com/jaybryant/paypal-recurring#656b496f43440893c984700191666a5c5c535dca",
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
+    "qs": "^2.3.2",
     "request": "~2.44.0",
     "s3-upload-stream": "^1.0.6",
     "stripe": "*",

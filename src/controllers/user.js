@@ -7,13 +7,15 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
-var ga = require('./../utils').ga;
+var utils = require('./../utils');
+var ga = utils.ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
+var qs = require('qs');
 
 // api.purchase // Shared.ops
 
@@ -391,6 +393,33 @@ api.cast = function(req, res, next) {
       ], done);
       break;
   }
+}
+
+/**
+ * POST /user/invite-friends
+ */
+api.inviteFriends = function(req, res, next) {
+  Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
+    if (err) return next(err);
+    var link = nconf.get('BASE_URL') + '?' + qs.stringify({partyInvite:{id:party._id, inviter:res.locals.user._id, name:party.name}});
+    _.each(req.body, function(invite){
+      if (invite.email) {
+        var variables = {link:link, inviter:res.locals.user.profile.name, invitee:invite.name};
+        // TODO implement "users can only be invited once"
+        utils.txnEmail(invite, 'invite-friend', variables);
+      }
+    });
+    res.send(200);
+  })
+}
+api.sessionPartyInvite = function(req,res,next){
+  if (req.session.partyInvite) {
+    res.locals.user.invitations.party = req.session.partyInvite;
+    Group.update({_id:req.session.partyInvite.id},{$addToSet:{invites:res.locals.user._id}});
+    delete req.session.partyInvite;
+    return res.locals.user.save(next);
+  }
+  next();
 }
 
 /**
