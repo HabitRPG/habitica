@@ -1,282 +1,354 @@
 <a name="">My app - Changelog</a>
-#  (2014-02-15)
-
-
-## Documentation
-
-- **rebirth:** Bullet point about repurchase of limited ed gear after Rebirth
-  ([d3f4a561](watch/commits/d3f4a561fdf137e5d8f406bae03be4fef1caff22))
+#  (2014-10-29)
 
 
 ## Bug Fixes
 
-- **#2003:** healer gear not showing
-  ([949cd97b](watch/commits/949cd97b91b42e9450eba559bbfea17e239ab100))
-- **#2375:** merge in @SabreCat's stats.jade changes "More elegant show/hide setup for attribute bonuses"
-  ([518f200a](watch/commits/518f200a8fc7373b44ed7d7b5f016d921b0746bd))
-- **allocateNow:** Send empty object to user.ops per @colegleason suggestion
-  ([f6e12fa2](watch/commits/f6e12fa25e4366622db3e6f1b6ab03e848b49e10))
-- **batch-update:** send errors to client if batch-update found an error, crash pid.
-  ([f9679629](watch/commits/f967962996be69a5335454610af76d10e1db08b8))
-- **beastmaster:** fixes #2557, adds opacity to previously-owned pets after they're mounted. You can earn them back again
-  ([5caaff1c](watch/commits/5caaff1cea1a68fe572e7ddf4aac50248b13df5d))
-- **bosses:** don't reset progress.up when starting a new quest. We want to be able to carry over damage from the same day a boss battle begins, even if the dailies were completed before battle-start. Fixes #2168
-  ([4efd0f5e](watch/commits/4efd0f5ed8708f2491dd483f93e3d7a268a6337d))
-- **bower:** updated jquery directory
-  ([191b789d](watch/commits/191b789d760a7bdc7d1b53727f6127b677c78c94))
-- **bs3:**
-  - fix to MemberModalCtrl parameter
-  ([ebd1df93](watch/commits/ebd1df932e28263e5cc01e8a35f545ab26f1e8bd))
-  - port pet feeding bar
-  ([5db96ebc](watch/commits/5db96ebca2fbd5b64f49af03a5137ea80f6b1673))
-- **buffs:** Move help bubble to left of special buffs
-  ([4f911a68](watch/commits/4f911a68d805742e6744383948eea6f224f2b0ea))
-- **challenges:**
-  - better handling of deleted challenges. If !chal, break the task.challenge. Move the function into userController#score so we have access to next, etc. fixes #1883
-  ([33b326b5](watch/commits/33b326b59685ea6e50f9950094d009460ce80094))
-  - challenge csv export now has proper filename
-  ([36f21196](watch/commits/36f21196f466260b7cd52b283c50b9e16943f668),
-   [#2689](watch/issues/2689))
-- **classes:**
-  - misc fixes
-  ([d2121a85](watch/commits/d2121a858716cb5a532a53ee9c5a1adaa74a7f69))
-  - misc class fixes (not @snicker, ng-if on item store since we dynamically swap it sometimes)
-  ([478be611](watch/commits/478be6111337cd200374f7f31b959725c6a0b945))
-- **css:**
-  - temp fix for bailey height
-  ([c8faffcc](watch/commits/c8faffcc7289090990c3a17ab8c07a00069f5ce4))
-  - menu and gems wallet margin
-  ([975b5165](watch/commits/975b5165730477310aa64bac27ddc07a34ea6c1d))
-  - lighter columns title
-  ([a22e2814](watch/commits/a22e28143f74302c8340c3d33b01af9714875523))
-  - better food tray
-  ([1c41c4dd](watch/commits/1c41c4ddb9a5b04297a371bc4d6aba013ce33f17))
-- **errors:**
-  - `return next(err)` when experiencing errors, instead of res.json(500,{err:err}). Let the top-level error handler handle this (needed for upcoming versionerror discarding)
-  ([bf5e9016](watch/commits/bf5e9016a4cb7889b3a9e39b90eb35cb8f7f9ec8))
-  - handle if err.message == undefined, send err
-  ([b42dacf2](watch/commits/b42dacf2035d62453b585cfcf453829a423b59de))
-- **event-tracking:**
+- **IE:** Remove comment triggering quirks mode in IE, fixes #3550
+  ([09392aca](watch/commits/09392aca24230e6981313fd6416a2491d74d7dd4))
+- **accessories:** add body accessory to user model, fixes #3346
+  ([c441ae41](watch/commits/c441ae418bcc22a74dd9ed679d36b3e798a25b49))
+- **avatar:** put missing ng-click=buy-set back in
+  ([ab3c238d](watch/commits/ab3c238d11ef2cebfa03f0dad04d210648ba38c7))
+- **avatar.jade:** change .notBackground to .noBackgroundImage
+  ([a6d10120](watch/commits/a6d101202cf6485b48583c295308337e46525296))
+- **backers:** give missing backer mount to $70+, sorry everyone :( :( fixes #3544
+  ([831f9711](watch/commits/831f971193e3c4d3bcf1007ac08cfade4ab813cb))
+- **backgrounds:** 15G confirm dialog, fixes #3595
+  ([99fb9b09](watch/commits/99fb9b09595bccfe7b2b8266328ef963e41b9549))
+- **bailey:**
+  - tweak
+  ([b8b76d6c](watch/commits/b8b76d6ce97fc4a999987aa9bba089d6d5d17d17))
+  - small tweaks to 7/31 (spacing, remove project files)
+  ([9efda1d9](watch/commits/9efda1d95500388a80977b115a4a023adeea2513))
+  - add links to recent update
+  ([17c6df4f](watch/commits/17c6df4f6accad6c2a8879c41541256acc204658))
+  - updated wording to save vicky
+  ([95193f55](watch/commits/95193f550db78f5a60a278c6164d4bbe4939ce23))
+- **bower:** pin angular @beta-11, that ~ was upgrading to beta-17 which doesn't play well with jQuery right now
+  ([745d330c](watch/commits/745d330ce78e5360025783fb2d5fdf0a81e9c489))
+- **challenges:** since we're setting {minimize:false} on tasks, don't overwrite user tasks.*.challenges in the _.merge()
+  ([0bb1de68](watch/commits/0bb1de680cd8654fb9c8a522ac41a8495b57a4c2))
+- **communityGuidelines:** modify script query to use collection indexes first for better perf
+  ([85aef2dd](watch/commits/85aef2dd274e82766274384b94a72d3efced1bb0))
+- **console:** remove console.log
+  ([40fb17fd](watch/commits/40fb17fdaf149e14c9b31932b4b31dcb2fb69e2a))
+- **coupons:** fix to limit
+  ([5c309444](watch/commits/5c309444e050160b7d7852d3f03508acde862395))
+- **delete account:** allow deleting account after they've canceled subscription, before it terminates
+  ([97373242](watch/commits/973732421a048f701443cfc3b1ecc8a16ec4b3ca))
+- **dilatory:**
+  - dont' modify original user.progress on world boss dmg, fixes #3737
+  ([016d99a4](watch/commits/016d99a4a793222c1267e23dc2bf6e80f6b2bed3))
+  - tmp fix to prevent high damage #3712
+  ([860b3acc](watch/commits/860b3acc52eb122ca5dd266e219d57bfe9ab7f86))
+  - round boss hp/rage to bil/mil/thou, fixes #3667
+  ([9c55bfb4](watch/commits/9c55bfb498e7c34b730bc9bfbd00f07a7018e478))
   - typo
-  ([ff9d4b88](watch/commits/ff9d4b886ef7a98da0514975441a8bb845496c31))
-  - stripe sub, not pp
-  ([0c99976b](watch/commits/0c99976bf5a3c7f04f031d62a8b07c862c85a0a9))
-- **find_uniq_user:** fix
-  ([ecbe780e](watch/commits/ecbe780e70549b1470504efe052f238c89a9db14))
-- **footer:** ensure window.env is accessible from static pages, so we can get deferred scripts on frontpage (esp google analytics)
-  ([67ee011a](watch/commits/67ee011aa35969db93e2d7dc1cd1e1f587f146de))
-- **groups:**
-  - pass missing next into Like function
-  ([afee0968](watch/commits/afee0968f8f6923847e186d3e11b9745ced9606e))
-  - send error if +1 errored
-  ([5b6c4427](watch/commits/5b6c4427b504b6143f24bfee314f562b9803c5a4))
-- **hall:** let's try $gt instead of $ne:null, the query is still slow
-  ([a72b0131](watch/commits/a72b013131cfc7fa5d3affdbfe59b5b3cb15ae89))
-- **i18n:** do not save user language for now
-  ([094a4be0](watch/commits/094a4be0015f0f0deaaf94a0734193eb40a8beae))
-- **misc:**
-  - some styles & translations
-  ([8f19f225](watch/commits/8f19f225f104960b3cf27e229a5571e014be697c))
-  - isStaticPage and debug buttons
-  ([19139f56](watch/commits/19139f562b8e68ed43f4cab748920f1e0634e86e))
-- **missing-gems:** remove ad-removal from script, since ads are part of subscription
-  ([e1240dde](watch/commits/e1240dde1d3dcaca4235fad384fea5c07a3706bf))
-- **mongoose:** typo
-  ([2786b362](watch/commits/2786b362067efdd245c3efa3a4891021fcfaab2d))
-- **mounts:**
-  - fix pets & mounts css to position the user based on pet/mount equip
-  ([37340d23](watch/commits/37340d23180da02d3742dc9be40a5fb780ecb13b))
-  - Move avatar upward when mounted regardless of pet
-  ([bc1adeb1](watch/commits/bc1adeb1277103a5ca1f756e175ed68bbe837a2f))
-- **nodemon:**
-  - Add another ignore for weirdsauce Windoze dev environments
-  ([3fda08c3](watch/commits/3fda08c366793c8fbcbf701a9594ae3b2fd8bbea))
-  - ignore CHANGELOG.md on watch
-  ([d6c55952](watch/commits/d6c55952da8b49f36e9d8e4570d80931d081343d))
-- **party:** Round boss health up instead of to nearest integer
-  ([626da568](watch/commits/626da5681f5ea95700f8ddf40587c7184926971c),
-   [#2504](watch/issues/2504))
-- **paypal:** fixes #2492, remove environment check for now, only have production-mode option. revisit
-  ([1dc68112](watch/commits/1dc68112d131e4ebdec32ddff938eb6311d6565f))
-- **performance:** cache spritesmith image, fix #2633
-  ([f03d7d7d](watch/commits/f03d7d7dde4f8cb39babd2b982d77e7f88f349b7))
-- **pets:** add questPets to UserSchema.items.mounts too fixes #2814
-  ([42766125](watch/commits/42766125d5c8870f25c3a0a001473f700b8f6cc1))
-- **profile:** fix bug where empty profile displayed on username click
-  ([0579c432](watch/commits/0579c432489c4a038e8c9f95ea3b285f5abc146f),
-   [#2465](watch/issues/2465))
+  ([de2ba362](watch/commits/de2ba362749cb7f2adc684e441c3f4ce0f0bd607))
+  - misc chat fixes for better formatting of neglect strikes
+  ([14c60192](watch/commits/14c60192582ec0516231804bae6b77454d32be85))
+- **emails:**
+  - try multiple attemps (delay not avalaible in api because in not yet released version)
+  ([292d2455](watch/commits/292d2455ba2fb7c6f83903b4455879e27371af5c))
+  - re-add emails for payments, @lefnire should be ok now I had used req.user but it did not exist. There is a way to test payments locally? Because even now I can not verify it is really ok
+  ([900d8e7d](watch/commits/900d8e7dfab87707fe43e1c5b7606832130ffba6))
+  - send only if email found
+  ([3118508e](watch/commits/3118508e9c17993a2722b677e3ed9fde85da7231))
+- **fbAuth:** get user email @lefnire this should be all we need but not having the keys i can not test before going live
+  ([63403126](watch/commits/634031269546376576d0d30af8f1ac6d83601bec))
+- **filters:** use k not K for thousand
+  ([a56b1eec](watch/commits/a56b1eec129114773e31ca4d57fb42bea8d36bfc))
+- **filters.jade:** prevent duplication of new tags
+  ([eedb1d14](watch/commits/eedb1d147cd2f3b0fee05ba6eb9dedf6575441b2))
+- **flower:** remove default on flower for now, #1529 @Alys
+  ([33b2e8c4](watch/commits/33b2e8c4fedaa0bb899f4fee023169d0c6034454))
+- **footer:** update github link
+  ([020f2785](watch/commits/020f278577f4f3807321b0b7d1a0d8e385f3328d))
+- **global-modules:** prevent labels from hiding tooltips
+  ([d1a5ff0c](watch/commits/d1a5ff0cef4856d18f3850aa01af192104a3bd7e))
+- **groupsServices:** allow for direct modification of data @lefnire it is necessary for mobile but does not break anything
+  ([6db5b53c](watch/commits/6db5b53c81b48a78b01ff28b251989f1835e5410))
+- **i18n:**
+  - add support for latin american spanish
+  ([81b96b0f](watch/commits/81b96b0f7ee8b55729fbf4e3da3b6ef3601c9ee4))
+  - add moment support for chinese
+  ([15641b5f](watch/commits/15641b5f371bda0d71357e53b1fd951f83b0c1cf))
+  - use string
+  ([7e11d970](watch/commits/7e11d970a88bfba956c754aa88a2eeafaf95dfff))
+  - stable
+  ([57e1013a](watch/commits/57e1013ada7e7c80bc286085153f23a8b0f1aa16))
+  - use strings
+  ([74d206ab](watch/commits/74d206ab742af1c0b3acb7ff1cc183a60eaa1022))
+  - use strings
+  ([df8eb107](watch/commits/df8eb107cda3cd78f59735cd63547242fbb81620))
+  - fix /content api call
+  ([01c9307c](watch/commits/01c9307cd137b40b31ab9413dd179b7e62c5a9fc))
+  - signup, clone default tasks
+  ([a38f2354](watch/commits/a38f2354f503fb4570d132220a013f6e091cb7d0))
+  - callback => next
+  ([50f28d44](watch/commits/50f28d4478ef27b16d461449335464e8fd2bb835))
+  - fix #3461
+  ([8c6564b0](watch/commits/8c6564b0f50e39c637a6c65716467173cca2cf91))
+  - use strings
+  ([304beb64](watch/commits/304beb64823de0b65dcc4eb3fed70f95c8c4f319))
+  - use everywhere i18n.getUserLanguage middleware - part 2
+  ([4ac10585](watch/commits/4ac10585bb5f9171c1f594f5153e2c1b02c8c581))
+  - use everywhere i18n.getUserLanguage middleware
+  ([9aa118e3](watch/commits/9aa118e3342fb5acd93ed605dbe3385531d0874e))
+  - default tasks checklists
+  ([ce69b42b](watch/commits/ce69b42b2b1788de6fb7b8d9a05b1f2cddcd7d0d))
+  - use correct branch
+  ([f3d15c9b](watch/commits/f3d15c9b91e1518d6b7b049db30a8ab1e1510c2c))
+  - misc
+  ([57e93d66](watch/commits/57e93d6623e468136a1cdab5c8bf5cbe3b10ae93))
+  - pet and mounts
+  ([9b435026](watch/commits/9b4350266922a4f2f698e20569dacbad8f21d98a))
+  - pass req.language when using batchUpdate
+  ([ddf5ad8e](watch/commits/ddf5ad8ec948d123c5e9c534ab2e914ea7804dcc))
+  - use translated attributes and classes
+  ([52d2693d](watch/commits/52d2693d94f883fce4766c9f43bb75f976f04d08))
+  - translate class names in equipment
+  ([dce4dd3a](watch/commits/dce4dd3ad65a8b016dcb79dc29cd2adb015bd122))
+  - missing strings
+  ([99f50b04](watch/commits/99f50b0461af1b3a08610402eafa0f62a691637f))
+  - end tour
+  ([d0f14407](watch/commits/d0f144077e45145e1dfcbca01bb7e05a1b3e7b7f))
+  - spacing
+  ([e4f8ee1b](watch/commits/e4f8ee1b93d6b8c5c919499b8056dbc6c1835320))
+  - spaces around string
+  ([8eb65126](watch/commits/8eb65126379416eb76b328cf2b5f75fac8450037))
+  - user creation does not override preferences
+  ([70ecad3c](watch/commits/70ecad3c65f90b967b2f1a211082092492fa3b82))
+  - group name
+  ([dd4accf5](watch/commits/dd4accf56f0bb84edfc52ada475722490cb34392))
+  - group name
+  ([31449727](watch/commits/314497271a74e98c323c73c75fdba8109f0bca5a))
+  - use right strings
+  ([95d57590](watch/commits/95d57590422f64986cb8550a3c48a4d72240a755))
+  - use strings
+  ([1f8722cb](watch/commits/1f8722cb5724404f535a104461e68e58285dde81))
+  - better strings for items
+  ([6930b693](watch/commits/6930b693e0ebe05321ececd612fffedf67ea2c56))
+  - use strings
+  ([21efe44d](watch/commits/21efe44d4d42d9fbad85bd1fe1f9927d88f9c502))
+  - use habitrpg-shared branch for bower
+  ([d485ea71](watch/commits/d485ea71432705b4def7bda105fe88e0f2b78bae))
+- **jade:**
+  - update api page to new doctype
+  ([95e71c68](watch/commits/95e71c68de295abc81ea07c4abfaf495aad386b2))
+  - fix warings
+  ([4c8309c8](watch/commits/4c8309c8cce5ff610d34944c433da83888260059))
+  - fix jade warning about "missing space before text for line..."
+  ([e8779f21](watch/commits/e8779f21215fd67a44e54997d1059188e7289de8))
+- **memleak:**
+  - possible improvements to leaked vars #4079
+  ([57a5a62d](watch/commits/57a5a62d7c3266808bc72e8ca2de7888ff4bdf75))
+  - temp, wonky fix to #4079 . Sets closure vars `user` to null in api.batchUpdate(). More will be needed
+  ([ead42e7c](watch/commits/ead42e7cef968aa8ae82bf5ba1ee4e893abc2e4e))
+- **mobile:**
+  - start adapting boss to mobile
+  ([0837f2c3](watch/commits/0837f2c39bad1562d8e9152e9aac0ecc80cb94d4))
+  - export i18n for mobile so it can temporarily use en translations
+  ([3edd37f5](watch/commits/3edd37f537b5c12f98ecc8757e67ec3362bc9609))
+- **modules:** load i18n
+  ([c2aed860](watch/commits/c2aed860dbb68c537f9a3c16866d2a741b53345b))
+- **moment:**
+  - use new syntax, remove deprecation warning
+  ([cd4626ec](watch/commits/cd4626ec06c44854477f2cc5a67c6face71b4999))
+  - fix deprecated warnings, use updated moment syntax
+  ([2a812887](watch/commits/2a8128872d91c17eb6c07ebb0b2d0eb99570da3a))
+- **mongo:** tmp fix to #3607 until https://github.com/LearnBoost/mongoose/issues/1920 fixed
+  ([8d313761](watch/commits/8d31376165def21d4266971e868f33529b003645))
+- **newMessages:** ad migration
+  ([9d2723b4](watch/commits/9d2723b4186cd19a7b7f754f292f3c783d0c6ac4))
+- **notifications:** fix drop notifications
+  ([a30ee436](watch/commits/a30ee4368a4f525284f4f9ece1472de21d542909))
+- **package.json:** relax and update bower version
+  ([899581ee](watch/commits/899581ee560e7710b01d62b0003a63c5dc6272e3))
+- **password:** case-insensitive emails in forgot-password
+  ([327482f0](watch/commits/327482f0b0c628956d52638a2130094cd5d4a8cc))
+- **payments:**
+  - revert unwanted change
+  ([8da33857](watch/commits/8da33857e4c73d571a44f9be0f4199f22fbc3b7f))
+  - revert payments.js to 5cc4c60, see #2454 cc @paglias
+  ([ad146d6d](watch/commits/ad146d6d883ccd8a2b9eb91936506f12c678105d))
+- **pets:** if !Content.hatchingPotions[x], use string passed for displayname. Fixes #3575
+  ([efc9a6e7](watch/commits/efc9a6e715842b7e3518c96a2803977d445fa8a5))
+- **profile:** fix profile classes for mobile include
+  ([311586e5](watch/commits/311586e5a370baac976be094744fbfa5e33d0823))
+- **pushTo:** only pushToBottom on todos
+  ([dc359e7f](watch/commits/dc359e7f75653e720c308bdc6df086a2f7370c77))
 - **quests:**
-  - quests with a level cap cannot be bought before that level.
-  ([dab9ddbd](watch/commits/dab9ddbda27f5e10e4545fea703deebfe2dd9975),
-   [#2707](watch/issues/2707))
-  - bug fix to multi-drop
-  ([f478d10c](watch/commits/f478d10c20f816cd104b3f0da814c189957f45f5))
-  - list multiple rewards in dialog
-  ([e48c7277](watch/commits/e48c7277f8256cf827790aece51e897fe0439374))
-- **readme:** remove text about translations wip
-  ([f2bb1fd2](watch/commits/f2bb1fd26e44a9eb0ba325776bf335e021beeece))
-- **settings:**
-  - remove unnecessary code
-  ([5f0cf657](watch/commits/5f0cf6575c0dc4cfc041956e3dc27898d8b4242d))
-  - reintroduce space between captions and help bubbles stripped during localization
-  ([5ddf09fe](watch/commits/5ddf09fe13c7f8d844c8c47be0fb8f8b2fd1df33))
-- **spells:**
-  - temp workaround for spell & task being undefined. #2649 #2640
-  ([241d0414](watch/commits/241d04140f5db77929d9f597d232f55843bb0f5d))
-  - more $rootScope spell-casting bug fixes
-  ([47bd6dcb](watch/commits/47bd6dcb79778d90d6f3ddeb003c3d8e45433333))
-  - add some spells tests, don't send up body to spell paths
-  ([e0646bb9](watch/commits/e0646bb98d44b6874b5259107c9be5fa34c58933))
-  - some $rootScope.applying action fixes so cast-ending is immediate instead of waiting on response. Also, slim down party population to the essentials to avoid RequestEntityTooLarge
-  ([c6f7ab8a](watch/commits/c6f7ab8a5c6f4e382208a928b90ba5f4eba9cd37))
-  - <ESC> to cancel spell-casting
-  ([a1df41ad](watch/commits/a1df41ad8165cd9eb6d2d5d59c7fe404edde716c))
-- **stable:** show hatchable combo when petOwned>0 (fyi @deilann)
-  ([51bff238](watch/commits/51bff23885ca0080e7e71ff752daa0950ae923ae))
-- **stats:** Better layout for attribute point allocation
-  ([d782fc6b](watch/commits/d782fc6b6a3cd7e90d327c93a5764626b2990c74))
-- **swagger:** fix jade script warning in swagger
-  ([2e2fcfcf](watch/commits/2e2fcfcf464fbae21bff9e1be1ca915f071b976b))
-- **tests:**
-  - include select2 in test manifest
-  ([38b4cea7](watch/commits/38b4cea73299f51c4db7f6b2eb12533d219745f8))
-  - don't use cluster in tests, else we get "connection refused"
-  ([7a479098](watch/commits/7a479098dc6535654e322c737d80813790967941))
-- **todos:**
-  - add migration for dateCreated & dateCompleted #2478
-  ([4cc39f16](watch/commits/4cc39f16a13f5fb9f0e3ddde7d274c0f224f4a0e))
-  - add dateCompleted to todos so they're archived 3 days after completion, not 3 days after creation. Fixes #2478
-  ([b1afc177](watch/commits/b1afc177aa4bfc4cbd9b847e40431db91666d9c3))
-- **toolbar:**
-  - Tweak Settings drop-down
-  ([e241429c](watch/commits/e241429cc3d2eca18d2f5a9726f6caa6270a1b02))
-  - Tweak icon popovers
-  ([4454204f](watch/commits/4454204f47f80e64119f7896bf246259173d115b))
-  - tweaks
-  ([5501d57e](watch/commits/5501d57e107c0bc7085847b0c808f027360fa405))
-- **translation:** Fix #2585.
-  ([06200acc](watch/commits/06200accada462c3234ab407cfb0f6b684e5effe))
-- **translations:**
-  - fix #2564 and similar ones
-  ([42740902](watch/commits/42740902055a3807532028a5dfb39eff905c104f))
-  - add env.t to rootScope
-  ([13131087](watch/commits/13131087ff9563d2d174b2c978102f0dc2b87387))
-  - remove translations for privacy & terms
-  ([a9095f34](watch/commits/a9095f346479336be13b2bf341666b908fa30b3d))
-  - merge @luveluen pull request, fix some syntax
-  ([a6c67f17](watch/commits/a6c67f17815558f19895b8f67d29c40c14689f09))
-  - @lefnire now everything is ok
-  ([52decb7e](watch/commits/52decb7edeefb4755ea832b0cf63eaeea5e93259))
-  - correct some variables
-  ([fba73953](watch/commits/fba739535bc1b630d73eb469448e9c3706043efd))
-  - revert some views
-  ([d000c706](watch/commits/d000c70679ae0e13d9bec749295e42cc8e299c95))
-- **user:**
-  - make sure next is passed to all routes, and is available in err-back of batch updates
-  ([0c21f54c](watch/commits/0c21f54c67b52b07c417fd8216c6b04bce59d0ab))
-  - if need to upgrade site, send 501, not 400
-  ([ab86ba11](watch/commits/ab86ba11bdb3379a8d8fa1814879640d61c57227))
-  - PUT user retricted path errors are 401, not 500
-  ([0aec4caa](watch/commits/0aec4caa785c3b12e15f1c2e19c5b67b20d1a6e1))
-- **winston:** typo
-  ([83b3739f](watch/commits/83b3739f4671a08466e057242f936140d5c739ef))
+  - prevent very high damage
+  ([89369e21](watch/commits/89369e21a3daf9c6b69e26487b96a4e061d1d09e))
+  - show completion dialog
+  ([d848faee](watch/commits/d848faee8eb2c7a48c1c34d193575bb3d31e276c))
+  - don't reset quest progress when world boss defeated
+  ([496618c6](watch/commits/496618c6658c28caa580b7a0dfa775353082be99))
+  - when leaving group, if leader or quest.leader is leaving, re-assign to most senior member. #3709
+  ([80dbc111](watch/commits/80dbc1111e231cce0ae9eb25f84d49049162b77a))
+  - temporarily send error email on questStart (if already started), see #3451. Revert later
+  ([35ef88c6](watch/commits/35ef88c6c054cf912606b5e51298d243bc8ab1e2))
+  - don't allow questStart on already-started quests
+  ([9a4e8d38](watch/commits/9a4e8d38b46d02475ca97121b5d77a777f8d1f92))
+- **responseInterceptor:** update response interceptor to use latest angular API (prep for 1.3)
+  ([19c0a6b9](watch/commits/19c0a6b9b0d40be43405b5e44c51879a6fa640bc))
+- **shared:** use develop branch
+  ([f29eaab7](watch/commits/f29eaab7190d07ab4c37da87644d430984b083b4))
+- **sortable:**
+  - revert back to jqueryUI, fixes #3946
+  ([f9812231](watch/commits/f981223153532035d72c35d42412628145c40385))
+  - don't trigger sort when dragging in place, fixes #3926
+  ([4ba860ea](watch/commits/4ba860ea8ca5d1102a2847721842152dd352ebdf))
+- **spells:** temp fix to #4067, for some reason _v is undefined after casting spells?
+  ([562f593c](watch/commits/562f593c8f77fb14fff41eb4176ffb69affa8823))
+- **spookDust:**
+  - rename to spooky sparkles
+  ([8e855816](watch/commits/8e855816791f63f170bb9bb29da4e65946ded20e))
+  - user serverside method for spookdust as it's path-protected
+  ([e666d2f8](watch/commits/e666d2f837608caa9e4cbee74d9df7382e8042a6))
+- **static:** fix static/api page, fixes #3636
+  ([1fbf3a7e](watch/commits/1fbf3a7eba58c7de14e282b848b0e74a9fd71ac9))
+- **subscriptions:** expose cancelSubscription on $rootScope (don't know why $scope doesn't work here). Fix UI bug
+  ([0dadc86a](watch/commits/0dadc86a619075a03a302e677668f836a5472762))
+- **swagger:**
+  - rollback unwanted changes
+  ([0efb74ea](watch/commits/0efb74eaed6ba16e58e1f86b2039a1fff1b3b53d))
+  - correct API docs, fix #3679
+  ([e72a6668](watch/commits/e72a6668fc2c7dbfda4e5431bd1b40a181797bb2))
+- **tags:** fix sortable tags by separating edit & !edit into diff <ul>s (cc @Fandekasp)
+  ([50a34eb6](watch/commits/50a34eb6c70cd8f042731a4d6925c023803de4dd))
+- **tasks:** tmp fix for #4066, minimize:false on tasks so they have tags:{} default empty object
+  ([a6631f5d](watch/commits/a6631f5d3681dc9424c9dc3cc2157b4c72250421))
+- **tests:** snowball
+  ([ef83c999](watch/commits/ef83c9999b5c7a34dd597a8f43faaaff5c0a42b1))
+- **vagrant:** explicitly call bower install
+  ([bbd14bd4](watch/commits/bbd14bd47c91c82a9bcbc5e063b277e8cfaf90c3))
 
 
 ## Features
 
-- **administrators:** start adding features page for admin accounts
-  ([f7f4a0c1](watch/commits/f7f4a0c166558ba7e5461732f7bb6d7bcac25f88))
-- **attributes:** Add backfill button in flat and classbased allocation modes
-  ([76a7ab5b](watch/commits/76a7ab5bcce2d486dab3f447f0659ba870d1ff7e))
-- **bailey:** notif about STWC updates + scroll-purchase deadlines (@colegleason)
-  ([90176444](watch/commits/90176444e9c7a318040829e8b71d1493b5d58e9e))
-- **bug-crushing:** add the critical hammer of bug-crushing
-  ([00af5f7d](watch/commits/00af5f7d0258b0f7dddef8ede40bd825b057748a))
-- **challenges:**
-  - add angular-ui-select2 for simpler find/select challenge winner.
-  ([9fa45217](watch/commits/9fa452173989889c48ed696a45cf4a1dc16294a4))
-  - add button for csv export
-  ([ae0d758d](watch/commits/ae0d758d8fc751219a693fee7f3e3ebcfbd67590))
-  - add csv export for challenge progress. WIP, will refine this over time - but we need it something like this for the STWC come 1/31.
-  ([16a602f9](watch/commits/16a602f94c3b7c99d49e42b47b4835b65a243690))
-  - markdown in challenge-descriptions
-  ([41233c7b](watch/commits/41233c7b167905eeccfdff5589789e002ec23f97))
-- **cheating:** prevent +habit spamming with a 10s timer
-  ([ad4ca665](watch/commits/ad4ca6655a3bdd870bb08173530372f81fdc9102))
-- **event-tracking:**
-  - better page-view tracking via ui-router
-  ([b093717b](watch/commits/b093717b8d54b61e5d4b44b0d56a1f43308f078c))
-  - track registration count
-  ([72b6c9bc](watch/commits/72b6c9bc9189275909804f9ecab18e9fe1f69d27))
-  - pass ga to server user.ops
-  ([9217b517](watch/commits/9217b5174ab9ab4754269263b214f6bfe45d4f1d))
-  - track ecommerce events
-  ([d89fb17b](watch/commits/d89fb17b03b2e2c0fb1da77fb13cc660a5b6c9d1))
-  - add server-side GA tracking for ecommerce events
-  ([f7b4a04a](watch/commits/f7b4a04a590ade26871abc726ade2c666176488e))
-  - start adding some client-side GA event-tracking
-  ([ffb42906](watch/commits/ffb42906e1d7c6bd8f01e715d98d96426bc6d0de))
-- **groups:** add group chat notifications
-  ([ce82be63](watch/commits/ce82be637d1d707e899aeee5f315da69367fa367))
-- **habitBirthday:** add habitrpg birthday event. includes cakes for all pets, absurd party robes, npc swap, badge, etc. @lemoness
-  ([aff885c0](watch/commits/aff885c05c03bd70beeb0db8d68922671fc46309))
-- **homepage:**
-  - start cleaning up homepage, add navbar for play button & upcoming links
-  ([0ddaae4d](watch/commits/0ddaae4d7525277e696a57d20234e49cd6fd1cbc))
-  - use .marketing for centering, add playbutton as static in footer. This is pretty ugly (http://gyazo.com/215e20729569689ab48cf56c71c1fe28), let's iterate / prettify. @deilann
-  ([47bcaf83](watch/commits/47bcaf83e760dbb266ae7ff2f7299c2a1cdf3712))
-- **marketing:**
-  - more copy for mobile
-  ([cbb44847](watch/commits/cbb448478edfd0003c43d20ed216bab20d25dadd))
-  - start fleshing out the about page with images, content, etc. Create separate videos page
-  ([cb079977](watch/commits/cb079977e6f35f9308ab28158373dd3e1de9f798))
-  - add video tuts on "learn more" page until we have some copy
-  ([5028707c](watch/commits/5028707c7b174b5e050c7c1662155e781a6b415b))
-  - some frontpage updates, a screenshot, & "contact us" button mods
-  ([a582a054](watch/commits/a582a0546d680d36a21c507deff725a6c38fdb28))
-- **premium:**
-  - subscriber mystery item (doesn't yet do anything)
-  ([d0342628](watch/commits/d0342628340ce7dce95fa20177ccbcfe1ebf93e6))
-  - backport server code for premium subs (it's just ccard handling & uer model stuff)
-  ([3660f1a8](watch/commits/3660f1a85c1447de118f334a145d0d7698b93981))
-  - updates to group plans info page
-  ([66f95cdd](watch/commits/66f95cdd4cfb698fddc765a77b66d29e31eb1361))
-  - backport client-side premium code to public repo, it's client-side anyway (@colegleason @paglias)
-  ([2e18f0eb](watch/commits/2e18f0eb82f5efc77544d33d1db3fbb9cc583124))
+- **admin:** allow admins to update user's items (restoring lost items, granting quest scrolls, etc). @deilann :)
+  ([34236536](watch/commits/34236536df4038a2999d34aba7be9083fbd03958))
+- **audio:** refactor user.preferences.{sound,soundTheme} into just user.preferences.sound. Fix audio dropdown bug by moving to list-items instead
+  ([39911ef8](watch/commits/39911ef8e043cd3826d3c39a98126df8dad6a793))
+- **auth:** allow logging in with either username or email address
+  ([772ea500](watch/commits/772ea500a37a7b6779cbc826f3e27889dba594e4))
+- **backgrounds:**
+  - move backgrounds to mixin
+  ([50d888e7](watch/commits/50d888e7f858d0f222cff6e58d5944b00afb2e1b))
+  - bailey
+  ([2aacf633](watch/commits/2aacf633080165a2b8166960b0d4e43b15b59b0e))
+  - i18n for backgrounds
+  ([e3aeaab6](watch/commits/e3aeaab64174832924da5033750c0e8f6ff64fc8))
+  - use nested backgrounds as {set:{bg1,bg2,bg3}} for easier "purchase set". Refactor twoGem()
+  ([da4f51f0](watch/commits/da4f51f049e822f327e23fe7b915e77814525d3c))
+  - add backgrounds feature
+  ([c6232c2d](watch/commits/c6232c2d1ac8e8c7eda3b8cefff6af67da3edbb1))
+- **block-user:** show "blocked" status in an alert, log the user out
+  ([a4ae9332](watch/commits/a4ae9332bb693832b6089b30f08058a29956aa4f))
+- **bosses:** add limit-break for bosses
+  ([850f67cd](watch/commits/850f67cd29a99d214bf43c1e245a6845a625c835))
+- **chat:**
+  - dynamic list of tavern mods (see http://goo.gl/9XhIZ6)
+  ([e5c002bc](watch/commits/e5c002bcdb417d260a29afebbaaa22eb3ff6dbce))
+  - allow banning problem users from chat rooms
+  ([af74ff9d](watch/commits/af74ff9da0e94b8cf45c4a6da01829309c206d9f))
+- **clearCompleted:** explain what clearCompleted does #3670
+  ([c0ae0b35](watch/commits/c0ae0b35b61f581b69f83f59bb65b85c23e3ba10))
+- **contribs:** start for #3801, update to new badge colors
+  ([e10c04c9](watch/commits/e10c04c9bcf09e8f33fa7dfe4e9bbe88ec58b58a))
+- **contributors:** small update to alys's script
+  ([35308853](watch/commits/35308853a53590c38dac27e5707dfc9832598dab))
+- **coupons:** update wording @veeeeeee
+  ([439828d2](watch/commits/439828d2b1f005286dcd836691818d9bf714435d))
+- **debug:** debug buttons for NODE_ENV==test too
+  ([3136b4cc](watch/commits/3136b4cc2cceaa9187545646b029a746cb6548a3))
+- **dilatory:**
+  - add dilatory achievement
+  ([b9463381](watch/commits/b946338184d1ae392621ab09824405ff3c386c1a))
+  - scene damage + boss def/str. bug fixes, tests
+  ([9f1035c3](watch/commits/9f1035c3172baa7f4db1fa4774319a5340f0cf37))
+  - load tavern boss on each cron, removing caching for now (was too buggy)
+  ([79df201c](watch/commits/79df201c662739c75a627fe63ae868069583a4d3))
+  - model updates for tavern bosses
+  ([fad4e5bb](watch/commits/fad4e5bb02bbd8a90d8e3cf1777be69a4fb00581))
+- **directives:** move directive to be used in mobile to habitrpg-shared
+  ([4f0b4fd1](watch/commits/4f0b4fd171d32c3c4f0b1ece43e8f43ecb80eb9a))
+- **emails:**
+  - add new images
+  ([b1fc435c](watch/commits/b1fc435c9a22e515865f3f1f69dc2c9a829bfaa5))
+  - add backoff to delay failed jobs
+  ([1a15043c](watch/commits/1a15043cddcf3c1c2ac864b268e3b6e641d926f7))
+  - add subscription cancelled email
+  ([fda93773](watch/commits/fda93773c731506babf811da8d12c31d4dacfab8))
+  - add emails on signup, subscription begin and donation
+  ([fca45a3c](watch/commits/fca45a3c0b5b13a22b0fccd16402f812051551a1))
+- **fall:** bailey + free candy script
+  ([f38db7b9](watch/commits/f38db7b964a5f3a7dbbeeaa242ac2909183b2f61))
+- **filters:** add button to hide tags and restyle
+  ([1ff77932](watch/commits/1ff77932ff9c2ed227e7a700a6af4b43f78e975c))
+- **hall:** click hero name for modal. fixes #3478
+  ([ef166a9a](watch/commits/ef166a9a1085b59ae35c981ae321c648e22ecb7d))
+- **halloween:**
+  - updated bailey @lemoness
+  ([fb68f70a](watch/commits/fb68f70adf355a92f6d6850a68d19ac5be8de148))
+  - jackolantern pet
+  ([0a630d7d](watch/commits/0a630d7d9be8d207364812820cb42b8f72895e51))
+  - refactoring skin & hair to use the same mixins, add new halloween seasonal set
+  ([3605b517](watch/commits/3605b517481de55b111295a8ade12ce330744fa8))
+- **i18n:**
+  - add change language button on front page, fix #3530
+  ([1d92ddd6](watch/commits/1d92ddd645be4076a49ede74a56d76158aa04ae2))
+  - add notices
+  ([f2a10f8f](watch/commits/f2a10f8fc10bbd840a0c174d8cf46de93336dc53))
+  - support british english
+  ([f10b9cbf](watch/commits/f10b9cbfc6819b18e482507ff1f89cfd9731c0cd))
+- **jade:** split file to be used on mobile
+  ([45ab2826](watch/commits/45ab28269a4abaabf9b5486ed7cd2e6b32ecb0a2))
+- **jshint:** add initial config
+  ([aa0ce6d8](watch/commits/aa0ce6d8664dd875087c0af8e82363582bd431dd))
+- **mobile:** adapt boss box to mobile
+  ([6d251aeb](watch/commits/6d251aeb91bae435d22793acbb36c938f03b289c))
+- **mystery:**
+  - 201409
+  ([351e220b](watch/commits/351e220b83cd0586c0c2e4341e73470a68e70fec))
+  - august mystery
+  ([2cc25114](watch/commits/2cc251149ce7020bfc981ee43e0f952e7036a935))
+  - mystery items 062014
+  ([2bffa643](watch/commits/2bffa643a95a4e423fa701f655d46044970740ed))
+  - may 2014 mystery item
+  ([29be5d6e](watch/commits/29be5d6e3ed53d2afe1001e58ab12b9b7adb00aa))
+- **newStuff:** show newStuff modal on page load if present
+  ([0b9c5271](watch/commits/0b9c5271bb6d58c9b6c5035edebfa472c17f93e5))
 - **quests:**
-  - add flags.levelDrops for dropping items at certain levels
-  ([78315d82](watch/commits/78315d828ba9a1033526b9a72b7c385281e6ad0a))
-  - allow dropping scrolls in quests
-  ([54064deb](watch/commits/54064debf3c95390b5507acd826f9db3339b9f09))
-  - allow html in quest notes
-  ([800231cf](watch/commits/800231cf6481351032d4e5143edd54f5e7e3a179))
-  - add level requirement for quests
-  ([9e69d795](watch/commits/9e69d7959f174955f44429a94f22ce40fc5f7861))
-  - add canBuy so we can exclude certain items from the market (if you can only find them on quest-drop, etc). This isn't the prettiest, change?
-  ([f16654d2](watch/commits/f16654d2354dc86cc7c52e1cf0562f850cf203be))
-  - allow quests to drop multiple items
-  ([d9e5725e](watch/commits/d9e5725ee13f7e9ad329fc548537d5265cf483ca))
-- **rainbow-hair:** add rainbow hair colors
-  ([82d9233d](watch/commits/82d9233d99167d6704c878884dcc49a55cc7d884))
-- **restore:** add restore-gp back in. Parly to end the winter event, partly due to the convo at #2681 regarding subscriptions. Fixes #2681
-  ([179316e1](watch/commits/179316e10fa7597b08573d94721861baa3dbbb1c))
-- **toolbar:**
-  - try with icons instead of text, test against prod / beta & get a vote.
-  ([7456f00d](watch/commits/7456f00dc6122ad293652b7a32fb4ce671f75241))
-  - add toolbar featuring navigation, gems / subs, bailey, & chat / invite notifications
-  ([f72cb213](watch/commits/f72cb21300c078b439b3334bfa3e205ba04dc949))
-- **tracking:** gems > toolbar separately from wallet
-  ([f6abfc67](watch/commits/f6abfc67b31808c0e2d325c235747260855338c9))
-- **valentine:** valentine event
-  ([fd6eb872](watch/commits/fd6eb8724eae38d02849ffccb09f1f9c7d8e490d))
-- **winter:**
-  - remove purchasable winter hair colors, keep available if they purchased during event
-  ([f8796e90](watch/commits/f8796e9028d4f4cd2b5c5ede1734d2876d174dc9))
-  - remove winter scrolls & snowballs
-  ([52f8f0d5](watch/commits/52f8f0d5b0fdf4271fcb5f7d497ad3bf544c24e8))
-
-
-## Docs
-
-- **rebirth:** Bullet point about repurchase of limited ed gear after Rebirth
+  - spider quest
+  ([39ab4154](watch/commits/39ab41549a4512ca17e73e827454b4bf3ec22264))
+  - add rooster rampage quest
+  ([94e1d485](watch/commits/94e1d48588354665135d314f26202270ccef4d00))
+  - parrot quest
+  ([a88fde98](watch/commits/a88fde98627d9302664ee03cc3081660d04d94c7))
+  - seahorse quest
+  ([c66c5ec8](watch/commits/c66c5ec83b6cbe78cc04ac711a15690b4ed058ea))
+  - add octopus quest
+  ([f85d6b29](watch/commits/f85d6b29788e6236dd7a13f943b21af17c20f09d))
+- **rat:** add rat quest
+  ([8506db98](watch/commits/8506db984955a129b7d8ce0319fe78dcbc2dda86))
+- **readme:** dependencies badge
+  ([0bd21f31](watch/commits/0bd21f318b1578587f5367bae82511e0f6d30b4f))
+- **registration:** show some basic registration information on Settings > Site (if facebook, then "Registered with Facebook". If local, then username & email)
+  ([592ffd98](watch/commits/592ffd9818f3dd605ced71bf1741c16b7888f0a2))
+- **sortable:** use angular-ui-sortable instead of jqueryui directly
+  ([750135b6](watch/commits/750135b6734b8a3978885e97d83bc14fb423a3cb))
+- **spookDust:** add the spookDust special spell, like snowballs. Note: this is handled specially so spookDust can be bought with GP, is a WIP
+  ([0841cafd](watch/commits/0841cafd1f68dd2217f27e0f9aeed4320b827f44))
+- **stats:** expos stats jade files to mobile
+  ([e60cf01b](watch/commits/e60cf01b6f16a839497922edb6a523ea7688ade2))
+- **subscription:** disable "update card" for paypal subscribers
+  ([a1f2375b](watch/commits/a1f2375b9df6a6b6dcb61c0fd38e7b4dd2dcbd0b))
+- **todolist:** Push To Top Button
+  ([76ac1039](watch/commits/76ac10395f5844b98438aa8233a2d6f6050dfbb0))
+- **toolbar:** add button to hide/show toolbar
+  ([2309184a](watch/commits/2309184ae3fdec65e1409eb99a34642b21a854ea))
 
