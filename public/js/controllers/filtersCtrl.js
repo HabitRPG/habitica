@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
-  function($scope, $rootScope, User) {
+habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
+  function($scope, $rootScope, User, Shared) {
     var user = User.user;
     $scope._editing = false;
 
@@ -20,7 +20,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
         tagsSnap = _.object(_.pluck(tagsSnap,'id'), tagsSnap);
         $scope._editing = true;
       }
-    }
+    };
 
     $scope.toggleFilter = function(tag) {
       user.filters[tag.id] = !user.filters[tag.id];
@@ -30,8 +30,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
     };
 
     $scope.createTag = function(name) {
-      User.user.ops.addTag({body:{name:name}});
+      User.user.ops.addTag({body:{name:name, id:Shared.uuid()}});
       $scope._newTag = '';
     };
-
 }]);

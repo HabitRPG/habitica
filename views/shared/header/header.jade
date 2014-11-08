@@ -4,35 +4,33 @@
   header.site-header(ng-hide='user.preferences.hideHeader', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
     // avatar
     .herobox-wrap.main-herobox(ng-controller='UserCtrl')
-      include avatar
-
+      +herobox({main:1})
     // stat bars
     .hero-stats
-      .meter.health(title=env.t('health'))
+      .meter-label(tooltip=env.t('health'))
+        span.glyphicon.glyphicon-heart
+      .meter.health
         .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
-        span.meter-text
-          span.glyphicon.glyphicon-heart
-          | &nbsp;
+        span.meter-text.value
           | {{Math.ceil(user.stats.hp)}} / 50
-      .meter.experience(title=env.t('experience'))
+      .meter-label(tooltip=env.t('experience'))
+        span.glyphicon.glyphicon-star
+      .meter.experience
         .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
-        span.meter-text
-          span.glyphicon.glyphicon-star
-          | &nbsp;
-          | {{Math.floor(user.stats.exp)}} / {{Shared.tnl(user.stats.lvl) | number:0}}
-          // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
-          span(ng-show='user.history.exp')
-            a(ng-click='toggleChart("exp")', tooltip=env.t('progress'))
-              | &nbsp;
-              span.glyphicon.glyphicon-signal
-      .meter.mana(title='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        span.meter-text.value
+          span(ng-show='user.history.exp', tooltip=env.t('progress'))
+            a(ng-click='toggleChart("exp")').glyphicon.glyphicon-signal 
+          span
+          | {{Math.floor(user.stats.exp) | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
+      .meter-label(tooltip='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        span.glyphicon.glyphicon-fire
+      .meter.mana(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
-        span.meter-text
-          span.glyphicon.glyphicon-fire
-          | &nbsp;
+        span.meter-text.value
+          span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
 
     // party
     span(ng-controller='PartyCtrl')
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
-        include avatar
+        +herobox()

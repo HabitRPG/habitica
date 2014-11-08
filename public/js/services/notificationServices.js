@@ -3,17 +3,20 @@
  */
 angular.module("notificationServices", [])
   .factory("Notification", [function() {
-    function growl(html, type) {
-      $.bootstrapGrowl(html, {
-        ele: '#notification-area',
+    var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
+    function notify(html, type, icon) {
+      var notice = $.pnotify({
         type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
-        top_offset: 20,
-        align: 'right', //('left', 'right', or 'center')
-        width: 250, //(integer, or 'auto')
-        delay: (type=='error') ? 0 : 7000,
-        allow_dismiss: true,
-        stackup_spacing: 10 // spacing between consecutive stacecked growls.
-      });
+	    text: html,
+        opacity: 1,
+        addclass: 'alert-' + type,
+        delay: 7000,
+        hide: (type == 'error') ? false : true,
+        mouse_reset: false,
+        width: "250px",
+        stack: stack_topright,
+        icon: icon || false
+      }).click(function() { notice.pnotify_remove() });
     };
 
     /**
@@ -45,32 +48,37 @@ angular.module("notificationServices", [])
       coins: coins,
       hp: function(val) {
         // don't show notifications if user dead
-        growl("<span class='glyphicon glyphicon-heart'></span>&nbsp; " + sign(val) + " " + round(val) + " " + window.env.t('hp'), 'hp');
+        notify(sign(val) + " " + round(val) + " " + window.env.t('hp'), 'hp', 'glyphicon glyphicon-heart');
       },
       exp: function(val) {
         if (val < -50) return; // don't show when they level up (resetting their exp)
-        growl("<span class='glyphicon glyphicon-star'></span>&nbsp; " + sign(val) + " " + round(val) + " " + window.env.t('xp'), 'xp');
+        notify(sign(val) + " " + round(val) + " " + window.env.t('xp'), 'xp', 'glyphicon glyphicon-star');
       },
       gp: function(val, bonus) {
-        growl(sign(val) + " " + coins(val - bonus), 'gp');
+        notify(sign(val) + " " + coins(val - bonus), 'gp');
       },
       text: function(val){
-        growl(val);
+        if (val) {
+          notify(val, 'info');
+        }
       },
       lvl: function(){
-        growl('<span class="glyphicon glyphicon-chevron-up"></span>&nbsp;' + window.env.t('levelUp'), 'lvl');
+        notify(window.env.t('levelUp'), 'lvl', 'glyphicon glyphicon-chevron-up');
       },
       error: function(error){
-        growl("<span class='glyphicon glyphicon-exclamation-sign'></span>&nbsp; " + error, "danger");
+        notify(error, "danger", 'glyphicon glyphicon-exclamation-sign');
       },
       mp: function(val) {
-        growl("<span class='glyphicon glyphicon-fire'></span>&nbsp; " + sign(val) + " " + round(val) + " " + window.env.t('mp'), 'mp');
+        notify(sign(val) + " " + round(val) + " " + window.env.t('mp'), 'mp', 'glyphicon glyphicon-fire');
       },
       crit: function(val) {
-        growl("<span class='glyphicon glyphicon-certificate'></span>&nbsp;" + window.env.t('critBonus') + Math.round(val) + "%", 'crit');
+        notify(window.env.t('critBonus') + Math.round(val) + "%", 'crit', 'glyphicon glyphicon-certificate');
+      },
+      streak: function(val) {
+        notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
       },
       drop: function(val) {
-        growl("<span class='glyphicon glyphicon-gift'></span>&nbsp; " + val, 'drop');
+        notify(val, 'drop', 'glyphicon glyphicon-gift');
       }
     };
   }

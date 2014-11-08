@@ -2,6 +2,7 @@ var nodemailer = require('nodemailer');
 var nconf = require('nconf');
 var crypto = require('crypto');
 var path = require("path");
+var request = require('request');
 
 module.exports.ga = undefined; // set Google Analytics on nconf init
 
@@ -18,6 +19,45 @@ module.exports.sendEmail = function(mailData) {
     if(error) logging.error(error);
     else logging.info("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
+  });
+}
+
+function getMailingInfo(user) {
+  var email, name;
+  if(user.auth.local && user.auth.local.email){
+    email = user.auth.local.email;
+    name = user.profile.name || user.auth.local.username;
+  }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
+    email = user.auth.facebook.emails[0].value;
+    name = user.auth.facebook.displayName || user.auth.facebook.username;
+  }
+  return {email: email, name: name};
+}
+
+module.exports.txnEmail= function(mailingInfo, emailType){
+  if (mailingInfo._id) mailingInfo = getMailingInfo(mailingInfo);
+  if (!mailingInfo.email) return;
+  request({
+    url: nconf.get('EMAIL_SERVER_URL') + '/job',
+    method: 'POST',
+    auth: {
+      user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+      pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+    },
+    json: {
+      type: 'email',
+      data: {
+        emailType: emailType,
+        to: {
+          name: mailingInfo.name,
+          email: mailingInfo.email
+        }
+      },
+      options: {
+        attemps: 5,
+        backoff: {delay: 10*60*1000, type: 'fixed'}
+      }
+    }
   });
 }
 

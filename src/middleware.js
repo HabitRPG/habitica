@@ -7,6 +7,11 @@ var limiter = require('connect-ratelimit');
 var logging = require('./logging');
 var domainMiddleware = require('domain-middleware');
 var cluster = require('cluster');
+var i18n = require('./i18n.js');
+var shared = require('habitrpg-shared');
+var request = require('request');
+var os = require('os');
+var moment = require('moment');
 
 module.exports.apiThrottle = function(app) {
   if (nconf.get('NODE_ENV') !== 'production') return;
@@ -27,6 +32,26 @@ module.exports.apiThrottle = function(app) {
 }
 
 module.exports.domainMiddleware = function(server,mongoose) {
+  if (nconf.get('NODE_ENV')=='production') {
+    var mins = 3, // how often to run this check
+      useAvg = false, // use average over 3 minutes, or simply the last minute's report
+      url = 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=Apdex&values[]=score';
+    setInterval(function(){
+      // see https://docs.newrelic.com/docs/apm/apis/api-v2-examples/average-response-time-examples-api-v2, https://rpm.newrelic.com/api/explore/applications/data
+      request({
+        url: useAvg ? url+'&from='+moment().subtract({minutes:mins}).utc().format()+'&to='+moment().utc().format()+'&summarize=true' : url,
+        headers: {'X-Api-Key': nconf.get('NEW_RELIC_API_KEY')}
+      }, function(err, response, body){
+        var ts = JSON.parse(body).metric_data.metrics[0].timeslices,
+          score = ts[ts.length-1].values.score,
+          apdexBad = score < .75 || score == 1,
+          memory = os.freemem() / os.totalmem(),
+          memoryHigh = false; //memory < 0.1;
+        if (apdexBad || memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
+      })
+    }, mins*60*1000);
+  }
+
   return domainMiddleware({
     server: {
       close:function(){
@@ -139,120 +164,39 @@ var getManifestFiles = function(page){
   return code;
 }
 
-// Translations
-
-var translations = {};
-
-var loadTranslations = function(locale){
-  var files = fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale));
-  translations[locale] = {};
-  _.each(files, function(file){
-    _.merge(translations[locale], require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, file)));
-  });
-};
-
-// First fetch english so we can merge with missing strings in other languages
-loadTranslations('en');
-
-fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/")).forEach(function(file) {
-  if(file === 'en') return;
-  loadTranslations(file);
-  // Merge missing strings from english
-  _.defaults(translations[file], translations.en);
-});
-
-var langCodes = Object.keys(translations);
-
-var avalaibleLanguages = _.map(langCodes, function(langCode){
-  return {
-    code: langCode,
-    name: translations[langCode].languageName
-  }
-});
-
-// Load MomentJS localization files
-var momentLangs = {};
-
-// Handle different language codes from MomentJS and /locales
-var momentLangsMapping = {
-  'en': 'en-gb',
-  'no': 'nn'
-};
-
-var momentLangs = {};
-
-_.each(langCodes, function(code){
-  var lang = _.find(avalaibleLanguages, {code: code});
-  lang.momentLangCode = (momentLangsMapping[code] || code);
-  try{
-    // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
-    var f = fs.readFileSync(path.join(__dirname, '/../node_modules/moment/lang/' + lang.momentLangCode + '.js'), 'utf8');
-    momentLangs[code] = f;
-  }catch (e){}
-});
-
-var getUserLanguage = function(req, callback){
-  var getFromBrowser = function(){
-    var acceptable = _(req.acceptedLanguages).map(function(lang){
-      return lang.slice(0, 2);
-    }).uniq().value();
-    var matches = _.intersection(acceptable, langCodes);
-    return matches.length > 0 ? matches[0] : 'en';
-  };
-
-  if(req.session && req.session.userId){
-    User.findOne({_id: req.session.userId}, function(err, user){
-      if(err) return callback(err);
-      if(user && user.preferences.language && translations[user.preferences.language]){
-        return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
-      }else{
-        var langCode = getFromBrowser();
-        // Because english is usually always avalaible as an acceptable language for the browser,
-        // if the user visit the page when his own language is not avalaible yet
-        // he'll have english set in his preferences, which is not good. 
-        //if(user && translations[langCode]){
-          //user.preferences.language = langCode;
-          //user.save(); //callback?
-        //}
-        return callback(null, _.find(avalaibleLanguages, {code: langCode}))
-      }
-    });
-  }else{
-    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));
-  }
-}
-
 module.exports.locals = function(req, res, next) {
-  getUserLanguage(req, function(err, language){
-    if(err) return res.json(500, {err: err});
+  var language = _.find(i18n.avalaibleLanguages, {code: req.language});
+  var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
 
-    var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
+  // Load moment.js language file only when not on static pages
+  language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
-    // Load moment.js language file only when not on static pages
-    language.momentLang = ((!isStaticPage && momentLangs[language.code])|| undefined);
+  var tavern = require('./models/group').tavern;
+  res.locals.habitrpg = {
+    NODE_ENV: nconf.get('NODE_ENV'),
+    BASE_URL: nconf.get('BASE_URL'),
+    GA_ID: nconf.get("GA_ID"),
+    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
+    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+    getManifestFiles: getManifestFiles,
+    getBuildUrl: getBuildUrl,
+    avalaibleLanguages: i18n.avalaibleLanguages,
+    language: language,
+    isStaticPage: isStaticPage,
+    translations: i18n.translations[language.code],
+    t: function(){ // stringName and vars are the allowed parameters
+      var args = Array.prototype.slice.call(arguments, 0); 
+      args.push(language.code);
+      return shared.i18n.t.apply(null, args);
+    },
+    siteVersion: siteVersion,
+    Content: shared.content,
+    mods: require('./models/user').mods,
+    FACEBOOK_KEY: nconf.get('FACEBOOK_KEY'),
 
-    res.locals.habitrpg = {
-      NODE_ENV: nconf.get('NODE_ENV'),
-      BASE_URL: nconf.get('BASE_URL'),
-      PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
-      GA_ID: nconf.get("GA_ID"),
-      IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-      STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
-      getManifestFiles: getManifestFiles,
-      getBuildUrl: getBuildUrl,
-      avalaibleLanguages: avalaibleLanguages,
-      language: language,
-      isStaticPage: isStaticPage,
-      translations: translations[language.code],
-      t: function(stringName, vars){
-        var string = translations[language.code][stringName];
-        if(!string) return _.template(translations[language.code].stringNotFound, {string: stringName});
+    tavern: tavern, // for world boss
+    worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
+  }
 
-        return vars === undefined ? string : _.template(string, vars);
-      },
-      siteVersion: siteVersion
-    }
-
-    next();
-  });
+  next();
 }

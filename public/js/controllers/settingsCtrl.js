@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location', '$timeout',
-  function($scope, User, $rootScope, $http, API_URL, Guide, $location, $timeout) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrlService', 'Guide', '$location', '$timeout', 'Notification',
+  function($scope, User, $rootScope, $http, ApiUrlService, Guide, $location, $timeout, Notification) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -14,6 +14,16 @@ habitrpg.controller('SettingsCtrl',
 //            }
 //        });
 //    }
+
+    $scope.hideHeader = function(){
+      User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
+      if (User.user.preferences.hideHeader && User.user.preferences.stickyHeader){
+        User.set({"preferences.stickyHeader":false});
+        $rootScope.$on('userSynced', function(){
+          window.location.reload();
+        });           
+      }
+    }
 
     $scope.toggleStickyHeader = function(){
       $rootScope.$on('userSynced', function(){
@@ -65,17 +75,32 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
+    $scope.changeUsername = function(changeUser){
+      if (!changeUser.newUsername || !changeUser.password) {
+        return alert(window.env.t('fillAll'));
+      }
+      $http.post(ApiUrlService.get() + '/api/v2/user/change-username', changeUser)
+        .success(function(){
+          alert(window.env.t('usernameSuccess'));
+          $scope.changeUser = {};
+        })
+        .error(function(data){
+          alert(data.err);
+        });
+    }
+
     $scope.changePassword = function(changePass){
       if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
         return alert(window.env.t('fillAll'));
       }
-      $http.post(API_URL + '/api/v2/user/change-password', changePass)
-        .success(function(){
+      $http.post(ApiUrlService.get() + '/api/v2/user/change-password', changePass)
+        .success(function(data, status, headers, config){
+          if (data.err) return alert(data.err);
           alert(window.env.t('passSuccess'));
           $scope.changePass = {};
         })
-        .error(function(data){
-          alert(data);
+        .error(function(data, status, headers, config){
+          alert(data.err);
         });
     }
 
@@ -105,14 +130,37 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope['delete'] = function(){
-      $http['delete'](API_URL + '/api/v2/user')
-        .success(function(){
+      $http['delete'](ApiUrlService.get() + '/api/v2/user')
+        .success(function(res, code){
+          if (res.err) return alert(res.err);
           localStorage.clear();
           window.location.href = '/logout';
-        })
-        .error(function(data){
-          alert(data);
         });
+    }
+
+    $scope.enterCoupon = function(code) {
+      $http.post(ApiUrlService.get() + '/api/v2/user/coupon/' + code).success(function(res,code){
+        if (code!==200) return;
+        User.sync();
+        Notification.text('Coupon applied! Check your inventory');
+      });
+    }
+    $scope.generateCodes = function(codes){
+      $http.post(ApiUrlService.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
+        .success(function(res,code){
+          $scope._codes = {};
+          if (code!==200) return;
+          window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
+        })
+    }
+    $scope.release = function() {
+      User.user.ops.release({});
+      $rootScope.$state.go('tasks');
+    }
+
+    $scope.release2 = function() {
+      User.user.ops.release2({});
+      $rootScope.$state.go('tasks');
     }
   }
 ]);

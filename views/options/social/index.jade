@@ -3,19 +3,20 @@
 
 include ./challenges.jade
 include ./hall.jade
+include ./boss.jade
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
 
 script(type='text/ng-template', id='partials/options.social.party.html')
-  div(ng-show='group._id')
+  div(ng-if='group._id')
     include ./group
-  div(ng-hide='group._id')
-    div(ng-show='user.invitations.party.id')
+  div(ng-if='!group._id')
+    div(ng-show='user.invitations.party.id').container-fluid
       h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
       a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
       a.btn.btn-danger(ng-click='reject()')=env.t('reject')
-    div(ng-hide='user.invitations.party.id')
+    div(ng-hide='user.invitations.party.id').container-fluid
       h2=env.t('createAParty')
       p
         =env.t('noPartyText')
@@ -23,7 +24,9 @@ script(type='text/ng-template', id='partials/options.social.party.html')
         {{user.id}}
       p
         =env.t('startLFG')
+        |&nbsp;
         a(href="http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG")=env.t('linkLFG')
+        |&nbsp;
         =env.t('endLFG')
       include ./create-group
 
@@ -33,23 +36,23 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
   // Public Groups
-  .col-md-3
+  div.container-fluid(style='margin-bottom: 1.5em')
     input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
-  table.table.table-striped
-    tr(ng-repeat='group in groups.public | filter:guildSearch')
+  table.table.table-striped(style='clear:left;')
+    tr(ng-repeat='group in groups.public | filter:guildSearch track by group._id')
       td
         ul.pull-right.challenge-accordion-header-specs
-          li='{{group.memberCount}} ' + env.t('members')
+          li='{{::group.memberCount}} ' + env.t('members')
+          // join / leave
           li
-            // join / leave
-            a.btn.btn-sm.btn-danger(ng-show='group._isMember', ng-click='clickLeave(group, $event)')
+            a.btn.btn-sm.btn-danger(ng-if="::group._isMember", ng-click='clickLeave(group, $event)')
               span.glyphicon.glyphicon-ban-circle
               =env.t('leave')
-            a.btn.btn-sm.btn-success(ng-hide='group._isMember', ng-click='join(group)')
+            a.btn.btn-sm.btn-success(ng-if="::!group._isMember", ng-click='join(group)')
               span.glyphicon.glyphicon-ok
               =env.t('join')
-        h4 {{group.name}}
-        p {{group.description}}
+        h4 {{::group.name}}
+        p {{::group.description}}
 
 script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
   include ./group
@@ -58,11 +61,11 @@ script(type='text/ng-template', id='partials/options.social.guilds.create.html')
   include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.html')
-  ul.nav.nav-tabs
+  ul.options-submenu
     li(ng-class="{ active: $state.includes('options.social.guilds.public') }")
       a(ui-sref='options.social.guilds.public')
         =env.t('publicGuilds')
-    li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds')
+    li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds track by group._id')
       a(ui-sref="options.social.guilds.detail({gid:group._id})")
         | {{group.name}}
     li(ng-class="{ active: $state.includes('options.social.guilds.create') }")
@@ -74,11 +77,9 @@ script(type='text/ng-template', id='partials/options.social.guilds.html')
       div(ui-view)
 
 script(type='text/ng-template', id='partials/options.social.html')
-  ul.nav.nav-tabs
+  ul.options-menu
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
-        span.glyphicon.glyphicon-eye-close
-        | &nbsp;
         =env.t('tavern')
     li(ng-class="{ active: $state.includes('options.social.party') }")
       a(ui-sref='options.social.party')
@@ -88,13 +89,9 @@ script(type='text/ng-template', id='partials/options.social.html')
         =env.t('guilds')
     li(ng-class="{ active: $state.includes('options.social.challenges') }")
       a(ui-sref='options.social.challenges')
-        span.glyphicon.glyphicon-bullhorn
-        | &nbsp;
         =env.t('challenges')
     li(ng-class="{ active: $state.includes('options.social.hall') }")
       a(ui-sref='options.social.hall')
-        span.glyphicon.glyphicon-flag
-        | &nbsp;
         =env.t('hall')
 
   .tab-content

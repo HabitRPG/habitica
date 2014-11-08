@@ -1,16 +1,17 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification',
-  function ($scope, $rootScope, Shared, User, Guide, Notification) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification) {
 
-    $rootScope.$watch('user.stats.hp', function(after, before) {
+    $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
         $rootScope.openModal('death', {keyboard:false, backdrop:'static'});
       }
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
+      if (after < 0) $rootScope.playSound('Minus_Habit');
     });
 
     $rootScope.$watch('user.stats.exp', function(after, before) {
@@ -18,6 +19,10 @@ habitrpg.controller('NotificationCtrl',
       if (User.user.stats.lvl == 0) return;
       Notification.exp(after - before);
     });
+
+    $rootScope.$watch('user.achievements', function(){
+      $rootScope.playSound('Achievement_Unlocked');
+    }, true);
 
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
@@ -53,6 +58,7 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (after == before || !after) return;
+      $rootScope.playSound('Achievement_Unlocked');
       if (after.type !== 'gear') {
         var type = (after.type == 'Food') ? 'food' :
           (after.type == 'HatchingPotion') ? 'hatchingPotions' : // can we use camelcase and remove this line?
@@ -62,12 +68,35 @@ habitrpg.controller('NotificationCtrl',
         }
         User.user.items[type][after.key]++;
       }
-      Notification.drop(User.user._tmp.drop.dialog);
+
+      if(after.type === 'HatchingPotion'){
+        var text = Content.hatchingPotions[after.key].text();
+        var notes = Content.hatchingPotions[after.key].notes();
+        Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}));
+      }else if(after.type === 'Egg'){
+        var text = Content.eggs[after.key].text();
+        var notes = Content.eggs[after.key].notes();
+        Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}));
+      }else if(after.type === 'Food'){
+        var text = Content.food[after.key].text();
+        var notes = Content.food[after.key].notes();
+        Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}));
+      }else{
+        // Keep support for another type of drops that might be added
+        Notification.drop(User.user._tmp.drop.dialog);
+      }
+      $rootScope.playSound('Item_Drop');
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after == before || after < before) return;
-      $rootScope.openModal('achievements/streak');
+      if (User.user.achievements.streak > 1) {
+        Notification.streak(User.user.achievements.streak);
+        $rootScope.playSound('Achievement_Unlocked');
+      }
+      else {
+        $rootScope.openModal('achievements/streak');
+      }
     });
 
     $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
@@ -76,10 +105,12 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.items.pets', function(after, before){
-      if(_.size(after) === _.size(before) || 
+      if(_.size(after) === _.size(before) ||
         Shared.countPets(null, after) < 90) return;
-      User.user.achievements.beastMaster = true;
-      $rootScope.openModal('achievements/beastMaster');
+      if (User.user.achievements.beastMaster == false) {
+        User.user.achievements.beastMaster = true;
+        $rootScope.openModal('achievements/beastMaster');
+      }
     }, true);
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
@@ -114,12 +145,13 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (after > before) {
         Notification.lvl();
+        $rootScope.playSound('Level_Up');
       }
     });
 
     // Completed quest modal
     $rootScope.$watch('user.party.quest.completed', function(after, before){
-      if (after == before || after != true) return;
+      if (!after) return;
       $rootScope.openModal('questCompleted', {controller:'InventoryCtrl'});
     });
 
@@ -135,5 +167,9 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$on('responseText', function(ev, error){
       Notification.text(error);
     });
+
+    // Show new-stuff modal on load
+    if (User.user.flags.newStuff)
+      $rootScope.openModal('newStuff');
   }
 ]);

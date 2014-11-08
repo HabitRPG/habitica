@@ -7,6 +7,7 @@ var api = require('./../controllers/user');
 var auth = require('./../controllers/auth');
 var middleware = require('../middleware');
 var logging = require('./../logging');
+var i18n = require('./../i18n');
 
 /* ---------- Deprecated API ------------*/
 
@@ -16,10 +17,10 @@ var initDeprecated = function(req, res, next) {
   return next();
 };
 
-router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, auth.auth, api.score);
+router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, auth.auth, i18n.getUserLanguage, api.score);
 
 // FIXME add this back in
-router.get('/v1/users/:uid/calendar.ics', function(req, res, next) {
+router.get('/v1/users/:uid/calendar.ics', i18n.getUserLanguage, function(req, res, next) {
   return next() //disable for now
 
   var apiToken, model, query, uid;
@@ -141,32 +142,32 @@ var batchUpdate = function(req, res, next) {
 
 var cron = api.cron;
 
-router.get('/status', function(req, res) {
+router.get('/status', i18n.getUserLanguage, function(req, res) {
   return res.json({
     status: 'up'
   });
 });
 
 // Scoring
-router.post('/user/task/:id/:direction', auth.auth, cron, api.score);
-router.post('/user/tasks/:id/:direction', auth.auth, cron, api.score);
+router.post('/user/task/:id/:direction', auth.auth, i18n.getUserLanguage, cron, api.score);
+router.post('/user/tasks/:id/:direction', auth.auth, i18n.getUserLanguage, cron, api.score);
 
 // Tasks
-router.get('/user/tasks', auth.auth, cron, api.getTasks);
-router.get('/user/task/:id', auth.auth, cron, api.getTask);
-router["delete"]('/user/task/:id', auth.auth, cron, api.deleteTask);
-router.post('/user/task', auth.auth, cron, api.addTask);
+router.get('/user/tasks', auth.auth, i18n.getUserLanguage, cron, api.getTasks);
+router.get('/user/task/:id', auth.auth, i18n.getUserLanguage, cron, api.getTask);
+router["delete"]('/user/task/:id', auth.auth, i18n.getUserLanguage, cron, api.deleteTask);
+router.post('/user/task', auth.auth, i18n.getUserLanguage, cron, api.addTask);
 
 // User
-router.get('/user', auth.auth, cron, api.getUser);
-router.post('/user/revive', auth.auth, cron, api.revive);
-router.post('/user/batch-update', middleware.forceRefresh, auth.auth, cron, batchUpdate);
+router.get('/user', auth.auth, i18n.getUserLanguage, cron, api.getUser);
+router.post('/user/revive', auth.auth, i18n.getUserLanguage, cron, api.revive);
+router.post('/user/batch-update', middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron, batchUpdate);
 
 function deprecated(req, res) {
   res.json(404, {err:'API v1 is no longer supported, please use API v2 instead (https://github.com/HabitRPG/habitrpg/blob/develop/API.md)'});
 }
-router.get('*', deprecated);
-router.post('*', deprecated);
-router.put('*', deprecated);
+router.get('*', i18n.getUserLanguage, deprecated);
+router.post('*', i18n.getUserLanguage, deprecated);
+router.put('*', i18n.getUserLanguage, deprecated);
 
 module.exports = router;

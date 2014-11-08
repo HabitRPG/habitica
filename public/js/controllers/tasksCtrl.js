@@ -1,11 +1,25 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', '$http', 'API_URL', '$timeout', 'Shared',
-  function($scope, $location, User, Notification, $http, API_URL, $timeout, Shared) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrlService', '$timeout', 'Shared',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrlService, $timeout, Shared) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
     $scope.score = function(task, direction) {
+      switch (task.type) {
+          case 'reward':
+              $rootScope.playSound('Reward');
+              break;
+          case 'daily':
+              $rootScope.playSound('Daily');
+              break;
+          case 'todo':
+              $rootScope.playSound('ToDo');
+              break;
+          default:
+              if (direction === 'down') $rootScope.playSound('Minus_Habit');
+              else if (direction === 'up') $rootScope.playSound('Plus_Habit');
+      }
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
@@ -27,6 +41,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
     $scope.clearDoneTodos = function() {};
 
     /**
+     * Pushes task to top or bottom of list
+     */
+    $scope.pushTask = function(task, index, location) {
+      var to = (location === 'bottom') ? -1 : 0;
+      User.user.ops.sortTask({params:{id:task.id},query:{from:index, to:to}})
+    };
+
+    /**
      * This is calculated post-change, so task.completed=true if they just checked it
      */
     $scope.changeCheck = function(task) {
@@ -42,11 +64,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
       User.user.ops.deleteTask({params:{id:list[$index].id}})
     };
 
-    $scope.saveTask = function(task, stayOpen) {
+    $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
       if (task.checklist)
         task.checklist = _.filter(task.checklist,function(i){return !!i.text});
       User.user.ops.updateTask({params:{id:task.id},body:task});
       if (!stayOpen) task._editing = false;
+      if (isSaveAndClose)
+        $("#task-" + task.id).parent().children('.popover').removeClass('in');
     };
 
     /**
@@ -64,7 +88,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
 
     $scope.unlink = function(task, keep) {
       // TODO move this to userServices, turn userSerivces.user into ng-resource
-      $http.post(API_URL + '/api/v2/user/tasks/' + task.id + '/unlink?keep=' + keep)
+      $http.post(ApiUrlService.get() + '/api/v2/user/tasks/' + task.id + '/unlink?keep=' + keep)
         .success(function(){
           User.log({});
         });
@@ -75,7 +99,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
      To-Dos
      ------------------------
      */
-    $scope._today = moment().add('days',1);
+    $scope._today = moment().add({days: 1});
 
     /*
      ------------------------
@@ -120,6 +144,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
         $event.preventDefault();
       } 
     }
+    $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
+      var toSwap = task.checklist.splice(oldIndex, 1)[0];
+      task.checklist.splice(newIndex, 0, toSwap);
+      $scope.saveTask(task, true);
+    }
     $scope.navigateChecklist = function(task,$index,$event){
       focusChecklist(task, $event.keyCode == '40' ? $index+1 : $index-1);
     }
@@ -143,6 +172,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
 
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
+      $rootScope.playSound('Reward');
     };
 
 
@@ -163,4 +193,31 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     }
 
+    /*
+     ------------------------
+     Hiding Tasks
+     ------------------------
+     */
+
+    $scope.shouldShow = function(task, list, prefs){
+      if (task._editing) // never hide a task while being edited
+        return true;
+      if (task.type == 'todo')  // TODO: convert To-Dos to use this new system and probably add a "Dated" column (i.e., "Incomplete" (includes dated), "Dated" (has due date and is not complete), "Complete")
+        return true;
+      var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task.repeat, prefs) : true;
+      switch (list.view) {
+        case "yellowred":  // Habits
+          return task.value < 1;
+        case "greenblue":  // Habits
+          return task.value >= 1;
+        case "remaining":  // Dailies and To-Dos
+          return !task.completed && shouldDo;
+        case "complete":   // Dailies and To-Dos
+          return task.completed || !shouldDo;
+        case "ingamerewards":   // All skills/rewards except the user's own
+          return false; // Because "rewards" list includes only the user's own
+        case "all":
+          return true;
+      }
+    }
   }]);

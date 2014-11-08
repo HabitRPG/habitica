@@ -3,10 +3,15 @@ script(id='modals/login.html', type='text/ng-template')
     button.close(type='button', ng-click='$close()') ×
     h4.modal-title=env.t('loginAndReg')
   .modal-body(ng-controller='AuthCtrl')
-    a(href='/auth/facebook')
-      img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
-    //can we add in google auth? I like google auth
-    h3 Or
+    a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
+    //-ul.list-inline
+      li
+        a.zocial.icon.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')
+      li
+        a.zocial.icon.googleplus(alt="Google", ng-click='socialLogin("google")') Google+
+      li
+        a.zocial.icon.twitter(alt="Twitter", ng-click='socialLogin("twitter")') Twitter
+    hr
     ul.nav.nav-tabs
       li.active
         a(data-toggle='tab',data-target='#login-tab')=env.t('login')
@@ -17,7 +22,7 @@ script(id='modals/login.html', type='text/ng-template')
       .tab-pane.active#login-tab
         form(ng-submit='auth()', method='POST')
           .form-group
-            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
+            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username')+' or Email', name='username')
           .form-group
             input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
             //-.control-group
@@ -39,12 +44,12 @@ script(id='modals/login.html', type='text/ng-template')
                 a(data-toggle="collapse" data-parent="#forgot-password" href="#forgot-password-panel")=env.t('forgotPass')
           
             .panel-body.collapse#forgot-password-panel
-              form(ng-submit='passwordReset(passwordResetEmail)')
+              form(name='passwordResetForm', ng-submit='passwordReset(passwordResetEmail)', novalidate)
                 //.alert.alert-success {.success.passwordReset}
                 //.control-group.{#if..errors.passwordReset}error{/}
                 h3=env.t('emailNewPass')
                 .form-group
-                  input.form-control(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
+                  input.form-control(type='email', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
                   //span.help-inline {.errors.passwordReset}
                 .form-group
                   input.btn.btn-default(type='submit', value=env.t('submit'))

@@ -1,14 +1,25 @@
-form.chat-form(ng-submit='postChat(group,message.content)')
+div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAccepted')
+  p If you would like to post messages in the Tavern or any party or guild chat, please first read our
+    |&nbsp;
+    a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+    |&nbsp;and then click the button below to indicate that you accept them.
+  .chat-controls
+    div
+      button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
+    .chat-buttons
+      button(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
+        span.glyphicon.glyphicon-refresh
+
+form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
     textarea.form-control(rows=4, ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete)
     span.user-list(ng-show='!isAtListHidden')
       ul.list-at-user
-        li(bindonce='response', ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
-          span.username.label.label-default(ng-class='userLevelStyle(user)') {{user.user}}
-  .row
-    .col-md-9
+        li(ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
+          span.username.label.label-default(ng-class=':: userLevelStyle(user)') {{::user.user}}
+  .chat-controls
+    .chat-formatting
       include ../../shared/formatting-help
-    .col-md-3
-      input.btn.btn-default.chat-btn(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
-      button.btn.btn-default(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
-        span.glyphicon.glyphicon-refresh.pull-right
+    .chat-buttons
+      input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
+      button(type="button", ng-click='sync(group)')=env.t('toolTipMsg')

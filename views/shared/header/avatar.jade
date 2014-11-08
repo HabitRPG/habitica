@@ -3,27 +3,39 @@
     Removing it will remove the user's name, but will allow more room for mounts & helms. IMO this is the lesser of two evils, revisit
 //-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.currentPet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
 
-figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id, hasPet:profile.items.currentPet, hasMount:profile.items.currentMount, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
+mixin avatar(opts)
+
   .character-sprites
+
     // Mount Body
-    span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
+    if !opts.minimal
+      span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
 
     span(ng-if='profile.stats.buffs.snowball')
       span.snowman
-    span(ng-if='!profile.stats.buffs.snowball')
-      // Avatar
-      span(class='skin_{{profile.preferences.skin}}')
-
+    span(ng-if='profile.stats.buffs.spookDust')
+      span.spookman
+    span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust')
       // Back Accessory
       span(class='{{profile.items.gear.equipped.back}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.back}}', ng-if='profile.preferences.costume')
 
+      // Avatar
+      span(class='skin_{{profile.preferences.skin}}', ng-if='!profile.preferences.sleep')
+      span(class='skin_{{profile.preferences.skin}}_sleep', ng-if='profile.preferences.sleep')
       // Shirt
       span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')
 
       // Armor
       span(class='{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.costume')
+
+      //- Cape collar
+        span(class='{{profile.items.gear.equipped.back}}_collar', ng-if='!profile.preferences.costume')
+        span(class='{{profile.items.gear.costume.back}}_collar', ng-if='profile.preferences.costume')
+
+      span(class='{{profile.items.gear.equipped.body}}', ng-if='!profile.preferences.costume')
+      span(class='{{profile.items.gear.costume.body}}', ng-if='profile.preferences.costume')
 
       // Hair
       span(class='head_0')
@@ -36,6 +48,13 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
       span(class='{{profile.items.gear.equipped.head}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.head}}', ng-if='profile.preferences.costume')
 
+      // Head Accessory
+      span(class='{{profile.items.gear.equipped.headAccessory}}', ng-if='!profile.preferences.costume')
+      span(class='{{profile.items.gear.costume.headAccessory}}', ng-if='profile.preferences.costume')
+
+      // Flower
+      span(class='hair_flower_{{profile.preferences.hair.flower}}')
+
       // Shield
       span(class='{{profile.items.gear.equipped.shield}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.shield}}', ng-if='profile.preferences.costume')
@@ -46,16 +65,21 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
 
 
     // Mount Head
-    span(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')
+    if !opts.minimal
+      span.current-mount(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')
 
     // Resting
     span(ng-class='{zzz:profile.preferences.sleep}')
-    // FIXME handle @minimal, this might have to be a directive
-    span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
-  .avatar-level.label.label-default(ng-class='userLevelStyle(profile)')
-    span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'))
-    |&nbsp;&nbsp;
-    =env.t('lvl') 
-    |&nbsp;{{profile.stats.lvl}}
-    |&nbsp;
-    span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}))
+    if !opts.minimal
+      span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet')
+
+mixin herobox(opts)
+  - if (!opts) {opts = {minimal:false,main:false}}
+  figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', class='background_{{profile.preferences.background}} #{opts.main ? "isUser" : ""} #{opts.minimal ? "minimal" : ""}', ng-class='{hasPet: (#{!opts.minimal} && profile.items.currentPet), hasMount: (#{!opts.minimal} && profile.items.currentMount), noBackgroundImage: !profile.preferences.background, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
+    .avatar-name(ng-class='userLevelStyle(profile)')
+      |{{profile.profile.name}}
+    +avatar(opts)
+    .avatar-level(ng-class='userLevelStyle(profile)')
+      span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'), tooltip-append-to-body="true")
+      span(tooltip=env.t('level'), tooltip-append-to-body="true") {{profile.stats.lvl}}
+      span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}), tooltip-append-to-body="true")

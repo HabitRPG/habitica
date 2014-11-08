@@ -6,13 +6,11 @@ var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
 var shared = require('habitrpg-shared');
-var validator = require('validator');
-var check = validator.check;
-var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
 var ga = require('./../utils').ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
@@ -20,7 +18,23 @@ var api = module.exports;
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
-  res.json(shared.content);
+  var language = req.query.language; //|| 'en' in i18n
+  var content = _.cloneDeep(shared.content);
+  var walk = function(obj){
+    _.each(obj, function(item, key, source){
+      if(_.isPlainObject(item) || _.isArray(item)) return walk(item);
+      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(language);
+    });
+  }
+  walk(content);
+  res.json(content);
+}
+
+api.getModelPaths = function(req,res,next){
+  res.json(_.reduce(User.schema.paths,function(m,v,k){
+    m[k] = v.instance || 'Boolean';
+    return m;
+  },{}));
 }
 
 /*
@@ -35,8 +49,8 @@ api.getContent = function(req, res, next) {
   ---------------
 */
 
-findTask = function(req, res, next) {
-  return task = res.locals.user.tasks[req.params.id];
+var findTask = function(req, res) {
+  return res.locals.user.tasks[req.params.id];
 };
 
 /*
@@ -54,10 +68,12 @@ api.score = function(req, res, next) {
     user = res.locals.user,
     task;
 
+  var clearMemory = function(){user = task = id = direction = null;}
+
   // Send error responses for improper API call
   if (!id) return res.json(400, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
-    if (direction == 'unlink') return next();
+    if (direction == 'unlink' || direction == 'sort') return next();
     return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
   // If exists already, score it
@@ -79,7 +95,7 @@ api.score = function(req, res, next) {
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
   }
-  var delta = user.ops.score({params:{id:task.id, direction:direction}});
+  var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 
   user.save(function(err,saved){
     if (err) return next(err);
@@ -90,22 +106,28 @@ api.score = function(req, res, next) {
       _tmp: user._tmp
     }, saved.toJSON().stats));
 
-    // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response
-    // and the user doesn't care what happens back there
-    if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
-    if (task.type == 'reward') return; // we don't want to update the reward GP cost
+    if (
+      (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
+      || (task.type == 'reward') // we don't want to update the reward GP cost
+    ) return clearMemory();
     Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal){
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
-        return user.save();
+        user.save();
+        return clearMemory();
       }
       var t = chal.tasks[task.id];
-      if (!t) return chal.syncToUser(user); // this task was removed from the challenge, notify user
+      // this task was removed from the challenge, notify user
+      if (!t) {
+        chal.syncToUser(user);
+        return clearMemory();
+      }
       t.value += delta;
       if (t.type == 'habit' || t.type == 'daily')
         t.history.push({value: t.value, date: +new Date});
       chal.save();
+      clearMemory();
     });
   });
 };
@@ -147,6 +169,11 @@ api.getTask = function(req, res, next) {
   ------------------------------------------------------------------------
 */
 // api.buy // handled in Shard.ops
+
+api.getBuyList = function (req, res, next) {
+   var list = shared.updateStore(res.locals.user);
+   return res.json(200, list);
+};
 
 /*
   ------------------------------------------------------------------------
@@ -211,6 +238,7 @@ api.update = function(req, res, next) {
     if (!_.isEmpty(errors)) return res.json(401, {err: errors});
     if (err) return next(err);
     res.json(200, user);
+    user = errors = null;
   });
 };
 
@@ -220,8 +248,10 @@ api.cron = function(req, res, next) {
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
+
   if (ranCron) res.locals.wasModified = true;
   if (!ranCron) return next(null,user);
+  Group.tavernBoss(user,progress);
   if (!quest) return user.save(next);
 
   // If user is on a quest, roll for boss & player, or handle collections
@@ -240,8 +270,9 @@ api.cron = function(req, res, next) {
       User.findById(user._id, cb);
     }
   ], function(err, saved) {
-    user = res.locals.user = saved;
+    res.locals.user = saved;
     next(err,saved);
+    user = progress = quest = null;
   });
 
 };
@@ -250,6 +281,9 @@ api.cron = function(req, res, next) {
 // api.reset // Shared.ops
 
 api['delete'] = function(req, res, next) {
+  var plan = res.locals.user.purchased.plan;
+  if (plan && plan.customerId && !plan.dateTerminated)
+    return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
   res.locals.user.remove(function(err){
     if (err) return next(err);
     res.send(200);
@@ -258,17 +292,11 @@ api['delete'] = function(req, res, next) {
 
 /*
  ------------------------------------------------------------------------
- Unlock Preferences
+ Gems
  ------------------------------------------------------------------------
  */
 
 // api.unlock // see Shared.ops
-
-/*
- ------------------------------------------------------------------------
- Buy Gems
- ------------------------------------------------------------------------
- */
 
 api.addTenGems = function(req, res, next) {
   var user = res.locals.user;
@@ -279,128 +307,6 @@ api.addTenGems = function(req, res, next) {
   })
 }
 
-// TODO delete plan
-
-function revealMysteryItems(user) {
-  _.each(shared.content.gear.flat, function(item) {
-    if (
-      item.klass === 'mystery' &&
-      moment().isAfter(item.mystery.start) &&
-      moment().isBefore(item.mystery.end) &&
-      !user.items.gear.owned[item.key] &&
-      !~user.purchased.plan.mysteryItems.indexOf(item.key)
-    ) {
-      user.purchased.plan.mysteryItems.push(item.key);
-    }
-  });
-}
-
-/*
- Setup Stripe response when posting payment
- */
-api.buyGems = function(req, res, next) {
-  var api_key = nconf.get('STRIPE_API_KEY');
-  var stripe = require("stripe")(api_key);
-  var token = req.body.id;
-  var user = res.locals.user;
-
-  async.waterfall([
-    function(cb){
-      if (req.query.plan) {
-        stripe.customers.create({
-          email: req.body.email,
-          metadata: {uuid: res.locals.user._id},
-          card: token,
-          plan: req.query.plan,
-        }, cb);
-      } else {
-        stripe.charges.create({
-          amount: "500", // $5
-          currency: "usd",
-          card: token
-        }, cb);
-      }
-    },
-    function(response, cb) {
-      //user.purchased.ads = true;
-      if (req.query.plan) {
-        if (!user.purchased.plan) user.purchased.plan = {}
-        _(user.purchased.plan)
-          .merge({ // override with these values
-            planId:'basic_earned',
-            customerId: response.id,
-            dateUpdated: new Date,
-            gemsBought: 0
-          })
-          .defaults({ // allow non-override if a plan was previously used
-            dateCreated: new Date,
-            mysteryItems: []
-          });
-        revealMysteryItems(user);
-        ga.event('subscribe', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
-      } else {
-        user.balance += 5;
-        ga.event('checkout', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
-      }
-      user.txnCount++;
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200, saved);
-  });
-};
-
-api.cancelSubscription = function(req, res, next) {
-  var api_key = nconf.get('STRIPE_API_KEY');
-  var stripe = require("stripe")(api_key);
-  var user = res.locals.user;
-  if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
-
-  async.waterfall([
-    function(cb) {
-      stripe.customers.del(user.purchased.plan.customerId, cb);
-    },
-    function(response, cb) {
-      _.merge(user.purchased.plan, {planId:null, customerId:null});
-      user.markModified('purchased.plan');
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200, saved);
-    ga.event('unsubscribe', 'Stripe').send()
-  });
-
-}
-
-api.buyGemsPaypalIPN = function(req, res, next) {
-  res.send(200);
-  ipn.verify(req.body, function callback(err, msg) {
-    if (err) return next('PayPal Error: ' + msg);
-    if (req.body.payment_status == 'Completed') {
-      //Payment has been confirmed as completed
-      var parts = url.parse(req.body.custom, true);
-      var uid = parts.query.uid; //, apiToken = query.apiToken;
-      if (!uid) return next("uuid or apiToken not found when completing paypal transaction");
-      User.findById(uid, function(err, user) {
-        if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
-        if (err) return nex(err);
-        user.balance += 5;
-        user.txnCount++;
-        //user.purchased.ads = true;
-        user.save();
-        logging.info('PayPal transaction completed and user updated');
-        ga.event('checkout', 'PayPal').send()
-        ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send()
-      });
-    }
-  });
-}
-
 /*
  ------------------------------------------------------------------------
  Tags
@@ -409,6 +315,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
 // api.deleteTag // handled in Shared.ops
 // api.addTag // handled in Shared.ops
 // api.updateTag // handled in Shared.ops
+// api.sortTag // handled in Shared.ops
 
 /*
  ------------------------------------------------------------------------
@@ -416,18 +323,21 @@ api.buyGemsPaypalIPN = function(req, res, next) {
  ------------------------------------------------------------------------
  */
 api.cast = function(req, res, next) {
-  var user = res.locals.user;
-  var targetType = req.query.targetType;
-  var targetId = req.query.targetId;
-  var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
-  var spell = shared.content.spells[klass][req.params.spell];
+  var user = res.locals.user,
+    targetType = req.query.targetType,
+    targetId = req.query.targetId,
+    klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class,
+    spell = shared.content.spells[klass][req.params.spell];
+
   if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
+  if (spell.mana > user.stats.mp) return res.json(400, {err: 'Not enough mana to cast spell'});
 
   var done = function(){
     var err = arguments[0];
     var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
     if (err) return next(err);
     res.json(saved);
+    user = targetType = targetId = klass = spell = null;
   }
 
   switch (targetType) {
@@ -465,11 +375,13 @@ api.cast = function(req, res, next) {
 
           if (group) {
             series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+              var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
               group.sendChat(message);
               group.save(cb2);
             })
           }
+
+          series.push(function(cb2){g = group = series = found = null;cb2();})
 
           async.series(series, cb);
         },
@@ -526,6 +438,8 @@ api.batchUpdate = function(req, res, next) {
   res.locals.ops = [];
   var ops = _.transform(req.body, function(m,_req){
     if (_.isEmpty(_req)) return;
+    _req.language = req.language;
+
     m.push(function() {
       var cb = arguments[arguments.length-1];
       res.locals.ops.push(_req);
@@ -544,13 +458,16 @@ api.batchUpdate = function(req, res, next) {
   });
 
   // call all the operations, then return the user object to the requester
-  async.waterfall(ops, function(err,user) {
+  async.waterfall(ops, function(err,_user) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return next(err);
 
-    var response = user.toJSON();
+    var response = _user.toJSON();
     response.wasModified = res.locals.wasModified;
+
+    user.fns.nullify();
+    user = res.locals.user = oldSend = oldJson = oldSave = null;
 
     // return only drops & streaks
     if (response._tmp && response._tmp.drop){
@@ -560,7 +477,7 @@ api.batchUpdate = function(req, res, next) {
     }else if(response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
       response.todos = _.where(response.todos, function(t) {
-        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract('days',3));
+        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
       });
       res.json(200, response);
 

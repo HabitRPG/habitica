@@ -1,8 +1,7 @@
 // 1. Set up color classes
 // ========================
 
-// color variables
-@import "./color-vars.styl";
+// Color variables are defined in "./global-colors.styl"
 
 // array of keywords and their associated color vars
 $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
@@ -51,9 +50,11 @@ for $stage in $stages
 // ------------
 .task-column
   padding: 1.5em
-  background: #f5f5f5
-  border: 1px solid #ccc
+  background: $color-tasks
+  border: 1px solid darken($color-tasks,16.18%)
   font-family: 'Lato', sans-serif
+  h2
+    color: darken($color-tasks,61.8%)
 
   .task-column_title
     margin: 0 0 0.5em
@@ -126,7 +127,7 @@ for $stage in $stages
   position: relative
   &:hover
     cursor: move
-  &:last-child
+  :last-child
     margin-bottom: 0
 
   label
@@ -472,6 +473,6 @@ form
 
     [type="checkbox"]
       margin: 0px 10px 3px 0px
-      width: 5%
+      width: 4%
   li:hover .checklist-icons
     opacity:1

@@ -5,7 +5,7 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
     p
       figure
         .item-drop-icon(class='Pet_Egg_Wolf')
-      span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text}}", eggNotes: "{{Content.eggs.Wolf.notes}}"})
+      span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text()}}", eggNotes: "{{Content.eggs.Wolf.notes()}}"})
     br
     p
       figure
@@ -13,3 +13,28 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
       span!=env.t('useGems')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
+
+script(type='text/ng-template', id='modals/pet-key.html')
+  .modal-header
+    h4=env.t('petKeyBegin')
+  .modal-body
+    include ../gems
+    figure
+      .npc_alex
+    p=env.t('petKeyInfo')
+    br
+    p=env.t('petKeyInfo2')
+    br
+    p=env.t('petKeyInfo3')  
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('petKeyNeverMind')
+    span(ng-if='user.balance < 1')
+      a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
+      span.gem-cost=env.t('notEnoughGems')
+    span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
+      a.btn.btn-danger(ng-click='$close(); release()')=env.t('petKeyPets')
+    span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
+      a.btn.btn-danger(ng-click='$close(); release2()')=env.t('petKeyMounts')
+      span.gem-cost
+        | 4&nbsp;
+        =env.t('gemsEach')

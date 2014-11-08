@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -27,6 +27,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Content = Content;
     $rootScope.env = window.env;
     $rootScope.Math = Math;
+    $rootScope.Groups = Groups;
+    $rootScope.toJson = angular.toJson;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -40,11 +42,42 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // styling helpers
     $scope.userLevelStyle = function(user,style){
       style = style || '';
-      if(user && user.backer && user.backer.npc)
-        style += ' label-npc';
-      if(user && user.contributor && user.contributor.level)
-        style += ' label-contributor-'+user.contributor.level;
+      var npc = (user && user.backer && user.backer.npc) ? user.backer.npc : '';
+      var level = (user && user.contributor && user.contributor.level) ? user.contributor.level : '';
+      style += $scope.userLevelStyleFromLevel(level,npc,style)
       return style;
+    }
+    $scope.userAdminGlyphiconStyle = function(user,style){
+      style = style || '';
+      if(user && user.contributor && user.contributor.level)
+        style += $scope.userAdminGlyphiconStyleFromLevel(user.contributor.level,style)
+      return style;
+    }
+    $scope.userLevelStyleFromLevel = function(level,npc,style){
+      style = style || '';
+      if(npc)
+        style += ' label-npc';
+      if(level)
+        style += ' label-contributor-'+level;
+      return style;
+    }
+    $scope.userAdminGlyphiconStyleFromLevel = function(level,style){
+      style = style || '';
+      if(level)
+        if(level==8)
+          style += ' glyphicon glyphicon-star'; // moderator
+        if(level==9)
+          style += ' glyphicon icon-crown'; // staff
+      return style;
+    }
+
+    $rootScope.playSound = function(id){
+      if (!user.preferences.sound || user.preferences.sound == 'off') return;
+      var theme = user.preferences.sound;
+      var file =  'audio/' + theme + '/' + id;
+      document.getElementById('oggSource').src = file + '.ogg';
+      document.getElementById('mp3Source').src = file + '.mp3';
+      document.getElementById('sound').load();
     }
 
     // count pets, mounts collected totals, etc
@@ -81,11 +114,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         scope: options.scope, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
         backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
+
       });
     }
 
     $rootScope.dismissAlert = function() {
       $rootScope.set({'flags.newStuff':false});
+    }
+
+    $rootScope.acceptCommunityGuidelines = function() {
+      $rootScope.set({'flags.communityGuidelinesAccepted':true});
     }
 
     $rootScope.notPorted = function(){
@@ -94,24 +132,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.dismissErrorOrWarning = function(type, $index){
       $rootScope.flash[type].splice($index, 1);
-    }
-
-    $rootScope.initPayPalButton = function($event){
-      //debugger
-      var data = {
-        name:env.t('donationDesc'),
-        //env:window.env.NODE_ENV == 'production' ? '' : 'sandbox',
-        quantity:1,
-        amount:5,
-        currency:'USD',
-        tax:0,
-        callback:window.env.BASE_URL + '/api/v2/user/buy-gems/paypal-ipn',
-        custom:'?uid='+User.user._id + '&apiToken=' + User.user.apiToken,
-        'return':window.env.BASE_URL,
-        rm:1,
-        no_shipping:1
-      };
-      PAYPAL.apps.ButtonFactory.create(window.env.PAYPAL_MERCHANT, data, 'buynow', document.getElementById('custom-paypal-button'));
     }
 
     $rootScope.showStripe = function(subscription) {
@@ -125,26 +145,42 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           window.env.t('donationDesc'),
         panelLabel: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
         token: function(data) {
-          var url = '/api/v2/user/buy-gems';
+          var url = '/stripe/checkout';
           if (subscription) url += '?plan=basic_earned';
-//          if (subscription) url += '?plan=test';
           $scope.$apply(function(){
             $http.post(url, data).success(function() {
               window.location.reload(true);
-            }).error(function(err) {
-              alert(err);
+            }).error(function(data) {
+              alert(data.err);
             });
           })
         }
       });
     }
 
-    $scope.cancelSubscription = function(){
+    $rootScope.showStripeEdit = function(){
+      StripeCheckout.open({
+        key: window.env.STRIPE_PUB_KEY,
+        address: false,
+        name: 'Update',
+        description: 'Update the card to be charged for your subscription',
+        panelLabel: 'Update Card',
+        token: function(data) {
+          var url = '/stripe/subscribe/edit?plan=basic_earned';
+          $scope.$apply(function(){
+            $http.post(url, data).success(function() {
+              window.location.reload(true);
+            }).error(function(data) {
+              alert(data.err);
+            });
+          })
+        }
+      });
+    }
+
+    $rootScope.cancelSubscription = function(){
       if (!confirm(window.env.t('sureCancelSub'))) return;
-      //TODO use Stripe API to keep subscription till end of their month
-      $http.post('/api/v2/user/cancel-subscription').success(function(){
-        window.location.reload(true);
-      })
+      window.location.href = '/' + user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
     }
 
     $scope.contribText = function(contrib, backer){
@@ -152,7 +188,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (backer && backer.npc) return backer.npc;
       var l = contrib && contrib.level;
       if (l && l > 0) {
-        var level = (l < 3) ? window.env.t('friend') : (l < 5) ? window.env.t('elite') : (l < 7) ? window.env.t('champion') : (l < 8) ? window.env.t('legendary') : window.env.t('heroic');
+        var level = (l < 3) ? window.env.t('friend') : (l < 5) ? window.env.t('elite') : (l < 7) ? window.env.t('champion') : (l < 8) ? window.env.t('legendary') : (l < 9) ? window.env.t('guardian') : window.env.t('heroic');
         return level + ' ' + contrib.text;
       }
     }
@@ -162,16 +198,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       var history = [], matrix, data, chart, options;
       switch (id) {
         case 'exp':
-          $rootScope.charts.exp = !$rootScope.charts.exp;
           history = User.user.history.exp;
+          $rootScope.charts.exp = (history.length == 0) ? false : !$rootScope.charts.exp;
           break;
         case 'todos':
-          $rootScope.charts.todos = !$rootScope.charts.todos;
           history = User.user.history.todos;
+          $rootScope.charts.todos = (history.length == 0) ? false : !$rootScope.charts.todos;
           break;
         default:
-          $rootScope.charts[id] = !$rootScope.charts[id];
           history = task.history;
+          $rootScope.charts[id] = (history.length == 0) ? false : !$rootScope.charts[id];
           if (task && task._editing) task._editing = false;
       }
       matrix = [['Date', 'Score']];
@@ -184,6 +220,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         backgroundColor: {
           fill: 'transparent'
         },
+        hAxis: {slantedText:true, slantedTextAngle: 90},
+        height:270,
         width:300
       };
       chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
@@ -223,13 +261,13 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $scope.spell = null;
       $rootScope.applyingAction = false;
 
-      $http.post('/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
+      $http.post(ApiUrlService.get() + '/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
       .success(function(){
-        var msg = window.env.t('youCast', {spell: spell.text}); 
+        var msg = window.env.t('youCast', {spell: spell.text()}); 
         switch (type) {
-         case 'task': msg = window.env.t('youCastTarget', {spell: spell.text, target: target.text});break;
-         case 'user': msg = window.env.t('youCastTarget', {spell: spell.text, target: target.profile.name});break;
-         case 'party': msg = window.env.t('youCastParty', {spell: spell.text});break;
+         case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
+         case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
+         case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
         }
         Notification.text(msg);
       });
@@ -239,6 +277,13 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.castCancel = function(){
       $rootScope.applyingAction = false;
       $scope.spell = null;
+    }
+
+    // Becuase our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
+    // reload the page. Perform manually.
+    $rootScope.hardRedirect = function(url){
+      window.location.href = url;
+      window.location.reload(false);
     }
   }
 ]);

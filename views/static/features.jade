@@ -11,76 +11,81 @@ block content
   .row#about-page(ng-controller='AboutCtrl')
     .col-md-12#aboutPage
       .marketing
-        h1 Improve Your Habits By Playing A Game
+        h1=env.t('marketing1Header')
         .row
           .col-md-6
-            a.gallery(href='/marketing/screenshot.png', title='Improve Your Habits By Playing A Game')
+            a.gallery(href='/marketing/screenshot.png', title=env.t('marketing1Header'))
               img(src='/marketing/screenshot.png')
-            p.lead HabitRPG is a video game to help you improve real life habits. It "gamifies" your life by turning all your tasks (habits, dailies, and to-dos) into little monsters you have to conquor. The better you are at this, the more you progress in the game. If you slip up in life, your character starts backsliding in the game.
+            p.lead=env.t('marketing1Lead1')
           .col-md-6
 
-            a.gallery(href='/marketing/gear.png', title='Get Sweet Gear')
+            a.gallery(href='/marketing/gear.png', title=env.t('marketing1Lead2Title'))
               img(src='/marketing/gear.png')
-            p.lead <strong>Get Sweet Gear</strong>. Improve your habits to build up your avatar. Show off the sweet gear you've earned
+            p.lead!=env.t('marketing1Lead2')
 
-            a.gallery(href='/marketing/drops.png', title='Find Random Prizes')
+            a.gallery(href='/marketing/drops.png', title=env.t('marketing1Lead3Title'))
               img(src='/marketing/drops.png',style='max-height:200px')
-            p.lead <strong>Find Random Prizes</strong>. For some, it's the gamble which motivates them, a system called "stochastic rewarding". HabitRPG accomodates all reinforcement styles: positive, negative, predictable, and random.
+            p.lead!=env.t('marketing1Lead3')
 
             // TODO achievements
 
         hr.clearfix
 
-        h1 Compete With Friends, Join Interest Groups
+        h1=env.t('marketing2Header')
         .row
           .col-md-6
-            a.gallery(href='/marketing/guild.png', title='Compete With Friends, Join Interest Groups')
+            a.gallery(href='/marketing/guild.png', title=env.t('marketing2Header'))
               img(src='/marketing/guild.png')
-            p.lead While you can solo-play HabitRPG, the lights really turn on when you start collaborating, competing, and holding eachother accountable. The most effective part of any self-improvement program is social accountability, and what better an environment for accountability and competition than a video game?
+            p.lead=env.t('marketing2Lead1')
 
-            a.gallery(href='/bower_components/habitrpg-shared/img/sprites/spritesmith/quests/quest_vice3.png', title='Bosses')
+            a.gallery(href='/bower_components/habitrpg-shared/img/sprites/spritesmith/quests/quest_vice3.png', title=env.t('marketing2Lead2Title'))
               img(src='/bower_components/habitrpg-shared/img/sprites/spritesmith/quests/quest_vice3.png')
-            p.lead <strong>Fight Bosses</strong>. What's a Role Playing Game without battles? Fight bosses with your party. Bosses are "super accountability mode" - a day you miss the gym is a day the boss hurts <em>everyone</em>.
+            p.lead!=env.t('marketing2Lead2')
           .col-md-6
-            a.gallery(href='/marketing/challenge.png', title='Challenges')
+            a.gallery(href='/marketing/challenge.png', title=env.t('challenges'))
               img(src='/marketing/challenge.png')
-            p.lead <strong>Challenges</strong> let you compete with friends and strangers. Whoever does the best at the end of a challenge wins special prizes.
+            p.lead!=env.t('marketing2Lead3')
 
         hr.clearfix
 
-        h1 Apps
+        h1=env.t('marketing3Header')
         .row
           .col-md-6
-            a.gallery(href='/marketing/android_iphone.png', title='iPhone & Android')
+            a.gallery(href='/marketing/android_iphone.png', title=env.t('marketing3LeadTitle'))
               img(src='/marketing/android_iphone.png',style='box-shadow:none;')
-            p.lead The <strong>iPhone & Android</strong> apps let you take care of business on the go. We realize that logging into the website to click buttons can be a drag.
+            p.lead!=env.t('marketing3Lead1')
           .col-md-6
-            a.gallery(href='/marketing/integration.png', title='iPhone & Android')
+            a.gallery(href='/marketing/integration.png', title=env.t('marketing3LeadTitle'))
               img(src='/marketing/integration.png')
-            p.lead Other <strong>3rd Party Tools</strong> tie HabitRPG into various aspects of your life. Our API provides easy integration for things like the <a href='https://chrome.google.com/webstore/detail/habitrpg/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US' target='_blank'>Chrome Extension</a>, for which you lose points when browsing unproductive websites, and gain points when on productive ones. <a href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>See more here</a>
+            p.lead!=env.t('marketing3Lead2')
 
         hr.clearfix
 
-        h1 Organizational Use
+        h1=env.t('marketing4Header')
         .row
           .col-md-6
-            h3 Gamification In Education
+            h3=env.t('marketing4Lead1Title')
             img.pull-left(src='/marketing/education.png')
-            p.lead Education is one of the best sectors for gamification. We all know how glued to phones and games students are these days, harness that power! Pit your students against eachother in friendly competition. Reward good behavior with rare prizes. Watch their grades and behavior soar.
+            p.lead=env.t('marketing4Lead1')
           .col-md-6
-            h3 Gamification In Health and Wellness
+            h3=env.t('marketing4Lead2Title')
             img.pull-left(src='/marketing/wellness.png')
-            p.lead Health care costs are on the rise, and something's gotta give. Hundreds of programs are built to reduce costs and improve wellness. We believe HabitRPG can pave a substantial path towards healthy lifestyles.
+            p.lead=env.t('marketing4Lead2')
         .row
           .col-md-6.col-md-offset-3
-            h3 Gamify Everything
+            h3=env.t('marketing4Lead3Title')
             img(src='/marketing/lefnire.png')
             p.lead
-              | Want to gamify your life?&nbsp;
-              a.btn.btn-primary(ng-click='playButtonClick()') Play
-              |  Interested in running a group in education, wellness, and more?&nbsp;
-              a.btn.btn-primary(href='/static/plans',target='_blank')  Contact Us
-              |  Want to learn more?&nbsp;
-              a.btn.btn-primary(href='/static/videos') Watch Videos
+              =env.t('marketing4Lead3-1')
+              |&nbsp;
+              a.btn.btn-primary(ng-click='playButtonClick()')=env.t('playButton')
+              |&nbsp;
+              =env.t('marketing4Lead3-2')
+              |&nbsp;
+              a.btn.btn-primary(href='/static/plans',target='_blank')=env.t('contactUs')
+              |&nbsp;
+              =env.t('marketing4Lead3-3')
+              |&nbsp;
+              a.btn.btn-primary(href='/static/videos')=env.t('watchVideos')
 
 

@@ -16,15 +16,6 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               span.glyphicon.glyphicon-calendar
             // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>
 
-          // Gold & Gems
-          span.option-box.pull-right.wallet(bo-if='main && list.type=="reward"')
-            .money
-              | {{Shared.gold(user.stats.gp)}}
-              span.shop_gold(tooltip=env.t('gold'))
-            .money
-              | {{Shared.silver(user.stats.gp)}}
-              span.shop_silver(tooltip=env.t('silver'))
-
           // Header
           h2.task-column_title {{list.header}}
 
@@ -38,69 +29,113 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
           hr
 
+          mixin taskColumnTabs(position)
+            // Habits Tabs
+            div(bo-if='main && list.type=="habit"', class='tabbable tabs-below')
+              ul.nav.nav-tabs
+                li(ng-class='{active: list.view == "all"}')
+                  a(ng-click='list.view = "all"')=env.t('all')
+                li(ng-class='{active: list.view == "yellowred"}')
+                  a(ng-click='list.view = "yellowred"')=env.t('yellowred')
+                li(ng-class='{active: list.view == "greenblue"}')
+                  a(ng-click='list.view = "greenblue"')=env.t('greenblue')
+            // Daily Tabs
+            div(bo-if='main && list.type=="daily"', class='tabbable tabs-below')
+              // remaining/completed tabs
+              ul.nav.nav-tabs
+                li(ng-class='{active: list.view == "all"}')
+                  a(ng-click='list.view = "all"')=env.t('all')
+                li(ng-class='{active: list.view == "remaining"}')
+                  a(ng-click='list.view = "remaining"')=env.t('due')
+                li(ng-class='{active: list.view == "complete"}')
+                  a(ng-click='list.view = "complete"')=env.t('grey')
+            // Todo Tabs
+            div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
+              // div(ng-show='list.view == "complete" || list.view == "all"')
+              // li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
+              if position=="bottom"
+                div(ng-show='list.showCompleted')
+                  .alert
+                    =env.t('lotOfToDos')
+                  button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
+                  p!=env.t('beeminderDeleteWarning')
+              // remaining/completed tabs
+              ul.nav.nav-tabs
+                li(ng-class='{active: !list.showCompleted}')
+                  a(ng-click='list.showCompleted = false')=env.t('remaining')
+                li(ng-class='{active: list.showCompleted}')
+                  a(ng-click='list.showCompleted= true')=env.t('complete')
+            // Rewards Tabs
+            div(bo-if='main && list.type=="reward"', class='tabbable tabs-below')
+              ul.nav.nav-tabs
+                li(ng-class='{active: list.view == "all"}')
+                  a(ng-click='list.view = "all"')=env.t('all')
+                li(ng-class='{active: list.view == "ingamerewards"}')
+                  a(ng-click='list.view = "ingamerewards"')=env.t('ingamerewards')
+
+          +taskColumnTabs('top')
+
           // Actual List
-          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', habitrpg-sortable)
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
             include ./task
 
           // Static Rewards
           ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
-            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes}}')
+            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes()}}')
               // right-hand side control buttons
               .task-meta-controls
                 span.task-notes
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
-              .task-controls
+              .task-controls.task-primary
                 a.money.btn-buy.item-btn(ng-click='buy(item)')
                   span.reward-cost {{item.value}}
                   span.shop_gold
               // main content
-              span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
-              p.task-text {{item.text}}
+              span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
+              p.task-text {{item.text()}}
 
           // Events
-          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball)')
+          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball || user.items.special.spookDust>0 || user.stats.buffs.spookDust)')
 
-            li.task.reward-item(ng-if='user.items.special.snowball>0',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.snowball.notes}}')
-              .task-meta-controls
-                span.task-notes
-                  span.glyphicon.glyphicon-comment
-              //left-hand size commands
-              .task-controls
-                a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.snowball)')
-                  span.reward-cost {{user.items.special.snowball}}
-                  span.shop_snowball(style='display:inline-block;vertical-align:top;')
-              // main content
-              p.task-text {{Content.spells.special.snowball.text}}
+            mixin specialSpell(k,canceler)
+              li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
+                .task-meta-controls
+                  span.task-notes
+                    span.glyphicon.glyphicon-comment
+                //left-hand size commands
+                .task-controls
+                  a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.#{k})')
+                    if canceler
+                      span.reward-cost {{Content.spells.special.#{k}.value}}
+                      span.shop_gold
+                    else
+                      span.reward-cost {{user.items.special.#{k}}}
+                      span(class='shop_#{k}',style='display:inline-block;vertical-align:top;')
+                // main content
+                p.task-text {{Content.spells.special.#{k}.text()}}
 
-            li.task.reward-item(ng-if='user.stats.buffs.snowball',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.salt.notes}}')
-              .task-meta-controls
-                span.task-notes
-                  span.glyphicon.glyphicon-comment
-              //left-hand size commands
-              .task-controls
-                a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.salt)')
-                  span.reward-cost {{Content.spells.special.salt.value}}
-                  span.shop_gold
-              // main content
-              span.shop_salt.shop-sprite.item-img
-              p.task-text {{Content.spells.special.salt.text}}
+            +specialSpell('snowball')
+            +specialSpell('spookDust')
+
+            +specialSpell('salt','snowball')
+            +specialSpell('opaquePotion','spookDust')
 
           // Spells
           ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-            li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= spell.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes}}')
+            li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= spell.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes()}}')
               .task-meta-controls
                 span.task-notes
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
-              .task-controls
+              .task-controls.task-primary
                 a.money.btn-buy.item-btn(ng-click='castStart(spell)')
                   span.reward-cost
                     strong {{spell.mana}}
                     =env.t('mp')
               // main content
               span(ng-class='{"shop_{{spell.key}} shop-sprite item-img": true}')
-              p.task-text {{spell.text}}
+              p.task-text {{spell.text()}}
 
           br
 
@@ -112,15 +147,4 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             // Habit3
             ins.adsbygoogle(ng-init='initAds()', style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
 
-          // Todo Tabs
-          div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
-            div(ng-show='list.showCompleted')
-              .alert
-                =env.t('lotOfToDos')
-              button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})')=env.t('clearCompleted')
-            // remaining/completed tabs
-            ul.nav.nav-tabs
-              li(ng-class='{active: !list.showCompleted}')
-                a(ng-click='list.showCompleted = false')=env.t('remaining')
-              li(ng-class='{active: list.showCompleted}')
-                a(ng-click='list.showCompleted= true')=env.t('complete')
+          +taskColumnTabs('bottom')

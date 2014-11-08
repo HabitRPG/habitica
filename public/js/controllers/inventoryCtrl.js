@@ -8,7 +8,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
     $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
-    $scope.totalMounts = _.size(Content.eggs) * _.size(Content.hatchingPotions);
+    $scope.totalMounts = _.size(_.reject(Content.eggs,function(egg){return egg.noMount})) * _.size(Content.hatchingPotions);
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
@@ -20,9 +20,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
-      $scope.gear = {
-        base: _.where(Content.gear.flat, {klass: 'base'})
-      };
+      $scope.gear = {};
       _.each(gear.owned, function(v,key){
         if (v === false) return;
         var item = Content.gear.flat[key];
@@ -80,17 +78,21 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!$window.confirm(window.env.t('hatchAPot', {potion: potion.key, egg: egg.key}))) return;
+      var eggName = Content.eggs[egg.key].text();
+      var potName = Content.hatchingPotions[potion.key].text();
+      if (!$window.confirm(window.env.t('hatchAPot', {potion: potName, egg: eggName}))) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
     }
 
     $scope.purchase = function(type, item){
+      if (item.key=='spookDust') return User.user.ops.buySpookDust({});
+
       var gems = User.user.balance * 4;
 
       if(gems < item.value) return $rootScope.openModal('buyGems');
-      var string = (type == 'hatchingPotions') ? 'hatching potion' : (type == 'eggs') ? 'egg' : (type == 'quests') ? 'quest' : (item.key == 'Saddle') ? 'saddle' : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
+      var string = (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
       var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
 
       if($window.confirm(message))
@@ -98,15 +100,18 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.choosePet = function(egg, potion){
-      var petDisplayName = potion + " " + egg,
-      pet = egg + '-' + potion;
+      var petDisplayName = env.t('petName', {
+          potion: Content.hatchingPotions[potion] ? Content.hatchingPotions[potion].text() : potion,
+          egg: Content.eggs[egg] ? Content.eggs[egg].text() : egg
+        }),
+        pet = egg + '-' + potion;
 
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
-          if (!$window.confirm(window.env.t('useSaddle', {pet: pet}))) return;
-        } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text}))) {
+          if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
+        } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
@@ -126,7 +131,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       var item =  Content.quests[quest];
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)
-        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text}));
+        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text()}));
       if (item.lvl && item.lvl > user.stats.lvl)
         return alert(window.env.t('mustLevel', {level: item.lvl}));
       $rootScope.selectedQuest = item;

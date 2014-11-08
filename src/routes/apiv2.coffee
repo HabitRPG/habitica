@@ -19,6 +19,7 @@ middleware = require("../middleware")
 cron = user.cron
 _ = require('lodash')
 content = require('habitrpg-shared').content
+i18n = require('../i18n')
 
 
 module.exports = (swagger, v2) ->
@@ -40,14 +41,21 @@ module.exports = (swagger, v2) ->
     '/content':
       spec:
         description: "Get all available content objects. This is essential, since Habit often depends on item keys (eg, when purchasing a weapon)."
+        parameters: [
+          query("language","Optional language to use for content's strings. Default is english.","string")
+        ]
       action: user.getContent
 
+    '/content/paths':
+      spec:
+        description: "Show user model tree"
+      action: user.getModelPaths
 
     "/export/history":
       spec:
         description: "Export user history"
         method: 'GET'
-      middleware: auth.auth
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: dataexport.history #[todo] encode data output options in the data controller and use these to build routes
 
     # ---------------------------------
@@ -59,7 +67,7 @@ module.exports = (swagger, v2) ->
     "/user/tasks/{id}/{direction}":
       spec:
         #notes: "Simple scoring of a task."
-        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you."
+        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you. When random events occur, the <b>user._tmp</b> variable will be filled. Critical hits can be accessed through <b>user._tmp.crit</b>. The Streakbonus can be accessed through <b>user._tmp.streakBonus</b>. Both will contain the multiplier value. When random drops occur, the following values are available: <b>user._tmp.drop = {text,type,dialog,value,key,notes}</b>"
         parameters: [
           path("id", "ID of the task to score. If this task doesn't exist, a task will be created automatically", "string")
           path("direction", "Either 'up' or 'down'", "string")
@@ -123,6 +131,7 @@ module.exports = (swagger, v2) ->
         ]
       action: user.sortTask
 
+
     "/user/tasks/clear-completed":
       spec:
         method: 'POST'
@@ -138,11 +147,16 @@ module.exports = (swagger, v2) ->
           path("id", "Task ID", "string")
           query 'keep',"When unlinking a challenge task, how to handle the orphans?",'string',['keep','keep-all','remove','remove-all']
         ]
-      middleware: auth.auth ## removing cron since they may want to remove task first
+      middleware: [auth.auth, i18n.getUserLanguage] ## removing cron since they may want to remove task first
       action: challenges.unlink
 
 
     # Inventory
+    "/user/inventory/buy":
+      spec:
+         description: "Get a list of buyable gear"
+      action: user.getBuyList
+
     "/user/inventory/buy/{key}":
       spec:
         method: 'POST'
@@ -158,7 +172,7 @@ module.exports = (swagger, v2) ->
         description: "Sell inventory items back to Alexander"
         parameters: [
           #TODO verify these are the correct types
-          path('type',"The type of object you're selling back.",'string',['gear','eggs','hatchingPotions','food'])
+          path('type',"The type of object you're selling back.",'string',['eggs','hatchingPotions','food'])
           path('key',"The object key you're selling back (call /content route for available keys)",'string')
         ]
       action: user.sell
@@ -168,7 +182,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Purchase a gem-purchaseable item from Alexander"
         parameters:[
-          path('type',"The type of object you're purchasing.",'string',['gear','eggs','hatchingPotions','food'])
+          path('type',"The type of object you're purchasing.",'string',['eggs','hatchingPotions','food','quests','special'])
           path('key',"The object key you're purchasing (call /content route for available keys)",'string')
         ]
       action: user.purchase
@@ -187,9 +201,9 @@ module.exports = (swagger, v2) ->
     "/user/inventory/equip/{type}/{key}":
       spec:
         method: 'POST'
-        description: "Equip an item (either pets, mounts, or gear)"
+        description: "Equip an item (either pet, mount, equipped or costume)"
         parameters: [
-          path 'type',"Type to equip",'string',['pets','mounts','gear']
+          path 'type',"Type to equip",'string',['pet','mount','equipped', 'costume']
           path 'key',"The object key you're equipping (call /content route for available keys)",'string'
         ]
       action: user.equip
@@ -227,7 +241,7 @@ module.exports = (swagger, v2) ->
         path: '/user'
         method: 'DELETE'
         description: "Delete a user object entirely, USE WITH CAUTION!"
-      middleware: auth.auth
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: user["delete"]
 
     "/user/revive":
@@ -299,23 +313,6 @@ module.exports = (swagger, v2) ->
         ]
       action: user.unlock
 
-    "/user/buy-gems":
-      spec: method: 'POST', description: "Do not use this route"
-      middleware: auth.auth
-      action:user.buyGems
-
-    "/user/cancel-subscription":
-      spec: method: 'POST', description: "Do not use this route"
-      middleware: auth.auth
-      action:user.cancelSubscription
-
-    "/user/buy-gems/paypal-ipn":
-      spec:
-        method: 'POST'
-        description: "Don't use this route"
-      middleware: []
-      action: user.buyGemsPaypalIPN
-
     "/user/batch-update":
       spec:
         method: 'POST'
@@ -323,7 +320,7 @@ module.exports = (swagger, v2) ->
         parameters:[
           body '','The array of batch-operations to perform','object'
         ]
-      middleware: [middleware.forceRefresh, auth.auth, cron]
+      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron]
       action: user.batchUpdate
 
     # Tags
@@ -335,6 +332,16 @@ module.exports = (swagger, v2) ->
           body '','New tag (see UserSchema.tags)','object'
         ]
       action: user.addTag
+
+    "/user/tags/sort":
+      spec:
+        method: 'POST'
+        description: 'Sort tags'
+        parameters: [
+          query("from","Index where you're sorting from (0-based)","integer")
+          query("to","Index where you're sorting to (0-based)","integer")
+        ]
+      action: user.sortTag
 
     "/user/tags/{id}:PUT":
       spec:
@@ -367,7 +374,7 @@ module.exports = (swagger, v2) ->
         parameters: [
           query 'type',"Comma-separated types of groups to return, eg 'party,guilds,public,tavern'",'string'
         ]
-      middleware: auth.auth
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: groups.list
 
 
@@ -379,15 +386,15 @@ module.exports = (swagger, v2) ->
         parameters: [
           body '','Group object (see GroupSchema)','object'
         ]
-      middleware: auth.auth
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: groups.create
 
     "/groups/{gid}:GET":
       spec:
         path: '/groups/{gid}'
-        description: "Get a group"
+        description: "Get a group. The party the user currently is in can be accessed with the gid 'party'."
         parameters: [path('gid','Group ID','string')]
-      middleware: auth.auth
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: groups.get
 
     "/groups/{gid}:POST":
@@ -396,7 +403,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Edit a group"
         parameters: [body('','Group object (see GroupSchema)','object')]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.update
 
     "/groups/{gid}/join":
@@ -404,7 +411,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: 'Join a group'
         parameters: [path('gid','Id of the group to join','string')]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.join
 
     "/groups/{gid}/leave":
@@ -412,7 +419,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: 'Leave a group'
         parameters: [path('gid','ID of the group to leave','string')]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.leave
 
     "/groups/{gid}/invite":
@@ -423,7 +430,7 @@ module.exports = (swagger, v2) ->
           path 'gid','Group id','string'
           query 'uuid','User id to invite','string'
         ]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action:groups.invite
 
     "/groups/{gid}/removeMember":
@@ -434,7 +441,7 @@ module.exports = (swagger, v2) ->
           path 'gid','Group id','string'
           query 'uuid','User id to boot','string'
         ]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action:groups.removeMember
 
     "/groups/{gid}/questAccept":
@@ -445,7 +452,7 @@ module.exports = (swagger, v2) ->
           path 'gid',"Group id",'string'
           query 'key',"optional. if provided, trigger new invite, if not, accept existing invite",'string'
         ]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action:groups.questAccept
 
     "/groups/{gid}/questReject":
@@ -455,15 +462,23 @@ module.exports = (swagger, v2) ->
         parameters: [
           path 'gid','Group id','string'
         ]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questReject
+
+    "/groups/{gid}/questCancel":
+      spec:
+        method: 'POST'
+        description: 'Cancel quest before it starts (in invitation stage)'
+        parameters: [path('gid','Group to cancel quest in','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.questCancel
 
     "/groups/{gid}/questAbort":
       spec:
         method: 'POST'
-        description: 'Abort quest'
+        description: 'Abort quest after it has started (all progress will be lost)'
         parameters: [path('gid','Group to abort quest in','string')]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questAbort
 
     #TODO PUT  /groups/:gid/chat/:messageId
@@ -472,7 +487,8 @@ module.exports = (swagger, v2) ->
       spec:
         path: "/groups/{gid}/chat"
         description: "Get all chat messages"
-      middleware: [auth.auth, groups.attachGroup]
+        parameters: [path('gid','Group to return the chat from ','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.getChat
 
 
@@ -485,7 +501,7 @@ module.exports = (swagger, v2) ->
           query 'message', 'Chat message','string'
           path 'gid','Group id','string'
         ]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.postChat
 
     # placing before route below, so that if !=='seen' it goes to next()
@@ -496,15 +512,17 @@ module.exports = (swagger, v2) ->
         parameters: [
           path 'gid','Group id','string'
         ]
-      middleware: []
       action: groups.seenMessage
 
     "/groups/{gid}/chat/{messageId}":
       spec:
         method: 'DELETE'
-        description: 'Delete a group'
-        parameters: [path('gid','ID of group to delete','string')]
-      middleware: [auth.auth, groups.attachGroup]
+        description: 'Delete a chat message in a given group'
+        parameters: [
+          path 'gid', 'ID of the group containing the message to be deleted', 'string'
+          path 'messageId', 'ID of message to be deleted', 'string'
+        ]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.deleteChatMessage
 
     "/groups/{gid}/chat/{mid}/like":
@@ -515,7 +533,7 @@ module.exports = (swagger, v2) ->
           path 'gid','Group id','string'
           path 'mid','Message id','string'
         ]
-      middleware: [auth.auth, groups.attachGroup]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.likeChatMessage
 
     # ---------------------------------
@@ -530,19 +548,19 @@ module.exports = (swagger, v2) ->
     # ---------------------------------
     "/hall/heroes":
       spec: {}
-      middleware:[auth.auth]
+      middleware:[auth.auth, i18n.getUserLanguage]
       action: hall.getHeroes
 
     "/hall/heroes/{uid}:GET":
       spec: path: "/hall/heroes/{uid}"
-      middleware:[auth.auth, hall.ensureAdmin]
+      middleware:[auth.auth, i18n.getUserLanguage, hall.ensureAdmin]
       action: hall.getHero
 
     "/hall/heroes/{uid}:POST":
       spec:
         method: 'POST'
         path: "/hall/heroes/{uid}"
-      middleware: [auth.auth, hall.ensureAdmin]
+      middleware: [auth.auth, i18n.getUserLanguage, hall.ensureAdmin]
       action: hall.updateHero
 
     "/hall/patrons":
@@ -550,7 +568,7 @@ module.exports = (swagger, v2) ->
         parameters: [
           query 'page','Page number to fetch (this list is long)','string'
         ]
-      middleware:[auth.auth]
+      middleware:[auth.auth, i18n.getUserLanguage]
       action: hall.getPatrons
 
 
@@ -565,7 +583,7 @@ module.exports = (swagger, v2) ->
       spec:
         path: '/challenges'
         description: "Get a list of challenges"
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.list
 
 
@@ -575,7 +593,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Create a challenge"
         parameters: [body('','Challenge object (see ChallengeSchema)','object')]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.create
 
     "/challenges/{cid}:GET":
@@ -600,7 +618,7 @@ module.exports = (swagger, v2) ->
           path 'cid','Challenge id','string'
           body('','Challenge object (see ChallengeSchema)','object')
         ]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.update
 
     "/challenges/{cid}:DELETE":
@@ -609,7 +627,7 @@ module.exports = (swagger, v2) ->
         method: 'DELETE'
         description: "Delete a challenge"
         parameters: [path('cid','Challenge id','string')]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges["delete"]
 
     "/challenges/{cid}/close":
@@ -620,7 +638,7 @@ module.exports = (swagger, v2) ->
           path 'cid','Challenge id','string'
           query 'uid','User ID of the winner','string',true
         ]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.selectWinner
 
     "/challenges/{cid}/join":
@@ -628,7 +646,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Join a challenge"
         parameters: [path('cid','Challenge id','string')]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.join
 
     "/challenges/{cid}/leave":
@@ -636,7 +654,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: 'Leave a challenge'
         parameters: [path('cid','Challenge id','string')]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.leave
 
     "/challenges/{cid}/member/{uid}":
@@ -646,7 +664,7 @@ module.exports = (swagger, v2) ->
           path 'cid','Challenge id','string'
           path 'uid','User id','string'
         ]
-      middleware: [auth.auth]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.getMember
 
 
@@ -678,7 +696,7 @@ module.exports = (swagger, v2) ->
       #type: 'Pet'
       errorResponses: []
       method: 'GET'
-    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth, cron] else []
+    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth, i18n.getUserLanguage, cron] else [i18n.getUserLanguage]
     swagger["add#{route.spec.method}"](route);true
 
 

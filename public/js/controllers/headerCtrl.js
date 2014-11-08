@@ -22,6 +22,12 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
               case 'pets':
                 return member.items.pets.length;
                 break;
+              case 'name':
+                return member.profile.name;
+                break;
+              case 'backgrounds':
+                return member.preferences.background;
+                break;
               default:
                 // party date joined
                 return true;

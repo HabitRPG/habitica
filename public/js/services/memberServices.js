@@ -5,10 +5,10 @@
  */
 
 angular.module('memberServices', ['ngResource', 'sharedServices']).
-    factory('Members', ['$rootScope', 'Shared', 'API_URL', '$resource',
-      function($rootScope, Shared, API_URL, $resource) {
+    factory('Members', ['$rootScope', 'Shared', 'ApiUrlService', '$resource',
+      function($rootScope, Shared, ApiUrlService, $resource) {
         var members = {};
-        var Member = $resource(API_URL + '/api/v2/members/:uid', {uid:'@_id'});
+        var Member = $resource(ApiUrlService.get() + '/api/v2/members/:uid', {uid:'@_id'});
         var memberServices = {
 
           Member: Member,

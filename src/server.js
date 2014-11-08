@@ -25,6 +25,11 @@ if (cluster.isMaster && (isDev || isProd)) {
   var http = require("http");
   var path = require("path");
   var swagger = require("swagger-node-express");
+  var autoinc = require('mongoose-id-autoinc');
+  var shared = require('habitrpg-shared');
+
+  // Setup translations
+  var i18n = require('./i18n');
 
   var middleware = require('./middleware');
 
@@ -38,10 +43,12 @@ if (cluster.isMaster && (isDev || isProd)) {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
   };
-  mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
+  var db = mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
     if (err) throw err;
     logging.info('Connected with Mongoose');
   });
+  autoinc.init(db);
+
   // load schemas & models
   require('./models/challenge');
   require('./models/group');
@@ -59,36 +66,28 @@ if (cluster.isMaster && (isDev || isProd)) {
   //   have a database of user records, the complete Facebook profile is serialized
   //   and deserialized.
   passport.serializeUser(function(user, done) {
-      done(null, user);
+    done(null, user);
   });
 
   passport.deserializeUser(function(obj, done) {
-      done(null, obj);
+    done(null, obj);
   });
 
-  // Use the FacebookStrategy within Passport.
-  //   Strategies in Passport require a `verify` function, which accept
-  //   credentials (in this case, an accessToken, refreshToken, and Facebook
-  //   profile), and invoke a callback with a user object.
+  // FIXME
+  // This auth strategy is no longer used. It's just kept around for auth.js#loginFacebook() (passport._strategies.facebook.userProfile)
+  // The proper fix would be to move to a general OAuth module simply to verify accessTokens
   passport.use(new FacebookStrategy({
-      clientID: nconf.get("FACEBOOK_KEY"),
-      clientSecret: nconf.get("FACEBOOK_SECRET"),
-      callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
+    clientID: nconf.get("FACEBOOK_KEY"),
+    clientSecret: nconf.get("FACEBOOK_SECRET"),
+    //callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
   },
     function(accessToken, refreshToken, profile, done) {
-        // asynchronous verification, for effect...
-        //process.nextTick(function () {
-
-        // To keep the example simple, the user's Facebook profile is returned to
-        // represent the logged-in user.  In a typical application, you would want
-        // to associate the Facebook account with a user record in your database,
-        // and return that user instead.
-        return done(null, profile);
-        //});
+      done(null, profile);
     }
    ));
 
   // ------------  Server Configuration ------------
+  var publicDir = path.join(__dirname, "/../public");
 
   app.set("port", nconf.get('PORT'));
   middleware.apiThrottle(app);
@@ -97,12 +96,12 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
-  app.use(express.favicon());
+  app.use(express.favicon(publicDir + '/favicon.ico'));
   app.use(middleware.cors);
   app.use(middleware.forceSSL);
   app.use(express.urlencoded());
   app.use(express.json());
-  app.use(express.methodOverride());
+  app.use(require('method-override')());
   //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
   app.use(express.cookieParser());
   app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
@@ -118,12 +117,14 @@ if (cluster.isMaster && (isDev || isProd)) {
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](path.join(__dirname, "/../public/bower_components/habitrpg-shared/img/emoji/unicode"), { maxAge: maxAge }));
-  app.use(express['static'](path.join(__dirname, "/../public")));
+  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](publicDir + "/bower_components/habitrpg-shared/img/emoji/unicode", { maxAge: maxAge }));
+  app.use(express['static'](publicDir));
 
   // Custom Directives
   app.use(require('./routes/pages').middleware);
+  app.use(require('./routes/payments').middleware);
   app.use(require('./routes/auth').middleware);
+  app.use(require('./routes/coupon').middleware);
   var v2 = express();
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);

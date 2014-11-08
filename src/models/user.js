@@ -10,6 +10,7 @@ var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
 var Challenge = require('./challenge').model;
+var moment = require('moment');
 
 // User Schema
 // -----------
@@ -34,8 +35,10 @@ var UserSchema = new Schema({
     helpedHabit: Boolean,
     ultimateGear: Boolean,
     beastMaster: Boolean,
+    beastMasterCount: Number,
     veteran: Boolean,
     snowball: Number,
+    spookDust: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -43,9 +46,11 @@ var UserSchema = new Schema({
     rebirthLevel: Number,
     perfect: Number,
     habitBirthday: Boolean,
-    valentine: Number
+    valentine: Number,
+    costumeContest: Boolean
   },
   auth: {
+    blocked: Boolean,
     facebook: Schema.Types.Mixed,
     local: {
       email: String,
@@ -66,8 +71,9 @@ var UserSchema = new Schema({
   },
 
   contributor: {
-    level: Number, // 1-7, see https://trello.com/c/wkFzONhE/277-contributor-gear
+    level: Number, // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitrpg/issues/3801
     admin: Boolean,
+    sudo: Boolean,
     text: String, // Artisan, Friend, Blacksmith, etc
     contributions: String, // a markdown textarea to list their contributions + links
     critical: String
@@ -81,12 +87,15 @@ var UserSchema = new Schema({
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
     hair: {type: Schema.Types.Mixed, 'default': {}},
     shirt: {type: Schema.Types.Mixed, 'default': {}},
+    background: {type: Schema.Types.Mixed, 'default': {}},
     txnCount: {type: Number, 'default':0},
     mobileChat: Boolean,
     plan: {
       planId: String,
+      paymentMethod: String, //enum: ['Paypal','Stripe', '']}
       customerId: String,
       dateCreated: Date,
+      dateTerminated: Date,
       dateUpdated: Date,
       gemsBought: {type: Number, 'default': 0},
       mysteryItems: {type: Array, 'default': []}
@@ -105,7 +114,13 @@ var UserSchema = new Schema({
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, 'default': false},
-    levelDrops: {type:Schema.Types.Mixed, 'default':{}}
+    freeRebirth: {type: Boolean, 'default': false},
+    levelDrops: {type:Schema.Types.Mixed, 'default':{}},
+    chatRevoked: Boolean,
+    // Used to track the status of recapture emails sent to each user,
+    // can be 0 - no email sent - 1, 2 or 3 - 3 means no more email will be sent to the user
+    recaptureEmailsPhase: {type: Number, 'default': 0},
+    communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -130,19 +145,24 @@ var UserSchema = new Schema({
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
-        back: String
+        back: String,
+        headAccessory: String,
+        body: String
       },
       costume: {
         weapon: {type: String, 'default': 'weapon_base_0'},
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
-        back: String
+        back: String,
+        headAccessory: String,
+        body: String
       },
     },
 
     special:{
       snowball: {type: Number, 'default': 0},
+      spookDust: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array // array of strings, by sender name
     },
@@ -194,10 +214,7 @@ var UserSchema = new Schema({
       // Then add quest pets
       _.transform(shared.content.questPets, function(m,v,k){ m[k] = Boolean; }),
       // Then add additional pets (backer, contributor)
-      {
-        'LionCub-Ethereal': Boolean,
-        'BearCub-Polar': Boolean
-      }
+      _.transform(shared.content.specialMounts, function(m,v,k){ m[k] = Boolean; })
     ),
     currentMount: String,
 
@@ -234,18 +251,20 @@ var UserSchema = new Schema({
   preferences: {
     armorSet: String,
     dayStart: {type:Number, 'default': 0, min: 0, max: 23},
-    size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
+    size: {type:String, enum: ['broad','slim'], 'default': 'slim'},
     hair: {
-      color: {type: String, 'default': 'blond'},
-      base: {type: Number, 'default': 0},
-      bangs: {type: Number, 'default': 0},
+      color: {type: String, 'default': 'red'},
+      base: {type: Number, 'default': 3},
+      bangs: {type: Number, 'default': 1},
       beard: {type: Number, 'default': 0},
       mustache: {type: Number, 'default': 0},
+      flower: {type: Number, 'default': 1}
     },
     hideHeader: {type:Boolean, 'default':false},
-    skin: {type:String, 'default':'c06534'},
-    shirt: {type: String, 'default': 'white'},
+    skin: {type:String, 'default':'915533'},
+    shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
+    sound: {type:String, 'default':'off', enum: ['off','danielTheBard']},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type: String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
@@ -254,9 +273,11 @@ var UserSchema = new Schema({
     stickyHeader: {type: Boolean, 'default': true},
     disableClasses: {type: Boolean, 'default': false},
     newTaskEdit: {type: Boolean, 'default': false},
+    dailyDueDefaultView: {type: Boolean, 'default': false},
     tagsCollapsed: {type: Boolean, 'default': false},
     advancedCollapsed: {type: Boolean, 'default': false},
-    toolbarCollapsed: {type:Boolean, 'default':false}
+    toolbarCollapsed: {type:Boolean, 'default':false},
+    background: String
   },
   difficulty: {
     potionHealing: {type: Boolean, 'default': true},
@@ -295,7 +316,8 @@ var UserSchema = new Schema({
       con: {type: Number, 'default': 0},
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
-      snowball: {type: Boolean, 'default': false}
+      snowball: {type: Boolean, 'default': false},
+      spookDust: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},
@@ -304,21 +326,22 @@ var UserSchema = new Schema({
       con: {type: Number, 'default': 0}
     }
   },
-  tags: [
-    {
-      _id: false,
-      id: { type: String, 'default': shared.uuid },
-      name: String,
-      challenge: String
-    }
-  ],
+
+  tags: {type: [{
+    _id: false,
+    id: { type: String, 'default': shared.uuid },
+    name: String,
+    challenge: String
+  }]},
 
   challenges: [{type: 'String', ref:'Challenge'}],
 
-  habits:   [TaskSchemas.HabitSchema],
-  dailys:   [TaskSchemas.DailySchema],
-  todos:    [TaskSchemas.TodoSchema],
-  rewards:  [TaskSchemas.RewardSchema],
+  habits:   {type:[TaskSchemas.HabitSchema]},
+  dailys:   {type:[TaskSchemas.DailySchema]},
+  todos:    {type:[TaskSchemas.TodoSchema]},
+  rewards:  {type:[TaskSchemas.RewardSchema]},
+
+  extra: Schema.Types.Mixed
 
 }, {
   strict: true,
@@ -355,13 +378,31 @@ UserSchema.pre('save', function(next) {
   // Populate new users with default content
   if (this.isNew){
     //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
-    this.habits = shared.content.userDefaults.habits;
-    this.dailys = shared.content.userDefaults.dailys;
-    this.todos = shared.content.userDefaults.todos;
-    this.rewards = shared.content.userDefaults.rewards;
-    this.tags = shared.content.userDefaults.tags;
-    // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-    _.each(this.tags, function(tag){tag.id = shared.uuid();})
+    var self = this;
+    _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
+      self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
+        var newTask = _.cloneDeep(task);
+
+        // Render task's text and notes in user's language
+        if(taskType === 'tags'){
+          // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+          newTask.id = shared.uuid();
+          newTask.name = newTask.name(self.preferences.language);
+        }else{
+          newTask.text = newTask.text(self.preferences.language);
+          newTask.notes = newTask.notes(self.preferences.language);
+
+          if(newTask.checklist){
+            newTask.checklist = _.map(newTask.checklist, function(checklistItem){
+              checklistItem.text = checklistItem.text(self.preferences.language);
+              return checklistItem;
+            });
+          }
+        }
+
+        return newTask;
+      });
+    });
   }
 
   //this.markModified('tasks');
@@ -382,10 +423,19 @@ UserSchema.pre('save', function(next) {
     if(_.isFunction(v)) return m;
     return m+(v?1:0)},0), this.items.pets);
 
-  this.achievements.beastMaster = petCount >= 90;
+  if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
+    this.achievements.beastMaster = true
+  }
+
+  // EXAMPLE CODE for allowing all existing and new players to be
+  // automatically granted an item during a certain time period:
+  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    // this.items.pets['JackOLantern-Base'] = 5;
 
   //our own version incrementer
+  if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
   this._v++;
+
   next();
 });
 
@@ -423,3 +473,7 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
+
+mongoose.model("User").find({$query:{'contributor.admin':true}, $orderby:{'contributor.level':-1, 'backer.npc':-1, 'profile.name':1}},function(err,mods){
+  module.exports.mods = mods
+});
