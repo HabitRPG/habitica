@@ -1,0 +1,50 @@
+doctype html
+html(ng-app="habitrpg")
+  head
+    title=title
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=3')
+
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+
+    script(type='text/javascript').
+      window.env = !{JSON.stringify(env)};
+
+    != env.getManifestFiles("app")
+
+    script(type='text/javascript').
+      hello.init({
+        facebook : window.env.FACEBOOK_KEY
+      });
+
+      window.habitrpg
+      .controller('StaticAvatarCtrl', ['$scope', '$http', function($scope, $http){
+        $scope.profile = window.env.user;
+
+        $scope.postToWall = function(network, customMessage) {
+          hello(network).login({scope: 'publish'}).then(function (auth) {
+            $http.get('/static/avatar-'+$scope.profile._id+'.png').success(function(r){
+              //TODO experiment with just the page as a link
+              hello(auth.network).api('/me/feed', 'post', {
+                picture: r.file, // also see link, picture, icon //https://developers.facebook.com/docs/graph-api/reference/v2.2/status#publishing
+                message: customMessage || "Check out my HabitRPG progress!"
+              }).then(function (r) {
+                debugger;
+              });
+            })
+          });
+        }
+      }])
+
+
+
+    //webfonts
+    link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
+
+  body(ng-cloak)
+    include ./shared/header/avatar
+    div(ng-controller='StaticAvatarCtrl')
+      +herobox({main:true})
+      button.btn.btn-primary(ng-click='postToWall("facebook", customMessage)') Post to Facebook
+      textarea(placeholder="Check out my HabitRPG progress!",ng-model="customMessage")
