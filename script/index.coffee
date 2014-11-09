@@ -1158,7 +1158,9 @@ api.wrap = (user, main=true) ->
 
     crit: (stat='str', chance=.03) ->
       #console.log("Crit Chance:"+chance*(1+user._statsComputed[stat]/100))
-      if user.fns.predictableRandom() <= chance*(1+user._statsComputed[stat]/100) then 1.5 + (.02*user._statsComputed[stat])
+      s = user._statsComputed[stat]
+      if user.fns.predictableRandom() <= chance*(1 + s/100)
+        1.5 + 4*s/(s + 200)
       else 1
 
     ###
