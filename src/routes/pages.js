@@ -38,36 +38,28 @@ router.get('/static/avatar-:uuid.html', i18n.getUserLanguage, middleware.locals,
   })
 });
 var Pageres = require('pageres'); //https://github.com/sindresorhus/pageres
-var s3 = require('s3'); //https://github.com/andrewrk/node-s3-client
+var AWS = require('aws-sdk');
+AWS.config.update({accessKeyId: nconf.get("S3").accessKeyId, secretAccessKey: nconf.get("S3").secretAccessKey});
+var s3Stream = require('s3-upload-stream')(new AWS.S3()); //https://github.com/nathanpeck/s3-upload-stream
 var bucket = 'habitrpg-dev';
-var client = s3.createClient({
-  s3Options: {
-    accessKeyId: nconf.get("S3").accessKeyId,
-    secretAccessKey: nconf.get("S3").secretAccessKey
-  }
-});
+
 router.get('/static/avatar-:uuid.png', i18n.getUserLanguage, middleware.locals, function(req, res, next) {
   var filename = 'avatar-'+req.params.uuid+'.png';
-  new Pageres({delay: 1})
+  new Pageres()//{delay:1}
     .src(nconf.get('BASE_URL')+'/static/avatar-'+req.params.uuid+'.html', ['140x147'], {crop: true, filename: filename.replace('.png','')})
-    .dest(__dirname)//TODO Delete this aftewards, or stream directly to s3 instead
     .run(function (err, file) {
       if (err) return next(err);
-      var params = {
-        localFile: __dirname + "/" + filename,
-        s3Params: { Bucket: bucket, Key: filename }
-      };
-      var uploader = client.uploadFile(params);
-      uploader.on('error', function(err) {
-        console.error("unable to upload:", err.stack);
+      var upload = s3Stream.upload({
+        Bucket: bucket,
+        Key: filename,
+        ACL: "public-read",
+        StorageClass: "REDUCED_REDUNDANCY",
+        ContentType: "binary/octet-stream"
       });
-      //uploader.on('progress', function() {
-      //  console.log("progress", uploader.progressMd5Amount,
-      //    uploader.progressAmount, uploader.progressTotal);
-      //});
-      uploader.on('end', function() {
-        res.json(200,{file: s3.getPublicUrlHttp(bucket,filename)});
-        console.log("done uploading");
+      file[0].pipe(upload);
+
+      upload.on('uploaded', function (details) {
+        res.redirect(details.Location);
       });
     });
 });
