@@ -38,8 +38,9 @@
 
       // Scripts only for desktop
       if (!window.env.IS_MOBILE) {
-        // Add This
-        $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+        // Add This - FIXME why isn't this working when here? instead it's now in <head>
+        //$.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4");
+        window.addthis_options = 'facebook,twitter,googleplus,tumblr';
 
         // Google Charts
         $.getScript("//www.google.com/jsapi", function() {

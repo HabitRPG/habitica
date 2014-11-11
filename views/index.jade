@@ -10,6 +10,9 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
+    //FIXME for some reason this won't load when in footerCtrl.js#deferredScripts()
+    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
+
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
 
