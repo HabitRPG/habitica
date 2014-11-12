@@ -275,6 +275,7 @@ gear =
     special:
       0: text: t('shieldSpecial0Text'), notes: t('shieldSpecial0Notes', {per: 20}), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: t('shieldSpecial1Text'), notes: t('shieldSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
+      goldenknight: text: t('weaponSpecialGoldenknightText'), notes: t('weaponSpecialGoldenknightNotes', {attrs: 25}), con: 25, per: 25, value:200, canOwn: ((u)-> u.items.gear.owned.shield_special_goldenknight?)
       #Winter event
       yeti:       event: events.winter, specialClass: 'warrior', text: t('shieldSpecialYetiText'), notes: t('shieldSpecialYetiNotes', {con: 7}), con: 7, value: 70
       ski:        event: events.winter, specialClass: 'rogue', text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
@@ -1191,6 +1192,56 @@ api.quests =
         {type: 'hatchingPotions', key: 'Zombie', text: t('questMoonstone3DropZombiePotion')}
         {type: 'hatchingPotions', key: 'Zombie', text: t('questMoonstone3DropZombiePotion')}
         {type: 'hatchingPotions', key: 'Zombie', text: t('questMoonstone3DropZombiePotion')}
+      ]
+      gp: 900
+      exp: 1500
+
+  goldenknight1:
+    text: t('questGoldenknight1Text')
+    notes: t('questGoldenknight1Notes')
+    value: 4
+    collect:
+      testimony: text: t('questGoldenknight1CollectTestimony'), count: 300
+    drop:
+      items: [
+        {type: 'quests', key: "goldenknight2", text: t('questGoldenknight1DropGoldenknight2Quest')}
+      ]
+      gp: 15
+      exp: 120
+  goldenknight2:
+    text: t('questGoldenknight2Text')
+    notes: t('questGoldenknight2Notes')
+    value: 4
+    previous: 'goldenknight1'
+    boss:
+      name: t('questGoldenknight2Boss')
+      hp: 1000
+      str: 3
+    drop:
+      items: [
+        {type: 'quests', key: 'goldenknight3', text: t('questGoldenknight2DropGoldenknight3Quest')}
+      ]
+      gp: 75
+      exp: 750
+  goldenknight3:
+    text: t('questGoldenknight3Text')
+    notes: t('questGoldenknight3Notes')
+    completion: t('questGoldenknight3Completion')
+    previous: 'goldenknight2'
+    value: 4
+    boss:
+      name: t('questGoldenknight3Boss')
+      hp: 1700
+      str: 3.5
+    drop:
+      items: [
+        {type: 'gear', key: "armor_special_2", text: t('armorSpecial2Text')}
+        {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
+        {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
+        {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
+        {type: 'hatchingPotions', key: 'Golden', text: t('questGoldenknight3DropGoldenPotion')}
+        {type: 'hatchingPotions', key: 'Golden', text: t('questGoldenknight3DropGoldenPotion')}
+        {type: 'gear', key: 'shield_special_goldenknight', text: t('questGoldenknight3DropWeapon')}
       ]
       gp: 900
       exp: 1500

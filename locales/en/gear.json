@@ -358,6 +358,9 @@
   "shieldSpecial1Text": "Crystal Shield",
   "shieldSpecial1Notes": "Shatters arrows and deflects the words of naysayers. Increases all attributes by <%= attrs %>.",
 
+  "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+  "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
+
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases Constitution by <%= con %>.",
   "shieldSpecialSnowflakeText": "Snowflake Shield",
