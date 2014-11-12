@@ -99,6 +99,8 @@
             "bower_components/bootstrap/dist/css/bootstrap.css",
             "bower_components/css-social-buttons/css/zocial.css",
             "bower_components/jquery-colorbox/example1/colorbox.css",
+            "app.css",
+            "bower_components/habitrpg-shared/dist/habitrpg-shared.css",
             "static.css"
         ]
     }
