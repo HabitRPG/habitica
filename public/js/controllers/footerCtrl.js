@@ -38,8 +38,8 @@
 
       // Scripts only for desktop
       if (!window.env.IS_MOBILE) {
-        // Add This - FIXME why isn't this working when here? instead it's now in <head>
-        //$.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4");
+        // Add This
+        //$.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4"); //FIXME why isn't this working when here? instead it's now in <head>
         var addthisServices = 'facebook,twitter,googleplus,tumblr,'+window.env.BASE_URL.replace('https://','').replace('http://','');
         window.addthis_config = {
           services_custom:{

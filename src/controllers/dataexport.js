@@ -11,7 +11,7 @@ var User = require('../models/user').model;
 // Avatar screenshot/static-page includes
 var Pageres = require('pageres'); //https://github.com/sindresorhus/pageres
 var AWS = require('aws-sdk');
-AWS.config.update({accessKeyId: nconf.get("S3").accessKeyId, secretAccessKey: nconf.get("S3").secretAccessKey});
+AWS.config.update({accessKeyId: nconf.get("S3:accessKeyId"), secretAccessKey: nconf.get("S3:secretAccessKey")});
 var s3Stream = require('s3-upload-stream')(new AWS.S3()); //https://github.com/nathanpeck/s3-upload-stream
 var bucket = 'habitrpg-dev';
 var request = require('request');
