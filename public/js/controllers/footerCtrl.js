@@ -40,7 +40,16 @@
       if (!window.env.IS_MOBILE) {
         // Add This - FIXME why isn't this working when here? instead it's now in <head>
         //$.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4");
-        window.addthis_options = 'facebook,twitter,googleplus,tumblr';
+        var addthisServices = 'facebook,twitter,googleplus,tumblr,'+window.env.BASE_URL.replace('https://','').replace('http://','');
+        window.addthis_config = {
+          services_custom:{
+            name: "Download",
+            url: window.env.BASE_URL+"/export/avatar-"+User.user._id+".png",
+            icon: window.env.BASE_URL+"/favicon.ico"
+          },
+          services_expanded:addthisServices,
+          services_compact:addthisServices
+        };
 
         // Google Charts
         $.getScript("//www.google.com/jsapi", function() {
