@@ -27,6 +27,7 @@
     "EMAIL_SERVER_AUTH_USER": "user",
     "EMAIL_SERVER_AUTH_PASSWORD": "password",
     "S3":{
+        "bucket":"bucket",
         "accessKeyId":"accessKeyId",
         "secretAccessKey":"secretAccessKey"
     }

@@ -13,7 +13,7 @@ var Pageres = require('pageres'); //https://github.com/sindresorhus/pageres
 var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: nconf.get("S3:accessKeyId"), secretAccessKey: nconf.get("S3:secretAccessKey")});
 var s3Stream = require('s3-upload-stream')(new AWS.S3()); //https://github.com/nathanpeck/s3-upload-stream
-var bucket = 'habitrpg-dev';
+var bucket = nconf.get("S3:bucket");
 var request = require('request');
 
 /*
@@ -117,6 +117,7 @@ dataexport.avatarImage = function(req, res, next) {
     .src(nconf.get('BASE_URL') + '/export/avatar-' + req.params.uuid + '.html', ['140x147'], {crop: true, filename: filename.replace('.png', '')})
     .run(function (err, file) {
       if (err) return next(err);
+      // see http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#createMultipartUpload-property
       var upload = s3Stream.upload({
         Bucket: bucket,
         Key: filename,
