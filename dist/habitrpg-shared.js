@@ -13266,6 +13266,7 @@ api.quests = {
     text: t('questGoldenknight1Text'),
     notes: t('questGoldenknight1Notes'),
     value: 4,
+    lvl: 40,
     collect: {
       testimony: {
         text: t('questGoldenknight1CollectTestimony'),
@@ -13289,6 +13290,7 @@ api.quests = {
     notes: t('questGoldenknight2Notes'),
     value: 4,
     previous: 'goldenknight1',
+    lvl: 45,
     boss: {
       name: t('questGoldenknight2Boss'),
       hp: 1000,
@@ -13312,6 +13314,7 @@ api.quests = {
     completion: t('questGoldenknight3Completion'),
     previous: 'goldenknight2',
     value: 4,
+    lvl: 50,
     boss: {
       name: t('questGoldenknight3Boss'),
       hp: 1700,
@@ -15490,7 +15493,8 @@ api.wrap = function(user, main) {
       _.each({
         vice1: 30,
         atom1: 15,
-        moonstone1: 60
+        moonstone1: 60,
+        goldenknight1: 40
       }, function(lvl, k) {
         var _base, _base1, _ref;
         if (!((_ref = user.flags.levelDrops) != null ? _ref[k] : void 0) && user.stats.lvl >= lvl) {
