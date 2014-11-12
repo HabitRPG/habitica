@@ -14,6 +14,7 @@ var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: nconf.get("S3").accessKeyId, secretAccessKey: nconf.get("S3").secretAccessKey});
 var s3Stream = require('s3-upload-stream')(new AWS.S3()); //https://github.com/nathanpeck/s3-upload-stream
 var bucket = 'habitrpg-dev';
+var request = require('request');
 
 /*
   ------------------------------------------------------------------------
@@ -108,8 +109,12 @@ dataexport.avatarPage = function(req, res) {
 
 dataexport.avatarImage = function(req, res, next) {
   var filename = 'avatar-'+req.params.uuid+'.png';
-  new Pageres()//{delay:1}
-    .src(nconf.get('BASE_URL')+'/export/avatar-'+req.params.uuid+'.html', ['140x147'], {crop: true, filename: filename.replace('.png','')})
+  request.head('https://'+bucket+'.s3.amazonaws.com/'+filename, function(err,response,body) {
+    // cache images for 10 minutes on aws, else upload a new one
+    if (response.statusCode==200 && moment().diff(response.headers['last-modified'], 'minutes') < 10)
+      return res.redirect(301, 'https://' + bucket + '.s3.amazonaws.com/' + filename);
+    new Pageres()//{delay:1}
+    .src(nconf.get('BASE_URL') + '/export/avatar-' + req.params.uuid + '.html', ['140x147'], {crop: true, filename: filename.replace('.png', '')})
     .run(function (err, file) {
       if (err) return next(err);
       var upload = s3Stream.upload({
@@ -117,7 +122,8 @@ dataexport.avatarImage = function(req, res, next) {
         Key: filename,
         ACL: "public-read",
         StorageClass: "REDUCED_REDUNDANCY",
-        ContentType: "binary/octet-stream"
+        ContentType: "image/png",
+        Expires: +moment().add({minutes: 3})
       });
       upload.on('error', function (err) {
         next(err);
@@ -127,4 +133,5 @@ dataexport.avatarImage = function(req, res, next) {
       });
       file[0].pipe(upload);
     });
+  })
 };
