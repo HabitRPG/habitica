@@ -402,11 +402,11 @@ api.inviteFriends = function(req, res, next) {
   Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
     if (err) return next(err);
     var link = nconf.get('BASE_URL') + '?' + qs.stringify({partyInvite:{id:party._id, inviter:res.locals.user._id, name:party.name}});
-    _.each(req.body, function(invite){
+    _.each(req.body.emails, function(invite){
       if (invite.email) {
         var variables = [
           {name: 'LINK', content: link},
-          {name: 'INVITER', content: res.locals.user.profile.name},
+          {name: 'INVITER', content: req.body.inviter || res.locals.user.profile.name},
           {name: 'INVITEE', content: invite.name}
         ];
         // TODO implement "users can only be invited once"

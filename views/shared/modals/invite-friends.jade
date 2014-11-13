@@ -15,24 +15,29 @@ script(type='text/ng-template', id='modals/invite-friends.html')
 
     p.alert.alert-info Invite friends by email. If they join via your email, they'll automatically be invited to your party.
 
-    table.table.table-striped
-      thead
-        tr
-          th Name
-          th Email
-      tbody
-        tr(ng-repeat='email in emails')
-          td
-            input.form-control(type='text', ng-model='email.name')
-          td
-            input.form-control(type='email', ng-model='email.email')
-        tr
-          td(colspan=2)
-            button.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
-              i.glyphicon.glyphicon-plus
-        tr
-          td(colspan=2)
-            button.btn.btn-primary.pull-right(ng-click='inviteEmails(emails)') Invite New User(s)
+    form.form-horizontal(ng-submit='inviteEmails(inviter, emails)')
+      table.table.table-striped
+        thead
+          tr
+            th Name
+            th Email
+        tbody
+          tr(ng-repeat='email in emails')
+            td
+              input.form-control(type='text', ng-model='email.name')
+            td
+              input.form-control(type='email', ng-model='email.email')
+          tr
+            td(colspan=2)
+              a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+                i.glyphicon.glyphicon-plus
+          tr
+            td.form-group(colspan=2)
+              label.col-sm-1.control-label By:
+              .col-sm-7
+                input.form-control(type='text', ng-model='inviter')
+              .col-sm-4
+                button.btn.btn-primary(type='submit') Invite New User(s)
 
     //-
       hr
