@@ -12,13 +12,13 @@
 }
 .skin_skeleton2_sleep {
   background-image: url(spritesmith2.png);
-  background-position: -637px -1052px;
+  background-position: -728px -1052px;
   width: 90px;
   height: 90px;
 }
 .customize-option.skin_skeleton2_sleep {
   background-image: url(spritesmith2.png);
-  background-position: -662px -1067px;
+  background-position: -753px -1067px;
   width: 60px;
   height: 60px;
 }
@@ -138,7 +138,7 @@
 }
 .broad_armor_rogue_1 {
   background-image: url(spritesmith2.png);
-  background-position: -728px -1052px;
+  background-position: -637px -1052px;
   width: 90px;
   height: 90px;
 }
@@ -906,13 +906,13 @@
 }
 .broad_armor_mystery_201406 {
   background-image: url(spritesmith2.png);
-  background-position: -364px -106px;
+  background-position: -364px -203px;
   width: 90px;
   height: 96px;
 }
 .head_mystery_201406 {
   background-image: url(spritesmith2.png);
-  background-position: -364px -203px;
+  background-position: -364px -106px;
   width: 90px;
   height: 96px;
 }
@@ -1759,6 +1759,12 @@
 .shop_shield_special_yeti {
   background-image: url(spritesmith2.png);
   background-position: -861px -1275px;
+  width: 40px;
+  height: 40px;
+}
+.shop_weapon_special_candycane {
+  background-image: url(spritesmith2.png);
+  background-position: -902px -1275px;
   width: 40px;
   height: 40px;
 }

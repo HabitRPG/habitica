@@ -13355,6 +13355,22 @@ api.quests = {
       gp: 900,
       exp: 1500
     }
+  },
+  basilist: {
+    text: t('questBasilistText'),
+    notes: t('questBasilistNotes'),
+    completion: t('questBasilistCompletion'),
+    canbuy: false,
+    value: 4,
+    boss: {
+      name: t('questBasilistBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
   }
 };
 
