@@ -414,10 +414,13 @@ api.inviteFriends = function(req, res, next) {
 }
 api.sessionPartyInvite = function(req,res,next){
   if (req.session.partyInvite) {
-    res.locals.user.invitations.party = req.session.partyInvite;
-    Group.update({_id:req.session.partyInvite.id},{$addToSet:{invites:res.locals.user._id}});
-    delete req.session.partyInvite;
-    return res.locals.user.save(next);
+    var inv = res.locals.user.invitations;
+    if (!(inv.party && inv.party.id)) {
+      inv.party = req.session.partyInvite;
+      Group.update({_id:req.session.partyInvite.id},{$addToSet:{invites:res.locals.user._id}});
+      delete req.session.partyInvite;
+      return res.locals.user.save(next);
+    }
   }
   next();
 }
