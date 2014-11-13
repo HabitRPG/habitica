@@ -74,6 +74,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
 
       $scope.emails = [{name:"",email:""},{name:"",email:""}];
+      //$scope.inviteLink = function(obj){
+      //  return window.env.BASE_URL + '?partyInvite=' + encodeURIComponent(JSON.stringify(obj));
+      //}
       $scope.inviteEmails = function(emails){
         $http.post('/api/v2/user/social/invite-friends', emails).success(function(){
           Notification.text("Invitations sent!");
