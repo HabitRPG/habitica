@@ -187,6 +187,10 @@ window.habitrpg = angular.module('habitrpg',
           url: "/settings",
           templateUrl: "partials/options.settings.settings.html"
         })
+        .state('options.settings.difficulty', {
+          url: "/difficulty",
+          templateUrl: "partials/options.settings.difficulty.html"
+        })
         .state('options.settings.api', {
           url: "/api",
           templateUrl: "partials/options.settings.api.html"
