@@ -683,6 +683,7 @@ api.questEggs =
   Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
   Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: false
   Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
+  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
