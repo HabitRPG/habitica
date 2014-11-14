@@ -1253,7 +1253,7 @@ api.quests =
     text: t('questBasilistText')
     notes: t('questBasilistNotes')
     completion: t('questBasilistCompletion')
-    canbuy: false
+    canBuy: false
     value: 4
     boss:
       name: t('questBasilistBoss')
