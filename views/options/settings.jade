@@ -3,6 +3,9 @@ script(id='partials/options.settings.html', type="text/ng-template")
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
         =env.t('settings')
+    li(ng-class="{ active: $state.includes('options.settings.difficulty') }")
+      a(ui-sref='options.settings.difficulty')
+        =env.t('difficulty')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
         =env.t('API')
@@ -136,6 +139,17 @@ script(type='text/ng-template', id='partials/options.settings.coupon.html')
               button.btn.btn-primary(type='submit') Generate
               a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}') Get Codes
 
+// https://trello.com/c/C7CXSo02/428-site-difficulty-settings-v1
+script(id='partials/options.settings.difficulty.html', type="text/ng-template")
+  .container-fluid
+    .row
+      .col-md-6
+        h2=env.t('difficulty')
+        small=env.t('difficultyText')
+        .panel.panel-default
+          // .panel-heading // Use headings when there are many options that...
+            // =env.t('settings') // ... can be grouped into subsections.
+          .panel-body
 
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
