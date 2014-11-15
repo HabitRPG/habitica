@@ -606,7 +606,7 @@ describe "API", ->
           user = _user
           done()
 
-    it.skip "Handles unsubscription", (done) ->
+    it "Handles unsubscription", (done) ->
       cron = ->
         user.lastCron = moment().subtract("d", 1)
         user.fns.cron()

@@ -20,9 +20,6 @@
     "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
-    "PAYPAL_USERNAME": "PAYPAL_USERNAME",
-    "PAYPAL_PASSWORD": "PAYPAL_PASSWORD",
-    "PAYPAL_SIGNATURE": "PAYPAL_SIGNATURE",
     "EMAIL_SERVER_URL": "http://example.com",
     "EMAIL_SERVER_AUTH_USER": "user",
     "EMAIL_SERVER_AUTH_PASSWORD": "password",
@@ -30,6 +27,11 @@
         "bucket":"bucket",
         "accessKeyId":"accessKeyId",
         "secretAccessKey":"secretAccessKey"
+    },
+    "PAYPAL":{
+        "mode":"sandbox",
+        "client_id":"client_id",
+        "client_secret":"client_secret"
     }
 
 }
