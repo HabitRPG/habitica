@@ -320,7 +320,7 @@ module.exports = (swagger, v2) ->
         parameters:[
           body '','The array of batch-operations to perform','object'
         ]
-      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron]
+      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite]
       action: user.batchUpdate
 
     # Tags
@@ -363,6 +363,15 @@ module.exports = (swagger, v2) ->
           path 'id','Id of tag to delete','string'
         ]
       action: user.deleteTag
+
+    "/user/social/invite-friends":
+      spec:
+        method: 'POST'
+        description: 'Invite friends via email'
+        parameters: [
+          body 'invites','Array of [{name:"Friend\'s Name", email:"friends@email.com"}] to invite to play in your party','object'
+        ]
+      action: user.inviteFriends
 
     # ---------------------------------
     # Groups

@@ -48,9 +48,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       // ------ Members -------
       .panel.panel-default
         .panel-heading
-          h3.panel-title=env.t('members')
+          h3.panel-title
+            =env.t('members')
+            button.pull-right.btn.btn-primary(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})", ng-if='::group.type=="party"') Invite Friends
         .panel-body.modal-fixed-height
-          div(ng-if='group.type=="party"')
+          div(ng-if='::group.type=="party"')
             =env.t('partyList')
             br
             select#partyOrder(
@@ -86,7 +88,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 a.media-body
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
-        .panel-footer
+        .panel-footer(ng-if='::group.type!="party"')
           form.form-inline(ng-submit='invite(group)')
             //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
             .form-group

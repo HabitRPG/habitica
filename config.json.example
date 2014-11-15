@@ -25,5 +25,11 @@
     "PAYPAL_SIGNATURE": "PAYPAL_SIGNATURE",
     "EMAIL_SERVER_URL": "http://example.com",
     "EMAIL_SERVER_AUTH_USER": "user",
-    "EMAIL_SERVER_AUTH_PASSWORD": "password"
+    "EMAIL_SERVER_AUTH_PASSWORD": "password",
+    "S3":{
+        "bucket":"bucket",
+        "accessKeyId":"accessKeyId",
+        "secretAccessKey":"secretAccessKey"
+    }
+
 }

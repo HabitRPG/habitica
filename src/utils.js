@@ -34,7 +34,7 @@ function getMailingInfo(user) {
   return {email: email, name: name};
 }
 
-module.exports.txnEmail= function(mailingInfo, emailType){
+module.exports.txnEmail = function(mailingInfo, emailType, variables){
   if (mailingInfo._id) mailingInfo = getMailingInfo(mailingInfo);
   if (!mailingInfo.email) return;
   request({
@@ -51,7 +51,8 @@ module.exports.txnEmail= function(mailingInfo, emailType){
         to: {
           name: mailingInfo.name,
           email: mailingInfo.email
-        }
+        },
+        variables: variables
       },
       options: {
         attemps: 5,

@@ -73,7 +73,17 @@ future re: pets and whatnot, this is just temporary.
     &.isUser
       background: $color-herobox // Set a different background color for the current user
       &:hover, &:focus
-        background: lighten($color-herobox, 16.18%)	
+        background: lighten($color-herobox, 16.18%)
+
+  .addthis_pill_style
+    width: 50px !important
+  .addthis_native_toolbox
+    position: absolute
+    top:2px
+    right:2px
+    opacity:0
+  &:hover .addthis_native_toolbox
+    opacity:1
 
 //Need to find a way to indicate who is leader without using background-color as it won't work when a background image is applied
 //.herobox.isLeader.noBackgroundImage

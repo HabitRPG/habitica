@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state',
-  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
+  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
     $scope.isMemberOfPendingQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -63,7 +63,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
       }
 
-    // ------ Invites ------
+      // ------ Invites ------
 
       $scope.invite = function(group){
         Groups.Group.invite({gid: group._id, uuid: group.invitee}, undefined, function(){
@@ -72,6 +72,18 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           group.invitee = '';
         });
       }
+      //$scope.inviteLink = function(obj){
+      //  return window.env.BASE_URL + '?partyInvite=' + encodeURIComponent(JSON.stringify(obj));
+      //}
+      $scope.emails = [{name:"",email:""},{name:"",email:""}];
+      $scope.inviter = User.user.profile.name;
+      $scope.inviteEmails = function(inviter, emails){
+        $http.post('/api/v2/user/social/invite-friends', {inviter:inviter, emails:emails}).success(function(){
+          Notification.text("Invitations sent!");
+          $scope.emails = [{name:'',email:''},{name:'',email:''}];
+        });
+      }
+
     }
   ])
 
