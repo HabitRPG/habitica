@@ -2,28 +2,18 @@
 
 var _ = require('lodash');
 var logger = require('../logging');
-var ipn = require('paypal-ipn');
 var shared = require('habitrpg-shared');
 var nconf = require('nconf');
 var async = require('async');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
 var logging = require('./../logging');
-var userAPI = require('./user');
 var request = require('request');
 var moment = require('moment');
 var api = module.exports;
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
-
-var PaypalRecurring = require('paypal-recurring');
-var paypalRecurring = new PaypalRecurring({
-  username:  nconf.get('PAYPAL_USERNAME'),
-  password:  nconf.get('PAYPAL_PASSWORD'),
-  signature: nconf.get('PAYPAL_SIGNATURE')
-}, isProduction ? "production" : "sandbox");
-var paypalCheckout = require('paypal-express-checkout')
-  .init(nconf.get('PAYPAL_USERNAME'), nconf.get('PAYPAL_PASSWORD'), nconf.get('PAYPAL_SIGNATURE'), nconf.get('BASE_URL'), nconf.get('BASE_URL'), !isProduction);
+var paypal = require('./payments/paypal');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -39,7 +29,7 @@ function revealMysteryItems(user) {
   });
 }
 
-function createSubscription(user, data) {
+var createSubscription = api.createSubscription = function(user, data) {
   if (!user.purchased.plan) user.purchased.plan = {};
   _(user.purchased.plan)
     .merge({ // override with these values
@@ -64,7 +54,7 @@ function createSubscription(user, data) {
 /**
  * Sets their subscription to be cancelled later
  */
-function cancelSubscription(user, data){
+var cancelSubscription = api.cancelSubscription = function(user, data) {
   var du = user.purchased.plan.dateUpdated, now = moment();
   if(isProduction) utils.txnEmail(user, 'cancel-subscription');
   user.purchased.plan.dateTerminated =
@@ -72,21 +62,14 @@ function cancelSubscription(user, data){
     .add({months:1})
     .toDate();
   utils.ga.event('unsubscribe', 'Stripe').send();
-
 }
 
-function buyGems(user, data) {
+var buyGems = api.buyGems = function(user, data) {
   user.balance += 5;
   user.purchased.txnCount++;
   if(isProduction) utils.txnEmail(user, 'donation');
   utils.ga.event('checkout', data.paymentMethod).send();
   utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
-}
-
-// Expose some functions for tests
-if (nconf.get('NODE_ENV')==='testing') {
-  api.cancelSubscription = cancelSubscription;
-  api.createSubscription = createSubscription;
 }
 
 /*
@@ -103,7 +86,7 @@ api.stripeCheckout = function(req, res, next) {
           email: req.body.email,
           metadata: {uuid: res.locals.user._id},
           card: token,
-          plan: req.query.plan,
+          plan: req.query.plan
         }, cb);
       } else {
         stripe.charges.create({
@@ -174,111 +157,9 @@ api.stripeSubscribeEdit = function(req, res, next) {
   });
 };
 
-api.paypalSubscribe = function(req,res,next) {
-  // Authenticate a future subscription of ~5 USD
-  paypalRecurring.authenticate({
-    RETURNURL:                      nconf.get('BASE_URL') + '/paypal/subscribe/success?uuid=' + res.locals.user._id,
-    CANCELURL:                      nconf.get("BASE_URL"),
-    PAYMENTREQUEST_0_AMT:           5,
-    L_BILLINGAGREEMENTDESCRIPTION0: "HabitRPG Subscription"
-  }, function(err, data, url) {
-    // Redirect the user if everything went well with
-    // a HTTP 302 according to PayPal's guidelines
-    if (err) return next(err);
-    res.redirect(302, url);
-  });
-};
-
-api.paypalSubscribeSuccess = function(req,res,next) {
-  // Create a subscription of 10 USD every month
-  var uuid = req.query.uuid;
-  if (!uuid) return next("UUID required");
-  paypalRecurring.createSubscription(req.query.token, req.query.PayerID,{
-    AMT:              5,
-    DESC:             "HabitRPG Subscription",
-    BILLINGPERIOD:    "Month",
-    BILLINGFREQUENCY: 1,
-  }, function(err, data) {
-    if (err) return res.next(err);
-    User.findById(uuid, function(err,user){
-      if (err) return next(err);
-      createSubscription(user, {customerId: data.PROFILEID, paymentMethod: 'Paypal'});
-      user.save(function(err,saved){
-        res.redirect('/');
-      })
-    })
-  });
-};
-
-api.paypalSubscribeCancel = function(req, res, next) {
-  var user = res.locals.user;
-  if (!user.purchased.plan.customerId)
-    return res.json(401, {err: "User does not have a plan subscription"});
-  async.waterfall([
-    function(cb) {
-      paypalRecurring.modifySubscription(user.purchased.plan.customerId, 'cancel', cb);
-    },
-    function(response, cb) {
-      cancelSubscription(user);
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return next(err);
-    res.redirect('/');
-    user = null;
-  });
-};
-
-api.paypalCheckout = function(req, res, next) {
-  var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + res.locals.user._id};
-  paypalCheckout.pay(+new Date(), 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
-    if (err) return next(err);
-    res.redirect(url);
-  });
-};
-
-api.paypalCheckoutSuccess = function(req,res,next) {
-  paypalCheckout.detail(req.query.token, req.query.PayerID, function(err, data, invoiceNumber, price) {
-    // see `data` vars at https://github.com/petersirka/node-paypal-express-checkout#paypal-account
-    //if (err) return next('PayPal Error: ' + msg);
-    if (err) return next(err);
-    if (data.ACK !== 'Success') return next('PayPal transaction failed, please try again');
-
-    var uuid = req.query.uuid; //, apiToken = query.apiToken;
-    User.findById(uuid , function(err, user) {
-      if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
-      if (err) return next(err);
-      buyGems(user, {customerId:req.query.PayerID, paymentMethod:'Paypal'});
-      user.save(function(){
-        if (err) return next(err);
-        res.redirect('/');
-        uuid = null;
-      });
-    });
-  });
-};
-
-/**
- * General IPN handler. We could use this for all paypal transaction handling (instead of the above functions), but I've
- * found it extremely unreliable. Instead, here we'll cancel HabitRPG subscriptions for users who manually cancel their
- * recurring paypal payments.
- */
-api.paypalIPN = function(req, res, next) {
-  // Must respond to PayPal IPN request with an empty 200 first, if using Express uncomment the following:
-  res.send(200);
-  ipn.verify(req.body, function callback(err, msg) {
-    if (err) return logger.error(msg);
-    switch (req.body.txn_type) {
-      // TODO what's the diff b/w the two data.txn_types below? The docs recommend subscr_cancel, but I'm getting the other one instead...
-      case 'recurring_payment_profile_cancel':
-      case 'subscr_cancel':
-        User.findOne({'purchased.plan.customerId':req.body.recurring_payment_id},function(err, user){
-          if (err) return logger.error(err);
-          if (_.isEmpty(user)) return; // looks like the cancellation was already handled properly above (see api.paypalSubscribeCancel)
-          cancelSubscription(user);
-          user.save();
-        });
-        break;
-    }
-  });
-};
+api.paypalSubscribe = paypal.createBillingAgreement;
+api.paypalSubscribeSuccess = paypal.executeBillingAgreement;
+api.paypalSubscribeCancel = paypal.cancelSubscription;
+api.paypalCheckout = paypal.createPayment;
+api.paypalCheckoutSuccess = paypal.executePayment;
+api.paypalIPN = paypal.ipn;
