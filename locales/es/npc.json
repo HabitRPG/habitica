@@ -37,7 +37,7 @@
     "hitPointsText": "La barra roja indica los puntos de vida tu avatar. Cuando no consigues un objetivo, recibes daño y pierdes salud. Si tu salud llega a cero, mueres. La muerte provoca que pierdas un nivel, todo tu oro y una pieza de tu equipamiento.",
     "expPoints": "Puntos de Experiencia",
     "expPointsText": "La barra amarilla indica los puntos de experiencia de tu avatar. Cuando alcanzas un objetivo, ganas tanto oro como experiencia. Cuando tu barra de experiencia se llena, ganas un nivel. Ganar niveles es la manera de desbloquear nuevas y emocionantes características de HabitRPG.",
-    "typeGoals": "Tipos de Objetivos",
+    "typeGoals": "Tipos de Tareas",
     "typeGoalsText": "HabitRPG permite el seguimiento de tus objetivos en tres maneras distintas. Estos objetivos se clasifican en columnas como Hábitos, Tareas Diarias, o Tareas Pendientes.",
     "tourHabits": "Los Hábitos son objetivos sujetos a un constante seguimiento. Se les puede dar valores positivos o negativos, permitiéndote ganar experiencia y oro por tus buenos hábitos, o perder vida por los malos.",
     "tourDailies": "Dailies are tasks that you want to complete once a day. Checking off a Daily reaps experience and gold. Failing to check off your daily before the day resets results in a loss of health. You can change your day start settings from the Settings menu (click the gear-shaped icon, then click \"Site\").",

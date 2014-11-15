@@ -1,11 +1,12 @@
 {
     "clearCompleted": "Zmaž hotové",
-    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
+    "lotOfToDos": "Splnené úlohy sa po 3 dňoch automaticky archivujú. Ostanú prístupné cez Nastavenia > Export",
     "deleteToDosExplanation": "Ak klikneš na tlačítko nižšie, všetky tvoje dokončené ToDo a archivované ToDo sa nenávratne zmažú. Ak si chceš uchovať históriu, najskôr použi export.",
+    "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
     "habits": "Návyky",
     "newHabit": "Nový návyk",
-    "yellowred": "Struggling",
-    "greenblue": "On Track",
+    "yellowred": "Weak",
+    "greenblue": "Strong",
     "edit": "Upraviť",
     "save": "Uložiť",
     "addChecklist": "Pridať kontrolný zoznam",
@@ -37,10 +38,10 @@
     "dueDate": "Dokončiť do",
     "remaining": "Ostáva",
     "complete": "Hotové",
-    "due": "Due",
-    "grey": "Grey",
+    "due": "V pláne",
+    "grey": "Šedé",
     "rewards": "Odmeny",
-    "ingamerewards": "Equipment & Skills",
+    "ingamerewards": "Výstroj a zručnosti",
     "gold": "Zlato",
     "silver": "Grajciar (100 grajciarov = 1 zlatka)",
     "newReward": "Nová odmena",
@@ -66,6 +67,6 @@
     "fortifyText": "Siloxír vráti všetky tvoje úlohy do neutrálneho (žltého) stavu, akoby si ich len teraz pridal a úplne ti doplní zdravie. Ber to ako poslednú možnosť! Červené úlohy dobre povzbudzujú k zlepšeniu. Ale ak ťa veľa červenej napĺňa zúfalstvom a začiatok každého dňa je pre teba smrtiaci, obetuj zopár drahokamov a získaj milosť.",
     "sureDelete": "Si si istý, že chceš zmazať túto úlohu?",
     "streakCoins": "Bonus za sériu!",
-    "pushTaskToTop": "Push task to top",
-    "pushTaskToBottom": "Push task to bottom"
+    "pushTaskToTop": "Presuň úlohu navrch",
+    "pushTaskToBottom": "Presuň úlohu naspodok"
 }

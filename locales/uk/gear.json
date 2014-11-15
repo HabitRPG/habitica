@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases Perception by <%= per %>.",
     "shieldSpecial1Text": "Кришталевий щит",
     "shieldSpecial1Notes": "Розбиває стріли та віддзеркалює слова скептиків. Збільшує всі параметри на <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Щит приборкувача Єті",
     "shieldSpecialYetiNotes": "Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases Constitution by <%= con %>.",
     "shieldSpecialSnowflakeText": "Щит \"Сніжинка\"",

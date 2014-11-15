@@ -11,7 +11,7 @@
     "accepted": "Accettata",
     "rejected": "Rifiutata",
     "pending": "In attesa",
-    "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), the quest owner can start the quest without them by clicking \"Begin\". The quest owner can also cancel the quest and regain the quest scroll by clicking \"Cancel\".",
+    "questStart": "Un volta che ogni membro ha accettato o rifiutato, la missione inizia. Solo chi ha selezionato \"Accetta\" potrà partecipare e ricevere le ricompense. Se dei membri rimangono in attesa per troppo tempo (forse perché inattivi?) il fautore della missione può iniziare la missione senza di loro selezionando \"Inizia\". Può anche annullare la missione e riottenere la pergamenna selezionando \"Annulla\"",
     "begin": "Inizia",
     "bossHP": "Salute del Boss",
     "collected": "Collezionati",

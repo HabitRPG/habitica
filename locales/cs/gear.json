@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Vidí za závoj smrti a ke strachu nepřátel ukazuje, co tam vidí. Zvyšuje Vnímání o <%= per %>.",
     "shieldSpecial1Text": "Křišťálový štít",
     "shieldSpecial1Notes": "Tříští šípy a odráží slova vzbouřenců. Zvyšuje všechny atributy o <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Štít krotitele Yetti",
     "shieldSpecialYetiNotes": "Limitovaná edice zimního vybavení 2013! Tento štít odráží světlo ze sněhu. Zvyšuje Obranu o  <%= con %>.",
     "shieldSpecialSnowflakeText": "Vločkový štít",

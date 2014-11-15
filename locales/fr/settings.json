@@ -69,5 +69,7 @@
     "fillAll": "Veuillez remplir tous les champs",
     "passSuccess": "Mot de passe changé avec succès ",
     "usernameSuccess": "Identifiant changé avec succès ",
-    "difficulty": "Difficulté"
+    "difficulty": "Difficulté",
+    "data": "Data",
+    "exportData": "Export Data"
 }

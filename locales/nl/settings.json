@@ -69,5 +69,7 @@
     "fillAll": "Vul alsjeblieft alle velden in",
     "passSuccess": "Wachtwoord is succesvol aangepast",
     "usernameSuccess": "Gebruikersnaam is succesvol veranderd",
-    "difficulty": "Moeilijkheidsgraad"
+    "difficulty": "Moeilijkheidsgraad",
+    "data": "Data",
+    "exportData": "Export Data"
 }

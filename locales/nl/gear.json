@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Ziet voorbij de sluier des doods, en laat zien wat vijanden daar te vrezen hebben. Verhoogt Perceptie met <%= per %>.",
     "shieldSpecial1Text": "Kristallen schild",
     "shieldSpecial1Notes": "Verbrijzelt pijlen en pareert de woorden van dwarsliggers. Verhoogt alle eigenschappen met <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Yeti-temmersschild",
     "shieldSpecialYetiNotes": "Beperkte oplage winteruitrusting 2013! Dit schild weerkaatst het licht van de sneeuw. Verhoogt CON met <%= con %>",
     "shieldSpecialSnowflakeText": "Sneeuwvlokschild",

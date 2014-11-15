@@ -69,5 +69,7 @@
     "fillAll": "Var vänlig fyll i alla fält",
     "passSuccess": "Lösenord ändrades framgångsrikt",
     "usernameSuccess": "Användarnamn bytt",
-    "difficulty": "Svårhetsgrad"
+    "difficulty": "Svårhetsgrad",
+    "data": "Data",
+    "exportData": "Export Data"
 }

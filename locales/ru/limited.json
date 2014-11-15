@@ -1,10 +1,10 @@
 {
     "limitedEdition": "Ограниченный выпуск",
-    "seasonalEdition": "Seasonal Edition",
+    "seasonalEdition": "Сезонный выпуск",
     "winterColors": "Зимние цвета",
     "annoyingFriends": "Вредные друзья",
     "annoyingFriendsText": "Прилетело снежков в спину от членов команды: <%= snowballs %>.",
-    "alarmingFriends": "Alarming Friends",
+    "alarmingFriends": "Пугающие друзья",
     "alarmingFriendsText": "Напуган членами команды <%= spookDust %> раз.",
     "valentineCard": "Валентинка",
     "adoringFriends": "Любимые друзья",
@@ -13,5 +13,5 @@
     "polarBear": "Белый медведь",
     "turkey": "Индейка",
     "polarBearPup": "Детеныш белого медведя",
-    "jackolantern": "Jack-O-Lantern"
+    "jackolantern": "Тыквенная лампа"
 }

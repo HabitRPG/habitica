@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Vê através do véu da morte e mostra o que lá encontra para os inimigos temerem. Aumenta Percepção em <%= per %>.",
     "shieldSpecial1Text": "Escuto de Cristal",
     "shieldSpecial1Notes": "Despedaça flechas e desvia as palavras de opositores. Aumenta todos atributos em <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Escudo de Domador de Ieti",
     "shieldSpecialYetiNotes": "Equipamento Edição Limitada de Inverno 2013! Esse escudo reflete luz da neve. Aumenta Constituição em <%= con %>.",
     "shieldSpecialSnowflakeText": "Escudo Floco de Neve",

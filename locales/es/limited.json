@@ -4,7 +4,7 @@
     "winterColors": "Colores de Invierno",
     "annoyingFriends": "Amigos Molestos",
     "annoyingFriendsText": "Tus compañeros te han lanzado <%= snowballs %> bolas de nieve.",
-    "alarmingFriends": "Alarming Friends",
+    "alarmingFriends": "Amigos Alarmantes",
     "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Tarjeta del Día de San Valentin",
     "adoringFriends": "Amigos Cariñosos",
@@ -13,5 +13,5 @@
     "polarBear": "Oso Polar",
     "turkey": "Pavo",
     "polarBearPup": "Cachorro de Oso Polar",
-    "jackolantern": "Jack-O-Lantern"
+    "jackolantern": "Calabaza de Halloween"
 }

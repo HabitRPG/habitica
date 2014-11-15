@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "רואה מעבר לרעלת המוות, ומציגה זאת לאוייביך כדי להטיל מורא בלבבם. מגביר את ערך התפיסה שלך ב<%= per %> נקודות.",
     "shieldSpecial1Text": "מגן קריסטל",
     "shieldSpecial1Notes": "מנתץ חיצים והודף את מילותיהם של המייאשים. דבר לא ירפה את ידיך יותר! מגביר את כל ערכי התכונות שלך ב<%= attrs %> נקודות.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "מגן מאלפי-יטים",
     "shieldSpecialYetiNotes": "מהדורה מוגבלת של ציוד חורף 2013! המגן מסנוור את אויביך עם אור שנוצץ על השלג. מגביר את ערך החוסן שלך ב<%= con %> נקודות.",
     "shieldSpecialSnowflakeText": "מגן פתית-שלג",

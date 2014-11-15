@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Sees beyond th' veil 'o Davy Jones', 'n displays what it finds thar fer enemies to fear. Increases Perception by <%= per %>.",
     "shieldSpecial1Text": "Crystal Shield",
     "shieldSpecial1Notes": "Shatters arrows 'n deflects th' words 'o naysayers. Increases all attributes by <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Yeti-Tamer Shield",
     "shieldSpecialYetiNotes": "Limited Edition 2013 Winter Gear! 'tis shield reflects light from th' snow. Increases Constitution by <%= con %>.",
     "shieldSpecialSnowflakeText": "Snowflake Shield",

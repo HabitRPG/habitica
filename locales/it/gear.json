@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Vede oltre il velo della morte, e usa quello che vi trova per terrorizzare i nemici. Aumenta la Percezione di <%= per %>.",
     "shieldSpecial1Text": "Scudo di Cristallo",
     "shieldSpecial1Notes": "Frantuma le frecce e deflette le parole dei pessimisti. Aumenta tutti gli attributi di <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Scudo dell'Addestra-Yeti",
     "shieldSpecialYetiNotes": "Edizione limitata dell'inverno 2013! Questo scudo riflette la luce della neve. Aumenta la Costituzione di <%= con %>.",
     "shieldSpecialSnowflakeText": "Scudo Fioccodineve",

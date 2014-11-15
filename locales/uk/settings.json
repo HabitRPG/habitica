@@ -69,5 +69,7 @@
     "fillAll": "Будь ласка, заповніть усі поля",
     "passSuccess": "Пароль успішно змінено",
     "usernameSuccess": "Username successfully changed",
-    "difficulty": "Складність"
+    "difficulty": "Складність",
+    "data": "Data",
+    "exportData": "Export Data"
 }

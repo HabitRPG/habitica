@@ -61,7 +61,7 @@
     "guilds": "Cechy",
     "sureKick": "Do you really want to remove this member from the party/guild?",
     "foreverAlone": "Nemôžeš si lajkovať vlastnú správu. Nechceš hádam byť jeden z tých ľudí.",
-    "sortLevel": "Sort by level",
+    "sortLevel": "Zoradiť podľa levelu",
     "sortRandom": "Zoradiť náhodne",
     "sortPets": "Zoradiť podľa počtu zvieratiek",
     "sortJoined": "Sort by date joined the party",
@@ -70,7 +70,7 @@
     "confirmGuild": "Vytvoriť cech za 4 drahokamy?",
     "leaveGroupCha": "Leave Guild challenges and...",
     "confirm": "Potvrdiť",
-    "leaveGroup": "Leave Guild?",
+    "leaveGroup": "Opustiť cech?",
     "leavePartyCha": "Opustiť výzvy družiny a...",
     "leaveParty": "Opustiť družinu?"
 }

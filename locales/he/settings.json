@@ -69,5 +69,7 @@
     "fillAll": "אנא מלא/י את כל השדות",
     "passSuccess": "הסיסמא שונתה בהצלחה",
     "usernameSuccess": "שם משתמש/ת השתנה בהצלחה!",
-    "difficulty": "רמת קושי"
+    "difficulty": "רמת קושי",
+    "data": "Data",
+    "exportData": "Export Data"
 }

@@ -319,6 +319,8 @@
     "shieldSpecial0Notes": "Voit au-delà du voile de la mort et montre aux ennemis ce qu'il y a trouvé pour les épouvanter. Augmente la Perception de <%= per %> points.",
     "shieldSpecial1Text": "Bouclier de Cristal",
     "shieldSpecial1Notes": "Brise les flèches et détourne les paroles des personnes négatives. Augmente tous les attributs de <%= attrs %>.",
+    "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+    "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
     "shieldSpecialYetiText": "Bouclier du Dompteur de Yeti",
     "shieldSpecialYetiNotes": "Ce bouclier réverbère la lumière de la neige. Augmente la Constitution de <%= con %> points. Équipement en Édition Limitée de l'Hiver 2013.",
     "shieldSpecialSnowflakeText": "Bouclier Flocon de neige",

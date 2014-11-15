@@ -128,6 +128,6 @@
     "invalidTarget": "Недопустимая цель",
     "youCast": "Вы накладываете <%= spell %>.",
     "youCastTarget": "Вы накладываете <%= spell %> на <%= target %>.",
-    "youCastParty": "Вы накладываете <%= spell %> для команды.",
+    "youCastParty": "Вы накладываете командный <%= spell %> ",
     "critBonus": "Критический удар! Бонус:"
 }

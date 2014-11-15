@@ -45,7 +45,7 @@
     "passMan": "Если вы используете программы для хранения паролей (например, 1Password) и испытываете трудности с входом, попробуйте ввести имя и пароль на клавиатуре.",
     "forgotPass": "Напомнить пароль",
     "emailNewPass": "Отправить новый пароль по Email",
-    "invalidEmail": "A valid email address is required in order to perform a password reset.",
+    "invalidEmail": "Для изменения пароля необходимо указать существующий адрес электронной почты.",
     "email": "Email",
     "passConfirm": "Подтвердить пароль",
     "accept1Terms": "Нажимая кнопку ниже, я принимаю ",
