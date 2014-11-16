@@ -9,6 +9,11 @@ var logger = require('../../logging');
 var ipn = require('paypal-ipn');
 var paypal = require('paypal-rest-sdk');
 
+// This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
+// a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
+// there, get it's plan.id and store it in config.json
+var billingPlanID = nconf.get('PAYPAL:billing_plan_id');
+
 paypal.configure({
   'mode': nconf.get("PAYPAL:mode"), //sandbox or live
   'client_id': nconf.get("PAYPAL:client_id"),
@@ -19,64 +24,8 @@ var parseErr = function(err){
   return (err.response && err.response.message || err.response.details[0].issue) || err;
 }
 
-// Initialize Billing Plans
-var billingPlanID;
-var billingPlanTitle ="HabitRPG subscription ($5 month-to-month)";
-(function(){
-  var billingPlanAttributes = {
-    // https://developer.paypal.com/docs/api/#billing-plans-and-agreements
-    "name": billingPlanTitle,
-    "description": billingPlanTitle,
-    "type": "INFINITE",
-    "merchant_preferences": {
-      "auto_bill_amount": "yes",
-      "cancel_url": nconf.get("BASE_URL"),
-      "return_url": nconf.get('BASE_URL') + '/paypal/subscribe/success'
-    },
-    "payment_definitions": [{
-      "name": billingPlanTitle,
-      "type": "REGULAR",
-      "frequency_interval": "1",
-      "frequency": "MONTH",
-      "cycles": "0",
-      "amount": {
-        "currency": "USD",
-        "value": "5"
-      }
-    }]
-  };
-
-  async.waterfall([
-    function(cb) {
-      paypal.billingPlan.list({status: 'ACTIVE'}, cb);
-    },
-    function(plans, cb){
-      var plan = _.find(plans.plans, {name:billingPlanTitle});
-      if (plan) return cb(null, plan);
-      paypal.billingPlan.create(billingPlanAttributes, cb);
-    },
-    function(plan, cb){
-      if (plan.state == "ACTIVE") return cb(null, plan);
-      // Super obvious this stuff, right? *sigh*
-      var billingPlanUpdateAttributes = [{
-        "op": "replace",
-        "path": "/",
-        "value": {
-          "state": "ACTIVE"
-        }
-      }];
-      // Activate the plan by changing status to Active
-      paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, function(err, response){
-        if (err) return cb(err);
-        cb(null, plan);
-      });
-    },
-  ],function(err, plan){
-    billingPlanID = plan && plan.id || "none";
-  })
-})();
-
 exports.createBillingAgreement = function(req,res,next){
+  var billingPlanTitle ="HabitRPG subscription ($5 month-to-month)";
   var billingAgreementAttributes = {
     "name": billingPlanTitle,
     "description": billingPlanTitle,
