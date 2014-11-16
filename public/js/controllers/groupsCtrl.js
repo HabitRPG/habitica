@@ -72,9 +72,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           group.invitee = '';
         });
       }
-      //$scope.inviteLink = function(obj){
-      //  return window.env.BASE_URL + '?partyInvite=' + encodeURIComponent(JSON.stringify(obj));
-      //}
+
+      var serializeQs = function(obj, prefix){
+        var str = [];
+        for(var p in obj) {
+          if (obj.hasOwnProperty(p)) {
+            var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+            str.push(typeof v == "object" ?
+              serializeQs(v, k) :
+              encodeURIComponent(k) + "=" + encodeURIComponent(v));
+          }
+        }
+        return str.join("&");
+      }
+
+      $scope.inviteLink = function(obj){
+        return window.env.BASE_URL + '?' + serializeQs({partyInvite: obj});
+      }
       $scope.emails = [{name:"",email:""},{name:"",email:""}];
       $scope.inviter = User.user.profile.name;
       $scope.inviteEmails = function(inviter, emails){

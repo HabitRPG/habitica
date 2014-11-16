@@ -39,10 +39,9 @@ script(type='text/ng-template', id='modals/invite-friends.html')
               .col-sm-4
                 button.btn.btn-primary(type='submit') Invite New User(s)
 
-    //-
-      hr
-      p.alert.alert-info Or share this link (copy/paste):
-      input.form-control(type='text', ng-value='inviteLink({id: party._id, inviter: user._id, name: party.name})')
+    hr
+    p.alert.alert-info Or share this link (copy/paste):
+    input.form-control(type='text', ng-value='inviteLink({id: party._id, inviter: user._id, name: party.name})')
 
   .modal-footer
     button.btn.btn-default(ng-click='$close()') Close
