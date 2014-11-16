@@ -72,7 +72,7 @@ var billingPlanTitle ="HabitRPG subscription ($5 month-to-month)";
       });
     },
   ],function(err, plan){
-    billingPlanID = plan.id;
+    billingPlanID = plan && plan.id || "none";
   })
 })();
 
