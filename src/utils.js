@@ -38,11 +38,11 @@ module.exports.txnEmail = function(mailingInfo, emailType, variables){
   if (mailingInfo._id) mailingInfo = getMailingInfo(mailingInfo);
   if (!mailingInfo.email) return;
   request({
-    url: nconf.get('EMAIL_SERVER_URL') + '/job',
+    url: nconf.get('EMAIL_SERVER:url') + '/job',
     method: 'POST',
     auth: {
-      user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-      pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
+      user: nconf.get('EMAIL_SERVER:authUser'),
+      pass: nconf.get('EMAIL_SERVER:authPassword')
     },
     json: {
       type: 'email',
