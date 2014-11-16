@@ -45,7 +45,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.inventory.equipment')=env.t('equipment')
             ul.toolbar-submenu
               li
-                a(target="_blank" href='http://data.habitrpg.com')=env.t('dataTool')
+                a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
               li
                 a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
@@ -118,14 +118,14 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.inventory.equipment')=env.t('equipment')
       li.toolbar-button-dropdown
-        a(target="_blank" href='http://data.habitrpg.com')
+        a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')
           span=env.t('data')
         a(ng-click='expandMenu("data")', ng-class='{active: _expandedMenu == "data"}')
           span  &#9776;
         div(ng-if='_expandedMenu == "data"')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
-              a(target="_blank" href='http://data.habitrpg.com')=env.t('dataTool')
+              a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
       li.toolbar-button-dropdown
