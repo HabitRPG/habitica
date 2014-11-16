@@ -162,5 +162,19 @@ habitrpg.controller('SettingsCtrl',
       User.user.ops.release2({});
       $rootScope.$state.go('tasks');
     }
+
+    //FIXME push this all to habitrpg-shared so we have API routes for this
+    $scope.addWebhook = function(webhook) {
+      User.set({'preferences.webhooks':User.user.preferences.webhooks.concat({url:webhook, enabled:true})});
+      $scope._newWebhook = '';
+    }
+    $scope.saveWebhook = function(webhook){
+      delete webhook._editing;
+      User.set({'preferences.webhooks':User.user.preferences.webhooks});
+    }
+    $scope.deleteWebhook = function($index){
+      User.user.preferences.webhooks.splice($index, 1);
+      User.set({'preferences.webhooks':User.user.preferences.webhooks});
+    }
   }
 ]);
