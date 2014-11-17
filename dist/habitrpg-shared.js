@@ -14620,6 +14620,33 @@ api.wrap = function(user, main) {
         });
         return typeof cb === "function" ? cb(null, user.tags) : void 0;
       },
+      addWebhook: function(req, cb) {
+        var wh;
+        wh = user.preferences.webhooks;
+        wh[req.body.id || api.uuid()] = {
+          url: req.body.url,
+          enabled: req.body.enabled || true,
+          sort: _.isEmpty(wh) ? 0 : _.max(wh, 'sort').sort + 1
+        };
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      updateWebhook: function(req, cb) {
+        _.merge(user.preferences.webhooks[req.params.id], req.body);
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      deleteWebhook: function(req, cb) {
+        delete user.preferences.webhooks[req.params.id];
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
       feed: function(req, cb) {
         var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
         _ref = req.params, pet = _ref.pet, food = _ref.food;

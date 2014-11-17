@@ -595,6 +595,26 @@ api.wrap = (user, main=true) ->
         cb? null, user.tags
 
       # ------
+      # Webhooks
+      # ------
+      addWebhook: (req, cb) ->
+        wh = user.preferences.webhooks
+        wh[req.body.id or api.uuid()] =
+          url: req.body.url
+          enabled: req.body.enabled or true
+          sort: if _.isEmpty(wh) then 0 else _.max(wh,'sort').sort+1
+        user.markModified? 'preferences.webhooks'
+        cb? null, user.preferences.webhooks
+      updateWebhook: (req, cb) ->
+        _.merge(user.preferences.webhooks[req.params.id], req.body)
+        user.markModified? 'preferences.webhooks'
+        cb? null, user.preferences.webhooks
+      deleteWebhook: (req, cb) ->
+        delete user.preferences.webhooks[req.params.id]
+        user.markModified? 'preferences.webhooks'
+        cb? null, user.preferences.webhooks
+
+      # ------
       # Inventory
       # ------
 
