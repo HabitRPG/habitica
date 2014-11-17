@@ -11367,8 +11367,8 @@ gear = {
         })
       },
       goldenknight: {
-        text: t('weaponSpecialGoldenknightText'),
-        notes: t('weaponSpecialGoldenknightNotes', {
+        text: t('shieldSpecialGoldenknightText'),
+        notes: t('shieldSpecialGoldenknightNotes', {
           attrs: 25
         }),
         con: 25,

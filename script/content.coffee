@@ -275,7 +275,7 @@ gear =
     special:
       0: text: t('shieldSpecial0Text'), notes: t('shieldSpecial0Notes', {per: 20}), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: t('shieldSpecial1Text'), notes: t('shieldSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
-      goldenknight: text: t('weaponSpecialGoldenknightText'), notes: t('weaponSpecialGoldenknightNotes', {attrs: 25}), con: 25, per: 25, value:200, canOwn: ((u)-> u.items.gear.owned.shield_special_goldenknight?)
+      goldenknight: text: t('shieldSpecialGoldenknightText'), notes: t('shieldSpecialGoldenknightNotes', {attrs: 25}), con: 25, per: 25, value:200, canOwn: ((u)-> u.items.gear.owned.shield_special_goldenknight?)
       #Winter event
       yeti:       event: events.winter, specialClass: 'warrior', text: t('shieldSpecialYetiText'), notes: t('shieldSpecialYetiNotes', {con: 7}), con: 7, value: 70
       ski:        event: events.winter, specialClass: 'rogue', text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
