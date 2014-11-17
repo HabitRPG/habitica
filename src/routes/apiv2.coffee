@@ -373,6 +373,37 @@ module.exports = (swagger, v2) ->
         ]
       action: user.inviteFriends
 
+    # Webhooks
+    "/user/webhooks":
+      spec:
+        method: 'POST'
+        description: 'Create a new webhook'
+        parameters: [
+          body '','New Webhook {url:"webhook endpoint (required)", id:"id of webhook (shared.uuid(), optional)", enabled:"whether webhook is enabled (true by default, optional)"}','object'
+        ]
+      action: user.addWebhook
+
+    "/user/webhooks/{id}:PUT":
+      spec:
+        path: '/user/webhooks/{id}'
+        method: 'PUT'
+        description: "Edit a webhook"
+        parameters: [
+          path 'id','The id of the webhook to edit','string'
+          body '','New Webhook {url:"webhook endpoint (required)", id:"id of webhook (shared.uuid(), optional)", enabled:"whether webhook is enabled (true by default, optional)"}','object'
+        ]
+      action: user.updateWebhook
+
+    "/user/webhooks/{id}:DELETE":
+      spec:
+        path: '/user/webhooks/{id}'
+        method: 'DELETE'
+        description: 'Delete a webhook'
+        parameters: [
+          path 'id','Id of webhook to delete','string'
+        ]
+      action: user.deleteWebhook
+
     # ---------------------------------
     # Groups
     # ---------------------------------

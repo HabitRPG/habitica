@@ -155,29 +155,28 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
 
         h2 Webhooks
         table.table.table-striped
-          thead(ng-if='user.preferences.webhooks[0]')
+          thead(ng-if='hasWebhooks')
             tr
               th Enabled
               th Webhook URL
               th
           tbody
-            tr(ng-repeat='webhook in user.preferences.webhooks')
+            tr(ng-repeat="(id,webhook) in user.preferences.webhooks | orderBy:'sort'")
               td
-                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook)')
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(id,webhook)')
               td
-                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook)'}")
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(id,webhook)'}")
               td
                 span.pull-left(ng-show='webhook._editing') *
-                a.checklist-icons(ng-click='deleteWebhook($index)')
+                a.checklist-icons(ng-click='deleteWebhook(id)')
                   span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
             tr
               td(colspan=2)
-                form.form-horizontal(ng-submit='addWebhook(_newWebhook)')
+                form.form-horizontal(ng-submit='addWebhook(_newWebhook.url)')
                   .form-group.col-sm-10
-                    input.form-control(type='url', ng-model='_newWebhook', placeholder='Webhook URL')
+                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder='Webhook URL')
                   .col-sm-2
                     button.btn.btn-sm.btn-primary(type='submit') Add
-
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .container-fluid

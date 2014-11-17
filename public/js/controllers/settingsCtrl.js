@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrlService', 'Guide', '$location', '$timeout', 'Notification',
-  function($scope, User, $rootScope, $http, ApiUrlService, Guide, $location, $timeout, Notification) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrlService', 'Guide', '$location', '$timeout', 'Notification', 'Shared',
+  function($scope, User, $rootScope, $http, ApiUrlService, Guide, $location, $timeout, Notification, Shared) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -163,18 +163,21 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
-    //FIXME push this all to habitrpg-shared so we have API routes for this
-    $scope.addWebhook = function(webhook) {
-      User.set({'preferences.webhooks':User.user.preferences.webhooks.concat({url:webhook, enabled:true})});
-      $scope._newWebhook = '';
+    // ---- Webhooks ------
+    $scope._newWebhook = {url:''};
+    $scope.$watch('user.preferences.webhooks',function(webhooks){
+      $scope.hasWebhooks = _.size(webhooks);
+    })
+    $scope.addWebhook = function(url) {
+      User.user.ops.addWebhook({body:{url:url, id:Shared.uuid()}});
+      $scope._newWebhook.url = '';
     }
-    $scope.saveWebhook = function(webhook){
+    $scope.saveWebhook = function(id,webhook) {
       delete webhook._editing;
-      User.set({'preferences.webhooks':User.user.preferences.webhooks});
+      User.user.ops.updateWebhook({params:{id:id}, body:webhook});
     }
-    $scope.deleteWebhook = function($index){
-      User.user.preferences.webhooks.splice($index, 1);
-      User.set({'preferences.webhooks':User.user.preferences.webhooks});
+    $scope.deleteWebhook = function(id) {
+      User.user.ops.deleteWebhook({params:{id:id}});
     }
   }
 ]);
