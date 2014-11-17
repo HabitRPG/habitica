@@ -29,7 +29,7 @@ exports.createBillingAgreement = function(req,res,next){
   var billingAgreementAttributes = {
     "name": billingPlanTitle,
     "description": billingPlanTitle,
-    "start_date": moment().add({minutes:1}).format(),
+    "start_date": moment().add({seconds:5}).format(),
     "plan": {
       "id": billingPlanID
     },
