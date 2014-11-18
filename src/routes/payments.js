@@ -17,4 +17,8 @@ router.post("/stripe/subscribe/edit", auth.auth, i18n.getUserLanguage, payments.
 //router.get("/stripe/subscribe", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribe); // checkout route is used (above) with ?plan= instead
 router.get("/stripe/subscribe/cancel", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribeCancel);
 
+router.get('/bitpay/checkout', auth.authWithUrl, i18n.getUserLanguage, payments.bitpayCheckout);
+router.get('/bitpay/checkout/success', i18n.getUserLanguage, payments.bitpayCheckoutSuccess);
+
+
 module.exports = router;

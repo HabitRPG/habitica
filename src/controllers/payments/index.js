@@ -75,3 +75,6 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.bitpayCheckout = bitpay.checkout;
+exports.bitpayCheckoutSucesss = bitpay.checkoutSucess;

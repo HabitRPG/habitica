@@ -23,6 +23,8 @@ script(id='modals/buyGems.html', type='text/ng-template')
               //.btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
               .btn.btn-primary(ng-click='showStripe()')=env.t('card')
               a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+              a.btn.btn-warning(ng-click='showBitPay()') BitPay
+
 
       div(ng-include="'partials/options.settings.subscription.html'")
 

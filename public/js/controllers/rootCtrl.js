@@ -158,6 +158,15 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       });
     }
 
+    $rootScope.showBitPay = function(subscription) {
+      var url = '/bitpay/checkout' + '?_id=' + user._id + '&apiToken=' + user.apiToken;
+      $http.get(url).success(function(bitpayUrl) {
+        window.open(bitpayUrl);
+      }).error(function(data) {
+        alert(data.err);
+      });
+    }
+
     $rootScope.showStripeEdit = function(){
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,

@@ -237,6 +237,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
       a.btn.btn-primary(ng-click='showStripe(true)') Card
       //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
       a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+      a.btn.btn-warning(ng-click='showBitPay(true)') BitPay
     div(ng-if='p.customerId')
       .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
       .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
