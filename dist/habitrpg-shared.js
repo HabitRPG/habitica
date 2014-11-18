@@ -13624,6 +13624,29 @@ api.backgrounds = {
   }
 };
 
+api.subscriptionBlocks = {
+  "1": {
+    months: 1,
+    price: 5,
+    key: 'basic_earned'
+  },
+  "3": {
+    months: 3,
+    price: 15,
+    key: 'basic_3mo'
+  },
+  "6": {
+    months: 6,
+    price: 30,
+    key: 'basic_6mo'
+  },
+  "12": {
+    months: 12,
+    price: 48,
+    key: 'basic_12mo'
+  }
+};
+
 repeat = {
   m: true,
   t: true,
@@ -14926,11 +14949,12 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var convCap, convRate, item, key, type, _ref, _ref1, _ref2, _ref3;
+        var convCap, convRate, item, key, type, _ref, _ref1, _ref2;
         _ref = req.params, type = _ref.type, key = _ref.key;
         if (type === 'gems' && key === 'gem') {
-          _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
-          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.planId : void 0 : void 0)) {
+          convRate = api.planGemLimits.convRate;
+          convCap = api.planGemLimits + user.purchased.plan.consecutive.gemCapExtra;
+          if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.planId : void 0 : void 0)) {
             return typeof cb === "function" ? cb({
               code: 401,
               message: "Must subscribe to purchase gems with GP"
@@ -15822,7 +15846,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
       if (options == null) {
         options = {};
       }
@@ -15837,12 +15861,6 @@ api.wrap = function(user, main) {
       user.lastCron = now;
       if (user.items.lastDrop.count > 0) {
         user.items.lastDrop.count = 0;
-      }
-      if ((_ref = user.purchased) != null ? (_ref1 = _ref.plan) != null ? _ref1.customerId : void 0 : void 0) {
-        if (moment(user.purchased.plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
-          user.purchased.plan.gemsBought = 0;
-          user.purchased.plan.dateUpdated = new Date();
-        }
       }
       perfect = true;
       clearBuffs = {
@@ -15942,7 +15960,7 @@ api.wrap = function(user, main) {
         date: now,
         value: expTally
       });
-      if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
+      if (!((_ref = user.purchased) != null ? (_ref1 = _ref.plan) != null ? _ref1.customerId : void 0 : void 0)) {
         user.fns.preenUserHistory();
         if (typeof user.markModified === "function") {
           user.markModified('history');
@@ -15963,14 +15981,37 @@ api.wrap = function(user, main) {
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
       }
-      plan = (_ref4 = user.purchased) != null ? _ref4.plan : void 0;
-      if (plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
-        _.merge(user.purchased.plan, {
-          planId: null,
-          customerId: null,
-          paymentMethod: null
-        });
-        user.markModified('purchased.plan');
+      plan = (_ref2 = user.purchased) != null ? _ref2.plan : void 0;
+      if (plan != null ? plan.customerId : void 0) {
+        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+          plan.gemsBought = 0;
+          plan.dateUpdated = new Date();
+          plan.consecutive.count++;
+          if (plan.consecutive.offset > 0) {
+            plan.consecutive.offset--;
+          } else if (plan.consecutive.count % 3 === 0) {
+            plan.consecutive.trinkets++;
+            plan.consecutive.gemCapExtra += 5;
+            if (plan.consecutive.gemCapExtra > 25) {
+              plan.consecutive.gemCapExtra = 25;
+            }
+          }
+        }
+        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+          _.merge(plan, {
+            planId: null,
+            customerId: null,
+            paymentMethod: null
+          });
+          _.merge(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            gemCapExtra: 0
+          });
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased.plan');
+          }
+        }
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);
