@@ -91,3 +91,18 @@ module.exports.setupConfig = function(){
 
   module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
 };
+
+var algorithm = 'aes-256-ctr';
+module.exports.encrypt = function(text){
+  var cipher = crypto.createCipher(algorithm,nconf.get('SESSION_SECRET'))
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+module.exports.decrypt = function(text){
+  var decipher = crypto.createDecipher(algorithm,nconf.get('SESSION_SECRET'))
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
