@@ -1238,7 +1238,6 @@ api.quests =
       str: 3.5
     drop:
       items: [
-        {type: 'gear', key: "armor_special_2", text: t('armorSpecial2Text')}
         {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
         {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
         {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
