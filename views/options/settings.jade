@@ -222,25 +222,21 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
     label
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
-        .well
-          h2=env.t('individualSub')
-          div(ng-if='!user.purchased.plan.customerId')
-            div(ng-include="'partials/options.settings.subscription.perks.html'")
-            p
-              small.muted Payment Methods:
-              .btn.btn-primary(ng-click='showStripe(true)') Card
-              //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
-              a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
-          div(ng-if='user.purchased.plan.customerId')
-            p.alert.alert-warning(ng-if='user.purchased.plan.dateTerminated')
-              i.glyphicon.glyphicon-time
-              | &nbsp;
-              =env.t('subCanceled')
-              |  <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
-            p.lead
-              =env.t('subscribed')
-              | &nbsp;
-              span.glyphicon.glyphicon-ok
-            div(ng-include="'partials/options.settings.subscription.perks.html'")
-            .btn.btn-primary(ng-if=':: !user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
-            .btn.btn-sm.btn-danger(ng-if=':: !user.purchased.plan.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
+  .well(ng-init="p = user.purchased.plan")
+    div(ng-if='p.customerId')
+      p.alert.alert-warning(ng-if='p.dateTerminated')
+        i.glyphicon.glyphicon-time
+        |  #{env.t('subCanceled')} <strong>{{moment(p.dateTerminated).format('MM/DD/YYYY')}}</strong>
+      p.alert.alert-success(ng-if='!p.dateTerminated')=env.t('subscribed')
+
+    h2=env.t('individualSub')
+    div(ng-include="'partials/options.settings.subscription.perks.html'")
+
+    div(ng-if='!p.customerId || (p.customerId && p.dateTerminated)')
+      h3(ng-if='(p.customerId && p.dateTerminated)') Resubscribe
+      a.btn.btn-primary(ng-click='showStripe(true)') Card
+      //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
+      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+    div(ng-if='p.customerId')
+      .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
+      .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
