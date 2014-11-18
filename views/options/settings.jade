@@ -204,6 +204,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               .btn.btn-primary(ng-click='showStripe(true)') Card
               //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
               a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+              a.btn.btn-warning(ng-click='showBitPay(true)') BitPay
           div(ng-if='user.purchased.plan.customerId')
             p.alert.alert-warning(ng-if='user.purchased.plan.dateTerminated')
               i.glyphicon.glyphicon-time
