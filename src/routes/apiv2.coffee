@@ -10,6 +10,7 @@ $ mocha test/user.mocha.coffee
 
 user = require("../controllers/user")
 groups = require("../controllers/groups")
+members = require("../controllers/members")
 auth = require("../controllers/auth")
 hall = require("../controllers/hall")
 challenges = require("../controllers/challenges")
@@ -579,9 +580,28 @@ module.exports = (swagger, v2) ->
     # ---------------------------------
     # Members
     # ---------------------------------
-    "/members/{uid}":
+    "/members/{uuid}":
       spec:{}
-      action: groups.getMember
+      action: members.getMember
+    "/members/{uuid}/message":
+      spec:
+        method: 'POST'
+        description: 'Send a private message to a member'
+        parameters: [
+          path 'uuid', 'The UUID of the member to message', 'string'
+          body '', '{message: "The private message to send"}', 'object'
+        ]
+      middleware: [auth.auth]
+      action: members.sendPrivateMessage
+    "/members/{uuid}/block":
+      spec:
+        method: 'POST'
+        description: 'Block a member from sending private messages'
+        parameters: [
+          path 'uuid', 'The UUID of the member to message', 'string'
+        ]
+      middleware: [auth.auth]
+      action: members.block
 
     # ---------------------------------
     # Hall of Heroes / Patrons

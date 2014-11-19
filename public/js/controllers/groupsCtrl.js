@@ -101,8 +101,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared',
-    function($scope, $rootScope, Members, Shared) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification',
+    function($scope, $rootScope, Members, Shared, $http, Notification) {
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format('MM/DD/YYYY');
       }
@@ -112,6 +112,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           member.petCount = Shared.countPets(null, member.items.pets);
         $scope.profile = member;
       });
+      $scope.sendPrivateMessage = function(uuid, message){
+        $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
+          Notification.text('Message sent.');
+          $rootScope.User.sync();
+          $scope.$close();
+        });
+      }
     }
   ])
 

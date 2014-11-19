@@ -1,9 +1,20 @@
 // FIXME note, due to https://github.com/angular-ui/bootstrap/issues/783 we can't use nested angular-bootstrap tabs
 // Subscribe to that ticket & change this when they fix
 
-include ./challenges.jade
-include ./hall.jade
-include ./boss.jade
+include ./challenges
+include ./hall
+include ./boss
+include ./chat-message
+
+script(type='text/ng-template', id='partials/options.social.inbox.html')
+  .container-fluid
+    .row
+      .col-md-12
+        +chatMessages('inbox')
+        .checkbox
+          label
+            input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', popover="Don't like private messages? Click to completely opt out") Opt Out
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
@@ -78,6 +89,10 @@ script(type='text/ng-template', id='partials/options.social.guilds.html')
 
 script(type='text/ng-template', id='partials/options.social.html')
   ul.options-menu
+    li(ng-class="{ active: $state.includes('options.social.inbox') }")
+      a(ui-sref='options.social.inbox')
+        | Inbox&nbsp;
+        span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
         =env.t('tavern')

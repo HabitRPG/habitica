@@ -326,6 +326,13 @@ var UserSchema = new Schema({
 
   challenges: [{type: 'String', ref:'Challenge'}],
 
+  inbox: {
+    newMessages: {type:Number, 'default':0},
+    blocks: {type:Array, 'default':[]},
+    messages: {type:Schema.Types.Mixed, 'default':{}}, //reflist
+    optOut: {type:Boolean, 'default':false}
+  },
+
   habits:   {type:[TaskSchemas.HabitSchema]},
   dailys:   {type:[TaskSchemas.DailySchema]},
   todos:    {type:[TaskSchemas.TodoSchema]},

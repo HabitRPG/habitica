@@ -19,7 +19,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
+var partyFields = api.partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
@@ -42,15 +42,6 @@ var populateQuery = function(type, q){
     options: {sort: {official: -1, timestamp: -1}}
   });
   return q;
-}
-
-
-api.getMember = function(req, res, next) {
-  User.findById(req.params.uid).select(partyFields).exec(function(err, user){
-    if (err) return next(err);
-    if (!user) return res.json(400,{err:'User not found'});
-    res.json(user);
-  })
 }
 
 /**

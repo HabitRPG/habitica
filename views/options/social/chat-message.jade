@@ -1,19 +1,26 @@
-li.chat-message(ng-repeat='message in group.chat track by message.id', ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}')
-  .scrollable-message
-    span(ng-if='::message.user')
-      a.label.label-default.chat-message.hidden-label
-        span {{::message.user}}&nbsp;
-        span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
-        // this invisible username label is here to push the message text far enough right that the visible label can be floated to this point without covering up any of the text
-    markdown(ng-model='::message.text')
-    | -
-    span.muted.time(from-now='::message.timestamp')
-    span
-      a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
-      a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group,message)') +1
-    | &nbsp;
-    a(ng-if=':: user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
-      span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
-  a.label.label-default.chat-message(ng-if=':: message.user', class='float-label', ng-class='userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
-      span(tooltip='{{::contribText(message.contributor, message.backer)}}') {{::message.user}}&nbsp;
-      span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
+mixin chatMessages(inbox)
+  ul.list-unstyled.tavern-chat
+    - var ngRepeat = inbox ? 'message in user.inbox.messages | toArray:true | orderBy:"sort":true' : 'message in group.chat track by message.id'
+    li.chat-message(ng-repeat=ngRepeat, ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}', style='{{::message.sent ? "opacity:0.5" : ""}}')
+      .scrollable-message
+        span(ng-if='::message.user')
+          a.label.label-default.chat-message.hidden-label
+            span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')
+            span {{::message.user}}&nbsp;
+            span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
+            // this invisible username label is here to push the message text far enough right that the visible label can be floated to this point without covering up any of the text
+        markdown(ng-model='::message.text')
+        | -
+        span.muted.time(from-now='::message.timestamp')
+        unless type='inbox'
+          span
+            a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
+            a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group, message)') +1
+          | &nbsp;
+        a(ng-click='#{inbox? "user.ops.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}', ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}')
+          span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+      span.float-label
+        a.label.label-default.chat-message(ng-if=':: message.user', ng-class='::userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
+          span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')
+          span(tooltip='{{::contribText(message.contributor, message.backer)}}') {{::message.user}}&nbsp;
+          span(ng-class='::userAdminGlyphiconStyleFromLevel(message.contributor.level)')

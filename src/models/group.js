@@ -93,7 +93,7 @@ GroupSchema.methods.toJSON = function(){
   return doc;
 }
 
-var chatDefaults = function(message,user){
+var chatDefaults = module.exports.chatDefaults = function(message,user){
   var message = {
     id: shared.uuid(),
     text: message,
