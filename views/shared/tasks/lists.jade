@@ -4,11 +4,11 @@
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
   .tasks-lists.container-fluid
     .row
-      .col-md-3.col-sm-6(bindonce='lists', ng-repeat='list in lists', bo-class='{"rewards-module": list.type==="reward"}')
+      .col-md-3.col-sm-6(bindonce='lists', ng-repeat='list in lists', ng-class='::{"rewards-module": list.type==="reward"}')
         .task-column(class='{{list.type}}s')
 
           // Todos export/graph options
-          span.option-box.pull-right(bo-if='main && list.type=="todo"')
+          span.option-box.pull-right(ng-if='::main && list.type=="todo"')
             a.option-action(ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip=env.t('progress'))
               span.glyphicon.glyphicon-signal
             //a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
@@ -20,7 +20,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           h2.task-column_title {{list.header}}
 
           // Todo Chart
-          .todos-chart(bo-if='list.type == "todo"', ng-show='charts.todos')
+          .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')
 
           // Add New
           form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-hide='obj._locked || (list.showCompleted && list.type=="todo")', ng-submit='addTask(obj[list.type+"s"],list)')
@@ -31,7 +31,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           mixin taskColumnTabs(position)
             // Habits Tabs
-            div(bo-if='main && list.type=="habit"', class='tabbable tabs-below')
+            div(ng-if='::main && list.type=="habit"', class='tabbable tabs-below')
               ul.nav.nav-tabs
                 li(ng-class='{active: list.view == "all"}')
                   a(ng-click='list.view = "all"')=env.t('all')
@@ -40,7 +40,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 li(ng-class='{active: list.view == "greenblue"}')
                   a(ng-click='list.view = "greenblue"')=env.t('greenblue')
             // Daily Tabs
-            div(bo-if='main && list.type=="daily"', class='tabbable tabs-below')
+            div(ng-if='::main && list.type=="daily"', class='tabbable tabs-below')
               // remaining/completed tabs
               ul.nav.nav-tabs
                 li(ng-class='{active: list.view == "all"}')
@@ -50,7 +50,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 li(ng-class='{active: list.view == "complete"}')
                   a(ng-click='list.view = "complete"')=env.t('grey')
             // Todo Tabs
-            div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
+            div(ng-if='::main && list.type=="todo"', ng-class='::{"tabbable tabs-below": list.type=="todo"}')
               // div(ng-show='list.view == "complete" || list.view == "all"')
               // li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
               if position=="bottom"
@@ -66,7 +66,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 li(ng-class='{active: list.showCompleted}')
                   a(ng-click='list.showCompleted= true')=env.t('complete')
             // Rewards Tabs
-            div(bo-if='main && list.type=="reward"', class='tabbable tabs-below')
+            div(ng-if='::main && list.type=="reward"', class='tabbable tabs-below')
               ul.nav.nav-tabs
                 li(ng-class='{active: list.view == "all"}')
                   a(ng-click='list.view = "all"')=env.t('all')
@@ -92,7 +92,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   span.reward-cost {{item.value}}
                   span.shop_gold
               // main content
-              span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
+              span(ng-class='::{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
               p.task-text {{item.text()}}
 
           // Events
@@ -140,7 +140,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           br
 
           // Ads
-          div(bo-if='main && !user.purchased.ads && !user.purchased.plan.customerId && list.type!="reward"')
+          div(ng-if='::main && !user.purchased.ads && !user.purchased.plan.customerId && list.type!="reward"')
             span.pull-right
               a(ui-sref='options.settings.subscription', popover=env.t('removeAds'), popover-trigger='mouseenter')
                 span.glyphicon.glyphicon-remove
