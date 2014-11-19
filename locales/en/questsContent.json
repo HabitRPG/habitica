@@ -156,5 +156,11 @@
   "questAtom3Notes": "With a deafening cry, and five delicious types of cheese bursting from its mouth, the SnackLess Monster falls to pieces. \"HOW DARE YOU!\" booms a voice from beneath the water's surface. A robed, blue figure emerges from the water, wielding a magic toilet brush. Filthy laundry begins to bubble up to the surface of the lake. \"I am the Laundromancer!\" he angrily announces. \"You have some nerve - washing my delightfully dirty dishes, destroying my pet, and entering my domain with such clean clothes. Prepare to feel the soggy wrath of my anti-laundry magic!\"",
   "questAtom3Completion": "The wicked Laundromancer has been defeated! Clean laundry falls in piles all around you. Things are looking much better around here. As you begin to wade through the freshly pressed armor, a glint of metal catches your eye, and your gaze falls upon a gleaming helm. The original owner of this shining item may be unknown, but as you put it on, you feel the warming presence of a generous spirit. Too bad they didn't sew on a nametag.",
   "questAtom3Boss": "The Laundromancer",
-  "questAtom3DropPotion": "Basic Hatching Potion"
+  "questAtom3DropPotion": "Basic Hatching Potion",
+
+  "questOwlText": "The Night-Owl",
+  "questOwlNotes": "The Tavern light is lit ‘til dawn\n Until one eve the  glow is gone!\nHow can we see for our all-nighters?\n@Twitching cries, “I need some fighters!\nSee that Night-Owl, starry foe ?\nFight with haste and do not slow!\nWe’ll drive its shadow from our door,\nAnd make the night shine bright once more!",
+  "questOwlCompletion": "The Night-Owl fades before the dawn,\nBut even so, you feel a yawn.\nPerhaps it’s time to get some rest?\nThen on your bed, you see a nest!\nA Night-Owl knows it can be great\nTo finish work and stay up late,\nBut your new pets will softly peep\nTo tell you when it’s time to sleep.",
+  "questOwlBoss": "The Night-Owl",
+  "questOwlDropOwlEgg": "Owl (Egg)"
 }
