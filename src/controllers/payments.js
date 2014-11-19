@@ -7,6 +7,7 @@ var shared = require('habitrpg-shared');
 var nconf = require('nconf');
 var async = require('async');
 var User = require('./../models/user').model;
+var Order = require('./../models/order').model;
 var utils = require('./../utils');
 var logging = require('./../logging');
 var userAPI = require('./user');
@@ -192,7 +193,7 @@ api.paypalSubscribe = function(req,res,next) {
 };
 
 api.paypalSubscribeSuccess = function(req,res,next) {
-  // Create a subscription of 10 USD every month
+  // Create a subscription of 5 USD every month
   var uuid = req.query.uuid;
   if (!uuid) return next("UUID required");
   paypalRecurring.createSubscription(req.query.token, req.query.PayerID,{
@@ -233,7 +234,9 @@ api.paypalSubscribeCancel = function(req, res, next) {
 
 api.paypalCheckout = function(req, res, next) {
   var opts = {RETURNURL:nconf.get('BASE_URL') + '/paypal/checkout/success?uuid=' + res.locals.user._id};
-  paypalCheckout.pay(+new Date(), 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
+  var order = new Order({buyer:res.locals.user._id,paymentMethod:'PayPal'});
+  order.save();
+  paypalCheckout.pay(order._id, 5, 'HabitRPG Gems', 'USD', opts, function(err, url) {
     if (err) return next(err);
     res.redirect(url);
   });
@@ -250,12 +253,33 @@ api.paypalCheckoutSuccess = function(req,res,next) {
     User.findById(uuid , function(err, user) {
       if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
       if (err) return next(err);
-      buyGems(user, {customerId:req.query.PayerID, paymentMethod:'Paypal'});
-      user.save(function(){
+
+
+      // Get the invoice number
+      Order.findById(invoiceNumber, function (err, order){
+        if (_.isEmpty(order)) err = "order not found with the invoiceNumber " + invoiceNumber + " when completing paypal transaction";
         if (err) return next(err);
-        res.redirect('/');
-        uuid = null;
+
+        // Make sure we did'nt credited the user already
+        // TODO : Add concurrency check
+        if (!order.processed) {
+          order.processed = true;
+          order.save(function(err){
+            if (err) return next(err);
+            buyGems(user, {customerId:req.query.PayerID, paymentMethod:'Paypal'});
+            user.save(function(){
+              if (err) return next(err);
+              res.redirect('/');
+              uuid = null;
+            });
+          });
+        }
+        else { // The user have been rewarded already
+          res.redirect('/');
+          uuid = null;
+        }
       });
+
     });
   });
 };
