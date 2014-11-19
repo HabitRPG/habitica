@@ -10124,7 +10124,7 @@ gear = {
         value: 200,
         canOwn: (function(u) {
           var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_3 != null);
         })
       },
       critical: {
@@ -13323,10 +13323,6 @@ api.quests = {
     drop: {
       items: [
         {
-          type: 'gear',
-          key: "armor_special_2",
-          text: t('armorSpecial2Text')
-        }, {
           type: 'food',
           key: 'Honey',
           text: t('questGoldenknight3DropHoney')

@@ -88,7 +88,7 @@ gear =
       0: text: t('weaponSpecial0Text'), notes: t('weaponSpecial0Notes', {str: 20}), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: t('weaponSpecial1Text'), notes: t('weaponSpecial1Notes', {attrs: 6}), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
       2: text: t('weaponSpecial2Text'), notes: t('weaponSpecial2Notes', {attrs: 25}), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
-      3: text: t('weaponSpecial3Text'), notes: t('weaponSpecial3Notes', {attrs: 17}), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or or u.items.gear.owned.weapon_special_3?)
+      3: text: t('weaponSpecial3Text'), notes: t('weaponSpecial3Notes', {attrs: 17}), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_3?)
       critical: text: t('weaponSpecialCriticalText'), notes: t('weaponSpecialCriticalNotes', {attrs: 40}), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
       # Winter event gear
       yeti:       event: events.winter, specialClass: 'warrior', text: t('weaponSpecialYetiText'), notes: t('weaponSpecialYetiNotes', {str: 15}), str: 15, value:90
