@@ -159,8 +159,8 @@
   "questAtom3DropPotion": "Basic Hatching Potion",
 
   "questOwlText": "The Night-Owl",
-  "questOwlNotes": "The Tavern light is lit ‘til dawn\n Until one eve the  glow is gone!\nHow can we see for our all-nighters?\n@Twitching cries, “I need some fighters!\nSee that Night-Owl, starry foe ?\nFight with haste and do not slow!\nWe’ll drive its shadow from our door,\nAnd make the night shine bright once more!",
-  "questOwlCompletion": "The Night-Owl fades before the dawn,\nBut even so, you feel a yawn.\nPerhaps it’s time to get some rest?\nThen on your bed, you see a nest!\nA Night-Owl knows it can be great\nTo finish work and stay up late,\nBut your new pets will softly peep\nTo tell you when it’s time to sleep.",
+  "questOwlNotes": "The Tavern light is lit 'til dawn\n Until one eve the  glow is gone!\nHow can we see for our all-nighters?\n@Twitching cries, \"I need some fighters!\nSee that Night-Owl, starry foe ?\nFight with haste and do not slow!\nWe'll drive its shadow from our door,\nAnd make the night shine bright once more!\"",
+  "questOwlCompletion": "The Night-Owl fades before the dawn,\nBut even so, you feel a yawn.\nPerhaps it's time to get some rest?\nThen on your bed, you see a nest!\nA Night-Owl knows it can be great\nTo finish work and stay up late,\nBut your new pets will softly peep\nTo tell you when it's time to sleep.",
   "questOwlBoss": "The Night-Owl",
   "questOwlDropOwlEgg": "Owl (Egg)"
 }
