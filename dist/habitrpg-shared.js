@@ -12210,6 +12210,11 @@ api.questEggs = {
     text: t('questEggSpiderText'),
     adjective: t('questEggSpiderAdjective'),
     canBuy: false
+  },
+  Owl: {
+    text: t('questEggOwlText'),
+    adjective: t('questEggOwlAdjective'),
+    canBuy: false
   }
 };
 
@@ -13366,6 +13371,36 @@ api.quests = {
     drop: {
       gp: 8,
       exp: 42
+    }
+  },
+  owl: {
+    text: t('questOwlText'),
+    notes: t('questOwlNotes'),
+    completion: t('questOwlCompletion'),
+    value: 4,
+    boss: {
+      name: t('questOwlBoss'),
+      hp: 500,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }, {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }, {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }
+      ],
+      gp: 37,
+      exp: 275
     }
   }
 };
