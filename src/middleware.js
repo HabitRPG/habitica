@@ -12,7 +12,7 @@ var shared = require('habitrpg-shared');
 var request = require('request');
 var os = require('os');
 var moment = require('moment');
-var qs = require('qs');
+var utils = require('./utils');
 
 module.exports.apiThrottle = function(app) {
   if (nconf.get('NODE_ENV') !== 'production') return;
@@ -200,9 +200,9 @@ module.exports.locals = function(req, res, next) {
   };
 
   // Put query-string party invitations into session to be handled later
-  var partyInvite = qs.parse(req.query.partyInvite);
-  if (partyInvite && partyInvite.id)
-    req.session.partyInvite = partyInvite;
+  try{
+    req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite))
+  } catch(e){}
 
   next();
 }

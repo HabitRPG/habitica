@@ -411,7 +411,7 @@ api.cast = function(req, res, next) {
 api.inviteFriends = function(req, res, next) {
   Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
     if (err) return next(err);
-    var link = nconf.get('BASE_URL') + '?' + qs.stringify({partyInvite:{id:party._id, inviter:res.locals.user._id, name:party.name}});
+    var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:party._id, inviter:res.locals.user._id, name:party.name}));
     _.each(req.body.emails, function(invite){
       if (invite.email) {
         var variables = [
@@ -426,17 +426,28 @@ api.inviteFriends = function(req, res, next) {
     res.send(200);
   })
 }
+
 api.sessionPartyInvite = function(req,res,next){
-  if (req.session.partyInvite) {
-    var inv = res.locals.user.invitations;
-    if (!(inv.party && inv.party.id)) {
+  if (!req.session.partyInvite) return next();
+  var inv = res.locals.user.invitations;
+  if (inv.party && inv.party.id) return next(); // already invited to a party
+  async.waterfall([
+    function(cb){
+      Group.findOne({_id:req.session.partyInvite.id, type:'party', members:{$in:[req.session.partyInvite.inviter]}})
+      .select('invites members').exec(cb);
+    },
+    function(group, cb){
+      if (!group) return cb("Inviter not in party");
       inv.party = req.session.partyInvite;
-      Group.update({_id:req.session.partyInvite.id},{$addToSet:{invites:res.locals.user._id}});
       delete req.session.partyInvite;
-      return res.locals.user.save(next);
+      if (!~group.invites.indexOf(res.locals.user._id))
+        group.invites.push(res.locals.user._id); //$addToSt
+      group.save(cb);
+    },
+    function(saved, cb){
+      res.locals.user.save(cb);
     }
-  }
-  next();
+  ], next);
 }
 
 /**
