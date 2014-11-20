@@ -13730,6 +13730,17 @@ api.dotGet = function(obj, path) {
   })(this)), obj);
 };
 
+api.refPush = function(reflist, item, prune) {
+  if (prune == null) {
+    prune = 0;
+  }
+  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
+  if (!(item.id && !reflist[item.id])) {
+    item.id = api.uuid();
+  }
+  return reflist[item.id] = item;
+};
+
 api.planGemLimits = {
   convRate: 20,
   convCap: 25
@@ -14659,11 +14670,11 @@ api.wrap = function(user, main) {
       addWebhook: function(req, cb) {
         var wh;
         wh = user.preferences.webhooks;
-        wh[req.body.id || api.uuid()] = {
+        api.refPush(wh, {
           url: req.body.url,
           enabled: req.body.enabled || true,
-          sort: _.isEmpty(wh) ? 0 : _.max(wh, 'sort').sort + 1
-        };
+          id: req.body.id
+        });
         if (typeof user.markModified === "function") {
           user.markModified('preferences.webhooks');
         }
@@ -15914,5 +15925,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Dropbox/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

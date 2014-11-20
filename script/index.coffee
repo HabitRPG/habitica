@@ -19,6 +19,11 @@ api.dotSet = (obj,path,val)->
 api.dotGet = (obj,path)->
   _.reduce path.split('.'), ((curr, next) => curr?[next]), obj
 
+api.refPush = (reflist, item, prune=0) ->
+  item.sort = if _.isEmpty(reflist) then 0 else _.max(reflist,'sort').sort+1
+  item.id = api.uuid() unless item.id and !reflist[item.id]
+  reflist[item.id] = item
+
 api.planGemLimits =
   convRate: 20 #how much does a gem cost?
   convCap: 25 #how many gems can be converted / month?
@@ -71,7 +76,6 @@ api.shouldDo = (day, repeat, options={}) ->
   else # we're not past dayStart mark, check if it was due "yesterday"
     yesterday = moment(o.now).subtract({days:1}).day() # have to wrap o.now so as not to modify original
     return repeat[api.dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
-
 
 ###
   ------------------------------------------------------
@@ -604,10 +608,7 @@ api.wrap = (user, main=true) ->
       # ------
       addWebhook: (req, cb) ->
         wh = user.preferences.webhooks
-        wh[req.body.id or api.uuid()] =
-          url: req.body.url
-          enabled: req.body.enabled or true
-          sort: if _.isEmpty(wh) then 0 else _.max(wh,'sort').sort+1
+        api.refPush(wh, {url:req.body.url, enabled: req.body.enabled or true, id:req.body.id})
         user.markModified? 'preferences.webhooks'
         cb? null, user.preferences.webhooks
       updateWebhook: (req, cb) ->
