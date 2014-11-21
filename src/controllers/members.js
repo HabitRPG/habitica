@@ -46,12 +46,3 @@ api.sendPrivateMessage = function(req,res,next){
   })
 
 }
-
-api.block = function(req,res,next){
-  var b = res.locals.user.inbox;
-  if (~b.blocks.indexOf(req.params.id)){
-    b.blocks.push(req.params.id)
-    res.locals.user.save();
-  }
-  res.send(200);
-}

@@ -601,7 +601,7 @@ module.exports = (swagger, v2) ->
           path 'uuid', 'The UUID of the member to message', 'string'
         ]
       middleware: [auth.auth]
-      action: members.block
+      action: user.blockUser
 
     # ---------------------------------
     # Hall of Heroes / Patrons
