@@ -11,10 +11,12 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
     .row
       .col-md-12
         +chatMessages('inbox')
-        .checkbox
-          label
-            input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', popover="Don't like private messages? Click to completely opt out") Opt Out
+        .form-inline
+          a.btn.btn-xs.btn-danger(popover='Delete all messages', popover-trigger='mouseenter', ng-click='user.ops.clearPMs({})', popover-placement='right') Clear All
+          .checkbox
+            label
+              input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
+              span.hint(popover-trigger='mouseenter', popover-placement='right', popover="Don't like private messages? Click to completely opt out") Opt Out
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
