@@ -77,12 +77,7 @@ window.habitrpg = angular.module('habitrpg',
 
         .state('options.social.inbox', {
           url: "/inbox",
-          templateUrl: "partials/options.social.inbox.html",
-          controller: ['$rootScope', function($rootScope){
-            // clear "new messages"
-            //$rootScope.$on('userSynced',function(){
-            $rootScope.User.user.ops.update && $rootScope.set({'inbox.newMessages':0});
-          }]
+          templateUrl: "partials/options.social.inbox.html"
         })
 
         .state('options.social.tavern', {
