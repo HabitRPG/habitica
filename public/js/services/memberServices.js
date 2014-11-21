@@ -57,7 +57,7 @@ angular.module('memberServices', ['ngResource', 'sharedServices']).
            * either gets them or fetches if not available
            * @param uid
            */
-          selectMember: function(uid) {
+          selectMember: function(uid, cb) {
             var self = this;
             // Fetch from cache if we can. For guild members, only their uname will have been fetched on initial load,
             // check if they have full fields (eg, check profile.items and an item inside
@@ -67,11 +67,13 @@ angular.module('memberServices', ['ngResource', 'sharedServices']).
             if (members[uid] && members[uid].items && members[uid].items.weapon) {
               Shared.wrap(members[uid],false);
               self.selectedMember = members[uid];
+              cb();
             } else {
               Member.get({uid: uid}, function(member){
                 self.populate(member); // lazy load for later
                 Shared.wrap(member,false);
                 self.selectedMember = members[member._id];
+                cb();
               });
             }
           }
