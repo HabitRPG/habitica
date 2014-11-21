@@ -19,6 +19,11 @@ api.dotSet = (obj,path,val)->
 api.dotGet = (obj,path)->
   _.reduce path.split('.'), ((curr, next) => curr?[next]), obj
 
+###
+  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
+  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
+  no problem. To maintain sorting, we use these helper functions:
+###
 api.refPush = (reflist, item, prune=0) ->
   item.sort = if _.isEmpty(reflist) then 0 else _.max(reflist,'sort').sort+1
   item.id = api.uuid() unless item.id and !reflist[item.id]
@@ -619,6 +624,19 @@ api.wrap = (user, main=true) ->
         delete user.preferences.webhooks[req.params.id]
         user.markModified? 'preferences.webhooks'
         cb? null, user.preferences.webhooks
+
+      # ------
+      # Inbox
+      # ------
+      deletePM: (req, cb) ->
+        delete user.inbox.messages[req.params.id]
+        user.markModified? 'inbox.messages.'+req.params.id
+        cb? null, user.inbox.messages
+      blockUser: (req, cb) ->
+        i = user.inbox.blocks.indexOf(req.params.uuid)
+        if ~i then user.inbox.blocks.splice(i,1) else user.inbox.blocks.push(req.params.uuid)
+        user.markModified? 'inbox.blocks'
+        cb? null, user.inbox.blocks
 
       # ------
       # Inventory

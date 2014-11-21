@@ -13730,6 +13730,13 @@ api.dotGet = function(obj, path) {
   })(this)), obj);
 };
 
+
+/*
+  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
+  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
+  no problem. To maintain sorting, we use these helper functions:
+ */
+
 api.refPush = function(reflist, item, prune) {
   if (prune == null) {
     prune = 0;
@@ -14693,6 +14700,26 @@ api.wrap = function(user, main) {
           user.markModified('preferences.webhooks');
         }
         return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      deletePM: function(req, cb) {
+        delete user.inbox.messages[req.params.id];
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.messages.' + req.params.id);
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
+      },
+      blockUser: function(req, cb) {
+        var i;
+        i = user.inbox.blocks.indexOf(req.params.uuid);
+        if (~i) {
+          user.inbox.blocks.splice(i, 1);
+        } else {
+          user.inbox.blocks.push(req.params.uuid);
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.blocks');
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.blocks) : void 0;
       },
       feed: function(req, cb) {
         var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
