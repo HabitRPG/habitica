@@ -216,7 +216,7 @@ api.getUser = function(req, res, next) {
  * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
  */
 acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
-  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats'.split(' '), function(root){
+  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats inbox'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });
   if (found) m[leaf]=true;

@@ -1,28 +1,32 @@
-script(type='text/ng-template', id='modals/member.html')  
-  .modal-header(bindonce='profile')
+script(type='text/ng-template', id='modals/member.html')
+  .modal-header
     h4
-      span {{profile.profile.name}}
-      span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
-  .modal-body(bindonce='profile')
+      span {{::profile.profile.name}}
+      span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
+      ul.pull-right.list-inline(ng-if='::user')
+        li.glyphicon.glyphicon-plus(ng-show='user.inbox.blocks | contains:profile._id', tooltip='Un-block', ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
+        li.glyphicon.glyphicon-remove(ng-hide='user.inbox.blocks | contains:profile._id', tooltip='Block', ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
+        li.glyphicon.glyphicon-envelope(tooltip='Send private message', ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='bottom', style='cursor:pointer')
+  .modal-body
     .container-fluid
       .row
         .col-md-6
-          img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-          ul.muted.list-unstyled(ng-if='profile.auth.timestamps')
+          img(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
+          markdown(ng-show='::profile.profile.blurb', ng-model='::profile.profile.blurb')
+          ul.muted.list-unstyled(ng-if='::profile.auth.timestamps')
             li {{profile._id}}
-            li(ng-show='profile.auth.timestamps.created')
+            li(ng-show='::profile.auth.timestamps.created')
               |&nbsp;
               =env.t('memberSince')
               |&nbsp;
-              | {{timestamp(profile.auth.timestamps.created)}} -
-            li(ng-show='profile.auth.timestamps.loggedin')
+              | {{::timestamp(profile.auth.timestamps.created)}} -
+            li(ng-show='::profile.auth.timestamps.loggedin')
               |&nbsp;
               =env.t('lastLoggedIn')
               |&nbsp;
-              | {{timestamp(profile.auth.timestamps.loggedin)}} -
+              | {{::timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
-          .label.label-info {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
+          .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
           +herobox()
@@ -30,3 +34,12 @@ script(type='text/ng-template', id='modals/member.html')
           include ../profiles/achievements
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('ok')
+
+script(type='text/ng-template', id='modals/private-message.html')
+  .modal-header
+    h4 Private message to {{profile.profile.name}}
+  .modal-body
+    textarea.form-control(type='text',ng-model='_message')
+  .modal-footer
+    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)') Send
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
