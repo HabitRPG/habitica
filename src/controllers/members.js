@@ -21,7 +21,9 @@ api.sendPrivateMessage = function(req,res,next){
     },
     function(member, cb){
       if (!member) return cb({code:404, err: 'User not found'});
-      if (~member.inbox.blocks.indexOf(res.locals.user._id) || member.inbox.optOut) {
+      if (~member.inbox.blocks.indexOf(res.locals.user._id) // can't send message if that user blocked me
+        || ~res.locals.user.inbox.blocks.indexOf(member._id) // or if I blocked them
+        || member.inbox.optOut) { // or if they've opted out of messaging
         return cb({code:401, err: "Can't send message to this user."});
       }
 
