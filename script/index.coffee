@@ -628,6 +628,10 @@ api.wrap = (user, main=true) ->
       # ------
       # Inbox
       # ------
+      clearPMs: (req, cb) ->
+        user.inbox.messages = {}
+        user.markModified? 'inbox.messages'
+        cb? null, user.inbox.messages
       deletePM: (req, cb) ->
         delete user.inbox.messages[req.params.id]
         user.markModified? 'inbox.messages.'+req.params.id

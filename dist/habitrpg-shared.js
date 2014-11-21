@@ -14701,6 +14701,13 @@ api.wrap = function(user, main) {
         }
         return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
       },
+      clearPMs: function(req, cb) {
+        user.inbox.messages = {};
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.messages');
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
+      },
       deletePM: function(req, cb) {
         delete user.inbox.messages[req.params.id];
         if (typeof user.markModified === "function") {
