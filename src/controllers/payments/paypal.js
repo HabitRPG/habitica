@@ -9,6 +9,8 @@ var logger = require('../../logging');
 var ipn = require('paypal-ipn');
 var paypal = require('paypal-rest-sdk');
 
+var Order =  require('./../../models/order').model;
+
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
@@ -67,12 +69,14 @@ exports.executeBillingAgreement = function(req,res,next){
 }
 
 exports.createPayment = function(req, res, next) {
+  var order = new Order({
+          buyer:req.session.userId,
+          dateCreated:new Date(),
+          paymentMethod:'PayPal'});
 
   async.waterfall(
     [
-      function(cb){
-        var order = new mongoose.model('Order')({buyer:req.session.userId,paymentMethod:'PayPal'});
-
+      function (cb){
         var create_payment = {
           "intent": "sale",
           "payer": {
@@ -105,10 +109,12 @@ exports.createPayment = function(req, res, next) {
       }, 
       function (payment, cb) {
           order.paymentMethodData = payment.id;
-          order.save(cb);
+          order.save(function (err, order){
+            cb(err,payment);
+          });
       }
     ],
-    function(err){
+    function(err,payment){
       if (err) return next(parseErr(err));
 
       var link = _.find(payment.links, {rel: 'approval_url'}).href;
@@ -124,24 +130,37 @@ exports.executePayment = function(req, res, next) {
   var paymentId = req.query.paymentId,
     PayerID = req.query.PayerID;
   async.waterfall([
-    function(cb){
+    function (cb){
       paypal.payment.execute(paymentId, {payer_id: PayerID}, cb);
     },
-    function(payment, cb){
+    function (payment, cb){
       var orderId = payment.transactions[0].invoice_number;
-      mongoose.model('Order').findById(orderId,cb);
+      Order.findById(orderId,cb);
     },
     function (order,cb){
-      // TODO do a concurrency check
-      if (order.processed) return cb("The order " + orderId + " has been already processed.")
-      mongoose.model('User').findById(order.buyer, cb);
+      mongoose.model('User').findById(order.buyer, function(err,user){
+        cb(err,user,order);
+      });
     },
-    function(user, cb){
-      if (_.isEmpty(user)) return cb("user not found when completing paypal transaction");
-      payments.buyGems(user, {customerId:PayerID, paymentMethod:'Paypal'});
-      user.save(cb);
+    function (user, order, cb){
+       // TODO do a concurrency check
+      if (order.processed)
+      {
+        // Log but don't crash
+        logger.error("The order " + order.id + " has been already processed.");
+        return res.redirect('/');
+      }
+      else
+      {
+        if (_.isEmpty(user)) return cb("user not found when completing paypal transaction");
+        payments.buyGems(user, {customerId:order.paymentMethodData, paymentMethod:'Paypal'});
+        user.save(function(err,user){
+          cb(err,user,order);
+        });
+      }
     },
-    function(savedUser){
+    function(savedUser,order){
+      order.processed = true;
       order.save(cb);
     }
   ],function(err, saved){

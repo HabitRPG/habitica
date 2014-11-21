@@ -7,6 +7,7 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var bitpay = require('./bitpay');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -77,4 +78,4 @@ exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
 
 exports.bitpayCheckout = bitpay.checkout;
-exports.bitpayCheckoutSucesss = bitpay.checkoutSucess;
+exports.bitpayCheckoutSuccess = bitpay.checkoutSuccess;

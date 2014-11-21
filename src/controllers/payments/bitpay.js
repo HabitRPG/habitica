@@ -1,48 +1,126 @@
 var nconf = require('nconf');
 var async = require('async');
+var _ = require('lodash');
+var logger = require('../../logging');
 var payments = require('./index');
+
 var bitauth = require('bitauth');
 var bitpay = require('bitpay');
 
+var Order =  require('./../../models/order').model;
 
 //---------------------------------
 // BitPay Module
 
-api.bitpayCheckout = function(req, res, next) {
+// the callback signature is (err,client)
+function createBitPayClient(cb)
+{
+  var privkey = bitauth.decrypt(nconf.get('BITPAY:ENCRYPT_KEY'),nconf.get('BITPAY:PRIV_KEY'));
+  var client = bitpay.createClient(privkey, {
+    config : {
+      apiHost : nconf.get('BITPAY:API_HOST'),
+      apiPort : nconf.get('BITPAY:API_PORT'),
+      forceSSL :nconf.get('BITPAY:FORCE_SSL')
+    }
+  });
+
+  client.on('error', cb);
+
+  client.on('ready',function(){
+    cb(null,client);
+  });
+}
+
+exports.checkout = function(req, res, next) {
+  var order = new Order({
+          buyer:req.session.userId,
+          dateCreated:new Date(),
+          paymentMethod:'BitPay'});
+
   async.waterfall([
     function (cb) {
-      var privkey = bitauth.decrypt(nconf.get('BITPAY_ENCRYPT_PASSWORD'),nconf.get('BITPAY_KEY'));
-      var client = bitpay.createClient(privkey, {
-        config : {
-          apiHost : nconf.get('BITPAY_API_HOST'),
-          apiPort : nconf.get('BITPAY_API_PORT'),
-          forceSSL :nconf.get('BITPAY_FORCE_SSL')
-        }
-      });
+      createBitPayClient(cb);
+    },
+    function (client,cb) {
+      var data = {
+        price: 5,
+        currency: 'USD',
+        posData : JSON.stringify({orderId:order.id, uuid: order.buyer}),
+        //redirectURL : nconf.get('BASE_URL') + '/bitpay/checkout/success?order=' + order.id
+        redirectURL : 'http://localhost:3000' + '/bitpay/checkout/success?order=' + order.id
+      };
 
-      client.on('error', function(err){
-        console.log(err);
-      });
-
-      client.on('ready', function(){
-        var data = {
-          price: 5,
-          currency: 'USD',
-          posData : JSON.stringify({uuid: res.locals.user._id}),
-          redirectURL : nconf.get('BASE_URL') + '/bitpay/checkout/success?uuid=' + res.locals.user._id
-        };
-
-        client.post('invoices',data,function(err, invoice){
-            if (!err){
-              res.send(200,invoice.url);
-            }
-        })
+      client.post('invoices',data,cb);
+    },
+    function (invoice, cb) {
+      order.paymentMethodData = invoice.id;
+      order.save(function (err, order){
+        cb(err,order,invoice)
       });
     }
-  ]);
+  ],function (err, order, invoice) {
+      if (err) return next(err);
+      
+      res.send(200,invoice.url);
+    }
+  );
 
 };
 
-api.bitpayCheckoutSuccess = function(req,res,next) {
-  // TODO implement the case of sucess
+exports.checkoutSuccess = function(req,res,next) {
+  // IPN is not used because we have to ensure that the server have a secure ssl connection
+  var orderId = req.query.order;
+
+  async.waterfall([
+    function (cb){
+      Order.findById(orderId,cb);
+    },
+    function (order,cb)
+    {
+      createBitPayClient(function (err,client) {
+        cb(err, client, order);
+      });
+    },
+    function (client, order,cb){
+      var bitpayInvoiceId = order.paymentMethodData;
+      client.get('invoices/'+bitpayInvoiceId,function(err, invoice){
+        cb(err,invoice,order);
+      });
+    },
+    function (invoice, order,cb){
+      if (invoice.status !== 'complete') {
+        cb({err: "The bitpay payment have an invalid status"});
+      } else {
+        mongoose.model('User').findById(order.buyer, function(err,user){
+          cb(err,user,order);
+        });
+      }
+    },
+    function (user, order, cb){
+       // TODO do a concurrency check
+      if (order.processed)
+      {
+        // Log but don't crash
+        logger.error("The order " + order.id + " has been already processed.");
+        return res.redirect('/');
+      }
+      else
+      {
+        if (_.isEmpty(user)) return cb("user not found when completing bitpay transaction");
+        payments.buyGems(user, {customerId:order.id, paymentMethod:'BitPay'});
+        user.save(function(err,user){
+          cb(err,user,order);
+        });
+      }
+    },
+    function (savedUser,order,cb){
+      order.processed = true;
+      order.save(cb);
+    }
+  ],function (err,order)
+  {
+    if (err) return next(err);
+    res.redirect('/');
+  });
+
 };
