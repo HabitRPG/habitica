@@ -43,6 +43,8 @@
     "questEggRoosterAdjective": "un altezzoso",
     "questEggSpiderText": "Ragno",
     "questEggSpiderAdjective": "un inquietante",
+    "questEggOwlText": "Owl",
+    "questEggOwlAdjective": "wise",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

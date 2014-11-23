@@ -70,6 +70,6 @@
     "passSuccess": "Пароль успешно изменен",
     "usernameSuccess": "Имя Пользователя успешно изменено",
     "difficulty": "Трудность",
-    "data": "Data",
-    "exportData": "Export Data"
+    "data": "Данные",
+    "exportData": "Экспортировать Данные"
 }

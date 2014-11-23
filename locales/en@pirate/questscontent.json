@@ -131,5 +131,10 @@
     "questAtom3Notes": "Wit' a deafenin' cry, 'n five delicious types 'o cheese burstin' from its mouth, th' SnackLess Monster falls to pieces. \"HOW DARE ye!\" booms a voice from beneath th' rum's surface. A robed, blue figure emerges from th' rum, wieldin' a magic toilet brush. Filthy laundry fightin' begins to bubble up to th' surface 'o th' lake. \"I be th' Laundromancer!\" he angrily announces. \"ye have some nerve - washin' me delightfully dirty dishes, destroyin' me pet, 'n enterin' me domain wit' such spit shine clothes. Prepare to feel th' soggy wrath 'o me anti-laundry fightin' magic!\"",
     "questAtom3Completion": "Th' wicked Laundromancer has be defeated! spit shine laundry fightin' falls in piles all around ye. Thin's be lookin' much better around here. As ye begin to wade through th' freshly pressed armor, a glint 'o metal catches ye eye, 'n ye gaze falls upon a gleamin' helm. th' original owner 'o 'tis shinin' item may be unknown, but as ye put it on, ye feel th' warmin' presence 'o a generous devil's henchman. Too bad they didn't sew on a nametag.",
     "questAtom3Boss": "Th' Laundromancer",
-    "questAtom3DropPotion": "Basic Hatching Potion"
+    "questAtom3DropPotion": "Basic Hatching Potion",
+    "questOwlText": "The Night-Owl",
+    "questOwlNotes": "The Tavern light is lit 'til dawn <br>Until one eve the glow is gone!<br>How can we see for our all-nighters?<br>@Twitching cries, \"I need some fighters!<br>See that Night-Owl, starry foe?<br>Fight with haste and do not slow!<br>We'll drive its shadow from our door,<br>And make the night shine bright once more!\"",
+    "questOwlCompletion": "The Night-Owl fades before the dawn,<br>But even so, you feel a yawn.<br>Perhaps it's time to get some rest?<br>Then on your bed, you see a nest!<br>A Night-Owl knows it can be great<br>To finish work and stay up late,<br>But your new pets will softly peep<br>To tell you when it's time to sleep.",
+    "questOwlBoss": "The Night-Owl",
+    "questOwlDropOwlEgg": "Owl (Egg)"
 }

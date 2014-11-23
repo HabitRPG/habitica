@@ -45,7 +45,7 @@
     "passMan": "Si estás utilizando un gesto de contraseñas (como 1Password) y tienes problemas al entrar, prueba a escribir tu nombre de usuario y contraseña manualmente.",
     "forgotPass": "Olvidé mi Contraseña",
     "emailNewPass": "Enviar Nueva Contraseña ",
-    "invalidEmail": "A valid email address is required in order to perform a password reset.",
+    "invalidEmail": "Se requiere una dirección de correo electrónico válida para resetear la contraseña.",
     "email": "Email",
     "passConfirm": "Confirmar Contraseña",
     "accept1Terms": "Al hacer clíck en el botón de abajo, acepto los",

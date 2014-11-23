@@ -131,5 +131,10 @@
     "questAtom3Notes": "随着一声震耳欲聋的哭声，五种甜美的奶酪从它的嘴里喷出来，好吃懒做怪裂成了碎片。“你怎么敢！”从水面上隆起一阵声音。一个身穿长袍的蓝色身影从水中显现出来，头上还戴着一个马桶刷。“我是洗衣传奇！”他愤怒地宣告。“你们真有胆子——”洗了我喜欢的脏盘子，摧毁了我的宠物，还穿着这么干净的衣服进入我的地盘。接受我不洗衣服魔法的潮湿的愤怒吧！",
     "questAtom3Completion": "邪恶的洗衣传奇被打败了！干净的衣服堆在了你们周围。这一切看起来好极了。当你准备穿过这些新压好的衣服时，一道金属的闪光吸引了你的眼球，你注意到一个闪闪发光的头盔。已经无法知道这个闪亮物品的原主人是谁了，但是当你把它带上时，你感觉到慷慨精神带来的温暖。真可惜他们没缝上一个名字标签。",
     "questAtom3Boss": "洗衣传奇",
-    "questAtom3DropPotion": "普通孵化药水"
+    "questAtom3DropPotion": "普通孵化药水",
+    "questOwlText": "The Night-Owl",
+    "questOwlNotes": "The Tavern light is lit 'til dawn <br>Until one eve the glow is gone!<br>How can we see for our all-nighters?<br>@Twitching cries, \"I need some fighters!<br>See that Night-Owl, starry foe?<br>Fight with haste and do not slow!<br>We'll drive its shadow from our door,<br>And make the night shine bright once more!\"",
+    "questOwlCompletion": "The Night-Owl fades before the dawn,<br>But even so, you feel a yawn.<br>Perhaps it's time to get some rest?<br>Then on your bed, you see a nest!<br>A Night-Owl knows it can be great<br>To finish work and stay up late,<br>But your new pets will softly peep<br>To tell you when it's time to sleep.",
+    "questOwlBoss": "The Night-Owl",
+    "questOwlDropOwlEgg": "Owl (Egg)"
 }

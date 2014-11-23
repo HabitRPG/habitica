@@ -43,6 +43,8 @@
     "questEggRoosterAdjective": "fanfarrón ",
     "questEggSpiderText": "Araña",
     "questEggSpiderAdjective": "asquerosa",
+    "questEggOwlText": "Owl",
+    "questEggOwlAdjective": "wise",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y nacerá un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Blanco",

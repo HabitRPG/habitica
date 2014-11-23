@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Terremoto",
     "spellWizardEarthNotes": "El suelo bajo la tareas de tu grupo se raja y tambalea con mucha intensidad, lo que las ralentiza y las deja indefensas ante los ataques. Tu grupo gana una mejora a la experiencia.",
     "spellWizardFrostText": "Frío escalofriante.",
-    "spellWizardFrostNotes": "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your Dailies' streaks won't reset at the end of the day. Incomplete Dailies will still damage you!",
+    "spellWizardFrostNotes": "El hielo estalla en cada superficie, tragando tus tareas y congelandolas en su lugar. Las rachas de tus diarias no se reiniciarán al final del día. ¡Las Diarias incompletas todavía te harán daño!",
     "spellWarriorSmashText": "Golpe Brutal",
     "spellWarriorSmashNotes": "Salvajemente golpeas una tarea con todo tu poder. El color rojo de la tarea se reduce y haces daño extra a cualquier monstruo con el que estes luchando.",
     "spellWarriorDefensiveStanceText": "Postura defensiva",
@@ -32,11 +32,11 @@
     "spellHealerHealAllText": "Bendición",
     "spellHealerHealAllNotes": "Una luz tranquilizadora envuelve a tu grupo y les cura sus heridas. Los miembros de tu grupo ganan un incremento de Salud.",
     "spellSpecialSnowballAuraText": "Bola de Nieve",
-    "spellSpecialSnowballAuraNotes": "Throw a snowball at a party member! What could possibly go wrong? Lasts until member's new day.",
+    "spellSpecialSnowballAuraNotes": "¡Lanza una bola de nieve a un miembro de tu grupo! ¿Que podría salir mal? Dura hasta el final del día de ese miembro. ",
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguien te ha lanzado una bola de nieve. Ja Ja, muy gracioso. ¡Ahora quítame esto de encima!",
     "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialSpookDustNotes": "Transforma a tus amigos en una sábana blanca con ojos!",
     "spellSpecialOpaquePotionText": "Poción Opaco",
     "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

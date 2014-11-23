@@ -43,6 +43,8 @@
     "questEggRoosterAdjective": "ţanţoş",
     "questEggSpiderText": "Păianjen",
     "questEggSpiderAdjective": "înfiorător",
+    "questEggOwlText": "Owl",
+    "questEggOwlAdjective": "wise",
     "eggNotes": "Găseşte o poţiune de eclozare ca să o verşi pe acest ou şi va ieşi <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "de bază",
     "hatchingPotionWhite": "Alb",

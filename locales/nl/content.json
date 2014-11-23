@@ -43,6 +43,8 @@
     "questEggRoosterAdjective": "pronkende",
     "questEggSpiderText": "Spin",
     "questEggSpiderAdjective": "griezelige",
+    "questEggOwlText": "Owl",
+    "questEggOwlAdjective": "wise",
     "eggNotes": "Vind een uitbroedtoverdrankje om op dit ei te gieten, en het zal uitkomen als een <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Standaard",
     "hatchingPotionWhite": "Wit",

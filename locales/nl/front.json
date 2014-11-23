@@ -45,7 +45,7 @@
     "passMan": "Als je een wachtwoordmanager gebruikt (zoals 1Password) en problemen hebt met het inloggen, probeer dan je naam en wachtwoord handmatig in te typen.",
     "forgotPass": "Wachtwoord vergeten",
     "emailNewPass": "E-mail nieuw wachtwoord",
-    "invalidEmail": "Een geldig e-mailadres is vereist om het wachtwoord te resetten.",
+    "invalidEmail": "Om het wachtwoord te resetten is een geldig e-mailadres vereist.",
     "email": "E-mail",
     "passConfirm": "Bevestig wachtwoord",
     "accept1Terms": "Door op onderstaande knop te drukken, stem ik in met de",

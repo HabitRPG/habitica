@@ -43,6 +43,8 @@
     "questEggRoosterAdjective": "strutting",
     "questEggSpiderText": "Spider",
     "questEggSpiderAdjective": "creepy",
+    "questEggOwlText": "Owl",
+    "questEggOwlAdjective": "wise",
     "eggNotes": "Find a hatchin' potion to pour on 'tis egg, 'n it gunna hatch into a <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "White",

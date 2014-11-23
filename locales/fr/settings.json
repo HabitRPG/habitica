@@ -8,7 +8,7 @@
     "stickyHeaderPop": "Fixe le bandeau au dessus de l'écran. Si cette case est décochée, il défilera hors de vue.",
     "newTaskEdit": "Ouvrir une nouvelle tâche dans le mode modification ",
     "newTaskEditPop": "Avec cette option cochée, les nouvelles tâches s'ouvriront immédiatement de manière à vous permettre d'ajouter des détails tels que des notes et des étiquettes.",
-    "dailyDueDefaultView": "Mettre par défaut les Quotidiennes dans l'onglet \"à faire\"",
+    "dailyDueDefaultView": "Afficher par défaut les Quotidiennes de l'onglet \"Restantes\"",
     "dailyDueDefaultViewPop": "Lorsque cette option est activée, les Quotidiennes afficheront par défaut l'onglet \"Restantes\" plutôt que l'onglet \"tous\"",
     "startCollapsed": "Liste des étiquettes réduite à l'ouverture des tâches",
     "startCollapsedPop": "Avec cette option cochée, la liste des étiquettes d'une tâche sera cachée à l'ouverture de la tâche pour modification.",
@@ -17,7 +17,7 @@
     "showTour": "Montrer la visite guidée",
     "restartTour": "Relance la visite guidée d'introduction vue lors de votre première visite sur HabitRPG.",
     "showBailey": "Montrer Bailey",
-    "showBaileyPop": "Rappelle Bailey le Crieur Public afin que vous puissiez revoir les dernières nouveautés.",
+    "showBaileyPop": "Rappelle Bailey la Crieuse Publique afin que vous puissiez revoir les dernières nouveautés.",
     "fixVal": "Corriger les valeurs du personnage",
     "fixValPop": "Changer manuellement les valeurs telles que la Vie, le Niveau et l'Or. ",
     "enableClass": "Activer le Système de Classe",
@@ -70,6 +70,6 @@
     "passSuccess": "Mot de passe changé avec succès ",
     "usernameSuccess": "Identifiant changé avec succès ",
     "difficulty": "Difficulté",
-    "data": "Data",
-    "exportData": "Export Data"
+    "data": "Données",
+    "exportData": "Exporter les Données"
 }

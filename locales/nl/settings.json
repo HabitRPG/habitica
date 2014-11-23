@@ -70,6 +70,6 @@
     "passSuccess": "Wachtwoord is succesvol aangepast",
     "usernameSuccess": "Gebruikersnaam is succesvol veranderd",
     "difficulty": "Moeilijkheidsgraad",
-    "data": "Data",
-    "exportData": "Export Data"
+    "data": "Gegevens",
+    "exportData": "Gegevens exporteren"
 }

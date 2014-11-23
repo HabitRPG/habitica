@@ -8,7 +8,7 @@
     "mattBochText3": "em todos mascotes que você pode coletar.",
     "daniel": "Daniel",
     "danielText": "Bem-vindo à Taverna! Fique por um tempo e conheça os locais. Se você precisar descansar (férias? doença?), eu te colocarei na pousada. Enquanto você estiver hospedado, suas tarefas diárias estarão congeladas como estão (marcadas/não marcadas) até o dia após a sua saída. Você não vai tomar dano por perdê-las no fim do dia.",
-    "danielText2": "Tenha cuidado: Se estiver a participar numa missão contra um Chefão, este causar-lhe-á dano pelas tarefas diárias falhadas dos membros da sua equipe!",
+    "danielText2": "Tenha cuidado: Se estiver participando numa missão contra um Chefão, ele ainda te causará dano pelas Tarefas Diárias perdidas dos seus colegas!",
     "alexander": "Alexander o Comerciante",
     "welcomeMarket": "Bem-vindo ao Mercado! Compre ovos e poções difíceis de encontrar! Venda seus extras! Encomende serviços úteis! Veja ver o que temos para oferecer.",
     "sellForGold": "Vender <%= item %> por <%= gold %> Ouro",
@@ -61,7 +61,7 @@
     "autoAllocate": "Distribuição Automática",
     "autoAllocateText": "Se \"distribuição automática\" estiver marcado, seu avatar aumentará suas estatísticas automaticamente, baseado nos atributos das suas tarefas, que você pode encontrar em <strong>Tarefas > Editar > Avançado > Atributos</strong>. Ou seja, se você vai à academia frequentemente e sua tarefa diária \"Academia\" está marcada como \"Físico\", você ganhará Força automaticamente.",
     "spells": "Magias",
-    "spellsText": "Agora você pode liberar magias específicas da sua classe. Você verá sua primeira no nível 11. Você recupera 10 pontos de mana por dia, mais 1 ponto por completar",
+    "spellsText": "Agora você pode liberar magias específicas da sua classe. Você verá a sua primeira no nível 11. Você recupera 10 pontos de mana por dia, mais 1 ponto por completar",
     "toDo": "Afazeres",
     "moreClass": "Para mais informações sobre o sistema de classes, veja"
 }

@@ -131,5 +131,10 @@
     "questAtom3Notes": "S ohlušujícím řevem a pěti lahodnými typy sýrů vyletujících z její tlamy se Nesvačinvá příšera rozpadá. \"JAK SE OPOVAŽUJETE!\" zahřmí hlas zpod vodní hladiny. Modrá postava v hábitu držící štětku na záchod se vynoří z vody. Špinavé prádlo se začne vynořovat na hladinu jezera. \"Já jsem Prádlomancr!\" naštvaně se představí. \"To máte tedy odvahu umýt mé úžasně špinavé prádlo, zničit mého mazlíčka a vstoupit na mé území v takových čistých hadrech. Připravte se pocítit mokrý hněv mé magie proti čistotě!\"",
     "questAtom3Completion": "Zákeřný Prádlomancr byl poražen! Čisté prádlo před vámi padá na hromádky. Už to tu vypadá mnohem lépe. Když začnete pomalu procházet skrz čistě vyprané brnění, všimnete si lesku kovu a váš zrak spočine na zářící helmě. Původní majitel tohoto zářícího předmětu může být neznámý, ale jakmile si ji nasadíš, cítíš přívětivou přítomnost štědrého ducha. Škoda, že si na ní původní majitel nenašil jmenovku.",
     "questAtom3Boss": "Prádlomancr",
-    "questAtom3DropPotion": "Základní líhnoucí lektvar"
+    "questAtom3DropPotion": "Základní líhnoucí lektvar",
+    "questOwlText": "The Night-Owl",
+    "questOwlNotes": "The Tavern light is lit 'til dawn <br>Until one eve the glow is gone!<br>How can we see for our all-nighters?<br>@Twitching cries, \"I need some fighters!<br>See that Night-Owl, starry foe?<br>Fight with haste and do not slow!<br>We'll drive its shadow from our door,<br>And make the night shine bright once more!\"",
+    "questOwlCompletion": "The Night-Owl fades before the dawn,<br>But even so, you feel a yawn.<br>Perhaps it's time to get some rest?<br>Then on your bed, you see a nest!<br>A Night-Owl knows it can be great<br>To finish work and stay up late,<br>But your new pets will softly peep<br>To tell you when it's time to sleep.",
+    "questOwlBoss": "The Night-Owl",
+    "questOwlDropOwlEgg": "Owl (Egg)"
 }

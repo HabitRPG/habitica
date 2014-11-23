@@ -34,7 +34,7 @@
     "challengeDescr": "Beschrijving",
     "prize": "Prijs",
     "prizePop": "Als jouw uitdaging een 'winnaar' kan hebben, kun je eventueel Edelstenen beschikbaar stellen als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden en zal niet teruggestort worden als de uitdaging geannuleerd wordt.",
-    "publicChallenges": "Minimaal 1 Edelsteen voor <strong> publieke uitdagingen </strong> (helpt spam voorkomen, echt).",
+    "publicChallenges": "Minimaal 1 Edelsteen voor <strong>openbare uitdagingen</strong> (helpt spam voorkomen, echt).",
     "officialChallenge": "Officiële HabitRPG Uitdaging",
     "by": "door",
     "participants": "Deelnemers",

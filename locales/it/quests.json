@@ -21,7 +21,7 @@
     "bossColl1": "Per ottenere gli oggetti, completa delle attività positive. Gli oggetti delle missioni compaiono come quelli normali; non li vedrai però fino al giorno dopo, quando tutto quello che hai trovato verrà raccolto e aggiunto agli oggetti già trovati.",
     "bossColl2": "Solo i partecipanti potranno collezionare gli oggetti e condividere il bottino della missione.",
     "abort": "Annulla",
-    "questOwner": "Quest Owner",
+    "questOwner": "Capomissione",
     "questOwnerNotInPendingQuest": "The quest owner has left the quest and can no longer begin it. It is recommended that you cancel it now. The quest owner will retain possession of the quest scroll.",
     "questOwnerNotInRunningQuest": "The quest owner has left the quest. You can abort the quest if you need to. You can also allow it to keep running and all remaining participants will receive the quest rewards when the quest finishes.",
     "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",

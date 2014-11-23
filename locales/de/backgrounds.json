@@ -4,7 +4,7 @@
     "backgroundBeachText": "Strand",
     "backgroundBeachNotes": "Sonne dich auf einem warmen Strand.",
     "backgroundFairyRingText": "Hexenkreis",
-    "backgroundFairyRingNotes": "Tanze in einem Feenring.",
+    "backgroundFairyRingNotes": "Tanze in einem Hexenkreis.",
     "backgroundForestText": "Wald",
     "backgroundForestNotes": "Spaziere durch einen Sommerwald.",
     "backgrounds072014": "Set 2: veröffentlicht im Juli 2014 ",
@@ -35,11 +35,11 @@
     "backgroundHauntedHouseNotes": "Schleiche dich durch ein Spukhaus.",
     "backgroundPumpkinPatchText": "Kürbisfeld",
     "backgroundPumpkinPatchNotes": "Schnitze Halloweenkürbisse auf einem Kürbisfeld.",
-    "backgrounds112014": "SET 6: Released November 2014",
-    "backgroundHarvestFeastText": "Harvest Feast",
-    "backgroundHarvestFeastNotes": "Enjoy a Harvest Feast.",
-    "backgroundStarrySkiesText": "Starry Skies",
-    "backgroundStarrySkiesNotes": "Gaze at the Starry Skies.",
-    "backgroundSunsetMeadowText": "Sunset Meadow",
-    "backgroundSunsetMeadowNotes": "Admire a Sunset Meadow."
+    "backgrounds112014": "SET 6: Verfügbar seit November 2014",
+    "backgroundHarvestFeastText": "Erntedankfest",
+    "backgroundHarvestFeastNotes": "Feiere Erntedankfest",
+    "backgroundStarrySkiesText": "Sternenhimmel",
+    "backgroundStarrySkiesNotes": "Betrachte den Sternenhimmel",
+    "backgroundSunsetMeadowText": "Weiden im Abendrot",
+    "backgroundSunsetMeadowNotes": "Bewundere Weiden im Abendrot"
 }
