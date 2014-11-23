@@ -7,6 +7,7 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var iap = require('./iap');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -75,3 +76,6 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.iapAndroidVerify = iap.androidVerify;
+exports.iapIosVerify = iap.iosVerify;
