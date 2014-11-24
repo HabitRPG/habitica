@@ -115,7 +115,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       });
       $scope.sendPrivateMessage = function(uuid, message){
         $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
-          Notification.text('Message sent.');
+          Notification.text(window.env.t('messageSentAlert'));
           $rootScope.User.sync();
           $scope.$close();
         });
