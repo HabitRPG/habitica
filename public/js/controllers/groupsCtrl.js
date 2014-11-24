@@ -99,6 +99,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
       }
 
+      $scope.quickReply = function(uuid) {
+        $rootScope.openModal('private-message',{controller:'MemberModalCtrl', scope:$scope})
+      }
     }
   ])
 
