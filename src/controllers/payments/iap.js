@@ -2,14 +2,6 @@ var iap = require('in-app-purchase');
 var async = require('async');
 var payments = require('./index');
 
-/*
-For google iap, you need to name your public key file as:
-iap-sanbox or iap-live
-*/
-iap.config({
-    googlePublicKeyPath: "/path/to/google/public/key/dir/"
-});
-
 exports.androidVerify = function(req, res, next) {
   console.info(req.body);
   
