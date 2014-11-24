@@ -4,9 +4,9 @@ script(type='text/ng-template', id='modals/member.html')
       span {{::profile.profile.name}}
       span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
       ul.pull-right.list-inline(ng-if='::user')
-        li.glyphicon.glyphicon-plus(ng-show='user.inbox.blocks | contains:profile._id', tooltip='Un-block', ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
-        li.glyphicon.glyphicon-ban-circle(ng-hide='user.inbox.blocks | contains:profile._id', tooltip='Block', ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
-        li.glyphicon.glyphicon-envelope(tooltip='Send private message', ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='bottom', style='cursor:pointer')
+        li.glyphicon.glyphicon-plus(ng-show='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
+        li.glyphicon.glyphicon-ban-circle(ng-hide='user.inbox.blocks | contains:profile._id', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
+        li.glyphicon.glyphicon-envelope(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='bottom', style='cursor:pointer')
   .modal-body
     .container-fluid
       .row
