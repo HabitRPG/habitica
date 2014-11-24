@@ -75,6 +75,7 @@
     "leaveParty": "Leave party?",
     "sendPM": "Send private message",
     "send": "Send",
+    "messageSentAlert": "Message sent",
     "pmHeading": "Private message to <%= name %>",
     "clearAll": "Clear All",
     "clearAllPopover": "Delete all messages",
