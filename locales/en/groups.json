@@ -74,6 +74,8 @@
     "leavePartyCha": "Leave party challenges and...",
     "leaveParty": "Leave party?",
     "sendPM": "Send private message",
+    "send": "Send",
+    "pmHeading": "Private message to <%= name %>",
     "clearAll": "Clear All",
     "clearAllPopover": "Delete all messages",
     "optOutPopover": "Don't like private messages? Click to completely opt out",
