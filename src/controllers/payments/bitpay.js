@@ -2,6 +2,7 @@ var nconf = require('nconf');
 var async = require('async');
 var _ = require('lodash');
 var logger = require('../../logging');
+var moment = require('moment');
 var payments = require('./index');
 
 var bitauth = require('bitauth');
@@ -32,6 +33,8 @@ function createBitPayClient(cb)
 }
 
 exports.checkout = function(req, res, next) {
+  var isPlan = (req.query.plan !== undefined);
+
   var order = new Order({
           buyer:req.session.userId,
           dateCreated:new Date(),
@@ -45,7 +48,7 @@ exports.checkout = function(req, res, next) {
       var data = {
         price: 5,
         currency: 'USD',
-        posData : JSON.stringify({orderId:order.id, uuid: order.buyer}),
+        posData : JSON.stringify({orderId:order.id, uuid: order.buyer, plan:isPlan}),
         //redirectURL : nconf.get('BASE_URL') + '/bitpay/checkout/success?order=' + order.id
         redirectURL : 'http://localhost:3000' + '/bitpay/checkout/success?order=' + order.id
       };
@@ -88,15 +91,17 @@ exports.checkoutSuccess = function(req,res,next) {
       });
     },
     function (invoice, order,cb){
-      if (invoice.status !== 'complete') {
-        cb({err: "The bitpay payment have an invalid status"});
+      if (invoice.status !== 'complete' && invoice.status !== 'confirmed') {
+        cb("The bitpay payment have an invalid status : (" + 
+          invoice.status + "," + invoice.exStatus + ")");
       } else {
+        var habitData = JSON.parse(invoice.posData);
         mongoose.model('User').findById(order.buyer, function(err,user){
-          cb(err,user,order);
+          cb(err,user,order,habitData.plan);
         });
       }
     },
-    function (user, order, cb){
+    function (user, order, isPlan, cb){
        // TODO do a concurrency check
       if (order.processed)
       {
@@ -107,7 +112,24 @@ exports.checkoutSuccess = function(req,res,next) {
       else
       {
         if (_.isEmpty(user)) return cb("user not found when completing bitpay transaction");
-        payments.buyGems(user, {customerId:order.id, paymentMethod:'BitPay'});
+        if (!isPlan)
+        {
+          payments.buyGems(user, {customerId:order.id, paymentMethod:'BitPay'});
+        } else {
+          // with bitpay we don't have reccuring payment so we have a month to month subscription
+          var startDate = user.dateTerminated;
+          payments.createSubscription(user, {customerId: order.id, paymentMethod: 'BitPay'});
+          
+          if ((!startDate) || startDate < moment())
+          {
+            startDate = moment();
+          }
+
+          user.purchased.plan.dateTerminated =
+            moment( startDate.format('MM') + '/' + moment(startDate).format('DD') + '/' + startDate.format('YYYY') )
+            .add({months:1})
+            .toDate();
+        }
         user.save(function(err,user){
           cb(err,user,order);
         });

@@ -165,6 +165,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.showBitPay = function(subscription) {
       var url = '/bitpay/checkout' + '?_id=' + user._id + '&apiToken=' + user.apiToken;
+      if (subscription) url += '&plan=basic_earned';
       $http.get(url).success(function(bitpayUrl) {
         window.open(bitpayUrl);
       }).error(function(data) {
