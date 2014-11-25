@@ -3,10 +3,6 @@ script(type='text/ng-template', id='modals/member.html')
     h4
       span {{::profile.profile.name}}
       span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
-      ul.pull-right.list-inline(ng-if='::user')
-        li.glyphicon.glyphicon-plus(ng-show='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
-        li.glyphicon.glyphicon-ban-circle(ng-hide='user.inbox.blocks | contains:profile._id', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
-        li.glyphicon.glyphicon-envelope(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='bottom', style='cursor:pointer')
   .modal-body
     .container-fluid
       .row
@@ -35,7 +31,14 @@ script(type='text/ng-template', id='modals/member.html')
             h3=env.t('achievements')
             include ../profiles/achievements
   .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+    .btn-group.pull-left(ng-if='::user')
+      button.btn.btn-md.btn-default(ng-show='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-plus
+      button.btn.btn-md.btn-default(ng-hide='user.inbox.blocks | contains:profile._id', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-ban-circle
+      button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-envelope
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
 
 script(type='text/ng-template', id='modals/private-message.html')
   .modal-header
