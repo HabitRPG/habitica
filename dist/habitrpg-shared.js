@@ -9783,35 +9783,39 @@ mystery = {
   },
   201403: {
     start: '2014-03-24',
-    end: '2014-04-01'
+    end: '2014-04-02'
   },
   201404: {
     start: '2014-04-24',
-    end: '2014-05-01'
+    end: '2014-05-02'
   },
   201405: {
     start: '2014-05-21',
-    end: '2014-06-01'
+    end: '2014-06-02'
   },
   201406: {
     start: '2014-06-23',
-    end: '2014-07-01'
+    end: '2014-07-02'
   },
   201407: {
     start: '2014-07-23',
-    end: '2014-08-01'
+    end: '2014-08-02'
   },
   201408: {
     start: '2014-08-23',
-    end: '2014-09-01'
+    end: '2014-09-02'
   },
   201409: {
     start: '2014-09-24',
-    end: '2014-10-01'
+    end: '2014-10-02'
   },
   201410: {
     start: '2014-10-24',
-    end: '2014-11-01'
+    end: '2014-11-02'
+  },
+  201411: {
+    start: '2014-11-24',
+    end: '2014-11-02'
   },
   wondercon: {
     start: '2014-03-24',
@@ -10311,6 +10315,14 @@ gear = {
         }),
         value: 90,
         int: 9
+      }
+    },
+    mystery: {
+      201411: {
+        text: t('weaponMystery201411Text'),
+        notes: t('weaponMystery201411Notes'),
+        mystery: mystery['201411'],
+        value: 0
       }
     }
   },
@@ -11182,6 +11194,12 @@ gear = {
         text: t('headMystery201408Text'),
         notes: t('headMystery201408Notes'),
         mystery: mystery['201408'],
+        value: 0
+      },
+      201411: {
+        text: t('headMystery201411Text'),
+        notes: t('headMystery201411Notes'),
+        mystery: mystery['201411'],
         value: 0
       }
     }
