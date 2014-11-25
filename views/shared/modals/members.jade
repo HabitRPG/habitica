@@ -29,9 +29,11 @@ script(type='text/ng-template', id='modals/member.html')
           .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
-          +herobox()
-          h3=env.t('achievements')
-          include ../profiles/achievements
+          .row
+            +herobox()
+          .row
+            h3=env.t('achievements')
+            include ../profiles/achievements
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('ok')
 

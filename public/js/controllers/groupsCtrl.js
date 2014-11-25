@@ -46,7 +46,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid, function(){
-            $rootScope.openModal('member', {controller:'MemberModalCtrl'});
+            $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
           });
         }
       }
@@ -101,8 +101,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       $scope.quickReply = function(uid) {
         Members.selectMember(uid, function(){
-          $rootScope.openModal('private-message',{controller:'MemberModalCtrl'})
-          });
+          $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
+        });
       }
     }
   ])
