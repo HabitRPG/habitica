@@ -10,9 +10,8 @@ var isDev = nconf.get('NODE_ENV') === 'development';
 
 if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
-  _.times(_.min([require('os').cpus().length,2]), function(){
-    cluster.fork();
-  });
+  var cpus = require('os').cpus();
+  _.times(nconf.get("HEROKU_PROD") ? (cpus.length-1 || 1) : (_.min([cpus.length,2])), cluster.fork);
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
