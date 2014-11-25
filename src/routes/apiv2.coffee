@@ -602,6 +602,16 @@ module.exports = (swagger, v2) ->
         ]
       middleware: [auth.auth]
       action: user.blockUser
+    "/members/{uuid}/gift":
+      spec:
+        method: 'POST'
+        description: 'Send a gift to a member'
+        parameters: [
+          path 'uuid', 'The UUID of the member', 'string'
+          body '', '{gems:{amount:Number, fromBalance:Boolean}, subscription:{months:Number}}', 'object'
+        ]
+      middleware: [auth.auth]
+      action: members.sendGift
 
     # ---------------------------------
     # Hall of Heroes / Patrons

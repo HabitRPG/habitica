@@ -2,6 +2,11 @@
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
+    Members.selectMember('9', function(){
+      $rootScope.openModal('send-gift',{controller:'MemberModalCtrl'})
+    });
+
+
     $scope.isMemberOfPendingQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -124,6 +129,18 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.User.sync();
           $scope.$close();
         });
+      }
+      $scope.gift = {
+        type: 'gems',
+        gems: {amount:0, fromBalance:true},
+        subscription: {},
+        message:''
+      };
+      $scope.sendGift = function(uuid, gift){
+        $http.post('/api/v2/members/'+uuid+'/gift', gift).success(function(){
+          Notification.text('Gift sent!')
+          $rootScope.User.sync();
+        })
       }
     }
   ])

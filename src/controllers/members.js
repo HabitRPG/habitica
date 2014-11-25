@@ -29,33 +29,67 @@ api.getMember = function(req, res, next) {
   })
 }
 
-api.sendPrivateMessage = function(req,res,next){
+var sendMessage = function(user, member, msg){
+  var message = groups.chatDefaults(msg, user);
+  shared.refPush(member.inbox.messages, message);
+  member.inbox.newMessages++;
+  member._v++;
+  member.markModified('inbox.messages');
+
+  var message = groups.chatDefaults(msg, member);
+  shared.refPush(user.inbox.messages, _.defaults({sent:true},message));
+  user.markModified('inbox.messages');
+}
+
+api.sendPrivateMessage = function(req, res, next){
   async.waterfall([
     fetchMember(req.params.uuid),
-    function(member, cb){
+    function(member, cb) {
       if (~member.inbox.blocks.indexOf(res.locals.user._id) // can't send message if that user blocked me
         || ~res.locals.user.inbox.blocks.indexOf(member._id) // or if I blocked them
         || member.inbox.optOut) { // or if they've opted out of messaging
-        return cb({code:401, err: "Can't send message to this user."});
+        return cb({code: 401, err: "Can't send message to this user."});
       }
-
-      var message = groups.chatDefaults(req.body.message, res.locals.user);
-      shared.refPush(member.inbox.messages, message);
-      member.inbox.newMessages++;
-      member._v++;
-      member.markModified('inbox.messages');
-
-      var message = groups.chatDefaults(req.body.message, member);
-      shared.refPush(res.locals.user.inbox.messages, _.defaults({sent:true},message));
-      res.locals.user.markModified('inbox.messages');
-
-      member.save(cb);
-    },
-    function(a,b,cb){
-      res.locals.user.save(cb);
+      sendMessage(res.locals.user, member, req.body.message);
+      async.parallel([
+        function (cb2) {  member.save(cb2) },
+        function (cb2) { res.locals.user.save(cb2) }
+      ], cb);
     }
   ], function(err){
     if (err) return sendErr(err, res, next);
     res.send(200);
   })
+}
+
+api.sendGift = function(req, res, next){
+  async.waterfall([
+    fetchMember(req.params.uuid),
+    function(member, cb) {
+      // Gems
+      switch (req.body.type) {
+        case "gems":
+          var amt = req.body.gems.amount / 4,
+            user = res.locals.user;
+          if (amt < 1 || user.balance < amt)
+            return cb({code: 401, err: "Amount must be within 0 and your current number of gems."});
+          member.balance += amt;
+          user.balance -= amt;
+          var msg = "`Hello "+member.profile.name+", "+user.profile.name+" has sent you "+amt+" gems!` ";
+          if (req.body.message) msg += req.body.message;
+          sendMessage(user, member, msg);
+          return async.parallel([
+            function (cb2) { member.save(cb2) },
+            function (cb2) { res.locals.user.save(cb2) }
+          ], cb);
+        case "subscription":
+          return cb();
+        default:
+          return cb({code:400, err:"Body must contain a gems:{amount,fromBalance} or subscription:{months} object"});
+      }
+    }
+  ], function(err) {
+    if (err) return sendErr(err, res, next);
+    res.send(200);
+  });
 }

@@ -38,6 +38,8 @@ script(type='text/ng-template', id='modals/member.html')
         span.glyphicon.glyphicon-ban-circle
       button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
         span.glyphicon.glyphicon-envelope
+      button.btn.btn-md.btn-default(tooltip="Send Gift", ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-gift
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 
 script(type='text/ng-template', id='modals/private-message.html')
@@ -47,4 +49,53 @@ script(type='text/ng-template', id='modals/private-message.html')
     textarea.form-control(type='text',ng-model='_message')
   .modal-footer
     button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+
+script(type='text/ng-template', id='modals/send-gift.html')
+  .modal-header
+    h4 Send Gift to {{::profile.profile.name}}
+  .modal-body
+    .panel.panel-default(class="{{gift.type=='gems' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="gems"')
+      .panel-heading
+        .pull-right
+          span(ng-show='gift.gems.fromBalance') From {{user.balance*4}} Gems
+          span(ng-hide='gift.gems.fromBalance') Total: ${{gift.gems.amount/4}} USD
+        | Gems
+      .panel-body
+        .row
+          .col-md-6
+            .form-group
+              input.form-control(type='number', placeholder='Number of Gems', min='0', max='{{gift.gems.fromBalance ? user.balance*4 : ""}}', ng-model='gift.gems.amount')
+          .col-md-6
+            .btn-group
+              a.btn.btn-default(ng-class="{active:gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=true") From Balance
+              a.btn.btn-default(ng-class="{active:!gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=false") Purchase
+
+    .panel.panel-default(class="{{gift.type=='subscription' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="subscription"')
+      .panel-heading Subscription
+      .panel-body
+        .form-group
+          .radio
+            label
+              input(type="radio", name="subRadio", value="1", ng-model='gift.subscription.months')
+              | 1 Month ($5)
+          .radio
+            label
+              input(type="radio", name="subRadio", value="3", ng-model='gift.subscription.months')
+              | 3 Months ($15)
+          .radio
+            label
+              input(type="radio", name="subRadio", value="6", ng-model='gift.subscription.months')
+              | 6 Months ($30)
+          .radio
+            label
+              input(type="radio", name="subRadio", value="12", ng-model='gift.subscription.months')
+              | 1 Year ($48)
+    textarea.form-control(rows='3', ng-model='gift.message', placeholder='Personal message (optional)')
+
+  .modal-footer
+    - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
+    button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id, gift)')=env.t("send")
+    a.btn.btn-primary(ng-hide=fromBal, ng-click='showStripe({uuid:profile._id})')=env.t('card')
+    a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?uuid={{profile._id}}') PayPal
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')

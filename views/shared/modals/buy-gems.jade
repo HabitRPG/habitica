@@ -20,7 +20,6 @@ script(id='modals/buyGems.html', type='text/ng-template')
             td
               p
                 small.muted=env.t('paymentMethods')
-              //.btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
               .btn.btn-primary(ng-click='showStripe()')=env.t('card')
               a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
 
