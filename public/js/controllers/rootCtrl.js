@@ -117,8 +117,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         controller: options.controller, // optional
         scope: options.scope, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
-        backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
-
+        backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
+        size: options.size, // optional, 'sm' or 'lg'
+        windowClass: options.windowClass // optional
       });
     }
 
