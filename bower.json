@@ -33,7 +33,7 @@
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
-    "js-emoji": "git://github.com/snicker/js-emoji#master",
+    "js-emoji": "https://github.com/iamcal/js-emoji.git",
     "sticky": "*",
     "swagger-ui": "git://github.com/wordnik/swagger-ui.git",
     "ngInfiniteScroll": "1.0.0",
