@@ -24,19 +24,19 @@ function revealMysteryItems(user) {
 
 exports.createSubscription = function(user, data) {
   if (!user.purchased.plan) user.purchased.plan = {};
-  _(user.purchased.plan)
-    .merge({ // override with these values
-      planId:'basic_earned',
-      customerId: data.customerId,
-      dateUpdated: new Date(),
-      gemsBought: 0,
-      paymentMethod: data.paymentMethod,
-      dateTerminated: null
-    })
-    .defaults({ // allow non-override if a plan was previously used
-      dateCreated: new Date(),
-      mysteryItems: []
-    });
+  var p = user.purchased.plan;
+  _(p).merge({ // override with these values
+    planId:'basic_earned',
+    customerId: data.customerId,
+    dateUpdated: new Date(),
+    gemsBought: 0,
+    paymentMethod: data.paymentMethod,
+    extraMonths: p.extraMonths + (p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
+    dateTerminated: null
+  }).defaults({ // allow non-override if a plan was previously used
+    dateCreated: new Date(),
+    mysteryItems: []
+  });
   revealMysteryItems(user);
   if(isProduction) utils.txnEmail(user, 'subscription-begins');
   user.purchased.txnCount++;
@@ -48,12 +48,16 @@ exports.createSubscription = function(user, data) {
  * Sets their subscription to be cancelled later
  */
 exports.cancelSubscription = function(user, data) {
-  var du = user.purchased.plan.dateUpdated, now = moment();
+  var p = user.purchased.plan,
+    now = moment();
   if(isProduction) utils.txnEmail(user, 'cancel-subscription');
-  user.purchased.plan.dateTerminated =
-    moment( now.format('MM') + '/' + moment(du).format('DD') + '/' + now.format('YYYY') )
-    .add({months:1})
+  p.dateTerminated =
+    moment( now.format('MM') + '/' + moment(p.dateUpdated).format('DD') + '/' + now.format('YYYY') )
+    .add({months:1})// end their subscription 1mo from their last payment
+    .add({months:p.extraMonths})// plus any extra time (carry-over, gifted subscription, etc) they have
     .toDate();
+  p.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
+
   utils.ga.event('unsubscribe', 'Stripe').send();
 }
 

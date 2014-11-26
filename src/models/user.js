@@ -94,9 +94,13 @@ var UserSchema = new Schema({
       planId: String,
       paymentMethod: String, //enum: ['Paypal','Stripe', '']}
       customerId: String,
+
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,
+      consecutiveMonths: {type:Number, 'default':0},
+      extraMonths: {type:Number, 'default':0},
+
       gemsBought: {type: Number, 'default': 0},
       mysteryItems: {type: Array, 'default': []}
     }

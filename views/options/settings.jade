@@ -228,6 +228,9 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
         i.glyphicon.glyphicon-time
         |  #{env.t('subCanceled')} <strong>{{moment(p.dateTerminated).format('MM/DD/YYYY')}}</strong>
       p.alert.alert-success(ng-if='!p.dateTerminated')=env.t('subscribed')
+      p.alert.alert-success(ng-if='p.extraMonths')
+        span.glyphicon.glyphicon-credit-card
+        |  You have {{p.extraMonths | number:2}} months of subscription credit.
 
     h2=env.t('individualSub')
     div(ng-include="'partials/options.settings.subscription.perks.html'")
