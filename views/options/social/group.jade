@@ -1,9 +1,17 @@
-a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left', popover-html='true')
-  // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
-  span.task-action-btn.tile.flush.neutral
-    .Pet_Currency_Gem2x.Gems
-    | {{group.balance * 4 | number:0 }}
-    =' ' + env.t('guildGems')
+if (group.type == 'guild') {
+     a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank', popover='Gems which your guild leader can use for challenge prizes.', popover-placement='left', popover-html='true')
+       // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
+       span.task-action-btn.tile.flush.neutral
+      .Pet_Currency_Gem2x.Gems
+      | {{group.balance * 4 | number:0 }}
+      =' ' + env.t('guildGems')
+} else if (group.type == 'party') {
+     a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Party Bank', popover='Gems which your party leader can use for challenge prizes.', popover-placement='left', popover-html='true')
+       // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
+       span.task-action-btn.tile.flush.neutral
+         .Pet_Currency_Gem2x.Gems
+         | {{group.balance * 4 | number:0 }} Party Gems
+      =' ' + env.t('guildGems')
 
 .container-fluid
   .row
