@@ -49,8 +49,7 @@ exports.checkout = function(req, res, next) {
         price: 5,
         currency: 'USD',
         posData : JSON.stringify({orderId:order.id, uuid: order.buyer, plan:isPlan}),
-        //redirectURL : nconf.get('BASE_URL') + '/bitpay/checkout/success?order=' + order.id
-        redirectURL : 'http://localhost:3000' + '/bitpay/checkout/success?order=' + order.id
+        redirectURL : nconf.get('BASE_URL') + '/bitpay/checkout/success?order=' + order.id
       };
 
       client.post('invoices',data,cb);
