@@ -11,7 +11,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))=env.t('costume')
         .checkbox.equipment-title
           label
-            input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+            input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":user.preferences.costume})')
             |&nbsp;
             =env.t('useCostume')
         li.customize-menu(ng-if='user.preferences.costume')
