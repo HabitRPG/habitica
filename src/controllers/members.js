@@ -29,15 +29,16 @@ api.getMember = function(req, res, next) {
   })
 }
 
-var sendMessage = function(user, member, msg){
-  var message = groups.chatDefaults(msg, user);
-  shared.refPush(member.inbox.messages, message);
+api.sendMessage = function(user, member, data){
+  var msg = data.amount
+    ? "`Hello " + member.profile.name + ", " + user.profile.name + " has sent you " + data.amount + " gems!` " + data.message
+    : data.message;
+  shared.refPush(member.inbox.messages, groups.chatDefaults(msg, user));
   member.inbox.newMessages++;
   member._v++;
   member.markModified('inbox.messages');
 
-  var message = groups.chatDefaults(msg, member);
-  shared.refPush(user.inbox.messages, _.defaults({sent:true},message));
+  shared.refPush(user.inbox.messages, _.defaults({sent:true}, groups.chatDefaults(msg, member)));
   user.markModified('inbox.messages');
 }
 
@@ -50,7 +51,7 @@ api.sendPrivateMessage = function(req, res, next){
         || member.inbox.optOut) { // or if they've opted out of messaging
         return cb({code: 401, err: "Can't send message to this user."});
       }
-      sendMessage(res.locals.user, member, req.body.message);
+      api.sendMessage(res.locals.user, member, {message:req.body.message});
       async.parallel([
         function (cb2) {  member.save(cb2) },
         function (cb2) { res.locals.user.save(cb2) }
@@ -75,12 +76,10 @@ api.sendGift = function(req, res, next){
             return cb({code: 401, err: "Amount must be within 0 and your current number of gems."});
           member.balance += amt;
           user.balance -= amt;
-          var msg = "`Hello "+member.profile.name+", "+user.profile.name+" has sent you "+amt+" gems!` ";
-          if (req.body.message) msg += req.body.message;
-          sendMessage(user, member, msg);
+          api.sendMessage(user, member, {amount:req.body.gems.amount, message:req.body.message});
           return async.parallel([
             function (cb2) { member.save(cb2) },
-            function (cb2) { res.locals.user.save(cb2) }
+            function (cb2) { user.save(cb2) }
           ], cb);
         case "subscription":
           return cb();

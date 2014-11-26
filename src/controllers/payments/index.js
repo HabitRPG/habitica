@@ -7,6 +7,9 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var User = require('mongoose').model('User');
+var members = require('../members')
+var async = require('async');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -61,12 +64,21 @@ exports.cancelSubscription = function(user, data) {
   utils.ga.event('unsubscribe', 'Stripe').send();
 }
 
-exports.buyGems = function(user, data) {
-  user.balance += 5;
-  user.purchased.txnCount++;
-  if(isProduction) utils.txnEmail(user, 'donation');
-  utils.ga.event('checkout', data.paymentMethod).send();
-  utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+exports.buyGems = function(data, cb) {
+  var amt = data.gift ? data.gift.amount/4 : 5;
+  (data.gift ? data.gift.member : data.user).balance += amt;
+  data.user.purchased.txnCount++;
+  if(isProduction) {
+    utils.txnEmail(data.user, 'donation');
+    utils.ga.event('checkout', data.paymentMethod).send();
+    //TODO ga.transaction to reflect whether this is gift or self-purchase
+    utils.ga.transaction(data.customerId, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+  }
+  if (data.gift) members.sendMessage(data.user, data.gift.member, data.gift);
+  async.parallel([
+    function(cb2){data.user.save(cb2)},
+    function(cb2){data.gift ? data.gift.member.save(cb2) : cb2(null);}
+  ], cb);
 }
 
 exports.stripeCheckout = stripe.checkout;

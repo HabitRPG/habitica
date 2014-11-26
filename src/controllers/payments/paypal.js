@@ -3,7 +3,7 @@ var moment = require('moment');
 var async = require('async');
 var _ = require('lodash');
 var url = require('url');
-var mongoose = require('mongoose');
+var User = require('mongoose').model('User');
 var payments = require('./index');
 var logger = require('../../logging');
 var ipn = require('paypal-ipn');
@@ -51,7 +51,7 @@ exports.executeBillingAgreement = function(req,res,next){
       paypal.billingAgreement.execute(req.query.token, {}, cb);
     },
     function(billingAgreement, cb){
-      mongoose.model('User').findById(req.session.userId, function(err, user){
+      User.findById(req.session.userId, function(err, user){
         if (err) return cb(err);
         cb(null, {billingAgreement:billingAgreement, user:user});
       });
@@ -67,6 +67,9 @@ exports.executeBillingAgreement = function(req,res,next){
 }
 
 exports.createPayment = function(req, res, next) {
+  // if we're gifting to a user, put it in session for the `execute()`
+  req.session.gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+  var price = req.session.gift ? Number(req.session.gift.amount/4).toFixed(2) : 5.00;
   var create_payment = {
     "intent": "sale",
     "payer": {
@@ -81,14 +84,14 @@ exports.createPayment = function(req, res, next) {
         "items": [{
           "name": "HabitRPG Gems",
           //"sku": "1",
-          "price": "5.00",
+          "price": price,
           "currency": "USD",
           "quantity": 1
         }]
       },
       "amount": {
         "currency": "USD",
-        "total": "5.00"
+        "total": price
       },
       "description": "HabitRPG Gems"
     }]
@@ -102,20 +105,25 @@ exports.createPayment = function(req, res, next) {
 
 exports.executePayment = function(req, res, next) {
   var paymentId = req.query.paymentId,
-    PayerID = req.query.PayerID;
+    PayerID = req.query.PayerID,
+    gift = req.session.gift;
   async.waterfall([
     function(cb){
       paypal.payment.execute(paymentId, {payer_id: PayerID}, cb);
     },
     function(payment, cb){
-      mongoose.model('User').findById(req.session.userId, cb);
+      async.parallel([
+        function(cb2){ User.findById(req.session.userId, cb2); },
+        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2); }
+      ], cb);
     },
-    function(user, cb){
-      if (_.isEmpty(user)) return cb("user not found when completing paypal transaction");
-      payments.buyGems(user, {customerId:PayerID, paymentMethod:'Paypal'});
-      user.save(cb);
+    function(results, cb){
+      if (_.isEmpty(results[0]))
+        return cb("user not found when completing paypal transaction");
+      if (gift) gift.member = results[1];
+      payments.buyGems({user:results[0], customerId:PayerID, paymentMethod:'Paypal', gift:gift}, cb);
     }
-  ],function(err, saved){
+  ],function(err, results){
     if (err) return next(parseErr(err));
     res.redirect('/');
   })
@@ -153,7 +161,7 @@ exports.ipn = function(req, res, next) {
       // TODO what's the diff b/w the two data.txn_types below? The docs recommend subscr_cancel, but I'm getting the other one instead...
       case 'recurring_payment_profile_cancel':
       case 'subscr_cancel':
-        mongoose.model('User').findOne({'purchased.plan.customerId':req.body.recurring_payment_id},function(err, user){
+        User.findOne({'purchased.plan.customerId':req.body.recurring_payment_id},function(err, user){
           if (err) return logger.error(err);
           if (_.isEmpty(user)) return; // looks like the cancellation was already handled properly above (see api.paypalSubscribeCancel)
           payments.cancelSubscription(user);

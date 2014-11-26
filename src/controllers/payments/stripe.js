@@ -2,6 +2,7 @@ var nconf = require('nconf');
 var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
 var async = require('async');
 var payments = require('./index');
+var User = require('mongoose').model('User');
 
 /*
  Setup Stripe response when posting payment
@@ -9,19 +10,20 @@ var payments = require('./index');
 exports.checkout = function(req, res, next) {
   var token = req.body.id;
   var user = res.locals.user;
+  var gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
 
   async.waterfall([
     function(cb){
       if (req.query.plan) {
         stripe.customers.create({
           email: req.body.email,
-          metadata: {uuid: res.locals.user._id},
+          metadata: {uuid: user._id},
           card: token,
           plan: req.query.plan
         }, cb);
       } else {
         stripe.charges.create({
-          amount: "500", // $5
+          amount: gift ? ""+gift.amount/4*100 : "500", //"500" = $5
           currency: "usd",
           card: token
         }, cb);
@@ -30,10 +32,16 @@ exports.checkout = function(req, res, next) {
     function(response, cb) {
       if (req.query.plan) {
         payments.createSubscription(user, {customerId: response.id, paymentMethod: 'Stripe'});
+        user.save(cb);
       } else {
-        payments.buyGems(user, {customerId: response.id, paymentMethod: 'Stripe'});
+        async.waterfall([
+          function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
+          function(member, cb2){
+            if (gift) gift.member = member;
+            payments.buyGems({user:user, customerId:response.id, paymentMethod:'Stripe', gift:gift},cb2);
+          }
+        ], cb);
       }
-      user.save(cb);
     }
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors

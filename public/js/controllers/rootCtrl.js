@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService', '$filter',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService, $filter) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -139,24 +139,30 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.flash[type].splice($index, 1);
     }
 
-    $rootScope.showStripe = function(subscription) {
+    $rootScope.encodeGift = function(uuid, gift){
+      return JSON.stringify({uuid:uuid, amount:gift.gems.amount, message:gift.message});
+    }
+
+    $rootScope.showStripe = function(data) {
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,
         address: false,
-        amount: 500,
-        name: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
-        description: subscription ?
+        amount: data.gift ? data.gift.gems.amount/4*100 : 500,
+        name: data.subscription ? window.env.t('subscribe') : window.env.t('checkout'),
+        description: data.subscription ?
           window.env.t('buySubsText') :
           window.env.t('donationDesc'),
-        panelLabel: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
-        token: function(data) {
+        panelLabel: data.subscription ? window.env.t('subscribe') : window.env.t('checkout'),
+        token: function(res) {
           var url = '/stripe/checkout';
-          if (subscription) url += '?plan=basic_earned';
+          if (data.gift) url += '?gift=' + $rootScope.encodeGift(data.uuid, data.gift);
+          //TODO else if? ^
+          if (data.subscription) url += '?plan=basic_earned';
           $scope.$apply(function(){
-            $http.post(url, data).success(function() {
+            $http.post(url, res).success(function() {
               window.location.reload(true);
-            }).error(function(data) {
-              alert(data.err);
+            }).error(function(res) {
+              alert(res.err);
             });
           })
         }
