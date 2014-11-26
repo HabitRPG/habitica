@@ -24,7 +24,7 @@
     "angular-ui-select2": "git://github.com/angular-ui/ui-select2.git",
     "angular-bootstrap": "~0.12.0",
     "angular-ui-router": "git://github.com/HabitRPG/ui-router.git#habitrpg",
-    "angular-loading-bar": "~0.3.0",
+    "angular-loading-bar": "~0.6.0",
     "bootstrap": "~3.1.0",
     "bootstrap-growl": "git://github.com/ifightcrime/bootstrap-growl.git#master",
     "bootstrap-tour": "~0.8.1",
