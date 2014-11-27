@@ -14853,7 +14853,7 @@ api.wrap = function(user, main) {
           if (user.purchased.plan.gemsBought >= convCap) {
             return typeof cb === "function" ? cb({
               code: 401,
-              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming, please wait until the beginning of next month."
+              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."
             }) : void 0;
           }
           user.balance += .25;
