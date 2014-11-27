@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state',
-  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
+  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
     $scope.isMemberOfPendingQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -45,8 +45,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         } else {
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
-          Members.selectMember(uid);
-          $rootScope.openModal('member', {controller:'MemberModalCtrl'});
+          Members.selectMember(uid, function(){
+            $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
+          });
         }
       }
 
@@ -63,7 +64,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
       }
 
-    // ------ Invites ------
+      // ------ Invites ------
 
       $scope.invite = function(group){
         Groups.Group.invite({gid: group._id, uuid: group.invitee}, undefined, function(){
@@ -72,11 +73,42 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           group.invitee = '';
         });
       }
+
+      //var serializeQs = function(obj, prefix){
+      //  var str = [];
+      //  for(var p in obj) {
+      //    if (obj.hasOwnProperty(p)) {
+      //      var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+      //      str.push(typeof v == "object" ?
+      //        serializeQs(v, k) :
+      //        encodeURIComponent(k) + "=" + encodeURIComponent(v));
+      //    }
+      //  }
+      //  return str.join("&");
+      //}
+      //
+      //$scope.inviteLink = function(obj){
+      //  return window.env.BASE_URL + '?' + serializeQs({partyInvite: obj});
+      //}
+      $scope.emails = [{name:"",email:""},{name:"",email:""}];
+      $scope.inviter = User.user.profile.name;
+      $scope.inviteEmails = function(inviter, emails){
+        $http.post('/api/v2/user/social/invite-friends', {inviter:inviter, emails:emails}).success(function(){
+          Notification.text("Invitations sent!");
+          $scope.emails = [{name:'',email:''},{name:'',email:''}];
+        });
+      }
+
+      $scope.quickReply = function(uid) {
+        Members.selectMember(uid, function(){
+          $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
+        });
+      }
     }
   ])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared',
-    function($scope, $rootScope, Members, Shared) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification',
+    function($scope, $rootScope, Members, Shared, $http, Notification) {
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format('MM/DD/YYYY');
       }
@@ -86,6 +118,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           member.petCount = Shared.countPets(null, member.items.pets);
         $scope.profile = member;
       });
+      $scope.sendPrivateMessage = function(uuid, message){
+        $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
+          Notification.text(window.env.t('messageSentAlert'));
+          $rootScope.User.sync();
+          $scope.$close();
+        });
+      }
     }
   ])
 

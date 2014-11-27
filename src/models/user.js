@@ -117,6 +117,9 @@ var UserSchema = new Schema({
     freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
     chatRevoked: Boolean,
+    // Used to track the status of recapture emails sent to each user,
+    // can be 0 - no email sent - 1, 2 or 3 - 3 means no more email will be sent to the user
+    recaptureEmailsPhase: {type: Number, 'default': 0},
     communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
   history: {
@@ -274,7 +277,8 @@ var UserSchema = new Schema({
     tagsCollapsed: {type: Boolean, 'default': false},
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
-    background: String
+    background: String,
+    webhooks: {type: Schema.Types.Mixed, 'default': {}}
   },
   profile: {
     blurb: String,
@@ -321,6 +325,13 @@ var UserSchema = new Schema({
   }]},
 
   challenges: [{type: 'String', ref:'Challenge'}],
+
+  inbox: {
+    newMessages: {type:Number, 'default':0},
+    blocks: {type:Array, 'default':[]},
+    messages: {type:Schema.Types.Mixed, 'default':{}}, //reflist
+    optOut: {type:Boolean, 'default':false}
+  },
 
   habits:   {type:[TaskSchemas.HabitSchema]},
   dailys:   {type:[TaskSchemas.DailySchema]},
@@ -460,6 +471,10 @@ UserSchema.methods.unlink = function(options, cb) {
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
 
-mongoose.model("User").find({$query:{'contributor.admin':true}, $orderby:{'contributor.level':-1, 'backer.npc':-1, 'profile.name':1}},function(err,mods){
-  module.exports.mods = mods
+mongoose.model("User")
+  .find({'contributor.admin':true})
+  .sort('-contributor.level -backer.npc profile.name')
+  .select('profile contributor backer')
+  .exec(function(err,mods){
+    module.exports.mods = mods
 });

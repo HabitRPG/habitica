@@ -16,6 +16,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         if (!!fromState.name) window.ga && ga('send', 'pageview', {page: '/#/'+toState.name});
+        // clear inbox when entering or exiting inbox tab
+        if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
+          User.user.ops.update && User.set({'inbox.newMessages':0});
+        }
       });
 
     $rootScope.User = User;
@@ -113,8 +117,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         controller: options.controller, // optional
         scope: options.scope, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
-        backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
-
+        backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
+        size: options.size, // optional, 'sm' or 'lg'
+        windowClass: options.windowClass // optional
       });
     }
 

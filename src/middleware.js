@@ -12,6 +12,7 @@ var shared = require('habitrpg-shared');
 var request = require('request');
 var os = require('os');
 var moment = require('moment');
+var utils = require('./utils');
 
 module.exports.apiThrottle = function(app) {
   if (nconf.get('NODE_ENV') !== 'production') return;
@@ -192,10 +193,16 @@ module.exports.locals = function(req, res, next) {
     siteVersion: siteVersion,
     Content: shared.content,
     mods: require('./models/user').mods,
+    FACEBOOK_KEY: nconf.get('FACEBOOK_KEY'),
 
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
-  }
+  };
+
+  // Put query-string party invitations into session to be handled later
+  try{
+    req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite))
+  } catch(e){}
 
   next();
 }

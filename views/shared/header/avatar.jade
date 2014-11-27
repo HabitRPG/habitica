@@ -7,6 +7,8 @@ mixin avatar(opts)
 
   .character-sprites
 
+    .addthis_native_toolbox(ng-if='profile._id==user._id', data-url="#{env.BASE_URL}/static/front/#?memberId={{profile._id}}", data-title="Check out my HabitRPG progress!")
+
     // Mount Body
     if !opts.minimal
       span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')

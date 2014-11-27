@@ -149,10 +149,10 @@
         != ' ' + env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.<br />' + env.t('moderatorIntro1')
         span(ng-repeat='mod in env.mods')
           |&nbsp; &nbsp;
-          span(ng-if='mod.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
-            a.label.label-default(ng-class='userLevelStyle(mod)', ng-click='clickMember(mod._id, true)')
-              {{mod.profile.name}}&nbsp;
-              span(ng-class='userAdminGlyphiconStyle(mod)')
+          span(ng-if='::mod.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
+            a.label.label-default(ng-class='::userLevelStyle(mod)', ng-click='clickMember(mod._id, true)')
+              {{::mod.profile.name}}&nbsp;
+              span(ng-class='::userAdminGlyphiconStyle(mod)')
         p
           =env.t('communityGuidelinesRead1')
           | &nbsp;
@@ -160,5 +160,4 @@
           | &nbsp;
           =env.t('communityGuidelinesRead2')
 
-      ul.list-unstyled.tavern-chat
-        include ./chat-message
+      +chatMessages()

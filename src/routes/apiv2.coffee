@@ -10,6 +10,7 @@ $ mocha test/user.mocha.coffee
 
 user = require("../controllers/user")
 groups = require("../controllers/groups")
+members = require("../controllers/members")
 auth = require("../controllers/auth")
 hall = require("../controllers/hall")
 challenges = require("../controllers/challenges")
@@ -320,7 +321,7 @@ module.exports = (swagger, v2) ->
         parameters:[
           body '','The array of batch-operations to perform','object'
         ]
-      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron]
+      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite]
       action: user.batchUpdate
 
     # Tags
@@ -363,6 +364,46 @@ module.exports = (swagger, v2) ->
           path 'id','Id of tag to delete','string'
         ]
       action: user.deleteTag
+
+    "/user/social/invite-friends":
+      spec:
+        method: 'POST'
+        description: 'Invite friends via email'
+        parameters: [
+          body 'invites','Array of [{name:"Friend\'s Name", email:"friends@email.com"}] to invite to play in your party','object'
+        ]
+      action: user.inviteFriends
+
+    # Webhooks
+    "/user/webhooks":
+      spec:
+        method: 'POST'
+        description: 'Create a new webhook'
+        parameters: [
+          body '','New Webhook {url:"webhook endpoint (required)", id:"id of webhook (shared.uuid(), optional)", enabled:"whether webhook is enabled (true by default, optional)"}','object'
+        ]
+      action: user.addWebhook
+
+    "/user/webhooks/{id}:PUT":
+      spec:
+        path: '/user/webhooks/{id}'
+        method: 'PUT'
+        description: "Edit a webhook"
+        parameters: [
+          path 'id','The id of the webhook to edit','string'
+          body '','New Webhook {url:"webhook endpoint (required)", id:"id of webhook (shared.uuid(), optional)", enabled:"whether webhook is enabled (true by default, optional)"}','object'
+        ]
+      action: user.updateWebhook
+
+    "/user/webhooks/{id}:DELETE":
+      spec:
+        path: '/user/webhooks/{id}'
+        method: 'DELETE'
+        description: 'Delete a webhook'
+        parameters: [
+          path 'id','Id of webhook to delete','string'
+        ]
+      action: user.deleteWebhook
 
     # ---------------------------------
     # Groups
@@ -539,9 +580,28 @@ module.exports = (swagger, v2) ->
     # ---------------------------------
     # Members
     # ---------------------------------
-    "/members/{uid}":
+    "/members/{uuid}":
       spec:{}
-      action: groups.getMember
+      action: members.getMember
+    "/members/{uuid}/message":
+      spec:
+        method: 'POST'
+        description: 'Send a private message to a member'
+        parameters: [
+          path 'uuid', 'The UUID of the member to message', 'string'
+          body '', '{message: "The private message to send"}', 'object'
+        ]
+      middleware: [auth.auth]
+      action: members.sendPrivateMessage
+    "/members/{uuid}/block":
+      spec:
+        method: 'POST'
+        description: 'Block a member from sending private messages'
+        parameters: [
+          path 'uuid', 'The UUID of the member to message', 'string'
+        ]
+      middleware: [auth.auth]
+      action: user.blockUser
 
     # ---------------------------------
     # Hall of Heroes / Patrons

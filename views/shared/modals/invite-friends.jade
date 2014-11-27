@@ -1,0 +1,48 @@
+script(type='text/ng-template', id='modals/invite-friends.html')
+  .modal-header
+    h4 Invite Friends
+  .modal-body
+    p.alert.alert-info Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.
+
+    form.form-inline(ng-submit='invite(party)')
+      //-.alert.alert-danger(ng-show='_groupError') {{_groupError}}
+      .form-group
+        input.form-control(type='text', placeholder=env.t('userId'), ng-model='party.invitee')
+        |&nbsp;
+        button.btn.btn-primary(type='submit') Invite Existing User
+
+    hr
+
+    p.alert.alert-info Invite friends by email. If they join via your email, they'll automatically be invited to your party.
+
+    form.form-horizontal(ng-submit='inviteEmails(inviter, emails)')
+      table.table.table-striped
+        thead
+          tr
+            th Name
+            th Email
+        tbody
+          tr(ng-repeat='email in emails')
+            td
+              input.form-control(type='text', ng-model='email.name')
+            td
+              input.form-control(type='email', ng-model='email.email')
+          tr
+            td(colspan=2)
+              a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+                i.glyphicon.glyphicon-plus
+          tr
+            td.form-group(colspan=2)
+              label.col-sm-1.control-label By:
+              .col-sm-7
+                input.form-control(type='text', ng-model='inviter')
+              .col-sm-4
+                button.btn.btn-primary(type='submit') Invite New User(s)
+    //-
+      hr
+      p.alert.alert-info Or share this link (copy/paste):
+      input.form-control(type='text', ng-value='inviteLink({id: party._id, inviter: user._id, name: party.name})')
+
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()') Close
+

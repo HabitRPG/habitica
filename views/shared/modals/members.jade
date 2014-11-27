@@ -1,32 +1,50 @@
-script(type='text/ng-template', id='modals/member.html')  
-  .modal-header(bindonce='profile')
+script(type='text/ng-template', id='modals/member.html')
+  .modal-header
     h4
-      span {{profile.profile.name}}
-      span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
-  .modal-body(bindonce='profile')
+      span {{::profile.profile.name}}
+      span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
+  .modal-body
     .container-fluid
       .row
         .col-md-6
-          img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-          ul.muted.list-unstyled(ng-if='profile.auth.timestamps')
+          img(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
+          markdown(ng-show='::profile.profile.blurb', ng-model='::profile.profile.blurb')
+          ul.muted.list-unstyled(ng-if='::profile.auth.timestamps')
             li {{profile._id}}
-            li(ng-show='profile.auth.timestamps.created')
+            li(ng-show='::profile.auth.timestamps.created')
               |&nbsp;
               =env.t('memberSince')
               |&nbsp;
-              | {{timestamp(profile.auth.timestamps.created)}} -
-            li(ng-show='profile.auth.timestamps.loggedin')
+              | {{::timestamp(profile.auth.timestamps.created)}} -
+            li(ng-show='::profile.auth.timestamps.loggedin')
               |&nbsp;
               =env.t('lastLoggedIn')
               |&nbsp;
-              | {{timestamp(profile.auth.timestamps.loggedin)}} -
+              | {{::timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
-          .label.label-info {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
+          .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
-          +herobox()
-          h3=env.t('achievements')
-          include ../profiles/achievements
+          .row
+            +herobox()
+          .row
+            h3=env.t('achievements')
+            include ../profiles/achievements
   .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+    .btn-group.pull-left(ng-if='::user')
+      button.btn.btn-md.btn-default(ng-show='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-plus
+      button.btn.btn-md.btn-default(ng-hide='user.inbox.blocks | contains:profile._id', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-ban-circle
+      button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-envelope
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+
+script(type='text/ng-template', id='modals/private-message.html')
+  .modal-header
+    h4=env.t('pmHeading', {name: "{{profile.profile.name}}"})
+  .modal-body
+    textarea.form-control(type='text',ng-model='_message')
+  .modal-footer
+    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')

@@ -11,7 +11,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))=env.t('costume')
         .checkbox.equipment-title
           label
-            input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+            input(type="checkbox", ng-model="user.preferences.costume", ng-change='set({"preferences.costume":user.preferences.costume ? true : false})')
             |&nbsp;
             =env.t('useCostume')
         li.customize-menu(ng-if='user.preferences.costume')
@@ -106,7 +106,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     |  {{::egg.value}}
                     span.Pet_Currency_Gem1x.inline-gems
                 //- buyable quest eggs
-                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider'}
+                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl'}
                   div(ng-show='user.achievements.quests.#{quest} > 1')
                     button.customize-option(popover='{{::Content.eggs.#{egg}.notes()}}', popover-title!=env.t("egg", {eggType: "{{::Content.eggs.#{egg}.text()}}"}), popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.#{egg})', class='Pet_Egg_#{egg}')
                     p

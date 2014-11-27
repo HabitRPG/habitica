@@ -3,10 +3,15 @@ script(id='modals/login.html', type='text/ng-template')
     button.close(type='button', ng-click='$close()') ×
     h4.modal-title=env.t('loginAndReg')
   .modal-body(ng-controller='AuthCtrl')
-    a(href='/auth/facebook')
-      img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
-    //can we add in google auth? I like google auth
-    h3=env.t('or')
+    a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
+    //-ul.list-inline
+      li
+        a.zocial.icon.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')
+      li
+        a.zocial.icon.googleplus(alt="Google", ng-click='socialLogin("google")') Google+
+      li
+        a.zocial.icon.twitter(alt="Twitter", ng-click='socialLogin("twitter")') Twitter
+    hr
     ul.nav.nav-tabs
       li.active
         a(data-toggle='tab',data-target='#login-tab')=env.t('login')

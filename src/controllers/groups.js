@@ -19,7 +19,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
+var partyFields = api.partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
@@ -42,15 +42,6 @@ var populateQuery = function(type, q){
     options: {sort: {official: -1, timestamp: -1}}
   });
   return q;
-}
-
-
-api.getMember = function(req, res, next) {
-  User.findById(req.params.uid).select(partyFields).exec(function(err, user){
-    if (err) return next(err);
-    if (!user) return res.json(400,{err:'User not found'});
-    res.json(user);
-  })
 }
 
 /**
@@ -300,7 +291,8 @@ api.join = function(req, res, next) {
     group = res.locals.group;
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
-    user.invitations.party = undefined;
+    User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
+    user.invitations.party = undefined; // Clear invite
     user.save();
     // invite new user to pending quest
     if (group.quest.key && !group.quest.active) {
@@ -439,10 +431,10 @@ api.invite = function(req, res, next) {
 
     function sendInvite (){
       if(group.type === 'guild'){
-        invite.invitations.guilds.push({id: group._id, name: group.name});
+        invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
       }else{
         //req.body.type in 'guild', 'party'
-        invite.invitations.party = {id: group._id, name: group.name}
+        invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
       }
 
       group.invites.push(invite._id);

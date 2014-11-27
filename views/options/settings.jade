@@ -63,6 +63,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
+            button.btn.btn-default(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})") Invite Friends
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
             button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
@@ -150,6 +151,33 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('qrCode')
         img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
+        hr
+
+        h2 Webhooks
+        table.table.table-striped
+          thead(ng-if='hasWebhooks')
+            tr
+              th Enabled
+              th Webhook URL
+              th
+          tbody
+            tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
+              td
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook.$key,webhook)')
+              td
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook.$key,webhook)'}")
+              td
+                span.pull-left(ng-show='webhook._editing') *
+                a.checklist-icons(ng-click='deleteWebhook(webhook.$key)')
+                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+            tr
+              td(colspan=2)
+                form.form-horizontal(ng-submit='addWebhook(_newWebhook.url)')
+                  .form-group.col-sm-10
+                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder='Webhook URL')
+                  .col-sm-2
+                    button.btn.btn-sm.btn-primary(type='submit') Add
+
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .container-fluid
     .row
@@ -194,25 +222,21 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
     label
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
-        .well
-          h2=env.t('individualSub')
-          div(ng-if='!user.purchased.plan.customerId')
-            div(ng-include="'partials/options.settings.subscription.perks.html'")
-            p
-              small.muted Payment Methods:
-              .btn.btn-primary(ng-click='showStripe(true)') Card
-              //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
-              a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
-          div(ng-if='user.purchased.plan.customerId')
-            p.alert.alert-warning(ng-if='user.purchased.plan.dateTerminated')
-              i.glyphicon.glyphicon-time
-              | &nbsp;
-              =env.t('subCanceled')
-              |  <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
-            p.lead
-              =env.t('subscribed')
-              | &nbsp;
-              span.glyphicon.glyphicon-ok
-            div(ng-include="'partials/options.settings.subscription.perks.html'")
-            .btn.btn-primary(ng-if=':: !user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
-            .btn.btn-sm.btn-danger(ng-if=':: !user.purchased.plan.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
+  .well(ng-init="p = user.purchased.plan")
+    div(ng-if='p.customerId')
+      p.alert.alert-warning(ng-if='p.dateTerminated')
+        i.glyphicon.glyphicon-time
+        |  #{env.t('subCanceled')} <strong>{{moment(p.dateTerminated).format('MM/DD/YYYY')}}</strong>
+      p.alert.alert-success(ng-if='!p.dateTerminated')=env.t('subscribed')
+
+    h2=env.t('individualSub')
+    div(ng-include="'partials/options.settings.subscription.perks.html'")
+
+    div(ng-if='!p.customerId || (p.customerId && p.dateTerminated)')
+      h3(ng-if='(p.customerId && p.dateTerminated)') Resubscribe
+      a.btn.btn-primary(ng-click='showStripe(true)') Card
+      //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
+      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+    div(ng-if='p.customerId')
+      .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
+      .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
