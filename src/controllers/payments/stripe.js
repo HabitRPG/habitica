@@ -3,6 +3,7 @@ var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
 var async = require('async');
 var payments = require('./index');
 var User = require('mongoose').model('User');
+var shared = require('habitrpg-shared');
 
 /*
  Setup Stripe response when posting payment
@@ -23,27 +24,32 @@ exports.checkout = function(req, res, next) {
         }, cb);
       } else {
         stripe.charges.create({
-          amount: gift ? ""+gift.amount/4*100 : "500", //"500" = $5
+          amount: !gift ? "500" //"500" = $5
+            : gift.type=='subscription' ? ""+shared.content.subscriptionBlocks[gift.subscription.months].price*100
+            : ""+gift.gems.amount/4*100,
           currency: "usd",
           card: token
         }, cb);
       }
     },
     function(response, cb) {
-      if (req.query.plan) {
-        payments.createSubscription(user, {customerId: response.id, paymentMethod: 'Stripe'});
-        user.save(cb);
-      } else {
-        async.waterfall([
-          function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
-          function(member, cb2){
-            if (gift) gift.member = member;
-            payments.buyGems({user:user, customerId:response.id, paymentMethod:'Stripe', gift:gift},cb2);
+      if (req.query.plan)
+        return payments.createSubscription({user:user, customerId:response.id, paymentMethod:'Stripe'}, cb);
+      async.waterfall([
+        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
+        function(member, cb2){
+          var data = {user:user, customerId:response.id, paymentMethod:'Stripe', gift:gift};
+          var method = 'buyGems';
+          if (gift) {
+            gift.member = member;
+            if (gift.type=='subscription') method = 'createSubscription';
+            data.paymentMethod = 'Gift';
           }
-        ], cb);
-      }
+          payments[method](data, cb2);
+        }
+      ], cb);
     }
-  ], function(err, saved){
+  ], function(err){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200);
     user = token = null;

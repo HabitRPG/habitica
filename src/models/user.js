@@ -92,7 +92,7 @@ var UserSchema = new Schema({
     mobileChat: Boolean,
     plan: {
       planId: String,
-      paymentMethod: String, //enum: ['Paypal','Stripe', '']}
+      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
       customerId: String,
 
       dateCreated: Date,

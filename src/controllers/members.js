@@ -30,9 +30,14 @@ api.getMember = function(req, res, next) {
 }
 
 api.sendMessage = function(user, member, data){
-  var msg = data.amount
-    ? "`Hello " + member.profile.name + ", " + user.profile.name + " has sent you " + data.amount + " gems!` " + data.message
-    : data.message;
+  var msg;
+  if (!data.type) {
+    msg = data.message
+  } else {
+    msg = "`Hello " + member.profile.name + ", " + user.profile.name + " has sent you ";
+    msg += (data.type=='gems') ? data.gems.amount + " gems!`" : data.subscription.months + " months of subscription!`";
+    msg += data.message;
+  }
   shared.refPush(member.inbox.messages, groups.chatDefaults(msg, user));
   member.inbox.newMessages++;
   member._v++;
@@ -76,7 +81,7 @@ api.sendGift = function(req, res, next){
             return cb({code: 401, err: "Amount must be within 0 and your current number of gems."});
           member.balance += amt;
           user.balance -= amt;
-          api.sendMessage(user, member, {amount:req.body.gems.amount, message:req.body.message});
+          api.sendMessage(user, member, req.body);
           return async.parallel([
             function (cb2) { member.save(cb2) },
             function (cb2) { user.save(cb2) }

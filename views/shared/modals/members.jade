@@ -75,22 +75,12 @@ script(type='text/ng-template', id='modals/send-gift.html')
       .panel-heading Subscription
       .panel-body
         .form-group
-          .radio
-            label
-              input(type="radio", name="subRadio", value="1", ng-model='gift.subscription.months')
-              | 1 Month ($5)
-          .radio
-            label
-              input(type="radio", name="subRadio", value="3", ng-model='gift.subscription.months')
-              | 3 Months ($15)
-          .radio
-            label
-              input(type="radio", name="subRadio", value="6", ng-model='gift.subscription.months')
-              | 6 Months ($30)
-          .radio
-            label
-              input(type="radio", name="subRadio", value="12", ng-model='gift.subscription.months')
-              | 1 Year ($48)
+          each block in env.Content.subscriptionBlocks
+            .radio
+              label
+                input(type="radio", name="subRadio", value="#{block.months}", ng-model='gift.subscription.months')
+                | #{block.months} Month(s): $#{block.price}
+
     textarea.form-control(rows='3', ng-model='gift.message', placeholder='Personal message (optional)')
 
   .modal-footer

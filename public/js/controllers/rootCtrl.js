@@ -140,19 +140,21 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.encodeGift = function(uuid, gift){
-      return JSON.stringify({uuid:uuid, amount:gift.gems.amount, message:gift.message});
+      gift.uuid = uuid;
+      return JSON.stringify(gift);
     }
 
     $rootScope.showStripe = function(data) {
+      var isSub = data.subscription || (data.gift && data.gift.type=='subscription');
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,
         address: false,
-        amount: data.gift ? data.gift.gems.amount/4*100 : 500,
-        name: data.subscription ? window.env.t('subscribe') : window.env.t('checkout'),
-        description: data.subscription ?
-          window.env.t('buySubsText') :
-          window.env.t('donationDesc'),
-        panelLabel: data.subscription ? window.env.t('subscribe') : window.env.t('checkout'),
+        amount: !data.gift ? 500 : // 500 = $5
+          data.gift.type=='subscription' ? Content.subscriptionBlocks[data.gift.subscription.months].price*100:
+          data.gift.gems.amount/4*100,
+        name: isSub ? window.env.t('subscribe') : window.env.t('checkout'),
+        description: isSub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
+        panelLabel: isSub ? window.env.t('subscribe') : window.env.t('checkout'),
         token: function(res) {
           var url = '/stripe/checkout';
           if (data.gift) url += '?gift=' + $rootScope.encodeGift(data.uuid, data.gift);

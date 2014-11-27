@@ -8,6 +8,7 @@ var payments = require('./index');
 var logger = require('../../logging');
 var ipn = require('paypal-ipn');
 var paypal = require('paypal-rest-sdk');
+var shared = require('habitrpg-shared');
 
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
@@ -68,8 +69,13 @@ exports.executeBillingAgreement = function(req,res,next){
 
 exports.createPayment = function(req, res, next) {
   // if we're gifting to a user, put it in session for the `execute()`
-  req.session.gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
-  var price = req.session.gift ? Number(req.session.gift.amount/4).toFixed(2) : 5.00;
+  var gift = req.session.gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+  var price = !gift ? 5.00
+    : gift.type=='gems' ? Number(gift.gems.amount/4).toFixed(2)
+    : Number(shared.content.subscriptionBlocks[gift.subscription.months].price).toFixed(2);
+  var description = !gift ? "HabitRPG Gems"
+    : gift.type=='gems' ? "HabitRPG Gems (Gift)"
+    : gift.subscription.months + "mo. HabitRPG Subscription (Gift)";
   var create_payment = {
     "intent": "sale",
     "payer": {
@@ -82,7 +88,7 @@ exports.createPayment = function(req, res, next) {
     "transactions": [{
       "item_list": {
         "items": [{
-          "name": "HabitRPG Gems",
+          "name": description,
           //"sku": "1",
           "price": price,
           "currency": "USD",
@@ -93,7 +99,7 @@ exports.createPayment = function(req, res, next) {
         "currency": "USD",
         "total": price
       },
-      "description": "HabitRPG Gems"
+      "description": description
     }]
   };
   paypal.payment.create(create_payment, function (err, payment) {
@@ -118,12 +124,17 @@ exports.executePayment = function(req, res, next) {
       ], cb);
     },
     function(results, cb){
-      if (_.isEmpty(results[0]))
-        return cb("user not found when completing paypal transaction");
-      if (gift) gift.member = results[1];
-      payments.buyGems({user:results[0], customerId:PayerID, paymentMethod:'Paypal', gift:gift}, cb);
+      if (_.isEmpty(results[0])) return cb("User not found when completing paypal transaction");
+      var data = {user:results[0], customerId:PayerID, paymentMethod:'Paypal', gift:gift}
+      var method = 'buyGems';
+      if (gift) {
+        gift.member = results[1];
+        if (gift.type=='subscription') method = 'createSubscription';
+        data.paymentMethod = 'Gift';
+      }
+      payments[method](data, cb);
     }
-  ],function(err, results){
+  ],function(err){
     if (err) return next(parseErr(err));
     res.redirect('/');
   })

@@ -25,26 +25,37 @@ function revealMysteryItems(user) {
   });
 }
 
-exports.createSubscription = function(user, data) {
-  if (!user.purchased.plan) user.purchased.plan = {};
-  var p = user.purchased.plan;
+exports.createSubscription = function(data, cb) {
+  var recipient = data.gift ? data.gift.member : data.user;
+  if (!recipient.purchased.plan) recipient.purchased.plan = {};
+  var p = recipient.purchased.plan;
   _(p).merge({ // override with these values
     planId:'basic_earned',
     customerId: data.customerId,
     dateUpdated: new Date(),
     gemsBought: 0,
     paymentMethod: data.paymentMethod,
-    extraMonths: p.extraMonths + (p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
+    extraMonths: +p.extraMonths
+      + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0)
+      + +(data.gift ? data.gift.subscription.months : 0),
     dateTerminated: null
   }).defaults({ // allow non-override if a plan was previously used
     dateCreated: new Date(),
     mysteryItems: []
   });
-  revealMysteryItems(user);
-  if(isProduction) utils.txnEmail(user, 'subscription-begins');
-  user.purchased.txnCount++;
-  utils.ga.event('subscribe', data.paymentMethod).send();
-  utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
+  revealMysteryItems(recipient);
+  if(isProduction) {
+    utils.txnEmail(data.user, 'subscription-begins');
+    //TODO proper ga.event / transaction
+    utils.ga.event('subscribe', data.paymentMethod).send();
+    utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
+  }
+  data.user.purchased.txnCount++;
+  if (data.gift) members.sendMessage(data.user, data.gift.member, data.gift);
+  async.parallel([
+    function(cb2){data.user.save(cb2)},
+    function(cb2){data.gift ? data.gift.member.save(cb2) : cb2(null);}
+  ], cb);
 }
 
 /**
@@ -65,7 +76,7 @@ exports.cancelSubscription = function(user, data) {
 }
 
 exports.buyGems = function(data, cb) {
-  var amt = data.gift ? data.gift.amount/4 : 5;
+  var amt = data.gift ? data.gift.gems.amount/4 : 5;
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
   if(isProduction) {
