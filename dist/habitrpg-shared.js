@@ -12264,7 +12264,8 @@ api.specialPets = {
 api.specialMounts = {
   'BearCub-Polar': 'polarBear',
   'LionCub-Ethereal': 'etherealLion',
-  'MantisShrimp-Base': 'mantisShrimp'
+  'MantisShrimp-Base': 'mantisShrimp',
+  'Turkey-Base': 'turkey'
 };
 
 api.hatchingPotions = {
