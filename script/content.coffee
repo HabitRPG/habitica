@@ -713,6 +713,7 @@ api.specialMounts =
   'BearCub-Polar':	'polarBear'
   'LionCub-Ethereal':	'etherealLion'
   'MantisShrimp-Base':	'mantisShrimp'
+  'Turkey-Base': 'turkey'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
