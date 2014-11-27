@@ -1,20 +1,37 @@
 var iap = require('in-app-purchase');
 var async = require('async');
 var payments = require('./index');
+var nconf = require('nconf');
+
+var inAppPurchase = require('in-app-purchase');
+inAppPurchase.config({
+    googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR") // this is the path to the directory containing iap-sanbox/iap-live files
+});
+
+// Validation ERROR Codes
+var INVALID_PAYLOAD   = 6778001;
+var CONNECTION_FAILED = 6778002;
+var PURCHASE_EXPIRED  = 6778003;
 
 exports.androidVerify = function(req, res, next) {
-  console.info(req.body);
-  
-  var token = req.body.id;
+  var iapBody = req.body;
   var user = res.locals.user;
 
-iap.setup(function (error) {
+  iap.setup(function (error) {
     if (error) {
-        console.error('something went wrong...');
+        var resObj = {
+          ok: false,
+          data: 'IAP Error'
+        };
+    
+        console.error('IAP Setup ERROR');
         console.error(error);
+        
+        res.json(resObj);
         
         return;
     }
+    
     /*
         google receipt must be provided as an object
         {
@@ -22,29 +39,40 @@ iap.setup(function (error) {
             "signature": "signature from google"
         }
     */
+    var testObj = {
+      data: iapBody.transaction.receipt,
+      signature: iapBody.transaction.signature
+    };
+    
     // iap is ready
-    /*iap.validate(iap.GOOGLE, googleReceipt, function (err, googleRes) {
+    iap.validate(iap.GOOGLE, testObj, function (err, googleRes) {
         if (err) {
-            return console.error(err);
+          var resObj = {
+            ok: false,
+            data: {
+              code: INVALID_PAYLOAD,
+              message: err.toString()
+            }
+          };
+         
+          res.json(resObj);
+          console.error(err);
+          return;
         }
         if (iap.isValidated(googleRes)) {
+            var resObj = {
+              ok: true,
+              data: googleRes
+            };
+            
+             payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP Android'});
+            user.save();
+            
             // yay good!
+            res.json(resObj);
         }
-    });*/
+    });
 });
-
-/*
-  async.waterfall([
-    function(response, cb) {
-      payments.buyGems(user, {customerId: response.id, paymentMethod: 'IAP'});
-      
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
-    res.send(200);
-    user = token = null;
-  });*/
 };
 
 exports.iosVerify = function(req, res, next) {
