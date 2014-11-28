@@ -65,7 +65,7 @@ exports.androidVerify = function(req, res, next) {
               data: googleRes
             };
             
-             payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP Android'});
+             payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP GooglePlay'});
             user.save();
             
             // yay good!
@@ -78,6 +78,51 @@ exports.androidVerify = function(req, res, next) {
 exports.iosVerify = function(req, res, next) {
   console.info(req.body);
   
-  var token = req.body.id;
+  var iapBody = req.body;
   var user = res.locals.user;
+
+  iap.setup(function (error) {
+    if (error) {
+        var resObj = {
+          ok: false,
+          data: 'IAP Error'
+        };
+    
+        console.error('IAP Setup ERROR');
+        console.error(error);
+        
+        res.json(resObj);
+        
+        return;
+    }
+    
+    // iap is ready
+    iap.validate(iap.APPLE, iapBody.transaction.receipt, function (err, appleRes) {
+        if (err) {
+          var resObj = {
+            ok: false,
+            data: {
+              code: INVALID_PAYLOAD,
+              message: err.toString()
+            }
+          };
+         
+          res.json(resObj);
+          console.error(err);
+          return;
+        }
+        if (iap.isValidated(appleRes)) {
+            var resObj = {
+              ok: true,
+              data: appleRes
+            };
+            
+             payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP AppleStore'});
+            user.save();
+            
+            // yay good!
+            res.json(resObj);
+        }
+    });
+});
 };
