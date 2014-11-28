@@ -13,7 +13,9 @@ var shared = require('habitrpg-shared');
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
-var billingPlanID = nconf.get('PAYPAL:billing_plan_id');
+_.each(shared.content.subscriptionBlocks, function(block){
+  block.paypalKey = nconf.get("PAYPAL:billing_plans:"+block.months);
+});
 
 paypal.configure({
   'mode': nconf.get("PAYPAL:mode"), //sandbox or live
@@ -26,13 +28,14 @@ var parseErr = function(err){
 }
 
 exports.createBillingAgreement = function(req,res,next){
-  var billingPlanTitle ="HabitRPG subscription ($5 month-to-month)";
+  var block = req.session.paypalBlock = shared.content.subscriptionBlocks[req.query.sub];
+  var billingPlanTitle = "HabitRPG Subscription" + ' ($'+block.price+' every '+block.months+' months, recurring)';
   var billingAgreementAttributes = {
     "name": billingPlanTitle,
     "description": billingPlanTitle,
     "start_date": moment().add({seconds:5}).format(),
     "plan": {
-      "id": billingPlanID
+      "id": block.paypalKey
     },
     "payer": {
       "payment_method": "paypal"
@@ -58,7 +61,7 @@ exports.executeBillingAgreement = function(req,res,next){
       });
     },
     function(data, cb){
-      payments.createSubscription(data.user, {customerId: data.billingAgreement.id, paymentMethod: 'Paypal'});
+      payments.createSubscription({user:data.user, customerId: data.billingAgreement.id, paymentMethod: 'Paypal', sub:req.session.paypalBlock});
       data.user.save(cb);
     }
   ],function(err){

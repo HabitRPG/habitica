@@ -27,38 +27,47 @@ function revealMysteryItems(user) {
 
 exports.createSubscription = function(data, cb) {
   var recipient = data.gift ? data.gift.member : data.user;
-  if (!recipient.purchased.plan) recipient.purchased.plan = {};
+  //if (!recipient.purchased.plan) recipient.purchased.plan = {}; // FIXME double-check, this should never be the case
   var p = recipient.purchased.plan;
-  var giftMonths = data.gift ? data.gift.subscription.months : 0
-  _(p).merge({ // override with these values
-    planId:'basic_earned',
-    customerId: data.customerId,
-    dateUpdated: new Date(),
-    gemsBought: 0,
-    paymentMethod: data.paymentMethod,
-    extraMonths: +p.extraMonths
-      + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0)
-      + +(giftMonths),
-    dateTerminated: null
-  }).defaults({ // allow non-override if a plan was previously used
-    dateCreated: new Date(),
-    mysteryItems: []
-  });
+  var months = data.gift ? data.gift.subscription.months : data.sub.months;
+  var block = shared.content.subscriptionBlocks[months];
 
-  // Block sub perks
-  if (giftMonths) {
-    p.consecutive.offset += giftMonths;
-    p.consecutive.gemCapExtra += giftMonths*5;
-    if (p.consecutive.gemCapExtra > 25) p.consecutive.gemCapExtra = 25;
-    p.consecutive.trinkets += giftMonths;
+  if (data.gift) {
+    if (!p.customerId) p.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
+    if (p.dateTerminated) { // User already has a plan
+      p.dateTerminated = moment(p.dateTerminated).add({months: months}).toDate();
+    } else {
+      p.extraMonths += +months;
+    }
+  } else {
+    _(p).merge({ // override with these values
+      planId: block.key,
+      customerId: data.customerId,
+      dateUpdated: new Date(),
+      gemsBought: 0,
+      paymentMethod: data.paymentMethod,
+      extraMonths: +p.extraMonths
+        + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
+      dateTerminated: null
+    }).defaults({ // allow non-override if a plan was previously used
+      dateCreated: new Date(),
+      mysteryItems: []
+    });
   }
 
+  // Block sub perks
+  var perks = Math.floor(months/3);
+  if (perks) {
+    p.consecutive.offset += months;
+    p.consecutive.gemCapExtra += perks*5;
+    if (p.consecutive.gemCapExtra > 25) p.consecutive.gemCapExtra = 25;
+    p.consecutive.trinkets += perks;
+  }
   revealMysteryItems(recipient);
   if(isProduction) {
-    utils.txnEmail(data.user, 'subscription-begins');
-    //TODO proper ga.event / transaction
+    data.gift && utils.txnEmail(data.user, 'subscription-begins');
     utils.ga.event('subscribe', data.paymentMethod).send();
-    utils.ga.transaction(data.customerId, 5).item(5, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod + " > Stripe").send();
+    utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
   }
   data.user.purchased.txnCount++;
   if (data.gift) members.sendMessage(data.user, data.gift.member, data.gift);
@@ -72,16 +81,15 @@ exports.createSubscription = function(data, cb) {
  * Sets their subscription to be cancelled later
  */
 exports.cancelSubscription = function(user, data) {
-  var p = user.purchased.plan,
-    now = moment();
-  if(isProduction) utils.txnEmail(user, 'cancel-subscription');
+  var p = user.purchased.plan, now = moment();
   p.dateTerminated =
     moment( now.format('MM') + '/' + moment(p.dateUpdated).format('DD') + '/' + now.format('YYYY') )
-    .add({months:1})// end their subscription 1mo from their last payment
-    .add({months:p.extraMonths})// plus any extra time (carry-over, gifted subscription, etc) they have
+    .add({months:1}) // end their subscription 1mo from their last payment
+    .add({months: Math.ceil(p.extraMonths)})// plus any extra time (carry-over, gifted subscription, etc) they have. FIXME: moment can't add months in fractions...
     .toDate();
   p.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
+  if(isProduction) utils.txnEmail(user, 'cancel-subscription');
   utils.ga.event('unsubscribe', 'Stripe').send();
 }
 

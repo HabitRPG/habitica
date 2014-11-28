@@ -243,10 +243,17 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
     div(ng-include="'partials/options.settings.subscription.perks.html'")
 
     div(ng-if='!p.customerId || (p.customerId && p.dateTerminated)')
+
+      .form-group
+        each block in env.Content.subscriptionBlocks
+          .radio
+            label
+              input(type="radio", name="subRadio", value="#{block.months}", ng-model='subscription')
+              | #{block.months} Month(s) Recurring: $#{block.price}
+
       h3(ng-if='(p.customerId && p.dateTerminated)') Resubscribe
-      a.btn.btn-primary(ng-click='showStripe({subscription:true})') Card
-      //a.btn.btn-warning(ng-click='paypalSubscribe()') PayPal
-      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+      a.btn.btn-primary(ng-click='showStripe({subscription:subscription})') Card
+      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{subscription}}') PayPal
     div(ng-if='p.customerId')
       .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
       .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')

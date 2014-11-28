@@ -12,15 +12,16 @@ exports.checkout = function(req, res, next) {
   var token = req.body.id;
   var user = res.locals.user;
   var gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+  var sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
 
   async.waterfall([
     function(cb){
-      if (req.query.plan) {
+      if (sub) {
         stripe.customers.create({
           email: req.body.email,
           metadata: {uuid: user._id},
           card: token,
-          plan: req.query.plan
+          plan: sub.key
         }, cb);
       } else {
         stripe.charges.create({
@@ -33,8 +34,7 @@ exports.checkout = function(req, res, next) {
       }
     },
     function(response, cb) {
-      if (req.query.plan)
-        return payments.createSubscription({user:user, customerId:response.id, paymentMethod:'Stripe'}, cb);
+      if (sub) return payments.createSubscription({user:user, customerId:response.id, paymentMethod:'Stripe', sub:sub}, cb);
       async.waterfall([
         function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
         function(member, cb2){

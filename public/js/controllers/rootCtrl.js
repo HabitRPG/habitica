@@ -145,21 +145,26 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.showStripe = function(data) {
-      var isSub = data.subscription || (data.gift && data.gift.type=='subscription');
+      var sub =
+        data.subscription ? data.subscription
+        : data.gift && data.gift.type=='subscription' ? data.gift.subscription.months
+        : false;
+      sub = sub && Content.subscriptionBlocks[sub];
+      var amount = // 500 = $5
+        sub ? sub.price*100
+        : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
+        : 500;
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,
         address: false,
-        amount: !data.gift ? 500 : // 500 = $5
-          data.gift.type=='subscription' ? Content.subscriptionBlocks[data.gift.subscription.months].price*100:
-          data.gift.gems.amount/4*100,
-        name: isSub ? window.env.t('subscribe') : window.env.t('checkout'),
-        description: isSub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
-        panelLabel: isSub ? window.env.t('subscribe') : window.env.t('checkout'),
+        amount: amount,
+        name: sub ? window.env.t('subscribe') : window.env.t('checkout'),
+        description: sub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
+        panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
         token: function(res) {
-          var url = '/stripe/checkout';
-          if (data.gift) url += '?gift=' + $rootScope.encodeGift(data.uuid, data.gift);
-          //TODO else if? ^
-          if (data.subscription) url += '?plan=basic_earned';
+          var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
+          if (data.gift) url += '&gift=' + $rootScope.encodeGift(data.uuid, data.gift);
+          if (data.subscription) url += '&sub='+sub.months;
           $scope.$apply(function(){
             $http.post(url, res).success(function() {
               window.location.reload(true);
