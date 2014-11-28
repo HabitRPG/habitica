@@ -231,6 +231,13 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
       p.alert.alert-success(ng-if='p.extraMonths')
         span.glyphicon.glyphicon-credit-card
         |  You have {{p.extraMonths | number:2}} months of subscription credit.
+      ul.alert.alert-success.list-unstyled(ng-if='p.consecutive.count || p.consecutive.offset')
+        li: h4
+          span.glyphicon.glyphicon-forward
+          | &nbsp;Consecutive Subscription
+        li You've been subscribed for {{p.consecutive.count}} consecutive months, plus {{p.consecutive.offset}} extra (gift / block-subscription).
+        li Gem Cap Extra: {{p.consecutive.gemCapExtra}}
+        li Time Trinkets: {{p.consecutive.trinkets}}
 
     h2=env.t('individualSub')
     div(ng-include="'partials/options.settings.subscription.perks.html'")

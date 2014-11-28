@@ -29,6 +29,7 @@ exports.createSubscription = function(data, cb) {
   var recipient = data.gift ? data.gift.member : data.user;
   if (!recipient.purchased.plan) recipient.purchased.plan = {};
   var p = recipient.purchased.plan;
+  var giftMonths = data.gift ? data.gift.subscription.months : 0
   _(p).merge({ // override with these values
     planId:'basic_earned',
     customerId: data.customerId,
@@ -37,12 +38,21 @@ exports.createSubscription = function(data, cb) {
     paymentMethod: data.paymentMethod,
     extraMonths: +p.extraMonths
       + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0)
-      + +(data.gift ? data.gift.subscription.months : 0),
+      + +(giftMonths),
     dateTerminated: null
   }).defaults({ // allow non-override if a plan was previously used
     dateCreated: new Date(),
     mysteryItems: []
   });
+
+  // Block sub perks
+  if (giftMonths) {
+    p.consecutive.offset += giftMonths;
+    p.consecutive.gemCapExtra += giftMonths*5;
+    if (p.consecutive.gemCapExtra > 25) p.consecutive.gemCapExtra = 25;
+    p.consecutive.trinkets += giftMonths;
+  }
+
   revealMysteryItems(recipient);
   if(isProduction) {
     utils.txnEmail(data.user, 'subscription-begins');

@@ -94,15 +94,18 @@ var UserSchema = new Schema({
       planId: String,
       paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
       customerId: String,
-
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,
-      consecutiveMonths: {type:Number, 'default':0},
       extraMonths: {type:Number, 'default':0},
-
       gemsBought: {type: Number, 'default': 0},
-      mysteryItems: {type: Array, 'default': []}
+      mysteryItems: {type: Array, 'default': []},
+      consecutive: {
+        count: {type:Number, 'default':0},
+        offset: {type:Number, 'default':0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
+        gemCapExtra: {type:Number, 'default':0},
+        trinkets: {type:Number, 'default':0}
+      }
     }
   },
 
