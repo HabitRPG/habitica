@@ -15,8 +15,8 @@ function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
     if (
       item.klass === 'mystery' &&
-        moment().isAfter(item.mystery.start) &&
-        moment().isBefore(item.mystery.end) &&
+        moment().isAfter(shared.content.mystery[item.mystery].start) &&
+        moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
         !~user.purchased.plan.mysteryItems.indexOf(item.key)
       ) {

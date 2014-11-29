@@ -181,6 +181,10 @@ window.habitrpg = angular.module('habitrpg',
           url: '/equipment',
           templateUrl: "partials/options.inventory.equipment.html"
         })
+        .state('options.inventory.timetravelers', {
+          url: '/timetravelers',
+          templateUrl: "partials/options.inventory.timetravelers.html"
+        })
 
         // Options > Settings
         .state('options.settings', {

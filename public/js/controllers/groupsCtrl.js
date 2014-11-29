@@ -2,10 +2,6 @@
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
-    Members.selectMember('d7f809df-81bd-4d58-992b-851d94bfaccb', function(){
-      $rootScope.openModal('send-gift',{controller:'MemberModalCtrl'})
-    });
-
 
     $scope.isMemberOfPendingQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
