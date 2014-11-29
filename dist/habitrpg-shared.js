@@ -9897,6 +9897,14 @@ mystery = {
     start: '2014-11-24',
     end: '2014-12-02'
   },
+  301404: {
+    start: '3014-03-24',
+    end: '3014-04-02'
+  },
+  301405: {
+    start: '3014-04-24',
+    end: '3014-05-02'
+  },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
@@ -10403,6 +10411,12 @@ gear = {
         notes: t('weaponMystery201411Notes'),
         mystery: mystery['201411'],
         value: 0
+      },
+      301404: {
+        text: t('weaponMystery301404Text'),
+        notes: t('weaponMystery301404Notes'),
+        mystery: mystery['301404'],
+        value: 0
       }
     }
   },
@@ -10848,6 +10862,12 @@ gear = {
         notes: t('armorMystery201410Notes'),
         mystery: mystery['201410'],
         value: 0
+      },
+      301404: {
+        text: t('armorMystery301404Text'),
+        notes: t('armorMystery301404Notes'),
+        mystery: mystery['301404'],
+        value: 0
       }
     }
   },
@@ -11281,6 +11301,18 @@ gear = {
         notes: t('headMystery201411Notes'),
         mystery: mystery['201411'],
         value: 0
+      },
+      301404: {
+        text: t('headMystery301404Text'),
+        notes: t('headMystery301404Notes'),
+        mystery: mystery['301404'],
+        value: 0
+      },
+      301405: {
+        text: t('headMystery301405Text'),
+        notes: t('headMystery301405Notes'),
+        mystery: mystery['301405'],
+        value: 0
       }
     }
   },
@@ -11596,6 +11628,14 @@ gear = {
         value: 70,
         con: 9
       }
+    },
+    mystery: {
+      301405: {
+        text: t('shieldMystery301405Text'),
+        notes: t('shieldMystery301405Notes'),
+        mystery: mystery['301405'],
+        value: 0
+      }
     }
   },
   back: {
@@ -11741,6 +11781,12 @@ gear = {
         notes: t('headAccessoryMystery201409Notes'),
         mystery: mystery['201409'],
         value: 0
+      },
+      301405: {
+        text: t('headAccessoryMystery301405Text'),
+        notes: t('headAccessoryMystery301405Notes'),
+        mystery: mystery['301405'],
+        value: 0
       }
     }
   },
@@ -11779,6 +11825,20 @@ gear = {
         text: t('eyewearSpecialSummerWarriorText'),
         notes: t('eyewearSpecialSummerWarriorNotes'),
         value: 20
+      }
+    },
+    mystery: {
+      301404: {
+        text: t('eyewearMystery301404Text'),
+        notes: t('eyewearMystery301404Notes'),
+        mystery: mystery['301404'],
+        value: 0
+      },
+      301405: {
+        text: t('eyewearMystery301405Text'),
+        notes: t('eyewearMystery301405Notes'),
+        mystery: mystery['301405'],
+        value: 0
       }
     }
   }
@@ -13621,6 +13681,20 @@ api.backgrounds = {
       text: t('backgroundStarrySkiesText'),
       notes: t('backgroundStarrySkiesNotes')
     }
+  },
+  backgrounds122014: {
+    iceberg: {
+      text: t('backgroundIcebergText'),
+      notes: t('backgroundIcebergNotes')
+    },
+    twinkly_lights: {
+      text: t('backgroundTwinklyLightsText'),
+      notes: t('backgroundTwinklyLightsNotes')
+    },
+    south_pole: {
+      text: t('backgroundSouthPoleText'),
+      notes: t('backgroundSouthPoleNotes')
+    }
   }
 };
 
@@ -15052,26 +15126,36 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
       buy: function(req, cb) {
-        var item, key, message;
+        var item, key, message, trinket;
         key = req.params.key;
+        trinket = req.query.trinket;
         item = key === 'potion' ? content.potion : content.gear.flat[key];
-        if (!item) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
-          }) : void 0;
-        }
-        if (user.stats.gp < item.value) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageNotEnoughGold', req.language)
-          }) : void 0;
-        }
-        if ((item.canOwn != null) && !item.canOwn(user)) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "You can't own this item"
-          }) : void 0;
+        if (trinket) {
+          if (!(item.klass === 'mystery' && user.purchased.plan.consecutive.trinkets > 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough Time Trinkets"
+            }) : void 0;
+          }
+        } else {
+          if (!item) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
+            }) : void 0;
+          }
+          if (user.stats.gp < item.value) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: i18n.t('messageNotEnoughGold', req.language)
+            }) : void 0;
+          }
+          if ((item.canOwn != null) && !item.canOwn(user)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You can't own this item"
+            }) : void 0;
+          }
         }
         if (item.key === 'potion') {
           user.stats.hp += 15;
@@ -15091,7 +15175,11 @@ api.wrap = function(user, main) {
             user.fns.ultimateGear();
           }
         }
-        user.stats.gp -= item.value;
+        if (trinket) {
+          user.purchased.plan.consecutive.trinkets--;
+        } else {
+          user.stats.gp -= item.value;
+        }
         return typeof cb === "function" ? cb({
           code: 200,
           message: message

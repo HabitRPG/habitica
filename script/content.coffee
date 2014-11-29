@@ -38,6 +38,8 @@ mystery =
   201409: {start:'2014-09-24',end:'2014-10-02'}
   201410: {start:'2014-10-24',end:'2014-11-02'}
   201411: {start:'2014-11-24',end:'2014-12-02'}
+  301404: {start:'3014-03-24',end:'3014-04-02'}
+  301405: {start:'3014-04-24',end:'3014-05-02'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 
 gear =
@@ -113,6 +115,7 @@ gear =
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
     mystery:
       201411: text: t('weaponMystery201411Text'), notes: t('weaponMystery201411Notes'), mystery:mystery['201411'], value: 0
+      301404: text: t('weaponMystery301404Text'), notes: t('weaponMystery301404Notes'), mystery:mystery['301404'], value: 0
 
   armor:
     base:
@@ -181,6 +184,7 @@ gear =
       201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:mystery['201408'], value: 0
       201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:mystery['201409'], value: 0
       201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:mystery['201410'], value: 0
+      301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:mystery['301404'], value: 0
 
   head:
     base:
@@ -247,6 +251,8 @@ gear =
       201407: text: t('headMystery201407Text'), notes: t('headMystery201407Notes'), mystery:mystery['201407'], value: 0
       201408: text: t('headMystery201408Text'), notes: t('headMystery201408Notes'), mystery:mystery['201408'], value: 0
       201411: text: t('headMystery201411Text'), notes: t('headMystery201411Notes'), mystery:mystery['201411'], value: 0
+      301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:mystery['301404'], value: 0
+      301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:mystery['301405'], value: 0
 
   shield:
     base:
@@ -296,6 +302,8 @@ gear =
       fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
+    mystery:
+      301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:mystery['301405'], value: 0
 
   back:
     base:
@@ -333,6 +341,7 @@ gear =
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 0
       201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:mystery['201409'], value: 0
+      301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:mystery['301405'], value: 0
 
   eyewear:
     base:
@@ -343,6 +352,9 @@ gear =
       #Summer
       summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('eyewearSpecialSummerRogueText'), notes: t('eyewearSpecialSummerRogueNotes'), value: 20
       summerWarrior: event: events.summer, specialClass: 'warrior', text: t('eyewearSpecialSummerWarriorText'), notes: t('eyewearSpecialSummerWarriorNotes'), value: 20
+    mystery:
+      301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:mystery['301404'], value: 0
+      301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:mystery['301405'], value: 0
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
