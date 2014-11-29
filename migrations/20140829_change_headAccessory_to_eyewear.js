@@ -9,13 +9,7 @@ var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
  */
 var mongo = require('mongoskin');
 var _ = require('lodash');
-
-
-///////////////////    UNCOMMENT *ONE* OF THESE LINES:    ///////////////////
-// var liveUsers = mongo.db('lefnire:mAdn3s5s@charlotte.mongohq.com:10015/habitrpg_large?auto_reconnect').collection('users');   // @lefnire production?
-// var liveUsers = mongo.db('localhost:27017/habitrpg_old?auto_reconnect').collection('users');   // @lefnire habitrpg_old
-// var liveUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');   // for local testing by script author (e.g., vagrant install)
-
+var liveUsers = mongo.db('localhost:27017/habitrpg2?auto_reconnect').collection('users');
 
 var fields = {'migration':1,
     'items.gear.costume.headAccessory':1,
@@ -73,8 +67,7 @@ liveUsers.findEach({ $and: [
     //console.log("set: "   + JSON.stringify(set,   null, "  "));
     //console.log("unset: " + JSON.stringify(unset, null, "  "));
 
-    liveUsers.update({_id:user._id}, {$unset:unset, $inc:{_v:1}});
-    liveUsers.update({_id:user._id}, {$set:set, $inc:{_v:1}});
+    liveUsers.update({_id:user._id}, {$set:set, $unset:unset, $inc:{_v:1}});
 
     if (count%progressCount == 0) console.log(count + ' ' + user._id);
     if (user._id == '9') console.log('lefnire processed');
