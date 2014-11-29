@@ -17,7 +17,7 @@ t = (string, vars) ->
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory']
+gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
@@ -328,16 +328,21 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
-      wondercon_red: text: t('headAccessorySpecialWonderconRedText'), notes: t('headAccessorySpecialWonderconRedNotes'), value: 0,           mystery:mystery.wondercon
-      wondercon_black: text: t('headAccessorySpecialWonderconBlackText'), notes: t('headAccessorySpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
-      #Summer
-      summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('headAccessorySpecialSummerRogueText'), notes: t('headAccessorySpecialSummerRogueNotes'), value: 20
-      summerWarrior: event: events.summer, specialClass: 'warrior', text: t('headAccessorySpecialSummerWarriorText'), notes: t('headAccessorySpecialSummerWarriorNotes'), value: 20
       
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 0
       201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:mystery['201409'], value: 0
+
+  eyewear:
+    base:
+      0: text: t('eyewearBase0Text'), notes: t('eyewearBase0Notes'), value: 0, last: true
+    special:
+      wondercon_red: text: t('eyewearSpecialWonderconRedText'), notes: t('eyewearSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
+      wondercon_black: text: t('eyewearSpecialWonderconBlackText'), notes: t('eyewearSpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
+      #Summer
+      summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('eyewearSpecialSummerRogueText'), notes: t('eyewearSpecialSummerRogueNotes'), value: 20
+      summerWarrior: event: events.summer, specialClass: 'warrior', text: t('eyewearSpecialSummerWarriorText'), notes: t('eyewearSpecialSummerWarriorNotes'), value: 20
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

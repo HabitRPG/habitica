@@ -434,20 +434,25 @@
   "headAccessorySpecialSpringHealerText": "Yellow Dog Ears",
   "headAccessorySpecialSpringHealerNotes": "Floppy but cute. Wanna play? Confers no benefit. Limited Edition 2014 Spring Gear.",
 
-  "headAccessorySpecialSummerRogueText": "Roguish Eyepatch",
-  "headAccessorySpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",
-  "headAccessorySpecialSummerWarriorText": "Dashing Eyepatch",
-  "headAccessorySpecialSummerWarriorNotes": "It doesn't take a rapscallion to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",
-
-  "headAccessorySpecialWonderconRedText": "Mighty Mask",
-  "headAccessorySpecialWonderconRedNotes": "What a powerful face accessory! Confers no benefit. Special Edition Convention Item.",
-  "headAccessorySpecialWonderconBlackText": "Sneaky Mask",
-  "headAccessorySpecialWonderconBlackNotes": "Your motives are definitely legitimate. Confers no benefit. Special Edition Convention Item.",
-
   "headAccessoryMystery201403Text": "Forest Walker Antlers",
   "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen. Confers no benefit. March 2014 Subscriber Item.",
   "headAccessoryMystery201404Text": "Twilight Butterfly Antennae",
+  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!",
+
   "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions! Confers no benefit. April 2014 Subscriber Item.",
   "headAccessoryMystery201409Text": "Autumn Antlers",
-  "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves. Confers no benefit. September 2014 Subscriber Item."
+  "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves. Confers no benefit. September 2014 Subscriber Item.",
+
+  "eyewearBase0Text": "No Eyewear",
+  "eyewearBase0Notes": "No Eyewear.",
+
+  "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
+  "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",
+  "eyewearSpecialSummerWarriorText": "Dashing Eyepatch",
+  "eyewearSpecialSummerWarriorNotes": "It doesn't take a rapscallion to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",
+
+  "eyewearSpecialWonderconRedText": "Mighty Mask",
+  "eyewearSpecialWonderconRedNotes": "What a powerful face accessory! Confers no benefit. Special Edition Convention Item.",
+  "eyewearSpecialWonderconBlackText": "Sneaky Mask",
+  "eyewearSpecialWonderconBlackNotes": "Your motives are definitely legitimate. Confers no benefit. Special Edition Convention Item."
 }
