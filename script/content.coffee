@@ -27,20 +27,21 @@ events =
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
 
-mystery =
-  201402: {start:'2014-02-22',end:'2014-02-28'}
-  201403: {start:'2014-03-24',end:'2014-04-02'}
-  201404: {start:'2014-04-24',end:'2014-05-02'}
-  201405: {start:'2014-05-21',end:'2014-06-02'}
-  201406: {start:'2014-06-23',end:'2014-07-02'}
-  201407: {start:'2014-07-23',end:'2014-08-02'}
-  201408: {start:'2014-08-23',end:'2014-09-02'}
-  201409: {start:'2014-09-24',end:'2014-10-02'}
-  201410: {start:'2014-10-24',end:'2014-11-02'}
-  201411: {start:'2014-11-24',end:'2014-12-02'}
-  301404: {start:'3014-03-24',end:'3014-04-02'}
-  301405: {start:'3014-04-24',end:'3014-05-02'}
+api.mystery =
+  201402: {start:'2014-02-22',end:'2014-02-28', text:'Winged Messenger Set'}
+  201403: {start:'2014-03-24',end:'2014-04-02', text:'Forest Walker Set'}
+  201404: {start:'2014-04-24',end:'2014-05-02', text:'Twilight Butterfly Set'}
+  201405: {start:'2014-05-21',end:'2014-06-02', text:'Flame Wielder Set'}
+  201406: {start:'2014-06-23',end:'2014-07-02', text:'Octomage Set'}
+  201407: {start:'2014-07-23',end:'2014-08-02', text:'Undersea Explorer Set'}
+  201408: {start:'2014-08-23',end:'2014-09-02', text:'Sun Sorcerer Set'}
+  201409: {start:'2014-09-24',end:'2014-10-02', text:'Autumn Strider Item Set'}
+  201410: {start:'2014-10-24',end:'2014-11-02', text:'Winged Goblin Set'}
+  201411: {start:'2014-11-24',end:'2014-12-02', text:'Feast and Fun Set'}
+  301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
+  301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
+_.each api.mystery, (v,k)->v.key = k
 
 gear =
   weapon:
@@ -114,8 +115,8 @@ gear =
       fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
     mystery:
-      201411: text: t('weaponMystery201411Text'), notes: t('weaponMystery201411Notes'), mystery:mystery['201411'], value: 0
-      301404: text: t('weaponMystery301404Text'), notes: t('weaponMystery301404Notes'), mystery:mystery['301404'], value: 0
+      201411: text: t('weaponMystery201411Text'), notes: t('weaponMystery201411Notes'), mystery:'201411', value: 0
+      301404: text: t('weaponMystery301404Text'), notes: t('weaponMystery301404Notes'), mystery:'301404', value: 0
 
   armor:
     base:
@@ -176,15 +177,15 @@ gear =
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
-      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 0
-      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 0
-      201405: text: t('armorMystery201405Text'), notes: t('armorMystery201405Notes'), mystery:mystery['201405'], value: 0
-      201406: text: t('armorMystery201406Text'), notes: t('armorMystery201406Notes'), mystery:mystery['201406'], value: 0
-      201407: text: t('armorMystery201407Text'), notes: t('armorMystery201407Notes'), mystery:mystery['201407'], value: 0
-      201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:mystery['201408'], value: 0
-      201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:mystery['201409'], value: 0
-      201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:mystery['201410'], value: 0
-      301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:mystery['301404'], value: 0
+      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:'201402', value: 0
+      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:'201403', value: 0
+      201405: text: t('armorMystery201405Text'), notes: t('armorMystery201405Notes'), mystery:'201405', value: 0
+      201406: text: t('armorMystery201406Text'), notes: t('armorMystery201406Notes'), mystery:'201406', value: 0
+      201407: text: t('armorMystery201407Text'), notes: t('armorMystery201407Notes'), mystery:'201407', value: 0
+      201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:'201408', value: 0
+      201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:'201409', value: 0
+      201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:'201410', value: 0
+      301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
 
   head:
     base:
@@ -245,14 +246,14 @@ gear =
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
-      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 0
-      201405: text: t('headMystery201405Text'), notes: t('headMystery201405Notes'), mystery:mystery['201405'], value: 0
-      201406: text: t('headMystery201406Text'), notes: t('headMystery201406Notes'), mystery:mystery['201406'], value: 0
-      201407: text: t('headMystery201407Text'), notes: t('headMystery201407Notes'), mystery:mystery['201407'], value: 0
-      201408: text: t('headMystery201408Text'), notes: t('headMystery201408Notes'), mystery:mystery['201408'], value: 0
-      201411: text: t('headMystery201411Text'), notes: t('headMystery201411Notes'), mystery:mystery['201411'], value: 0
-      301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:mystery['301404'], value: 0
-      301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:mystery['301405'], value: 0
+      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:'201402', value: 0
+      201405: text: t('headMystery201405Text'), notes: t('headMystery201405Notes'), mystery:'201405', value: 0
+      201406: text: t('headMystery201406Text'), notes: t('headMystery201406Notes'), mystery:'201406', value: 0
+      201407: text: t('headMystery201407Text'), notes: t('headMystery201407Notes'), mystery:'201407', value: 0
+      201408: text: t('headMystery201408Text'), notes: t('headMystery201408Notes'), mystery:'201408', value: 0
+      201411: text: t('headMystery201411Text'), notes: t('headMystery201411Notes'), mystery:'201411', value: 0
+      301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
+      301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
 
   shield:
     base:
@@ -303,26 +304,26 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
     mystery:
-      301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:mystery['301405'], value: 0
+      301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:'301405', value: 0
 
   back:
     base:
       0: text: t('backBase0Text'), notes: t('backBase0Notes'), value:0
     mystery:
-      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 0
-      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 0
-      201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:mystery['201410'], value: 0
+      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:'201402', value: 0
+      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:'201404', value: 0
+      201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
     special:
-      wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
-      wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0,   mystery:mystery.wondercon
+      wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
+      wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
 
   body:
     base:
       0: text: t('bodyBase0Text'), notes:t('bodyBase0Notes'), value:0
     special:
-      wondercon_red: text: t('bodySpecialWonderconRedText'), notes: t('bodySpecialWonderconRedNotes'), value: 0,      mystery:mystery.wondercon
-      wondercon_gold: text: t('bodySpecialWonderconGoldText'), notes: t('bodySpecialWonderconGoldNotes'), value: 0,   mystery:mystery.wondercon
-      wondercon_black: text: t('bodySpecialWonderconBlackText'), notes: t('bodySpecialWonderconBlackNotes'), value: 0,  mystery:mystery.wondercon
+      wondercon_red: text: t('bodySpecialWonderconRedText'), notes: t('bodySpecialWonderconRedNotes'), value: 0,        mystery:'wondercon'
+      wondercon_gold: text: t('bodySpecialWonderconGoldText'), notes: t('bodySpecialWonderconGoldNotes'), value: 0,     mystery:'wondercon'
+      wondercon_black: text: t('bodySpecialWonderconBlackText'), notes: t('bodySpecialWonderconBlackNotes'), value: 0,  mystery:'wondercon'
       # Summer
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('bodySpecialSummerHealerText'), notes: t('bodySpecialSummerHealerNotes'), value: 20
       summerMage:     event: events.summer, specialClass: 'wizard',  text: t('bodySpecialSummerMageText'), notes: t('bodySpecialSummerMageNotes'), value: 20
@@ -338,23 +339,23 @@ gear =
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
       
     mystery:
-      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 0
-      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 0
-      201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:mystery['201409'], value: 0
-      301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:mystery['301405'], value: 0
+      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
+      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
+      201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:'201409', value: 0
+      301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:'301405', value: 0
 
   eyewear:
     base:
       0: text: t('eyewearBase0Text'), notes: t('eyewearBase0Notes'), value: 0, last: true
     special:
-      wondercon_red: text: t('eyewearSpecialWonderconRedText'), notes: t('eyewearSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
-      wondercon_black: text: t('eyewearSpecialWonderconBlackText'), notes: t('eyewearSpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
+      wondercon_red: text: t('eyewearSpecialWonderconRedText'), notes: t('eyewearSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
+      wondercon_black: text: t('eyewearSpecialWonderconBlackText'), notes: t('eyewearSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
       #Summer
       summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('eyewearSpecialSummerRogueText'), notes: t('eyewearSpecialSummerRogueNotes'), value: 20
       summerWarrior: event: events.summer, specialClass: 'warrior', text: t('eyewearSpecialSummerWarriorText'), notes: t('eyewearSpecialSummerWarriorNotes'), value: 20
     mystery:
-      301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:mystery['301404'], value: 0
-      301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:mystery['301405'], value: 0
+      301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
+      301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
@@ -384,6 +385,17 @@ _.each gearTypes, (type) ->
         item.canOwn = (u)-> u.items.gear.owned[key]?
 
       api.gear.flat[key] = item
+
+###
+  Time Traveler Store, mystery sets need their items mapped in
+###
+_.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
+api.timeTravelerStore = (owned) ->
+  ownedKeys = _.keys owned.toObject?() or owned # mongoose workaround
+  _.reduce api.mystery, (m,v,k)->
+    return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
+    m[k] = v;m
+  , {}
 
 ###
   ---------------------------------------------------------------

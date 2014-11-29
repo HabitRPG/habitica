@@ -9793,7 +9793,7 @@ process.chdir = function (dir) {
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],5:[function(require,module,exports){
-var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, mystery, repeat, t, _;
+var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
 
 _ = require('lodash');
 
@@ -9856,60 +9856,76 @@ events = {
   }
 };
 
-mystery = {
+api.mystery = {
   201402: {
     start: '2014-02-22',
-    end: '2014-02-28'
+    end: '2014-02-28',
+    text: 'Winged Messenger Set'
   },
   201403: {
     start: '2014-03-24',
-    end: '2014-04-02'
+    end: '2014-04-02',
+    text: 'Forest Walker Set'
   },
   201404: {
     start: '2014-04-24',
-    end: '2014-05-02'
+    end: '2014-05-02',
+    text: 'Twilight Butterfly Set'
   },
   201405: {
     start: '2014-05-21',
-    end: '2014-06-02'
+    end: '2014-06-02',
+    text: 'Flame Wielder Set'
   },
   201406: {
     start: '2014-06-23',
-    end: '2014-07-02'
+    end: '2014-07-02',
+    text: 'Octomage Set'
   },
   201407: {
     start: '2014-07-23',
-    end: '2014-08-02'
+    end: '2014-08-02',
+    text: 'Undersea Explorer Set'
   },
   201408: {
     start: '2014-08-23',
-    end: '2014-09-02'
+    end: '2014-09-02',
+    text: 'Sun Sorcerer Set'
   },
   201409: {
     start: '2014-09-24',
-    end: '2014-10-02'
+    end: '2014-10-02',
+    text: 'Autumn Strider Item Set'
   },
   201410: {
     start: '2014-10-24',
-    end: '2014-11-02'
+    end: '2014-11-02',
+    text: 'Winged Goblin Set'
   },
   201411: {
     start: '2014-11-24',
-    end: '2014-12-02'
+    end: '2014-12-02',
+    text: 'Feast and Fun Set'
   },
   301404: {
     start: '3014-03-24',
-    end: '3014-04-02'
+    end: '3014-04-02',
+    text: 'Steampunk Standard Set'
   },
   301405: {
     start: '3014-04-24',
-    end: '3014-05-02'
+    end: '3014-05-02',
+    text: 'Steampunk Accessories Set'
   },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
   }
 };
+
+_.each(api.mystery, function(v, k) {
+  return v.key = k;
+});
 
 gear = {
   weapon: {
@@ -10409,13 +10425,13 @@ gear = {
       201411: {
         text: t('weaponMystery201411Text'),
         notes: t('weaponMystery201411Notes'),
-        mystery: mystery['201411'],
+        mystery: '201411',
         value: 0
       },
       301404: {
         text: t('weaponMystery301404Text'),
         notes: t('weaponMystery301404Notes'),
-        mystery: mystery['301404'],
+        mystery: '301404',
         value: 0
       }
     }
@@ -10818,55 +10834,55 @@ gear = {
       201402: {
         text: t('armorMystery201402Text'),
         notes: t('armorMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201403: {
         text: t('armorMystery201403Text'),
         notes: t('armorMystery201403Notes'),
-        mystery: mystery['201403'],
+        mystery: '201403',
         value: 0
       },
       201405: {
         text: t('armorMystery201405Text'),
         notes: t('armorMystery201405Notes'),
-        mystery: mystery['201405'],
+        mystery: '201405',
         value: 0
       },
       201406: {
         text: t('armorMystery201406Text'),
         notes: t('armorMystery201406Notes'),
-        mystery: mystery['201406'],
+        mystery: '201406',
         value: 0
       },
       201407: {
         text: t('armorMystery201407Text'),
         notes: t('armorMystery201407Notes'),
-        mystery: mystery['201407'],
+        mystery: '201407',
         value: 0
       },
       201408: {
         text: t('armorMystery201408Text'),
         notes: t('armorMystery201408Notes'),
-        mystery: mystery['201408'],
+        mystery: '201408',
         value: 0
       },
       201409: {
         text: t('armorMystery201409Text'),
         notes: t('armorMystery201409Notes'),
-        mystery: mystery['201409'],
+        mystery: '201409',
         value: 0
       },
       201410: {
         text: t('armorMystery201410Text'),
         notes: t('armorMystery201410Notes'),
-        mystery: mystery['201410'],
+        mystery: '201410',
         value: 0
       },
       301404: {
         text: t('armorMystery301404Text'),
         notes: t('armorMystery301404Notes'),
-        mystery: mystery['301404'],
+        mystery: '301404',
         value: 0
       }
     }
@@ -11269,49 +11285,49 @@ gear = {
       201402: {
         text: t('headMystery201402Text'),
         notes: t('headMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201405: {
         text: t('headMystery201405Text'),
         notes: t('headMystery201405Notes'),
-        mystery: mystery['201405'],
+        mystery: '201405',
         value: 0
       },
       201406: {
         text: t('headMystery201406Text'),
         notes: t('headMystery201406Notes'),
-        mystery: mystery['201406'],
+        mystery: '201406',
         value: 0
       },
       201407: {
         text: t('headMystery201407Text'),
         notes: t('headMystery201407Notes'),
-        mystery: mystery['201407'],
+        mystery: '201407',
         value: 0
       },
       201408: {
         text: t('headMystery201408Text'),
         notes: t('headMystery201408Notes'),
-        mystery: mystery['201408'],
+        mystery: '201408',
         value: 0
       },
       201411: {
         text: t('headMystery201411Text'),
         notes: t('headMystery201411Notes'),
-        mystery: mystery['201411'],
+        mystery: '201411',
         value: 0
       },
       301404: {
         text: t('headMystery301404Text'),
         notes: t('headMystery301404Notes'),
-        mystery: mystery['301404'],
+        mystery: '301404',
         value: 0
       },
       301405: {
         text: t('headMystery301405Text'),
         notes: t('headMystery301405Notes'),
-        mystery: mystery['301405'],
+        mystery: '301405',
         value: 0
       }
     }
@@ -11633,7 +11649,7 @@ gear = {
       301405: {
         text: t('shieldMystery301405Text'),
         notes: t('shieldMystery301405Notes'),
-        mystery: mystery['301405'],
+        mystery: '301405',
         value: 0
       }
     }
@@ -11650,19 +11666,19 @@ gear = {
       201402: {
         text: t('backMystery201402Text'),
         notes: t('backMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201404: {
         text: t('backMystery201404Text'),
         notes: t('backMystery201404Notes'),
-        mystery: mystery['201404'],
+        mystery: '201404',
         value: 0
       },
       201410: {
         text: t('backMystery201410Text'),
         notes: t('backMystery201410Notes'),
-        mystery: mystery['201410'],
+        mystery: '201410',
         value: 0
       }
     },
@@ -11671,13 +11687,13 @@ gear = {
         text: t('backSpecialWonderconRedText'),
         notes: t('backSpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('backSpecialWonderconBlackText'),
         notes: t('backSpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       }
     }
   },
@@ -11694,19 +11710,19 @@ gear = {
         text: t('bodySpecialWonderconRedText'),
         notes: t('bodySpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_gold: {
         text: t('bodySpecialWonderconGoldText'),
         notes: t('bodySpecialWonderconGoldNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('bodySpecialWonderconBlackText'),
         notes: t('bodySpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       summerHealer: {
         event: events.summer,
@@ -11767,25 +11783,25 @@ gear = {
       201403: {
         text: t('headAccessoryMystery201403Text'),
         notes: t('headAccessoryMystery201403Notes'),
-        mystery: mystery['201403'],
+        mystery: '201403',
         value: 0
       },
       201404: {
         text: t('headAccessoryMystery201404Text'),
         notes: t('headAccessoryMystery201404Notes'),
-        mystery: mystery['201404'],
+        mystery: '201404',
         value: 0
       },
       201409: {
         text: t('headAccessoryMystery201409Text'),
         notes: t('headAccessoryMystery201409Notes'),
-        mystery: mystery['201409'],
+        mystery: '201409',
         value: 0
       },
       301405: {
         text: t('headAccessoryMystery301405Text'),
         notes: t('headAccessoryMystery301405Notes'),
-        mystery: mystery['301405'],
+        mystery: '301405',
         value: 0
       }
     }
@@ -11804,13 +11820,13 @@ gear = {
         text: t('eyewearSpecialWonderconRedText'),
         notes: t('eyewearSpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('eyewearSpecialWonderconBlackText'),
         notes: t('eyewearSpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       summerRogue: {
         event: events.summer,
@@ -11831,13 +11847,13 @@ gear = {
       301404: {
         text: t('eyewearMystery301404Text'),
         notes: t('eyewearMystery301404Notes'),
-        mystery: mystery['301404'],
+        mystery: '301404',
         value: 0
       },
       301405: {
         text: t('eyewearMystery301405Text'),
         notes: t('eyewearMystery301405Notes'),
-        mystery: mystery['301405'],
+        mystery: '301405',
         value: 0
       }
     }
@@ -11887,6 +11903,29 @@ _.each(gearTypes, function(type) {
     });
   });
 });
+
+
+/*
+  Time Traveler Store, mystery sets need their items mapped in
+ */
+
+_.each(api.mystery, function(v, k) {
+  return v.items = _.where(api.gear.flat, {
+    mystery: k
+  });
+});
+
+api.timeTravelerStore = function(owned) {
+  var ownedKeys;
+  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
+  return _.reduce(api.mystery, function(m, v, k) {
+    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
+      return m;
+    }
+    m[k] = v;
+    return m;
+  }, {});
+};
 
 
 /*
@@ -15126,36 +15165,26 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
       buy: function(req, cb) {
-        var item, key, message, trinket;
+        var item, key, message;
         key = req.params.key;
-        trinket = req.query.trinket;
         item = key === 'potion' ? content.potion : content.gear.flat[key];
-        if (trinket) {
-          if (!(item.klass === 'mystery' && user.purchased.plan.consecutive.trinkets > 0)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough Time Trinkets"
-            }) : void 0;
-          }
-        } else {
-          if (!item) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
-            }) : void 0;
-          }
-          if (user.stats.gp < item.value) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: i18n.t('messageNotEnoughGold', req.language)
-            }) : void 0;
-          }
-          if ((item.canOwn != null) && !item.canOwn(user)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You can't own this item"
-            }) : void 0;
-          }
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
+          }) : void 0;
+        }
+        if (user.stats.gp < item.value) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageNotEnoughGold', req.language)
+          }) : void 0;
+        }
+        if ((item.canOwn != null) && !item.canOwn(user)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You can't own this item"
+          }) : void 0;
         }
         if (item.key === 'potion') {
           user.stats.hp += 15;
@@ -15175,15 +15204,38 @@ api.wrap = function(user, main) {
             user.fns.ultimateGear();
           }
         }
-        if (trinket) {
-          user.purchased.plan.consecutive.trinkets--;
-        } else {
-          user.stats.gp -= item.value;
-        }
+        user.stats.gp -= item.value;
         return typeof cb === "function" ? cb({
           code: 200,
           message: message
         }, _.pick(user, $w('items achievements stats'))) : void 0;
+      },
+      buyMysterySet: function(req, cb) {
+        var mysterySet, _ref;
+        if (!(user.purchased.plan.consecutive.trinkets > 0)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You don't have enough Mystic Hourglasses"
+          }) : void 0;
+        }
+        mysterySet = (_ref = content.timeTravelerStore(user.items.gear.owned)) != null ? _ref[req.params.key] : void 0;
+        if ((typeof window !== "undefined" && window !== null ? window.confirm : void 0) != null) {
+          if (!window.confirm("Buy this full set of items for 1 Mystic Hourglass?")) {
+            return;
+          }
+        }
+        if (!mysterySet) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Mystery set not found, or set already owned"
+          }) : void 0;
+        }
+        _.each(mysterySet.items, function(i) {
+          return user.items.gear.owned[i.key] = true;
+        });
+        console.log(user.items.gear.owned);
+        user.purchased.plan.consecutive.trinkets--;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
       },
       sell: function(req, cb) {
         var key, type, _ref;

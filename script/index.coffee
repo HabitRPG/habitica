@@ -745,14 +745,11 @@ api.wrap = (user, main=true) ->
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
       buy: (req, cb) ->
         {key} = req.params
-        {trinket} = req.query
+
         item = if key is 'potion' then content.potion else content.gear.flat[key]
-        if trinket
-          return cb?({code:401, message: "Not enough Time Trinkets"}) unless item.klass=='mystery' and user.purchased.plan.consecutive.trinkets>0
-        else
-          return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
-          return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
-          return cb?({code:401, message: "You can't own this item"}) if item.canOwn? and !item.canOwn(user)
+        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
+        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
+        return cb?({code:401, message: "You can't own this item"}) if item.canOwn? and !item.canOwn(user)
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
@@ -763,8 +760,20 @@ api.wrap = (user, main=true) ->
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
           if not user.achievements.ultimateGear and item.last
             user.fns.ultimateGear()
-        if trinket then user.purchased.plan.consecutive.trinkets-- else user.stats.gp -= item.value
+        user.stats.gp -= item.value
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
+
+      buyMysterySet: (req, cb)->
+        return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
+        mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
+#        console.log {mysterySet, key:req.params.key, store:content.timeTravelerStore(user.items.gear.owned), mysteryItems:content.mystery}
+        if window?.confirm?
+          return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
+        return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
+        _.each mysterySet.items, (i)->user.items.gear.owned[i.key]=true
+        console.log(user.items.gear.owned)
+        user.purchased.plan.consecutive.trinkets--
+        cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
       sell: (req, cb) ->
         {key, type} = req.params
