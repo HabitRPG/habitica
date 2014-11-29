@@ -9827,7 +9827,7 @@ t = function(string, vars) {
 
 classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
-gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory'];
+gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear'];
 
 events = {
   winter: {
@@ -11721,32 +11721,6 @@ gear = {
         text: t('headAccessorySpecialSpringHealerText'),
         notes: t('headAccessorySpecialSpringHealerNotes'),
         value: 20
-      },
-      wondercon_red: {
-        text: t('headAccessorySpecialWonderconRedText'),
-        notes: t('headAccessorySpecialWonderconRedNotes'),
-        value: 0,
-        mystery: mystery.wondercon
-      },
-      wondercon_black: {
-        text: t('headAccessorySpecialWonderconBlackText'),
-        notes: t('headAccessorySpecialWonderconBlackNotes'),
-        value: 0,
-        mystery: mystery.wondercon
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('headAccessorySpecialSummerRogueText'),
-        notes: t('headAccessorySpecialSummerRogueNotes'),
-        value: 20
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('headAccessorySpecialSummerWarriorText'),
-        notes: t('headAccessorySpecialSummerWarriorNotes'),
-        value: 20
       }
     },
     mystery: {
@@ -11767,6 +11741,44 @@ gear = {
         notes: t('headAccessoryMystery201409Notes'),
         mystery: mystery['201409'],
         value: 0
+      }
+    }
+  },
+  eyewear: {
+    base: {
+      0: {
+        text: t('eyewearBase0Text'),
+        notes: t('eyewearBase0Notes'),
+        value: 0,
+        last: true
+      }
+    },
+    special: {
+      wondercon_red: {
+        text: t('eyewearSpecialWonderconRedText'),
+        notes: t('eyewearSpecialWonderconRedNotes'),
+        value: 0,
+        mystery: mystery.wondercon
+      },
+      wondercon_black: {
+        text: t('eyewearSpecialWonderconBlackText'),
+        notes: t('eyewearSpecialWonderconBlackNotes'),
+        value: 0,
+        mystery: mystery.wondercon
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('eyewearSpecialSummerRogueText'),
+        notes: t('eyewearSpecialSummerRogueNotes'),
+        value: 20
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('eyewearSpecialSummerWarriorText'),
+        notes: t('eyewearSpecialSummerWarriorNotes'),
+        value: 20
       }
     }
   }
@@ -16058,5 +16070,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

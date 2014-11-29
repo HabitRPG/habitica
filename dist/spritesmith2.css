@@ -1270,13 +1270,13 @@
   width: 111px;
   height: 90px;
 }
-.headAccessory_special_summerRogue {
+.eyewear_special_summerRogue {
   background-image: url(spritesmith2.png);
   background-position: -112px -961px;
   width: 111px;
   height: 90px;
 }
-.headAccessory_special_summerWarrior {
+.eyewear_special_summerWarrior {
   background-image: url(spritesmith2.png);
   background-position: 0px -961px;
   width: 111px;
@@ -1384,13 +1384,13 @@
   width: 40px;
   height: 40px;
 }
-.shop_headAccessory_special_summerRogue {
+.shop_eyewear_special_summerRogue {
   background-image: url(spritesmith2.png);
   background-position: -1107px -1275px;
   width: 40px;
   height: 40px;
 }
-.shop_headAccessory_special_summerWarrior {
+.shop_eyewear_special_summerWarrior {
   background-image: url(spritesmith2.png);
   background-position: -1230px -1234px;
   width: 40px;
