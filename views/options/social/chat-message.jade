@@ -17,7 +17,7 @@ mixin chatMessages(inbox)
             a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
             a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group, message)') +1
           | &nbsp; &nbsp;
-          a(ng-click="quickReply(message.uuid)" ng-if=":: message.uuid != 'system' && message.uuid != user._id")
+          a(ng-click="quickReply(message.uuid)" ng-if=":: message.uuid != 'system'")
             span.glyphicon.glyphicon-envelope(tooltip=env.t('sendPM'))
         if inbox
           a(ng-click="quickReply(message.uuid)")
