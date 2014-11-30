@@ -236,7 +236,9 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
             tr(ng-if='p.dateTerminated'): td.alert.alert-warning
               i.glyphicon.glyphicon-time
               |  #{env.t('subCanceled')} <strong>{{moment(p.dateTerminated).format('MM/DD/YYYY')}}</strong>
-            tr(ng-if='!p.dateTerminated'): td: h4=env.t('subscribed')
+            tr(ng-if='!p.dateTerminated'): td
+              h4=env.t('subscribed')
+              p(ng-if='Payments.currentSub') Recurring ${{Payments.currentSub.price}} each {{Payments.currentSub.months}} Month(s) ({{p.paymentMethod}})
             tr(ng-if='p.extraMonths'): td
               span.glyphicon.glyphicon-credit-card
               |  You have {{p.extraMonths | number:2}} months of subscription credit.
@@ -256,8 +258,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
                     | #{block.months} Month(s) Recurring: $#{block.price} #{env.t('monthUSD')}
 
             h3(ng-if='(p.customerId && p.dateTerminated)') Resubscribe
-            button.btn.btn-primary(ng-click='showStripe({subscription:_subscription.months})', ng-disabled='!_subscription.months') Card
+            button.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.months})', ng-disabled='!_subscription.months') Card
             button.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.months}}', ng-disabled='!_subscription.months') PayPal
           div(ng-if='p.customerId')
-            .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
-            .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
+            .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()') Update Card
+            .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

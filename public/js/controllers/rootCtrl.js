@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService', '$filter',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService, $filter) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService', 'Payments',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService, Payments) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -33,6 +33,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Math = Math;
     $rootScope.Groups = Groups;
     $rootScope.toJson = angular.toJson;
+    $rootScope.Payments = Payments;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -142,63 +143,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.encodeGift = function(uuid, gift){
       gift.uuid = uuid;
       return JSON.stringify(gift);
-    }
-
-    $rootScope.showStripe = function(data) {
-      var sub =
-        data.subscription ? data.subscription
-        : data.gift && data.gift.type=='subscription' ? data.gift.subscription.months
-        : false;
-      sub = sub && Content.subscriptionBlocks[sub];
-      var amount = // 500 = $5
-        sub ? sub.price*100
-        : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
-        : 500;
-      StripeCheckout.open({
-        key: window.env.STRIPE_PUB_KEY,
-        address: false,
-        amount: amount,
-        name: sub ? window.env.t('subscribe') : window.env.t('checkout'),
-        description: sub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
-        panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
-        token: function(res) {
-          var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
-          if (data.gift) url += '&gift=' + $rootScope.encodeGift(data.uuid, data.gift);
-          if (data.subscription) url += '&sub='+sub.months;
-          $scope.$apply(function(){
-            $http.post(url, res).success(function() {
-              window.location.reload(true);
-            }).error(function(res) {
-              alert(res.err);
-            });
-          })
-        }
-      });
-    }
-
-    $rootScope.showStripeEdit = function(){
-      StripeCheckout.open({
-        key: window.env.STRIPE_PUB_KEY,
-        address: false,
-        name: 'Update',
-        description: 'Update the card to be charged for your subscription',
-        panelLabel: 'Update Card',
-        token: function(data) {
-          var url = '/stripe/subscribe/edit?plan=basic_earned';
-          $scope.$apply(function(){
-            $http.post(url, data).success(function() {
-              window.location.reload(true);
-            }).error(function(data) {
-              alert(data.err);
-            });
-          })
-        }
-      });
-    }
-
-    $rootScope.cancelSubscription = function(){
-      if (!confirm(window.env.t('sureCancelSub'))) return;
-      window.location.href = '/' + user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
     }
 
     $scope.contribText = function(contrib, backer){

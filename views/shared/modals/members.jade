@@ -86,6 +86,6 @@ script(type='text/ng-template', id='modals/send-gift.html')
   .modal-footer
     - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
     button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id, gift)')=env.t("send")
-    a.btn.btn-primary(ng-hide=fromBal, ng-click='showStripe({gift:gift, uuid:profile._id})')=env.t('card')
+    a.btn.btn-primary(ng-hide=fromBal, ng-click='Payments.showStripe({gift:gift, uuid:profile._id})')=env.t('card')
     a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::user.apiToken}}&gift={{encodeGift(profile._id, gift)}}') PayPal
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')

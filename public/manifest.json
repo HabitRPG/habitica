@@ -46,6 +46,7 @@
             "js/services/memberServices.js",
             "js/services/guideServices.js",
             "js/services/challengeServices.js",
+            "js/services/paymentServices.js",
 
             "js/filters/filters.js",
 
