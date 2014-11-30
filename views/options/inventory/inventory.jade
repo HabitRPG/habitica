@@ -58,24 +58,23 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 button.customize-option(popover='{{::Content.food[food].notes()}}', popover-title='{{::Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                   .badge.badge-info.stack-count {{points}}
 
-          mixin specialItem(k)
-            li.customize-menu(ng-if='user.items.special.#{k}')
-              menu.pets-menu(label=env.t('special'))
-                div
+
+          li.customize-menu
+            menu.pets-menu(label=env.t('special'))
+              mixin specialItem(k)
+                div(ng-if='user.items.special.#{k}')
                   button.customize-option(popover='{{::Content.special.#{k}.notes()}}', popover-title='{{::Content.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.#{k})', class='inventory_special_#{k}')
                     .badge.badge-info.stack-count {{user.items.special.#{k}}}
-          +specialItem('snowball')
-          +specialItem('spookDust')
+              +specialItem('snowball')
+              +specialItem('spookDust')
 
-          li.customize-menu(ng-if='user.items.special.valentineReceived[0]')
-            menu.pets-menu(label=env.t('valentineCard'))
-              div
+              //-menu.pets-menu(label=env.t('valentineCard'))
+              div(ng-if='user.items.special.valentineReceived[0]')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("valentine")', class='inventory_special_valentine')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
-          li.customize-menu(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
-            menu.pets-menu(label=env.t('subscriberItem'))
-              div
+              //-menu.pets-menu(label=env.t('subscriberItem'))
+              div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
                 button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
