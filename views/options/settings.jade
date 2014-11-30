@@ -192,14 +192,15 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
         a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
         a(href="/export/userdata.json")= env.t('json')
 
-script(id='partials/options.settings.subscription.perks.html',type='text/ng-template')
+mixin subPerks()
   table.table.table-striped
     tr
       td
         span.hint(popover=env.t('disableAdsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('disableAds')
     tr
       td
-        span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right')=env.t('buyGemsGold')
+        span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
+        span.badge.badge-success(ng-show='_subscription.months>1') Cap raised to {{ [25 + p.consecutive.gemCapExtra + Math.floor(_subscription.months/3*5), 50]  | min }}
     tr
       td
         span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
@@ -208,13 +209,13 @@ script(id='partials/options.settings.subscription.perks.html',type='text/ng-temp
         span.hint(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
     tr
       td
-        span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right')=env.t('mysteryItem')
+        span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
+        div(ng-show='_subscription.months>1')
+          .badge.badge-success +{{Math.floor(_subscription.months/3)}} Mystic Hourglass
+          .small.muted Mystic Hourglasses allow purchasing a previous month's Mystery Item set.
     tr
       td
         span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
-    tr
-      td.alert.alert-info $5&nbsp;
-        =env.t('monthUSD')
 
 script(id='partials/feature-matrix-check.html',type='text/ng-template')
   span.task-checker.action-yesno
@@ -222,38 +223,41 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
     label
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
-  .well(ng-init="p = user.purchased.plan")
-    div(ng-if='p.customerId')
-      p.alert.alert-warning(ng-if='p.dateTerminated')
-        i.glyphicon.glyphicon-time
-        |  #{env.t('subCanceled')} <strong>{{moment(p.dateTerminated).format('MM/DD/YYYY')}}</strong>
-      p.alert.alert-success(ng-if='!p.dateTerminated')=env.t('subscribed')
-      p.alert.alert-success(ng-if='p.extraMonths')
-        span.glyphicon.glyphicon-credit-card
-        |  You have {{p.extraMonths | number:2}} months of subscription credit.
-      ul.alert.alert-success.list-unstyled(ng-if='p.consecutive.count || p.consecutive.offset')
-        li: h4
-          span.glyphicon.glyphicon-forward
-          | &nbsp;Consecutive Subscription
-        li You've been subscribed for {{p.consecutive.count}} consecutive months, plus {{p.consecutive.offset}} extra (gift / block-subscription).
-        li Gem Cap Extra: {{p.consecutive.gemCapExtra}}
-        li Time Trinkets: {{p.consecutive.trinkets}}
+  //-h2=env.t('individualSub')
+  .container-fluid(ng-init='_subscription={months:1}')
+    .row
+      .col-md-6
+        h3 Benefits
+        +subPerks()
 
-    h2=env.t('individualSub')
-    div(ng-include="'partials/options.settings.subscription.perks.html'")
+      .col-md-6
+        div(ng-init="p = user.purchased.plan")
+          table.table.alert.alert-info(ng-if='p.customerId')
+            tr(ng-if='p.dateTerminated'): td.alert.alert-warning
+              i.glyphicon.glyphicon-time
+              |  #{env.t('subCanceled')} <strong>{{moment(p.dateTerminated).format('MM/DD/YYYY')}}</strong>
+            tr(ng-if='!p.dateTerminated'): td: h4=env.t('subscribed')
+            tr(ng-if='p.extraMonths'): td
+              span.glyphicon.glyphicon-credit-card
+              |  You have {{p.extraMonths | number:2}} months of subscription credit.
+            tr(ng-if='p.consecutive.count || p.consecutive.offset'): td
+              span.glyphicon.glyphicon-forward
+              | &nbsp;Consecutive Subscription
+              ul.list-unstyled
+                li You've been subscribed for {{p.consecutive.count}} consecutive months, plus {{p.consecutive.offset}} extra (gift / block-subscription).
+                li Gem Cap Extra: {{p.consecutive.gemCapExtra}}
+                li Mystic Hourglasses: {{p.consecutive.trinkets}}
+          div(ng-if='!p.customerId || (p.customerId && p.dateTerminated)')
+            .form-group
+              each block in env.Content.subscriptionBlocks
+                .radio
+                  label
+                    input(type="radio", name="subRadio", value="#{block.months}", ng-model='_subscription.months')
+                    | #{block.months} Month(s) Recurring: $#{block.price} #{env.t('monthUSD')}
 
-    div(ng-if='!p.customerId || (p.customerId && p.dateTerminated)')
-
-      .form-group
-        each block in env.Content.subscriptionBlocks
-          .radio
-            label
-              input(type="radio", name="subRadio", value="#{block.months}", ng-model='subscription')
-              | #{block.months} Month(s) Recurring: $#{block.price}
-
-      h3(ng-if='(p.customerId && p.dateTerminated)') Resubscribe
-      a.btn.btn-primary(ng-click='showStripe({subscription:subscription})') Card
-      a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{subscription}}') PayPal
-    div(ng-if='p.customerId')
-      .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
-      .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
+            h3(ng-if='(p.customerId && p.dateTerminated)') Resubscribe
+            button.btn.btn-primary(ng-click='showStripe({subscription:_subscription.months})', ng-disabled='!_subscription.months') Card
+            button.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.months}}', ng-disabled='!_subscription.months') PayPal
+          div(ng-if='p.customerId')
+            .btn.btn-primary(ng-if='!p.dateTerminated && p.paymentMethod=="Stripe"', ng-click='showStripeEdit()') Update Card
+            .btn.btn-sm.btn-danger(ng-if='!p.dateTerminated', ng-click='cancelSubscription()')=env.t('cancelSub')
