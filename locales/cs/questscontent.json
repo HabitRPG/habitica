@@ -93,7 +93,7 @@
     "questGoldenknight3Boss": "Železný rytíř",
     "questGoldenknight3DropHoney": "Med (jídlo)",
     "questGoldenknight3DropGoldenPotion": "Zlatý líhnoucí lektvar",
-    "questGoldenknight3DropWeapon": "Řemdih milníku Mustaine rmutování (odměřená zbraň)",
+    "questGoldenknight3DropWeapon": "Mustainův Milník drtící řemdih (odměřená zbraň)",
     "questBasilistText": "Bazi-lístek",
     "questBasilistNotes": "Na tržišti se něco děje - něco, kvůli čemu bys měl utíkat. Ale protože jsi odvážný dobrodruh, vydáš se tomu naproti a objevíš bazi-lístka plazícího se z kupy nesplněných úkolů! Přihlížející Habiťané jsou paralyzováni strachem z bazi-lístkovy délky a nemohou začít pracovat. Nedaleko slyšíš @Arcosine  křičet \"Rychle! Splňte své úkoly a denní úkoly abyste přemohly to stvoření než někoho pořeže papír!\" Zasaď úder rychle, dobrodruhu, a splň něco - avšak pozor! Pokus nesplníš nějaké denní úkoly, Bazi-lístek zaútočí na tvou družinu!",
     "questBasilistCompletion": "Bazi-lístek se rozpadl ve změť papírů, které se ve vzduchu blýskají jako duha. \"Ufff!\" říká @Arcosine. \"Dobře, že jste tu byli!\" Nabytí zkušenostmi posbíráte popadané zlato mezi papíry.",
@@ -136,5 +136,5 @@
     "questOwlNotes": "Světlo v krčmě svítí až do úsvitu <br>Dokud jednoho večera nezmizí!<br>Jak uvidíme až pojedeme celou noc?<br>@Twitching křičí, \"Potřebuju nějaké rváče!<br>Vidíte toho sýčka?<br>Bijte se s ním rychle a nezahálejte!<br>Odrazíme jeho stín od našich dveří,<br>a noc bude znovu zářit!\"",
     "questOwlCompletion": "Sýček před úsvitem mizí,<br>Ale i tak cití, jak na tebe jde zývnutí.<br>Možá je čas na odpočinek?<br>A pak na své posteli uvidíš hnízdo!<br>Sýček ví, že může být skvělé<br>Dokončit práci a zůstat vzhůru déle,<br>Ale tví noví mazlíčky budou jemně pípat<br>Aby ti řekli, kdy je čas jít spát.",
     "questOwlBoss": "Sýček",
-    "questOwlDropOwlEgg": "Owl (Egg)"
+    "questOwlDropOwlEgg": "Sýček (vejce)"
 }

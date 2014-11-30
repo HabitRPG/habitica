@@ -2,7 +2,7 @@
     "clearCompleted": "Vymaž dokončené",
     "lotOfToDos": "Dokončené úkoly v úkolníčku jsou automaticky archivovány po 3 dnech. Můžeš se na ně podívat v Nastavení > Export.",
     "deleteToDosExplanation": "Po kliknutí na toto tlačítko se permanentně smažou všechny tvé splněné a archivované úkoly. Chceš-li si o nich vést záznamy, nejdřív si je exportuj.",
-    "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
+    "beeminderDeleteWarning": "Uživatelé Beeminder<strong>Nejprve</strong> si přečtětě <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Mazání splněných úkolů aniž by se zmátl Beeminder</a>!",
     "habits": "Zvyky",
     "newHabit": "Nový zvyk",
     "yellowred": "Slabý",
