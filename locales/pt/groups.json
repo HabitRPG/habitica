@@ -72,5 +72,15 @@
     "confirm": "Confirmar",
     "leaveGroup": "Deixar a guilda?",
     "leavePartyCha": "Deixar desafios da equipe e...",
-    "leaveParty": "Deixar equipe?"
+    "leaveParty": "Deixar equipe?",
+    "sendPM": "Enviar mensagem privada",
+    "send": "Enviar",
+    "messageSentAlert": "Mensagem enviada",
+    "pmHeading": "Mensagem privada para <%= name %>",
+    "clearAll": "Limpar tudo",
+    "clearAllPopover": "Deletar todas mensagens",
+    "optOutPopover": "Não gosta de mensagens privadas? Clique para desativar completamente",
+    "block": "Bloquear",
+    "unblock": "Desbloquear",
+    "pm-reply": "Enviar uma resposta"
 }

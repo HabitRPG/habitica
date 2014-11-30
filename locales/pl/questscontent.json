@@ -132,9 +132,9 @@
     "questAtom3Completion": "Zły Pralkomanta został pokonany! Czyste ubrania opadają wokół Was. No, teraz okolica wygląda znacznie lepiej. Przeprawiając się przez stosy świeżo wymaglowanej zbroi, kątem oka zauważasz błysk metalu, a twój wzrok pada na lśniący hełm. Jego pierwotny właściciel pozostanie nieznany, ale zakładając go, czujesz rozgrzewającą obecność hojnego ducha. Szkoda że nie wszył plakietki z imieniem.",
     "questAtom3Boss": "Pralkomanta",
     "questAtom3DropPotion": "Zwyczajny eliksir wyklucia",
-    "questOwlText": "The Night-Owl",
-    "questOwlNotes": "The Tavern light is lit 'til dawn <br>Until one eve the glow is gone!<br>How can we see for our all-nighters?<br>@Twitching cries, \"I need some fighters!<br>See that Night-Owl, starry foe?<br>Fight with haste and do not slow!<br>We'll drive its shadow from our door,<br>And make the night shine bright once more!\"",
-    "questOwlCompletion": "The Night-Owl fades before the dawn,<br>But even so, you feel a yawn.<br>Perhaps it's time to get some rest?<br>Then on your bed, you see a nest!<br>A Night-Owl knows it can be great<br>To finish work and stay up late,<br>But your new pets will softly peep<br>To tell you when it's time to sleep.",
-    "questOwlBoss": "The Night-Owl",
-    "questOwlDropOwlEgg": "Owl (Egg)"
+    "questOwlText": "Nocna Sowa",
+    "questOwlNotes": "Karczma zwykle oświetlona jest do świtu <br>Lecz nie tej nocy, dziś światła są w zaniku <br>Jak teraz poradzą sobie nocne marki? <br> \"Ciężkie brzemię spadło na twe barki\" <br>Woła @Twitching, wskazując przed siebie. <br>\"Widzisz tę Nocną Sowę na niebie?<br>\"Pokonaj ją prędko i przegnaj precz cień\" <br>Niech w karczmie znów będzie wiecznie dzień!\"",
+    "questOwlCompletion": "Nocna Sowa przed świtem zwiewa,<br>A jednak nasz bohater ziewa.<br>Może już czas pomyśleć o spaniu?<br>Lecz cóż to, gniazdo na twym posłaniu!<br>Nocna Sowa wie że masz tę moc<br>By skończyć pracę i zarwać noc,<br>Od teraz jednak zwierzak ten<br>Zakwili cicho, że czas na sen.",
+    "questOwlBoss": "Nocna Sowa",
+    "questOwlDropOwlEgg": "Sowa (jajo)"
 }

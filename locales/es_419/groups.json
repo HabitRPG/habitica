@@ -72,5 +72,15 @@
     "confirm": "Confirmar",
     "leaveGroup": "¿Abandonar gremio?",
     "leavePartyCha": "Abandonar los desafíos del equipo y...",
-    "leaveParty": "¿Abandonar el equipo?"
+    "leaveParty": "¿Abandonar el equipo?",
+    "sendPM": "Enviar mensaje privado",
+    "send": "Enviar",
+    "messageSentAlert": "Mensaje enviado",
+    "pmHeading": "Mensaje privado a <%= name %>",
+    "clearAll": "Borrar todos",
+    "clearAllPopover": "Eliminar todos mensajes",
+    "optOutPopover": "¿No te gusta mensajes privados? Haz click para optar completamente fuera",
+    "block": "Bloquear",
+    "unblock": "Un-block",
+    "pm-reply": "Enviar una respuesta"
 }

@@ -55,7 +55,7 @@
     "resetText2": "You will lose all your levels, gold, and experience points. All your tasks will be deleted permanently and you will lose all of your task's historical data. You will lose all your equipment but you will be able to buy it all back, including all limited edition equipment or subscriber Mystery items that you already own (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks.",
     "deleteText": "Ви впевнені? Акаунт буде повністю вилучено назавжди, і його неможливо буде відновити! Вам треба буде знову реєструватися, аби грати у HabitRPG. Накопичені й витрачені самоцвіти не буде повернено. Якщо Ви цілковито впевнені, надрукуйте <strong><%= deleteWord %></strong> у текстовому полі нижче.",
     "API": "API",
-    "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
+    "APIText": "Скопіюйте це для використання в додатках сторонніх розробників. Але пам'ятайте, що  API Token використовується як пароль, тож не поширюйте його публічно. Інколи вас питатимуть про ID користувача, але не публікуйте свій API Token там, де інші можуть побачити його, у тому числі на GitHub.",
     "APIToken": "Отримати API (це пароль - прочитайте застереження вище!)",
     "resetDo": "Так, зробіть повне скидання акаунту!",
     "fixValues": "Виправити дані",

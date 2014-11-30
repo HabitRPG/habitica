@@ -132,9 +132,9 @@
     "questAtom3Completion": "Ослабший Прачечдей повержен! Груды чистой одежды сваливаются в аккуратные стопки вокруг вас. Теперь все выглядит намного лучше. Как только вы начинаете пробираться сквозь них, замечаете металлический отблеск, и ваш взгляд падает на сияющий шлем. Предыдущий владелец этого сверкающего доспеха неизвестен, но как только вы надеваете его, чувствуете теплоту присутствия щедрого духа. Жаль, что они не пришивали к своим вещам табличку с именем.",
     "questAtom3Boss": "Прачечдей",
     "questAtom3DropPotion": "Простой инкубационный эликсир",
-    "questOwlText": "The Night-Owl",
+    "questOwlText": "Сова-Полуночник",
     "questOwlNotes": "The Tavern light is lit 'til dawn <br>Until one eve the glow is gone!<br>How can we see for our all-nighters?<br>@Twitching cries, \"I need some fighters!<br>See that Night-Owl, starry foe?<br>Fight with haste and do not slow!<br>We'll drive its shadow from our door,<br>And make the night shine bright once more!\"",
     "questOwlCompletion": "The Night-Owl fades before the dawn,<br>But even so, you feel a yawn.<br>Perhaps it's time to get some rest?<br>Then on your bed, you see a nest!<br>A Night-Owl knows it can be great<br>To finish work and stay up late,<br>But your new pets will softly peep<br>To tell you when it's time to sleep.",
-    "questOwlBoss": "The Night-Owl",
-    "questOwlDropOwlEgg": "Owl (Egg)"
+    "questOwlBoss": "Сова-Полуночник",
+    "questOwlDropOwlEgg": "Сова (яйцо)"
 }

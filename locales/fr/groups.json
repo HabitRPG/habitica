@@ -72,5 +72,15 @@
     "confirm": "Confirmer",
     "leaveGroup": "Quitter la guilde ?",
     "leavePartyCha": "Quitter les défis de l'équipe et...",
-    "leaveParty": "Quitter l'équipe ?"
+    "leaveParty": "Quitter l'équipe ?",
+    "sendPM": "Envoyer un message privé",
+    "send": "Envoyer",
+    "messageSentAlert": "Message envoyé",
+    "pmHeading": "Envoyer un message privé à <%= name %>",
+    "clearAll": "Supprimer Tout",
+    "clearAllPopover": "Supprimer tous les messages",
+    "optOutPopover": "Vous n'aimez pas les messages privés ? Cliquez ici pour désactiver l'option",
+    "block": "Bloquer",
+    "unblock": "Ne plus bloquer",
+    "pm-reply": "Répondre"
 }

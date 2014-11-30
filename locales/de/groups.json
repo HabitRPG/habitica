@@ -72,5 +72,15 @@
     "confirm": "Bestätigen",
     "leaveGroup": "Gilde verlassen?",
     "leavePartyCha": "Gruppenwettbewerbe verlassen und...",
-    "leaveParty": "Gruppe verlassen?"
+    "leaveParty": "Gruppe verlassen?",
+    "sendPM": "Private Nachricht schicken",
+    "send": "Abschicken",
+    "messageSentAlert": "Nachricht abgeschickt",
+    "pmHeading": "Private Nachricht an <%= name %>",
+    "clearAll": "Alle löschen",
+    "clearAllPopover": "Alle Nachrichten löschen",
+    "optOutPopover": "Du willst keine privaten Nachrichten? Klick hier um sie zu deaktivieren",
+    "block": "Blockieren",
+    "unblock": "Ent-Blockieren",
+    "pm-reply": "Eine Antwort schicken"
 }

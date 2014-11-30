@@ -72,5 +72,15 @@
     "confirm": "Potvrdit",
     "leaveGroup": "Opustit cech?",
     "leavePartyCha": "Opustit výzvy družiny a ...",
-    "leaveParty": "Opustit družinu?"
+    "leaveParty": "Opustit družinu?",
+    "sendPM": "Poslat soukromou zprávu",
+    "send": "Poslat",
+    "messageSentAlert": "Zpráva odeslána",
+    "pmHeading": "Soukromá zpráva pro <%= name %>",
+    "clearAll": "Vyčistit vše",
+    "clearAllPopover": "Vymazat všechny zprávy",
+    "optOutPopover": "Nemáš rád soukromé zprávy? Klikni pro úplné odhlášení",
+    "block": "Blokovat",
+    "unblock": "Odblokovat",
+    "pm-reply": "Poslat odpověď"
 }

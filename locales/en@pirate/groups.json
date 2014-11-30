@@ -72,5 +72,15 @@
     "confirm": "Confirm",
     "leaveGroup": "Leave Alliance?",
     "leavePartyCha": "Leave crew challenges an'...",
-    "leaveParty": "Leave crew?"
+    "leaveParty": "Leave crew?",
+    "sendPM": "Send private message",
+    "send": "Send",
+    "messageSentAlert": "Message sent",
+    "pmHeading": "Private message to <%= name %>",
+    "clearAll": "Clear All",
+    "clearAllPopover": "Delete all messages",
+    "optOutPopover": "Don't like private messages? Click to completely opt out",
+    "block": "Block",
+    "unblock": "Un-block",
+    "pm-reply": "Send a reply"
 }

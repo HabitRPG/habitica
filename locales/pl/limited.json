@@ -5,7 +5,7 @@
     "annoyingFriends": "Złośliwi znajomi",
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
-    "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków Drużyny.",
+    "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
     "valentineCard": "Kartka Walentynkowa",
     "adoringFriends": "Kochani przyjaciele",
     "adoringFriendsText": "Och, Ty i Twój przyjaciel musicie naprawdę troszczyć się o siebie! Wysłałeś lub otrzymałeś <%= cards %> walentynek.",

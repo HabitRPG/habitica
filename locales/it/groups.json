@@ -72,5 +72,15 @@
     "confirm": "Conferma",
     "leaveGroup": "Lasciare la Gilda?",
     "leavePartyCha": "Abbandona la sfida di squadra e ...",
-    "leaveParty": "Lasciare la squadra?"
+    "leaveParty": "Lasciare la squadra?",
+    "sendPM": "Invia messaggio privato",
+    "send": "Invia",
+    "messageSentAlert": "Messaggio inviato",
+    "pmHeading": "Messaggio privato a <%= name %>",
+    "clearAll": "Elimina tutto",
+    "clearAllPopover": "Cancella tutti i messaggi",
+    "optOutPopover": "Non ti piacciono i messaggi privati? Clicca per disattivare questa funzione",
+    "block": "Blocca",
+    "unblock": "Sblocca",
+    "pm-reply": "Invia una risposta"
 }

@@ -72,5 +72,15 @@
     "confirm": "Potvrdiť",
     "leaveGroup": "Opustiť cech?",
     "leavePartyCha": "Opustiť výzvy družiny a...",
-    "leaveParty": "Opustiť družinu?"
+    "leaveParty": "Opustiť družinu?",
+    "sendPM": "Send private message",
+    "send": "Send",
+    "messageSentAlert": "Message sent",
+    "pmHeading": "Private message to <%= name %>",
+    "clearAll": "Clear All",
+    "clearAllPopover": "Delete all messages",
+    "optOutPopover": "Don't like private messages? Click to completely opt out",
+    "block": "Block",
+    "unblock": "Un-block",
+    "pm-reply": "Send a reply"
 }

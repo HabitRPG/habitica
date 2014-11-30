@@ -45,7 +45,7 @@
     "passMan": "如果你用密码管理工具 (如 1Password) 登录出现问题，尝试手动用用户名密码登录。",
     "forgotPass": "找回密码",
     "emailNewPass": "把新密码发到我的邮箱",
-    "invalidEmail": "A valid email address is required in order to perform a password reset.",
+    "invalidEmail": "执行密码重置需要一个有效的电子邮件地址。",
     "email": "邮箱",
     "passConfirm": "确认密码",
     "accept1Terms": "我同意接受",

@@ -72,5 +72,15 @@
     "confirm": "Potwierdź",
     "leaveGroup": "Opuścić Gildię?",
     "leavePartyCha": "Opuść wyzwania drużyny i...",
-    "leaveParty": "Opuść drużynę?"
+    "leaveParty": "Opuść drużynę?",
+    "sendPM": "Wyślij wiadomość prywatną",
+    "send": "Wyślij",
+    "messageSentAlert": "Wiadomość wysłana",
+    "pmHeading": "Wiadomośc prywatna do <%= name %>",
+    "clearAll": "Wyczyść wszystko",
+    "clearAllPopover": "Usuń wszystkie wiadomości",
+    "optOutPopover": "Nie lubisz prywatnych wiadomości? Kliknij aby całkiem z nich zrezygnować.",
+    "block": "Blokuj",
+    "unblock": "Odblokuj",
+    "pm-reply": "Wyślij odpowiedź"
 }
