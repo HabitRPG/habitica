@@ -31,7 +31,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
         span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
         | &nbsp;
       // save
-      a(ng-hide='!task._editing', ng-click='editTask(task);saveTask(task)', tooltip=env.t('save'))
+      a(ng-hide='!task._editing', ng-click='submitTask(task)', tooltip=env.t('save'))
         span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
       | &nbsp;
       //challenges
@@ -217,6 +217,6 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"')=env.t('social')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"', popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')=env.t('other')
 
-        button.task-action-btn.tile.spacious(type='submit')=env.t('saveAndClose')
+        button.task-action-btn.tile.spacious(type='submit', bo-id='"btn-task-"+task.id')=env.t('saveAndClose')
 
   div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')

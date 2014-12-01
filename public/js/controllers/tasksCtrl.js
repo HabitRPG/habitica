@@ -73,6 +73,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         $("#task-" + task.id).parent().children('.popover').removeClass('in');
     };
 
+    $scope.submitTask = function(task) {
+      $("#btn-task-" + task.id).click();
+    }
+
     /**
      * Reset $scope.task to $scope.originalTask
      */
