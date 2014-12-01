@@ -33,12 +33,12 @@ exports.createSubscription = function(data, cb) {
   var block = shared.content.subscriptionBlocks[months];
 
   if (data.gift) {
-    if (!p.customerId) p.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
-    if (p.dateTerminated) { // User already has a plan
-      p.dateTerminated = moment(p.dateTerminated).add({months: months}).toDate();
-    } else {
+    if (p.customerId && !p.dateTerminated) { // User has active plan
       p.extraMonths += +months;
+    } else {
+      p.dateTerminated = moment(p.dateTerminated).add({months: months}).toDate();
     }
+    if (!p.customerId) p.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
   } else {
     _(p).merge({ // override with these values
       planId: block.key,
@@ -80,17 +80,21 @@ exports.createSubscription = function(data, cb) {
 /**
  * Sets their subscription to be cancelled later
  */
-exports.cancelSubscription = function(user, data) {
-  var p = user.purchased.plan, now = moment();
+exports.cancelSubscription = function(data, cb) {
+  var p = data.user.purchased.plan,
+    now = moment(),
+    remaining = data.nextBill ? moment(data.nextBill).diff(new Date, 'days') : 30;
+
   p.dateTerminated =
     moment( now.format('MM') + '/' + moment(p.dateUpdated).format('DD') + '/' + now.format('YYYY') )
-    .add({months:1}) // end their subscription 1mo from their last payment
+    .add({days: remaining}) // end their subscription 1mo from their last payment
     .add({months: Math.ceil(p.extraMonths)})// plus any extra time (carry-over, gifted subscription, etc) they have. FIXME: moment can't add months in fractions...
     .toDate();
   p.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  if(isProduction) utils.txnEmail(user, 'cancel-subscription');
-  utils.ga.event('unsubscribe', 'Stripe').send();
+  data.user.save(cb);
+  if(isProduction) utils.txnEmail(data.user, 'cancel-subscription');
+  utils.ga.event('unsubscribe', data.paymentMethod).send();
 }
 
 exports.buyGems = function(data, cb) {
@@ -101,7 +105,7 @@ exports.buyGems = function(data, cb) {
     utils.txnEmail(data.user, 'donation');
     utils.ga.event('checkout', data.paymentMethod).send();
     //TODO ga.transaction to reflect whether this is gift or self-purchase
-    utils.ga.transaction(data.customerId, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+    utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
   }
   if (data.gift) members.sendMessage(data.user, data.gift.member, data.gift);
   async.parallel([

@@ -55,7 +55,7 @@ switch(OP) {
   case "update":
     break;
   case "create":
-    paypal.billingPlan.create(blocks["3"].definition, function(err,plan){
+    paypal.billingPlan.create(blocks["12"].definition, function(err,plan){
       if (err) return console.log(err);
       if (plan.state == "ACTIVE")
         return console.log({err:err, plan:plan});
@@ -68,7 +68,7 @@ switch(OP) {
       }];
       // Activate the plan by changing status to Active
       paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, function(err, response){
-        console.log({err:err, response:response});
+        console.log({err:err, response:response, id:plan.id});
       });
     });
   case "remove":

@@ -10,9 +10,8 @@ function($rootScope, User, $http, Content) {
   Payments.currentSub = _.find(Content.subscriptionBlocks, function(b){
     switch (plan.paymentMethod) {
       case 'Stripe':
+      case 'Paypal': // FIXME store paypalKey somewhere?
         return b.key == plan.planId;
-      case 'Paypal':
-        return b.paypalKey == plan.planId;
       default: return undefined;
     }
   })
@@ -32,7 +31,7 @@ function($rootScope, User, $http, Content) {
       address: false,
       amount: amount,
       name: sub ? window.env.t('subscribe') : window.env.t('checkout'),
-      description: sub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
+      //description: sub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
       panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
       token: function(res) {
         var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
@@ -55,7 +54,7 @@ function($rootScope, User, $http, Content) {
       description: 'Update the card to be charged for your subscription',
       panelLabel: 'Update Card',
       token: function(data) {
-        var url = '/stripe/subscribe/edit?plan=basic_earned';
+        var url = '/stripe/subscribe/edit';
         $http.post(url, data).success(function() {
           window.location.reload(true);
         }).error(function(data) {

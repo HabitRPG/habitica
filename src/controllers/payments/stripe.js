@@ -61,15 +61,22 @@ exports.subscribeCancel = function(req, res, next) {
   if (!user.purchased.plan.customerId)
     return res.json(401, {err: "User does not have a plan subscription"});
 
-  async.waterfall([
-    function(cb) {
-      stripe.customers.del(user.purchased.plan.customerId, cb);
+  async.auto({
+    get_cus: function(cb){
+      stripe.customers.retrieve(user.purchased.plan.customerId, cb);
     },
-    function(response, cb) {
-      payments.cancelSubscription(user);
-      user.save(cb);
-    }
-  ], function(err, saved){
+    del_cus: ['get_cus', function(cb, results){
+      stripe.customers.del(user.purchased.plan.customerId, cb);
+    }],
+    cancel_sub: ['get_cus', function(cb, results) {
+      var data = {
+        user: user,
+        nextBill: results.get_cus.subscription.current_period_end*1000, // timestamp is in seconds
+        paymentMethod: 'Stripe'
+      };
+      payments.cancelSubscription(data, cb);
+    }]
+  }, function(err, results){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.redirect('/');
     user = null;

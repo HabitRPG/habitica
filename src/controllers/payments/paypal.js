@@ -23,8 +23,9 @@ paypal.configure({
   'client_secret': nconf.get("PAYPAL:client_secret")
 });
 
-var parseErr = function(err){
-  return (err.response && err.response.message || err.response.details[0].issue) || err;
+var parseErr = function(res, err){
+  var error = err.response ? err.response.message || err.response.details[0].issue : err;
+  return res.json(400,{err:error});
 }
 
 exports.createBillingAgreement = function(req,res,next){
@@ -33,7 +34,7 @@ exports.createBillingAgreement = function(req,res,next){
   var billingAgreementAttributes = {
     "name": billingPlanTitle,
     "description": billingPlanTitle,
-    "start_date": moment().add({seconds:5}).format(),
+    "start_date": moment().add({minutes:5}).format(),
     "plan": {
       "id": block.paypalKey
     },
@@ -42,7 +43,7 @@ exports.createBillingAgreement = function(req,res,next){
     }
   };
   paypal.billingAgreement.create(billingAgreementAttributes, function (err, billingAgreement) {
-    if (err) return next(parseErr(err));
+    if (err) return parseErr(res, err);
     // For approving subscription via Paypal, first redirect user to: approval_url
     var approval_url = _.find(billingAgreement.links, {rel:'approval_url'}).href;
     res.redirect(approval_url);
@@ -65,7 +66,7 @@ exports.executeBillingAgreement = function(req,res,next){
       data.user.save(cb);
     }
   ],function(err){
-    if (err) return next(parseErr(err));
+    if (err) return parseErr(res, err);
     res.redirect('/');
   })
 }
@@ -106,7 +107,7 @@ exports.createPayment = function(req, res, next) {
     }]
   };
   paypal.payment.create(create_payment, function (err, payment) {
-    if (err) return next(parseErr(err));
+    if (err) return parseErr(res, err);
     var link = _.find(payment.links, {rel: 'approval_url'}).href;
     res.redirect(link);
   });
@@ -138,7 +139,7 @@ exports.executePayment = function(req, res, next) {
       payments[method](data, cb);
     }
   ],function(err){
-    if (err) return next(parseErr(err));
+    if (err) return parseErr(res, err);
     res.redirect('/');
   })
 }
@@ -147,16 +148,25 @@ exports.cancelSubscription = function(req, res, next){
   var user = res.locals.user;
   if (!user.purchased.plan.customerId)
     return res.json(401, {err: "User does not have a plan subscription"});
-  async.waterfall([
-    function(cb) {
-      paypal.billingAgreement.cancel(user.purchased.plan.customerId, {note: "Canceling the subscription"}, cb);
+  async.auto({
+    get_cus: function(cb){
+      paypal.billingAgreement.get(user.purchased.plan.customerId, cb);
     },
-    function(response, cb) {
-      payments.cancelSubscription(user);
-      user.save(cb);
-    }
-  ], function(err, saved){
-    if (err) return next(parseErr(err));
+    verify_cus: ['get_cus', function(cb, results){
+      var hasntBilledYet = results.get_cus.agreement_details.cycles_completed == "0";
+      if (hasntBilledYet)
+        return cb("The plan hasn't activated yet (due to a PayPal bug). It will begin "+results.get_cus.agreement_details.next_billing_date+", after which you can cancel to retain your full benefits");
+      cb();
+    }],
+    del_cus: ['verify_cus', function(cb, results){
+      paypal.billingAgreement.cancel(user.purchased.plan.customerId, {note: "Canceling the subscription"}, cb);
+    }],
+    cancel_sub: ['get_cus', 'verify_cus', function(cb, results){
+      var data = {user: user, paymentMethod: 'Paypal', nextBill: results.get_cus.agreement_details.next_billing_date};
+      payments.cancelSubscription(data, cb)
+    }]
+  }, function(err){
+    if (err) return parseErr(res, err);
     res.redirect('/');
     user = null;
   });
@@ -178,8 +188,7 @@ exports.ipn = function(req, res, next) {
         User.findOne({'purchased.plan.customerId':req.body.recurring_payment_id},function(err, user){
           if (err) return logger.error(err);
           if (_.isEmpty(user)) return; // looks like the cancellation was already handled properly above (see api.paypalSubscribeCancel)
-          payments.cancelSubscription(user);
-          user.save();
+          payments.cancelSubscription({user:user, paymentMethod: 'Paypal'});
         });
         break;
     }
