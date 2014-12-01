@@ -1360,6 +1360,16 @@ api.backgrounds =
     starry_skies:
       text:  t('backgroundStarrySkiesText')
       notes: t('backgroundStarrySkiesNotes')
+  backgrounds122014:
+    iceberg:
+      text:  t('backgroundIcebergText')
+      notes: t('backgroundIcebergNotes')
+    twinkly_lights:
+      text:  t('backgroundTwinklyLightsText')
+      notes: t('backgroundTwinklyLightsNotes')
+    south_pole:
+      text:  t('backgroundSouthPoleText')
+      notes: t('backgroundSouthPoleNotes')
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
