@@ -191,8 +191,8 @@ mixin profileStats
               td= env.t('allocatePer') + ' {{user.stats.per}}'
               td
                 a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatePerPop')) +
-            
-           
+
+
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
         button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
         hr(ng-if='user.preferences.disableClasses')
@@ -253,7 +253,8 @@ mixin backgrounds(mobile)
               //-button.btn.btn-xs(ng-hide="ownsSet('background',Content.backgrounds['#{k}'])",ng-click="unlock(setKeys('background',Content.backgrounds['#{k}']))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
               button.btn.btn-xs(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})",ng-click="unlock(setKeys('background',#{JSON.stringify(bgs)}))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
             each bg,k in bgs
-              button.customize-option(type='button',class='background_#{k}',ng-click='unlock("background.#{k}")',popover-title=bg.text(),popover=bg.notes(),popover-trigger='mouseenter')
+              button.customize-option(type='button', class='background_#{k}', ng-class="user.purchased.background.#{k} ? 'background-unlocked' : 'background-locked'", ng-click='unlock("background.#{k}")', popover-title=bg.text(), popover=bg.notes(),popover-trigger='mouseenter')
+                i.glyphicon.glyphicon-lock(ng-if="!user.purchased.background.#{k}")
       - }
 
 script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
