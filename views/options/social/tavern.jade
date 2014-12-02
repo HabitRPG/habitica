@@ -151,7 +151,7 @@
           |&nbsp; &nbsp;
           span(ng-if='::mod.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
             a.label.label-default(ng-class='::userLevelStyle(mod)', ng-click='clickMember(mod._id, true)')
-              {{::mod.profile.name}}&nbsp;
+              | {{::mod.profile.name}}&nbsp;
               span(ng-class='::userAdminGlyphiconStyle(mod)')
         p
           =env.t('communityGuidelinesRead1')
