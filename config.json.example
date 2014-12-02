@@ -35,5 +35,12 @@
         "mode":"sandbox",
         "client_id":"client_id",
         "client_secret":"client_secret"
+    },
+    "BITPAY":{
+        "PRIV_KEY":"aaaaabbbbbcccc1111111111112222222",
+        "ENCRYP_KEY":"",
+        "API_HOST":"test.bitpay.com",
+        "API_PORT":443,
+        "FORCE_SSL":true
     }
 }
