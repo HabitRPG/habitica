@@ -9793,7 +9793,7 @@ process.chdir = function (dir) {
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],5:[function(require,module,exports){
-var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, mystery, repeat, t, _;
+var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
 
 _ = require('lodash');
 
@@ -9856,52 +9856,76 @@ events = {
   }
 };
 
-mystery = {
+api.mystery = {
   201402: {
     start: '2014-02-22',
-    end: '2014-02-28'
+    end: '2014-02-28',
+    text: 'Winged Messenger Set'
   },
   201403: {
     start: '2014-03-24',
-    end: '2014-04-02'
+    end: '2014-04-02',
+    text: 'Forest Walker Set'
   },
   201404: {
     start: '2014-04-24',
-    end: '2014-05-02'
+    end: '2014-05-02',
+    text: 'Twilight Butterfly Set'
   },
   201405: {
     start: '2014-05-21',
-    end: '2014-06-02'
+    end: '2014-06-02',
+    text: 'Flame Wielder Set'
   },
   201406: {
     start: '2014-06-23',
-    end: '2014-07-02'
+    end: '2014-07-02',
+    text: 'Octomage Set'
   },
   201407: {
     start: '2014-07-23',
-    end: '2014-08-02'
+    end: '2014-08-02',
+    text: 'Undersea Explorer Set'
   },
   201408: {
     start: '2014-08-23',
-    end: '2014-09-02'
+    end: '2014-09-02',
+    text: 'Sun Sorcerer Set'
   },
   201409: {
     start: '2014-09-24',
-    end: '2014-10-02'
+    end: '2014-10-02',
+    text: 'Autumn Strider Item Set'
   },
   201410: {
     start: '2014-10-24',
-    end: '2014-11-02'
+    end: '2014-11-02',
+    text: 'Winged Goblin Set'
   },
   201411: {
     start: '2014-11-24',
-    end: '2014-12-02'
+    end: '2014-12-02',
+    text: 'Feast and Fun Set'
+  },
+  301404: {
+    start: '3014-03-24',
+    end: '3014-04-02',
+    text: 'Steampunk Standard Set'
+  },
+  301405: {
+    start: '3014-04-24',
+    end: '3014-05-02',
+    text: 'Steampunk Accessories Set'
   },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
   }
 };
+
+_.each(api.mystery, function(v, k) {
+  return v.key = k;
+});
 
 gear = {
   weapon: {
@@ -10401,7 +10425,13 @@ gear = {
       201411: {
         text: t('weaponMystery201411Text'),
         notes: t('weaponMystery201411Notes'),
-        mystery: mystery['201411'],
+        mystery: '201411',
+        value: 0
+      },
+      301404: {
+        text: t('weaponMystery301404Text'),
+        notes: t('weaponMystery301404Notes'),
+        mystery: '301404',
         value: 0
       }
     }
@@ -10804,49 +10834,55 @@ gear = {
       201402: {
         text: t('armorMystery201402Text'),
         notes: t('armorMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201403: {
         text: t('armorMystery201403Text'),
         notes: t('armorMystery201403Notes'),
-        mystery: mystery['201403'],
+        mystery: '201403',
         value: 0
       },
       201405: {
         text: t('armorMystery201405Text'),
         notes: t('armorMystery201405Notes'),
-        mystery: mystery['201405'],
+        mystery: '201405',
         value: 0
       },
       201406: {
         text: t('armorMystery201406Text'),
         notes: t('armorMystery201406Notes'),
-        mystery: mystery['201406'],
+        mystery: '201406',
         value: 0
       },
       201407: {
         text: t('armorMystery201407Text'),
         notes: t('armorMystery201407Notes'),
-        mystery: mystery['201407'],
+        mystery: '201407',
         value: 0
       },
       201408: {
         text: t('armorMystery201408Text'),
         notes: t('armorMystery201408Notes'),
-        mystery: mystery['201408'],
+        mystery: '201408',
         value: 0
       },
       201409: {
         text: t('armorMystery201409Text'),
         notes: t('armorMystery201409Notes'),
-        mystery: mystery['201409'],
+        mystery: '201409',
         value: 0
       },
       201410: {
         text: t('armorMystery201410Text'),
         notes: t('armorMystery201410Notes'),
-        mystery: mystery['201410'],
+        mystery: '201410',
+        value: 0
+      },
+      301404: {
+        text: t('armorMystery301404Text'),
+        notes: t('armorMystery301404Notes'),
+        mystery: '301404',
         value: 0
       }
     }
@@ -11249,37 +11285,49 @@ gear = {
       201402: {
         text: t('headMystery201402Text'),
         notes: t('headMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201405: {
         text: t('headMystery201405Text'),
         notes: t('headMystery201405Notes'),
-        mystery: mystery['201405'],
+        mystery: '201405',
         value: 0
       },
       201406: {
         text: t('headMystery201406Text'),
         notes: t('headMystery201406Notes'),
-        mystery: mystery['201406'],
+        mystery: '201406',
         value: 0
       },
       201407: {
         text: t('headMystery201407Text'),
         notes: t('headMystery201407Notes'),
-        mystery: mystery['201407'],
+        mystery: '201407',
         value: 0
       },
       201408: {
         text: t('headMystery201408Text'),
         notes: t('headMystery201408Notes'),
-        mystery: mystery['201408'],
+        mystery: '201408',
         value: 0
       },
       201411: {
         text: t('headMystery201411Text'),
         notes: t('headMystery201411Notes'),
-        mystery: mystery['201411'],
+        mystery: '201411',
+        value: 0
+      },
+      301404: {
+        text: t('headMystery301404Text'),
+        notes: t('headMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      },
+      301405: {
+        text: t('headMystery301405Text'),
+        notes: t('headMystery301405Notes'),
+        mystery: '301405',
         value: 0
       }
     }
@@ -11596,6 +11644,14 @@ gear = {
         value: 70,
         con: 9
       }
+    },
+    mystery: {
+      301405: {
+        text: t('shieldMystery301405Text'),
+        notes: t('shieldMystery301405Notes'),
+        mystery: '301405',
+        value: 0
+      }
     }
   },
   back: {
@@ -11610,19 +11666,19 @@ gear = {
       201402: {
         text: t('backMystery201402Text'),
         notes: t('backMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201404: {
         text: t('backMystery201404Text'),
         notes: t('backMystery201404Notes'),
-        mystery: mystery['201404'],
+        mystery: '201404',
         value: 0
       },
       201410: {
         text: t('backMystery201410Text'),
         notes: t('backMystery201410Notes'),
-        mystery: mystery['201410'],
+        mystery: '201410',
         value: 0
       }
     },
@@ -11631,13 +11687,13 @@ gear = {
         text: t('backSpecialWonderconRedText'),
         notes: t('backSpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('backSpecialWonderconBlackText'),
         notes: t('backSpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       }
     }
   },
@@ -11654,19 +11710,19 @@ gear = {
         text: t('bodySpecialWonderconRedText'),
         notes: t('bodySpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_gold: {
         text: t('bodySpecialWonderconGoldText'),
         notes: t('bodySpecialWonderconGoldNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('bodySpecialWonderconBlackText'),
         notes: t('bodySpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       summerHealer: {
         event: events.summer,
@@ -11727,19 +11783,25 @@ gear = {
       201403: {
         text: t('headAccessoryMystery201403Text'),
         notes: t('headAccessoryMystery201403Notes'),
-        mystery: mystery['201403'],
+        mystery: '201403',
         value: 0
       },
       201404: {
         text: t('headAccessoryMystery201404Text'),
         notes: t('headAccessoryMystery201404Notes'),
-        mystery: mystery['201404'],
+        mystery: '201404',
         value: 0
       },
       201409: {
         text: t('headAccessoryMystery201409Text'),
         notes: t('headAccessoryMystery201409Notes'),
-        mystery: mystery['201409'],
+        mystery: '201409',
+        value: 0
+      },
+      301405: {
+        text: t('headAccessoryMystery301405Text'),
+        notes: t('headAccessoryMystery301405Notes'),
+        mystery: '301405',
         value: 0
       }
     }
@@ -11758,13 +11820,13 @@ gear = {
         text: t('eyewearSpecialWonderconRedText'),
         notes: t('eyewearSpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('eyewearSpecialWonderconBlackText'),
         notes: t('eyewearSpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       summerRogue: {
         event: events.summer,
@@ -11779,6 +11841,20 @@ gear = {
         text: t('eyewearSpecialSummerWarriorText'),
         notes: t('eyewearSpecialSummerWarriorNotes'),
         value: 20
+      }
+    },
+    mystery: {
+      301404: {
+        text: t('eyewearMystery301404Text'),
+        notes: t('eyewearMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      },
+      301405: {
+        text: t('eyewearMystery301405Text'),
+        notes: t('eyewearMystery301405Notes'),
+        mystery: '301405',
+        value: 0
       }
     }
   }
@@ -11827,6 +11903,29 @@ _.each(gearTypes, function(type) {
     });
   });
 });
+
+
+/*
+  Time Traveler Store, mystery sets need their items mapped in
+ */
+
+_.each(api.mystery, function(v, k) {
+  return v.items = _.where(api.gear.flat, {
+    mystery: k
+  });
+});
+
+api.timeTravelerStore = function(owned) {
+  var ownedKeys;
+  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
+  return _.reduce(api.mystery, function(m, v, k) {
+    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
+      return m;
+    }
+    m[k] = v;
+    return m;
+  }, {});
+};
 
 
 /*
@@ -13621,6 +13720,43 @@ api.backgrounds = {
       text: t('backgroundStarrySkiesText'),
       notes: t('backgroundStarrySkiesNotes')
     }
+  },
+  backgrounds122014: {
+    iceberg: {
+      text: t('backgroundIcebergText'),
+      notes: t('backgroundIcebergNotes')
+    },
+    twinkly_lights: {
+      text: t('backgroundTwinklyLightsText'),
+      notes: t('backgroundTwinklyLightsNotes')
+    },
+    south_pole: {
+      text: t('backgroundSouthPoleText'),
+      notes: t('backgroundSouthPoleNotes')
+    }
+  }
+};
+
+api.subscriptionBlocks = {
+  "1": {
+    months: 1,
+    price: 5,
+    key: 'basic_earned'
+  },
+  "3": {
+    months: 3,
+    price: 15,
+    key: 'basic_3mo'
+  },
+  "6": {
+    months: 6,
+    price: 30,
+    key: 'basic_6mo'
+  },
+  "12": {
+    months: 12,
+    price: 48,
+    key: 'basic_12mo'
   }
 };
 
@@ -14926,11 +15062,12 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var convCap, convRate, item, key, type, _ref, _ref1, _ref2, _ref3;
+        var convCap, convRate, item, key, type, _ref, _ref1, _ref2;
         _ref = req.params, type = _ref.type, key = _ref.key;
         if (type === 'gems' && key === 'gem') {
-          _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
-          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.planId : void 0 : void 0)) {
+          convRate = api.planGemLimits.convRate;
+          convCap = api.planGemLimits + user.purchased.plan.consecutive.gemCapExtra;
+          if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.planId : void 0 : void 0)) {
             return typeof cb === "function" ? cb({
               code: 401,
               message: "Must subscribe to purchase gems with GP"
@@ -15072,6 +15209,33 @@ api.wrap = function(user, main) {
           code: 200,
           message: message
         }, _.pick(user, $w('items achievements stats'))) : void 0;
+      },
+      buyMysterySet: function(req, cb) {
+        var mysterySet, _ref;
+        if (!(user.purchased.plan.consecutive.trinkets > 0)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You don't have enough Mystic Hourglasses"
+          }) : void 0;
+        }
+        mysterySet = (_ref = content.timeTravelerStore(user.items.gear.owned)) != null ? _ref[req.params.key] : void 0;
+        if ((typeof window !== "undefined" && window !== null ? window.confirm : void 0) != null) {
+          if (!window.confirm("Buy this full set of items for 1 Mystic Hourglass?")) {
+            return;
+          }
+        }
+        if (!mysterySet) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Mystery set not found, or set already owned"
+          }) : void 0;
+        }
+        _.each(mysterySet.items, function(i) {
+          return user.items.gear.owned[i.key] = true;
+        });
+        console.log(user.items.gear.owned);
+        user.purchased.plan.consecutive.trinkets--;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
       },
       sell: function(req, cb) {
         var key, type, _ref;
@@ -15822,7 +15986,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
       if (options == null) {
         options = {};
       }
@@ -15837,12 +16001,6 @@ api.wrap = function(user, main) {
       user.lastCron = now;
       if (user.items.lastDrop.count > 0) {
         user.items.lastDrop.count = 0;
-      }
-      if ((_ref = user.purchased) != null ? (_ref1 = _ref.plan) != null ? _ref1.customerId : void 0 : void 0) {
-        if (moment(user.purchased.plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
-          user.purchased.plan.gemsBought = 0;
-          user.purchased.plan.dateUpdated = new Date();
-        }
       }
       perfect = true;
       clearBuffs = {
@@ -15942,7 +16100,7 @@ api.wrap = function(user, main) {
         date: now,
         value: expTally
       });
-      if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
+      if (!((_ref = user.purchased) != null ? (_ref1 = _ref.plan) != null ? _ref1.customerId : void 0 : void 0)) {
         user.fns.preenUserHistory();
         if (typeof user.markModified === "function") {
           user.markModified('history');
@@ -15963,14 +16121,37 @@ api.wrap = function(user, main) {
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
       }
-      plan = (_ref4 = user.purchased) != null ? _ref4.plan : void 0;
-      if (plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
-        _.merge(user.purchased.plan, {
-          planId: null,
-          customerId: null,
-          paymentMethod: null
-        });
-        user.markModified('purchased.plan');
+      plan = (_ref2 = user.purchased) != null ? _ref2.plan : void 0;
+      if (plan != null ? plan.customerId : void 0) {
+        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+          plan.gemsBought = 0;
+          plan.dateUpdated = new Date();
+          plan.consecutive.count++;
+          if (plan.consecutive.offset > 0) {
+            plan.consecutive.offset--;
+          } else if (plan.consecutive.count % 3 === 0) {
+            plan.consecutive.trinkets++;
+            plan.consecutive.gemCapExtra += 5;
+            if (plan.consecutive.gemCapExtra > 25) {
+              plan.consecutive.gemCapExtra = 25;
+            }
+          }
+        }
+        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+          _.merge(plan, {
+            planId: null,
+            customerId: null,
+            paymentMethod: null
+          });
+          _.merge(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            gemCapExtra: 0
+          });
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased.plan');
+          }
+        }
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);
