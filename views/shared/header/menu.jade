@@ -254,4 +254,4 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
         span {{Shared.silver(user.stats.gp)}}
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
-        .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
+        .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})')
