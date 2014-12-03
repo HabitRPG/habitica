@@ -11,7 +11,7 @@ mixin chatMessages(inbox)
             // this invisible username label is here to push the message text far enough right that the visible label can be floated to this point without covering up any of the text
         markdown(ng-model='::message.text')
         | -
-        span.muted.time(from-now='::message.timestamp')
+        span.muted.time(from-now='::message.timestamp' tooltip="{{::message.timestamp | date:'short'}}")
         unless inbox
           span
             a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
