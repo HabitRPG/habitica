@@ -88,8 +88,8 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               //left-hand size commands
               .task-controls.task-primary
                 a.money.btn-buy.item-btn(ng-click='buy(item)')
-                  span.reward-cost {{item.value}}
                   span.shop_gold
+                  span.reward-cost {{item.value}}
               // main content
               span(ng-class='::{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
               p.task-text {{item.text()}}
