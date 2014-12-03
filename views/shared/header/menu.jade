@@ -47,6 +47,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.inventory.mounts')=env.t('mounts')
               li
                 a(ui-sref='options.inventory.equipment')=env.t('equipment')
+              li
+                a(ui-sref='options.inventory.timetravelers') Time Travelers
             ul.toolbar-submenu
               li
                 a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
@@ -126,6 +128,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(ui-sref='options.inventory.mounts')=env.t('mounts')
             li
               a(ui-sref='options.inventory.equipment')=env.t('equipment')
+            li
+              a(ui-sref='options.inventory.timetravelers') Time Travelers
       li.toolbar-button-dropdown
         a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')
           span=env.t('data')

@@ -93,10 +93,10 @@ GroupSchema.methods.toJSON = function(){
   return doc;
 }
 
-var chatDefaults = module.exports.chatDefaults = function(message,user){
+var chatDefaults = module.exports.chatDefaults = function(msg,user){
   var message = {
     id: shared.uuid(),
-    text: message,
+    text: msg,
     timestamp: +new Date,
     likes: {}
   };
@@ -105,7 +105,7 @@ var chatDefaults = module.exports.chatDefaults = function(message,user){
       uuid: user._id,
       contributor: user.contributor && user.contributor.toObject(),
       backer: user.backer && user.backer.toObject(),
-      user: user.profile.name,
+      user: user.profile.name
     });
   } else {
     message.uuid = 'system';

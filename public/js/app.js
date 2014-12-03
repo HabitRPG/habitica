@@ -2,7 +2,7 @@
 
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
-     'authServices', 'notificationServices', 'guideServices', 'authCtrl',
+     'authServices', 'notificationServices', 'guideServices', 'authCtrl', 'paymentServices',
      'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'infinite-scroll', 'ui.select2', 'angular.filter'])
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
@@ -180,6 +180,10 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.inventory.equipment', {
           url: '/equipment',
           templateUrl: "partials/options.inventory.equipment.html"
+        })
+        .state('options.inventory.timetravelers', {
+          url: '/timetravelers',
+          templateUrl: "partials/options.inventory.timetravelers.html"
         })
 
         // Options > Settings

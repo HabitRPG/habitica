@@ -31,7 +31,12 @@
         "secretAccessKey":"secretAccessKey"
     },
     "PAYPAL":{
-        "billing_plan_id":"billing_plan_id",
+        "billing_plans": {
+            "1":"1",
+            "3":"3",
+            "6":"6",
+            "12":"12"
+        },
         "mode":"sandbox",
         "client_id":"client_id",
         "client_secret":"client_secret"
