@@ -38,7 +38,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.clickMember = function(uid, forceShow) {
         if (User.user._id == uid && !forceShow) {
           if ($state.is('tasks')) {
-            $state.go('options');
+            $state.go('options.profile.avatar');
           } else {
             $state.go('tasks');
           }
