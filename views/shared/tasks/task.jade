@@ -67,10 +67,9 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
 
     // Rewards
     span(ng-show='task.type=="reward"')
-      a.money.btn-buy(ng-click='score(task, "down")')
-        span.reward-cost {{task.value}}
+      a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down")')
         span.shop_gold
-
+        span.reward-cost {{task.value}}
     // Daily & Todos
     span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"')
       input.visuallyhidden.focusable(ng-if='$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='task.type=="todo" && pushTask(task,$index,"bottom"); changeCheck(task)')

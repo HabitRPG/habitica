@@ -453,6 +453,27 @@ form
     li:nth-child(3n + 1):nth-last-child(2) + li
       width: 66.666%
 
+  .btn-buy
+    word-wrap: break-word
+    padding-left: 0.2em
+    text-align: left
+    span
+      position: relative
+      left: -2px
+      &:only-child
+        position: static
+        padding-left: 0.75em
+    
+    &.highValue  // If reward value exceeds three digits, drop the number below the coin icon
+      padding: 0.3em
+      text-align: center
+      span
+        display: block
+        margin: auto
+    .shop_gold + .reward-cost
+      line-height: 1
+      top: -0.1em
+
 .repeat-days
   a
     border-radius: 0.382em
