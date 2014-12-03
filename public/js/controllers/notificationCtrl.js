@@ -170,6 +170,6 @@ habitrpg.controller('NotificationCtrl',
 
     // Show new-stuff modal on load
     if (User.user.flags.newStuff)
-      $rootScope.openModal('newStuff');
+      $rootScope.openModal('newStuff', {size:'lg'});
   }
 ]);
