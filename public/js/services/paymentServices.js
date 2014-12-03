@@ -69,5 +69,10 @@ function($rootScope, User, $http, Content) {
     window.location.href = '/' + plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
   }
 
+  Payments.encodeGift = function(uuid, gift){
+    gift.uuid = uuid;
+    return JSON.stringify(gift);
+  }
+
   return Payments;
 }]);

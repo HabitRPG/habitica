@@ -140,11 +140,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.flash[type].splice($index, 1);
     }
 
-    $rootScope.encodeGift = function(uuid, gift){
-      gift.uuid = uuid;
-      return JSON.stringify(gift);
-    }
-
     $scope.contribText = function(contrib, backer){
       if (!contrib && !backer) return;
       if (backer && backer.npc) return backer.npc;

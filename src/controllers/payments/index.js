@@ -29,12 +29,12 @@ exports.createSubscription = function(data, cb) {
   var recipient = data.gift ? data.gift.member : data.user;
   //if (!recipient.purchased.plan) recipient.purchased.plan = {}; // FIXME double-check, this should never be the case
   var p = recipient.purchased.plan;
-  var months = data.gift ? data.gift.subscription.months : data.sub.months;
+  var months = +(data.gift ? data.gift.subscription.months : data.sub.months);
   var block = shared.content.subscriptionBlocks[months];
 
   if (data.gift) {
     if (p.customerId && !p.dateTerminated) { // User has active plan
-      p.extraMonths += +months;
+      p.extraMonths += months;
     } else {
       p.dateTerminated = moment(p.dateTerminated).add({months: months}).toDate();
     }
@@ -65,7 +65,7 @@ exports.createSubscription = function(data, cb) {
   }
   revealMysteryItems(recipient);
   if(isProduction) {
-    data.gift && utils.txnEmail(data.user, 'subscription-begins');
+    if (!data.gift) utils.txnEmail(data.user, 'subscription-begins');
     utils.ga.event('subscribe', data.paymentMethod).send();
     utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
   }
@@ -102,7 +102,7 @@ exports.buyGems = function(data, cb) {
   (data.gift ? data.gift.member : data.user).balance += amt;
   data.user.purchased.txnCount++;
   if(isProduction) {
-    utils.txnEmail(data.user, 'donation');
+    if (!data.gift) utils.txnEmail(data.user, 'donation');
     utils.ga.event('checkout', data.paymentMethod).send();
     //TODO ga.transaction to reflect whether this is gift or self-purchase
     utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();

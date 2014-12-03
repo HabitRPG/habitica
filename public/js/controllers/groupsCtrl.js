@@ -129,13 +129,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.gift = {
         type: 'gems',
         gems: {amount:0, fromBalance:true},
-        subscription: {months:1},
+        subscription: {months:0},
         message:''
       };
       $scope.sendGift = function(uuid, gift){
         $http.post('/api/v2/members/'+uuid+'/gift', gift).success(function(){
           Notification.text('Gift sent!')
           $rootScope.User.sync();
+          $scope.$close();
         })
       }
     }

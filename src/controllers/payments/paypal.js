@@ -24,12 +24,14 @@ paypal.configure({
 });
 
 var parseErr = function(res, err){
-  var error = err.response ? err.response.message || err.response.details[0].issue : err;
+  //var error = err.response ? err.response.message || err.response.details[0].issue : err;
+  var error = JSON.stringify(err);
   return res.json(400,{err:error});
 }
 
 exports.createBillingAgreement = function(req,res,next){
-  var block = req.session.paypalBlock = shared.content.subscriptionBlocks[req.query.sub];
+  req.session.paypalBlock = req.query.sub;
+  var block = shared.content.subscriptionBlocks[req.query.sub];
   var billingPlanTitle = "HabitRPG Subscription" + ' ($'+block.price+' every '+block.months+' months, recurring)';
   var billingAgreementAttributes = {
     "name": billingPlanTitle,
@@ -51,29 +53,33 @@ exports.createBillingAgreement = function(req,res,next){
 }
 
 exports.executeBillingAgreement = function(req,res,next){
-  async.waterfall([
-    function(cb){
+  var block = shared.content.subscriptionBlocks[req.session.paypalBlock];
+  delete req.session.paypalBlock;
+  async.auto({
+    exec: function (cb) {
       paypal.billingAgreement.execute(req.query.token, {}, cb);
     },
-    function(billingAgreement, cb){
-      User.findById(req.session.userId, function(err, user){
-        if (err) return cb(err);
-        cb(null, {billingAgreement:billingAgreement, user:user});
-      });
+    get_user: function (cb) {
+      User.findById(req.session.userId, cb);
     },
-    function(data, cb){
-      payments.createSubscription({user:data.user, customerId: data.billingAgreement.id, paymentMethod: 'Paypal', sub:req.session.paypalBlock});
-      data.user.save(cb);
-    }
-  ],function(err){
+    create_sub: ['exec', 'get_user', function (cb, results) {
+      payments.createSubscription({
+        user: results.get_user,
+        customerId: results.exec.id,
+        paymentMethod: 'Paypal',
+        sub: block
+      }, cb);
+    }]
+  },function(err){
     if (err) return parseErr(res, err);
     res.redirect('/');
   })
 }
 
-exports.createPayment = function(req, res, next) {
+exports.createPayment = function(req, res) {
   // if we're gifting to a user, put it in session for the `execute()`
-  var gift = req.session.gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+  req.session.gift = req.query.gift || undefined;
+  var gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
   var price = !gift ? 5.00
     : gift.type=='gems' ? Number(gift.gems.amount/4).toFixed(2)
     : Number(shared.content.subscriptionBlocks[gift.subscription.months].price).toFixed(2);
@@ -113,10 +119,11 @@ exports.createPayment = function(req, res, next) {
   });
 }
 
-exports.executePayment = function(req, res, next) {
+exports.executePayment = function(req, res) {
   var paymentId = req.query.paymentId,
     PayerID = req.query.PayerID,
-    gift = req.session.gift;
+    gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
+  delete req.session.gift;
   async.waterfall([
     function(cb){
       paypal.payment.execute(paymentId, {payer_id: PayerID}, cb);
