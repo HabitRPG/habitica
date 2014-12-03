@@ -222,31 +222,29 @@ for $stage in $stages
     content: ''
   label:hover:after,
   label:focus:after
-    content: '¬'
+    content: "\E013"
+    font-family 'Glyphicons Halflings'
     border none
     margin 0
-    font-size: 3.2em
-    line-height: 0.9375em
-    height: 0.9375em
-    width: 1.15em
+    line-height: 1.714285714em
+    height: 1.714285714em
+    width: 1.714285714em
     text-align: center
-    transform: rotate(135deg)
     opacity: 0.5 !important
   label:active:after
     opacity: 0.75 !important
 
   // completed icon
   input[type=checkbox]:checked + label:after
-    content: '¬'
-    font-size: 3.2em
-    line-height: 0.9375em
-    height: 0.9375em
-    width: 1.15em
-    text-align: center
-    transform: rotate(135deg)
-    opacity: 0.75
+    content: "\E013"
+    font-family 'Glyphicons Halflings'
     border none
     margin 0
+    line-height: 1.714285714em
+    height: 1.714285714em
+    width: 1.714285714em
+    text-align: center
+    opacity: 0.75
 
 
 // secondary task commands
