@@ -15233,7 +15233,6 @@ api.wrap = function(user, main) {
         _.each(mysterySet.items, function(i) {
           return user.items.gear.owned[i.key] = true;
         });
-        console.log(user.items.gear.owned);
         user.purchased.plan.consecutive.trinkets--;
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
       },

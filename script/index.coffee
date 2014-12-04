@@ -766,12 +766,10 @@ api.wrap = (user, main=true) ->
       buyMysterySet: (req, cb)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
         mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
-#        console.log {mysterySet, key:req.params.key, store:content.timeTravelerStore(user.items.gear.owned), mysteryItems:content.mystery}
         if window?.confirm?
           return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
         _.each mysterySet.items, (i)->user.items.gear.owned[i.key]=true
-        console.log(user.items.gear.owned)
         user.purchased.plan.consecutive.trinkets--
         cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
