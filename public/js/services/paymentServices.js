@@ -35,7 +35,7 @@ function($rootScope, User, $http, Content) {
       panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
       token: function(res) {
         var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
-        if (data.gift) url += '&gift=' + $rootScope.encodeGift(data.uuid, data.gift);
+        if (data.gift) url += '&gift=' + Payments.encodeGift(data.uuid, data.gift);
         if (data.subscription) url += '&sub='+sub.months;
         $http.post(url, res).success(function() {
           window.location.reload(true);
