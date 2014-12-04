@@ -201,6 +201,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 div(ng-if='user.purchased.plan.planId')
                   button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
                     span.Pet_Currency_Gem.inline-gems
+                    .badge.badge-info.stack-count {{api.planGemLimits + user.purchased.plan.consecutive.gemCapExtra - user.purchased.plan.gemsBought}}
                   p
                     | 20
                     span.shop_gold
