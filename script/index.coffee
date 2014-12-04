@@ -695,6 +695,7 @@ api.wrap = (user, main=true) ->
 
         if type is 'gems' and key is 'gem'
           {convRate} = api.planGemLimits
+          user.purchased.plan.consecutive.gemCapExtra ?= 0 #fixme this necessary?
           convCap = api.planGemLimits + user.purchased.plan.consecutive.gemCapExtra
           return cb?({code:401,message:"Must subscribe to purchase gems with GP"},req) unless user.purchased?.plan?.planId
           return cb?({code:401,message:"Not enough Gold"}) unless user.stats.gp >= convRate

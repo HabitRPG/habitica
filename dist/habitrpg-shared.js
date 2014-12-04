@@ -15062,10 +15062,13 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var convCap, convRate, item, key, type, _ref, _ref1, _ref2;
+        var convCap, convRate, item, key, type, _base, _ref, _ref1, _ref2;
         _ref = req.params, type = _ref.type, key = _ref.key;
         if (type === 'gems' && key === 'gem') {
           convRate = api.planGemLimits.convRate;
+          if ((_base = user.purchased.plan.consecutive).gemCapExtra == null) {
+            _base.gemCapExtra = 0;
+          }
           convCap = api.planGemLimits + user.purchased.plan.consecutive.gemCapExtra;
           if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.planId : void 0 : void 0)) {
             return typeof cb === "function" ? cb({
