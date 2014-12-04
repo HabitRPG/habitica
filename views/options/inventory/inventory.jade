@@ -37,13 +37,12 @@ script(type='text/ng-template', id='partials/options.inventory.timetravelers.htm
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title Mysterious Time Travelers
+          h3.popover-title=env.t('timeTravelersTitle')
           .popover-content
             .pull-right
               span.inventory_special_trinket.inline-gems
               b x{{user.purchased.plan.consecutive.trinkets}}
-            p We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>here</a>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?
-
+            p=env.t("timeTravelersPopover")
       .col-md-12
         li.customize-menu.inventory-gear
           menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
@@ -110,7 +109,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
               div(ng-if='user.purchased.plan.consecutive.trinkets')
-                button.customize-option(popover="Mystic Hourglass allow you to purchase previous months' subscriber sets.", popover-trigger='mouseenter', popover-placement='right', class='inventory_special_trinket', ng-click="$state.go('options.inventory.timetravelers')")
+                button.customize-option(popover=env.t('mysticHourglassPopover'), popover-trigger='mouseenter', popover-placement='right', class='inventory_special_trinket', ng-click="$state.go('options.inventory.timetravelers')")
                   .badge.badge-info.stack-count {{user.purchased.plan.consecutive.trinkets}}
 
       .col-md-6
