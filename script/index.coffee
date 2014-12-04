@@ -1393,6 +1393,28 @@ api.wrap = (user, main=true) ->
       perfect = true
       clearBuffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
 
+      # end-of-month perks for subscribers
+      plan = user.purchased?.plan
+      if plan?.customerId
+        if moment(plan.dateUpdated).format('MMYYYY') != moment().format('MMYYYY')
+          plan.gemsBought = 0 # reset gem-cap
+          plan.dateUpdated = new Date()
+          # For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
+          # If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
+          # TODO use month diff instead of ++ / --?
+          plan.consecutive.count++
+          if plan.consecutive.offset > 0
+            plan.consecutive.offset--
+          else if plan.consecutive.count%3==0 # every 3 months
+            plan.consecutive.trinkets++
+            plan.consecutive.gemCapExtra+=5
+            plan.consecutive.gemCapExtra=25 if plan.consecutive.gemCapExtra>25 # cap it at 50 (hard 25 limit + extra 25)
+        # If user cancelled subscription, we give them until 30day's end until it terminates
+        if plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
+          _.merge plan, {planId:null, customerId:null, paymentMethod:null}
+          _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
+          user.markModified? 'purchased.plan'
+
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
       if user.preferences.sleep is true
@@ -1473,28 +1495,6 @@ api.wrap = (user, main=true) ->
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
-
-      # end-of-month perks for subscribers
-      plan = user.purchased?.plan
-      if plan?.customerId
-        if moment(plan.dateUpdated).format('MMYYYY') != moment().format('MMYYYY')
-          plan.gemsBought = 0 # reset gem-cap
-          plan.dateUpdated = new Date()
-          # For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
-          # If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
-          # TODO use month diff instead of ++ / --?
-          plan.consecutive.count++
-          if plan.consecutive.offset > 0
-            plan.consecutive.offset--
-          else if plan.consecutive.count%3==0 # every 3 months
-            plan.consecutive.trinkets++
-            plan.consecutive.gemCapExtra+=5
-            plan.consecutive.gemCapExtra=25 if plan.consecutive.gemCapExtra>25 # cap it at 50 (hard 25 limit + extra 25)
-        # If user cancelled subscription, we give them until 30day's end until it terminates
-        if plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
-          _.merge plan, {planId:null, customerId:null, paymentMethod:null}
-          _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
-          user.markModified? 'purchased.plan'
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress

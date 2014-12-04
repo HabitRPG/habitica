@@ -16013,6 +16013,38 @@ api.wrap = function(user, main) {
         stealth: 0,
         streaks: false
       };
+      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
+      if (plan != null ? plan.customerId : void 0) {
+        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+          plan.gemsBought = 0;
+          plan.dateUpdated = new Date();
+          plan.consecutive.count++;
+          if (plan.consecutive.offset > 0) {
+            plan.consecutive.offset--;
+          } else if (plan.consecutive.count % 3 === 0) {
+            plan.consecutive.trinkets++;
+            plan.consecutive.gemCapExtra += 5;
+            if (plan.consecutive.gemCapExtra > 25) {
+              plan.consecutive.gemCapExtra = 25;
+            }
+          }
+        }
+        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+          _.merge(plan, {
+            planId: null,
+            customerId: null,
+            paymentMethod: null
+          });
+          _.merge(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            gemCapExtra: 0
+          });
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased.plan');
+          }
+        }
+      }
       if (user.preferences.sleep === true) {
         user.stats.buffs = clearBuffs;
         return;
@@ -16102,7 +16134,7 @@ api.wrap = function(user, main) {
         date: now,
         value: expTally
       });
-      if (!((_ref = user.purchased) != null ? (_ref1 = _ref.plan) != null ? _ref1.customerId : void 0 : void 0)) {
+      if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0)) {
         user.fns.preenUserHistory();
         if (typeof user.markModified === "function") {
           user.markModified('history');
@@ -16122,38 +16154,6 @@ api.wrap = function(user, main) {
       user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
-      }
-      plan = (_ref2 = user.purchased) != null ? _ref2.plan : void 0;
-      if (plan != null ? plan.customerId : void 0) {
-        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
-          plan.gemsBought = 0;
-          plan.dateUpdated = new Date();
-          plan.consecutive.count++;
-          if (plan.consecutive.offset > 0) {
-            plan.consecutive.offset--;
-          } else if (plan.consecutive.count % 3 === 0) {
-            plan.consecutive.trinkets++;
-            plan.consecutive.gemCapExtra += 5;
-            if (plan.consecutive.gemCapExtra > 25) {
-              plan.consecutive.gemCapExtra = 25;
-            }
-          }
-        }
-        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
-          _.merge(plan, {
-            planId: null,
-            customerId: null,
-            paymentMethod: null
-          });
-          _.merge(plan.consecutive, {
-            count: 0,
-            offset: 0,
-            gemCapExtra: 0
-          });
-          if (typeof user.markModified === "function") {
-            user.markModified('purchased.plan');
-          }
-        }
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);
