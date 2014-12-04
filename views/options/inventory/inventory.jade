@@ -27,10 +27,14 @@ script(type='text/ng-template', id='partials/options.inventory.timetravelers.htm
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title Tyler and Vicky
+          h3.popover-title=env.t('timeTravelersTitleNoSub')
           .popover-content
-            p You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>Subscribers</a> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.
-
+            p
+              =env.t('timeTravelersPopoverNoSub1') + ' '
+              | <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'> 
+              =env.t('timeTravelersPopoverNoSub2')
+              </a>
+              = ' ' + env.t('timeTravelersPopoverNoSub3')
     .row.stable(ng-if='user.purchased.plan.consecutive.trinkets > 0')
       .col-md-2
         .npc_timetravelers_active
@@ -42,7 +46,13 @@ script(type='text/ng-template', id='partials/options.inventory.timetravelers.htm
             .pull-right
               span.inventory_special_trinket.inline-gems
               b x{{user.purchased.plan.consecutive.trinkets}}
-            p=env.t("timeTravelersPopover")
+            p
+              =env.t('timeTravelersPopover1') + ' '
+              | <a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>
+              =env.t('timeTravelersPopover2')
+              | </a>
+              =env.t('timeTravelersPopover3')
+
       .col-md-12
         li.customize-menu.inventory-gear
           menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
