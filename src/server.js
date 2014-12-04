@@ -9,9 +9,10 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
 if (cluster.isMaster && (isDev || isProd)) {
-  // Fork workers.
-  var cpus = require('os').cpus();
-  _.times(nconf.get("HEROKU_PROD") ? (cpus.length-1 || 1) : (_.min([cpus.length,2])), cluster.fork);
+  // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
+  var cpus = require('os').cpus(),
+    cores = +nconf.get("CORES");
+  _.times(cores || cpus.length-1, cluster.fork);
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
