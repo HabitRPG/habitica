@@ -60,5 +60,8 @@
     "checkout": "Checkout",
     "buySubsText": "Buy gems with Gold, No Ads, Support the Devs",
     "sureCancelSub": "Are you sure you want to cancel your subscription?",
-    "subCanceled": "Subscription will become inactive on"
+    "subCanceled": "Subscription will become inactive on",
+    "timeTravelersTitle": "Mysterious Time Travelers",
+    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>here</a>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
+    "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets."
 }
