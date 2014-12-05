@@ -109,12 +109,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         if(!message.flags) message.flags = {};
         if(message.flags[User.user._id]) 
           Notification.text(window.env.t('abuseAlreadyReported'));
-        $scope.abuseObject = message;
-        Members.selectMember(message.uuid, function(){
-          $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl',
-          scope: $scope
+        else {
+          $scope.abuseObject = message;
+          Members.selectMember(message.uuid, function(){
+            $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl',
+            scope: $scope
+            });
           });
-        });
+        }
       }
     }
   ])
