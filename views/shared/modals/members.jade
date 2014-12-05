@@ -96,3 +96,5 @@ script(type='text/ng-template', id='modals/abuse-flag.html')
   .modal-body
     h4!=env.t('abuseFlagModalBody', {firstLinkStart: "<a href='/static/community-guidelines' target='_blank'>", secondLinkStart: "<a href='/static/terms' target='_blank'>", linkEnd: "</a>"})
   .modal-footer
+    button.btn.btn-primary(ng-click='$close()')=env.t('cancel')
+    button.btn.btn-default(ng-click='reportAbuse(user, abuseObject)')=env.t("abuseFlagModalButton")
