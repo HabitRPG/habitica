@@ -92,5 +92,7 @@ script(type='text/ng-template', id='modals/send-gift.html')
 
 script(type='text/ng-template', id='modals/flag.html')
   .modal-header
+    h4=env.t('flagModalHeading', {name: "{{profile.profile.name}}"})
   .modal-body
+    h4!=env.t('flagModalBody', {firstLinkStart: "<a href='/static/community-guidelines' target='_blank'>", secondLinkStart: "<a href='/static/terms' target='_blank'>", linkEnd: "</a>"})
   .modal-footer
