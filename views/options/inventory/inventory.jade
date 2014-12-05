@@ -197,7 +197,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     | 4
                     span.Pet_Currency_Gem1x.inline-gems
-                div(ng-if='user.purchased.plan.planId')
+                div(ng-if='user.purchased.plan.customerId')
                   button.customize-option(popover=env.t('subGemPop'), popover-title=env.t('subGemName'), popover-trigger='mouseenter', popover-placement='top',ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
                     span.Pet_Currency_Gem.inline-gems
                     .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}
