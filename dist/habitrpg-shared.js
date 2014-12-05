@@ -15067,7 +15067,7 @@ api.wrap = function(user, main) {
         if (type === 'gems' && key === 'gem') {
           _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
           convCap += user.purchased.plan.consecutive.gemCapExtra;
-          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.planId : void 0 : void 0)) {
+          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
             return typeof cb === "function" ? cb({
               code: 401,
               message: "Must subscribe to purchase gems with GP"

@@ -696,7 +696,7 @@ api.wrap = (user, main=true) ->
         if type is 'gems' and key is 'gem'
           {convRate, convCap} = api.planGemLimits
           convCap += user.purchased.plan.consecutive.gemCapExtra
-          return cb?({code:401,message:"Must subscribe to purchase gems with GP"},req) unless user.purchased?.plan?.planId
+          return cb?({code:401,message:"Must subscribe to purchase gems with GP"},req) unless user.purchased?.plan?.customerId
           return cb?({code:401,message:"Not enough Gold"}) unless user.stats.gp >= convRate
           return cb?({code:401,message:"You've reached the Gold=>Gem conversion cap (#{convCap}) for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."}) if user.purchased.plan.gemsBought >= convCap
           user.balance += .25
