@@ -27,22 +27,21 @@ script(type='text/ng-template', id='partials/options.inventory.timetravelers.htm
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title Tyler and Vicky
+          h3.popover-title=env.t('timeTravelersTitleNoSub')
           .popover-content
-            p You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>Subscribers</a> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.
-
+            p!=env.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
     .row.stable(ng-if='user.purchased.plan.consecutive.trinkets > 0')
       .col-md-2
         .npc_timetravelers_active
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title Mysterious Time Travelers
+          h3.popover-title=env.t('timeTravelersTitle')
           .popover-content
             .pull-right
               span.inventory_special_trinket.inline-gems
               b x{{user.purchased.plan.consecutive.trinkets}}
-            p We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>here</a>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?
+            p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
 
       .col-md-12
         li.customize-menu.inventory-gear
@@ -110,7 +109,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
               div(ng-if='user.purchased.plan.consecutive.trinkets')
-                button.customize-option(popover="Mystic Hourglass allow you to purchase previous months' subscriber sets.", popover-trigger='mouseenter', popover-placement='right', class='inventory_special_trinket', ng-click="$state.go('options.inventory.timetravelers')")
+                button.customize-option(popover=env.t('mysticHourglassPopover'), popover-trigger='mouseenter', popover-placement='right', class='inventory_special_trinket', ng-click="$state.go('options.inventory.timetravelers')")
                   .badge.badge-info.stack-count {{user.purchased.plan.consecutive.trinkets}}
 
       .col-md-6
