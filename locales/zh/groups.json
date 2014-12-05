@@ -24,7 +24,7 @@
     "noPartyText": "要么你不在一个队伍中，要么你的队伍需要一段时间来加载。你可以创建一个队伍并邀请朋友。或者，如果你想加入一个队伍，你可以把下方的你的唯一用户 ID 给他们，然后来这里查看邀请信息。",
     "startLFG": "要给你的队伍做广告找人加入，去维基上的",
     "linkLFG": "The Archery",
-    "endLFG": "。",
+    "endLFG": "在Wiki上。",
     "create": "建立",
     "userId": "用户ID",
     "invite": "邀请",
@@ -45,7 +45,7 @@
     "assignLeader": "任命队长",
     "members": "成员(们)",
     "partyList": "给队伍成员的置顶讯息(更改讯息后请重新载入浏览器)",
-    "banTip": "Boot Member",
+    "banTip": "引导成员",
     "moreMembers": "更多成员",
     "invited": "已邀请",
     "leaderMsg": "公会会长的消息 (支持标记语言)",
@@ -79,8 +79,8 @@
     "pmHeading": "向<%= name %>发私信",
     "clearAll": "清除所有",
     "clearAllPopover": "删除所有消息",
-    "optOutPopover": "Don't like private messages? Click to completely opt out",
+    "optOutPopover": "不喜欢私信？点击不再接收",
     "block": "阻止",
-    "unblock": "Un-block",
+    "unblock": "解锁",
     "pm-reply": "发送回复"
 }
