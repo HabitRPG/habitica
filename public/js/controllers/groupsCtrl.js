@@ -105,9 +105,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
         });
       }
-      $scope.flagChat = function(uid) {
-        Members.selectMember(uid, function(){
-          $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl'});
+      $scope.flagChat = function(message) {
+        $scope.abuseObject = message;
+        Members.selectMember(message.uuid, function(){
+          $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl',
+          scope: $scope
+          });
         });
       }
     }
@@ -143,6 +146,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.User.sync();
           $scope.$close();
         })
+      }
+      $scope.reportAbuse = function(reporter, message) {
+        Notification.text(window.env.t('abuseReported'));
+        $rootScope.User.sync();
+        $scope.$close();
       }
     }
   ])
