@@ -40,3 +40,8 @@
 [class*="Mount_Head_"], [class*="Mount_Body_"]{
   margin-top:18px; /* Sprite accommodates 105x123 box */
 }
+
+.Pet_Currency_Gem {
+  margin-top: 5px;
+  margin-bottom: 5px
+}

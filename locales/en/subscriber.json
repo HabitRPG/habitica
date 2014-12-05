@@ -60,5 +60,7 @@
     "checkout": "Checkout",
     "buySubsText": "Buy gems with Gold, No Ads, Support the Devs",
     "sureCancelSub": "Are you sure you want to cancel your subscription?",
-    "subCanceled": "Subscription will become inactive on"
+    "subCanceled": "Subscription will become inactive on",
+    "subGemPop": "Because you subscribe to HabitRPG, you can purchase a number of Gems each month using Gold. You can see how many Gems are available to buy at the corner of the Gem icon.",
+    "subGemName": "Subscriber Gems"
 }
