@@ -107,6 +107,9 @@ for $stage in $stages
   line-height: 1.4
   word-wrap: break-word
 
+  markdown > ul > li // Otherwise, + gets turned into a bullet and gets maksed by buttons
+    margin-left:20px
+
   span.emoji
     width:1.5em
     height:1.5em
