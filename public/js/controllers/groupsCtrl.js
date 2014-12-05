@@ -106,6 +106,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
       }
       $scope.flagChatMessage = function(message) {
+        if(!message.flags) message.flags = {};
+        if(message.flags[User.user._id]) 
+          Notification.text(window.env.t('abuseAlreadyReported'));
         $scope.abuseObject = message;
         Members.selectMember(message.uuid, function(){
           $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl',
@@ -148,8 +151,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         })
       }
       $scope.reportAbuse = function(reporter, message) {
-        if(!message.flags) message.flags = {};
-        message.flags[User.user._id] = true;
+        message.flags[reporter._id] = true;
         // Post to API should look something like this
         //$http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/flag');
         Notification.text(window.env.t('abuseReported'));
