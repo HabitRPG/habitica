@@ -138,7 +138,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
           .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges track by challenge._id ')
             .panel-heading
               ul.pull-right.challenge-accordion-header-specs
-                li.transparent(ng-if='challenge.official')
+                li.bg-transparent(ng-if='challenge.official')
                   span.label.label-success=env.t('officialChallenge')
                 li {{challenge.group.name}}
                 li
@@ -154,7 +154,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     span.inline-block.Pet_Currency_Gem1x
                     | &nbsp;
                     =env.t('prize')
-                li.transparent
+                li.bg-transparent
                   // leave / join
                   a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
                     span.glyphicon.glyphicon-ban-circle
