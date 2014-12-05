@@ -148,6 +148,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         })
       }
       $scope.reportAbuse = function(reporter, message) {
+        if(!message.flags) message.flags = {};
+        message.flags[User.user._id] = true;
+        // Post to API should look something like this
+        //$http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/flag');
         Notification.text(window.env.t('abuseReported'));
         $rootScope.User.sync();
         $scope.$close();
