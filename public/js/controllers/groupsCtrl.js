@@ -105,7 +105,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
         });
       }
-      $scope.flagChat = function(message) {
+      $scope.flagChatMessage = function(message) {
         $scope.abuseObject = message;
         Members.selectMember(message.uuid, function(){
           $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl',
