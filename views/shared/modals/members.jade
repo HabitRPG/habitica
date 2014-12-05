@@ -90,9 +90,9 @@ script(type='text/ng-template', id='modals/send-gift.html')
     a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::user.apiToken}}&gift={{Payments.encodeGift(profile._id, gift)}}') PayPal
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
 
-script(type='text/ng-template', id='modals/flag.html')
+script(type='text/ng-template', id='modals/abuse-flag.html')
   .modal-header
-    h4=env.t('flagModalHeading', {name: "{{profile.profile.name}}"})
+    h4=env.t('abuseFlagModalHeading', {name: "{{profile.profile.name}}"})
   .modal-body
-    h4!=env.t('flagModalBody', {firstLinkStart: "<a href='/static/community-guidelines' target='_blank'>", secondLinkStart: "<a href='/static/terms' target='_blank'>", linkEnd: "</a>"})
+    h4!=env.t('abuseFlagModalBody', {firstLinkStart: "<a href='/static/community-guidelines' target='_blank'>", secondLinkStart: "<a href='/static/terms' target='_blank'>", linkEnd: "</a>"})
   .modal-footer
