@@ -26,7 +26,7 @@ mixin chatMessages(inbox)
         a(ng-click='#{inbox? "user.ops.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}', ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}')
           span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
         a(ng-click="flagChat(message.uuid)", ng-if='#{inbox ? "true" : ":: message.uuid != user.id"}')
-          span.glyphicon.glyphicon-flag(tooltip=env.t('flag'))
+          span.glyphicon.glyphicon-flag(tooltip=env.t('abuseFlag'))
       span.float-label
         a.label.label-default.chat-message(ng-if=':: message.user', ng-class='::userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
           span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')
