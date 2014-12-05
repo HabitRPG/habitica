@@ -98,7 +98,8 @@ var chatDefaults = module.exports.chatDefaults = function(msg,user){
     id: shared.uuid(),
     text: msg,
     timestamp: +new Date,
-    likes: {}
+    likes: {},
+    flags: {}
   };
   if (user) {
     _.defaults(message, {
