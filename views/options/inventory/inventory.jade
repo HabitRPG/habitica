@@ -27,7 +27,7 @@ script(type='text/ng-template', id='partials/options.inventory.timetravelers.htm
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title=env.t('timeTravelersTitleNoSub')
+          h3.popover-title!=env.t('timeTravelersTitleNoSub', {linkStartTyler: "<a href='https://github.com/lefnire' target='_blank'>", linkStartVicky: "<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
             p!=env.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
     .row.stable(ng-if='user.purchased.plan.consecutive.trinkets > 0')
