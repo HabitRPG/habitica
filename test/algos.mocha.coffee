@@ -66,7 +66,7 @@ beforeAfter = (options={}) ->
   if options.limitOne
     before["#{options.limitOne}s"] = [before["#{options.limitOne}s"][0]]
     after["#{options.limitOne}s"] = [after["#{options.limitOne}s"][0]]
-  lastCron = +(moment(options.now || +new Date).subtract('days', options.daysAgo)) if options.daysAgo
+  lastCron = +(moment(options.now || +new Date).subtract(options.daysAgo, 'days')) if options.daysAgo
   _.each [before,after], (obj) ->
     obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
@@ -156,7 +156,7 @@ describe 'User', ->
     user = newUser()
     user.dailys = []
     _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
-    cron = -> user.lastCron = moment().subtract('days',1);user.fns.cron()
+    cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
 
     cron()
     expect(user.stats.buffs.str).to.be 0
@@ -173,7 +173,7 @@ describe 'User', ->
     expect(user.achievements.perfect).to.be 1
 
     # Handle greyed-out dailys
-    yesterday = moment().subtract('days',1);
+    yesterday = moment().subtract(1,'days');
     user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
     _.each user.dailys[1..], (d)->d.completed = true
     cron()
@@ -213,8 +213,8 @@ describe 'User', ->
       delete user.items.gear.owned['head_special_nye']
       expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be false
 
-      shared.content.gear.flat.head_special_nye.event.start = moment().subtract('days',5)
-      shared.content.gear.flat.head_special_nye.event.end = moment().add('days',5)
+      shared.content.gear.flat.head_special_nye.event.start = moment().subtract(5,'days')
+      shared.content.gear.flat.head_special_nye.event.end = moment().add(5,'days')
       expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be true
 
 
@@ -406,7 +406,7 @@ describe 'Cron', ->
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.not.be.ok # it setup the cron property now
 
-    user.lastCron = +moment().subtract('days',1)
+    user.lastCron = +moment().subtract(1,'days')
     
     # this is hacky but should fix things for the moment
     user.flags.freeRebirth = true
@@ -414,7 +414,7 @@ describe 'Cron', ->
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.be.greaterThan 0
 
-#    user.lastCron = +moment().add('days',1)
+#    user.lastCron = +moment().add(1,'days')
 #    paths = {};algos.cron user, {paths}
 #    expect(paths.lastCron).to.be true # busted cron (was set to after today's date)
 
@@ -521,7 +521,7 @@ describe 'Cron', ->
       
       runCron = (options) ->
         _.each [480, 240, 0, -120], (timezoneOffset) -> # test different timezones
-          now = shared.startOfWeek({timezoneOffset}).add('hours', options.currentHour||0)
+          now = shared.startOfWeek({timezoneOffset}).add(options.currentHour||0, 'hours')
           {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
@@ -593,10 +593,10 @@ describe 'Cron', ->
 
     it 'calculates day differences with dayStart properly', ->
       dayStart = 4
-      yesterday = shared.startOfDay {now: moment().subtract('d', 1), dayStart}
+      yesterday = shared.startOfDay {now: moment().subtract(1, 'd'), dayStart}
       now = shared.startOfDay {dayStart: dayStart-1}
       expect(shared.daysSince(yesterday, {now, dayStart})).to.eql 0
-      now = moment().startOf('day').add('h', dayStart).add('m', 1)
+      now = moment().startOf('day').add(dayStart, 'h').add(1, 'm')
       expect(shared.daysSince(yesterday, {now, dayStart})).to.eql 1
 
 describe 'Helper', ->
