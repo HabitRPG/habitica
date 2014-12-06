@@ -99,7 +99,7 @@ var chatDefaults = module.exports.chatDefaults = function(msg,user){
     text: msg,
     timestamp: +new Date,
     likes: {},
-    flags: {}
+    flags: {} // for @paglias, @crookedneighbor added this. 
   };
   if (user) {
     _.defaults(message, {
