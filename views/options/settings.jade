@@ -250,12 +250,13 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
-            each block in env.Content.subscriptionBlocks
-              .radio
-                label
-                  input(type="radio", name="subRadio", value="#{block.months}", ng-model='_subscription.months')
-                  //-| #{block.months} Month(s) Recurring: $#{block.price} #{env.t('monthUSD')}
-                  | Recurring $#{block.price} each #{block.months} Month(s)
+            if env.Content.subscriptionBlocks
+              each block in env.Content.subscriptionBlocks
+                .radio
+                  label
+                    input(type="radio", name="subRadio", value="#{block.months}", ng-model='_subscription.months')
+                    //-| #{block.months} Month(s) Recurring: $#{block.price} #{env.t('monthUSD')}
+                    | Recurring $#{block.price} each #{block.months} Month(s)
 
           h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)') Resubscribe
           a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.months})', ng-disabled='!_subscription.months') Card
