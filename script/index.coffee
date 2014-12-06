@@ -1401,6 +1401,7 @@ api.wrap = (user, main=true) ->
           # For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
           # If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
           # TODO use month diff instead of ++ / --?
+          _.defaults plan.consecutive, {count:0, offset:0, trinkets:0, gemCapExtra:0} #fixme see https://github.com/HabitRPG/habitrpg/issues/4317
           plan.consecutive.count++
           if plan.consecutive.offset > 0
             plan.consecutive.offset--

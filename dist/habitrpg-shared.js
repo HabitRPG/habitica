@@ -16015,6 +16015,12 @@ api.wrap = function(user, main) {
         if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
           plan.gemsBought = 0;
           plan.dateUpdated = new Date();
+          _.defaults(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            trinkets: 0,
+            gemCapExtra: 0
+          });
           plan.consecutive.count++;
           if (plan.consecutive.offset > 0) {
             plan.consecutive.offset--;
