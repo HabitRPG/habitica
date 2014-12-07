@@ -105,24 +105,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
         });
       }
-      $scope.flagChatMessage = function(message) {
-        if(!message.flags) message.flags = {};
-        if(message.flags[User.user._id]) 
-          Notification.text(window.env.t('abuseAlreadyReported'));
-        else {
-          $scope.abuseObject = message;
-          Members.selectMember(message.uuid, function(){
-            $rootScope.openModal('abuse-flag',{controller:'MemberModalCtrl',
-            scope: $scope
-            });
-          });
-        }
-      }
     }
   ])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification',
-    function($scope, $rootScope, Members, Shared, $http, Notification) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format('MM/DD/YYYY');
       }
@@ -152,12 +139,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $scope.$close();
         })
       }
-      $scope.reportAbuse = function(reporter, message) {
+      $scope.reportAbuse = function(reporter, message, groupId) {
         message.flags[reporter._id] = true;
-        // @TODO @paglias API Call goes here
-        Notification.text(window.env.t('abuseReported'));
-        $rootScope.User.sync();
-        $scope.$close();
+        Groups.Group.flagChatMessage({gid: groupId, messageId: message.id}, undefined, function(data){
+          Notification.text(window.env.t('abuseReported'));
+          $scope.$close();
+        });        
       }
     }
   ])
@@ -217,7 +204,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     });
   }])
   
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', function($scope, Groups, User, $http, ApiUrlService, Notification){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrlService, Notification, Members, $rootScope){
     $scope.message = {content:''};
     $scope._sending = false;
     
@@ -280,6 +267,22 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       //Chat.Chat.like({gid:group._id,mid:message.id});
 
       $http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
+    }
+
+    $scope.flagChatMessage = function(groupId,message) {
+      if(!message.flags) message.flags = {};
+      if(message.flags[User.user._id]) 
+        Notification.text(window.env.t('abuseAlreadyReported'));
+      else {
+        $scope.abuseObject = message;
+        $scope.groupId = groupId;
+        Members.selectMember(message.uuid, function(){
+          $rootScope.openModal('abuse-flag',{
+            controller:'MemberModalCtrl',
+            scope: $scope
+          });
+        });
+      }
     }
 
     $scope.sync = function(group){

@@ -577,6 +577,17 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.likeChatMessage
 
+    "/groups/{gid}/chat/{mid}/flag":
+      spec:
+        method: 'POST'
+        description: "Flag a chat message"
+        parameters: [
+          path 'gid','Group id','string'
+          path 'mid','Message id','string'
+        ]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.flagChatMessage
+
     # ---------------------------------
     # Members
     # ---------------------------------
