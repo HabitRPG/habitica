@@ -52,10 +52,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             =env.t('members')
             button.pull-right.btn.btn-primary(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})", ng-if='::group.type=="party"') Invite Friends
         .panel-body.modal-fixed-height
-          div(ng-if='::group.type=="party"')
+          div.form-group(ng-if='::group.type=="party"')
             =env.t('partyList')
-            br
-            select#partyOrder(
+            select.form-control#partyOrder(
               ng-model='user.party.order',
               ng-controller='ChatCtrl',
               ng-options='k as v for (k , v) in partyOrderChoices',
