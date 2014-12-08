@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.social.party.html')
       include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
-  div(ng-repeat='invitation in user.invitations.guilds')
+  div.col-xs-12(ng-repeat='invitation in user.invitations.guilds' style='margin-bottom: 1.5em')
     h3=env.t('invitedTo', {name: '{{invitation.name}}'})
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
