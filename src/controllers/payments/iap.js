@@ -5,7 +5,8 @@ var nconf = require('nconf');
 
 var inAppPurchase = require('in-app-purchase');
 inAppPurchase.config({
-    googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR") // this is the path to the directory containing iap-sanbox/iap-live files
+  // this is the path to the directory containing iap-sanbox/iap-live files
+  googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR") 
 });
 
 // Validation ERROR Codes
@@ -19,24 +20,24 @@ exports.androidVerify = function(req, res, next) {
 
   iap.setup(function (error) {
     if (error) {
-        var resObj = {
-          ok: false,
-          data: 'IAP Error'
-        };
+      var resObj = {
+        ok: false,
+        data: 'IAP Error'
+      };
     
-        console.error('IAP Setup ERROR');
-        console.error(error);
+      console.error('IAP Setup ERROR');
+      console.error(error);
         
-        res.json(resObj);
+      res.json(resObj);
         
-        return;
+      return;
     }
     
     /*
-        google receipt must be provided as an object
-        {
-            "data": "{stringified data object}",
-            "signature": "signature from google"
+      google receipt must be provided as an object
+      {
+        "data": "{stringified data object}",
+        "signature": "signature from google"
         }
     */
     var testObj = {
@@ -46,33 +47,34 @@ exports.androidVerify = function(req, res, next) {
     
     // iap is ready
     iap.validate(iap.GOOGLE, testObj, function (err, googleRes) {
-        if (err) {
-          var resObj = {
-            ok: false,
-            data: {
-              code: INVALID_PAYLOAD,
-              message: err.toString()
-            }
-          };
-         
-          res.json(resObj);
-          console.error(err);
-          return;
-        }
-        if (iap.isValidated(googleRes)) {
-            var resObj = {
-              ok: true,
-              data: googleRes
-            };
+      if (err) {
+        var resObj = {
+          ok: false,
+          data: {
+            code: INVALID_PAYLOAD,
+            message: err.toString()
+          }
+        };
+
+        res.json(resObj);
+        console.error(err);
+        return;
+      }
+
+      if (iap.isValidated(googleRes)) {
+        var resObj = {
+          ok: true,
+          data: googleRes
+        };
+
+        payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP GooglePlay'});
+        user.save();
             
-             payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP GooglePlay'});
-            user.save();
-            
-            // yay good!
-            res.json(resObj);
-        }
+        // yay good!
+        res.json(resObj);
+      }
     });
-});
+  });
 };
 
 exports.iosVerify = function(req, res, next) {
@@ -83,46 +85,47 @@ exports.iosVerify = function(req, res, next) {
 
   iap.setup(function (error) {
     if (error) {
-        var resObj = {
-          ok: false,
-          data: 'IAP Error'
-        };
-    
-        console.error('IAP Setup ERROR');
-        console.error(error);
-        
-        res.json(resObj);
-        
-        return;
+      var resObj = {
+        ok: false,
+        data: 'IAP Error'
+      };
+
+      console.error('IAP Setup ERROR');
+      console.error(error);
+
+      res.json(resObj);
+
+      return;
     }
     
     // iap is ready
     iap.validate(iap.APPLE, iapBody.transaction.receipt, function (err, appleRes) {
-        if (err) {
-          var resObj = {
-            ok: false,
-            data: {
-              code: INVALID_PAYLOAD,
-              message: err.toString()
-            }
-          };
-         
-          res.json(resObj);
-          console.error(err);
-          return;
-        }
-        if (iap.isValidated(appleRes)) {
-            var resObj = {
-              ok: true,
-              data: appleRes
-            };
+      if (err) {
+        var resObj = {
+          ok: false,
+          data: {
+            code: INVALID_PAYLOAD,
+            message: err.toString()
+          }
+        };
+
+        res.json(resObj);
+        console.error(err);
+        return;
+      }
+
+      if (iap.isValidated(appleRes)) {
+        var resObj = {
+          ok: true,
+          data: appleRes
+        };
+
+        payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP AppleStore'});
+        user.save();
             
-             payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP AppleStore'});
-            user.save();
-            
-            // yay good!
-            res.json(resObj);
-        }
+        // yay good!
+        res.json(resObj);
+      }
     });
-});
+  });
 };
