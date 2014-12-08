@@ -57,7 +57,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
         ul.pull-right.challenge-accordion-header-specs
           li='{{::group.memberCount}} ' + env.t('members')
           // join / leave
-          li
+          li.bg-transparent
             a.btn.btn-sm.btn-danger(ng-if="::group._isMember", ng-click='clickLeave(group, $event)')
               span.glyphicon.glyphicon-ban-circle
               =env.t('leave')
