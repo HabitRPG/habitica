@@ -1315,6 +1315,24 @@ api.quests =
       gp: 37
       exp: 275
 
+  penguin:
+    text: t('questPenguinText')
+    notes: t('questPenguinNotes')
+    completion: t('questPenguinCompletion')
+    value: 4
+    boss:
+      name: t('questPenguinBoss')
+      hp: 400
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Penguin', text: t('questPenguinDropPenguinEgg')}
+        {type: 'eggs', key: 'Penguin', text: t('questPenguinDropPenguinEgg')}
+        {type: 'eggs', key: 'Penguin', text: t('questPenguinDropPenguinEgg')}
+      ]
+      gp: 31
+      exp: 200
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss
