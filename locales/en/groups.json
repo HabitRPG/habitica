@@ -82,5 +82,6 @@
     "optOutPopover": "Don't like private messages? Click to completely opt out",
     "block": "Block",
     "unblock": "Un-block",
-    "pm-reply": "Send a reply"
+    "pm-reply": "Send a reply",
+    "inbox": "Inbox"
 }
