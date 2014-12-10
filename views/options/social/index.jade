@@ -13,9 +13,11 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
         +chatMessages('inbox')
         .form-inline
           a.btn.btn-xs.btn-danger(popover=env.t('clearAllPopover'), popover-trigger='mouseenter', ng-click='user.ops.clearPMs({})', popover-placement='right')=env.t('clearAll')
+          | &nbsp;
           .checkbox
             label
               input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
+              | &nbsp;
               span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('optOutPopover'))=env.t('optOut')
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
