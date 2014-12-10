@@ -67,9 +67,8 @@ exports.androidVerify = function(req, res, next) {
           data: googleRes
         };
 
-        payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP GooglePlay'});
-        user.save();
-            
+        payments.buyGems({user:user, paymentMethod:'IAP GooglePlay'});
+
         // yay good!
         res.json(resObj);
       }
@@ -120,8 +119,7 @@ exports.iosVerify = function(req, res, next) {
           data: appleRes
         };
 
-        payments.buyGems(user, {customerId:user.id, paymentMethod:'IAP AppleStore'});
-        user.save();
+        payments.buyGems({user:user, paymentMethod:'IAP AppleStore'});
             
         // yay good!
         res.json(resObj);
