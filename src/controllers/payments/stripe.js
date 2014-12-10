@@ -2,6 +2,8 @@ var nconf = require('nconf');
 var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
 var async = require('async');
 var payments = require('./index');
+var User = require('mongoose').model('User');
+var shared = require('habitrpg-shared');
 
 /*
  Setup Stripe response when posting payment
@@ -9,33 +11,45 @@ var payments = require('./index');
 exports.checkout = function(req, res, next) {
   var token = req.body.id;
   var user = res.locals.user;
+  var gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+  var sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
 
   async.waterfall([
     function(cb){
-      if (req.query.plan) {
+      if (sub) {
         stripe.customers.create({
           email: req.body.email,
-          metadata: {uuid: res.locals.user._id},
+          metadata: {uuid: user._id},
           card: token,
-          plan: req.query.plan
+          plan: sub.key
         }, cb);
       } else {
         stripe.charges.create({
-          amount: "500", // $5
+          amount: !gift ? "500" //"500" = $5
+            : gift.type=='subscription' ? ""+shared.content.subscriptionBlocks[gift.subscription.months].price*100
+            : ""+gift.gems.amount/4*100,
           currency: "usd",
           card: token
         }, cb);
       }
     },
     function(response, cb) {
-      if (req.query.plan) {
-        payments.createSubscription(user, {customerId: response.id, paymentMethod: 'Stripe'});
-      } else {
-        payments.buyGems(user, {customerId: response.id, paymentMethod: 'Stripe'});
-      }
-      user.save(cb);
+      if (sub) return payments.createSubscription({user:user, customerId:response.id, paymentMethod:'Stripe', sub:sub}, cb);
+      async.waterfall([
+        function(cb2){ User.findById(gift ? gift.uuid : undefined, cb2) },
+        function(member, cb2){
+          var data = {user:user, customerId:response.id, paymentMethod:'Stripe', gift:gift};
+          var method = 'buyGems';
+          if (gift) {
+            gift.member = member;
+            if (gift.type=='subscription') method = 'createSubscription';
+            data.paymentMethod = 'Gift';
+          }
+          payments[method](data, cb2);
+        }
+      ], cb);
     }
-  ], function(err, saved){
+  ], function(err){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200);
     user = token = null;
@@ -47,15 +61,22 @@ exports.subscribeCancel = function(req, res, next) {
   if (!user.purchased.plan.customerId)
     return res.json(401, {err: "User does not have a plan subscription"});
 
-  async.waterfall([
-    function(cb) {
-      stripe.customers.del(user.purchased.plan.customerId, cb);
+  async.auto({
+    get_cus: function(cb){
+      stripe.customers.retrieve(user.purchased.plan.customerId, cb);
     },
-    function(response, cb) {
-      payments.cancelSubscription(user);
-      user.save(cb);
-    }
-  ], function(err, saved){
+    del_cus: ['get_cus', function(cb, results){
+      stripe.customers.del(user.purchased.plan.customerId, cb);
+    }],
+    cancel_sub: ['get_cus', function(cb, results) {
+      var data = {
+        user: user,
+        nextBill: results.get_cus.subscription.current_period_end*1000, // timestamp is in seconds
+        paymentMethod: 'Stripe'
+      };
+      payments.cancelSubscription(data, cb);
+    }]
+  }, function(err, results){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.redirect('/');
     user = null;

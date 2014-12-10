@@ -9,10 +9,10 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
 if (cluster.isMaster && (isDev || isProd)) {
-  // Fork workers.
-  _.times(_.min([require('os').cpus().length,2]), function(){
-    cluster.fork();
-  });
+  // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
+  var cpus = require('os').cpus(),
+    cores = +nconf.get("CORES");
+  _.times(cores || cpus.length-1, cluster.fork);
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker

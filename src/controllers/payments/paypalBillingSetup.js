@@ -2,12 +2,16 @@
 // payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
 // file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
 // and once for any time you need to edit the plan thereafter
-
+require('coffee-script');
 var path = require('path');
 var nconf = require('nconf');
+_ = require('lodash');
 nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
 var paypal = require('paypal-rest-sdk');
-var OP = "list"; // list create update remove
+var blocks = require('habitrpg-shared').content.subscriptionBlocks;
+var live = nconf.get('PAYPAL:mode')=='live';
+
+var OP = 'get'; // list create update remove
 
 paypal.configure({
   'mode': nconf.get("PAYPAL:mode"), //sandbox or live
@@ -15,29 +19,34 @@ paypal.configure({
   'client_secret': nconf.get("PAYPAL:client_secret")
 });
 
-var billingPlanTitle ="HabitRPG subscription ($5 month-to-month)";
 // https://developer.paypal.com/docs/api/#billing-plans-and-agreements
+var billingPlanTitle ="HabitRPG Subscription";
 var billingPlanAttributes = {
   "name": billingPlanTitle,
   "description": billingPlanTitle,
   "type": "INFINITE",
   "merchant_preferences": {
     "auto_bill_amount": "yes",
-    "cancel_url": nconf.get("BASE_URL"),
-    "return_url": nconf.get('BASE_URL') + '/paypal/subscribe/success'
+    "cancel_url": live ? 'https://habitrpg.com' : 'http://localhost:3000',
+    "return_url": (live ? 'https://habitrpg.com' : 'http://localhost:3000') + '/paypal/subscribe/success'
   },
-  "payment_definitions": [{
-    "name": billingPlanTitle,
+  payment_definitions: [{
     "type": "REGULAR",
-    "frequency_interval": "1",
     "frequency": "MONTH",
-    "cycles": "0",
-    "amount": {
-      "currency": "USD",
-      "value": "5"
-    }
+    "cycles": "0"
   }]
 };
+_.each(blocks, function(block){
+  block.definition = _.cloneDeep(billingPlanAttributes);
+  _.merge(block.definition.payment_definitions[0], {
+      "name": billingPlanTitle + ' ($'+block.price+' every '+block.months+' months, recurring)',
+      "frequency_interval": ""+block.months,
+      "amount": {
+        "currency": "USD",
+        "value": ""+block.price
+      }
+  });
+})
 
 switch(OP) {
   case "list":
@@ -45,10 +54,26 @@ switch(OP) {
       console.log({err:err, plans:plans});
     });
     break;
+  case "get":
+    paypal.billingPlan.get(nconf.get("PAYPAL:billing_plans:12"), function (err, plan) {
+      console.log({err:err, plan:plan});
+    })
+    break;
   case "update":
+    var update = {
+      "op": "replace",
+      "path": "/merchant_preferences",
+      "value": {
+        "cancel_url": "https://habitrpg.com"
+      }
+    };
+    paypal.billingPlan.update(nconf.get("PAYPAL:billing_plans:12"), update, function (err, res) {
+      console.log({err:err, plan:res});
+    });
     break;
   case "create":
-    paypal.billingPlan.create(billingPlanAttributes, function(err,plan){
+    paypal.billingPlan.create(blocks["12"].definition, function(err,plan){
+      if (err) return console.log(err);
       if (plan.state == "ACTIVE")
         return console.log({err:err, plan:plan});
       var billingPlanUpdateAttributes = [{
@@ -60,9 +85,9 @@ switch(OP) {
       }];
       // Activate the plan by changing status to Active
       paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, function(err, response){
-        console.log({err:err, response:response});
+        console.log({err:err, response:response, id:plan.id});
       });
     });
-  case "remove":
     break;
+  case "remove": break;
 }

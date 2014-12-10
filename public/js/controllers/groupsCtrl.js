@@ -2,6 +2,7 @@
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
+
     $scope.isMemberOfPendingQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -38,7 +39,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.clickMember = function(uid, forceShow) {
         if (User.user._id == uid && !forceShow) {
           if ($state.is('tasks')) {
-            $state.go('options');
+            $state.go('options.profile.avatar');
           } else {
             $state.go('tasks');
           }
@@ -46,7 +47,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid, function(){
-            $rootScope.openModal('member', {controller:'MemberModalCtrl'});
+            $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
           });
         }
       }
@@ -99,6 +100,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
       }
 
+      $scope.quickReply = function(uid) {
+        Members.selectMember(uid, function(){
+          $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
+        });
+      }
     }
   ])
 
@@ -115,10 +121,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       });
       $scope.sendPrivateMessage = function(uuid, message){
         $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
-          Notification.text('Message sent.');
+          Notification.text(window.env.t('messageSentAlert'));
           $rootScope.User.sync();
           $scope.$close();
         });
+      }
+      $scope.gift = {
+        type: 'gems',
+        gems: {amount:0, fromBalance:true},
+        subscription: {months:0},
+        message:''
+      };
+      $scope.sendGift = function(uuid, gift){
+        $http.post('/api/v2/members/'+uuid+'/gift', gift).success(function(){
+          Notification.text('Gift sent!')
+          $rootScope.User.sync();
+          $scope.$close();
+        })
       }
     }
   ])

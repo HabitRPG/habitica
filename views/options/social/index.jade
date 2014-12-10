@@ -12,11 +12,11 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
       .col-md-12
         +chatMessages('inbox')
         .form-inline
-          a.btn.btn-xs.btn-danger(popover='Delete all messages', popover-trigger='mouseenter', ng-click='user.ops.clearPMs({})', popover-placement='right') Clear All
+          a.btn.btn-xs.btn-danger(popover=env.t('clearAllPopover'), popover-trigger='mouseenter', ng-click='user.ops.clearPMs({})', popover-placement='right')=env.t('clearAll')
           .checkbox
             label
               input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover="Don't like private messages? Click to completely opt out") Opt Out
+              span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('optOutPopover'))=env.t('optOut')
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.social.party.html')
       include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
-  div(ng-repeat='invitation in user.invitations.guilds')
+  div.col-xs-12(ng-repeat='invitation in user.invitations.guilds' style='margin-bottom: 1.5em')
     h3=env.t('invitedTo', {name: '{{invitation.name}}'})
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
@@ -57,7 +57,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
         ul.pull-right.challenge-accordion-header-specs
           li='{{::group.memberCount}} ' + env.t('members')
           // join / leave
-          li
+          li.bg-transparent
             a.btn.btn-sm.btn-danger(ng-if="::group._isMember", ng-click='clickLeave(group, $event)')
               span.glyphicon.glyphicon-ban-circle
               =env.t('leave')
@@ -71,7 +71,8 @@ script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
   include ./group
 
 script(type='text/ng-template', id='partials/options.social.guilds.create.html')
-  include ./create-group
+  div.col-xs-12
+    include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.html')
   ul.options-submenu
@@ -93,7 +94,8 @@ script(type='text/ng-template', id='partials/options.social.html')
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.social.inbox') }")
       a(ui-sref='options.social.inbox')
-        | Inbox&nbsp;
+        =env.t("inbox")
+        | &nbsp;
         span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')

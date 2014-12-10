@@ -8,7 +8,7 @@
     list-style: none
     margin-right: 1em 
   .filters-controls
-    @extend $hrpg-button-bar
+    @extend $hrpg-button-bar-with-heading
     hrpg-button-bar-mixin($color-options-menu)
     li
       @extend $hrpg-button-master
@@ -18,11 +18,14 @@
   .filters-edit
     margin-bottom: 0.382em
   .filters-tags
-    @extend $hrpg-tag-master
-    hrpg-tag-color-mixin($color-filter-tag)
+    @extend $hrpg-button
+    hrpg-button-color-mixin($color-filter-tag)
     margin-bottom: 0.618em
+    margin-right: 0.618em
     &.challenge
-      hrpg-tag-color-mixin($color-filter-tag-challenge)
+      hrpg-button-color-mixin($color-filter-tag-challenge)
+      span
+        margin-right: 0.382em
       form
         display: none
   markdown

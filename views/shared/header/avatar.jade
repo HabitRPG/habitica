@@ -25,6 +25,7 @@ mixin avatar(opts)
       // Avatar
       span(class='skin_{{profile.preferences.skin}}', ng-if='!profile.preferences.sleep')
       span(class='skin_{{profile.preferences.skin}}_sleep', ng-if='profile.preferences.sleep')
+
       // Shirt
       span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')
 
@@ -36,6 +37,7 @@ mixin avatar(opts)
         span(class='{{profile.items.gear.equipped.back}}_collar', ng-if='!profile.preferences.costume')
         span(class='{{profile.items.gear.costume.back}}_collar', ng-if='profile.preferences.costume')
 
+      // Body
       span(class='{{profile.items.gear.equipped.body}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.body}}', ng-if='profile.preferences.costume')
 
@@ -45,6 +47,10 @@ mixin avatar(opts)
       span(class='hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
       span(class='hair_mustache_{{profile.preferences.hair.mustache}}_{{profile.preferences.hair.color}}')
       span(class='hair_beard_{{profile.preferences.hair.beard}}_{{profile.preferences.hair.color}}')
+
+      // Eyewear
+      span(class='{{profile.items.gear.equipped.eyewear}}', ng-if='!profile.preferences.costume')
+      span(class='{{profile.items.gear.costume.eyewear}}', ng-if='profile.preferences.costume')
 
       // Helm
       span(class='{{profile.items.gear.equipped.head}}', ng-if='!profile.preferences.costume')

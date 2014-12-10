@@ -29,8 +29,8 @@ CouponSchema.statics.apply = function(user, code, next){
       if (coupon.user) return cb("Coupon already used");
       switch (coupon.event) {
         case 'wondercon':
-          user.items.gear.owned.headAccessory_special_wondercon_red     = true;
-          user.items.gear.owned.headAccessory_special_wondercon_black   = true;
+          user.items.gear.owned.eyewear_special_wondercon_red     = true;
+          user.items.gear.owned.eyewear_special_wondercon_black   = true;
           user.items.gear.owned.back_special_wondercon_black            = true;
           user.items.gear.owned.back_special_wondercon_red              = true;
           user.items.gear.owned.body_special_wondercon_red     = true;

@@ -3,10 +3,6 @@ script(type='text/ng-template', id='modals/member.html')
     h4
       span {{::profile.profile.name}}
       span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
-      ul.pull-right.list-inline(ng-if='::user')
-        li.glyphicon.glyphicon-plus(ng-show='user.inbox.blocks | contains:profile._id', tooltip='Un-block', ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
-        li.glyphicon.glyphicon-ban-circle(ng-hide='user.inbox.blocks | contains:profile._id', tooltip='Block', ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='bottom', style='cursor:pointer')
-        li.glyphicon.glyphicon-envelope(tooltip='Send private message', ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='bottom', style='cursor:pointer')
   .modal-body
     .container-fluid
       .row
@@ -29,17 +25,67 @@ script(type='text/ng-template', id='modals/member.html')
           .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
-          +herobox()
-          h3=env.t('achievements')
-          include ../profiles/achievements
+          .row
+            +herobox()
+          .row
+            h3=env.t('achievements')
+            include ../profiles/achievements
   .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+    .btn-group.pull-left(ng-if='::user')
+      button.btn.btn-md.btn-default(ng-show='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-plus
+      button.btn.btn-md.btn-default(ng-hide='profile._id == user._id || user.inbox.blocks | contains:profile._id', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-ban-circle
+      button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-envelope
+      button.btn.btn-md.btn-default(tooltip="Send Gift", ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-gift
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
 
 script(type='text/ng-template', id='modals/private-message.html')
   .modal-header
-    h4 Private message to {{profile.profile.name}}
+    h4=env.t('pmHeading', {name: "{{profile.profile.name}}"})
   .modal-body
     textarea.form-control(type='text',ng-model='_message')
   .modal-footer
-    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)') Send
+    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+
+script(type='text/ng-template', id='modals/send-gift.html')
+  .modal-header
+    h4 Send Gift to {{::profile.profile.name}}
+  .modal-body
+    .panel.panel-default(class="{{gift.type=='gems' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="gems"')
+      .panel-heading
+        .pull-right
+          span(ng-show='gift.gems.fromBalance') From {{user.balance*4}} Gems
+          span(ng-hide='gift.gems.fromBalance') Total: ${{gift.gems.amount/4}} USD
+        | Gems
+      .panel-body
+        .row
+          .col-md-6
+            .form-group
+              input.form-control(type='number', placeholder='Number of Gems', min='0', max='{{gift.gems.fromBalance ? user.balance*4 : ""}}', ng-model='gift.gems.amount')
+          .col-md-6
+            .btn-group
+              a.btn.btn-default(ng-class="{active:gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=true") From Balance
+              a.btn.btn-default(ng-class="{active:!gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=false") Purchase
+
+    .panel.panel-default(class="{{gift.type=='subscription' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="subscription"')
+      .panel-heading Subscription
+      .panel-body
+        .form-group
+          each block in env.Content.subscriptionBlocks
+            .radio
+              label
+                input(type="radio", name="subRadio", value="#{block.months}", ng-model='gift.subscription.months')
+                | #{block.months} Month(s): $#{block.price}
+
+    textarea.form-control(rows='3', ng-model='gift.message', placeholder='Personal message (optional)')
+
+  .modal-footer
+    - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
+    button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id, gift)')=env.t("send")
+    a.btn.btn-primary(ng-hide=fromBal, ng-click='Payments.showStripe({gift:gift, uuid:profile._id})')=env.t('card')
+    a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::user.apiToken}}&gift={{Payments.encodeGift(profile._id, gift)}}') PayPal
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')

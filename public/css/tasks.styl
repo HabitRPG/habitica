@@ -67,53 +67,20 @@ for $stage in $stages
     max-height: 18.6em
     overflow-y: scroll
 
-// add new task form
+// "Add new task" form
 // -----------------
-.addtask-form
-  margin-bottom: 0.75em
-  outline: 1px solid rgba(0,0,0,0.15)
-  outline-offset: -1px
-  background-color: white
-  // box-shadow: 0 0 3px rgba(0,0,0,0.15)
-  position: relative
-
-// the input field
-.addtask-field
-  display: block
-  width: 100%
+.task-add
+  margin-top: 1.618em
+  @extend $hrpg-button-with-input
+  hrpg-button-color-mixin($color-options-submenu)
+  input, button
+    height: 2.618em
   input
-    font-family: 'Lato', sans-serif
-    border: 0
-    outline: 0
-    border-radius: 0
-    box-shadow: none
-    background-color: white
-    height: 3em
-    padding: 0 3.3em 0 0.5em
-    width: 100%
-    &:focus
-      box-shadow: inset 0 0 3px darken($best, 20%),inset -1px 0 1px darken($best, 30%)
-
-// the button
-.addtask-btn
-  position: absolute
-  right: 0
-  top: 0
-  // important for overriding bootstrap, remove later
-  width: 1.81818em !important
-  height: 1.88em
-  padding: 0
-  font-size: 1.61em
-  line-height: 1.7
-  outline: 0
-  border: 0
-  border-radius: 0 //required to nuke BB-playbook user agent styles
-  background-color: darken($best, 15%)
-  &:hover, &:focus
-    background-color: darken($best, 20%)
-  &:active
-    background-color: darken($best, 30%)
-
+    width: 80%
+  button
+    width: 20%
+    span
+      font-size: 0.8em
 
 // an individual task entry
 // ------------------------
@@ -140,10 +107,14 @@ for $stage in $stages
   line-height: 1.4
   word-wrap: break-word
 
+  markdown > ul > li // Otherwise, + gets turned into a bullet and gets maksed by buttons
+    margin-left:20px
+
   span.emoji
     width:1.5em
     height:1.5em
     background-size:1.5em
+    vertical-align: middle
 
 .habit-wide .task-text
   padding-left: 7em
@@ -255,31 +226,29 @@ for $stage in $stages
     content: ''
   label:hover:after,
   label:focus:after
-    content: '¬'
+    content: "\E013"
+    font-family 'Glyphicons Halflings'
     border none
     margin 0
-    font-size: 3.2em
-    line-height: 0.9375em
-    height: 0.9375em
-    width: 1.15em
+    line-height: 1.714285714em
+    height: 1.714285714em
+    width: 1.714285714em
     text-align: center
-    transform: rotate(135deg)
     opacity: 0.5 !important
   label:active:after
     opacity: 0.75 !important
 
   // completed icon
   input[type=checkbox]:checked + label:after
-    content: '¬'
-    font-size: 3.2em
-    line-height: 0.9375em
-    height: 0.9375em
-    width: 1.15em
-    text-align: center
-    transform: rotate(135deg)
-    opacity: 0.75
+    content: "\E013"
+    font-family 'Glyphicons Halflings'
     border none
     margin 0
+    line-height: 1.714285714em
+    height: 1.714285714em
+    width: 1.714285714em
+    text-align: center
+    opacity: 0.75
 
 
 // secondary task commands
@@ -428,22 +397,6 @@ form
 // todos ui
 // --------
 
-// nav tabs
-.nav-tabs
-  margin-top: 1.5em
-.nav-tabs > li
-  &.active > a
-    color: #333
-    &:hover
-      margin-top: 1px
-  > a
-    border-radius: 0 !important
-    margin-top: 1px
-    color: #333
-    &:hover
-      border-top: 0
-      margin-top: 2px
-
 // Checklists
 // --------
 .checklist-form
@@ -476,3 +429,54 @@ form
       width: 4%
   li:hover .checklist-icons
     opacity:1
+
+// Task filters
+// --------    
+.task-filter
+  margin: 1.618em 0 1em 0
+  hrpg-button-bar-mixin($color-tasks)
+  @extend $hrpg-button-bar
+  width: 100%
+  li
+    @extend $hrpg-button-master
+    hrpg-button-color-mixin($color-tasks)
+    width: 33.333%
+    text-align: center
+    &:nth-child(3n + 1):nth-last-child(2), 
+    &:nth-child(3n + 1):nth-last-child(2) + li
+      width: 50%;
+    a
+      width: 100%
+      height: 100%
+.rewards
+  .task-filter
+    li:nth-child(3n + 1):nth-last-child(2)
+      width: 33.333% 
+    li:nth-child(3n + 1):nth-last-child(2) + li
+      width: 66.666%
+
+  .btn-buy
+    word-wrap: break-word
+    padding-left: 0.2em
+    text-align: left
+    span
+      position: relative
+      left: -2px
+      &:only-child
+        position: static
+        padding-left: 0.75em
+    
+    &.highValue  // If reward value exceeds three digits, drop the number below the coin icon
+      padding: 0.3em
+      text-align: center
+      span
+        display: block
+        margin: auto
+    .shop_gold + .reward-cost
+      line-height: 1
+      top: -0.1em
+
+.repeat-days
+  a
+    border-radius: 0.382em
+          

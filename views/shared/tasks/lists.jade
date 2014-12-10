@@ -23,16 +23,15 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')
 
           // Add New
-          form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-hide='obj._locked || (list.showCompleted && list.type=="todo")', ng-submit='addTask(obj[list.type+"s"],list)')
-            span.addtask-field
-              input(type='text', ng-model='list.newTask', placeholder='{{list.placeHolder}}', required)
-            input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
-          hr
+          form.task-add(name='new{{list.type}}form', ng-hide='obj._locked || (list.showCompleted && list.type=="todo")', ng-submit='addTask(obj[list.type+"s"],list)')
+            input(type='text', ng-model='list.newTask', placeholder='{{list.placeHolder}}', required)
+            button(type='submit', ng-disabled='new{{list.type}}form.$invalid')
+              span.glyphicon.glyphicon-plus
 
           mixin taskColumnTabs(position)
             // Habits Tabs
             div(ng-if='::main && list.type=="habit"', class='tabbable tabs-below')
-              ul.nav.nav-tabs
+              ul.task-filter
                 li(ng-class='{active: list.view == "all"}')
                   a(ng-click='list.view = "all"')=env.t('all')
                 li(ng-class='{active: list.view == "yellowred"}')
@@ -42,7 +41,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             // Daily Tabs
             div(ng-if='::main && list.type=="daily"', class='tabbable tabs-below')
               // remaining/completed tabs
-              ul.nav.nav-tabs
+              ul.task-filter
                 li(ng-class='{active: list.view == "all"}')
                   a(ng-click='list.view = "all"')=env.t('all')
                 li(ng-class='{active: list.view == "remaining"}')
@@ -60,14 +59,14 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   button.task-action-btn.tile.spacious.bright(ng-click='user.ops.clearCompleted({})',popover=env.t('deleteToDosExplanation'),popover-trigger='mouseenter')=env.t('clearCompleted')
                   p!=env.t('beeminderDeleteWarning')
               // remaining/completed tabs
-              ul.nav.nav-tabs
+              ul.task-filter
                 li(ng-class='{active: !list.showCompleted}')
                   a(ng-click='list.showCompleted = false')=env.t('remaining')
                 li(ng-class='{active: list.showCompleted}')
                   a(ng-click='list.showCompleted= true')=env.t('complete')
             // Rewards Tabs
             div(ng-if='::main && list.type=="reward"', class='tabbable tabs-below')
-              ul.nav.nav-tabs
+              ul.task-filter
                 li(ng-class='{active: list.view == "all"}')
                   a(ng-click='list.view = "all"')=env.t('all')
                 li(ng-class='{active: list.view == "ingamerewards"}')
@@ -88,9 +87,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
               .task-controls.task-primary
-                a.money.btn-buy.item-btn(ng-click='buy(item)')
-                  span.reward-cost {{item.value}}
+                a.money.btn-buy.item-btn(ng-class='{highValue: item.value >= 1000}', ng-click='buy(item)')
                   span.shop_gold
+                  span.reward-cost {{item.value}}
               // main content
               span(ng-class='::{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
               p.task-text {{item.text()}}

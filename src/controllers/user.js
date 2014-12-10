@@ -17,6 +17,7 @@ var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
 var request = require('request');
+var validator = require('validator');
 
 // api.purchase // Shared.ops
 
@@ -111,6 +112,7 @@ api.score = function(req, res, next) {
 
     // Webhooks
     _.each(user.preferences.webhooks, function(h){
+      if (!h.enabled || !validator.isURL(h.url)) return;
       request.post({
         url: h.url,
         //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
