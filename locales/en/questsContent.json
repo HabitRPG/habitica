@@ -162,5 +162,11 @@
   "questOwlNotes": "The Tavern light is lit 'til dawn <br>Until one eve the glow is gone!<br>How can we see for our all-nighters?<br>@Twitching cries, \"I need some fighters!<br>See that Night-Owl, starry foe?<br>Fight with haste and do not slow!<br>We'll drive its shadow from our door,<br>And make the night shine bright once more!\"",
   "questOwlCompletion": "The Night-Owl fades before the dawn,<br>But even so, you feel a yawn.<br>Perhaps it's time to get some rest?<br>Then on your bed, you see a nest!<br>A Night-Owl knows it can be great<br>To finish work and stay up late,<br>But your new pets will softly peep<br>To tell you when it's time to sleep.",
   "questOwlBoss": "The Night-Owl",
-  "questOwlDropOwlEgg": "Owl (Egg)"
+  "questOwlDropOwlEgg": "Owl (Egg)",
+
+  "questPenguinText": "The Fowl Frost",
+  "questPenguinNotes": "Although it's a hot summer day in the southernmost tip of Habitica, an unnatural chill has fallen upon Lively Lake. Strong, frigid winds rush around as the shore begins to freeze over. Ice spikes jut up from the ground, pushing grass and dirt away. @Melynnrose and @Breadstrings run up to you.<br><br>\"Help!\" says @Melynnrose. \"We brought a giant penguin in to freeze the lake so we could all go ice skating, but we ran out of fish to feed him!\"<br><br>\"He got angry and is using his freeze breath on everything he sees!\" says @Breadstrings. \"Please, you have to subdue him before all of us are covered in ice!\" Looks like you need this penguin to... <em>cool down.</em>",
+  "questPenguinCompletion": "Upon the penguin's defeat, the ice melts away. The giant penguin settles down in the sunshine, slurping up an extra bucket of fish you found. He skates off across the lake, blowing gently downwards to create smooth, sparkling ice. What an odd bird! \"It appears he left behind a few eggs, as well,\" says @Painter de Cluster. <br><br>@Rattify laughs. \"Maybe these penguins will be a little more... chill?\"",
+  "questPenguinBoss": "Frost Penguin",
+  "questPenguinDropPenguinEgg": "Penguin (Egg)"
 }
