@@ -12424,6 +12424,11 @@ api.questEggs = {
     text: t('questEggOwlText'),
     adjective: t('questEggOwlAdjective'),
     canBuy: false
+  },
+  Penguin: {
+    text: t('questEggPenguinText'),
+    adjective: t('questEggPenguinAdjective'),
+    canBuy: false
   }
 };
 
@@ -13611,6 +13616,36 @@ api.quests = {
       ],
       gp: 37,
       exp: 275
+    }
+  },
+  penguin: {
+    text: t('questPenguinText'),
+    notes: t('questPenguinNotes'),
+    completion: t('questPenguinCompletion'),
+    value: 4,
+    boss: {
+      name: t('questPenguinBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }, {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }, {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
     }
   }
 };
