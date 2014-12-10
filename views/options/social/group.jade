@@ -90,10 +90,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-footer(ng-if='::group.type!="party"')
           form.form-inline(ng-submit='invite(group)')
             //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
-            .form-group
+            .input-group
               input.form-control(type='text', placeholder=env.t('userId'), ng-model='group.invitee')
-              |&nbsp;
-              input.btn.btn-default(type='submit', value=env.t('invite'))
+              span.input-group-btn
+                input.btn.btn-default(type='submit', value=env.t('invite'))
 
 
       a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
