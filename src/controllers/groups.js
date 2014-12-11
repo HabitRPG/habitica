@@ -285,6 +285,23 @@ api.flagChatMessage = function(req, res, next){
   });
 }
 
+api.clearFlagCount = function(req, res, next){
+  var user = res.locals.user
+  var group = res.locals.group;
+  var message = _.find(group.chat, {id: req.params.mid});
+
+  if(!message) return res.json(404, {err: "Message not found!"});
+
+  if(user.contributor.admin)
+    message.flagCount = 0;
+  
+  group.markModified('chat');
+  group.save(function(err,_saved){
+    if(err) return next(err);
+    return res.send(204);
+  });
+}
+
 api.seenMessage = function(req,res,next){
   // Skip the auth step, we want this to be fast. If !found with uuid/token, then it just doesn't save
   // Check for req.params.gid to exist

@@ -588,6 +588,17 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.flagChatMessage
 
+    "/groups/{gid}/chat/{mid}/clearflags":
+      spec:
+        method: 'POST'
+        description: "Clear flag count from message and unhide it"
+        parameters: [
+          path 'gid','Group id','string'
+          path 'mid','Message id','string'
+        ]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.clearFlagCount
+
     # ---------------------------------
     # Members
     # ---------------------------------
