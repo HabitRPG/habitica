@@ -41,5 +41,6 @@
         "mode":"sandbox",
         "client_id":"client_id",
         "client_secret":"client_secret"
-    }
+    },
+    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/"
 }
