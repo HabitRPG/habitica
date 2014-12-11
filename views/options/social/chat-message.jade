@@ -1,7 +1,7 @@
 mixin chatMessages(inbox)
   ul.list-unstyled.tavern-chat
     - var ngRepeat = inbox ? 'message in user.inbox.messages | toArray:true | orderBy:"sort":true' : 'message in group.chat track by message.id'
-    li.chat-message(ng-repeat=ngRepeat, ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}', style='{{::message.sent ? "opacity:0.5" : ""}}')
+    li.chat-message(ng-repeat=ngRepeat, ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid, "transparent": message.sent}')
       .scrollable-message
         span(ng-if='::message.user')
           a.label.label-default.chat-message.hidden-label
