@@ -1049,6 +1049,12 @@ api.wrap = (user, main=true) ->
           hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
           stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
+        gainMP = (delta) ->
+          delta *= user._tmp.crit or 1
+          user.stats.mp += delta
+          user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
+          user.stats.mp = 0 if user.stats.mp < 0
+
         switch task.type
           when 'habit'
             changeTaskValue()
@@ -1182,12 +1188,6 @@ api.wrap = (user, main=true) ->
     # ----------------------------------------------------------------------
     # Scoring
     # ----------------------------------------------------------------------
-
-    gainMP: (delta) ->
-      delta *= user._tmp.crit or 1
-      user.stats.mp += delta
-      user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
-      user.stats.mp = 0 if user.stats.mp < 0
 
     randomDrop: (modifiers, req) ->
       {task} = modifiers
