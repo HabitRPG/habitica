@@ -6,6 +6,7 @@ mixin chatMessages(inbox)
         span(ng-if='::message.user')
           a.label.label-default.chat-message.hidden-label
             span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')
+            | &nbsp; &nbsp;
             span {{::message.user}}&nbsp;
             span(ng-class='userAdminGlyphiconStyleFromLevel(message.contributor.level)')
             // this invisible username label is here to push the message text far enough right that the visible label can be floated to this point without covering up any of the text
@@ -30,5 +31,6 @@ mixin chatMessages(inbox)
       span.float-label
         a.label.label-default.chat-message(ng-if=':: message.user', ng-class='::userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
           span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')
+          | &nbsp;
           span(tooltip='{{::contribText(message.contributor, message.backer)}}') {{::message.user}}&nbsp;
           span(ng-class='::userAdminGlyphiconStyleFromLevel(message.contributor.level)')

@@ -206,16 +206,16 @@ api.resetPassword = function(req, res, next){
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
-    utils.sendEmail({
-      from: "HabitRPG <admin@habitrpg.com>",
-      to: email,
-      subject: "Password Reset for HabitRPG",
-      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL'),
-      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL')
+    utils.txnEmail(user, 'reset-password', [
+      {name: "NEW_PASSWORD", content: newPassword},
+      {name: "URL", content: nconf.get('BASE_URL')},
+      {name: "USERNAME", content: user.auth.local.username}
+    ]);
+    user.save(function(err){
+      if(err) return next(err);
+      res.send('New password sent to '+ email);
+      email = salt = newPassword = hashed_password = null;
     });
-    user.save();
-    res.send('New password sent to '+ email);
-    email = salt = newPassword = hashed_password = null;
   });
 };
 
