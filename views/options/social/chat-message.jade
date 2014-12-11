@@ -2,6 +2,8 @@ mixin chatMessages(inbox)
   ul.list-unstyled.tavern-chat
     - var ngRepeat = inbox ? 'message in user.inbox.messages | toArray:true | orderBy:"sort":true' : 'message in group.chat track by message.id'
     li.chat-message(ng-repeat=ngRepeat, ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid, "transparent": message.sent || message.flags[user._id] || (user.contributor.admin && message.flagCount >= 1)}', ng-if="!message.flagCount || message.flagCount < 2 || user.contributor.admin")
+      span.pull-right.text-danger(ng-if="user.contributor.admin && message.flagCount > 0")
+        | {{message.flagCount}} flag{{message.flagCount != 1 ? 's' : ''}}
       .scrollable-message
         span(ng-if='::message.user')
           a.label.label-default.chat-message.hidden-label
