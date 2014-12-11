@@ -264,10 +264,15 @@ api.flagChatMessage = function(req, res, next){
   if(!message) return res.json(404, {err: "Message not found!"});
   if(message.uuid == user._id) return res.json(401, {err: "Can't report your own message."});
 
+  // Log user ids that have flagged the message
   if(!message.flags) message.flags = {};
   if(message.flags[user._id]) return res.json(401, {err: "You have already reported this message"});
-
   message.flags[user._id] = true;
+
+  // Log total number of flags (publicly viewable)
+  if(!message.flagCount) message.flagCount = 0;
+  message.flagCount++
+
   group.markModified('chat');
   group.save(function(err,_saved){
     if(err) return next(err);
