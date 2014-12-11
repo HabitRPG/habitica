@@ -271,7 +271,12 @@ api.flagChatMessage = function(req, res, next){
 
   // Log total number of flags (publicly viewable)
   if(!message.flagCount) message.flagCount = 0;
-  message.flagCount++
+  if(user.contributor.admin){
+    // Arbitraty amount, higher than 2
+    message.flagCount = 5;
+  } else {
+    message.flagCount++
+  }
 
   group.markModified('chat');
   group.save(function(err,_saved){
