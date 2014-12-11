@@ -206,11 +206,11 @@ api.resetPassword = function(req, res, next){
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
-    utils.txnEmail(user, 'reset-password', {
-      NEW_PASSWORD: newPassword,
-      URL: nconf.get('BASE_URL'),
-      USERNAME: user.auth.local.username
-    });
+    utils.txnEmail(user, 'reset-password', [
+      {name: "NEW_PASSWORD", content: newPassword},
+      {name: "URL", content: nconf.get('BASE_URL')},
+      {name: "USERNAME", content: user.auth.local.username}
+    ]);
     user.save(function(err){
       if(err) return next(err);
       res.send('New password sent to '+ email);
