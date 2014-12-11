@@ -1049,9 +1049,16 @@ api.wrap = (user, main=true) ->
           hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
           stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
+        gainMP = (delta) ->
+          delta *= user._tmp.crit or 1
+          user.stats.mp += delta
+          user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
+          user.stats.mp = 0 if user.stats.mp < 0
+
         switch task.type
           when 'habit'
             changeTaskValue()
+            gainMP(_.max([0.25, (.0025 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
             # Add habit value to habit-history (if different)
             if (delta > 0) then addPoints() else subtractPoints()
 
@@ -1070,6 +1077,7 @@ api.wrap = (user, main=true) ->
               task.streak = 0 unless user.stats.buffs.streaks
             else
               changeTaskValue()
+              gainMP(_.max([1, (.01 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
               if direction is 'down'
                 delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
@@ -1096,12 +1104,7 @@ api.wrap = (user, main=true) ->
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
-              mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
-              mpDelta *= user._tmp.crit or 1
-              mpDelta *= -1 if direction is 'down'  # unticking a todo
-              user.stats.mp += mpDelta
-              user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
-              user.stats.mp = 0 if user.stats.mp < 0   # BUT DO WE WANT THIS? SEE COMMIT DESCRIPTION
+              gainMP(_.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)]) * if direction is 'down' then -1 else 1)
 
           when 'reward'
           # Don't adjust values for rewards
