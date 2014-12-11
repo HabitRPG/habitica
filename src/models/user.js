@@ -36,6 +36,8 @@ var UserSchema = new Schema({
     ultimateGear: Boolean,
     beastMaster: Boolean,
     beastMasterCount: Number,
+    mountMaster: Boolean,
+    mountMasterCount: Number,
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
@@ -432,6 +434,16 @@ UserSchema.pre('save', function(next) {
   if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
     this.achievements.beastMaster = true
   }
+// mountmaster stuff starts
+ var mountCount = shared.countMounts(_.reduce(this.items.mounts,function(m,v){
+    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
+    if(_.isFunction(v)) return m;
+    return m+(v?1:0)},0), this.items.mounts);
+
+  if (mountCount >= 90 || this.achievements.mountMasterCount > 0) {
+    this.achievements.mountMaster = true
+  }
+// mountmaster stuff ends
 
   // EXAMPLE CODE for allowing all existing and new players to be
   // automatically granted an item during a certain time period:

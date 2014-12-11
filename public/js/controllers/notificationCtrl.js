@@ -113,6 +113,18 @@ habitrpg.controller('NotificationCtrl',
       }
     }, true);
 
+
+//start mountmaster test
+    $rootScope.$watch('user.items.mounts', function(after, before){
+      if(_.size(after) === _.size(before) ||
+        Shared.countMounts(null, after) < 90) return;
+      if (User.user.achievements.mountMaster == false) {
+        User.user.achievements.mountMaster = true;
+        $rootScope.openModal('achievements/mountMaster');
+      }
+    }, true);
+// end mountmaster test
+
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
       $rootScope.openModal('achievements/rebirth');

@@ -71,8 +71,10 @@ table.table.table-striped(ng-show='user.flags.dropsEnabled')
     td
       strong=env.t('petsFound')
       | : {{profile.petCount}}
-// Dunno why this doesn't work //
-// tr
+// this works now //
+h4(class=mobile?'item item-divider':'')=env.t('mounts')
+table.table.table-striped(ng-show='user.flags.dropsEnabled')
+ tr
     td
       strong=env.t('mountsTamed')
-      | : {{profile.mountCount}} //
+      | : {{profile.mountCount}} 
