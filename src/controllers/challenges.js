@@ -147,69 +147,63 @@ api.getMember = function(req, res, next) {
 // CREATE
 api.create = function(req, res, next){
   var user = res.locals.user;
-  var group, chal;
 
-  // First, make sure they've selected a legit group, and store it for later
-  var waterfall = [
-    function(cb){
-      Group.findById(req.body.group).exec(cb);
+  async.auto({
+    get_group: function(cb){
+      var q = {_id:req.body.group};
+      if (req.body.group!='habitrpg') q.members = {$in:[user._id]}; // make sure they're a member of the group
+      Group.findOne(q, cb);
     },
-    function(_group, cb){
-      if (!_group) return cb("Group." + req.body.group + " not found");
-      group = _group;
-      cb(null);
-    }
-  ];
+    save_chal: ['get_group', function(cb, results){
+      var group = results.get_group,
+        prize = +req.body.prize;
+      if (!group)
+        return cb({code:404, err:"Group." + req.body.group + " not found"});
+      //if (group.leaderOnly.challenges && group.leader !== user._id)
+      //  return cb({code:401, err: "Only the group leader can create challenges"});
+      // If they're adding a prize, do some validation
+      if (prize < 0)
+        return cb({code:401, err: 'Challenge prize must be >= 0'});
+      if (req.body.group=='habitrpg' && prize < 1)
+        return cb({code:401, err: 'Prize must be at least 1 Gem for public challenges.'});
+      if (prize > 0) {
+        var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
+        var prizeCost = prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
+        if (prizeCost > user.balance + groupBalance)
+          return cb("You can't afford this prize. Purchase more gems or lower the prize amount.")
 
-  // If they're adding a prize, do some validation
-  if (+req.body.prize < 0) return res.json(401, {err: 'Challenge prize must be >= 0'});
-  if (req.body.group=='habitrpg' && +req.body.prize < 1) return res.json(401, {err: 'Prize must be at least 1 Gem for public challenges.'});
-  if (+req.body.prize > 0) {
-    waterfall.push(function(cb){
-      var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
-		  var prizeCost = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
-			if (prizeCost > user.balance + groupBalance)
-				return cb("You can't afford this prize. Purchase more gems or lower the prize amount.")
-
-			if (groupBalance >= prizeCost) {
-				// Group pays for all of prize
-				group.balance -= prizeCost;
-			} else if (groupBalance > 0) {
-				// User pays remainder of prize cost after group
-				var remainder = prizeCost - group.balance;
-				group.balance = 0;
-				user.balance -= remainder;
-			} else {
-				// User pays for all of prize
-				user.balance -= prizeCost;
-			}
-      cb(null);
-    });
-  }
-
-  waterfall = waterfall.concat([
-    function(cb) { // if we're dealing with prize above, arguemnts will be `group, numRows, cb` - else `cb`
+        if (groupBalance >= prizeCost) {
+          // Group pays for all of prize
+          group.balance -= prizeCost;
+        } else if (groupBalance > 0) {
+          // User pays remainder of prize cost after group
+          var remainder = prizeCost - group.balance;
+          group.balance = 0;
+          user.balance -= remainder;
+        } else {
+          // User pays for all of prize
+          user.balance -= prizeCost;
+        }
+      }
       req.body.leader = user._id;
       req.body.official = user.contributor.admin && req.body.official;
       var chal = new Challenge(req.body); // FIXME sanitize
       chal.members.push(user._id);
-      chal.save(cb)
-    },
-    function(_chal, num, cb){
-      chal = _chal;
-      group.challenges.push(chal._id);
-      group.save(cb);
-    },
-    function(_group, num, cb) {
+      chal.save(cb);
+    }],
+    save_group: ['save_chal', function(cb, results){
+      results.get_group.challenges.push(results.save_chal[0]._id);
+      results.get_group.save(cb);
+    }],
+    sync_user: ['save_group', function(cb, results){
       // Auto-join creator to challenge (see members.push above)
-      chal.syncToUser(user, cb);
-    }
-  ]);
-  async.waterfall(waterfall, function(err){
-    if (err) return next(err);
-    res.json(chal);
-    user = group = chal = null;
-  });
+      results.save_chal[0].syncToUser(user, cb);
+    }]
+  }, function(err, results){
+    if (err) return err.code? res.json(err.code, err) : next(err);
+    return res.json(results.save_chal[0]);
+    user = null;
+  })
 }
 
 // UPDATE
