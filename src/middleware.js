@@ -173,12 +173,9 @@ module.exports.locals = function(req, res, next) {
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
   var tavern = require('./models/group').tavern;
-  res.locals.habitrpg = {
-    NODE_ENV: nconf.get('NODE_ENV'),
-    BASE_URL: nconf.get('BASE_URL'),
-    GA_ID: nconf.get("GA_ID"),
+  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY'.split(' '));
+  res.locals.habitrpg = _.merge(envVars, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
     getManifestFiles: getManifestFiles,
     getBuildUrl: getBuildUrl,
     avalaibleLanguages: i18n.avalaibleLanguages,
@@ -193,11 +190,9 @@ module.exports.locals = function(req, res, next) {
     siteVersion: siteVersion,
     Content: shared.content,
     mods: require('./models/user').mods,
-    FACEBOOK_KEY: nconf.get('FACEBOOK_KEY'),
-
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
-  };
+  });
 
   // Put query-string party invitations into session to be handled later
   try{
