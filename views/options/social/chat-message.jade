@@ -4,7 +4,7 @@ mixin chatMessages(inbox)
     li.chat-message(ng-repeat=ngRepeat, ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}', ng-if="!message.flagCount || message.flagCount < 2 || user.contributor.admin")
       span.pull-right.text-danger(ng-if="user.contributor.admin && message.flagCount > 0")
         | {{message.flagCount}} flag{{message.flagCount != 1 ? 's' : ''}}
-      .scrollable-message(ng-class='{"transparent": message.sent || message.flags[user._id] || (user.contributor.admin && message.flagCount >= 1)}')
+      .scrollable-message(ng-class='{"transparent": message.sent || message.flags[user._id] || (user.contributor.admin && message.flagCount > 1)}')
         span(ng-if='::message.user')
           a.label.label-default.chat-message.hidden-label
             span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')
