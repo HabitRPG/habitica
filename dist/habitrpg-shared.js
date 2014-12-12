@@ -15550,10 +15550,13 @@ api.wrap = function(user, main) {
               if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                 user.stats.training[task.attribute] += nextDelta;
               }
-              if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
+              if (direction === 'up') {
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
                   user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
+                }
+                if (task.type === 'habit') {
+                  user.party.quest.progress.up += nextDelta * (0.5 + (user._statsComputed.str / 400));
                 }
               }
               task.value += nextDelta;
