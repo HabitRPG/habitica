@@ -31,16 +31,17 @@ future re: pets and whatnot, this is just temporary.
     position: absolute
     @extend $hrpg-label
   .avatar-level
-    bottom: 2px
-   	right: 2px
+    bottom: 4px
+   	right: 4px
     // when a buff/rebirth exists, add space between the icon and the level
     .glyphicon-circle-arrow-up
       padding-right: 4px
     .glyphicon-plus-sign
       padding-left: 4px
   .avatar-name
-    top: 2px
-    left: 2px
+    max-width: 132px
+    top: 4px
+    left: 4px
     opacity: 0 // Hide username by default
     transition: opacity 0.2s ease-out
   
@@ -83,8 +84,9 @@ future re: pets and whatnot, this is just temporary.
     width: 50px !important
   .addthis_native_toolbox
     position: absolute
-    top:2px
-    right:2px
+    bottom:4px
+    left:4px
+    z-index: 2
     opacity:0
   &:hover .addthis_native_toolbox
     opacity:1
