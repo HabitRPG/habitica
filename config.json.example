@@ -42,5 +42,11 @@
         "client_id":"client_id",
         "client_secret":"client_secret"
     },
-    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/"
+    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
+    "LOGGLY": {
+        "subdomain": "subdomain",
+        "token": "token",
+        "username": "username",
+        "password": "password"    
+    }
 }

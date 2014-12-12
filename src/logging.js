@@ -3,18 +3,20 @@ var winston = require('winston');
 require('winston-mail').Mail;
 require('winston-newrelic');
 
-var loggly = require('loggly').createClient({
-  token: nconf.get('LOGGLY:token'),
-  subdomain: nconf.get('LOGGLY:subdomain'),
-  auth: {
-    username: nconf.get('LOGGLY:username'),
-    password: nconf.get('LOGGLY:password')
-  },
-  //
-  // Optional: Tag to send with EVERY log message
-  //
-  tags: ['heroku']
-});
+if (nconf.get('NODE_ENV') == 'production'){
+  var loggly = require('loggly').createClient({
+    token: nconf.get('LOGGLY:token'),
+    subdomain: nconf.get('LOGGLY:subdomain'),
+    auth: {
+      username: nconf.get('LOGGLY:username'),
+      password: nconf.get('LOGGLY:password')
+    },
+    //
+    // Optional: Tag to send with EVERY log message
+    //
+    tags: ['heroku']
+  });
+}
 
 var logger;
 
