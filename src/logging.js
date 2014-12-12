@@ -67,5 +67,5 @@ module.exports.error = function(/* variable args */) {
 
 module.exports.loggly = function(/* variable args */){
   if(loggly)
-      loggly.log(loggly, arguments);
+      loggly.log.apply(loggly, arguments);
 };

@@ -49,8 +49,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   });
   autoinc.init(db);
 
-  logging.loggly('test from beta');
-
   // load schemas & models
   require('./models/challenge');
   require('./models/group');
