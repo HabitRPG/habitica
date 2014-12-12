@@ -33,6 +33,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             .form-group
               label=env.t('logoUrl')
               input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='group.logo')
+            .form-group
+              .checkbox
+                label
+                  input(type='checkbox', ng-model='group.leaderOnly.challenges')
+                  | Only group leader can create challenges
 
             h4=env.t('assignLeader')
             select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')

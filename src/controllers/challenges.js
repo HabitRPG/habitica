@@ -159,8 +159,8 @@ api.create = function(req, res, next){
         prize = +req.body.prize;
       if (!group)
         return cb({code:404, err:"Group." + req.body.group + " not found"});
-      //if (group.leaderOnly.challenges && group.leader !== user._id)
-      //  return cb({code:401, err: "Only the group leader can create challenges"});
+      if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id)
+        return cb({code:401, err: "Only the group leader can create challenges"});
       // If they're adding a prize, do some validation
       if (prize < 0)
         return cb({code:401, err: 'Challenge prize must be >= 0'});
