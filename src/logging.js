@@ -14,7 +14,8 @@ if (nconf.get('NODE_ENV') == 'production'){
     //
     // Optional: Tag to send with EVERY log message
     //
-    tags: ['heroku']
+    tags: ['heroku'],
+    json: true
   });
 }
 
