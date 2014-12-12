@@ -21,3 +21,4 @@ test/*.js
 test/*.map
 public/docs
 *.sublime-workspace
+keys
