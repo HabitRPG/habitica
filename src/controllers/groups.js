@@ -266,7 +266,7 @@ api.flagChatMessage = function(req, res, next){
 
   // Log user ids that have flagged the message
   if(!message.flags) message.flags = {};
-  if(message.flags[user._id]) return res.json(401, {err: "You have already reported this message"});
+  if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: "You have already reported this message"});
   message.flags[user._id] = true;
 
   // Log total number of flags (publicly viewable)
