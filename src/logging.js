@@ -5,8 +5,8 @@ require('winston-newrelic');
 
 var logger, loggly;
 
-if (nconf.get('NODE_ENV') == 'production'){
-  var loggly = require('loggly').createClient({
+if (nconf.get('LOGGLY:enabled')){
+  loggly = require('loggly').createClient({
     token: nconf.get('LOGGLY:token'),
     subdomain: nconf.get('LOGGLY:subdomain'),
     auth: {
@@ -67,6 +67,6 @@ module.exports.error = function(/* variable args */) {
 };
 
 module.exports.loggly = function(/* variable args */){
-  if(loggly)
-      loggly.log.apply(loggly, arguments);
+    if (loggly)
+        loggly.log.apply(loggly, arguments);
 };
