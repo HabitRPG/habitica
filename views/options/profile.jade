@@ -82,7 +82,7 @@ mixin customizeProfile(mobile)
             // Purchasable hairstyles
             menu(label=env.t('hairSet1'))
               - var colors = [2,4,5,6,7,8]
-              span(ng-hide='#{showPath("user.purchased.hair", colors, "&&")}')
+              span(ng-hide='#{showPath("user.purchased.hair.base", colors, "&&")}')
                 +gemCost(2)
                   button.btn.btn-xs(ng-click='#{unlockPath("hair.base",colors)}')!= env.t('unlockSet',{cost:5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
               each num in colors
