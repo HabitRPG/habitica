@@ -96,7 +96,7 @@ mixin customizeProfile(mobile)
                 button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})')
 
           li.customize-menu
-            h5=env.t('bodyFacialHair')
+            menu(label=env.t('bodyFacialHair'))
             span(ng-hide='user.purchased.hair.mustache["1"] && user.purchased.hair.mustache["2"] && user.purchased.hair.beard["1"] && user.purchased.hair.beard["2"] && user.purchased.hair.beard["3"]')
               +gemCost(2)
                 button.btn.btn-xs(ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")')!= env.t('unlockSet',{cost:5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
