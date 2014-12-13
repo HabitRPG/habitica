@@ -3,6 +3,8 @@ var winston = require('winston');
 require('winston-mail').Mail;
 require('winston-newrelic');
 
+var logger, loggly;
+
 if (nconf.get('NODE_ENV') == 'production'){
   var loggly = require('loggly').createClient({
     token: nconf.get('LOGGLY:token'),
@@ -14,12 +16,10 @@ if (nconf.get('NODE_ENV') == 'production'){
     //
     // Optional: Tag to send with EVERY log message
     //
-    tags: ['heroku'],
+    tags: [('heroku-'+nconf.get('BASE_URL'))],
     json: true
   });
 }
-
-var logger;
 
 if (logger == null) {
     logger = new (winston.Logger)({});

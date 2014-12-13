@@ -284,14 +284,15 @@ api.cron = function(req, res, next) {
         User.findById(user._id, cb);
       }
     ], function(err, saved) {
-      if(err) logging.loggly({error: e, stack: e.stack})
+      if(err) logging.loggly({error: "Cron caught", stack: e.stack || e})
       res.locals.user = saved;
       next(err,saved);
       user = progress = quest = null;
     });
   }catch(e){
     logging.loggly({
-      error: e.stack || e
+      error: "Cron uncaught",
+      stack: e.stack || e
     });
     throw e;
   }
