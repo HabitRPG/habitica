@@ -284,7 +284,7 @@ api.cron = function(req, res, next) {
         User.findById(user._id, cb);
       }
     ], function(err, saved) {
-      if(err) logging.loggly({error: "Cron caught", stack: e.stack || e})
+      if(err) logging.loggly({error: "Cron caught", stack: err.stack || err});
       res.locals.user = saved;
       next(err,saved);
       user = progress = quest = null;
