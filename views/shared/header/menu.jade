@@ -50,6 +50,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.inventory.equipment')=env.t('equipment')
               li
                 a(ui-sref='options.inventory.timetravelers') Time Travelers
+                a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
             ul.toolbar-submenu
               li
                 a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
