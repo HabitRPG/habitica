@@ -6,7 +6,7 @@
 }
 .shop_armor_healer_2 {
   background-image: url(spritesmith2.png);
-  background-position: -1025px -1234px;
+  background-position: -1066px -1234px;
   width: 40px;
   height: 40px;
 }
@@ -900,13 +900,13 @@
 }
 .shop_armor_mystery_301404 {
   background-image: url(spritesmith2.png);
-  background-position: -1310px -500px;
+  background-position: -1025px -1234px;
   width: 40px;
   height: 40px;
 }
 .shop_eyewear_mystery_301404 {
   background-image: url(spritesmith2.png);
-  background-position: -1066px -1234px;
+  background-position: -1310px -500px;
   width: 40px;
   height: 40px;
 }
@@ -1801,6 +1801,12 @@
 .shop_body_special_wondercon_gold {
   background-image: url(spritesmith2.png);
   background-position: -41px -1316px;
+  width: 40px;
+  height: 40px;
+}
+.shop_body_special_wondercon_red {
+  background-image: url(spritesmith2.png);
+  background-position: -82px -1316px;
   width: 40px;
   height: 40px;
 }
