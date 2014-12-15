@@ -22,9 +22,9 @@ window.habitrpg = angular.module('habitrpg',
         // Setup default selected tabs
         .when('/options', '/options/profile/avatar')
         .when('/options/profile', '/options/profile/avatar')
-        .when('/options/groups', '/options/groups/tavern')
         .when('/options/groups/guilds', '/options/groups/guilds/public')
         .when('/options/groups/hall', '/options/groups/hall/heroes')
+        .when('/options/groups', '/options/groups/tavern')
         .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
 
