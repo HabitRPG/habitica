@@ -7,7 +7,6 @@ window.habitrpg = angular.module('habitrpg',
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
   // temporary hack until they have a better solution
-  .value('$anchorScroll', angular.noop)
 
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
@@ -22,9 +21,9 @@ window.habitrpg = angular.module('habitrpg',
         // Setup default selected tabs
         .when('/options', '/options/profile/avatar')
         .when('/options/profile', '/options/profile/avatar')
+        .when('/options/groups', '/options/groups/tavern')
         .when('/options/groups/guilds', '/options/groups/guilds/public')
         .when('/options/groups/hall', '/options/groups/hall/heroes')
-        .when('/options/groups', '/options/groups/tavern')
         .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
 
