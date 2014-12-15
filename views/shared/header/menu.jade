@@ -34,11 +34,11 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.social.party')=env.t('party')
               li
-                a(ui-sref='options.social.guilds')=env.t('guilds')
+                a(ui-sref='options.social.guilds.public')=env.t('guilds')
               li
                 a(ui-sref='options.social.challenges')=env.t('challenges')
               li
-                a(ui-sref='options.social.hall')=env.t('hall')
+                a(ui-sref='options.social.hall.heroes')=env.t('hall')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
@@ -114,7 +114,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.social.challenges')=env.t('challenges')
             li
-              a(ui-sref='options.social.hall')=env.t('hall')
+              a(ui-sref='options.social.hall.heroes')=env.t('hall')
       li.toolbar-button-dropdown
         a(ui-sref='options.inventory.drops')
           span=env.t('inventory')
