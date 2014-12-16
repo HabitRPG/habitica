@@ -3,6 +3,12 @@ var async = require('async');
 var payments = require('./index');
 var nconf = require('nconf');
 
+var inAppPurchase = require('in-app-purchase');
+inAppPurchase.config({
+  // this is the path to the directory containing iap-sanbox/iap-live files
+  googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR") 
+});
+
 // Validation ERROR Codes
 var INVALID_PAYLOAD   = 6778001;
 var CONNECTION_FAILED = 6778002;
