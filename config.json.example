@@ -42,7 +42,7 @@
         "client_id":"client_id",
         "client_secret":"client_secret"
     },
-    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
+    "GOOGLE_IAB_PUBLICKEY_LIVE": "GOOGLE_IAB_PUBLICKEY_LIVE",
     "LOGGLY": {
         "enabled": false,
         "subdomain": "subdomain",
