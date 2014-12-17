@@ -184,6 +184,10 @@ window.habitrpg = angular.module('habitrpg',
           url: '/timetravelers',
           templateUrl: "partials/options.inventory.timetravelers.html"
         })
+        .state('options.inventory.seasonalshop', {
+          url: '/seasonalshop',
+          templateUrl: "partials/options.inventory.seasonalshop.html"
+        })
 
         // Options > Settings
         .state('options.settings', {

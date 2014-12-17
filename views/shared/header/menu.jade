@@ -50,6 +50,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.inventory.equipment')=env.t('equipment')
               li
                 a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
+              li
+                a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
             ul.toolbar-submenu
               li
                 a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
@@ -132,6 +134,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(ui-sref='options.inventory.equipment')=env.t('equipment')
             li
               a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
+            li
+              a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
       li.toolbar-button-dropdown
         a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')
           span=env.t('data')
