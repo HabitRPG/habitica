@@ -60,12 +60,13 @@
     "checkout": "Tramitar Pedido",
     "buySubsText": "Compra Gemas con Oro, No Anuncios, Ayuda los Devs",
     "sureCancelSub": "¿Estas seguro que quieres cancelar tu suscripción?",
-    "subCanceled": "Subscription will become inactive on",
-    "subGemPop": "Because you subscribe to HabitRPG, you can purchase a number of Gems each month using Gold. You can see how many Gems are available to buy at the corner of the Gem icon.",
-    "subGemName": "Subscriber Gems",
-    "timeTravelersTitleNoSub": "Tyler and Vicky",
-    "timeTravelersTitle": "Mysterious Time Travelers",
-    "timeTravelersPopoverNoSub": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <%= linkStart %>Subscribers<%= linkEnd %> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.",
-    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <%= linkStart %>here<%= linkEnd %>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
-    "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets."
+    "subCanceled": "La suscripción se volverá inactiva",
+    "subGemPop": "Puesto que te suscribes a HabitRPG puedes comprar un número de Gemas cada mes usando Oro. Puedes ver cuantas Gemas tienes disponibles para comprar en la esquina del icono Gema.",
+    "subGemName": "Gemas de suscriptor",
+    "timeTravelers": "Viajeros en el Tiempo",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> y <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Misteriosos Viajeros en el Tiempo",
+    "timeTravelersPopoverNoSub": "¡Necesitarás un Reloj de Arena místico para invocar a los misteriosos Viajeros en el Tiempo! Los <%= linkStart %>suscriptores<%= linkEnd %> obtienen un Reloj de Arena Místico por cada tres meses de suscripción consecutivos. Vuelve cuando tengas un Reloj de Arena Místico , y los Viajeros en el Tiempo te traerán un Equipo de Objetos de Suscriptor del pasado... o quizás incluso del futuro.",
+    "timeTravelersPopover": "Vemos que tienes un Reloj de Arena Místico, así que gustosamente viajaremos atrás en el tiempo para ti! Por favor, elije el Equipo de objetos Misterioso que te gustaría. ¡Puedes ver una lista de equipos de objetos del pasado <%= linkStart %>aquí<%= linkEnd %>! Si estos no son de tu agrado, ¿estarías quizás más interesado en uno de nuestros estilosos equipos de objetos futuristas Steampunk?",
+    "mysticHourglassPopover": "El Reloj de Arena Místico te permite comprar equipos de subscriptor del mes anterior"
 }

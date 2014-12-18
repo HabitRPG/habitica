@@ -2,7 +2,7 @@
     "settings": "Настройки",
     "language": "Язык",
     "americanEnglishGovern": "В случае несоответствия информации в переводах, правильной следует считать версию на американском английском.",
-    "helpWithTranslation": "Хотите помочь с переводом HabiRPG? Отлично! Почитайте <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">эту</a> карту Trello.",
+    "helpWithTranslation": "Хотите помочь с переводом HabitRPG? Отлично! Посмотрите <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">эту карточку</a> Trello.",
     "showHeaderPop": "Показать ваш аватар, полоски здоровья/опыта и команду.",
     "stickyHeader": "Закрепить область персонажа",
     "stickyHeaderPop": "Прикрепить область персонажа к верхней границе экрана. Если отключить, она будет скрываться при прокрутке страницы. ",
@@ -71,5 +71,5 @@
     "usernameSuccess": "Имя Пользователя успешно изменено",
     "difficulty": "Трудность",
     "data": "Данные",
-    "exportData": "Экспортировать Данные"
+    "exportData": "Экспорт данных"
 }

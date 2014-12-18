@@ -60,12 +60,13 @@
     "checkout": "Checkout",
     "buySubsText": "Compre gemas com Ouro, Sem Propagandas, Ajude os Desenvolvedores",
     "sureCancelSub": "Tem certeza de que deseja cancelar sua assinatura?",
-    "subCanceled": "Subscription will become inactive on",
-    "subGemPop": "Because you subscribe to HabitRPG, you can purchase a number of Gems each month using Gold. You can see how many Gems are available to buy at the corner of the Gem icon.",
-    "subGemName": "Subscriber Gems",
-    "timeTravelersTitleNoSub": "Tyler and Vicky",
-    "timeTravelersTitle": "Mysterious Time Travelers",
-    "timeTravelersPopoverNoSub": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <%= linkStart %>Subscribers<%= linkEnd %> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.",
-    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <%= linkStart %>here<%= linkEnd %>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
-    "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets."
+    "subCanceled": "Assinatura ficará inativa em",
+    "subGemPop": "Porque você assinou o HabitRPG, você pode comprar uma quantidade de Gemas a cada mês usando Ouro. Você pode ver quantas Gemas ainda pode comprar no canto do ícone de Gemas.",
+    "subGemName": "Gemas de Assinante",
+    "timeTravelers": "Time Travelers",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> and <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Misteriosos Viajantes do Tempo",
+    "timeTravelersPopoverNoSub": "Você precisará de uma Ampulheta Mística para convocar os misteriosos Viajantes do Tempo! <%= linkStart %>Assinantes<%= linkEnd %> ganham uma Ampulheta Mística para cada três meses consecutivos de assinatura. Volte quando você tiver uma Ampulheta Mística e os Viajantes do Tempo buscarão para você um Conjunto de Itens de Assinante do passado... ou até do futuro.",
+    "timeTravelersPopover": "Estamos vendo que você tem uma Ampulheta Mística, então teremos todo o prazer em viajar no passado para você! Por favor, escolha o Conjunto de Itens Misteriosos que você gostaria. Você pode ver uma lista dos conjuntos antigos <%= linkStart %>aqui<%= linkEnd %>! Se esses conjuntos não te satisfazem, talvez você estaria interessado em algum dos nossos elegantes Conjuntos de Itens Steampunk futuristas?",
+    "mysticHourglassPopover": "Ampulhetas Místicas te permitem comprar os conjuntos de assinante dos meses anteriores."
 }

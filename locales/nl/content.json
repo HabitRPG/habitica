@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "griezelige",
     "questEggOwlText": "Uil",
     "questEggOwlAdjective": "wijze",
+    "questEggPenguinText": "Pinguïn",
+    "questEggPenguinAdjective": "oplettende",
     "eggNotes": "Vind een uitbroedtoverdrank om op dit ei te gieten, en er zal een <%= eggAdjective() %> <%= eggText() %> uitkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",

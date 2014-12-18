@@ -55,7 +55,7 @@
     "questVice1Boss": "Lasters Schatten",
     "questVice1DropVice2Quest": "Laster Teil 2 (Rolle)",
     "questVice2Text": "Finde des Wyrmes Hort",
-    "questVice2Notes": "Nachdem Laster keinen Einfluss mehr auf Euch hat, spürt Ihr lange vergessene Stärke zu euch zurückkehren. Vertrauend auf Eure Fähigkeit dem Einfluss des Wyrms zu widerstehen macht Ihr Euch auf den Weg zu Mount Habitica. Ihr nähert Euch dem Eingang der Höhle und stoppt. Ein Schwall von Schatten, nebelgleich quillt aus der Felsöffnung. Es ist fast unmöglich irgendetwas zu sehen. Das Licht Eurer Laterne scheint auf eine Wand von Schatten zu treffen. Es heisst, dass nur magisches Licht den höllischen Dunstkreis des Drachen durchdringen kann. Nur wenn Ihr genügend Lichtkristalle findet, könnt ihr es bis zu dem Drachen selbst schaffen.",
+    "questVice2Notes": "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes its way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
     "questVice2CollectLightCrystal": "Licht Kristalle",
     "questVice2DropVice3Quest": "Laster Teil 3 (Rolle)",
     "questVice3Text": "Laster erwacht",
@@ -84,7 +84,7 @@
     "questGoldenknight1CollectTestimony": "Zeugenaussagen",
     "questGoldenknight1DropGoldenknight2Quest": "Die Goldene Ritterin-Kette Teil 2: Stumpfes Gold (Rolle)",
     "questGoldenknight2Text": "Goldene Ritterin",
-    "questGoldenknight2Notes": "<p>Mit hunderten Zeugenaussagen von Habiticanern bewaffnet, konfrontierst du die Goldene Ritterin. Du fängst an, ihr die Beschwerden der Habiticaner eine nach der anderen vorzulesen. \"Und @Pfeffernusse sagt, dass deine ständige Prahlerei-\" Die Ritterin hebt ihre Hand, um dich zum Schweigen zu bringen und spottet \"Ich bitte Dich, diese Leute sind einfach nur neidisch auf meinen Erfolg. Statt sich zu beschweren, sollten sie einfach so hart arbeiten wie ich! Vielleicht zeige ich dir mal, wie stark Du werden kannst, wenn Du so fleißig bist wie ich!\" Sie hebt ihren Morgenstern und setzt zum Angriff an!</p>",
+    "questGoldenknight2Notes": "<p>Mit hunderten Zeugenaussagen von Habiticanern bewaffnet, konfrontierst du die Goldene Ritterin. Du fängst an, ihr die Beschwerden der Habiticaner eine nach der anderen vorzulesen. \"Und @Pfeffernusse sagt, dass deine ständige Prahlerei-\" Die Ritterin hebt ihre Hand, um dich zum Schweigen zu bringen und spottet \"Ich bitte Dich, diese Leute sind einfach nur neidisch auf meinen Erfolg. Statt sich zu beschweren, sollten sie einfach so hart arbeiten wie ich! Vielleicht zeige ich Dir mal, wie stark Du werden kannst, wenn Du so fleißig bist wie ich!\" Sie hebt ihren Morgenstern und setzt zum Angriff an!</p>",
     "questGoldenknight2Boss": "Goldene Ritterin",
     "questGoldenknight2DropGoldenknight3Quest": "Die Goldene Ritterin-Kette Teil 3: Der Eiserne Ritter (Rolle)",
     "questGoldenknight3Text": "Der Eiserne Ritter",
@@ -136,5 +136,10 @@
     "questOwlNotes": "Das Gasthauslicht brennt bis zum in die Morgenstunden <br>Doch eine Nacht ist das Leuchten verschwunden!<br>Wo sollen denn jetzt alle Nachtschwärmern hin?<br>@Twitching ruft, \"Wir müssen in den Kampfe ziehn!\"<br>Siehst du diese Nachteule, den gefiederten Feind?<br>Kämpfe schnell, kämpfe gut, mach sie klein!<br>Wir werden ihren Schatten schnell verscheuchen,<br>und die Nacht wieder hell erleuchten!\"",
     "questOwlCompletion": "Die Nachteul' verblasst, bevor die Nacht vergeht<br>Doch dennoch fühlst du, wie es in dir gähnt.<br>Vielleicht ist es Zeit, sich hinzulegen?<br>In deinem Bett siehst du ein Nestchen liegen!<br>Die Nachteul' weiß, es ist sehr schön<br>spät zu arbeiten und spät ins Bett zu gehn,<br>Aber deine neuen Haustiere werden leise krähen<br>und dir dann sagen, \"du sollst schlafen gehen\".",
     "questOwlBoss": "Die Nachteule",
-    "questOwlDropOwlEgg": "Eule (Ei)"
+    "questOwlDropOwlEgg": "Eule (Ei)",
+    "questPenguinText": "Der Federvieh-Frost",
+    "questPenguinNotes": "Obwohl es auf der Südspitze von Habitica ein heißer Sommertag ist, hat eine unnatürliche Kälte den Lively Lake befallen. Man hört das Heulen von starken, eisige Winden und das Ufer fängt an, zuzufrieren. Eisspitzen brechen aus dem Boden und verdrängen Gras und Dreck. @Melynnrose und @Breadstrings rennen zu dir hinüber.<br><br>\"Hilfe!\" sagt @Melynnrose. \"Wir haben einen riesigen Pinguin hergebracht, um den See zuzufrieren damit wir alle schlittschuhlaufen können, aber uns sind die Fische ausgegangen, mit denen wir ihn gefüttert haben!\"<br><br>\"Er wurde wütend und friert mit seinem Eis-Atem alles zu, was er sieht!\" sagt @Breadstrings. \"Bitte, du musst ihn überwältigen bevor wir alle von Eis bedeckt sind!\" Sieht aus, als ob du das Gemüt dieses Pinguins... etwas <em>abkühlen</em> musst. ",
+    "questPenguinCompletion": "Mit der Niederlage des Pinguins beginnt das Eis zu schmelzen. Der riesige Pinguin setzt sich im Sonnenschein auf den Boden und schlürft einen Eimer Fische herunter. Er gleitet über den See und lässt dabei mit einem leichten Pusten nach unten glattes, glitzerndes Eis entstehen. Was für ein komischer Vogel! \"Es scheint so, als hätte er einige Eier hinterlassen,\" sagt  @Painter de Cluster. <br><br>@Rattify lacht. \"Vielleicht werden diese Pinguine ein bisschen... gechillter sein?\"",
+    "questPenguinBoss": "Frostpinguin",
+    "questPenguinDropPenguinEgg": "Pinguin (Ei)"
 }

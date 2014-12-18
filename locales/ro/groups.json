@@ -2,7 +2,7 @@
     "tavern": "Cârciumă",
     "innCheckOut": "Părăsește hanul",
     "innCheckIn": "Odihnește-te la han",
-    "innText": "Cum te-ai odihnit ? Pentru binele tău toate cotidienele sunt oprite. Toate bifele tale nu vor fi procesate sau şterse până mâine (ziua după ieşirea din odihnă). Ai grijă, dacă echipa ta este într-o bătălie cu un monstru acesta te va răni când colegii nu-şi îndeplinesc sarcinile! Şi tu nu-l vei răni. Eşti gata să pleci? Gata.",
+    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Discuţii despre grupuri (căutarea de echipe)",
     "tutorial": "Ghid",
     "glossary": "Glosar",
@@ -82,5 +82,6 @@
     "optOutPopover": "Don't like private messages? Click to completely opt out",
     "block": "Block",
     "unblock": "Un-block",
-    "pm-reply": "Send a reply"
+    "pm-reply": "Send a reply",
+    "inbox": "Inbox"
 }

@@ -55,7 +55,7 @@
     "questVice1Boss": "Zlořádův stín",
     "questVice1DropVice2Quest": "Zlořád část 2 (svitek)",
     "questVice2Text": "Najdi drakovo doupě",
-    "questVice2Notes": "Se Zlořádovým vlivem nad tebou zlomeným, cítíš, jak se ti vrací síla, o které jsi ani nevěděl, že jí máš. Jistí si sebou a svou schopností odolat drakovu vlivu, se tvá družina vydává na cestu k hoře Habitika. Dojdete ke vchodu do jeskyní a zastavíte. Vlnící se stíny, skoro jako mlha, se vyřítí ze vchodu do jeskyně. Je skoro nemožné vidět cokoliv před vámi. Světlo z vašich luceren zdá se končí tam, kde stíny začínají. Říká se, že pouze magické světlo dokáže prosvítit drakovu pekelnou mlhu. Pokud najdete dost světelných krystalů, můžete se vydat na cestu k drakovi.",
+    "questVice2Notes": "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes its way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
     "questVice2CollectLightCrystal": "Světelné krystaly",
     "questVice2DropVice3Quest": "Zlořád část 3. (svitek)",
     "questVice3Text": "Zlořád se probouzí",
@@ -136,5 +136,10 @@
     "questOwlNotes": "Světlo v krčmě svítí až do úsvitu <br>Dokud jednoho večera nezmizí!<br>Jak uvidíme až pojedeme celou noc?<br>@Twitching křičí, \"Potřebuju nějaké rváče!<br>Vidíte toho sýčka?<br>Bijte se s ním rychle a nezahálejte!<br>Odrazíme jeho stín od našich dveří,<br>a noc bude znovu zářit!\"",
     "questOwlCompletion": "Sýček před úsvitem mizí,<br>Ale i tak cití, jak na tebe jde zývnutí.<br>Možá je čas na odpočinek?<br>A pak na své posteli uvidíš hnízdo!<br>Sýček ví, že může být skvělé<br>Dokončit práci a zůstat vzhůru déle,<br>Ale tví noví mazlíčky budou jemně pípat<br>Aby ti řekli, kdy je čas jít spát.",
     "questOwlBoss": "Sýček",
-    "questOwlDropOwlEgg": "Sýček (vejce)"
+    "questOwlDropOwlEgg": "Sýček (vejce)",
+    "questPenguinText": "Mrazivé ptactvo",
+    "questPenguinNotes": "I když je v nejjižnějším cípu Habitiky horký letní den, na Živé jezero padl nebývalý chlad. Silný, mrazivý vítr hučí všude kolem a pobřeží začíná zamrzat. Ledové bodce vyráží ze země a přitom rvou trávu z kořenů. @Melynnrose a @Breadstrings k tobě běží. <br><br> \"Pomoc!\" říká @Melynnrose. \"Přivedli jsme sem obřího tučňáka, aby zmrazil jezero a my na něm mohli bruslit, jenže nám došly ryby, kterými jsme ho krmili!\"<br><br>\"Naštval se a dýchá svým ledovým dechem na vše, co vidí!\" říká @Breadstrings. \"Prosím, musíš ho umírnit než nás všechny pokryje ledem!\" Vypadá to, že budeš muset tohohle tučňáka... <em>dát k ledu.</em>",
+    "questPenguinCompletion": "Když tučňáka porazíš, led roztaje. Tučňák se usadí na sluníčku a srká z kyblík plného ryb, který jste našli. Foukajíc před sebe jemný třpytivý led odbruslí přes jezero. Jaký to divní pták! \"Zdá se, že tu za sebou nechal pár vajec,\" říká @Painter de Cluster. <br><br>@Rattify se směje \"Možná budou tihle tučňáčci trochu... chladnější?\"",
+    "questPenguinBoss": "Mrazivý tučňák",
+    "questPenguinDropPenguinEgg": "Tučňák (vejce)"
 }

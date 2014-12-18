@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "assustador",
     "questEggOwlText": "Coruja",
     "questEggOwlAdjective": "sábia",
+    "questEggPenguinText": "Penguin",
+    "questEggPenguinAdjective": "perspicacious",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",

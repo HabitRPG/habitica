@@ -1,5 +1,5 @@
 {
-    "backgrounds": "Фоны",
+    "backgrounds": "Фон",
     "backgrounds062014": "Набор 1: Выпущен в июне 2014",
     "backgroundBeachText": "Пляж",
     "backgroundBeachNotes": "Отдохните на солнечном морском берегу.",
@@ -44,9 +44,9 @@
     "backgroundSunsetMeadowNotes": "Поддайтесь очарованию закатного луга.",
     "backgrounds122014": "Набор 7: выпущен в декабре 2014",
     "backgroundIcebergText": "Айсберг",
-    "backgroundIcebergNotes": "Дрейфуйте на айсберге.",
+    "backgroundIcebergNotes": "Окажитесь на дрейфующем айсберге.",
     "backgroundTwinklyLightsText": "Мерцающие зимние огоньки",
-    "backgroundTwinklyLightsNotes": "Прогуляйтесь меж деревьев сияющих праздничными огнями.",
+    "backgroundTwinklyLightsNotes": "Прогуляйтесь среди деревьев, сияющих праздничными огнями.",
     "backgroundSouthPoleText": "Южный полюс",
-    "backgroundSouthPoleNotes": "Посетите холодный Южный полюс."
+    "backgroundSouthPoleNotes": "Посетите льдистый Южный полюс."
 }

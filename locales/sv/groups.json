@@ -2,7 +2,7 @@
     "tavern": "Krog",
     "innCheckOut": "Checka ur Värdshuset",
     "innCheckIn": "Vila på Värdshuset",
-    "innText": "Hur går din vistelse i krogen? För att skydda dig, din dagliga lista är frusen. Dina förstrykningar kommer inte bearbetas eller rensas förrän i morgon (dagen efter du har lämnat krogen). Var försiktig, om ditt sällskap är i en strid, deras fel kommer att skada dig! Och du kommer inte ta del i striden. Redo att lämna krogen?",
+    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Sällskap Sökes-inlägg",
     "tutorial": "Handledning",
     "glossary": "Ordlista",
@@ -82,5 +82,6 @@
     "optOutPopover": "Don't like private messages? Click to completely opt out",
     "block": "Block",
     "unblock": "Un-block",
-    "pm-reply": "Send a reply"
+    "pm-reply": "Send a reply",
+    "inbox": "Inbox"
 }

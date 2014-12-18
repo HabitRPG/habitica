@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "escalofriante",
     "questEggOwlText": "Búho",
     "questEggOwlAdjective": "sabio",
+    "questEggPenguinText": "Pingüino",
+    "questEggPenguinAdjective": "perspicaz",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá  un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

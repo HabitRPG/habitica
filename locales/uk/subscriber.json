@@ -60,12 +60,13 @@
     "checkout": "Розрахувати",
     "buySubsText": "Купувати самоцвіти за золото, без реклами, підтримка розробників",
     "sureCancelSub": "Ви справді бажаєте скасувати Вашу підписку?",
-    "subCanceled": "Subscription will become inactive on",
-    "subGemPop": "Because you subscribe to HabitRPG, you can purchase a number of Gems each month using Gold. You can see how many Gems are available to buy at the corner of the Gem icon.",
-    "subGemName": "Subscriber Gems",
-    "timeTravelersTitleNoSub": "Tyler and Vicky",
-    "timeTravelersTitle": "Mysterious Time Travelers",
-    "timeTravelersPopoverNoSub": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <%= linkStart %>Subscribers<%= linkEnd %> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.",
-    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <%= linkStart %>here<%= linkEnd %>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
-    "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets."
+    "subCanceled": "Підписка стане неактивною",
+    "subGemPop": "Так як ви підписані на HabitRPG, ви можете обмінювати на Самоцвіти деяку кількість Золота кожен місяць. Ви можете побачити скільки Самоцвітів доступно для купівлі в вуглу іконки Самоцвіта.",
+    "subGemName": "Самоцвіти Передплатника",
+    "timeTravelers": "Time Travelers",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> and <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Таємничі Мандрівники у Часі",
+    "timeTravelersPopoverNoSub": "Вам необхідні Таємничі Пісочні Часи, щоб викликати Таємничих Мандрівників у Часі! <%= linkStart %>Передплатники<%= linkEnd %> отримують одні Таємничі Пісочні Часи за кожні три місяці непрерервної передплати. Повертайтеся, коли отримаєте Таємничі Пісочні Часи, і Маднрівники у Часі принесуть для вас Комплект Передплатника з минулого... або можливо з майбутнього.",
+    "timeTravelersPopover": "Бачимо у вас є Таємничі Пісочні Часи, тож ми будемо раді подорожувати назад в часі для вас! Будь-ласка виберіть Таємничий Комплект який ви бажаєте. Ви можете побачити список минулих предметів <%= linkStart %>тут<%= linkEnd %>! Якщо ці не задовольнять вас, можливо вас зацікавить наш модний футуристичний Стімпанк Комплект?",
+    "mysticHourglassPopover": "Таємничі Пісочні Часи дають вам змогу придбати комплекти передплатників за минулі місяці."
 }

@@ -55,7 +55,7 @@
     "questVice1Boss": "A Sombra do Vício",
     "questVice1DropVice2Quest": "Vício Parte 2 (Pergaminho)",
     "questVice2Text": "Encontre o Covil do Dragão",
-    "questVice2Notes": "Com a influência do Vício sob você dissipada, você sente uma onda de força que não sabia que tinha voltar para você. Confiante em si mesmo e em suas habilidades em resistir a influência do dragão, sua equipe consegue chegar ao Monte Habitica. Você se aproxima da entrada das cavernas da montanha e para. Ondas de escuridão, quase como nuvens, saem da abertura. É quase impossível enxergar qualquer coisa à sua frente. A luz das lanternas parecem acabar abruptamente onde a escuridão começa. Dizem que apenas luz mágica pode atravessar a neblina infernal do dragão. Se conseguirem encontrar cristais de luz suficientes, poderão encontrar o caminho até o dragão.",
+    "questVice2Notes": "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes its way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
     "questVice2CollectLightCrystal": "Cristais de Luz",
     "questVice2DropVice3Quest": "Vício Parte 3 (Pergaminho)",
     "questVice3Text": "Vício Desperta",
@@ -84,7 +84,7 @@
     "questGoldenknight1CollectTestimony": "Testemunhos",
     "questGoldenknight1DropGoldenknight2Quest": "Arco da Cavaleira Dourada, Parte 2: Ouro Deslustrado (Pergaminho)",
     "questGoldenknight2Text": "Cavaleira Dourada",
-    "questGoldenknight2Notes": "<p>Armado de centenas de testemunhos de habiticanos você finalmente confronta a Cavaleira Dourada. Você começa a ler as reclamações dos habiticanos, uma a uma: \"E @Pfeffernusse disse que sua vanglória constante...\" A cavaleira levanta sua mão para te silenciar e zomba: \"Por favor, essas pessoas estão meramente invejosas de meu sucesso. Ao invés de se queixar elas deveriam simplesmente trabalhar tão duro quanto eu! Talvez eu deva lhe mostrar o poder que você pode obter através de uma diligência como a minha!\" Ela levanta sua estrela da manhã e se prepara para atacar você!</p>",
+    "questGoldenknight2Notes": "<p>Armed with hundreds of Habitican's testimonies, you finally confront the Golden Knight. You begin to recite the Habitcan's complaints to her, one by one. \"And @Pfeffernusse says that your constant bragging-\" The knight raises her hand to silence you and scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar and prepares to attack you!</p>",
     "questGoldenknight2Boss": "Cavaleira Dourada",
     "questGoldenknight2DropGoldenknight3Quest": "Arco da Cavaleira Dourada, Parte 3: O Cavaleiro de Ferro (Pergaminho)",
     "questGoldenknight3Text": "O Cavaleiro de Ferro",
@@ -136,5 +136,10 @@
     "questOwlNotes": "A luz da Taverna é acesa até o amanhecer.<br>Até que em uma manhã esse brilho some!<br>Como podemos ver durante nossas madrugadas?<br>@Twitching grita, \"Eu preciso de alguns lutadores!<br>Vê aquela Coruja-Noturna, inimiga estralada?<br>Lute logo e não se demore!<br>Vamos mandar sua sombra para longe de nossa porta,<br>E fazer a noite brilhar novamente!\"",
     "questOwlCompletion": "A Coruja-Noturna some ao amanhecer,<br>Mas mesmo assim você sente um bocejo.<br>Talvez seja hora de descansar um pouco:<br>Então em sua cama você vê um ninho!<br>A Coruja-Noturna sabe que pode ser ótimobr>Concluir trabalhos e ficar acordado até tarde,<br>Mas seus novos mascotes vão sutilmente piar<br>Para lhe avisar quando é hora de dormir.",
     "questOwlBoss": "A Coruja-Noturna",
-    "questOwlDropOwlEgg": "Coruja (Ovo)"
+    "questOwlDropOwlEgg": "Coruja (Ovo)",
+    "questPenguinText": "The Fowl Frost",
+    "questPenguinNotes": "Although it's a hot summer day in the southernmost tip of Habitica, an unnatural chill has fallen upon Lively Lake. Strong, frigid winds rush around as the shore begins to freeze over. Ice spikes jut up from the ground, pushing grass and dirt away. @Melynnrose and @Breadstrings run up to you.<br><br>\"Help!\" says @Melynnrose. \"We brought a giant penguin in to freeze the lake so we could all go ice skating, but we ran out of fish to feed him!\"<br><br>\"He got angry and is using his freeze breath on everything he sees!\" says @Breadstrings. \"Please, you have to subdue him before all of us are covered in ice!\" Looks like you need this penguin to... <em>cool down.</em>",
+    "questPenguinCompletion": "Upon the penguin's defeat, the ice melts away. The giant penguin settles down in the sunshine, slurping up an extra bucket of fish you found. He skates off across the lake, blowing gently downwards to create smooth, sparkling ice. What an odd bird! \"It appears he left behind a few eggs, as well,\" says @Painter de Cluster. <br><br>@Rattify laughs. \"Maybe these penguins will be a little more... chill?\"",
+    "questPenguinBoss": "Frost Penguin",
+    "questPenguinDropPenguinEgg": "Penguin (Egg)"
 }

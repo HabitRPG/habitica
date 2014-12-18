@@ -2,7 +2,7 @@
     "tavern": "Taverna",
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
-    "innText": "Come ti trovi nella Locanda? Per proteggerti, tutte le le tue Daily sono bloccate: non verranno considerate fino a domani (al giorno successivo alla tua uscita dalla Locanda). Attenzione però: se la tua squadra sta combattendo contro un Boss, le loro Daily mancate continueranno a danneggiarti! Inoltre, non infliggerai danni al Boss. Sei pronto per nuove battaglie? Esci dalla Locanda.",
+    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -79,8 +79,9 @@
     "pmHeading": "Messaggio privato a <%= name %>",
     "clearAll": "Elimina tutto",
     "clearAllPopover": "Cancella tutti i messaggi",
-    "optOutPopover": "Non ti piacciono i messaggi privati? Clicca per disattivare questa funzione",
+    "optOutPopover": "Non ti piacciono i messaggi privati? Clicca per disattivare questa funzione.",
     "block": "Blocca",
     "unblock": "Sblocca",
-    "pm-reply": "Invia una risposta"
+    "pm-reply": "Invia una risposta",
+    "inbox": "Messaggi"
 }

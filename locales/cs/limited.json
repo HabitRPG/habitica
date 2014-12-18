@@ -13,5 +13,8 @@
     "polarBear": "Lední medvěd",
     "turkey": "Krocan",
     "polarBearPup": "Lední medvídě",
-    "jackolantern": "Jack-O-Lantern"
+    "jackolantern": "Jack-O-Lantern",
+    "seasonalShop": "Sezónní obchod",
+    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <%= linkStart %>Velkolepé Gala<%= linkEnd %>!"
 }

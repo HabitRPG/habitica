@@ -13,5 +13,8 @@
     "polarBear": "Белый медведь",
     "turkey": "Индейка",
     "polarBearPup": "Детеныш белого медведя",
-    "jackolantern": "Тыквенная лампа"
+    "jackolantern": "Тыквенная лампа",
+    "seasonalShop": "Seasonal Shop",
+    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!"
 }

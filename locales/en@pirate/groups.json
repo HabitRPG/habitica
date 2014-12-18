@@ -2,7 +2,7 @@
     "tavern": "Pub",
     "innCheckOut": "Check Out o' th' Quarters",
     "innCheckIn": "Rest in th' Quarters",
-    "innText": "How's ye stay in th' Quarters? To protect ye, ye daily list be frozen. ye checkmarks won't be processed or cleared 'til to'morrow (th' day after ye check out). Be careful, if ye crew's in a Boss Battle, their misses gunna hurt ye! Also, ye won't hurt th' boss. Ready to leave? Check out.",
+    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Lookin' fer Group (Crew Wanted) Posts",
     "tutorial": "Tutorial",
     "glossary": "Glossary",
@@ -82,5 +82,6 @@
     "optOutPopover": "Don't like private messages? Click to completely opt out",
     "block": "Block",
     "unblock": "Un-block",
-    "pm-reply": "Send a reply"
+    "pm-reply": "Send a reply",
+    "inbox": "Inbox"
 }

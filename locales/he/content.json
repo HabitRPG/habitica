@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "מבחיל",
     "questEggOwlText": "Owl",
     "questEggOwlAdjective": "wise",
+    "questEggPenguinText": "Penguin",
+    "questEggPenguinAdjective": "perspicacious",
     "eggNotes": "מצא/י שיקוי בקיעה, בזוק/בזקי אותו על הביצה הזו, והיא תהפוך ל <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

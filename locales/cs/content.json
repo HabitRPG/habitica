@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "děsivý",
     "questEggOwlText": "Sýček",
     "questEggOwlAdjective": "moudrý",
+    "questEggPenguinText": "Tučňák",
+    "questEggPenguinAdjective": "bystrý",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a z něj se vylíhne  <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Základní",
     "hatchingPotionWhite": "Bílý",

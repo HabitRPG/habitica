@@ -60,12 +60,13 @@
     "checkout": "Kasse",
     "buySubsText": "Kaufe Edelsteine mit Gold, keine Werbung, Unterstützung der Entwickler",
     "sureCancelSub": "Bist Du sicher, dass du das Abonnement kündigen willst?",
-    "subCanceled": "Subscription will become inactive on",
-    "subGemPop": "Because you subscribe to HabitRPG, you can purchase a number of Gems each month using Gold. You can see how many Gems are available to buy at the corner of the Gem icon.",
-    "subGemName": "Subscriber Gems",
-    "timeTravelersTitleNoSub": "Tyler and Vicky",
-    "timeTravelersTitle": "Mysterious Time Travelers",
-    "timeTravelersPopoverNoSub": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <%= linkStart %>Subscribers<%= linkEnd %> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.",
-    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <%= linkStart %>here<%= linkEnd %>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
-    "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets."
+    "subCanceled": "Das Abonnement wird auslaufen zum",
+    "subGemPop": "Weil du HabitRPG abonniert hast, kannst du pro Monat eine bestimmte Anzahl an Edelsteinen mit Gold kaufen. An der Ecke des Edelstein-Icons kannst Du sehen, wie viele Edelsteine zum Kaufen verfügbar sind. ",
+    "subGemName": "Abonnenten-Edelsteine",
+    "timeTravelers": "Mysteriöse Zeitreisende",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> und <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Mysteriöse Zeitreisende",
+    "timeTravelersPopoverNoSub": "Du brauchst eine Mysteriöse Sanduhr, um die mysteriösen Zeitreisenden herbeizurufen!  <%= linkStart %>Abonnenten<%= linkEnd %> verdienen für alle drei Monate, in denen sie hintereinander abonniert haben, eine Mysteriöse Sanduhr. Komm wieder, wenn du eine Mysteriöse Sanduhr hast, und die Zeitreisenden werden dir ein Abonnenten-Set aus der Vergangenheit holen... oder sogar aus der Zukunft. ",
+    "timeTravelersPopover": "Wir sehen, dass du eine Mysteriöse Sanduhr hast, deshalb können wir gerne für dich durch die Zeit reisen! Bitte such dir aus, welches Abonnenten-Set du gerne hättest. <%= linkStart %>Hier<%= linkEnd %> ist eine Liste der Ausrüstungs-Sets der Vergangenheit. Wenn diese dir nicht gefallen, vielleicht hättest du Interesse an einem unserer modisch futuristischen Steampunk Ausrüstungs-Sets?",
+    "mysticHourglassPopover": "Die Mysteriöse Sanduhr erlaubt dir, Abonnenten-Sets früherer Monate zu kaufen. "
 }

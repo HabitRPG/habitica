@@ -2,7 +2,7 @@
     "tavern": "Таверна",
     "innCheckOut": "Покинуть гостиницу",
     "innCheckIn": "В гостиницу",
-    "innText": "Наслаждаетесь отдыхом в Трактире? Чтобы уберечь вас, ежедневные задания заморожены, их галочки не исчезнут до завтра (следующий день после выписки из Трактира). Но будьте осторожны: если ваша команда сражается с боссом, он будет причинять вам вред, но вы не сможете наносить урон. Готовы снова двигаться в путь? Не забудьте выписаться из Трактира.",
+    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Объявления о поиске команды",
     "tutorial": "Обучение",
     "glossary": "Терминология",
@@ -82,5 +82,6 @@
     "optOutPopover": "Не любите личные сообщения? Нажмите, чтобы отказаться от использования",
     "block": "Блокировать",
     "unblock": "Разблокировать",
-    "pm-reply": "Ответить"
+    "pm-reply": "Ответить",
+    "inbox": "Почта"
 }

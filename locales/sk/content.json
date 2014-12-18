@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "strašidelný",
     "questEggOwlText": "Owl",
     "questEggOwlAdjective": "wise",
+    "questEggPenguinText": "Penguin",
+    "questEggPenguinAdjective": "perspicacious",
     "eggNotes": "Nájdi liahoxír, ktorý vyleješ na vajíčko, a vyliahne sa z neho <%= eggText() %>.",
     "hatchingPotionBase": "Základný",
     "hatchingPotionWhite": "Biely",

@@ -45,6 +45,8 @@
     "questEggSpiderAdjective": "gruselig",
     "questEggOwlText": "Eule",
     "questEggOwlAdjective": "weise",
+    "questEggPenguinText": "Pinguin",
+    "questEggPenguinAdjective": "scharsinning",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

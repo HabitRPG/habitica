@@ -13,5 +13,8 @@
     "polarBear": "Urso Polar",
     "turkey": "Peru",
     "polarBearPup": "Filhote de Urso Polar",
-    "jackolantern": "O miserável Jack da Lanterna"
+    "jackolantern": "O miserável Jack da Lanterna",
+    "seasonalShop": "Seasonal Shop",
+    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!"
 }

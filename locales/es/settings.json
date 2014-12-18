@@ -2,7 +2,7 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "americanEnglishGovern": "En caso de que hubiese alguna discrepancia en las traducciones, prima la versión Americana Inglesa. ",
-    "helpWithTranslation": "¿Te gustaría ayudar traduciendo HabitRPG? ¡Genial! Entonces visita <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\"> aquí </a> tarjeta Trello.",
+    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de HabitRPG? ¡Genial! Entonces visita <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">esta</a> tarjeta Trello.",
     "showHeaderPop": "Mostrar el avatar, barras de vida y experiencia y grupo.",
     "stickyHeader": "Cabecera fija",
     "stickyHeaderPop": "Pegar la cabecera a la parte superior de la ventana. Si no está seleccionada significa que la cabecera se perderá de vista al bajar por la página.",
@@ -70,6 +70,6 @@
     "passSuccess": "Contraseña cambiada con éxito",
     "usernameSuccess": "Nombre de Usuario cambiado con éxito",
     "difficulty": "Dificultad",
-    "data": "Data",
-    "exportData": "Export Data"
+    "data": "Datos",
+    "exportData": "Exportar Datos"
 }

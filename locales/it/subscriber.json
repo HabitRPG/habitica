@@ -61,11 +61,12 @@
     "buySubsText": "Compra le gemme con l'oro, nessuna pubblicità, supporta gli sviluppatori",
     "sureCancelSub": "Vuoi davvero annullare il tuo abbonamento?",
     "subCanceled": "L'abbonamento diventerà inattivo il",
-    "subGemPop": "Because you subscribe to HabitRPG, you can purchase a number of Gems each month using Gold. You can see how many Gems are available to buy at the corner of the Gem icon.",
-    "subGemName": "Subscriber Gems",
-    "timeTravelersTitleNoSub": "Tyler and Vicky",
-    "timeTravelersTitle": "Mysterious Time Travelers",
-    "timeTravelersPopoverNoSub": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <%= linkStart %>Subscribers<%= linkEnd %> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a Subscriber Item Set from the past.... or maybe even the future.",
-    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the Mystery Item Set you would like. You can see a list of the past item sets <%= linkStart %>here<%= linkEnd %>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
-    "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets."
+    "subGemPop": "Abbonandoti ad HabitRPG, puoi comprare un certo numero di Gemme ogni mese utilizzando il tuo Oro. Puoi vedere quante Gemme sono disponibili per l'acquisto nell'angolo dell'icona con la Gemma.",
+    "subGemName": "Gemme abbonato",
+    "timeTravelers": "Viaggiatori del Tempo",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> e <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Misteriosi viaggiatori del tempo",
+    "timeTravelersPopoverNoSub": "Hai bisogno di una Clessidra Mistica per evocare i misteriosi viaggiatori del tempo! Gli <%= linkStart %>abbonati<%= linkEnd %> ne ottengono una ogni tre mesi di abbonamento consecutivi. Torna qui quando avrai una Clessidra Mistica, e i viaggiatori del tempo ti porteranno un set di Oggetti Misteriosi dal passato...o forse persino dal futuro!",
+    "timeTravelersPopover": "Abbiamo notato che possiedi una Clessidra Mistica, quindi saremo felici di tornare indietro nel tempo per te! Scegli il set di Oggetti Misteriosi che desideri. Puoi vedere una lista dei set passati in <%= linkStart %>questa pagina<%= linkEnd %>! Se questi non ti soddisfano, forse preferiresti uno dei nostri raffinati e futuristici set di oggetti steampunk?",
+    "mysticHourglassPopover": "La Clessidra Mistica ti permette di acquistare i set per abbonati dei mesi passati."
 }

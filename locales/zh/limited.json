@@ -13,5 +13,8 @@
     "polarBear": "北极熊",
     "turkey": "火鸡",
     "polarBearPup": "小北极熊",
-    "jackolantern": "杰克南瓜灯"
+    "jackolantern": "杰克南瓜灯",
+    "seasonalShop": "Seasonal Shop",
+    "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
+    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!"
 }

@@ -2,7 +2,7 @@
     "tavern": "Krčma",
     "innCheckOut": "Odhlásit se z hostince",
     "innCheckIn": "Odpočívat v hostinci",
-    "innText": "Jaký je tvůj pobyt v hostinci? Tvé denní úkoly jsou zmrazené, aby tě ochránily. Vše, co jsi odškrtl se nezapočítá nebo nevymaže až do zítřka (den po odhlášení z hostince). Buď však opatrný, pokud je tvá družina v boji s bossem, ublíží i tobě! Ale ty bossovi neublížíš. Připraven odejít? Odhlaš se.",
+    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
     "lfgPosts": "Hledá se skupina (družina)",
     "tutorial": "Průvodce",
     "glossary": "Slovník",
@@ -82,5 +82,6 @@
     "optOutPopover": "Nemáš rád soukromé zprávy? Klikni pro úplné odhlášení",
     "block": "Blokovat",
     "unblock": "Odblokovat",
-    "pm-reply": "Poslat odpověď"
+    "pm-reply": "Poslat odpověď",
+    "inbox": "Příchozí zprávy"
 }
