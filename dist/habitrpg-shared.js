@@ -15509,7 +15509,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
+        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, gainMP, id, multiplier, num, options, stats, subtractPoints, task, th, _ref;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -15588,10 +15588,13 @@ api.wrap = function(user, main) {
               if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                 user.stats.training[task.attribute] += nextDelta;
               }
-              if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
+              if (direction === 'up') {
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
                   user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
+                }
+                if (task.type === 'habit') {
+                  user.party.quest.progress.up += nextDelta * (0.5 + (user._statsComputed.str / 400));
                 }
               }
               task.value += nextDelta;
@@ -15620,9 +15623,20 @@ api.wrap = function(user, main) {
           hpMod = delta * conBonus * task.priority * 2;
           return stats.hp += Math.round(hpMod * 10) / 10;
         };
+        gainMP = function(delta) {
+          delta *= user._tmp.crit || 1;
+          user.stats.mp += delta;
+          if (user.stats.mp >= user._statsComputed.maxMP) {
+            user.stats.mp = user._statsComputed.maxMP;
+          }
+          if (user.stats.mp < 0) {
+            return user.stats.mp = 0;
+          }
+        };
         switch (task.type) {
           case 'habit':
             changeTaskValue();
+            gainMP(_.max([0.25, .0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
             if (delta > 0) {
               addPoints();
             } else {
@@ -15652,6 +15666,7 @@ api.wrap = function(user, main) {
               }
             } else {
               changeTaskValue();
+              gainMP(_.max([1, .01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
               if (direction === 'down') {
                 delta = calculateDelta();
               }
@@ -15684,18 +15699,7 @@ api.wrap = function(user, main) {
                   return m + (i.completed ? 1 : 0);
                 }), 1), 1
               ]);
-              mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
-              mpDelta *= user._tmp.crit || 1;
-              if (direction === 'down') {
-                mpDelta *= -1;
-              }
-              user.stats.mp += mpDelta;
-              if (user.stats.mp >= user._statsComputed.maxMP) {
-                user.stats.mp = user._statsComputed.maxMP;
-              }
-              if (user.stats.mp < 0) {
-                user.stats.mp = 0;
-              }
+              gainMP(_.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
             }
             break;
           case 'reward':
@@ -15771,14 +15775,16 @@ api.wrap = function(user, main) {
       return x - Math.floor(x);
     },
     crit: function(stat, chance) {
+      var s;
       if (stat == null) {
         stat = 'str';
       }
       if (chance == null) {
         chance = .03;
       }
-      if (user.fns.predictableRandom() <= chance * (1 + user._statsComputed[stat] / 100)) {
-        return 1.5 + (.02 * user._statsComputed[stat]);
+      s = user._statsComputed[stat];
+      if (user.fns.predictableRandom() <= chance * (1 + s / 100)) {
+        return 1.5 + 4 * s / (s + 200);
       } else {
         return 1;
       }
