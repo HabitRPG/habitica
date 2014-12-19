@@ -580,8 +580,12 @@ module.exports = (swagger, v2) ->
     # ---------------------------------
     # Members
     # ---------------------------------
-    "/members/{uuid}":
-      spec:{}
+    "/members/{uuid}:GET":
+      spec:
+        path: '/members/{uuid}'
+        description: "Get a member."
+        parameters: [path('uuid','Member ID','string')]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: members.getMember
     "/members/{uuid}/message":
       spec:
