@@ -14294,14 +14294,20 @@ api.startOfWeek = api.startOfWeek = function(options) {
 };
 
 api.startOfDay = function(options) {
-  var o;
+  var dayStart, o;
   if (options == null) {
     options = {};
   }
   o = sanitizeOptions(options);
-  return moment(o.now).startOf('day').add({
+  dayStart = moment(o.now).startOf('day').add({
     hours: o.dayStart
   });
+  if (moment(o.now).hour() < o.dayStart) {
+    dayStart.subtract({
+      days: 1
+    });
+  }
+  return dayStart;
 };
 
 api.dayMapping = {
@@ -14327,7 +14333,9 @@ api.daysSince = function(yesterday, options) {
   o = sanitizeOptions(options);
   return Math.abs(api.startOfDay(_.defaults({
     now: yesterday
-  }, o)).diff(o.now, 'days'));
+  }, o)).diff(api.startOfDay(_.defaults({
+    now: o.now
+  }, o)), 'days'));
 };
 
 
@@ -14336,7 +14344,7 @@ api.daysSince = function(yesterday, options) {
  */
 
 api.shouldDo = function(day, repeat, options) {
-  var o, selected, yesterday;
+  var o, selected;
   if (options == null) {
     options = {};
   }
@@ -14347,17 +14355,7 @@ api.shouldDo = function(day, repeat, options) {
   selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
     now: day
   }, o)).day()]];
-  if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
-    return selected;
-  }
-  if (options.dayStart <= o.now.hour()) {
-    return selected;
-  } else {
-    yesterday = moment(o.now).subtract({
-      days: 1
-    }).day();
-    return repeat[api.dayMapping[yesterday]];
-  }
+  return selected;
 };
 
 
@@ -16556,5 +16554,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/matteo/Dev/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Dev/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
