@@ -461,7 +461,7 @@ api.spells =
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1) if user.party.quest.key
 
     mpheal:
       text: t('spellWizardMPHealText')
