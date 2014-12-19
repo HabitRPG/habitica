@@ -568,7 +568,8 @@ api.spells =
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
+          member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
+		  # add diminishing returns to this
     stealth:
       text: t('spellRogueStealthText')
       mana: 45
