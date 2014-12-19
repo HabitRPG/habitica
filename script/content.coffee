@@ -461,7 +461,7 @@ api.spells =
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1) if user.party.quest.key
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -554,9 +554,9 @@ api.spells =
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
         target.value += _crit * .03
-        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
-        user.stats.exp += bonus
-        user.stats.gp += bonus
+        bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
+        user.stats.exp += (20 + (user.stats.lvl / 2)) * (bonus / (bonus + 75))
+        user.stats.gp += 15 * (bonus / (bonus + 75))
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
       text: t('spellRogueToolsOfTradeText')
@@ -568,7 +568,8 @@ api.spells =
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
+          member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
+		  # add diminishing returns to this
     stealth:
       text: t('spellRogueStealthText')
       mana: 45
