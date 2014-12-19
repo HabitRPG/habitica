@@ -593,7 +593,7 @@ module.exports = (swagger, v2) ->
         description: 'Send a private message to a member'
         parameters: [
           path 'uuid', 'The UUID of the member to message', 'string'
-          body '', '{message: "The private message to send"}', 'object'
+          body '', '{"message": "The private message to send"}', 'object'
         ]
       middleware: [auth.auth]
       action: members.sendPrivateMessage
