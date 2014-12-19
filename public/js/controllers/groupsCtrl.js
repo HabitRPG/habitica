@@ -147,7 +147,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });        
       }
       $scope.clearFlagCount = function(message, groupId) {
-        console.log("Heeey");
         Groups.Group.clearFlagCount({gid: groupId, messageId: message.id}, undefined, function(data){
           message.flagCount = 0;
           Notification.text("Flags cleared");
