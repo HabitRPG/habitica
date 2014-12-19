@@ -19,5 +19,10 @@ form.col-md-12.form-horizontal(ng-submit='create(newGroup)')
     span.gem-cost= '4 ' + env.t('gems')
     p
       small=env.t('gemCost')
+  .form-group
+    .checkbox
+      label
+        input(type='checkbox', ng-model='newGroup.leaderOnly.challenges')
+        | Only group leader can create challenges
   .form-group(ng-show='type=="party"')
     input.btn.btn-default.form-control(type='submit', value=env.t('create'))

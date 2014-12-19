@@ -41,5 +41,13 @@
         "mode":"sandbox",
         "client_id":"client_id",
         "client_secret":"client_secret"
+    },
+    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
+    "LOGGLY": {
+        "enabled": false,
+        "subdomain": "subdomain",
+        "token": "token",
+        "username": "username",
+        "password": "password"    
     }
 }

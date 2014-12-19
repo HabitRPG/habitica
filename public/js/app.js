@@ -7,7 +7,6 @@ window.habitrpg = angular.module('habitrpg',
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
   // temporary hack until they have a better solution
-  .value('$anchorScroll', angular.noop)
 
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
@@ -184,6 +183,10 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.inventory.timetravelers', {
           url: '/timetravelers',
           templateUrl: "partials/options.inventory.timetravelers.html"
+        })
+        .state('options.inventory.seasonalshop', {
+          url: '/seasonalshop',
+          templateUrl: "partials/options.inventory.seasonalshop.html"
         })
 
         // Options > Settings

@@ -26,7 +26,10 @@ var GroupSchema = new Schema({
   #      id: String
   #    }]
   */
-
+  leaderOnly: { // restrict group actions to leader (members can't do them)
+    challenges: {type:Boolean, 'default':false},
+    //invites: {type:Boolean, 'default':false}
+  },
   memberCount: {type: Number, 'default': 0},
   challengeCount: {type: Number, 'default': 0},
   balance: Number,
