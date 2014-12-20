@@ -506,8 +506,10 @@ api.spells =
       target: 'task'
       notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
-        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
+        bonus = user._statsComputed.str * user.fns.crit('con')
+        target.value += diminishingReturns(bonus, 2.5, 35)
+        user.party.quest.progress.up += diminishingReturns(bonus, 55, 70) if user.party.quest.key
+
     defensiveStance:
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
@@ -517,6 +519,7 @@ api.spells =
       cast: (user, target) ->
         user.stats.buffs.con ?= 0
         user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
+
     valorousPresence:
       text: t('spellWarriorValorousPresenceText')
       mana: 20
@@ -527,6 +530,7 @@ api.spells =
         _.each target, (member) ->
           member.stats.buffs.str ?= 0
           member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
+
     intimidate:
       text: t('spellWarriorIntimidateText')
       mana: 15
