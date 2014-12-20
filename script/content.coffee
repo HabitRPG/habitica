@@ -459,7 +459,8 @@ api.spells =
       cast: (user, target) ->
         # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
-        target.value += diminishingReturns(bonus*.02, 4)
+        ## old code:
+        ## target.value += diminishingReturns(bonus*.02, 4)
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
@@ -555,7 +556,8 @@ api.spells =
       notes: t('spellRogueBackStabNotes')
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
-        target.value += _crit * .03
+        ## old code:
+        ## target.value += _crit * .03
         bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
