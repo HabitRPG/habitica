@@ -445,6 +445,8 @@ api.gearTypes = gearTypes
 #
 diminishingReturns = (bonus, max, halfway=max/2) -> max*(bonus/(bonus+halfway))
 
+calculateBonus = (value, stat, crit=1, stat_scale=0.5) -> (if value < 0 then 1 else value+1) + (stat * stat_scale * crit)
+
 api.spells =
 
   wizard:
@@ -543,8 +545,8 @@ api.spells =
       target: 'task'
       notes: t('spellRoguePickPocketNotes')
       cast: (user, target) ->
-        bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
-        user.stats.gp += 25 * (bonus / (bonus + 75))
+        bonus = calculateBonus(target.value, user._statsComputed.per)
+        user.stats.gp += diminishingReturns(bonus, 25, 75)
     backStab:
       text: t('spellRogueBackStabText')
       mana: 15
