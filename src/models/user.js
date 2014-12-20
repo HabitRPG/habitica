@@ -280,7 +280,7 @@ var UserSchema = new Schema({
     background: String,
     webhooks: {type: Schema.Types.Mixed, 'default': {}},
     difficulty: {
-      potionHealing: {type: Boolean, 'default': true},
+      hidePotionHealing: {type: Boolean, 'default': false},
       levelupHealing: {type: String, enum: ['percentage','constitution'], 'default': 'percentage'},
       healingPercent: {type: Number, 'default': 100},
       taskDamage: {type: Number, 'default': 1},
