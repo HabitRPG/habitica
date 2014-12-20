@@ -548,6 +548,7 @@ api.spells =
       cast: (user, target) ->
         bonus = calculateBonus(target.value, user._statsComputed.per)
         user.stats.gp += diminishingReturns(bonus, 25, 75)
+
     backStab:
       text: t('spellRogueBackStabText')
       mana: 15
@@ -556,12 +557,10 @@ api.spells =
       notes: t('spellRogueBackStabNotes')
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
-        ## old code:
-        ## target.value += _crit * .03
-        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
-        user.stats.exp += bonus
-        user.stats.gp += bonus
-        # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
+        bonus = calculateBonus(target.value, user._statsComputed.str, _crit)
+        user.stats.exp += diminishingReturns(bonus, 75, 50)
+        user.stats.gp += diminishingReturns(bonus, 18, 75)
+
     toolsOfTrade:
       text: t('spellRogueToolsOfTradeText')
       mana: 25

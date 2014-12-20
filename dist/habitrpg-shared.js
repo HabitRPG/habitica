@@ -2314,7 +2314,6 @@ api.spells = {
       cast: function(user, target) {
         var bonus;
         bonus = user._statsComputed.int * user.fns.crit('per');
-        target.value += diminishingReturns(bonus * .02, 4);
         bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
         user.stats.exp += diminishingReturns(bonus, 75);
         if (user.party.quest.key) {
@@ -2449,10 +2448,9 @@ api.spells = {
       cast: function(user, target) {
         var bonus, _crit;
         _crit = user.fns.crit('str', .3);
-        target.value += _crit * .03;
-        bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
-        user.stats.exp += bonus;
-        return user.stats.gp += bonus;
+        bonus = calculateBonus(target.value, user._statsComputed.str, _crit);
+        user.stats.exp += diminishingReturns(bonus, 75, 50);
+        return user.stats.gp += diminishingReturns(bonus, 18, 75);
       }
     },
     toolsOfTrade: {
