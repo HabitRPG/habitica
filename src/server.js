@@ -8,7 +8,7 @@ var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
-if (cluster.isMaster && (isDev || isProd)) {
+if (false && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
   var cpus = require('os').cpus(),
     cores = +nconf.get("CORES");

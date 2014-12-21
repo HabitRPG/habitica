@@ -181,5 +181,15 @@ habitrpg.controller('SettingsCtrl',
     $scope.deleteWebhook = function(id) {
       User.user.ops.deleteWebhook({params:{id:id}});
     }
+
+    $scope.applyCoupon = function(coupon){
+      $http.get(ApiUrlService.get() + '/api/v2/coupons/valid-discount/'+coupon)
+      .success(function(){
+        Notification.text("Coupon applied!");
+        var subs = $scope.Content.subscriptionBlocks;
+        subs["basic_6mo"].discount = true;
+        subs["google_6mo"].discount = false;
+      });
+    }
   }
 ]);

@@ -7,7 +7,7 @@ var autoinc = require('mongoose-id-autoinc');
 
 var CouponSchema = new mongoose.Schema({
   _id: {type: String, 'default': cc.generate},
-  event: {type:String, enum:['wondercon']},
+  event: {type:String, enum:['wondercon','google_6mo']},
   user: {type: 'String', ref: 'User'}
 });
 
