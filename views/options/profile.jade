@@ -63,6 +63,7 @@ mixin customizeProfile(mobile)
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
+          +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors')
 
           li.customize-menu
             menu(label=env.t('bodyHair'))
