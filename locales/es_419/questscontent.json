@@ -80,7 +80,7 @@
     "questMoonstone3DropRottenMeat": "Carne podrida (comida)",
     "questMoonstone3DropZombiePotion": "Poción de ecolsion Zombie",
     "questGoldenknight1Text": "A Stern Talking-To",
-    "questGoldenknight1Notes": "<p>The Golden Knight has been getting on poor Habiticans' cases. Didn't do all of your dailies? Checked off a - habit? She will use this as a reason to harass you about how you should follow her example. She is the shining example of a perfect Habitican, and you are naught but a failure. Well, that is not nice at all! Everyone makes mistakes. They should not have to be met with such negativity for it. Perhaps it is time you gather some testimonies from hurt Habiticans and give the Golden Knight a stern talking-to!</p>",
+    "questGoldenknight1Notes": "<p>El Caballero de Oro esta molestando los pobre Habiticanos. No cumpliste todos tus Diarias? Marcaste un hábito negativo? Ella lo usará como razon para acosarte y decir que tienes que seguir su ejemplo. Ella es el ejemplo brillante de un Habitacano perfecto y TU no eres que un fracaso. Bueno, eso no es agradable! Todos comiten  errores. No es necessario darle tanta negatividád. Tal vez es hora para reunir unos testimonos de los Habitacanos heridos y cantarle las cuarenta!</p>",
     "questGoldenknight1CollectTestimony": "Testimonios",
     "questGoldenknight1DropGoldenknight2Quest": "La Cadena del Caballero de Oro Parte 2: Gold Bronce (Pergamino)",
     "questGoldenknight2Text": "Caballero de Oro",
@@ -138,8 +138,8 @@
     "questOwlBoss": "El Búho Nocturno",
     "questOwlDropOwlEgg": "Búho (Huevo)",
     "questPenguinText": "The Fowl Frost",
-    "questPenguinNotes": "Although it's a hot summer day in the southernmost tip of Habitica, an unnatural chill has fallen upon Lively Lake. Strong, frigid winds rush around as the shore begins to freeze over. Ice spikes jut up from the ground, pushing grass and dirt away. @Melynnrose and @Breadstrings run up to you.<br><br>\"Help!\" says @Melynnrose. \"We brought a giant penguin in to freeze the lake so we could all go ice skating, but we ran out of fish to feed him!\"<br><br>\"He got angry and is using his freeze breath on everything he sees!\" says @Breadstrings. \"Please, you have to subdue him before all of us are covered in ice!\" Looks like you need this penguin to... <em>cool down.</em>",
-    "questPenguinCompletion": "Upon the penguin's defeat, the ice melts away. The giant penguin settles down in the sunshine, slurping up an extra bucket of fish you found. He skates off across the lake, blowing gently downwards to create smooth, sparkling ice. What an odd bird! \"It appears he left behind a few eggs, as well,\" says @Painter de Cluster. <br><br>@Rattify laughs. \"Maybe these penguins will be a little more... chill?\"",
-    "questPenguinBoss": "Frost Penguin",
-    "questPenguinDropPenguinEgg": "Penguin (Egg)"
+    "questPenguinNotes": "Aunque sea un caluroso día de verano en el sur de Habitica, un extraño frío ha caído sobre el Lago Alegre. Vientos helados y fuertes soplan mientras la orilla del lago empieza a helarse. Espadas de hielo salen de la tierra, desplazando las hierbas. @Melynnrose y @Breadstrings corren a tu lado.<br><br>\"Ayudenos!\" dice @Melynnrose. \"Trajimos un pingüino gigante para congelar el lago para que pudiéramos patinar, pero ya hemos acabado pescados para darle de comer.\"<br><br>\"El pingüino se puso furioso y esta dirigiendo su aliento helado por todas partes!\" dice @Breadstrings. \"Por favor, tienes que someterlo antes de que todos estemos cubiertos con hielo!\" Parece que necestas calmar este pingüino.",
+    "questPenguinCompletion": "Al vencer el pingüino, el hielo desaparece. El pingüino gigante se relaja bajo el sol, comiendo una cubeta de pescados que encontraste. Después, patina sobre el lago, soplando suavemente para crear una superficie de hielo lisa y brillante. Que ave tan raro! \"Parece que haya dejado unos huevos también,\" dice @Painter de Cluster. <br><br>@Rattify rie, \"Tal vez estos pingüinos serán un poco mas ... calurosos?\"",
+    "questPenguinBoss": "Pingüino Helado",
+    "questPenguinDropPenguinEgg": "Pingüino (Huevo)"
 }

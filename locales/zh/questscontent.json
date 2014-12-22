@@ -42,7 +42,7 @@
     "questHarpyDropParrotEgg": "鹦鹉 (宠物蛋)",
     "questRoosterText": "狂暴公雞",
     "questRoosterNotes": "很多年来,农民 @extrajordanary 一直将公鸡当做闹钟来使用. 但是现在一只巨型公鸡出现了,打鸣的声音比以往都要响亮  – 吵醒了所有Habitica中的人们!缺少睡眠的Habitican们艰难地坚持着他们的每日任务. @Pandoro 决定是时候该停止这一切了.\"求求你们,有没有人能去教教那只公鸡打鸣的时候小点声?\"志愿者们,在一天早晨找到了这只公鸡 –  但是它转过身来,拍打着巨大的翅膀,并且露出锋利的爪子,发出了战斗的鸣叫声.",
-    "questRoosterCompletion": "With finesse and strength, you have tamed the wild beast. Its ears, once filled with feathers and half-remembered tasks, are now clear as day. It crows at you quietly, snuggling its beak into your shoulder. The next day you’re set to take your leave, but @EmeraldOx runs up to you with a covered basket. “Wait! When I went into the farmhouse this morning, the Rooster had pushed these against the door where you slept. I think he wants you to have them.” You uncover the basket to see three delicate eggs.",
+    "questRoosterCompletion": "运用策略与力量，你驯服了那头野兽。它的耳朵里曾经塞满了羽毛和任务，现在已经干净得焕然一新了。它小声的对你鸣叫，将它的喙依偎在你的肩膀上。隔天，你正准备要启程的时候，@EmeraldOx 带着一个篮子跑向你。“等等！今天早上我去农舍的时候，公鸡留了这些在你休息房间的门外。我想他是想要你收下。”你打开篮子看到3个易碎的鸡蛋。",
     "questRoosterBoss": "公雞",
     "questRoosterDropRoosterEgg": "公雞 (宠物蛋)",
     "questSpiderText": "寒霜蜘蛛",
@@ -137,9 +137,9 @@
     "questOwlCompletion": "暗夜猫头鹰在黎明前消失了,<br>即便如此, 你依然会打一个哈欠.<br>也许现在应该是休息的时候了?<br>这时,你发现你的床上有个窝!<br>对于暗夜猫头鹰来说那是最棒的了<br>你为了完成目标而彻夜不眠,<br>但是你的新宠物会悦耳的鸣叫<br>来告诉你应该去睡觉了.",
     "questOwlBoss": "暗夜猫头鹰",
     "questOwlDropOwlEgg": "猫头鹰(宠物蛋)",
-    "questPenguinText": "The Fowl Frost",
+    "questPenguinText": "冰霜禽类",
     "questPenguinNotes": "Although it's a hot summer day in the southernmost tip of Habitica, an unnatural chill has fallen upon Lively Lake. Strong, frigid winds rush around as the shore begins to freeze over. Ice spikes jut up from the ground, pushing grass and dirt away. @Melynnrose and @Breadstrings run up to you.<br><br>\"Help!\" says @Melynnrose. \"We brought a giant penguin in to freeze the lake so we could all go ice skating, but we ran out of fish to feed him!\"<br><br>\"He got angry and is using his freeze breath on everything he sees!\" says @Breadstrings. \"Please, you have to subdue him before all of us are covered in ice!\" Looks like you need this penguin to... <em>cool down.</em>",
     "questPenguinCompletion": "Upon the penguin's defeat, the ice melts away. The giant penguin settles down in the sunshine, slurping up an extra bucket of fish you found. He skates off across the lake, blowing gently downwards to create smooth, sparkling ice. What an odd bird! \"It appears he left behind a few eggs, as well,\" says @Painter de Cluster. <br><br>@Rattify laughs. \"Maybe these penguins will be a little more... chill?\"",
-    "questPenguinBoss": "Frost Penguin",
-    "questPenguinDropPenguinEgg": "Penguin (Egg)"
+    "questPenguinBoss": "冰霜企鹅 ",
+    "questPenguinDropPenguinEgg": "企鹅 (宠物蛋)"
 }
