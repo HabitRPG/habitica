@@ -266,46 +266,51 @@ api.flagChatMessage = function(req, res, next){
   if(!message) return res.json(404, {err: "Message not found!"});
   if(message.uuid == user._id) return res.json(401, {err: "Can't report your own message."});
 
-  // Log user ids that have flagged the message
-  if(!message.flags) message.flags = {};
-  if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: "You have already reported this message"});
-  message.flags[user._id] = true;
-
-  // Log total number of flags (publicly viewable)
-  if(!message.flagCount) message.flagCount = 0;
-  if(user.contributor.admin){
-    // Arbitraty amount, higher than 2
-    message.flagCount = 5;
-  } else {
-    message.flagCount++
-  }
-
-  group.markModified('chat');
-  group.save(function(err,_saved){
+  User.findOne({_id: message.uuid}, {auth: 1}, function(err, author){
     if(err) return next(err);
-    if (isProd){
-      utils.txnEmail({email: nconf.get('FLAG_REPORT_EMAIL')}, 'flag-report-to-mods', [
-        {name: "MESSAGE_TIME", content: message.timestamp},
-        {name: "MESSAGE_TEXT", content: message.text},
 
-        {name: "REPORTER_USERNAME", content: user.profile.name},
-        {name: "REPORTER_UUID", content: user._id},
-        {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
-        {name: "REPORTER_MODAL_URL", content: null},
+    // Log user ids that have flagged the message
+    if(!message.flags) message.flags = {};
+    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: "You have already reported this message"});
+    message.flags[user._id] = true;
 
-        {name: "AUTHOR_USERNAME", content: message.user},
-        {name: "AUTHOR_UUID", content: message.uuid},
-        {name: "AUTHOR_EMAIL", content: null},
-        {name: "AUTHOR_MODAL_URL", content: null},
-
-        {name: "GROUP_NAME", content: group.name},
-        {name: "GROUP_TYPE", content: group.type},
-        {name: "GROUP_ID", content: group._id},
-        {name: "GROUP_URL", content: null},
-      ]);
+    // Log total number of flags (publicly viewable)
+    if(!message.flagCount) message.flagCount = 0;
+    if(user.contributor.admin){
+      // Arbitraty amount, higher than 2
+      message.flagCount = 5;
+    } else {
+      message.flagCount++
     }
-    return res.send(204);
+
+    group.markModified('chat');
+    group.save(function(err,_saved){
+      if(err) return next(err);
+      if (isProd){
+        utils.txnEmail({email: nconf.get('FLAG_REPORT_EMAIL')}, 'flag-report-to-mods', [
+          {name: "MESSAGE_TIME", content: message.timestamp},
+          {name: "MESSAGE_TEXT", content: message.text},
+
+          {name: "REPORTER_USERNAME", content: user.profile.name},
+          {name: "REPORTER_UUID", content: user._id},
+          {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
+          {name: "REPORTER_MODAL_URL", content: null},
+
+          {name: "AUTHOR_USERNAME", content: message.user},
+          {name: "AUTHOR_UUID", content: message.uuid},
+          {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
+          {name: "AUTHOR_MODAL_URL", content: null},
+
+          {name: "GROUP_NAME", content: group.name},
+          {name: "GROUP_TYPE", content: group.type},
+          {name: "GROUP_ID", content: group._id},
+          {name: "GROUP_URL", content: group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party'},
+        ]);
+      }
+      return res.send(204);
+    });
   });
+
 }
 
 api.clearFlagCount = function(req, res, next){
