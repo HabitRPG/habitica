@@ -2,7 +2,7 @@
     "tavern": "Gasthaus",
     "innCheckOut": "Das Gasthaus verlassen",
     "innCheckIn": "Im Gasthaus erholen",
-    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
+    "innText": "Wie gefällt es Dir im Gasthaus,  <%= name %>? Damit Du geschützt bist, ist die Liste Deiner täglichen Aufgaben eingefroren, solange du hier bist. Ob Aufgaben abgehakt wurden, wird bis morgen (den Tag nachdem du ausgecheckt hast) nicht verarbeitet oder zurückgesetzt. Aber Achtung, wenn sich Deine Gruppe gerade in einem Kampf gegen einen Boss befindet, erhältst Du weiterhin Schaden für die Fehler der Gruppe! Außerdem fügst Du dem Boss keinen Schaden zu. Bereit, wieder aufzubrechen? Klicke auf \"Das Gasthaus verlassen\".",
     "lfgPosts": "Nach Gruppeneinträgen suchen",
     "tutorial": "Anleitung",
     "glossary": "Nomenklatur",

@@ -14,7 +14,7 @@
     "turkey": "Dindon",
     "polarBearPup": "Ourson polaire",
     "jackolantern": "Citrouille d'Halloween",
-    "seasonalShop": "Seasonal Shop",
+    "seasonalShop": "Boutique Saisonnière",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
-    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!"
+    "seasonalShopClosedText": "La Boutique Saisonnière est actuellement fermée !! Je ne sais pas où est passé la Sorcière Saisonnière, mais je parie qu'elle sera de retour lors du prochain <%= linkStart %>Grand Gala<%= linkEnd %>!"
 }

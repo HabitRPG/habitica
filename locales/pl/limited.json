@@ -14,7 +14,7 @@
     "turkey": "Indor",
     "polarBearPup": "Niedźwiadek polarny",
     "jackolantern": "Dynio-Lampion",
-    "seasonalShop": "Seasonal Shop",
+    "seasonalShop": "Sklepik sezonowy",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
-    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!"
+    "seasonalShopClosedText": "Sklepik sezonowy jest obecnie zamknięty!! Nie wiemy gdzie obecnie znajduje się Sezonowa Wróżka, ale na pewno zjawi się na kolejną <%= linkStart %>Wielką Galę<%= linkEnd %>!"
 }

@@ -26,6 +26,7 @@ events =
   summer: {start:'2014-06-20',end:'2014-08-01'}
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
+  winter2015: {start:'2014-12-21',end:'2015-01-31'}
 
 api.mystery =
   201402: {start:'2014-02-22',end:'2014-02-28', text:'Winged Messenger Set'}
@@ -114,6 +115,11 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('weaponSpecialFallWarriorText'), notes: t('weaponSpecialFallWarriorNotes', {str: 15}), value: 90, str: 15
       fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
+      # Winter 2015
+      winter2015Rogue:  event: events.winter2015, specialClass: 'rogue', text: t('weaponSpecialWinter2015RogueText'), notes: t('weaponSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('weaponSpecialWinter2015WarriorText'), notes: t('weaponSpecialWinter2015WarriorNotes', {str: 15}), value: 90, str: 15
+      winter2015Mage:     event: events.winter2015, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialWinter2015MageText'), notes: t('weaponSpecialWinter2015MageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('weaponSpecialWinter2015HealerText'), notes: t('weaponSpecialWinter2015HealerNotes', {int: 9}), value: 90, int: 9
     mystery:
       201411: text: t('weaponMystery201411Text'), notes: t('weaponMystery201411Notes'), mystery:'201411', value: 0
       301404: text: t('weaponMystery301404Text'), notes: t('weaponMystery301404Notes'), mystery:'301404', value: 0
@@ -174,6 +180,11 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('armorSpecialFallWarriorText'), notes: t('armorSpecialFallWarriorNotes', {con: 9}), value: 90, con: 9
       fallMage:     event: events.fall, specialClass: 'wizard',    text: t('armorSpecialFallMageText'), notes: t('armorSpecialFallMageNotes', {int: 9}), value: 90, int: 9
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('armorSpecialFallHealerText'), notes: t('armorSpecialFallHealerNotes', {con: 15}), value: 90, con: 15
+      # Winter 2015
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('armorSpecialWinter2015RogueText'), notes: t('armorSpecialWinter2015RogueNotes', {per: 15}), value: 90, per: 15
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('armorSpecialWinter2015WarriorText'), notes: t('armorSpecialWinter2015WarriorNotes', {con: 9}), value: 90, con: 9
+      winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('armorSpecialWinter2015MageText'), notes: t('armorSpecialWinter2015MageNotes', {int: 9}), value: 90, int: 9
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('armorSpecialWinter2015HealerText'), notes: t('armorSpecialWinter2015HealerNotes', {con: 15}), value: 90, con: 15
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
@@ -243,6 +254,11 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('headSpecialFallWarriorText'), notes: t('headSpecialFallWarriorNotes', {str: 9}),value: 60,str: 9
       fallMage:     event: events.fall, specialClass: 'wizard',    text: t('headSpecialFallMageText'), notes: t('headSpecialFallMageNotes', {per: 7}),value: 60,per: 7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('headSpecialFallHealerText'), notes: t('headSpecialFallHealerNotes', {int: 7}), value: 60, int: 7
+      # Winter 2015
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('headSpecialWinter2015RogueText'), notes: t('headSpecialWinter2015RogueNotes', {per: 9}),value: 60,per: 9
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('headSpecialWinter2015WarriorText'), notes: t('headSpecialWinter2015WarriorNotes', {str: 9}),value: 60,str: 9
+      winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('headSpecialWinter2015MageText'), notes: t('headSpecialWinter2015MageNotes', {per: 7}),value: 60,per: 7
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('headSpecialWinter2015HealerText'), notes: t('headSpecialWinter2015HealerNotes', {int: 7}), value: 60, int: 7      
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
@@ -303,6 +319,10 @@ gear =
       fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
+      # Winter 2015
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('shieldSpecialWinter2015RogueText'), notes: t('shieldSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('shieldSpecialWinter2015WarriorText'), notes: t('shieldSpecialWinter2015WarriorNotes', {con: 7}), value: 70, con: 7
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('shieldSpecialWinter2015HealerText'), notes: t('shieldSpecialWinter2015HealerNotes', {con: 9}), value: 70, con: 9
     mystery:
       301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:'301405', value: 0
 

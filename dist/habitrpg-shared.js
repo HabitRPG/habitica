@@ -9853,6 +9853,10 @@ events = {
   fall: {
     start: '2014-09-21',
     end: '2014-11-01'
+  },
+  winter2015: {
+    start: '2014-12-21',
+    end: '2015-01-31'
   }
 };
 
@@ -10419,6 +10423,49 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('weaponSpecialWinter2015RogueText'),
+        notes: t('weaponSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('weaponSpecialWinter2015WarriorText'),
+        notes: t('weaponSpecialWinter2015WarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialWinter2015MageText'),
+        notes: t('weaponSpecialWinter2015MageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('weaponSpecialWinter2015HealerText'),
+        notes: t('weaponSpecialWinter2015HealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
       }
     },
     mystery: {
@@ -10818,6 +10865,46 @@ gear = {
         specialClass: 'healer',
         text: t('armorSpecialFallHealerText'),
         notes: t('armorSpecialFallHealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('armorSpecialWinter2015RogueText'),
+        notes: t('armorSpecialWinter2015RogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('armorSpecialWinter2015WarriorText'),
+        notes: t('armorSpecialWinter2015WarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('armorSpecialWinter2015MageText'),
+        notes: t('armorSpecialWinter2015MageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('armorSpecialWinter2015HealerText'),
+        notes: t('armorSpecialWinter2015HealerNotes', {
           con: 15
         }),
         value: 90,
@@ -11274,6 +11361,46 @@ gear = {
         value: 60,
         int: 7
       },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('headSpecialWinter2015RogueText'),
+        notes: t('headSpecialWinter2015RogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('headSpecialWinter2015WarriorText'),
+        notes: t('headSpecialWinter2015WarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('headSpecialWinter2015MageText'),
+        notes: t('headSpecialWinter2015MageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('headSpecialWinter2015HealerText'),
+        notes: t('headSpecialWinter2015HealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -11639,6 +11766,36 @@ gear = {
         specialClass: 'healer',
         text: t('shieldSpecialFallHealerText'),
         notes: t('shieldSpecialFallHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('shieldSpecialWinter2015RogueText'),
+        notes: t('shieldSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('shieldSpecialWinter2015WarriorText'),
+        notes: t('shieldSpecialWinter2015WarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('shieldSpecialWinter2015HealerText'),
+        notes: t('shieldSpecialWinter2015HealerNotes', {
           con: 9
         }),
         value: 70,
@@ -16294,5 +16451,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
