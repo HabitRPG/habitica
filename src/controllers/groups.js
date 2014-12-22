@@ -7,10 +7,12 @@ function clone(a) {
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
+var utils = require('./../utils');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 
 /*
@@ -281,6 +283,27 @@ api.flagChatMessage = function(req, res, next){
   group.markModified('chat');
   group.save(function(err,_saved){
     if(err) return next(err);
+    if (isProd){
+      utils.txnEmail({email: nconf.get('FLAG_REPORT_EMAIL')}, 'flag-report-to-mods', [
+        {name: "MESSAGE_TIME", content: message.timestamp},
+        {name: "MESSAGE_TEXT", content: message.text},
+
+        {name: "REPORTER_USERNAME", content: null},
+        {name: "REPORTER_UUID", content: null},
+        {name: "REPORTER_EMAIL", content: null},
+        {name: "REPORTER_MODAL_URL", content: null},
+
+        {name: "AUTHOR_USERNAME", content: null},
+        {name: "AUTHOR_UUID", content: null},
+        {name: "AUTHOR_EMAIL", content: null},
+        {name: "AUTHOR_MODAL_URL", content: null},
+        
+        {name: "GROUP_NAME", content: null},
+        {name: "GROUP_TYPE", content: null},
+        {name: "GROUP_ID", content: null},
+        {name: "GROUP_URL", content: null},
+      ]);
+    }
     return res.send(204);
   });
 }
