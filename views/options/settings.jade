@@ -151,6 +151,10 @@ script(id='partials/options.settings.difficulty.html', type="text/ng-template")
             // =env.t('settings') // ... can be grouped into subsections.
           .panel-body
 
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.difficulty.hidePotionHealing', ng-change='set({"preferences.difficulty.hidePotionHealing": user.preferences.difficulty.hidePotionHealing?true: false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('hidePotionHealingPop'))=env.t('hidePotionHealing')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
