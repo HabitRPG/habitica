@@ -294,12 +294,12 @@ api.flagChatMessage = function(req, res, next){
           {name: "REPORTER_USERNAME", content: user.profile.name},
           {name: "REPORTER_UUID", content: user._id},
           {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
-          {name: "REPORTER_MODAL_URL", content: null},
+          {name: "REPORTER_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + user._id},
 
           {name: "AUTHOR_USERNAME", content: message.user},
           {name: "AUTHOR_UUID", content: message.uuid},
           {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
-          {name: "AUTHOR_MODAL_URL", content: null},
+          {name: "AUTHOR_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + message.uuid},
 
           {name: "GROUP_NAME", content: group.name},
           {name: "GROUP_TYPE", content: group.type},
