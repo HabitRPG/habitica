@@ -288,19 +288,19 @@ api.flagChatMessage = function(req, res, next){
         {name: "MESSAGE_TIME", content: message.timestamp},
         {name: "MESSAGE_TEXT", content: message.text},
 
-        {name: "REPORTER_USERNAME", content: null},
-        {name: "REPORTER_UUID", content: null},
-        {name: "REPORTER_EMAIL", content: null},
+        {name: "REPORTER_USERNAME", content: user.profile.name},
+        {name: "REPORTER_UUID", content: user._id},
+        {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
         {name: "REPORTER_MODAL_URL", content: null},
 
-        {name: "AUTHOR_USERNAME", content: null},
-        {name: "AUTHOR_UUID", content: null},
+        {name: "AUTHOR_USERNAME", content: message.user},
+        {name: "AUTHOR_UUID", content: message.uuid},
         {name: "AUTHOR_EMAIL", content: null},
         {name: "AUTHOR_MODAL_URL", content: null},
-        
-        {name: "GROUP_NAME", content: null},
-        {name: "GROUP_TYPE", content: null},
-        {name: "GROUP_ID", content: null},
+
+        {name: "GROUP_NAME", content: group.name},
+        {name: "GROUP_TYPE", content: group.type},
+        {name: "GROUP_ID", content: group._id},
         {name: "GROUP_URL", content: null},
       ]);
     }
