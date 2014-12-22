@@ -304,7 +304,7 @@ api.flagChatMessage = function(req, res, next){
           {name: "GROUP_NAME", content: group.name},
           {name: "GROUP_TYPE", content: group.type},
           {name: "GROUP_ID", content: group._id},
-          {name: "GROUP_URL", content: group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party'},
+          {name: "GROUP_URL", content: group._id == 'habitrpg' ? (nconf.get('BASE_URL') + '/#/options/groups/tavern') : (group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party')},
         ]);
       }
       return res.send(204);
