@@ -101,7 +101,9 @@ var chatDefaults = module.exports.chatDefaults = function(msg,user){
     id: shared.uuid(),
     text: msg,
     timestamp: +new Date,
-    likes: {}
+    likes: {},
+    flags: {},
+    flagCount: 0
   };
   if (user) {
     _.defaults(message, {
@@ -318,6 +320,18 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
     async.series(series,cb);
   })
 }
+
+GroupSchema.methods.toJSON = function() {
+  var doc = this.toObject();
+  if(doc.chat){
+    doc.chat.forEach(function(msg){
+      msg.flags = {};
+    });
+  }
+
+  return doc;
+};
+
 
 module.exports.schema = GroupSchema;
 var Group = module.exports.model = mongoose.model("Group", GroupSchema);
