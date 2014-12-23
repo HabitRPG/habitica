@@ -288,7 +288,7 @@ api.flagChatMessage = function(req, res, next){
       if(err) return next(err);
       if (isProd){
         utils.txnEmail({email: nconf.get('FLAG_REPORT_EMAIL')}, 'flag-report-to-mods', [
-          {name: "MESSAGE_TIME", content: message.timestamp},
+          {name: "MESSAGE_TIME", content: (new Date(message.timestamp)).toString()},
           {name: "MESSAGE_TEXT", content: message.text},
 
           {name: "REPORTER_USERNAME", content: user.profile.name},
