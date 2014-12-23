@@ -63,7 +63,7 @@
     "www.habitrpg.com"
   ],
   "engines": {
-    "node": "0.10.22",
+    "node": "0.10.x",
     "npm": "1.2.x"
   },
   "scripts": {

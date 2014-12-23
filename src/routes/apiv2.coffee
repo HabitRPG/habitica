@@ -602,8 +602,12 @@ module.exports = (swagger, v2) ->
     # ---------------------------------
     # Members
     # ---------------------------------
-    "/members/{uuid}":
-      spec:{}
+    "/members/{uuid}:GET":
+      spec:
+        path: '/members/{uuid}'
+        description: "Get a member."
+        parameters: [path('uuid','Member ID','string')]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: members.getMember
     "/members/{uuid}/message":
       spec:
@@ -611,7 +615,7 @@ module.exports = (swagger, v2) ->
         description: 'Send a private message to a member'
         parameters: [
           path 'uuid', 'The UUID of the member to message', 'string'
-          body '', '{message: "The private message to send"}', 'object'
+          body '', '{"message": "The private message to send"}', 'object'
         ]
       middleware: [auth.auth]
       action: members.sendPrivateMessage
@@ -630,7 +634,7 @@ module.exports = (swagger, v2) ->
         description: 'Send a gift to a member'
         parameters: [
           path 'uuid', 'The UUID of the member', 'string'
-          body '', '{gems:{amount:Number, fromBalance:Boolean}, subscription:{months:Number}}', 'object'
+          body '', '{"type": "gems or subscription", "gems":{"amount":Number, "fromBalance":Boolean}, "subscription":{"months":Number}}', 'object'
         ]
       middleware: [auth.auth]
       action: members.sendGift

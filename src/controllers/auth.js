@@ -207,7 +207,6 @@ api.resetPassword = function(req, res, next){
     user.auth.local.hashed_password = hashed_password;
     utils.txnEmail(user, 'reset-password', [
       {name: "NEW_PASSWORD", content: newPassword},
-      {name: "URL", content: nconf.get('BASE_URL')},
       {name: "USERNAME", content: user.auth.local.username}
     ]);
     user.save(function(err){
