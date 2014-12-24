@@ -106,11 +106,11 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 .task-controls
                   a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.#{k})')
                     if canceler
-                      span.reward-cost {{Content.spells.special.#{k}.value}}
                       span.shop_gold
+                      span.reward-cost {{Content.spells.special.#{k}.value}}
                     else
-                      span.reward-cost {{user.items.special.#{k}}}
                       span(class='shop_#{k}',style='display:inline-block;vertical-align:top;')
+                      span.reward-cost {{user.items.special.#{k}}}
                 // main content
                 p.task-text {{Content.spells.special.#{k}.text()}}
 
