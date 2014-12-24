@@ -82,7 +82,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
     //-| {{task.text}}
 
     div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')
-      fieldset.option-group
+      fieldset.option-group.task-checklist
         label.checkbox(ng-repeat='item in task.checklist')
           input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
           markdown(ng-model='item.text',target='_blank')
@@ -122,25 +122,24 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
             a(ng-click="unlink(task, 'remove-all')")=env.t('removeThem')
 
       // Checklists
-      div(ng-if='!$state.includes("options.social.challenges")')
-        button.btn.btn-default.btn-sm(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
-          span.glyphicon.glyphicon-tasks
-          | &nbsp; &nbsp;
-          =env.t('addChecklist')
-        form.checklist-form(ng-if='task.checklist')
-          fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
+      .task-checklist-edit(ng-if='!$state.includes("options.social.challenges")')
+        ul
+          li
+            button(type='button', ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
+              span.glyphicon.glyphicon-tasks
+              span=env.t('addChecklist')
+        form(ng-if='task.checklist')
+          fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
             legend.option-title
               span.hint(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')=env.t('checklist')
-            ul(hrpg-sort-checklist).list-unstyled
+            ul(hrpg-sort-checklist)
               li(ng-repeat='item in task.checklist') 
-                a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$event,$index,true)')
-                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
-                span.checklist-icons.glyphicon.glyphicon-resize-vertical()
-                | &nbsp;
-                input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
+                //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
                 //-,ng-blur='saveTask(task,true)')
-                input.inline-edit(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
-
+                span.checklist-icon.glyphicon.glyphicon-resize-vertical()
+                input(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
+                button(ng-click='removeChecklistItem(task,$event,$index,true)')
+                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
 
       form(ng-submit='saveTask(task,false,true)')
         // text & notes
@@ -152,27 +151,34 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
           textarea.option-content(rows='3', ng-model='task.notes', ng-model-options="{debounce: 1000}")
 
         // if Habit, plus/minus command options
-        fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
+        fieldset.option-group.plusminus(ng-if='task.type=="habit" && !task.challenge.id')
           legend.option-title=env.t('direction/Actions')
-          span.task-checker.action-plusminus.select-toggle
+          span.task-checker
             input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
             label(for='{{obj._id}}_{{task.id}}-option-plus')
-          span.task-checker.action-plusminus.select-toggle
+          span.task-checker
             input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-minus', type='checkbox', ng-model='task.down')
             label(for='{{obj._id}}_{{task.id}}-option-minus')
 
         // if Daily, calendar
         fieldset(ng-if='::task.type=="daily"', class="option-group")
           legend.option-title=env.t('repeat')
-          .task-controls.tile-group.repeat-days(bindonce)
+          ul.repeat-days(bindonce)
             // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
-            button.task-action-btn.tile(ng-class='{active: task.repeat.su}', type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') {{::moment.weekdaysMin(0)}}
-            button.task-action-btn.tile(ng-class='{active: task.repeat.m}', type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)') {{::moment.weekdaysMin(1)}}
-            button.task-action-btn.tile(ng-class='{active: task.repeat.t}', type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)') {{::moment.weekdaysMin(2)}}
-            button.task-action-btn.tile(ng-class='{active: task.repeat.w}', type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)') {{::moment.weekdaysMin(3)}}
-            button.task-action-btn.tile(ng-class='{active: task.repeat.th}', type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)') {{::moment.weekdaysMin(4)}}
-            button.task-action-btn.tile(ng-class='{active: task.repeat.f}', type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)') {{::moment.weekdaysMin(5)}}
-            button.task-action-btn.tile(ng-class='{active: task.repeat.s}', type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') {{::moment.weekdaysMin(6)}}
+            li
+              button(ng-class='{active: task.repeat.su}', type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') {{::moment.weekdaysMin(0)}}
+            li
+              button(ng-class='{active: task.repeat.m}', type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)') {{::moment.weekdaysMin(1)}}
+            li
+              button(ng-class='{active: task.repeat.t}', type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)') {{::moment.weekdaysMin(2)}}
+            li
+              button(ng-class='{active: task.repeat.w}', type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)') {{::moment.weekdaysMin(3)}}
+            li
+              button(ng-class='{active: task.repeat.th}', type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)') {{::moment.weekdaysMin(4)}}
+            li
+              button(ng-class='{active: task.repeat.f}', type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)') {{::moment.weekdaysMin(5)}}
+            li
+              button(ng-class='{active: task.repeat.s}', type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') {{::moment.weekdaysMin(6)}}
 
         // if Reward, pricing
         fieldset.option-group.option-short(ng-if='task.type=="reward" && !task.challenge.id')
@@ -199,10 +205,13 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
           fieldset.option-group.advanced-option(ng-class="{visuallyhidden: task._advanced}")
             legend.option-title
               a.hint.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
-            .task-controls.tile-group.priority-multiplier
-              button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)')=env.t('easy')
-              button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1.5}', ng-click='task.challenge.id || (task.priority=1.5)')=env.t('medium')
-              button.task-action-btn.tile(type='button', ng-class='{active: task.priority==2}', ng-click='task.challenge.id || (task.priority=2)')=env.t('hard')
+            ul.priority-multiplier
+              li
+                button(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)')=env.t('easy')
+              li
+                button(type='button', ng-class='{active: task.priority==1.5}', ng-click='task.challenge.id || (task.priority=1.5)')=env.t('medium')
+              li
+                button(type='button', ng-class='{active: task.priority==2}', ng-click='task.challenge.id || (task.priority=2)')=env.t('hard')
             //span(ng-if='task.type=="daily" && !task.challenge.id')
             span(ng-if='task.type=="daily"')
               legend.option-title.pull-left=env.t('restoreStreak')
@@ -210,12 +219,17 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
 
             div(ng-if='(user.preferences.allocationMode == "taskbased" && user.preferences.automaticAllocation) || $state.is("options.social.challenges")')
               legend.option-title.pull-left=env.t('attributes')
-              .task-controls.tile-group.task-attributes
-                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"')=env.t('physical')
-                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"')=env.t('mental')
-                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"')=env.t('social')
-                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"', popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')=env.t('other')
+              ul.task-attributes
+                li
+                  button(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"')=env.t('physical')
+                li
+                  button(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"')=env.t('mental')
+                li
+                  button(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"')=env.t('social')
+                li
+                  button(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"', popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')=env.t('other')
 
-        button.task-action-btn.tile.spacious(type='submit')=env.t('saveAndClose')
+        .save-close
+          button(type='submit')=env.t('saveAndClose')
 
   div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')

@@ -71,7 +71,7 @@ hrpg-button-color-mixin($hrpg-button-color)
         color: #fff !important;
 $hrpg-button-master
   list-style: none
-  > a, > button, > input
+  > a, > button, > input, label::after
     display: inline-block !important
     padding: 0.25em 0.5em !important
     text-decoration:none
@@ -86,7 +86,7 @@ $hrpg-button-master
       background-color: #aaa !important
 $hrpg-button
   @extend $hrpg-button-master
-  > a, > button, > input
+  > a, > button, > input, label::after
     border: 1px solid #ccc !important
     border-radius: 0.382em !important
 $hrpg-button-call-to-action
@@ -111,7 +111,7 @@ $hrpg-button-with-input
     height: 2em
   input
     border: 1px solid #ccc
-    border-radius: 0.382em 0em 0em 0.382em
+    border-radius: 0.382em 0em 0em 0.382em !important 
     padding-left: 0.618em
     background-color: #fff !important
     -webkit-appearance: none
@@ -150,15 +150,17 @@ $hrpg-button-bar
     border-right: 1px solid darken(#fff,3.82%)
     float:left
     word-wrap: break-word
+    button
+      border: none
   li:nth-of-type(2)
     border-radius: 0.382em 0em 0em 0.382em
   li:first-of-type
     border-radius: 0.382em 0em 0em 0.382em
-    a
+    a, button
       border-radius: 0.382em 0em 0em 0.382em
   li:last-of-type
     border-right: none
-    a
+    a, button
       border-radius: 0em 0.382em 0.382em 0em
 
 $hrpg-button-bar-with-heading
