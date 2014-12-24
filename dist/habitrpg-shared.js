@@ -13947,27 +13947,33 @@ api.backgrounds = {
 };
 
 api.subscriptionBlocks = {
-  "1": {
+  basic_earned: {
     months: 1,
-    price: 5,
-    key: 'basic_earned'
+    price: 5
   },
-  "3": {
+  basic_3mo: {
     months: 3,
-    price: 15,
-    key: 'basic_3mo'
+    price: 15
   },
-  "6": {
+  basic_6mo: {
     months: 6,
-    price: 30,
-    key: 'basic_6mo'
+    price: 30
   },
-  "12": {
+  google_6mo: {
+    months: 6,
+    price: 24,
+    discount: true,
+    original: 30
+  },
+  basic_12mo: {
     months: 12,
-    price: 48,
-    key: 'basic_12mo'
+    price: 48
   }
 };
+
+_.each(api.subscriptionBlocks, function(b, k) {
+  return b.key = k;
+});
 
 repeat = {
   m: true,
@@ -16493,5 +16499,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

@@ -1438,10 +1438,12 @@ api.backgrounds =
       notes: t('backgroundSouthPoleNotes')
 
 api.subscriptionBlocks =
-  "1": months:1, price:5, key: 'basic_earned'
-  "3": months:3, price:15, key: 'basic_3mo'
-  "6": months:6, price:30, key: 'basic_6mo'
-  "12": months:12, price:48, key: 'basic_12mo'
+  basic_earned: months:1, price:5
+  basic_3mo: months:3, price:15
+  basic_6mo: months:6, price:30
+  google_6mo: months:6, price:24, discount:true, original:30
+  basic_12mo: months:12, price:48
+_.each api.subscriptionBlocks, (b,k)->b.key = k
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
