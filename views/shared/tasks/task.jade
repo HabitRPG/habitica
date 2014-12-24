@@ -138,7 +138,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
                 //-,ng-blur='saveTask(task,true)')
                 span.checklist-icon.glyphicon.glyphicon-resize-vertical()
                 input(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
-                button(ng-click='removeChecklistItem(task,$event,$index,true)')
+                a(ng-click='removeChecklistItem(task,$event,$index,true)')
                   span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
 
       form(ng-submit='saveTask(task,false,true)')
