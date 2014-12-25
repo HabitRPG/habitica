@@ -9911,6 +9911,11 @@ api.mystery = {
     end: '2014-12-02',
     text: 'Feast and Fun Set'
   },
+  201412: {
+    start: '2014-12-25',
+    end: '2015-01-02',
+    text: 'Penguin Set'
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
@@ -10966,6 +10971,12 @@ gear = {
         mystery: '201410',
         value: 0
       },
+      201411: {
+        text: t('armorMystery201412Text'),
+        notes: t('armorMystery201412Notes'),
+        mystery: '201412',
+        value: 0
+      },
       301404: {
         text: t('armorMystery301404Text'),
         notes: t('armorMystery301404Notes'),
@@ -11443,6 +11454,12 @@ gear = {
         text: t('headMystery201411Text'),
         notes: t('headMystery201411Notes'),
         mystery: '201411',
+        value: 0
+      },
+      201412: {
+        text: t('headMystery201412Text'),
+        notes: t('headMystery201412Notes'),
+        mystery: '201412',
         value: 0
       },
       301404: {
@@ -15257,7 +15274,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var convCap, convRate, item, key, type, _ref, _ref1, _ref2, _ref3;
+        var convCap, convRate, item, key, price, type, _ref, _ref1, _ref2, _ref3;
         _ref = req.params, type = _ref.type, key = _ref.key;
         if (type === 'gems' && key === 'gem') {
           _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
@@ -15288,30 +15305,46 @@ api.wrap = function(user, main) {
             message: "+1 Gems"
           }, _.pick(user, $w('stats balance'))) : void 0;
         }
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'gear') {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
+            message: ":type must be in [eggs,hatchingPotions,food,quests,gear]"
           }, req) : void 0;
         }
-        item = content[type][key];
+        if (type === 'gear') {
+          item = content.gear.flat[key];
+          if (user.items.gear.owned[key]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: i18n.t('alreadyHave', req.language)
+            }) : void 0;
+          }
+          price = (item.twoHanded ? 2 : 1) / 4;
+        } else {
+          item = content[type][key];
+          price = item.value / 4;
+        }
         if (!item) {
           return typeof cb === "function" ? cb({
             code: 404,
             message: ":key not found for Content." + type
           }, req) : void 0;
         }
-        if (user.balance < (item.value / 4)) {
+        if (user.balance < price) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (!(user.items[type][key] > 0)) {
-          user.items[type][key] = 0;
+        user.balance -= price;
+        if (type === 'gear') {
+          user.items.gear.owned[key] = true;
+        } else {
+          if (!(user.items[type][key] > 0)) {
+            user.items[type][key] = 0;
+          }
+          user.items[type][key]++;
         }
-        user.items[type][key]++;
-        user.balance -= item.value / 4;
         if (typeof cb === "function") {
           cb(null, _.pick(user, $w('items balance')));
         }
