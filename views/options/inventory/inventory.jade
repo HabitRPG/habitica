@@ -38,7 +38,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
             | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
             span.Pet_Currency_Gem1x.inline-gems
       menu.pets-menu(label=env.t('quests'))
-        div(ng-repeat='quest in Content.quests', ng-if='quest.key == "evilSanta" || quest.key == "evilSanta2"')
+        div(ng-repeat='quest in Content.quests', ng-if='(quest.key == "evilsanta") || (quest.key == "evilsanta2")')
           button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
           p
             | {{::quest.value}}
