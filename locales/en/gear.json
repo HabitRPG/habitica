@@ -1,4 +1,6 @@
 {
+  "weapon": "weapon",
+
   "weaponBase0Text": "No Weapon",
   "weaponBase0Notes": "No Weapon.",
 
@@ -123,6 +125,8 @@
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
+  "armor": "armor",
+
   "armorBase0Text": "Plain Clothing",
   "armorBase0Notes": "Ordinary clothing. Confers no benefit.",
 
@@ -246,6 +250,8 @@
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
 
+  "headgear": "headgear",
+
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",
 
@@ -366,6 +372,8 @@
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
   "headMystery301405Notes": "A basic top hat, just begging to be paired with some fancy head accessories. Confers no benefit. May 3015 Subscriber Item.",
+
+  "offhand": "off-hand item",
 
   "shieldBase0Text": "No Off-Hand Equipment",
   "shieldBase0Notes": "No shield or second weapon.",
