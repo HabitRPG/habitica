@@ -31,7 +31,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
           .popover-content
             p!=env.t('seasonalShopText')
     li.customize-menu.inventory-gear
-      menu(label='{{::label}}', ng-repeat='(set,label) in {candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
+      menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in {candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
         div(ng-repeat='item in Content.gear.flat | toArray | where:{index:set}')
           button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
           .center
