@@ -87,16 +87,22 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.purchase = function(type, item){
-      if (item.key=='spookDust') return User.user.ops.buySpookDust({});
 
       var gems = User.user.balance * 4;
 
-      if(gems < item.value) return $rootScope.openModal('buyGems');
-      var string = (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
-      var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
+      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // this is ugly but temporary, once the purchase modal is done this will be removed
+      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield') {
+        if (gems < ((item.specialClass == "wizard") && (item.type == "weapon")) + 1) return $rootScope.openModal('buyGems');
+        var message = window.env.t('buyThis', {text: string, price: ((item.specialClass == "wizard") && (item.type == "weapon")) + 1, gems: gems})
+        if($window.confirm(message))
+          User.user.ops.purchase({params:{type:"gear",key:item.key}});
+      } else {
+        if(gems < item.value) return $rootScope.openModal('buyGems');
+        var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
+        if($window.confirm(message))
+          User.user.ops.purchase({params:{type:type,key:item.key}});
+      }
 
-      if($window.confirm(message))
-        User.user.ops.purchase({params:{type:type,key:item.key}});
     }
 
     $scope.choosePet = function(egg, potion){
