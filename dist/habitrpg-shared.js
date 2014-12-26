@@ -16,6 +16,8 @@ var process = module.exports = {};
 process.nextTick = (function () {
     var canSetImmediate = typeof window !== 'undefined'
     && window.setImmediate;
+    var canMutationObserver = typeof window !== 'undefined'
+    && window.MutationObserver;
     var canPost = typeof window !== 'undefined'
     && window.postMessage && window.addEventListener
     ;
@@ -24,8 +26,29 @@ process.nextTick = (function () {
         return function (f) { return window.setImmediate(f) };
     }
 
+    var queue = [];
+
+    if (canMutationObserver) {
+        var hiddenDiv = document.createElement("div");
+        var observer = new MutationObserver(function () {
+            var queueList = queue.slice();
+            queue.length = 0;
+            queueList.forEach(function (fn) {
+                fn();
+            });
+        });
+
+        observer.observe(hiddenDiv, { attributes: true });
+
+        return function nextTick(fn) {
+            if (!queue.length) {
+                hiddenDiv.setAttribute('yes', 'no');
+            }
+            queue.push(fn);
+        };
+    }
+
     if (canPost) {
-        var queue = [];
         window.addEventListener('message', function (ev) {
             var source = ev.source;
             if ((source === window || source === null) && ev.data === 'process-tick') {
@@ -65,7 +88,7 @@ process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
-}
+};
 
 // TODO(shtylman)
 process.cwd = function () { return '/' };
@@ -74,7 +97,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, mystery, repeat, t, _;
+var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
 
 _ = require('lodash');
 
@@ -108,7 +131,7 @@ t = function(string, vars) {
 
 classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
-gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory'];
+gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear'];
 
 events = {
   winter: {
@@ -134,51 +157,88 @@ events = {
   fall: {
     start: '2014-09-21',
     end: '2014-11-01'
+  },
+  winter2015: {
+    start: '2014-12-21',
+    end: '2015-01-31'
   }
 };
 
-mystery = {
+api.mystery = {
   201402: {
     start: '2014-02-22',
-    end: '2014-02-28'
+    end: '2014-02-28',
+    text: 'Winged Messenger Set'
   },
   201403: {
     start: '2014-03-24',
-    end: '2014-04-01'
+    end: '2014-04-02',
+    text: 'Forest Walker Set'
   },
   201404: {
     start: '2014-04-24',
-    end: '2014-05-01'
+    end: '2014-05-02',
+    text: 'Twilight Butterfly Set'
   },
   201405: {
     start: '2014-05-21',
-    end: '2014-06-01'
+    end: '2014-06-02',
+    text: 'Flame Wielder Set'
   },
   201406: {
     start: '2014-06-23',
-    end: '2014-07-01'
+    end: '2014-07-02',
+    text: 'Octomage Set'
   },
   201407: {
     start: '2014-07-23',
-    end: '2014-08-01'
+    end: '2014-08-02',
+    text: 'Undersea Explorer Set'
   },
   201408: {
     start: '2014-08-23',
-    end: '2014-09-01'
+    end: '2014-09-02',
+    text: 'Sun Sorcerer Set'
   },
   201409: {
     start: '2014-09-24',
-    end: '2014-10-01'
+    end: '2014-10-02',
+    text: 'Autumn Strider Item Set'
   },
   201410: {
     start: '2014-10-24',
-    end: '2014-11-01'
+    end: '2014-11-02',
+    text: 'Winged Goblin Set'
+  },
+  201411: {
+    start: '2014-11-24',
+    end: '2014-12-02',
+    text: 'Feast and Fun Set'
+  },
+  201412: {
+    start: '2014-12-25',
+    end: '2015-01-02',
+    text: 'Penguin Set'
+  },
+  301404: {
+    start: '3014-03-24',
+    end: '3014-04-02',
+    text: 'Steampunk Standard Set'
+  },
+  301405: {
+    start: '3014-04-24',
+    end: '3014-05-02',
+    text: 'Steampunk Accessories Set'
   },
   wondercon: {
     start: '2014-03-24',
     end: '2014-04-01'
   }
 };
+
+_.each(api.mystery, function(v, k) {
+  return v.key = k;
+});
 
 gear = {
   weapon: {
@@ -485,7 +545,7 @@ gear = {
         value: 200,
         canOwn: (function(u) {
           var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_3 != null);
         })
       },
       critical: {
@@ -672,6 +732,63 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('weaponSpecialWinter2015RogueText'),
+        notes: t('weaponSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('weaponSpecialWinter2015WarriorText'),
+        notes: t('weaponSpecialWinter2015WarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialWinter2015MageText'),
+        notes: t('weaponSpecialWinter2015MageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('weaponSpecialWinter2015HealerText'),
+        notes: t('weaponSpecialWinter2015HealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      }
+    },
+    mystery: {
+      201411: {
+        text: t('weaponMystery201411Text'),
+        notes: t('weaponMystery201411Notes'),
+        mystery: '201411',
+        value: 0
+      },
+      301404: {
+        text: t('weaponMystery301404Text'),
+        notes: t('weaponMystery301404Notes'),
+        mystery: '301404',
+        value: 0
       }
     }
   },
@@ -1062,6 +1179,46 @@ gear = {
         value: 90,
         con: 15
       },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('armorSpecialWinter2015RogueText'),
+        notes: t('armorSpecialWinter2015RogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('armorSpecialWinter2015WarriorText'),
+        notes: t('armorSpecialWinter2015WarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('armorSpecialWinter2015MageText'),
+        notes: t('armorSpecialWinter2015MageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('armorSpecialWinter2015HealerText'),
+        notes: t('armorSpecialWinter2015HealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('armorSpecialGaymerxText'),
@@ -1073,49 +1230,61 @@ gear = {
       201402: {
         text: t('armorMystery201402Text'),
         notes: t('armorMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201403: {
         text: t('armorMystery201403Text'),
         notes: t('armorMystery201403Notes'),
-        mystery: mystery['201403'],
+        mystery: '201403',
         value: 0
       },
       201405: {
         text: t('armorMystery201405Text'),
         notes: t('armorMystery201405Notes'),
-        mystery: mystery['201405'],
+        mystery: '201405',
         value: 0
       },
       201406: {
         text: t('armorMystery201406Text'),
         notes: t('armorMystery201406Notes'),
-        mystery: mystery['201406'],
+        mystery: '201406',
         value: 0
       },
       201407: {
         text: t('armorMystery201407Text'),
         notes: t('armorMystery201407Notes'),
-        mystery: mystery['201407'],
+        mystery: '201407',
         value: 0
       },
       201408: {
         text: t('armorMystery201408Text'),
         notes: t('armorMystery201408Notes'),
-        mystery: mystery['201408'],
+        mystery: '201408',
         value: 0
       },
       201409: {
         text: t('armorMystery201409Text'),
         notes: t('armorMystery201409Notes'),
-        mystery: mystery['201409'],
+        mystery: '201409',
         value: 0
       },
       201410: {
         text: t('armorMystery201410Text'),
         notes: t('armorMystery201410Notes'),
-        mystery: mystery['201410'],
+        mystery: '201410',
+        value: 0
+      },
+      201412: {
+        text: t('armorMystery201412Text'),
+        notes: t('armorMystery201412Notes'),
+        mystery: '201412',
+        value: 0
+      },
+      301404: {
+        text: t('armorMystery301404Text'),
+        notes: t('armorMystery301404Notes'),
+        mystery: '301404',
         value: 0
       }
     }
@@ -1507,6 +1676,46 @@ gear = {
         value: 60,
         int: 7
       },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('headSpecialWinter2015RogueText'),
+        notes: t('headSpecialWinter2015RogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('headSpecialWinter2015WarriorText'),
+        notes: t('headSpecialWinter2015WarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('headSpecialWinter2015MageText'),
+        notes: t('headSpecialWinter2015MageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('headSpecialWinter2015HealerText'),
+        notes: t('headSpecialWinter2015HealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -1518,31 +1727,55 @@ gear = {
       201402: {
         text: t('headMystery201402Text'),
         notes: t('headMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201405: {
         text: t('headMystery201405Text'),
         notes: t('headMystery201405Notes'),
-        mystery: mystery['201405'],
+        mystery: '201405',
         value: 0
       },
       201406: {
         text: t('headMystery201406Text'),
         notes: t('headMystery201406Notes'),
-        mystery: mystery['201406'],
+        mystery: '201406',
         value: 0
       },
       201407: {
         text: t('headMystery201407Text'),
         notes: t('headMystery201407Notes'),
-        mystery: mystery['201407'],
+        mystery: '201407',
         value: 0
       },
       201408: {
         text: t('headMystery201408Text'),
         notes: t('headMystery201408Notes'),
-        mystery: mystery['201408'],
+        mystery: '201408',
+        value: 0
+      },
+      201411: {
+        text: t('headMystery201411Text'),
+        notes: t('headMystery201411Notes'),
+        mystery: '201411',
+        value: 0
+      },
+      201412: {
+        text: t('headMystery201412Text'),
+        notes: t('headMystery201412Notes'),
+        mystery: '201412',
+        value: 0
+      },
+      301404: {
+        text: t('headMystery301404Text'),
+        notes: t('headMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      },
+      301405: {
+        text: t('headMystery301405Text'),
+        notes: t('headMystery301405Notes'),
+        mystery: '301405',
         value: 0
       }
     }
@@ -1727,6 +1960,18 @@ gear = {
           return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
         })
       },
+      goldenknight: {
+        text: t('shieldSpecialGoldenknightText'),
+        notes: t('shieldSpecialGoldenknightNotes', {
+          attrs: 25
+        }),
+        con: 25,
+        per: 25,
+        value: 200,
+        canOwn: (function(u) {
+          return u.items.gear.owned.shield_special_goldenknight != null;
+        })
+      },
       yeti: {
         event: events.winter,
         specialClass: 'warrior',
@@ -1846,6 +2091,44 @@ gear = {
         }),
         value: 70,
         con: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('shieldSpecialWinter2015RogueText'),
+        notes: t('shieldSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('shieldSpecialWinter2015WarriorText'),
+        notes: t('shieldSpecialWinter2015WarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('shieldSpecialWinter2015HealerText'),
+        notes: t('shieldSpecialWinter2015HealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      }
+    },
+    mystery: {
+      301405: {
+        text: t('shieldMystery301405Text'),
+        notes: t('shieldMystery301405Notes'),
+        mystery: '301405',
+        value: 0
       }
     }
   },
@@ -1861,19 +2144,19 @@ gear = {
       201402: {
         text: t('backMystery201402Text'),
         notes: t('backMystery201402Notes'),
-        mystery: mystery['201402'],
+        mystery: '201402',
         value: 0
       },
       201404: {
         text: t('backMystery201404Text'),
         notes: t('backMystery201404Notes'),
-        mystery: mystery['201404'],
+        mystery: '201404',
         value: 0
       },
       201410: {
         text: t('backMystery201410Text'),
         notes: t('backMystery201410Notes'),
-        mystery: mystery['201410'],
+        mystery: '201410',
         value: 0
       }
     },
@@ -1882,13 +2165,13 @@ gear = {
         text: t('backSpecialWonderconRedText'),
         notes: t('backSpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('backSpecialWonderconBlackText'),
         notes: t('backSpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       }
     }
   },
@@ -1905,19 +2188,19 @@ gear = {
         text: t('bodySpecialWonderconRedText'),
         notes: t('bodySpecialWonderconRedNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_gold: {
         text: t('bodySpecialWonderconGoldText'),
         notes: t('bodySpecialWonderconGoldNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       wondercon_black: {
         text: t('bodySpecialWonderconBlackText'),
         notes: t('bodySpecialWonderconBlackNotes'),
         value: 0,
-        mystery: mystery.wondercon
+        mystery: 'wondercon'
       },
       summerHealer: {
         event: events.summer,
@@ -1972,51 +2255,83 @@ gear = {
         text: t('headAccessorySpecialSpringHealerText'),
         notes: t('headAccessorySpecialSpringHealerNotes'),
         value: 20
-      },
-      wondercon_red: {
-        text: t('headAccessorySpecialWonderconRedText'),
-        notes: t('headAccessorySpecialWonderconRedNotes'),
-        value: 0,
-        mystery: mystery.wondercon
-      },
-      wondercon_black: {
-        text: t('headAccessorySpecialWonderconBlackText'),
-        notes: t('headAccessorySpecialWonderconBlackNotes'),
-        value: 0,
-        mystery: mystery.wondercon
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('headAccessorySpecialSummerRogueText'),
-        notes: t('headAccessorySpecialSummerRogueNotes'),
-        value: 20
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('headAccessorySpecialSummerWarriorText'),
-        notes: t('headAccessorySpecialSummerWarriorNotes'),
-        value: 20
       }
     },
     mystery: {
       201403: {
         text: t('headAccessoryMystery201403Text'),
         notes: t('headAccessoryMystery201403Notes'),
-        mystery: mystery['201403'],
+        mystery: '201403',
         value: 0
       },
       201404: {
         text: t('headAccessoryMystery201404Text'),
         notes: t('headAccessoryMystery201404Notes'),
-        mystery: mystery['201404'],
+        mystery: '201404',
         value: 0
       },
       201409: {
         text: t('headAccessoryMystery201409Text'),
         notes: t('headAccessoryMystery201409Notes'),
-        mystery: mystery['201409'],
+        mystery: '201409',
+        value: 0
+      },
+      301405: {
+        text: t('headAccessoryMystery301405Text'),
+        notes: t('headAccessoryMystery301405Notes'),
+        mystery: '301405',
+        value: 0
+      }
+    }
+  },
+  eyewear: {
+    base: {
+      0: {
+        text: t('eyewearBase0Text'),
+        notes: t('eyewearBase0Notes'),
+        value: 0,
+        last: true
+      }
+    },
+    special: {
+      wondercon_red: {
+        text: t('eyewearSpecialWonderconRedText'),
+        notes: t('eyewearSpecialWonderconRedNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      wondercon_black: {
+        text: t('eyewearSpecialWonderconBlackText'),
+        notes: t('eyewearSpecialWonderconBlackNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('eyewearSpecialSummerRogueText'),
+        notes: t('eyewearSpecialSummerRogueNotes'),
+        value: 20
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('eyewearSpecialSummerWarriorText'),
+        notes: t('eyewearSpecialSummerWarriorNotes'),
+        value: 20
+      }
+    },
+    mystery: {
+      301404: {
+        text: t('eyewearMystery301404Text'),
+        notes: t('eyewearMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      },
+      301405: {
+        text: t('eyewearMystery301405Text'),
+        notes: t('eyewearMystery301405Notes'),
+        mystery: '301405',
         value: 0
       }
     }
@@ -2066,6 +2381,29 @@ _.each(gearTypes, function(type) {
     });
   });
 });
+
+
+/*
+  Time Traveler Store, mystery sets need their items mapped in
+ */
+
+_.each(api.mystery, function(v, k) {
+  return v.items = _.where(api.gear.flat, {
+    mystery: k
+  });
+});
+
+api.timeTravelerStore = function(owned) {
+  var ownedKeys;
+  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
+  return _.reduce(api.mystery, function(m, v, k) {
+    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
+      return m;
+    }
+    m[k] = v;
+    return m;
+  }, {});
+};
 
 
 /*
@@ -2559,6 +2897,16 @@ api.questEggs = {
     text: t('questEggSpiderText'),
     adjective: t('questEggSpiderAdjective'),
     canBuy: false
+  },
+  Owl: {
+    text: t('questEggOwlText'),
+    adjective: t('questEggOwlAdjective'),
+    canBuy: false
+  },
+  Penguin: {
+    text: t('questEggPenguinText'),
+    adjective: t('questEggPenguinAdjective'),
+    canBuy: false
   }
 };
 
@@ -2590,7 +2938,8 @@ api.specialPets = {
 api.specialMounts = {
   'BearCub-Polar': 'polarBear',
   'LionCub-Ethereal': 'etherealLion',
-  'MantisShrimp-Base': 'mantisShrimp'
+  'MantisShrimp-Base': 'mantisShrimp',
+  'Turkey-Base': 'turkey'
 };
 
 api.hatchingPotions = {
@@ -2661,70 +3010,70 @@ api.questPets = _.transform(api.questEggs, function(m, egg) {
 api.food = {
   Meat: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodMeat'),
     target: 'Base',
     article: ''
   },
   Milk: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodMilk'),
     target: 'White',
     article: ''
   },
   Potatoe: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a '
   },
   Strawberry: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a '
   },
   Chocolate: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodChocolate'),
     target: 'Shade',
     article: ''
   },
   Fish: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a '
   },
   RottenMeat: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: ''
   },
   CottonCandyPink: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   CottonCandyBlue: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Honey: {
     canBuy: true,
-    canDrop: false,
+    canDrop: true,
     text: t('foodHoney'),
     target: 'Golden',
     article: ''
@@ -2807,71 +3156,71 @@ api.food = {
     article: ''
   },
   Candy_Skeleton: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandySkeleton'),
     target: 'Skeleton',
     article: ''
   },
   Candy_Base: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyBase'),
     target: 'Base',
     article: ''
   },
   Candy_CottonCandyBlue: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Candy_CottonCandyPink: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   Candy_Shade: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyShade'),
     target: 'Shade',
     article: ''
   },
   Candy_White: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyWhite'),
     target: 'White',
     article: ''
   },
   Candy_Golden: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyGolden'),
     target: 'Golden',
     article: ''
   },
   Candy_Zombie: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyZombie'),
     target: 'Zombie',
     article: ''
   },
   Candy_Desert: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyDesert'),
     target: 'Desert',
     article: ''
   },
   Candy_Red: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCandyRed'),
     target: 'Red',
     article: ''
@@ -3610,6 +3959,172 @@ api.quests = {
       gp: 900,
       exp: 1500
     }
+  },
+  goldenknight1: {
+    text: t('questGoldenknight1Text'),
+    notes: t('questGoldenknight1Notes'),
+    value: 4,
+    lvl: 40,
+    collect: {
+      testimony: {
+        text: t('questGoldenknight1CollectTestimony'),
+        count: 300
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "goldenknight2",
+          text: t('questGoldenknight1DropGoldenknight2Quest')
+        }
+      ],
+      gp: 15,
+      exp: 120
+    }
+  },
+  goldenknight2: {
+    text: t('questGoldenknight2Text'),
+    notes: t('questGoldenknight2Notes'),
+    value: 4,
+    previous: 'goldenknight1',
+    lvl: 45,
+    boss: {
+      name: t('questGoldenknight2Boss'),
+      hp: 1000,
+      str: 3
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: 'goldenknight3',
+          text: t('questGoldenknight2DropGoldenknight3Quest')
+        }
+      ],
+      gp: 75,
+      exp: 750
+    }
+  },
+  goldenknight3: {
+    text: t('questGoldenknight3Text'),
+    notes: t('questGoldenknight3Notes'),
+    completion: t('questGoldenknight3Completion'),
+    previous: 'goldenknight2',
+    value: 4,
+    lvl: 50,
+    boss: {
+      name: t('questGoldenknight3Boss'),
+      hp: 1700,
+      str: 3.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Honey',
+          text: t('questGoldenknight3DropHoney')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('questGoldenknight3DropHoney')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('questGoldenknight3DropHoney')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Golden',
+          text: t('questGoldenknight3DropGoldenPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Golden',
+          text: t('questGoldenknight3DropGoldenPotion')
+        }, {
+          type: 'gear',
+          key: 'shield_special_goldenknight',
+          text: t('questGoldenknight3DropWeapon')
+        }
+      ],
+      gp: 900,
+      exp: 1500
+    }
+  },
+  basilist: {
+    text: t('questBasilistText'),
+    notes: t('questBasilistNotes'),
+    completion: t('questBasilistCompletion'),
+    canBuy: false,
+    value: 4,
+    boss: {
+      name: t('questBasilistBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
+  },
+  owl: {
+    text: t('questOwlText'),
+    notes: t('questOwlNotes'),
+    completion: t('questOwlCompletion'),
+    value: 4,
+    boss: {
+      name: t('questOwlBoss'),
+      hp: 500,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }, {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }, {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }
+      ],
+      gp: 37,
+      exp: 275
+    }
+  },
+  penguin: {
+    text: t('questPenguinText'),
+    notes: t('questPenguinNotes'),
+    completion: t('questPenguinCompletion'),
+    value: 4,
+    boss: {
+      name: t('questPenguinBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }, {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }, {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
+    }
   }
 };
 
@@ -3704,6 +4219,57 @@ api.backgrounds = {
       text: t('backgroundPumpkinPatchText'),
       notes: t('backgroundPumpkinPatchNotes')
     }
+  },
+  backgrounds112014: {
+    harvest_feast: {
+      text: t('backgroundHarvestFeastText'),
+      notes: t('backgroundHarvestFeastNotes')
+    },
+    sunset_meadow: {
+      text: t('backgroundSunsetMeadowText'),
+      notes: t('backgroundSunsetMeadowNotes')
+    },
+    starry_skies: {
+      text: t('backgroundStarrySkiesText'),
+      notes: t('backgroundStarrySkiesNotes')
+    }
+  },
+  backgrounds122014: {
+    iceberg: {
+      text: t('backgroundIcebergText'),
+      notes: t('backgroundIcebergNotes')
+    },
+    twinkly_lights: {
+      text: t('backgroundTwinklyLightsText'),
+      notes: t('backgroundTwinklyLightsNotes')
+    },
+    south_pole: {
+      text: t('backgroundSouthPoleText'),
+      notes: t('backgroundSouthPoleNotes')
+    }
+  }
+};
+
+api.subscriptionBlocks = {
+  "1": {
+    months: 1,
+    price: 5,
+    key: 'basic_earned'
+  },
+  "3": {
+    months: 3,
+    price: 15,
+    key: 'basic_3mo'
+  },
+  "6": {
+    months: 6,
+    price: 30,
+    key: 'basic_6mo'
+  },
+  "12": {
+    months: 12,
+    price: 48,
+    key: 'basic_12mo'
   }
 };
 
@@ -3922,6 +4488,29 @@ api.dotGet = function(obj, path) {
       return curr != null ? curr[next] : void 0;
     };
   })(this)), obj);
+};
+
+
+/*
+  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
+  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
+  no problem. To maintain sorting, we use these helper functions:
+ */
+
+api.refPush = function(reflist, item, prune) {
+  if (prune == null) {
+    prune = 0;
+  }
+  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
+  if (!(item.id && !reflist[item.id])) {
+    item.id = api.uuid();
+  }
+  return reflist[item.id] = item;
+};
+
+api.planGemLimits = {
+  convRate: 20,
+  convCap: 25
 };
 
 
@@ -4351,6 +4940,9 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     if (task.down && task.up) {
       classes += ' habit-wide';
     }
+    if (!task.down && !task.up) {
+      classes += ' habit-narrow';
+    }
   }
   if (value < -20) {
     classes += ' color-worst';
@@ -4509,6 +5101,12 @@ api.wrap = function(user, main) {
       },
       revive: function(req, cb) {
         var cl, gearOwned, item, losableItems, lostItem, lostStat, _base;
+        if (!(user.stats.hp <= 0)) {
+          return typeof cb === "function" ? cb({
+            code: 400,
+            message: "Cannot revive if not dead"
+          }) : void 0;
+        }
         _.merge(user.stats, {
           hp: 50,
           exp: 0,
@@ -4848,6 +5446,60 @@ api.wrap = function(user, main) {
         });
         return typeof cb === "function" ? cb(null, user.tags) : void 0;
       },
+      addWebhook: function(req, cb) {
+        var wh;
+        wh = user.preferences.webhooks;
+        api.refPush(wh, {
+          url: req.body.url,
+          enabled: req.body.enabled || true,
+          id: req.body.id
+        });
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      updateWebhook: function(req, cb) {
+        _.merge(user.preferences.webhooks[req.params.id], req.body);
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      deleteWebhook: function(req, cb) {
+        delete user.preferences.webhooks[req.params.id];
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      clearPMs: function(req, cb) {
+        user.inbox.messages = {};
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.messages');
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
+      },
+      deletePM: function(req, cb) {
+        delete user.inbox.messages[req.params.id];
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.messages.' + req.params.id);
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
+      },
+      blockUser: function(req, cb) {
+        var i;
+        i = user.inbox.blocks.indexOf(req.params.uuid);
+        if (~i) {
+          user.inbox.blocks.splice(i, 1);
+        } else {
+          user.inbox.blocks.push(req.params.uuid);
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.blocks');
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.blocks) : void 0;
+      },
       feed: function(req, cb) {
         var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
         _ref = req.params, pet = _ref.pet, food = _ref.food;
@@ -4935,32 +5587,77 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var item, key, type, _ref;
+        var convCap, convRate, item, key, price, type, _ref, _ref1, _ref2, _ref3;
         _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
+        if (type === 'gems' && key === 'gem') {
+          _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
+          convCap += user.purchased.plan.consecutive.gemCapExtra;
+          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Must subscribe to purchase gems with GP"
+            }, req) : void 0;
+          }
+          if (!(user.stats.gp >= convRate)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough Gold"
+            }) : void 0;
+          }
+          if (user.purchased.plan.gemsBought >= convCap) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."
+            }) : void 0;
+          }
+          user.balance += .25;
+          user.purchased.plan.gemsBought++;
+          user.stats.gp -= convRate;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: "+1 Gems"
+          }, _.pick(user, $w('stats balance'))) : void 0;
+        }
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'gear') {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
+            message: ":type must be in [eggs,hatchingPotions,food,quests,gear]"
           }, req) : void 0;
         }
-        item = content[type][key];
+        if (type === 'gear') {
+          item = content.gear.flat[key];
+          if (user.items.gear.owned[key]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: i18n.t('alreadyHave', req.language)
+            }) : void 0;
+          }
+          price = (item.twoHanded ? 2 : 1) / 4;
+        } else {
+          item = content[type][key];
+          price = item.value / 4;
+        }
         if (!item) {
           return typeof cb === "function" ? cb({
             code: 404,
             message: ":key not found for Content." + type
           }, req) : void 0;
         }
-        if (user.balance < (item.value / 4)) {
+        if (user.balance < price) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (!(user.items[type][key] > 0)) {
-          user.items[type][key] = 0;
+        user.balance -= price;
+        if (type === 'gear') {
+          user.items.gear.owned[key] = true;
+        } else {
+          if (!(user.items[type][key] > 0)) {
+            user.items[type][key] = 0;
+          }
+          user.items[type][key]++;
         }
-        user.items[type][key]++;
-        user.balance -= item.value / 4;
         if (typeof cb === "function") {
           cb(null, _.pick(user, $w('items balance')));
         }
@@ -5053,6 +5750,32 @@ api.wrap = function(user, main) {
           code: 200,
           message: message
         }, _.pick(user, $w('items achievements stats'))) : void 0;
+      },
+      buyMysterySet: function(req, cb) {
+        var mysterySet, _ref;
+        if (!(user.purchased.plan.consecutive.trinkets > 0)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You don't have enough Mystic Hourglasses"
+          }) : void 0;
+        }
+        mysterySet = (_ref = content.timeTravelerStore(user.items.gear.owned)) != null ? _ref[req.params.key] : void 0;
+        if ((typeof window !== "undefined" && window !== null ? window.confirm : void 0) != null) {
+          if (!window.confirm("Buy this full set of items for 1 Mystic Hourglass?")) {
+            return;
+          }
+        }
+        if (!mysterySet) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Mystery set not found, or set already owned"
+          }) : void 0;
+        }
+        _.each(mysterySet.items, function(i) {
+          return user.items.gear.owned[i.key] = true;
+        });
+        user.purchased.plan.consecutive.trinkets--;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
       },
       sell: function(req, cb) {
         var key, type, _ref;
@@ -5265,6 +5988,28 @@ api.wrap = function(user, main) {
           user.markModified('items.special.valentineReceived');
         }
         return typeof cb === "function" ? cb(null, 'items.special') : void 0;
+      },
+      openMysteryItem: function(req, cb, ga) {
+        var item, _ref, _ref1;
+        item = (_ref = user.purchased.plan) != null ? (_ref1 = _ref.mysteryItems) != null ? _ref1.shift() : void 0 : void 0;
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 400,
+            message: "Empty"
+          }) : void 0;
+        }
+        item = content.gear.flat[item];
+        user.items.gear.owned[item.key] = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('purchased.plan.mysteryItems');
+        }
+        if (typeof window !== 'undefined') {
+          (user._tmp != null ? user._tmp : user._tmp = {}).drop = {
+            type: 'gear',
+            dialog: "" + (item.text(req.language)) + " inside!"
+          };
+        }
+        return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
       },
       score: function(req, cb) {
         var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
@@ -5567,7 +6312,7 @@ api.wrap = function(user, main) {
       return api.dotGet(user, path);
     },
     randomDrop: function(modifiers, req) {
-      var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
+      var acceptableDrops, chance, drop, dropK, dropMultiplier, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3;
       task = modifiers.task;
       chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
       chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 40 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
@@ -5584,10 +6329,11 @@ api.wrap = function(user, main) {
           user.markModified('party.quest.progress');
         }
       }
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0))) {
+      dropMultiplier = ((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0) ? 2 : 1;
+      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
         return;
       }
-      if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
+      if (((_ref3 = user.flags) != null ? _ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
         rarity = user.fns.predictableRandom(user.stats.gp);
         if (rarity > .6) {
           drop = user.fns.randomVal(_.where(content.food, {
@@ -5737,7 +6483,8 @@ api.wrap = function(user, main) {
       _.each({
         vice1: 30,
         atom1: 15,
-        moonstone1: 60
+        moonstone1: 60,
+        goldenknight1: 40
       }, function(lvl, k) {
         var _base, _base1, _ref;
         if (!((_ref = user.flags.levelDrops) != null ? _ref[k] : void 0) && user.stats.lvl >= lvl) {
@@ -5779,7 +6526,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
       if (options == null) {
         options = {};
       }
@@ -5804,6 +6551,44 @@ api.wrap = function(user, main) {
         stealth: 0,
         streaks: false
       };
+      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
+      if (plan != null ? plan.customerId : void 0) {
+        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+          plan.gemsBought = 0;
+          plan.dateUpdated = new Date();
+          _.defaults(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            trinkets: 0,
+            gemCapExtra: 0
+          });
+          plan.consecutive.count++;
+          if (plan.consecutive.offset > 0) {
+            plan.consecutive.offset--;
+          } else if (plan.consecutive.count % 3 === 0) {
+            plan.consecutive.trinkets++;
+            plan.consecutive.gemCapExtra += 5;
+            if (plan.consecutive.gemCapExtra > 25) {
+              plan.consecutive.gemCapExtra = 25;
+            }
+          }
+        }
+        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+          _.merge(plan, {
+            planId: null,
+            customerId: null,
+            paymentMethod: null
+          });
+          _.merge(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            gemCapExtra: 0
+          });
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased.plan');
+          }
+        }
+      }
       if (user.preferences.sleep === true) {
         user.stats.buffs = clearBuffs;
         return;
@@ -5893,12 +6678,14 @@ api.wrap = function(user, main) {
         date: now,
         value: expTally
       });
-      user.fns.preenUserHistory();
-      if (typeof user.markModified === "function") {
-        user.markModified('history');
-      }
-      if (typeof user.markModified === "function") {
-        user.markModified('dailys');
+      if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0)) {
+        user.fns.preenUserHistory();
+        if (typeof user.markModified === "function") {
+          user.markModified('history');
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('dailys');
+        }
       }
       user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
         str: lvlDiv2,
@@ -5911,15 +6698,6 @@ api.wrap = function(user, main) {
       user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
-      }
-      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
-      if (plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
-        _.merge(user.purchased.plan, {
-          planId: null,
-          customerId: null,
-          paymentMethod: null
-        });
-        user.markModified('purchased.plan');
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);
@@ -12812,7 +13590,7 @@ api.wrap = function(user, main) {
 },{}],7:[function(require,module,exports){
 (function (global){
 //! moment.js
-//! version : 2.8.3
+//! version : 2.8.4
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -12823,7 +13601,7 @@ api.wrap = function(user, main) {
     ************************************/
 
     var moment,
-        VERSION = '2.8.3',
+        VERSION = '2.8.4',
         // the global-scope this is NOT the global object in Node.js
         globalScope = typeof global !== 'undefined' ? global : this,
         oldGlobalMoment,
@@ -12846,7 +13624,7 @@ api.wrap = function(user, main) {
         momentProperties = [],
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports),
+        hasModule = (typeof module !== 'undefined' && module && module.exports),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
@@ -12857,8 +13635,8 @@ api.wrap = function(user, main) {
         isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
-        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
+        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
@@ -12869,8 +13647,8 @@ api.wrap = function(user, main) {
         parseTokenWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i, // any word (or two) characters or numbers including two/three word month in arabic.
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/gi, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO separator)
+        parseTokenOffsetMs = /[\+\-]?\d+/, // 1234567890123
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
-        parseTokenOrdinal = /\d{1,2}/,
 
         //strict parsing regexes
         parseTokenOneDigit = /\d/, // 0 - 9
@@ -13084,6 +13862,9 @@ api.wrap = function(user, main) {
             },
             zz : function () {
                 return this.zoneName();
+            },
+            x    : function () {
+                return this.valueOf();
             },
             X    : function () {
                 return this.unix();
@@ -13511,7 +14292,10 @@ api.wrap = function(user, main) {
             overflow =
                 m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
                 m._a[DATE] < 1 || m._a[DATE] > daysInMonth(m._a[YEAR], m._a[MONTH]) ? DATE :
-                m._a[HOUR] < 0 || m._a[HOUR] > 23 ? HOUR :
+                m._a[HOUR] < 0 || m._a[HOUR] > 24 ||
+                    (m._a[HOUR] === 24 && (m._a[MINUTE] !== 0 ||
+                                           m._a[SECOND] !== 0 ||
+                                           m._a[MILLISECOND] !== 0)) ? HOUR :
                 m._a[MINUTE] < 0 || m._a[MINUTE] > 59 ? MINUTE :
                 m._a[SECOND] < 0 || m._a[SECOND] > 59 ? SECOND :
                 m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
@@ -13538,7 +14322,8 @@ api.wrap = function(user, main) {
             if (m._strict) {
                 m._isValid = m._isValid &&
                     m._pf.charsLeftOver === 0 &&
-                    m._pf.unusedTokens.length === 0;
+                    m._pf.unusedTokens.length === 0 &&
+                    m._pf.bigHour === undefined;
             }
         }
         return m._isValid;
@@ -13590,8 +14375,18 @@ api.wrap = function(user, main) {
 
     // Return a moment from input, that is local/utc/zone equivalent to model.
     function makeAs(input, model) {
-        return model._isUTC ? moment(input).zone(model._offset || 0) :
-            moment(input).local();
+        var res, diff;
+        if (model._isUTC) {
+            res = model.clone();
+            diff = (moment.isMoment(input) || isDate(input) ?
+                    +input : +moment(input)) - (+res);
+            // Use low-level api, because this fn is low-level api.
+            res._d.setTime(+res._d + diff);
+            moment.updateOffset(res, false);
+            return res;
+        } else {
+            return moment(input).local();
+        }
     }
 
     /************************************
@@ -13611,6 +14406,9 @@ api.wrap = function(user, main) {
                     this['_' + i] = prop;
                 }
             }
+            // Lenient ordinal parsing accepts just a number in addition to
+            // number + (possibly) stuff coming from _ordinalParseLenient.
+            this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + /\d{1,2}/.source);
         },
 
         _months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
@@ -13623,22 +14421,32 @@ api.wrap = function(user, main) {
             return this._monthsShort[m.month()];
         },
 
-        monthsParse : function (monthName) {
+        monthsParse : function (monthName, format, strict) {
             var i, mom, regex;
 
             if (!this._monthsParse) {
                 this._monthsParse = [];
+                this._longMonthsParse = [];
+                this._shortMonthsParse = [];
             }
 
             for (i = 0; i < 12; i++) {
                 // make the regex if we don't have it already
-                if (!this._monthsParse[i]) {
-                    mom = moment.utc([2000, i]);
+                mom = moment.utc([2000, i]);
+                if (strict && !this._longMonthsParse[i]) {
+                    this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
+                    this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+                }
+                if (!strict && !this._monthsParse[i]) {
                     regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
                     this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
                 }
                 // test the regex
-                if (this._monthsParse[i].test(monthName)) {
+                if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+                    return i;
+                } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+                    return i;
+                } else if (!strict && this._monthsParse[i].test(monthName)) {
                     return i;
                 }
             }
@@ -13681,6 +14489,7 @@ api.wrap = function(user, main) {
         },
 
         _longDateFormat : {
+            LTS : 'h:mm:ss A',
             LT : 'h:mm A',
             L : 'MM/DD/YYYY',
             LL : 'MMMM D, YYYY',
@@ -13721,9 +14530,9 @@ api.wrap = function(user, main) {
             lastWeek : '[Last] dddd [at] LT',
             sameElse : 'L'
         },
-        calendar : function (key, mom) {
+        calendar : function (key, mom, now) {
             var output = this._calendar[key];
-            return typeof output === 'function' ? output.apply(mom) : output;
+            return typeof output === 'function' ? output.apply(mom, [now]) : output;
         },
 
         _relativeTime : {
@@ -13758,6 +14567,7 @@ api.wrap = function(user, main) {
             return this._ordinal.replace('%d', number);
         },
         _ordinal : '%d',
+        _ordinalParse : /\d{1,2}/,
 
         preparse : function (string) {
             return string;
@@ -13899,6 +14709,8 @@ api.wrap = function(user, main) {
         case 'a':
         case 'A':
             return config._locale._meridiemParse;
+        case 'x':
+            return parseTokenOffsetMs;
         case 'X':
             return parseTokenTimestampMs;
         case 'Z':
@@ -13933,7 +14745,7 @@ api.wrap = function(user, main) {
         case 'E':
             return parseTokenOneOrTwoDigits;
         case 'Do':
-            return parseTokenOrdinal;
+            return strict ? config._locale._ordinalParse : config._locale._ordinalParseLenient;
         default :
             a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), 'i'));
             return a;
@@ -13970,7 +14782,7 @@ api.wrap = function(user, main) {
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
-            a = config._locale.monthsParse(input);
+            a = config._locale.monthsParse(input, token, config._strict);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
                 datePartArray[MONTH] = a;
@@ -13987,7 +14799,8 @@ api.wrap = function(user, main) {
             break;
         case 'Do' :
             if (input != null) {
-                datePartArray[DATE] = toInt(parseInt(input, 10));
+                datePartArray[DATE] = toInt(parseInt(
+                            input.match(/\d{1,2}/)[0], 10));
             }
             break;
         // DAY OF YEAR
@@ -14012,11 +14825,13 @@ api.wrap = function(user, main) {
         case 'A' :
             config._isPm = config._locale.isPM(input);
             break;
-        // 24 HOUR
-        case 'H' : // fall through to hh
-        case 'HH' : // fall through to hh
+        // HOUR
         case 'h' : // fall through to hh
         case 'hh' :
+            config._pf.bigHour = true;
+            /* falls through */
+        case 'H' : // fall through to HH
+        case 'HH' :
             datePartArray[HOUR] = toInt(input);
             break;
         // MINUTE
@@ -14035,6 +14850,10 @@ api.wrap = function(user, main) {
         case 'SSS' :
         case 'SSSS' :
             datePartArray[MILLISECOND] = toInt(('0.' + input) * 1000);
+            break;
+        // UNIX OFFSET (MILLISECONDS)
+        case 'x':
+            config._d = new Date(toInt(input));
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -14172,11 +14991,24 @@ api.wrap = function(user, main) {
             config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
         }
 
+        // Check for 24:00:00.000
+        if (config._a[HOUR] === 24 &&
+                config._a[MINUTE] === 0 &&
+                config._a[SECOND] === 0 &&
+                config._a[MILLISECOND] === 0) {
+            config._nextDay = true;
+            config._a[HOUR] = 0;
+        }
+
         config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
         // Apply timezone offset from input. The actual zone can be changed
         // with parseZone.
         if (config._tzm != null) {
             config._d.setUTCMinutes(config._d.getUTCMinutes() + config._tzm);
+        }
+
+        if (config._nextDay) {
+            config._a[HOUR] = 24;
         }
     }
 
@@ -14191,7 +15023,7 @@ api.wrap = function(user, main) {
         config._a = [
             normalizedInput.year,
             normalizedInput.month,
-            normalizedInput.day,
+            normalizedInput.day || normalizedInput.date,
             normalizedInput.hour,
             normalizedInput.minute,
             normalizedInput.second,
@@ -14264,6 +15096,10 @@ api.wrap = function(user, main) {
             config._pf.unusedInput.push(string);
         }
 
+        // clear _12h flag if hour is <= 12
+        if (config._pf.bigHour === true && config._a[HOUR] <= 12) {
+            config._pf.bigHour = undefined;
+        }
         // handle am pm
         if (config._isPm && config._a[HOUR] < 12) {
             config._a[HOUR] += 12;
@@ -14272,7 +15108,6 @@ api.wrap = function(user, main) {
         if (config._isPm === false && config._a[HOUR] === 12) {
             config._a[HOUR] = 0;
         }
-
         dateFromConfig(config);
         checkOverflow(config);
     }
@@ -14532,7 +15367,8 @@ api.wrap = function(user, main) {
 
     function makeMoment(config) {
         var input = config._i,
-            format = config._f;
+            format = config._f,
+            res;
 
         config._locale = config._locale || moment.localeData(config._l);
 
@@ -14556,7 +15392,14 @@ api.wrap = function(user, main) {
             makeDateFromInput(config);
         }
 
-        return new Moment(config);
+        res = new Moment(config);
+        if (res._nextDay) {
+            // Adding is smart enough around DST
+            res.add(1, 'd');
+            res._nextDay = undefined;
+        }
+
+        return res;
     }
 
     moment = function (input, format, locale, strict) {
@@ -14588,7 +15431,7 @@ api.wrap = function(user, main) {
         'release. Please refer to ' +
         'https://github.com/moment/moment/issues/1407 for more info.',
         function (config) {
-            config._d = new Date(config._i);
+            config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
         }
     );
 
@@ -14900,7 +15743,12 @@ api.wrap = function(user, main) {
         toISOString : function () {
             var m = moment(this).utc();
             if (0 < m.year() && m.year() <= 9999) {
-                return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+                if ('function' === typeof Date.prototype.toISOString) {
+                    // native implementation is ~50x faster, use it when we can
+                    return this.toDate().toISOString();
+                } else {
+                    return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+                }
             } else {
                 return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
             }
@@ -15019,7 +15867,7 @@ api.wrap = function(user, main) {
                     diff < 1 ? 'sameDay' :
                     diff < 2 ? 'nextDay' :
                     diff < 7 ? 'nextWeek' : 'sameElse';
-            return this.format(this.localeData().calendar(format, this));
+            return this.format(this.localeData().calendar(format, this, moment(now)));
         },
 
         isLeapYear : function () {
@@ -15088,36 +15936,45 @@ api.wrap = function(user, main) {
 
         endOf: function (units) {
             units = normalizeUnits(units);
+            if (units === undefined || units === 'millisecond') {
+                return this;
+            }
             return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
         },
 
         isAfter: function (input, units) {
+            var inputMs;
             units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
             if (units === 'millisecond') {
                 input = moment.isMoment(input) ? input : moment(input);
                 return +this > +input;
             } else {
-                return +this.clone().startOf(units) > +moment(input).startOf(units);
+                inputMs = moment.isMoment(input) ? +input : +moment(input);
+                return inputMs < +this.clone().startOf(units);
             }
         },
 
         isBefore: function (input, units) {
+            var inputMs;
             units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
             if (units === 'millisecond') {
                 input = moment.isMoment(input) ? input : moment(input);
                 return +this < +input;
             } else {
-                return +this.clone().startOf(units) < +moment(input).startOf(units);
+                inputMs = moment.isMoment(input) ? +input : +moment(input);
+                return +this.clone().endOf(units) < inputMs;
             }
         },
 
         isSame: function (input, units) {
+            var inputMs;
             units = normalizeUnits(units || 'millisecond');
             if (units === 'millisecond') {
                 input = moment.isMoment(input) ? input : moment(input);
                 return +this === +input;
             } else {
-                return +this.clone().startOf(units) === +makeAs(input, this).startOf(units);
+                inputMs = +moment(input);
+                return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
             }
         },
 
@@ -15294,7 +16151,7 @@ api.wrap = function(user, main) {
         },
 
         lang : deprecate(
-            'moment().lang() is deprecated. Use moment().localeData() instead.',
+            'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
             function (key) {
                 if (key === undefined) {
                     return this.localeData();
@@ -15515,7 +16372,7 @@ api.wrap = function(user, main) {
                 return units === 'month' ? months : months / 12;
             } else {
                 // handle milliseconds separately because of floating point math errors (issue #1867)
-                days = this._days + yearsToDays(this._months / 12);
+                days = this._days + Math.round(yearsToDays(this._months / 12));
                 switch (units) {
                     case 'week': return days / 7 + this._milliseconds / 6048e5;
                     case 'day': return days + this._milliseconds / 864e5;
@@ -15617,6 +16474,7 @@ api.wrap = function(user, main) {
 
     // Set default locale, other locale will inherit from English.
     moment.locale('en', {
+        ordinalParse: /\d{1,2}(th|st|nd|rd)/,
         ordinal : function (number) {
             var b = number % 10,
                 output = (toInt(number % 100 / 10) === 1) ? 'th' :
