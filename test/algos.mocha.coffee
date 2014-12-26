@@ -196,15 +196,19 @@ describe 'User', ->
     it "doesn't break unbreakables", ->
       ce = shared.countExists
       user = newUser()
+      # breakables (includes default weapon_warrior_0):
+      user.items.gear.owned['shield_warrior_1'] = true
+      # unbreakables because off-class or 0 value:
       user.items.gear.owned['shield_rogue_1'] = true
       user.items.gear.owned['head_special_nye'] = true
-      expect(ce user.items.gear.owned).to.be 3
+      expect(ce user.items.gear.owned).to.be 4
+      user.ops.revive()
+      expect(ce(user.items.gear.owned)).to.be 3
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 2
       user.ops.revive()
-      expect(ce(user.items.gear.owned)).to.be 1
-      user.ops.revive()
-      expect(ce(user.items.gear.owned)).to.be 0
+      expect(ce(user.items.gear.owned)).to.be 2
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: false, shield_warrior_1: false, shield_rogue_1: true, head_special_nye: true }
 
     it "handles event items", ->
       shared.content.gear.flat.head_special_nye.event.start = '2012-01-01'
