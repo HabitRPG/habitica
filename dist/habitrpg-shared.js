@@ -10971,7 +10971,7 @@ gear = {
         mystery: '201410',
         value: 0
       },
-      201411: {
+      201412: {
         text: t('armorMystery201412Text'),
         notes: t('armorMystery201412Notes'),
         mystery: '201412',
