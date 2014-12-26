@@ -16,5 +16,11 @@
     "jackolantern": "Dynio-Lampion",
     "seasonalShop": "Sklepik sezonowy",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
-    "seasonalShopClosedText": "Sklepik sezonowy jest obecnie zamknięty!! Nie wiemy gdzie obecnie znajduje się Sezonowa Wróżka, ale na pewno zjawi się na kolejną <%= linkStart %>Wielką Galę<%= linkEnd %>!"
+    "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
+    "seasonalShopClosedText": "Sklepik sezonowy jest obecnie zamknięty!! Nie wiemy gdzie obecnie znajduje się Sezonowa Wróżka, ale na pewno zjawi się na kolejną <%= linkStart %>Wielką Galę<%= linkEnd %>!",
+    "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "candycaneSet": "Candy Cane (Mage)",
+    "skiSet": "Ski-sassin (Rogue)",
+    "snowflakeSet": "Snowflake (Healer)",
+    "yetiSet": "Yeti Tamer (Warrior)"
 }

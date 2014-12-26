@@ -2,7 +2,7 @@
     "tavern": "Taberna",
     "innCheckOut": "Dejar la posada",
     "innCheckIn": "Descansar en la posada",
-    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
+    "innText": "¿Cómo lo estás pasando en la Posada, <%= name %>? Para protegerte, tu lista de diarias está congelada. Tus tildes no serán procesadas o despejadas hasta mañana (el día después de que sales de la Posada). Ten cuidado, si tu equipo está en medio de una Batalla contra un Jefe, ¡sus fracasos te harán daño! Además, tú no lastimarás al jefe. ¿Listo para irte? Deja la Posada.",
     "lfgPosts": "Publicaciones en la búsqueda de un grupo (Se busca Equipo)",
     "tutorial": "Tutorial",
     "glossary": "Glosario",
@@ -79,9 +79,15 @@
     "pmHeading": "Mensaje privado a <%= name %>",
     "clearAll": "Borrar todos",
     "clearAllPopover": "Eliminar todos mensajes",
-    "optOutPopover": "¿No te gusta mensajes privados? Haz click para optar completamente fuera",
+    "optOutPopover": "¿No te gustan los mensajes privados? Haz click para dejar de recibirlos.",
     "block": "Bloquear",
     "unblock": "Desbloquear",
     "pm-reply": "Enviar una respuesta",
-    "inbox": "Bandeja de entrada"
+    "inbox": "Bandeja de entrada",
+    "abuseFlag": "Report violation of Community Guidelines",
+    "abuseFlagModalHeading": "Report <%= name %> for violation?",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
+    "abuseFlagModalButton": "Report",
+    "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
+    "abuseAlreadyReported": "You have already reported this message."
 }

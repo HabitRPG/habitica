@@ -16,5 +16,11 @@
     "jackolantern": "Jack-O-Lantern",
     "seasonalShop": "Sezónní obchod",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
-    "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <%= linkStart %>Velkolepé Gala<%= linkEnd %>!"
+    "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
+    "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <%= linkStart %>Velkolepé Gala<%= linkEnd %>!",
+    "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "candycaneSet": "Candy Cane (Mage)",
+    "skiSet": "Ski-sassin (Rogue)",
+    "snowflakeSet": "Snowflake (Healer)",
+    "yetiSet": "Yeti Tamer (Warrior)"
 }

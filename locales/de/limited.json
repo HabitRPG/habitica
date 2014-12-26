@@ -16,5 +16,11 @@
     "jackolantern": "Halloweenkürbis",
     "seasonalShop": "Saisonaler Shop",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
-    "seasonalShopClosedText": "Der saisonale Shop ist zurzeit geschlossen!!! Ich weiß nicht wo zurzeit die saisonale Zauberin ist, aber ich wette sie kommt zur nächsten <%= linkStart %>Grand Gala<%= linkEnd %> wieder!"
+    "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
+    "seasonalShopClosedText": "Der saisonale Shop ist zurzeit geschlossen!!! Ich weiß nicht wo zurzeit die saisonale Zauberin ist, aber ich wette sie kommt zur nächsten <%= linkStart %>Grand Gala<%= linkEnd %> wieder!",
+    "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "candycaneSet": "Candy Cane (Mage)",
+    "skiSet": "Ski-sassin (Rogue)",
+    "snowflakeSet": "Snowflake (Healer)",
+    "yetiSet": "Yeti Tamer (Warrior)"
 }
