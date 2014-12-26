@@ -690,7 +690,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'items.special'
         cb? null, _.pick(user,$w 'items stats')
 
-      # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
+      # buy is for using Gold, purchase is for Gems (I know, I know...)
       purchase: (req, cb, ga) ->
         {type,key}  = req.params
 
@@ -705,13 +705,21 @@ api.wrap = (user, main=true) ->
           user.stats.gp -= convRate
           return cb? {code:200,message:"+1 Gems"}, _.pick(user,$w 'stats balance')
 
-        return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
-        item = content[type][key]
+        return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
+        if type is 'gear'
+          item = content.gear.flat[key]
+          return cb?({code:401, message: i18n.t('alreadyHave', req.language)}) if user.items.gear.owned[key]
+          price = (if item.twoHanded then 2 else 1) / 4
+        else
+          item = content[type][key]
+          price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < (item.value / 4)
-        user.items[type][key] = 0  unless user.items[type][key] > 0
-        user.items[type][key]++
-        user.balance -= (item.value / 4)
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < price
+        user.balance -= price
+        if type is 'gear' then user.items.gear.owned[key] = true
+        else
+          user.items[type][key] = 0  unless user.items[type][key] > 0
+          user.items[type][key]++
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('purchase', key).send()
 

@@ -157,6 +157,10 @@ events = {
   fall: {
     start: '2014-09-21',
     end: '2014-11-01'
+  },
+  winter2015: {
+    start: '2014-12-21',
+    end: '2015-01-31'
   }
 };
 
@@ -210,6 +214,11 @@ api.mystery = {
     start: '2014-11-24',
     end: '2014-12-02',
     text: 'Feast and Fun Set'
+  },
+  201412: {
+    start: '2014-12-25',
+    end: '2015-01-02',
+    text: 'Penguin Set'
   },
   301404: {
     start: '3014-03-24',
@@ -723,6 +732,49 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('weaponSpecialWinter2015RogueText'),
+        notes: t('weaponSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('weaponSpecialWinter2015WarriorText'),
+        notes: t('weaponSpecialWinter2015WarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialWinter2015MageText'),
+        notes: t('weaponSpecialWinter2015MageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('weaponSpecialWinter2015HealerText'),
+        notes: t('weaponSpecialWinter2015HealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
       }
     },
     mystery: {
@@ -1127,6 +1179,46 @@ gear = {
         value: 90,
         con: 15
       },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('armorSpecialWinter2015RogueText'),
+        notes: t('armorSpecialWinter2015RogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('armorSpecialWinter2015WarriorText'),
+        notes: t('armorSpecialWinter2015WarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('armorSpecialWinter2015MageText'),
+        notes: t('armorSpecialWinter2015MageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('armorSpecialWinter2015HealerText'),
+        notes: t('armorSpecialWinter2015HealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('armorSpecialGaymerxText'),
@@ -1181,6 +1273,12 @@ gear = {
         text: t('armorMystery201410Text'),
         notes: t('armorMystery201410Notes'),
         mystery: '201410',
+        value: 0
+      },
+      201412: {
+        text: t('armorMystery201412Text'),
+        notes: t('armorMystery201412Notes'),
+        mystery: '201412',
         value: 0
       },
       301404: {
@@ -1578,6 +1676,46 @@ gear = {
         value: 60,
         int: 7
       },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('headSpecialWinter2015RogueText'),
+        notes: t('headSpecialWinter2015RogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('headSpecialWinter2015WarriorText'),
+        notes: t('headSpecialWinter2015WarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('headSpecialWinter2015MageText'),
+        notes: t('headSpecialWinter2015MageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('headSpecialWinter2015HealerText'),
+        notes: t('headSpecialWinter2015HealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -1620,6 +1758,12 @@ gear = {
         text: t('headMystery201411Text'),
         notes: t('headMystery201411Notes'),
         mystery: '201411',
+        value: 0
+      },
+      201412: {
+        text: t('headMystery201412Text'),
+        notes: t('headMystery201412Notes'),
+        mystery: '201412',
         value: 0
       },
       301404: {
@@ -1943,6 +2087,36 @@ gear = {
         specialClass: 'healer',
         text: t('shieldSpecialFallHealerText'),
         notes: t('shieldSpecialFallHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('shieldSpecialWinter2015RogueText'),
+        notes: t('shieldSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('shieldSpecialWinter2015WarriorText'),
+        notes: t('shieldSpecialWinter2015WarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('shieldSpecialWinter2015HealerText'),
+        notes: t('shieldSpecialWinter2015HealerNotes', {
           con: 9
         }),
         value: 70,
@@ -2373,9 +2547,11 @@ api.spells = {
       target: 'task',
       notes: t('spellWarriorSmashNotes'),
       cast: function(user, target) {
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
+        var bonus;
+        bonus = user._statsComputed.str * user.fns.crit('con');
+        target.value += diminishingReturns(bonus, 2.5, 35);
         if (user.party.quest.key) {
-          return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+          return user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
         }
       }
     },
@@ -5412,7 +5588,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var convCap, convRate, item, key, type, _ref, _ref1, _ref2, _ref3;
+        var convCap, convRate, item, key, price, type, _ref, _ref1, _ref2, _ref3;
         _ref = req.params, type = _ref.type, key = _ref.key;
         if (type === 'gems' && key === 'gem') {
           _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
@@ -5443,30 +5619,46 @@ api.wrap = function(user, main) {
             message: "+1 Gems"
           }, _.pick(user, $w('stats balance'))) : void 0;
         }
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'gear') {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
+            message: ":type must be in [eggs,hatchingPotions,food,quests,gear]"
           }, req) : void 0;
         }
-        item = content[type][key];
+        if (type === 'gear') {
+          item = content.gear.flat[key];
+          if (user.items.gear.owned[key]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: i18n.t('alreadyHave', req.language)
+            }) : void 0;
+          }
+          price = (item.twoHanded ? 2 : 1) / 4;
+        } else {
+          item = content[type][key];
+          price = item.value / 4;
+        }
         if (!item) {
           return typeof cb === "function" ? cb({
             code: 404,
             message: ":key not found for Content." + type
           }, req) : void 0;
         }
-        if (user.balance < (item.value / 4)) {
+        if (user.balance < price) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (!(user.items[type][key] > 0)) {
-          user.items[type][key] = 0;
+        user.balance -= price;
+        if (type === 'gear') {
+          user.items.gear.owned[key] = true;
+        } else {
+          if (!(user.items[type][key] > 0)) {
+            user.items[type][key] = 0;
+          }
+          user.items[type][key]++;
         }
-        user.items[type][key]++;
-        user.balance -= item.value / 4;
         if (typeof cb === "function") {
           cb(null, _.pick(user, $w('items balance')));
         }
