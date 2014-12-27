@@ -649,7 +649,7 @@ api.spells =
     snowball:
       text: t('spellSpecialSnowballAuraText')
       mana: 0
-      value: 1
+      value: 15
       target: 'user'
       notes: t('spellSpecialSnowballAuraNotes')
       cast: (user, target) ->
