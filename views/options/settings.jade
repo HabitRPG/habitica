@@ -261,5 +261,5 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
           a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.months})', ng-disabled='!_subscription.months') Card
           a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.months}}', ng-disabled='!_subscription.months') PayPal
         div(ng-if='user.purchased.plan.customerId')
-          .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()') Update Card
+          .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

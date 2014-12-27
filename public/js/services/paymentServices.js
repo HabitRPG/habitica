@@ -50,9 +50,9 @@ function($rootScope, User, $http, Content) {
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
       address: false,
-      name: 'Update',
-      description: 'Update the card to be charged for your subscription',
-      panelLabel: 'Update Card',
+      name: window.env.t('subUpdateTitle'),
+      description: window.env.t('subUpdateDescription'),
+      panelLabel: window.env.t('subUpdateCard'),
       token: function(data) {
         var url = '/stripe/subscribe/edit';
         $http.post(url, data).success(function() {
