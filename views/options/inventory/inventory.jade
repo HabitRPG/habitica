@@ -108,7 +108,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
           li.customize-menu
             menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
-              p(ng-show='foodCount < 1')=env.t('noFood')
+              p.muted(ng-show='foodCount < 1')=env.t('noFood')
               div(ng-repeat='(food,points) in ownedItems(user.items.food)')
                 button.customize-option(popover='{{::Content.food[food].notes()}}', popover-title='{{::Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                   .badge.badge-info.stack-count {{points}}
