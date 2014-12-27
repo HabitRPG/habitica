@@ -268,13 +268,18 @@ api.cron = function(req, res, next) {
     Group.tavernBoss(user,progress);
     if (!quest) return user.save(next);
 
+    // FOR DEBUGGING, PLEASE IGNORE
+    var opStatus = null;
+
     // If user is on a quest, roll for boss & player, or handle collections
     // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
     async.waterfall([
       function(cb){
+        opStatus = 'saveUser';
         user.save(cb); // make sure to save the cron effects
       },
       function(saved, count, cb){
+        opStatus = 'runQuest';
         var type = quest.boss ? 'boss' : 'collect';
         Group[type+'Quest'](user,progress,cb);
       },
@@ -289,7 +294,8 @@ api.cron = function(req, res, next) {
         stack: (err.stack || err.message || err),
         body: req.body, headers: req.header,
         auth: (req.headers['x-api-user'] + ' | ' + req.headers['x-api-key']),
-        originalUrl: req.originalUrl
+        originalUrl: req.originalUrl,
+        opStatus: opStatus
       });
       res.locals.user = saved;
       next(err,saved);
