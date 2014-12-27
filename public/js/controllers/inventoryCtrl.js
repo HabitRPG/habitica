@@ -162,5 +162,23 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       $rootScope.selectedQuest = item;
       $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
     }
+    
+    $scope.getSeasonalShopArray = function(set){
+      var flatGearArray = _.toArray(Content.gear.flat);
+      
+      var filteredArray = _.where(flatGearArray, {index: set});
+
+      return filteredArray;
+    };
+    
+    $scope.getSeasonalShopQuests = function(set){
+      var questArray = _.toArray(Content.quests);
+      
+      var filteredArray = _.filter(questArray, function(q){
+        return q.key == "evilsanta" || q.key == "evilsanta2";
+      });
+
+      return filteredArray;
+    };
   }
 ]);
