@@ -43,6 +43,15 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
           p
             | {{::quest.value}}
             span.Pet_Currency_Gem1x.inline-gems
+      mixin buySpecialSpell(k,gp)
+        menu.pets-menu(label='{{::Content.spells.special.#{k}.text()}}')
+          div
+            button.customize-option(popover='{{::Content.spells.special.#{k}.notes()}}', popover-title='{{::Content.spells.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase("special", Content.spells.special.#{k})', class='inventory_special_#{k}')
+            p
+              | {{::Content.spells.special.#{k}.value}}
+              span(class='#{gp ? "shop_gold" : "Pet_Currency_Gem1x inline-gems"}')
+      +buySpecialSpell('snowball',true)
+      //-+buySpecialSpell('spookDust',true)
 
 script(type='text/ng-template', id='partials/options.inventory.timetravelers.html')
   .container-fluid
@@ -203,15 +212,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     | 4
                     span.Pet_Currency_Gem1x.inline-gems
-                mixin buySpecialSpell(k,gp)
-                  div
-                    button.customize-option(popover='{{::Content.spells.special.#{k}.notes()}}', popover-title='{{::Content.spells.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='purchase("special", Content.spells.special.#{k})', class='inventory_special_#{k}')
-                    p
-                      |  {{::Content.spells.special.#{k}.value}}
-                      span(class='#{gp ? "shop_gold" : "Pet_Currency_Gem1x inline-gems"}')
-                //-+buySpecialSpell('snowball',false)
-                //-+buySpecialSpell('spookDust',true)
-
                 div(ng-show='user.flags.rebirthEnabled')
                   button.customize-option(popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'), popover-trigger='mouseenter', popover-placement='top', ng-click='openModal("rebirth")', class='rebirth_orb')
                   p(ng-show='user.stats.lvl < 100')
