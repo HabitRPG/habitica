@@ -15,12 +15,12 @@ script(type='text/ng-template', id='modals/member.html')
               |&nbsp;
               =env.t('memberSince')
               |&nbsp;
-              | {{::timestamp(profile.auth.timestamps.created)}} -
+              | {{::profile.auth.timestamps.created | date:user.preferences.dateFormat}} -
             li(ng-show='::profile.auth.timestamps.loggedin')
               |&nbsp;
               =env.t('lastLoggedIn')
               |&nbsp;
-              | {{::timestamp(profile.auth.timestamps.loggedin)}} -
+              | {{::profile.auth.timestamps.loggedin | date:user.preferences.dateFormat}} -
           h3=env.t('stats')
           .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
