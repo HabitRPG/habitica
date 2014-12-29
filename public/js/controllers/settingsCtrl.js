@@ -65,13 +65,8 @@ habitrpg.controller('SettingsCtrl',
       User.set({'preferences.language': $scope.language.code});
     }
 
-	$scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy'];
-	$scope.changeDateFormat = function(){
-		
-	  var dateFormat= User.user.preferences.dateFormat;
-      User.set({'preferences.dateFormat': dateFormat});
-    }
-    
+    $scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy'];
+
     $scope.reroll = function(){
       User.user.ops.reroll({});
       $rootScope.$state.go('tasks');

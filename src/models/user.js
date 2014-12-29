@@ -279,7 +279,7 @@ var UserSchema = new Schema({
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
     costume: Boolean,
     dateFormat: {type: String, enum:['MM/dd/yyyy', 'dd/MM/yyyy'], 'default': 'MM/dd/yyyy'},
-	sleep: {type: Boolean, 'default': false},
+    sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
     disableClasses: {type: Boolean, 'default': false},
     newTaskEdit: {type: Boolean, 'default': false},
