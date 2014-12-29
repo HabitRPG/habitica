@@ -236,7 +236,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $scope.spell = null;
     }
 
-    // Becuase our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
+    // Because our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
     // reload the page. Perform manually.
     $rootScope.hardRedirect = function(url){
       window.location.href = url;
