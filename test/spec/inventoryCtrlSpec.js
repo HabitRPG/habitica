@@ -7,7 +7,7 @@ describe('Inventory Controller', function() {
   beforeEach(inject(function($rootScope, $controller, Shared){
     user = specHelper.newUser();
     user.balance = 4,
-    user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}};
+    user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, quests: {rat: 1}, pets: {}};
     Shared.wrap(user);
     var mockWindow = {
       confirm: function(msg){
@@ -22,6 +22,7 @@ describe('Inventory Controller', function() {
     expect(scope.selectedEgg).to.eql(null);
     expect(scope.selectedPotion).to.eql(null);
     expect(scope.selectedFood).to.eql(undefined);
+    expect(scope.selectedQuest).to.eql(undefined);
   });
 
   it('chooses an egg', function(){
@@ -63,6 +64,13 @@ describe('Inventory Controller', function() {
     scope.sellInventory();
     expect(user.items.food).to.eql({Meat: 0});
     expect(user.stats.gp).to.eql(1);
+  });
+
+  it('sells a quest', function(){
+    scope.chooseQuest('rat');
+    scope.sellInventory();
+    expect(user.items.quests).to.eql({rat: 0});
+    expect(user.stats.gp).to.eql(4);
   });
 
   it('chooses a pet', function(){
