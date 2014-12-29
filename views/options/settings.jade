@@ -36,6 +36,12 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 br
                 strong
                   !=env.t('helpWithTranslation')
+                  
+            .form-horizontal
+              h5=env.t('dateFormat')
+              select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='changeDateFormat()')
+                
+                  
             .checkbox
               label
                 input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
