@@ -41,7 +41,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
         div(ng-repeat='quest in ::getSeasonalShopQuests()')
           button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
           p
-            | {{::quest.value}}
+            | {{::quest.value}}&nbsp;
             span.Pet_Currency_Gem1x.inline-gems
 
 script(type='text/ng-template', id='partials/options.inventory.timetravelers.html')
