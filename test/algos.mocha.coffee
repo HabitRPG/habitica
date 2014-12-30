@@ -185,7 +185,7 @@ describe 'User', ->
     user = undefined
     it 'revives correctly', ->
       user = newUser()
-      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
+      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 0, class: 'warrior' }
       user.ops.revive()
       expect(user).toHaveGP 0
       expect(user).toHaveExp 0
@@ -202,10 +202,13 @@ describe 'User', ->
       user.items.gear.owned['shield_rogue_1'] = true
       user.items.gear.owned['head_special_nye'] = true
       expect(ce user.items.gear.owned).to.be 4
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 3
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 2
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 2
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: false, shield_warrior_1: false, shield_rogue_1: true, head_special_nye: true }
@@ -320,7 +323,8 @@ describe 'User', ->
         expect(quest.value).to.be.greaterThan 0 if quest.canBuy
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
-        expect(quest.drop.items).to.be.an(Array)
+        if quest.drop.items
+          expect(quest.drop.items).to.be.an(Array)
         if quest.boss
           expect(quest.boss.name()).to.be.an('string')
           expect(quest.boss.hp).to.be.greaterThan 0
