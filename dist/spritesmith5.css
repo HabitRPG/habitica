@@ -810,9 +810,9 @@
 }
 .Pet-Dragon-Hydra {
   background-image: url(spritesmith5.png);
-  background-position: 0px -1660px;
-  width: 114px;
-  height: 84px;
+  background-position: -1224px -100px;
+  width: 81px;
+  height: 99px;
 }
 .Pet-Dragon-Red {
   background-image: url(spritesmith5.png);
@@ -1884,67 +1884,67 @@
 }
 .Pet-Wolf-Zombie {
   background-image: url(spritesmith5.png);
-  background-position: -1224px -100px;
+  background-position: -1716px -1400px;
   width: 81px;
   height: 99px;
 }
 .Pet_HatchingPotion_Base {
   background-image: url(spritesmith5.png);
-  background-position: -1716px -1608px;
+  background-position: -1716px -1500px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_CottonCandyBlue {
   background-image: url(spritesmith5.png);
-  background-position: -1716px -1452px;
+  background-position: -1716px -1552px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_CottonCandyPink {
   background-image: url(spritesmith5.png);
-  background-position: -1716px -1504px;
+  background-position: -1716px -1604px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_Desert {
   background-image: url(spritesmith5.png);
-  background-position: -1716px -1556px;
+  background-position: -1634px -1500px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_Golden {
   background-image: url(spritesmith5.png);
-  background-position: -1306px -1200px;
+  background-position: -1552px -1400px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_Red {
   background-image: url(spritesmith5.png);
-  background-position: -1634px -1500px;
+  background-position: -1470px -1400px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_Shade {
   background-image: url(spritesmith5.png);
-  background-position: -1552px -1400px;
+  background-position: -1388px -1300px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_Skeleton {
   background-image: url(spritesmith5.png);
-  background-position: -1470px -1400px;
+  background-position: -1306px -1200px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_White {
   background-image: url(spritesmith5.png);
-  background-position: -1388px -1300px;
+  background-position: -1224px -1100px;
   width: 48px;
   height: 51px;
 }
 .Pet_HatchingPotion_Zombie {
   background-image: url(spritesmith5.png);
-  background-position: -1716px -1400px;
+  background-position: -1142px -1000px;
   width: 48px;
   height: 51px;
 }
