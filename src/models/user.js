@@ -247,6 +247,7 @@ var UserSchema = new Schema({
   party: {
     // id // FIXME can we use a populated doc instead of fetching party separate from user?
     order: {type:String, 'default':'level'},
+    orderAscending: {type:String, 'default':'ascending'},
     quest: {
       key: String,
       progress: {

@@ -303,10 +303,16 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       'level': window.env.t('sortLevel'),
       'random': window.env.t('sortRandom'),
       'pets': window.env.t('sortPets'),
+      'habitrpg_date_joined' : window.env.t('sortHabitrpgJoined'),
       'party_date_joined': window.env.t('sortJoined'),
       'name': window.env.t('sortName'),
       'backgrounds': window.env.t('sortBackgrounds'),
     };
+
+    $scope.partyOrderAscendingChoices = {
+      'ascending': window.env.t('ascendingSort'),
+      'descending': window.env.t('descendingSort')
+    }
 
   }])
 
