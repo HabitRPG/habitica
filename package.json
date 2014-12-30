@@ -10,6 +10,7 @@
     "grunt-spritesmith": "~1.22.0"
   },
   "devDependencies": {
+    "coffee-coverage": "~0.4.2",
     "mocha": "*",
     "expect.js": "*",
     "sinon": "~1.8.2",
@@ -21,6 +22,7 @@
     "image-size": "~0.3.2"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html"
   }
 }
