@@ -185,7 +185,7 @@ describe 'User', ->
     user = undefined
     it 'revives correctly', ->
       user = newUser()
-      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 0 }
+      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 0, class: 'warrior' }
       user.ops.revive()
       expect(user).toHaveGP 0
       expect(user).toHaveExp 0
