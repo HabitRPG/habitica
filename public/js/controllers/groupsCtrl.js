@@ -305,6 +305,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       'pets': window.env.t('sortPets'),
       'habitrpg_date_joined' : window.env.t('sortHabitrpgJoined'),
       'party_date_joined': window.env.t('sortJoined'),
+      'habitrpg_last_logged_in': window.env.t('sortHabitrpgLastLoggedIn'),
       'name': window.env.t('sortName'),
       'backgrounds': window.env.t('sortBackgrounds'),
     };

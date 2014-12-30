@@ -31,6 +31,9 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
               case 'habitrpg_date_joined':
                 return member.auth.timestamps.created;
                 break
+              case 'habitrpg_last_logged_in':
+                return member.auth.timestamps.loggedin;
+                break
               default:
                 // party date joined
                 return true;
