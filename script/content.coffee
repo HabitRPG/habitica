@@ -162,7 +162,7 @@ gear =
       2: text: t('armorSpecial2Text'), notes: t('armorSpecial2Notes', {attrs: 25}), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300 or u.items.gear.owned.armor_special_2?)
       #Winter event
       yeti:       event: events.winter, specialClass: 'warrior', text: t('armorSpecialYetiText'), notes: t('armorSpecialYetiNotes', {con: 9}), con: 9, value:90
-      ski:        event: events.winter, specialClass: 'rogue', text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiText', {per: 15}), per: 15, value:90
+      ski:        event: events.winter, specialClass: 'rogue', text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiNotes', {per: 15}), per: 15, value:90
       candycane:  event: events.winter, specialClass: 'wizard', text: t('armorSpecialCandycaneText'), notes: t('armorSpecialCandycaneNotes', {int: 9}), int: 9, value:90
       snowflake:  event: events.winter, specialClass: 'healer', text: t('armorSpecialSnowflakeText'), notes: t('armorSpecialSnowflakeNotes', {con: 15}), con: 15, value:90
       birthday:   event: events.birthday, text: t('armorSpecialBirthdayText'), notes: t('armorSpecialBirthdayNotes'), value: 0
