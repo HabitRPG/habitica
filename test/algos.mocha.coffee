@@ -202,10 +202,13 @@ describe 'User', ->
       user.items.gear.owned['shield_rogue_1'] = true
       user.items.gear.owned['head_special_nye'] = true
       expect(ce user.items.gear.owned).to.be 4
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 3
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 2
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 2
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: false, shield_warrior_1: false, shield_rogue_1: true, head_special_nye: true }
