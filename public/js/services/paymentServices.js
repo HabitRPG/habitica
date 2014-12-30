@@ -32,6 +32,7 @@ function($rootScope, User, $http, Content) {
       amount: amount,
       name: 'HabitRPG',
       description: sub ? window.env.t('subscribe') : window.env.t('checkout'),
+      image: "/apple-touch-icon-144-precomposed.png",
       panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
       token: function(res) {
         var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
