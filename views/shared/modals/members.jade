@@ -46,7 +46,7 @@ script(type='text/ng-template', id='modals/private-message.html')
   .modal-header
     h4=env.t('pmHeading', {name: "{{profile.profile.name}}"})
   .modal-body
-    textarea.form-control(type='text',ng-model='_message')
+    textarea.form-control(type='text',rows='5',ng-model='_message')
   .modal-footer
     button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
