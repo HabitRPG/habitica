@@ -23,6 +23,6 @@
   },
   "scripts": {
     "test": "mocha",
-    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html"
+    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   }
 }
