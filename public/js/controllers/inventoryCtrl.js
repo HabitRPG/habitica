@@ -144,6 +144,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.showQuest = function(quest) {
+      $scope.chooseQuest(quest);
       var item =  Content.quests[quest];
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)
