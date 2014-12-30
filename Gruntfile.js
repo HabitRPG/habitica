@@ -23,8 +23,9 @@ module.exports = function(grunt) {
     var sliced = images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT)
     sprite[''+i] = {
       src: sliced,
-      destImg: 'dist/spritesmith'+i+'.png',
-      destCSS: 'dist/spritesmith'+i+'.css',
+      dest: 'dist/spritesmith'+i+'.png',
+      destCss: 'dist/spritesmith'+i+'.css',
+      engine: 'phantomjssmith',
       algorithm: 'binary-tree',
       padding:1,
       cssTemplate: 'css/css.template.mustache',
