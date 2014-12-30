@@ -324,7 +324,7 @@ describe 'User', ->
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
         if quest.drop.items
-          expect(quest.drop.items).to.be.an(Object)
+          expect(quest.drop.items).to.be.an(Array)
         if quest.boss
           expect(quest.boss.name()).to.be.an('string')
           expect(quest.boss.hp).to.be.greaterThan 0
