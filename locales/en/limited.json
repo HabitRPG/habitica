@@ -9,12 +9,17 @@
     "valentineCard": "Valentine's Day Card",
     "adoringFriends": "Adoring Friends",
     "adoringFriendsText": "Aww, you and your friend must really care about each other! Sent or received <%= cards %> Valentine's Day cards.",
-    "limited30Apr": "Available for purchase until April 30th (but permanently in your options if purchased).",
     "polarBear": "Polar Bear",
     "turkey": "Turkey",
     "polarBearPup": "Polar Bear Cub",
     "jackolantern": "Jack-O-Lantern",
     "seasonalShop": "Seasonal Shop",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
-    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!"
+    "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
+    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!",
+    "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "candycaneSet": "Candy Cane (Mage)",
+    "skiSet": "Ski-sassin (Rogue)",
+    "snowflakeSet": "Snowflake (Healer)",
+    "yetiSet": "Yeti Tamer (Warrior)"
 }

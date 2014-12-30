@@ -401,7 +401,7 @@ api.wrap = (user, main=true) ->
       revive: (req, cb) ->
         return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp <= 0
 
-        # Reset stats
+        # Reset stats after death
         _.merge user.stats, {hp:50, exp:0, gp:0}
         user.stats.lvl-- if user.stats.lvl > 1
 
@@ -410,10 +410,18 @@ api.wrap = (user, main=true) ->
         user.stats[lostStat]-- if lostStat
 
         # Lose a gear piece
-        # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
+        # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one. The only exception is that the weapon_warrior_0 free item can be lost so that a new player who dies before buying any gear does experience equipment loss.
         # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
-        lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[''+k]=''+k if v;m), {})
-
+        cl = user.stats.class
+        gearOwned = user.items.gear.owned.toObject?() or user.items.gear.owned
+        losableItems = {}
+        _.each gearOwned, (v,k) ->
+          if v
+            itm = content.gear.flat[''+k]
+            if itm
+              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
+                losableItems[''+k]=''+k
+        lostItem = user.fns.randomVal losableItems
         if item = content.gear.flat[lostItem]
           user.items.gear.owned[lostItem] = false
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
@@ -690,7 +698,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'items.special'
         cb? null, _.pick(user,$w 'items stats')
 
-      # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
+      # buy is for using Gold, purchase is for Gems (I know, I know...)
       purchase: (req, cb, ga) ->
         {type,key}  = req.params
 
@@ -705,13 +713,21 @@ api.wrap = (user, main=true) ->
           user.stats.gp -= convRate
           return cb? {code:200,message:"+1 Gems"}, _.pick(user,$w 'stats balance')
 
-        return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
-        item = content[type][key]
+        return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
+        if type is 'gear'
+          item = content.gear.flat[key]
+          return cb?({code:401, message: i18n.t('alreadyHave', req.language)}) if user.items.gear.owned[key]
+          price = (if item.twoHanded then 2 else 1) / 4
+        else
+          item = content[type][key]
+          price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < (item.value / 4)
-        user.items[type][key] = 0  unless user.items[type][key] > 0
-        user.items[type][key]++
-        user.balance -= (item.value / 4)
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < price
+        user.balance -= price
+        if type is 'gear' then user.items.gear.owned[key] = true
+        else
+          user.items[type][key] = 0  unless user.items[type][key] > 0
+          user.items[type][key]++
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('purchase', key).send()
 
@@ -1298,7 +1314,7 @@ api.wrap = (user, main=true) ->
       )()]++
 
     updateStats: (stats, req) ->
-      # Game Over
+      # Game Over (death)
       return user.stats.hp=0 if stats.hp <= 0
 
       user.stats.hp = stats.hp

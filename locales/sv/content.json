@@ -45,7 +45,7 @@
     "questEggSpiderAdjective": "läskig",
     "questEggOwlText": "Ugla",
     "questEggOwlAdjective": "förnuftig",
-    "questEggPenguinText": "Penguin",
+    "questEggPenguinText": "Pingvin",
     "questEggPenguinAdjective": "perspicacious",
     "eggNotes": "Hitta en kläckningsdryck att hälla på det här ägget så kläcks det som en <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Standard",
