@@ -179,3 +179,9 @@ div(ng-if='::profile.achievements.costumeContest')
   =env.t('costumeContestText')
   hr
 
+div(ng-if='::profile.achievements.nye')
+  .achievement.achievement-valentine
+  h5=env.t('auldAcquaintance')
+  small
+    =env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
+  hr

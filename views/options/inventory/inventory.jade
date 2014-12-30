@@ -43,15 +43,12 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
           p
             | {{::quest.value}}&nbsp;
             span.Pet_Currency_Gem1x.inline-gems
-      mixin buySpecialSpell(k,gp)
-        menu.pets-menu(label='{{::Content.spells.special.#{k}.text()}}')
-          div
-            button.customize-option(popover='{{::Content.spells.special.#{k}.notes()}}', popover-title='{{::Content.spells.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase("special", Content.spells.special.#{k})', class='inventory_special_#{k}')
-            p
-              | {{::Content.spells.special.#{k}.value}}
-              span(class='#{gp ? "shop_gold" : "Pet_Currency_Gem1x inline-gems"}')
-      +buySpecialSpell('snowball',true)
-      //-+buySpecialSpell('spookDust',true)
+      menu.pets-menu(label=env.t('seasonalItems'))
+        div
+          button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
+          p
+            | {{::Content.spells.special.snowball.value}}
+            span(class='shop_gold')
 
 script(type='text/ng-template', id='partials/options.inventory.timetravelers.html')
   .container-fluid
@@ -132,12 +129,10 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               +specialItem('snowball')
               +specialItem('spookDust')
 
-              //-menu.pets-menu(label=env.t('valentineCard'))
               div(ng-if='user.items.special.valentineReceived[0]')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("valentine")', class='inventory_special_valentine')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
-              //-menu.pets-menu(label=env.t('subscriberItem'))
               div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
                 button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
@@ -145,6 +140,10 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               div(ng-if='user.purchased.plan.consecutive.trinkets')
                 button.customize-option(popover=env.t('mysticHourglassPopover'), popover-trigger='mouseenter', popover-placement='right', class='inventory_special_trinket', ng-click="$state.go('options.inventory.timetravelers')")
                   .badge.badge-info.stack-count {{user.purchased.plan.consecutive.trinkets}}
+
+              div(ng-if='user.items.special.nyeReceived[0]')
+                button.customize-option(popover="New Year's Card from {{User.user.items.special.nyeReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("nye")', class='inventory_special_nye')
+                  .badge.badge-info.stack-count {{user.items.special.nyeReceived.length}}
 
       .col-md-6
         h2=env.t('market')
