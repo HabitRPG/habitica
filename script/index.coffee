@@ -693,8 +693,8 @@ api.wrap = (user, main=true) ->
         item = content.special[key]
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         user.stats.gp -= item.value
-        user.items.special[item.key] ?= 0
-        user.items.special[item.key]++
+        user.items.special[key] ?= 0
+        user.items.special[key]++
         user.markModified? 'items.special'
         message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
         cb? {code:200,message}, _.pick(user,$w 'items stats')

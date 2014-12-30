@@ -690,6 +690,20 @@ api.spells =
         user.stats.buffs.spookDust = false
         user.stats.gp -= 5
 
+    nye:
+      text: "New Year's Card"
+      mana: 0
+      value: 10
+      target: 'user'
+      notes: "Send a New Year's card to a friend."
+      cast: (user, target) ->
+        _.each [user,target], (t)->
+          t.achievements.nye ?= 0
+          t.achievements.nye++
+        (target.items.special.nyeReceived ?= []).push user.profile.name
+        target.markModified? 'items.special.nyeReceived'
+        user.stats.gp -= 10
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->

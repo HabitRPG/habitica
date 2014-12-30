@@ -22,5 +22,9 @@
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Rogue)",
     "snowflakeSet": "Snowflake (Healer)",
-    "yetiSet": "Yeti Tamer (Warrior)"
+    "yetiSet": "Yeti Tamer (Warrior)",
+    "nyeCard": "New Year's Card",
+    "seasonalItems": "Seasonal Items",
+    "auldAcquaintance": "Auld Acquaintance",
+    "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards."
 }
