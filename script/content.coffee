@@ -698,8 +698,8 @@ api.spells =
       notes: t('nyeCardNotes')
       cast: (user, target) ->
         if user == target
-          t.achievements.nye ?= 0
-          t.achievements.nye++
+          user.achievements.nye ?= 0
+          user.achievements.nye++
         else
           _.each [user,target], (t)->
             t.achievements.nye ?= 0
