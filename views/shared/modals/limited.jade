@@ -39,7 +39,7 @@ script(id='modals/nye.html', type='text/ng-template')
     .bg-info(style='padding:10px')
       p To: {{user.profile.name}}, From: {{user.items.special.nyeReceived[0]}}
       hr
-      ul.list-unstyled(ng-switch='Math.floor(Math.random()*5)')
+      ul.list-unstyled(ng-switch='::Math.floor(Math.random()*5)')
         li(ng-switch-when='0')
           =env.t('newYear0')
         li(ng-switch-when='1')
