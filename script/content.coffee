@@ -497,9 +497,8 @@ api.spells =
       notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = Math.ceil(user._statsComputed.int * .1)
-          bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
-          member.stats.mp += bonus
+          bonus = user._statsComputed.int 
+          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
       text: t('spellWizardEarthText')
@@ -509,8 +508,9 @@ api.spells =
       notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.int
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
+          member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30,200))
 
     frost:
       text: t('spellWizardFrostText'),
