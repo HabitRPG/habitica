@@ -87,6 +87,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.purchase = function(type, item){
+      if (type == 'special') return User.user.ops.buySpecialSpell({params:{key:item.key}});
 
       var gems = User.user.balance * 4;
 
