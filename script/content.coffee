@@ -691,11 +691,11 @@ api.spells =
         user.stats.gp -= 5
 
     nye:
-      text: "New Year's Card"
+      text: t('nyeCard')
       mana: 0
       value: 10
       target: 'user'
-      notes: "Send a New Year's card to a friend."
+      notes: t('nyeCardNotes')
       cast: (user, target) ->
         _.each [user,target], (t)->
           t.achievements.nye ?= 0

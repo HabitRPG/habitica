@@ -24,6 +24,7 @@
     "snowflakeSet": "Snowflake (Healer)",
     "yetiSet": "Yeti Tamer (Warrior)",
     "nyeCard": "New Year's Card",
+    "nyeCardNotes": "Send a New Year's card to a friend.",
     "seasonalItems": "Seasonal Items",
     "auldAcquaintance": "Auld Acquaintance",
     "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards."
