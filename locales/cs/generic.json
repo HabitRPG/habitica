@@ -35,7 +35,7 @@
     "neverMind": "Odejít",
     "buyMoreGems": "Koupit více drahokamů",
     "notEnoughGems": "Nedostatek drahokamů",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "Oops! Tohle už máš. Nemusíš si to kupovat znovu!",
     "delete": "Odstranit",
     "gems": "Drahokamy",
     "moreInfo": "Více informací",
@@ -84,5 +84,6 @@
     "September": "Září",
     "October": "Říjen",
     "November": "Listopad",
-    "December": "Prosinec"
+    "December": "Prosinec",
+    "dateFormat": "Date Format"
 }

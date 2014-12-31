@@ -84,10 +84,10 @@
     "unblock": "Desbloquear",
     "pm-reply": "Enviar uma resposta",
     "inbox": "Caixa de Entrada",
-    "abuseFlag": "Report violation of Community Guidelines",
-    "abuseFlagModalHeading": "Report <%= name %> for violation?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
-    "abuseFlagModalButton": "Report",
-    "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "You have already reported this message."
+    "abuseFlag": "Reportar violação das Diretrizes de Comunidade",
+    "abuseFlagModalHeading": "Reportar <%= name %> por violação?",
+    "abuseFlagModalBody": "Você tem certeza que quer reportar esse post? Você deve reportar APENAS um post que viola as <%= firstLinkStart %>Diretrizes de Comunidade<%= linkEnd %> e/ou os <%= secondLinkStart %>Termos de Serviço<%= linkEnd %>. Reportar inapropriadamente um post é violação das Diretrizes de Comunidade e pode te conseguir uma infração.",
+    "abuseFlagModalButton": "Reportar",
+    "abuseReported": "Obrigado por reportar essa violação. Os moderadores já foram notificados.",
+    "abuseAlreadyReported": "Você já reportou essa mensagem."
 }

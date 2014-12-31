@@ -57,7 +57,7 @@
     "partySysText": "Seja sociável, junte-se a uma equipe e jogue HabitRPG com seus amigos! Você ficará melhor nos seus hábitos com companheiros reponsáveis. Clique em Usuário > Opções > Equipe e siga as instruções. Alguém procurando por grupo?",
     "classGear": "Equipamento da Classe",
     "classGearText": "Primeiro: não entre em pânico! Seu equipamento antigo está no seu inventário, e agora você está usando seu equipamento de aprendiz de <strong><%= klass %></strong>. Usar o equipamento da sua classe o concede um bônus de 50% de seus atributos. Entretanto, sinta-se livre para trocar de volta para seu equipamento antigo.",
-    "classStats": "Esses são seus atributos da classe, eles afetam a jogabilidade. Cada vez que subir de nível, ganhará um ponto para distribuir em um atributo particular. Passe o mouse em cima de cada atributo para mais informações.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
     "autoAllocate": "Distribuição Automática",
     "autoAllocateText": "Se \"distribuição automática\" estiver marcado, seu avatar aumentará suas estatísticas automaticamente, baseado nos atributos das suas tarefas, que você pode encontrar em <strong>Tarefas > Editar > Avançado > Atributos</strong>. Ou seja, se você vai à academia frequentemente e sua tarefa diária \"Academia\" está marcada como \"Físico\", você ganhará Força automaticamente.",
     "spells": "Magias",

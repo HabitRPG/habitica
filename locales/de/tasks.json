@@ -1,5 +1,5 @@
 {
-    "clearCompleted": "Löschen Erfolgreich",
+    "clearCompleted": "Erfüllte Aufgaben entfernen",
     "lotOfToDos": "Erfüllte Aufgaben werden automatisch nach 3 Tagen archiviert. Du kannst auf sie zugreifen unter Einstellungen > Exportieren.",
     "deleteToDosExplanation": "Wenn Du den unteren Knopf klickst, werden alle Deine erfüllten und archivierten Aufgaben dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "beeminderDeleteWarning": "Beeminder Benutzer: <strong>Wichtiger Hinweis!</strong> <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Erledigte To-Dos Beeminder-konform löschen.</a>!",

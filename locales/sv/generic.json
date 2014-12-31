@@ -84,5 +84,6 @@
     "September": "September",
     "October": "Oktober",
     "November": "November",
-    "December": "December"
+    "December": "December",
+    "dateFormat": "Date Format"
 }

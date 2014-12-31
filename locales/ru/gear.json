@@ -308,6 +308,8 @@
     "headSpecialFallMageNotes": "В каждую нить этой шляпы вплетена магия. Увеличивает восприятие на <%= per %>. Экипировка ограниченного выпуска осени 2014.",
     "headSpecialFallHealerText": "Повязка на голову",
     "headSpecialFallHealerNotes": "Стерильно и очень модно. Увеличивает интеллект на <%= int %>. Экипировка ограниченного выпуска осени 2014.",
+    "headSpecialNye2014Text": "Silly Party Hat",
+    "headSpecialNye2014Notes": "You've received a Silly Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2015RogueText": "Icicle Drake Mask",
     "headSpecialWinter2015RogueNotes": "You are truly, definitely, absolutely a genuine Icicle Drake. You are not infiltrating the Icicle Drake hives. You have no interest at all in the hoards of riches rumored to lie in their frigid tunnels. Rawr. Increases Perception by <%= per %>. Limited Edition 2015 Winter Gear.",
     "headSpecialWinter2015WarriorText": "Gingerbread Helm",
