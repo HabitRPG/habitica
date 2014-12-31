@@ -697,9 +697,13 @@ api.spells =
       target: 'user'
       notes: t('nyeCardNotes')
       cast: (user, target) ->
-        _.each [user,target], (t)->
+        if user == target
           t.achievements.nye ?= 0
           t.achievements.nye++
+        else
+          _.each [user,target], (t)->
+            t.achievements.nye ?= 0
+            t.achievements.nye++
         (target.items.special.nyeReceived ?= []).push user.profile.name
         target.markModified? 'items.special.nyeReceived'
         user.stats.gp -= 10
