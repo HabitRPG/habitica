@@ -39,12 +39,17 @@ script(id='modals/nye.html', type='text/ng-template')
     .bg-info(style='padding:10px')
       p To: {{user.profile.name}}, From: {{user.items.special.nyeReceived[0]}}
       hr
-      div(ng-switch='Math.floor(Math.random()*5)')
-        p(ng-switch-when='0') Happy New Year! May you slay many a bad Habit.
-        p(ng-switch-when='1') Happy New Year! May you reap many Rewards.
-        p(ng-switch-when='2') Happy New Year! May you earn many a Perfect Day.
-        p(ng-switch-when='3') Happy New Year! May your To-Do list stay short and sweet.
-        p(ng-switch-default) Happy New Year! May you not get attacked by a raging Hippogriff.
+      ul.list-unstyled(ng-switch='Math.floor(Math.random()*5)')
+        li(ng-switch-when='0')
+          =env.t('newYear0')
+        li(ng-switch-when='1')
+          =env.t('newYear1')
+        li(ng-switch-when='2')
+          =env.t('newYear2')
+        li(ng-switch-when='3')
+          =env.t('newYear3')
+        li(ng-switch-default)
+          =env.t('newYear4')
     p
       small For celebrating the new year together, you both receive the "Auld Acquaintance" badge!
   .modal-footer
