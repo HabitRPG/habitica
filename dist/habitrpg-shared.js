@@ -11412,6 +11412,11 @@ gear = {
         value: 60,
         int: 7
       },
+      nye2014: {
+        text: t('headSpecialNye2014Text'),
+        notes: t('headSpecialNye2014Notes'),
+        value: 0
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -12411,7 +12416,7 @@ api.spells = {
     snowball: {
       text: t('spellSpecialSnowballAuraText'),
       mana: 0,
-      value: 1,
+      value: 15,
       target: 'user',
       notes: t('spellSpecialSnowballAuraNotes'),
       cast: function(user, target) {
@@ -12460,6 +12465,35 @@ api.spells = {
       cast: function(user, target) {
         user.stats.buffs.spookDust = false;
         return user.stats.gp -= 5;
+      }
+    },
+    nye: {
+      text: t('nyeCard'),
+      mana: 0,
+      value: 10,
+      target: 'user',
+      notes: t('nyeCardNotes'),
+      cast: function(user, target) {
+        var _base, _base1;
+        if (user === target) {
+          if ((_base = user.achievements).nye == null) {
+            _base.nye = 0;
+          }
+          user.achievements.nye++;
+        } else {
+          _.each([user, target], function(t) {
+            var _base1;
+            if ((_base1 = t.achievements).nye == null) {
+              _base1.nye = 0;
+            }
+            return t.achievements.nye++;
+          });
+        }
+        ((_base1 = target.items.special).nyeReceived != null ? _base1.nyeReceived : _base1.nyeReceived = []).push(user.profile.name);
+        if (typeof target.markModified === "function") {
+          target.markModified('items.special.nyeReceived');
+        }
+        return user.stats.gp -= 10;
       }
     }
   }
@@ -15269,9 +15303,10 @@ api.wrap = function(user, main) {
           message: message
         }, userPets[pet]) : void 0;
       },
-      buySpookDust: function(req, cb) {
-        var item, _base;
-        item = content.special.spookDust;
+      buySpecialSpell: function(req, cb) {
+        var item, key, message, _base;
+        key = req.params.key;
+        item = content.special[key];
         if (user.stats.gp < item.value) {
           return typeof cb === "function" ? cb({
             code: 401,
@@ -15279,14 +15314,20 @@ api.wrap = function(user, main) {
           }) : void 0;
         }
         user.stats.gp -= item.value;
-        if ((_base = user.items.special).spookDust == null) {
-          _base.spookDust = 0;
+        if ((_base = user.items.special)[key] == null) {
+          _base[key] = 0;
         }
-        user.items.special.spookDust++;
+        user.items.special[key]++;
         if (typeof user.markModified === "function") {
           user.markModified('items.special');
         }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
+        message = i18n.t('messageBought', {
+          itemText: item.text(req.language)
+        }, req.language);
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
         var convCap, convRate, item, key, price, type, _ref, _ref1, _ref2, _ref3;
@@ -15712,6 +15753,13 @@ api.wrap = function(user, main) {
           };
         }
         return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
+      },
+      readNYE: function(req, cb) {
+        user.items.special.nyeReceived.shift();
+        if (typeof user.markModified === "function") {
+          user.markModified('items.special.nyeReceived');
+        }
+        return typeof cb === "function" ? cb(null, 'items.special') : void 0;
       },
       score: function(req, cb) {
         var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
@@ -16499,5 +16547,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
