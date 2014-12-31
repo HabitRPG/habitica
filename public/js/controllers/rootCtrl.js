@@ -195,6 +195,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castStart = function(spell) {
       if (User.user.stats.mp < spell.mana) return Notification.text(window.env.t('notEnoughMana'));
 
+      if (spell.key == 'nye' && User.user.stats.gp < spell.value)
+        return Notification.text('Not enough gold.');
+
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
