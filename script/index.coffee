@@ -755,7 +755,7 @@ api.wrap = (user, main=true) ->
           user.items.currentMount = ""
           user.items.currentPet = ""
           for pet of content.pets
-            user.items.mounts[pet] = false
+            delete user.items.mounts[pet]
             user.items.pets[pet] = 0
           if not user.achievements.beastMasterCount
             user.achievements.beastMasterCount = 0
