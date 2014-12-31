@@ -932,6 +932,11 @@ api.wrap = (user, main=true) ->
         #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
         cb? null, user.items.gear.owned
 
+      readNYE: (req,cb) ->
+        user.items.special.nyeReceived.shift()
+        user.markModified? 'items.special.nyeReceived'
+        cb? null, 'items.special'
+
       # ------
       # Score
       # ------
