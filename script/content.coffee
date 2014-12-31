@@ -600,9 +600,11 @@ api.spells =
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.per
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
-		  # add diminishing returns to this
+          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100))
+		  # member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
+		  
     stealth:
       text: t('spellRogueStealthText')
       mana: 45
