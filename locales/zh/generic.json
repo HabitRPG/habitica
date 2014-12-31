@@ -35,7 +35,7 @@
     "neverMind": "算了",
     "buyMoreGems": "买更多宝石",
     "notEnoughGems": "宝石不足",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "你已經有這個了。不用再買了！",
     "delete": "删除",
     "gems": "宝石",
     "moreInfo": "更多信息",
@@ -84,5 +84,6 @@
     "September": "九月",
     "October": "十月",
     "November": "十一月",
-    "December": "十二月\n"
+    "December": "十二月\n",
+    "dateFormat": "Date Format"
 }

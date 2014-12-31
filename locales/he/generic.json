@@ -35,7 +35,7 @@
     "neverMind": "לא משנה",
     "buyMoreGems": "לקניית אבני חן נוספות",
     "notEnoughGems": "חסרות לך אבני חן",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "אופס! כבר יש לך פריט זה. אין צורך לקנות את זה שוב!",
     "delete": "מחק",
     "gems": "אבני חן",
     "moreInfo": "מידע נוסף",
@@ -84,5 +84,6 @@
     "September": "ספטמבר",
     "October": "אוקטובר",
     "November": "נובמבר",
-    "December": "דצמבר"
+    "December": "דצמבר",
+    "dateFormat": "Date Format"
 }

@@ -57,7 +57,7 @@
     "partySysText": "Be social, join a crew 'n play Habit wit' ye buckos! ye'll be better at ye habits wit' accountability partners. Click User -> Options -> Crew, 'n follow th' instructions. LFG anyone?",
     "classGear": "Class Gear",
     "classGearText": "First: don't panic! ye barnacle-covered gear be in ye inventory, 'n ye're now wearin' ye apprentice <strong><%= klass %></strong> equipment. Wearin' ye class's gear grants ye a 50% bonus to stats. However, feel free to switch back to ye old gear.",
-    "classStats": "These be ye class's stats, they affect th' game-play. Each time ye level up, ye get one point to allocate to particular stat. Hover over each stat fer more information.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
     "autoAllocate": "Auto Allocate",
     "autoAllocateText": "If 'automatic allocation' be checked, ye avatarr gains stats automatically based on ye tasks' attributes, which ye can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if ye hit th' swordfight often, 'n ye 'Swordfight' Daily be set to 'Physical', ye'll gain Strength automatically.",
     "spells": "Spells",

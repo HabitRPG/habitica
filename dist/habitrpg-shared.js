@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = require('./script/index.coffee');
 var _ = require('lodash');
 var moment = require('moment');
@@ -8,7 +8,7 @@ if (typeof window !== 'undefined') {
   window._ = _;
   window.moment = moment;
 }
-},{"./script/index.coffee":7,"lodash":3,"moment":4}],2:[function(require,module,exports){
+},{"./script/index.coffee":5,"lodash":6,"moment":7}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -16,6 +16,8 @@ var process = module.exports = {};
 process.nextTick = (function () {
     var canSetImmediate = typeof window !== 'undefined'
     && window.setImmediate;
+    var canMutationObserver = typeof window !== 'undefined'
+    && window.MutationObserver;
     var canPost = typeof window !== 'undefined'
     && window.postMessage && window.addEventListener
     ;
@@ -24,8 +26,29 @@ process.nextTick = (function () {
         return function (f) { return window.setImmediate(f) };
     }
 
+    var queue = [];
+
+    if (canMutationObserver) {
+        var hiddenDiv = document.createElement("div");
+        var observer = new MutationObserver(function () {
+            var queueList = queue.slice();
+            queue.length = 0;
+            queueList.forEach(function (fn) {
+                fn();
+            });
+        });
+
+        observer.observe(hiddenDiv, { attributes: true });
+
+        return function nextTick(fn) {
+            if (!queue.length) {
+                hiddenDiv.setAttribute('yes', 'no');
+            }
+            queue.push(fn);
+        };
+    }
+
     if (canPost) {
-        var queue = [];
         window.addEventListener('message', function (ev) {
             var source = ev.source;
             if ((source === window || source === null) && ev.data === 'process-tick') {
@@ -53,9 +76,19 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
-}
+};
 
 // TODO(shtylman)
 process.cwd = function () { return '/' };
@@ -64,6 +97,6765 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
+var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
+
+_ = require('lodash');
+
+api = module.exports;
+
+moment = require('moment');
+
+i18n = require('./i18n.coffee');
+
+t = function(string, vars) {
+  var func;
+  func = function(lang) {
+    if (vars == null) {
+      vars = {
+        a: 'a'
+      };
+    }
+    return i18n.t(string, vars, lang);
+  };
+  func.i18nLangFunc = true;
+  return func;
+};
+
+
+/*
+  ---------------------------------------------------------------
+  Gear (Weapons, Armor, Head, Shield)
+  Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
+  ---------------------------------------------------------------
+ */
+
+classes = ['warrior', 'rogue', 'healer', 'wizard'];
+
+gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear'];
+
+events = {
+  winter: {
+    start: '2013-12-31',
+    end: '2014-02-01'
+  },
+  birthday: {
+    start: '2013-01-30',
+    end: '2014-02-01'
+  },
+  spring: {
+    start: '2014-03-21',
+    end: '2014-05-01'
+  },
+  summer: {
+    start: '2014-06-20',
+    end: '2014-08-01'
+  },
+  gaymerx: {
+    start: '2014-07-02',
+    end: '2014-08-01'
+  },
+  fall: {
+    start: '2014-09-21',
+    end: '2014-11-01'
+  },
+  winter2015: {
+    start: '2014-12-21',
+    end: '2015-01-31'
+  }
+};
+
+api.mystery = {
+  201402: {
+    start: '2014-02-22',
+    end: '2014-02-28',
+    text: 'Winged Messenger Set'
+  },
+  201403: {
+    start: '2014-03-24',
+    end: '2014-04-02',
+    text: 'Forest Walker Set'
+  },
+  201404: {
+    start: '2014-04-24',
+    end: '2014-05-02',
+    text: 'Twilight Butterfly Set'
+  },
+  201405: {
+    start: '2014-05-21',
+    end: '2014-06-02',
+    text: 'Flame Wielder Set'
+  },
+  201406: {
+    start: '2014-06-23',
+    end: '2014-07-02',
+    text: 'Octomage Set'
+  },
+  201407: {
+    start: '2014-07-23',
+    end: '2014-08-02',
+    text: 'Undersea Explorer Set'
+  },
+  201408: {
+    start: '2014-08-23',
+    end: '2014-09-02',
+    text: 'Sun Sorcerer Set'
+  },
+  201409: {
+    start: '2014-09-24',
+    end: '2014-10-02',
+    text: 'Autumn Strider Item Set'
+  },
+  201410: {
+    start: '2014-10-24',
+    end: '2014-11-02',
+    text: 'Winged Goblin Set'
+  },
+  201411: {
+    start: '2014-11-24',
+    end: '2014-12-02',
+    text: 'Feast and Fun Set'
+  },
+  201412: {
+    start: '2014-12-25',
+    end: '2015-01-02',
+    text: 'Penguin Set'
+  },
+  301404: {
+    start: '3014-03-24',
+    end: '3014-04-02',
+    text: 'Steampunk Standard Set'
+  },
+  301405: {
+    start: '3014-04-24',
+    end: '3014-05-02',
+    text: 'Steampunk Accessories Set'
+  },
+  wondercon: {
+    start: '2014-03-24',
+    end: '2014-04-01'
+  }
+};
+
+_.each(api.mystery, function(v, k) {
+  return v.key = k;
+});
+
+gear = {
+  weapon: {
+    base: {
+      0: {
+        text: t('weaponBase0Text'),
+        notes: t('weaponBase0Notes'),
+        value: 0
+      }
+    },
+    warrior: {
+      0: {
+        text: t('weaponWarrior0Text'),
+        notes: t('weaponWarrior0Notes'),
+        value: 0
+      },
+      1: {
+        text: t('weaponWarrior1Text'),
+        notes: t('weaponWarrior1Notes', {
+          str: 3
+        }),
+        str: 3,
+        value: 20
+      },
+      2: {
+        text: t('weaponWarrior2Text'),
+        notes: t('weaponWarrior2Notes', {
+          str: 6
+        }),
+        str: 6,
+        value: 30
+      },
+      3: {
+        text: t('weaponWarrior3Text'),
+        notes: t('weaponWarrior3Notes', {
+          str: 9
+        }),
+        str: 9,
+        value: 45
+      },
+      4: {
+        text: t('weaponWarrior4Text'),
+        notes: t('weaponWarrior4Notes', {
+          str: 12
+        }),
+        str: 12,
+        value: 65
+      },
+      5: {
+        text: t('weaponWarrior5Text'),
+        notes: t('weaponWarrior5Notes', {
+          str: 15
+        }),
+        str: 15,
+        value: 90
+      },
+      6: {
+        text: t('weaponWarrior6Text'),
+        notes: t('weaponWarrior6Notes', {
+          str: 18
+        }),
+        str: 18,
+        value: 120,
+        last: true
+      }
+    },
+    rogue: {
+      0: {
+        text: t('weaponRogue0Text'),
+        notes: t('weaponRogue0Notes'),
+        str: 0,
+        value: 0
+      },
+      1: {
+        text: t('weaponRogue1Text'),
+        notes: t('weaponRogue1Notes', {
+          str: 2
+        }),
+        str: 2,
+        value: 20
+      },
+      2: {
+        text: t('weaponRogue2Text'),
+        notes: t('weaponRogue2Notes', {
+          str: 3
+        }),
+        str: 3,
+        value: 35
+      },
+      3: {
+        text: t('weaponRogue3Text'),
+        notes: t('weaponRogue3Notes', {
+          str: 4
+        }),
+        str: 4,
+        value: 50
+      },
+      4: {
+        text: t('weaponRogue4Text'),
+        notes: t('weaponRogue4Notes', {
+          str: 6
+        }),
+        str: 6,
+        value: 70
+      },
+      5: {
+        text: t('weaponRogue5Text'),
+        notes: t('weaponRogue5Notes', {
+          str: 8
+        }),
+        str: 8,
+        value: 90
+      },
+      6: {
+        text: t('weaponRogue6Text'),
+        notes: t('weaponRogue6Notes', {
+          str: 10
+        }),
+        str: 10,
+        value: 120,
+        last: true
+      }
+    },
+    wizard: {
+      0: {
+        twoHanded: true,
+        text: t('weaponWizard0Text'),
+        notes: t('weaponWizard0Notes'),
+        value: 0
+      },
+      1: {
+        twoHanded: true,
+        text: t('weaponWizard1Text'),
+        notes: t('weaponWizard1Notes', {
+          int: 3,
+          per: 1
+        }),
+        int: 3,
+        per: 1,
+        value: 30
+      },
+      2: {
+        twoHanded: true,
+        text: t('weaponWizard2Text'),
+        notes: t('weaponWizard2Notes', {
+          int: 6,
+          per: 2
+        }),
+        int: 6,
+        per: 2,
+        value: 50
+      },
+      3: {
+        twoHanded: true,
+        text: t('weaponWizard3Text'),
+        notes: t('weaponWizard3Notes', {
+          int: 9,
+          per: 3
+        }),
+        int: 9,
+        per: 3,
+        value: 80
+      },
+      4: {
+        twoHanded: true,
+        text: t('weaponWizard4Text'),
+        notes: t('weaponWizard4Notes', {
+          int: 12,
+          per: 5
+        }),
+        int: 12,
+        per: 5,
+        value: 120
+      },
+      5: {
+        twoHanded: true,
+        text: t('weaponWizard5Text'),
+        notes: t('weaponWizard5Notes', {
+          int: 15,
+          per: 7
+        }),
+        int: 15,
+        per: 7,
+        value: 160
+      },
+      6: {
+        twoHanded: true,
+        text: t('weaponWizard6Text'),
+        notes: t('weaponWizard6Notes', {
+          int: 18,
+          per: 10
+        }),
+        int: 18,
+        per: 10,
+        value: 200,
+        last: true
+      }
+    },
+    healer: {
+      0: {
+        text: t('weaponHealer0Text'),
+        notes: t('weaponHealer0Notes'),
+        value: 0
+      },
+      1: {
+        text: t('weaponHealer1Text'),
+        notes: t('weaponHealer1Notes', {
+          int: 2
+        }),
+        int: 2,
+        value: 20
+      },
+      2: {
+        text: t('weaponHealer2Text'),
+        notes: t('weaponHealer2Notes', {
+          int: 3
+        }),
+        int: 3,
+        value: 30
+      },
+      3: {
+        text: t('weaponHealer3Text'),
+        notes: t('weaponHealer3Notes', {
+          int: 5
+        }),
+        int: 5,
+        value: 45
+      },
+      4: {
+        text: t('weaponHealer4Text'),
+        notes: t('weaponHealer4Notes', {
+          int: 7
+        }),
+        int: 7,
+        value: 65
+      },
+      5: {
+        text: t('weaponHealer5Text'),
+        notes: t('weaponHealer5Notes', {
+          int: 9
+        }),
+        int: 9,
+        value: 90
+      },
+      6: {
+        text: t('weaponHealer6Text'),
+        notes: t('weaponHealer6Notes', {
+          int: 11
+        }),
+        int: 11,
+        value: 120,
+        last: true
+      }
+    },
+    special: {
+      0: {
+        text: t('weaponSpecial0Text'),
+        notes: t('weaponSpecial0Notes', {
+          str: 20
+        }),
+        str: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
+        })
+      },
+      1: {
+        text: t('weaponSpecial1Text'),
+        notes: t('weaponSpecial1Notes', {
+          attrs: 6
+        }),
+        str: 6,
+        per: 6,
+        con: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
+        })
+      },
+      2: {
+        text: t('weaponSpecial2Text'),
+        notes: t('weaponSpecial2Notes', {
+          attrs: 25
+        }),
+        str: 25,
+        per: 25,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_2 != null);
+        })
+      },
+      3: {
+        text: t('weaponSpecial3Text'),
+        notes: t('weaponSpecial3Notes', {
+          attrs: 17
+        }),
+        str: 17,
+        int: 17,
+        con: 17,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_3 != null);
+        })
+      },
+      critical: {
+        text: t('weaponSpecialCriticalText'),
+        notes: t('weaponSpecialCriticalNotes', {
+          attrs: 40
+        }),
+        str: 40,
+        per: 40,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return !!((_ref = u.contributor) != null ? _ref.critical : void 0);
+        })
+      },
+      yeti: {
+        event: events.winter,
+        specialClass: 'warrior',
+        text: t('weaponSpecialYetiText'),
+        notes: t('weaponSpecialYetiNotes', {
+          str: 15
+        }),
+        str: 15,
+        value: 90
+      },
+      ski: {
+        event: events.winter,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSkiText'),
+        notes: t('weaponSpecialSkiNotes', {
+          str: 8
+        }),
+        str: 8,
+        value: 90
+      },
+      candycane: {
+        event: events.winter,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialCandycaneText'),
+        notes: t('weaponSpecialCandycaneNotes', {
+          int: 15,
+          per: 7
+        }),
+        int: 15,
+        per: 7,
+        value: 160
+      },
+      snowflake: {
+        event: events.winter,
+        specialClass: 'healer',
+        text: t('weaponSpecialSnowflakeText'),
+        notes: t('weaponSpecialSnowflakeNotes', {
+          int: 9
+        }),
+        int: 9,
+        value: 90
+      },
+      springRogue: {
+        event: events.spring,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSpringRogueText'),
+        notes: t('weaponSpecialSpringRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      springWarrior: {
+        event: events.spring,
+        specialClass: 'warrior',
+        text: t('weaponSpecialSpringWarriorText'),
+        notes: t('weaponSpecialSpringWarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      springMage: {
+        event: events.spring,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialSpringMageText'),
+        notes: t('weaponSpecialSpringMageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      springHealer: {
+        event: events.spring,
+        specialClass: 'healer',
+        text: t('weaponSpecialSpringHealerText'),
+        notes: t('weaponSpecialSpringHealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSummerRogueText'),
+        notes: t('weaponSpecialSummerRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('weaponSpecialSummerWarriorText'),
+        notes: t('weaponSpecialSummerWarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialSummerMageText'),
+        notes: t('weaponSpecialSummerMageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('weaponSpecialSummerHealerText'),
+        notes: t('weaponSpecialSummerHealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('weaponSpecialFallRogueText'),
+        notes: t('weaponSpecialFallRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('weaponSpecialFallWarriorText'),
+        notes: t('weaponSpecialFallWarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      fallMage: {
+        event: events.fall,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialFallMageText'),
+        notes: t('weaponSpecialFallMageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('weaponSpecialFallHealerText'),
+        notes: t('weaponSpecialFallHealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('weaponSpecialWinter2015RogueText'),
+        notes: t('weaponSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('weaponSpecialWinter2015WarriorText'),
+        notes: t('weaponSpecialWinter2015WarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialWinter2015MageText'),
+        notes: t('weaponSpecialWinter2015MageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('weaponSpecialWinter2015HealerText'),
+        notes: t('weaponSpecialWinter2015HealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      }
+    },
+    mystery: {
+      201411: {
+        text: t('weaponMystery201411Text'),
+        notes: t('weaponMystery201411Notes'),
+        mystery: '201411',
+        value: 0
+      },
+      301404: {
+        text: t('weaponMystery301404Text'),
+        notes: t('weaponMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      }
+    }
+  },
+  armor: {
+    base: {
+      0: {
+        text: t('armorBase0Text'),
+        notes: t('armorBase0Notes'),
+        value: 0
+      }
+    },
+    warrior: {
+      1: {
+        text: t('armorWarrior1Text'),
+        notes: t('armorWarrior1Notes', {
+          con: 3
+        }),
+        con: 3,
+        value: 30
+      },
+      2: {
+        text: t('armorWarrior2Text'),
+        notes: t('armorWarrior2Notes', {
+          con: 5
+        }),
+        con: 5,
+        value: 45
+      },
+      3: {
+        text: t('armorWarrior3Text'),
+        notes: t('armorWarrior3Notes', {
+          con: 7
+        }),
+        con: 7,
+        value: 65
+      },
+      4: {
+        text: t('armorWarrior4Text'),
+        notes: t('armorWarrior4Notes', {
+          con: 9
+        }),
+        con: 9,
+        value: 90
+      },
+      5: {
+        text: t('armorWarrior5Text'),
+        notes: t('armorWarrior5Notes', {
+          con: 11
+        }),
+        con: 11,
+        value: 120,
+        last: true
+      }
+    },
+    rogue: {
+      1: {
+        text: t('armorRogue1Text'),
+        notes: t('armorRogue1Notes', {
+          per: 6
+        }),
+        per: 6,
+        value: 30
+      },
+      2: {
+        text: t('armorRogue2Text'),
+        notes: t('armorRogue2Notes', {
+          per: 9
+        }),
+        per: 9,
+        value: 45
+      },
+      3: {
+        text: t('armorRogue3Text'),
+        notes: t('armorRogue3Notes', {
+          per: 12
+        }),
+        per: 12,
+        value: 65
+      },
+      4: {
+        text: t('armorRogue4Text'),
+        notes: t('armorRogue4Notes', {
+          per: 15
+        }),
+        per: 15,
+        value: 90
+      },
+      5: {
+        text: t('armorRogue5Text'),
+        notes: t('armorRogue5Notes', {
+          per: 18
+        }),
+        per: 18,
+        value: 120,
+        last: true
+      }
+    },
+    wizard: {
+      1: {
+        text: t('armorWizard1Text'),
+        notes: t('armorWizard1Notes', {
+          int: 2
+        }),
+        int: 2,
+        value: 30
+      },
+      2: {
+        text: t('armorWizard2Text'),
+        notes: t('armorWizard2Notes', {
+          int: 4
+        }),
+        int: 4,
+        value: 45
+      },
+      3: {
+        text: t('armorWizard3Text'),
+        notes: t('armorWizard3Notes', {
+          int: 6
+        }),
+        int: 6,
+        value: 65
+      },
+      4: {
+        text: t('armorWizard4Text'),
+        notes: t('armorWizard4Notes', {
+          int: 9
+        }),
+        int: 9,
+        value: 90
+      },
+      5: {
+        text: t('armorWizard5Text'),
+        notes: t('armorWizard5Notes', {
+          int: 12
+        }),
+        int: 12,
+        value: 120,
+        last: true
+      }
+    },
+    healer: {
+      1: {
+        text: t('armorHealer1Text'),
+        notes: t('armorHealer1Notes', {
+          con: 6
+        }),
+        con: 6,
+        value: 30
+      },
+      2: {
+        text: t('armorHealer2Text'),
+        notes: t('armorHealer2Notes', {
+          con: 9
+        }),
+        con: 9,
+        value: 45
+      },
+      3: {
+        text: t('armorHealer3Text'),
+        notes: t('armorHealer3Notes', {
+          con: 12
+        }),
+        con: 12,
+        value: 65
+      },
+      4: {
+        text: t('armorHealer4Text'),
+        notes: t('armorHealer4Notes', {
+          con: 15
+        }),
+        con: 15,
+        value: 90
+      },
+      5: {
+        text: t('armorHealer5Text'),
+        notes: t('armorHealer5Notes', {
+          con: 18
+        }),
+        con: 18,
+        value: 120,
+        last: true
+      }
+    },
+    special: {
+      0: {
+        text: t('armorSpecial0Text'),
+        notes: t('armorSpecial0Notes', {
+          con: 20
+        }),
+        con: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      },
+      1: {
+        text: t('armorSpecial1Text'),
+        notes: t('armorSpecial1Notes', {
+          attrs: 6
+        }),
+        con: 6,
+        str: 6,
+        per: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
+        })
+      },
+      2: {
+        text: t('armorSpecial2Text'),
+        notes: t('armorSpecial2Notes', {
+          attrs: 25
+        }),
+        int: 25,
+        con: 25,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300 || (u.items.gear.owned.armor_special_2 != null);
+        })
+      },
+      yeti: {
+        event: events.winter,
+        specialClass: 'warrior',
+        text: t('armorSpecialYetiText'),
+        notes: t('armorSpecialYetiNotes', {
+          con: 9
+        }),
+        con: 9,
+        value: 90
+      },
+      ski: {
+        event: events.winter,
+        specialClass: 'rogue',
+        text: t('armorSpecialSkiText'),
+        notes: t('armorSpecialSkiNotes', {
+          per: 15
+        }),
+        per: 15,
+        value: 90
+      },
+      candycane: {
+        event: events.winter,
+        specialClass: 'wizard',
+        text: t('armorSpecialCandycaneText'),
+        notes: t('armorSpecialCandycaneNotes', {
+          int: 9
+        }),
+        int: 9,
+        value: 90
+      },
+      snowflake: {
+        event: events.winter,
+        specialClass: 'healer',
+        text: t('armorSpecialSnowflakeText'),
+        notes: t('armorSpecialSnowflakeNotes', {
+          con: 15
+        }),
+        con: 15,
+        value: 90
+      },
+      birthday: {
+        event: events.birthday,
+        text: t('armorSpecialBirthdayText'),
+        notes: t('armorSpecialBirthdayNotes'),
+        value: 0
+      },
+      springRogue: {
+        event: events.spring,
+        specialClass: 'rogue',
+        text: t('armorSpecialSpringRogueText'),
+        notes: t('armorSpecialSpringRogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      springWarrior: {
+        event: events.spring,
+        specialClass: 'warrior',
+        text: t('armorSpecialSpringWarriorText'),
+        notes: t('armorSpecialSpringWarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      springMage: {
+        event: events.spring,
+        specialClass: 'wizard',
+        text: t('armorSpecialSpringMageText'),
+        notes: t('armorSpecialSpringMageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      springHealer: {
+        event: events.spring,
+        specialClass: 'healer',
+        text: t('armorSpecialSpringHealerText'),
+        notes: t('armorSpecialSpringHealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('armorSpecialSummerRogueText'),
+        notes: t('armorSpecialSummerRogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('armorSpecialSummerWarriorText'),
+        notes: t('armorSpecialSummerWarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        text: t('armorSpecialSummerMageText'),
+        notes: t('armorSpecialSummerMageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('armorSpecialSummerHealerText'),
+        notes: t('armorSpecialSummerHealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('armorSpecialFallRogueText'),
+        notes: t('armorSpecialFallRogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('armorSpecialFallWarriorText'),
+        notes: t('armorSpecialFallWarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      fallMage: {
+        event: events.fall,
+        specialClass: 'wizard',
+        text: t('armorSpecialFallMageText'),
+        notes: t('armorSpecialFallMageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('armorSpecialFallHealerText'),
+        notes: t('armorSpecialFallHealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('armorSpecialWinter2015RogueText'),
+        notes: t('armorSpecialWinter2015RogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('armorSpecialWinter2015WarriorText'),
+        notes: t('armorSpecialWinter2015WarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('armorSpecialWinter2015MageText'),
+        notes: t('armorSpecialWinter2015MageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('armorSpecialWinter2015HealerText'),
+        notes: t('armorSpecialWinter2015HealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
+      gaymerx: {
+        event: events.gaymerx,
+        text: t('armorSpecialGaymerxText'),
+        notes: t('armorSpecialGaymerxNotes'),
+        value: 0
+      }
+    },
+    mystery: {
+      201402: {
+        text: t('armorMystery201402Text'),
+        notes: t('armorMystery201402Notes'),
+        mystery: '201402',
+        value: 0
+      },
+      201403: {
+        text: t('armorMystery201403Text'),
+        notes: t('armorMystery201403Notes'),
+        mystery: '201403',
+        value: 0
+      },
+      201405: {
+        text: t('armorMystery201405Text'),
+        notes: t('armorMystery201405Notes'),
+        mystery: '201405',
+        value: 0
+      },
+      201406: {
+        text: t('armorMystery201406Text'),
+        notes: t('armorMystery201406Notes'),
+        mystery: '201406',
+        value: 0
+      },
+      201407: {
+        text: t('armorMystery201407Text'),
+        notes: t('armorMystery201407Notes'),
+        mystery: '201407',
+        value: 0
+      },
+      201408: {
+        text: t('armorMystery201408Text'),
+        notes: t('armorMystery201408Notes'),
+        mystery: '201408',
+        value: 0
+      },
+      201409: {
+        text: t('armorMystery201409Text'),
+        notes: t('armorMystery201409Notes'),
+        mystery: '201409',
+        value: 0
+      },
+      201410: {
+        text: t('armorMystery201410Text'),
+        notes: t('armorMystery201410Notes'),
+        mystery: '201410',
+        value: 0
+      },
+      201412: {
+        text: t('armorMystery201412Text'),
+        notes: t('armorMystery201412Notes'),
+        mystery: '201412',
+        value: 0
+      },
+      301404: {
+        text: t('armorMystery301404Text'),
+        notes: t('armorMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      }
+    }
+  },
+  head: {
+    base: {
+      0: {
+        text: t('headBase0Text'),
+        notes: t('headBase0Notes'),
+        value: 0
+      }
+    },
+    warrior: {
+      1: {
+        text: t('headWarrior1Text'),
+        notes: t('headWarrior1Notes', {
+          str: 2
+        }),
+        str: 2,
+        value: 15
+      },
+      2: {
+        text: t('headWarrior2Text'),
+        notes: t('headWarrior2Notes', {
+          str: 4
+        }),
+        str: 4,
+        value: 25
+      },
+      3: {
+        text: t('headWarrior3Text'),
+        notes: t('headWarrior3Notes', {
+          str: 6
+        }),
+        str: 6,
+        value: 40
+      },
+      4: {
+        text: t('headWarrior4Text'),
+        notes: t('headWarrior4Notes', {
+          str: 9
+        }),
+        str: 9,
+        value: 60
+      },
+      5: {
+        text: t('headWarrior5Text'),
+        notes: t('headWarrior5Notes', {
+          str: 12
+        }),
+        str: 12,
+        value: 80,
+        last: true
+      }
+    },
+    rogue: {
+      1: {
+        text: t('headRogue1Text'),
+        notes: t('headRogue1Notes', {
+          per: 2
+        }),
+        per: 2,
+        value: 15
+      },
+      2: {
+        text: t('headRogue2Text'),
+        notes: t('headRogue2Notes', {
+          per: 4
+        }),
+        per: 4,
+        value: 25
+      },
+      3: {
+        text: t('headRogue3Text'),
+        notes: t('headRogue3Notes', {
+          per: 6
+        }),
+        per: 6,
+        value: 40
+      },
+      4: {
+        text: t('headRogue4Text'),
+        notes: t('headRogue4Notes', {
+          per: 9
+        }),
+        per: 9,
+        value: 60
+      },
+      5: {
+        text: t('headRogue5Text'),
+        notes: t('headRogue5Notes', {
+          per: 12
+        }),
+        per: 12,
+        value: 80,
+        last: true
+      }
+    },
+    wizard: {
+      1: {
+        text: t('headWizard1Text'),
+        notes: t('headWizard1Notes', {
+          per: 2
+        }),
+        per: 2,
+        value: 15
+      },
+      2: {
+        text: t('headWizard2Text'),
+        notes: t('headWizard2Notes', {
+          per: 3
+        }),
+        per: 3,
+        value: 25
+      },
+      3: {
+        text: t('headWizard3Text'),
+        notes: t('headWizard3Notes', {
+          per: 5
+        }),
+        per: 5,
+        value: 40
+      },
+      4: {
+        text: t('headWizard4Text'),
+        notes: t('headWizard4Notes', {
+          per: 7
+        }),
+        per: 7,
+        value: 60
+      },
+      5: {
+        text: t('headWizard5Text'),
+        notes: t('headWizard5Notes', {
+          per: 10
+        }),
+        per: 10,
+        value: 80,
+        last: true
+      }
+    },
+    healer: {
+      1: {
+        text: t('headHealer1Text'),
+        notes: t('headHealer1Notes', {
+          int: 2
+        }),
+        int: 2,
+        value: 15
+      },
+      2: {
+        text: t('headHealer2Text'),
+        notes: t('headHealer2Notes', {
+          int: 3
+        }),
+        int: 3,
+        value: 25
+      },
+      3: {
+        text: t('headHealer3Text'),
+        notes: t('headHealer3Notes', {
+          int: 5
+        }),
+        int: 5,
+        value: 40
+      },
+      4: {
+        text: t('headHealer4Text'),
+        notes: t('headHealer4Notes', {
+          int: 7
+        }),
+        int: 7,
+        value: 60
+      },
+      5: {
+        text: t('headHealer5Text'),
+        notes: t('headHealer5Notes', {
+          int: 9
+        }),
+        int: 9,
+        value: 80,
+        last: true
+      }
+    },
+    special: {
+      0: {
+        text: t('headSpecial0Text'),
+        notes: t('headSpecial0Notes', {
+          int: 20
+        }),
+        int: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      },
+      1: {
+        text: t('headSpecial1Text'),
+        notes: t('headSpecial1Notes', {
+          attrs: 6
+        }),
+        con: 6,
+        str: 6,
+        per: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
+        })
+      },
+      2: {
+        text: t('headSpecial2Text'),
+        notes: t('headSpecial2Notes', {
+          attrs: 25
+        }),
+        int: 25,
+        str: 25,
+        value: 200,
+        canOwn: (function(u) {
+          var _ref;
+          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.head_special_2 != null);
+        })
+      },
+      nye: {
+        event: events.winter,
+        text: t('headSpecialNyeText'),
+        notes: t('headSpecialNyeNotes'),
+        value: 0
+      },
+      yeti: {
+        event: events.winter,
+        specialClass: 'warrior',
+        text: t('headSpecialYetiText'),
+        notes: t('headSpecialYetiNotes', {
+          str: 9
+        }),
+        str: 9,
+        value: 60
+      },
+      ski: {
+        event: events.winter,
+        specialClass: 'rogue',
+        text: t('headSpecialSkiText'),
+        notes: t('headSpecialSkiNotes', {
+          per: 9
+        }),
+        per: 9,
+        value: 60
+      },
+      candycane: {
+        event: events.winter,
+        specialClass: 'wizard',
+        text: t('headSpecialCandycaneText'),
+        notes: t('headSpecialCandycaneNotes', {
+          per: 7
+        }),
+        per: 7,
+        value: 60
+      },
+      snowflake: {
+        event: events.winter,
+        specialClass: 'healer',
+        text: t('headSpecialSnowflakeText'),
+        notes: t('headSpecialSnowflakeNotes', {
+          int: 7
+        }),
+        int: 7,
+        value: 60
+      },
+      springRogue: {
+        event: events.spring,
+        specialClass: 'rogue',
+        text: t('headSpecialSpringRogueText'),
+        notes: t('headSpecialSpringRogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      springWarrior: {
+        event: events.spring,
+        specialClass: 'warrior',
+        text: t('headSpecialSpringWarriorText'),
+        notes: t('headSpecialSpringWarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      springMage: {
+        event: events.spring,
+        specialClass: 'wizard',
+        text: t('headSpecialSpringMageText'),
+        notes: t('headSpecialSpringMageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      springHealer: {
+        event: events.spring,
+        specialClass: 'healer',
+        text: t('headSpecialSpringHealerText'),
+        notes: t('headSpecialSpringHealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('headSpecialSummerRogueText'),
+        notes: t('headSpecialSummerRogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('headSpecialSummerWarriorText'),
+        notes: t('headSpecialSummerWarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        text: t('headSpecialSummerMageText'),
+        notes: t('headSpecialSummerMageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('headSpecialSummerHealerText'),
+        notes: t('headSpecialSummerHealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('headSpecialFallRogueText'),
+        notes: t('headSpecialFallRogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('headSpecialFallWarriorText'),
+        notes: t('headSpecialFallWarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      fallMage: {
+        event: events.fall,
+        specialClass: 'wizard',
+        text: t('headSpecialFallMageText'),
+        notes: t('headSpecialFallMageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('headSpecialFallHealerText'),
+        notes: t('headSpecialFallHealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('headSpecialWinter2015RogueText'),
+        notes: t('headSpecialWinter2015RogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('headSpecialWinter2015WarriorText'),
+        notes: t('headSpecialWinter2015WarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      winter2015Mage: {
+        event: events.winter2015,
+        specialClass: 'wizard',
+        text: t('headSpecialWinter2015MageText'),
+        notes: t('headSpecialWinter2015MageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('headSpecialWinter2015HealerText'),
+        notes: t('headSpecialWinter2015HealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
+      nye2014: {
+        text: t('headSpecialNye2014Text'),
+        notes: t('headSpecialNye2014Notes'),
+        value: 0,
+        canOwn: (function(u) {
+          return u.items.gear.owned.head_special_nye2014 != null;
+        })
+      },
+      gaymerx: {
+        event: events.gaymerx,
+        text: t('headSpecialGaymerxText'),
+        notes: t('headSpecialGaymerxNotes'),
+        value: 0
+      }
+    },
+    mystery: {
+      201402: {
+        text: t('headMystery201402Text'),
+        notes: t('headMystery201402Notes'),
+        mystery: '201402',
+        value: 0
+      },
+      201405: {
+        text: t('headMystery201405Text'),
+        notes: t('headMystery201405Notes'),
+        mystery: '201405',
+        value: 0
+      },
+      201406: {
+        text: t('headMystery201406Text'),
+        notes: t('headMystery201406Notes'),
+        mystery: '201406',
+        value: 0
+      },
+      201407: {
+        text: t('headMystery201407Text'),
+        notes: t('headMystery201407Notes'),
+        mystery: '201407',
+        value: 0
+      },
+      201408: {
+        text: t('headMystery201408Text'),
+        notes: t('headMystery201408Notes'),
+        mystery: '201408',
+        value: 0
+      },
+      201411: {
+        text: t('headMystery201411Text'),
+        notes: t('headMystery201411Notes'),
+        mystery: '201411',
+        value: 0
+      },
+      201412: {
+        text: t('headMystery201412Text'),
+        notes: t('headMystery201412Notes'),
+        mystery: '201412',
+        value: 0
+      },
+      301404: {
+        text: t('headMystery301404Text'),
+        notes: t('headMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      },
+      301405: {
+        text: t('headMystery301405Text'),
+        notes: t('headMystery301405Notes'),
+        mystery: '301405',
+        value: 0
+      }
+    }
+  },
+  shield: {
+    base: {
+      0: {
+        text: t('shieldBase0Text'),
+        notes: t('shieldBase0Notes'),
+        value: 0
+      }
+    },
+    warrior: {
+      1: {
+        text: t('shieldWarrior1Text'),
+        notes: t('shieldWarrior1Notes', {
+          con: 2
+        }),
+        con: 2,
+        value: 20
+      },
+      2: {
+        text: t('shieldWarrior2Text'),
+        notes: t('shieldWarrior2Notes', {
+          con: 3
+        }),
+        con: 3,
+        value: 35
+      },
+      3: {
+        text: t('shieldWarrior3Text'),
+        notes: t('shieldWarrior3Notes', {
+          con: 5
+        }),
+        con: 5,
+        value: 50
+      },
+      4: {
+        text: t('shieldWarrior4Text'),
+        notes: t('shieldWarrior4Notes', {
+          con: 7
+        }),
+        con: 7,
+        value: 70
+      },
+      5: {
+        text: t('shieldWarrior5Text'),
+        notes: t('shieldWarrior5Notes', {
+          con: 9
+        }),
+        con: 9,
+        value: 90,
+        last: true
+      }
+    },
+    rogue: {
+      0: {
+        text: t('weaponRogue0Text'),
+        notes: t('weaponRogue0Notes'),
+        str: 0,
+        value: 0
+      },
+      1: {
+        text: t('weaponRogue1Text'),
+        notes: t('weaponRogue1Notes', {
+          str: 2
+        }),
+        str: 2,
+        value: 20
+      },
+      2: {
+        text: t('weaponRogue2Text'),
+        notes: t('weaponRogue2Notes', {
+          str: 3
+        }),
+        str: 3,
+        value: 35
+      },
+      3: {
+        text: t('weaponRogue3Text'),
+        notes: t('weaponRogue3Notes', {
+          str: 4
+        }),
+        str: 4,
+        value: 50
+      },
+      4: {
+        text: t('weaponRogue4Text'),
+        notes: t('weaponRogue4Notes', {
+          str: 6
+        }),
+        str: 6,
+        value: 70
+      },
+      5: {
+        text: t('weaponRogue5Text'),
+        notes: t('weaponRogue5Notes', {
+          str: 8
+        }),
+        str: 8,
+        value: 90
+      },
+      6: {
+        text: t('weaponRogue6Text'),
+        notes: t('weaponRogue6Notes', {
+          str: 10
+        }),
+        str: 10,
+        value: 120,
+        last: true
+      }
+    },
+    wizard: {},
+    healer: {
+      1: {
+        text: t('shieldHealer1Text'),
+        notes: t('shieldHealer1Notes', {
+          con: 2
+        }),
+        con: 2,
+        value: 20
+      },
+      2: {
+        text: t('shieldHealer2Text'),
+        notes: t('shieldHealer2Notes', {
+          con: 4
+        }),
+        con: 4,
+        value: 35
+      },
+      3: {
+        text: t('shieldHealer3Text'),
+        notes: t('shieldHealer3Notes', {
+          con: 6
+        }),
+        con: 6,
+        value: 50
+      },
+      4: {
+        text: t('shieldHealer4Text'),
+        notes: t('shieldHealer4Notes', {
+          con: 9
+        }),
+        con: 9,
+        value: 70
+      },
+      5: {
+        text: t('shieldHealer5Text'),
+        notes: t('shieldHealer5Notes', {
+          con: 12
+        }),
+        con: 12,
+        value: 90,
+        last: true
+      }
+    },
+    special: {
+      0: {
+        text: t('shieldSpecial0Text'),
+        notes: t('shieldSpecial0Notes', {
+          per: 20
+        }),
+        per: 20,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      },
+      1: {
+        text: t('shieldSpecial1Text'),
+        notes: t('shieldSpecial1Notes', {
+          attrs: 6
+        }),
+        con: 6,
+        str: 6,
+        per: 6,
+        int: 6,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
+        })
+      },
+      goldenknight: {
+        text: t('shieldSpecialGoldenknightText'),
+        notes: t('shieldSpecialGoldenknightNotes', {
+          attrs: 25
+        }),
+        con: 25,
+        per: 25,
+        value: 200,
+        canOwn: (function(u) {
+          return u.items.gear.owned.shield_special_goldenknight != null;
+        })
+      },
+      yeti: {
+        event: events.winter,
+        specialClass: 'warrior',
+        text: t('shieldSpecialYetiText'),
+        notes: t('shieldSpecialYetiNotes', {
+          con: 7
+        }),
+        con: 7,
+        value: 70
+      },
+      ski: {
+        event: events.winter,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSkiText'),
+        notes: t('weaponSpecialSkiNotes', {
+          str: 8
+        }),
+        str: 8,
+        value: 90
+      },
+      snowflake: {
+        event: events.winter,
+        specialClass: 'healer',
+        text: t('shieldSpecialSnowflakeText'),
+        notes: t('shieldSpecialSnowflakeNotes', {
+          con: 9
+        }),
+        con: 9,
+        value: 70
+      },
+      springRogue: {
+        event: events.spring,
+        specialClass: 'rogue',
+        text: t('shieldSpecialSpringRogueText'),
+        notes: t('shieldSpecialSpringRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      springWarrior: {
+        event: events.spring,
+        specialClass: 'warrior',
+        text: t('shieldSpecialSpringWarriorText'),
+        notes: t('shieldSpecialSpringWarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      springHealer: {
+        event: events.spring,
+        specialClass: 'healer',
+        text: t('shieldSpecialSpringHealerText'),
+        notes: t('shieldSpecialSpringHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('shieldSpecialSummerRogueText'),
+        notes: t('shieldSpecialSummerRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('shieldSpecialSummerWarriorText'),
+        notes: t('shieldSpecialSummerWarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('shieldSpecialSummerHealerText'),
+        notes: t('shieldSpecialSummerHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      },
+      fallRogue: {
+        event: events.fall,
+        specialClass: 'rogue',
+        text: t('shieldSpecialFallRogueText'),
+        notes: t('shieldSpecialFallRogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      fallWarrior: {
+        event: events.fall,
+        specialClass: 'warrior',
+        text: t('shieldSpecialFallWarriorText'),
+        notes: t('shieldSpecialFallWarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      fallHealer: {
+        event: events.fall,
+        specialClass: 'healer',
+        text: t('shieldSpecialFallHealerText'),
+        notes: t('shieldSpecialFallHealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      },
+      winter2015Rogue: {
+        event: events.winter2015,
+        specialClass: 'rogue',
+        text: t('shieldSpecialWinter2015RogueText'),
+        notes: t('shieldSpecialWinter2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      winter2015Warrior: {
+        event: events.winter2015,
+        specialClass: 'warrior',
+        text: t('shieldSpecialWinter2015WarriorText'),
+        notes: t('shieldSpecialWinter2015WarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      winter2015Healer: {
+        event: events.winter2015,
+        specialClass: 'healer',
+        text: t('shieldSpecialWinter2015HealerText'),
+        notes: t('shieldSpecialWinter2015HealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
+      }
+    },
+    mystery: {
+      301405: {
+        text: t('shieldMystery301405Text'),
+        notes: t('shieldMystery301405Notes'),
+        mystery: '301405',
+        value: 0
+      }
+    }
+  },
+  back: {
+    base: {
+      0: {
+        text: t('backBase0Text'),
+        notes: t('backBase0Notes'),
+        value: 0
+      }
+    },
+    mystery: {
+      201402: {
+        text: t('backMystery201402Text'),
+        notes: t('backMystery201402Notes'),
+        mystery: '201402',
+        value: 0
+      },
+      201404: {
+        text: t('backMystery201404Text'),
+        notes: t('backMystery201404Notes'),
+        mystery: '201404',
+        value: 0
+      },
+      201410: {
+        text: t('backMystery201410Text'),
+        notes: t('backMystery201410Notes'),
+        mystery: '201410',
+        value: 0
+      }
+    },
+    special: {
+      wondercon_red: {
+        text: t('backSpecialWonderconRedText'),
+        notes: t('backSpecialWonderconRedNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      wondercon_black: {
+        text: t('backSpecialWonderconBlackText'),
+        notes: t('backSpecialWonderconBlackNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      }
+    }
+  },
+  body: {
+    base: {
+      0: {
+        text: t('bodyBase0Text'),
+        notes: t('bodyBase0Notes'),
+        value: 0
+      }
+    },
+    special: {
+      wondercon_red: {
+        text: t('bodySpecialWonderconRedText'),
+        notes: t('bodySpecialWonderconRedNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      wondercon_gold: {
+        text: t('bodySpecialWonderconGoldText'),
+        notes: t('bodySpecialWonderconGoldNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      wondercon_black: {
+        text: t('bodySpecialWonderconBlackText'),
+        notes: t('bodySpecialWonderconBlackNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      summerHealer: {
+        event: events.summer,
+        specialClass: 'healer',
+        text: t('bodySpecialSummerHealerText'),
+        notes: t('bodySpecialSummerHealerNotes'),
+        value: 20
+      },
+      summerMage: {
+        event: events.summer,
+        specialClass: 'wizard',
+        text: t('bodySpecialSummerMageText'),
+        notes: t('bodySpecialSummerMageNotes'),
+        value: 20
+      }
+    }
+  },
+  headAccessory: {
+    base: {
+      0: {
+        text: t('headAccessoryBase0Text'),
+        notes: t('headAccessoryBase0Notes'),
+        value: 0,
+        last: true
+      }
+    },
+    special: {
+      springRogue: {
+        event: events.spring,
+        specialClass: 'rogue',
+        text: t('headAccessorySpecialSpringRogueText'),
+        notes: t('headAccessorySpecialSpringRogueNotes'),
+        value: 20
+      },
+      springWarrior: {
+        event: events.spring,
+        specialClass: 'warrior',
+        text: t('headAccessorySpecialSpringWarriorText'),
+        notes: t('headAccessorySpecialSpringWarriorNotes'),
+        value: 20
+      },
+      springMage: {
+        event: events.spring,
+        specialClass: 'wizard',
+        text: t('headAccessorySpecialSpringMageText'),
+        notes: t('headAccessorySpecialSpringMageNotes'),
+        value: 20
+      },
+      springHealer: {
+        event: events.spring,
+        specialClass: 'healer',
+        text: t('headAccessorySpecialSpringHealerText'),
+        notes: t('headAccessorySpecialSpringHealerNotes'),
+        value: 20
+      }
+    },
+    mystery: {
+      201403: {
+        text: t('headAccessoryMystery201403Text'),
+        notes: t('headAccessoryMystery201403Notes'),
+        mystery: '201403',
+        value: 0
+      },
+      201404: {
+        text: t('headAccessoryMystery201404Text'),
+        notes: t('headAccessoryMystery201404Notes'),
+        mystery: '201404',
+        value: 0
+      },
+      201409: {
+        text: t('headAccessoryMystery201409Text'),
+        notes: t('headAccessoryMystery201409Notes'),
+        mystery: '201409',
+        value: 0
+      },
+      301405: {
+        text: t('headAccessoryMystery301405Text'),
+        notes: t('headAccessoryMystery301405Notes'),
+        mystery: '301405',
+        value: 0
+      }
+    }
+  },
+  eyewear: {
+    base: {
+      0: {
+        text: t('eyewearBase0Text'),
+        notes: t('eyewearBase0Notes'),
+        value: 0,
+        last: true
+      }
+    },
+    special: {
+      wondercon_red: {
+        text: t('eyewearSpecialWonderconRedText'),
+        notes: t('eyewearSpecialWonderconRedNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      wondercon_black: {
+        text: t('eyewearSpecialWonderconBlackText'),
+        notes: t('eyewearSpecialWonderconBlackNotes'),
+        value: 0,
+        mystery: 'wondercon'
+      },
+      summerRogue: {
+        event: events.summer,
+        specialClass: 'rogue',
+        text: t('eyewearSpecialSummerRogueText'),
+        notes: t('eyewearSpecialSummerRogueNotes'),
+        value: 20
+      },
+      summerWarrior: {
+        event: events.summer,
+        specialClass: 'warrior',
+        text: t('eyewearSpecialSummerWarriorText'),
+        notes: t('eyewearSpecialSummerWarriorNotes'),
+        value: 20
+      }
+    },
+    mystery: {
+      301404: {
+        text: t('eyewearMystery301404Text'),
+        notes: t('eyewearMystery301404Notes'),
+        mystery: '301404',
+        value: 0
+      },
+      301405: {
+        text: t('eyewearMystery301405Text'),
+        notes: t('eyewearMystery301405Notes'),
+        mystery: '301405',
+        value: 0
+      }
+    }
+  }
+};
+
+
+/*
+  The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
+  they are needed in different froms at different points in the app
+ */
+
+api.gear = {
+  tree: gear,
+  flat: {}
+};
+
+_.each(gearTypes, function(type) {
+  return _.each(classes.concat(['base', 'special', 'mystery']), function(klass) {
+    return _.each(gear[type][klass], function(item, i) {
+      var key, _canOwn;
+      key = "" + type + "_" + klass + "_" + i;
+      _.defaults(item, {
+        type: type,
+        key: key,
+        klass: klass,
+        index: i,
+        str: 0,
+        int: 0,
+        per: 0,
+        con: 0
+      });
+      if (item.event) {
+        _canOwn = item.canOwn || (function() {
+          return true;
+        });
+        item.canOwn = function(u) {
+          return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end))) && (item.specialClass ? u.stats["class"] === item.specialClass : true);
+        };
+      }
+      if (item.mystery) {
+        item.canOwn = function(u) {
+          return u.items.gear.owned[key] != null;
+        };
+      }
+      return api.gear.flat[key] = item;
+    });
+  });
+});
+
+
+/*
+  Time Traveler Store, mystery sets need their items mapped in
+ */
+
+_.each(api.mystery, function(v, k) {
+  return v.items = _.where(api.gear.flat, {
+    mystery: k
+  });
+});
+
+api.timeTravelerStore = function(owned) {
+  var ownedKeys;
+  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
+  return _.reduce(api.mystery, function(m, v, k) {
+    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
+      return m;
+    }
+    m[k] = v;
+    return m;
+  }, {});
+};
+
+
+/*
+  ---------------------------------------------------------------
+  Potion
+  ---------------------------------------------------------------
+ */
+
+api.potion = {
+  type: 'potion',
+  text: t('potionText'),
+  notes: t('potionNotes'),
+  value: 25,
+  key: 'potion'
+};
+
+
+/*
+   ---------------------------------------------------------------
+   Classes
+   ---------------------------------------------------------------
+ */
+
+api.classes = classes;
+
+
+/*
+   ---------------------------------------------------------------
+   Gear Types
+   ---------------------------------------------------------------
+ */
+
+api.gearTypes = gearTypes;
+
+
+/*
+  ---------------------------------------------------------------
+  Spells
+  ---------------------------------------------------------------
+  Text, notes, and mana are obvious. The rest:
+
+  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
+    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+    etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
+
+  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
+    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
+    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+    so you'll want to iterate over them like: `_.each(target,function(member){...})`
+
+  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+ */
+
+diminishingReturns = function(bonus, max, halfway) {
+  if (halfway == null) {
+    halfway = max / 2;
+  }
+  return max * (bonus / (bonus + halfway));
+};
+
+api.spells = {
+  wizard: {
+    fireball: {
+      text: t('spellWizardFireballText'),
+      mana: 10,
+      lvl: 11,
+      target: 'task',
+      notes: t('spellWizardFireballNotes'),
+      cast: function(user, target) {
+        var bonus;
+        bonus = user._statsComputed.int * user.fns.crit('per');
+        target.value += diminishingReturns(bonus * .02, 4);
+        bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
+        user.stats.exp += diminishingReturns(bonus, 75);
+        if (user.party.quest.key) {
+          return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        }
+      }
+    },
+    mpheal: {
+      text: t('spellWizardMPHealText'),
+      mana: 30,
+      lvl: 12,
+      target: 'party',
+      notes: t('spellWizardMPHealNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var bonus;
+          bonus = Math.ceil(user._statsComputed.int * .1);
+          if (bonus > 25) {
+            bonus = 25;
+          }
+          return member.stats.mp += bonus;
+        });
+      }
+    },
+    earth: {
+      text: t('spellWizardEarthText'),
+      mana: 35,
+      lvl: 13,
+      target: 'party',
+      notes: t('spellWizardEarthNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).int == null) {
+            _base.int = 0;
+          }
+          return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
+        });
+      }
+    },
+    frost: {
+      text: t('spellWizardFrostText'),
+      mana: 40,
+      lvl: 14,
+      target: 'self',
+      notes: t('spellWizardFrostNotes'),
+      cast: function(user, target) {
+        return user.stats.buffs.streaks = true;
+      }
+    }
+  },
+  warrior: {
+    smash: {
+      text: t('spellWarriorSmashText'),
+      mana: 10,
+      lvl: 11,
+      target: 'task',
+      notes: t('spellWarriorSmashNotes'),
+      cast: function(user, target) {
+        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
+        if (user.party.quest.key) {
+          return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+        }
+      }
+    },
+    defensiveStance: {
+      text: t('spellWarriorDefensiveStanceText'),
+      mana: 25,
+      lvl: 12,
+      target: 'self',
+      notes: t('spellWarriorDefensiveStanceNotes'),
+      cast: function(user, target) {
+        var _base;
+        if ((_base = user.stats.buffs).con == null) {
+          _base.con = 0;
+        }
+        return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
+      }
+    },
+    valorousPresence: {
+      text: t('spellWarriorValorousPresenceText'),
+      mana: 20,
+      lvl: 13,
+      target: 'party',
+      notes: t('spellWarriorValorousPresenceNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).str == null) {
+            _base.str = 0;
+          }
+          return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
+        });
+      }
+    },
+    intimidate: {
+      text: t('spellWarriorIntimidateText'),
+      mana: 15,
+      lvl: 14,
+      target: 'party',
+      notes: t('spellWarriorIntimidateNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).con == null) {
+            _base.con = 0;
+          }
+          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
+        });
+      }
+    }
+  },
+  rogue: {
+    pickPocket: {
+      text: t('spellRoguePickPocketText'),
+      mana: 10,
+      lvl: 11,
+      target: 'task',
+      notes: t('spellRoguePickPocketNotes'),
+      cast: function(user, target) {
+        var bonus;
+        bonus = (target.value < 0 ? 1 : target.value + 2) + (user._statsComputed.per * 0.5);
+        return user.stats.gp += 25 * (bonus / (bonus + 75));
+      }
+    },
+    backStab: {
+      text: t('spellRogueBackStabText'),
+      mana: 15,
+      lvl: 12,
+      target: 'task',
+      notes: t('spellRogueBackStabNotes'),
+      cast: function(user, target) {
+        var bonus, _crit;
+        _crit = user.fns.crit('str', .3);
+        target.value += _crit * .03;
+        bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
+        user.stats.exp += bonus;
+        return user.stats.gp += bonus;
+      }
+    },
+    toolsOfTrade: {
+      text: t('spellRogueToolsOfTradeText'),
+      mana: 25,
+      lvl: 13,
+      target: 'party',
+      notes: t('spellRogueToolsOfTradeNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).per == null) {
+            _base.per = 0;
+          }
+          return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
+        });
+      }
+    },
+    stealth: {
+      text: t('spellRogueStealthText'),
+      mana: 45,
+      lvl: 14,
+      target: 'self',
+      notes: t('spellRogueStealthNotes'),
+      cast: function(user, target) {
+        var _base;
+        if ((_base = user.stats.buffs).stealth == null) {
+          _base.stealth = 0;
+        }
+        return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
+      }
+    }
+  },
+  healer: {
+    heal: {
+      text: t('spellHealerHealText'),
+      mana: 15,
+      lvl: 11,
+      target: 'self',
+      notes: t('spellHealerHealNotes'),
+      cast: function(user, target) {
+        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
+        if (user.stats.hp > 50) {
+          return user.stats.hp = 50;
+        }
+      }
+    },
+    brightness: {
+      text: t('spellHealerBrightnessText'),
+      mana: 15,
+      lvl: 12,
+      target: 'self',
+      notes: t('spellHealerBrightnessNotes'),
+      cast: function(user, target) {
+        return _.each(user.tasks, function(target) {
+          if (target.type === 'reward') {
+            return;
+          }
+          return target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40));
+        });
+      }
+    },
+    protectAura: {
+      text: t('spellHealerProtectAuraText'),
+      mana: 30,
+      lvl: 13,
+      target: 'party',
+      notes: t('spellHealerProtectAuraNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          var _base;
+          if ((_base = member.stats.buffs).con == null) {
+            _base.con = 0;
+          }
+          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
+        });
+      }
+    },
+    heallAll: {
+      text: t('spellHealerHealAllText'),
+      mana: 25,
+      lvl: 14,
+      target: 'party',
+      notes: t('spellHealerHealAllNotes'),
+      cast: function(user, target) {
+        return _.each(target, function(member) {
+          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
+          if (member.stats.hp > 50) {
+            return member.stats.hp = 50;
+          }
+        });
+      }
+    }
+  },
+  special: {
+    snowball: {
+      text: t('spellSpecialSnowballAuraText'),
+      mana: 0,
+      value: 15,
+      target: 'user',
+      notes: t('spellSpecialSnowballAuraNotes'),
+      cast: function(user, target) {
+        var _base;
+        target.stats.buffs.snowball = true;
+        if ((_base = target.achievements).snowball == null) {
+          _base.snowball = 0;
+        }
+        target.achievements.snowball++;
+        return user.items.special.snowball--;
+      }
+    },
+    salt: {
+      text: t('spellSpecialSaltText'),
+      mana: 0,
+      value: 5,
+      target: 'self',
+      notes: t('spellSpecialSaltNotes'),
+      cast: function(user, target) {
+        user.stats.buffs.snowball = false;
+        return user.stats.gp -= 5;
+      }
+    },
+    spookDust: {
+      text: t('spellSpecialSpookDustText'),
+      mana: 0,
+      value: 15,
+      target: 'user',
+      notes: t('spellSpecialSpookDustNotes'),
+      cast: function(user, target) {
+        var _base;
+        target.stats.buffs.spookDust = true;
+        if ((_base = target.achievements).spookDust == null) {
+          _base.spookDust = 0;
+        }
+        target.achievements.spookDust++;
+        return user.items.special.spookDust--;
+      }
+    },
+    opaquePotion: {
+      text: t('spellSpecialOpaquePotionText'),
+      mana: 0,
+      value: 5,
+      target: 'self',
+      notes: t('spellSpecialOpaquePotionNotes'),
+      cast: function(user, target) {
+        user.stats.buffs.spookDust = false;
+        return user.stats.gp -= 5;
+      }
+    },
+    nye: {
+      text: t('nyeCard'),
+      mana: 0,
+      value: 10,
+      target: 'user',
+      notes: t('nyeCardNotes'),
+      cast: function(user, target) {
+        var _base, _base1;
+        if (user === target) {
+          if ((_base = user.achievements).nye == null) {
+            _base.nye = 0;
+          }
+          user.achievements.nye++;
+        } else {
+          _.each([user, target], function(t) {
+            var _base1;
+            if ((_base1 = t.achievements).nye == null) {
+              _base1.nye = 0;
+            }
+            return t.achievements.nye++;
+          });
+        }
+        ((_base1 = target.items.special).nyeReceived != null ? _base1.nyeReceived : _base1.nyeReceived = []).push(user.profile.name);
+        if (typeof target.markModified === "function") {
+          target.markModified('items.special.nyeReceived');
+        }
+        return user.stats.gp -= 10;
+      }
+    }
+  }
+};
+
+_.each(api.spells, function(spellClass) {
+  return _.each(spellClass, function(spell, key) {
+    var _cast;
+    spell.key = key;
+    _cast = spell.cast;
+    return spell.cast = function(user, target) {
+      _cast(user, target);
+      return user.stats.mp -= spell.mana;
+    };
+  });
+});
+
+api.special = api.spells.special;
+
+
+/*
+  ---------------------------------------------------------------
+  Drops
+  ---------------------------------------------------------------
+ */
+
+api.dropEggs = {
+  Wolf: {
+    text: t('dropEggWolfText'),
+    adjective: t('dropEggWolfAdjective')
+  },
+  TigerCub: {
+    text: t('dropEggTigerCubText'),
+    mountText: t('dropEggTigerCubMountText'),
+    adjective: t('dropEggTigerCubAdjective')
+  },
+  PandaCub: {
+    text: t('dropEggPandaCubText'),
+    mountText: t('dropEggPandaCubMountText'),
+    adjective: t('dropEggPandaCubAdjective')
+  },
+  LionCub: {
+    text: t('dropEggLionCubText'),
+    mountText: t('dropEggLionCubMountText'),
+    adjective: t('dropEggLionCubAdjective')
+  },
+  Fox: {
+    text: t('dropEggFoxText'),
+    adjective: t('dropEggFoxAdjective')
+  },
+  FlyingPig: {
+    text: t('dropEggFlyingPigText'),
+    adjective: t('dropEggFlyingPigAdjective')
+  },
+  Dragon: {
+    text: t('dropEggDragonText'),
+    adjective: t('dropEggDragonAdjective')
+  },
+  Cactus: {
+    text: t('dropEggCactusText'),
+    adjective: t('dropEggCactusAdjective')
+  },
+  BearCub: {
+    text: t('dropEggBearCubText'),
+    mountText: t('dropEggBearCubMountText'),
+    adjective: t('dropEggBearCubAdjective')
+  }
+};
+
+_.each(api.dropEggs, function(egg, key) {
+  return _.defaults(egg, {
+    canBuy: true,
+    value: 3,
+    key: key,
+    notes: t('eggNotes', {
+      eggText: egg.text,
+      eggAdjective: egg.adjective
+    }),
+    mountText: egg.text
+  });
+});
+
+api.questEggs = {
+  Gryphon: {
+    text: t('questEggGryphonText'),
+    adjective: t('questEggGryphonAdjective'),
+    canBuy: false
+  },
+  Hedgehog: {
+    text: t('questEggHedgehogText'),
+    adjective: t('questEggHedgehogAdjective'),
+    canBuy: false
+  },
+  Deer: {
+    text: t('questEggDeerText'),
+    adjective: t('questEggDeerAdjective'),
+    canBuy: false
+  },
+  Egg: {
+    text: t('questEggEggText'),
+    adjective: t('questEggEggAdjective'),
+    canBuy: false,
+    noMount: true
+  },
+  Rat: {
+    text: t('questEggRatText'),
+    adjective: t('questEggRatAdjective'),
+    canBuy: false
+  },
+  Octopus: {
+    text: t('questEggOctopusText'),
+    adjective: t('questEggOctopusAdjective'),
+    canBuy: false
+  },
+  Seahorse: {
+    text: t('questEggSeahorseText'),
+    adjective: t('questEggSeahorseAdjective'),
+    canBuy: false
+  },
+  Parrot: {
+    text: t('questEggParrotText'),
+    adjective: t('questEggParrotAdjective'),
+    canBuy: false
+  },
+  Rooster: {
+    text: t('questEggRoosterText'),
+    adjective: t('questEggRoosterAdjective'),
+    canBuy: false
+  },
+  Spider: {
+    text: t('questEggSpiderText'),
+    adjective: t('questEggSpiderAdjective'),
+    canBuy: false
+  },
+  Owl: {
+    text: t('questEggOwlText'),
+    adjective: t('questEggOwlAdjective'),
+    canBuy: false
+  },
+  Penguin: {
+    text: t('questEggPenguinText'),
+    adjective: t('questEggPenguinAdjective'),
+    canBuy: false
+  }
+};
+
+_.each(api.questEggs, function(egg, key) {
+  return _.defaults(egg, {
+    canBuy: false,
+    value: 3,
+    key: key,
+    notes: t('eggNotes', {
+      eggText: egg.text,
+      eggAdjective: egg.adjective
+    }),
+    mountText: egg.text
+  });
+});
+
+api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
+
+api.specialPets = {
+  'Wolf-Veteran': 'veteranWolf',
+  'Wolf-Cerberus': 'cerberusPup',
+  'Dragon-Hydra': 'hydra',
+  'Turkey-Base': 'turkey',
+  'BearCub-Polar': 'polarBearPup',
+  'MantisShrimp-Base': 'mantisShrimp',
+  'JackOLantern-Base': 'jackolantern'
+};
+
+api.specialMounts = {
+  'BearCub-Polar': 'polarBear',
+  'LionCub-Ethereal': 'etherealLion',
+  'MantisShrimp-Base': 'mantisShrimp',
+  'Turkey-Base': 'turkey'
+};
+
+api.hatchingPotions = {
+  Base: {
+    value: 2,
+    text: t('hatchingPotionBase')
+  },
+  White: {
+    value: 2,
+    text: t('hatchingPotionWhite')
+  },
+  Desert: {
+    value: 2,
+    text: t('hatchingPotionDesert')
+  },
+  Red: {
+    value: 3,
+    text: t('hatchingPotionRed')
+  },
+  Shade: {
+    value: 3,
+    text: t('hatchingPotionShade')
+  },
+  Skeleton: {
+    value: 3,
+    text: t('hatchingPotionSkeleton')
+  },
+  Zombie: {
+    value: 4,
+    text: t('hatchingPotionZombie')
+  },
+  CottonCandyPink: {
+    value: 4,
+    text: t('hatchingPotionCottonCandyPink')
+  },
+  CottonCandyBlue: {
+    value: 4,
+    text: t('hatchingPotionCottonCandyBlue')
+  },
+  Golden: {
+    value: 5,
+    text: t('hatchingPotionGolden')
+  }
+};
+
+_.each(api.hatchingPotions, function(pot, key) {
+  return _.defaults(pot, {
+    key: key,
+    value: 2,
+    notes: t('hatchingPotionNotes', {
+      potText: pot.text
+    })
+  });
+});
+
+api.pets = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    return m2[egg.key + "-" + pot.key] = true;
+  }));
+});
+
+api.questPets = _.transform(api.questEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    return m2[egg.key + "-" + pot.key] = true;
+  }));
+});
+
+api.food = {
+  Meat: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodMeat'),
+    target: 'Base',
+    article: ''
+  },
+  Milk: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodMilk'),
+    target: 'White',
+    article: ''
+  },
+  Potatoe: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodPotatoe'),
+    target: 'Desert',
+    article: 'a '
+  },
+  Strawberry: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodStrawberry'),
+    target: 'Red',
+    article: 'a '
+  },
+  Chocolate: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodChocolate'),
+    target: 'Shade',
+    article: ''
+  },
+  Fish: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodFish'),
+    target: 'Skeleton',
+    article: 'a '
+  },
+  RottenMeat: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodRottenMeat'),
+    target: 'Zombie',
+    article: ''
+  },
+  CottonCandyPink: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCottonCandyPink'),
+    target: 'CottonCandyPink',
+    article: ''
+  },
+  CottonCandyBlue: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodCottonCandyBlue'),
+    target: 'CottonCandyBlue',
+    article: ''
+  },
+  Honey: {
+    canBuy: true,
+    canDrop: true,
+    text: t('foodHoney'),
+    target: 'Golden',
+    article: ''
+  },
+  Saddle: {
+    canBuy: true,
+    canDrop: false,
+    text: t('foodSaddleText'),
+    value: 5,
+    notes: t('foodSaddleNotes')
+  },
+  Cake_Skeleton: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeSkeleton'),
+    target: 'Skeleton',
+    article: ''
+  },
+  Cake_Base: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeBase'),
+    target: 'Base',
+    article: ''
+  },
+  Cake_CottonCandyBlue: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeCottonCandyBlue'),
+    target: 'CottonCandyBlue',
+    article: ''
+  },
+  Cake_CottonCandyPink: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeCottonCandyPink'),
+    target: 'CottonCandyPink',
+    article: ''
+  },
+  Cake_Shade: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeShade'),
+    target: 'Shade',
+    article: ''
+  },
+  Cake_White: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeWhite'),
+    target: 'White',
+    article: ''
+  },
+  Cake_Golden: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeGolden'),
+    target: 'Golden',
+    article: ''
+  },
+  Cake_Zombie: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeZombie'),
+    target: 'Zombie',
+    article: ''
+  },
+  Cake_Desert: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeDesert'),
+    target: 'Desert',
+    article: ''
+  },
+  Cake_Red: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCakeRed'),
+    target: 'Red',
+    article: ''
+  },
+  Candy_Skeleton: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandySkeleton'),
+    target: 'Skeleton',
+    article: ''
+  },
+  Candy_Base: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyBase'),
+    target: 'Base',
+    article: ''
+  },
+  Candy_CottonCandyBlue: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyCottonCandyBlue'),
+    target: 'CottonCandyBlue',
+    article: ''
+  },
+  Candy_CottonCandyPink: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyCottonCandyPink'),
+    target: 'CottonCandyPink',
+    article: ''
+  },
+  Candy_Shade: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyShade'),
+    target: 'Shade',
+    article: ''
+  },
+  Candy_White: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyWhite'),
+    target: 'White',
+    article: ''
+  },
+  Candy_Golden: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyGolden'),
+    target: 'Golden',
+    article: ''
+  },
+  Candy_Zombie: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyZombie'),
+    target: 'Zombie',
+    article: ''
+  },
+  Candy_Desert: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyDesert'),
+    target: 'Desert',
+    article: ''
+  },
+  Candy_Red: {
+    canBuy: false,
+    canDrop: false,
+    text: t('foodCandyRed'),
+    target: 'Red',
+    article: ''
+  }
+};
+
+_.each(api.food, function(food, key) {
+  return _.defaults(food, {
+    value: 1,
+    key: key,
+    notes: t('foodNotes')
+  });
+});
+
+api.quests = {
+  dilatory: {
+    text: t("questDilatoryText"),
+    notes: t("questDilatoryNotes"),
+    completion: t("questDilatoryCompletion"),
+    value: 0,
+    canBuy: false,
+    boss: {
+      name: t("questDilatoryBoss"),
+      hp: 5000000,
+      str: 1,
+      def: 1,
+      rage: {
+        title: t("questDilatoryBossRageTitle"),
+        description: t("questDilatoryBossRageDescription"),
+        value: 4000000,
+        tavern: t('questDilatoryBossRageTavern'),
+        stables: t('questDilatoryBossRageStables'),
+        market: t('questDilatoryBossRageMarket')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'MantisShrimp-Base',
+          text: t('questDilatoryDropMantisShrimpPet')
+        }, {
+          type: 'mounts',
+          key: 'MantisShrimp-Base',
+          text: t('questDilatoryDropMantisShrimpMount')
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat')
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk')
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('foodStrawberry')
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate')
+        }, {
+          type: 'food',
+          key: 'Fish',
+          text: t('foodFish')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat')
+        }, {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('foodCottonCandyPink')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('foodCottonCandyBlue')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney')
+        }
+      ],
+      gp: 0,
+      exp: 0
+    }
+  },
+  evilsanta: {
+    canBuy: false,
+    text: t('questEvilSantaText'),
+    notes: t('questEvilSantaNotes'),
+    completion: t('questEvilSantaCompletion'),
+    value: 4,
+    boss: {
+      name: t('questEvilSantaBoss'),
+      hp: 300,
+      str: 1
+    },
+    drop: {
+      items: [
+        {
+          type: 'mounts',
+          key: 'BearCub-Polar',
+          text: t('questEvilSantaDropBearCubPolarMount')
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  evilsanta2: {
+    canBuy: false,
+    text: t('questEvilSanta2Text'),
+    notes: t('questEvilSanta2Notes'),
+    completion: t('questEvilSanta2Completion'),
+    value: 4,
+    previous: 'evilsanta',
+    collect: {
+      tracks: {
+        text: t('questEvilSanta2CollectTracks'),
+        count: 20
+      },
+      branches: {
+        text: t('questEvilSanta2CollectBranches'),
+        count: 10
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'BearCub-Polar',
+          text: t('questEvilSanta2DropBearCubPolarPet')
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  gryphon: {
+    text: t('questGryphonText'),
+    notes: t('questGryphonNotes'),
+    completion: t('questGryphonCompletion'),
+    value: 4,
+    boss: {
+      name: t('questGryphonBoss'),
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Gryphon',
+          text: t('questGryphonDropGryphonEgg')
+        }, {
+          type: 'eggs',
+          key: 'Gryphon',
+          text: t('questGryphonDropGryphonEgg')
+        }, {
+          type: 'eggs',
+          key: 'Gryphon',
+          text: t('questGryphonDropGryphonEgg')
+        }
+      ],
+      gp: 25,
+      exp: 125
+    }
+  },
+  hedgehog: {
+    text: t('questHedgehogText'),
+    notes: t('questHedgehogNotes'),
+    completion: t('questHedgehogCompletion'),
+    value: 4,
+    boss: {
+      name: t('questHedgehogBoss'),
+      hp: 400,
+      str: 1.25
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Hedgehog',
+          text: t('questHedgehogDropHedgehogEgg')
+        }, {
+          type: 'eggs',
+          key: 'Hedgehog',
+          text: t('questHedgehogDropHedgehogEgg')
+        }, {
+          type: 'eggs',
+          key: 'Hedgehog',
+          text: t('questHedgehogDropHedgehogEgg')
+        }
+      ],
+      gp: 30,
+      exp: 125
+    }
+  },
+  ghost_stag: {
+    text: t('questGhostStagText'),
+    notes: t('questGhostStagNotes'),
+    completion: t('questGhostStagCompletion'),
+    value: 4,
+    boss: {
+      name: t('questGhostStagBoss'),
+      hp: 1200,
+      str: 2.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Deer',
+          text: t('questGhostStagDropDeerEgg')
+        }, {
+          type: 'eggs',
+          key: 'Deer',
+          text: t('questGhostStagDropDeerEgg')
+        }, {
+          type: 'eggs',
+          key: 'Deer',
+          text: t('questGhostStagDropDeerEgg')
+        }
+      ],
+      gp: 80,
+      exp: 800
+    }
+  },
+  vice1: {
+    text: t('questVice1Text'),
+    notes: t('questVice1Notes'),
+    value: 4,
+    lvl: 30,
+    boss: {
+      name: t('questVice1Boss'),
+      hp: 750,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "vice2",
+          text: t('questVice1DropVice2Quest')
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  vice2: {
+    text: t('questVice2Text'),
+    notes: t('questVice2Notes'),
+    value: 4,
+    lvl: 35,
+    previous: 'vice1',
+    collect: {
+      lightCrystal: {
+        text: t('questVice2CollectLightCrystal'),
+        count: 45
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: 'vice3',
+          text: t('questVice2DropVice3Quest')
+        }
+      ],
+      gp: 20,
+      exp: 75
+    }
+  },
+  vice3: {
+    text: t('questVice3Text'),
+    notes: t('questVice3Notes'),
+    completion: t('questVice3Completion'),
+    previous: 'vice2',
+    value: 4,
+    lvl: 40,
+    boss: {
+      name: t('questVice3Boss'),
+      hp: 1500,
+      str: 3
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "weapon_special_2",
+          text: t('questVice3DropWeaponSpecial2')
+        }, {
+          type: 'eggs',
+          key: 'Dragon',
+          text: t('questVice3DropDragonEgg')
+        }, {
+          type: 'eggs',
+          key: 'Dragon',
+          text: t('questVice3DropDragonEgg')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Shade',
+          text: t('questVice3DropShadeHatchingPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Shade',
+          text: t('questVice3DropShadeHatchingPotion')
+        }
+      ],
+      gp: 100,
+      exp: 1000
+    }
+  },
+  egg: {
+    text: t('questEggHuntText'),
+    notes: t('questEggHuntNotes'),
+    completion: t('questEggHuntCompletion'),
+    value: 1,
+    canBuy: false,
+    collect: {
+      plainEgg: {
+        text: t('questEggHuntCollectPlainEgg'),
+        count: 100
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }, {
+          type: 'eggs',
+          key: 'Egg',
+          text: t('questEggHuntDropPlainEgg')
+        }
+      ],
+      gp: 0,
+      exp: 0
+    }
+  },
+  rat: {
+    text: t('questRatText'),
+    notes: t('questRatNotes'),
+    completion: t('questRatCompletion'),
+    value: 4,
+    boss: {
+      name: t('questRatBoss'),
+      hp: 1200,
+      str: 2.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Rat',
+          text: t('questRatDropRatEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rat',
+          text: t('questRatDropRatEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rat',
+          text: t('questRatDropRatEgg')
+        }
+      ],
+      gp: 80,
+      exp: 800
+    }
+  },
+  octopus: {
+    text: t('questOctopusText'),
+    notes: t('questOctopusNotes'),
+    completion: t('questOctopusCompletion'),
+    value: 4,
+    boss: {
+      name: t('questOctopusBoss'),
+      hp: 1200,
+      str: 2.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Octopus',
+          text: t('questOctopusDropOctopusEgg')
+        }, {
+          type: 'eggs',
+          key: 'Octopus',
+          text: t('questOctopusDropOctopusEgg')
+        }, {
+          type: 'eggs',
+          key: 'Octopus',
+          text: t('questOctopusDropOctopusEgg')
+        }
+      ],
+      gp: 80,
+      exp: 800
+    }
+  },
+  dilatory_derby: {
+    text: t('questSeahorseText'),
+    notes: t('questSeahorseNotes'),
+    completion: t('questSeahorseCompletion'),
+    value: 4,
+    boss: {
+      name: t('questSeahorseBoss'),
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Seahorse',
+          text: t('questSeahorseDropSeahorseEgg')
+        }, {
+          type: 'eggs',
+          key: 'Seahorse',
+          text: t('questSeahorseDropSeahorseEgg')
+        }, {
+          type: 'eggs',
+          key: 'Seahorse',
+          text: t('questSeahorseDropSeahorseEgg')
+        }
+      ],
+      gp: 25,
+      exp: 125
+    }
+  },
+  atom1: {
+    text: t('questAtom1Text'),
+    notes: t('questAtom1Notes'),
+    value: 4,
+    lvl: 15,
+    collect: {
+      soapBars: {
+        text: t('questAtom1CollectSoapBars'),
+        count: 20
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "atom2",
+          text: t('questAtom1Drop')
+        }
+      ],
+      gp: 7,
+      exp: 50
+    }
+  },
+  atom2: {
+    text: t('questAtom2Text'),
+    notes: t('questAtom2Notes'),
+    previous: 'atom1',
+    value: 4,
+    lvl: 15,
+    boss: {
+      name: t('questAtom2Boss'),
+      hp: 300,
+      str: 1
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "atom3",
+          text: t('questAtom2Drop')
+        }
+      ],
+      gp: 20,
+      exp: 100
+    }
+  },
+  atom3: {
+    text: t('questAtom3Text'),
+    notes: t('questAtom3Notes'),
+    previous: 'atom2',
+    completion: t('questAtom3Completion'),
+    value: 4,
+    lvl: 15,
+    boss: {
+      name: t('questAtom3Boss'),
+      hp: 800,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "head_special_2",
+          text: t('headSpecial2Text')
+        }, {
+          type: 'hatchingPotions',
+          key: "Base",
+          text: t('questAtom3DropPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: "Base",
+          text: t('questAtom3DropPotion')
+        }
+      ],
+      gp: 25,
+      exp: 125
+    }
+  },
+  harpy: {
+    text: t('questHarpyText'),
+    notes: t('questHarpyNotes'),
+    completion: t('questHarpyCompletion'),
+    value: 4,
+    boss: {
+      name: t('questHarpyBoss'),
+      hp: 600,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Parrot',
+          text: t('questHarpyDropParrotEgg')
+        }, {
+          type: 'eggs',
+          key: 'Parrot',
+          text: t('questHarpyDropParrotEgg')
+        }, {
+          type: 'eggs',
+          key: 'Parrot',
+          text: t('questHarpyDropParrotEgg')
+        }
+      ],
+      gp: 43,
+      exp: 350
+    }
+  },
+  rooster: {
+    text: t('questRoosterText'),
+    notes: t('questRoosterNotes'),
+    completion: t('questRoosterCompletion'),
+    value: 4,
+    boss: {
+      name: t('questRoosterBoss'),
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Rooster',
+          text: t('questRoosterDropRoosterEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rooster',
+          text: t('questRoosterDropRoosterEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rooster',
+          text: t('questRoosterDropRoosterEgg')
+        }
+      ],
+      gp: 25,
+      exp: 125
+    }
+  },
+  spider: {
+    text: t('questSpiderText'),
+    notes: t('questSpiderNotes'),
+    completion: t('questSpiderCompletion'),
+    value: 4,
+    boss: {
+      name: t('questSpiderBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Spider',
+          text: t('questSpiderDropSpiderEgg')
+        }, {
+          type: 'eggs',
+          key: 'Spider',
+          text: t('questSpiderDropSpiderEgg')
+        }, {
+          type: 'eggs',
+          key: 'Spider',
+          text: t('questSpiderDropSpiderEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
+    }
+  },
+  moonstone1: {
+    text: t('questMoonstone1Text'),
+    notes: t('questMoonstone1Notes'),
+    value: 4,
+    lvl: 60,
+    collect: {
+      moonstone: {
+        text: t('questMoonstone1CollectMoonstone'),
+        count: 500
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "moonstone2",
+          text: t('questMoonstone1DropMoonstone2Quest')
+        }
+      ],
+      gp: 50,
+      exp: 100
+    }
+  },
+  moonstone2: {
+    text: t('questMoonstone2Text'),
+    notes: t('questMoonstone2Notes'),
+    value: 4,
+    lvl: 65,
+    previous: 'moonstone1',
+    boss: {
+      name: t('questMoonstone2Boss'),
+      hp: 1500,
+      str: 3
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: 'moonstone3',
+          text: t('questMoonstone2DropMoonstone3Quest')
+        }
+      ],
+      gp: 500,
+      exp: 1000
+    }
+  },
+  moonstone3: {
+    text: t('questMoonstone3Text'),
+    notes: t('questMoonstone3Notes'),
+    completion: t('questMoonstone3Completion'),
+    previous: 'moonstone2',
+    value: 4,
+    lvl: 70,
+    boss: {
+      name: t('questMoonstone3Boss'),
+      hp: 2000,
+      str: 3.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_2",
+          text: t('armorSpecial2Text')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('questMoonstone3DropRottenMeat')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('questMoonstone3DropRottenMeat')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('questMoonstone3DropRottenMeat')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('questMoonstone3DropRottenMeat')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('questMoonstone3DropRottenMeat')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Zombie',
+          text: t('questMoonstone3DropZombiePotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Zombie',
+          text: t('questMoonstone3DropZombiePotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Zombie',
+          text: t('questMoonstone3DropZombiePotion')
+        }
+      ],
+      gp: 900,
+      exp: 1500
+    }
+  },
+  goldenknight1: {
+    text: t('questGoldenknight1Text'),
+    notes: t('questGoldenknight1Notes'),
+    value: 4,
+    lvl: 40,
+    collect: {
+      testimony: {
+        text: t('questGoldenknight1CollectTestimony'),
+        count: 300
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: "goldenknight2",
+          text: t('questGoldenknight1DropGoldenknight2Quest')
+        }
+      ],
+      gp: 15,
+      exp: 120
+    }
+  },
+  goldenknight2: {
+    text: t('questGoldenknight2Text'),
+    notes: t('questGoldenknight2Notes'),
+    value: 4,
+    previous: 'goldenknight1',
+    lvl: 45,
+    boss: {
+      name: t('questGoldenknight2Boss'),
+      hp: 1000,
+      str: 3
+    },
+    drop: {
+      items: [
+        {
+          type: 'quests',
+          key: 'goldenknight3',
+          text: t('questGoldenknight2DropGoldenknight3Quest')
+        }
+      ],
+      gp: 75,
+      exp: 750
+    }
+  },
+  goldenknight3: {
+    text: t('questGoldenknight3Text'),
+    notes: t('questGoldenknight3Notes'),
+    completion: t('questGoldenknight3Completion'),
+    previous: 'goldenknight2',
+    value: 4,
+    lvl: 50,
+    boss: {
+      name: t('questGoldenknight3Boss'),
+      hp: 1700,
+      str: 3.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Honey',
+          text: t('questGoldenknight3DropHoney')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('questGoldenknight3DropHoney')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('questGoldenknight3DropHoney')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Golden',
+          text: t('questGoldenknight3DropGoldenPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Golden',
+          text: t('questGoldenknight3DropGoldenPotion')
+        }, {
+          type: 'gear',
+          key: 'shield_special_goldenknight',
+          text: t('questGoldenknight3DropWeapon')
+        }
+      ],
+      gp: 900,
+      exp: 1500
+    }
+  },
+  basilist: {
+    text: t('questBasilistText'),
+    notes: t('questBasilistNotes'),
+    completion: t('questBasilistCompletion'),
+    canBuy: false,
+    value: 4,
+    boss: {
+      name: t('questBasilistBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
+  },
+  owl: {
+    text: t('questOwlText'),
+    notes: t('questOwlNotes'),
+    completion: t('questOwlCompletion'),
+    value: 4,
+    boss: {
+      name: t('questOwlBoss'),
+      hp: 500,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }, {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }, {
+          type: 'eggs',
+          key: 'Owl',
+          text: t('questOwlDropOwlEgg')
+        }
+      ],
+      gp: 37,
+      exp: 275
+    }
+  },
+  penguin: {
+    text: t('questPenguinText'),
+    notes: t('questPenguinNotes'),
+    completion: t('questPenguinCompletion'),
+    value: 4,
+    boss: {
+      name: t('questPenguinBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }, {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }, {
+          type: 'eggs',
+          key: 'Penguin',
+          text: t('questPenguinDropPenguinEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
+    }
+  }
+};
+
+_.each(api.quests, function(v, key) {
+  var b;
+  _.defaults(v, {
+    key: key,
+    canBuy: true
+  });
+  b = v.boss;
+  if (b) {
+    _.defaults(b, {
+      str: 1,
+      def: 1
+    });
+    if (b.rage) {
+      return _.defaults(b.rage, {
+        title: t('bossRageTitle'),
+        description: t('bossRageDescription')
+      });
+    }
+  }
+});
+
+api.backgrounds = {
+  backgrounds062014: {
+    beach: {
+      text: t('backgroundBeachText'),
+      notes: t('backgroundBeachNotes')
+    },
+    fairy_ring: {
+      text: t('backgroundFairyRingText'),
+      notes: t('backgroundFairyRingNotes')
+    },
+    forest: {
+      text: t('backgroundForestText'),
+      notes: t('backgroundForestNotes')
+    }
+  },
+  backgrounds072014: {
+    open_waters: {
+      text: t('backgroundOpenWatersText'),
+      notes: t('backgroundOpenWatersNotes')
+    },
+    coral_reef: {
+      text: t('backgroundCoralReefText'),
+      notes: t('backgroundCoralReefNotes')
+    },
+    seafarer_ship: {
+      text: t('backgroundSeafarerShipText'),
+      notes: t('backgroundSeafarerShipNotes')
+    }
+  },
+  backgrounds082014: {
+    volcano: {
+      text: t('backgroundVolcanoText'),
+      notes: t('backgroundVolcanoNotes')
+    },
+    clouds: {
+      text: t('backgroundCloudsText'),
+      notes: t('backgroundCloudsNotes')
+    },
+    dusty_canyons: {
+      text: t('backgroundDustyCanyonsText'),
+      notes: t('backgroundDustyCanyonsNotes')
+    }
+  },
+  backgrounds092014: {
+    thunderstorm: {
+      text: t('backgroundThunderstormText'),
+      notes: t('backgroundThunderstormNotes')
+    },
+    autumn_forest: {
+      text: t('backgroundAutumnForestText'),
+      notes: t('backgroundAutumnForestNotes')
+    },
+    harvest_fields: {
+      text: t('backgroundHarvestFieldsText'),
+      notes: t('backgroundHarvestFieldsNotes')
+    }
+  },
+  backgrounds102014: {
+    graveyard: {
+      text: t('backgroundGraveyardText'),
+      notes: t('backgroundGraveyardNotes')
+    },
+    haunted_house: {
+      text: t('backgroundHauntedHouseText'),
+      notes: t('backgroundHauntedHouseNotes')
+    },
+    pumpkin_patch: {
+      text: t('backgroundPumpkinPatchText'),
+      notes: t('backgroundPumpkinPatchNotes')
+    }
+  },
+  backgrounds112014: {
+    harvest_feast: {
+      text: t('backgroundHarvestFeastText'),
+      notes: t('backgroundHarvestFeastNotes')
+    },
+    sunset_meadow: {
+      text: t('backgroundSunsetMeadowText'),
+      notes: t('backgroundSunsetMeadowNotes')
+    },
+    starry_skies: {
+      text: t('backgroundStarrySkiesText'),
+      notes: t('backgroundStarrySkiesNotes')
+    }
+  },
+  backgrounds122014: {
+    iceberg: {
+      text: t('backgroundIcebergText'),
+      notes: t('backgroundIcebergNotes')
+    },
+    twinkly_lights: {
+      text: t('backgroundTwinklyLightsText'),
+      notes: t('backgroundTwinklyLightsNotes')
+    },
+    south_pole: {
+      text: t('backgroundSouthPoleText'),
+      notes: t('backgroundSouthPoleNotes')
+    }
+  }
+};
+
+api.subscriptionBlocks = {
+  basic_earned: {
+    months: 1,
+    price: 5
+  },
+  basic_3mo: {
+    months: 3,
+    price: 15
+  },
+  basic_6mo: {
+    months: 6,
+    price: 30
+  },
+  google_6mo: {
+    months: 6,
+    price: 24,
+    discount: true,
+    original: 30
+  },
+  basic_12mo: {
+    months: 12,
+    price: 48
+  }
+};
+
+_.each(api.subscriptionBlocks, function(b, k) {
+  return b.key = k;
+});
+
+repeat = {
+  m: true,
+  t: true,
+  w: true,
+  th: true,
+  f: true,
+  s: true,
+  su: true
+};
+
+api.userDefaults = {
+  habits: [
+    {
+      type: 'habit',
+      text: t('defaultHabit1Text'),
+      notes: t('defaultHabit1Notes'),
+      value: 0,
+      up: true,
+      down: false,
+      attribute: 'per'
+    }, {
+      type: 'habit',
+      text: t('defaultHabit2Text'),
+      notes: t('defaultHabit2Notes'),
+      value: 0,
+      up: false,
+      down: true,
+      attribute: 'con'
+    }, {
+      type: 'habit',
+      text: t('defaultHabit3Text'),
+      notes: t('defaultHabit3Notes'),
+      value: 0,
+      up: true,
+      down: true,
+      attribute: 'str'
+    }
+  ],
+  dailys: [
+    {
+      type: 'daily',
+      text: t('defaultDaily1Text'),
+      notes: t('defaultDaily1Notes'),
+      value: 0,
+      completed: false,
+      repeat: repeat,
+      attribute: 'per'
+    }, {
+      type: 'daily',
+      text: t('defaultDaily2Text'),
+      notes: t('defaultDaily2Notes'),
+      value: 3,
+      completed: false,
+      repeat: repeat,
+      attribute: 'con'
+    }, {
+      type: 'daily',
+      text: t('defaultDaily3Text'),
+      notes: t('defaultDaily3Notes'),
+      value: -10,
+      completed: false,
+      repeat: repeat,
+      attribute: 'int'
+    }, {
+      type: 'daily',
+      text: t('defaultDaily4Text'),
+      notes: t('defaultDaily4Notes'),
+      checklist: [
+        {
+          completed: true,
+          text: t('defaultDaily4Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultDaily4Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultDaily4Checklist3')
+        }
+      ],
+      completed: false,
+      repeat: repeat,
+      attribute: 'str'
+    }
+  ],
+  todos: [
+    {
+      type: 'todo',
+      text: t('defaultTodo1Text'),
+      notes: t('defaultTodo1Notes'),
+      completed: false,
+      attribute: 'int'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo2Text'),
+      notes: t('defaultTodo2Notes'),
+      completed: false,
+      attribute: 'int'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo3Text'),
+      notes: t('defaultTodo3Notes'),
+      value: -3,
+      completed: false,
+      attribute: 'per'
+    }
+  ],
+  rewards: [
+    {
+      type: 'reward',
+      text: t('defaultReward1Text'),
+      notes: t('defaultReward1Notes'),
+      value: 20
+    }, {
+      type: 'reward',
+      text: t('defaultReward2Text'),
+      notes: t('defaultReward2Notes'),
+      value: 10
+    }
+  ],
+  tags: [
+    {
+      name: t('defaultTag1')
+    }, {
+      name: t('defaultTag2')
+    }, {
+      name: t('defaultTag3')
+    }
+  ]
+};
+
+
+},{"./i18n.coffee":4,"lodash":6,"moment":7}],4:[function(require,module,exports){
+var _;
+
+_ = require('lodash');
+
+module.exports = {
+  strings: null,
+  translations: {},
+  t: function(stringName) {
+    var e, locale, string, stringNotFound, vars;
+    vars = arguments[1];
+    if (_.isString(arguments[1])) {
+      vars = null;
+      locale = arguments[1];
+    } else if (arguments[2] != null) {
+      vars = arguments[1];
+      locale = arguments[2];
+    }
+    if ((locale == null) || (!module.exports.strings && !module.exports.translations[locale])) {
+      locale = 'en';
+    }
+    string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    if (string) {
+      try {
+        return _.template(string, vars || {});
+      } catch (_error) {
+        e = _error;
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
+      }
+    } else {
+      stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      try {
+        return _.template(stringNotFound, {
+          string: stringName
+        });
+      } catch (_error) {
+        e = _error;
+        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
+      }
+    }
+  }
+};
+
+
+},{"lodash":6}],5:[function(require,module,exports){
+(function (process){
+var $w, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder, _,
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+moment = require('moment');
+
+_ = require('lodash');
+
+content = require('./content.coffee');
+
+i18n = require('./i18n.coffee');
+
+api = module.exports = {};
+
+api.i18n = i18n;
+
+$w = api.$w = function(s) {
+  return s.split(' ');
+};
+
+api.dotSet = function(obj, path, val) {
+  var arr;
+  arr = path.split('.');
+  return _.reduce(arr, (function(_this) {
+    return function(curr, next, index) {
+      if ((arr.length - 1) === index) {
+        curr[next] = val;
+      }
+      return curr[next] != null ? curr[next] : curr[next] = {};
+    };
+  })(this), obj);
+};
+
+api.dotGet = function(obj, path) {
+  return _.reduce(path.split('.'), ((function(_this) {
+    return function(curr, next) {
+      return curr != null ? curr[next] : void 0;
+    };
+  })(this)), obj);
+};
+
+
+/*
+  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
+  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
+  no problem. To maintain sorting, we use these helper functions:
+ */
+
+api.refPush = function(reflist, item, prune) {
+  if (prune == null) {
+    prune = 0;
+  }
+  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
+  if (!(item.id && !reflist[item.id])) {
+    item.id = api.uuid();
+  }
+  return reflist[item.id] = item;
+};
+
+api.planGemLimits = {
+  convRate: 20,
+  convCap: 25
+};
+
+
+/*
+  ------------------------------------------------------
+  Time / Day
+  ------------------------------------------------------
+ */
+
+
+/*
+  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
+  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
+  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
+ */
+
+sanitizeOptions = function(o) {
+  var dayStart, now, timezoneOffset, _ref;
+  dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
+  timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
+  now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
+  return {
+    dayStart: dayStart,
+    timezoneOffset: timezoneOffset,
+    now: now
+  };
+};
+
+api.startOfWeek = api.startOfWeek = function(options) {
+  var o;
+  if (options == null) {
+    options = {};
+  }
+  o = sanitizeOptions(options);
+  return moment(o.now).startOf('week');
+};
+
+api.startOfDay = function(options) {
+  var o;
+  if (options == null) {
+    options = {};
+  }
+  o = sanitizeOptions(options);
+  return moment(o.now).startOf('day').add({
+    hours: o.dayStart
+  });
+};
+
+api.dayMapping = {
+  0: 'su',
+  1: 'm',
+  2: 't',
+  3: 'w',
+  4: 'th',
+  5: 'f',
+  6: 's'
+};
+
+
+/*
+  Absolute diff from "yesterday" till now
+ */
+
+api.daysSince = function(yesterday, options) {
+  var o;
+  if (options == null) {
+    options = {};
+  }
+  o = sanitizeOptions(options);
+  return Math.abs(api.startOfDay(_.defaults({
+    now: yesterday
+  }, o)).diff(o.now, 'days'));
+};
+
+
+/*
+  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+ */
+
+api.shouldDo = function(day, repeat, options) {
+  var o, selected, yesterday;
+  if (options == null) {
+    options = {};
+  }
+  if (!repeat) {
+    return false;
+  }
+  o = sanitizeOptions(options);
+  selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
+    now: day
+  }, o)).day()]];
+  if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
+    return selected;
+  }
+  if (options.dayStart <= o.now.hour()) {
+    return selected;
+  } else {
+    yesterday = moment(o.now).subtract({
+      days: 1
+    }).day();
+    return repeat[api.dayMapping[yesterday]];
+  }
+};
+
+
+/*
+  ------------------------------------------------------
+  Scoring
+  ------------------------------------------------------
+ */
+
+api.tnl = function(lvl) {
+  return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
+};
+
+
+/*
+  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+  {max} The asymptote
+  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+  {halfway} (optional) the point at which the graph starts bending
+ */
+
+api.diminishingReturns = function(bonus, max, halfway) {
+  if (halfway == null) {
+    halfway = max / 2;
+  }
+  return max * (bonus / (bonus + halfway));
+};
+
+api.monod = function(bonus, rateOfIncrease, max) {
+  return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
+};
+
+
+/*
+Preen history for users with > 7 history entries
+This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
+of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
+of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
+ */
+
+preenHistory = function(history) {
+  var newHistory, preen, thisMonth;
+  history = _.filter(history, function(h) {
+    return !!h;
+  });
+  newHistory = [];
+  preen = function(amount, groupBy) {
+    var groups;
+    groups = _.chain(history).groupBy(function(h) {
+      return moment(h.date).format(groupBy);
+    }).sortBy(function(h, k) {
+      return k;
+    }).value();
+    groups = groups.slice(-amount);
+    groups.pop();
+    return _.each(groups, function(group) {
+      newHistory.push({
+        date: moment(group[0].date).toDate(),
+        value: _.reduce(group, (function(m, obj) {
+          return m + obj.value;
+        }), 0) / group.length
+      });
+      return true;
+    });
+  };
+  preen(50, "YYYY");
+  preen(moment().format('MM'), "YYYYMM");
+  thisMonth = moment().format('YYYYMM');
+  newHistory = newHistory.concat(_.filter(history, function(h) {
+    return moment(h.date).format('YYYYMM') === thisMonth;
+  }));
+  return newHistory;
+};
+
+
+/*
+  Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
+ */
+
+sortOrder = _.reduce(content.gearTypes, (function(m, v, k) {
+  m[v] = k;
+  return m;
+}), {});
+
+api.updateStore = function(user) {
+  var changes;
+  if (!user) {
+    return;
+  }
+  changes = [];
+  _.each(content.gearTypes, function(type) {
+    var found;
+    found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
+      return !user.items.gear.owned[item.key];
+    });
+    if (found) {
+      changes.push(found);
+    }
+    return true;
+  });
+  changes = changes.concat(_.filter(content.gear.flat, function(v) {
+    var _ref;
+    return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
+  }));
+  changes.push(content.potion);
+  return _.sortBy(changes, function(c) {
+    return sortOrder[c.type];
+  });
+};
+
+
+/*
+------------------------------------------------------
+Content
+------------------------------------------------------
+ */
+
+api.content = content;
+
+
+/*
+------------------------------------------------------
+Misc Helpers
+------------------------------------------------------
+ */
+
+api.uuid = function() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r, v;
+    r = Math.random() * 16 | 0;
+    v = (c === "x" ? r : r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+
+api.countExists = function(items) {
+  return _.reduce(items, (function(m, v) {
+    return m + (v ? 1 : 0);
+  }), 0);
+};
+
+
+/*
+Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
+sending up to the server for performance
+ */
+
+api.taskDefaults = function(task) {
+  var defaults, _ref, _ref1, _ref2;
+  if (task == null) {
+    task = {};
+  }
+  if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
+    task.type = 'habit';
+  }
+  defaults = {
+    id: api.uuid(),
+    text: task.id != null ? task.id : '',
+    notes: '',
+    priority: 1,
+    challenge: {},
+    attribute: 'str',
+    dateCreated: new Date()
+  };
+  _.defaults(task, defaults);
+  if (task.type === 'habit') {
+    _.defaults(task, {
+      up: true,
+      down: true
+    });
+  }
+  if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
+    _.defaults(task, {
+      history: []
+    });
+  }
+  if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+    _.defaults(task, {
+      completed: false
+    });
+  }
+  if (task.type === 'daily') {
+    _.defaults(task, {
+      streak: 0,
+      repeat: {
+        su: 1,
+        m: 1,
+        t: 1,
+        w: 1,
+        th: 1,
+        f: 1,
+        s: 1
+      }
+    });
+  }
+  task._id = task.id;
+  if (task.value == null) {
+    task.value = task.type === 'reward' ? 10 : 0;
+  }
+  if (!_.isNumber(task.priority)) {
+    task.priority = 1;
+  }
+  return task;
+};
+
+api.percent = function(x, y, dir) {
+  var roundFn;
+  switch (dir) {
+    case "up":
+      roundFn = Math.ceil;
+      break;
+    case "down":
+      roundFn = Math.floor;
+      break;
+    default:
+      roundFn = Math.round;
+  }
+  if (x === 0) {
+    x = 1;
+  }
+  return Math.max(0, roundFn(x / y * 100));
+};
+
+
+/*
+Remove whitespace #FIXME are we using this anywwhere? Should we be?
+ */
+
+api.removeWhitespace = function(str) {
+  if (!str) {
+    return '';
+  }
+  return str.replace(/\s/g, '');
+};
+
+
+/*
+Encode the download link for .ics iCal file
+ */
+
+api.encodeiCalLink = function(uid, apiToken) {
+  var loc, _ref;
+  loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
+  return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
+};
+
+
+/*
+Gold amount from their money
+ */
+
+api.gold = function(num) {
+  if (num) {
+    return Math.floor(num);
+  } else {
+    return "0";
+  }
+};
+
+
+/*
+Silver amount from their money
+ */
+
+api.silver = function(num) {
+  if (num) {
+    return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
+  } else {
+    return "00";
+  }
+};
+
+
+/*
+Task classes given everything about the class
+ */
+
+api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
+  var classes, completed, enabled, filter, repeat, type, value, _ref;
+  if (filters == null) {
+    filters = [];
+  }
+  if (dayStart == null) {
+    dayStart = 0;
+  }
+  if (lastCron == null) {
+    lastCron = +(new Date);
+  }
+  if (showCompleted == null) {
+    showCompleted = false;
+  }
+  if (main == null) {
+    main = false;
+  }
+  if (!task) {
+    return;
+  }
+  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
+  if ((type === 'todo' && completed !== showCompleted) && main) {
+    return 'hidden';
+  }
+  if (main) {
+    if (!task._editing) {
+      for (filter in filters) {
+        enabled = filters[filter];
+        if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
+          return 'hidden';
+        }
+      }
+    }
+  }
+  classes = type;
+  if (task._editing) {
+    classes += " beingEdited";
+  }
+  if (type === 'todo' || type === 'daily') {
+    if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
+      dayStart: dayStart
+    }))) {
+      classes += " completed";
+    } else {
+      classes += " uncompleted";
+    }
+  } else if (type === 'habit') {
+    if (task.down && task.up) {
+      classes += ' habit-wide';
+    }
+    if (!task.down && !task.up) {
+      classes += ' habit-narrow';
+    }
+  }
+  if (value < -20) {
+    classes += ' color-worst';
+  } else if (value < -10) {
+    classes += ' color-worse';
+  } else if (value < -1) {
+    classes += ' color-bad';
+  } else if (value < 1) {
+    classes += ' color-neutral';
+  } else if (value < 5) {
+    classes += ' color-good';
+  } else if (value < 10) {
+    classes += ' color-better';
+  } else {
+    classes += ' color-best';
+  }
+  return classes;
+};
+
+
+/*
+Friendly timestamp
+ */
+
+api.friendlyTimestamp = function(timestamp) {
+  return moment(timestamp).format('MM/DD h:mm:ss a');
+};
+
+
+/*
+Does user have new chat messages?
+ */
+
+api.newChatMessages = function(messages, lastMessageSeen) {
+  if (!((messages != null ? messages.length : void 0) > 0)) {
+    return false;
+  }
+  return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
+};
+
+
+/*
+are any tags active?
+ */
+
+api.noTags = function(tags) {
+  return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
+    return t;
+  }));
+};
+
+
+/*
+Are there tags applied?
+ */
+
+api.appliedTags = function(userTags, taskTags) {
+  var arr;
+  arr = [];
+  _.each(userTags, function(t) {
+    if (t == null) {
+      return;
+    }
+    if (taskTags != null ? taskTags[t.id] : void 0) {
+      return arr.push(t.name);
+    }
+  });
+  return arr.join(', ');
+};
+
+api.countPets = function(originalCount, pets) {
+  var count, pet;
+  count = originalCount != null ? originalCount : _.size(pets);
+  for (pet in content.questPets) {
+    if (pets[pet]) {
+      count--;
+    }
+  }
+  for (pet in content.specialPets) {
+    if (pets[pet]) {
+      count--;
+    }
+  }
+  return count;
+};
+
+api.countMounts = function(originalCount, mounts) {
+  var count, mount;
+  count = originalCount != null ? originalCount : _.size(mounts);
+  for (mount in content.specialMounts) {
+    if (mounts[mount]) {
+      count--;
+    }
+  }
+  return count;
+};
+
+
+/*
+------------------------------------------------------
+User (prototype wrapper to give it ops, helper funcs, and virtuals
+------------------------------------------------------
+ */
+
+
+/*
+User is now wrapped (both on client and server), adding a few new properties:
+  * getters (_statsComputed, tasks, etc)
+  * user.fns, which is a bunch of helper functions
+    These were originally up above, but they make more sense belonging to the user object so we don't have to pass
+    the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
+  * user.ops, which is super important:
+
+If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
+the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
+of the op function). The first argument req is {query, body, params}, it's what the express controller function
+expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
+we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
+params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
+
+If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
+to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
+function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
+handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
+everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
+*do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
+sure to call user.ops.OP_NAME at some point within the overridden function.
+
+TODO
+  * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
+    user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
+    move to $resource for user
+  * Move to $resource!
+ */
+
+api.wrap = function(user, main) {
+  if (main == null) {
+    main = true;
+  }
+  if (user._wrapped) {
+    return;
+  }
+  user._wrapped = true;
+  if (main) {
+    user.ops = {
+      update: function(req, cb) {
+        _.each(req.body, function(v, k) {
+          user.fns.dotSet(k, v);
+          return true;
+        });
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      sleep: function(req, cb) {
+        user.preferences.sleep = !user.preferences.sleep;
+        return typeof cb === "function" ? cb(null, {}) : void 0;
+      },
+      revive: function(req, cb) {
+        var cl, gearOwned, item, losableItems, lostItem, lostStat, _base;
+        if (!(user.stats.hp <= 0)) {
+          return typeof cb === "function" ? cb({
+            code: 400,
+            message: "Cannot revive if not dead"
+          }) : void 0;
+        }
+        _.merge(user.stats, {
+          hp: 50,
+          exp: 0,
+          gp: 0
+        });
+        if (user.stats.lvl > 1) {
+          user.stats.lvl--;
+        }
+        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+          if (user.stats[k]) {
+            m[k] = k;
+          }
+          return m;
+        }), {}));
+        if (lostStat) {
+          user.stats[lostStat]--;
+        }
+        cl = user.stats["class"];
+        gearOwned = (typeof (_base = user.items.gear.owned).toObject === "function" ? _base.toObject() : void 0) || user.items.gear.owned;
+        losableItems = {};
+        _.each(gearOwned, function(v, k) {
+          var itm;
+          if (v) {
+            itm = content.gear.flat['' + k];
+            if (itm) {
+              if ((itm.value > 0 || k === 'weapon_warrior_0') && (itm.klass === cl || (itm.klass === 'special' && (!itm.specialClass || itm.specialClass === cl)))) {
+                return losableItems['' + k] = '' + k;
+              }
+            }
+          }
+        });
+        lostItem = user.fns.randomVal(losableItems);
+        if (item = content.gear.flat[lostItem]) {
+          user.items.gear.owned[lostItem] = false;
+          if (user.items.gear.equipped[item.type] === lostItem) {
+            user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
+          }
+          if (user.items.gear.costume[item.type] === lostItem) {
+            user.items.gear.costume[item.type] = "" + item.type + "_base_0";
+          }
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear');
+        }
+        return typeof cb === "function" ? cb((item ? {
+          code: 200,
+          message: i18n.t('messageLostItem', {
+            itemText: item.text(req.language)
+          }, req.language)
+        } : null), user) : void 0;
+      },
+      reset: function(req, cb) {
+        var gear;
+        user.habits = [];
+        user.dailys = [];
+        user.todos = [];
+        user.rewards = [];
+        user.stats.hp = 50;
+        user.stats.lvl = 1;
+        user.stats.gp = 0;
+        user.stats.exp = 0;
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_base_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        if (typeof gear.owned === 'undefined') {
+          gear.owned = {};
+        }
+        _.each(gear.owned, function(v, k) {
+          if (gear.owned[k]) {
+            gear.owned[k] = false;
+          }
+          return true;
+        });
+        gear.owned.weapon_warrior_0 = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        user.preferences.costume = false;
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      reroll: function(req, cb, ga) {
+        if (user.balance < 1) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        }
+        user.balance--;
+        _.each(user.tasks, function(task) {
+          if (task.type !== 'reward') {
+            return task.value = 0;
+          }
+        });
+        user.stats.hp = 50;
+        if (typeof cb === "function") {
+          cb(null, user);
+        }
+        return ga != null ? ga.event('purchase', 'reroll').send() : void 0;
+      },
+      rebirth: function(req, cb, ga) {
+        var flags, gear, lvl, stats;
+        if (user.balance < 2 && user.stats.lvl < 100) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        }
+        if (user.stats.lvl < 100) {
+          user.balance -= 2;
+        }
+        if (user.stats.lvl < 100) {
+          lvl = user.stats.lvl;
+        } else {
+          lvl = 100;
+        }
+        _.each(user.tasks, function(task) {
+          if (task.type !== 'reward') {
+            task.value = 0;
+          }
+          if (task.type === 'daily') {
+            return task.streak = 0;
+          }
+        });
+        stats = user.stats;
+        stats.buffs = {};
+        stats.hp = 50;
+        stats.lvl = 1;
+        stats["class"] = 'warrior';
+        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+          return stats[value] = 0;
+        });
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type] = {};
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_warrior_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        if (user.items.currentPet) {
+          user.ops.equip({
+            params: {
+              type: 'pet',
+              key: user.items.currentPet
+            }
+          });
+        }
+        if (user.items.currentMount) {
+          user.ops.equip({
+            params: {
+              type: 'mount',
+              key: user.items.currentMount
+            }
+          });
+        }
+        _.each(gear.owned, function(v, k) {
+          if (gear.owned[k]) {
+            gear.owned[k] = false;
+            return true;
+          }
+        });
+        gear.owned.weapon_warrior_0 = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        user.preferences.costume = false;
+        flags = user.flags;
+        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          flags.rebirthEnabled = false;
+        }
+        flags.itemsEnabled = false;
+        flags.dropsEnabled = false;
+        flags.classSelected = false;
+        flags.levelDrops = {};
+        if (!user.achievements.rebirths) {
+          user.achievements.rebirths = 1;
+          user.achievements.rebirthLevel = lvl;
+        } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
+          user.achievements.rebirths++;
+          user.achievements.rebirthLevel = lvl;
+        }
+        user.stats.buffs = {};
+        if (typeof cb === "function") {
+          cb(null, user);
+        }
+        return ga != null ? ga.event('purchase', 'Rebirth').send() : void 0;
+      },
+      allocateNow: function(req, cb) {
+        _.times(user.stats.points, user.fns.autoAllocate);
+        user.stats.points = 0;
+        if (typeof user.markModified === "function") {
+          user.markModified('stats');
+        }
+        return typeof cb === "function" ? cb(null, user.stats) : void 0;
+      },
+      clearCompleted: function(req, cb) {
+        _.remove(user.todos, function(t) {
+          var _ref;
+          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
+        });
+        if (typeof user.markModified === "function") {
+          user.markModified('todos');
+        }
+        return typeof cb === "function" ? cb(null, user.todos) : void 0;
+      },
+      sortTask: function(req, cb) {
+        var from, id, movedTask, task, tasks, to, _ref;
+        id = req.params.id;
+        _ref = req.query, to = _ref.to, from = _ref.from;
+        task = user.tasks[id];
+        if (!task) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageTaskNotFound', req.language)
+          }) : void 0;
+        }
+        if (!((to != null) && (from != null))) {
+          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+        }
+        tasks = user["" + task.type + "s"];
+        movedTask = tasks.splice(from, 1)[0];
+        if (to === -1) {
+          tasks.push(movedTask);
+        } else {
+          tasks.splice(to, 0, movedTask);
+        }
+        return typeof cb === "function" ? cb(null, tasks) : void 0;
+      },
+      updateTask: function(req, cb) {
+        var task, _ref;
+        if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageTaskNotFound', req.language)
+          }) : void 0;
+        }
+        _.merge(task, _.omit(req.body, ['checklist', 'id']));
+        if (req.body.checklist) {
+          task.checklist = req.body.checklist;
+        }
+        if (typeof task.markModified === "function") {
+          task.markModified('tags');
+        }
+        return typeof cb === "function" ? cb(null, task) : void 0;
+      },
+      deleteTask: function(req, cb) {
+        var i, task, _ref;
+        task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
+        if (!task) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageTaskNotFound', req.language)
+          }) : void 0;
+        }
+        i = user[task.type + "s"].indexOf(task);
+        if (~i) {
+          user[task.type + "s"].splice(i, 1);
+        }
+        return typeof cb === "function" ? cb(null, {}) : void 0;
+      },
+      addTask: function(req, cb) {
+        var task;
+        task = api.taskDefaults(req.body);
+        user["" + task.type + "s"].unshift(task);
+        if (user.preferences.newTaskEdit) {
+          task._editing = true;
+        }
+        if (user.preferences.tagsCollapsed) {
+          task._tags = true;
+        }
+        if (user.preferences.advancedCollapsed) {
+          task._advanced = true;
+        }
+        if (typeof cb === "function") {
+          cb(null, task);
+        }
+        return task;
+      },
+      addTag: function(req, cb) {
+        if (user.tags == null) {
+          user.tags = [];
+        }
+        user.tags.push({
+          name: req.body.name,
+          id: req.body.id || api.uuid()
+        });
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
+      },
+      sortTag: function(req, cb) {
+        var from, to, _ref;
+        _ref = req.query, to = _ref.to, from = _ref.from;
+        if (!((to != null) && (from != null))) {
+          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+        }
+        user.tags.splice(to, 0, user.tags.splice(from, 1)[0]);
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
+      },
+      updateTag: function(req, cb) {
+        var i, tid;
+        tid = req.params.id;
+        i = _.findIndex(user.tags, {
+          id: tid
+        });
+        if (!~i) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageTagNotFound', req.language)
+          }) : void 0;
+        }
+        user.tags[i].name = req.body.name;
+        return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
+      },
+      deleteTag: function(req, cb) {
+        var i, tag, tid;
+        tid = req.params.id;
+        i = _.findIndex(user.tags, {
+          id: tid
+        });
+        if (!~i) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageTagNotFound', req.language)
+          }) : void 0;
+        }
+        tag = user.tags[i];
+        delete user.filters[tag.id];
+        user.tags.splice(i, 1);
+        _.each(user.tasks, function(task) {
+          return delete task.tags[tag.id];
+        });
+        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
+          return typeof user.markModified === "function" ? user.markModified(type) : void 0;
+        });
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
+      },
+      addWebhook: function(req, cb) {
+        var wh;
+        wh = user.preferences.webhooks;
+        api.refPush(wh, {
+          url: req.body.url,
+          enabled: req.body.enabled || true,
+          id: req.body.id
+        });
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      updateWebhook: function(req, cb) {
+        _.merge(user.preferences.webhooks[req.params.id], req.body);
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      deleteWebhook: function(req, cb) {
+        delete user.preferences.webhooks[req.params.id];
+        if (typeof user.markModified === "function") {
+          user.markModified('preferences.webhooks');
+        }
+        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
+      },
+      clearPMs: function(req, cb) {
+        user.inbox.messages = {};
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.messages');
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
+      },
+      deletePM: function(req, cb) {
+        delete user.inbox.messages[req.params.id];
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.messages.' + req.params.id);
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
+      },
+      blockUser: function(req, cb) {
+        var i;
+        i = user.inbox.blocks.indexOf(req.params.uuid);
+        if (~i) {
+          user.inbox.blocks.splice(i, 1);
+        } else {
+          user.inbox.blocks.push(req.params.uuid);
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('inbox.blocks');
+        }
+        return typeof cb === "function" ? cb(null, user.inbox.blocks) : void 0;
+      },
+      feed: function(req, cb) {
+        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+        _ref = req.params, pet = _ref.pet, food = _ref.food;
+        food = content.food[food];
+        _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
+        userPets = user.items.pets;
+        if (!userPets[pet]) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messagePetNotFound', req.language)
+          }) : void 0;
+        }
+        if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageFoodNotFound', req.language)
+          }) : void 0;
+        }
+        if (content.specialPets[pet] || (egg === "Egg")) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageCannotFeedPet', req.language)
+          }) : void 0;
+        }
+        if (user.items.mounts[pet]) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageAlreadyMount', req.language)
+          }) : void 0;
+        }
+        message = '';
+        evolve = function() {
+          userPets[pet] = -1;
+          user.items.mounts[pet] = true;
+          if (pet === user.items.currentPet) {
+            user.items.currentPet = "";
+          }
+          return message = i18n.t('messageEvolve', {
+            egg: egg
+          }, req.language);
+        };
+        if (food.key === 'Saddle') {
+          evolve();
+        } else {
+          if (food.target === potion) {
+            userPets[pet] += 5;
+            message = i18n.t('messageLikesFood', {
+              egg: egg,
+              foodText: food.text(req.language)
+            }, req.language);
+          } else {
+            userPets[pet] += 2;
+            message = i18n.t('messageDontEnjoyFood', {
+              egg: egg,
+              foodText: food.text(req.language)
+            }, req.language);
+          }
+          if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
+            evolve();
+          }
+        }
+        user.items.food[food.key]--;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, userPets[pet]) : void 0;
+      },
+      buySpecialSpell: function(req, cb) {
+        var item, key, message, _base;
+        key = req.params.key;
+        item = content.special[key];
+        if (user.stats.gp < item.value) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageNotEnoughGold', req.language)
+          }) : void 0;
+        }
+        user.stats.gp -= item.value;
+        if ((_base = user.items.special)[key] == null) {
+          _base[key] = 0;
+        }
+        user.items.special[key]++;
+        if (typeof user.markModified === "function") {
+          user.markModified('items.special');
+        }
+        message = i18n.t('messageBought', {
+          itemText: item.text(req.language)
+        }, req.language);
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, _.pick(user, $w('items stats'))) : void 0;
+      },
+      purchase: function(req, cb, ga) {
+        var convCap, convRate, item, key, price, type, _ref, _ref1, _ref2, _ref3;
+        _ref = req.params, type = _ref.type, key = _ref.key;
+        if (type === 'gems' && key === 'gem') {
+          _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
+          convCap += user.purchased.plan.consecutive.gemCapExtra;
+          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Must subscribe to purchase gems with GP"
+            }, req) : void 0;
+          }
+          if (!(user.stats.gp >= convRate)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough Gold"
+            }) : void 0;
+          }
+          if (user.purchased.plan.gemsBought >= convCap) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."
+            }) : void 0;
+          }
+          user.balance += .25;
+          user.purchased.plan.gemsBought++;
+          user.stats.gp -= convRate;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: "+1 Gems"
+          }, _.pick(user, $w('stats balance'))) : void 0;
+        }
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'gear') {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":type must be in [eggs,hatchingPotions,food,quests,gear]"
+          }, req) : void 0;
+        }
+        if (type === 'gear') {
+          item = content.gear.flat[key];
+          if (user.items.gear.owned[key]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: i18n.t('alreadyHave', req.language)
+            }) : void 0;
+          }
+          price = (item.twoHanded ? 2 : 1) / 4;
+        } else {
+          item = content[type][key];
+          price = item.value / 4;
+        }
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":key not found for Content." + type
+          }, req) : void 0;
+        }
+        if (user.balance < price) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        }
+        user.balance -= price;
+        if (type === 'gear') {
+          user.items.gear.owned[key] = true;
+        } else {
+          if (!(user.items[type][key] > 0)) {
+            user.items[type][key] = 0;
+          }
+          user.items[type][key]++;
+        }
+        if (typeof cb === "function") {
+          cb(null, _.pick(user, $w('items balance')));
+        }
+        return ga != null ? ga.event('purchase', key).send() : void 0;
+      },
+      release: function(req, cb) {
+        var pet;
+        if (user.balance < 1) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        } else {
+          user.balance--;
+          for (pet in content.pets) {
+            user.items.pets[pet] = 0;
+          }
+          if (!user.achievements.beastMasterCount) {
+            user.achievements.beastMasterCount = 0;
+          }
+          user.achievements.beastMasterCount++;
+          user.items.currentPet = "";
+        }
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      release2: function(req, cb) {
+        var pet;
+        if (user.balance < 2) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        } else {
+          user.balance -= 2;
+          user.items.currentMount = "";
+          user.items.currentPet = "";
+          for (pet in content.pets) {
+            user.items.mounts[pet] = false;
+            user.items.pets[pet] = 0;
+          }
+          if (!user.achievements.beastMasterCount) {
+            user.achievements.beastMasterCount = 0;
+          }
+          user.achievements.beastMasterCount++;
+        }
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      buy: function(req, cb) {
+        var item, key, message;
+        key = req.params.key;
+        item = key === 'potion' ? content.potion : content.gear.flat[key];
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
+          }) : void 0;
+        }
+        if (user.stats.gp < item.value) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageNotEnoughGold', req.language)
+          }) : void 0;
+        }
+        if ((item.canOwn != null) && !item.canOwn(user)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You can't own this item"
+          }) : void 0;
+        }
+        if (item.key === 'potion') {
+          user.stats.hp += 15;
+          if (user.stats.hp > 50) {
+            user.stats.hp = 50;
+          }
+        } else {
+          user.items.gear.equipped[item.type] = item.key;
+          user.items.gear.owned[item.key] = true;
+          message = user.fns.handleTwoHanded(item, null, req);
+          if (message == null) {
+            message = i18n.t('messageBought', {
+              itemText: item.text(req.language)
+            }, req.language);
+          }
+          if (!user.achievements.ultimateGear && item.last) {
+            user.fns.ultimateGear();
+          }
+        }
+        user.stats.gp -= item.value;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, _.pick(user, $w('items achievements stats'))) : void 0;
+      },
+      buyMysterySet: function(req, cb) {
+        var mysterySet, _ref;
+        if (!(user.purchased.plan.consecutive.trinkets > 0)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "You don't have enough Mystic Hourglasses"
+          }) : void 0;
+        }
+        mysterySet = (_ref = content.timeTravelerStore(user.items.gear.owned)) != null ? _ref[req.params.key] : void 0;
+        if ((typeof window !== "undefined" && window !== null ? window.confirm : void 0) != null) {
+          if (!window.confirm("Buy this full set of items for 1 Mystic Hourglass?")) {
+            return;
+          }
+        }
+        if (!mysterySet) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Mystery set not found, or set already owned"
+          }) : void 0;
+        }
+        _.each(mysterySet.items, function(i) {
+          return user.items.gear.owned[i.key] = true;
+        });
+        user.purchased.plan.consecutive.trinkets--;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
+      },
+      sell: function(req, cb) {
+        var key, type, _ref;
+        _ref = req.params, key = _ref.key, type = _ref.type;
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
+          }) : void 0;
+        }
+        if (!user.items[type][key]) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: ":key not found for user.items." + type
+          }) : void 0;
+        }
+        user.items[type][key]--;
+        user.stats.gp += content[type][key].value;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
+      },
+      equip: function(req, cb) {
+        var item, key, message, type, _ref;
+        _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
+        switch (type) {
+          case 'mount':
+            if (!user.items.mounts[key]) {
+              return typeof cb === "function" ? cb({
+                code: 404,
+                message: ":You do not own this mount."
+              }) : void 0;
+            }
+            user.items.currentMount = user.items.currentMount === key ? '' : key;
+            break;
+          case 'pet':
+            if (!user.items.pets[key]) {
+              return typeof cb === "function" ? cb({
+                code: 404,
+                message: ":You do not own this pet."
+              }) : void 0;
+            }
+            user.items.currentPet = user.items.currentPet === key ? '' : key;
+            break;
+          case 'costume':
+          case 'equipped':
+            item = content.gear.flat[key];
+            if (!user.items.gear.owned[key]) {
+              return typeof cb === "function" ? cb({
+                code: 404,
+                message: ":You do not own this gear."
+              }) : void 0;
+            }
+            if (user.items.gear[type][item.type] === key) {
+              user.items.gear[type][item.type] = "" + item.type + "_base_0";
+              message = i18n.t('messageUnEquipped', {
+                itemText: item.text(req.language)
+              }, req.language);
+            } else {
+              user.items.gear[type][item.type] = item.key;
+              message = user.fns.handleTwoHanded(item, type, req);
+            }
+            if (typeof user.markModified === "function") {
+              user.markModified("items.gear." + type);
+            }
+        }
+        return typeof cb === "function" ? cb((message ? {
+          code: 200,
+          message: message
+        } : null), user.items) : void 0;
+      },
+      hatch: function(req, cb) {
+        var egg, hatchingPotion, pet, _ref;
+        _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
+        if (!(egg && hatchingPotion)) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: "Please specify query.egg & query.hatchingPotion"
+          }) : void 0;
+        }
+        if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageMissingEggPotion', req.language)
+          }) : void 0;
+        }
+        pet = "" + egg + "-" + hatchingPotion;
+        if (user.items.pets[pet] && user.items.pets[pet] > 0) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageAlreadyPet', req.language)
+          }) : void 0;
+        }
+        user.items.pets[pet] = 5;
+        user.items.eggs[egg]--;
+        user.items.hatchingPotions[hatchingPotion]--;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: i18n.t('messageHatched', req.language)
+        }, user.items) : void 0;
+      },
+      unlock: function(req, cb, ga) {
+        var alreadyOwns, cost, fullSet, k, path, split, v;
+        path = req.query.path;
+        fullSet = ~path.indexOf(",");
+        cost = ~path.indexOf('background.') ? fullSet ? 3.75 : 1.75 : fullSet ? 1.25 : 0.5;
+        alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
+        if (user.balance < cost && !alreadyOwns) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        }
+        if (fullSet) {
+          _.each(path.split(","), function(p) {
+            user.fns.dotSet("purchased." + p, true);
+            return true;
+          });
+        } else {
+          if (alreadyOwns) {
+            split = path.split('.');
+            v = split.pop();
+            k = split.join('.');
+            if (k === 'background' && v === user.preferences.background) {
+              v = '';
+            }
+            user.fns.dotSet("preferences." + k, v);
+            return typeof cb === "function" ? cb(null, req) : void 0;
+          }
+          user.fns.dotSet("purchased." + path, true);
+        }
+        user.balance -= cost;
+        if (typeof user.markModified === "function") {
+          user.markModified('purchased');
+        }
+        if (typeof cb === "function") {
+          cb(null, _.pick(user, $w('purchased preferences')));
+        }
+        return ga != null ? ga.event('purchase', path).send() : void 0;
+      },
+      changeClass: function(req, cb, ga) {
+        var klass, _ref;
+        klass = (_ref = req.query) != null ? _ref["class"] : void 0;
+        if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
+          user.stats["class"] = klass;
+          user.flags.classSelected = true;
+          _.each(["weapon", "armor", "shield", "head"], function(type) {
+            var foundKey;
+            foundKey = false;
+            _.findLast(user.items.gear.owned, function(v, k) {
+              if (~k.indexOf(type + "_" + klass) && v === true) {
+                return foundKey = k;
+              }
+            });
+            user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
+            if (type === "weapon" || (type === "shield" && klass === "rogue")) {
+              user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
+            }
+            return true;
+          });
+        } else {
+          if (user.preferences.disableClasses) {
+            user.preferences.disableClasses = false;
+            user.preferences.autoAllocate = false;
+          } else {
+            if (!(user.balance >= .75)) {
+              return typeof cb === "function" ? cb({
+                code: 401,
+                message: i18n.t('notEnoughGems', req.language)
+              }) : void 0;
+            }
+            user.balance -= .75;
+          }
+          _.merge(user.stats, {
+            str: 0,
+            con: 0,
+            per: 0,
+            int: 0,
+            points: user.stats.lvl
+          });
+          user.flags.classSelected = false;
+          if (ga != null) {
+            ga.event('purchase', 'changeClass').send();
+          }
+        }
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
+      },
+      disableClasses: function(req, cb) {
+        user.stats["class"] = 'warrior';
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = true;
+        user.preferences.autoAllocate = true;
+        user.stats.str = user.stats.lvl;
+        user.stats.points = 0;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
+      },
+      allocate: function(req, cb) {
+        var stat;
+        stat = req.query.stat || 'str';
+        if (user.stats.points > 0) {
+          user.stats[stat]++;
+          user.stats.points--;
+          if (stat === 'int') {
+            user.stats.mp++;
+          }
+        }
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
+      },
+      readValentine: function(req, cb) {
+        user.items.special.valentineReceived.shift();
+        if (typeof user.markModified === "function") {
+          user.markModified('items.special.valentineReceived');
+        }
+        return typeof cb === "function" ? cb(null, 'items.special') : void 0;
+      },
+      openMysteryItem: function(req, cb, ga) {
+        var item, _ref, _ref1;
+        item = (_ref = user.purchased.plan) != null ? (_ref1 = _ref.mysteryItems) != null ? _ref1.shift() : void 0 : void 0;
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 400,
+            message: "Empty"
+          }) : void 0;
+        }
+        item = content.gear.flat[item];
+        user.items.gear.owned[item.key] = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('purchased.plan.mysteryItems');
+        }
+        if (typeof window !== 'undefined') {
+          (user._tmp != null ? user._tmp : user._tmp = {}).drop = {
+            type: 'gear',
+            dialog: "" + (item.text(req.language)) + " inside!"
+          };
+        }
+        return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
+      },
+      readNYE: function(req, cb) {
+        user.items.special.nyeReceived.shift();
+        if (typeof user.markModified === "function") {
+          user.markModified('items.special.nyeReceived');
+        }
+        return typeof cb === "function" ? cb(null, 'items.special') : void 0;
+      },
+      score: function(req, cb) {
+        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
+        _ref = req.params, id = _ref.id, direction = _ref.direction;
+        task = user.tasks[id];
+        options = req.query || {};
+        _.defaults(options, {
+          times: 1,
+          cron: false
+        });
+        user._tmp = {};
+        stats = {
+          gp: +user.stats.gp,
+          hp: +user.stats.hp,
+          exp: +user.stats.exp
+        };
+        task.value = +task.value;
+        task.streak = ~~task.streak;
+        if (task.priority == null) {
+          task.priority = 1;
+        }
+        if (task.value > stats.gp && task.type === 'reward') {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('messageNotEnoughGold', req.language)
+          }) : void 0;
+        }
+        delta = 0;
+        calculateDelta = function() {
+          var currVal, nextDelta, _ref1;
+          currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+          nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+          if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+            if (direction === 'down' && task.type === 'daily' && options.cron) {
+              nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0) / task.checklist.length;
+            }
+            if (task.type === 'todo') {
+              nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0);
+            }
+          }
+          return nextDelta;
+        };
+        calculateReverseDelta = function() {
+          var calc, closeEnough, currVal, diff, nextDelta, testVal, _ref1;
+          currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+          testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+          closeEnough = 0.00001;
+          while (true) {
+            calc = testVal + Math.pow(0.9747, testVal);
+            diff = currVal - calc;
+            if (Math.abs(diff) < closeEnough) {
+              break;
+            }
+            if (diff > 0) {
+              testVal -= diff;
+            } else {
+              testVal += diff;
+            }
+          }
+          nextDelta = testVal - currVal;
+          if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+            if (task.type === 'todo') {
+              nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0);
+            }
+          }
+          return nextDelta;
+        };
+        changeTaskValue = function() {
+          return _.times(options.times, function() {
+            var nextDelta, _ref1;
+            nextDelta = !options.cron && direction === 'down' ? calculateReverseDelta() : calculateDelta();
+            if (task.type !== 'reward') {
+              if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
+                user.stats.training[task.attribute] += nextDelta;
+              }
+              if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
+                user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+                  user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
+                }
+              }
+              task.value += nextDelta;
+            }
+            return delta += nextDelta;
+          });
+        };
+        addPoints = function() {
+          var afterStreak, currStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+          _crit = (delta > 0 ? user.fns.crit() : 1);
+          if (_crit > 1) {
+            user._tmp.crit = _crit;
+          }
+          intBonus = 1 + (user._statsComputed.int * .025);
+          stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+          perBonus = 1 + user._statsComputed.per * .02;
+          gpMod = delta * task.priority * _crit * perBonus;
+          return stats.gp += task.streak ? (currStreak = direction === 'down' ? task.streak - 1 : task.streak, streakBonus = currStreak / 100 + 1, afterStreak = gpMod * streakBonus, currStreak > 0 ? gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0 : void 0, afterStreak) : gpMod;
+        };
+        subtractPoints = function() {
+          var conBonus, hpMod;
+          conBonus = 1 - (user._statsComputed.con / 250);
+          if (conBonus < .1) {
+            conBonus = 0.1;
+          }
+          hpMod = delta * conBonus * task.priority * 2;
+          return stats.hp += Math.round(hpMod * 10) / 10;
+        };
+        switch (task.type) {
+          case 'habit':
+            changeTaskValue();
+            if (delta > 0) {
+              addPoints();
+            } else {
+              subtractPoints();
+            }
+            th = (task.history != null ? task.history : task.history = []);
+            if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
+              th[th.length - 1].value = task.value;
+            } else {
+              th.push({
+                date: +(new Date),
+                value: task.value
+              });
+            }
+            if (typeof user.markModified === "function") {
+              user.markModified("habits." + (_.findIndex(user.habits, {
+                id: task.id
+              })) + ".history");
+            }
+            break;
+          case 'daily':
+            if (options.cron) {
+              changeTaskValue();
+              subtractPoints();
+              if (!user.stats.buffs.streaks) {
+                task.streak = 0;
+              }
+            } else {
+              changeTaskValue();
+              if (direction === 'down') {
+                delta = calculateDelta();
+              }
+              addPoints();
+              if (direction === 'up') {
+                task.streak = task.streak ? task.streak + 1 : 1;
+                if ((task.streak % 21) === 0) {
+                  user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+                }
+              } else {
+                if ((task.streak % 21) === 0) {
+                  user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+                }
+                task.streak = task.streak ? task.streak - 1 : 0;
+              }
+            }
+            break;
+          case 'todo':
+            if (options.cron) {
+              changeTaskValue();
+            } else {
+              task.dateCompleted = direction === 'up' ? new Date : void 0;
+              changeTaskValue();
+              if (direction === 'down') {
+                delta = calculateDelta();
+              }
+              addPoints();
+              multiplier = _.max([
+                _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 1), 1
+              ]);
+              mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
+              mpDelta *= user._tmp.crit || 1;
+              if (direction === 'down') {
+                mpDelta *= -1;
+              }
+              user.stats.mp += mpDelta;
+              if (user.stats.mp >= user._statsComputed.maxMP) {
+                user.stats.mp = user._statsComputed.maxMP;
+              }
+              if (user.stats.mp < 0) {
+                user.stats.mp = 0;
+              }
+            }
+            break;
+          case 'reward':
+            changeTaskValue();
+            stats.gp -= Math.abs(task.value);
+            num = parseFloat(task.value).toFixed(2);
+            if (stats.gp < 0) {
+              stats.hp += stats.gp;
+              stats.gp = 0;
+            }
+        }
+        user.fns.updateStats(stats, req);
+        if (typeof window === 'undefined') {
+          if (direction === 'up') {
+            user.fns.randomDrop({
+              task: task,
+              delta: delta
+            }, req);
+          }
+        }
+        if (typeof cb === "function") {
+          cb(null, user);
+        }
+        return delta;
+      }
+    };
+  }
+  user.fns = {
+    getItem: function(type) {
+      var item;
+      item = content.gear.flat[user.items.gear.equipped[type]];
+      if (!item) {
+        return content.gear.flat["" + type + "_base_0"];
+      }
+      return item;
+    },
+    handleTwoHanded: function(item, type, req) {
+      var message, weapon, _ref;
+      if (type == null) {
+        type = 'equipped';
+      }
+      if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
+        user.items.gear[type].weapon = 'weapon_base_0';
+        message = i18n.t('messageTwoHandled', {
+          gearText: weapon.text(req.language)
+        }, req.language);
+      }
+      if (item.twoHanded) {
+        user.items.gear[type].shield = "shield_base_0";
+        message = i18n.t('messageTwoHandled', {
+          gearText: item.text(req.language)
+        }, req.language);
+      }
+      return message;
+    },
+
+    /*
+    Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
+    we need things to be "random", but technically predictable so that they don't go out-of-sync
+     */
+    predictableRandom: function(seed) {
+      var x;
+      if (!seed || seed === Math.PI) {
+        seed = _.reduce(user.stats, (function(m, v) {
+          if (_.isNumber(v)) {
+            return m + v;
+          } else {
+            return m;
+          }
+        }), 0);
+      }
+      x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    },
+    crit: function(stat, chance) {
+      if (stat == null) {
+        stat = 'str';
+      }
+      if (chance == null) {
+        chance = .03;
+      }
+      if (user.fns.predictableRandom() <= chance * (1 + user._statsComputed[stat] / 100)) {
+        return 1.5 + (.02 * user._statsComputed[stat]);
+      } else {
+        return 1;
+      }
+    },
+
+    /*
+      Get a random property from an object
+      returns random property (the value)
+     */
+    randomVal: function(obj, options) {
+      var array, rand;
+      array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
+      rand = user.fns.predictableRandom(options != null ? options.seed : void 0);
+      array.sort();
+      return array[Math.floor(rand * array.length)];
+    },
+
+    /*
+    This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
+    user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
+    so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
+    Angular sets object properties directly - in which case, this function will be used.
+     */
+    dotSet: function(path, val) {
+      return api.dotSet(user, path, val);
+    },
+    dotGet: function(path) {
+      return api.dotGet(user, path);
+    },
+    randomDrop: function(modifiers, req) {
+      var acceptableDrops, chance, drop, dropK, dropMultiplier, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3;
+      task = modifiers.task;
+      chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
+      chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 40 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
+        return m + (i.completed ? 1 : 0);
+      }), 0) || 0));
+      chance = api.diminishingReturns(chance, 0.75);
+      quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
+      if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < chance) {
+        dropK = user.fns.randomVal(quest.collect, {
+          key: true
+        });
+        user.party.quest.progress.collect[dropK]++;
+        if (typeof user.markModified === "function") {
+          user.markModified('party.quest.progress');
+        }
+      }
+      dropMultiplier = ((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0) ? 2 : 1;
+      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
+        return;
+      }
+      if (((_ref3 = user.flags) != null ? _ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
+        rarity = user.fns.predictableRandom(user.stats.gp);
+        if (rarity > .6) {
+          drop = user.fns.randomVal(_.where(content.food, {
+            canDrop: true
+          }));
+          if ((_base = user.items.food)[_name = drop.key] == null) {
+            _base[_name] = 0;
+          }
+          user.items.food[drop.key] += 1;
+          drop.type = 'Food';
+          drop.dialog = i18n.t('messageDropFood', {
+            dropArticle: drop.article,
+            dropText: drop.text(req.language),
+            dropNotes: drop.notes(req.language)
+          }, req.language);
+        } else if (rarity > .3) {
+          drop = user.fns.randomVal(_.where(content.eggs, {
+            canBuy: true
+          }));
+          if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
+            _base1[_name1] = 0;
+          }
+          user.items.eggs[drop.key]++;
+          drop.type = 'Egg';
+          drop.dialog = i18n.t('messageDropEgg', {
+            dropText: drop.text(req.language),
+            dropNotes: drop.notes(req.language)
+          }, req.language);
+        } else {
+          acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+          drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
+            return __indexOf.call(acceptableDrops, k) >= 0;
+          })));
+          if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
+            _base2[_name2] = 0;
+          }
+          user.items.hatchingPotions[drop.key]++;
+          drop.type = 'HatchingPotion';
+          drop.dialog = i18n.t('messageDropPotion', {
+            dropText: drop.text(req.language),
+            dropNotes: drop.notes(req.language)
+          }, req.language);
+        }
+        user._tmp.drop = drop;
+        user.items.lastDrop.date = +(new Date);
+        return user.items.lastDrop.count++;
+      }
+    },
+
+    /*
+      Updates user stats with new stats. Handles death, leveling up, etc
+      {stats} new stats
+      {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+     */
+    autoAllocate: function() {
+      return user.stats[(function() {
+        var diff, ideal, preference, stats, suggested;
+        switch (user.preferences.allocationMode) {
+          case "flat":
+            stats = _.pick(user.stats, $w('con str per int'));
+            return _.invert(stats)[_.min(stats)];
+          case "classbased":
+            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+            preference = (function() {
+              switch (user.stats["class"]) {
+                case "wizard":
+                  return ["int", "per", "con", "str"];
+                case "rogue":
+                  return ["per", "str", "int", "con"];
+                case "healer":
+                  return ["con", "int", "str", "per"];
+                default:
+                  return ["str", "con", "per", "int"];
+              }
+            })();
+            diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
+            suggested = _.findIndex(diff, (function(val) {
+              if (val === _.min(diff)) {
+                return true;
+              }
+            }));
+            if (~suggested) {
+              return preference[suggested];
+            } else {
+              return "str";
+            }
+          case "taskbased":
+            suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
+            _.merge(user.stats.training, {
+              str: 0,
+              int: 0,
+              con: 0,
+              per: 0
+            });
+            return suggested || "str";
+          default:
+            return "str";
+        }
+      })()]++;
+    },
+    updateStats: function(stats, req) {
+      var tnl;
+      if (stats.hp <= 0) {
+        return user.stats.hp = 0;
+      }
+      user.stats.hp = stats.hp;
+      user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
+      tnl = api.tnl(user.stats.lvl);
+      if (stats.exp >= tnl) {
+        user.stats.exp = stats.exp;
+        while (stats.exp >= tnl) {
+          stats.exp -= tnl;
+          user.stats.lvl++;
+          tnl = api.tnl(user.stats.lvl);
+          if (user.preferences.automaticAllocation) {
+            user.fns.autoAllocate();
+          } else {
+            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+          }
+          user.stats.hp = 50;
+        }
+      }
+      user.stats.exp = stats.exp;
+      if (user.flags == null) {
+        user.flags = {};
+      }
+      if (!user.flags.customizationsNotification && (user.stats.exp > 5 || user.stats.lvl > 1)) {
+        user.flags.customizationsNotification = true;
+      }
+      if (!user.flags.itemsEnabled && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+        user.flags.itemsEnabled = true;
+      }
+      if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
+        user.flags.partyEnabled = true;
+      }
+      if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
+        user.flags.dropsEnabled = true;
+        if (user.items.eggs["Wolf"] > 0) {
+          user.items.eggs["Wolf"]++;
+        } else {
+          user.items.eggs["Wolf"] = 1;
+        }
+      }
+      if (!user.flags.classSelected && user.stats.lvl >= 10) {
+        user.flags.classSelected;
+      }
+      _.each({
+        vice1: 30,
+        atom1: 15,
+        moonstone1: 60,
+        goldenknight1: 40
+      }, function(lvl, k) {
+        var _base, _base1, _ref;
+        if (!((_ref = user.flags.levelDrops) != null ? _ref[k] : void 0) && user.stats.lvl >= lvl) {
+          if ((_base = user.items.quests)[k] == null) {
+            _base[k] = 0;
+          }
+          user.items.quests[k]++;
+          ((_base1 = user.flags).levelDrops != null ? _base1.levelDrops : _base1.levelDrops = {})[k] = true;
+          if (typeof user.markModified === "function") {
+            user.markModified('flags.levelDrops');
+          }
+          return user._tmp.drop = _.defaults(content.quests[k], {
+            type: 'Quest',
+            dialog: i18n.t('messageFoundQuest', {
+              questText: content.quests[k].text(req.language)
+            }, req.language)
+          });
+        }
+      });
+      if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
+        user.flags.rebirthEnabled = true;
+      }
+      if (user.stats.lvl >= 100 && !user.flags.freeRebirth) {
+        return user.flags.freeRebirth = true;
+      }
+    },
+
+    /*
+      ------------------------------------------------------
+      Cron
+      ------------------------------------------------------
+     */
+
+    /*
+      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+      For incomplete Dailys, deduct experience
+      Make sure to run this function once in a while as server will not take care of overnight calculations.
+      And you have to run it every time client connects.
+      {user}
+     */
+    cron: function(options) {
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
+      if (options == null) {
+        options = {};
+      }
+      now = +options.now || +(new Date);
+      daysMissed = api.daysSince(user.lastCron, _.defaults({
+        now: now
+      }, user.preferences));
+      if (!(daysMissed > 0)) {
+        return;
+      }
+      user.auth.timestamps.loggedin = new Date();
+      user.lastCron = now;
+      if (user.items.lastDrop.count > 0) {
+        user.items.lastDrop.count = 0;
+      }
+      perfect = true;
+      clearBuffs = {
+        str: 0,
+        int: 0,
+        per: 0,
+        con: 0,
+        stealth: 0,
+        streaks: false
+      };
+      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
+      if (plan != null ? plan.customerId : void 0) {
+        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+          plan.gemsBought = 0;
+          plan.dateUpdated = new Date();
+          _.defaults(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            trinkets: 0,
+            gemCapExtra: 0
+          });
+          plan.consecutive.count++;
+          if (plan.consecutive.offset > 0) {
+            plan.consecutive.offset--;
+          } else if (plan.consecutive.count % 3 === 0) {
+            plan.consecutive.trinkets++;
+            plan.consecutive.gemCapExtra += 5;
+            if (plan.consecutive.gemCapExtra > 25) {
+              plan.consecutive.gemCapExtra = 25;
+            }
+          }
+        }
+        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
+          _.merge(plan, {
+            planId: null,
+            customerId: null,
+            paymentMethod: null
+          });
+          _.merge(plan.consecutive, {
+            count: 0,
+            offset: 0,
+            gemCapExtra: 0
+          });
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased.plan');
+          }
+        }
+      }
+      if (user.preferences.sleep === true) {
+        user.stats.buffs = clearBuffs;
+        return;
+      }
+      todoTally = 0;
+      if ((_base = user.party.quest.progress).down == null) {
+        _base.down = 0;
+      }
+      user.todos.concat(user.dailys).forEach(function(task) {
+        var absVal, completed, delta, id, repeat, scheduleMisses, type;
+        if (!task) {
+          return;
+        }
+        id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
+        if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
+          return;
+        }
+        if (!completed) {
+          scheduleMisses = daysMissed;
+          if ((type === 'daily') && repeat) {
+            scheduleMisses = 0;
+            _.times(daysMissed, function(n) {
+              var thatDay;
+              thatDay = moment(now).subtract({
+                days: n + 1
+              });
+              if (api.shouldDo(thatDay, repeat, user.preferences)) {
+                return scheduleMisses++;
+              }
+            });
+          }
+          if (scheduleMisses > 0) {
+            if (type === 'daily') {
+              perfect = false;
+            }
+            delta = user.ops.score({
+              params: {
+                id: task.id,
+                direction: 'down'
+              },
+              query: {
+                times: scheduleMisses,
+                cron: true
+              }
+            });
+            if (type === 'daily') {
+              user.party.quest.progress.down += delta;
+            }
+          }
+        }
+        switch (type) {
+          case 'daily':
+            (task.history != null ? task.history : task.history = []).push({
+              date: +(new Date),
+              value: task.value
+            });
+            task.completed = false;
+            return _.each(task.checklist, (function(i) {
+              i.completed = false;
+              return true;
+            }));
+          case 'todo':
+            absVal = completed ? Math.abs(task.value) : task.value;
+            return todoTally += absVal;
+        }
+      });
+      user.habits.forEach(function(task) {
+        if (task.up === false || task.down === false) {
+          if (Math.abs(task.value) < 0.1) {
+            return task.value = 0;
+          } else {
+            return task.value = task.value / 2;
+          }
+        }
+      });
+      ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? _base1.todos : _base1.todos = []).push({
+        date: now,
+        value: todoTally
+      });
+      expTally = user.stats.exp;
+      lvl = 0;
+      while (lvl < (user.stats.lvl - 1)) {
+        lvl++;
+        expTally += api.tnl(lvl);
+      }
+      ((_base2 = user.history).exp != null ? _base2.exp : _base2.exp = []).push({
+        date: now,
+        value: expTally
+      });
+      if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0)) {
+        user.fns.preenUserHistory();
+        if (typeof user.markModified === "function") {
+          user.markModified('history');
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('dailys');
+        }
+      }
+      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
+        str: lvlDiv2,
+        int: lvlDiv2,
+        per: lvlDiv2,
+        con: lvlDiv2,
+        stealth: 0,
+        streaks: false
+      }) : clearBuffs;
+      user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
+      if (user.stats.mp > user._statsComputed.maxMP) {
+        user.stats.mp = user._statsComputed.maxMP;
+      }
+      progress = user.party.quest.progress;
+      _progress = _.cloneDeep(progress);
+      _.merge(progress, {
+        down: 0,
+        up: 0
+      });
+      progress.collect = _.transform(progress.collect, (function(m, v, k) {
+        return m[k] = 0;
+      }));
+      return _progress;
+    },
+    preenUserHistory: function(minHistLen) {
+      if (minHistLen == null) {
+        minHistLen = 7;
+      }
+      _.each(user.habits.concat(user.dailys), function(task) {
+        var _ref;
+        if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
+          task.history = preenHistory(task.history);
+        }
+        return true;
+      });
+      _.defaults(user.history, {
+        todos: [],
+        exp: []
+      });
+      if (user.history.exp.length > minHistLen) {
+        user.history.exp = preenHistory(user.history.exp);
+      }
+      if (user.history.todos.length > minHistLen) {
+        return user.history.todos = preenHistory(user.history.todos);
+      }
+    },
+    ultimateGear: function() {
+      var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
+      gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
+      ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
+        return gear.last;
+      });
+      lastGearClassTypeMatrix = {};
+      _.each(content.classes, function(klass) {
+        lastGearClassTypeMatrix[klass] = {};
+        return _.each(['armor', 'weapon', 'shield', 'head'], function(type) {
+          lastGearClassTypeMatrix[klass][type] = false;
+          return true;
+        });
+      });
+      ownedLastGear.each(function(gear) {
+        if (gear.twoHanded) {
+          lastGearClassTypeMatrix[gear.klass]["shield"] = true;
+        }
+        return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
+      });
+      shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
+        return ans || _(klass).values().reduce((function(ans, gearType) {
+          return ans && gearType;
+        }), true);
+      }), false).valueOf();
+      return user.achievements.ultimateGear = shouldGrant;
+    },
+    nullify: function() {
+      user.ops = null;
+      user.fns = null;
+      return user = null;
+    }
+  };
+  Object.defineProperty(user, '_statsComputed', {
+    get: function() {
+      var computed;
+      computed = _.reduce(['per', 'con', 'str', 'int'], (function(_this) {
+        return function(m, stat) {
+          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
+            var item, val;
+            val = user.fns.dotGet(path);
+            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
+          }, 0);
+          if (user.stats.lvl < 100) {
+            m[stat] += (user.stats.lvl - 1) / 2;
+          } else {
+            m[stat] += 50;
+          }
+          return m;
+        };
+      })(this), {});
+      computed.maxMP = computed.int * 2 + 30;
+      return computed;
+    }
+  });
+  return Object.defineProperty(user, 'tasks', {
+    get: function() {
+      var tasks;
+      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
+      return _.object(_.pluck(tasks, "id"), tasks);
+    }
+  });
+};
+
+
+}).call(this,require('_process'))
+},{"./content.coffee":3,"./i18n.coffee":4,"_process":2,"lodash":6,"moment":7}],6:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -6851,8 +13643,8 @@ process.chdir = function (dir) {
   }
 }.call(this));
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],4:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],7:[function(require,module,exports){
 (function (global){
 //! moment.js
 //! version : 2.8.4
@@ -9791,6707 +16583,5 @@ process.chdir = function (dir) {
     }
 }).call(this);
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],5:[function(require,module,exports){
-var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
-
-_ = require('lodash');
-
-api = module.exports;
-
-moment = require('moment');
-
-i18n = require('./i18n.coffee');
-
-t = function(string, vars) {
-  var func;
-  func = function(lang) {
-    if (vars == null) {
-      vars = {
-        a: 'a'
-      };
-    }
-    return i18n.t(string, vars, lang);
-  };
-  func.i18nLangFunc = true;
-  return func;
-};
-
-
-/*
-  ---------------------------------------------------------------
-  Gear (Weapons, Armor, Head, Shield)
-  Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
-  ---------------------------------------------------------------
- */
-
-classes = ['warrior', 'rogue', 'healer', 'wizard'];
-
-gearTypes = ['weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear'];
-
-events = {
-  winter: {
-    start: '2013-12-31',
-    end: '2014-02-01'
-  },
-  birthday: {
-    start: '2013-01-30',
-    end: '2014-02-01'
-  },
-  spring: {
-    start: '2014-03-21',
-    end: '2014-05-01'
-  },
-  summer: {
-    start: '2014-06-20',
-    end: '2014-08-01'
-  },
-  gaymerx: {
-    start: '2014-07-02',
-    end: '2014-08-01'
-  },
-  fall: {
-    start: '2014-09-21',
-    end: '2014-11-01'
-  },
-  winter2015: {
-    start: '2014-12-21',
-    end: '2015-01-31'
-  }
-};
-
-api.mystery = {
-  201402: {
-    start: '2014-02-22',
-    end: '2014-02-28',
-    text: 'Winged Messenger Set'
-  },
-  201403: {
-    start: '2014-03-24',
-    end: '2014-04-02',
-    text: 'Forest Walker Set'
-  },
-  201404: {
-    start: '2014-04-24',
-    end: '2014-05-02',
-    text: 'Twilight Butterfly Set'
-  },
-  201405: {
-    start: '2014-05-21',
-    end: '2014-06-02',
-    text: 'Flame Wielder Set'
-  },
-  201406: {
-    start: '2014-06-23',
-    end: '2014-07-02',
-    text: 'Octomage Set'
-  },
-  201407: {
-    start: '2014-07-23',
-    end: '2014-08-02',
-    text: 'Undersea Explorer Set'
-  },
-  201408: {
-    start: '2014-08-23',
-    end: '2014-09-02',
-    text: 'Sun Sorcerer Set'
-  },
-  201409: {
-    start: '2014-09-24',
-    end: '2014-10-02',
-    text: 'Autumn Strider Item Set'
-  },
-  201410: {
-    start: '2014-10-24',
-    end: '2014-11-02',
-    text: 'Winged Goblin Set'
-  },
-  201411: {
-    start: '2014-11-24',
-    end: '2014-12-02',
-    text: 'Feast and Fun Set'
-  },
-  201412: {
-    start: '2014-12-25',
-    end: '2015-01-02',
-    text: 'Penguin Set'
-  },
-  301404: {
-    start: '3014-03-24',
-    end: '3014-04-02',
-    text: 'Steampunk Standard Set'
-  },
-  301405: {
-    start: '3014-04-24',
-    end: '3014-05-02',
-    text: 'Steampunk Accessories Set'
-  },
-  wondercon: {
-    start: '2014-03-24',
-    end: '2014-04-01'
-  }
-};
-
-_.each(api.mystery, function(v, k) {
-  return v.key = k;
-});
-
-gear = {
-  weapon: {
-    base: {
-      0: {
-        text: t('weaponBase0Text'),
-        notes: t('weaponBase0Notes'),
-        value: 0
-      }
-    },
-    warrior: {
-      0: {
-        text: t('weaponWarrior0Text'),
-        notes: t('weaponWarrior0Notes'),
-        value: 0
-      },
-      1: {
-        text: t('weaponWarrior1Text'),
-        notes: t('weaponWarrior1Notes', {
-          str: 3
-        }),
-        str: 3,
-        value: 20
-      },
-      2: {
-        text: t('weaponWarrior2Text'),
-        notes: t('weaponWarrior2Notes', {
-          str: 6
-        }),
-        str: 6,
-        value: 30
-      },
-      3: {
-        text: t('weaponWarrior3Text'),
-        notes: t('weaponWarrior3Notes', {
-          str: 9
-        }),
-        str: 9,
-        value: 45
-      },
-      4: {
-        text: t('weaponWarrior4Text'),
-        notes: t('weaponWarrior4Notes', {
-          str: 12
-        }),
-        str: 12,
-        value: 65
-      },
-      5: {
-        text: t('weaponWarrior5Text'),
-        notes: t('weaponWarrior5Notes', {
-          str: 15
-        }),
-        str: 15,
-        value: 90
-      },
-      6: {
-        text: t('weaponWarrior6Text'),
-        notes: t('weaponWarrior6Notes', {
-          str: 18
-        }),
-        str: 18,
-        value: 120,
-        last: true
-      }
-    },
-    rogue: {
-      0: {
-        text: t('weaponRogue0Text'),
-        notes: t('weaponRogue0Notes'),
-        str: 0,
-        value: 0
-      },
-      1: {
-        text: t('weaponRogue1Text'),
-        notes: t('weaponRogue1Notes', {
-          str: 2
-        }),
-        str: 2,
-        value: 20
-      },
-      2: {
-        text: t('weaponRogue2Text'),
-        notes: t('weaponRogue2Notes', {
-          str: 3
-        }),
-        str: 3,
-        value: 35
-      },
-      3: {
-        text: t('weaponRogue3Text'),
-        notes: t('weaponRogue3Notes', {
-          str: 4
-        }),
-        str: 4,
-        value: 50
-      },
-      4: {
-        text: t('weaponRogue4Text'),
-        notes: t('weaponRogue4Notes', {
-          str: 6
-        }),
-        str: 6,
-        value: 70
-      },
-      5: {
-        text: t('weaponRogue5Text'),
-        notes: t('weaponRogue5Notes', {
-          str: 8
-        }),
-        str: 8,
-        value: 90
-      },
-      6: {
-        text: t('weaponRogue6Text'),
-        notes: t('weaponRogue6Notes', {
-          str: 10
-        }),
-        str: 10,
-        value: 120,
-        last: true
-      }
-    },
-    wizard: {
-      0: {
-        twoHanded: true,
-        text: t('weaponWizard0Text'),
-        notes: t('weaponWizard0Notes'),
-        value: 0
-      },
-      1: {
-        twoHanded: true,
-        text: t('weaponWizard1Text'),
-        notes: t('weaponWizard1Notes', {
-          int: 3,
-          per: 1
-        }),
-        int: 3,
-        per: 1,
-        value: 30
-      },
-      2: {
-        twoHanded: true,
-        text: t('weaponWizard2Text'),
-        notes: t('weaponWizard2Notes', {
-          int: 6,
-          per: 2
-        }),
-        int: 6,
-        per: 2,
-        value: 50
-      },
-      3: {
-        twoHanded: true,
-        text: t('weaponWizard3Text'),
-        notes: t('weaponWizard3Notes', {
-          int: 9,
-          per: 3
-        }),
-        int: 9,
-        per: 3,
-        value: 80
-      },
-      4: {
-        twoHanded: true,
-        text: t('weaponWizard4Text'),
-        notes: t('weaponWizard4Notes', {
-          int: 12,
-          per: 5
-        }),
-        int: 12,
-        per: 5,
-        value: 120
-      },
-      5: {
-        twoHanded: true,
-        text: t('weaponWizard5Text'),
-        notes: t('weaponWizard5Notes', {
-          int: 15,
-          per: 7
-        }),
-        int: 15,
-        per: 7,
-        value: 160
-      },
-      6: {
-        twoHanded: true,
-        text: t('weaponWizard6Text'),
-        notes: t('weaponWizard6Notes', {
-          int: 18,
-          per: 10
-        }),
-        int: 18,
-        per: 10,
-        value: 200,
-        last: true
-      }
-    },
-    healer: {
-      0: {
-        text: t('weaponHealer0Text'),
-        notes: t('weaponHealer0Notes'),
-        value: 0
-      },
-      1: {
-        text: t('weaponHealer1Text'),
-        notes: t('weaponHealer1Notes', {
-          int: 2
-        }),
-        int: 2,
-        value: 20
-      },
-      2: {
-        text: t('weaponHealer2Text'),
-        notes: t('weaponHealer2Notes', {
-          int: 3
-        }),
-        int: 3,
-        value: 30
-      },
-      3: {
-        text: t('weaponHealer3Text'),
-        notes: t('weaponHealer3Notes', {
-          int: 5
-        }),
-        int: 5,
-        value: 45
-      },
-      4: {
-        text: t('weaponHealer4Text'),
-        notes: t('weaponHealer4Notes', {
-          int: 7
-        }),
-        int: 7,
-        value: 65
-      },
-      5: {
-        text: t('weaponHealer5Text'),
-        notes: t('weaponHealer5Notes', {
-          int: 9
-        }),
-        int: 9,
-        value: 90
-      },
-      6: {
-        text: t('weaponHealer6Text'),
-        notes: t('weaponHealer6Notes', {
-          int: 11
-        }),
-        int: 11,
-        value: 120,
-        last: true
-      }
-    },
-    special: {
-      0: {
-        text: t('weaponSpecial0Text'),
-        notes: t('weaponSpecial0Notes', {
-          str: 20
-        }),
-        str: 20,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
-        })
-      },
-      1: {
-        text: t('weaponSpecial1Text'),
-        notes: t('weaponSpecial1Notes', {
-          attrs: 6
-        }),
-        str: 6,
-        per: 6,
-        con: 6,
-        int: 6,
-        value: 170,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
-        })
-      },
-      2: {
-        text: t('weaponSpecial2Text'),
-        notes: t('weaponSpecial2Notes', {
-          attrs: 25
-        }),
-        str: 25,
-        per: 25,
-        value: 200,
-        canOwn: (function(u) {
-          var _ref;
-          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_2 != null);
-        })
-      },
-      3: {
-        text: t('weaponSpecial3Text'),
-        notes: t('weaponSpecial3Notes', {
-          attrs: 17
-        }),
-        str: 17,
-        int: 17,
-        con: 17,
-        value: 200,
-        canOwn: (function(u) {
-          var _ref;
-          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.weapon_special_3 != null);
-        })
-      },
-      critical: {
-        text: t('weaponSpecialCriticalText'),
-        notes: t('weaponSpecialCriticalNotes', {
-          attrs: 40
-        }),
-        str: 40,
-        per: 40,
-        value: 200,
-        canOwn: (function(u) {
-          var _ref;
-          return !!((_ref = u.contributor) != null ? _ref.critical : void 0);
-        })
-      },
-      yeti: {
-        event: events.winter,
-        specialClass: 'warrior',
-        text: t('weaponSpecialYetiText'),
-        notes: t('weaponSpecialYetiNotes', {
-          str: 15
-        }),
-        str: 15,
-        value: 90
-      },
-      ski: {
-        event: events.winter,
-        specialClass: 'rogue',
-        text: t('weaponSpecialSkiText'),
-        notes: t('weaponSpecialSkiNotes', {
-          str: 8
-        }),
-        str: 8,
-        value: 90
-      },
-      candycane: {
-        event: events.winter,
-        specialClass: 'wizard',
-        twoHanded: true,
-        text: t('weaponSpecialCandycaneText'),
-        notes: t('weaponSpecialCandycaneNotes', {
-          int: 15,
-          per: 7
-        }),
-        int: 15,
-        per: 7,
-        value: 160
-      },
-      snowflake: {
-        event: events.winter,
-        specialClass: 'healer',
-        text: t('weaponSpecialSnowflakeText'),
-        notes: t('weaponSpecialSnowflakeNotes', {
-          int: 9
-        }),
-        int: 9,
-        value: 90
-      },
-      springRogue: {
-        event: events.spring,
-        specialClass: 'rogue',
-        text: t('weaponSpecialSpringRogueText'),
-        notes: t('weaponSpecialSpringRogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      springWarrior: {
-        event: events.spring,
-        specialClass: 'warrior',
-        text: t('weaponSpecialSpringWarriorText'),
-        notes: t('weaponSpecialSpringWarriorNotes', {
-          str: 15
-        }),
-        value: 90,
-        str: 15
-      },
-      springMage: {
-        event: events.spring,
-        specialClass: 'wizard',
-        twoHanded: true,
-        text: t('weaponSpecialSpringMageText'),
-        notes: t('weaponSpecialSpringMageNotes', {
-          int: 15,
-          per: 7
-        }),
-        value: 160,
-        int: 15,
-        per: 7
-      },
-      springHealer: {
-        event: events.spring,
-        specialClass: 'healer',
-        text: t('weaponSpecialSpringHealerText'),
-        notes: t('weaponSpecialSpringHealerNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('weaponSpecialSummerRogueText'),
-        notes: t('weaponSpecialSummerRogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('weaponSpecialSummerWarriorText'),
-        notes: t('weaponSpecialSummerWarriorNotes', {
-          str: 15
-        }),
-        value: 90,
-        str: 15
-      },
-      summerMage: {
-        event: events.summer,
-        specialClass: 'wizard',
-        twoHanded: true,
-        text: t('weaponSpecialSummerMageText'),
-        notes: t('weaponSpecialSummerMageNotes', {
-          int: 15,
-          per: 7
-        }),
-        value: 160,
-        int: 15,
-        per: 7
-      },
-      summerHealer: {
-        event: events.summer,
-        specialClass: 'healer',
-        text: t('weaponSpecialSummerHealerText'),
-        notes: t('weaponSpecialSummerHealerNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      fallRogue: {
-        event: events.fall,
-        specialClass: 'rogue',
-        text: t('weaponSpecialFallRogueText'),
-        notes: t('weaponSpecialFallRogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      fallWarrior: {
-        event: events.fall,
-        specialClass: 'warrior',
-        text: t('weaponSpecialFallWarriorText'),
-        notes: t('weaponSpecialFallWarriorNotes', {
-          str: 15
-        }),
-        value: 90,
-        str: 15
-      },
-      fallMage: {
-        event: events.fall,
-        specialClass: 'wizard',
-        twoHanded: true,
-        text: t('weaponSpecialFallMageText'),
-        notes: t('weaponSpecialFallMageNotes', {
-          int: 15,
-          per: 7
-        }),
-        value: 160,
-        int: 15,
-        per: 7
-      },
-      fallHealer: {
-        event: events.fall,
-        specialClass: 'healer',
-        text: t('weaponSpecialFallHealerText'),
-        notes: t('weaponSpecialFallHealerNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      winter2015Rogue: {
-        event: events.winter2015,
-        specialClass: 'rogue',
-        text: t('weaponSpecialWinter2015RogueText'),
-        notes: t('weaponSpecialWinter2015RogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      winter2015Warrior: {
-        event: events.winter2015,
-        specialClass: 'warrior',
-        text: t('weaponSpecialWinter2015WarriorText'),
-        notes: t('weaponSpecialWinter2015WarriorNotes', {
-          str: 15
-        }),
-        value: 90,
-        str: 15
-      },
-      winter2015Mage: {
-        event: events.winter2015,
-        specialClass: 'wizard',
-        twoHanded: true,
-        text: t('weaponSpecialWinter2015MageText'),
-        notes: t('weaponSpecialWinter2015MageNotes', {
-          int: 15,
-          per: 7
-        }),
-        value: 160,
-        int: 15,
-        per: 7
-      },
-      winter2015Healer: {
-        event: events.winter2015,
-        specialClass: 'healer',
-        text: t('weaponSpecialWinter2015HealerText'),
-        notes: t('weaponSpecialWinter2015HealerNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      }
-    },
-    mystery: {
-      201411: {
-        text: t('weaponMystery201411Text'),
-        notes: t('weaponMystery201411Notes'),
-        mystery: '201411',
-        value: 0
-      },
-      301404: {
-        text: t('weaponMystery301404Text'),
-        notes: t('weaponMystery301404Notes'),
-        mystery: '301404',
-        value: 0
-      }
-    }
-  },
-  armor: {
-    base: {
-      0: {
-        text: t('armorBase0Text'),
-        notes: t('armorBase0Notes'),
-        value: 0
-      }
-    },
-    warrior: {
-      1: {
-        text: t('armorWarrior1Text'),
-        notes: t('armorWarrior1Notes', {
-          con: 3
-        }),
-        con: 3,
-        value: 30
-      },
-      2: {
-        text: t('armorWarrior2Text'),
-        notes: t('armorWarrior2Notes', {
-          con: 5
-        }),
-        con: 5,
-        value: 45
-      },
-      3: {
-        text: t('armorWarrior3Text'),
-        notes: t('armorWarrior3Notes', {
-          con: 7
-        }),
-        con: 7,
-        value: 65
-      },
-      4: {
-        text: t('armorWarrior4Text'),
-        notes: t('armorWarrior4Notes', {
-          con: 9
-        }),
-        con: 9,
-        value: 90
-      },
-      5: {
-        text: t('armorWarrior5Text'),
-        notes: t('armorWarrior5Notes', {
-          con: 11
-        }),
-        con: 11,
-        value: 120,
-        last: true
-      }
-    },
-    rogue: {
-      1: {
-        text: t('armorRogue1Text'),
-        notes: t('armorRogue1Notes', {
-          per: 6
-        }),
-        per: 6,
-        value: 30
-      },
-      2: {
-        text: t('armorRogue2Text'),
-        notes: t('armorRogue2Notes', {
-          per: 9
-        }),
-        per: 9,
-        value: 45
-      },
-      3: {
-        text: t('armorRogue3Text'),
-        notes: t('armorRogue3Notes', {
-          per: 12
-        }),
-        per: 12,
-        value: 65
-      },
-      4: {
-        text: t('armorRogue4Text'),
-        notes: t('armorRogue4Notes', {
-          per: 15
-        }),
-        per: 15,
-        value: 90
-      },
-      5: {
-        text: t('armorRogue5Text'),
-        notes: t('armorRogue5Notes', {
-          per: 18
-        }),
-        per: 18,
-        value: 120,
-        last: true
-      }
-    },
-    wizard: {
-      1: {
-        text: t('armorWizard1Text'),
-        notes: t('armorWizard1Notes', {
-          int: 2
-        }),
-        int: 2,
-        value: 30
-      },
-      2: {
-        text: t('armorWizard2Text'),
-        notes: t('armorWizard2Notes', {
-          int: 4
-        }),
-        int: 4,
-        value: 45
-      },
-      3: {
-        text: t('armorWizard3Text'),
-        notes: t('armorWizard3Notes', {
-          int: 6
-        }),
-        int: 6,
-        value: 65
-      },
-      4: {
-        text: t('armorWizard4Text'),
-        notes: t('armorWizard4Notes', {
-          int: 9
-        }),
-        int: 9,
-        value: 90
-      },
-      5: {
-        text: t('armorWizard5Text'),
-        notes: t('armorWizard5Notes', {
-          int: 12
-        }),
-        int: 12,
-        value: 120,
-        last: true
-      }
-    },
-    healer: {
-      1: {
-        text: t('armorHealer1Text'),
-        notes: t('armorHealer1Notes', {
-          con: 6
-        }),
-        con: 6,
-        value: 30
-      },
-      2: {
-        text: t('armorHealer2Text'),
-        notes: t('armorHealer2Notes', {
-          con: 9
-        }),
-        con: 9,
-        value: 45
-      },
-      3: {
-        text: t('armorHealer3Text'),
-        notes: t('armorHealer3Notes', {
-          con: 12
-        }),
-        con: 12,
-        value: 65
-      },
-      4: {
-        text: t('armorHealer4Text'),
-        notes: t('armorHealer4Notes', {
-          con: 15
-        }),
-        con: 15,
-        value: 90
-      },
-      5: {
-        text: t('armorHealer5Text'),
-        notes: t('armorHealer5Notes', {
-          con: 18
-        }),
-        con: 18,
-        value: 120,
-        last: true
-      }
-    },
-    special: {
-      0: {
-        text: t('armorSpecial0Text'),
-        notes: t('armorSpecial0Notes', {
-          con: 20
-        }),
-        con: 20,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-        })
-      },
-      1: {
-        text: t('armorSpecial1Text'),
-        notes: t('armorSpecial1Notes', {
-          attrs: 6
-        }),
-        con: 6,
-        str: 6,
-        per: 6,
-        int: 6,
-        value: 170,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
-        })
-      },
-      2: {
-        text: t('armorSpecial2Text'),
-        notes: t('armorSpecial2Notes', {
-          attrs: 25
-        }),
-        int: 25,
-        con: 25,
-        value: 200,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300 || (u.items.gear.owned.armor_special_2 != null);
-        })
-      },
-      yeti: {
-        event: events.winter,
-        specialClass: 'warrior',
-        text: t('armorSpecialYetiText'),
-        notes: t('armorSpecialYetiNotes', {
-          con: 9
-        }),
-        con: 9,
-        value: 90
-      },
-      ski: {
-        event: events.winter,
-        specialClass: 'rogue',
-        text: t('armorSpecialSkiText'),
-        notes: t('armorSpecialSkiNotes', {
-          per: 15
-        }),
-        per: 15,
-        value: 90
-      },
-      candycane: {
-        event: events.winter,
-        specialClass: 'wizard',
-        text: t('armorSpecialCandycaneText'),
-        notes: t('armorSpecialCandycaneNotes', {
-          int: 9
-        }),
-        int: 9,
-        value: 90
-      },
-      snowflake: {
-        event: events.winter,
-        specialClass: 'healer',
-        text: t('armorSpecialSnowflakeText'),
-        notes: t('armorSpecialSnowflakeNotes', {
-          con: 15
-        }),
-        con: 15,
-        value: 90
-      },
-      birthday: {
-        event: events.birthday,
-        text: t('armorSpecialBirthdayText'),
-        notes: t('armorSpecialBirthdayNotes'),
-        value: 0
-      },
-      springRogue: {
-        event: events.spring,
-        specialClass: 'rogue',
-        text: t('armorSpecialSpringRogueText'),
-        notes: t('armorSpecialSpringRogueNotes', {
-          per: 15
-        }),
-        value: 90,
-        per: 15
-      },
-      springWarrior: {
-        event: events.spring,
-        specialClass: 'warrior',
-        text: t('armorSpecialSpringWarriorText'),
-        notes: t('armorSpecialSpringWarriorNotes', {
-          con: 9
-        }),
-        value: 90,
-        con: 9
-      },
-      springMage: {
-        event: events.spring,
-        specialClass: 'wizard',
-        text: t('armorSpecialSpringMageText'),
-        notes: t('armorSpecialSpringMageNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      springHealer: {
-        event: events.spring,
-        specialClass: 'healer',
-        text: t('armorSpecialSpringHealerText'),
-        notes: t('armorSpecialSpringHealerNotes', {
-          con: 15
-        }),
-        value: 90,
-        con: 15
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('armorSpecialSummerRogueText'),
-        notes: t('armorSpecialSummerRogueNotes', {
-          per: 15
-        }),
-        value: 90,
-        per: 15
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('armorSpecialSummerWarriorText'),
-        notes: t('armorSpecialSummerWarriorNotes', {
-          con: 9
-        }),
-        value: 90,
-        con: 9
-      },
-      summerMage: {
-        event: events.summer,
-        specialClass: 'wizard',
-        text: t('armorSpecialSummerMageText'),
-        notes: t('armorSpecialSummerMageNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      summerHealer: {
-        event: events.summer,
-        specialClass: 'healer',
-        text: t('armorSpecialSummerHealerText'),
-        notes: t('armorSpecialSummerHealerNotes', {
-          con: 15
-        }),
-        value: 90,
-        con: 15
-      },
-      fallRogue: {
-        event: events.fall,
-        specialClass: 'rogue',
-        text: t('armorSpecialFallRogueText'),
-        notes: t('armorSpecialFallRogueNotes', {
-          per: 15
-        }),
-        value: 90,
-        per: 15
-      },
-      fallWarrior: {
-        event: events.fall,
-        specialClass: 'warrior',
-        text: t('armorSpecialFallWarriorText'),
-        notes: t('armorSpecialFallWarriorNotes', {
-          con: 9
-        }),
-        value: 90,
-        con: 9
-      },
-      fallMage: {
-        event: events.fall,
-        specialClass: 'wizard',
-        text: t('armorSpecialFallMageText'),
-        notes: t('armorSpecialFallMageNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      fallHealer: {
-        event: events.fall,
-        specialClass: 'healer',
-        text: t('armorSpecialFallHealerText'),
-        notes: t('armorSpecialFallHealerNotes', {
-          con: 15
-        }),
-        value: 90,
-        con: 15
-      },
-      winter2015Rogue: {
-        event: events.winter2015,
-        specialClass: 'rogue',
-        text: t('armorSpecialWinter2015RogueText'),
-        notes: t('armorSpecialWinter2015RogueNotes', {
-          per: 15
-        }),
-        value: 90,
-        per: 15
-      },
-      winter2015Warrior: {
-        event: events.winter2015,
-        specialClass: 'warrior',
-        text: t('armorSpecialWinter2015WarriorText'),
-        notes: t('armorSpecialWinter2015WarriorNotes', {
-          con: 9
-        }),
-        value: 90,
-        con: 9
-      },
-      winter2015Mage: {
-        event: events.winter2015,
-        specialClass: 'wizard',
-        text: t('armorSpecialWinter2015MageText'),
-        notes: t('armorSpecialWinter2015MageNotes', {
-          int: 9
-        }),
-        value: 90,
-        int: 9
-      },
-      winter2015Healer: {
-        event: events.winter2015,
-        specialClass: 'healer',
-        text: t('armorSpecialWinter2015HealerText'),
-        notes: t('armorSpecialWinter2015HealerNotes', {
-          con: 15
-        }),
-        value: 90,
-        con: 15
-      },
-      gaymerx: {
-        event: events.gaymerx,
-        text: t('armorSpecialGaymerxText'),
-        notes: t('armorSpecialGaymerxNotes'),
-        value: 0
-      }
-    },
-    mystery: {
-      201402: {
-        text: t('armorMystery201402Text'),
-        notes: t('armorMystery201402Notes'),
-        mystery: '201402',
-        value: 0
-      },
-      201403: {
-        text: t('armorMystery201403Text'),
-        notes: t('armorMystery201403Notes'),
-        mystery: '201403',
-        value: 0
-      },
-      201405: {
-        text: t('armorMystery201405Text'),
-        notes: t('armorMystery201405Notes'),
-        mystery: '201405',
-        value: 0
-      },
-      201406: {
-        text: t('armorMystery201406Text'),
-        notes: t('armorMystery201406Notes'),
-        mystery: '201406',
-        value: 0
-      },
-      201407: {
-        text: t('armorMystery201407Text'),
-        notes: t('armorMystery201407Notes'),
-        mystery: '201407',
-        value: 0
-      },
-      201408: {
-        text: t('armorMystery201408Text'),
-        notes: t('armorMystery201408Notes'),
-        mystery: '201408',
-        value: 0
-      },
-      201409: {
-        text: t('armorMystery201409Text'),
-        notes: t('armorMystery201409Notes'),
-        mystery: '201409',
-        value: 0
-      },
-      201410: {
-        text: t('armorMystery201410Text'),
-        notes: t('armorMystery201410Notes'),
-        mystery: '201410',
-        value: 0
-      },
-      201412: {
-        text: t('armorMystery201412Text'),
-        notes: t('armorMystery201412Notes'),
-        mystery: '201412',
-        value: 0
-      },
-      301404: {
-        text: t('armorMystery301404Text'),
-        notes: t('armorMystery301404Notes'),
-        mystery: '301404',
-        value: 0
-      }
-    }
-  },
-  head: {
-    base: {
-      0: {
-        text: t('headBase0Text'),
-        notes: t('headBase0Notes'),
-        value: 0
-      }
-    },
-    warrior: {
-      1: {
-        text: t('headWarrior1Text'),
-        notes: t('headWarrior1Notes', {
-          str: 2
-        }),
-        str: 2,
-        value: 15
-      },
-      2: {
-        text: t('headWarrior2Text'),
-        notes: t('headWarrior2Notes', {
-          str: 4
-        }),
-        str: 4,
-        value: 25
-      },
-      3: {
-        text: t('headWarrior3Text'),
-        notes: t('headWarrior3Notes', {
-          str: 6
-        }),
-        str: 6,
-        value: 40
-      },
-      4: {
-        text: t('headWarrior4Text'),
-        notes: t('headWarrior4Notes', {
-          str: 9
-        }),
-        str: 9,
-        value: 60
-      },
-      5: {
-        text: t('headWarrior5Text'),
-        notes: t('headWarrior5Notes', {
-          str: 12
-        }),
-        str: 12,
-        value: 80,
-        last: true
-      }
-    },
-    rogue: {
-      1: {
-        text: t('headRogue1Text'),
-        notes: t('headRogue1Notes', {
-          per: 2
-        }),
-        per: 2,
-        value: 15
-      },
-      2: {
-        text: t('headRogue2Text'),
-        notes: t('headRogue2Notes', {
-          per: 4
-        }),
-        per: 4,
-        value: 25
-      },
-      3: {
-        text: t('headRogue3Text'),
-        notes: t('headRogue3Notes', {
-          per: 6
-        }),
-        per: 6,
-        value: 40
-      },
-      4: {
-        text: t('headRogue4Text'),
-        notes: t('headRogue4Notes', {
-          per: 9
-        }),
-        per: 9,
-        value: 60
-      },
-      5: {
-        text: t('headRogue5Text'),
-        notes: t('headRogue5Notes', {
-          per: 12
-        }),
-        per: 12,
-        value: 80,
-        last: true
-      }
-    },
-    wizard: {
-      1: {
-        text: t('headWizard1Text'),
-        notes: t('headWizard1Notes', {
-          per: 2
-        }),
-        per: 2,
-        value: 15
-      },
-      2: {
-        text: t('headWizard2Text'),
-        notes: t('headWizard2Notes', {
-          per: 3
-        }),
-        per: 3,
-        value: 25
-      },
-      3: {
-        text: t('headWizard3Text'),
-        notes: t('headWizard3Notes', {
-          per: 5
-        }),
-        per: 5,
-        value: 40
-      },
-      4: {
-        text: t('headWizard4Text'),
-        notes: t('headWizard4Notes', {
-          per: 7
-        }),
-        per: 7,
-        value: 60
-      },
-      5: {
-        text: t('headWizard5Text'),
-        notes: t('headWizard5Notes', {
-          per: 10
-        }),
-        per: 10,
-        value: 80,
-        last: true
-      }
-    },
-    healer: {
-      1: {
-        text: t('headHealer1Text'),
-        notes: t('headHealer1Notes', {
-          int: 2
-        }),
-        int: 2,
-        value: 15
-      },
-      2: {
-        text: t('headHealer2Text'),
-        notes: t('headHealer2Notes', {
-          int: 3
-        }),
-        int: 3,
-        value: 25
-      },
-      3: {
-        text: t('headHealer3Text'),
-        notes: t('headHealer3Notes', {
-          int: 5
-        }),
-        int: 5,
-        value: 40
-      },
-      4: {
-        text: t('headHealer4Text'),
-        notes: t('headHealer4Notes', {
-          int: 7
-        }),
-        int: 7,
-        value: 60
-      },
-      5: {
-        text: t('headHealer5Text'),
-        notes: t('headHealer5Notes', {
-          int: 9
-        }),
-        int: 9,
-        value: 80,
-        last: true
-      }
-    },
-    special: {
-      0: {
-        text: t('headSpecial0Text'),
-        notes: t('headSpecial0Notes', {
-          int: 20
-        }),
-        int: 20,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-        })
-      },
-      1: {
-        text: t('headSpecial1Text'),
-        notes: t('headSpecial1Notes', {
-          attrs: 6
-        }),
-        con: 6,
-        str: 6,
-        per: 6,
-        int: 6,
-        value: 170,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
-        })
-      },
-      2: {
-        text: t('headSpecial2Text'),
-        notes: t('headSpecial2Notes', {
-          attrs: 25
-        }),
-        int: 25,
-        str: 25,
-        value: 200,
-        canOwn: (function(u) {
-          var _ref;
-          return (+((_ref = u.backer) != null ? _ref.tier : void 0) >= 300) || (u.items.gear.owned.head_special_2 != null);
-        })
-      },
-      nye: {
-        event: events.winter,
-        text: t('headSpecialNyeText'),
-        notes: t('headSpecialNyeNotes'),
-        value: 0
-      },
-      yeti: {
-        event: events.winter,
-        specialClass: 'warrior',
-        text: t('headSpecialYetiText'),
-        notes: t('headSpecialYetiNotes', {
-          str: 9
-        }),
-        str: 9,
-        value: 60
-      },
-      ski: {
-        event: events.winter,
-        specialClass: 'rogue',
-        text: t('headSpecialSkiText'),
-        notes: t('headSpecialSkiNotes', {
-          per: 9
-        }),
-        per: 9,
-        value: 60
-      },
-      candycane: {
-        event: events.winter,
-        specialClass: 'wizard',
-        text: t('headSpecialCandycaneText'),
-        notes: t('headSpecialCandycaneNotes', {
-          per: 7
-        }),
-        per: 7,
-        value: 60
-      },
-      snowflake: {
-        event: events.winter,
-        specialClass: 'healer',
-        text: t('headSpecialSnowflakeText'),
-        notes: t('headSpecialSnowflakeNotes', {
-          int: 7
-        }),
-        int: 7,
-        value: 60
-      },
-      springRogue: {
-        event: events.spring,
-        specialClass: 'rogue',
-        text: t('headSpecialSpringRogueText'),
-        notes: t('headSpecialSpringRogueNotes', {
-          per: 9
-        }),
-        value: 60,
-        per: 9
-      },
-      springWarrior: {
-        event: events.spring,
-        specialClass: 'warrior',
-        text: t('headSpecialSpringWarriorText'),
-        notes: t('headSpecialSpringWarriorNotes', {
-          str: 9
-        }),
-        value: 60,
-        str: 9
-      },
-      springMage: {
-        event: events.spring,
-        specialClass: 'wizard',
-        text: t('headSpecialSpringMageText'),
-        notes: t('headSpecialSpringMageNotes', {
-          per: 7
-        }),
-        value: 60,
-        per: 7
-      },
-      springHealer: {
-        event: events.spring,
-        specialClass: 'healer',
-        text: t('headSpecialSpringHealerText'),
-        notes: t('headSpecialSpringHealerNotes', {
-          int: 7
-        }),
-        value: 60,
-        int: 7
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('headSpecialSummerRogueText'),
-        notes: t('headSpecialSummerRogueNotes', {
-          per: 9
-        }),
-        value: 60,
-        per: 9
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('headSpecialSummerWarriorText'),
-        notes: t('headSpecialSummerWarriorNotes', {
-          str: 9
-        }),
-        value: 60,
-        str: 9
-      },
-      summerMage: {
-        event: events.summer,
-        specialClass: 'wizard',
-        text: t('headSpecialSummerMageText'),
-        notes: t('headSpecialSummerMageNotes', {
-          per: 7
-        }),
-        value: 60,
-        per: 7
-      },
-      summerHealer: {
-        event: events.summer,
-        specialClass: 'healer',
-        text: t('headSpecialSummerHealerText'),
-        notes: t('headSpecialSummerHealerNotes', {
-          int: 7
-        }),
-        value: 60,
-        int: 7
-      },
-      fallRogue: {
-        event: events.fall,
-        specialClass: 'rogue',
-        text: t('headSpecialFallRogueText'),
-        notes: t('headSpecialFallRogueNotes', {
-          per: 9
-        }),
-        value: 60,
-        per: 9
-      },
-      fallWarrior: {
-        event: events.fall,
-        specialClass: 'warrior',
-        text: t('headSpecialFallWarriorText'),
-        notes: t('headSpecialFallWarriorNotes', {
-          str: 9
-        }),
-        value: 60,
-        str: 9
-      },
-      fallMage: {
-        event: events.fall,
-        specialClass: 'wizard',
-        text: t('headSpecialFallMageText'),
-        notes: t('headSpecialFallMageNotes', {
-          per: 7
-        }),
-        value: 60,
-        per: 7
-      },
-      fallHealer: {
-        event: events.fall,
-        specialClass: 'healer',
-        text: t('headSpecialFallHealerText'),
-        notes: t('headSpecialFallHealerNotes', {
-          int: 7
-        }),
-        value: 60,
-        int: 7
-      },
-      winter2015Rogue: {
-        event: events.winter2015,
-        specialClass: 'rogue',
-        text: t('headSpecialWinter2015RogueText'),
-        notes: t('headSpecialWinter2015RogueNotes', {
-          per: 9
-        }),
-        value: 60,
-        per: 9
-      },
-      winter2015Warrior: {
-        event: events.winter2015,
-        specialClass: 'warrior',
-        text: t('headSpecialWinter2015WarriorText'),
-        notes: t('headSpecialWinter2015WarriorNotes', {
-          str: 9
-        }),
-        value: 60,
-        str: 9
-      },
-      winter2015Mage: {
-        event: events.winter2015,
-        specialClass: 'wizard',
-        text: t('headSpecialWinter2015MageText'),
-        notes: t('headSpecialWinter2015MageNotes', {
-          per: 7
-        }),
-        value: 60,
-        per: 7
-      },
-      winter2015Healer: {
-        event: events.winter2015,
-        specialClass: 'healer',
-        text: t('headSpecialWinter2015HealerText'),
-        notes: t('headSpecialWinter2015HealerNotes', {
-          int: 7
-        }),
-        value: 60,
-        int: 7
-      },
-      gaymerx: {
-        event: events.gaymerx,
-        text: t('headSpecialGaymerxText'),
-        notes: t('headSpecialGaymerxNotes'),
-        value: 0
-      }
-    },
-    mystery: {
-      201402: {
-        text: t('headMystery201402Text'),
-        notes: t('headMystery201402Notes'),
-        mystery: '201402',
-        value: 0
-      },
-      201405: {
-        text: t('headMystery201405Text'),
-        notes: t('headMystery201405Notes'),
-        mystery: '201405',
-        value: 0
-      },
-      201406: {
-        text: t('headMystery201406Text'),
-        notes: t('headMystery201406Notes'),
-        mystery: '201406',
-        value: 0
-      },
-      201407: {
-        text: t('headMystery201407Text'),
-        notes: t('headMystery201407Notes'),
-        mystery: '201407',
-        value: 0
-      },
-      201408: {
-        text: t('headMystery201408Text'),
-        notes: t('headMystery201408Notes'),
-        mystery: '201408',
-        value: 0
-      },
-      201411: {
-        text: t('headMystery201411Text'),
-        notes: t('headMystery201411Notes'),
-        mystery: '201411',
-        value: 0
-      },
-      201412: {
-        text: t('headMystery201412Text'),
-        notes: t('headMystery201412Notes'),
-        mystery: '201412',
-        value: 0
-      },
-      301404: {
-        text: t('headMystery301404Text'),
-        notes: t('headMystery301404Notes'),
-        mystery: '301404',
-        value: 0
-      },
-      301405: {
-        text: t('headMystery301405Text'),
-        notes: t('headMystery301405Notes'),
-        mystery: '301405',
-        value: 0
-      }
-    }
-  },
-  shield: {
-    base: {
-      0: {
-        text: t('shieldBase0Text'),
-        notes: t('shieldBase0Notes'),
-        value: 0
-      }
-    },
-    warrior: {
-      1: {
-        text: t('shieldWarrior1Text'),
-        notes: t('shieldWarrior1Notes', {
-          con: 2
-        }),
-        con: 2,
-        value: 20
-      },
-      2: {
-        text: t('shieldWarrior2Text'),
-        notes: t('shieldWarrior2Notes', {
-          con: 3
-        }),
-        con: 3,
-        value: 35
-      },
-      3: {
-        text: t('shieldWarrior3Text'),
-        notes: t('shieldWarrior3Notes', {
-          con: 5
-        }),
-        con: 5,
-        value: 50
-      },
-      4: {
-        text: t('shieldWarrior4Text'),
-        notes: t('shieldWarrior4Notes', {
-          con: 7
-        }),
-        con: 7,
-        value: 70
-      },
-      5: {
-        text: t('shieldWarrior5Text'),
-        notes: t('shieldWarrior5Notes', {
-          con: 9
-        }),
-        con: 9,
-        value: 90,
-        last: true
-      }
-    },
-    rogue: {
-      0: {
-        text: t('weaponRogue0Text'),
-        notes: t('weaponRogue0Notes'),
-        str: 0,
-        value: 0
-      },
-      1: {
-        text: t('weaponRogue1Text'),
-        notes: t('weaponRogue1Notes', {
-          str: 2
-        }),
-        str: 2,
-        value: 20
-      },
-      2: {
-        text: t('weaponRogue2Text'),
-        notes: t('weaponRogue2Notes', {
-          str: 3
-        }),
-        str: 3,
-        value: 35
-      },
-      3: {
-        text: t('weaponRogue3Text'),
-        notes: t('weaponRogue3Notes', {
-          str: 4
-        }),
-        str: 4,
-        value: 50
-      },
-      4: {
-        text: t('weaponRogue4Text'),
-        notes: t('weaponRogue4Notes', {
-          str: 6
-        }),
-        str: 6,
-        value: 70
-      },
-      5: {
-        text: t('weaponRogue5Text'),
-        notes: t('weaponRogue5Notes', {
-          str: 8
-        }),
-        str: 8,
-        value: 90
-      },
-      6: {
-        text: t('weaponRogue6Text'),
-        notes: t('weaponRogue6Notes', {
-          str: 10
-        }),
-        str: 10,
-        value: 120,
-        last: true
-      }
-    },
-    wizard: {},
-    healer: {
-      1: {
-        text: t('shieldHealer1Text'),
-        notes: t('shieldHealer1Notes', {
-          con: 2
-        }),
-        con: 2,
-        value: 20
-      },
-      2: {
-        text: t('shieldHealer2Text'),
-        notes: t('shieldHealer2Notes', {
-          con: 4
-        }),
-        con: 4,
-        value: 35
-      },
-      3: {
-        text: t('shieldHealer3Text'),
-        notes: t('shieldHealer3Notes', {
-          con: 6
-        }),
-        con: 6,
-        value: 50
-      },
-      4: {
-        text: t('shieldHealer4Text'),
-        notes: t('shieldHealer4Notes', {
-          con: 9
-        }),
-        con: 9,
-        value: 70
-      },
-      5: {
-        text: t('shieldHealer5Text'),
-        notes: t('shieldHealer5Notes', {
-          con: 12
-        }),
-        con: 12,
-        value: 90,
-        last: true
-      }
-    },
-    special: {
-      0: {
-        text: t('shieldSpecial0Text'),
-        notes: t('shieldSpecial0Notes', {
-          per: 20
-        }),
-        per: 20,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-        })
-      },
-      1: {
-        text: t('shieldSpecial1Text'),
-        notes: t('shieldSpecial1Notes', {
-          attrs: 6
-        }),
-        con: 6,
-        str: 6,
-        per: 6,
-        int: 6,
-        value: 170,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
-        })
-      },
-      goldenknight: {
-        text: t('shieldSpecialGoldenknightText'),
-        notes: t('shieldSpecialGoldenknightNotes', {
-          attrs: 25
-        }),
-        con: 25,
-        per: 25,
-        value: 200,
-        canOwn: (function(u) {
-          return u.items.gear.owned.shield_special_goldenknight != null;
-        })
-      },
-      yeti: {
-        event: events.winter,
-        specialClass: 'warrior',
-        text: t('shieldSpecialYetiText'),
-        notes: t('shieldSpecialYetiNotes', {
-          con: 7
-        }),
-        con: 7,
-        value: 70
-      },
-      ski: {
-        event: events.winter,
-        specialClass: 'rogue',
-        text: t('weaponSpecialSkiText'),
-        notes: t('weaponSpecialSkiNotes', {
-          str: 8
-        }),
-        str: 8,
-        value: 90
-      },
-      snowflake: {
-        event: events.winter,
-        specialClass: 'healer',
-        text: t('shieldSpecialSnowflakeText'),
-        notes: t('shieldSpecialSnowflakeNotes', {
-          con: 9
-        }),
-        con: 9,
-        value: 70
-      },
-      springRogue: {
-        event: events.spring,
-        specialClass: 'rogue',
-        text: t('shieldSpecialSpringRogueText'),
-        notes: t('shieldSpecialSpringRogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      springWarrior: {
-        event: events.spring,
-        specialClass: 'warrior',
-        text: t('shieldSpecialSpringWarriorText'),
-        notes: t('shieldSpecialSpringWarriorNotes', {
-          con: 7
-        }),
-        value: 70,
-        con: 7
-      },
-      springHealer: {
-        event: events.spring,
-        specialClass: 'healer',
-        text: t('shieldSpecialSpringHealerText'),
-        notes: t('shieldSpecialSpringHealerNotes', {
-          con: 9
-        }),
-        value: 70,
-        con: 9
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('shieldSpecialSummerRogueText'),
-        notes: t('shieldSpecialSummerRogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('shieldSpecialSummerWarriorText'),
-        notes: t('shieldSpecialSummerWarriorNotes', {
-          con: 7
-        }),
-        value: 70,
-        con: 7
-      },
-      summerHealer: {
-        event: events.summer,
-        specialClass: 'healer',
-        text: t('shieldSpecialSummerHealerText'),
-        notes: t('shieldSpecialSummerHealerNotes', {
-          con: 9
-        }),
-        value: 70,
-        con: 9
-      },
-      fallRogue: {
-        event: events.fall,
-        specialClass: 'rogue',
-        text: t('shieldSpecialFallRogueText'),
-        notes: t('shieldSpecialFallRogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      fallWarrior: {
-        event: events.fall,
-        specialClass: 'warrior',
-        text: t('shieldSpecialFallWarriorText'),
-        notes: t('shieldSpecialFallWarriorNotes', {
-          con: 7
-        }),
-        value: 70,
-        con: 7
-      },
-      fallHealer: {
-        event: events.fall,
-        specialClass: 'healer',
-        text: t('shieldSpecialFallHealerText'),
-        notes: t('shieldSpecialFallHealerNotes', {
-          con: 9
-        }),
-        value: 70,
-        con: 9
-      },
-      winter2015Rogue: {
-        event: events.winter2015,
-        specialClass: 'rogue',
-        text: t('shieldSpecialWinter2015RogueText'),
-        notes: t('shieldSpecialWinter2015RogueNotes', {
-          str: 8
-        }),
-        value: 80,
-        str: 8
-      },
-      winter2015Warrior: {
-        event: events.winter2015,
-        specialClass: 'warrior',
-        text: t('shieldSpecialWinter2015WarriorText'),
-        notes: t('shieldSpecialWinter2015WarriorNotes', {
-          con: 7
-        }),
-        value: 70,
-        con: 7
-      },
-      winter2015Healer: {
-        event: events.winter2015,
-        specialClass: 'healer',
-        text: t('shieldSpecialWinter2015HealerText'),
-        notes: t('shieldSpecialWinter2015HealerNotes', {
-          con: 9
-        }),
-        value: 70,
-        con: 9
-      }
-    },
-    mystery: {
-      301405: {
-        text: t('shieldMystery301405Text'),
-        notes: t('shieldMystery301405Notes'),
-        mystery: '301405',
-        value: 0
-      }
-    }
-  },
-  back: {
-    base: {
-      0: {
-        text: t('backBase0Text'),
-        notes: t('backBase0Notes'),
-        value: 0
-      }
-    },
-    mystery: {
-      201402: {
-        text: t('backMystery201402Text'),
-        notes: t('backMystery201402Notes'),
-        mystery: '201402',
-        value: 0
-      },
-      201404: {
-        text: t('backMystery201404Text'),
-        notes: t('backMystery201404Notes'),
-        mystery: '201404',
-        value: 0
-      },
-      201410: {
-        text: t('backMystery201410Text'),
-        notes: t('backMystery201410Notes'),
-        mystery: '201410',
-        value: 0
-      }
-    },
-    special: {
-      wondercon_red: {
-        text: t('backSpecialWonderconRedText'),
-        notes: t('backSpecialWonderconRedNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      },
-      wondercon_black: {
-        text: t('backSpecialWonderconBlackText'),
-        notes: t('backSpecialWonderconBlackNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      }
-    }
-  },
-  body: {
-    base: {
-      0: {
-        text: t('bodyBase0Text'),
-        notes: t('bodyBase0Notes'),
-        value: 0
-      }
-    },
-    special: {
-      wondercon_red: {
-        text: t('bodySpecialWonderconRedText'),
-        notes: t('bodySpecialWonderconRedNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      },
-      wondercon_gold: {
-        text: t('bodySpecialWonderconGoldText'),
-        notes: t('bodySpecialWonderconGoldNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      },
-      wondercon_black: {
-        text: t('bodySpecialWonderconBlackText'),
-        notes: t('bodySpecialWonderconBlackNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      },
-      summerHealer: {
-        event: events.summer,
-        specialClass: 'healer',
-        text: t('bodySpecialSummerHealerText'),
-        notes: t('bodySpecialSummerHealerNotes'),
-        value: 20
-      },
-      summerMage: {
-        event: events.summer,
-        specialClass: 'wizard',
-        text: t('bodySpecialSummerMageText'),
-        notes: t('bodySpecialSummerMageNotes'),
-        value: 20
-      }
-    }
-  },
-  headAccessory: {
-    base: {
-      0: {
-        text: t('headAccessoryBase0Text'),
-        notes: t('headAccessoryBase0Notes'),
-        value: 0,
-        last: true
-      }
-    },
-    special: {
-      springRogue: {
-        event: events.spring,
-        specialClass: 'rogue',
-        text: t('headAccessorySpecialSpringRogueText'),
-        notes: t('headAccessorySpecialSpringRogueNotes'),
-        value: 20
-      },
-      springWarrior: {
-        event: events.spring,
-        specialClass: 'warrior',
-        text: t('headAccessorySpecialSpringWarriorText'),
-        notes: t('headAccessorySpecialSpringWarriorNotes'),
-        value: 20
-      },
-      springMage: {
-        event: events.spring,
-        specialClass: 'wizard',
-        text: t('headAccessorySpecialSpringMageText'),
-        notes: t('headAccessorySpecialSpringMageNotes'),
-        value: 20
-      },
-      springHealer: {
-        event: events.spring,
-        specialClass: 'healer',
-        text: t('headAccessorySpecialSpringHealerText'),
-        notes: t('headAccessorySpecialSpringHealerNotes'),
-        value: 20
-      }
-    },
-    mystery: {
-      201403: {
-        text: t('headAccessoryMystery201403Text'),
-        notes: t('headAccessoryMystery201403Notes'),
-        mystery: '201403',
-        value: 0
-      },
-      201404: {
-        text: t('headAccessoryMystery201404Text'),
-        notes: t('headAccessoryMystery201404Notes'),
-        mystery: '201404',
-        value: 0
-      },
-      201409: {
-        text: t('headAccessoryMystery201409Text'),
-        notes: t('headAccessoryMystery201409Notes'),
-        mystery: '201409',
-        value: 0
-      },
-      301405: {
-        text: t('headAccessoryMystery301405Text'),
-        notes: t('headAccessoryMystery301405Notes'),
-        mystery: '301405',
-        value: 0
-      }
-    }
-  },
-  eyewear: {
-    base: {
-      0: {
-        text: t('eyewearBase0Text'),
-        notes: t('eyewearBase0Notes'),
-        value: 0,
-        last: true
-      }
-    },
-    special: {
-      wondercon_red: {
-        text: t('eyewearSpecialWonderconRedText'),
-        notes: t('eyewearSpecialWonderconRedNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      },
-      wondercon_black: {
-        text: t('eyewearSpecialWonderconBlackText'),
-        notes: t('eyewearSpecialWonderconBlackNotes'),
-        value: 0,
-        mystery: 'wondercon'
-      },
-      summerRogue: {
-        event: events.summer,
-        specialClass: 'rogue',
-        text: t('eyewearSpecialSummerRogueText'),
-        notes: t('eyewearSpecialSummerRogueNotes'),
-        value: 20
-      },
-      summerWarrior: {
-        event: events.summer,
-        specialClass: 'warrior',
-        text: t('eyewearSpecialSummerWarriorText'),
-        notes: t('eyewearSpecialSummerWarriorNotes'),
-        value: 20
-      }
-    },
-    mystery: {
-      301404: {
-        text: t('eyewearMystery301404Text'),
-        notes: t('eyewearMystery301404Notes'),
-        mystery: '301404',
-        value: 0
-      },
-      301405: {
-        text: t('eyewearMystery301405Text'),
-        notes: t('eyewearMystery301405Notes'),
-        mystery: '301405',
-        value: 0
-      }
-    }
-  }
-};
-
-
-/*
-  The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
-  they are needed in different froms at different points in the app
- */
-
-api.gear = {
-  tree: gear,
-  flat: {}
-};
-
-_.each(gearTypes, function(type) {
-  return _.each(classes.concat(['base', 'special', 'mystery']), function(klass) {
-    return _.each(gear[type][klass], function(item, i) {
-      var key, _canOwn;
-      key = "" + type + "_" + klass + "_" + i;
-      _.defaults(item, {
-        type: type,
-        key: key,
-        klass: klass,
-        index: i,
-        str: 0,
-        int: 0,
-        per: 0,
-        con: 0
-      });
-      if (item.event) {
-        _canOwn = item.canOwn || (function() {
-          return true;
-        });
-        item.canOwn = function(u) {
-          return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end))) && (item.specialClass ? u.stats["class"] === item.specialClass : true);
-        };
-      }
-      if (item.mystery) {
-        item.canOwn = function(u) {
-          return u.items.gear.owned[key] != null;
-        };
-      }
-      return api.gear.flat[key] = item;
-    });
-  });
-});
-
-
-/*
-  Time Traveler Store, mystery sets need their items mapped in
- */
-
-_.each(api.mystery, function(v, k) {
-  return v.items = _.where(api.gear.flat, {
-    mystery: k
-  });
-});
-
-api.timeTravelerStore = function(owned) {
-  var ownedKeys;
-  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
-  return _.reduce(api.mystery, function(m, v, k) {
-    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
-      return m;
-    }
-    m[k] = v;
-    return m;
-  }, {});
-};
-
-
-/*
-  ---------------------------------------------------------------
-  Potion
-  ---------------------------------------------------------------
- */
-
-api.potion = {
-  type: 'potion',
-  text: t('potionText'),
-  notes: t('potionNotes'),
-  value: 25,
-  key: 'potion'
-};
-
-
-/*
-   ---------------------------------------------------------------
-   Classes
-   ---------------------------------------------------------------
- */
-
-api.classes = classes;
-
-
-/*
-   ---------------------------------------------------------------
-   Gear Types
-   ---------------------------------------------------------------
- */
-
-api.gearTypes = gearTypes;
-
-
-/*
-  ---------------------------------------------------------------
-  Spells
-  ---------------------------------------------------------------
-  Text, notes, and mana are obvious. The rest:
-
-  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
-    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
-    etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
-
-  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
-    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
-    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
-    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
-    so you'll want to iterate over them like: `_.each(target,function(member){...})`
-
-  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
- */
-
-diminishingReturns = function(bonus, max, halfway) {
-  if (halfway == null) {
-    halfway = max / 2;
-  }
-  return max * (bonus / (bonus + halfway));
-};
-
-api.spells = {
-  wizard: {
-    fireball: {
-      text: t('spellWizardFireballText'),
-      mana: 10,
-      lvl: 11,
-      target: 'task',
-      notes: t('spellWizardFireballNotes'),
-      cast: function(user, target) {
-        var bonus;
-        bonus = user._statsComputed.int * user.fns.crit('per');
-        target.value += diminishingReturns(bonus * .02, 4);
-        bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
-        user.stats.exp += diminishingReturns(bonus, 75);
-        if (user.party.quest.key) {
-          return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
-        }
-      }
-    },
-    mpheal: {
-      text: t('spellWizardMPHealText'),
-      mana: 30,
-      lvl: 12,
-      target: 'party',
-      notes: t('spellWizardMPHealNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          var bonus;
-          bonus = Math.ceil(user._statsComputed.int * .1);
-          if (bonus > 25) {
-            bonus = 25;
-          }
-          return member.stats.mp += bonus;
-        });
-      }
-    },
-    earth: {
-      text: t('spellWizardEarthText'),
-      mana: 35,
-      lvl: 13,
-      target: 'party',
-      notes: t('spellWizardEarthNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          var _base;
-          if ((_base = member.stats.buffs).int == null) {
-            _base.int = 0;
-          }
-          return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
-        });
-      }
-    },
-    frost: {
-      text: t('spellWizardFrostText'),
-      mana: 40,
-      lvl: 14,
-      target: 'self',
-      notes: t('spellWizardFrostNotes'),
-      cast: function(user, target) {
-        return user.stats.buffs.streaks = true;
-      }
-    }
-  },
-  warrior: {
-    smash: {
-      text: t('spellWarriorSmashText'),
-      mana: 10,
-      lvl: 11,
-      target: 'task',
-      notes: t('spellWarriorSmashNotes'),
-      cast: function(user, target) {
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
-        if (user.party.quest.key) {
-          return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
-        }
-      }
-    },
-    defensiveStance: {
-      text: t('spellWarriorDefensiveStanceText'),
-      mana: 25,
-      lvl: 12,
-      target: 'self',
-      notes: t('spellWarriorDefensiveStanceNotes'),
-      cast: function(user, target) {
-        var _base;
-        if ((_base = user.stats.buffs).con == null) {
-          _base.con = 0;
-        }
-        return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
-      }
-    },
-    valorousPresence: {
-      text: t('spellWarriorValorousPresenceText'),
-      mana: 20,
-      lvl: 13,
-      target: 'party',
-      notes: t('spellWarriorValorousPresenceNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          var _base;
-          if ((_base = member.stats.buffs).str == null) {
-            _base.str = 0;
-          }
-          return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
-        });
-      }
-    },
-    intimidate: {
-      text: t('spellWarriorIntimidateText'),
-      mana: 15,
-      lvl: 14,
-      target: 'party',
-      notes: t('spellWarriorIntimidateNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          var _base;
-          if ((_base = member.stats.buffs).con == null) {
-            _base.con = 0;
-          }
-          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
-        });
-      }
-    }
-  },
-  rogue: {
-    pickPocket: {
-      text: t('spellRoguePickPocketText'),
-      mana: 10,
-      lvl: 11,
-      target: 'task',
-      notes: t('spellRoguePickPocketNotes'),
-      cast: function(user, target) {
-        var bonus;
-        bonus = (target.value < 0 ? 1 : target.value + 2) + (user._statsComputed.per * 0.5);
-        return user.stats.gp += 25 * (bonus / (bonus + 75));
-      }
-    },
-    backStab: {
-      text: t('spellRogueBackStabText'),
-      mana: 15,
-      lvl: 12,
-      target: 'task',
-      notes: t('spellRogueBackStabNotes'),
-      cast: function(user, target) {
-        var bonus, _crit;
-        _crit = user.fns.crit('str', .3);
-        target.value += _crit * .03;
-        bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
-        user.stats.exp += bonus;
-        return user.stats.gp += bonus;
-      }
-    },
-    toolsOfTrade: {
-      text: t('spellRogueToolsOfTradeText'),
-      mana: 25,
-      lvl: 13,
-      target: 'party',
-      notes: t('spellRogueToolsOfTradeNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          var _base;
-          if ((_base = member.stats.buffs).per == null) {
-            _base.per = 0;
-          }
-          return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
-        });
-      }
-    },
-    stealth: {
-      text: t('spellRogueStealthText'),
-      mana: 45,
-      lvl: 14,
-      target: 'self',
-      notes: t('spellRogueStealthNotes'),
-      cast: function(user, target) {
-        var _base;
-        if ((_base = user.stats.buffs).stealth == null) {
-          _base.stealth = 0;
-        }
-        return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
-      }
-    }
-  },
-  healer: {
-    heal: {
-      text: t('spellHealerHealText'),
-      mana: 15,
-      lvl: 11,
-      target: 'self',
-      notes: t('spellHealerHealNotes'),
-      cast: function(user, target) {
-        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
-        if (user.stats.hp > 50) {
-          return user.stats.hp = 50;
-        }
-      }
-    },
-    brightness: {
-      text: t('spellHealerBrightnessText'),
-      mana: 15,
-      lvl: 12,
-      target: 'self',
-      notes: t('spellHealerBrightnessNotes'),
-      cast: function(user, target) {
-        return _.each(user.tasks, function(target) {
-          if (target.type === 'reward') {
-            return;
-          }
-          return target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40));
-        });
-      }
-    },
-    protectAura: {
-      text: t('spellHealerProtectAuraText'),
-      mana: 30,
-      lvl: 13,
-      target: 'party',
-      notes: t('spellHealerProtectAuraNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          var _base;
-          if ((_base = member.stats.buffs).con == null) {
-            _base.con = 0;
-          }
-          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
-        });
-      }
-    },
-    heallAll: {
-      text: t('spellHealerHealAllText'),
-      mana: 25,
-      lvl: 14,
-      target: 'party',
-      notes: t('spellHealerHealAllNotes'),
-      cast: function(user, target) {
-        return _.each(target, function(member) {
-          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
-          if (member.stats.hp > 50) {
-            return member.stats.hp = 50;
-          }
-        });
-      }
-    }
-  },
-  special: {
-    snowball: {
-      text: t('spellSpecialSnowballAuraText'),
-      mana: 0,
-      value: 1,
-      target: 'user',
-      notes: t('spellSpecialSnowballAuraNotes'),
-      cast: function(user, target) {
-        var _base;
-        target.stats.buffs.snowball = true;
-        if ((_base = target.achievements).snowball == null) {
-          _base.snowball = 0;
-        }
-        target.achievements.snowball++;
-        return user.items.special.snowball--;
-      }
-    },
-    salt: {
-      text: t('spellSpecialSaltText'),
-      mana: 0,
-      value: 5,
-      target: 'self',
-      notes: t('spellSpecialSaltNotes'),
-      cast: function(user, target) {
-        user.stats.buffs.snowball = false;
-        return user.stats.gp -= 5;
-      }
-    },
-    spookDust: {
-      text: t('spellSpecialSpookDustText'),
-      mana: 0,
-      value: 15,
-      target: 'user',
-      notes: t('spellSpecialSpookDustNotes'),
-      cast: function(user, target) {
-        var _base;
-        target.stats.buffs.spookDust = true;
-        if ((_base = target.achievements).spookDust == null) {
-          _base.spookDust = 0;
-        }
-        target.achievements.spookDust++;
-        return user.items.special.spookDust--;
-      }
-    },
-    opaquePotion: {
-      text: t('spellSpecialOpaquePotionText'),
-      mana: 0,
-      value: 5,
-      target: 'self',
-      notes: t('spellSpecialOpaquePotionNotes'),
-      cast: function(user, target) {
-        user.stats.buffs.spookDust = false;
-        return user.stats.gp -= 5;
-      }
-    }
-  }
-};
-
-_.each(api.spells, function(spellClass) {
-  return _.each(spellClass, function(spell, key) {
-    var _cast;
-    spell.key = key;
-    _cast = spell.cast;
-    return spell.cast = function(user, target) {
-      _cast(user, target);
-      return user.stats.mp -= spell.mana;
-    };
-  });
-});
-
-api.special = api.spells.special;
-
-
-/*
-  ---------------------------------------------------------------
-  Drops
-  ---------------------------------------------------------------
- */
-
-api.dropEggs = {
-  Wolf: {
-    text: t('dropEggWolfText'),
-    adjective: t('dropEggWolfAdjective')
-  },
-  TigerCub: {
-    text: t('dropEggTigerCubText'),
-    mountText: t('dropEggTigerCubMountText'),
-    adjective: t('dropEggTigerCubAdjective')
-  },
-  PandaCub: {
-    text: t('dropEggPandaCubText'),
-    mountText: t('dropEggPandaCubMountText'),
-    adjective: t('dropEggPandaCubAdjective')
-  },
-  LionCub: {
-    text: t('dropEggLionCubText'),
-    mountText: t('dropEggLionCubMountText'),
-    adjective: t('dropEggLionCubAdjective')
-  },
-  Fox: {
-    text: t('dropEggFoxText'),
-    adjective: t('dropEggFoxAdjective')
-  },
-  FlyingPig: {
-    text: t('dropEggFlyingPigText'),
-    adjective: t('dropEggFlyingPigAdjective')
-  },
-  Dragon: {
-    text: t('dropEggDragonText'),
-    adjective: t('dropEggDragonAdjective')
-  },
-  Cactus: {
-    text: t('dropEggCactusText'),
-    adjective: t('dropEggCactusAdjective')
-  },
-  BearCub: {
-    text: t('dropEggBearCubText'),
-    mountText: t('dropEggBearCubMountText'),
-    adjective: t('dropEggBearCubAdjective')
-  }
-};
-
-_.each(api.dropEggs, function(egg, key) {
-  return _.defaults(egg, {
-    canBuy: true,
-    value: 3,
-    key: key,
-    notes: t('eggNotes', {
-      eggText: egg.text,
-      eggAdjective: egg.adjective
-    }),
-    mountText: egg.text
-  });
-});
-
-api.questEggs = {
-  Gryphon: {
-    text: t('questEggGryphonText'),
-    adjective: t('questEggGryphonAdjective'),
-    canBuy: false
-  },
-  Hedgehog: {
-    text: t('questEggHedgehogText'),
-    adjective: t('questEggHedgehogAdjective'),
-    canBuy: false
-  },
-  Deer: {
-    text: t('questEggDeerText'),
-    adjective: t('questEggDeerAdjective'),
-    canBuy: false
-  },
-  Egg: {
-    text: t('questEggEggText'),
-    adjective: t('questEggEggAdjective'),
-    canBuy: false,
-    noMount: true
-  },
-  Rat: {
-    text: t('questEggRatText'),
-    adjective: t('questEggRatAdjective'),
-    canBuy: false
-  },
-  Octopus: {
-    text: t('questEggOctopusText'),
-    adjective: t('questEggOctopusAdjective'),
-    canBuy: false
-  },
-  Seahorse: {
-    text: t('questEggSeahorseText'),
-    adjective: t('questEggSeahorseAdjective'),
-    canBuy: false
-  },
-  Parrot: {
-    text: t('questEggParrotText'),
-    adjective: t('questEggParrotAdjective'),
-    canBuy: false
-  },
-  Rooster: {
-    text: t('questEggRoosterText'),
-    adjective: t('questEggRoosterAdjective'),
-    canBuy: false
-  },
-  Spider: {
-    text: t('questEggSpiderText'),
-    adjective: t('questEggSpiderAdjective'),
-    canBuy: false
-  },
-  Owl: {
-    text: t('questEggOwlText'),
-    adjective: t('questEggOwlAdjective'),
-    canBuy: false
-  },
-  Penguin: {
-    text: t('questEggPenguinText'),
-    adjective: t('questEggPenguinAdjective'),
-    canBuy: false
-  }
-};
-
-_.each(api.questEggs, function(egg, key) {
-  return _.defaults(egg, {
-    canBuy: false,
-    value: 3,
-    key: key,
-    notes: t('eggNotes', {
-      eggText: egg.text,
-      eggAdjective: egg.adjective
-    }),
-    mountText: egg.text
-  });
-});
-
-api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
-
-api.specialPets = {
-  'Wolf-Veteran': 'veteranWolf',
-  'Wolf-Cerberus': 'cerberusPup',
-  'Dragon-Hydra': 'hydra',
-  'Turkey-Base': 'turkey',
-  'BearCub-Polar': 'polarBearPup',
-  'MantisShrimp-Base': 'mantisShrimp',
-  'JackOLantern-Base': 'jackolantern'
-};
-
-api.specialMounts = {
-  'BearCub-Polar': 'polarBear',
-  'LionCub-Ethereal': 'etherealLion',
-  'MantisShrimp-Base': 'mantisShrimp',
-  'Turkey-Base': 'turkey'
-};
-
-api.hatchingPotions = {
-  Base: {
-    value: 2,
-    text: t('hatchingPotionBase')
-  },
-  White: {
-    value: 2,
-    text: t('hatchingPotionWhite')
-  },
-  Desert: {
-    value: 2,
-    text: t('hatchingPotionDesert')
-  },
-  Red: {
-    value: 3,
-    text: t('hatchingPotionRed')
-  },
-  Shade: {
-    value: 3,
-    text: t('hatchingPotionShade')
-  },
-  Skeleton: {
-    value: 3,
-    text: t('hatchingPotionSkeleton')
-  },
-  Zombie: {
-    value: 4,
-    text: t('hatchingPotionZombie')
-  },
-  CottonCandyPink: {
-    value: 4,
-    text: t('hatchingPotionCottonCandyPink')
-  },
-  CottonCandyBlue: {
-    value: 4,
-    text: t('hatchingPotionCottonCandyBlue')
-  },
-  Golden: {
-    value: 5,
-    text: t('hatchingPotionGolden')
-  }
-};
-
-_.each(api.hatchingPotions, function(pot, key) {
-  return _.defaults(pot, {
-    key: key,
-    value: 2,
-    notes: t('hatchingPotionNotes', {
-      potText: pot.text
-    })
-  });
-});
-
-api.pets = _.transform(api.dropEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    return m2[egg.key + "-" + pot.key] = true;
-  }));
-});
-
-api.questPets = _.transform(api.questEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    return m2[egg.key + "-" + pot.key] = true;
-  }));
-});
-
-api.food = {
-  Meat: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodMeat'),
-    target: 'Base',
-    article: ''
-  },
-  Milk: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodMilk'),
-    target: 'White',
-    article: ''
-  },
-  Potatoe: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodPotatoe'),
-    target: 'Desert',
-    article: 'a '
-  },
-  Strawberry: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodStrawberry'),
-    target: 'Red',
-    article: 'a '
-  },
-  Chocolate: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodChocolate'),
-    target: 'Shade',
-    article: ''
-  },
-  Fish: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodFish'),
-    target: 'Skeleton',
-    article: 'a '
-  },
-  RottenMeat: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodRottenMeat'),
-    target: 'Zombie',
-    article: ''
-  },
-  CottonCandyPink: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodCottonCandyPink'),
-    target: 'CottonCandyPink',
-    article: ''
-  },
-  CottonCandyBlue: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodCottonCandyBlue'),
-    target: 'CottonCandyBlue',
-    article: ''
-  },
-  Honey: {
-    canBuy: true,
-    canDrop: true,
-    text: t('foodHoney'),
-    target: 'Golden',
-    article: ''
-  },
-  Saddle: {
-    canBuy: true,
-    canDrop: false,
-    text: t('foodSaddleText'),
-    value: 5,
-    notes: t('foodSaddleNotes')
-  },
-  Cake_Skeleton: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeSkeleton'),
-    target: 'Skeleton',
-    article: ''
-  },
-  Cake_Base: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeBase'),
-    target: 'Base',
-    article: ''
-  },
-  Cake_CottonCandyBlue: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeCottonCandyBlue'),
-    target: 'CottonCandyBlue',
-    article: ''
-  },
-  Cake_CottonCandyPink: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeCottonCandyPink'),
-    target: 'CottonCandyPink',
-    article: ''
-  },
-  Cake_Shade: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeShade'),
-    target: 'Shade',
-    article: ''
-  },
-  Cake_White: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeWhite'),
-    target: 'White',
-    article: ''
-  },
-  Cake_Golden: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeGolden'),
-    target: 'Golden',
-    article: ''
-  },
-  Cake_Zombie: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeZombie'),
-    target: 'Zombie',
-    article: ''
-  },
-  Cake_Desert: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeDesert'),
-    target: 'Desert',
-    article: ''
-  },
-  Cake_Red: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCakeRed'),
-    target: 'Red',
-    article: ''
-  },
-  Candy_Skeleton: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandySkeleton'),
-    target: 'Skeleton',
-    article: ''
-  },
-  Candy_Base: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyBase'),
-    target: 'Base',
-    article: ''
-  },
-  Candy_CottonCandyBlue: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyCottonCandyBlue'),
-    target: 'CottonCandyBlue',
-    article: ''
-  },
-  Candy_CottonCandyPink: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyCottonCandyPink'),
-    target: 'CottonCandyPink',
-    article: ''
-  },
-  Candy_Shade: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyShade'),
-    target: 'Shade',
-    article: ''
-  },
-  Candy_White: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyWhite'),
-    target: 'White',
-    article: ''
-  },
-  Candy_Golden: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyGolden'),
-    target: 'Golden',
-    article: ''
-  },
-  Candy_Zombie: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyZombie'),
-    target: 'Zombie',
-    article: ''
-  },
-  Candy_Desert: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyDesert'),
-    target: 'Desert',
-    article: ''
-  },
-  Candy_Red: {
-    canBuy: false,
-    canDrop: false,
-    text: t('foodCandyRed'),
-    target: 'Red',
-    article: ''
-  }
-};
-
-_.each(api.food, function(food, key) {
-  return _.defaults(food, {
-    value: 1,
-    key: key,
-    notes: t('foodNotes')
-  });
-});
-
-api.quests = {
-  dilatory: {
-    text: t("questDilatoryText"),
-    notes: t("questDilatoryNotes"),
-    completion: t("questDilatoryCompletion"),
-    value: 0,
-    canBuy: false,
-    boss: {
-      name: t("questDilatoryBoss"),
-      hp: 5000000,
-      str: 1,
-      def: 1,
-      rage: {
-        title: t("questDilatoryBossRageTitle"),
-        description: t("questDilatoryBossRageDescription"),
-        value: 4000000,
-        tavern: t('questDilatoryBossRageTavern'),
-        stables: t('questDilatoryBossRageStables'),
-        market: t('questDilatoryBossRageMarket')
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'pets',
-          key: 'MantisShrimp-Base',
-          text: t('questDilatoryDropMantisShrimpPet')
-        }, {
-          type: 'mounts',
-          key: 'MantisShrimp-Base',
-          text: t('questDilatoryDropMantisShrimpMount')
-        }, {
-          type: 'food',
-          key: 'Meat',
-          text: t('foodMeat')
-        }, {
-          type: 'food',
-          key: 'Milk',
-          text: t('foodMilk')
-        }, {
-          type: 'food',
-          key: 'Potatoe',
-          text: t('foodPotatoe')
-        }, {
-          type: 'food',
-          key: 'Strawberry',
-          text: t('foodStrawberry')
-        }, {
-          type: 'food',
-          key: 'Chocolate',
-          text: t('foodChocolate')
-        }, {
-          type: 'food',
-          key: 'Fish',
-          text: t('foodFish')
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('foodRottenMeat')
-        }, {
-          type: 'food',
-          key: 'CottonCandyPink',
-          text: t('foodCottonCandyPink')
-        }, {
-          type: 'food',
-          key: 'CottonCandyBlue',
-          text: t('foodCottonCandyBlue')
-        }, {
-          type: 'food',
-          key: 'Honey',
-          text: t('foodHoney')
-        }
-      ],
-      gp: 0,
-      exp: 0
-    }
-  },
-  evilsanta: {
-    canBuy: false,
-    text: t('questEvilSantaText'),
-    notes: t('questEvilSantaNotes'),
-    completion: t('questEvilSantaCompletion'),
-    value: 4,
-    boss: {
-      name: t('questEvilSantaBoss'),
-      hp: 300,
-      str: 1
-    },
-    drop: {
-      items: [
-        {
-          type: 'mounts',
-          key: 'BearCub-Polar',
-          text: t('questEvilSantaDropBearCubPolarMount')
-        }
-      ],
-      gp: 20,
-      exp: 100
-    }
-  },
-  evilsanta2: {
-    canBuy: false,
-    text: t('questEvilSanta2Text'),
-    notes: t('questEvilSanta2Notes'),
-    completion: t('questEvilSanta2Completion'),
-    value: 4,
-    previous: 'evilsanta',
-    collect: {
-      tracks: {
-        text: t('questEvilSanta2CollectTracks'),
-        count: 20
-      },
-      branches: {
-        text: t('questEvilSanta2CollectBranches'),
-        count: 10
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'pets',
-          key: 'BearCub-Polar',
-          text: t('questEvilSanta2DropBearCubPolarPet')
-        }
-      ],
-      gp: 20,
-      exp: 100
-    }
-  },
-  gryphon: {
-    text: t('questGryphonText'),
-    notes: t('questGryphonNotes'),
-    completion: t('questGryphonCompletion'),
-    value: 4,
-    boss: {
-      name: t('questGryphonBoss'),
-      hp: 300,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Gryphon',
-          text: t('questGryphonDropGryphonEgg')
-        }, {
-          type: 'eggs',
-          key: 'Gryphon',
-          text: t('questGryphonDropGryphonEgg')
-        }, {
-          type: 'eggs',
-          key: 'Gryphon',
-          text: t('questGryphonDropGryphonEgg')
-        }
-      ],
-      gp: 25,
-      exp: 125
-    }
-  },
-  hedgehog: {
-    text: t('questHedgehogText'),
-    notes: t('questHedgehogNotes'),
-    completion: t('questHedgehogCompletion'),
-    value: 4,
-    boss: {
-      name: t('questHedgehogBoss'),
-      hp: 400,
-      str: 1.25
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Hedgehog',
-          text: t('questHedgehogDropHedgehogEgg')
-        }, {
-          type: 'eggs',
-          key: 'Hedgehog',
-          text: t('questHedgehogDropHedgehogEgg')
-        }, {
-          type: 'eggs',
-          key: 'Hedgehog',
-          text: t('questHedgehogDropHedgehogEgg')
-        }
-      ],
-      gp: 30,
-      exp: 125
-    }
-  },
-  ghost_stag: {
-    text: t('questGhostStagText'),
-    notes: t('questGhostStagNotes'),
-    completion: t('questGhostStagCompletion'),
-    value: 4,
-    boss: {
-      name: t('questGhostStagBoss'),
-      hp: 1200,
-      str: 2.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Deer',
-          text: t('questGhostStagDropDeerEgg')
-        }, {
-          type: 'eggs',
-          key: 'Deer',
-          text: t('questGhostStagDropDeerEgg')
-        }, {
-          type: 'eggs',
-          key: 'Deer',
-          text: t('questGhostStagDropDeerEgg')
-        }
-      ],
-      gp: 80,
-      exp: 800
-    }
-  },
-  vice1: {
-    text: t('questVice1Text'),
-    notes: t('questVice1Notes'),
-    value: 4,
-    lvl: 30,
-    boss: {
-      name: t('questVice1Boss'),
-      hp: 750,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: "vice2",
-          text: t('questVice1DropVice2Quest')
-        }
-      ],
-      gp: 20,
-      exp: 100
-    }
-  },
-  vice2: {
-    text: t('questVice2Text'),
-    notes: t('questVice2Notes'),
-    value: 4,
-    lvl: 35,
-    previous: 'vice1',
-    collect: {
-      lightCrystal: {
-        text: t('questVice2CollectLightCrystal'),
-        count: 45
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: 'vice3',
-          text: t('questVice2DropVice3Quest')
-        }
-      ],
-      gp: 20,
-      exp: 75
-    }
-  },
-  vice3: {
-    text: t('questVice3Text'),
-    notes: t('questVice3Notes'),
-    completion: t('questVice3Completion'),
-    previous: 'vice2',
-    value: 4,
-    lvl: 40,
-    boss: {
-      name: t('questVice3Boss'),
-      hp: 1500,
-      str: 3
-    },
-    drop: {
-      items: [
-        {
-          type: 'gear',
-          key: "weapon_special_2",
-          text: t('questVice3DropWeaponSpecial2')
-        }, {
-          type: 'eggs',
-          key: 'Dragon',
-          text: t('questVice3DropDragonEgg')
-        }, {
-          type: 'eggs',
-          key: 'Dragon',
-          text: t('questVice3DropDragonEgg')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Shade',
-          text: t('questVice3DropShadeHatchingPotion')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Shade',
-          text: t('questVice3DropShadeHatchingPotion')
-        }
-      ],
-      gp: 100,
-      exp: 1000
-    }
-  },
-  egg: {
-    text: t('questEggHuntText'),
-    notes: t('questEggHuntNotes'),
-    completion: t('questEggHuntCompletion'),
-    value: 1,
-    canBuy: false,
-    collect: {
-      plainEgg: {
-        text: t('questEggHuntCollectPlainEgg'),
-        count: 100
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }, {
-          type: 'eggs',
-          key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }
-      ],
-      gp: 0,
-      exp: 0
-    }
-  },
-  rat: {
-    text: t('questRatText'),
-    notes: t('questRatNotes'),
-    completion: t('questRatCompletion'),
-    value: 4,
-    boss: {
-      name: t('questRatBoss'),
-      hp: 1200,
-      str: 2.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Rat',
-          text: t('questRatDropRatEgg')
-        }, {
-          type: 'eggs',
-          key: 'Rat',
-          text: t('questRatDropRatEgg')
-        }, {
-          type: 'eggs',
-          key: 'Rat',
-          text: t('questRatDropRatEgg')
-        }
-      ],
-      gp: 80,
-      exp: 800
-    }
-  },
-  octopus: {
-    text: t('questOctopusText'),
-    notes: t('questOctopusNotes'),
-    completion: t('questOctopusCompletion'),
-    value: 4,
-    boss: {
-      name: t('questOctopusBoss'),
-      hp: 1200,
-      str: 2.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Octopus',
-          text: t('questOctopusDropOctopusEgg')
-        }, {
-          type: 'eggs',
-          key: 'Octopus',
-          text: t('questOctopusDropOctopusEgg')
-        }, {
-          type: 'eggs',
-          key: 'Octopus',
-          text: t('questOctopusDropOctopusEgg')
-        }
-      ],
-      gp: 80,
-      exp: 800
-    }
-  },
-  dilatory_derby: {
-    text: t('questSeahorseText'),
-    notes: t('questSeahorseNotes'),
-    completion: t('questSeahorseCompletion'),
-    value: 4,
-    boss: {
-      name: t('questSeahorseBoss'),
-      hp: 300,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Seahorse',
-          text: t('questSeahorseDropSeahorseEgg')
-        }, {
-          type: 'eggs',
-          key: 'Seahorse',
-          text: t('questSeahorseDropSeahorseEgg')
-        }, {
-          type: 'eggs',
-          key: 'Seahorse',
-          text: t('questSeahorseDropSeahorseEgg')
-        }
-      ],
-      gp: 25,
-      exp: 125
-    }
-  },
-  atom1: {
-    text: t('questAtom1Text'),
-    notes: t('questAtom1Notes'),
-    value: 4,
-    lvl: 15,
-    collect: {
-      soapBars: {
-        text: t('questAtom1CollectSoapBars'),
-        count: 20
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: "atom2",
-          text: t('questAtom1Drop')
-        }
-      ],
-      gp: 7,
-      exp: 50
-    }
-  },
-  atom2: {
-    text: t('questAtom2Text'),
-    notes: t('questAtom2Notes'),
-    previous: 'atom1',
-    value: 4,
-    lvl: 15,
-    boss: {
-      name: t('questAtom2Boss'),
-      hp: 300,
-      str: 1
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: "atom3",
-          text: t('questAtom2Drop')
-        }
-      ],
-      gp: 20,
-      exp: 100
-    }
-  },
-  atom3: {
-    text: t('questAtom3Text'),
-    notes: t('questAtom3Notes'),
-    previous: 'atom2',
-    completion: t('questAtom3Completion'),
-    value: 4,
-    lvl: 15,
-    boss: {
-      name: t('questAtom3Boss'),
-      hp: 800,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'gear',
-          key: "head_special_2",
-          text: t('headSpecial2Text')
-        }, {
-          type: 'hatchingPotions',
-          key: "Base",
-          text: t('questAtom3DropPotion')
-        }, {
-          type: 'hatchingPotions',
-          key: "Base",
-          text: t('questAtom3DropPotion')
-        }
-      ],
-      gp: 25,
-      exp: 125
-    }
-  },
-  harpy: {
-    text: t('questHarpyText'),
-    notes: t('questHarpyNotes'),
-    completion: t('questHarpyCompletion'),
-    value: 4,
-    boss: {
-      name: t('questHarpyBoss'),
-      hp: 600,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Parrot',
-          text: t('questHarpyDropParrotEgg')
-        }, {
-          type: 'eggs',
-          key: 'Parrot',
-          text: t('questHarpyDropParrotEgg')
-        }, {
-          type: 'eggs',
-          key: 'Parrot',
-          text: t('questHarpyDropParrotEgg')
-        }
-      ],
-      gp: 43,
-      exp: 350
-    }
-  },
-  rooster: {
-    text: t('questRoosterText'),
-    notes: t('questRoosterNotes'),
-    completion: t('questRoosterCompletion'),
-    value: 4,
-    boss: {
-      name: t('questRoosterBoss'),
-      hp: 300,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Rooster',
-          text: t('questRoosterDropRoosterEgg')
-        }, {
-          type: 'eggs',
-          key: 'Rooster',
-          text: t('questRoosterDropRoosterEgg')
-        }, {
-          type: 'eggs',
-          key: 'Rooster',
-          text: t('questRoosterDropRoosterEgg')
-        }
-      ],
-      gp: 25,
-      exp: 125
-    }
-  },
-  spider: {
-    text: t('questSpiderText'),
-    notes: t('questSpiderNotes'),
-    completion: t('questSpiderCompletion'),
-    value: 4,
-    boss: {
-      name: t('questSpiderBoss'),
-      hp: 400,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Spider',
-          text: t('questSpiderDropSpiderEgg')
-        }, {
-          type: 'eggs',
-          key: 'Spider',
-          text: t('questSpiderDropSpiderEgg')
-        }, {
-          type: 'eggs',
-          key: 'Spider',
-          text: t('questSpiderDropSpiderEgg')
-        }
-      ],
-      gp: 31,
-      exp: 200
-    }
-  },
-  moonstone1: {
-    text: t('questMoonstone1Text'),
-    notes: t('questMoonstone1Notes'),
-    value: 4,
-    lvl: 60,
-    collect: {
-      moonstone: {
-        text: t('questMoonstone1CollectMoonstone'),
-        count: 500
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: "moonstone2",
-          text: t('questMoonstone1DropMoonstone2Quest')
-        }
-      ],
-      gp: 50,
-      exp: 100
-    }
-  },
-  moonstone2: {
-    text: t('questMoonstone2Text'),
-    notes: t('questMoonstone2Notes'),
-    value: 4,
-    lvl: 65,
-    previous: 'moonstone1',
-    boss: {
-      name: t('questMoonstone2Boss'),
-      hp: 1500,
-      str: 3
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: 'moonstone3',
-          text: t('questMoonstone2DropMoonstone3Quest')
-        }
-      ],
-      gp: 500,
-      exp: 1000
-    }
-  },
-  moonstone3: {
-    text: t('questMoonstone3Text'),
-    notes: t('questMoonstone3Notes'),
-    completion: t('questMoonstone3Completion'),
-    previous: 'moonstone2',
-    value: 4,
-    lvl: 70,
-    boss: {
-      name: t('questMoonstone3Boss'),
-      hp: 2000,
-      str: 3.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'gear',
-          key: "armor_special_2",
-          text: t('armorSpecial2Text')
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Zombie',
-          text: t('questMoonstone3DropZombiePotion')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Zombie',
-          text: t('questMoonstone3DropZombiePotion')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Zombie',
-          text: t('questMoonstone3DropZombiePotion')
-        }
-      ],
-      gp: 900,
-      exp: 1500
-    }
-  },
-  goldenknight1: {
-    text: t('questGoldenknight1Text'),
-    notes: t('questGoldenknight1Notes'),
-    value: 4,
-    lvl: 40,
-    collect: {
-      testimony: {
-        text: t('questGoldenknight1CollectTestimony'),
-        count: 300
-      }
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: "goldenknight2",
-          text: t('questGoldenknight1DropGoldenknight2Quest')
-        }
-      ],
-      gp: 15,
-      exp: 120
-    }
-  },
-  goldenknight2: {
-    text: t('questGoldenknight2Text'),
-    notes: t('questGoldenknight2Notes'),
-    value: 4,
-    previous: 'goldenknight1',
-    lvl: 45,
-    boss: {
-      name: t('questGoldenknight2Boss'),
-      hp: 1000,
-      str: 3
-    },
-    drop: {
-      items: [
-        {
-          type: 'quests',
-          key: 'goldenknight3',
-          text: t('questGoldenknight2DropGoldenknight3Quest')
-        }
-      ],
-      gp: 75,
-      exp: 750
-    }
-  },
-  goldenknight3: {
-    text: t('questGoldenknight3Text'),
-    notes: t('questGoldenknight3Notes'),
-    completion: t('questGoldenknight3Completion'),
-    previous: 'goldenknight2',
-    value: 4,
-    lvl: 50,
-    boss: {
-      name: t('questGoldenknight3Boss'),
-      hp: 1700,
-      str: 3.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'food',
-          key: 'Honey',
-          text: t('questGoldenknight3DropHoney')
-        }, {
-          type: 'food',
-          key: 'Honey',
-          text: t('questGoldenknight3DropHoney')
-        }, {
-          type: 'food',
-          key: 'Honey',
-          text: t('questGoldenknight3DropHoney')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Golden',
-          text: t('questGoldenknight3DropGoldenPotion')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Golden',
-          text: t('questGoldenknight3DropGoldenPotion')
-        }, {
-          type: 'gear',
-          key: 'shield_special_goldenknight',
-          text: t('questGoldenknight3DropWeapon')
-        }
-      ],
-      gp: 900,
-      exp: 1500
-    }
-  },
-  basilist: {
-    text: t('questBasilistText'),
-    notes: t('questBasilistNotes'),
-    completion: t('questBasilistCompletion'),
-    canBuy: false,
-    value: 4,
-    boss: {
-      name: t('questBasilistBoss'),
-      hp: 100,
-      str: 0.5
-    },
-    drop: {
-      gp: 8,
-      exp: 42
-    }
-  },
-  owl: {
-    text: t('questOwlText'),
-    notes: t('questOwlNotes'),
-    completion: t('questOwlCompletion'),
-    value: 4,
-    boss: {
-      name: t('questOwlBoss'),
-      hp: 500,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Owl',
-          text: t('questOwlDropOwlEgg')
-        }, {
-          type: 'eggs',
-          key: 'Owl',
-          text: t('questOwlDropOwlEgg')
-        }, {
-          type: 'eggs',
-          key: 'Owl',
-          text: t('questOwlDropOwlEgg')
-        }
-      ],
-      gp: 37,
-      exp: 275
-    }
-  },
-  penguin: {
-    text: t('questPenguinText'),
-    notes: t('questPenguinNotes'),
-    completion: t('questPenguinCompletion'),
-    value: 4,
-    boss: {
-      name: t('questPenguinBoss'),
-      hp: 400,
-      str: 1.5
-    },
-    drop: {
-      items: [
-        {
-          type: 'eggs',
-          key: 'Penguin',
-          text: t('questPenguinDropPenguinEgg')
-        }, {
-          type: 'eggs',
-          key: 'Penguin',
-          text: t('questPenguinDropPenguinEgg')
-        }, {
-          type: 'eggs',
-          key: 'Penguin',
-          text: t('questPenguinDropPenguinEgg')
-        }
-      ],
-      gp: 31,
-      exp: 200
-    }
-  }
-};
-
-_.each(api.quests, function(v, key) {
-  var b;
-  _.defaults(v, {
-    key: key,
-    canBuy: true
-  });
-  b = v.boss;
-  if (b) {
-    _.defaults(b, {
-      str: 1,
-      def: 1
-    });
-    if (b.rage) {
-      return _.defaults(b.rage, {
-        title: t('bossRageTitle'),
-        description: t('bossRageDescription')
-      });
-    }
-  }
-});
-
-api.backgrounds = {
-  backgrounds062014: {
-    beach: {
-      text: t('backgroundBeachText'),
-      notes: t('backgroundBeachNotes')
-    },
-    fairy_ring: {
-      text: t('backgroundFairyRingText'),
-      notes: t('backgroundFairyRingNotes')
-    },
-    forest: {
-      text: t('backgroundForestText'),
-      notes: t('backgroundForestNotes')
-    }
-  },
-  backgrounds072014: {
-    open_waters: {
-      text: t('backgroundOpenWatersText'),
-      notes: t('backgroundOpenWatersNotes')
-    },
-    coral_reef: {
-      text: t('backgroundCoralReefText'),
-      notes: t('backgroundCoralReefNotes')
-    },
-    seafarer_ship: {
-      text: t('backgroundSeafarerShipText'),
-      notes: t('backgroundSeafarerShipNotes')
-    }
-  },
-  backgrounds082014: {
-    volcano: {
-      text: t('backgroundVolcanoText'),
-      notes: t('backgroundVolcanoNotes')
-    },
-    clouds: {
-      text: t('backgroundCloudsText'),
-      notes: t('backgroundCloudsNotes')
-    },
-    dusty_canyons: {
-      text: t('backgroundDustyCanyonsText'),
-      notes: t('backgroundDustyCanyonsNotes')
-    }
-  },
-  backgrounds092014: {
-    thunderstorm: {
-      text: t('backgroundThunderstormText'),
-      notes: t('backgroundThunderstormNotes')
-    },
-    autumn_forest: {
-      text: t('backgroundAutumnForestText'),
-      notes: t('backgroundAutumnForestNotes')
-    },
-    harvest_fields: {
-      text: t('backgroundHarvestFieldsText'),
-      notes: t('backgroundHarvestFieldsNotes')
-    }
-  },
-  backgrounds102014: {
-    graveyard: {
-      text: t('backgroundGraveyardText'),
-      notes: t('backgroundGraveyardNotes')
-    },
-    haunted_house: {
-      text: t('backgroundHauntedHouseText'),
-      notes: t('backgroundHauntedHouseNotes')
-    },
-    pumpkin_patch: {
-      text: t('backgroundPumpkinPatchText'),
-      notes: t('backgroundPumpkinPatchNotes')
-    }
-  },
-  backgrounds112014: {
-    harvest_feast: {
-      text: t('backgroundHarvestFeastText'),
-      notes: t('backgroundHarvestFeastNotes')
-    },
-    sunset_meadow: {
-      text: t('backgroundSunsetMeadowText'),
-      notes: t('backgroundSunsetMeadowNotes')
-    },
-    starry_skies: {
-      text: t('backgroundStarrySkiesText'),
-      notes: t('backgroundStarrySkiesNotes')
-    }
-  },
-  backgrounds122014: {
-    iceberg: {
-      text: t('backgroundIcebergText'),
-      notes: t('backgroundIcebergNotes')
-    },
-    twinkly_lights: {
-      text: t('backgroundTwinklyLightsText'),
-      notes: t('backgroundTwinklyLightsNotes')
-    },
-    south_pole: {
-      text: t('backgroundSouthPoleText'),
-      notes: t('backgroundSouthPoleNotes')
-    }
-  }
-};
-
-api.subscriptionBlocks = {
-  "1": {
-    months: 1,
-    price: 5,
-    key: 'basic_earned'
-  },
-  "3": {
-    months: 3,
-    price: 15,
-    key: 'basic_3mo'
-  },
-  "6": {
-    months: 6,
-    price: 30,
-    key: 'basic_6mo'
-  },
-  "12": {
-    months: 12,
-    price: 48,
-    key: 'basic_12mo'
-  }
-};
-
-repeat = {
-  m: true,
-  t: true,
-  w: true,
-  th: true,
-  f: true,
-  s: true,
-  su: true
-};
-
-api.userDefaults = {
-  habits: [
-    {
-      type: 'habit',
-      text: t('defaultHabit1Text'),
-      notes: t('defaultHabit1Notes'),
-      value: 0,
-      up: true,
-      down: false,
-      attribute: 'per'
-    }, {
-      type: 'habit',
-      text: t('defaultHabit2Text'),
-      notes: t('defaultHabit2Notes'),
-      value: 0,
-      up: false,
-      down: true,
-      attribute: 'con'
-    }, {
-      type: 'habit',
-      text: t('defaultHabit3Text'),
-      notes: t('defaultHabit3Notes'),
-      value: 0,
-      up: true,
-      down: true,
-      attribute: 'str'
-    }
-  ],
-  dailys: [
-    {
-      type: 'daily',
-      text: t('defaultDaily1Text'),
-      notes: t('defaultDaily1Notes'),
-      value: 0,
-      completed: false,
-      repeat: repeat,
-      attribute: 'per'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily2Text'),
-      notes: t('defaultDaily2Notes'),
-      value: 3,
-      completed: false,
-      repeat: repeat,
-      attribute: 'con'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily3Text'),
-      notes: t('defaultDaily3Notes'),
-      value: -10,
-      completed: false,
-      repeat: repeat,
-      attribute: 'int'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily4Text'),
-      notes: t('defaultDaily4Notes'),
-      checklist: [
-        {
-          completed: true,
-          text: t('defaultDaily4Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultDaily4Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultDaily4Checklist3')
-        }
-      ],
-      completed: false,
-      repeat: repeat,
-      attribute: 'str'
-    }
-  ],
-  todos: [
-    {
-      type: 'todo',
-      text: t('defaultTodo1Text'),
-      notes: t('defaultTodo1Notes'),
-      completed: false,
-      attribute: 'int'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo2Text'),
-      notes: t('defaultTodo2Notes'),
-      completed: false,
-      attribute: 'int'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo3Text'),
-      notes: t('defaultTodo3Notes'),
-      value: -3,
-      completed: false,
-      attribute: 'per'
-    }
-  ],
-  rewards: [
-    {
-      type: 'reward',
-      text: t('defaultReward1Text'),
-      notes: t('defaultReward1Notes'),
-      value: 20
-    }, {
-      type: 'reward',
-      text: t('defaultReward2Text'),
-      notes: t('defaultReward2Notes'),
-      value: 10
-    }
-  ],
-  tags: [
-    {
-      name: t('defaultTag1')
-    }, {
-      name: t('defaultTag2')
-    }, {
-      name: t('defaultTag3')
-    }
-  ]
-};
-
-
-},{"./i18n.coffee":6,"lodash":3,"moment":4}],6:[function(require,module,exports){
-var _;
-
-_ = require('lodash');
-
-module.exports = {
-  strings: null,
-  translations: {},
-  t: function(stringName) {
-    var e, locale, string, stringNotFound, vars;
-    vars = arguments[1];
-    if (_.isString(arguments[1])) {
-      vars = null;
-      locale = arguments[1];
-    } else if (arguments[2] != null) {
-      vars = arguments[1];
-      locale = arguments[2];
-    }
-    if ((locale == null) || (!module.exports.strings && !module.exports.translations[locale])) {
-      locale = 'en';
-    }
-    string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
-    if (string) {
-      try {
-        return _.template(string, vars || {});
-      } catch (_error) {
-        e = _error;
-        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
-      }
-    } else {
-      stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
-      try {
-        return _.template(stringNotFound, {
-          string: stringName
-        });
-      } catch (_error) {
-        e = _error;
-        return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
-      }
-    }
-  }
-};
-
-
-},{"lodash":3}],7:[function(require,module,exports){
-(function (process){
-var $w, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder, _,
-  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-moment = require('moment');
-
-_ = require('lodash');
-
-content = require('./content.coffee');
-
-i18n = require('./i18n.coffee');
-
-api = module.exports = {};
-
-api.i18n = i18n;
-
-$w = api.$w = function(s) {
-  return s.split(' ');
-};
-
-api.dotSet = function(obj, path, val) {
-  var arr;
-  arr = path.split('.');
-  return _.reduce(arr, (function(_this) {
-    return function(curr, next, index) {
-      if ((arr.length - 1) === index) {
-        curr[next] = val;
-      }
-      return curr[next] != null ? curr[next] : curr[next] = {};
-    };
-  })(this), obj);
-};
-
-api.dotGet = function(obj, path) {
-  return _.reduce(path.split('.'), ((function(_this) {
-    return function(curr, next) {
-      return curr != null ? curr[next] : void 0;
-    };
-  })(this)), obj);
-};
-
-
-/*
-  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
-  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
-  no problem. To maintain sorting, we use these helper functions:
- */
-
-api.refPush = function(reflist, item, prune) {
-  if (prune == null) {
-    prune = 0;
-  }
-  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
-  if (!(item.id && !reflist[item.id])) {
-    item.id = api.uuid();
-  }
-  return reflist[item.id] = item;
-};
-
-api.planGemLimits = {
-  convRate: 20,
-  convCap: 25
-};
-
-
-/*
-  ------------------------------------------------------
-  Time / Day
-  ------------------------------------------------------
- */
-
-
-/*
-  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
-  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
- */
-
-sanitizeOptions = function(o) {
-  var dayStart, now, timezoneOffset, _ref;
-  dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
-  timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
-  now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
-  return {
-    dayStart: dayStart,
-    timezoneOffset: timezoneOffset,
-    now: now
-  };
-};
-
-api.startOfWeek = api.startOfWeek = function(options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return moment(o.now).startOf('week');
-};
-
-api.startOfDay = function(options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return moment(o.now).startOf('day').add({
-    hours: o.dayStart
-  });
-};
-
-api.dayMapping = {
-  0: 'su',
-  1: 'm',
-  2: 't',
-  3: 'w',
-  4: 'th',
-  5: 'f',
-  6: 's'
-};
-
-
-/*
-  Absolute diff from "yesterday" till now
- */
-
-api.daysSince = function(yesterday, options) {
-  var o;
-  if (options == null) {
-    options = {};
-  }
-  o = sanitizeOptions(options);
-  return Math.abs(api.startOfDay(_.defaults({
-    now: yesterday
-  }, o)).diff(o.now, 'days'));
-};
-
-
-/*
-  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
- */
-
-api.shouldDo = function(day, repeat, options) {
-  var o, selected, yesterday;
-  if (options == null) {
-    options = {};
-  }
-  if (!repeat) {
-    return false;
-  }
-  o = sanitizeOptions(options);
-  selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
-    now: day
-  }, o)).day()]];
-  if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
-    return selected;
-  }
-  if (options.dayStart <= o.now.hour()) {
-    return selected;
-  } else {
-    yesterday = moment(o.now).subtract({
-      days: 1
-    }).day();
-    return repeat[api.dayMapping[yesterday]];
-  }
-};
-
-
-/*
-  ------------------------------------------------------
-  Scoring
-  ------------------------------------------------------
- */
-
-api.tnl = function(lvl) {
-  return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
-};
-
-
-/*
-  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
-  {max} The asymptote
-  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
-  {halfway} (optional) the point at which the graph starts bending
- */
-
-api.diminishingReturns = function(bonus, max, halfway) {
-  if (halfway == null) {
-    halfway = max / 2;
-  }
-  return max * (bonus / (bonus + halfway));
-};
-
-api.monod = function(bonus, rateOfIncrease, max) {
-  return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
-};
-
-
-/*
-Preen history for users with > 7 history entries
-This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
-of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
-of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
- */
-
-preenHistory = function(history) {
-  var newHistory, preen, thisMonth;
-  history = _.filter(history, function(h) {
-    return !!h;
-  });
-  newHistory = [];
-  preen = function(amount, groupBy) {
-    var groups;
-    groups = _.chain(history).groupBy(function(h) {
-      return moment(h.date).format(groupBy);
-    }).sortBy(function(h, k) {
-      return k;
-    }).value();
-    groups = groups.slice(-amount);
-    groups.pop();
-    return _.each(groups, function(group) {
-      newHistory.push({
-        date: moment(group[0].date).toDate(),
-        value: _.reduce(group, (function(m, obj) {
-          return m + obj.value;
-        }), 0) / group.length
-      });
-      return true;
-    });
-  };
-  preen(50, "YYYY");
-  preen(moment().format('MM'), "YYYYMM");
-  thisMonth = moment().format('YYYYMM');
-  newHistory = newHistory.concat(_.filter(history, function(h) {
-    return moment(h.date).format('YYYYMM') === thisMonth;
-  }));
-  return newHistory;
-};
-
-
-/*
-  Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
- */
-
-sortOrder = _.reduce(content.gearTypes, (function(m, v, k) {
-  m[v] = k;
-  return m;
-}), {});
-
-api.updateStore = function(user) {
-  var changes;
-  if (!user) {
-    return;
-  }
-  changes = [];
-  _.each(content.gearTypes, function(type) {
-    var found;
-    found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
-      return !user.items.gear.owned[item.key];
-    });
-    if (found) {
-      changes.push(found);
-    }
-    return true;
-  });
-  changes = changes.concat(_.filter(content.gear.flat, function(v) {
-    var _ref;
-    return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
-  }));
-  changes.push(content.potion);
-  return _.sortBy(changes, function(c) {
-    return sortOrder[c.type];
-  });
-};
-
-
-/*
-------------------------------------------------------
-Content
-------------------------------------------------------
- */
-
-api.content = content;
-
-
-/*
-------------------------------------------------------
-Misc Helpers
-------------------------------------------------------
- */
-
-api.uuid = function() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-    var r, v;
-    r = Math.random() * 16 | 0;
-    v = (c === "x" ? r : r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
-
-api.countExists = function(items) {
-  return _.reduce(items, (function(m, v) {
-    return m + (v ? 1 : 0);
-  }), 0);
-};
-
-
-/*
-Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
-sending up to the server for performance
- */
-
-api.taskDefaults = function(task) {
-  var defaults, _ref, _ref1, _ref2;
-  if (task == null) {
-    task = {};
-  }
-  if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
-    task.type = 'habit';
-  }
-  defaults = {
-    id: api.uuid(),
-    text: task.id != null ? task.id : '',
-    notes: '',
-    priority: 1,
-    challenge: {},
-    attribute: 'str',
-    dateCreated: new Date()
-  };
-  _.defaults(task, defaults);
-  if (task.type === 'habit') {
-    _.defaults(task, {
-      up: true,
-      down: true
-    });
-  }
-  if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
-    _.defaults(task, {
-      history: []
-    });
-  }
-  if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
-    _.defaults(task, {
-      completed: false
-    });
-  }
-  if (task.type === 'daily') {
-    _.defaults(task, {
-      streak: 0,
-      repeat: {
-        su: 1,
-        m: 1,
-        t: 1,
-        w: 1,
-        th: 1,
-        f: 1,
-        s: 1
-      }
-    });
-  }
-  task._id = task.id;
-  if (task.value == null) {
-    task.value = task.type === 'reward' ? 10 : 0;
-  }
-  if (!_.isNumber(task.priority)) {
-    task.priority = 1;
-  }
-  return task;
-};
-
-api.percent = function(x, y, dir) {
-  var roundFn;
-  switch (dir) {
-    case "up":
-      roundFn = Math.ceil;
-      break;
-    case "down":
-      roundFn = Math.floor;
-      break;
-    default:
-      roundFn = Math.round;
-  }
-  if (x === 0) {
-    x = 1;
-  }
-  return Math.max(0, roundFn(x / y * 100));
-};
-
-
-/*
-Remove whitespace #FIXME are we using this anywwhere? Should we be?
- */
-
-api.removeWhitespace = function(str) {
-  if (!str) {
-    return '';
-  }
-  return str.replace(/\s/g, '');
-};
-
-
-/*
-Encode the download link for .ics iCal file
- */
-
-api.encodeiCalLink = function(uid, apiToken) {
-  var loc, _ref;
-  loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
-  return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
-};
-
-
-/*
-Gold amount from their money
- */
-
-api.gold = function(num) {
-  if (num) {
-    return Math.floor(num);
-  } else {
-    return "0";
-  }
-};
-
-
-/*
-Silver amount from their money
- */
-
-api.silver = function(num) {
-  if (num) {
-    return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
-  } else {
-    return "00";
-  }
-};
-
-
-/*
-Task classes given everything about the class
- */
-
-api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
-  var classes, completed, enabled, filter, repeat, type, value, _ref;
-  if (filters == null) {
-    filters = [];
-  }
-  if (dayStart == null) {
-    dayStart = 0;
-  }
-  if (lastCron == null) {
-    lastCron = +(new Date);
-  }
-  if (showCompleted == null) {
-    showCompleted = false;
-  }
-  if (main == null) {
-    main = false;
-  }
-  if (!task) {
-    return;
-  }
-  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-  if ((type === 'todo' && completed !== showCompleted) && main) {
-    return 'hidden';
-  }
-  if (main) {
-    if (!task._editing) {
-      for (filter in filters) {
-        enabled = filters[filter];
-        if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
-          return 'hidden';
-        }
-      }
-    }
-  }
-  classes = type;
-  if (task._editing) {
-    classes += " beingEdited";
-  }
-  if (type === 'todo' || type === 'daily') {
-    if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
-      dayStart: dayStart
-    }))) {
-      classes += " completed";
-    } else {
-      classes += " uncompleted";
-    }
-  } else if (type === 'habit') {
-    if (task.down && task.up) {
-      classes += ' habit-wide';
-    }
-    if (!task.down && !task.up) {
-      classes += ' habit-narrow';
-    }
-  }
-  if (value < -20) {
-    classes += ' color-worst';
-  } else if (value < -10) {
-    classes += ' color-worse';
-  } else if (value < -1) {
-    classes += ' color-bad';
-  } else if (value < 1) {
-    classes += ' color-neutral';
-  } else if (value < 5) {
-    classes += ' color-good';
-  } else if (value < 10) {
-    classes += ' color-better';
-  } else {
-    classes += ' color-best';
-  }
-  return classes;
-};
-
-
-/*
-Friendly timestamp
- */
-
-api.friendlyTimestamp = function(timestamp) {
-  return moment(timestamp).format('MM/DD h:mm:ss a');
-};
-
-
-/*
-Does user have new chat messages?
- */
-
-api.newChatMessages = function(messages, lastMessageSeen) {
-  if (!((messages != null ? messages.length : void 0) > 0)) {
-    return false;
-  }
-  return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
-};
-
-
-/*
-are any tags active?
- */
-
-api.noTags = function(tags) {
-  return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
-    return t;
-  }));
-};
-
-
-/*
-Are there tags applied?
- */
-
-api.appliedTags = function(userTags, taskTags) {
-  var arr;
-  arr = [];
-  _.each(userTags, function(t) {
-    if (t == null) {
-      return;
-    }
-    if (taskTags != null ? taskTags[t.id] : void 0) {
-      return arr.push(t.name);
-    }
-  });
-  return arr.join(', ');
-};
-
-api.countPets = function(originalCount, pets) {
-  var count, pet;
-  count = originalCount != null ? originalCount : _.size(pets);
-  for (pet in content.questPets) {
-    if (pets[pet]) {
-      count--;
-    }
-  }
-  for (pet in content.specialPets) {
-    if (pets[pet]) {
-      count--;
-    }
-  }
-  return count;
-};
-
-api.countMounts = function(originalCount, mounts) {
-  var count, mount;
-  count = originalCount != null ? originalCount : _.size(mounts);
-  for (mount in content.specialMounts) {
-    if (mounts[mount]) {
-      count--;
-    }
-  }
-  return count;
-};
-
-
-/*
-------------------------------------------------------
-User (prototype wrapper to give it ops, helper funcs, and virtuals
-------------------------------------------------------
- */
-
-
-/*
-User is now wrapped (both on client and server), adding a few new properties:
-  * getters (_statsComputed, tasks, etc)
-  * user.fns, which is a bunch of helper functions
-    These were originally up above, but they make more sense belonging to the user object so we don't have to pass
-    the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
-  * user.ops, which is super important:
-
-If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
-the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
-of the op function). The first argument req is {query, body, params}, it's what the express controller function
-expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
-we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
-params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
-
-If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
-to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
-function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
-handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
-everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
-*do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
-sure to call user.ops.OP_NAME at some point within the overridden function.
-
-TODO
-  * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
-    user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
-    move to $resource for user
-  * Move to $resource!
- */
-
-api.wrap = function(user, main) {
-  if (main == null) {
-    main = true;
-  }
-  if (user._wrapped) {
-    return;
-  }
-  user._wrapped = true;
-  if (main) {
-    user.ops = {
-      update: function(req, cb) {
-        _.each(req.body, function(v, k) {
-          user.fns.dotSet(k, v);
-          return true;
-        });
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      sleep: function(req, cb) {
-        user.preferences.sleep = !user.preferences.sleep;
-        return typeof cb === "function" ? cb(null, {}) : void 0;
-      },
-      revive: function(req, cb) {
-        var cl, gearOwned, item, losableItems, lostItem, lostStat, _base;
-        if (!(user.stats.hp <= 0)) {
-          return typeof cb === "function" ? cb({
-            code: 400,
-            message: "Cannot revive if not dead"
-          }) : void 0;
-        }
-        _.merge(user.stats, {
-          hp: 50,
-          exp: 0,
-          gp: 0
-        });
-        if (user.stats.lvl > 1) {
-          user.stats.lvl--;
-        }
-        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
-          if (user.stats[k]) {
-            m[k] = k;
-          }
-          return m;
-        }), {}));
-        if (lostStat) {
-          user.stats[lostStat]--;
-        }
-        cl = user.stats["class"];
-        gearOwned = (typeof (_base = user.items.gear.owned).toObject === "function" ? _base.toObject() : void 0) || user.items.gear.owned;
-        losableItems = {};
-        _.each(gearOwned, function(v, k) {
-          var itm;
-          if (v) {
-            itm = content.gear.flat['' + k];
-            if (itm) {
-              if ((itm.value > 0 || k === 'weapon_warrior_0') && (itm.klass === cl || (itm.klass === 'special' && (!itm.specialClass || itm.specialClass === cl)))) {
-                return losableItems['' + k] = '' + k;
-              }
-            }
-          }
-        });
-        lostItem = user.fns.randomVal(losableItems);
-        if (item = content.gear.flat[lostItem]) {
-          user.items.gear.owned[lostItem] = false;
-          if (user.items.gear.equipped[item.type] === lostItem) {
-            user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
-          }
-          if (user.items.gear.costume[item.type] === lostItem) {
-            user.items.gear.costume[item.type] = "" + item.type + "_base_0";
-          }
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear');
-        }
-        return typeof cb === "function" ? cb((item ? {
-          code: 200,
-          message: i18n.t('messageLostItem', {
-            itemText: item.text(req.language)
-          }, req.language)
-        } : null), user) : void 0;
-      },
-      reset: function(req, cb) {
-        var gear;
-        user.habits = [];
-        user.dailys = [];
-        user.todos = [];
-        user.rewards = [];
-        user.stats.hp = 50;
-        user.stats.lvl = 1;
-        user.stats.gp = 0;
-        user.stats.exp = 0;
-        gear = user.items.gear;
-        _.each(['equipped', 'costume'], function(type) {
-          gear[type].armor = 'armor_base_0';
-          gear[type].weapon = 'weapon_base_0';
-          gear[type].head = 'head_base_0';
-          return gear[type].shield = 'shield_base_0';
-        });
-        if (typeof gear.owned === 'undefined') {
-          gear.owned = {};
-        }
-        _.each(gear.owned, function(v, k) {
-          if (gear.owned[k]) {
-            gear.owned[k] = false;
-          }
-          return true;
-        });
-        gear.owned.weapon_warrior_0 = true;
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear.owned');
-        }
-        user.preferences.costume = false;
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      reroll: function(req, cb, ga) {
-        if (user.balance < 1) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('notEnoughGems', req.language)
-          }) : void 0;
-        }
-        user.balance--;
-        _.each(user.tasks, function(task) {
-          if (task.type !== 'reward') {
-            return task.value = 0;
-          }
-        });
-        user.stats.hp = 50;
-        if (typeof cb === "function") {
-          cb(null, user);
-        }
-        return ga != null ? ga.event('purchase', 'reroll').send() : void 0;
-      },
-      rebirth: function(req, cb, ga) {
-        var flags, gear, lvl, stats;
-        if (user.balance < 2 && user.stats.lvl < 100) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('notEnoughGems', req.language)
-          }) : void 0;
-        }
-        if (user.stats.lvl < 100) {
-          user.balance -= 2;
-        }
-        if (user.stats.lvl < 100) {
-          lvl = user.stats.lvl;
-        } else {
-          lvl = 100;
-        }
-        _.each(user.tasks, function(task) {
-          if (task.type !== 'reward') {
-            task.value = 0;
-          }
-          if (task.type === 'daily') {
-            return task.streak = 0;
-          }
-        });
-        stats = user.stats;
-        stats.buffs = {};
-        stats.hp = 50;
-        stats.lvl = 1;
-        stats["class"] = 'warrior';
-        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
-          return stats[value] = 0;
-        });
-        gear = user.items.gear;
-        _.each(['equipped', 'costume'], function(type) {
-          gear[type] = {};
-          gear[type].armor = 'armor_base_0';
-          gear[type].weapon = 'weapon_warrior_0';
-          gear[type].head = 'head_base_0';
-          return gear[type].shield = 'shield_base_0';
-        });
-        if (user.items.currentPet) {
-          user.ops.equip({
-            params: {
-              type: 'pet',
-              key: user.items.currentPet
-            }
-          });
-        }
-        if (user.items.currentMount) {
-          user.ops.equip({
-            params: {
-              type: 'mount',
-              key: user.items.currentMount
-            }
-          });
-        }
-        _.each(gear.owned, function(v, k) {
-          if (gear.owned[k]) {
-            gear.owned[k] = false;
-            return true;
-          }
-        });
-        gear.owned.weapon_warrior_0 = true;
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear.owned');
-        }
-        user.preferences.costume = false;
-        flags = user.flags;
-        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
-          flags.rebirthEnabled = false;
-        }
-        flags.itemsEnabled = false;
-        flags.dropsEnabled = false;
-        flags.classSelected = false;
-        flags.levelDrops = {};
-        if (!user.achievements.rebirths) {
-          user.achievements.rebirths = 1;
-          user.achievements.rebirthLevel = lvl;
-        } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
-          user.achievements.rebirths++;
-          user.achievements.rebirthLevel = lvl;
-        }
-        user.stats.buffs = {};
-        if (typeof cb === "function") {
-          cb(null, user);
-        }
-        return ga != null ? ga.event('purchase', 'Rebirth').send() : void 0;
-      },
-      allocateNow: function(req, cb) {
-        _.times(user.stats.points, user.fns.autoAllocate);
-        user.stats.points = 0;
-        if (typeof user.markModified === "function") {
-          user.markModified('stats');
-        }
-        return typeof cb === "function" ? cb(null, user.stats) : void 0;
-      },
-      clearCompleted: function(req, cb) {
-        _.remove(user.todos, function(t) {
-          var _ref;
-          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
-        });
-        if (typeof user.markModified === "function") {
-          user.markModified('todos');
-        }
-        return typeof cb === "function" ? cb(null, user.todos) : void 0;
-      },
-      sortTask: function(req, cb) {
-        var from, id, movedTask, task, tasks, to, _ref;
-        id = req.params.id;
-        _ref = req.query, to = _ref.to, from = _ref.from;
-        task = user.tasks[id];
-        if (!task) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messageTaskNotFound', req.language)
-          }) : void 0;
-        }
-        if (!((to != null) && (from != null))) {
-          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
-        }
-        tasks = user["" + task.type + "s"];
-        movedTask = tasks.splice(from, 1)[0];
-        if (to === -1) {
-          tasks.push(movedTask);
-        } else {
-          tasks.splice(to, 0, movedTask);
-        }
-        return typeof cb === "function" ? cb(null, tasks) : void 0;
-      },
-      updateTask: function(req, cb) {
-        var task, _ref;
-        if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messageTaskNotFound', req.language)
-          }) : void 0;
-        }
-        _.merge(task, _.omit(req.body, ['checklist', 'id']));
-        if (req.body.checklist) {
-          task.checklist = req.body.checklist;
-        }
-        if (typeof task.markModified === "function") {
-          task.markModified('tags');
-        }
-        return typeof cb === "function" ? cb(null, task) : void 0;
-      },
-      deleteTask: function(req, cb) {
-        var i, task, _ref;
-        task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
-        if (!task) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messageTaskNotFound', req.language)
-          }) : void 0;
-        }
-        i = user[task.type + "s"].indexOf(task);
-        if (~i) {
-          user[task.type + "s"].splice(i, 1);
-        }
-        return typeof cb === "function" ? cb(null, {}) : void 0;
-      },
-      addTask: function(req, cb) {
-        var task;
-        task = api.taskDefaults(req.body);
-        user["" + task.type + "s"].unshift(task);
-        if (user.preferences.newTaskEdit) {
-          task._editing = true;
-        }
-        if (user.preferences.tagsCollapsed) {
-          task._tags = true;
-        }
-        if (user.preferences.advancedCollapsed) {
-          task._advanced = true;
-        }
-        if (typeof cb === "function") {
-          cb(null, task);
-        }
-        return task;
-      },
-      addTag: function(req, cb) {
-        if (user.tags == null) {
-          user.tags = [];
-        }
-        user.tags.push({
-          name: req.body.name,
-          id: req.body.id || api.uuid()
-        });
-        return typeof cb === "function" ? cb(null, user.tags) : void 0;
-      },
-      sortTag: function(req, cb) {
-        var from, to, _ref;
-        _ref = req.query, to = _ref.to, from = _ref.from;
-        if (!((to != null) && (from != null))) {
-          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
-        }
-        user.tags.splice(to, 0, user.tags.splice(from, 1)[0]);
-        return typeof cb === "function" ? cb(null, user.tags) : void 0;
-      },
-      updateTag: function(req, cb) {
-        var i, tid;
-        tid = req.params.id;
-        i = _.findIndex(user.tags, {
-          id: tid
-        });
-        if (!~i) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messageTagNotFound', req.language)
-          }) : void 0;
-        }
-        user.tags[i].name = req.body.name;
-        return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
-      },
-      deleteTag: function(req, cb) {
-        var i, tag, tid;
-        tid = req.params.id;
-        i = _.findIndex(user.tags, {
-          id: tid
-        });
-        if (!~i) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messageTagNotFound', req.language)
-          }) : void 0;
-        }
-        tag = user.tags[i];
-        delete user.filters[tag.id];
-        user.tags.splice(i, 1);
-        _.each(user.tasks, function(task) {
-          return delete task.tags[tag.id];
-        });
-        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
-          return typeof user.markModified === "function" ? user.markModified(type) : void 0;
-        });
-        return typeof cb === "function" ? cb(null, user.tags) : void 0;
-      },
-      addWebhook: function(req, cb) {
-        var wh;
-        wh = user.preferences.webhooks;
-        api.refPush(wh, {
-          url: req.body.url,
-          enabled: req.body.enabled || true,
-          id: req.body.id
-        });
-        if (typeof user.markModified === "function") {
-          user.markModified('preferences.webhooks');
-        }
-        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
-      },
-      updateWebhook: function(req, cb) {
-        _.merge(user.preferences.webhooks[req.params.id], req.body);
-        if (typeof user.markModified === "function") {
-          user.markModified('preferences.webhooks');
-        }
-        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
-      },
-      deleteWebhook: function(req, cb) {
-        delete user.preferences.webhooks[req.params.id];
-        if (typeof user.markModified === "function") {
-          user.markModified('preferences.webhooks');
-        }
-        return typeof cb === "function" ? cb(null, user.preferences.webhooks) : void 0;
-      },
-      clearPMs: function(req, cb) {
-        user.inbox.messages = {};
-        if (typeof user.markModified === "function") {
-          user.markModified('inbox.messages');
-        }
-        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
-      },
-      deletePM: function(req, cb) {
-        delete user.inbox.messages[req.params.id];
-        if (typeof user.markModified === "function") {
-          user.markModified('inbox.messages.' + req.params.id);
-        }
-        return typeof cb === "function" ? cb(null, user.inbox.messages) : void 0;
-      },
-      blockUser: function(req, cb) {
-        var i;
-        i = user.inbox.blocks.indexOf(req.params.uuid);
-        if (~i) {
-          user.inbox.blocks.splice(i, 1);
-        } else {
-          user.inbox.blocks.push(req.params.uuid);
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('inbox.blocks');
-        }
-        return typeof cb === "function" ? cb(null, user.inbox.blocks) : void 0;
-      },
-      feed: function(req, cb) {
-        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
-        _ref = req.params, pet = _ref.pet, food = _ref.food;
-        food = content.food[food];
-        _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
-        userPets = user.items.pets;
-        if (!userPets[pet]) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messagePetNotFound', req.language)
-          }) : void 0;
-        }
-        if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: i18n.t('messageFoodNotFound', req.language)
-          }) : void 0;
-        }
-        if (content.specialPets[pet] || (egg === "Egg")) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageCannotFeedPet', req.language)
-          }) : void 0;
-        }
-        if (user.items.mounts[pet]) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageAlreadyMount', req.language)
-          }) : void 0;
-        }
-        message = '';
-        evolve = function() {
-          userPets[pet] = -1;
-          user.items.mounts[pet] = true;
-          if (pet === user.items.currentPet) {
-            user.items.currentPet = "";
-          }
-          return message = i18n.t('messageEvolve', {
-            egg: egg
-          }, req.language);
-        };
-        if (food.key === 'Saddle') {
-          evolve();
-        } else {
-          if (food.target === potion) {
-            userPets[pet] += 5;
-            message = i18n.t('messageLikesFood', {
-              egg: egg,
-              foodText: food.text(req.language)
-            }, req.language);
-          } else {
-            userPets[pet] += 2;
-            message = i18n.t('messageDontEnjoyFood', {
-              egg: egg,
-              foodText: food.text(req.language)
-            }, req.language);
-          }
-          if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
-            evolve();
-          }
-        }
-        user.items.food[food.key]--;
-        return typeof cb === "function" ? cb({
-          code: 200,
-          message: message
-        }, userPets[pet]) : void 0;
-      },
-      buySpookDust: function(req, cb) {
-        var item, _base;
-        item = content.special.spookDust;
-        if (user.stats.gp < item.value) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageNotEnoughGold', req.language)
-          }) : void 0;
-        }
-        user.stats.gp -= item.value;
-        if ((_base = user.items.special).spookDust == null) {
-          _base.spookDust = 0;
-        }
-        user.items.special.spookDust++;
-        if (typeof user.markModified === "function") {
-          user.markModified('items.special');
-        }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
-      },
-      purchase: function(req, cb, ga) {
-        var convCap, convRate, item, key, price, type, _ref, _ref1, _ref2, _ref3;
-        _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type === 'gems' && key === 'gem') {
-          _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
-          convCap += user.purchased.plan.consecutive.gemCapExtra;
-          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Must subscribe to purchase gems with GP"
-            }, req) : void 0;
-          }
-          if (!(user.stats.gp >= convRate)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough Gold"
-            }) : void 0;
-          }
-          if (user.purchased.plan.gemsBought >= convCap) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."
-            }) : void 0;
-          }
-          user.balance += .25;
-          user.purchased.plan.gemsBought++;
-          user.stats.gp -= convRate;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: "+1 Gems"
-          }, _.pick(user, $w('stats balance'))) : void 0;
-        }
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'gear') {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":type must be in [eggs,hatchingPotions,food,quests,gear]"
-          }, req) : void 0;
-        }
-        if (type === 'gear') {
-          item = content.gear.flat[key];
-          if (user.items.gear.owned[key]) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: i18n.t('alreadyHave', req.language)
-            }) : void 0;
-          }
-          price = (item.twoHanded ? 2 : 1) / 4;
-        } else {
-          item = content[type][key];
-          price = item.value / 4;
-        }
-        if (!item) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":key not found for Content." + type
-          }, req) : void 0;
-        }
-        if (user.balance < price) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('notEnoughGems', req.language)
-          }) : void 0;
-        }
-        user.balance -= price;
-        if (type === 'gear') {
-          user.items.gear.owned[key] = true;
-        } else {
-          if (!(user.items[type][key] > 0)) {
-            user.items[type][key] = 0;
-          }
-          user.items[type][key]++;
-        }
-        if (typeof cb === "function") {
-          cb(null, _.pick(user, $w('items balance')));
-        }
-        return ga != null ? ga.event('purchase', key).send() : void 0;
-      },
-      release: function(req, cb) {
-        var pet;
-        if (user.balance < 1) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('notEnoughGems', req.language)
-          }) : void 0;
-        } else {
-          user.balance--;
-          for (pet in content.pets) {
-            user.items.pets[pet] = 0;
-          }
-          if (!user.achievements.beastMasterCount) {
-            user.achievements.beastMasterCount = 0;
-          }
-          user.achievements.beastMasterCount++;
-          user.items.currentPet = "";
-        }
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      release2: function(req, cb) {
-        var pet;
-        if (user.balance < 2) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('notEnoughGems', req.language)
-          }) : void 0;
-        } else {
-          user.balance -= 2;
-          user.items.currentMount = "";
-          user.items.currentPet = "";
-          for (pet in content.pets) {
-            user.items.mounts[pet] = false;
-            user.items.pets[pet] = 0;
-          }
-          if (!user.achievements.beastMasterCount) {
-            user.achievements.beastMasterCount = 0;
-          }
-          user.achievements.beastMasterCount++;
-        }
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      buy: function(req, cb) {
-        var item, key, message;
-        key = req.params.key;
-        item = key === 'potion' ? content.potion : content.gear.flat[key];
-        if (!item) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
-          }) : void 0;
-        }
-        if (user.stats.gp < item.value) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageNotEnoughGold', req.language)
-          }) : void 0;
-        }
-        if ((item.canOwn != null) && !item.canOwn(user)) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "You can't own this item"
-          }) : void 0;
-        }
-        if (item.key === 'potion') {
-          user.stats.hp += 15;
-          if (user.stats.hp > 50) {
-            user.stats.hp = 50;
-          }
-        } else {
-          user.items.gear.equipped[item.type] = item.key;
-          user.items.gear.owned[item.key] = true;
-          message = user.fns.handleTwoHanded(item, null, req);
-          if (message == null) {
-            message = i18n.t('messageBought', {
-              itemText: item.text(req.language)
-            }, req.language);
-          }
-          if (!user.achievements.ultimateGear && item.last) {
-            user.fns.ultimateGear();
-          }
-        }
-        user.stats.gp -= item.value;
-        return typeof cb === "function" ? cb({
-          code: 200,
-          message: message
-        }, _.pick(user, $w('items achievements stats'))) : void 0;
-      },
-      buyMysterySet: function(req, cb) {
-        var mysterySet, _ref;
-        if (!(user.purchased.plan.consecutive.trinkets > 0)) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "You don't have enough Mystic Hourglasses"
-          }) : void 0;
-        }
-        mysterySet = (_ref = content.timeTravelerStore(user.items.gear.owned)) != null ? _ref[req.params.key] : void 0;
-        if ((typeof window !== "undefined" && window !== null ? window.confirm : void 0) != null) {
-          if (!window.confirm("Buy this full set of items for 1 Mystic Hourglass?")) {
-            return;
-          }
-        }
-        if (!mysterySet) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Mystery set not found, or set already owned"
-          }) : void 0;
-        }
-        _.each(mysterySet.items, function(i) {
-          return user.items.gear.owned[i.key] = true;
-        });
-        user.purchased.plan.consecutive.trinkets--;
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('items purchased.plan.consecutive'))) : void 0;
-      },
-      sell: function(req, cb) {
-        var key, type, _ref;
-        _ref = req.params, key = _ref.key, type = _ref.type;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
-          }) : void 0;
-        }
-        if (!user.items[type][key]) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":key not found for user.items." + type
-          }) : void 0;
-        }
-        user.items[type][key]--;
-        user.stats.gp += content[type][key].value;
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
-      },
-      equip: function(req, cb) {
-        var item, key, message, type, _ref;
-        _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
-        switch (type) {
-          case 'mount':
-            if (!user.items.mounts[key]) {
-              return typeof cb === "function" ? cb({
-                code: 404,
-                message: ":You do not own this mount."
-              }) : void 0;
-            }
-            user.items.currentMount = user.items.currentMount === key ? '' : key;
-            break;
-          case 'pet':
-            if (!user.items.pets[key]) {
-              return typeof cb === "function" ? cb({
-                code: 404,
-                message: ":You do not own this pet."
-              }) : void 0;
-            }
-            user.items.currentPet = user.items.currentPet === key ? '' : key;
-            break;
-          case 'costume':
-          case 'equipped':
-            item = content.gear.flat[key];
-            if (!user.items.gear.owned[key]) {
-              return typeof cb === "function" ? cb({
-                code: 404,
-                message: ":You do not own this gear."
-              }) : void 0;
-            }
-            if (user.items.gear[type][item.type] === key) {
-              user.items.gear[type][item.type] = "" + item.type + "_base_0";
-              message = i18n.t('messageUnEquipped', {
-                itemText: item.text(req.language)
-              }, req.language);
-            } else {
-              user.items.gear[type][item.type] = item.key;
-              message = user.fns.handleTwoHanded(item, type, req);
-            }
-            if (typeof user.markModified === "function") {
-              user.markModified("items.gear." + type);
-            }
-        }
-        return typeof cb === "function" ? cb((message ? {
-          code: 200,
-          message: message
-        } : null), user.items) : void 0;
-      },
-      hatch: function(req, cb) {
-        var egg, hatchingPotion, pet, _ref;
-        _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
-        if (!(egg && hatchingPotion)) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Please specify query.egg & query.hatchingPotion"
-          }) : void 0;
-        }
-        if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageMissingEggPotion', req.language)
-          }) : void 0;
-        }
-        pet = "" + egg + "-" + hatchingPotion;
-        if (user.items.pets[pet] && user.items.pets[pet] > 0) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageAlreadyPet', req.language)
-          }) : void 0;
-        }
-        user.items.pets[pet] = 5;
-        user.items.eggs[egg]--;
-        user.items.hatchingPotions[hatchingPotion]--;
-        return typeof cb === "function" ? cb({
-          code: 200,
-          message: i18n.t('messageHatched', req.language)
-        }, user.items) : void 0;
-      },
-      unlock: function(req, cb, ga) {
-        var alreadyOwns, cost, fullSet, k, path, split, v;
-        path = req.query.path;
-        fullSet = ~path.indexOf(",");
-        cost = ~path.indexOf('background.') ? fullSet ? 3.75 : 1.75 : fullSet ? 1.25 : 0.5;
-        alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
-        if (user.balance < cost && !alreadyOwns) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('notEnoughGems', req.language)
-          }) : void 0;
-        }
-        if (fullSet) {
-          _.each(path.split(","), function(p) {
-            user.fns.dotSet("purchased." + p, true);
-            return true;
-          });
-        } else {
-          if (alreadyOwns) {
-            split = path.split('.');
-            v = split.pop();
-            k = split.join('.');
-            if (k === 'background' && v === user.preferences.background) {
-              v = '';
-            }
-            user.fns.dotSet("preferences." + k, v);
-            return typeof cb === "function" ? cb(null, req) : void 0;
-          }
-          user.fns.dotSet("purchased." + path, true);
-        }
-        user.balance -= cost;
-        if (typeof user.markModified === "function") {
-          user.markModified('purchased');
-        }
-        if (typeof cb === "function") {
-          cb(null, _.pick(user, $w('purchased preferences')));
-        }
-        return ga != null ? ga.event('purchase', path).send() : void 0;
-      },
-      changeClass: function(req, cb, ga) {
-        var klass, _ref;
-        klass = (_ref = req.query) != null ? _ref["class"] : void 0;
-        if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
-          user.stats["class"] = klass;
-          user.flags.classSelected = true;
-          _.each(["weapon", "armor", "shield", "head"], function(type) {
-            var foundKey;
-            foundKey = false;
-            _.findLast(user.items.gear.owned, function(v, k) {
-              if (~k.indexOf(type + "_" + klass) && v === true) {
-                return foundKey = k;
-              }
-            });
-            user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
-            if (type === "weapon" || (type === "shield" && klass === "rogue")) {
-              user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
-            }
-            return true;
-          });
-        } else {
-          if (user.preferences.disableClasses) {
-            user.preferences.disableClasses = false;
-            user.preferences.autoAllocate = false;
-          } else {
-            if (!(user.balance >= .75)) {
-              return typeof cb === "function" ? cb({
-                code: 401,
-                message: i18n.t('notEnoughGems', req.language)
-              }) : void 0;
-            }
-            user.balance -= .75;
-          }
-          _.merge(user.stats, {
-            str: 0,
-            con: 0,
-            per: 0,
-            int: 0,
-            points: user.stats.lvl
-          });
-          user.flags.classSelected = false;
-          if (ga != null) {
-            ga.event('purchase', 'changeClass').send();
-          }
-        }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
-      },
-      disableClasses: function(req, cb) {
-        user.stats["class"] = 'warrior';
-        user.flags.classSelected = true;
-        user.preferences.disableClasses = true;
-        user.preferences.autoAllocate = true;
-        user.stats.str = user.stats.lvl;
-        user.stats.points = 0;
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
-      },
-      allocate: function(req, cb) {
-        var stat;
-        stat = req.query.stat || 'str';
-        if (user.stats.points > 0) {
-          user.stats[stat]++;
-          user.stats.points--;
-          if (stat === 'int') {
-            user.stats.mp++;
-          }
-        }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
-      },
-      readValentine: function(req, cb) {
-        user.items.special.valentineReceived.shift();
-        if (typeof user.markModified === "function") {
-          user.markModified('items.special.valentineReceived');
-        }
-        return typeof cb === "function" ? cb(null, 'items.special') : void 0;
-      },
-      openMysteryItem: function(req, cb, ga) {
-        var item, _ref, _ref1;
-        item = (_ref = user.purchased.plan) != null ? (_ref1 = _ref.mysteryItems) != null ? _ref1.shift() : void 0 : void 0;
-        if (!item) {
-          return typeof cb === "function" ? cb({
-            code: 400,
-            message: "Empty"
-          }) : void 0;
-        }
-        item = content.gear.flat[item];
-        user.items.gear.owned[item.key] = true;
-        if (typeof user.markModified === "function") {
-          user.markModified('purchased.plan.mysteryItems');
-        }
-        if (typeof window !== 'undefined') {
-          (user._tmp != null ? user._tmp : user._tmp = {}).drop = {
-            type: 'gear',
-            dialog: "" + (item.text(req.language)) + " inside!"
-          };
-        }
-        return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
-      },
-      score: function(req, cb) {
-        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
-        _ref = req.params, id = _ref.id, direction = _ref.direction;
-        task = user.tasks[id];
-        options = req.query || {};
-        _.defaults(options, {
-          times: 1,
-          cron: false
-        });
-        user._tmp = {};
-        stats = {
-          gp: +user.stats.gp,
-          hp: +user.stats.hp,
-          exp: +user.stats.exp
-        };
-        task.value = +task.value;
-        task.streak = ~~task.streak;
-        if (task.priority == null) {
-          task.priority = 1;
-        }
-        if (task.value > stats.gp && task.type === 'reward') {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: i18n.t('messageNotEnoughGold', req.language)
-          }) : void 0;
-        }
-        delta = 0;
-        calculateDelta = function() {
-          var currVal, nextDelta, _ref1;
-          currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
-          nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-          if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-            if (direction === 'down' && task.type === 'daily' && options.cron) {
-              nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
-                return m + (i.completed ? 1 : 0);
-              }), 0) / task.checklist.length;
-            }
-            if (task.type === 'todo') {
-              nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
-                return m + (i.completed ? 1 : 0);
-              }), 0);
-            }
-          }
-          return nextDelta;
-        };
-        calculateReverseDelta = function() {
-          var calc, closeEnough, currVal, diff, nextDelta, testVal, _ref1;
-          currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
-          testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-          closeEnough = 0.00001;
-          while (true) {
-            calc = testVal + Math.pow(0.9747, testVal);
-            diff = currVal - calc;
-            if (Math.abs(diff) < closeEnough) {
-              break;
-            }
-            if (diff > 0) {
-              testVal -= diff;
-            } else {
-              testVal += diff;
-            }
-          }
-          nextDelta = testVal - currVal;
-          if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-            if (task.type === 'todo') {
-              nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
-                return m + (i.completed ? 1 : 0);
-              }), 0);
-            }
-          }
-          return nextDelta;
-        };
-        changeTaskValue = function() {
-          return _.times(options.times, function() {
-            var nextDelta, _ref1;
-            nextDelta = !options.cron && direction === 'down' ? calculateReverseDelta() : calculateDelta();
-            if (task.type !== 'reward') {
-              if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
-                user.stats.training[task.attribute] += nextDelta;
-              }
-              if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
-                user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
-                  user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
-                }
-              }
-              task.value += nextDelta;
-            }
-            return delta += nextDelta;
-          });
-        };
-        addPoints = function() {
-          var afterStreak, currStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
-          _crit = (delta > 0 ? user.fns.crit() : 1);
-          if (_crit > 1) {
-            user._tmp.crit = _crit;
-          }
-          intBonus = 1 + (user._statsComputed.int * .025);
-          stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
-          perBonus = 1 + user._statsComputed.per * .02;
-          gpMod = delta * task.priority * _crit * perBonus;
-          return stats.gp += task.streak ? (currStreak = direction === 'down' ? task.streak - 1 : task.streak, streakBonus = currStreak / 100 + 1, afterStreak = gpMod * streakBonus, currStreak > 0 ? gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0 : void 0, afterStreak) : gpMod;
-        };
-        subtractPoints = function() {
-          var conBonus, hpMod;
-          conBonus = 1 - (user._statsComputed.con / 250);
-          if (conBonus < .1) {
-            conBonus = 0.1;
-          }
-          hpMod = delta * conBonus * task.priority * 2;
-          return stats.hp += Math.round(hpMod * 10) / 10;
-        };
-        switch (task.type) {
-          case 'habit':
-            changeTaskValue();
-            if (delta > 0) {
-              addPoints();
-            } else {
-              subtractPoints();
-            }
-            th = (task.history != null ? task.history : task.history = []);
-            if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
-              th[th.length - 1].value = task.value;
-            } else {
-              th.push({
-                date: +(new Date),
-                value: task.value
-              });
-            }
-            if (typeof user.markModified === "function") {
-              user.markModified("habits." + (_.findIndex(user.habits, {
-                id: task.id
-              })) + ".history");
-            }
-            break;
-          case 'daily':
-            if (options.cron) {
-              changeTaskValue();
-              subtractPoints();
-              if (!user.stats.buffs.streaks) {
-                task.streak = 0;
-              }
-            } else {
-              changeTaskValue();
-              if (direction === 'down') {
-                delta = calculateDelta();
-              }
-              addPoints();
-              if (direction === 'up') {
-                task.streak = task.streak ? task.streak + 1 : 1;
-                if ((task.streak % 21) === 0) {
-                  user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-                }
-              } else {
-                if ((task.streak % 21) === 0) {
-                  user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
-                }
-                task.streak = task.streak ? task.streak - 1 : 0;
-              }
-            }
-            break;
-          case 'todo':
-            if (options.cron) {
-              changeTaskValue();
-            } else {
-              task.dateCompleted = direction === 'up' ? new Date : void 0;
-              changeTaskValue();
-              if (direction === 'down') {
-                delta = calculateDelta();
-              }
-              addPoints();
-              multiplier = _.max([
-                _.reduce(task.checklist, (function(m, i) {
-                  return m + (i.completed ? 1 : 0);
-                }), 1), 1
-              ]);
-              mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
-              mpDelta *= user._tmp.crit || 1;
-              if (direction === 'down') {
-                mpDelta *= -1;
-              }
-              user.stats.mp += mpDelta;
-              if (user.stats.mp >= user._statsComputed.maxMP) {
-                user.stats.mp = user._statsComputed.maxMP;
-              }
-              if (user.stats.mp < 0) {
-                user.stats.mp = 0;
-              }
-            }
-            break;
-          case 'reward':
-            changeTaskValue();
-            stats.gp -= Math.abs(task.value);
-            num = parseFloat(task.value).toFixed(2);
-            if (stats.gp < 0) {
-              stats.hp += stats.gp;
-              stats.gp = 0;
-            }
-        }
-        user.fns.updateStats(stats, req);
-        if (typeof window === 'undefined') {
-          if (direction === 'up') {
-            user.fns.randomDrop({
-              task: task,
-              delta: delta
-            }, req);
-          }
-        }
-        if (typeof cb === "function") {
-          cb(null, user);
-        }
-        return delta;
-      }
-    };
-  }
-  user.fns = {
-    getItem: function(type) {
-      var item;
-      item = content.gear.flat[user.items.gear.equipped[type]];
-      if (!item) {
-        return content.gear.flat["" + type + "_base_0"];
-      }
-      return item;
-    },
-    handleTwoHanded: function(item, type, req) {
-      var message, weapon, _ref;
-      if (type == null) {
-        type = 'equipped';
-      }
-      if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
-        user.items.gear[type].weapon = 'weapon_base_0';
-        message = i18n.t('messageTwoHandled', {
-          gearText: weapon.text(req.language)
-        }, req.language);
-      }
-      if (item.twoHanded) {
-        user.items.gear[type].shield = "shield_base_0";
-        message = i18n.t('messageTwoHandled', {
-          gearText: item.text(req.language)
-        }, req.language);
-      }
-      return message;
-    },
-
-    /*
-    Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
-    we need things to be "random", but technically predictable so that they don't go out-of-sync
-     */
-    predictableRandom: function(seed) {
-      var x;
-      if (!seed || seed === Math.PI) {
-        seed = _.reduce(user.stats, (function(m, v) {
-          if (_.isNumber(v)) {
-            return m + v;
-          } else {
-            return m;
-          }
-        }), 0);
-      }
-      x = Math.sin(seed++) * 10000;
-      return x - Math.floor(x);
-    },
-    crit: function(stat, chance) {
-      if (stat == null) {
-        stat = 'str';
-      }
-      if (chance == null) {
-        chance = .03;
-      }
-      if (user.fns.predictableRandom() <= chance * (1 + user._statsComputed[stat] / 100)) {
-        return 1.5 + (.02 * user._statsComputed[stat]);
-      } else {
-        return 1;
-      }
-    },
-
-    /*
-      Get a random property from an object
-      returns random property (the value)
-     */
-    randomVal: function(obj, options) {
-      var array, rand;
-      array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
-      rand = user.fns.predictableRandom(options != null ? options.seed : void 0);
-      array.sort();
-      return array[Math.floor(rand * array.length)];
-    },
-
-    /*
-    This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
-    user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
-    so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
-    Angular sets object properties directly - in which case, this function will be used.
-     */
-    dotSet: function(path, val) {
-      return api.dotSet(user, path, val);
-    },
-    dotGet: function(path) {
-      return api.dotGet(user, path);
-    },
-    randomDrop: function(modifiers, req) {
-      var acceptableDrops, chance, drop, dropK, dropMultiplier, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3;
-      task = modifiers.task;
-      chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
-      chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 40 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
-        return m + (i.completed ? 1 : 0);
-      }), 0) || 0));
-      chance = api.diminishingReturns(chance, 0.75);
-      quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
-      if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < chance) {
-        dropK = user.fns.randomVal(quest.collect, {
-          key: true
-        });
-        user.party.quest.progress.collect[dropK]++;
-        if (typeof user.markModified === "function") {
-          user.markModified('party.quest.progress');
-        }
-      }
-      dropMultiplier = ((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0) ? 2 : 1;
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
-        return;
-      }
-      if (((_ref3 = user.flags) != null ? _ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
-        rarity = user.fns.predictableRandom(user.stats.gp);
-        if (rarity > .6) {
-          drop = user.fns.randomVal(_.where(content.food, {
-            canDrop: true
-          }));
-          if ((_base = user.items.food)[_name = drop.key] == null) {
-            _base[_name] = 0;
-          }
-          user.items.food[drop.key] += 1;
-          drop.type = 'Food';
-          drop.dialog = i18n.t('messageDropFood', {
-            dropArticle: drop.article,
-            dropText: drop.text(req.language),
-            dropNotes: drop.notes(req.language)
-          }, req.language);
-        } else if (rarity > .3) {
-          drop = user.fns.randomVal(_.where(content.eggs, {
-            canBuy: true
-          }));
-          if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
-            _base1[_name1] = 0;
-          }
-          user.items.eggs[drop.key]++;
-          drop.type = 'Egg';
-          drop.dialog = i18n.t('messageDropEgg', {
-            dropText: drop.text(req.language),
-            dropNotes: drop.notes(req.language)
-          }, req.language);
-        } else {
-          acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
-          drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
-            return __indexOf.call(acceptableDrops, k) >= 0;
-          })));
-          if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
-            _base2[_name2] = 0;
-          }
-          user.items.hatchingPotions[drop.key]++;
-          drop.type = 'HatchingPotion';
-          drop.dialog = i18n.t('messageDropPotion', {
-            dropText: drop.text(req.language),
-            dropNotes: drop.notes(req.language)
-          }, req.language);
-        }
-        user._tmp.drop = drop;
-        user.items.lastDrop.date = +(new Date);
-        return user.items.lastDrop.count++;
-      }
-    },
-
-    /*
-      Updates user stats with new stats. Handles death, leveling up, etc
-      {stats} new stats
-      {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-     */
-    autoAllocate: function() {
-      return user.stats[(function() {
-        var diff, ideal, preference, stats, suggested;
-        switch (user.preferences.allocationMode) {
-          case "flat":
-            stats = _.pick(user.stats, $w('con str per int'));
-            return _.invert(stats)[_.min(stats)];
-          case "classbased":
-            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
-            preference = (function() {
-              switch (user.stats["class"]) {
-                case "wizard":
-                  return ["int", "per", "con", "str"];
-                case "rogue":
-                  return ["per", "str", "int", "con"];
-                case "healer":
-                  return ["con", "int", "str", "per"];
-                default:
-                  return ["str", "con", "per", "int"];
-              }
-            })();
-            diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
-            suggested = _.findIndex(diff, (function(val) {
-              if (val === _.min(diff)) {
-                return true;
-              }
-            }));
-            if (~suggested) {
-              return preference[suggested];
-            } else {
-              return "str";
-            }
-          case "taskbased":
-            suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
-            _.merge(user.stats.training, {
-              str: 0,
-              int: 0,
-              con: 0,
-              per: 0
-            });
-            return suggested || "str";
-          default:
-            return "str";
-        }
-      })()]++;
-    },
-    updateStats: function(stats, req) {
-      var tnl;
-      if (stats.hp <= 0) {
-        return user.stats.hp = 0;
-      }
-      user.stats.hp = stats.hp;
-      user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-      tnl = api.tnl(user.stats.lvl);
-      if (stats.exp >= tnl) {
-        user.stats.exp = stats.exp;
-        while (stats.exp >= tnl) {
-          stats.exp -= tnl;
-          user.stats.lvl++;
-          tnl = api.tnl(user.stats.lvl);
-          if (user.preferences.automaticAllocation) {
-            user.fns.autoAllocate();
-          } else {
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-          }
-          user.stats.hp = 50;
-        }
-      }
-      user.stats.exp = stats.exp;
-      if (user.flags == null) {
-        user.flags = {};
-      }
-      if (!user.flags.customizationsNotification && (user.stats.exp > 5 || user.stats.lvl > 1)) {
-        user.flags.customizationsNotification = true;
-      }
-      if (!user.flags.itemsEnabled && (user.stats.exp > 10 || user.stats.lvl > 1)) {
-        user.flags.itemsEnabled = true;
-      }
-      if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
-        user.flags.partyEnabled = true;
-      }
-      if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
-        user.flags.dropsEnabled = true;
-        if (user.items.eggs["Wolf"] > 0) {
-          user.items.eggs["Wolf"]++;
-        } else {
-          user.items.eggs["Wolf"] = 1;
-        }
-      }
-      if (!user.flags.classSelected && user.stats.lvl >= 10) {
-        user.flags.classSelected;
-      }
-      _.each({
-        vice1: 30,
-        atom1: 15,
-        moonstone1: 60,
-        goldenknight1: 40
-      }, function(lvl, k) {
-        var _base, _base1, _ref;
-        if (!((_ref = user.flags.levelDrops) != null ? _ref[k] : void 0) && user.stats.lvl >= lvl) {
-          if ((_base = user.items.quests)[k] == null) {
-            _base[k] = 0;
-          }
-          user.items.quests[k]++;
-          ((_base1 = user.flags).levelDrops != null ? _base1.levelDrops : _base1.levelDrops = {})[k] = true;
-          if (typeof user.markModified === "function") {
-            user.markModified('flags.levelDrops');
-          }
-          return user._tmp.drop = _.defaults(content.quests[k], {
-            type: 'Quest',
-            dialog: i18n.t('messageFoundQuest', {
-              questText: content.quests[k].text(req.language)
-            }, req.language)
-          });
-        }
-      });
-      if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
-        user.flags.rebirthEnabled = true;
-      }
-      if (user.stats.lvl >= 100 && !user.flags.freeRebirth) {
-        return user.flags.freeRebirth = true;
-      }
-    },
-
-    /*
-      ------------------------------------------------------
-      Cron
-      ------------------------------------------------------
-     */
-
-    /*
-      At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-      For incomplete Dailys, deduct experience
-      Make sure to run this function once in a while as server will not take care of overnight calculations.
-      And you have to run it every time client connects.
-      {user}
-     */
-    cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
-      if (options == null) {
-        options = {};
-      }
-      now = +options.now || +(new Date);
-      daysMissed = api.daysSince(user.lastCron, _.defaults({
-        now: now
-      }, user.preferences));
-      if (!(daysMissed > 0)) {
-        return;
-      }
-      user.auth.timestamps.loggedin = new Date();
-      user.lastCron = now;
-      if (user.items.lastDrop.count > 0) {
-        user.items.lastDrop.count = 0;
-      }
-      perfect = true;
-      clearBuffs = {
-        str: 0,
-        int: 0,
-        per: 0,
-        con: 0,
-        stealth: 0,
-        streaks: false
-      };
-      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
-      if (plan != null ? plan.customerId : void 0) {
-        if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
-          plan.gemsBought = 0;
-          plan.dateUpdated = new Date();
-          _.defaults(plan.consecutive, {
-            count: 0,
-            offset: 0,
-            trinkets: 0,
-            gemCapExtra: 0
-          });
-          plan.consecutive.count++;
-          if (plan.consecutive.offset > 0) {
-            plan.consecutive.offset--;
-          } else if (plan.consecutive.count % 3 === 0) {
-            plan.consecutive.trinkets++;
-            plan.consecutive.gemCapExtra += 5;
-            if (plan.consecutive.gemCapExtra > 25) {
-              plan.consecutive.gemCapExtra = 25;
-            }
-          }
-        }
-        if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
-          _.merge(plan, {
-            planId: null,
-            customerId: null,
-            paymentMethod: null
-          });
-          _.merge(plan.consecutive, {
-            count: 0,
-            offset: 0,
-            gemCapExtra: 0
-          });
-          if (typeof user.markModified === "function") {
-            user.markModified('purchased.plan');
-          }
-        }
-      }
-      if (user.preferences.sleep === true) {
-        user.stats.buffs = clearBuffs;
-        return;
-      }
-      todoTally = 0;
-      if ((_base = user.party.quest.progress).down == null) {
-        _base.down = 0;
-      }
-      user.todos.concat(user.dailys).forEach(function(task) {
-        var absVal, completed, delta, id, repeat, scheduleMisses, type;
-        if (!task) {
-          return;
-        }
-        id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-        if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
-          return;
-        }
-        if (!completed) {
-          scheduleMisses = daysMissed;
-          if ((type === 'daily') && repeat) {
-            scheduleMisses = 0;
-            _.times(daysMissed, function(n) {
-              var thatDay;
-              thatDay = moment(now).subtract({
-                days: n + 1
-              });
-              if (api.shouldDo(thatDay, repeat, user.preferences)) {
-                return scheduleMisses++;
-              }
-            });
-          }
-          if (scheduleMisses > 0) {
-            if (type === 'daily') {
-              perfect = false;
-            }
-            delta = user.ops.score({
-              params: {
-                id: task.id,
-                direction: 'down'
-              },
-              query: {
-                times: scheduleMisses,
-                cron: true
-              }
-            });
-            if (type === 'daily') {
-              user.party.quest.progress.down += delta;
-            }
-          }
-        }
-        switch (type) {
-          case 'daily':
-            (task.history != null ? task.history : task.history = []).push({
-              date: +(new Date),
-              value: task.value
-            });
-            task.completed = false;
-            return _.each(task.checklist, (function(i) {
-              i.completed = false;
-              return true;
-            }));
-          case 'todo':
-            absVal = completed ? Math.abs(task.value) : task.value;
-            return todoTally += absVal;
-        }
-      });
-      user.habits.forEach(function(task) {
-        if (task.up === false || task.down === false) {
-          if (Math.abs(task.value) < 0.1) {
-            return task.value = 0;
-          } else {
-            return task.value = task.value / 2;
-          }
-        }
-      });
-      ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? _base1.todos : _base1.todos = []).push({
-        date: now,
-        value: todoTally
-      });
-      expTally = user.stats.exp;
-      lvl = 0;
-      while (lvl < (user.stats.lvl - 1)) {
-        lvl++;
-        expTally += api.tnl(lvl);
-      }
-      ((_base2 = user.history).exp != null ? _base2.exp : _base2.exp = []).push({
-        date: now,
-        value: expTally
-      });
-      if (!((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0)) {
-        user.fns.preenUserHistory();
-        if (typeof user.markModified === "function") {
-          user.markModified('history');
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('dailys');
-        }
-      }
-      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
-        str: lvlDiv2,
-        int: lvlDiv2,
-        per: lvlDiv2,
-        con: lvlDiv2,
-        stealth: 0,
-        streaks: false
-      }) : clearBuffs;
-      user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
-      if (user.stats.mp > user._statsComputed.maxMP) {
-        user.stats.mp = user._statsComputed.maxMP;
-      }
-      progress = user.party.quest.progress;
-      _progress = _.cloneDeep(progress);
-      _.merge(progress, {
-        down: 0,
-        up: 0
-      });
-      progress.collect = _.transform(progress.collect, (function(m, v, k) {
-        return m[k] = 0;
-      }));
-      return _progress;
-    },
-    preenUserHistory: function(minHistLen) {
-      if (minHistLen == null) {
-        minHistLen = 7;
-      }
-      _.each(user.habits.concat(user.dailys), function(task) {
-        var _ref;
-        if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
-          task.history = preenHistory(task.history);
-        }
-        return true;
-      });
-      _.defaults(user.history, {
-        todos: [],
-        exp: []
-      });
-      if (user.history.exp.length > minHistLen) {
-        user.history.exp = preenHistory(user.history.exp);
-      }
-      if (user.history.todos.length > minHistLen) {
-        return user.history.todos = preenHistory(user.history.todos);
-      }
-    },
-    ultimateGear: function() {
-      var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
-      gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
-      ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
-        return gear.last;
-      });
-      lastGearClassTypeMatrix = {};
-      _.each(content.classes, function(klass) {
-        lastGearClassTypeMatrix[klass] = {};
-        return _.each(['armor', 'weapon', 'shield', 'head'], function(type) {
-          lastGearClassTypeMatrix[klass][type] = false;
-          return true;
-        });
-      });
-      ownedLastGear.each(function(gear) {
-        if (gear.twoHanded) {
-          lastGearClassTypeMatrix[gear.klass]["shield"] = true;
-        }
-        return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
-      });
-      shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
-        return ans || _(klass).values().reduce((function(ans, gearType) {
-          return ans && gearType;
-        }), true);
-      }), false).valueOf();
-      return user.achievements.ultimateGear = shouldGrant;
-    },
-    nullify: function() {
-      user.ops = null;
-      user.fns = null;
-      return user = null;
-    }
-  };
-  Object.defineProperty(user, '_statsComputed', {
-    get: function() {
-      var computed;
-      computed = _.reduce(['per', 'con', 'str', 'int'], (function(_this) {
-        return function(m, stat) {
-          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
-            var item, val;
-            val = user.fns.dotGet(path);
-            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
-          }, 0);
-          if (user.stats.lvl < 100) {
-            m[stat] += (user.stats.lvl - 1) / 2;
-          } else {
-            m[stat] += 50;
-          }
-          return m;
-        };
-      })(this), {});
-      computed.maxMP = computed.int * 2 + 30;
-      return computed;
-    }
-  });
-  return Object.defineProperty(user, 'tasks', {
-    get: function() {
-      var tasks;
-      tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-      return _.object(_.pluck(tasks, "id"), tasks);
-    }
-  });
-};
-
-
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}]},{},[1]);

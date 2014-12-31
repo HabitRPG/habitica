@@ -2,7 +2,7 @@
     "tavern": "Taverna",
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
-    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
+    "innText": "Come va la tua permanenza nella Locanda, <%= name %>? Per proteggerti, la tua lista Daily è congelata. Non subirà alcuna modifica fino a domani (il giorno dopo quello in cui lascerai la locanda). Fai attenzione però, se la tua squadra è impegnata in uno scontro con un Boss, le loro mancanze causeranno danni anche a te! In oltre, tu non causerai danni al Boss. Pronto per ripartire? Lascia la locanda. ",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -84,10 +84,10 @@
     "unblock": "Sblocca",
     "pm-reply": "Invia una risposta",
     "inbox": "Messaggi",
-    "abuseFlag": "Report violation of Community Guidelines",
-    "abuseFlagModalHeading": "Report <%= name %> for violation?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
-    "abuseFlagModalButton": "Report",
-    "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "You have already reported this message."
+    "abuseFlag": "Segnala violazione delle Linee guida della community",
+    "abuseFlagModalHeading": "Segnala <%= name %> per violazione?",
+    "abuseFlagModalBody": "Sei sicuro di voler segnalare questo post? Dovresti segnalare SOLO post che violano le <%= firstLinkStart %>Linee guida della community<%= linkEnd %> e/o i <%= secondLinkStart %>Termini del Servizio<%= linkEnd %>. Segnalare inappropriatamente un post è una violazione delle Linee guida della community e può essere considerata come un infrazione da parte tua.",
+    "abuseFlagModalButton": "Segnala",
+    "abuseReported": "Grazie di aver segnalato questa violazione. I Moderatori sono stati notificati.",
+    "abuseAlreadyReported": "Hai già segnalato questo messaggio."
 }

@@ -57,7 +57,7 @@
     "partySysText": "Var social, gå med i ett sällskap och spela Habit med dina vänner! Du kommer vara mer ordentlig med dina vanor om du har vänner som håller dig ansvarig för det du gör (eller inte gör). Klicka på Användare > Alternativ > Sällskap och följ instruktionerna. ",
     "classGear": "Klassutrustning",
     "classGearText": "Först av allt: drabbas inte av panik! Din gamla utrustning är i ditt förråd och du har nu på dig lärlingsutrustningen för <strong><%= klass %></strong>. Att bära din klass utrustning ger dig en 50% egenskapsbonus. Men du får självklart byta tillbaka till din gamla utrustning om du hellre vill det.",
-    "classStats": "Det här är din klass egenskaper, vilka påverkar ditt spelande. Varje gång du går upp i level får du en poäng att tilldela valfri egenskap. Håll musen över varje egenskap för mer information.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
     "autoAllocate": "Dela ut automatiskt",
     "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
     "spells": "Formler",

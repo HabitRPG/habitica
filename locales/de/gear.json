@@ -308,6 +308,8 @@
     "headSpecialFallMageNotes": "Da steckt Magie in jedem Faden. Erhöht Wahrnehmung um <%= per %> Punkte. Limited Edition 2014 Herbst-Ausrüstung.",
     "headSpecialFallHealerText": "Kopfverband",
     "headSpecialFallHealerNotes": "Antibakteriell und modebewusst. Erhöht Intelligenz um <%= int %> Punkte. Limited Edition 2014 Herbst-Ausrüstung.",
+    "headSpecialNye2014Text": "Silly Party Hat",
+    "headSpecialNye2014Notes": "You've received a Silly Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2015RogueText": "Eiszapfen-Drachenmaske",
     "headSpecialWinter2015RogueNotes": "You are truly, definitely, absolutely a genuine Icicle Drake. You are not infiltrating the Icicle Drake hives. You have no interest at all in the hoards of riches rumored to lie in their frigid tunnels. Rawr. Increases Perception by <%= per %>. Limited Edition 2015 Winter Gear.",
     "headSpecialWinter2015WarriorText": "Lebkuchenhelm",

@@ -68,5 +68,8 @@
     "timeTravelersTitle": "Misteriosos Viajeros en el Tiempo",
     "timeTravelersPopoverNoSub": "¡Necesitarás un Reloj de Arena místico para invocar a los misteriosos Viajeros en el Tiempo! Los <%= linkStart %>suscriptores<%= linkEnd %> obtienen un Reloj de Arena Místico por cada tres meses de suscripción consecutivos. Vuelve cuando tengas un Reloj de Arena Místico , y los Viajeros en el Tiempo te traerán un Equipo de Objetos de Suscriptor del pasado... o quizás incluso del futuro.",
     "timeTravelersPopover": "Vemos que tienes un Reloj de Arena Místico, así que gustosamente viajaremos atrás en el tiempo para ti! Por favor, elije el Equipo de objetos Misterioso que te gustaría. ¡Puedes ver una lista de equipos de objetos del pasado <%= linkStart %>aquí<%= linkEnd %>! Si estos no son de tu agrado, ¿estarías quizás más interesado en uno de nuestros estilosos equipos de objetos futuristas Steampunk?",
-    "mysticHourglassPopover": "El Reloj de Arena Místico te permite comprar equipos de subscriptor del mes anterior"
+    "mysticHourglassPopover": "El Reloj de Arena Místico te permite comprar equipos de subscriptor del mes anterior",
+    "subUpdateCard": "Update Card",
+    "subUpdateTitle": "Update",
+    "subUpdateDescription": "Update the card to be charged."
 }
