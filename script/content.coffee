@@ -260,7 +260,8 @@ gear =
       winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('headSpecialWinter2015RogueText'), notes: t('headSpecialWinter2015RogueNotes', {per: 9}),value: 60,per: 9
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('headSpecialWinter2015WarriorText'), notes: t('headSpecialWinter2015WarriorNotes', {str: 9}),value: 60,str: 9
       winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('headSpecialWinter2015MageText'), notes: t('headSpecialWinter2015MageNotes', {per: 7}),value: 60,per: 7
-      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('headSpecialWinter2015HealerText'), notes: t('headSpecialWinter2015HealerNotes', {int: 7}), value: 60, int: 7      
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('headSpecialWinter2015HealerText'), notes: t('headSpecialWinter2015HealerNotes', {int: 7}), value: 60, int: 7
+      nye2014:      text: t('headSpecialNye2014Text'), notes: t('headSpecialNye2014Notes'), value: 0
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
@@ -649,7 +650,7 @@ api.spells =
     snowball:
       text: t('spellSpecialSnowballAuraText')
       mana: 0
-      value: 1
+      value: 15
       target: 'user'
       notes: t('spellSpecialSnowballAuraNotes')
       cast: (user, target) ->
@@ -689,6 +690,24 @@ api.spells =
       cast: (user, target) ->
         user.stats.buffs.spookDust = false
         user.stats.gp -= 5
+
+    nye:
+      text: t('nyeCard')
+      mana: 0
+      value: 10
+      target: 'user'
+      notes: t('nyeCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.nye ?= 0
+          user.achievements.nye++
+        else
+          _.each [user,target], (t)->
+            t.achievements.nye ?= 0
+            t.achievements.nye++
+        (target.items.special.nyeReceived ?= []).push user.profile.name
+        target.markModified? 'items.special.nyeReceived'
+        user.stats.gp -= 10
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->

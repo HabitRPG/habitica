@@ -688,15 +688,16 @@ api.wrap = (user, main=true) ->
         user.items.food[food.key]--
         cb? {code:200, message}, userPets[pet]
 
-      #FIXME stupid method of special-handling spookDust, since it can be purchased with gold and the system only accomodates gem-purchasable holiday spells
-      buySpookDust: (req,cb) ->
-        item = content.special.spookDust
+      buySpecialSpell: (req,cb) ->
+        {key} = req.params
+        item = content.special[key]
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         user.stats.gp -= item.value
-        user.items.special.spookDust ?= 0
-        user.items.special.spookDust++
+        user.items.special[key] ?= 0
+        user.items.special[key]++
         user.markModified? 'items.special'
-        cb? null, _.pick(user,$w 'items stats')
+        message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
+        cb? {code:200,message}, _.pick(user,$w 'items stats')
 
       # buy is for using Gold, purchase is for Gems (I know, I know...)
       purchase: (req, cb, ga) ->
@@ -930,6 +931,11 @@ api.wrap = (user, main=true) ->
         (user._tmp?={}).drop = {type: 'gear', dialog: "#{item.text(req.language)} inside!"} if typeof window != 'undefined'
         #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
         cb? null, user.items.gear.owned
+
+      readNYE: (req,cb) ->
+        user.items.special.nyeReceived.shift()
+        user.markModified? 'items.special.nyeReceived'
+        cb? null, 'items.special'
 
       # ------
       # Score
