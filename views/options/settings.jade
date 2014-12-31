@@ -36,6 +36,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 br
                 strong
                   !=env.t('helpWithTranslation')
+                  
+            .form-horizontal
+              h5=env.t('dateFormat')
+              select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='set({"preferences.dateFormat": user.preferences.dateFormat})')                  
             .checkbox
               label
                 input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
@@ -200,7 +204,7 @@ mixin subPerks()
     tr
       td
         span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
-        span.badge.badge-success(ng-show='_subscription.months>1') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(_subscription.months/3*5), 50]  | min }}
+        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(Content.subscriptionBlocks[_subscription.key].months/3*5), 50]  | min }}
     tr
       td
         span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
@@ -210,8 +214,8 @@ mixin subPerks()
     tr
       td
         span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
-        div(ng-show='_subscription.months>1')
-          .badge.badge-success +{{Math.floor(_subscription.months/3)}} Mystic Hourglass
+        div(ng-show='_subscription.key!="basic_earned"')
+          .badge.badge-success +{{Math.floor(Content.subscriptionBlocks[_subscription.key].months/3)}} Mystic Hourglass
           .small.muted Mystic Hourglasses allow purchasing a previous month's Mystery Item set.
     tr
       td
@@ -224,7 +228,7 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
   //-h2=env.t('individualSub')
-  .container-fluid(ng-init='_subscription={months:1}')
+  .container-fluid(ng-init='_subscription={key:"basic_earned"}')
     .row
       .col-md-6
         h3 Benefits
@@ -237,7 +241,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
             |  #{env.t('subCanceled')} <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
           tr(ng-if='!user.purchased.plan.dateTerminated'): td
             h4=env.t('subscribed')
-            p(ng-if='Payments.currentSub') Recurring ${{Payments.currentSub.price}} each {{Payments.currentSub.months}} Month(s) ({{user.purchased.plan.paymentMethod}})
+            p(ng-if='user.purchased.plan.planId') Recurring ${{Content.subscriptionBlocks[user.purchased.plan.planId].price}} each {{Content.subscriptionBlocks[user.purchased.plan.planId].months}} Month(s) ({{user.purchased.plan.paymentMethod}})
           tr(ng-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
             |  You have {{user.purchased.plan.extraMonths | number:2}} months of subscription credit.
@@ -250,16 +254,23 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
-            each block in env.Content.subscriptionBlocks
-              .radio
-                label
-                  input(type="radio", name="subRadio", value="#{block.months}", ng-model='_subscription.months')
-                  //-| #{block.months} Month(s) Recurring: $#{block.price} #{env.t('monthUSD')}
-                  | Recurring $#{block.price} each #{block.months} Month(s)
+            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"')
+              label
+                input(type="radio", name="subRadio", ng-value="block.key", ng-model='_subscription.key')
+                span(ng-show='block.original')
+                  | Recurring <span class='line-through'>${{block.original}}</span> <span class='label label-success'>${{block.price}}</span> each {{block.months}} Month(s)
+                span(ng-hide='block.original')
+                  | Recurring ${{block.price}} each {{block.months}} Month(s)
+
+          .form-inline
+            .form-group
+              input.form-control(type='text', ng-model='_subscription.coupon', placeholder='Promo Code')
+            .form-group
+              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)') Apply
 
           h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)') Resubscribe
-          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.months})', ng-disabled='!_subscription.months') Card
-          a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.months}}', ng-disabled='!_subscription.months') PayPal
+          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key') Card
+          a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
         div(ng-if='user.purchased.plan.customerId')
-          .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()') Update Card
+          .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

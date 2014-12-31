@@ -7,9 +7,11 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
-var User = require('mongoose').model('User');
 var members = require('../members')
 var async = require('async');
+var iap = require('./iap');
+var mongoose= require('mongoose');
+var cc = require('coupon-code');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -29,8 +31,8 @@ exports.createSubscription = function(data, cb) {
   var recipient = data.gift ? data.gift.member : data.user;
   //if (!recipient.purchased.plan) recipient.purchased.plan = {}; // FIXME double-check, this should never be the case
   var p = recipient.purchased.plan;
-  var months = +(data.gift ? data.gift.subscription.months : data.sub.months);
-  var block = shared.content.subscriptionBlocks[months];
+  var block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
+  var months = +block.months;
 
   if (data.gift) {
     if (p.customerId && !p.dateTerminated) { // User has active plan
@@ -114,6 +116,14 @@ exports.buyGems = function(data, cb) {
   ], cb);
 }
 
+exports.validCoupon = function(req, res, next){
+  mongoose.model('Coupon').findOne({_id:cc.validate(req.params.code), event:'google_6mo'}, function(err, coupon){
+    if (err) return next(err);
+    if (!coupon) return res.json(401, {err:"Invalid coupon code"});
+    return res.send(200);
+  });
+}
+
 exports.stripeCheckout = stripe.checkout;
 exports.stripeSubscribeCancel = stripe.subscribeCancel;
 exports.stripeSubscribeEdit = stripe.subscribeEdit;
@@ -124,3 +134,6 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.iapAndroidVerify = iap.androidVerify;
+exports.iapIosVerify = iap.iosVerify;

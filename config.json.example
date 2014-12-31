@@ -21,6 +21,7 @@
     "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
+    "FLAG_REPORT_EMAIL": "email@mod.com",
     "EMAIL_SERVER": {
         "url": "http://example.com",
         "authUser": "user",
@@ -33,13 +34,22 @@
     },
     "PAYPAL":{
         "billing_plans": {
-            "1":"1",
-            "3":"3",
-            "6":"6",
-            "12":"12"
+            "basic_earned":"basic_earned",
+            "basic_3mo":"basic_3mo",
+            "basic_6mo":"basic_6mo",
+            "google_6mo":"google_6mo",
+            "basic_12mo":"basic_12mo"
         },
         "mode":"sandbox",
         "client_id":"client_id",
         "client_secret":"client_secret"
+    },
+    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
+    "LOGGLY": {
+        "enabled": false,
+        "subdomain": "subdomain",
+        "token": "token",
+        "username": "username",
+        "password": "password"    
     }
 }

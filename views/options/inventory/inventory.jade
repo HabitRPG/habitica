@@ -19,6 +19,42 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
+script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html')
+  .container-fluid
+    .stable.row
+      .col-md-2
+        .seasonalshop_winter2015
+      .col-md-10
+        .popover.static-popover.fade.right.in
+          .arrow
+          h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+          .popover-content
+            p!=env.t('seasonalShopText')
+    li.customize-menu.inventory-gear
+      menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
+        div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key]}")
+          button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
+          .text-center
+            | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
+            span.Pet_Currency_Gem1x.inline-gems
+      menu.pets-menu(label=env.t('quests'))
+        div(ng-repeat='quest in ::getSeasonalShopQuests()')
+          button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+          p
+            | {{::quest.value}}&nbsp;
+            span.Pet_Currency_Gem1x.inline-gems
+      menu.pets-menu(label=env.t('seasonalItems'))
+        div
+          button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
+          p
+            | {{::Content.spells.special.snowball.value}}
+            span(class='shop_gold')
+        div
+          button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
+          p
+            | {{Content.spells.special.nye.value}}
+            span(class='shop_gold')
+
 script(type='text/ng-template', id='partials/options.inventory.timetravelers.html')
   .container-fluid
     .stable.row(ng-if='user.purchased.plan.consecutive.trinkets <= 0')
@@ -83,7 +119,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
           li.customize-menu
             menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
-              p(ng-show='foodCount < 1')=env.t('noFood')
+              p.muted(ng-show='foodCount < 1')=env.t('noFood')
               div(ng-repeat='(food,points) in ownedItems(user.items.food)')
                 button.customize-option(popover='{{::Content.food[food].notes()}}', popover-title='{{::Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                   .badge.badge-info.stack-count {{points}}
@@ -98,12 +134,10 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               +specialItem('snowball')
               +specialItem('spookDust')
 
-              //-menu.pets-menu(label=env.t('valentineCard'))
               div(ng-if='user.items.special.valentineReceived[0]')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("valentine")', class='inventory_special_valentine')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
-              //-menu.pets-menu(label=env.t('subscriberItem'))
               div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
                 button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
@@ -111,6 +145,10 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               div(ng-if='user.purchased.plan.consecutive.trinkets')
                 button.customize-option(popover=env.t('mysticHourglassPopover'), popover-trigger='mouseenter', popover-placement='right', class='inventory_special_trinket', ng-click="$state.go('options.inventory.timetravelers')")
                   .badge.badge-info.stack-count {{user.purchased.plan.consecutive.trinkets}}
+
+              div(ng-if='user.items.special.nyeReceived[0]')
+                button.customize-option(popover="New Year's Card from {{User.user.items.special.nyeReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("nye")', class='inventory_special_nye')
+                  .badge.badge-info.stack-count {{user.items.special.nyeReceived.length}}
 
       .col-md-6
         h2=env.t('market')
@@ -178,15 +216,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     | 4
                     span.Pet_Currency_Gem1x.inline-gems
-                mixin buySpecialSpell(k,gp)
-                  div
-                    button.customize-option(popover='{{::Content.spells.special.#{k}.notes()}}', popover-title='{{::Content.spells.special.#{k}.text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='purchase("special", Content.spells.special.#{k})', class='inventory_special_#{k}')
-                    p
-                      |  {{::Content.spells.special.#{k}.value}}
-                      span(class='#{gp ? "shop_gold" : "Pet_Currency_Gem1x inline-gems"}')
-                //-+buySpecialSpell('snowball',false)
-                //-+buySpecialSpell('spookDust',true)
-
                 div(ng-show='user.flags.rebirthEnabled')
                   button.customize-option(popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'), popover-trigger='mouseenter', popover-placement='top', ng-click='openModal("rebirth")', class='rebirth_orb')
                   p(ng-show='user.stats.lvl < 100')
@@ -197,7 +226,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     | 4
                     span.Pet_Currency_Gem1x.inline-gems
-                div(ng-if='user.purchased.plan.customerId')
+                div(ng-if='user.purchased.plan.customerId', ng-class='::{transparent:(Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought) < 1}')
                   button.customize-option(popover=env.t('subGemPop'), popover-title=env.t('subGemName'), popover-trigger='mouseenter', popover-placement='top',ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
                     span.Pet_Currency_Gem.inline-gems
                     .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}

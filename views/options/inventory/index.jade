@@ -15,9 +15,12 @@ script(type='text/ng-template', id='partials/options.inventory.html')
     li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.equipment') }")
       a(ui-sref='options.inventory.equipment')
         =env.t('equipment')
-    li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.timetravelers') }")
+    li(ng-class="{ active: $state.includes('options.inventory.timetravelers') }")
       a(ui-sref='options.inventory.timetravelers')
-        | Time Travelers
+        =env.t('timeTravelers')
+    li(ng-class="{ active: $state.includes('options.inventory.seasonalshop') }")
+      a(ui-sref='options.inventory.seasonalshop')
+        =env.t('seasonalShop')
 
   .tab-content
     .tab-pane.active

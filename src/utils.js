@@ -35,6 +35,8 @@ function getMailingInfo(user) {
 }
 
 module.exports.txnEmail = function(mailingInfo, emailType, variables){
+  var variables = [{name: 'BASE_URL', content: nconf.get('BASE_URL')}].concat(variables || []);
+
   if (mailingInfo._id) mailingInfo = getMailingInfo(mailingInfo);
   if (!mailingInfo.email) return;
   request({

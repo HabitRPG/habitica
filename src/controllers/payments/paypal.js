@@ -9,12 +9,14 @@ var logger = require('../../logging');
 var ipn = require('paypal-ipn');
 var paypal = require('paypal-rest-sdk');
 var shared = require('habitrpg-shared');
+var mongoose = require('mongoose');
+var cc = require('coupon-code');
 
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
 _.each(shared.content.subscriptionBlocks, function(block){
-  block.paypalKey = nconf.get("PAYPAL:billing_plans:"+block.months);
+  block.paypalKey = nconf.get("PAYPAL:billing_plans:"+block.key);
 });
 
 paypal.configure({
@@ -30,23 +32,33 @@ var parseErr = function(res, err){
 }
 
 exports.createBillingAgreement = function(req,res,next){
-  req.session.paypalBlock = req.query.sub;
-  var block = shared.content.subscriptionBlocks[req.query.sub];
-  var billingPlanTitle = "HabitRPG Subscription" + ' ($'+block.price+' every '+block.months+' months, recurring)';
-  var billingAgreementAttributes = {
-    "name": billingPlanTitle,
-    "description": billingPlanTitle,
-    "start_date": moment().add({minutes:5}).format(),
-    "plan": {
-      "id": block.paypalKey
+  var sub = shared.content.subscriptionBlocks[req.query.sub];
+  async.waterfall([
+    function(cb){
+      if (!sub.discount) return cb(null, null);
+      if (!req.query.coupon) return cb('Please provide a coupon code for this plan.');
+      mongoose.model('Coupon').findOne({_id:cc.validate(req.query.coupon), event:sub.key}, cb);
     },
-    "payer": {
-      "payment_method": "paypal"
+    function(coupon, cb){
+      if (sub.discount && !coupon) return cb('Invalid coupon code.');
+      var billingPlanTitle = "HabitRPG Subscription" + ' ($'+sub.price+' every '+sub.months+' months, recurring)';
+      var billingAgreementAttributes = {
+        "name": billingPlanTitle,
+        "description": billingPlanTitle,
+        "start_date": moment().add({minutes:5}).format(),
+        "plan": {
+          "id": sub.paypalKey
+        },
+        "payer": {
+          "payment_method": "paypal"
+        }
+      };
+      paypal.billingAgreement.create(billingAgreementAttributes, cb);
     }
-  };
-  paypal.billingAgreement.create(billingAgreementAttributes, function (err, billingAgreement) {
+  ], function(err, billingAgreement){
     if (err) return parseErr(res, err);
     // For approving subscription via Paypal, first redirect user to: approval_url
+    req.session.paypalBlock = req.query.sub;
     var approval_url = _.find(billingAgreement.links, {rel:'approval_url'}).href;
     res.redirect(approval_url);
   });
@@ -82,10 +94,10 @@ exports.createPayment = function(req, res) {
   var gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
   var price = !gift ? 5.00
     : gift.type=='gems' ? Number(gift.gems.amount/4).toFixed(2)
-    : Number(shared.content.subscriptionBlocks[gift.subscription.months].price).toFixed(2);
+    : Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
   var description = !gift ? "HabitRPG Gems"
     : gift.type=='gems' ? "HabitRPG Gems (Gift)"
-    : gift.subscription.months + "mo. HabitRPG Subscription (Gift)";
+    : shared.content.subscriptionBlocks[gift.subscription.key].months + "mo. HabitRPG Subscription (Gift)";
   var create_payment = {
     "intent": "sale",
     "payer": {

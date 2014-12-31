@@ -34,11 +34,11 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.social.party')=env.t('party')
               li
-                a(ui-sref='options.social.guilds')=env.t('guilds')
+                a(ui-sref='options.social.guilds.public')=env.t('guilds')
               li
                 a(ui-sref='options.social.challenges')=env.t('challenges')
               li
-                a(ui-sref='options.social.hall')=env.t('hall')
+                a(ui-sref='options.social.hall.heroes')=env.t('hall')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
@@ -49,7 +49,9 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.inventory.equipment')=env.t('equipment')
               li
-                a(ui-sref='options.inventory.timetravelers') Time Travelers
+                a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
+              li
+                a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
             ul.toolbar-submenu
               li
                 a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
@@ -110,11 +112,11 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.social.party')=env.t('party')
             li
-              a(ui-sref='options.social.guilds')=env.t('guilds')
+              a(ui-sref='options.social.guilds.public')=env.t('guilds')
             li
               a(ui-sref='options.social.challenges')=env.t('challenges')
             li
-              a(ui-sref='options.social.hall')=env.t('hall')
+              a(ui-sref='options.social.hall.heroes')=env.t('hall')
       li.toolbar-button-dropdown
         a(ui-sref='options.inventory.drops')
           span=env.t('inventory')
@@ -131,7 +133,9 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.inventory.equipment')=env.t('equipment')
             li
-              a(ui-sref='options.inventory.timetravelers') Time Travelers
+              a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
+            li
+              a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
       li.toolbar-button-dropdown
         a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')
           span=env.t('data')

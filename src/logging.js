@@ -3,7 +3,23 @@ var winston = require('winston');
 require('winston-mail').Mail;
 require('winston-newrelic');
 
-var logger;
+var logger, loggly;
+
+if (nconf.get('LOGGLY:enabled')){
+  loggly = require('loggly').createClient({
+    token: nconf.get('LOGGLY:token'),
+    subdomain: nconf.get('LOGGLY:subdomain'),
+    auth: {
+      username: nconf.get('LOGGLY:username'),
+      password: nconf.get('LOGGLY:password')
+    },
+    //
+    // Optional: Tag to send with EVERY log message
+    //
+    tags: [('heroku-'+nconf.get('BASE_URL'))],
+    json: true
+  });
+}
 
 if (logger == null) {
     logger = new (winston.Logger)({});
@@ -48,4 +64,9 @@ module.exports.warn = function(/* variable args */) {
 module.exports.error = function(/* variable args */) {
     if (logger)
         logger.error.apply(logger, arguments);
+};
+
+module.exports.loggly = function(/* variable args */){
+    if (loggly)
+        loggly.log.apply(loggly, arguments);
 };

@@ -195,6 +195,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castStart = function(spell) {
       if (User.user.stats.mp < spell.mana) return Notification.text(window.env.t('notEnoughMana'));
 
+      if (spell.key == 'nye' && User.user.stats.gp < spell.value)
+        return Notification.text('Not enough gold.');
+
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
@@ -236,7 +239,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $scope.spell = null;
     }
 
-    // Becuase our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
+    // Because our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
     // reload the page. Perform manually.
     $rootScope.hardRedirect = function(url){
       window.location.href = url;

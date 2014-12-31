@@ -148,21 +148,19 @@ api.loginSocial = function(req, res, next) {
     network = req.body.network;
   if (network!=='facebook')
     return res.json(401, {err:"Only Facebook supported currently."});
-  async.waterfall([
-    function(cb){
+  async.auto({
+    profile: function (cb) {
       passport._strategies[network].userProfile(access_token, cb);
     },
-    function(profile, cb) {
-      var q = {};q['auth.'+network+'.id'] = profile.id;
-      User.findOne(q, {_id:1, apiToken:1, auth:1}, function(err, user){
-        if (err) return cb(err);
-        cb(null, {user:user, profile:profile});
-      });
-    },
-    function(data, cb){
-      if (data.user) return cb(null, data.user);
+    user: ['profile', function (cb, results) {
+      var q = {};
+      q['auth.' + network + '.id'] = results.profile.id;
+      User.findOne(q, {_id: 1, apiToken: 1, auth: 1}, cb);
+    }],
+    register: ['profile', 'user', function (cb, results) {
+      if (results.user) return cb(null, results.user);
       // Create new user
-      var prof = data.profile;
+      var prof = results.profile;
       var user = {
         preferences: {
           language: req.language // User language detected from browser, not saved
@@ -175,15 +173,16 @@ api.loginSocial = function(req, res, next) {
       user = new User(user);
       user.save(cb);
 
-      if(isProd && prof.emails && prof.emails[0] && prof.emails[0].value){
-        utils.txnEmail({name:prof.displayName || prof.username, email:prof.emails[0].value}, 'welcome');
+      if (isProd && prof.emails && prof.emails[0] && prof.emails[0].value) {
+        utils.txnEmail({name: prof.displayName || prof.username, email: prof.emails[0].value}, 'welcome');
       }
       ga.event('register', network).send();
-    }
-  ], function(err, user){
+    }]
+  }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
-    if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
-    return res.json(200, {id: user.id, token:user.apiToken});
+    var acct = results.register[0] ? results.register[0] : results.register;
+    if (acct.auth.blocked) return res.json(401, accountSuspended(acct._id));
+    return res.json(200, {id:acct._id, token:acct.apiToken});
   })
 };
 
@@ -206,16 +205,15 @@ api.resetPassword = function(req, res, next){
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
-    utils.sendEmail({
-      from: "HabitRPG <admin@habitrpg.com>",
-      to: email,
-      subject: "Password Reset for HabitRPG",
-      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL'),
-      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL')
+    utils.txnEmail(user, 'reset-password', [
+      {name: "NEW_PASSWORD", content: newPassword},
+      {name: "USERNAME", content: user.auth.local.username}
+    ]);
+    user.save(function(err){
+      if(err) return next(err);
+      res.send('New password sent to '+ email);
+      email = salt = newPassword = hashed_password = null;
     });
-    user.save();
-    res.send('New password sent to '+ email);
-    email = salt = newPassword = hashed_password = null;
   });
 };
 

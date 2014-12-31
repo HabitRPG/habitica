@@ -141,7 +141,7 @@ describe "API", ->
                   id: res.body.todos[0].id
 
                 body:
-                  dateCompleted: moment().subtract("days", 4)
+                  dateCompleted: moment().subtract(4, "days")
               }
               {
                 op: "updateTask"
@@ -149,7 +149,7 @@ describe "API", ->
                   id: res.body.todos[1].id
 
                 body:
-                  dateCompleted: moment().subtract("days", 4)
+                  dateCompleted: moment().subtract(4, "days")
               }
             ]).end (res) ->
               expect(_.size(res.body.todos)).to.be 4
@@ -460,7 +460,7 @@ describe "API", ->
               {
                 op: "update"
                 body:
-                  lastCron: moment().subtract("days", 1)
+                  lastCron: moment().subtract(1, "days")
               }
             ]).end (res) ->
               expect(res.body.party.quest.progress.up).to.be.above up
@@ -532,7 +532,7 @@ describe "API", ->
                         {
                           op: "update"
                           body:
-                            lastCron: moment().subtract("days", 1)
+                            lastCron: moment().subtract(1, "days")
                         }
                       ]).end ->
                         cb()
@@ -608,7 +608,7 @@ describe "API", ->
 
     it "Handles unsubscription", (done) ->
       cron = ->
-        user.lastCron = moment().subtract("d", 1)
+        user.lastCron = moment().subtract(1, "d")
         user.fns.cron()
 
       expect(user.purchased.plan.customerId).to.not.be.ok()
@@ -624,7 +624,7 @@ describe "API", ->
       cron()
       expect(user.purchased.plan.customerId).to.be.ok()
       expect(user.purchased.plan.dateTerminated).to.be.ok()
-      user.purchased.plan.dateTerminated = moment().subtract("d", 2)
+      user.purchased.plan.dateTerminated = moment().subtract(2, "d")
       cron()
       expect(user.purchased.plan.customerId).to.not.be.ok()
       payments.createSubscription user,

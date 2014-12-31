@@ -108,8 +108,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification',
-    function($scope, $rootScope, Members, Shared, $http, Notification) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format('MM/DD/YYYY');
       }
@@ -129,7 +129,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.gift = {
         type: 'gems',
         gems: {amount:0, fromBalance:true},
-        subscription: {months:0},
+        subscription: {key:''},
         message:''
       };
       $scope.sendGift = function(uuid, gift){
@@ -138,6 +138,20 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.User.sync();
           $scope.$close();
         })
+      }
+      $scope.reportAbuse = function(reporter, message, groupId) {
+        message.flags[reporter._id] = true;
+        Groups.Group.flagChatMessage({gid: groupId, messageId: message.id}, undefined, function(data){
+          Notification.text(window.env.t('abuseReported'));
+          $scope.$close();
+        });        
+      }
+      $scope.clearFlagCount = function(message, groupId) {
+        Groups.Group.clearFlagCount({gid: groupId, messageId: message.id}, undefined, function(data){
+          message.flagCount = 0;
+          Notification.text("Flags cleared");
+          $scope.$close();
+        });        
       }
     }
   ])
@@ -197,7 +211,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     });
   }])
   
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', function($scope, Groups, User, $http, ApiUrlService, Notification){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrlService, Notification, Members, $rootScope){
     $scope.message = {content:''};
     $scope._sending = false;
     
@@ -239,12 +253,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){
         var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
-        Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
-          if(data.chat) group.chat = data.chat;
+        if(confirm('Are you sure you want to delete this message?')){
+          Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
+            if(data.chat) group.chat = data.chat;
 
-          var i = _.findIndex(group.chat, {id: message.id});
-          if(i !== -1) group.chat.splice(i, 1);          
-        });
+            var i = _.findIndex(group.chat, {id: message.id});
+            if(i !== -1) group.chat.splice(i, 1);          
+          });
+        }
       }
     }
 
@@ -260,6 +276,22 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       //Chat.Chat.like({gid:group._id,mid:message.id});
 
       $http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
+    }
+
+    $scope.flagChatMessage = function(groupId,message) {
+      if(!message.flags) message.flags = {};
+      if(message.flags[User.user._id]) 
+        Notification.text(window.env.t('abuseAlreadyReported'));
+      else {
+        $scope.abuseObject = message;
+        $scope.groupId = groupId;
+        Members.selectMember(message.uuid, function(){
+          $rootScope.openModal('abuse-flag',{
+            controller:'MemberModalCtrl',
+            scope: $scope
+          });
+        });
+      }
     }
 
     $scope.sync = function(group){

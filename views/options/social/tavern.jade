@@ -21,7 +21,7 @@
                     span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
                 =env.t('danielText2')
       .alert.alert-info(ng-show='user.preferences.sleep')
-        =env.t('innText')
+        =env.t('innText',{name:"{{user.profile.name}}"})
 
       // Resources
       .panel.panel-default

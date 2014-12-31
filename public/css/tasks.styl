@@ -8,29 +8,99 @@ $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $goo
 
 // for each color stage, generate a named class w/ the appropriate color
 for $stage in $stages
-  .color-{$stage[0]}
-    background-color: $stage[1]
-    .action-yesno label,
-    .task-action-btn
-      background-color: darken($stage[1], 30%)
-      &:hover, &:focus
-        background-color: darken($stage[1], 40%)
-    .task-options
+  .task-column:not(.rewards)
+    .color-{$stage[0]}:not(.completed)
       background-color: $stage[1]
-
+      border: 1px solid shade($stage[1],10%)
+      .priority-multiplier, .task-attributes, .repeat-days
+        li
+          hrpg-button-color-mixin($stage[1])
+          button
+            &.active
+              box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
+              background-color: darken($stage[1],5%) !important
+            &:focus
+              border: 1px solid darken($stage[1],30%)
+              outline: 0
+      .plusminus
+        .task-checker
+          label:after
+            border: 1px solid darken($stage[1], 30%) !important
+          input[type=checkbox]:checked + label:after
+            //border: 1px solid darken($stage[1], 50%) !important
+            box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
+            background-color: darken($stage[1],5%) !important
+      .save-close, .task-checklist-edit li
+        hrpg-button-color-mixin(darken($stage[1],5%))
+        button
+          &:focus
+            border: 1px solid darken($stage[1],30%)
+            outline: 0
+      .action-yesno label,
+      .task-action-btn
+        background-color: darken($stage[1], 30%)
+        &:hover, &:focus
+          background-color: darken($stage[1], 40%)
+      .task-options
+        background-color: $stage[1]
+      .option-group:not(.task-checklist)
+        border-bottom: 1px solid darken($stage[1], 15%)
+      .option-content
+        border-color: darken($stage[1], 16.18%) !important
+        &:hover
+          border-color: darken($stage[1], 32.8%) !important
+        &:focus
+          border-color: darken($stage[1], 61.8%) !important
+          outline: none;
+      
 // completed has to be outside the loop to override the color class
 .completed
+  color: darken($completed,30%)
   background-color: $completed
-  color: #999
-  .glyphicon
-    color: #333
-  .task-checker label
-    background-color: darken($completed, 30%)
+  border: 1px solid shade($completed,10%)
+  .priority-multiplier, .task-attributes, .repeat-days
+    li
+      hrpg-button-color-mixin($completed)
+      button
+        &.active
+          box-shadow: inset 0 0 0 1px darken($completed,40%) !important
+          background-color: darken($completed,5%) !important
+        &:focus
+          border: 1px solid darken($completed,30%)
+          outline: 0
+  .plusminus
+    .task-checker
+      label:after
+        border: 1px solid darken($completed, 30%) !important
+      input[type=checkbox]:checked + label:after
+        box-shadow: inset 0 0 0 1px darken($completed,40%) !important
+        background-color: darken($completed,5%) !important
+  .save-close, .task-checklist-edit li
+    hrpg-button-color-mixin(darken($completed,5%))
+    button
+      &:focus
+        border: 1px solid darken($completed,30%)
+        outline: 0
+  .action-yesno label,
   .task-action-btn
     background-color: darken($completed, 30%)
+    &:hover, &:focus
+      background-color: darken($completed, 40%)
+  .task-options
+    background-color: $completed
+  .option-group:not(.task-checklist)
+    border-bottom: 1px solid darken($completed, 15%)
+  .option-content
+    border-color: darken($completed, 16.18%) !important
+    &:hover
+      border-color: darken($completed, 32.8%) !important
+    &:focus
+      border-color: darken($completed, 61.8%) !important
+      outline: 0;
 
-.reward
+.reward, .reward-item
   background-color: white
+  border: 1px solid $completed !important  
 
 // 2. Columns & Tasks
 // ===================
@@ -70,7 +140,7 @@ for $stage in $stages
 // "Add new task" form
 // -----------------
 .task-add
-  margin-top: 1.618em
+  margin-top: 1.5em
   @extend $hrpg-button-with-input
   hrpg-button-color-mixin($color-options-submenu)
   input, button
@@ -90,7 +160,7 @@ for $stage in $stages
   padding: 0
   min-height: 3em
   margin-bottom: 0.75em
-  box-shadow: inset 0 0 1px rgba(0,0,0,0.5)
+  // box-shadow: inset 0 0 1px rgba(0,0,0,0.5)
   position: relative
   &:hover
     cursor: move
@@ -99,6 +169,16 @@ for $stage in $stages
 
   label
     font-weight: 400
+  
+  input[type="text"], input[type="number"], textarea.option-content
+    border: 1px solid #aaa
+    border-radius: 0.382em
+    padding-left: 0.618em
+    background-color: #fff !important
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    box-shadow: none //remove red glow in Firefox
 
 // task content
 .task-text
@@ -107,7 +187,7 @@ for $stage in $stages
   line-height: 1.4
   word-wrap: break-word
 
-  markdown > ul > li // Otherwise, + gets turned into a bullet and gets maksed by buttons
+  markdown > ul > li // Otherwise, + gets turned into a bullet and gets masked by buttons
     margin-left:20px
 
   span.emoji
@@ -118,6 +198,8 @@ for $stage in $stages
 
 .habit-wide .task-text
   padding-left: 7em
+.habit-narrow .task-text
+  padding-left: 0.75em
 
 // when a task is being dragged
 .task.ui-sortable-helper
@@ -174,28 +256,21 @@ for $stage in $stages
   cursor: pointer
 
 // plus/minus checkbox
-.action-plusminus
-  label
-    margin-right: 1.5em
-  label:after
-    font-size: 1.41em
-    width: 2.12765em
-    height: 2.12765em
-    line-height: 2.12765
-    text-align: center
-    display: inline-block
-    vertical-align top
-    opacity: 0.3
-    background-color: #ddd
-    outline: 1px solid rgba(0,0,0,0.5)
-    color: #222
-  label[for$="plus"]:after
-    content: '＋'
-  label[for$="minus"]:after
-    content: '−'
-
-  &.select-toggle input[type=checkbox]:checked + label:after
-    opacity: 1
+.plusminus
+  text-align: center
+  .task-checker
+    font-size: 1.5em // 1.41em
+    @extend $hrpg-button
+    margin-bottom: 0.5em
+    &:first-of-type
+      margin-right: 0.5em
+    label:after
+      width: 2em
+      line-height: 1.5
+    label[for$="plus"]:after
+      content: '＋'
+    label[for$="minus"]:after
+      content: '−'
 
 // yes/no checkbox
 .action-yesno
@@ -227,9 +302,9 @@ for $stage in $stages
   label:hover:after,
   label:focus:after
     content: "\E013"
-    font-family 'Glyphicons Halflings'
-    border none
-    margin 0
+    font-family: "Glyphicons Halflings"
+    border: none
+    margin: 0
     line-height: 1.714285714em
     height: 1.714285714em
     width: 1.714285714em
@@ -241,9 +316,9 @@ for $stage in $stages
   // completed icon
   input[type=checkbox]:checked + label:after
     content: "\E013"
-    font-family 'Glyphicons Halflings'
-    border none
-    margin 0
+    font-family: "Glyphicons Halflings"
+    border: none
+    margin: 0
     line-height: 1.714285714em
     height: 1.714285714em
     width: 1.714285714em
@@ -295,36 +370,36 @@ form
   //background-color:
 
   .option-group
-    border-bottom: 1px solid rgba(0,0,0,0.1)
+    //border-bottom: 1px solid rgba(0,0,0,0.1)
     padding: 0 0 1em
     margin-bottom: 1em
 
   .option-title
     font-size: 1em
     margin: 0 0 0.5em
-    line-height: 1.5
+    line-height: 2.5
     border: 0
     padding: 0
-    color: #333
-    font-style: italic
-    &:not(.mega):after
-      content: ':'
+    //color: #333
+    //font-style: italic
+    font-weight: bold
+    text-align: center
     &.mega
       cursor: pointer
-      font-style: normal
-      font-weight: bold
-      text-decoration: underline
+      //font-style: normal
+      &:after
+        font-family: "Glyphicons Halflings"
+        font-size: 0.75em
+        content: "\E114"
+        padding-left: 0.75em
+    //&:not(.mega):after
+      //content: ':'
 
   .option-content
     height: 2.5em
     width: 100%
     margin: 0 0 1em
     padding: 0 0 0 0.5em
-    outline: 0
-    border: 1px solid rgba(0,0,0,0.2)
-    box-shadow: none
-    border-radius: 0
-    font-family: 'Lato', sans-serif //bootstrap override
 
   textarea.option-content
     height: 5em
@@ -393,47 +468,66 @@ form
 .task-options
   .task-action-btn.tile
     margin: 3px
-
+      
+  form
+    padding-bottom: 1em
+  .priority-multiplier, .task-attributes, .repeat-days
+    text-align: center
+    li
+      @extend $hrpg-button
+      margin-bottom: 1em
+      margin-right: 0.75em
+      display: inline-block
+      &:last-of-type
+        margin-right: 0
+  .repeat-days
+    li
+      button
+        min-width: 2.5em      
+  .save-close
+    text-align: center
+    @extend $hrpg-button       
 // todos ui
 // --------
 
 // Checklists
 // --------
-.checklist-form
-  /* Make an input blend into its parent */
-  input.inline-edit
-    reset-box-model()
-    reset-font()
-    line-height: inherit
-    text-align: inherit
-    background-color:inherit
-    box-shadow: none
-    width: 80%
+.task-checklist-edit
+  > ul
+    text-align: center
+    li
+      @extend $hrpg-button
+      button
+        span
+          margin-right: 0.5em
+  > form
+    li
+      @extend $hrpg-button-with-input
+      @extend $clearfix
+    input
+      width: 70%
 
-  /* Add interaction cues on hover and focus */
-  input.inline-edit:hover,input.inline-edit:focus
-    background-color: #FFD
-    transition: background-color 0.5s
+      /* Add interaction cues on hover and focus */
+      &:hover,&:focus
+        background-color: #FFD
+        transition: background-color 0.5s
 
-  .checklist-icons
-    opacity:0
-    width: 5%
-
-  li
-    min-height: 20px
-    padding-left: 10px
-    margin-bottom: 5px
-
-    [type="checkbox"]
-      margin: 0px 10px 3px 0px
-      width: 4%
-  li:hover .checklist-icons
-    opacity:1
+    .checklist-icon
+      opacity:0.25
+      text-align: center
+      line-height: 1.5
+      float: left
+      padding: 0.25em 0.5em
+      
+    li
+      margin-bottom: 1em
+      &:hover .checklist-icon
+        opacity:1
 
 // Task filters
 // --------    
 .task-filter
-  margin: 1.618em 0 1em 0
+  margin: 1.5em 0 1em 0
   hrpg-button-bar-mixin($color-tasks)
   @extend $hrpg-button-bar
   width: 100%
@@ -449,16 +543,18 @@ form
       width: 100%
       height: 100%
 .rewards
+  .task
+    min-height: 3.07em  // Temp fix for slight misalignment of btn-buy
   .task-filter
     li:nth-child(3n + 1):nth-last-child(2)
       width: 33.333% 
     li:nth-child(3n + 1):nth-last-child(2) + li
       width: 66.666%
-
   .btn-buy
     word-wrap: break-word
     padding-left: 0.2em
     text-align: left
+    border:none
     span
       position: relative
       left: -2px
@@ -474,9 +570,4 @@ form
         margin: auto
     .shop_gold + .reward-cost
       line-height: 1
-      top: -0.1em
-
-.repeat-days
-  a
-    border-radius: 0.382em
-          
+      top: -0.1em       
