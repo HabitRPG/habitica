@@ -686,6 +686,7 @@ api.spells =
       text: t('spellSpecialOpaquePotionText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialOpaquePotionNotes')
       cast: (user, target) ->
@@ -696,6 +697,7 @@ api.spells =
       text: t('nyeCard')
       mana: 0
       value: 10
+      immediateUse: true
       target: 'user'
       notes: t('nyeCardNotes')
       cast: (user, target) ->
