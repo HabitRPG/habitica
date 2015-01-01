@@ -15450,7 +15450,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
       release2: function(req, cb) {
-        var pet;
+        var mountCount, pet;
         if (user.balance < 2) {
           return typeof cb === "function" ? cb({
             code: 401,
@@ -15460,7 +15460,11 @@ api.wrap = function(user, main) {
           user.balance -= 2;
           user.items.currentMount = "";
           user.items.currentPet = "";
+          mountCount = 0;
           for (pet in content.pets) {
+            if (user.items.mounts[pet]) {
+              mountCount++;
+            }
             delete user.items.mounts[pet];
             user.items.pets[pet] = 0;
           }
@@ -15468,6 +15472,12 @@ api.wrap = function(user, main) {
             user.achievements.beastMasterCount = 0;
           }
           user.achievements.beastMasterCount++;
+          if (mountCount === 90) {
+            if (!user.achievements.mountMasterCount) {
+              user.achievements.mountMasterCount = 0;
+            }
+            user.achievements.mountMasterCount++;
+          }
         }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
