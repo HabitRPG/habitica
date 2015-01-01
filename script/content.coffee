@@ -663,6 +663,7 @@ api.spells =
       text: t('spellSpecialSaltText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialSaltNotes')
       cast: (user, target) ->
