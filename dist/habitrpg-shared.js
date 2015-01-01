@@ -12436,7 +12436,6 @@ api.spells = {
       text: t('spellSpecialSaltText'),
       mana: 0,
       value: 5,
-      immediateUse: true,
       target: 'self',
       notes: t('spellSpecialSaltNotes'),
       cast: function(user, target) {
@@ -12478,7 +12477,7 @@ api.spells = {
       target: 'user',
       notes: t('nyeCardNotes'),
       cast: function(user, target) {
-        var _base, _base1;
+        var _base;
         if (user === target) {
           if ((_base = user.achievements).nye == null) {
             _base.nye = 0;
@@ -12493,7 +12492,10 @@ api.spells = {
             return t.achievements.nye++;
           });
         }
-        ((_base1 = target.items.special).nyeReceived != null ? _base1.nyeReceived : _base1.nyeReceived = []).push(user.profile.name);
+        if (!target.items.special.nyeReceived) {
+          target.items.special.nyeReceived = [];
+        }
+        target.items.special.nyeReceived.push(user.profile.name);
         if (typeof target.markModified === "function") {
           target.markModified('items.special.nyeReceived');
         }
@@ -16551,5 +16553,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/vagrant/node_modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
