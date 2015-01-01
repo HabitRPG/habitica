@@ -12477,7 +12477,7 @@ api.spells = {
       target: 'user',
       notes: t('nyeCardNotes'),
       cast: function(user, target) {
-        var _base, _base1;
+        var _base;
         if (user === target) {
           if ((_base = user.achievements).nye == null) {
             _base.nye = 0;
@@ -12492,7 +12492,10 @@ api.spells = {
             return t.achievements.nye++;
           });
         }
-        ((_base1 = target.items.special).nyeReceived != null ? _base1.nyeReceived : _base1.nyeReceived = []).push(user.profile.name);
+        if (!target.items.special.nyeReceived) {
+          target.items.special.nyeReceived = [];
+        }
+        target.items.special.nyeReceived.push(user.profile.name);
         if (typeof target.markModified === "function") {
           target.markModified('items.special.nyeReceived');
         }
