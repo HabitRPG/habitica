@@ -93,7 +93,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         td {{hero.contributor.level}}
         td {{hero.contributor.text}}
         td
-          markdown(ng-model='hero.contributor.contributions', target='_blank')
+          markdown(text='hero.contributor.contributions', target='_blank')
 
 script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
   table.table.table-striped(infinite-scroll="loadMore()")

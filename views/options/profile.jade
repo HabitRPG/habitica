@@ -224,7 +224,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
           | &nbsp;-
 
         h4=env.t('displayBlurb')
-        markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
+        markdown(ng-show='profile.profile.blurb', text='profile.profile.blurb')
         span.muted(ng-hide='profile.profile.blurb') -&nbsp;
           =env.t('none')
           | &nbsp;-
