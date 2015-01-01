@@ -652,14 +652,14 @@ describe 'Helper', ->
     expect(shared.countMounts(null, mounts)).to.eql 0
     expect(shared.countMounts(1, mounts)).to.eql 1
 
-    mounts = { "Dragon-Red": 1, "Wolf-Base": 2 }
+    mounts = { "Dragon-Red": true, "Wolf-Base": true }
     expect(shared.countMounts(null, mounts)).to.eql 2
     expect(shared.countMounts(2, mounts)).to.eql 2
 
-    mounts = { "Dragon-Red": 1, "Gryphon-Base": 1 }
-    expect(shared.countMounts(null, mounts)).to.eql 2
-    expect(shared.countMounts(_.size(mounts), mounts)).to.eql 2
+    mounts = { "Dragon-Red": true, "Gryphon-Base": true }
+    expect(shared.countMounts(null, mounts)).to.eql 1
+    expect(shared.countMounts(_.size(mounts), mounts)).to.eql 1
 
-    mounts = { "Wolf-Base": 2, "BearCub-Polar": 1}
+    mounts = { "Wolf-Base": true, "BearCub-Polar": true}
     expect(shared.countMounts(null, mounts)).to.eql 1
     expect(shared.countMounts(_.size(mounts), mounts)).to.eql 1
