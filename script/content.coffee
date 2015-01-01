@@ -705,7 +705,10 @@ api.spells =
           _.each [user,target], (t)->
             t.achievements.nye ?= 0
             t.achievements.nye++
-        (target.items.special.nyeReceived ?= []).push user.profile.name
+        if !target.items.special.nyeReceived
+          target.items.special.nyeReceived = []
+        target.items.special.nyeReceived.push user.profile.name
+
         target.markModified? 'items.special.nyeReceived'
         user.stats.gp -= 10
 
