@@ -31,7 +31,7 @@
     "beastMastName": "Beast Master",
     "beastMastText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
     "beastMastText2": " and has released their pets a total of <%= count %> times",
-    "mountProgress": "Mount Master Progress",
+    "mountmasterProgress": "Mount Master Progress",
     "mountAchievement": "You have earned the \"Mount Master\" achievement for taming all the mounts!",
     "mountMastName": "Mount Master",
     "mountMastText": "Has tamed all 90 mounts (even more difficult, congratulate this user!)",
