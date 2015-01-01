@@ -92,7 +92,7 @@
         var removeWatch = !!scope.$eval(attrs.removeWatch);
         var useTimeout = !!scope.$eval(attrs.useTimeout);
 
-        var doRemoveWatch = scope.$watch(attrs.ngModel, function(value, oldValue) {
+        var doRemoveWatch = scope.$watch(attrs.text, function(value, oldValue) {
           var replaceMarkdown = function(){
 
             var markdown = value;
