@@ -65,7 +65,7 @@ table.table.table-striped
       strong.hint(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))=env.t('streaksFrozen')
     td
 
-h4(class=mobile?'item item-divider':'',ng-show='user.flags.dropsEnabled')=env.t('pets')
+h4(class=mobile?'item item-divider':'',ng-if='user.flags.dropsEnabled')=env.t('pets')
 table.table.table-striped(ng-show='user.flags.dropsEnabled')
   tr
     td
