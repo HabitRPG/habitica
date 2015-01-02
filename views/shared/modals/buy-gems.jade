@@ -1,9 +1,7 @@
 script(id='modals/buyGems.html', type='text/ng-template')
   .modal-body
     .buy-gems
-    - var isGemsModal = true
-      include ../gems
-    - isGemsModal = false
+      +gemButton(true)
       .well
         h3=env.t('buyGems')
         table.table
