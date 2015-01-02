@@ -89,6 +89,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 
     $rootScope.petCount = Shared.countPets(null, User.user.items.pets);
+    $rootScope.mountCount = Shared.countMounts(null, User.user.items.mounts);
 
     $rootScope.$watch('user.items.pets', function(pets){ 
       $rootScope.petCount = Shared.countPets($rootScope.countExists(pets), User.user.items.pets);
