@@ -6,7 +6,7 @@
     "coffee-script": "1.7.1",
     "coffeeify": "0.6.0",
     "lodash": "~2.4.1",
-    "moment": "~2.8.3",
+    "moment": "~2.8.3"
   },
   "devDependencies": {
     "coffee-coverage": "~0.4.2",
