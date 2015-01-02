@@ -88,7 +88,7 @@ div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
   hr
 
 div(ng-if='profile.achievements.mountMaster || user._id == profile._id')
-  .achievement.achievement-rat(ng-show='profile.achievements.mountMaster')
+  .achievement.achievement-wolf(ng-show='profile.achievements.mountMaster')
   div(ng-class='{muted: !profile.achievements.mountMaster}')
     h5=env.t('mountMastName')
     small=env.t('mountMastText')
