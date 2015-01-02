@@ -104,26 +104,26 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('achievements/ultimateGear');
     });
 
+    // Watches number of pets and displays beastMaster modal when 90 are found
     $rootScope.$watch('user.items.pets', function(after, before){
       if(_.size(after) === _.size(before) ||
         Shared.countPets(null, after) < 90) return;
-      if (User.user.achievements.beastMaster == false) {
+      if (User.user.achievements.beastMaster == undefined) {
         User.user.achievements.beastMaster = true;
         $rootScope.openModal('achievements/beastMaster');
       }
     }, true);
 
 
-//start mountmaster test
+    // Watches number of mounts and displays mountMaster modal when 90 are raised
     $rootScope.$watch('user.items.mounts', function(after, before){
       if(_.size(after) === _.size(before) ||
         Shared.countMounts(null, after) < 90) return;
-      if (User.user.achievements.mountMaster == false) {
+      if (User.user.achievements.mountMaster == undefined) {
         User.user.achievements.mountMaster = true;
         $rootScope.openModal('achievements/mountMaster');
       }
     }, true);
-// end mountmaster test
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
