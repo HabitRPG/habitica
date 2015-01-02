@@ -15429,7 +15429,7 @@ api.wrap = function(user, main) {
         }
         return ga != null ? ga.event('purchase', key).send() : void 0;
       },
-      release: function(req, cb) {
+      releasePets: function(req, cb) {
         var pet;
         if (user.balance < 1) {
           return typeof cb === "function" ? cb({
@@ -15449,35 +15449,48 @@ api.wrap = function(user, main) {
         }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
-      release2: function(req, cb) {
-        var mountCount, pet;
-        if (user.balance < 2) {
+      releaseMounts: function(req, cb) {
+        var mount;
+        if (user.balance < 1) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
-          user.balance -= 2;
+          user.balance -= 1;
           user.items.currentMount = "";
-          user.items.currentPet = "";
-          mountCount = 0;
-          for (pet in content.pets) {
-            if (user.items.mounts[pet]) {
-              mountCount++;
-            }
-            delete user.items.mounts[pet];
-            user.items.pets[pet] = 0;
+          for (mount in content.pets) {
+            delete user.items.mounts[mount];
+          }
+          if (!user.achievements.mountMasterCount) {
+            user.achievements.mountMasterCount = 0;
+          }
+          user.achievements.mountMasterCount++;
+        }
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      releaseBoth: function(req, cb) {
+        var animal;
+        if (user.balance < 1.5) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        } else {
+          user.balance -= 1;
+          user.items.currentMount = "";
+          for (animal in content.pets) {
+            user.items.pets[animal] = 0;
+            delete user.items.mounts[animal];
           }
           if (!user.achievements.beastMasterCount) {
             user.achievements.beastMasterCount = 0;
           }
           user.achievements.beastMasterCount++;
-          if (mountCount === 90) {
-            if (!user.achievements.mountMasterCount) {
-              user.achievements.mountMasterCount = 0;
-            }
-            user.achievements.mountMasterCount++;
+          if (!user.achievements.mountMasterCount) {
+            user.achievements.mountMasterCount = 0;
           }
+          user.achievements.mountMasterCount++;
         }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
