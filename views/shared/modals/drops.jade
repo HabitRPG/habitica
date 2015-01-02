@@ -31,17 +31,17 @@ script(type='text/ng-template', id='modals/pet-key.html')
     span(ng-if='user.balance < 1')
       a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
-    span(ng-if='user.balance >= 1 && user.petCount >= 90', ng-controller='SettingsCtrl')
+    span(ng-if='user.balance >= 1 && petCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releasePets()')
         =env.t('petKeyPets')
         | : 4&nbsp;
         span.Pet_Currency_Gem1x.inline-gems
-    span(ng-if='user.balance >= 1 && user.mountCount >= 90', ng-controller='SettingsCtrl')
+    span(ng-if='user.balance >= 1 && mountCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releaseMounts()')
         =env.t('petKeyMounts')
         | : 4&nbsp;
         span.Pet_Currency_Gem1x.inline-gems
-    span(ng-if='user.balance >= 1 && user.petCount >= 90 && user.mountCount >= 90', ng-controller='SettingsCtrl')
+    span(ng-if='user.balance >= 1.5 && petCount >= 90 && mountCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releaseBoth()')
         =env.t('petKeyBoth')
         | : 6&nbsp;
