@@ -87,6 +87,14 @@ div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
       =env.t('beastMastText2', {count: "{{profile.achievements.beastMasterCount}}"})
   hr
 
+div(ng-if='profile.achievements.mountMaster || user._id == profile._id')
+  .achievement.achievement-rat(ng-show='profile.achievements.mountMaster')
+  div(ng-class='{muted: !profile.achievements.mountMaster}')
+    h5=env.t('mountMastName')
+    small=env.t('mountMastText')
+      =env.t('beastMastText2', {count: "{{profile.achievements.mountMasterCount}}"})
+  hr
+
 div(ng-if='profile.achievements.rebirths')
   .achievement.achievement-sun
   h5(ng-if='profile.achievements.rebirths == 1')=env.t('rebirthBegan')

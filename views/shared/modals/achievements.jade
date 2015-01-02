@@ -29,6 +29,18 @@ script(id='modals/achievements/beastMaster.html', type='text/ng-template')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
+
+// Beast Master
+script(id='modals/achievements/mountMaster.html', type='text/ng-template')
+  .modal-header
+    h4=env.t('modalAchievement')
+  .modal-body
+    p
+      .achievement.achievement-wolf
+      =env.t('mountAchievement')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+
 // Contributor
 // activated by user.flags.contributor
 script(id='modals/achievements/contributor.html', type='text/ng-template')
