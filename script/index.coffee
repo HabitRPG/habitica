@@ -734,7 +734,7 @@ api.wrap = (user, main=true) ->
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('purchase', key).send()
 
-      release: (req, cb) ->
+      releasePets: (req, cb) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
@@ -747,25 +747,17 @@ api.wrap = (user, main=true) ->
           user.items.currentPet = ""
         cb? null, user
 
-      release2: (req, cb) ->
-        if user.balance < 2
+      releaseMounts: (req, cb) ->
+        if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          user.balance -= 2
+          user.balance -= 1
           user.items.currentMount = ""
-          user.items.currentPet = ""
-          mountCount = 0
-          for pet of content.pets
-            mountCount++ if user.items.mounts[pet]
-            delete user.items.mounts[pet]
-            user.items.pets[pet] = 0
-          if not user.achievements.beastMasterCount
-            user.achievements.beastMasterCount = 0
-          user.achievements.beastMasterCount++
-          if mountCount == 90
-            if not user.achievements.mountMasterCount
-              user.achievements.mountMasterCount = 0
-            user.achievements.mountMasterCount++
+          for mount of content.pets
+            delete user.items.mounts[mount]
+          if not user.achievements.mountMasterCount
+            user.achievements.mountMasterCount = 0
+          user.achievements.mountMasterCount++
         cb? null, user
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
