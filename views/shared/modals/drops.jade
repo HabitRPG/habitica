@@ -32,9 +32,9 @@ script(type='text/ng-template', id='modals/pet-key.html')
       a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); release()')=env.t('petKeyPets')
+      a.btn.btn-danger(ng-click='$close(); releasePets()')=env.t('petKeyPets')
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger(ng-click='$close(); release2()')=env.t('petKeyMounts')
+      a.btn.btn-danger(ng-click='$close(); releaseMounts()')=env.t('petKeyMounts')
       span.gem-cost
         | 4&nbsp;
         =env.t('gemsEach')

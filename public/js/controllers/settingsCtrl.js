@@ -155,13 +155,13 @@ habitrpg.controller('SettingsCtrl',
           window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.user.apiToken;
         })
     }
-    $scope.release = function() {
-      User.user.ops.release({});
+    $scope.releasePets = function() {
+      User.user.ops.releasePets({});
       $rootScope.$state.go('tasks');
     }
 
-    $scope.release2 = function() {
-      User.user.ops.release2({});
+    $scope.releaseMounts = function() {
+      User.user.ops.releaseMounts({});
       $rootScope.$state.go('tasks');
     }
 
