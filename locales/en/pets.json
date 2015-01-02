@@ -52,7 +52,8 @@
     "petKeyInfo2": "The Key to the Kennels resets all of your non-quest pets back to as if you'd never found them. Once you've used it, you'll be able to stack the Beastmaster achievement, showing off how many times you've been able to best the RNG.",
     "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
     "petKeyPets": "Release My Pets",
-    "petKeyMounts": "Release Both Please",
+    "petKeyMounts": "Release My Mounts",
+    "petKeyBoth": "Release Both",
     "petKeyNeverMind": "Not Yet",
     "gemsEach": "gems each"
 }

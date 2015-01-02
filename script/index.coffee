@@ -760,6 +760,23 @@ api.wrap = (user, main=true) ->
           user.achievements.mountMasterCount++
         cb? null, user
 
+      releaseBoth: (req, cb) ->
+        if user.balance < 1.5
+          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+        else
+          user.balance -= 1
+          user.items.currentMount = ""
+          for animal of content.pets
+            user.items.pets[animal] = 0
+            delete user.items.mounts[animal]
+          if not user.achievements.beastMasterCount
+            user.achievements.beastMasterCount = 0
+          user.achievements.beastMasterCount++
+          if not user.achievements.mountMasterCount
+            user.achievements.mountMasterCount = 0
+          user.achievements.mountMasterCount++
+        cb? null, user
+
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
       buy: (req, cb) ->
         {key} = req.params
