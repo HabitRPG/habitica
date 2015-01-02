@@ -8,7 +8,6 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
     $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
-// previously:   $scope.totalMounts = _.size(_.reject(Content.eggs,function(egg){return egg.noMount})) * _.size(Content.hatchingPotions);
     $scope.totalMounts = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
 
     // count egg, food, hatchingPotion stack totals
