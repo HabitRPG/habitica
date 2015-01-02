@@ -76,7 +76,7 @@ table.table.table-striped(ng-show='user.flags.dropsEnabled')
       strong=env.t('beastProgress')
       | : {{profile.petCount}}/90
 // this works now //
-h4(class=mobile?'item item-divider':'')=env.t('mounts')
+h4(class=mobile?'item item-divider':'', ng-if='user.flags.dropsEnabled')=env.t('mounts')
 table.table.table-striped(ng-show='user.flags.dropsEnabled')
   tr
     td
