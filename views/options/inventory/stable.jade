@@ -41,7 +41,7 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
             a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
           .popover-content
             p=env.t('mattShall', {name: "{{user.profile.name}}"})
-            h4= env.t('mountmasterProgress') + ': {{Shared.countMounts(null,User.user.items.mounts) || 0}} / {{totalMounts}} ' + env.t('mountsTamed')
+            h4= env.t('mountmasterProgress') + ': {{mountCount}} / {{totalMounts}} ' + env.t('mountsTamed')
       .col-md-12
         +mountList(env.Content.dropEggs)
       .col-md-12
