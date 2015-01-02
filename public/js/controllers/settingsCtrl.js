@@ -165,6 +165,11 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
+    $scope.releaseBoth = function() {
+      User.user.ops.releaseBoth({});
+      $rootScope.$state.go('tasks');
+    }
+
     // ---- Webhooks ------
     $scope._newWebhook = {url:''};
     $scope.$watch('user.preferences.webhooks',function(webhooks){
