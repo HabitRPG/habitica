@@ -498,9 +498,8 @@ api.spells =
       notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = Math.ceil(user._statsComputed.int * .1)
-          bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
-          member.stats.mp += bonus
+          bonus = user._statsComputed.int 
+          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
       text: t('spellWizardEarthText')
@@ -510,8 +509,9 @@ api.spells =
       notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.int
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
+          member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30,200))
 
     frost:
       text: t('spellWizardFrostText'),
@@ -541,8 +541,9 @@ api.spells =
       target: 'self'
       notes: t('spellWarriorDefensiveStanceNotes')
       cast: (user, target) ->
+        bonus = user._statsComputed.con
         user.stats.buffs.con ?= 0
-        user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
+        user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 20, 200))
 
     valorousPresence:
       text: t('spellWarriorValorousPresenceText')
@@ -554,7 +555,7 @@ api.spells =
         _.each target, (member) ->
           bonus = user._statsComputed.str
           member.stats.buffs.str ?= 0
-          member.stats.buffs.str += diminishingReturns(bonus, 20, 200)
+          member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200))
 
     intimidate:
       text: t('spellWarriorIntimidateText')
@@ -564,8 +565,9 @@ api.spells =
       notes: t('spellWarriorIntimidateNotes')
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con *  .03)
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus,12,200))
 
   rogue:
     pickPocket:
@@ -599,9 +601,11 @@ api.spells =
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.per
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
-		  # add diminishing returns to this
+          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100))
+		  # member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
+		  
     stealth:
       text: t('spellRogueStealthText')
       mana: 45
@@ -642,8 +646,9 @@ api.spells =
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 100, 200))
     heallAll:
       text: t('spellHealerHealAllText')
       mana: 25
