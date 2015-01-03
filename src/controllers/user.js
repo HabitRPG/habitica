@@ -22,7 +22,11 @@ var validator = require('validator');
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
-  var language = req.query.language.toString(); //|| 'en' in i18n
+  var language = 'en';
+
+  if(typeof req.query.language != 'undefined')
+    language = req.query.language.toString(); //|| 'en' in i18n
+
   var content = _.cloneDeep(shared.content);
   var walk = function(obj, lang){
     _.each(obj, function(item, key, source){
