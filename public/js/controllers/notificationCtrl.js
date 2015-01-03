@@ -104,17 +104,6 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('achievements/ultimateGear');
     });
 
-    // Watches number of pets and displays beastMaster modal when 90 are found
-    $rootScope.$watch('user.items.pets', function(after, before){
-      if(_.size(after) === _.size(before) ||
-        Shared.countPets(null, after) < 90) return;
-      if (User.user.achievements.beastMaster == undefined) {
-        User.user.achievements.beastMaster = true;
-        $rootScope.openModal('achievements/beastMaster');
-      }
-    }, true);
-
-
     // Watches number of mounts and displays mountMaster modal when 90 are raised
     $rootScope.$watch('user.items.mounts', function(after, before){
       if(_.size(after) === _.size(before) ||

@@ -85,6 +85,13 @@ habitrpg.controller("InventoryCtrl",
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
+
+      // Checks if beastmaster has been reached for the first time
+      if(!User.user.achievements.beastMaster 
+          && Shared.countPets(null, User.user.items.pets) >= 90) {
+        User.user.achievements.beastMaster = true;
+        $rootScope.openModal('achievements/beastMaster');
+      }
     }
 
     $scope.purchase = function(type, item){
