@@ -552,8 +552,9 @@ api.spells =
       notes: t('spellWarriorValorousPresenceNotes')
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.str
           member.stats.buffs.str ?= 0
-          member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
+          member.stats.buffs.str += diminishingReturns(bonus, 20, 200)
 
     intimidate:
       text: t('spellWarriorIntimidateText')
