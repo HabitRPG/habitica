@@ -19,8 +19,9 @@ function($rootScope, User, $http, Content) {
       key: window.env.STRIPE_PUB_KEY,
       address: false,
       amount: amount,
-      name: sub ? window.env.t('subscribe') : window.env.t('checkout'),
-      //description: sub ? window.env.t('buySubsText') : window.env.t('donationDesc'),
+      name: 'HabitRPG',
+      description: sub ? window.env.t('subscribe') : window.env.t('checkout'),
+      image: "/apple-touch-icon-144-precomposed.png",
       panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
       token: function(res) {
         var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
