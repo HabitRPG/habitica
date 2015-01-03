@@ -1,5 +1,6 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content',
-  function($rootScope, $scope, $window, User, Content) {
+habitrpg.controller("InventoryCtrl", 
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content',
+  function($rootScope, $scope, Shared, $window, User, Content) {
 
     var user = User.user;
 
