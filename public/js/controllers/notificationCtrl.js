@@ -104,16 +104,6 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('achievements/ultimateGear');
     });
 
-    // Watches number of mounts and displays mountMaster modal when 90 are raised
-    $rootScope.$watch('user.items.mounts', function(after, before){
-      if(_.size(after) === _.size(before) ||
-        Shared.countMounts(null, after) < 90) return;
-      if (User.user.achievements.mountMaster == undefined) {
-        User.user.achievements.mountMaster = true;
-        $rootScope.openModal('achievements/mountMaster');
-      }
-    }, true);
-
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
       $rootScope.openModal('achievements/rebirth');
