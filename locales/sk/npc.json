@@ -57,7 +57,7 @@
     "partySysText": "Buď spoločenský, pridaj sa do družiny a hraj sa Habit so svojimi kamarátmi! Keď ťa bude niekto kontrolovať, budeš si poctivejšie plniť povinnosti. Klikni na Používateľ -> Možnosti -> Družina a nasleduj návod. Hľadáš parťáka?",
     "classGear": "Výzbroj povolania",
     "classGearText": "Poprvé: Nepanikár! Svoju starú výzbroj máš v inventári. Teraz máš oblečenú výzbroj pre <strong><%= klass %>a</strong> - učňa. Keď máš oblečenú výzbroj určenú pre svoje povolanie, získavať 50% bonus k atribútom. Ak chceš, môžeš si obliecť aj svoju starú výzbroj.",
-    "classStats": "Toto sú štatistiky pre tvoje povolanie. Majú vplyv na hru. Zakaždým, keď získaš level, dostaneš jeden bod, ktorý si pridelíš k niektorej z vlastností. Keď prejdeš myšou ponad vlastnosť, zobrazia sa informácie o nej.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
     "autoAllocate": "Automatické prideľovanie",
     "autoAllocateText": "Ak je nastavené automatické prideľovanie, tvoj avatar získava vlastnosti na základe atribútov tvojich úloh, ktoré nájdeš v menu <strong>ÚLOHY > Upraviť > Pokročilé > Vlastnosti</strong>. Napríklad, ak chodíš často do posilňovne a tvoja denná úloha \"Posilňovňa\" má nastavený atribút \"fyzické\", automaticky získaš Silu.",
     "spells": "Kúzla",

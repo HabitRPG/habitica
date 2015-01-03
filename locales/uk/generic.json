@@ -84,5 +84,6 @@
     "September": "Вересень",
     "October": "Жовтень",
     "November": "Листопад",
-    "December": "Грудень"
+    "December": "Грудень",
+    "dateFormat": "Date Format"
 }

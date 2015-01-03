@@ -9,7 +9,6 @@
     "valentineCard": "Valentine's Day Card",
     "adoringFriends": "Adoring Friends",
     "adoringFriendsText": "Aww, you and your friend must really care about each other! Sent or received <%= cards %> Valentine's Day cards.",
-    "limited30Apr": "Available for purchase until 30 April (but permanently in your options if purchased).",
     "polarBear": "Polar Bear",
     "turkey": "Turkey",
     "polarBearPup": "Polar Bear Cub",
@@ -22,5 +21,15 @@
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Rogue)",
     "snowflakeSet": "Snowflake (Healer)",
-    "yetiSet": "Yeti Tamer (Warrior)"
+    "yetiSet": "Yeti Tamer (Warrior)",
+    "nyeCard": "New Year's Card",
+    "nyeCardNotes": "Send a New Year's card to a friend.",
+    "seasonalItems": "Seasonal Items",
+    "auldAcquaintance": "Auld Acquaintance",
+    "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards.",
+    "newYear0": "Happy New Year! May you slay many a bad Habit.",
+    "newYear1": "Happy New Year! May you reap many Rewards.",
+    "newYear2": "Happy New Year! May you earn many a Perfect Day.",
+    "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
+    "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff."
 }

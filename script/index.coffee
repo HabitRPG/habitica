@@ -401,7 +401,7 @@ api.wrap = (user, main=true) ->
       revive: (req, cb) ->
         return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp <= 0
 
-        # Reset stats
+        # Reset stats after death
         _.merge user.stats, {hp:50, exp:0, gp:0}
         user.stats.lvl-- if user.stats.lvl > 1
 
@@ -410,10 +410,18 @@ api.wrap = (user, main=true) ->
         user.stats[lostStat]-- if lostStat
 
         # Lose a gear piece
-        # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
+        # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one. The only exception is that the weapon_warrior_0 free item can be lost so that a new player who dies before buying any gear does experience equipment loss.
         # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
-        lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[''+k]=''+k if v;m), {})
-
+        cl = user.stats.class
+        gearOwned = user.items.gear.owned.toObject?() or user.items.gear.owned
+        losableItems = {}
+        _.each gearOwned, (v,k) ->
+          if v
+            itm = content.gear.flat[''+k]
+            if itm
+              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
+                losableItems[''+k]=''+k
+        lostItem = user.fns.randomVal losableItems
         if item = content.gear.flat[lostItem]
           user.items.gear.owned[lostItem] = false
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
@@ -680,15 +688,16 @@ api.wrap = (user, main=true) ->
         user.items.food[food.key]--
         cb? {code:200, message}, userPets[pet]
 
-      #FIXME stupid method of special-handling spookDust, since it can be purchased with gold and the system only accomodates gem-purchasable holiday spells
-      buySpookDust: (req,cb) ->
-        item = content.special.spookDust
+      buySpecialSpell: (req,cb) ->
+        {key} = req.params
+        item = content.special[key]
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         user.stats.gp -= item.value
-        user.items.special.spookDust ?= 0
-        user.items.special.spookDust++
+        user.items.special[key] ?= 0
+        user.items.special[key]++
         user.markModified? 'items.special'
-        cb? null, _.pick(user,$w 'items stats')
+        message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
+        cb? {code:200,message}, _.pick(user,$w 'items stats')
 
       # buy is for using Gold, purchase is for Gems (I know, I know...)
       purchase: (req, cb, ga) ->
@@ -922,6 +931,11 @@ api.wrap = (user, main=true) ->
         (user._tmp?={}).drop = {type: 'gear', dialog: "#{item.text(req.language)} inside!"} if typeof window != 'undefined'
         #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
         cb? null, user.items.gear.owned
+
+      readNYE: (req,cb) ->
+        user.items.special.nyeReceived.shift()
+        user.markModified? 'items.special.nyeReceived'
+        cb? null, 'items.special'
 
       # ------
       # Score
@@ -1309,7 +1323,7 @@ api.wrap = (user, main=true) ->
       )()]++
 
     updateStats: (stats, req) ->
-      # Game Over
+      # Game Over (death)
       return user.stats.hp=0 if stats.hp <= 0
 
       user.stats.hp = stats.hp

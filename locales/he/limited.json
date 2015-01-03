@@ -9,7 +9,6 @@
     "valentineCard": "כרטיס יום האהבה",
     "adoringFriends": "חברים תומכים",
     "adoringFriendsText": "אווו, לך ולחברים/ות שלך בטח ממש איכפת זה מזו! שלחת או קיבלת <%= cards %> כרטיסים ליום האהבה.",
-    "limited30Apr": "זמין לרכישה עד ה30 באפריל (אבל יישאר זמין לתמיד אם נרכש!)",
     "polarBear": "דוב קוטב",
     "turkey": "תרנגול הודו",
     "polarBearPup": "דובון קוטב",
@@ -22,5 +21,15 @@
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Rogue)",
     "snowflakeSet": "Snowflake (Healer)",
-    "yetiSet": "Yeti Tamer (Warrior)"
+    "yetiSet": "Yeti Tamer (Warrior)",
+    "nyeCard": "New Year's Card",
+    "nyeCardNotes": "Send a New Year's card to a friend.",
+    "seasonalItems": "Seasonal Items",
+    "auldAcquaintance": "Auld Acquaintance",
+    "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards.",
+    "newYear0": "Happy New Year! May you slay many a bad Habit.",
+    "newYear1": "Happy New Year! May you reap many Rewards.",
+    "newYear2": "Happy New Year! May you earn many a Perfect Day.",
+    "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
+    "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff."
 }

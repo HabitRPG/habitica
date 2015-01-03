@@ -57,7 +57,7 @@
     "partySysText": "Тягніться до люду, єднайтеся до гурту та грайте у HabitRPG із друзями! Ваші звички міцнітимуть швидше, коли є перед ким відповідати. Клацніть Гравець -> Різне -> Гурт та слідуйте вказівкам. ",
     "classGear": "Спорядження класу",
     "classGearText": "По-перше: без паніки! Старе спорядження у Вашому інвентарі, а зараз Ви носите початкові речі класу <strong><%= klass %></strong>. Спорядження Вашого класу надає вам 50%-й бонус до характеристик. Утім, можете взяти старі речі, якщо бажаєте. ",
-    "classStats": "Це характеристики Вашого класу, що впливають на ігролад. З кожним здобутим рівнем Ви отримуєте одне очко для покращення характеристик. Наведіть на хар-ку для подробиць.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
     "autoAllocate": "Авторозподіл",
     "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain Strength automatically.",
     "spells": "Закляття",

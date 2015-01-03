@@ -68,5 +68,8 @@
     "timeTravelersTitle": "Záhadní cestovatelé časem",
     "timeTravelersPopoverNoSub": "Potřebuješ mystické přesýpací hodiny abys svolal záhadné cestovatele časem! <%= linkStart %>Předplatitelé<%= linkEnd %>  dostanou jedny mystické přesýpací hodiny za každé tři měsíce nepřetržitého předplaceného období. Vrať se až budeš mít mystické přesýpací hodiny a cestovatelé časem ti přinesou set předmětů pro předplatitele z minulosti.... anebo i z budoucnosti.",
     "timeTravelersPopover": "Vidíme, že máš mystické přesýpací hodiny, tak pro Tebe rádi budeme cestovat časem! Prosím, vyber si záhadný set předmětů, který se ti líbí. Můžeš si vybrat z minulých setů <%= linkStart %>tady<%= linkEnd %>! Pokud se ti nelíbí, možná by sis vybral z našich trendy futuristických setů Steampunk předmětů?",
-    "mysticHourglassPopover": "Mystické přesýpací hodiny ti umožní koupit si sety pro předplatitele z předchozích měsíců."
+    "mysticHourglassPopover": "Mystické přesýpací hodiny ti umožní koupit si sety pro předplatitele z předchozích měsíců.",
+    "subUpdateCard": "Update Card",
+    "subUpdateTitle": "Update",
+    "subUpdateDescription": "Update the card to be charged."
 }

@@ -9,7 +9,6 @@
     "valentineCard": "Alla Hjärtans Dag-kort",
     "adoringFriends": "Beundrande Vänner",
     "adoringFriendsText": "Aww, du och din vän måste verkligen bry er om varandra! Skickade eller tog emot <%= cards %> Alla Hjärtans Dag-kort.",
-    "limited30Apr": "Tillgänglig för köp fram till 30 April (men permanent i ditt förråd efter köpet).",
     "polarBear": "Isbjörn",
     "turkey": "Kalkon",
     "polarBearPup": "Isbjörnsunge",
@@ -22,5 +21,15 @@
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Rogue)",
     "snowflakeSet": "Snowflake (Healer)",
-    "yetiSet": "Yeti Tamer (Warrior)"
+    "yetiSet": "Yeti Tamer (Warrior)",
+    "nyeCard": "New Year's Card",
+    "nyeCardNotes": "Send a New Year's card to a friend.",
+    "seasonalItems": "Seasonal Items",
+    "auldAcquaintance": "Auld Acquaintance",
+    "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards.",
+    "newYear0": "Happy New Year! May you slay many a bad Habit.",
+    "newYear1": "Happy New Year! May you reap many Rewards.",
+    "newYear2": "Happy New Year! May you earn many a Perfect Day.",
+    "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
+    "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff."
 }

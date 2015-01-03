@@ -62,11 +62,14 @@
     "sureCancelSub": "¿Estás seguro que quieres cancelar tu suscripción?",
     "subCanceled": "La suscripción se desactivará el",
     "subGemPop": "Como te has suscripto a HabitRPG, puedes comprar una cantidad de Gemas cada mes utilizando tu Oro. Puedes ver cuántas Gemas están disponibles para comprar en la esquina del ícono de las Gemas.",
-    "subGemName": "Gemas de Suscriptor",
-    "timeTravelers": "Viajeros del Tiempo",
+    "subGemName": "Gemas de suscriptor",
+    "timeTravelers": "Viajeros del tiempo",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> y <%= linkStartVicky %>Vicky<%= linkEnd %>",
-    "timeTravelersTitle": "Misteriosos Viajeros del Tiempo",
-    "timeTravelersPopoverNoSub": "¡Necesitarás un Reloj de Arena Místico para convocar a los misteriosos Viajeros del Tiempo! Los <%= linkStart %>suscriptores<%= linkEnd %> obtendrán un Reloj de Arena Místico por cada tres meses de suscripción consecutivos. Vuelve cuando tengas un Reloj de Arena Místico, y los Viajeros del Tiempo te traerán un Conjunto de Artículos de Suscriptor del pasado... or quizás del futuro.",
-    "timeTravelersPopover": "Vemos que tienes un Reloj de Arena Místico, ¡así que con mucho gusto viajaremos al pasado por ti! Por favor, elige el Conjunto Misterioso que más te guste. ¡<%= linkStart %>Aquí<%= linkEnd %> puedes ver una lista de conjuntos pasados! Si ninguno te satisface, ¿podemos ofrecerte uno de nuestros Conjuntos Steampunk futuristas?",
-    "mysticHourglassPopover": "El Reloj de Arena Místico te permite comprar conjuntos de suscriptor de meses previos."
+    "timeTravelersTitle": "Misteriosos viajeros del tiempo",
+    "timeTravelersPopoverNoSub": "¡Necesitarás un Reloj de arena mística para convocar a los misteriosos Viajeros del tiempo! Los <%= linkStart %>suscriptores<%= linkEnd %> obtendrán un Reloj de arena mística por cada tres meses de suscripción consecutivos. Vuelve cuando tengas un Reloj de arena mística, y los Viajeros del tiempo te traerán un Conjunto de artículos de suscriptor del pasado... o quizás hasta del futuro.",
+    "timeTravelersPopover": "Vemos que tienes un Reloj de arena mística, ¡así que con mucho gusto viajaremos al pasado por ti! Por favor, elige el Conjunto misterioso que más te guste. ¡<%= linkStart %>Aquí<%= linkEnd %> puedes ver una lista de conjuntos antiguos! Si ninguno te satisface, ¿podemos ofrecerte uno de nuestros Conjuntos steampunk futuristas?",
+    "mysticHourglassPopover": "El Reloj de arena mística te permite comprar conjuntos de suscriptor de meses anteriores.",
+    "subUpdateCard": "Update Card",
+    "subUpdateTitle": "Update",
+    "subUpdateDescription": "Update the card to be charged."
 }

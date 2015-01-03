@@ -35,7 +35,7 @@
     "neverMind": "Laat maar",
     "buyMoreGems": "Koop meer edelstenen",
     "notEnoughGems": "Niet genoeg edelstenen",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "Oeps! Je hebt dit artikel al, en hoeft hem niet nog een keer te kopen!",
     "delete": "Verwijderen",
     "gems": "Edelstenen",
     "moreInfo": "Meer informatie",
@@ -84,5 +84,6 @@
     "September": "September",
     "October": "Oktober",
     "November": "November",
-    "December": "December"
+    "December": "December",
+    "dateFormat": "Date Format"
 }

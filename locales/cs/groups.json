@@ -84,10 +84,10 @@
     "unblock": "Odblokovat",
     "pm-reply": "Poslat odpověď",
     "inbox": "Příchozí zprávy",
-    "abuseFlag": "Report violation of Community Guidelines",
-    "abuseFlagModalHeading": "Report <%= name %> for violation?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
-    "abuseFlagModalButton": "Report",
-    "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "You have already reported this message."
+    "abuseFlag": "Nahlaš porušení Zásad komunity",
+    "abuseFlagModalHeading": "Nahlásit <%= name %> za porušení?",
+    "abuseFlagModalBody": "Jsi si jistý, že chceš nahlásit tento příspěvek? Měl bys hlásit POUZE příspěvky, které porušují <%= firstLinkStart %>Zásady komunity<%= linkEnd %> a/nebo <%= secondLinkStart %>Pravidla používání<%= linkEnd %>. Neoprávněné hlášení příspěvku porušuje Zásady komunity a může být trestáno.",
+    "abuseFlagModalButton": "Nahlásit",
+    "abuseReported": "Děkujeme za nahlášení tohoto příspěvku. Moderátoři byli upozorněni.",
+    "abuseAlreadyReported": "Již jsi tento příspěvek nahlásil."
 }
