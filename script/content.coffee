@@ -481,12 +481,8 @@ api.spells =
       target: 'task'
       notes: t('spellWizardFireballNotes')
       cast: (user, target) ->
-        # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
-        ## old code:
-        ## target.value += diminishingReturns(bonus*.02, 4)
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
-        #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
         user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1) if user.party.quest.key
 
@@ -599,13 +595,11 @@ api.spells =
       target: 'party'
       notes: t('spellRogueToolsOfTradeNotes')
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
           bonus = user._statsComputed.per
           member.stats.buffs.per ?= 0
           member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100))
-		  # member.stats.buffs.per += Math.ceil(user._statsComputed.per * 2)
-		  
+
     stealth:
       text: t('spellRogueStealthText')
       mana: 45
@@ -644,7 +638,6 @@ api.spells =
       target: 'party'
       notes: t('spellHealerProtectAuraNotes')
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
           bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
