@@ -1465,9 +1465,9 @@ api.backgrounds =
     ice_cave:
       text: t('backgroundIceCaveText')
       notes: t('backgroundIceCaveNotes')
-    snowy_peak:
-      text: t('backgroundSnowyPeakText')
-      notes: t('backgroundSnowyPeakNotes')
+    frigid_peak:
+      text: t('backgroundFrigidPeakText')
+      notes: t('backgroundFrigidPeakNotes')
     snowy_pines:
       text: t('backgroundSnowyPinesText')
       notes: t('backgroundSnowyPinesNotes')
