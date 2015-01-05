@@ -122,7 +122,7 @@ div(ng-if='profile.achievements.challenges || user._id == profile._id')
   div(ng-class='{muted: !profile.achievements.challenges}')
     h5=env.t('challengeWinner')
     table.table.table-striped
-      tr(ng-repeat='chal in profile.achievements.challenges')
+      tr(ng-repeat='chal in profile.achievements.challenges track by $index')
         td {{::chal}}
   hr
 
