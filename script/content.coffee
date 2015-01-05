@@ -1461,6 +1461,16 @@ api.backgrounds =
     south_pole:
       text:  t('backgroundSouthPoleText')
       notes: t('backgroundSouthPoleNotes')
+  backgrounds012015:
+    ice_cave:
+      text: t('backgroundIceCaveText')
+      notes: t('backgroundIceCaveNotes')
+    snowy_peak:
+      text: t('backgroundSnowyPeakText')
+      notes: t('backgroundSnowyPeakNotes')
+    snowy_pines:
+      text: t('backgroundSnowyPinesText')
+      notes: t('backgroundSnowyPinesNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
