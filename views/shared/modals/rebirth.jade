@@ -15,7 +15,8 @@ script(type='text/ng-template', id='modals/rebirth.html')
   .modal-header
     h4=env.t('rebirthBegin')
   .modal-body
-    +gemButton
+    span(ng-if='user.stats.lvl < 100')
+      +gemButton
     figure
       .rebirth_orb
     p=env.t('rebirthStartOver')
