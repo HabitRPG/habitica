@@ -121,7 +121,6 @@
     "streaksFrozenText": "Streaks on missed Dailies will not reset at th' end o' th' day.",
     "respawn": "Respawn!",
     "youDied": "Avast! Yer dead!",
-    "continue": "Continue",
     "dieText": "Ye've lost a Level, all ye Doubloons, 'n a random piece 'o Equipment. Arise, Habiteer, 'n give a go' again! Curb them negative Habits, be vigilant in completion 'o Dailies, 'n hold Davy Jones' locker at arm's length wit' a Health Potion if ye falter!",
     "sureReset": "Be ye sure? 'tis gunna reset ye character's class 'n allocated points (ye'll get them all back to re-allocate), 'n costs 3 gems",
     "purchaseFor": "Purchase fer <%= cost %> Gems?",

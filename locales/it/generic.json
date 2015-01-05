@@ -47,9 +47,9 @@
     "habitBirthday": "Compleanno 2014 di HabitRPG",
     "habitBirthdayText": "Ha partecipato al compleanno 2014 di HabitRPG.",
     "achievementDilatory": "Eroe dei Dilatori",
-    "achievementDilatoryText": "Ha contribuito a sconfiggere il Drago Terrore dei Dilatori durante il 2014 Summer Splash Event!",
+    "achievementDilatoryText": "Ha contribuito a sconfiggere il Drago Terrore dei Dilatori durante l'evento Summer Splash 2014!",
     "costumeContest": "Gara Mascherata 2014",
-    "costumeContestText": "Hai partecipato alla Gara Mascherata di Halloween 2014. guarda alcuni dei partecipanti sul sito blog.habitrpg.com/tagged/cosplay! ",
+    "costumeContestText": "Ha partecipato alla Gara Mascherata di Halloween 2014. Puoi trovare alcune foto su blog.habitrpg.com/tagged/cosplay! ",
     "memberSince": "- Membro dal:",
     "lastLoggedIn": "- Ultimo accesso:",
     "notPorted": "Questa funzionalità non è ancora stata trasposta dal sito originale.",
@@ -85,5 +85,5 @@
     "October": "ottobre",
     "November": "novembre",
     "December": "dicembre",
-    "dateFormat": "Date Format"
+    "dateFormat": "Formato data"
 }

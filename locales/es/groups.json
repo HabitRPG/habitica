@@ -2,7 +2,7 @@
     "tavern": "Taberna",
     "innCheckOut": "Dejar la Posada",
     "innCheckIn": "Descansar en la Posada",
-    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
+    "innText": "¿Que tal tu estancia en la Posada, <%= name %>? Para protegerte, tu lista diaria está congelada. Tus marcas de verificación no serán procesadas ​​o reiniciadas hasta mañana (el día después de salir). Ten cuidado, si tu grupo está en una misión, sus fallos te harán daño! Además, no le harás daño al enemigo. ¿Listo para salir? Verifíquete fuera.",
     "lfgPosts": "Post en la busqueda de Grupo (Se busca Grupo)",
     "tutorial": "Tutorial",
     "glossary": "Glosario",
