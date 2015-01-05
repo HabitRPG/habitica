@@ -44,7 +44,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 
           div(ng-show='!group._editing')
             img.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
-            markdown(ng-model='group.description')
+            markdown(text='group.description')
           hr
           small.muted Group ID: {{group._id}}
 
@@ -113,7 +113,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               .arrow
               h3.popover-title {{Members.members[group.leader].profile.name}}
               .popover-content
-                markdown(ng-model='group.leaderMessage')
+                markdown(text='group.leaderMessage')
       div(ng-controller='ChatCtrl')
         h3=env.t('chat')
         include ./chat-box
