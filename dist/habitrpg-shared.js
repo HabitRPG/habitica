@@ -13986,6 +13986,20 @@ api.backgrounds = {
       text: t('backgroundSouthPoleText'),
       notes: t('backgroundSouthPoleNotes')
     }
+  },
+  backgrounds012015: {
+    ice_cave: {
+      text: t('backgroundIceCaveText'),
+      notes: t('backgroundIceCaveNotes')
+    },
+    frigid_peak: {
+      text: t('backgroundFrigidPeakText'),
+      notes: t('backgroundFrigidPeakNotes')
+    },
+    snowy_pines: {
+      text: t('backgroundSnowyPinesText'),
+      notes: t('backgroundSnowyPinesNotes')
+    }
   }
 };
 
@@ -16556,5 +16570,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
