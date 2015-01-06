@@ -2494,13 +2494,14 @@ api.spells = {
       target: 'task',
       notes: t('spellWizardFireballNotes'),
       cast: function(user, target) {
-        var bonus;
+        var bonus, _base;
         bonus = user._statsComputed.int * user.fns.crit('per');
         bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
         user.stats.exp += diminishingReturns(bonus, 75);
-        if (user.party.quest.key) {
-          return user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1);
+        if ((_base = user.party.quest.progress).up == null) {
+          _base.up = 0;
         }
+        return user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1);
       }
     },
     mpheal: {
@@ -2553,12 +2554,13 @@ api.spells = {
       target: 'task',
       notes: t('spellWarriorSmashNotes'),
       cast: function(user, target) {
-        var bonus;
+        var bonus, _base;
         bonus = user._statsComputed.str * user.fns.crit('con');
         target.value += diminishingReturns(bonus, 2.5, 35);
-        if (user.party.quest.key) {
-          return user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
+        if ((_base = user.party.quest.progress).up == null) {
+          _base.up = 0;
         }
+        return user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
       }
     },
     defensiveStance: {
@@ -2651,8 +2653,7 @@ api.spells = {
           if ((_base = member.stats.buffs).per == null) {
             _base.per = 0;
           }
-          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100));
-          return user.stats.hp += member.stats.buffs.per;
+          return member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100));
         });
       }
     },
@@ -2754,6 +2755,7 @@ api.spells = {
       text: t('spellSpecialSaltText'),
       mana: 0,
       value: 5,
+      immediateUse: true,
       target: 'self',
       notes: t('spellSpecialSaltNotes'),
       cast: function(user, target) {
@@ -2781,6 +2783,7 @@ api.spells = {
       text: t('spellSpecialOpaquePotionText'),
       mana: 0,
       value: 5,
+      immediateUse: true,
       target: 'self',
       notes: t('spellSpecialOpaquePotionNotes'),
       cast: function(user, target) {
@@ -2792,6 +2795,7 @@ api.spells = {
       text: t('nyeCard'),
       mana: 0,
       value: 10,
+      immediateUse: true,
       target: 'user',
       notes: t('nyeCardNotes'),
       cast: function(user, target) {
@@ -4300,6 +4304,20 @@ api.backgrounds = {
     south_pole: {
       text: t('backgroundSouthPoleText'),
       notes: t('backgroundSouthPoleNotes')
+    }
+  },
+  backgrounds012015: {
+    ice_cave: {
+      text: t('backgroundIceCaveText'),
+      notes: t('backgroundIceCaveNotes')
+    },
+    frigid_peak: {
+      text: t('backgroundFrigidPeakText'),
+      notes: t('backgroundFrigidPeakNotes')
+    },
+    snowy_pines: {
+      text: t('backgroundSnowyPinesText'),
+      notes: t('backgroundSnowyPinesNotes')
     }
   }
 };
@@ -6399,7 +6417,6 @@ api.wrap = function(user, main) {
         return m + (i.completed ? 1 : 0);
       }), 0) || 0));
       chance = api.diminishingReturns(chance, 0.75);
-      console.log("Drop chance: " + chance);
       quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
       if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < chance) {
         dropK = user.fns.randomVal(quest.collect, {

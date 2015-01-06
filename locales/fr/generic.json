@@ -35,7 +35,7 @@
     "neverMind": "Plus tard",
     "buyMoreGems": "Acheter plus de Gemmes",
     "notEnoughGems": "Pas assez de Gemmes",
-    "alreadyHave": "Oups! Vous avez déjà cet objet. Pas besoin de le racheter!",
+    "alreadyHave": "Oups ! Vous avez déjà cet objet. Pas besoin de le racheter !",
     "delete": "Effacer",
     "gems": "Gemmes",
     "moreInfo": "Plus d'infomations",
@@ -85,5 +85,5 @@
     "October": "Octobre",
     "November": "Novembre",
     "December": "Décembre",
-    "dateFormat": "Date Format"
+    "dateFormat": "Format de la Date"
 }

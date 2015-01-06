@@ -121,7 +121,6 @@
     "streaksFrozenText": "Šňůra úspěšnosti na promeškaných Denních úkolech nebude na konci dne vynulována.",
     "respawn": "Oživení!",
     "youDied": "Zemřel jsi!",
-    "continue": "Pokračovat",
     "dieText": "Propadl jsi o úroveň níž a přišel jsi o všechny zlaťáky a náhodný kus vybavení. Povstaň, Habiťane, a zkus to znovu! Zbav se zlozvyků, poctivě plň denní úkoly a v případě zaváhání se vyhni smrti pomocí léčivého lektvaru.",
     "sureReset": "Jsi si jistý? Toto resetuje povolání tvé postavy a přidělené body vlastností (které budeš mít šanci všechny přiřadit podle potřeby) a přijde tě to na 3 drahokamy",
     "purchaseFor": "Koupit za <%= cost %> drahokamů?",

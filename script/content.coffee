@@ -3,7 +3,7 @@ api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
 t = (string, vars) ->
-  func = (lang) -> 
+  func = (lang) ->
     vars ?= {a: 'a'}
     i18n.t(string, vars, lang)
   func.i18nLangFunc = true #Trick to recognize this type of function
@@ -48,7 +48,7 @@ _.each api.mystery, (v,k)->v.key = k
 gear =
   weapon:
     base:
-      0: 
+      0:
         text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
       0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:0
@@ -361,7 +361,7 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
-      
+
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -484,7 +484,8 @@ api.spells =
         bonus = user._statsComputed.int * user.fns.crit('per')
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1) if user.party.quest.key
+        user.party.quest.progress.up ?= 0
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1)
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -494,7 +495,7 @@ api.spells =
       notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = user._statsComputed.int 
+          bonus = user._statsComputed.int
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
@@ -528,7 +529,9 @@ api.spells =
       cast: (user, target) ->
         bonus = user._statsComputed.str * user.fns.crit('con')
         target.value += diminishingReturns(bonus, 2.5, 35)
-        user.party.quest.progress.up += diminishingReturns(bonus, 55, 70) if user.party.quest.key
+        user.party.quest.progress.up ?= 0
+        user.party.quest.progress.up += diminishingReturns(bonus, 55, 70)
+
 
     defensiveStance:
       text: t('spellWarriorDefensiveStanceText')
@@ -670,6 +673,7 @@ api.spells =
       text: t('spellSpecialSaltText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialSaltNotes')
       cast: (user, target) ->
@@ -692,6 +696,7 @@ api.spells =
       text: t('spellSpecialOpaquePotionText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialOpaquePotionNotes')
       cast: (user, target) ->
@@ -702,6 +707,7 @@ api.spells =
       text: t('nyeCard')
       mana: 0
       value: 10
+      immediateUse: true
       target: 'user'
       notes: t('nyeCardNotes')
       cast: (user, target) ->
@@ -792,10 +798,10 @@ api.specialPets =
   'JackOLantern-Base':  'jackolantern'
 
 api.specialMounts =
-  'BearCub-Polar':	'polarBear'
-  'LionCub-Ethereal':	'etherealLion'
-  'MantisShrimp-Base':	'mantisShrimp'
-  'Turkey-Base': 'turkey'
+  'BearCub-Polar':      'polarBear'
+  'LionCub-Ethereal':   'etherealLion'
+  'MantisShrimp-Base':  'mantisShrimp'
+  'Turkey-Base':        'turkey'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -956,7 +962,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      
+
   hedgehog:
     text: t('questHedgehogText')
     notes: t('questHedgehogNotes')
@@ -1465,6 +1471,16 @@ api.backgrounds =
     south_pole:
       text:  t('backgroundSouthPoleText')
       notes: t('backgroundSouthPoleNotes')
+  backgrounds012015:
+    ice_cave:
+      text: t('backgroundIceCaveText')
+      notes: t('backgroundIceCaveNotes')
+    frigid_peak:
+      text: t('backgroundFrigidPeakText')
+      notes: t('backgroundFrigidPeakNotes')
+    snowy_pines:
+      text: t('backgroundSnowyPinesText')
+      notes: t('backgroundSnowyPinesNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

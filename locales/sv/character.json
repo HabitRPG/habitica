@@ -121,7 +121,6 @@
     "streaksFrozenText": "Följder på missade Dagliga Uppgifter kommer inte återställas vid slutet av dagen.",
     "respawn": "Återuppstå!",
     "youDied": "Du dog!",
-    "continue": "Fortsätt",
     "dieText": "Du har förlorat en level, allt ditt Guld och en slumpmässigt utvald del av din Utrustning. Res dig upp, Habitant, och försök igen! Hindra dina negativa vanor, var vaksam med fullbordandet av Dagliga Uppgifter, och håll döden vid en armlängd bort med en Hälsodryck om du vacklar!",
     "sureReset": "Är du säker? Detta kommer återställa din karaktärs klass och tilldelade poäng (du får tillbaka alla för att dela ut igen), och kostar 3 Juveler",
     "purchaseFor": "Purchase for <%= cost %> Gems?",

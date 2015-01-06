@@ -121,7 +121,6 @@
     "streaksFrozenText": "Série na nesplnených denných úlohách sa na konci dňa nevynulujú.",
     "respawn": "Znovuzrodenie!",
     "youDied": "Si mŕtvy!",
-    "continue": "Pokračovať",
     "dieText": "Stratil si level, všetko zlato a náhodný kus výstroja. Povstaň, Habitier, a skús to znovu! Drž na uzde svoje zlé návyky, buď dôsledný v plnení svojich denných úloh a, ak ochabneš, drž sa od smrti ďaleko pomocou elixíru zdravia.",
     "sureReset": "Si si istý? Toto zruší povolanie tvojej postavy a pridelené body (dostaneš ich všetky naspäť na prerozdelenie) a bude ťa to stáť 3 drahokamy",
     "purchaseFor": "Kúpiť za <%= cost %> drahokamov?",

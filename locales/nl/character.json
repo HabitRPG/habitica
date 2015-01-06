@@ -121,7 +121,6 @@
     "streaksFrozenText": "Series van gemiste Dagelijkse Taken worden niet teruggezet op nul aan het einde van de dag.",
     "respawn": "Herrijs!",
     "youDied": "Je bent doodgegaan!",
-    "continue": "Doorgaan",
     "dieText": "Je hebt een niveau, al je goud, en een willekeurig onderdeel van je uitrusting verloren. Herrijs, Habiteer, en probeer het opnieuw! Bedwing die slechte gewoontes, let erop je Dagelijkse Taken bij te houden, en houd de dood van je af met een Gezondheidsdrankje als je wankelt!",
     "sureReset": "Weet je het zeker? Dit reset de klasse van je personage en je toegewezen ervaringspunten punten (je krijgt ze allemaal terug om opnieuw toe te wijzen), en het kost 3 edelstenen",
     "purchaseFor": "Kopen voor <%= cost %> edelstenen?",

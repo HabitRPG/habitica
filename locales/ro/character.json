@@ -121,7 +121,6 @@
     "streaksFrozenText": "Șirurile pentru Cotidienele ratate nu se vor reseta la sfârşitul zilei.",
     "respawn": "Renaște!",
     "youDied": "Ai murit!",
-    "continue": "Continuă",
     "dieText": "Ai pierdut un Nivel, tot Aurul tău și o piesă de echipament aleatorie. Ridică-te, Habitanule, și mai încearcă o dată! Pune frâu obiceiurilor negative, fii vigilent la îndeplinirea Cotidienelor și ține moartea la distanță cu o Poțiune de Sănătate dacă te împiedici!",
     "sureReset": "Sigur? Asta va reseta clasa personajului tău și punctele alocate (le vei primi pe toate înapoi pentru a le realoca) și va costa 3 nestemate.",
     "purchaseFor": "Achiziţionează pentru <%= cost %> Nestemate ?",

@@ -121,7 +121,6 @@
     "streaksFrozenText": "Strähnen täglicher Aufgaben werden am Ende des Tages nicht zurückgesetzt.",
     "respawn": "Auferstehen!",
     "youDied": "Du bist gestorben!",
-    "continue": "Weiter",
     "dieText": "Du hast ein Level, Dein gesamtes Gold und einen zufälliges Teil Deiner Ausrüstung verloren. Erhebe Dich, Habiteer, und versuche es erneut! Gebiete diesen schlechten Gewohnheiten Einhalt, sei gewissenhaft bei der Erfüllung Deiner täglichen Aufgaben und halte Dir den Tod mit Heiltränken vom Leib, wenn Du einmal straucheln solltest!",
     "sureReset": "Bist Du sicher? Das wird Deine Klasse zurücksetzen und Du erhältst alle Attributpunkte als freie Punkte zurück. Es kostet 3 Edelsteine",
     "purchaseFor": "Für <%= cost %> Edelsteine erwerben?",
