@@ -2,7 +2,7 @@
     "tavern": "Herberg",
     "innCheckOut": "Uitchecken bij de herberg",
     "innCheckIn": "Rusten in de herberg",
-    "innText": "How's your stay in the Inn, <%= name %>? To protect you, your daily list is frozen. Your checkmarks won't be processed or cleared until tomorrow (the day after you check out). Be careful, if your party's in a Boss Battle, their misses will hurt you! Also, you won't hurt the boss. Ready to leave? Check out.",
+    "innText": "Hoe bevalt je verblijf in de herberg, <%= name %>? Om je te beschermen is je lijst met dagelijkse taken bevroren. Vinkjes die je gezet hebt, worden niet verwerkt of gewist tot morgen (de dag nadat je de herberg verlaat). Pas op: als je groep in gevecht is met een eindbaas dan zullen hun gemiste taken je nog steeds schade doen! En jij kunt een eindbaas geen schade toebrengen. Klaar om te vertrekken? Check dan uit.",
     "lfgPosts": "Berichten: groep gezocht",
     "tutorial": "Handleiding",
     "glossary": "Woordenlijst",
@@ -84,10 +84,10 @@
     "unblock": "Deblokkeren",
     "pm-reply": "Beantwoorden",
     "inbox": "Inbox",
-    "abuseFlag": "Report violation of Community Guidelines",
-    "abuseFlagModalHeading": "Report <%= name %> for violation?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
-    "abuseFlagModalButton": "Report",
-    "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "You have already reported this message."
+    "abuseFlag": "Overtreding van gemeenschapsrichtlijnen melden",
+    "abuseFlagModalHeading": "<%= name %> rapporteren wegens overtreding?",
+    "abuseFlagModalBody": "Weet je zeker dat je dit bericht wil aangeven? Je moet alleen berichten aangeven die de  <%= firstLinkStart %>gemeenschaprsichtlijnen<%= linkEnd %> of <%= secondLinkStart %>algemene voorwaarden<%= linkEnd %> overtreden. Het onnodig rapporteren van berichten is een overtreding van de gemeenschapsrichtlijnen en kan resulteren in een berisping.",
+    "abuseFlagModalButton": "Melding sturen",
+    "abuseReported": "Dank je voor het melden van deze overtreding. De beheerders zijn op de hoogte gesteld.",
+    "abuseAlreadyReported": "Je hebt dit bericht al gemeld."
 }

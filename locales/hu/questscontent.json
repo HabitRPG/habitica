@@ -81,7 +81,7 @@
     "questMoonstone3DropZombiePotion": "Zombi keltető főzet",
     "questGoldenknight1Text": "A Stern Talking-To",
     "questGoldenknight1Notes": "<p>The Golden Knight has been getting on poor Habiticans' cases. Didn't do all of your dailies? Checked off a - habit? She will use this as a reason to harass you about how you should follow her example. She is the shining example of a perfect Habitican, and you are naught but a failure. Well, that is not nice at all! Everyone makes mistakes. They should not have to be met with such negativity for it. Perhaps it is time you gather some testimonies from hurt Habiticans and give the Golden Knight a stern talking-to!</p>",
-    "questGoldenknight1CollectTestimony": "Testimonies",
+    "questGoldenknight1CollectTestimony": "Tanúságtételek",
     "questGoldenknight1DropGoldenknight2Quest": "The Golden Knight Chain Part 2: Tarnished Gold (Scroll)",
     "questGoldenknight2Text": "Arany Lovag",
     "questGoldenknight2Notes": "<p>Armed with hundreds of Habitican's testimonies, you finally confront the Golden Knight. You begin to recite the Habitcan's complaints to her, one by one. \"And @Pfeffernusse says that your constant bragging-\" The knight raises her hand to silence you and scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar and prepares to attack you!</p>",
@@ -93,7 +93,7 @@
     "questGoldenknight3Boss": "A Vas Lovag",
     "questGoldenknight3DropHoney": "Méz (Étel)",
     "questGoldenknight3DropGoldenPotion": "Arany Keltetőfőzet",
-    "questGoldenknight3DropWeapon": "Mustaine's Milestone Mashing Morning Star (Off-hand Weapon)",
+    "questGoldenknight3DropWeapon": "Mustaine's Milestone Mashing Morning Star (Shield-hand Weapon)",
     "questBasilistText": "The Basi-List",
     "questBasilistNotes": "There's a commotion in the marketplace--the kind that should make you run away. Being a courageous adventurer, you run towards it instead, and discover a Basi-list, coalescing from a clump of incomplete To-Dos! Nearby Habiticans are paralyzed with fear at the length of the Basi-list, unable to start working. From somewhere in the vicinity, you hear @Arcosine shout: \"Quick! Complete your To-Dos and Dailies to defang the monster, before someone gets a paper cut!\" Strike fast, adventurer, and check something off - but beware! If you leave any Dailies undone, the Basi-list will attack you and your party!",
     "questBasilistCompletion": "The Basi-list has scattered into paper scraps, which shimmer gently in rainbow colors. \"Whew!\" says @Arcosine. \"Good thing you guys were here!\" Feeling more experienced than before, you gather up some fallen gold from among the papers.",
@@ -140,6 +140,6 @@
     "questPenguinText": "The Fowl Frost",
     "questPenguinNotes": "Although it's a hot summer day in the southernmost tip of Habitica, an unnatural chill has fallen upon Lively Lake. Strong, frigid winds rush around as the shore begins to freeze over. Ice spikes jut up from the ground, pushing grass and dirt away. @Melynnrose and @Breadstrings run up to you.<br><br>\"Help!\" says @Melynnrose. \"We brought a giant penguin in to freeze the lake so we could all go ice skating, but we ran out of fish to feed him!\"<br><br>\"He got angry and is using his freeze breath on everything he sees!\" says @Breadstrings. \"Please, you have to subdue him before all of us are covered in ice!\" Looks like you need this penguin to... <em>cool down.</em>",
     "questPenguinCompletion": "Upon the penguin's defeat, the ice melts away. The giant penguin settles down in the sunshine, slurping up an extra bucket of fish you found. He skates off across the lake, blowing gently downwards to create smooth, sparkling ice. What an odd bird! \"It appears he left behind a few eggs, as well,\" says @Painter de Cluster. <br><br>@Rattify laughs. \"Maybe these penguins will be a little more... chill?\"",
-    "questPenguinBoss": "Frost Penguin",
+    "questPenguinBoss": "Fagyott Pingvin",
     "questPenguinDropPenguinEgg": "Pingvin (tojás)"
 }
