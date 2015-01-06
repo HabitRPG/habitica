@@ -297,7 +297,7 @@ api.cron = function(req, res, next) {
         error: "Cron caught",
         stack: (err.stack || err.message || err),
         body: req.body, headers: req.header,
-        auth: (req.headers['x-api-user'] + ' | ' + req.headers['x-api-key']),
+        auth: req.headers['x-api-user'],
         originalUrl: req.originalUrl,
         opStatus: opStatus
       });
