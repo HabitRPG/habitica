@@ -379,9 +379,9 @@
   "headMystery301405Text": "Basic Top Hat",
   "headMystery301405Notes": "A basic top hat, just begging to be paired with some fancy head accessories. Confers no benefit. May 3015 Subscriber Item.",
 
-  "offhand": "off-hand item",
+  "offhand": "shield-hand item",
 
-  "shieldBase0Text": "No Off-Hand Equipment",
+  "shieldBase0Text": "No Shield-Hand Equipment",
   "shieldBase0Notes": "No shield or second weapon.",
 
   "shieldWarrior1Text": "Wooden Shield",
