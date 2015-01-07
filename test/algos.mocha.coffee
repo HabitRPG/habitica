@@ -572,8 +572,17 @@ describe 'Cron', ->
       #  should be 1 day later than lastCron
       lastCron = moment('2014-10-09 12:30:00')
       days = shared.daysSince(lastCron, {now: moment('2014-10-10 10:30:00'), dayStart})
-      expect(days).to.eql 1
+      expect(days).to.eql 1    
 
+    it 'daysSince, last cron before new dayStart', ->
+      # If lastCron was after dayStart (at 1am) with dayStart set at 0, changing dayStart to 4am
+      #  should not trigger another cron the same day
+
+      # dayStart is 0
+      lastCron = moment('2014-10-09 01:00:00')
+      # dayStart is 4
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 05:00:00'), dayStart})
+      expect(days).to.eql 0
 
   describe 'dailies', ->
 
