@@ -39,6 +39,7 @@ exports.createSubscription = function(data, cb) {
       p.extraMonths += months;
     } else {
       p.dateTerminated = moment(p.dateTerminated).add({months: months}).toDate();
+      if (!p.dateUpdated) p.dateUpdated = new Date();
     }
     if (!p.customerId) p.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
   } else {
