@@ -122,19 +122,19 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           // Spells
           ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-            li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= spell.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes()}}')
+            li.task.reward-item(ng-repeat='(k,skill) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= skill.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{skill.notes()}}')
               .task-meta-controls
                 span.task-notes
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
               .task-controls.task-primary
-                a.money.btn-buy.item-btn(ng-click='castStart(spell)')
+                a.money.btn-buy.item-btn(ng-click='castStart(skill)')
                   span.reward-cost
-                    strong {{spell.mana}}
+                    strong {{skill.mana}}
                     =env.t('mp')
               // main content
-              span(ng-class='{"shop_{{spell.key}} shop-sprite item-img": true}')
-              p.task-text {{spell.text()}}
+              span(ng-class='{"shop_{{skill.key}} shop-sprite item-img": true}')
+              p.task-text {{skill.text()}}
 
           br
 

@@ -3,7 +3,7 @@ script(type='text/ng-template', id='modals/reroll.html')
   .modal-header
     h4=env.t('fortify')
   .modal-body
-    include ../gems
+    +gemButton
     p=env.t('fortifyText')
 
   .modal-footer

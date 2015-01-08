@@ -73,7 +73,7 @@
       }
       $scope.addMissedDay = function(){
         if (!confirm("Are you sure you want to reset the day?")) return;
-        var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
+        var dayBefore = moment(User.user.lastCron).subtract(1, 'days').toDate();
         User.set({'lastCron': dayBefore});
         Notification.text('-1 day, remember to refresh');
       }
