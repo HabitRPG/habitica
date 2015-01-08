@@ -12185,9 +12185,7 @@ api.spells = {
         target.value += diminishingReturns(bonus * .02, 4);
         bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
         user.stats.exp += diminishingReturns(bonus, 75);
-        if (user.party.quest.key) {
-          return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
-        }
+        return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
       }
     },
     mpheal: {
@@ -12243,9 +12241,7 @@ api.spells = {
       notes: t('spellWarriorSmashNotes'),
       cast: function(user, target) {
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
-        if (user.party.quest.key) {
-          return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
-        }
+        return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
       }
     },
     defensiveStance: {
@@ -12671,14 +12667,16 @@ api.specialPets = {
   'Turkey-Base': 'turkey',
   'BearCub-Polar': 'polarBearPup',
   'MantisShrimp-Base': 'mantisShrimp',
-  'JackOLantern-Base': 'jackolantern'
+  'JackOLantern-Base': 'jackolantern',
+  'Mammoth-Base': 'mammoth'
 };
 
 api.specialMounts = {
   'BearCub-Polar': 'polarBear',
   'LionCub-Ethereal': 'etherealLion',
   'MantisShrimp-Base': 'mantisShrimp',
-  'Turkey-Base': 'turkey'
+  'Turkey-Base': 'turkey',
+  'Mammoth-Base': 'mammoth'
 };
 
 api.hatchingPotions = {
@@ -13005,6 +13003,83 @@ api.quests = {
           type: 'mounts',
           key: 'MantisShrimp-Base',
           text: t('questDilatoryDropMantisShrimpMount')
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat')
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk')
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('foodStrawberry')
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate')
+        }, {
+          type: 'food',
+          key: 'Fish',
+          text: t('foodFish')
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat')
+        }, {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('foodCottonCandyPink')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('foodCottonCandyBlue')
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney')
+        }
+      ],
+      gp: 0,
+      exp: 0
+    }
+  },
+  stressbeast: {
+    text: t("questStressbeastText"),
+    notes: t("questStressbeastNotes"),
+    completion: t("questStressbeastCompletion"),
+    completionChat: t("questStressbeastCompletionChat"),
+    value: 0,
+    canBuy: false,
+    boss: {
+      name: t("questStressbeastBoss"),
+      hp: 2750000,
+      str: 1,
+      def: 1,
+      rage: {
+        title: t("questStressbeastBossRageTitle"),
+        description: t("questStressbeastBossRageDescription"),
+        value: 1450000,
+        stables: t('questStressbeastBossRageStables'),
+        bailey: t('questStressbeastBossRageBailey'),
+        guide: t('questStressbeastBossRageGuide')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'Mammoth-Base',
+          text: t('questStressbeastDropMammothPet')
+        }, {
+          type: 'mounts',
+          key: 'Mammoth-Base',
+          text: t('questStressbeastDropMammothMount')
         }, {
           type: 'food',
           key: 'Meat',
@@ -16568,5 +16643,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/matteo/Dev/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/matteo/Dev/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
