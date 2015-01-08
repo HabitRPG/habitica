@@ -74,7 +74,11 @@ angular.module('guideServices', []).
         }
       ];
       _.each(tourSteps, function(step){
-        step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
+        if (env.worldDmg.guide) {
+          step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
+        } else {
+          step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>";
+        }
       });
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
@@ -104,7 +108,11 @@ angular.module('guideServices', []).
       if (!placement) placement = 'bottom';
       $(selector).popover('destroy');
       var button = "<button class='btn btn-sm btn-default' onClick=\"$('" + selector + "').popover('hide');return false;\">" + window.env.t('close') + "</button>";
-      html = "<div><div class='npc_justin float-left'></div>" + html + '<br/>' + button + '</div>';
+      if (env.worldDmg.guide) {
+        html = "<div><div class='npc_justin_broken float-left'></div>" + html + '<br/>' + button + '</div>';
+      } else {
+        html = "<div><div class='npc_justin float-left'></div>" + html + '<br/>' + button + '</div>';
+      }
       $(selector).popover({
         title: title,
         placement: placement,
@@ -186,7 +194,11 @@ angular.module('guideServices', []).
         }
       ];
       _.each(tourSteps, function(step){
-        step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
+        if (env.worldDmg.guide) {
+          step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
+        } else {
+          step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
+        }        
       });
       $('.allocate-stats').popover('destroy');
       var tour = new Tour({

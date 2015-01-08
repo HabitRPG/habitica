@@ -36,7 +36,10 @@ mixin boss(tavern, mobile)
 
       div(ng-if='group.quest.active==true')
         div(ng-if='::Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
-          div(class="quest_{{::group.quest.key}}")
+          if tavern
+            div(class="quest_{{group.quest.key}} quest_{{group.quest.key}}_#{env.worldDmg.recent}")
+          else
+            div(class="quest_{{::group.quest.key}}")
           //-
             .progress
             .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
@@ -85,8 +88,8 @@ mixin boss(tavern, mobile)
             // =env.t('questOwnerNotInRunningQuest')
           // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
             // =env.t('questOwnerNotInRunningQuestParty')
-
-        quest-rewards(key='{{::group.quest.key}}')
+        unless tavern
+          quest-rewards(key='{{::group.quest.key}}')
 
         div(ng-if='::Content.quests[group.quest.key].boss')
           .npc_ian.pull-left

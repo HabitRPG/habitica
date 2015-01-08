@@ -3,7 +3,7 @@ script(type='text/ng-template', id='modals/newStuff.html')
     | #{env.t('newStuff')} by&nbsp;
     a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
   .modal-body.new-stuff-modal.modal-fixed-height
-    .npc_bailey
+    div(class="#{env.worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey'}")
     br
     br
     include ../new-stuff
