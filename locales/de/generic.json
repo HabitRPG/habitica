@@ -35,7 +35,7 @@
     "neverMind": "Vergiss es",
     "buyMoreGems": "Mehr Edelsteine kaufen",
     "notEnoughGems": "Nicht genug Edelsteine",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "Whoops! Du hast diesen Gegenstand bereits. Keine Notwendigkeit, es wieder zu kaufen!",
     "delete": "Löschen",
     "gems": "Edelsteine",
     "moreInfo": "Mehr Informationen",
@@ -85,5 +85,5 @@
     "October": "Oktober",
     "November": "November",
     "December": "Dezember",
-    "dateFormat": "Date Format"
+    "dateFormat": "Datumsformat"
 }

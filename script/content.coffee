@@ -663,6 +663,7 @@ api.spells =
       text: t('spellSpecialSaltText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialSaltNotes')
       cast: (user, target) ->
@@ -685,6 +686,7 @@ api.spells =
       text: t('spellSpecialOpaquePotionText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialOpaquePotionNotes')
       cast: (user, target) ->
@@ -695,6 +697,7 @@ api.spells =
       text: t('nyeCard')
       mana: 0
       value: 10
+      immediateUse: true
       target: 'user'
       notes: t('nyeCardNotes')
       cast: (user, target) ->
@@ -1467,6 +1470,16 @@ api.backgrounds =
     south_pole:
       text:  t('backgroundSouthPoleText')
       notes: t('backgroundSouthPoleNotes')
+  backgrounds012015:
+    ice_cave:
+      text: t('backgroundIceCaveText')
+      notes: t('backgroundIceCaveNotes')
+    frigid_peak:
+      text: t('backgroundFrigidPeakText')
+      notes: t('backgroundFrigidPeakNotes')
+    snowy_pines:
+      text: t('backgroundSnowyPinesText')
+      notes: t('backgroundSnowyPinesNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

@@ -121,7 +121,6 @@
     "streaksFrozenText": "Combos em Tarefas Diárias perdidas não reiniciarão ao final do dia.",
     "respawn": "Reviver!",
     "youDied": "Você Morreu!",
-    "continue": "Continuar",
     "dieText": "Você perdeu um nível, todo seu Ouro, e uma peça aleatória de Equipamento. Erga-se, Habiteer, e tente novamente! Acabe com esses Hábitos negativos, esteja atento a realização de suas Tarefas Diárias, e afaste a morte com uma Poção de Vida caso vacilar!",
     "sureReset": "Tem certeza? Isso reiniciará a classe e os pontos distribuídos (você os receberá de volta para redistribuí-los) do seu personagem, e custa 3 gemas",
     "purchaseFor": "Comprar por <%= cost %> Gemas?",

@@ -121,7 +121,6 @@
     "streaksFrozenText": "Les combos sur les tâches Quotidiennes manquées ne seront pas remis à zéro à la fin de la journée. ",
     "respawn": "Résurrection ! ",
     "youDied": "Vous êtes mort !",
-    "continue": "Continuez",
     "dieText": "Vous avez perdu un Niveau, tout votre Or et une pièce d'Équipement aléatoire. Relevez-vous, Habitien(ne), et essayez encore ! Mettez un frein à ces Habitudes négatives, complétez vos tâches Quotidiennes avec vigilance et tenez la mort à distance avec une Potion de Santé si vous fléchissez !",
     "sureReset": "Êtes-vous sûr? Ceci réinitialisera la classe de votre personnage et vos points alloués (vous les récupérerez tous pour les ré-allouer) et vous coûtera 3 gemmes.",
     "purchaseFor": "Acheter pour <%= cost %> Gemmes ? ",

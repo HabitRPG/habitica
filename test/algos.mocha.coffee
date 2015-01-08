@@ -56,6 +56,9 @@ expectStrings = (obj, paths) ->
   _.each paths, (path) -> expect(obj[path]).to.be.ok()
 
 # options.daysAgo: days ago when the last cron was executed
+# cronAfterStart: moves the lastCron to be after the dayStart.
+#  This way the daysAgo works as expected if the test case
+#  makes the assumption that the lastCron was after dayStart.
 beforeAfter = (options={}) ->
   user = newUser()
   [before, after] = [user, _.cloneDeep(user)]
@@ -66,7 +69,9 @@ beforeAfter = (options={}) ->
   if options.limitOne
     before["#{options.limitOne}s"] = [before["#{options.limitOne}s"][0]]
     after["#{options.limitOne}s"] = [after["#{options.limitOne}s"][0]]
-  lastCron = +(moment(options.now || +new Date).subtract(options.daysAgo, 'days')) if options.daysAgo
+  lastCron = moment(options.now || +new Date).subtract( {days:options.daysAgo} ) if options.daysAgo
+  lastCron.add( {hours:options.dayStart, minutes:1} ) if options.daysAgo and options.cronAfterStart
+  lastCron = +lastCron if options.daysAgo
   _.each [before,after], (obj) ->
     obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
@@ -545,6 +550,68 @@ describe 'Cron', ->
       expect(after.todos[0].value).to.be.lessThan before.todos[0].value
       expect(after.history.todos).to.have.length 1
 
+  # I used hard-coded dates here instead of 'now' so the tests don't fail
+  #  when you run them between midnight and dayStart. Nothing worse than
+  #  intermittent failures.
+  describe 'cron day calculations', ->
+    dayStart = 4
+    fstr = "YYYY-MM-DD HH:mm:ss"
+
+    it 'startOfDay before dayStart', ->
+      # If the time is before dayStart, then we expect the start of the day to be yesterday at dayStart
+      start = shared.startOfDay {now: moment('2014-10-09 02:30:00'), dayStart}
+      expect(start.format(fstr)).to.eql '2014-10-08 04:00:00'
+
+    it 'startOfDay after dayStart', ->
+      # If the time is after dayStart, then we expect the start of the day to be today at dayStart
+      start = shared.startOfDay {now: moment('2014-10-09 05:30:00'), dayStart}
+      expect(start.format(fstr)).to.eql '2014-10-09 04:00:00'
+
+    it 'daysSince cron before, now after', ->
+      # If the lastCron was before dayStart, then a time on the same day after dayStart
+      #  should be 1 day later than lastCron
+      lastCron = moment('2014-10-09 02:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 11:30:00'), dayStart})
+      expect(days).to.eql 1
+
+    it 'daysSince cron before, now before', ->
+      # If the lastCron was before dayStart, then a time on the same day also before dayStart
+      #  should be 0 days later than lastCron
+      lastCron = moment('2014-10-09 02:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 03:30:00'), dayStart})
+      expect(days).to.eql 0
+
+    it 'daysSince cron after, now after', ->
+      # If the lastCron was after dayStart, then a time on the same day also after dayStart
+      #  should be 0 days later than lastCron
+      lastCron = moment('2014-10-09 05:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 06:30:00'), dayStart})
+      expect(days).to.eql 0
+
+    it 'daysSince cron after, now tomorrow before', ->
+      # If the lastCron was after dayStart, then a time on the following day but before dayStart
+      #  should be 0 days later than lastCron
+      lastCron = moment('2014-10-09 12:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-10 01:30:00'), dayStart})
+      expect(days).to.eql 0
+
+    it 'daysSince cron after, now tomorrow after', ->
+      # If the lastCron was after dayStart, then a time on the following day and after dayStart
+      #  should be 1 day later than lastCron
+      lastCron = moment('2014-10-09 12:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-10 10:30:00'), dayStart})
+      expect(days).to.eql 1    
+
+    it 'daysSince, last cron before new dayStart', ->
+      # If lastCron was after dayStart (at 1am) with dayStart set at 0, changing dayStart to 4am
+      #  should not trigger another cron the same day
+
+      # dayStart is 0
+      lastCron = moment('2014-10-09 01:00:00')
+      # dayStart is 4
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 05:00:00'), dayStart})
+      expect(days).to.eql 0
+
   describe 'dailies', ->
 
     describe 'new day', ->
@@ -558,7 +625,7 @@ describe 'Cron', ->
       runCron = (options) ->
         _.each [480, 240, 0, -120], (timezoneOffset) -> # test different timezones
           now = shared.startOfWeek({timezoneOffset}).add(options.currentHour||0, 'hours')
-          {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
+          {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, cronAfterStart:options.cronAfterStart||true, dayStart:options.dayStart||0, limitOne:'daily'})
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
@@ -572,11 +639,14 @@ describe 'Cron', ->
             when 'noDamage' then expectDayResetNoDamage(before,after)
           {before,after}
 
+      # These test cases were written assuming that lastCron was run after dayStart
+      #  even if currentHour < dayStart and lastCron = yesterday at currentHour.
+      #  cronAfterStart makes sure that lastCron is moved to be after dayStart.
       cronMatrix =
         steps:
 
           'due yesterday':
-            defaults: {daysAgo:1, limitOne: 'daily'}
+            defaults: {daysAgo:1, cronAfterStart:true, limitOne: 'daily'}
             steps:
 
               '(simple)': {expect:'losePoints'}
@@ -627,15 +697,8 @@ describe 'Cron', ->
           it "#{options.text}", -> runCron(_.defaults(obj,options))
       recurseCronMatrix(cronMatrix)
 
-    it 'calculates day differences with dayStart properly', ->
-      dayStart = 4
-      yesterday = shared.startOfDay {now: moment().subtract(1, 'd'), dayStart}
-      now = shared.startOfDay {dayStart: dayStart-1}
-      expect(shared.daysSince(yesterday, {now, dayStart})).to.eql 0
-      now = moment().startOf('day').add(dayStart, 'h').add(1, 'm')
-      expect(shared.daysSince(yesterday, {now, dayStart})).to.eql 1
-
 describe 'Helper', ->
+
   it 'calculates gold coins', ->
     expect(shared.gold(10)).to.eql 10
     expect(shared.gold(1.957)).to.eql 1
@@ -654,9 +717,15 @@ describe 'Helper', ->
     expect(shared.tnl 99).to.eql 3580
 
   it 'calculates the start of the day', ->
-    expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
-    expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
-    expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    fstr = 'YYYY-MM-DD HH:mm:ss'
+    today = '2013-01-01 00:00:00'
+    # get the timezone for the day, so the test case doesn't fail
+    #  if you run it during daylight savings time because by default
+    #  it uses moment().zone() which is the current minute offset
+    zone = moment(today).zone()
+    expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}, timezoneOffset:zone).format(fstr)).to.eql today
+    expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}, timezoneOffset:zone).format(fstr)).to.eql today
+    expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59), timezoneOffset:zone}).format(fstr)).to.eql today
 
   it 'counts pets', ->
     pets = {}

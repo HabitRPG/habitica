@@ -121,7 +121,6 @@
     "streaksFrozenText": "Serie w pominiętych Codziennych nie zresetują się na końcu dnia.",
     "respawn": "Odrodzenie!",
     "youDied": "Zginąłeś!",
-    "continue": "Kontynuuj",
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
     "sureReset": "Jesteś pewien? Zresetuje to klasę twojej postaci oraz przydzielone punkty (dostaniesz je z powrotem do ponownego rozdzielenia). Cena – 3 klejnoty.",
     "purchaseFor": "Kupić za <%= cost %> klejnoty?",

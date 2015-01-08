@@ -85,26 +85,46 @@
     };
   }();
 
-  habitrpg.directive('markdown', function() {
+  habitrpg.directive('markdown', ['$timeout', function($timeout) {
     return {
       restrict: 'E',
       link: function(scope, element, attrs) {
-        scope.$watch(attrs.ngModel, function(value, oldValue) {
-          var markdown = value;
-          var linktarget = attrs.target || '_self';
-          var userName = scope.User.user.profile.name;
-          var userHighlight = "@"+userName;
-          var html = md.toHtml(markdown);
-          
-          html = html.replace(userHighlight, "<u>@"+userName+"</u>");
-          
-          html = html.replace(' href',' target="'+linktarget+'" href');
-          element.html(html);
+        var removeWatch = !!scope.$eval(attrs.removeWatch);
+        var useTimeout = !!scope.$eval(attrs.useTimeout);
+
+        var doRemoveWatch = scope.$watch(attrs.text, function(value, oldValue) {
+          var replaceMarkdown = function(){
+
+            var markdown = value;
+            var linktarget = attrs.target || '_self';
+            var userName = scope.User.user.profile.name;
+            var userHighlight = "@"+userName;
+            var html = md.toHtml(markdown);
+
+            html = html.replace(userHighlight, "<u>@"+userName+"</u>");
+
+            html = html.replace(' href',' target="'+linktarget+'" href');
+            element.html(html);
+
+            if(removeWatch)
+            {
+              doRemoveWatch(); 
+            }
+          };
+
+          if(useTimeout)
+          {
+            $timeout(replaceMarkdown, 0);
+          }
+          else
+          {
+            replaceMarkdown();
+          }
         });
       }
     };
-  });
-  
+  }]);
+
   habitrpg.filter('markdown', function() {
     return function(input){
       var html = md.toHtml(input);
