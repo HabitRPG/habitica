@@ -4,7 +4,7 @@ table.table.table-striped
     td
       strong=env.t('health')
       | : {{profile.stats.hp | number:0}} / 50
-  tr
+  tr(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
     td
       strong=env.t('mana')
       | : {{profile.stats.mp | number:0}} / {{profile._statsComputed.maxMP}}
