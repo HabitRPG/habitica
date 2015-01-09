@@ -128,7 +128,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
               .task-controls.task-primary
-                a.money.btn-buy.item-btn(ng-click='castStart(skill)')
+                a.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{active: skill.key == spell.key}')
                   span.reward-cost
                     strong {{skill.mana}}
                     =env.t('mp')
