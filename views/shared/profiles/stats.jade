@@ -7,7 +7,7 @@ table.table.table-striped
   tr
     td
       strong=env.t('mana')
-      | : {{user.stats.mp | number:0}} / {{user._statsComputed.maxMP}}
+      | : {{profile.stats.mp | number:0}} / {{profile._statsComputed.maxMP}}
   tr
     td
       strong=env.t('gold')
