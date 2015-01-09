@@ -197,7 +197,7 @@ angular.module('guideServices', []).
         if (env.worldDmg.guide) {
           step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
         } else {
-          step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
+          step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>";
         }        
       });
       $('.allocate-stats').popover('destroy');
