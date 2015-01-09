@@ -6,6 +6,10 @@ table.table.table-striped
       | : {{profile.stats.hp | number:0}} / 50
   tr
     td
+      strong=env.t('mana')
+      | : {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
+  tr
+    td
       strong=env.t('gold')
       | : {{profile.stats.gp | number:0}}
   tr
