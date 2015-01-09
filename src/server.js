@@ -94,7 +94,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   // ------------  Server Configuration ------------
   var morgan = require("morgan");
   var compression = require("compression");
-  var favicon = require("static-favicon");
+  var favicon = require("serve-favicon");
   var bodyParser = require("body-parser");
   var methodOverride = require("method-override");
   var cookieParser = require("cookie-parser");
