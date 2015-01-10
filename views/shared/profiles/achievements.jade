@@ -180,7 +180,6 @@ div(ng-if='::profile.achievements.quests.dilatory')
     =env.t('achievementDilatoryText')
   hr
 
-//- FIXME add these strings to locales
 div(ng-if='::profile.achievements.costumeContest')
   .achievement.achievement-costumeContest
   h5=env.t('costumeContest')
@@ -193,4 +192,11 @@ div(ng-if='::profile.achievements.nye')
   h5=env.t('auldAcquaintance')
   small
     =env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
+  hr
+
+div(ng-if='::profile.achievements.quests.stressbeast')
+  .achievement.achievement-stoikalm
+  h5=env.t('achievementStressbeast')
+  small
+    =env.t('achievementStressbeastText')
   hr
