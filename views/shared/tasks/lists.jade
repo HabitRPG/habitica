@@ -104,7 +104,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                     span.glyphicon.glyphicon-comment
                 //left-hand size commands
                 .task-controls.task-primary
-                  a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.#{k})')
+                  a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.#{k})', ng-class='{active: Content.spells.special.#{k}.key == spell.key}')
                     if canceler
                       span.shop_gold
                       span.reward-cost {{Content.spells.special.#{k}.value}}
@@ -128,7 +128,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   span.glyphicon.glyphicon-comment
               //left-hand size commands
               .task-controls.task-primary
-                a.money.btn-buy.item-btn(ng-click='castStart(skill)')
+                a.money.btn-buy.item-btn(ng-click='castStart(skill)', ng-class='{active: skill.key == spell.key}')
                   span.reward-cost
                     strong {{skill.mana}}
                     =env.t('mp')
