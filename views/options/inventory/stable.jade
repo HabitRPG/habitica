@@ -66,12 +66,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
           h3.popover-title
             a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
           .popover-content
-            p
-              =env.t('mattBochText1') + ' '
-              | <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>
-              =env.t('mattBochText2')
-              | </a>
-              = ' ' + env.t('mattBochText3')
+            p=env.t('mattBochText1')
             h4= env.t('beastmasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
       .col-md-12
