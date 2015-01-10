@@ -130,6 +130,7 @@ habitrpg.controller("InventoryCtrl",
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
+        $rootScope.mountCount = Shared.countMounts(null, User.user.items.mounts);
 
       // Checks if mountmaster has been reached for the first time
       if(!User.user.achievements.mountMaster 
