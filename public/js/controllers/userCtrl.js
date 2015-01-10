@@ -4,7 +4,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
   function($rootScope, $scope, $location, User, $http, $state, Guide, Shared) {
     $scope.profile = User.user;
     $scope.profile.petCount = Shared.countPets(null, $scope.profile.items.pets);
-    $scope.profile.mountCount = Shared.countMounts(null, $scope.profile.items.mounts);  //added for mountmaster prep
+    $scope.profile.mountCount = Shared.countMounts(null, $scope.profile.items.mounts);
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
     };
