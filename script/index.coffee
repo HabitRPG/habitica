@@ -752,7 +752,7 @@ api.wrap = (user, main=true) ->
           user.balance -= 1
           user.items.currentMount = ""
           for mount of content.pets
-            delete user.items.mounts[mount]
+            user.items.mounts[mount] = null
           if not user.achievements.mountMasterCount
             user.achievements.mountMasterCount = 0
           user.achievements.mountMasterCount++
@@ -766,7 +766,7 @@ api.wrap = (user, main=true) ->
           user.items.currentMount = ""
           for animal of content.pets
             user.items.pets[animal] = 0
-            delete user.items.mounts[animal]
+            user.items.mounts[animal] = null
           if not user.achievements.beastMasterCount
             user.achievements.beastMasterCount = 0
           user.achievements.beastMasterCount++
