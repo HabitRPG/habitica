@@ -92,6 +92,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             div(ng-if='user.auth.local.username')
               p Login Name: {{user.auth.local.username}}
               p Email: {{user.auth.local.email}}
+              small
+                =env.t('emailChange')
               hr
               h5=env.t('changeUsername')
               form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
