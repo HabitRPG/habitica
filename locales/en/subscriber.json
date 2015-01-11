@@ -8,7 +8,7 @@
     "disableAds": "Disable ads",
     "disableAdsText": "Ads will stay disabled while you have an active subscription (original users with disabled ads are grandfathered).",
     "buyGemsGold": "Buy Gems with Gold",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %>G monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
     "retainHistory": "Retain full history entries",
     "retainHistoryText": "Makes your full history available in graphs and export. Non-subscriber histories get consolidated for database optimization.",
     "doubleDrops": "Daily drop-caps doubled",
