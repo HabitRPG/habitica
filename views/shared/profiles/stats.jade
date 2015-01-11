@@ -69,7 +69,7 @@ table.table.table-striped(ng-if='user.flags.dropsEnabled')
   tr
     td
       strong=env.t('petsFound')
-      | : {{_.size(user.items.pets)}}
+      | : {{_.size(profile.items.pets)}}
   tr
     td
       strong=env.t('beastProgress')
@@ -80,7 +80,7 @@ table.table.table-striped(ng-if='user.flags.dropsEnabled')
   tr
     td
       strong=env.t('mountsTamed')
-      | : {{_.size(user.items.mounts)}}
+      | : {{_.size(profile.items.mounts)}}
   tr
     td
       strong=env.t('mountmasterProgress')
