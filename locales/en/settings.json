@@ -71,4 +71,8 @@
     "usernameSuccess": "Login Name successfully changed",
     "data": "Data",
     "exportData": "Export Data",
-    "emailChange": "To change your email address, please send an email to admin\@habitrpg.com including both your old and new email address as well as your User ID."}
+    "emailChange": "To change your email address, please send an email to <a href=\"mailto:admin\@habitrpg.com\" target=\"_blank\">admin@habitrpg.com</a> including both your old and new email address as well as your User ID.",
+    "username": "Login Name",
+    "email": "Email",
+    "registeredWithFb": "Registered with Facebook"
+}
