@@ -91,12 +91,19 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             p(ng-if='user.auth.facebook.id') 
               =env.t('registeredWithFb')
             div(ng-if='user.auth.local.username')
-              =env.t('username'): {{user.auth.local.username}}
-              |&nbsp;
-              =env.t('email)': {{user.auth.local.email}}
-              |&nbsp;
+              p
+              =env.t('username') 
+              |: {{user.auth.local.username}} 
+              p
+              =env.t('email')
+              |: {{user.auth.local.email}} 
+              p
               small
-                =env.t('emailChange')
+                =env.t('emailChange1')
+                |&nbsp;
+                a(href='emailto:admin@habitrpg.com' target='_blank')=env.t('emailChange2')
+                |&nbsp;
+                =env.t('emailChange3')
               hr
               h5=env.t('changeUsername')
               form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
