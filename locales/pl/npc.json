@@ -57,7 +57,7 @@
     "partySysText": "Bądź towarzyski, dołącz do drużyny i graj w HabitRPG ze swoimi przyjaciółmi! Łatwiej będzie Ci pracować nad nawykami, jeśli będziesz odpowiedzialny wobec przyjaciół. Kliknij \"Społeczność\" -> \"Drużyna\" i podążaj za instrukcjami. Ktoś szuka grupy?",
     "classGear": "Wyposażenie klasowe",
     "classGearText": "Po pierwsze: nie panikuj! Twoje stare wyposażenie znajduje się w ekwipunku, a teraz nosisz ekwipunek <strong><%= klass %></strong> nowicjusza. Używanie ekwipunku przynależnego twojej klasie zapewnia ci 50%  premię do atrybutów. Możesz jednak w każdej chwili wrócić do swojego starego wyposażenia.",
-    "classStats": "To atrybuty Twojej klasy, które wpływają na grę. Za każdym razem gdy awansujesz, zyskujesz jeden punkt do przypisania do dowolnego atrybutu. Najedź na każdy z atrybutów by dowiedzieć się o nich więcej.",
+    "classStats": "To statystyki twojej klasy; wpływają one na rozgrywkę. Za każdym razem gdy awansujesz, otrzymujesz jeden punkt do przydzielenia w wybraną statystykę. Najedź na każdą statystykę by otrzymać więcej informacji.",
     "autoAllocate": "Automatyczne rozlokowanie",
     "autoAllocateText": "Jeśli 'automatyczne rozlokowanie' jest zaznaczone, twój awatar zyskuje statystyki automatycznie w oparciu o atrybuty przypisane zadaniom, które to możesz znaleźć w <strong>ZADANIE > Edycja > Zaawansowane > Atrybuty</strong>. Np. jeśli często odwiedzasz siłownię, oraz twoje Codzienne 'Siłownia' jest ustawione na 'Fizyczne', twoja Siła zwiększy się automatycznie.",
     "spells": "Zaklęcia",

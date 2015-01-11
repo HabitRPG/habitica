@@ -8,6 +8,7 @@ api.i18n = i18n
 
 # little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
 $w = api.$w = (s)->s.split(' ')
+
 api.dotSet = (obj,path,val)->
   arr = path.split('.')
   _.reduce arr, (curr, next, index) =>
@@ -17,6 +18,20 @@ api.dotSet = (obj,path,val)->
   , obj
 api.dotGet = (obj,path)->
   _.reduce path.split('.'), ((curr, next) => curr?[next]), obj
+
+###
+  Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
+  syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
+  no problem. To maintain sorting, we use these helper functions:
+###
+api.refPush = (reflist, item, prune=0) ->
+  item.sort = if _.isEmpty(reflist) then 0 else _.max(reflist,'sort').sort+1
+  item.id = api.uuid() unless item.id and !reflist[item.id]
+  reflist[item.id] = item
+
+api.planGemLimits =
+  convRate: 20 #how much does a gem cost?
+  convCap: 25 #how many gems can be converted / month?
 
 ###
   ------------------------------------------------------
@@ -42,7 +57,10 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
 
 api.startOfDay = (options={}) ->
   o = sanitizeOptions(options)
-  moment(o.now).startOf('day').add({hours:o.dayStart})
+  dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
+  if moment(o.now).hour() < o.dayStart
+    dayStart.subtract({days:1})
+  dayStart
 
 api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
@@ -51,7 +69,7 @@ api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 ###
 api.daysSince = (yesterday, options = {}) ->
   o = sanitizeOptions options
-  Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(o.now, 'days')
+  Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(api.startOfDay(_.defaults {now:o.now}, o), 'days')
 
 ###
   Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
@@ -60,13 +78,7 @@ api.shouldDo = (day, repeat, options={}) ->
   return false unless repeat
   o = sanitizeOptions options
   selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
-  return selected unless moment(day).zone(o.timezoneOffset).isSame(o.now,'d')
-  if options.dayStart <= o.now.hour() # we're past the dayStart mark, is it due today?
-    return selected
-  else # we're not past dayStart mark, check if it was due "yesterday"
-    yesterday = moment(o.now).subtract({days:1}).day() # have to wrap o.now so as not to modify original
-    return repeat[api.dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
-
+  return selected
 
 ###
   ------------------------------------------------------
@@ -263,6 +275,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, main=false)
       classes += " uncompleted"
   else if type is 'habit'
     classes += ' habit-wide' if task.down and task.up
+    classes += ' habit-narrow' if !task.down and !task.up
 
   if value < -20
     classes += ' color-worst'
@@ -381,7 +394,9 @@ api.wrap = (user, main=true) ->
         cb? null, {}
 
       revive: (req, cb) ->
-        # Reset stats
+        return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp <= 0
+
+        # Reset stats after death
         _.merge user.stats, {hp:50, exp:0, gp:0}
         user.stats.lvl-- if user.stats.lvl > 1
 
@@ -390,10 +405,18 @@ api.wrap = (user, main=true) ->
         user.stats[lostStat]-- if lostStat
 
         # Lose a gear piece
-        # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
+        # Free items (value:0) cannot be lost to avoid "pay to win". Subscribers have more free (Mystery) items and so would have a higher chance of losing a free one. The only exception is that the weapon_warrior_0 free item can be lost so that a new player who dies before buying any gear does experience equipment loss.
         # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
-        lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[''+k]=''+k if v;m), {})
-
+        cl = user.stats.class
+        gearOwned = user.items.gear.owned.toObject?() or user.items.gear.owned
+        losableItems = {}
+        _.each gearOwned, (v,k) ->
+          if v
+            itm = content.gear.flat[''+k]
+            if itm
+              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
+                losableItems[''+k]=''+k
+        lostItem = user.fns.randomVal losableItems
         if item = content.gear.flat[lostItem]
           user.items.gear.owned[lostItem] = false
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
@@ -590,6 +613,40 @@ api.wrap = (user, main=true) ->
         cb? null, user.tags
 
       # ------
+      # Webhooks
+      # ------
+      addWebhook: (req, cb) ->
+        wh = user.preferences.webhooks
+        api.refPush(wh, {url:req.body.url, enabled: req.body.enabled or true, id:req.body.id})
+        user.markModified? 'preferences.webhooks'
+        cb? null, user.preferences.webhooks
+      updateWebhook: (req, cb) ->
+        _.merge(user.preferences.webhooks[req.params.id], req.body)
+        user.markModified? 'preferences.webhooks'
+        cb? null, user.preferences.webhooks
+      deleteWebhook: (req, cb) ->
+        delete user.preferences.webhooks[req.params.id]
+        user.markModified? 'preferences.webhooks'
+        cb? null, user.preferences.webhooks
+
+      # ------
+      # Inbox
+      # ------
+      clearPMs: (req, cb) ->
+        user.inbox.messages = {}
+        user.markModified? 'inbox.messages'
+        cb? null, user.inbox.messages
+      deletePM: (req, cb) ->
+        delete user.inbox.messages[req.params.id]
+        user.markModified? 'inbox.messages.'+req.params.id
+        cb? null, user.inbox.messages
+      blockUser: (req, cb) ->
+        i = user.inbox.blocks.indexOf(req.params.uuid)
+        if ~i then user.inbox.blocks.splice(i,1) else user.inbox.blocks.push(req.params.uuid)
+        user.markModified? 'inbox.blocks'
+        cb? null, user.inbox.blocks
+
+      # ------
       # Inventory
       # ------
 
@@ -626,26 +683,47 @@ api.wrap = (user, main=true) ->
         user.items.food[food.key]--
         cb? {code:200, message}, userPets[pet]
 
-      #FIXME stupid method of special-handling spookDust, since it can be purchased with gold and the system only accomodates gem-purchasable holiday spells
-      buySpookDust: (req,cb) ->
-        item = content.special.spookDust
+      buySpecialSpell: (req,cb) ->
+        {key} = req.params
+        item = content.special[key]
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         user.stats.gp -= item.value
-        user.items.special.spookDust ?= 0
-        user.items.special.spookDust++
+        user.items.special[key] ?= 0
+        user.items.special[key]++
         user.markModified? 'items.special'
-        cb? null, _.pick(user,$w 'items stats')
+        message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
+        cb? {code:200,message}, _.pick(user,$w 'items stats')
 
-      # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
+      # buy is for using Gold, purchase is for Gems (I know, I know...)
       purchase: (req, cb, ga) ->
         {type,key}  = req.params
-        return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
-        item = content[type][key]
+
+        if type is 'gems' and key is 'gem'
+          {convRate, convCap} = api.planGemLimits
+          convCap += user.purchased.plan.consecutive.gemCapExtra
+          return cb?({code:401,message:"Must subscribe to purchase gems with GP"},req) unless user.purchased?.plan?.customerId
+          return cb?({code:401,message:"Not enough Gold"}) unless user.stats.gp >= convRate
+          return cb?({code:401,message:"You've reached the Gold=>Gem conversion cap (#{convCap}) for this month. We have this to prevent abuse / farming. The cap will reset within the first three days of next month."}) if user.purchased.plan.gemsBought >= convCap
+          user.balance += .25
+          user.purchased.plan.gemsBought++
+          user.stats.gp -= convRate
+          return cb? {code:200,message:"+1 Gems"}, _.pick(user,$w 'stats balance')
+
+        return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
+        if type is 'gear'
+          item = content.gear.flat[key]
+          return cb?({code:401, message: i18n.t('alreadyHave', req.language)}) if user.items.gear.owned[key]
+          price = (if item.twoHanded then 2 else 1) / 4
+        else
+          item = content[type][key]
+          price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < (item.value / 4)
-        user.items[type][key] = 0  unless user.items[type][key] > 0
-        user.items[type][key]++
-        user.balance -= (item.value / 4)
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < price
+        user.balance -= price
+        if type is 'gear' then user.items.gear.owned[key] = true
+        else
+          user.items[type][key] = 0  unless user.items[type][key] > 0
+          user.items[type][key]++
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('purchase', key).send()
 
@@ -697,6 +775,16 @@ api.wrap = (user, main=true) ->
             user.fns.ultimateGear()
         user.stats.gp -= item.value
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
+
+      buyMysterySet: (req, cb)->
+        return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
+        mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
+        if window?.confirm?
+          return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
+        return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
+        _.each mysterySet.items, (i)->user.items.gear.owned[i.key]=true
+        user.purchased.plan.consecutive.trinkets--
+        cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
       sell: (req, cb) ->
         {key, type} = req.params
@@ -826,6 +914,22 @@ api.wrap = (user, main=true) ->
       readValentine: (req,cb) ->
         user.items.special.valentineReceived.shift()
         user.markModified? 'items.special.valentineReceived'
+        cb? null, 'items.special'
+
+      openMysteryItem: (req,cb,ga) ->
+        item = user.purchased.plan?.mysteryItems?.shift()
+        return cb?(code:400,message:"Empty") unless item
+        item = content.gear.flat[item]
+        user.items.gear.owned[item.key] = true
+        user.markModified? 'purchased.plan.mysteryItems'
+        # Could show {code:200} message, but it's yellow with no icon. This is round-about, but prettier. FIXME
+        (user._tmp?={}).drop = {type: 'gear', dialog: "#{item.text(req.language)} inside!"} if typeof window != 'undefined'
+        #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
+        cb? null, user.items.gear.owned
+
+      readNYE: (req,cb) ->
+        user.items.special.nyeReceived.shift()
+        user.markModified? 'items.special.nyeReceived'
         cb? null, 'items.special'
 
       # ------
@@ -1126,7 +1230,8 @@ api.wrap = (user, main=true) ->
         user.markModified? 'party.quest.progress'
         #console.log {progress:user.party.quest.progress}
 
-      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0))
+      dropMultiplier = if user.purchased?.plan?.customerId then 2 else 1
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0)))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
         # current breakdown - 1% (adjustable) chance on drop
@@ -1210,7 +1315,7 @@ api.wrap = (user, main=true) ->
       )()]++
 
     updateStats: (stats, req) ->
-      # Game Over
+      # Game Over (death)
       return user.stats.hp=0 if stats.hp <= 0
 
       user.stats.hp = stats.hp
@@ -1251,7 +1356,7 @@ api.wrap = (user, main=true) ->
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
       # Level Drops
-      _.each {vice1:30, atom1:15, moonstone1:60}, (lvl,k)->
+      _.each {vice1:30, atom1:15, moonstone1:60, goldenknight1: 40}, (lvl,k)->
         if !user.flags.levelDrops?[k] and user.stats.lvl >= lvl
           user.items.quests[k] ?= 0
           user.items.quests[k]++
@@ -1304,6 +1409,29 @@ api.wrap = (user, main=true) ->
       # "Perfect Day" achievement for perfect-days
       perfect = true
       clearBuffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
+
+      # end-of-month perks for subscribers
+      plan = user.purchased?.plan
+      if plan?.customerId
+        if moment(plan.dateUpdated).format('MMYYYY') != moment().format('MMYYYY')
+          plan.gemsBought = 0 # reset gem-cap
+          plan.dateUpdated = new Date()
+          # For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
+          # If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
+          # TODO use month diff instead of ++ / --?
+          _.defaults plan.consecutive, {count:0, offset:0, trinkets:0, gemCapExtra:0} #fixme see https://github.com/HabitRPG/habitrpg/issues/4317
+          plan.consecutive.count++
+          if plan.consecutive.offset > 0
+            plan.consecutive.offset--
+          else if plan.consecutive.count%3==0 # every 3 months
+            plan.consecutive.trinkets++
+            plan.consecutive.gemCapExtra+=5
+            plan.consecutive.gemCapExtra=25 if plan.consecutive.gemCapExtra>25 # cap it at 50 (hard 25 limit + extra 25)
+        # If user cancelled subscription, we give them until 30day's end until it terminates
+        if plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
+          _.merge plan, {planId:null, customerId:null, paymentMethod:null}
+          _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
+          user.markModified? 'purchased.plan'
 
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
@@ -1363,9 +1491,14 @@ api.wrap = (user, main=true) ->
         lvl++
         expTally += api.tnl(lvl)
       (user.history.exp ?= []).push { date: now, value: expTally }
-      user.fns.preenUserHistory()
-      user.markModified? 'history'
-      user.markModified? 'dailys' # covers dailys.*.history
+
+      # premium subscribers can keep their full history.
+      # TODO figure out something performance-wise
+      unless user.purchased?.plan?.customerId
+        user.fns.preenUserHistory()
+        user.markModified? 'history'
+        user.markModified? 'dailys' # covers dailys.*.history
+
       user.stats.buffs =
         if perfect
           user.achievements.perfect ?= 0
@@ -1378,16 +1511,8 @@ api.wrap = (user, main=true) ->
         else clearBuffs
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
-      
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
-
-
-      # If user cancelled subscription, we give them until 30day's end until it terminates
-      plan = user.purchased?.plan
-      if plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
-        _.merge user.purchased.plan, {planId:null, customerId:null, paymentMethod:null}
-        user.markModified 'purchased.plan'
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress

@@ -2,7 +2,7 @@
     "subscription": "Suscripción",
     "subscriptions": "Suscripciones ",
     "subDescription": "Desactivar anuncios, comprar gemas con oro, conseguir el artículo misterio del mes, retener historia del progreso, doblar el número máximo diario de premiecitos posibles, y apoyar los desarrolladores. Haz clic para más información. ",
-    "subWarning1": "Advertencia: Este es una característica experimental, y muchos",
+    "subWarning1": "Advertencia: esta es una característica experimental, y muchos",
     "subWarning2": "experimentan problemas",
     "subWarning3": "con él.",
     "disableAds": "Desactivar anuncios",
@@ -60,5 +60,16 @@
     "checkout": "Tramitar Pedido",
     "buySubsText": "Compra Gemas con Oro, No Anuncios, Ayuda los Devs",
     "sureCancelSub": "¿Estas seguro que quieres cancelar tu suscripción?",
-    "subCanceled": "Suscripción cancelada y se convertirá en inactiva"
+    "subCanceled": "La suscripción se volverá inactiva",
+    "subGemPop": "Puesto que te suscribes a HabitRPG puedes comprar un número de Gemas cada mes usando Oro. Puedes ver cuantas Gemas tienes disponibles para comprar en la esquina del icono Gema.",
+    "subGemName": "Gemas de suscriptor",
+    "timeTravelers": "Viajeros en el Tiempo",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> y <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Misteriosos Viajeros en el Tiempo",
+    "timeTravelersPopoverNoSub": "¡Necesitarás un Reloj de Arena místico para invocar a los misteriosos Viajeros en el Tiempo! Los <%= linkStart %>suscriptores<%= linkEnd %> obtienen un Reloj de Arena Místico por cada tres meses de suscripción consecutivos. Vuelve cuando tengas un Reloj de Arena Místico , y los Viajeros en el Tiempo te traerán un Equipo de Objetos de Suscriptor del pasado... o quizás incluso del futuro.",
+    "timeTravelersPopover": "Vemos que tienes un Reloj de Arena Místico, así que gustosamente viajaremos atrás en el tiempo para ti! Por favor, elije el Equipo de objetos Misterioso que te gustaría. ¡Puedes ver una lista de equipos de objetos del pasado <%= linkStart %>aquí<%= linkEnd %>! Si estos no son de tu agrado, ¿estarías quizás más interesado en uno de nuestros estilosos equipos de objetos futuristas Steampunk?",
+    "mysticHourglassPopover": "El Reloj de Arena Místico te permite comprar equipos de subscriptor del mes anterior",
+    "subUpdateCard": "Update Card",
+    "subUpdateTitle": "Update",
+    "subUpdateDescription": "Update the card to be charged."
 }

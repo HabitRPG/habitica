@@ -2,8 +2,11 @@
     "clearCompleted": "Delete Completed",
     "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
     "deleteToDosExplanation": "Om du klickar på knappen nedan, kommer alla dina Att-Göra uppgifter, och arkiverade Att-Göra uppgifter att bli permanent raderade. Exportera dem först om du vill behålla datan.",
+    "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
     "habits": "Vanor",
     "newHabit": "Ny vana",
+    "yellowred": "Svaga",
+    "greenblue": "Starka",
     "edit": "Redigera",
     "save": "Spara",
     "addChecklist": "Lägg till Checklista",
@@ -36,8 +39,9 @@
     "remaining": "Återstående",
     "complete": "Fullbordade",
     "due": "Due",
-    "grey": "Grey",
+    "grey": "Grå",
     "rewards": "Belöningar",
+    "ingamerewards": "Utrustning & Färdigheter",
     "gold": "Guld",
     "silver": "Silver (100 silver = 1 guld)",
     "newReward": "Ny Belöning",
@@ -63,6 +67,6 @@
     "fortifyText": "Den Stärkande Drycken återställer alla uppgifter till ett neutralt (gult) värde, som om du nyss lagt till dem, och återställer all förlorad Hälsa. Se det här som en sista utväg! Röda uppgifter ger uppmuntran att bättra sig. Men om allt det röda fyller dig med förtvivlan och början av varje dag känns hemsk, spendera Juvelerna och bli benådad.",
     "sureDelete": "Är du säker att du vill ta bort denna uppgift?",
     "streakCoins": "Följdbonus!",
-    "pushTaskToTop": "Push task to top",
-    "pushTaskToBottom": "Push task to bottom"
+    "pushTaskToTop": "Förflytta uppgift till toppen",
+    "pushTaskToBottom": "Förflytta uppgift till botten"
 }

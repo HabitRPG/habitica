@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "dependencies": {
     "browserify": "~3.30.2",
-    "coffeeify": "0.6.0",
     "coffee-script": "1.7.1",
-    "moment": "~2.8.3",
+    "coffeeify": "0.6.0",
     "lodash": "~2.4.1",
-    "grunt-spritesmith": "~1.22.0"
+    "moment": "~2.8.3"
   },
   "devDependencies": {
+    "coffee-coverage": "~0.4.2",
+    "phantomjssmith": "~0.5.4",
+    "grunt-spritesmith": "~3.5.0",
     "mocha": "*",
     "expect.js": "*",
     "sinon": "~1.8.2",
@@ -21,6 +23,7 @@
     "image-size": "~0.3.2"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   }
 }

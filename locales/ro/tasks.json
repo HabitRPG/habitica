@@ -1,9 +1,12 @@
 {
     "clearCompleted": "Șterge pe cele împlinite",
-    "lotOfToDos": "Completed To-Dos are automatically archived after 3 days. You can access them from Settings > Export.",
+    "lotOfToDos": "arcinile îndeplinite sunt arhivate automat după 3 zile. Le poți accesa de la Setări > Export.",
     "deleteToDosExplanation": "Dacă apeşi butonul de mai jos toate sarcinile inclusiv cele arhivate vor fi şterse permanent. Exportă-le mai întăi dacă doreşti să ţi o înregistrare a lor.",
+    "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
     "habits": "Obiceiuri",
     "newHabit": "Obicei nou",
+    "yellowred": "Weak",
+    "greenblue": "Strong",
     "edit": "Modifică",
     "save": "Salvează",
     "addChecklist": "Adaugă listă bife",
@@ -35,9 +38,10 @@
     "dueDate": "Dată limită",
     "remaining": "Rămase",
     "complete": "Îndeplinite",
-    "due": "Due",
-    "grey": "Grey",
+    "due": "Scadente",
+    "grey": "Gri",
     "rewards": "Recompense",
+    "ingamerewards": "Equipment & Skills",
     "gold": "Aur",
     "silver": "Argint (100 Arginţi = 1 Aur)",
     "newReward": "Răsplată nouă",
@@ -64,5 +68,5 @@
     "sureDelete": "Ești sigur că vrei să ștergi acest țel?",
     "streakCoins": "Bonus de realizare în șir!",
     "pushTaskToTop": "Urcă sarcina în vârf",
-    "pushTaskToBottom": "Push task to bottom"
+    "pushTaskToBottom": "Trimite sarcina la coadă."
 }

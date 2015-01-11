@@ -2,14 +2,14 @@
     "settings": "Ustawienia",
     "language": "Język",
     "americanEnglishGovern": "W przypadku niezgodności tłumaczeń, za prawidłową należy uznać wersję angielską (USA).",
-    "helpWithTranslation": "Chciałbyś pomóc tłumaczyć HabitRPG? Świetnie! W takim razie skieruj się <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">tę</a> kartę na Trello.",
+    "helpWithTranslation": "Chciałbyś pomóc w tłumaczeniu HabitRPG? Świetnie! Przejdź do <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">tej</a> karty Trello.",
     "showHeaderPop": "Pokazuje twój awatar, paski Zdrowia/Doświadczenia, oraz drużynę.",
     "stickyHeader": "Przyklejony nagłówek",
     "stickyHeaderPop": "Przytwierdza nagłówek do góry ekranu. Jeśli odznaczysz to pole, będzie się on przesuwał wraz z resztą ekranu.",
     "newTaskEdit": "Otwieraj nowe zadania w trybie edycji",
     "newTaskEditPop": "Po włączeniu tej opcji, nowo utworzone zadania zostaną od razu rozwinięte, abyś mógł dodać takie detale jak notatki czy tagi.",
-    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
-    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
+    "dailyDueDefaultView": "Ustaw Codzienne domyślnie na zakładkę 'dzisiejsze'",
+    "dailyDueDefaultViewPop": "Po włączeniu, Codzienne będą domyślnie na zakładce 'dzisiejsze' zamiast 'wszystkie'",
     "startCollapsed": "Lista tagów w zadaniach startuje zwinięta",
     "startCollapsedPop": "Jeśli ta opcja jest włączona, lista tagów w zadaniach będzie ukryta, gdy po raz pierwszy otworzysz zadanie do edycji.",
     "startAdvCollapsed": "Zaawansowane Opcje w zadaniach startują zwinięte",
@@ -69,5 +69,6 @@
     "fillAll": "Proszę, wypełnij wszystkie pola",
     "passSuccess": "Hasło zostało pomyślnie zmienione",
     "usernameSuccess": "Nazwa użytkownika została pomyślnie zmieniona",
-    "difficulty": "Trudność"
+    "data": "Dane",
+    "exportData": "Eksport danych"
 }

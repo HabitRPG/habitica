@@ -17,7 +17,7 @@ t = (string, vars) ->
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory']
+gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
@@ -26,18 +26,24 @@ events =
   summer: {start:'2014-06-20',end:'2014-08-01'}
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
+  winter2015: {start:'2014-12-21',end:'2015-01-31'}
 
-mystery =
-  201402: {start:'2014-02-22',end:'2014-02-28'}
-  201403: {start:'2014-03-24',end:'2014-04-01'}
-  201404: {start:'2014-04-24',end:'2014-05-01'}
-  201405: {start:'2014-05-21',end:'2014-06-01'}
-  201406: {start:'2014-06-23',end:'2014-07-01'}
-  201407: {start:'2014-07-23',end:'2014-08-01'}
-  201408: {start:'2014-08-23',end:'2014-09-01'}
-  201409: {start:'2014-09-24',end:'2014-10-01'}
-  201410: {start:'2014-10-24',end:'2014-11-01'}
+api.mystery =
+  201402: {start:'2014-02-22',end:'2014-02-28', text:'Winged Messenger Set'}
+  201403: {start:'2014-03-24',end:'2014-04-02', text:'Forest Walker Set'}
+  201404: {start:'2014-04-24',end:'2014-05-02', text:'Twilight Butterfly Set'}
+  201405: {start:'2014-05-21',end:'2014-06-02', text:'Flame Wielder Set'}
+  201406: {start:'2014-06-23',end:'2014-07-02', text:'Octomage Set'}
+  201407: {start:'2014-07-23',end:'2014-08-02', text:'Undersea Explorer Set'}
+  201408: {start:'2014-08-23',end:'2014-09-02', text:'Sun Sorcerer Set'}
+  201409: {start:'2014-09-24',end:'2014-10-02', text:'Autumn Strider Item Set'}
+  201410: {start:'2014-10-24',end:'2014-11-02', text:'Winged Goblin Set'}
+  201411: {start:'2014-11-24',end:'2014-12-02', text:'Feast and Fun Set'}
+  201412: {start:'2014-12-25',end:'2015-01-02', text:'Penguin Set'}
+  301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
+  301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
+_.each api.mystery, (v,k)->v.key = k
 
 gear =
   weapon:
@@ -88,7 +94,7 @@ gear =
       0: text: t('weaponSpecial0Text'), notes: t('weaponSpecial0Notes', {str: 20}), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: t('weaponSpecial1Text'), notes: t('weaponSpecial1Notes', {attrs: 6}), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
       2: text: t('weaponSpecial2Text'), notes: t('weaponSpecial2Notes', {attrs: 25}), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
-      3: text: t('weaponSpecial3Text'), notes: t('weaponSpecial3Notes', {attrs: 17}), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      3: text: t('weaponSpecial3Text'), notes: t('weaponSpecial3Notes', {attrs: 17}), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_3?)
       critical: text: t('weaponSpecialCriticalText'), notes: t('weaponSpecialCriticalNotes', {attrs: 40}), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
       # Winter event gear
       yeti:       event: events.winter, specialClass: 'warrior', text: t('weaponSpecialYetiText'), notes: t('weaponSpecialYetiNotes', {str: 15}), str: 15, value:90
@@ -110,6 +116,14 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('weaponSpecialFallWarriorText'), notes: t('weaponSpecialFallWarriorNotes', {str: 15}), value: 90, str: 15
       fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
+      # Winter 2015
+      winter2015Rogue:  event: events.winter2015, specialClass: 'rogue', text: t('weaponSpecialWinter2015RogueText'), notes: t('weaponSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('weaponSpecialWinter2015WarriorText'), notes: t('weaponSpecialWinter2015WarriorNotes', {str: 15}), value: 90, str: 15
+      winter2015Mage:     event: events.winter2015, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialWinter2015MageText'), notes: t('weaponSpecialWinter2015MageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('weaponSpecialWinter2015HealerText'), notes: t('weaponSpecialWinter2015HealerNotes', {int: 9}), value: 90, int: 9
+    mystery:
+      201411: text: t('weaponMystery201411Text'), notes: t('weaponMystery201411Notes'), mystery:'201411', value: 0
+      301404: text: t('weaponMystery301404Text'), notes: t('weaponMystery301404Notes'), mystery:'301404', value: 0
 
   armor:
     base:
@@ -148,7 +162,7 @@ gear =
       2: text: t('armorSpecial2Text'), notes: t('armorSpecial2Notes', {attrs: 25}), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300 or u.items.gear.owned.armor_special_2?)
       #Winter event
       yeti:       event: events.winter, specialClass: 'warrior', text: t('armorSpecialYetiText'), notes: t('armorSpecialYetiNotes', {con: 9}), con: 9, value:90
-      ski:        event: events.winter, specialClass: 'rogue', text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiText', {per: 15}), per: 15, value:90
+      ski:        event: events.winter, specialClass: 'rogue', text: t('armorSpecialSkiText'), notes: t('armorSpecialSkiNotes', {per: 15}), per: 15, value:90
       candycane:  event: events.winter, specialClass: 'wizard', text: t('armorSpecialCandycaneText'), notes: t('armorSpecialCandycaneNotes', {int: 9}), int: 9, value:90
       snowflake:  event: events.winter, specialClass: 'healer', text: t('armorSpecialSnowflakeText'), notes: t('armorSpecialSnowflakeNotes', {con: 15}), con: 15, value:90
       birthday:   event: events.birthday, text: t('armorSpecialBirthdayText'), notes: t('armorSpecialBirthdayNotes'), value: 0
@@ -167,17 +181,24 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('armorSpecialFallWarriorText'), notes: t('armorSpecialFallWarriorNotes', {con: 9}), value: 90, con: 9
       fallMage:     event: events.fall, specialClass: 'wizard',    text: t('armorSpecialFallMageText'), notes: t('armorSpecialFallMageNotes', {int: 9}), value: 90, int: 9
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('armorSpecialFallHealerText'), notes: t('armorSpecialFallHealerNotes', {con: 15}), value: 90, con: 15
+      # Winter 2015
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('armorSpecialWinter2015RogueText'), notes: t('armorSpecialWinter2015RogueNotes', {per: 15}), value: 90, per: 15
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('armorSpecialWinter2015WarriorText'), notes: t('armorSpecialWinter2015WarriorNotes', {con: 9}), value: 90, con: 9
+      winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('armorSpecialWinter2015MageText'), notes: t('armorSpecialWinter2015MageNotes', {int: 9}), value: 90, int: 9
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('armorSpecialWinter2015HealerText'), notes: t('armorSpecialWinter2015HealerNotes', {con: 15}), value: 90, con: 15
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
-      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:mystery['201402'], value: 0
-      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:mystery['201403'], value: 0
-      201405: text: t('armorMystery201405Text'), notes: t('armorMystery201405Notes'), mystery:mystery['201405'], value: 0
-      201406: text: t('armorMystery201406Text'), notes: t('armorMystery201406Notes'), mystery:mystery['201406'], value: 0
-      201407: text: t('armorMystery201407Text'), notes: t('armorMystery201407Notes'), mystery:mystery['201407'], value: 0
-      201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:mystery['201408'], value: 0
-      201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:mystery['201409'], value: 0
-      201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:mystery['201410'], value: 0
+      201402: text: t('armorMystery201402Text'), notes: t('armorMystery201402Notes'), mystery:'201402', value: 0
+      201403: text: t('armorMystery201403Text'), notes: t('armorMystery201403Notes'), mystery:'201403', value: 0
+      201405: text: t('armorMystery201405Text'), notes: t('armorMystery201405Notes'), mystery:'201405', value: 0
+      201406: text: t('armorMystery201406Text'), notes: t('armorMystery201406Notes'), mystery:'201406', value: 0
+      201407: text: t('armorMystery201407Text'), notes: t('armorMystery201407Notes'), mystery:'201407', value: 0
+      201408: text: t('armorMystery201408Text'), notes: t('armorMystery201408Notes'), mystery:'201408', value: 0
+      201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:'201409', value: 0
+      201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:'201410', value: 0
+      201412: text: t('armorMystery201412Text'), notes: t('armorMystery201412Notes'), mystery:'201412', value: 0
+      301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
 
   head:
     base:
@@ -235,14 +256,24 @@ gear =
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('headSpecialFallWarriorText'), notes: t('headSpecialFallWarriorNotes', {str: 9}),value: 60,str: 9
       fallMage:     event: events.fall, specialClass: 'wizard',    text: t('headSpecialFallMageText'), notes: t('headSpecialFallMageNotes', {per: 7}),value: 60,per: 7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('headSpecialFallHealerText'), notes: t('headSpecialFallHealerNotes', {int: 7}), value: 60, int: 7
+      # Winter 2015
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('headSpecialWinter2015RogueText'), notes: t('headSpecialWinter2015RogueNotes', {per: 9}),value: 60,per: 9
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('headSpecialWinter2015WarriorText'), notes: t('headSpecialWinter2015WarriorNotes', {str: 9}),value: 60,str: 9
+      winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('headSpecialWinter2015MageText'), notes: t('headSpecialWinter2015MageNotes', {per: 7}),value: 60,per: 7
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('headSpecialWinter2015HealerText'), notes: t('headSpecialWinter2015HealerNotes', {int: 7}), value: 60, int: 7
+      nye2014:      text: t('headSpecialNye2014Text'), notes: t('headSpecialNye2014Notes'), value: 0, canOwn: ((u)-> u.items.gear.owned.head_special_nye2014?)
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
-      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 0
-      201405: text: t('headMystery201405Text'), notes: t('headMystery201405Notes'), mystery:mystery['201405'], value: 0
-      201406: text: t('headMystery201406Text'), notes: t('headMystery201406Notes'), mystery:mystery['201406'], value: 0
-      201407: text: t('headMystery201407Text'), notes: t('headMystery201407Notes'), mystery:mystery['201407'], value: 0
-      201408: text: t('headMystery201408Text'), notes: t('headMystery201408Notes'), mystery:mystery['201408'], value: 0
+      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:'201402', value: 0
+      201405: text: t('headMystery201405Text'), notes: t('headMystery201405Notes'), mystery:'201405', value: 0
+      201406: text: t('headMystery201406Text'), notes: t('headMystery201406Notes'), mystery:'201406', value: 0
+      201407: text: t('headMystery201407Text'), notes: t('headMystery201407Notes'), mystery:'201407', value: 0
+      201408: text: t('headMystery201408Text'), notes: t('headMystery201408Notes'), mystery:'201408', value: 0
+      201411: text: t('headMystery201411Text'), notes: t('headMystery201411Notes'), mystery:'201411', value: 0
+      201412: text: t('headMystery201412Text'), notes: t('headMystery201412Notes'), mystery:'201412', value: 0
+      301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
+      301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
 
   shield:
     base:
@@ -275,6 +306,7 @@ gear =
     special:
       0: text: t('shieldSpecial0Text'), notes: t('shieldSpecial0Notes', {per: 20}), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: t('shieldSpecial1Text'), notes: t('shieldSpecial1Notes', {attrs: 6}), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
+      goldenknight: text: t('shieldSpecialGoldenknightText'), notes: t('shieldSpecialGoldenknightNotes', {attrs: 25}), con: 25, per: 25, value:200, canOwn: ((u)-> u.items.gear.owned.shield_special_goldenknight?)
       #Winter event
       yeti:       event: events.winter, specialClass: 'warrior', text: t('shieldSpecialYetiText'), notes: t('shieldSpecialYetiNotes', {con: 7}), con: 7, value: 70
       ski:        event: events.winter, specialClass: 'rogue', text: t('weaponSpecialSkiText'), notes: t('weaponSpecialSkiNotes', {str: 8}), str: 8, value: 90
@@ -291,25 +323,31 @@ gear =
       fallRogue:    event: events.fall, specialClass: 'rogue',   text: t('shieldSpecialFallRogueText'), notes: t('shieldSpecialFallRogueNotes', {str: 8}), value: 80, str: 8
       fallWarrior:  event: events.fall, specialClass: 'warrior', text: t('shieldSpecialFallWarriorText'), notes: t('shieldSpecialFallWarriorNotes', {con: 7}), value: 70, con: 7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('shieldSpecialFallHealerText'), notes: t('shieldSpecialFallHealerNotes', {con: 9}), value: 70, con: 9
+      # Winter 2015
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('shieldSpecialWinter2015RogueText'), notes: t('shieldSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
+      winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('shieldSpecialWinter2015WarriorText'), notes: t('shieldSpecialWinter2015WarriorNotes', {con: 7}), value: 70, con: 7
+      winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('shieldSpecialWinter2015HealerText'), notes: t('shieldSpecialWinter2015HealerNotes', {con: 9}), value: 70, con: 9
+    mystery:
+      301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:'301405', value: 0
 
   back:
     base:
       0: text: t('backBase0Text'), notes: t('backBase0Notes'), value:0
     mystery:
-      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 0
-      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:mystery['201404'], value: 0
-      201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:mystery['201410'], value: 0
+      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:'201402', value: 0
+      201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:'201404', value: 0
+      201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
     special:
-      wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:mystery.wondercon
-      wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0,   mystery:mystery.wondercon
+      wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
+      wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
 
   body:
     base:
       0: text: t('bodyBase0Text'), notes:t('bodyBase0Notes'), value:0
     special:
-      wondercon_red: text: t('bodySpecialWonderconRedText'), notes: t('bodySpecialWonderconRedNotes'), value: 0,      mystery:mystery.wondercon
-      wondercon_gold: text: t('bodySpecialWonderconGoldText'), notes: t('bodySpecialWonderconGoldNotes'), value: 0,   mystery:mystery.wondercon
-      wondercon_black: text: t('bodySpecialWonderconBlackText'), notes: t('bodySpecialWonderconBlackNotes'), value: 0,  mystery:mystery.wondercon
+      wondercon_red: text: t('bodySpecialWonderconRedText'), notes: t('bodySpecialWonderconRedNotes'), value: 0,        mystery:'wondercon'
+      wondercon_gold: text: t('bodySpecialWonderconGoldText'), notes: t('bodySpecialWonderconGoldNotes'), value: 0,     mystery:'wondercon'
+      wondercon_black: text: t('bodySpecialWonderconBlackText'), notes: t('bodySpecialWonderconBlackNotes'), value: 0,  mystery:'wondercon'
       # Summer
       summerHealer:   event: events.summer, specialClass: 'healer',  text: t('bodySpecialSummerHealerText'), notes: t('bodySpecialSummerHealerNotes'), value: 20
       summerMage:     event: events.summer, specialClass: 'wizard',  text: t('bodySpecialSummerMageText'), notes: t('bodySpecialSummerMageNotes'), value: 20
@@ -323,16 +361,25 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
-      wondercon_red: text: t('headAccessorySpecialWonderconRedText'), notes: t('headAccessorySpecialWonderconRedNotes'), value: 0,           mystery:mystery.wondercon
-      wondercon_black: text: t('headAccessorySpecialWonderconBlackText'), notes: t('headAccessorySpecialWonderconBlackNotes'), value: 0, mystery:mystery.wondercon
-      #Summer
-      summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('headAccessorySpecialSummerRogueText'), notes: t('headAccessorySpecialSummerRogueNotes'), value: 20
-      summerWarrior: event: events.summer, specialClass: 'warrior', text: t('headAccessorySpecialSummerWarriorText'), notes: t('headAccessorySpecialSummerWarriorNotes'), value: 20
       
     mystery:
-      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:mystery['201403'], value: 0
-      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:mystery['201404'], value: 0
-      201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:mystery['201409'], value: 0
+      201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
+      201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
+      201409: text: t('headAccessoryMystery201409Text'), notes: t('headAccessoryMystery201409Notes'), mystery:'201409', value: 0
+      301405: text: t('headAccessoryMystery301405Text'), notes: t('headAccessoryMystery301405Notes'), mystery:'301405', value: 0
+
+  eyewear:
+    base:
+      0: text: t('eyewearBase0Text'), notes: t('eyewearBase0Notes'), value: 0, last: true
+    special:
+      wondercon_red: text: t('eyewearSpecialWonderconRedText'), notes: t('eyewearSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
+      wondercon_black: text: t('eyewearSpecialWonderconBlackText'), notes: t('eyewearSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
+      #Summer
+      summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('eyewearSpecialSummerRogueText'), notes: t('eyewearSpecialSummerRogueNotes'), value: 20
+      summerWarrior: event: events.summer, specialClass: 'warrior', text: t('eyewearSpecialSummerWarriorText'), notes: t('eyewearSpecialSummerWarriorNotes'), value: 20
+    mystery:
+      301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
+      301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
@@ -362,6 +409,17 @@ _.each gearTypes, (type) ->
         item.canOwn = (u)-> u.items.gear.owned[key]?
 
       api.gear.flat[key] = item
+
+###
+  Time Traveler Store, mystery sets need their items mapped in
+###
+_.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
+api.timeTravelerStore = (owned) ->
+  ownedKeys = _.keys owned.toObject?() or owned # mongoose workaround
+  _.reduce api.mystery, (m,v,k)->
+    return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
+    m[k] = v;m
+  , {}
 
 ###
   ---------------------------------------------------------------
@@ -427,7 +485,7 @@ api.spells =
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
+        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30)
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -470,7 +528,7 @@ api.spells =
       notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
-        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2)
     defensiveStance:
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
@@ -592,7 +650,7 @@ api.spells =
     snowball:
       text: t('spellSpecialSnowballAuraText')
       mana: 0
-      value: 1
+      value: 15
       target: 'user'
       notes: t('spellSpecialSnowballAuraNotes')
       cast: (user, target) ->
@@ -605,6 +663,7 @@ api.spells =
       text: t('spellSpecialSaltText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialSaltNotes')
       cast: (user, target) ->
@@ -627,11 +686,34 @@ api.spells =
       text: t('spellSpecialOpaquePotionText')
       mana: 0
       value: 5
+      immediateUse: true
       target: 'self'
       notes: t('spellSpecialOpaquePotionNotes')
       cast: (user, target) ->
         user.stats.buffs.spookDust = false
         user.stats.gp -= 5
+
+    nye:
+      text: t('nyeCard')
+      mana: 0
+      value: 10
+      immediateUse: true
+      target: 'user'
+      notes: t('nyeCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.nye ?= 0
+          user.achievements.nye++
+        else
+          _.each [user,target], (t)->
+            t.achievements.nye ?= 0
+            t.achievements.nye++
+        if !target.items.special.nyeReceived
+          target.items.special.nyeReceived = []
+        target.items.special.nyeReceived.push user.profile.name
+
+        target.markModified? 'items.special.nyeReceived'
+        user.stats.gp -= 10
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
@@ -682,6 +764,8 @@ api.questEggs =
   Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
   Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: false
   Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
+  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
+  Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -702,11 +786,14 @@ api.specialPets =
   'BearCub-Polar':      'polarBearPup'
   'MantisShrimp-Base':  'mantisShrimp'
   'JackOLantern-Base':  'jackolantern'
+  'Mammoth-Base':       'mammoth'
 
 api.specialMounts =
   'BearCub-Polar':	'polarBear'
   'LionCub-Ethereal':	'etherealLion'
   'MantisShrimp-Base':	'mantisShrimp'
+  'Turkey-Base': 'turkey'
+  'Mammoth-Base': 'mammoth'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -730,19 +817,18 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
     m2[egg.key + "-" + pot.key] = true
 
-#TODO after the fall event, set Base set to canBuy:true (or remove, since it's default) and set Fall set to canBuy:false
 api.food =
   # Base
-  Meat:                 canBuy:true, canDrop:false, text: t('foodMeat'), target: 'Base', article: ''
-  Milk:                 canBuy:true, canDrop:false, text: t('foodMilk'), target: 'White', article: ''
-  Potatoe:              canBuy:true, canDrop:false, text: t('foodPotatoe'), target: 'Desert', article: 'a '
-  Strawberry:           canBuy:true, canDrop:false, text: t('foodStrawberry'), target: 'Red', article: 'a '
-  Chocolate:            canBuy:true, canDrop:false, text: t('foodChocolate'), target: 'Shade', article: ''
-  Fish:                 canBuy:true, canDrop:false, text: t('foodFish'), target: 'Skeleton', article: 'a '
-  RottenMeat:           canBuy:true, canDrop:false, text: t('foodRottenMeat'), target: 'Zombie', article: ''
-  CottonCandyPink:      canBuy:true, canDrop:false, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:      canBuy:true, canDrop:false, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Honey:                canBuy:true, canDrop:false, text: t('foodHoney'), target: 'Golden', article: ''
+  Meat:                 canBuy:true, canDrop:true, text: t('foodMeat'), target: 'Base', article: ''
+  Milk:                 canBuy:true, canDrop:true, text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:              canBuy:true, canDrop:true, text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:           canBuy:true, canDrop:true, text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:            canBuy:true, canDrop:true, text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:                 canBuy:true, canDrop:true, text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:           canBuy:true, canDrop:true, text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:      canBuy:true, canDrop:true, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:      canBuy:true, canDrop:true, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Honey:                canBuy:true, canDrop:true, text: t('foodHoney'), target: 'Golden', article: ''
 
   Saddle:               canBuy:true, canDrop:false, text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 
@@ -759,16 +845,16 @@ api.food =
   Cake_Red:             canBuy:false, canDrop:false, text: t('foodCakeRed'), target: 'Red', article: ''
 
   # Fall
-  Candy_Skeleton:        canBuy:true, canDrop:true, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
-  Candy_Base:            canBuy:true, canDrop:true, text: t('foodCandyBase'), target: 'Base', article: ''
-  Candy_CottonCandyBlue: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Candy_CottonCandyPink: canBuy:true, canDrop:true, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Candy_Shade:           canBuy:true, canDrop:true, text: t('foodCandyShade'), target: 'Shade', article: ''
-  Candy_White:           canBuy:true, canDrop:true, text: t('foodCandyWhite'), target: 'White', article: ''
-  Candy_Golden:          canBuy:true, canDrop:true, text: t('foodCandyGolden'), target: 'Golden', article: ''
-  Candy_Zombie:          canBuy:true, canDrop:true, text: t('foodCandyZombie'), target: 'Zombie', article: ''
-  Candy_Desert:          canBuy:true, canDrop:true, text: t('foodCandyDesert'), target: 'Desert', article: ''
-  Candy_Red:             canBuy:true, canDrop:true, text: t('foodCandyRed'), target: 'Red', article: ''
+  Candy_Skeleton:        canBuy:false, canDrop:false, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
+  Candy_Base:            canBuy:false, canDrop:false, text: t('foodCandyBase'), target: 'Base', article: ''
+  Candy_CottonCandyBlue: canBuy:false, canDrop:false, text: t('foodCandyCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Candy_CottonCandyPink: canBuy:false, canDrop:false, text: t('foodCandyCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Candy_Shade:           canBuy:false, canDrop:false, text: t('foodCandyShade'), target: 'Shade', article: ''
+  Candy_White:           canBuy:false, canDrop:false, text: t('foodCandyWhite'), target: 'White', article: ''
+  Candy_Golden:          canBuy:false, canDrop:false, text: t('foodCandyGolden'), target: 'Golden', article: ''
+  Candy_Zombie:          canBuy:false, canDrop:false, text: t('foodCandyZombie'), target: 'Zombie', article: ''
+  Candy_Desert:          canBuy:false, canDrop:false, text: t('foodCandyDesert'), target: 'Desert', article: ''
+  Candy_Red:             canBuy:false, canDrop:false, text: t('foodCandyRed'), target: 'Red', article: ''
 
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: t('foodNotes')}
@@ -801,6 +887,45 @@ api.quests =
       items: [
         {type: 'pets', key: 'MantisShrimp-Base', text: t('questDilatoryDropMantisShrimpPet')}
         {type: 'mounts', key: 'MantisShrimp-Base', text: t('questDilatoryDropMantisShrimpMount')}
+
+        {type: 'food', key: 'Meat', text: t('foodMeat')}
+        {type: 'food', key: 'Milk', text: t('foodMilk')}
+        {type: 'food', key: 'Potatoe', text: t('foodPotatoe')}
+        {type: 'food', key: 'Strawberry', text: t('foodStrawberry')}
+        {type: 'food', key: 'Chocolate', text: t('foodChocolate')}
+        {type: 'food', key: 'Fish', text: t('foodFish')}
+        {type: 'food', key: 'RottenMeat', text: t('foodRottenMeat')}
+        {type: 'food', key: 'CottonCandyPink', text: t('foodCottonCandyPink')}
+        {type: 'food', key: 'CottonCandyBlue', text: t('foodCottonCandyBlue')}
+        {type: 'food', key: 'Honey', text: t('foodHoney')}
+      ]
+      gp: 0
+      exp: 0
+
+  stressbeast:
+    text: t("questStressbeastText")
+    notes: t("questStressbeastNotes")
+    completion: t("questStressbeastCompletion")
+    completionChat: t("questStressbeastCompletionChat")
+    value: 0
+    canBuy: false
+    boss:
+      name: t("questStressbeastBoss")
+      hp: 2750000
+      str: 1
+      def: 1
+      rage:
+        title: t("questStressbeastBossRageTitle")
+        description: t("questStressbeastBossRageDescription")
+        value: 1450000
+
+        stables:t('questStressbeastBossRageStables')
+        bailey:t('questStressbeastBossRageBailey')
+        guide:t('questStressbeastBossRageGuide')
+    drop:
+      items: [
+        {type: 'pets', key: 'Mammoth-Base', text: t('questStressbeastDropMammothPet')}
+        {type: 'mounts', key: 'Mammoth-Base', text: t('questStressbeastDropMammothMount')}
 
         {type: 'food', key: 'Meat', text: t('foodMeat')}
         {type: 'food', key: 'Milk', text: t('foodMilk')}
@@ -1196,6 +1321,108 @@ api.quests =
       gp: 900
       exp: 1500
 
+  goldenknight1:
+    text: t('questGoldenknight1Text')
+    notes: t('questGoldenknight1Notes')
+    value: 4
+    lvl: 40
+    collect:
+      testimony: text: t('questGoldenknight1CollectTestimony'), count: 300
+    drop:
+      items: [
+        {type: 'quests', key: "goldenknight2", text: t('questGoldenknight1DropGoldenknight2Quest')}
+      ]
+      gp: 15
+      exp: 120
+  goldenknight2:
+    text: t('questGoldenknight2Text')
+    notes: t('questGoldenknight2Notes')
+    value: 4
+    previous: 'goldenknight1'
+    lvl: 45
+    boss:
+      name: t('questGoldenknight2Boss')
+      hp: 1000
+      str: 3
+    drop:
+      items: [
+        {type: 'quests', key: 'goldenknight3', text: t('questGoldenknight2DropGoldenknight3Quest')}
+      ]
+      gp: 75
+      exp: 750
+  goldenknight3:
+    text: t('questGoldenknight3Text')
+    notes: t('questGoldenknight3Notes')
+    completion: t('questGoldenknight3Completion')
+    previous: 'goldenknight2'
+    value: 4
+    lvl: 50
+    boss:
+      name: t('questGoldenknight3Boss')
+      hp: 1700
+      str: 3.5
+    drop:
+      items: [
+        {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
+        {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
+        {type: 'food', key: 'Honey', text: t('questGoldenknight3DropHoney')}
+        {type: 'hatchingPotions', key: 'Golden', text: t('questGoldenknight3DropGoldenPotion')}
+        {type: 'hatchingPotions', key: 'Golden', text: t('questGoldenknight3DropGoldenPotion')}
+        {type: 'gear', key: 'shield_special_goldenknight', text: t('questGoldenknight3DropWeapon')}
+      ]
+      gp: 900
+      exp: 1500
+
+  basilist:
+    text: t('questBasilistText')
+    notes: t('questBasilistNotes')
+    completion: t('questBasilistCompletion')
+    canBuy: false
+    value: 4
+    boss:
+      name: t('questBasilistBoss')
+      hp: 100
+      str: 0.5
+    drop:
+      gp: 8
+      exp: 42
+
+  owl:
+    text: t('questOwlText')
+    notes: t('questOwlNotes')
+    completion: t('questOwlCompletion')
+    value: 4
+    boss:
+      name: t('questOwlBoss')
+      hp: 500
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Owl', text: t('questOwlDropOwlEgg')}
+        {type: 'eggs', key: 'Owl', text: t('questOwlDropOwlEgg')}
+        {type: 'eggs', key: 'Owl', text: t('questOwlDropOwlEgg')}
+      ]
+      gp: 37
+      exp: 275
+
+  penguin:
+    text: t('questPenguinText')
+    notes: t('questPenguinNotes')
+    completion: t('questPenguinCompletion')
+    value: 4
+    boss:
+      name: t('questPenguinBoss')
+      hp: 400
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Penguin', text: t('questPenguinDropPenguinEgg')}
+        {type: 'eggs', key: 'Penguin', text: t('questPenguinDropPenguinEgg')}
+        {type: 'eggs', key: 'Penguin', text: t('questPenguinDropPenguinEgg')}
+      ]
+      gp: 31
+      exp: 200
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss
@@ -1255,6 +1482,44 @@ api.backgrounds =
     pumpkin_patch:
       text:  t('backgroundPumpkinPatchText')
       notes: t('backgroundPumpkinPatchNotes')
+  backgrounds112014:
+    harvest_feast:
+      text:  t('backgroundHarvestFeastText')
+      notes: t('backgroundHarvestFeastNotes')
+    sunset_meadow:
+      text:  t('backgroundSunsetMeadowText')
+      notes: t('backgroundSunsetMeadowNotes')
+    starry_skies:
+      text:  t('backgroundStarrySkiesText')
+      notes: t('backgroundStarrySkiesNotes')
+  backgrounds122014:
+    iceberg:
+      text:  t('backgroundIcebergText')
+      notes: t('backgroundIcebergNotes')
+    twinkly_lights:
+      text:  t('backgroundTwinklyLightsText')
+      notes: t('backgroundTwinklyLightsNotes')
+    south_pole:
+      text:  t('backgroundSouthPoleText')
+      notes: t('backgroundSouthPoleNotes')
+  backgrounds012015:
+    ice_cave:
+      text: t('backgroundIceCaveText')
+      notes: t('backgroundIceCaveNotes')
+    frigid_peak:
+      text: t('backgroundFrigidPeakText')
+      notes: t('backgroundFrigidPeakNotes')
+    snowy_pines:
+      text: t('backgroundSnowyPinesText')
+      notes: t('backgroundSnowyPinesNotes')
+
+api.subscriptionBlocks =
+  basic_earned: months:1, price:5
+  basic_3mo: months:3, price:15
+  basic_6mo: months:6, price:30
+  google_6mo: months:6, price:24, discount:true, original:30
+  basic_12mo: months:12, price:48
+_.each api.subscriptionBlocks, (b,k)->b.key = k
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =

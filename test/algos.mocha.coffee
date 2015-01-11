@@ -56,6 +56,9 @@ expectStrings = (obj, paths) ->
   _.each paths, (path) -> expect(obj[path]).to.be.ok()
 
 # options.daysAgo: days ago when the last cron was executed
+# cronAfterStart: moves the lastCron to be after the dayStart.
+#  This way the daysAgo works as expected if the test case
+#  makes the assumption that the lastCron was after dayStart.
 beforeAfter = (options={}) ->
   user = newUser()
   [before, after] = [user, _.cloneDeep(user)]
@@ -66,7 +69,9 @@ beforeAfter = (options={}) ->
   if options.limitOne
     before["#{options.limitOne}s"] = [before["#{options.limitOne}s"][0]]
     after["#{options.limitOne}s"] = [after["#{options.limitOne}s"][0]]
-  lastCron = +(moment(options.now || +new Date).subtract('days', options.daysAgo)) if options.daysAgo
+  lastCron = moment(options.now || +new Date).subtract( {days:options.daysAgo} ) if options.daysAgo
+  lastCron.add( {hours:options.dayStart, minutes:1} ) if options.daysAgo and options.cronAfterStart
+  lastCron = +lastCron if options.daysAgo
   _.each [before,after], (obj) ->
     obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
@@ -156,7 +161,7 @@ describe 'User', ->
     user = newUser()
     user.dailys = []
     _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
-    cron = -> user.lastCron = moment().subtract('days',1);user.fns.cron()
+    cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
 
     cron()
     expect(user.stats.buffs.str).to.be 0
@@ -173,7 +178,7 @@ describe 'User', ->
     expect(user.achievements.perfect).to.be 1
 
     # Handle greyed-out dailys
-    yesterday = moment().subtract('days',1);
+    yesterday = moment().subtract(1,'days');
     user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
     _.each user.dailys[1..], (d)->d.completed = true
     cron()
@@ -185,7 +190,7 @@ describe 'User', ->
     user = undefined
     it 'revives correctly', ->
       user = newUser()
-      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
+      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 0, class: 'warrior' }
       user.ops.revive()
       expect(user).toHaveGP 0
       expect(user).toHaveExp 0
@@ -196,15 +201,22 @@ describe 'User', ->
     it "doesn't break unbreakables", ->
       ce = shared.countExists
       user = newUser()
+      # breakables (includes default weapon_warrior_0):
+      user.items.gear.owned['shield_warrior_1'] = true
+      # unbreakables because off-class or 0 value:
       user.items.gear.owned['shield_rogue_1'] = true
       user.items.gear.owned['head_special_nye'] = true
-      expect(ce user.items.gear.owned).to.be 3
+      expect(ce user.items.gear.owned).to.be 4
+      user.stats.hp = 0
+      user.ops.revive()
+      expect(ce(user.items.gear.owned)).to.be 3
+      user.stats.hp = 0
       user.ops.revive()
       expect(ce(user.items.gear.owned)).to.be 2
+      user.stats.hp = 0
       user.ops.revive()
-      expect(ce(user.items.gear.owned)).to.be 1
-      user.ops.revive()
-      expect(ce(user.items.gear.owned)).to.be 0
+      expect(ce(user.items.gear.owned)).to.be 2
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: false, shield_warrior_1: false, shield_rogue_1: true, head_special_nye: true }
 
     it "handles event items", ->
       shared.content.gear.flat.head_special_nye.event.start = '2012-01-01'
@@ -213,8 +225,8 @@ describe 'User', ->
       delete user.items.gear.owned['head_special_nye']
       expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be false
 
-      shared.content.gear.flat.head_special_nye.event.start = moment().subtract('days',5)
-      shared.content.gear.flat.head_special_nye.event.end = moment().add('days',5)
+      shared.content.gear.flat.head_special_nye.event.start = moment().subtract(5,'days')
+      shared.content.gear.flat.head_special_nye.event.end = moment().add(5,'days')
       expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be true
 
 
@@ -316,7 +328,8 @@ describe 'User', ->
         expect(quest.value).to.be.greaterThan 0 if quest.canBuy
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
-        expect(quest.drop.items).to.be.an(Array)
+        if quest.drop.items
+          expect(quest.drop.items).to.be.an(Array)
         if quest.boss
           expect(quest.boss.name()).to.be.an('string')
           expect(quest.boss.hp).to.be.greaterThan 0
@@ -406,7 +419,7 @@ describe 'Cron', ->
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.not.be.ok # it setup the cron property now
 
-    user.lastCron = +moment().subtract('days',1)
+    user.lastCron = +moment().subtract(1,'days')
     
     # this is hacky but should fix things for the moment
     user.flags.freeRebirth = true
@@ -414,7 +427,7 @@ describe 'Cron', ->
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.be.greaterThan 0
 
-#    user.lastCron = +moment().add('days',1)
+#    user.lastCron = +moment().add(1,'days')
 #    paths = {};algos.cron user, {paths}
 #    expect(paths.lastCron).to.be true # busted cron (was set to after today's date)
 
@@ -509,6 +522,68 @@ describe 'Cron', ->
       expect(after.todos[0].value).to.be.lessThan before.todos[0].value
       expect(after.history.todos).to.have.length 1
 
+  # I used hard-coded dates here instead of 'now' so the tests don't fail
+  #  when you run them between midnight and dayStart. Nothing worse than
+  #  intermittent failures.
+  describe 'cron day calculations', ->
+    dayStart = 4
+    fstr = "YYYY-MM-DD HH:mm:ss"
+
+    it 'startOfDay before dayStart', ->
+      # If the time is before dayStart, then we expect the start of the day to be yesterday at dayStart
+      start = shared.startOfDay {now: moment('2014-10-09 02:30:00'), dayStart}
+      expect(start.format(fstr)).to.eql '2014-10-08 04:00:00'
+
+    it 'startOfDay after dayStart', ->
+      # If the time is after dayStart, then we expect the start of the day to be today at dayStart
+      start = shared.startOfDay {now: moment('2014-10-09 05:30:00'), dayStart}
+      expect(start.format(fstr)).to.eql '2014-10-09 04:00:00'
+
+    it 'daysSince cron before, now after', ->
+      # If the lastCron was before dayStart, then a time on the same day after dayStart
+      #  should be 1 day later than lastCron
+      lastCron = moment('2014-10-09 02:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 11:30:00'), dayStart})
+      expect(days).to.eql 1
+
+    it 'daysSince cron before, now before', ->
+      # If the lastCron was before dayStart, then a time on the same day also before dayStart
+      #  should be 0 days later than lastCron
+      lastCron = moment('2014-10-09 02:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 03:30:00'), dayStart})
+      expect(days).to.eql 0
+
+    it 'daysSince cron after, now after', ->
+      # If the lastCron was after dayStart, then a time on the same day also after dayStart
+      #  should be 0 days later than lastCron
+      lastCron = moment('2014-10-09 05:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 06:30:00'), dayStart})
+      expect(days).to.eql 0
+
+    it 'daysSince cron after, now tomorrow before', ->
+      # If the lastCron was after dayStart, then a time on the following day but before dayStart
+      #  should be 0 days later than lastCron
+      lastCron = moment('2014-10-09 12:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-10 01:30:00'), dayStart})
+      expect(days).to.eql 0
+
+    it 'daysSince cron after, now tomorrow after', ->
+      # If the lastCron was after dayStart, then a time on the following day and after dayStart
+      #  should be 1 day later than lastCron
+      lastCron = moment('2014-10-09 12:30:00')
+      days = shared.daysSince(lastCron, {now: moment('2014-10-10 10:30:00'), dayStart})
+      expect(days).to.eql 1    
+
+    it 'daysSince, last cron before new dayStart', ->
+      # If lastCron was after dayStart (at 1am) with dayStart set at 0, changing dayStart to 4am
+      #  should not trigger another cron the same day
+
+      # dayStart is 0
+      lastCron = moment('2014-10-09 01:00:00')
+      # dayStart is 4
+      days = shared.daysSince(lastCron, {now: moment('2014-10-09 05:00:00'), dayStart})
+      expect(days).to.eql 0
+
   describe 'dailies', ->
 
     describe 'new day', ->
@@ -521,8 +596,8 @@ describe 'Cron', ->
       
       runCron = (options) ->
         _.each [480, 240, 0, -120], (timezoneOffset) -> # test different timezones
-          now = shared.startOfWeek({timezoneOffset}).add('hours', options.currentHour||0)
-          {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
+          now = shared.startOfWeek({timezoneOffset}).add(options.currentHour||0, 'hours')
+          {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, cronAfterStart:options.cronAfterStart||true, dayStart:options.dayStart||0, limitOne:'daily'})
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
@@ -536,11 +611,14 @@ describe 'Cron', ->
             when 'noDamage' then expectDayResetNoDamage(before,after)
           {before,after}
 
+      # These test cases were written assuming that lastCron was run after dayStart
+      #  even if currentHour < dayStart and lastCron = yesterday at currentHour.
+      #  cronAfterStart makes sure that lastCron is moved to be after dayStart.
       cronMatrix =
         steps:
 
           'due yesterday':
-            defaults: {daysAgo:1, limitOne: 'daily'}
+            defaults: {daysAgo:1, cronAfterStart:true, limitOne: 'daily'}
             steps:
 
               '(simple)': {expect:'losePoints'}
@@ -591,15 +669,8 @@ describe 'Cron', ->
           it "#{options.text}", -> runCron(_.defaults(obj,options))
       recurseCronMatrix(cronMatrix)
 
-    it 'calculates day differences with dayStart properly', ->
-      dayStart = 4
-      yesterday = shared.startOfDay {now: moment().subtract('d', 1), dayStart}
-      now = shared.startOfDay {dayStart: dayStart-1}
-      expect(shared.daysSince(yesterday, {now, dayStart})).to.eql 0
-      now = moment().startOf('day').add('h', dayStart).add('m', 1)
-      expect(shared.daysSince(yesterday, {now, dayStart})).to.eql 1
-
 describe 'Helper', ->
+
   it 'calculates gold coins', ->
     expect(shared.gold(10)).to.eql 10
     expect(shared.gold(1.957)).to.eql 1
@@ -618,9 +689,15 @@ describe 'Helper', ->
     expect(shared.tnl 99).to.eql 3580
 
   it 'calculates the start of the day', ->
-    expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
-    expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
-    expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    fstr = 'YYYY-MM-DD HH:mm:ss'
+    today = '2013-01-01 00:00:00'
+    # get the timezone for the day, so the test case doesn't fail
+    #  if you run it during daylight savings time because by default
+    #  it uses moment().zone() which is the current minute offset
+    zone = moment(today).zone()
+    expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}, timezoneOffset:zone).format(fstr)).to.eql today
+    expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}, timezoneOffset:zone).format(fstr)).to.eql today
+    expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59), timezoneOffset:zone}).format(fstr)).to.eql today
 
   it 'counts pets', ->
     pets = {}

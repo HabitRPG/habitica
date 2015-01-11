@@ -2,14 +2,14 @@
     "settings": "Setări",
     "language": "Limbă",
     "americanEnglishGovern": "În cazul unei neînţelegeri în textul traducerii, versiunea originală Engleza Americană prevalează.",
-    "helpWithTranslation": "Doreşti să ajuţi la traducerea HabitRPG-ului? PErfect! Atunci vizitează <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\"> această </a> informaţie Trello.",
+    "helpWithTranslation": "Would you like to help with the translation of HabitRPG? Great! Then visit <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">this</a> Trello card.",
     "showHeaderPop": "Arată avatarul tău, nivelul de Sănătate/Experiență și echipa.",
     "stickyHeader": "Antet lipit",
     "stickyHeaderPop": "Lipește antetul în partea de sus a ecranului. Lăsând această opțiune nebifată, antetul se va ascunde.",
     "newTaskEdit": "Deschide tabelul de modificări pentru țelurile noi",
     "newTaskEditPop": "Cu această opțiune activată, țelurile noi vor fi imediat deschise și vei putea adăuga detalii cum ar fi note sau etichete.",
-    "dailyDueDefaultView": "Set Dailies default to 'due' tab",
-    "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
+    "dailyDueDefaultView": "Setează pe \"scadente\" implicit cotidienele",
+    "dailyDueDefaultViewPop": "Cu această setare, cotidienele vor fi implicit \"scadente\" în loc de \"toate\"",
     "startCollapsed": "Lista de etichete ale țelurilor e ascunsă",
     "startCollapsedPop": "Cu această opțiune activată, lista de etichete a unui țel va fi ascunsă atunci când deschizi o sarcină pentru modificare.",
     "startAdvCollapsed": "Opțiunile avansate ale țelurilor sunt ascunse",
@@ -69,5 +69,6 @@
     "fillAll": "Te rog completează toate câmpurile",
     "passSuccess": "Parola a fost schimbată cu succes",
     "usernameSuccess": "Nume de utilizator schimbat cu succes",
-    "difficulty": "Dificultate"
+    "data": "Data",
+    "exportData": "Export Data"
 }

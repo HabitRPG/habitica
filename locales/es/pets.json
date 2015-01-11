@@ -41,12 +41,12 @@
     "mountName": "<%= mount %> <%= potion %>",
     "petKeyName": "Llave de la caseta",
     "petKeyPop": "Deja a tus mascotas vagar libremente, suéltalas para que comienzan su propia aventura y vuelve a sentir la emoción de ser el Maestro de Bestias una vez más.",
-    "petKeyBegin": "Key to the Kennels: Experience Beastmaster Once More!",
-    "petKeyInfo": "Love your pets enough to let them go, and have drops feel meaningful again.",
-    "petKeyInfo2": "The Key to the Kennels resets all of your non-quest pets back to as if you'd never found them. Once you've used it, you'll be able to stack the Beastmaster achievement, showing off how many times you've been able to best the RNG.",
-    "petKeyInfo3": "There are two sets of Keys: you can either just release your pets for four gems or your pets and mounts for eight gems. If you're still working towards getting all of the mounts, you may not want to give them their freedom yet!",
+    "petKeyBegin": "La Llave de las Perreras: Experiencia  Maestro de la Bestias Una Vez Mas!",
+    "petKeyInfo": "Ama suficiente a tus mascotas como para dejarlas ir, y que así los botines vuelvan a tener significado.",
+    "petKeyInfo2": "La Llave de la caseta reinicializa todas las mascotas que no fueron conseguidas en misiones como si nunca las hubieras encontrado. Cuando la hayas usado, podrás amontonar el logro Maestro de la bestias mostrando cuantas veces has podido vencer el RNG.",
+    "petKeyInfo3": "Hay dos juegos de Llaves: puedes liberar o bien solo a tus mascotas por cuatro gemas o bien a tus mascotas y monturas por ocho gemas. Si todavía estas trabajando para conseguir todas las monturas, ¡quizás no quieras darles su libertad todavía!",
     "petKeyPets": "Soltar mis mascotas",
     "petKeyMounts": "Soltar ambas por favor",
     "petKeyNeverMind": "Aún no",
-    "gemsEach": "gems each"
+    "gemsEach": "gemas cada uno"
 }

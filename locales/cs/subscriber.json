@@ -60,5 +60,16 @@
     "checkout": "Zaplatit",
     "buySubsText": "Nakupuj drahokamy za zlaťáky, bez reklam, podpoř vývojáře",
     "sureCancelSub": "Jsi si jistý, že chceš zrušit předplatné? ",
-    "subCanceled": "Předplatné bude zrušeno ke dni"
+    "subCanceled": "Předplatné bude neaktivní od",
+    "subGemPop": "Jakožto předplatitel HabitRPG si můžeš koupit drahokamy za zlaťáky. V koutku ikonu drahokamu uvidíš, kolik drahokamů si můžeš koupit.",
+    "subGemName": "Drahokamy předplatitele",
+    "timeTravelers": "Cestovatelé časem",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> a <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "Záhadní cestovatelé časem",
+    "timeTravelersPopoverNoSub": "Potřebuješ mystické přesýpací hodiny abys svolal záhadné cestovatele časem! <%= linkStart %>Předplatitelé<%= linkEnd %>  dostanou jedny mystické přesýpací hodiny za každé tři měsíce nepřetržitého předplaceného období. Vrať se až budeš mít mystické přesýpací hodiny a cestovatelé časem ti přinesou set předmětů pro předplatitele z minulosti.... anebo i z budoucnosti.",
+    "timeTravelersPopover": "Vidíme, že máš mystické přesýpací hodiny, tak pro Tebe rádi budeme cestovat časem! Prosím, vyber si záhadný set předmětů, který se ti líbí. Můžeš si vybrat z minulých setů <%= linkStart %>tady<%= linkEnd %>! Pokud se ti nelíbí, možná by sis vybral z našich trendy futuristických setů Steampunk předmětů?",
+    "mysticHourglassPopover": "Mystické přesýpací hodiny ti umožní koupit si sety pro předplatitele z předchozích měsíců.",
+    "subUpdateCard": "Karta s aktualizacemi",
+    "subUpdateTitle": "Aktualizace",
+    "subUpdateDescription": "Aktualizuj kartu, aby se nabila."
 }

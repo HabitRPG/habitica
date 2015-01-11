@@ -57,7 +57,7 @@
     "partySysText": "¡Socializa, únete a un equipo y juega Habit con tus amigos! Mejorarás tus hábitos con compañeros de responsabilidad. Haz clic en Usuario  -> Opciones -> Equipo, y sigue las instrucciones. ¿Vamos?",
     "classGear": "Equipo de clase",
     "classGearText": "Primero: ¡No se preocupe! Tu equipamiento viejo está en tu inventario, y ahora llevas puesto tu equipamiento de aprendiz de <strong><%= klass %></strong>.  Vestir del equipamiento de tu clase le da un aumento de 50% a tus estadísticas. Sin embargo, siéntete libre de cambiar de equipamiento cuando quieras.",
-    "classStats": "Estas son las estadísticas de tu clase, afectan el estilo de juego. Cada vez que subes de nivel, recibirás un punto para asignar a una estadística particular. Flote sobre cada estadística para más información.",
+    "classStats": "Estas son las estadísticas de tu clase y afectan el estilo de juego. Cada vez que subes de nivel, recibirás un punto para asignar a una estadística particular. Flote sobre cada estadística para más información.",
     "autoAllocate": "Asignación automática",
     "autoAllocateText": "Si 'asignación automática' esta seleccionada, tu avatar gana estadísticas automáticamente basándose en los atributos de tus tareas, los cuales puedes encontrar en <strong>TAREA > Revisar > Avanzado > Atributos</strong>. Ej, si vas de menudo al gimnasio, y tu Diaria 'Gym' esta en 'Físico', ganarás Fuerza automáticamente.",
     "spells": "Hechizos",

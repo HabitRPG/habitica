@@ -45,6 +45,7 @@
     "passMan": "Pokud používáš správce hesel ( jako 1Password) a máš problémy se přihlásit, zkus napsat uživatelské jméno a heslo ručně.",
     "forgotPass": "Zapoměl jsem heslo",
     "emailNewPass": "Poslat nové heslo na e-mail",
+    "invalidEmail": "Aby mohlo proběhnout resetování hesla, musí být zadán platný email.",
     "email": "Email",
     "passConfirm": "Potvrdit heslo",
     "accept1Terms": "Kliknutím na následující tlačítko souhlasím s",

@@ -57,7 +57,7 @@
     "partySysText": "Sii socievole, unisciti a una squadra a gioca ad Habit con i tuoi amici! Migliorerai le tue abitudini se avrai dei compagni fidati. Clicca su Utente -> Opzioni -> Squadra, e segui le istruzioni. Qualcuno cerca un gruppo?",
     "classGear": "Equipaggiamento per Classi",
     "classGearText": "Per prima cosa: non preoccuparti! Il tuo vecchio equipaggiamento è nel tuo inventario, ora stai indossando quello da <strong><%= klass %></strong> apprendista. Indossare un equipaggiamento apposito per la tua classe conferisce un bonus del 50% alle tue statistiche. In ogni caso, sentiti libero di tornare al tuo vecchio equipaggiamento.",
-    "classStats": "Questi sono gli attributi relativi alla tua Classe, influiscono sul gameplay. Ogni volta che aumenti di livello, ti viene dato un punto da assegnare ad un determinato attributo. Posiziona il cursore su ognuno di essi per avere informazioni aggiuntive.",
+    "classStats": "Queste sono le tue statistiche di classe; influenzano l'andamento del gioco. Ogni volta che sali di livello, ottieni un punto da assegnare ad una particolare statistica. Passa il cursore su ogni statistica per maggiori informazioni.",
     "autoAllocate": "Assegnazione automatica dei punti",
     "autoAllocateText": "Se l'opzione \"allocazione automatica\" è selezionata, il tuo avatar guadagna automaticamente statistiche basate sugli attributi delle attività che completi, che puoi trovare in <strong>ATTIVITA' > Modifica > Avanzate > Attributi</strong>. Per esempio, se vai spesso in palestra, e la tua Daily \"Palestra\" è impostata sull'attributo \"Fisico\", guadagnerai Forza automaticamente.",
     "spells": "Incantesimi",

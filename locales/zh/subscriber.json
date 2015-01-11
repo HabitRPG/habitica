@@ -60,5 +60,16 @@
     "checkout": "结帐",
     "buySubsText": "用金币购买宝石、消除广告、支持制作人",
     "sureCancelSub": "你确定你要取消订阅吗？",
-    "subCanceled": "订阅被取消了，将失效于"
+    "subCanceled": "订阅将失效于",
+    "subGemPop": "因为你订阅了habitrpg，所以你每个月都可以用金币购买一些宝石。你能在右上角的图标看到可购买多少宝石。",
+    "subGemName": "订阅者的宝石",
+    "timeTravelers": "时间旅行者",
+    "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> 和 <%= linkStartVicky %>Vicky<%= linkEnd %>",
+    "timeTravelersTitle": "神秘的时间旅行者",
+    "timeTravelersPopoverNoSub": "你需要一个神秘的沙漏召唤神秘的时间旅行者！<%= linkStart %>订阅者<%= linkEnd %>用户每连续订阅三个月后会获得一个神秘沙漏。回来的时候你会有一个神秘沙漏，并且时间旅行者会从过去…甚至未来给你一个订阅者物品列表。",
+    "timeTravelersPopover": "我们看到你有一种神秘的沙漏，所以等我们将愉快地旅行回来的时候！请选择一样你喜欢神秘物品。你可以看到一个名单，过去的物品列表在<%= linkStart %>这里<%= linkEnd %>！如果这些都不能满足你，也许你会有兴趣在我们的时尚未来感的蒸汽朋克物品套装呢？ ",
+    "mysticHourglassPopover": "神秘沙漏允许你购买以前几个月的订阅者套装。",
+    "subUpdateCard": "更新卡",
+    "subUpdateTitle": "更新",
+    "subUpdateDescription": "更新收费卡。"
 }
