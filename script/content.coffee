@@ -542,7 +542,7 @@ api.spells =
       cast: (user, target) ->
         bonus = user._statsComputed.con
         user.stats.buffs.con ?= 0
-        user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 20, 200))
+        user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200))
 
     valorousPresence:
       text: t('spellWarriorValorousPresenceText')
@@ -566,7 +566,7 @@ api.spells =
         _.each target, (member) ->
           bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus,12,200))
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus,24,200))
 
   rogue:
     pickPocket:
@@ -633,7 +633,7 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
+          target.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40))
     protectAura:
       text: t('spellHealerProtectAuraText')
       mana: 30
@@ -644,7 +644,7 @@ api.spells =
         _.each target, (member) ->
           bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 100, 200))
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200))
     heallAll:
       text: t('spellHealerHealAllText')
       mana: 25
