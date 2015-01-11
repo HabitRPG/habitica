@@ -30,3 +30,35 @@
 // Hide visually and from screenreaders, but maintain layout
 .invisible
   visibility: hidden
+
+.transparent
+  opacity: 0.5
+
+// Allow block element to be centered
+.col-centered 
+  margin-left: auto
+  margin-right: auto
+
+// .pull-right & .pull-left for specific screen sizes
+// Follows conventions for col-x-SIZE classes
+
+@media (min-width: 768px) 
+  .pull-left-sm
+    float: left
+
+  .pull-right-sm
+    float: right
+
+@media (min-width: 992px) 
+  .pull-left-md
+    float: left
+
+  .pull-right-md
+    float: right
+
+@media (min-width: 1200px) 
+  .pull-left-lg
+    float: left
+
+  .pull-right-lg
+    float: right

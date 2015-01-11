@@ -40,13 +40,13 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
     hr
 
   .well(bindonce='challenge', ng-if='challenge.description')
-    markdown(ng-model='challenge.description')
+    markdown(text='challenge.description')
   .modal-body=env.t('challengeDiscription')
   habitrpg-tasks(obj='challenge', main=false)
 
   // Member List
   div(bindonce='challenge', ng-if='challenge.members.length > 0')
-    a.btn.btn-primary.btn-sm.pull-right(href='/api/v2/challenges/{{challenge._id}}/csv')
+    a.btn.btn-primary.btn-sm.pull-right(ng-href='/api/v2/challenges/{{challenge._id}}/csv')
       =env.t('exportChallengeCSV')
     h3=env.t('hows')
     menu
@@ -66,30 +66,31 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 script(type='text/ng-template', id='partials/options.social.challenges.html')
   .container-fluid
     .row
-      .col-md-2.well#challenges-filters
-        h3=env.t('filter') + ':'
-        h4=env.t('groups')
-        ul.list-unstyled
-          a.btn.btn-xs.btn-default.pull-left(ng-click='selectAll()')=env.t('all')
-          a.btn.btn-xs.btn-default(ng-click='selectNone()')=env.t('none')
-        br
-        .checkbox(ng-repeat='group in groupsFilter')
-          label
-            input(type='checkbox', ng-model='search.group[group._id]')
-            | {{group.name}}
-        h4=env.t('membership')
-        .radio
-          label
-            input(type='radio', name='search-participation-radio', ng-click='search._isMember = true')
-            =env.t('participating')
-        .radio
-          label
-            input(type='radio', name='search-participation-radio', ng-click='search._isMember = false')
-            =env.t('notParticipating')
-        .radio
-          label
-            input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
-            =env.t('either')
+      .col-md-2
+        .well#challenges-filters
+          h3=env.t('filter') + ':'
+          h4=env.t('groups')
+          ul.list-unstyled
+            a.btn.btn-xs.btn-default.pull-left(ng-click='selectAll()')=env.t('all')
+            a.btn.btn-xs.btn-default(ng-click='selectNone()')=env.t('none')
+          br
+          .checkbox(ng-repeat='group in groupsFilter')
+            label
+              input(type='checkbox', ng-model='search.group[group._id]')
+              | {{group.name}}
+          h4=env.t('membership')
+          .radio
+            label
+              input(type='radio', name='search-participation-radio', ng-click='search._isMember = true')
+              =env.t('participating')
+          .radio
+            label
+              input(type='radio', name='search-participation-radio', ng-click='search._isMember = false')
+              =env.t('notParticipating')
+          .radio
+            label
+              input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
+              =env.t('either')
       .col-md-10
         // Creation form
         button.btn.btn-success#create-challenge-btn(ng-click='create()', ng-hide='newChallenge')=env.t('createChallenge')
@@ -138,7 +139,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
           .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges track by challenge._id ')
             .panel-heading
               ul.pull-right.challenge-accordion-header-specs
-                li.transparent(ng-if='challenge.official')
+                li.bg-transparent(ng-if='challenge.official')
                   span.label.label-success=env.t('officialChallenge')
                 li {{challenge.group.name}}
                 li
@@ -154,7 +155,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     span.inline-block.Pet_Currency_Gem1x
                     | &nbsp;
                     =env.t('prize')
-                li.transparent
+                li.bg-transparent
                   // leave / join
                   a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
                     span.glyphicon.glyphicon-ban-circle

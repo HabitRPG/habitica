@@ -13,6 +13,8 @@ angular.module('groupServices', ['ngResource']).
             //query: {method: "GET", isArray:false},
             postChat: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat'},
             deleteChatMessage: {method: "DELETE", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat/:messageId'},
+            flagChatMessage: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat/:messageId/flag'},
+            clearFlagCount: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat/:messageId/clearflags'},
             join: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/join'},
             leave: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/leave'},
             invite: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/invite'},

@@ -1,32 +1,103 @@
-script(type='text/ng-template', id='modals/member.html')  
-  .modal-header(bindonce='profile')
+script(type='text/ng-template', id='modals/member.html')
+  .modal-header
     h4
-      span {{profile.profile.name}}
-      span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
-  .modal-body(bindonce='profile')
+      span {{::profile.profile.name}}
+      span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
+  .modal-body
     .container-fluid
       .row
         .col-md-6
-          img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-          ul.muted.list-unstyled(ng-if='profile.auth.timestamps')
+          img(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
+          markdown(ng-show='::profile.profile.blurb', text='::profile.profile.blurb')
+          ul.muted.list-unstyled(ng-if='::profile.auth.timestamps')
             li {{profile._id}}
-            li(ng-show='profile.auth.timestamps.created')
+            li(ng-show='::profile.auth.timestamps.created')
               |&nbsp;
               =env.t('memberSince')
               |&nbsp;
-              | {{timestamp(profile.auth.timestamps.created)}} -
-            li(ng-show='profile.auth.timestamps.loggedin')
+              | {{::profile.auth.timestamps.created | date:user.preferences.dateFormat}} -
+            li(ng-show='::profile.auth.timestamps.loggedin')
               |&nbsp;
               =env.t('lastLoggedIn')
               |&nbsp;
-              | {{timestamp(profile.auth.timestamps.loggedin)}} -
+              | {{::profile.auth.timestamps.loggedin | date:user.preferences.dateFormat}} -
           h3=env.t('stats')
-          .label.label-info {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
+          .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
-          +herobox()
-          h3=env.t('achievements')
-          include ../profiles/achievements
+          .row
+            +herobox()
+          .row
+            h3=env.t('achievements')
+            include ../profiles/achievements
   .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('ok')
+    .btn-group.pull-left(ng-if='::user')
+      button.btn.btn-md.btn-default(ng-show='user.inbox.blocks | contains:profile._id', tooltip=env.t('unblock'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-plus
+      button.btn.btn-md.btn-default(ng-hide='profile._id == user._id || user.inbox.blocks | contains:profile._id', tooltip=env.t('block'), ng-click="user.ops.blockUser({params:{uuid:profile._id}})", tooltip-placement='right')
+        span.glyphicon.glyphicon-ban-circle
+      button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-envelope
+      button.btn.btn-md.btn-default(tooltip="Send Gift", ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+        span.glyphicon.glyphicon-gift
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+
+script(type='text/ng-template', id='modals/private-message.html')
+  .modal-header
+    h4=env.t('pmHeading', {name: "{{profile.profile.name}}"})
+  .modal-body
+    textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',ng-model='_message')
+  .modal-footer
+    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+
+script(type='text/ng-template', id='modals/send-gift.html')
+  .modal-header
+    h4 Send Gift to {{::profile.profile.name}}
+  .modal-body
+    .panel.panel-default(class="{{gift.type=='gems' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="gems"')
+      .panel-heading
+        .pull-right
+          span(ng-show='gift.gems.fromBalance') From {{user.balance*4}} Gems
+          span(ng-hide='gift.gems.fromBalance') Total: ${{gift.gems.amount/4}} USD
+        | Gems
+      .panel-body
+        .row
+          .col-md-6
+            .form-group
+              input.form-control(type='number', placeholder='Number of Gems', min='0', max='{{gift.gems.fromBalance ? user.balance*4 : ""}}', ng-model='gift.gems.amount')
+          .col-md-6
+            .btn-group
+              a.btn.btn-default(ng-class="{active:gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=true") From Balance
+              a.btn.btn-default(ng-class="{active:!gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=false") Purchase
+
+    .panel.panel-default(class="{{gift.type=='subscription' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="subscription"')
+      .panel-heading Subscription
+      .panel-body
+        .form-group
+          .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"')
+            label
+              input(type="radio", name="subRadio", ng-value="block.key", ng-model='gift.subscription.key')
+              | {{block.months}} Month(s): ${{block.price}}
+
+    textarea.form-control(rows='3', ng-model='gift.message', placeholder='Personal message (optional)')
+
+  .modal-footer
+    - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
+    button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id, gift)')=env.t("send")
+    a.btn.btn-primary(ng-hide=fromBal, ng-click='Payments.showStripe({gift:gift, uuid:profile._id})')=env.t('card')
+    a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::user.apiToken}}&gift={{Payments.encodeGift(profile._id, gift)}}') PayPal
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+
+script(type='text/ng-template', id='modals/abuse-flag.html')
+  .modal-header
+    h4!=env.t('abuseFlagModalHeading', {name: "<span class='text-danger'>{{profile.profile.name}}</span>"})
+  .modal-body
+    blockquote
+      markdown(text="abuseObject.text")
+    p!=env.t('abuseFlagModalBody', {firstLinkStart: "<a href='/static/community-guidelines' target='_blank'>", secondLinkStart: "<a href='/static/terms' target='_blank'>", linkEnd: "</a>"})
+  .modal-footer
+    button.pull-left.btn.btn-danger(ng-click='clearFlagCount(abuseObject, groupId)', ng-if='user.contributor.admin && abuseObject.flagCount >= 2')
+      | Reset Flag Count
+    button.btn.btn-primary(ng-click='$close()')=env.t('cancel')
+    button.btn.btn-default(ng-click='reportAbuse(user, abuseObject, groupId)')=env.t("abuseFlagModalButton")

@@ -11,8 +11,8 @@ var thingsOfInterest = {
         'data_path': 'items.gear.owned',
         'identifyOwnershipWith': 'exists',
         'items': [
-            'headAccessory_special_wondercon_red',
-            'headAccessory_special_wondercon_black',
+            'eyewear_special_wondercon_red',
+            'eyewear_special_wondercon_black',
             'back_special_wondercon_black',
             'back_special_wondercon_red',
             'body_special_wondercon_red',
@@ -161,7 +161,7 @@ All users found.
 CSV DATA:
 
 "Unconventional Armor ownership"
-"date","back_special_wondercon_black","back_special_wondercon_red","body_special_wondercon_black","body_special_wondercon_gold","body_special_wondercon_red","headAccessory_special_wondercon_black","headAccessory_special_wondercon_red"
+"date","back_special_wondercon_black","back_special_wondercon_red","body_special_wondercon_black","body_special_wondercon_gold","body_special_wondercon_red","eyewear_special_wondercon_black","eyewear_special_wondercon_red"
 "2014-09-01","7","7","7","7","7","7","9"
 
 "Spooky Skins purchases"
@@ -179,8 +179,8 @@ Unconventional Armor ownership:
     body_special_wondercon_black: 7
     body_special_wondercon_gold: 7
     body_special_wondercon_red: 7
-    headAccessory_special_wondercon_black: 7
-    headAccessory_special_wondercon_red: 9
+    eyewear_special_wondercon_black: 7
+    eyewear_special_wondercon_red: 9
 
 Spooky Skins purchases:
     ghost: 2

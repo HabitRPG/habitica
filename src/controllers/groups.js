@@ -7,10 +7,12 @@ function clone(a) {
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
+var utils = require('./../utils');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 
 /*
@@ -19,7 +21,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
+var partyFields = api.partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
@@ -42,15 +44,6 @@ var populateQuery = function(type, q){
     options: {sort: {official: -1, timestamp: -1}}
   });
   return q;
-}
-
-
-api.getMember = function(req, res, next) {
-  User.findById(req.params.uid).select(partyFields).exec(function(err, user){
-    if (err) return next(err);
-    if (!user) return res.json(400,{err:'User not found'});
-    res.json(user);
-  })
 }
 
 /**
@@ -196,7 +189,7 @@ api.update = function(req, res, next) {
   if(group.leader !== user._id)
     return res.json(401, {err: "Only the group leader can update the group!"});
 
-  'name description logo logo leaderMessage leader'.split(' ').forEach(function(attr){
+  'name description logo logo leaderMessage leader leaderOnly'.split(' ').forEach(function(attr){
     group[attr] = req.body[attr];
   });
 
@@ -265,6 +258,82 @@ api.deleteChatMessage = function(req, res, next){
   });
 }
 
+api.flagChatMessage = function(req, res, next){
+  var user = res.locals.user
+  var group = res.locals.group;
+  var message = _.find(group.chat, {id: req.params.mid});
+
+  if(!message) return res.json(404, {err: "Message not found!"});
+  if(message.uuid == user._id) return res.json(401, {err: "Can't report your own message."});
+
+  User.findOne({_id: message.uuid}, {auth: 1}, function(err, author){
+    if(err) return next(err);
+
+    // Log user ids that have flagged the message
+    if(!message.flags) message.flags = {};
+    if(message.flags[user._id] && !user.contributor.admin) return res.json(401, {err: "You have already reported this message"});
+    message.flags[user._id] = true;
+
+    // Log total number of flags (publicly viewable)
+    if(!message.flagCount) message.flagCount = 0;
+    if(user.contributor.admin){
+      // Arbitraty amount, higher than 2
+      message.flagCount = 5;
+    } else {
+      message.flagCount++
+    }
+
+    group.markModified('chat');
+    group.save(function(err,_saved){
+      if(err) return next(err);
+      if (isProd){
+        utils.txnEmail({email: nconf.get('FLAG_REPORT_EMAIL')}, 'flag-report-to-mods', [
+          {name: "MESSAGE_TIME", content: (new Date(message.timestamp)).toString()},
+          {name: "MESSAGE_TEXT", content: message.text},
+
+          {name: "REPORTER_USERNAME", content: user.profile.name},
+          {name: "REPORTER_UUID", content: user._id},
+          {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
+          {name: "REPORTER_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + user._id},
+
+          {name: "AUTHOR_USERNAME", content: message.user},
+          {name: "AUTHOR_UUID", content: message.uuid},
+          {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
+          {name: "AUTHOR_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + message.uuid},
+
+          {name: "GROUP_NAME", content: group.name},
+          {name: "GROUP_TYPE", content: group.type},
+          {name: "GROUP_ID", content: group._id},
+          {name: "GROUP_URL", content: group._id == 'habitrpg' ? (nconf.get('BASE_URL') + '/#/options/groups/tavern') : (group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party')},
+        ]);
+      }
+      return res.send(204);
+    });
+  });
+
+}
+
+api.clearFlagCount = function(req, res, next){
+  var user = res.locals.user
+  var group = res.locals.group;
+  var message = _.find(group.chat, {id: req.params.mid});
+
+  if(!message) return res.json(404, {err: "Message not found!"});
+
+  if(user.contributor.admin){
+    message.flagCount = 0;
+
+    group.markModified('chat');
+    group.save(function(err,_saved){
+      if(err) return next(err);
+      return res.send(204);
+    });
+  }else{
+    return res.json(401, {err: "Only an admin can clear the flag count!"})
+  }
+  
+}
+
 api.seenMessage = function(req,res,next){
   // Skip the auth step, we want this to be fast. If !found with uuid/token, then it just doesn't save
   // Check for req.params.gid to exist
@@ -300,7 +369,8 @@ api.join = function(req, res, next) {
     group = res.locals.group;
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
-    user.invitations.party = undefined;
+    User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
+    user.invitations.party = undefined; // Clear invite
     user.save();
     // invite new user to pending quest
     if (group.quest.key && !group.quest.active) {
@@ -439,10 +509,10 @@ api.invite = function(req, res, next) {
 
     function sendInvite (){
       if(group.type === 'guild'){
-        invite.invitations.guilds.push({id: group._id, name: group.name});
+        invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
       }else{
         //req.body.type in 'guild', 'party'
-        invite.invitations.party = {id: group._id, name: group.name}
+        invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
       }
 
       group.invites.push(invite._id);

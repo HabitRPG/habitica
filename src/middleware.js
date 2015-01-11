@@ -12,6 +12,7 @@ var shared = require('habitrpg-shared');
 var request = require('request');
 var os = require('os');
 var moment = require('moment');
+var utils = require('./utils');
 
 module.exports.apiThrottle = function(app) {
   if (nconf.get('NODE_ENV') !== 'production') return;
@@ -74,6 +75,13 @@ module.exports.errorHandler = function(err, req, res, next) {
     "\n\nbody: " + JSON.stringify(req.body) +
     (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
   logging.error(stack);
+  logging.loggly({
+    error: "Uncaught error",
+    stack: (err.stack || err.message || err),
+    body: req.body, headers: req.header,
+    auth: (req.headers['x-api-user'] + ' | ' + req.headers['x-api-key']),
+    originalUrl: req.originalUrl
+  });
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.json(500,{err:message}); //res.end(err.message);
@@ -172,12 +180,9 @@ module.exports.locals = function(req, res, next) {
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
   var tavern = require('./models/group').tavern;
-  res.locals.habitrpg = {
-    NODE_ENV: nconf.get('NODE_ENV'),
-    BASE_URL: nconf.get('BASE_URL'),
-    GA_ID: nconf.get("GA_ID"),
+  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY'.split(' '));
+  res.locals.habitrpg = _.merge(envVars, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
     getManifestFiles: getManifestFiles,
     getBuildUrl: getBuildUrl,
     avalaibleLanguages: i18n.avalaibleLanguages,
@@ -192,10 +197,14 @@ module.exports.locals = function(req, res, next) {
     siteVersion: siteVersion,
     Content: shared.content,
     mods: require('./models/user').mods,
-
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
-  }
+  });
+
+  // Put query-string party invitations into session to be handled later
+  try{
+    req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite))
+  } catch(e){}
 
   next();
 }

@@ -7,7 +7,7 @@ var autoinc = require('mongoose-id-autoinc');
 
 var CouponSchema = new mongoose.Schema({
   _id: {type: String, 'default': cc.generate},
-  event: {type:String, enum:['wondercon']},
+  event: {type:String, enum:['wondercon','google_6mo']},
   user: {type: 'String', ref: 'User'}
 });
 
@@ -18,38 +18,34 @@ CouponSchema.statics.generate = function(event, count, callback) {
 }
 
 CouponSchema.statics.apply = function(user, code, next){
-  var _coupon,_user;
-  async.waterfall([
-    function(cb) {
+  async.auto({
+    get_coupon: function (cb) {
       mongoose.model('Coupon').findById(cc.validate(code), cb);
     },
-    function(coupon, cb) {
-      _coupon = coupon;
-      if (!coupon) return cb("Invalid coupon code");
-      if (coupon.user) return cb("Coupon already used");
-      switch (coupon.event) {
+    apply_coupon: ['get_coupon', function (cb, results) {
+      if (!results.get_coupon) return cb("Invalid coupon code");
+      if (results.get_coupon.user) return cb("Coupon already used");
+      switch (results.get_coupon.event) {
         case 'wondercon':
-          user.items.gear.owned.headAccessory_special_wondercon_red     = true;
-          user.items.gear.owned.headAccessory_special_wondercon_black   = true;
-          user.items.gear.owned.back_special_wondercon_black            = true;
-          user.items.gear.owned.back_special_wondercon_red              = true;
-          user.items.gear.owned.body_special_wondercon_red     = true;
-          user.items.gear.owned.body_special_wondercon_black   = true;
-          user.items.gear.owned.body_special_wondercon_gold  = true;
+          user.items.gear.owned.eyewear_special_wondercon_red = true;
+          user.items.gear.owned.eyewear_special_wondercon_black = true;
+          user.items.gear.owned.back_special_wondercon_black = true;
+          user.items.gear.owned.back_special_wondercon_red = true;
+          user.items.gear.owned.body_special_wondercon_red = true;
+          user.items.gear.owned.body_special_wondercon_black = true;
+          user.items.gear.owned.body_special_wondercon_gold = true;
           user.extra = {signupEvent: 'wondercon'};
           user.save(cb);
           break;
       }
-    },
-    function(user, count, cb){
-      _user = user;
-      _coupon.user = user._id;
-      _coupon.save(cb);
-    }
-  ], function(err){
+    }],
+    expire_coupon: ['apply_coupon', function (cb, results) {
+      results.get_coupon.user = user._id;
+      results.get_coupon.save(cb);
+    }]
+  }, function(err, results){
     if (err) return next(err);
-    next(null,_user);
-    _coupon = _user = null;
+    next(null,results.apply_coupon[0]);
   })
 }
 

@@ -31,7 +31,7 @@
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', window.env.GA_ID, 'habitrpg.com');
+        ga('create', window.env.GA_ID, {userId:User.user._id});
         ga('require', 'displayfeatures');
         ga('send', 'pageview');
       }
@@ -39,7 +39,18 @@
       // Scripts only for desktop
       if (!window.env.IS_MOBILE) {
         // Add This
-        $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+        //$.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4"); //FIXME why isn't this working when here? instead it's now in <head>
+        var addthisServices = 'facebook,twitter,googleplus,tumblr,'+window.env.BASE_URL.replace('https://','').replace('http://','');
+        window.addthis_config = {
+          ui_click: true,
+          services_custom:{
+            name: "Download",
+            url: window.env.BASE_URL+"/export/avatar-"+User.user._id+".png",
+            icon: window.env.BASE_URL+"/favicon.ico"
+          },
+          services_expanded:addthisServices,
+          services_compact:addthisServices
+        };
 
         // Google Charts
         $.getScript("//www.google.com/jsapi", function() {
@@ -62,7 +73,7 @@
       }
       $scope.addMissedDay = function(){
         if (!confirm("Are you sure you want to reset the day?")) return;
-        var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
+        var dayBefore = moment(User.user.lastCron).subtract(1, 'days').toDate();
         User.set({'lastCron': dayBefore});
         Notification.text('-1 day, remember to refresh');
       }

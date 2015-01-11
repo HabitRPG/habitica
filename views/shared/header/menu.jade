@@ -25,15 +25,20 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.profile.profile')=env.t('profile')
             ul.toolbar-submenu
               li
+                a(ui-sref='options.social.inbox')
+                  =env.t("inbox")
+                  | &nbsp;
+                  span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
+              li
                 a(ui-sref='options.social.tavern')=env.t('tavern')
               li
                 a(ui-sref='options.social.party')=env.t('party')
               li
-                a(ui-sref='options.social.guilds')=env.t('guilds')
+                a(ui-sref='options.social.guilds.public')=env.t('guilds')
               li
                 a(ui-sref='options.social.challenges')=env.t('challenges')
               li
-                a(ui-sref='options.social.hall')=env.t('hall')
+                a(ui-sref='options.social.hall.heroes')=env.t('hall')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
@@ -43,6 +48,15 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.inventory.mounts')=env.t('mounts')
               li
                 a(ui-sref='options.inventory.equipment')=env.t('equipment')
+              li
+                a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
+              li
+                a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
+            ul.toolbar-submenu
+              li
+                a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+              li
+                a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
               li
                 a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
@@ -83,20 +97,26 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
       li.toolbar-button-dropdown
         a(ui-sref='options.social.tavern')
           span=env.t('social')
+          span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
         a(ng-click='expandMenu("social")', ng-class='{active: _expandedMenu == "social"}')
           span &#9776;
         div(ng-if='_expandedMenu == "social"')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
+              a(ui-sref='options.social.inbox')
+                =env.t("inbox")
+                | &nbsp;
+                span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
+            li
               a(ui-sref='options.social.tavern')=env.t('tavern')
             li
               a(ui-sref='options.social.party')=env.t('party')
             li
-              a(ui-sref='options.social.guilds')=env.t('guilds')
+              a(ui-sref='options.social.guilds.public')=env.t('guilds')
             li
               a(ui-sref='options.social.challenges')=env.t('challenges')
             li
-              a(ui-sref='options.social.hall')=env.t('hall')
+              a(ui-sref='options.social.hall.heroes')=env.t('hall')
       li.toolbar-button-dropdown
         a(ui-sref='options.inventory.drops')
           span=env.t('inventory')
@@ -112,6 +132,21 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(ui-sref='options.inventory.mounts')=env.t('mounts')
             li
               a(ui-sref='options.inventory.equipment')=env.t('equipment')
+            li
+              a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
+            li
+              a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
+      li.toolbar-button-dropdown
+        a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')
+          span=env.t('data')
+        a(ng-click='expandMenu("data")', ng-class='{active: _expandedMenu == "data"}')
+          span  &#9776;
+        div(ng-if='_expandedMenu == "data"')
+          ul.toolbar-submenu(ng-click='expandMenu(null)')
+            li
+              a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+            li
+              a(ui-sref='options.settings.export')=env.t('exportData')
       li.toolbar-button-dropdown
         a(target="_blank" href='http://habitrpg.wikia.com/wiki/')
           span=env.t('help')
@@ -131,6 +166,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
             li
               a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+            li(ng-controller='SettingsCtrl')
+              a(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
@@ -227,4 +264,4 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
         span {{Shared.silver(user.stats.gp)}}
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
-        .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
+        .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})')

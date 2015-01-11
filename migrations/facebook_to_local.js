@@ -1,5 +1,5 @@
 var oldId = "",
-    newId = "",
+    newId = "", 
     newUser = db.users.findOne({_id: newId})
 
 db.users.update({_id: oldId}, {$set:{auth: newUser.auth}});

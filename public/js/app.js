@@ -2,12 +2,11 @@
 
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
-     'authServices', 'notificationServices', 'guideServices', 'authCtrl',
-     'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'pasvaz.bindonce', 'infinite-scroll', 'ui.select2'])
+     'authServices', 'notificationServices', 'guideServices', 'authCtrl', 'paymentServices',
+     'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'infinite-scroll', 'ui.select2', 'angular.filter'])
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
   // temporary hack until they have a better solution
-  .value('$anchorScroll', angular.noop)
 
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
@@ -73,6 +72,11 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social', {
           url: "/groups",
           templateUrl: "partials/options.social.html"
+        })
+
+        .state('options.social.inbox', {
+          url: "/inbox",
+          templateUrl: "partials/options.social.inbox.html"
         })
 
         .state('options.social.tavern', {
@@ -175,6 +179,14 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.inventory.equipment', {
           url: '/equipment',
           templateUrl: "partials/options.inventory.equipment.html"
+        })
+        .state('options.inventory.timetravelers', {
+          url: '/timetravelers',
+          templateUrl: "partials/options.inventory.timetravelers.html"
+        })
+        .state('options.inventory.seasonalshop', {
+          url: '/seasonalshop',
+          templateUrl: "partials/options.inventory.seasonalshop.html"
         })
 
         // Options > Settings

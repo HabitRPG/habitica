@@ -7,26 +7,34 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
-var ga = require('./../utils').ga;
+var utils = require('./../utils');
+var ga = utils.ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
+var qs = require('qs');
+var request = require('request');
+var validator = require('validator');
 
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
-  var language = req.query.language; //|| 'en' in i18n
+  var language = 'en';
+
+  if(typeof req.query.language != 'undefined')
+    language = req.query.language.toString(); //|| 'en' in i18n
+
   var content = _.cloneDeep(shared.content);
-  var walk = function(obj){
+  var walk = function(obj, lang){
     _.each(obj, function(item, key, source){
-      if(_.isPlainObject(item) || _.isArray(item)) return walk(item);
-      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(language);
+      if(_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
+      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
     });
   }
-  walk(content);
+  walk(content, language);
   res.json(content);
 }
 
@@ -105,6 +113,16 @@ api.score = function(req, res, next) {
       delta: delta,
       _tmp: user._tmp
     }, saved.toJSON().stats));
+
+    // Webhooks
+    _.each(user.preferences.webhooks, function(h){
+      if (!h.enabled || !validator.isURL(h.url)) return;
+      request.post({
+        url: h.url,
+        //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
+        body: {direction:direction, task: task, delta: delta, user: _.pick(user, ['_id', 'stats', '_tmp'])}, json:true
+      });
+    });
 
     if (
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
@@ -204,7 +222,7 @@ api.getUser = function(req, res, next) {
  * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
  */
 acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
-  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats'.split(' '), function(root){
+  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats inbox'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });
   if (found) m[leaf]=true;
@@ -243,37 +261,57 @@ api.update = function(req, res, next) {
 };
 
 api.cron = function(req, res, next) {
-  var user = res.locals.user,
-    progress = user.fns.cron(),
-    ranCron = user.isModified(),
-    quest = shared.content.quests[user.party.quest.key];
+  try{
+    var user = res.locals.user,
+      progress = user.fns.cron(),
+      ranCron = user.isModified(),
+      quest = shared.content.quests[user.party.quest.key];
 
+    if (ranCron) res.locals.wasModified = true;
+    if (!ranCron) return next(null,user);
+    Group.tavernBoss(user,progress);
+    if (!quest) return user.save(next);
 
-  if (ranCron) res.locals.wasModified = true;
-  if (!ranCron) return next(null,user);
-  Group.tavernBoss(user,progress);
-  if (!quest) return user.save(next);
+    // FOR DEBUGGING, PLEASE IGNORE
+    var opStatus = null;
 
-  // If user is on a quest, roll for boss & player, or handle collections
-  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
-  async.waterfall([
-    function(cb){
-      user.save(cb); // make sure to save the cron effects
-    },
-    function(saved, count, cb){
-      var type = quest.boss ? 'boss' : 'collect';
-      Group[type+'Quest'](user,progress,cb);
-    },
-    function(){
-      var cb = arguments[arguments.length-1];
-      // User has been updated in boss-grapple, reload
-      User.findById(user._id, cb);
-    }
-  ], function(err, saved) {
-    res.locals.user = saved;
-    next(err,saved);
-    user = progress = quest = null;
-  });
+    // If user is on a quest, roll for boss & player, or handle collections
+    // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+    async.waterfall([
+      function(cb){
+        opStatus = 'saveUser';
+        user.save(cb); // make sure to save the cron effects
+      },
+      function(saved, count, cb){
+        opStatus = 'runQuest';
+        var type = quest.boss ? 'boss' : 'collect';
+        Group[type+'Quest'](user,progress,cb);
+      },
+      function(){
+        var cb = arguments[arguments.length-1];
+        // User has been updated in boss-grapple, reload
+        User.findById(user._id, cb);
+      }
+    ], function(err, saved) {
+      if(err) logging.loggly({
+        error: "Cron caught",
+        stack: (err.stack || err.message || err),
+        body: req.body, headers: req.header,
+        auth: req.headers['x-api-user'],
+        originalUrl: req.originalUrl,
+        opStatus: opStatus
+      });
+      res.locals.user = saved;
+      next(err,saved);
+      user = progress = quest = null;
+    });
+  }catch(e){
+    logging.loggly({
+      error: "Cron uncaught",
+      stack: e.stack || e
+    });
+    throw e;
+  }
 
 };
 
@@ -391,6 +429,51 @@ api.cast = function(req, res, next) {
       ], done);
       break;
   }
+}
+
+/**
+ * POST /user/invite-friends
+ */
+api.inviteFriends = function(req, res, next) {
+  Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
+    if (err) return next(err);
+    var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:party._id, inviter:res.locals.user._id, name:party.name}));
+    _.each(req.body.emails, function(invite){
+      if (invite.email) {
+        var variables = [
+          {name: 'LINK', content: link},
+          {name: 'INVITER', content: req.body.inviter || res.locals.user.profile.name},
+          {name: 'INVITEE', content: invite.name}
+        ];
+        // TODO implement "users can only be invited once"
+        utils.txnEmail(invite, 'invite-friend', variables);
+      }
+    });
+    res.send(200);
+  })
+}
+
+api.sessionPartyInvite = function(req,res,next){
+  if (!req.session.partyInvite) return next();
+  var inv = res.locals.user.invitations;
+  if (inv.party && inv.party.id) return next(); // already invited to a party
+  async.waterfall([
+    function(cb){
+      Group.findOne({_id:req.session.partyInvite.id, type:'party', members:{$in:[req.session.partyInvite.inviter]}})
+      .select('invites members').exec(cb);
+    },
+    function(group, cb){
+      if (!group) return cb("Inviter not in party");
+      inv.party = req.session.partyInvite;
+      delete req.session.partyInvite;
+      if (!~group.invites.indexOf(res.locals.user._id))
+        group.invites.push(res.locals.user._id); //$addToSt
+      group.save(cb);
+    },
+    function(saved, cb){
+      res.locals.user.save(cb);
+    }
+  ], next);
 }
 
 /**

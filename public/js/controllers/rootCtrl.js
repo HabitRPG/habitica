@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrlService', 'Payments',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrlService, Payments) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -16,6 +16,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         if (!!fromState.name) window.ga && ga('send', 'pageview', {page: '/#/'+toState.name});
+        // clear inbox when entering or exiting inbox tab
+        if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
+          User.user.ops.update && User.set({'inbox.newMessages':0});
+        }
       });
 
     $rootScope.User = User;
@@ -29,6 +33,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Math = Math;
     $rootScope.Groups = Groups;
     $rootScope.toJson = angular.toJson;
+    $rootScope.Payments = Payments;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -113,8 +118,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         controller: options.controller, // optional
         scope: options.scope, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
-        backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
-
+        backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
+        size: options.size, // optional, 'sm' or 'lg'
+        windowClass: options.windowClass // optional
       });
     }
 
@@ -132,55 +138,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.dismissErrorOrWarning = function(type, $index){
       $rootScope.flash[type].splice($index, 1);
-    }
-
-    $rootScope.showStripe = function(subscription) {
-      StripeCheckout.open({
-        key: window.env.STRIPE_PUB_KEY,
-        address: false,
-        amount: 500,
-        name: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
-        description: subscription ?
-          window.env.t('buySubsText') :
-          window.env.t('donationDesc'),
-        panelLabel: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
-        token: function(data) {
-          var url = '/stripe/checkout';
-          if (subscription) url += '?plan=basic_earned';
-          $scope.$apply(function(){
-            $http.post(url, data).success(function() {
-              window.location.reload(true);
-            }).error(function(data) {
-              alert(data.err);
-            });
-          })
-        }
-      });
-    }
-
-    $rootScope.showStripeEdit = function(){
-      StripeCheckout.open({
-        key: window.env.STRIPE_PUB_KEY,
-        address: false,
-        name: 'Update',
-        description: 'Update the card to be charged for your subscription',
-        panelLabel: 'Update Card',
-        token: function(data) {
-          var url = '/stripe/subscribe/edit?plan=basic_earned';
-          $scope.$apply(function(){
-            $http.post(url, data).success(function() {
-              window.location.reload(true);
-            }).error(function(data) {
-              alert(data.err);
-            });
-          })
-        }
-      });
-    }
-
-    $rootScope.cancelSubscription = function(){
-      if (!confirm(window.env.t('sureCancelSub'))) return;
-      window.location.href = '/' + user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + user._id + '&apiToken=' + user.apiToken;
     }
 
     $scope.contribText = function(contrib, backer){
@@ -238,6 +195,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castStart = function(spell) {
       if (User.user.stats.mp < spell.mana) return Notification.text(window.env.t('notEnoughMana'));
 
+      if (spell.immediateUse && User.user.stats.gp < spell.value)
+        return Notification.text('Not enough gold.');
+
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
@@ -279,7 +239,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $scope.spell = null;
     }
 
-    // Becuase our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
+    // Because our angular-ui-router uses anchors for urls (/#/options/groups/party), window.location.href=... won't
     // reload the page. Perform manually.
     $rootScope.hardRedirect = function(url){
       window.location.href = url;

@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrlService', 'Guide', '$location', '$timeout', 'Notification',
-  function($scope, User, $rootScope, $http, ApiUrlService, Guide, $location, $timeout, Notification) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrlService', 'Guide', '$location', '$timeout', 'Notification', 'Shared',
+  function($scope, User, $rootScope, $http, ApiUrlService, Guide, $location, $timeout, Notification, Shared) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -64,6 +64,8 @@ habitrpg.controller('SettingsCtrl',
       });
       User.set({'preferences.language': $scope.language.code});
     }
+
+    $scope.availableFormats = ['MM/dd/yyyy','dd/MM/yyyy', 'yyyy/MM/dd'];
 
     $scope.reroll = function(){
       User.user.ops.reroll({});
@@ -161,6 +163,33 @@ habitrpg.controller('SettingsCtrl',
     $scope.release2 = function() {
       User.user.ops.release2({});
       $rootScope.$state.go('tasks');
+    }
+
+    // ---- Webhooks ------
+    $scope._newWebhook = {url:''};
+    $scope.$watch('user.preferences.webhooks',function(webhooks){
+      $scope.hasWebhooks = _.size(webhooks);
+    })
+    $scope.addWebhook = function(url) {
+      User.user.ops.addWebhook({body:{url:url, id:Shared.uuid()}});
+      $scope._newWebhook.url = '';
+    }
+    $scope.saveWebhook = function(id,webhook) {
+      delete webhook._editing;
+      User.user.ops.updateWebhook({params:{id:id}, body:webhook});
+    }
+    $scope.deleteWebhook = function(id) {
+      User.user.ops.deleteWebhook({params:{id:id}});
+    }
+
+    $scope.applyCoupon = function(coupon){
+      $http.get(ApiUrlService.get() + '/api/v2/coupons/valid-discount/'+coupon)
+      .success(function(){
+        Notification.text("Coupon applied!");
+        var subs = $scope.Content.subscriptionBlocks;
+        subs["basic_6mo"].discount = true;
+        subs["google_6mo"].discount = false;
+      });
     }
   }
 ]);

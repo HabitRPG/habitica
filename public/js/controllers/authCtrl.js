@@ -7,24 +7,13 @@
 angular.module('authCtrl', [])
   .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal',
     function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal) {
-      var runAuth;
-      var showedFacebookMessage;
-
-      $scope.useUUID = false;
-      $scope.toggleUUID = function() {
-        if (showedFacebookMessage === false) {
-          alert(window.env.t('untilNoFace'));
-          showedFacebookMessage = true;
-        }
-        $scope.useUUID = !$scope.useUUID;
-      };
 
       $scope.logout = function() {
         localStorage.clear();
         window.location.href = '/logout';
       };
 
-      runAuth = function(id, token) {
+      var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
           $window.location.href = '/';
         });
@@ -59,14 +48,10 @@ angular.module('authCtrl', [])
           username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
           password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
         };
-        if ($scope.useUUID) {
-          runAuth($scope.loginUsername, $scope.loginPassword);
-        } else {
-          $http.post(ApiUrlService.get() + "/api/v2/user/auth/local", data)
-            .success(function(data, status, headers, config) {
-              runAuth(data.id, data.token);
-            }).error(errorAlert);
-        }
+        $http.post(ApiUrlService.get() + "/api/v2/user/auth/local", data)
+          .success(function(data, status, headers, config) {
+            runAuth(data.id, data.token);
+          }).error(errorAlert);
       };
 
       $scope.playButtonClick = function(){
@@ -125,6 +110,23 @@ angular.module('authCtrl', [])
 
       $scope.hasNoNotifications = function() {
         return selectNotificationValue(false, false, false, false, true);
+      }
+
+      // ------ Social ----------
+
+      hello.init({
+        facebook : window.env.FACEBOOK_KEY,
+      });
+
+      $scope.socialLogin = function(network){
+        hello(network).login({scope:'email'}).then(function(auth){
+          $http.post(ApiUrlService.get() + "/api/v2/user/auth/social", auth)
+            .success(function(data, status, headers, config) {
+              runAuth(data.id, data.token);
+            }).error(errorAlert);
+        }, function( e ){
+          alert("Signin error: " + e.error.message );
+        });
       }
     }
 ]);

@@ -16,16 +16,14 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "jquery.cookie": "~1.4.0",
-    "angular": "1.3.0-beta.11",
+    "angular": "1.3.3",
     "angular-ui": "~0.4.0",
-    "angular-sanitize": "1.3.0-beta.11",
-    "angular-resource": "1.3.0-beta.11",
+    "angular-sanitize": "1.3.3",
+    "angular-resource": "1.3.3",
     "angular-ui-utils": "~0.1.0",
     "angular-ui-select2": "git://github.com/angular-ui/ui-select2.git",
-    "angular-bootstrap": "~0.10.0",
-    "angular-ui-router": "git://github.com/HabitRPG/ui-router.git#habitrpg",
-    "angular-loading-bar": "~0.3.0",
-    "angular-bindonce": "~0.2.1",
+    "angular-bootstrap": "~0.12.0",
+    "angular-loading-bar": "~0.6.0",
     "bootstrap": "~3.1.0",
     "bootstrap-growl": "git://github.com/ifightcrime/bootstrap-growl.git#master",
     "bootstrap-tour": "~0.8.1",
@@ -34,18 +32,23 @@
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
-    "js-emoji": "git://github.com/snicker/js-emoji#master",
+    "js-emoji": "https://github.com/iamcal/js-emoji.git",
     "sticky": "*",
     "swagger-ui": "git://github.com/wordnik/swagger-ui.git",
     "ngInfiniteScroll": "1.0.0",
     "jquery-colorbox": "~1.4.36",
     "pnotify": "~1.3.1",
-    "jquery-ui": "~1.10.3"
+    "jquery-ui": "~1.10.3",
+    "hello": "~1.3.1",
+    "css-social-buttons": "https://github.com/samcollins/css-social-buttons.git",
+    "angular-filter": "~0.5.1",
+    "angular-ui-router": "~0.2.13"
   },
   "devDependencies": {
-    "angular-mocks": "1.3.0-beta.11"
+    "angular-mocks": "1.3.3"
   },
   "resolutions": {
-    "angular": "1.3.0-beta.11"
+    "angular": "1.3.3",
+    "jquery": ">=1.9.0"
   }
 }

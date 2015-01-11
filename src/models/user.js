@@ -47,7 +47,8 @@ var UserSchema = new Schema({
     perfect: Number,
     habitBirthday: Boolean,
     valentine: Number,
-    costumeContest: Boolean
+    costumeContest: Boolean,
+    nye: Number
   },
   auth: {
     blocked: Boolean,
@@ -92,13 +93,20 @@ var UserSchema = new Schema({
     mobileChat: Boolean,
     plan: {
       planId: String,
-      paymentMethod: String, //enum: ['Paypal','Stripe', '']}
+      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
       customerId: String,
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,
+      extraMonths: {type:Number, 'default':0},
       gemsBought: {type: Number, 'default': 0},
-      mysteryItems: {type: Array, 'default': []}
+      mysteryItems: {type: Array, 'default': []},
+      consecutive: {
+        count: {type:Number, 'default':0},
+        offset: {type:Number, 'default':0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
+        gemCapExtra: {type:Number, 'default':0},
+        trinkets: {type:Number, 'default':0}
+      }
     }
   },
 
@@ -117,6 +125,9 @@ var UserSchema = new Schema({
     freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
     chatRevoked: Boolean,
+    // Used to track the status of recapture emails sent to each user,
+    // can be 0 - no email sent - 1, 2 or 3 - 3 means no more email will be sent to the user
+    recaptureEmailsPhase: {type: Number, 'default': 0},
     communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
   history: {
@@ -144,6 +155,7 @@ var UserSchema = new Schema({
         shield: {type: String, 'default': 'shield_base_0'},
         back: String,
         headAccessory: String,
+        eyewear: String,
         body: String
       },
       costume: {
@@ -153,6 +165,7 @@ var UserSchema = new Schema({
         shield: {type: String, 'default': 'shield_base_0'},
         back: String,
         headAccessory: String,
+        eyewear: String,
         body: String
       },
     },
@@ -161,7 +174,9 @@ var UserSchema = new Schema({
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
       valentine: Number,
-      valentineReceived: Array // array of strings, by sender name
+      valentineReceived: Array, // array of strings, by sender name
+      nye: Number,
+      nyeReceived: Array
     },
 
     // -------------- Animals -------------------
@@ -266,6 +281,7 @@ var UserSchema = new Schema({
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
     costume: Boolean,
+    dateFormat: {type: String, enum:['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], 'default': 'MM/dd/yyyy'},
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
     disableClasses: {type: Boolean, 'default': false},
@@ -274,7 +290,8 @@ var UserSchema = new Schema({
     tagsCollapsed: {type: Boolean, 'default': false},
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
-    background: String
+    background: String,
+    webhooks: {type: Schema.Types.Mixed, 'default': {}}
   },
   profile: {
     blurb: String,
@@ -321,6 +338,13 @@ var UserSchema = new Schema({
   }]},
 
   challenges: [{type: 'String', ref:'Challenge'}],
+
+  inbox: {
+    newMessages: {type:Number, 'default':0},
+    blocks: {type:Array, 'default':[]},
+    messages: {type:Schema.Types.Mixed, 'default':{}}, //reflist
+    optOut: {type:Boolean, 'default':false}
+  },
 
   habits:   {type:[TaskSchemas.HabitSchema]},
   dailys:   {type:[TaskSchemas.DailySchema]},
@@ -413,9 +437,10 @@ UserSchema.pre('save', function(next) {
     this.achievements.beastMaster = true
   }
 
-  // TODO remove this after 11/01
-  if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
-    this.items.pets['JackOLantern-Base'] = 5;
+  // EXAMPLE CODE for allowing all existing and new players to be
+  // automatically granted an item during a certain time period:
+  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    // this.items.pets['JackOLantern-Base'] = 5;
 
   //our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
@@ -459,6 +484,10 @@ UserSchema.methods.unlink = function(options, cb) {
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
 
-mongoose.model("User").find({$query:{'contributor.admin':true}, $orderby:{'contributor.level':-1, 'backer.npc':-1, 'profile.name':1}},function(err,mods){
-  module.exports.mods = mods
+mongoose.model("User")
+  .find({'contributor.admin':true})
+  .sort('-contributor.level -backer.npc profile.name')
+  .select('profile contributor backer')
+  .exec(function(err,mods){
+    module.exports.mods = mods
 });

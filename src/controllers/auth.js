@@ -24,31 +24,6 @@ var accountSuspended = function(uuid){
   };
 }
 
-var emailUser = function(name, email, emailType){
-  request({
-    url: nconf.get('EMAIL_SERVER_URL') + '/job',
-    method: 'POST',
-    auth: {
-      user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-      pass: nconf.get('EMAIL_SERVER_AUTH_PASSWORD')
-    },
-    json: {
-      type: 'email', 
-      data: {
-        emailType: emailType,
-        to: {
-          name: name,
-          email: email
-        }
-      },
-      options: {
-        attemps: 5,
-        backoff: {delay: 10*60*1000, type: 'fixed'}
-      }
-    }
-  });
-}
-
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
   var token = req.headers['x-api-key'];
@@ -128,7 +103,7 @@ api.registerUser = function(req, res, next) {
       }
 
       user.save(cb);
-      if(isProd) emailUser(username, email, 'welcome');
+      if(isProd) utils.txnEmail({name:username, email:email}, 'welcome');
       ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
@@ -166,25 +141,56 @@ api.loginLocal = function(req, res, next) {
 };
 
 /*
- POST /user/auth/facebook
+ POST /user/auth/social
  */
+api.loginSocial = function(req, res, next) {
+  var access_token = req.body.authResponse.access_token,
+    network = req.body.network;
+  if (network!=='facebook')
+    return res.json(401, {err:"Only Facebook supported currently."});
+  async.auto({
+    profile: function (cb) {
+      passport._strategies[network].userProfile(access_token, cb);
+    },
+    user: ['profile', function (cb, results) {
+      var q = {};
+      q['auth.' + network + '.id'] = results.profile.id;
+      User.findOne(q, {_id: 1, apiToken: 1, auth: 1}, cb);
+    }],
+    register: ['profile', 'user', function (cb, results) {
+      if (results.user) return cb(null, results.user);
+      // Create new user
+      var prof = results.profile;
+      var user = {
+        preferences: {
+          language: req.language // User language detected from browser, not saved
+        },
+        auth: {
+          timestamps: {created: +new Date(), loggedIn: +new Date()}
+        }
+      };
+      user.auth[network] = prof;
+      user = new User(user);
+      user.save(cb);
 
-
-api.loginFacebook = function(req, res, next) {
-  var facebook_id = req.body.facebook_id;
-  if (!facebook_id) return res.json(401, {err: 'No facebook id provided'});
-  User.findOne({'auth.facebook.id': facebook_id}, function(err, user) {
-    if (err) {
-      return res.json(401, {err: err});
-    } else if (user) {
-      if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
-      return res.json(200, {id: user.id,token: user.apiToken});
-    } else {
-      /* FIXME: create a new user instead*/
-      return res.json(403, {err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."});
-    }
-  });
+      if (isProd && prof.emails && prof.emails[0] && prof.emails[0].value) {
+        utils.txnEmail({name: prof.displayName || prof.username, email: prof.emails[0].value}, 'welcome');
+      }
+      ga.event('register', network).send();
+    }]
+  }, function(err, results){
+    if (err) return res.json(401, {err: err.toString ? err.toString() : err});
+    var acct = results.register[0] ? results.register[0] : results.register;
+    if (acct.auth.blocked) return res.json(401, accountSuspended(acct._id));
+    return res.json(200, {id:acct._id, token:acct.apiToken});
+  })
 };
+
+/**
+ * DELETE /user/auth/social
+ * TODO implement
+ */
+api.deleteSocial = function(req,res,next){next()}
 
 api.resetPassword = function(req, res, next){
   var email = req.body.email,
@@ -199,16 +205,15 @@ api.resetPassword = function(req, res, next){
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
-    utils.sendEmail({
-      from: "HabitRPG <admin@habitrpg.com>",
-      to: email,
-      subject: "Password Reset for HabitRPG",
-      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL'),
-      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL')
+    utils.txnEmail(user, 'reset-password', [
+      {name: "NEW_PASSWORD", content: newPassword},
+      {name: "USERNAME", content: user.auth.local.username}
+    ]);
+    user.save(function(err){
+      if(err) return next(err);
+      res.send('New password sent to '+ email);
+      email = salt = newPassword = hashed_password = null;
     });
-    user.save();
-    res.send('New password sent to '+ email);
-    email = salt = newPassword = hashed_password = null;
   });
 };
 
@@ -271,66 +276,4 @@ api.setupPassport = function(router) {
     res.redirect('/');
   })
 
-  // GET /auth/facebook
-  //   Use passport.authenticate() as route middleware to authenticate the
-  //   request.  The first step in Facebook authentication will involve
-  //   redirecting the user to facebook.com.  After authorization, Facebook will
-  //   redirect the user back to this application at /auth/facebook/callback
-  router.get('/auth/facebook',
-    passport.authenticate('facebook', {scope: 'email'}),
-    i18n.getUserLanguage,
-    function(req, res){
-      // The request will be redirected to Facebook for authentication, so this
-      // function will not be called.
-    });
-
-  // GET /auth/facebook/callback
-  //   Use passport.authenticate() as route middleware to authenticate the
-  //   request.  If authentication fails, the user will be redirected back to the
-  //   login page.  Otherwise, the primary route function function will be called,
-  //   which, in this example, will redirect the user to the home page.
-  router.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    i18n.getUserLanguage,
-    function(req, res) {
-      //res.redirect('/');
-
-      async.waterfall([
-        function(cb){
-          User.findOne({'auth.facebook.id':req.user.id}, cb)
-        },
-        function(user, cb){
-          if (user) return cb(null, user);
-
-          user = new User({
-            preferences: {
-              language: req.language // User language detected from browser, not saved
-            },
-            auth: {
-              facebook: req.user,
-              timestamps: {created: +new Date(), loggedIn: +new Date()}
-            }
-          });
-          user.save(cb);
-          if(isProd && req.user.emails && req.user.emails[0] && req.user.emails[0].value){
-            emailUser((req.user.displayName || req.user.username), req.user.emails[0].value, 'welcome');
-          }
-          ga.event('register', 'Facebook').send()
-        }
-      ], function(err, saved){
-        if (err) return res.redirect('/static/front?err=' + err);
-        req.session.userId = saved._id;
-        res.redirect('/static/front?_id='+saved._id+'&apiToken='+saved.apiToken);
-      })
-    });
-
-  // Simple route middleware to ensure user is authenticated.
-  //   Use this route middleware on any resource that needs to be protected.  If
-  //   the request is authenticated (typically via a persistent login session),
-  //   the request will proceed.  Otherwise, the user will be redirected to the
-  //   login page.
-//  function ensureAuthenticated(req, res, next) {
-//    if (req.isAuthenticated()) { return next(); }
-//    res.redirect('/login')
-//  }
 };

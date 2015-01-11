@@ -7,12 +7,11 @@ utils.setupConfig();
 var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
+var cores = +nconf.get("CORES");
 
-if (cluster.isMaster && (isDev || isProd)) {
-  // Fork workers.
-  _.times(_.min([require('os').cpus().length,2]), function(){
-    cluster.fork();
-  });
+if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
+  // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
+  _.times(cores || require('os').cpus().length-1, cluster.fork);
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
@@ -26,6 +25,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   var path = require("path");
   var swagger = require("swagger-node-express");
   var autoinc = require('mongoose-id-autoinc');
+  var shared = require('habitrpg-shared');
 
   // Setup translations
   var i18n = require('./i18n');
@@ -65,32 +65,23 @@ if (cluster.isMaster && (isDev || isProd)) {
   //   have a database of user records, the complete Facebook profile is serialized
   //   and deserialized.
   passport.serializeUser(function(user, done) {
-      done(null, user);
+    done(null, user);
   });
 
   passport.deserializeUser(function(obj, done) {
-      done(null, obj);
+    done(null, obj);
   });
 
-  // Use the FacebookStrategy within Passport.
-  //   Strategies in Passport require a `verify` function, which accept
-  //   credentials (in this case, an accessToken, refreshToken, and Facebook
-  //   profile), and invoke a callback with a user object.
+  // FIXME
+  // This auth strategy is no longer used. It's just kept around for auth.js#loginFacebook() (passport._strategies.facebook.userProfile)
+  // The proper fix would be to move to a general OAuth module simply to verify accessTokens
   passport.use(new FacebookStrategy({
-      clientID: nconf.get("FACEBOOK_KEY"),
-      clientSecret: nconf.get("FACEBOOK_SECRET"),
-      callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
+    clientID: nconf.get("FACEBOOK_KEY"),
+    clientSecret: nconf.get("FACEBOOK_SECRET"),
+    //callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
   },
     function(accessToken, refreshToken, profile, done) {
-        // asynchronous verification, for effect...
-        //process.nextTick(function () {
-
-        // To keep the example simple, the user's Facebook profile is returned to
-        // represent the logged-in user.  In a typical application, you would want
-        // to associate the Facebook account with a user record in your database,
-        // and return that user instead.
-        return done(null, profile);
-        //});
+      done(null, profile);
     }
    ));
 

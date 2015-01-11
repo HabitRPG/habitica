@@ -1,4 +1,4 @@
-a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left', popover-html='true')
+a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left')
   // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
   span.task-action-btn.tile.flush.neutral
     .Pet_Currency_Gem2x.Gems
@@ -33,13 +33,18 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             .form-group
               label=env.t('logoUrl')
               input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='group.logo')
+            .form-group
+              .checkbox
+                label
+                  input(type='checkbox', ng-model='group.leaderOnly.challenges')
+                  | Only group leader can create challenges
 
             h4=env.t('assignLeader')
             select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
 
           div(ng-show='!group._editing')
             img.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
-            markdown(ng-model='group.description')
+            markdown(text='group.description')
           hr
           small.muted Group ID: {{group._id}}
 
@@ -48,12 +53,13 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       // ------ Members -------
       .panel.panel-default
         .panel-heading
-          h3.panel-title=env.t('members')
+          h3.panel-title
+            =env.t('members')
+            button.pull-right.btn.btn-primary(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})", ng-if='::group.type=="party"') Invite Friends
         .panel-body.modal-fixed-height
-          div(ng-if='group.type=="party"')
+          div.form-group(ng-if='::group.type=="party"')
             =env.t('partyList')
-            br
-            select#partyOrder(
+            select.form-control#partyOrder(
               ng-model='user.party.order',
               ng-controller='ChatCtrl',
               ng-options='k as v for (k , v) in partyOrderChoices',
@@ -86,13 +92,13 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 a.media-body
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
-        .panel-footer
+        .panel-footer(ng-if='::group.type!="party"')
           form.form-inline(ng-submit='invite(group)')
             //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
-            .form-group
+            .input-group
               input.form-control(type='text', placeholder=env.t('userId'), ng-model='group.invitee')
-              |&nbsp;
-              input.btn.btn-default(type='submit', value=env.t('invite'))
+              span.input-group-btn
+                input.btn.btn-default(type='submit', value=env.t('invite'))
 
 
       a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
@@ -107,10 +113,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               .arrow
               h3.popover-title {{Members.members[group.leader].profile.name}}
               .popover-content
-                markdown(ng-model='group.leaderMessage')
+                markdown(text='group.leaderMessage')
       div(ng-controller='ChatCtrl')
         h3=env.t('chat')
         include ./chat-box
 
-        ul.list-unstyled.tavern-chat
-          include ./chat-message
+        +chatMessages()
