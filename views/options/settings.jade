@@ -88,10 +88,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-heading
             span Registration
           .panel-body
-            p(ng-if='user.auth.facebook.id') Registered with Facebook
+            p(ng-if='user.auth.facebook.id') 'registeredWithFb'
             div(ng-if='user.auth.local.username')
-              p Login Name: {{user.auth.local.username}}
-              p Email: {{user.auth.local.email}}
+              p 'username': {{user.auth.local.username}}
+              p 'email': {{user.auth.local.email}}
               small
                 =env.t('emailChange')
               hr
