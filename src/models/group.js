@@ -256,7 +256,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
 
       var quest = shared.content.quests[tavern.quest.key];
       if (tavern.quest.progress.hp <= 0) {
-        tavern.sendChat(quest.completion('en'));
+        tavern.sendChat(quest.completionChat('en'));
         tavern.finishQuest(quest, function(){});
         tavern.save(cb);
         module.exports.tavern = undefined;
@@ -269,13 +269,15 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         if (tavern.quest.progress.rage >= quest.boss.rage.value) {
           if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
           var wd = tavern.quest.extra.worldDmg;
-          var scene = wd.tavern ? wd.stables ? wd.market ? false : 'market' : 'stables' : 'tavern';
+          // var scene = wd.tavern ? wd.stables ? wd.market ? false : 'market' : 'stables' : 'tavern'; // Dilatory attacks tavern, stables, market
+          var scene = wd.stables ? wd.bailey ? wd.guide ? false : 'guide' : 'bailey' : 'stables'; // Stressbeast attacks stables, Bailey, Justin
           if (!scene) {
             tavern.sendChat('`'+quest.boss.name('en')+' tries to unleash '+quest.boss.rage.title('en')+', but is too tired.`');
             tavern.quest.progress.rage = 0 //quest.boss.rage.value;
           } else {
             tavern.sendChat(quest.boss.rage[scene]('en'));
             tavern.quest.extra.worldDmg[scene] = true;
+            tavern.quest.extra.worldDmg.recent = scene;
             tavern.markModified('quest.extra.worldDmg');
             tavern.quest.progress.rage = 0;
           }

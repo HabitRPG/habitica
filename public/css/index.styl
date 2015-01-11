@@ -60,6 +60,8 @@ html, body
 @media (max-width: 600px)
   #wrap 
     margin-top: 0
+    padding: 0 4px;
+    overflow-x: hidden;
 
 /* Gems
 -------------------------------------------------- */
@@ -169,7 +171,11 @@ a.label
   .nav-tabs
     margin-top: 0.5em
   .gem-wallet
-    padding-top: 2px
+    padding: 0
+    cursor: default
+    .task-action-btn
+      border-radius: 0 4px 0 0;
+      border: 1px solid rgba(0,0,0,0.2);
 
 // Add badges' classes
 .badge-info
@@ -179,3 +185,5 @@ a.label
 
 .white, .white a
   color: #fff !important
+.line-through
+  text-decoration line-through

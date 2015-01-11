@@ -40,7 +40,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
     hr
 
   .well(bindonce='challenge', ng-if='challenge.description')
-    markdown(ng-model='challenge.description')
+    markdown(text='challenge.description')
   .modal-body=env.t('challengeDiscription')
   habitrpg-tasks(obj='challenge', main=false)
 

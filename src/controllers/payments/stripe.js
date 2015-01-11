@@ -4,6 +4,8 @@ var async = require('async');
 var payments = require('./index');
 var User = require('mongoose').model('User');
 var shared = require('habitrpg-shared');
+var mongoose = require('mongoose');
+var cc = require('coupon-code');
 
 /*
  Setup Stripe response when posting payment
@@ -17,16 +19,27 @@ exports.checkout = function(req, res, next) {
   async.waterfall([
     function(cb){
       if (sub) {
-        stripe.customers.create({
-          email: req.body.email,
-          metadata: {uuid: user._id},
-          card: token,
-          plan: sub.key
-        }, cb);
+        async.waterfall([
+          function(cb2){
+            if (!sub.discount) return cb2(null, null);
+            if (!req.query.coupon) return cb2('Please provide a coupon code for this plan.');
+            mongoose.model('Coupon').findOne({_id:cc.validate(req.query.coupon), event:sub.key}, cb2);
+          },
+          function(coupon, cb2){
+            if (sub.discount && !coupon) return cb2('Invalid coupon code.');
+            var customer = {
+              email: req.body.email,
+              metadata: {uuid: user._id},
+              card: token,
+              plan: sub.key
+            };
+            stripe.customers.create(customer, cb2);
+          }
+        ], cb);
       } else {
         stripe.charges.create({
           amount: !gift ? "500" //"500" = $5
-            : gift.type=='subscription' ? ""+shared.content.subscriptionBlocks[gift.subscription.months].price*100
+            : gift.type=='subscription' ? ""+shared.content.subscriptionBlocks[gift.subscription.key].price*100
             : ""+gift.gems.amount/4*100,
           currency: "usd",
           card: token

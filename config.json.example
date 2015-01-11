@@ -34,10 +34,11 @@
     },
     "PAYPAL":{
         "billing_plans": {
-            "1":"1",
-            "3":"3",
-            "6":"6",
-            "12":"12"
+            "basic_earned":"basic_earned",
+            "basic_3mo":"basic_3mo",
+            "basic_6mo":"basic_6mo",
+            "google_6mo":"google_6mo",
+            "basic_12mo":"basic_12mo"
         },
         "mode":"sandbox",
         "client_id":"client_id",

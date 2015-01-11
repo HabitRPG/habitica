@@ -11,7 +11,7 @@ var paypal = require('paypal-rest-sdk');
 var blocks = require('habitrpg-shared').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
 
-var OP = 'get'; // list create update remove
+var OP = 'create'; // list create update remove
 
 paypal.configure({
   'mode': nconf.get("PAYPAL:mode"), //sandbox or live
@@ -72,7 +72,7 @@ switch(OP) {
     });
     break;
   case "create":
-    paypal.billingPlan.create(blocks["12"].definition, function(err,plan){
+    paypal.billingPlan.create(blocks["google_6mo"].definition, function(err,plan){
       if (err) return console.log(err);
       if (plan.state == "ACTIVE")
         return console.log({err:err, plan:plan});

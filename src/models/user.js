@@ -47,7 +47,8 @@ var UserSchema = new Schema({
     perfect: Number,
     habitBirthday: Boolean,
     valentine: Number,
-    costumeContest: Boolean
+    costumeContest: Boolean,
+    nye: Number
   },
   auth: {
     blocked: Boolean,
@@ -173,7 +174,9 @@ var UserSchema = new Schema({
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
       valentine: Number,
-      valentineReceived: Array // array of strings, by sender name
+      valentineReceived: Array, // array of strings, by sender name
+      nye: Number,
+      nyeReceived: Array
     },
 
     // -------------- Animals -------------------
@@ -278,6 +281,7 @@ var UserSchema = new Schema({
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
     costume: Boolean,
+    dateFormat: {type: String, enum:['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'], 'default': 'MM/dd/yyyy'},
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
     disableClasses: {type: Boolean, 'default': false},

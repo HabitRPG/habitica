@@ -22,15 +22,19 @@ var validator = require('validator');
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
-  var language = req.query.language; //|| 'en' in i18n
+  var language = 'en';
+
+  if(typeof req.query.language != 'undefined')
+    language = req.query.language.toString(); //|| 'en' in i18n
+
   var content = _.cloneDeep(shared.content);
-  var walk = function(obj){
+  var walk = function(obj, lang){
     _.each(obj, function(item, key, source){
-      if(_.isPlainObject(item) || _.isArray(item)) return walk(item);
-      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(language);
+      if(_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
+      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
     });
   }
-  walk(content);
+  walk(content, language);
   res.json(content);
 }
 
@@ -293,7 +297,7 @@ api.cron = function(req, res, next) {
         error: "Cron caught",
         stack: (err.stack || err.message || err),
         body: req.body, headers: req.header,
-        auth: (req.headers['x-api-user'] + ' | ' + req.headers['x-api-key']),
+        auth: req.headers['x-api-user'],
         originalUrl: req.originalUrl,
         opStatus: opStatus
       });

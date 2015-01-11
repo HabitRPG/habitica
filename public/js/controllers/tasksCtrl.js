@@ -108,7 +108,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
     function focusChecklist(task,index) {
       window.setTimeout(function(){
-        $('#task-'+task.id+' .checklist-form .inline-edit')[index].focus();
+        $('#task-'+task.id+' .checklist-form input[type="text"]')[index].focus();
       });
     }
     $scope.addChecklist = function(task) {
