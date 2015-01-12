@@ -129,5 +129,8 @@
     "youCast": "You cast <%= spell %>.",
     "youCastTarget": "You cast <%= spell %> on <%= target %>.",
     "youCastParty": "You cast <%= spell %> for the party.",
-    "critBonus": "Critical Hit! Bonus: "
+    "critBonus": "Critical Hit! Bonus: ",
+    "displayNameDescription1": "(This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Click",
+    "displayNameDescription2": "here",
+    "displayNameDescription3": "if you are trying to edit your login name.)"
 }
