@@ -26,7 +26,7 @@
     "inventoryText": "Click an egg to see usable potions highlighted in green and then click one of the highlighted potions to hatch your pet. If no potions are highlighted, click that egg again to deselect it, and instead click a potion first to have the usable eggs highlighted. You can also sell unwanted drops to Alexander the Merchant.",
     "food": "Food and Saddles",
     "noFood": "You don't have any food or saddles.",
-    "beastProgress": "Beast Master Progress",
+    "beastMasterProgress": "Beast Master Progress",
     "beastAchievement": "You have earned the \"Beast Master\" Achievement for collecting all the pets!",
     "beastMasterName": "Beast Master",
     "beastMasterText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
