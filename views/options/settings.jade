@@ -93,7 +93,15 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             div(ng-if='user.auth.local.username')
               p
               =env.t('username') 
-              |: {{user.auth.local.username}} 
+              |: {{user.auth.local.username}}
+              p
+              small
+                =env.t('loginNameDescription1')
+                |&nbsp;
+                a(href='https://habitrpg.com/#/options/profile/profile')=env.t('loginNameDescription2')
+                |&nbsp;
+                =env.t('loginNameDescription3')
+                br
               p
               =env.t('email')
               |: {{user.auth.local.email}} 
