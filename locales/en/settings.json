@@ -76,5 +76,8 @@
     "emailChange3": " including both your old and new email address as well as your User ID.",
     "username": "Login Name",
     "email": "Email",
-    "registeredWithFb": "Registered with Facebook"
+    "registeredWithFb": "Registered with Facebook",
+    "loginNameDescription1": "This is what you use to login to HabitRPG. Click ",
+    "loginNameDescription2": "here",
+    "loginNameDescription3": "to change your display name."
 }
