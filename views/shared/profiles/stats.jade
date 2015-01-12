@@ -1,21 +1,22 @@
-h4(class=mobile?'item item-divider':'')=env.t('stats')
-table.table.table-striped
-  tr
-    td
-      strong=env.t('health')
-      | : {{profile.stats.hp | number:0}} / 50
-  tr
-    td
-      strong=env.t('gold')
-      | : {{profile.stats.gp | number:0}}
-  tr
-    td
-      strong=env.t('level')
-      | : {{profile.stats.lvl}}
-  tr
-    td
-      strong=env.t('experience')
-      | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
+div(bo-show='user.preferences.hideHeader')
+  h4(class=mobile?'item item-divider':'')=env.t('stats')
+  table.table.table-striped
+    tr
+      td
+        strong=env.t('health')
+        | : {{profile.stats.hp | number:0}} / 50
+    tr
+      td
+        strong=env.t('gold')
+        | : {{profile.stats.gp | number:0}}
+    tr
+      td
+        strong=env.t('level')
+        | : {{profile.stats.lvl}}
+    tr
+      td
+        strong=env.t('experience')
+        | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
 
 // FIXME get translations working before can use this
 unless mobile
