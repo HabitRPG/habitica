@@ -18,7 +18,7 @@ script(type='text/ng-template', id='modals/pet-key.html')
   .modal-header
     // Checks if user has 90 pets and 90 mounts. If so, displays "Beast Master/Mount Master". 
     // Else if user has 90 pets, displays "Beast Master". Else, displays "Mount Master"
-    - var masterTitle='{{petCount >= 90 && mountCount >= 90 ? env.t("beastMastName") + "/" + env.t("mountMastName") : petCount >= 90 ? env.t("beastMastName") : env.t("mountMastName")}}'
+    - var masterTitle='{{petCount >= 90 && mountCount >= 90 ? env.t("beastMountMasterName") : petCount >= 90 ? env.t("beastMasterName") : env.t("mountMasterName")}}'
     h4=env.t('petKeyBegin', {title: masterTitle})
   .modal-body
     +gemButton

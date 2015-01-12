@@ -72,7 +72,7 @@ table.table.table-striped(ng-if='user.flags.dropsEnabled')
       | : {{_.size(profile.items.pets)}}
   tr
     td
-      strong=env.t('beastProgress')
+      strong=env.t('beastMasterProgress')
       | : {{profile.petCount}}/90
 
 h4(class=mobile?'item item-divider':'', ng-if='user.flags.dropsEnabled')=env.t('mounts')
@@ -83,5 +83,5 @@ table.table.table-striped(ng-if='user.flags.dropsEnabled')
       | : {{_.size(profile.items.mounts)}}
   tr
     td
-      strong=env.t('mountmasterProgress')
+      strong=env.t('mountMasterProgress')
       | : {{profile.mountCount}}/90
