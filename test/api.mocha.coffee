@@ -172,6 +172,92 @@ describe "API", ->
             expect(group.leader).to.be user._id
             done()
 
+      describe "Party", ->
+        it "can be found by querying for party", (done) ->
+          request.get(baseURL + "/groups/").send(
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+
+            party = res.body[0]
+            expect(party._id).to.be group._id
+            expect(party.leader).to.be user._id
+            expect(party.name).to.be group.name
+            expect(party.quest).to.be.eql { progress: {} }
+            expect(party.memberCount).to.be.eql group.memberCount
+            done()
+
+        describe "Chat", ->
+          chat = undefined
+          it "Posts a message to party chat", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat").send(
+              message: "Test MSG"
+            ).end (res) ->
+              expectCode res, 200
+              chat = res.body.message
+              expect(chat.id).to.be.ok
+              expect(chat.timestamp).to.be.ok
+              expect(chat.likes).to.be.empty
+              expect(chat.flags).to.be.empty
+              expect(chat.flagCount).to.be 0
+              expect(chat.uuid).to.be.ok
+              expect(chat.contributor).to.be.empty
+              expect(chat.backer).to.be.empty
+              expect(chat.user).to.be.ok
+              done()
+
+          it "can not like own chat message", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/like").send(
+            ).end (res) ->
+              expectCode res, 401
+
+              body = res.body
+              expect(body.err).to.be "Can't like your own message. Don't be that person."
+              done()
+
+          it "can not flag own message", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/flag").send(
+            ).end (res) ->
+              expectCode res, 401
+
+              body = res.body
+              expect(body.err).to.be "Can't report your own message."
+              done()
+
+          it "Gets chat messages from party chat", (done) ->
+            request.get(baseURL + "/groups/" + group._id + "/chat").send(
+            ).end (res) ->
+              expectCode res, 200
+
+              message = res.body[0]
+              expect(message.id).to.be chat.id
+              expect(message.timestamp).to.be chat.timestamp
+              expect(message.likes).to.be.eql chat.likes
+              expect(message.flags).to.be.eql chat.flags
+              expect(message.flagCount).to.be chat.flagCount
+              expect(message.uuid).to.be chat.uuid
+              expect(message.contributor).to.be.eql chat.contributor
+              expect(message.backer).to.be.eql chat.backer
+              expect(message.user).to.be chat.user
+              done()
+
+          it "Deletes a chat messages from party chat", (done) ->
+            request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
+            ).end (res) ->
+              expectCode res, 204
+
+              expect(res.body).to.be.empty
+              done()
+
+          it "Can not delete already deleted message", (done) ->
+            request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
+            ).end (res) ->
+              expectCode res, 404
+
+              body = res.body
+              expect(body.err).to.be "Message not found!"
+              done()
+
       describe "Challenges", ->
         challenge = undefined
         updateTodo = undefined
