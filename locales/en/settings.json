@@ -77,7 +77,7 @@
     "username": "Login Name",
     "email": "Email",
     "registeredWithFb": "Registered with Facebook",
-    "loginNameDescription1": "This is what you use to login to HabitRPG. Click ",
-    "loginNameDescription2": "here",
-    "loginNameDescription3": "to change your display name."
+    "loginNameDescription1": "This is what you use to login to HabitRPG. Go to ",
+    "loginNameDescription2": "User->Profile",
+    "loginNameDescription3": "to change the name that appears in your avatar and chat messages."
 }
