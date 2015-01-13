@@ -184,7 +184,7 @@ describe "API", ->
             expect(party.leader).to.be user._id
             expect(party.name).to.be group.name
             expect(party.quest).to.be.eql { progress: {} }
-            expect(party.memberCount).to.be.eql group.memberCount
+            expect(party.memberCount).to.be group.memberCount
             done()
 
         describe "Chat", ->
