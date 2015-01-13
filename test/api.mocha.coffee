@@ -223,7 +223,6 @@ describe "API", ->
             request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/like").send(
             ).end (res) ->
               expectCode res, 401
-
               body = res.body
               expect(body.err).to.be "Can't like your own message. Don't be that person."
               done()
@@ -232,7 +231,6 @@ describe "API", ->
             request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/flag").send(
             ).end (res) ->
               expectCode res, 401
-
               body = res.body
               expect(body.err).to.be "Can't report your own message."
               done()
@@ -241,7 +239,6 @@ describe "API", ->
             request.get(baseURL + "/groups/" + group._id + "/chat").send(
             ).end (res) ->
               expectCode res, 200
-
               message = res.body[0]
               expect(message.id).to.be chat.id
               expect(message.timestamp).to.be chat.timestamp
@@ -258,7 +255,6 @@ describe "API", ->
             request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
             ).end (res) ->
               expectCode res, 204
-
               expect(res.body).to.be.empty
               done()
 
@@ -266,7 +262,6 @@ describe "API", ->
             request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
             ).end (res) ->
               expectCode res, 404
-
               body = res.body
               expect(body.err).to.be "Message not found!"
               done()
