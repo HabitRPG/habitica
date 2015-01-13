@@ -280,6 +280,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
             tavern.quest.extra.worldDmg.recent = scene;
             tavern.markModified('quest.extra.worldDmg');
             tavern.quest.progress.rage = 0;
+            tavern.quest.progress.hp += (quest.boss.rage.healing * quest.boss.hp);
           }
         }
         tavern.save(cb);
