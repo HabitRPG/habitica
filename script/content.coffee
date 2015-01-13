@@ -918,7 +918,7 @@ api.quests =
         title: t("questStressbeastBossRageTitle")
         description: t("questStressbeastBossRageDescription")
         value: 1450000
-        healing: .25
+        healing: .3
         stables:t('questStressbeastBossRageStables')
         bailey:t('questStressbeastBossRageBailey')
         guide:t('questStressbeastBossRageGuide')
