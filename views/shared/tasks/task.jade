@@ -63,8 +63,8 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
     // Habits
     span(ng-if='::task.type=="habit"')
       // score() is overridden in challengesCtrl to do nothing
-      a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
-      a.task-action-btn(ng-if='task.down', ng-click='score(task,"down")') -
+      a.task-action-btn(ng-if='task.up', ng-click='$root.applyingAction || score(task,"up")') +
+      a.task-action-btn(ng-if='task.down', ng-click='$root.applyingAction || score(task,"down")') -
 
     // Rewards
     span(ng-show='task.type=="reward"')
