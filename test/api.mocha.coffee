@@ -238,6 +238,19 @@ describe "API", ->
               expect(body.err).to.be "Task not found."
               done()
 
+          it "Does not update text, attribute, priority, value, notes if task is already deleted", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              text: "New Title"
+              attribute: "str"
+              priority: 1
+              value: 4
+              notes: "Other notes"
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Task not found."
+              done()
+
     ###*
     GROUPS
     ###
