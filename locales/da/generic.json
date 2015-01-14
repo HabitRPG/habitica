@@ -8,7 +8,7 @@
     "formattingMarkdown": "Markdown-formattering tilladt",
     "achievements": "Præstationer",
     "modalAchievement": "Præstation!",
-    "special": "Særlig",
+    "special": "Andet",
     "site": "Side",
     "help": "Hjælp",
     "user": "Bruger",
@@ -85,5 +85,7 @@
     "October": "Oktober",
     "November": "November",
     "December": "December",
-    "dateFormat": "Datoformat"
+    "dateFormat": "Datoformat",
+    "achievementStressbeast": "Savior of Stoïkalm",
+    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
 }

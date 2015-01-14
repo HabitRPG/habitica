@@ -45,7 +45,7 @@
     "questEggSpiderAdjective": "effrayante",
     "questEggOwlText": "Chouette",
     "questEggOwlAdjective": "avisée",
-    "questEggPenguinText": "Pingouin",
+    "questEggPenguinText": "Manchot",
     "questEggPenguinAdjective": "perspicace",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "de Base",

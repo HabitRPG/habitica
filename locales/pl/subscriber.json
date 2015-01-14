@@ -8,7 +8,7 @@
     "disableAds": "Wyłącz reklamy",
     "disableAdsText": "Reklamy pozostaną wyłączone w czasie gdy Twój abonament jest aktywny (pierwotni użytkownicy z wyłączonymi reklamami zachowają ten status).",
     "buyGemsGold": "Kup Klejnoty za Złoto",
-    "buyGemsGoldText": "(1 Klejnot kosztuje <%= gemCost %> Złota) To rozwiewa obawy, że jest to gra, w której trzeba \"płacić, by wygrać\", ponieważ od tej pory wszystko można będzie osiągnąć sumienną pracą. Aby zapobiec nadmiernemu gromadzeniu Klejnotów, istnieje limit wymiany Złota na Klejnoty: jest to <%= gemLimit %> Klejnotów miesięcznie.",
+    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
     "retainHistory": "Zachowanie pełnej historii konta",
     "retainHistoryText": "Historia twojego postępu będzie teraz w pełni dostępna i eksportowalna. Historie kont graczy, którzy nie mają abonamentu są skracane w celu optymalizacji bazy danych.",
     "doubleDrops": "Codzienny limit łupów podwojony",

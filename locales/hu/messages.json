@@ -17,7 +17,7 @@
     "messageHatched": "A tojásod kikelt! Látogasd meg az istállóban ha használni szeretnéd.",
     "messageNotEnoughGold": "Nincs elég aranyad",
     "messageTwoHandled": "A(z) <%= gearText %> kétkezes",
-    "messageDropFood": "Találtál egy <%= dropArticle %><%= dropText %>-! <%= dropNotes %>",
+    "messageDropFood": "Találtál egy <%= dropArticle %><%= dropText %>-t! <%= dropNotes %>",
     "messageDropEgg": "Találtál egy <%= dropText %> tojást! <%= dropNotes %>",
     "messageDropPotion": "Találtál egy <%= dropText %> keltetőfőzetet! <%= dropNotes %>",
     "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!"

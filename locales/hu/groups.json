@@ -77,7 +77,7 @@
     "send": "Küldés",
     "messageSentAlert": "Üzenet elküldve",
     "pmHeading": "Privát üzenet neki: <%= name %>",
-    "clearAll": "Összes ürítése",
+    "clearAll": "Összes törlése",
     "clearAllPopover": "Összes üzenet törlése",
     "optOutPopover": "Nem szereted a privát üzeneteket? Kattints, hogy teljesen kiszállj belőle",
     "block": "Letiltás",

@@ -35,7 +35,7 @@
     "neverMind": "Nieważne",
     "buyMoreGems": "Kup więcej klejnotów",
     "notEnoughGems": "Niewystarczająca liczba Klejnotów",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "Ups! Już masz ten przedmiot. Nie ma potrzeby kupować go ponownie!",
     "delete": "Usuń",
     "gems": "Klejnoty",
     "moreInfo": "Więcej informacji",
@@ -85,5 +85,7 @@
     "October": "Październik",
     "November": "Listopad",
     "December": "Grudzień",
-    "dateFormat": "Date Format"
+    "dateFormat": "Format daty",
+    "achievementStressbeast": "Savior of Stoïkalm",
+    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
 }
