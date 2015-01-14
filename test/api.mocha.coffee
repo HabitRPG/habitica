@@ -155,6 +155,75 @@ describe "API", ->
               expect(_.size(res.body.todos)).to.be 4
               done()
 
+      describe "Creating, Updating, Deleting Todos", ->
+        todo = undefined
+        updateTodo = undefined
+        describe "Creating todos", ->
+          it "Creates a todo", (done) ->
+            request.post(baseURL + "/user/tasks").send(
+                type: "todo"
+                text: "Sample Todo"
+            ).end (res) ->
+              expectCode res, 200
+              todo = res.body
+              expect(todo.text).to.be "Sample Todo"
+              expect(todo.id).to.be.ok
+              expect(todo.value).to.be 0
+              done()
+
+        describe "Updating todos", ->
+          it "Does not update id of todo", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              id: "a-new-id"
+            ).end (res) ->
+              expectCode res, 200
+              updateTodo = res.body
+              expect(updateTodo.id).to.be todo.id
+              done()
+
+          it "Does not update type of todo", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              type: "habit"
+            ).end (res) ->
+              expectCode res, 200
+              updateTodo = res.body
+              expect(updateTodo.type).to.be todo.type
+              done()
+
+          it "Does update text, attribute, priority, value, notes", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              text: "Changed Title"
+              attribute: "int"
+              priority: 1.5
+              value: 5
+              notes: "Some notes"
+            ).end (res) ->
+              expectCode res, 200
+              todo = res.body
+              expect(todo.text).to.be "Changed Title"
+              expect(todo.attribute).to.be "int"
+              expect(todo.priority).to.be 1.5
+              expect(todo.value).to.be 5
+              expect(todo.notes).to.be "Some notes"
+              done()
+
+        describe "Deleting todos", ->
+          it "Does delete todo", (done) ->
+            request.del(baseURL + "/user/tasks/" + todo.id).send(
+            ).end (res) ->
+              expectCode res, 200
+              body = res.body
+              expect(body).to.be.empty 
+              done()
+
+          it "Does not delete already deleted todo", (done) ->
+            request.del(baseURL + "/user/tasks/" + todo.id).send(
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Task not found."
+              done()
+
     ###*
     GROUPS
     ###
