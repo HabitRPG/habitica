@@ -766,6 +766,7 @@ api.questEggs =
   Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
   Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
   Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
+  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1422,6 +1423,48 @@ api.quests =
       ]
       gp: 31
       exp: 200
+
+  trex:
+    text: t('questTRexText')
+    notes: t('questTRexNotes')
+    completion: t('questTRexCompletion')
+    value: 4
+    boss:
+      name: t('questTRexBoss')
+      hp: 800
+      str: 2
+    drop:
+      items: [
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+      ]
+      gp: 55
+      exp: 500
+
+  trex_undead:
+    text: t('questTRexUndeadText')
+    notes: t('questTRexUndeadNotes')
+    completion: t('questTRexUndeadCompletion')
+    value: 4
+    boss:
+      name: t('questTRexUndeadBoss')
+      hp: 500
+      str: 2
+      rage:
+        title: t("questTRexUndeadRageTitle")
+        description: t("questTRexUndeadRageDescription")
+        value: 50
+        healing: .3
+        effect:t('questTRexUndeadRageEffect')
+    drop:
+      items: [
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+      ]
+      gp: 55
+      exp: 500
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
