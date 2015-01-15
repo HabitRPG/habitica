@@ -95,23 +95,22 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               =env.t('username') 
               |: {{user.auth.local.username}}
               p
-              small
-                =env.t('loginNameDescription1')
-                |&nbsp;
-                a(href='https://habitrpg.com/#/options/profile/profile')=env.t('loginNameDescription2')
-                |&nbsp;
-                =env.t('loginNameDescription3')
-                br
+                small.muted
+                    =env.t('loginNameDescription1')
+                    |&nbsp;
+                    a(href='https://habitrpg.com/#/options/profile/profile')=env.t('loginNameDescription2')
+                    |&nbsp;
+                    =env.t('loginNameDescription3')                 
               p
               =env.t('email')
               |: {{user.auth.local.email}} 
               p
-              small
-                =env.t('emailChange1')
-                |&nbsp;
-                a(href='emailto:admin@habitrpg.com' target='_blank')=env.t('emailChange2')
-                |&nbsp;
-                =env.t('emailChange3')
+                small.muted
+                    =env.t('emailChange1')
+                    |&nbsp;
+                    a(href='emailto:admin@habitrpg.com' target='_blank')=env.t('emailChange2')
+                    |&nbsp;
+                    =env.t('emailChange3')
               hr
               h5=env.t('changeUsername')
               form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
