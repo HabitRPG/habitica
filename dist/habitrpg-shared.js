@@ -12642,6 +12642,11 @@ api.questEggs = {
     text: t('questEggPenguinText'),
     adjective: t('questEggPenguinAdjective'),
     canBuy: false
+  },
+  TRex: {
+    text: t('questEggTRexText'),
+    adjective: t('questEggTRexAdjective'),
+    canBuy: false
   }
 };
 
@@ -13065,6 +13070,7 @@ api.quests = {
         title: t("questStressbeastBossRageTitle"),
         description: t("questStressbeastBossRageDescription"),
         value: 1450000,
+        healing: .3,
         stables: t('questStressbeastBossRageStables'),
         bailey: t('questStressbeastBossRageBailey'),
         guide: t('questStressbeastBossRageGuide')
@@ -13938,6 +13944,73 @@ api.quests = {
       ],
       gp: 31,
       exp: 200
+    }
+  },
+  trex: {
+    text: t('questTRexText'),
+    notes: t('questTRexNotes'),
+    completion: t('questTRexCompletion'),
+    value: 4,
+    boss: {
+      name: t('questTRexBoss'),
+      hp: 800,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }
+      ],
+      gp: 55,
+      exp: 500
+    }
+  },
+  trex_undead: {
+    text: t('questTRexUndeadText'),
+    notes: t('questTRexUndeadNotes'),
+    completion: t('questTRexUndeadCompletion'),
+    value: 4,
+    boss: {
+      name: t('questTRexUndeadBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t("questTRexUndeadRageTitle"),
+        description: t("questTRexUndeadRageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questTRexUndeadRageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }
+      ],
+      gp: 55,
+      exp: 500
     }
   }
 };
@@ -16643,5 +16716,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
