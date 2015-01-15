@@ -4,13 +4,26 @@
  * Services that persists and retrieves user from localStorage.
  */
 
-angular.module('groupServices', ['ngResource']).
-    factory('Groups', ['ApiUrlService', '$resource', '$q', '$http', 'User',
-      function(ApiUrlService, $resource, $q, $http, User) {
+angular.module('groupServices', ['ngResource', 'challengeServices']).
+    factory('Groups', ['ApiUrlService', '$resource', '$q', '$http', 'User', 'Challenges',
+      function(ApiUrlService, $resource, $q, $http, User, Challenges) {
+
         var Group = $resource(ApiUrlService.get() + '/api/v2/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
-            //query: {method: "GET", isArray:false},
+            get: {
+              method: "GET",
+              isArray:false,
+              // Wrap challenges as ngResource so they have functions like $leave or $join
+              transformResponse: function(data, headers) {
+                data = angular.fromJson(data);
+                _.each(data && data.challenges, function(c) {
+                  angular.extend(c, Challenges.Challenge.prototype);
+                });
+                return data;
+              }
+            },
+
             postChat: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat'},
             deleteChatMessage: {method: "DELETE", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat/:messageId'},
             flagChatMessage: {method: "POST", url: ApiUrlService.get() + '/api/v2/groups/:gid/chat/:messageId/flag'},
