@@ -454,9 +454,15 @@ UserSchema.pre('save', function(next) {
 
   // Determines if Triad Bingo should be awarded
 
-  if (mountCount >= 90 || this.achievements.triadBingoCount > 0) {
-    // @TODO loop through pets and make sure they're all greater than -1
-    //this.achievements.triadBingo = true
+  var giveTriadBingo = function(pets) {
+    for(var p in pets) {
+      if(pets[p] == -1) return false;
+    }
+    return true;
+  };
+
+  if ((mountCount >= 90 && giveTriadBingo(this.items.pets)) || this.achievements.triadBingoCount > 0) {
+    this.achievements.triadBingo = true;
   }
 
   // EXAMPLE CODE for allowing all existing and new players to be
