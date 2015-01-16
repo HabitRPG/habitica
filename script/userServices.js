@@ -77,7 +77,7 @@ angular.module('userServices', [])
               //we can't do user=data as it will not update user references in all other angular controllers.
 
               // the user has been modified from another application, sync up
-              if(data.wasModified) {
+              if(data && data.wasModified) {
                 delete data.wasModified;
                 $rootScope.$emit('userUpdated', user);
               }
