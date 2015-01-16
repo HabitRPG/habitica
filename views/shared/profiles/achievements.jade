@@ -87,7 +87,7 @@ div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
       =env.t('beastMasterText2', {count: "{{profile.achievements.beastMasterCount}}"})
   hr
 
-div(ng-if='profile.achievements.mountMaster || user._id == profile._id')
+div(ng-if='profile.achievements.mountMaster || (profile.achievements.beastMaster && user._id == profile._id)')
   .achievement.achievement-wolf(ng-show='profile.achievements.mountMaster')
   div(ng-class='{muted: !profile.achievements.mountMaster}')
     h5=env.t('mountMasterName')
