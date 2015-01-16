@@ -71,8 +71,6 @@ angular.module('userServices', [])
         $http.post(ApiUrlService.get() + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
             //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
-            console.log(data);
-
             if (!queue.length) {
               //we can't do user=data as it will not update user references in all other angular controllers.
 
