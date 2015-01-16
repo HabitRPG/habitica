@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "мудрая",
     "questEggPenguinText": "Пингвин",
     "questEggPenguinAdjective": "проницательный",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить на это яйцо, и из него вылупится <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

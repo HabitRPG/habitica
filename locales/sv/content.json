@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "förnuftig",
     "questEggPenguinText": "Pingvin",
     "questEggPenguinAdjective": "perspicacious",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Hitta en kläckningsdryck att hälla på det här ägget så kläcks det som en <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",

@@ -8,7 +8,7 @@
     "disableAds": " Advertenties uitschakelen",
     "disableAdsText": "Advertenties blijven uitgeschakeld zolang je een actief abonnement hebt (oorspronkelijke gebruikers met uitgeschakelde advertenties hebben een uitzonderingsclausule).",
     "buyGemsGold": "Edelstenen kopen met goud",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 edelsteen kost <%= gemCost %> goud) Dit gaat de bezorgdheid tegen dat mensen kunnen \"betalen om te winnen\", want alles is nu haalbaar door hard te werken. Er is een maandelijks maximum van <%= gemLimit %> edelstenen om farmen te voorkomen.",
     "retainHistory": "Volledige geschiedenis behouden",
     "retainHistoryText": "Geeft je volledige geschiedenis weer in grafieken en voor export. De gegevens van niet-abonnees worden samengevat om de database te ontzien.",
     "doubleDrops": "Dagelijkse vondstmaximum verdubbelen",
