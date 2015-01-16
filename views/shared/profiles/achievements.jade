@@ -96,7 +96,7 @@ div(ng-if='profile.achievements.mountMaster || (profile.achievements.beastMaster
       =env.t('mountMasterText2', {count: "{{profile.achievements.mountMasterCount}}"})
   hr
 
-div(ng-if='profile.achievements.triadBingo || user._id == profile._id')
+div(ng-if='profile.achievements.triadBingo || (profile.achievements.mountMaster && user._id == profile._id)')
   .achievement.achievement-wolf(ng-show='profile.achievements.triadBingo')
   div(ng-class='{muted: !profile.achievements.triadBingo}')
     h5=env.t('triadBingoName')
