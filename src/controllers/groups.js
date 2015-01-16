@@ -660,11 +660,12 @@ questStart = function(req, res, next) {
   })
 
   group.quest.active = true;
-  if (quest.boss)
+  if (quest.boss) {
     group.quest.progress.hp = quest.boss.hp;
     if (quest.boss.rage) group.quest.progress.rage = 0;
-  else
+  } else {
     group.quest.progress.collect = collected;
+  }
   group.quest.members = questMembers;
   group.markModified('quest'); // members & progress.collect are both Mixed types
   parallel.push(function(cb2){group.save(cb2)});
