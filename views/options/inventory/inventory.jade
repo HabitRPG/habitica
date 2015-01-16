@@ -183,6 +183,11 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     p
                       |  {{::Content.eggs.#{egg}.value}}&nbsp;
                       span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='(user.achievements.quests.trex + user.achievements.quests.trex_undead) > 1')
+                  button.customize-option(popover='{{::Content.eggs.TRex.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.TRex.text()}}"}), popover-trigger='mouseenter', popover-placement='top', ng-click='purchase("eggs", Content.eggs.TRex)', class='Pet_Egg_TRex')
+                  p
+                    | {{::Content.eggs.TRex.value}}&nbsp;
+                    span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
               menu.pets-menu(label=env.t('hatchingPotions'))

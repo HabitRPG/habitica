@@ -79,7 +79,7 @@ module.exports.errorHandler = function(err, req, res, next) {
     error: "Uncaught error",
     stack: (err.stack || err.message || err),
     body: req.body, headers: req.header,
-    auth: (req.headers['x-api-user'] + ' | ' + req.headers['x-api-key']),
+    auth: req.headers['x-api-user'],
     originalUrl: req.originalUrl
   });
   var message = err.message ? err.message : err;
