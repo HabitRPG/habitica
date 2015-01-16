@@ -762,8 +762,9 @@ api.wrap = (user, main=true) ->
         if user.balance < 1.5
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          user.balance -= 1
+          user.balance -= 1.5
           user.items.currentMount = ""
+          user.items.currentPet = ""
           for animal of content.pets
             user.items.pets[animal] = 0
             user.items.mounts[animal] = null

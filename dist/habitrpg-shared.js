@@ -15640,8 +15640,9 @@ api.wrap = function(user, main) {
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
-          user.balance -= 1;
+          user.balance -= 1.5;
           user.items.currentMount = "";
+          user.items.currentPet = "";
           for (animal in content.pets) {
             user.items.pets[animal] = 0;
             user.items.mounts[animal] = null;
