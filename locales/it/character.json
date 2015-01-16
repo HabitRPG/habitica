@@ -126,8 +126,8 @@
     "purchaseFor": "Comprare per <%= cost %> Gemme?",
     "notEnoughMana": "Non hai abbastanza Mana.",
     "invalidTarget": "Bersaglio non valido",
-    "youCast": "Hai lanciato <%= spell %>.",
-    "youCastTarget": "Hai lanciato <%= spell %> su <%= target %>.",
+    "youCast": "Hai lanciato l'incantesimo <%= spell %>.",
+    "youCastTarget": "Hai lanciato l'incantesimo <%= spell %> su <%= target %>.",
     "youCastParty": "Hai lanciato l'incantesimo <%= spell %> per la squadra.",
     "critBonus": "Colpo critico! Bonus:"
 }

@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "wijze",
     "questEggPenguinText": "Pinguïn",
     "questEggPenguinAdjective": "oplettende",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Vind een uitbroedtoverdrank om op dit ei te gieten, en er zal een <%= eggAdjective() %> <%= eggText() %> uitkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",

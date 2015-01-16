@@ -8,7 +8,7 @@
     "disableAds": "Dezactivează reclamele",
     "disableAdsText": "Reclamele vor rămâne dezactivate atât timp cât ai un abonament activ (utilizatorii originali care aveau reclamele dezactivate, le vor avea dezactivate și în continuare).",
     "buyGemsGold": "Cumpără Nestemate cu Aur",
-    "buyGemsGoldText": "(1 Nestemată costă <% gemCost %> Aur) Răspunde dubiilor legate de imposibilitatea câștigării jocului fără plată, deoarece totul este realizabil acum prin muncă. Există un plafon lunar pentru conversii de <%= gemLimit %>N pentru a preveni abuzurile.",
+    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
     "retainHistory": "Reține tot istoricul",
     "retainHistoryText": "Face tot istoricul disponibil în grafice sau pentru export. Istoricul celor care nu sunt abonați este arhivat pentru optimizarea bazei de date.",
     "doubleDrops": "Limita maximă de obiecte câștigate este dublată",

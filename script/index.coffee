@@ -555,7 +555,7 @@ api.wrap = (user, main=true) ->
 
       updateTask: (req, cb) ->
         return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task = user.tasks[req.params?.id]
-        _.merge task, _.omit(req.body,['checklist','id'])
+        _.merge task, _.omit(req.body,['checklist','id', 'type'])
         task.checklist = req.body.checklist if req.body.checklist
         task.markModified? 'tags'
         cb? null, task

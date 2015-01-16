@@ -12642,6 +12642,11 @@ api.questEggs = {
     text: t('questEggPenguinText'),
     adjective: t('questEggPenguinAdjective'),
     canBuy: false
+  },
+  TRex: {
+    text: t('questEggTRexText'),
+    adjective: t('questEggTRexAdjective'),
+    canBuy: false
   }
 };
 
@@ -13077,6 +13082,7 @@ api.quests = {
         title: t("questStressbeastBossRageTitle"),
         description: t("questStressbeastBossRageDescription"),
         value: 1450000,
+        healing: .3,
         stables: t('questStressbeastBossRageStables'),
         bailey: t('questStressbeastBossRageBailey'),
         guide: t('questStressbeastBossRageGuide')
@@ -13950,6 +13956,73 @@ api.quests = {
       ],
       gp: 31,
       exp: 200
+    }
+  },
+  trex: {
+    text: t('questTRexText'),
+    notes: t('questTRexNotes'),
+    completion: t('questTRexCompletion'),
+    value: 4,
+    boss: {
+      name: t('questTRexBoss'),
+      hp: 800,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }
+      ],
+      gp: 55,
+      exp: 500
+    }
+  },
+  trex_undead: {
+    text: t('questTRexUndeadText'),
+    notes: t('questTRexUndeadNotes'),
+    completion: t('questTRexUndeadCompletion'),
+    value: 4,
+    boss: {
+      name: t('questTRexUndeadBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t("questTRexUndeadRageTitle"),
+        description: t("questTRexUndeadRageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questTRexUndeadRageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }, {
+          type: 'eggs',
+          key: 'TRex',
+          text: t('questTRexDropTRexEgg')
+        }
+      ],
+      gp: 55,
+      exp: 500
     }
   }
 };
@@ -15196,7 +15269,7 @@ api.wrap = function(user, main) {
             message: i18n.t('messageTaskNotFound', req.language)
           }) : void 0;
         }
-        _.merge(task, _.omit(req.body, ['checklist', 'id']));
+        _.merge(task, _.omit(req.body, ['checklist', 'id', 'type']));
         if (req.body.checklist) {
           task.checklist = req.body.checklist;
         }
