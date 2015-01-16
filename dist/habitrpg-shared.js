@@ -15633,17 +15633,21 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
       releaseBoth: function(req, cb) {
-        var animal;
+        var animal, giveTriadBingo;
         if (user.balance < 1.5) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
+          giveTriadBingo = true;
           user.balance -= 1.5;
           user.items.currentMount = "";
           user.items.currentPet = "";
           for (animal in content.pets) {
+            if (user.items.pets[animal] === -1) {
+              giveTriadBingo = false;
+            }
             user.items.pets[animal] = 0;
             user.items.mounts[animal] = null;
           }
@@ -15655,6 +15659,12 @@ api.wrap = function(user, main) {
             user.achievements.mountMasterCount = 0;
           }
           user.achievements.mountMasterCount++;
+          if (giveTriadBingo) {
+            if (!user.achievements.triadBingoCount) {
+              user.achievements.triadBingoCount = 0;
+            }
+            user.achievements.triadBingoCount++;
+          }
         }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
