@@ -78,11 +78,16 @@ habitrpg.controller("InventoryCtrl",
     }
 
     $scope.calcTriadBingo = function() {
+      var hasPets = Shared.countPets(null, User.user.items.pets) >= 90 ;
+      var hasMounts = Shared.countMounts(null, User.user.items.mounts) >= 90;
+
+      if(!(hasPets && hasMounts)) return false;
+
       for (var p in User.user.items.pets) {
         if(User.user.items.pets[p] < 0) return false;
       }
       return true;
-    };
+    }
 
     $scope.hatch = function(egg, potion){
       var eggName = Content.eggs[egg.key].text();
@@ -101,10 +106,7 @@ habitrpg.controller("InventoryCtrl",
 
       // Checks if Triad Bingo has been reached for the first time
       if(!User.user.achievements.triadBingo
-          && Shared.countPets(null, User.user.items.pets) >= 90
-          && Shared.countMounts(null, User.user.items.mounts) >= 90
           && $scope.calcTriadBingo()) {
-
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
