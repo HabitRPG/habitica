@@ -37,6 +37,7 @@
             "js/env.js",
 
             "js/app.js",
+            "bower_components/habitrpg-shared/script/config.js",
             "js/services/sharedServices.js",
             "js/services/authServices.js",
             "js/services/notificationServices.js",
