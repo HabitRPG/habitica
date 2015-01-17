@@ -216,7 +216,8 @@ describe "API", ->
               expect(chat.uuid).to.be.ok
               expect(chat.contributor).to.be.empty
               expect(chat.backer).to.be.empty
-              expect(chat.user).to.be.ok
+              expect(chat.uuid).to.be user._id
+              expect(chat.user).to.be user.profile.name
               done()
 
           it "can not like own chat message", (done) ->
