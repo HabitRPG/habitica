@@ -227,7 +227,7 @@ for $stage in $stages
 .task-action-btn
   display: inline-block
   width: 2.12765em
-  height: 2.12765em
+  height: 100%
   padding: 0
   font-size: 1.41em
   line-height: 2.12765
@@ -240,6 +240,17 @@ for $stage in $stages
   &:hover, &:focus
     color: #222
     text-decoration: none
+
+// Use table-style vertical aligning to vertically align in a
+// fluid height container
+.task-action-lbl
+  display: table
+  height: 100%
+  width: 100%
+
+.task-action-lbl-cell
+  display: table-cell
+  vertical-align: middle
 
 // checkbox
 .task-checker input[type=checkbox]
