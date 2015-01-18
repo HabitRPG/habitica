@@ -85,5 +85,7 @@
     "October": "ottobre",
     "November": "novembre",
     "December": "dicembre",
-    "dateFormat": "Formato data"
+    "dateFormat": "Formato data",
+    "achievementStressbeast": "Eroe di Stoïkalm",
+    "achievementStressbeastText": "Ha contribuito alla sconfitta dell'Abominevole Mostro dello Stress durante l'evento Winter Wonderland 2015!"
 }

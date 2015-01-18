@@ -8,7 +8,7 @@
     "disableAds": "נטרל פרסומות",
     "disableAdsText": "הפרסומות ישארו מנוטרלות כל עוד התרומה שלך מופעלת (משתמשים עם פרסומות מבוטלות באופן קבוע הם ותיקים).",
     "buyGemsGold": "קנה אבני חן עם זהב",
-    "buyGemsGoldText": "(אבן חן עולה  <%= gemCost %> זהב), עונה על הדאגה של \"שלם כדי לנצח\", מכיוון שכעת הכל ניתן להשגה דרך עבודה קשה. ישנה הגבלה חודשית של <%= gemLimit %> רכישות למניעת רמאות.",
+    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
     "retainHistory": "שמור על היסטוריות מלאות",
     "retainHistoryText": "הופל את ההיסטוריה המלאה שלך לזמינה בגרפים וייצואים. היסטוריות של אנשים שאינם תורמים נמחקות כדי להקל על מסד הנתונים שלנו.",
     "doubleDrops": "הגבלת הביזה היומית מוכפלת",

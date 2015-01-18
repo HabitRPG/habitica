@@ -8,7 +8,7 @@
     "disableAds": "Zablokuj reklamy",
     "disableAdsText": "Reklamy zůstanou vypnuté, dokud je předplatné aktivní. (pro uživatele kteří si reklamy odstranili v dřívější akci to neplatí)",
     "buyGemsGold": "Kup drahokamy za zlato",
-    "buyGemsGoldText": "(1 drahokam stojí <%= gemCost %> zlaťáků) Řeší obavu o \"zaplacení výhry\", jelikož vše lze nyní získat tvrdou prací. Existuje měsíční limit převodu <%= gemLimit %> drahokamů, kvůli omezení farmingu.",
+    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
     "retainHistory": "Ponech si veškeré položky historie",
     "retainHistoryText": "Tvá plná historie bude k dispozici v grafu a pro export. Ostatním uživatelům se historie kvůli optimalizaci databáze slučuje.",
     "doubleDrops": "Denně získáš dvakrát více předmětů",
@@ -69,7 +69,7 @@
     "timeTravelersPopoverNoSub": "Potřebuješ mystické přesýpací hodiny abys svolal záhadné cestovatele časem! <%= linkStart %>Předplatitelé<%= linkEnd %>  dostanou jedny mystické přesýpací hodiny za každé tři měsíce nepřetržitého předplaceného období. Vrať se až budeš mít mystické přesýpací hodiny a cestovatelé časem ti přinesou set předmětů pro předplatitele z minulosti.... anebo i z budoucnosti.",
     "timeTravelersPopover": "Vidíme, že máš mystické přesýpací hodiny, tak pro Tebe rádi budeme cestovat časem! Prosím, vyber si záhadný set předmětů, který se ti líbí. Můžeš si vybrat z minulých setů <%= linkStart %>tady<%= linkEnd %>! Pokud se ti nelíbí, možná by sis vybral z našich trendy futuristických setů Steampunk předmětů?",
     "mysticHourglassPopover": "Mystické přesýpací hodiny ti umožní koupit si sety pro předplatitele z předchozích měsíců.",
-    "subUpdateCard": "Update Card",
-    "subUpdateTitle": "Update",
-    "subUpdateDescription": "Update the card to be charged."
+    "subUpdateCard": "Karta s aktualizacemi",
+    "subUpdateTitle": "Aktualizace",
+    "subUpdateDescription": "Aktualizuj kartu, aby se nabila."
 }

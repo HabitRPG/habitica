@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "weise",
     "questEggPenguinText": "Pinguin",
     "questEggPenguinAdjective": "scharfsinning",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Übergieße dieses Ei mit einem Schlüpftrank und ein  <%= eggAdjective() %> <%= eggText() %> wird schlüpfen.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

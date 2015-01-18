@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "sábia",
     "questEggPenguinText": "Pinguim",
     "questEggPenguinAdjective": "perspicaz",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Encontre uma poção de eclosão para usar nesse ovo, e ele chocará um <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",

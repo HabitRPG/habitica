@@ -8,7 +8,7 @@
     "disableAds": "Werbung entfernen",
     "disableAdsText": "Werbung wird entfernt bleiben, solange Du ein aktives Abo hast (ursprüngliche Benutzer mit entfernter Werbung sind von Neuregelungen ausgenommen).",
     "buyGemsGold": "Kaufe Edelsteine mit Gold",
-    "buyGemsGoldText": "(1 Edelstein kostet <%= gemCost %> Gold) Das zielt auf die \"Geld gewinnt das Spiel\" Bedenken, weil dadurch alles mit harter Arbeit verdient werden kann. Es gibt ein <%= gemLimit %> Edelstein Limit, um unfaire Vorteile zu verhindern.",
+    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
     "retainHistory": "Behalte alle Verlaufeinträge",
     "retainHistoryText": "Dein gesamter Verlauf steht Dir für Graphen und Exporte zur Verfügung. Der Verlauf von Nicht-Abonnementen wird zusammengelegt um die Datenbanken zu optimieren.",
     "doubleDrops": "Du kannst doppelt so viele Gegenstände pro Tag finden",
@@ -71,5 +71,5 @@
     "mysticHourglassPopover": "Die Mysteriöse Sanduhr erlaubt dir, Abonnenten-Sets früherer Monate zu kaufen. ",
     "subUpdateCard": "Aktualisiere deine Karte",
     "subUpdateTitle": "Aktualisiere",
-    "subUpdateDescription": "Aktualisiere die Karte geladen werden."
+    "subUpdateDescription": "Aktualisiere die Karte mit der Du zahlen möchtest."
 }

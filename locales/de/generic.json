@@ -35,7 +35,7 @@
     "neverMind": "Vergiss es",
     "buyMoreGems": "Mehr Edelsteine kaufen",
     "notEnoughGems": "Nicht genug Edelsteine",
-    "alreadyHave": "Whoops! Du hast diesen Gegenstand bereits. Keine Notwendigkeit, es wieder zu kaufen!",
+    "alreadyHave": "Hoppla! Du hast diesen Gegenstand bereits. Keine Notwendigkeit, ihn wieder zu kaufen!",
     "delete": "Löschen",
     "gems": "Edelsteine",
     "moreInfo": "Mehr Informationen",
@@ -85,5 +85,7 @@
     "October": "Oktober",
     "November": "November",
     "December": "Dezember",
-    "dateFormat": "Datumsformat"
+    "dateFormat": "Datumsformat",
+    "achievementStressbeast": "Savior of Stoïkalm",
+    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
 }

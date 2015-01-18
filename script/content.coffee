@@ -532,7 +532,6 @@ api.spells =
         user.party.quest.progress.up ?= 0
         user.party.quest.progress.up += diminishingReturns(bonus, 55, 70)
 
-
     defensiveStance:
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
@@ -776,6 +775,7 @@ api.questEggs =
   Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
   Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
   Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
+  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -796,12 +796,14 @@ api.specialPets =
   'BearCub-Polar':      'polarBearPup'
   'MantisShrimp-Base':  'mantisShrimp'
   'JackOLantern-Base':  'jackolantern'
+  'Mammoth-Base':       'mammoth'
 
 api.specialMounts =
   'BearCub-Polar':      'polarBear'
   'LionCub-Ethereal':   'etherealLion'
   'MantisShrimp-Base':  'mantisShrimp'
   'Turkey-Base':        'turkey'
+  'Mammoth-Base':       'mammoth'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -895,6 +897,45 @@ api.quests =
       items: [
         {type: 'pets', key: 'MantisShrimp-Base', text: t('questDilatoryDropMantisShrimpPet')}
         {type: 'mounts', key: 'MantisShrimp-Base', text: t('questDilatoryDropMantisShrimpMount')}
+
+        {type: 'food', key: 'Meat', text: t('foodMeat')}
+        {type: 'food', key: 'Milk', text: t('foodMilk')}
+        {type: 'food', key: 'Potatoe', text: t('foodPotatoe')}
+        {type: 'food', key: 'Strawberry', text: t('foodStrawberry')}
+        {type: 'food', key: 'Chocolate', text: t('foodChocolate')}
+        {type: 'food', key: 'Fish', text: t('foodFish')}
+        {type: 'food', key: 'RottenMeat', text: t('foodRottenMeat')}
+        {type: 'food', key: 'CottonCandyPink', text: t('foodCottonCandyPink')}
+        {type: 'food', key: 'CottonCandyBlue', text: t('foodCottonCandyBlue')}
+        {type: 'food', key: 'Honey', text: t('foodHoney')}
+      ]
+      gp: 0
+      exp: 0
+
+  stressbeast:
+    text: t("questStressbeastText")
+    notes: t("questStressbeastNotes")
+    completion: t("questStressbeastCompletion")
+    completionChat: t("questStressbeastCompletionChat")
+    value: 0
+    canBuy: false
+    boss:
+      name: t("questStressbeastBoss")
+      hp: 2750000
+      str: 1
+      def: 1
+      rage:
+        title: t("questStressbeastBossRageTitle")
+        description: t("questStressbeastBossRageDescription")
+        value: 1450000
+        healing: .3
+        stables:t('questStressbeastBossRageStables')
+        bailey:t('questStressbeastBossRageBailey')
+        guide:t('questStressbeastBossRageGuide')
+    drop:
+      items: [
+        {type: 'pets', key: 'Mammoth-Base', text: t('questStressbeastDropMammothPet')}
+        {type: 'mounts', key: 'Mammoth-Base', text: t('questStressbeastDropMammothMount')}
 
         {type: 'food', key: 'Meat', text: t('foodMeat')}
         {type: 'food', key: 'Milk', text: t('foodMilk')}
@@ -1391,6 +1432,48 @@ api.quests =
       ]
       gp: 31
       exp: 200
+
+  trex:
+    text: t('questTRexText')
+    notes: t('questTRexNotes')
+    completion: t('questTRexCompletion')
+    value: 4
+    boss:
+      name: t('questTRexBoss')
+      hp: 800
+      str: 2
+    drop:
+      items: [
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+      ]
+      gp: 55
+      exp: 500
+
+  trex_undead:
+    text: t('questTRexUndeadText')
+    notes: t('questTRexUndeadNotes')
+    completion: t('questTRexUndeadCompletion')
+    value: 4
+    boss:
+      name: t('questTRexUndeadBoss')
+      hp: 500
+      str: 2
+      rage:
+        title: t("questTRexUndeadRageTitle")
+        description: t("questTRexUndeadRageDescription")
+        value: 50
+        healing: .3
+        effect:t('questTRexUndeadRageEffect')
+    drop:
+      items: [
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+        {type: 'eggs', key: 'TRex', text: t('questTRexDropTRexEgg')}
+      ]
+      gp: 55
+      exp: 500
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
