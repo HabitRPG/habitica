@@ -7,8 +7,15 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
   .constant("MOBILE_APP", false)
 
 .controller("RootCtrl", ['$scope', '$location', '$modal', '$http', function($scope, $location, $modal, $http){
-    // must be #?memberId=xx, see https://github.com/angular/angular.js/issues/7239
     var memberId = $location.search()['memberId'];
+
+    // TODO Adding legacy support, remove this after 2/15/2015 or so
+    // angular@1.3.3 has bug, requires /#?memberId=x instead of ?memberId=x (https://github.com/angular/angular.js/issues/7239)
+    if (!memberId) {
+      memberId = /#\?memberId\=(.+)/.exec($location.$$absUrl);
+      if (memberId) memberId = memberId[memberId.length-1];
+    }
+
     if (memberId) {
       $http.get('/api/v2/members/'+memberId).success(function(data, status, headers, config){
         $scope.profile = data;
