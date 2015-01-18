@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('userServices', [])
-  .service('ApiUrlService', ['API_URL', function(currentApiUrl){
+angular.module('habitrpg')
+  .service('ApiUrl', ['API_URL', function(currentApiUrl){
     this.setApiUrl = function(newUrl){
       currentApiUrl = newUrl;
     };
@@ -14,8 +14,8 @@ angular.module('userServices', [])
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'MOBILE_APP', 'Notification', 'ApiUrlService',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, MOBILE_APP, Notification, ApiUrlService) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'MOBILE_APP', 'Notification', 'ApiUrl',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, MOBILE_APP, Notification, ApiUrl) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -68,7 +68,7 @@ angular.module('userServices', [])
         // Save the current filters
         var current_filters = user.filters;
 
-        $http.post(ApiUrlService.get() + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
+        $http.post(ApiUrl.get() + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
             //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
             if (!queue.length) {
