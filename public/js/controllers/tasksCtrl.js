@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrlService', '$timeout', 'Shared',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrlService, $timeout, Shared) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -88,7 +88,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.unlink = function(task, keep) {
       // TODO move this to userServices, turn userSerivces.user into ng-resource
-      $http.post(ApiUrlService.get() + '/api/v2/user/tasks/' + task.id + '/unlink?keep=' + keep)
+      $http.post(ApiUrl.get() + '/api/v2/user/tasks/' + task.id + '/unlink?keep=' + keep)
         .success(function(){
           User.log({});
         });
