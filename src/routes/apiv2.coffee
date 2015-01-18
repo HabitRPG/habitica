@@ -607,7 +607,7 @@ module.exports = (swagger, v2) ->
         path: '/members/{uuid}'
         description: "Get a member."
         parameters: [path('uuid','Member ID','string')]
-      middleware: [auth.auth, i18n.getUserLanguage]
+      middleware: [i18n.getUserLanguage] # removed auth.auth, so anon users can view shared avatars
       action: members.getMember
     "/members/{uuid}/message":
       spec:
