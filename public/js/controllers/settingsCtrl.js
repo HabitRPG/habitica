@@ -85,6 +85,7 @@ habitrpg.controller('SettingsCtrl',
         .success(function(){
           alert(window.env.t('usernameSuccess'));
           $scope.changeUser = {};
+          User.sync();
         })
         .error(function(data){
           alert(data.err);
