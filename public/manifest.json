@@ -39,7 +39,6 @@
             "js/app.js",
             "bower_components/habitrpg-shared/script/config.js",
             "js/services/sharedServices.js",
-            "js/services/authServices.js",
             "js/services/notificationServices.js",
             "bower_components/habitrpg-shared/script/userServices.js",
             "bower_components/habitrpg-shared/script/directives.js",

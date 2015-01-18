@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('paymentServices',[]).factory('Payments',
+angular.module('habitrpg').factory('Payments',
 ['$rootScope', 'User', '$http', 'Content',
 function($rootScope, User, $http, Content) {
   var Payments = {};
