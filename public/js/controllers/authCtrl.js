@@ -4,7 +4,7 @@
  The authentication controller (login & facebook)
  */
 
-angular.module('authCtrl', [])
+angular.module('habitrpg')
   .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal',
     function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal) {
 
