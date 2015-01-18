@@ -100,7 +100,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                     |&nbsp;
                     =env.t('loginNameDescription3')                 
               p=env.t('email')
-                |: {{user.auth.local.email}} 
+                |: {{::user.auth.local.email}} 
               p
                 small.muted
                     =env.t('emailChange1')
