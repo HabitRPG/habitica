@@ -762,10 +762,12 @@ api.wrap = (user, main=true) ->
         if user.balance < 1.5
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
+          giveTriadBingo = true
           user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
           for animal of content.pets
+            giveTriadBingo = false if user.items.pets[animal] == -1 
             user.items.pets[animal] = 0
             user.items.mounts[animal] = null
           if not user.achievements.beastMasterCount
@@ -774,6 +776,10 @@ api.wrap = (user, main=true) ->
           if not user.achievements.mountMasterCount
             user.achievements.mountMasterCount = 0
           user.achievements.mountMasterCount++
+          if giveTriadBingo
+            if not user.achievements.triadBingoCount
+              user.achievements.triadBingoCount = 0
+            user.achievements.triadBingoCount++
         cb? null, user
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
