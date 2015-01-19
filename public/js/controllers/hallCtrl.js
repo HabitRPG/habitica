@@ -1,8 +1,8 @@
 "use strict";
 
-habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrlService', '$resource',
-  function($scope, $rootScope, User, Notification, ApiUrlService, $resource) {
-    var Hero = $resource(ApiUrlService.get() + '/api/v2/hall/heroes/:uid', {uid:'@_id'});
+habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', '$resource',
+  function($scope, $rootScope, User, Notification, ApiUrl, $resource) {
+    var Hero = $resource(ApiUrl.get() + '/api/v2/hall/heroes/:uid', {uid:'@_id'});
     $scope.hero = undefined;
     $scope.loadHero = function(uuid){
       $scope.hero = Hero.get({uid:uuid});
@@ -19,9 +19,9 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
     $scope.heroes = Hero.query();
   }]);
 
-habitrpg.controller("HallPatronsCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrlService', '$resource',
-  function($scope, $rootScope, User, Notification, ApiUrlService, $resource) {
-    var Patron = $resource(ApiUrlService.get() + '/api/v2/hall/patrons/:uid', {uid:'@_id'});
+habitrpg.controller("HallPatronsCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', '$resource',
+  function($scope, $rootScope, User, Notification, ApiUrl, $resource) {
+    var Patron = $resource(ApiUrl.get() + '/api/v2/hall/patrons/:uid', {uid:'@_id'});
 
     var page = 0;
     $scope.patrons = [];

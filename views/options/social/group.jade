@@ -58,12 +58,19 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             button.pull-right.btn.btn-primary(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})", ng-if='::group.type=="party"') Invite Friends
         .panel-body.modal-fixed-height
           div.form-group(ng-if='::group.type=="party"')
-            =env.t('partyList')
+            p=env.t('partyList')
             select.form-control#partyOrder(
               ng-model='user.party.order',
               ng-controller='ChatCtrl',
               ng-options='k as v for (k , v) in partyOrderChoices',
               ng-change='set({"party.order": user.party.order})'
+              )
+            |&nbsp;
+            select.form-control#partyOrderAscending(
+              ng-model='user.party.orderAscending',
+              ng-controller='ChatCtrl',
+              ng-options='k as v for (k , v) in partyOrderAscendingChoices',
+              ng-change='set({"party.orderAscending": user.party.orderAscending})'
               )
           table.table.table-striped(bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')

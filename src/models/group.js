@@ -301,8 +301,17 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
     var down = progress.down * quest.boss.str; // multiply by boss strength
 
     group.quest.progress.hp -= progress.up;
-    group.sendChat("`" + user.profile.name + " attacks " + quest.boss.name('en') + " for " + (progress.up.toFixed(1)) + " damage, " + quest.boss.name('en') + " attacks party for " + Math.abs(down).toFixed(1) + " damage.`");
+    group.sendChat("`" + user.profile.name + " attacks " + quest.boss.name('en') + " for " + (progress.up.toFixed(1)) + " damage, " + quest.boss.name('en') + " attacks party for " + Math.abs(down).toFixed(1) + " damage.`"); //TODO Create a party preferred language option so emits like this can be localized
 
+    // If boss has Rage, increment Rage as well
+    if (quest.boss.rage) {
+      group.quest.progress.rage += Math.abs(down);
+      if (group.quest.progress.rage >= quest.boss.rage.value) {
+        group.sendChat(quest.boss.rage.effect('en'));
+        group.quest.progress.rage = 0;
+        if (quest.boss.rage.healing) group.quest.progress.hp += (group.quest.progress.hp * quest.boss.rage.healing); //TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
+      }
+    }
     // Everyone takes damage
     var series = [
       function(cb2){
