@@ -36,11 +36,16 @@ for $stage in $stages
           &:focus
             border: 1px solid darken($stage[1],30%)
             outline: 0
+      .task-actions
+        background-color: darken($stage[1], 30%)
       .action-yesno label,
-      .task-action-btn
+      .task-action-btn,
+      .task-actions a
         background-color: darken($stage[1], 30%)
         &:hover, &:focus
           background-color: darken($stage[1], 40%)
+      .task-actions a:nth-of-type(2)
+        border-top: 1px solid darken($stage[1],50%) // If there are two habit buttons (+ -), add a border to separate them
       .task-options
         background-color: $stage[1]
       .option-group:not(.task-checklist)
@@ -183,7 +188,7 @@ for $stage in $stages
 // task content
 .task-text
   display: block
-  padding: 0.75em 0 0.75em 3.5em
+  padding: 0.75em 0 0.75em 3.75em
   line-height: 1.4
   word-wrap: break-word
 
@@ -195,11 +200,6 @@ for $stage in $stages
     height:1.5em
     background-size:1.5em
     vertical-align: middle
-
-.habit-wide .task-text
-  padding-left: 7em
-.habit-narrow .task-text
-  padding-left: 0.75em
 
 // when a task is being dragged
 .task.ui-sortable-helper
@@ -486,7 +486,41 @@ form
         min-width: 2.5em      
   .save-close
     text-align: center
-    @extend $hrpg-button       
+    @extend $hrpg-button
+          
+// Habits – task button styles (+ -)
+.habits
+  .task-actions
+    display: inline-block
+    width: 3em
+    height: 100%
+    a
+      display: table;
+      width: 100%
+      height: 100%
+      font-size: 0.8em
+      span
+        display: table-cell
+        text-align: center
+        vertical-align: middle
+        width: 100%
+        height: 100%
+      &:hover, &:focus
+        color: #222
+        text-decoration: none
+  .habit-wide
+    // When there are two buttons...
+    min-height: 4.5em
+    .task-actions
+      a
+        height: 50%
+  .habit-narrow
+    // When there are no buttons...
+    .task-actions
+      display: none
+    .task-text
+      padding-left: 1em
+
 // todos ui
 // --------
 

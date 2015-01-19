@@ -4,9 +4,9 @@
  The authentication controller (login & facebook)
  */
 
-angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrlService', '$modal',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrlService, $modal) {
+angular.module('habitrpg')
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -36,7 +36,7 @@ angular.module('authCtrl', [])
         if ($scope.registrationForm.$invalid) {
           return;
         }
-        var url = ApiUrlService.get() + "/api/v2/register";
+        var url = ApiUrl.get() + "/api/v2/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, $scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
@@ -48,7 +48,7 @@ angular.module('authCtrl', [])
           username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
           password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
         };
-        $http.post(ApiUrlService.get() + "/api/v2/user/auth/local", data)
+        $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(errorAlert);
@@ -70,7 +70,7 @@ angular.module('authCtrl', [])
         if(email == null || email.length == 0) {
           alert(window.env.t('invalidEmail'));
         } else {
-          $http.post(ApiUrlService.get() + '/api/v2/user/reset-password', {email:email})
+          $http.post(ApiUrl.get() + '/api/v2/user/reset-password', {email:email})
             .success(function(){
               alert(window.env.t('newPassSent'));
             })
@@ -120,7 +120,7 @@ angular.module('authCtrl', [])
 
       $scope.socialLogin = function(network){
         hello(network).login({scope:'email'}).then(function(auth){
-          $http.post(ApiUrlService.get() + "/api/v2/user/auth/social", auth)
+          $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
               runAuth(data.id, data.token);
             }).error(errorAlert);

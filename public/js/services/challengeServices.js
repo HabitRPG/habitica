@@ -4,24 +4,23 @@
  * Services that persists and retrieves user from localStorage.
  */
 
-angular.module('challengeServices', ['ngResource']).
-    factory('Challenges', ['ApiUrlService', '$resource', 'User', '$q', 'Members',
-      function(ApiUrlService, $resource, User, $q, Members) {
-        var Challenge = $resource(ApiUrlService.get() + '/api/v2/challenges/:cid',
-          {cid:'@_id'},
-          {
-            //'query': {method: "GET", isArray:false}
-            join: {method: "POST", url: ApiUrlService.get() + '/api/v2/challenges/:cid/join'},
-            leave: {method: "POST", url: ApiUrlService.get() + '/api/v2/challenges/:cid/leave'},
-            close: {method: "POST", params: {uid:''}, url: ApiUrlService.get() + '/api/v2/challenges/:cid/close'},
-            getMember: {method: "GET", url: ApiUrlService.get() + '/api/v2/challenges/:cid/member/:uid'}
-          });
+angular.module('habitrpg').factory('Challenges',
+['ApiUrl', '$resource',
+function(ApiUrl, $resource) {
+  var Challenge = $resource(ApiUrl.get() + '/api/v2/challenges/:cid',
+    {cid:'@_id'},
+    {
+      //'query': {method: "GET", isArray:false}
+      join: {method: "POST", url: ApiUrl.get() + '/api/v2/challenges/:cid/join'},
+      leave: {method: "POST", url: ApiUrl.get() + '/api/v2/challenges/:cid/leave'},
+      close: {method: "POST", params: {uid:''}, url: ApiUrl.get() + '/api/v2/challenges/:cid/close'},
+      getMember: {method: "GET", url: ApiUrl.get() + '/api/v2/challenges/:cid/member/:uid'}
+    });
 
-        //var challenges = [];
+  //var challenges = [];
 
-        return {
-          Challenge: Challenge
-          //challenges: challenges
-        }
-      }
-]);
+  return {
+    Challenge: Challenge
+    //challenges: challenges
+  }
+}]);

@@ -1,4 +1,4 @@
-li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward")}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", data-popover-placement="top", ng-show='shouldShow(task, list, user.preferences)')
+li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward")}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", data-popover-placement="top", ng-show='shouldShow(task, list, user.preferences)')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -61,10 +61,12 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
   .task-controls.task-primary(ng-if='!task._editing')
 
     // Habits
-    span(ng-if='::task.type=="habit"')
+    .task-actions(ng-if='::task.type=="habit"')
       // score() is overridden in challengesCtrl to do nothing
-      a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
-      a.task-action-btn(ng-if='task.down', ng-click='score(task,"down")') -
+      a(ng-if='task.up', ng-click='applyingAction || score(task,"up")')
+        span.glyphicon.glyphicon-plus
+      a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
+        span.glyphicon.glyphicon-minus
 
     // Rewards
     span(ng-show='task.type=="reward"')
