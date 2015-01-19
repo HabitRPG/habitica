@@ -70,7 +70,7 @@
     "audioTheme_off": "Kikapcsol",
     "audioTheme_danielTheBard": "Daniel a bárd",
     "askQuestion": "Tegyél fel egy kérdést",
-    "reportBug": "Jelents egy hibát",
+    "reportBug": "Programhiba jelentése",
     "contributeToHRPG": "Hozzájárulás a HabitRPG-hez",
     "overview": "Áttekintés Új Felhasználók számára",
     "January": "Január",
@@ -85,5 +85,7 @@
     "October": "Október",
     "November": "November",
     "December": "December",
-    "dateFormat": "Dátum formátum"
+    "dateFormat": "Dátum formátum",
+    "achievementStressbeast": "Savior of Stoïkalm",
+    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
 }

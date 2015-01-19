@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "мудрий",
     "questEggPenguinText": "Penguin",
     "questEggPenguinAdjective": "perspicacious",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Знайдіть зілля вилуплення, аби вилити його на яйце, з нього вийде <%= eggAdjective() %> <%= eggText() %>.",
     "hatchingPotionBase": "Простий",
     "hatchingPotionWhite": "Білий",

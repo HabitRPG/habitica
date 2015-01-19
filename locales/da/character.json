@@ -94,7 +94,7 @@
     "changeClass": "Skift klasse, Refunder attributpoint",
     "levelPopover": "Hvert niveau giver dig et point du kan tildele en attribut efter eget valg. Du kan gøre det manuelt, eller lade spillet bestemme for dig ved hjælp af en af de automatiske tildelingsmuligheder.",
     "unallocated": "Ufordelte attributpoint",
-    "haveUnallocated": "Du har <%= points %> ubrugte attributpoint",
+    "haveUnallocated": "Du har <%= points %> ubrugt(e) attributpoint",
     "autoAllocation": "Automatisk tildeling",
     "autoAllocationPop": "Tildel point til dine attributter i forhold til dine ønsker, når du går et niveau op. ",
     "evenAllocation": "Fordel attributpoint jævnt",
@@ -129,5 +129,5 @@
     "youCast": "Du kaster <%= spell %>.",
     "youCastTarget": "Du kaster <%= spell %> på <%= target %>.",
     "youCastParty": "Du kaster <%= spell %> for hele selskabet.",
-    "critBonus": "Fuldtræffer! Bonus:"
+    "critBonus": "Fuldtræffer! Bonus: "
 }

@@ -8,7 +8,7 @@
     "disableAds": "Deaktivér reklamer",
     "disableAdsText": "Reklamer vil være væk så længe du har et aktivt abonnement (originale brugere er fritaget for reklamer).",
     "buyGemsGold": "Køb Ædelsten med Guld",
-    "buyGemsGoldText": "(1 ædelsten koster <%= gemCost %> Guld) Håndterer \"betal for at vinde\"-bekymringer, da alt er nu opnåeligt gennem hårdt arbejde. Der er en <%= gemLimit %>Æ månedlig vekselgrænse for at forhindre udbytning.",
+    "buyGemsGoldText": "(1 ædelsten koster <%= gemCost %> Guld) Modvirker \"betal for at vinde\"-bekymringen, da alt nu kan opnås gennem hårdt arbejde. Der er et månedligt vekslemaksimum på  <%= gemLimit %>Ædelsten for at forhindre udbytning/misbrug.",
     "retainHistory": "Behold fuld historik",
     "retainHistoryText": "Gør din fulde historik tilgængelig i grafer og eksport. Ikke-abonnent-historik bliver sammenlagt til databaseoptimering.",
     "doubleDrops": "Daglig drop-grænse fordoblet",

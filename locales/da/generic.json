@@ -8,7 +8,7 @@
     "formattingMarkdown": "Markdown-formattering tilladt",
     "achievements": "Præstationer",
     "modalAchievement": "Præstation!",
-    "special": "Særlig",
+    "special": "Andet",
     "site": "Side",
     "help": "Hjælp",
     "user": "Bruger",
@@ -85,5 +85,7 @@
     "October": "Oktober",
     "November": "November",
     "December": "December",
-    "dateFormat": "Datoformat"
+    "dateFormat": "Datoformat",
+    "achievementStressbeast": "Frelser af Stoiskro",
+    "achievementStressbeastText": "Var med til at overvinde Det Afskyelige Stressbæst i 2015 Vintereventyr-eventet!"
 }

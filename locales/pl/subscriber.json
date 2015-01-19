@@ -70,6 +70,6 @@
     "timeTravelersPopover": "Widzimy że masz Mistyczną Klepsydrę, zatem z ochotą powrócimy dla ciebie w czasie! Wybierz dowolny Tajemniczy Zestaw Przedmiotów. <%= linkStart %>Tutaj<%= linkEnd %> możesz zobaczyć listę poprzednich zestawów! Jeżeli te cię nie satysfakcjonują może byłbyś zainteresowany jednym z naszych stylowych, futurystycznych zestawów Steampunkowych?",
     "mysticHourglassPopover": "Mistyczna Klepsydra pozwala na zakup zestawów przedmiotów abonenckich z poprzednich miesięcy.",
     "subUpdateCard": "Karta Uaktualnienia",
-    "subUpdateTitle": "Uaktualnienie",
+    "subUpdateTitle": "Aktualizuj",
     "subUpdateDescription": "Uaktualnij kartę by ją naładować."
 }

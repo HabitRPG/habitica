@@ -47,6 +47,8 @@
     "questEggOwlAdjective": "wise",
     "questEggPenguinText": "Penguin",
     "questEggPenguinAdjective": "perspicacious",
+    "questEggTRexText": "Tyrannosaur",
+    "questEggTRexAdjective": "tiny-armed",
     "eggNotes": "Nájdi liahoxír, ktorý vyleješ na vajíčko, a vyliahne sa z neho <%= eggText() %>.",
     "hatchingPotionBase": "Základný",
     "hatchingPotionWhite": "Biely",
