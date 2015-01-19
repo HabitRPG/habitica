@@ -14795,7 +14795,7 @@ api.silver = function(num) {
 Task classes given everything about the class
  */
 
-api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
+api.taskClasses = function(task, filters, dayStart, lastCron, main) {
   var classes, completed, enabled, filter, repeat, type, value, _ref;
   if (filters == null) {
     filters = [];
@@ -14806,9 +14806,6 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
   if (lastCron == null) {
     lastCron = +(new Date);
   }
-  if (showCompleted == null) {
-    showCompleted = false;
-  }
   if (main == null) {
     main = false;
   }
@@ -14816,9 +14813,6 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     return;
   }
   type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-  if ((type === 'todo' && completed !== showCompleted) && main) {
-    return 'hidden';
-  }
   if (main) {
     if (!task._editing) {
       for (filter in filters) {
@@ -16716,5 +16710,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/lefnire/Google Drive/Sync/Sites/habitrpg/modules/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
