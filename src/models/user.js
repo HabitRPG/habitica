@@ -38,6 +38,8 @@ var UserSchema = new Schema({
     beastMasterCount: Number,
     mountMaster: Boolean,
     mountMasterCount: Number,
+    triadBingo: Boolean,
+    triadBingoCount: Number,
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
@@ -450,6 +452,18 @@ UserSchema.pre('save', function(next) {
     this.achievements.mountMaster = true
   }
 
+  // Determines if Triad Bingo should be awarded
+
+  var giveTriadBingo = function(pets) {
+    for(var p in pets) {
+      if(pets[p] == -1) return false;
+    }
+    return true;
+  };
+
+  if ((mountCount >= 90 && giveTriadBingo(this.items.pets)) || this.achievements.triadBingoCount > 0) {
+    this.achievements.triadBingo = true;
+  }
 
   // EXAMPLE CODE for allowing all existing and new players to be
   // automatically granted an item during a certain time period:
