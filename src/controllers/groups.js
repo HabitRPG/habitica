@@ -211,8 +211,23 @@ api.attachGroup = function(req, res, next) {
 }
 
 api.getChat = function(req, res, next) {
-  return res.json(res.locals.group.chat);
-}
+  // TODO: This code is duplicated from api.get - pull it out into a function to remove duplication.
+  var user = res.locals.user;
+  var gid = req.params.gid;
+  var q = (gid == 'party')
+    ? Group.findOne({type: 'party', members: {$in:[user._id]}})
+    : Group.findOne({$or:[
+        {_id:gid, privacy:'public'},
+        {_id:gid, privacy:'private', members: {$in:[user._id]}}
+      ]});
+  populateQuery(gid, q);
+  q.exec(function(err, group){
+    if (err) return next(err);
+    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
+    res.json(res.locals.group.chat);
+    gid = null;
+  });
+};
 
 /**
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
@@ -645,10 +660,12 @@ questStart = function(req, res, next) {
   })
 
   group.quest.active = true;
-  if (quest.boss)
+  if (quest.boss) {
     group.quest.progress.hp = quest.boss.hp;
-  else
+    if (quest.boss.rage) group.quest.progress.rage = 0;
+  } else {
     group.quest.progress.collect = collected;
+  }
   group.quest.members = questMembers;
   group.markModified('quest'); // members & progress.collect are both Mixed types
   parallel.push(function(cb2){group.save(cb2)});

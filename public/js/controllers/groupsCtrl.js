@@ -211,7 +211,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     });
   }])
   
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrlService', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrlService, Notification, Members, $rootScope){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrl, Notification, Members, $rootScope){
     $scope.message = {content:''};
     $scope._sending = false;
     
@@ -275,7 +275,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
       //Chat.Chat.like({gid:group._id,mid:message.id});
 
-      $http.post(ApiUrlService.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
+      $http.post(ApiUrl.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
     }
 
     $scope.flagChatMessage = function(groupId,message) {
@@ -303,10 +303,17 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       'level': window.env.t('sortLevel'),
       'random': window.env.t('sortRandom'),
       'pets': window.env.t('sortPets'),
+      'habitrpg_date_joined' : window.env.t('sortHabitrpgJoined'),
       'party_date_joined': window.env.t('sortJoined'),
+      'habitrpg_last_logged_in': window.env.t('sortHabitrpgLastLoggedIn'),
       'name': window.env.t('sortName'),
       'backgrounds': window.env.t('sortBackgrounds'),
     };
+
+    $scope.partyOrderAscendingChoices = {
+      'ascending': window.env.t('ascendingSort'),
+      'descending': window.env.t('descendingSort')
+    }
 
   }])
 
