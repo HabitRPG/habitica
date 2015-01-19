@@ -1444,6 +1444,8 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
+      dailyChecked = 0        # how many dailies were checked?
+      dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
@@ -1451,7 +1453,7 @@ api.wrap = (user, main=true) ->
         {id, type, completed, repeat} = task
 
         return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
-
+        # Magic points calculated AFTER stealth -- stealthed tasks are treated as just not being there
 
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
         unless completed
@@ -1464,8 +1466,11 @@ api.wrap = (user, main=true) ->
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
             perfect = false if type is 'daily'
+            dailyDueUnchecked++ if type is 'daily'
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
             user.party.quest.progress.down += delta if type is 'daily'
+        else
+          dailyChecked++
 
         switch type
           when 'daily'
@@ -1476,6 +1481,9 @@ api.wrap = (user, main=true) ->
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value
             todoTally += absVal
+
+      console.log("DueUnchecked: " + dailyDueUnchecked)
+      console.log("Checked: " + dailyChecked)
 
       user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
         if task.up is false or task.down is false
@@ -1514,7 +1522,8 @@ api.wrap = (user, main=true) ->
         else clearBuffs
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
-      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
+      # Adjust for fraction of dailies completed
+      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
