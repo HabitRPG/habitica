@@ -39,7 +39,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       } else {
         $scope.hatch(eggData, $scope.selectedPotion);
       }
-      $scope.selectedFood = null;
+      $scope.selectedFood = $scope.selectedQuest = null;
     }
 
     $scope.choosePotion = function(potion){
@@ -53,19 +53,29 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       } else {
         $scope.hatch($scope.selectedEgg, potionData);
       }
-      $scope.selectedFood = null;
+      $scope.selectedFood = $scope.selectedQuest = null;
     }
 
     $scope.chooseFood = function(food){
-      if ($scope.selectedFood && $scope.selectedFood.key == food) return $scope.selectedFood = null;
+      if ($scope.selectedFood && $scope.selectedFood.key == food) {
+        return $scope.selectedFood = null; // clicked same food, unselect
+      }
       $scope.selectedFood = Content.food[food];
-      $scope.selectedEgg = $scope.selectedPotion = null;
+      $scope.selectedEgg = $scope.selectedPotion = $scope.selectedQuest = null;
+    }
+
+    $scope.chooseQuest = function(quest){
+      if ($scope.selectedQuest && $scope.selectedQuest.key == quest) {
+        return $scope.selectedQuest = null; // clicked same quest, unselect
+      }
+      $scope.selectedQuest = Content.quests[quest];
+      $scope.selectedEgg = $scope.selectedPotion = $scope.selectedFood = null;
     }
 
     $scope.sellInventory = function() {
-      var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
+      var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : $scope.selectedQuest ? 'selectedQuest' : undefined;
       if (selected) {
-        var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
+        var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : $scope.selectedQuest ? 'quests' : undefined;
         user.ops.sell({params:{type:type, key: $scope[selected].key}});
         if (user.items[type][$scope[selected].key] < 1) {
           $scope[selected] = null;
@@ -135,6 +145,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.showQuest = function(quest) {
+      $scope.chooseQuest(quest);
       var item =  Content.quests[quest];
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)

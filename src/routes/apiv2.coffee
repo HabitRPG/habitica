@@ -173,7 +173,7 @@ module.exports = (swagger, v2) ->
         description: "Sell inventory items back to Alexander"
         parameters: [
           #TODO verify these are the correct types
-          path('type',"The type of object you're selling back.",'string',['eggs','hatchingPotions','food'])
+          path('type',"The type of object you're selling back.",'string',['eggs','hatchingPotions','food','quests'])
           path('key',"The object key you're selling back (call /content route for available keys)",'string')
         ]
       action: user.sell
