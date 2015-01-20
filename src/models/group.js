@@ -291,6 +291,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
         if ((tavern.quest.progress.hp < quest.boss.desperation.threshold) && !tavern.quest.extra.desperate) {
           tavern.sendChat(quest.boss.desperation.text('en'));
           tavern.quest.extra.desperate = true;
+          tavern.markModified('quest.extra.desperate');
         }
         tavern.save(cb);
       }
