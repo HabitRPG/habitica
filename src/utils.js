@@ -34,11 +34,16 @@ function getMailingInfo(user) {
   return {email: email, name: name};
 }
 
-module.exports.txnEmail = function(mailingInfo, emailType, variables){
+module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
   var variables = [{name: 'BASE_URL', content: nconf.get('BASE_URL')}].concat(variables || []);
+  var mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
 
-  if (mailingInfo._id) mailingInfo = getMailingInfo(mailingInfo);
-  if (!mailingInfo.email) return;
+  mailingInfoArray = mailingInfoArray.map(function(mailingInfo){
+    return mailingInfo._id ? getMailingInfo(mailingInfo) : mailingInfo;
+  }).filter(function(mailingInfo){
+    return mailingInfo.email ? true : false;
+  });
+
   request({
     url: nconf.get('EMAIL_SERVER:url') + '/job',
     method: 'POST',
@@ -50,10 +55,7 @@ module.exports.txnEmail = function(mailingInfo, emailType, variables){
       type: 'email',
       data: {
         emailType: emailType,
-        to: {
-          name: mailingInfo.name,
-          email: mailingInfo.email
-        },
+        to: mailingInfoArray,
         variables: variables
       },
       options: {
