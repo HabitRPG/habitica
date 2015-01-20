@@ -36,6 +36,10 @@ var UserSchema = new Schema({
     ultimateGear: Boolean,
     beastMaster: Boolean,
     beastMasterCount: Number,
+    mountMaster: Boolean,
+    mountMasterCount: Number,
+    triadBingo: Boolean,
+    triadBingoCount: Number,
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
@@ -429,6 +433,7 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
+  // Determines if Beast Master should be awarded
   var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
     //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
     if(_.isFunction(v)) return m;
@@ -436,6 +441,29 @@ UserSchema.pre('save', function(next) {
 
   if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
     this.achievements.beastMaster = true
+  }
+
+  // Determines if Mount Master should be awarded
+  var mountCount = shared.countMounts(_.reduce(this.items.mounts,function(m,v){
+    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
+    if(_.isFunction(v)) return m;
+    return m+(v?1:0)},0), this.items.mounts);
+
+  if (mountCount >= 90 || this.achievements.mountMasterCount > 0) {
+    this.achievements.mountMaster = true
+  }
+
+  // Determines if Triad Bingo should be awarded
+
+  var giveTriadBingo = function(pets) {
+    for(var p in pets) {
+      if(pets[p] == -1) return false;
+    }
+    return true;
+  };
+
+  if ((mountCount >= 90 && giveTriadBingo(this.items.pets)) || this.achievements.triadBingoCount > 0) {
+    this.achievements.triadBingo = true;
   }
 
   // EXAMPLE CODE for allowing all existing and new players to be

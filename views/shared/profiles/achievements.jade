@@ -81,10 +81,28 @@ div(ng-if='::user._id == profile._id')
 div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
   .achievement.achievement-rat(ng-show='profile.achievements.beastMaster')
   div(ng-class='{muted: !profile.achievements.beastMaster}')
-    h5=env.t('beastMastName')
-    small=env.t('beastMastText')
+    h5=env.t('beastMasterName')
+    small=env.t('beastMasterText')
     small(ng-if='profile.achievements.beastMasterCount')
-      =env.t('beastMastText2', {count: "{{profile.achievements.beastMasterCount}}"})
+      =env.t('beastMasterText2', {count: "{{profile.achievements.beastMasterCount}}"})
+  hr
+
+div(ng-if='profile.achievements.mountMaster || user._id == profile._id')
+  .achievement.achievement-wolf(ng-show='profile.achievements.mountMaster')
+  div(ng-class='{muted: !profile.achievements.mountMaster}')
+    h5=env.t('mountMasterName')
+    small=env.t('mountMasterText')
+    small(ng-if='profile.achievements.mountMasterCount')
+      =env.t('mountMasterText2', {count: "{{profile.achievements.mountMasterCount}}"})
+  hr
+
+div(ng-if='profile.achievements.triadBingo || user._id == profile._id')
+  .achievement.achievement-triadbingo(ng-show='profile.achievements.triadBingo')
+  div(ng-class='{muted: !profile.achievements.triadBingo}')
+    h5=env.t('triadBingoName')
+    small=env.t('triadBingoText')
+    small(ng-if='profile.achievements.triadBingoCount')
+      =env.t('triadBingoText2', {count: "{{profile.achievements.triadBingoCount}}"})
   hr
 
 div(ng-if='profile.achievements.rebirths')
