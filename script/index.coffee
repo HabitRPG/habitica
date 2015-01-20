@@ -248,7 +248,7 @@ api.silver = (num) ->
 ###
 Task classes given everything about the class
 ###
-api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, main=false) ->
+api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showCompleted=false, main=false) ->
   return unless task
   {type, completed, value, repeat} = task
 
