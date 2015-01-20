@@ -1,5 +1,6 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content',
-  function($rootScope, $scope, $window, User, Content) {
+habitrpg.controller("InventoryCtrl", 
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content',
+  function($rootScope, $scope, Shared, $window, User, Content) {
 
     var user = User.user;
 
@@ -8,12 +9,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
     $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
-    $scope.totalMounts = _.size(_.reject(Content.eggs,function(egg){return egg.noMount})) * _.size(Content.hatchingPotions);
+    $scope.totalMounts = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
 
-    $scope.$watch('user.items.mounts', function(mounts){ $scope.mountCount = $rootScope.countExists(mounts); }, true);
     $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); }, true);
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
     $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); }, true);
@@ -77,6 +77,18 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       return _.pick(inventory, function(v,k){return v>0;});
     }
 
+    $scope.calcTriadBingo = function() {
+      var hasPets = Shared.countPets(null, User.user.items.pets) >= 90 ;
+      var hasMounts = Shared.countMounts(null, User.user.items.mounts) >= 90;
+
+      if(!(hasPets && hasMounts)) return false;
+
+      for (var p in User.user.items.pets) {
+        if(User.user.items.pets[p] < 0) return false;
+      }
+      return true;
+    }
+
     $scope.hatch = function(egg, potion){
       var eggName = Content.eggs[egg.key].text();
       var potName = Content.hatchingPotions[potion.key].text();
@@ -84,6 +96,20 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
+
+      // Checks if beastmaster has been reached for the first time
+      if(!User.user.achievements.beastMaster 
+          && Shared.countPets(null, User.user.items.pets) >= 90) {
+        User.user.achievements.beastMaster = true;
+        $rootScope.openModal('achievements/beastMaster');
+      }
+
+      // Checks if Triad Bingo has been reached for the first time
+      if(!User.user.achievements.triadBingo
+          && $scope.calcTriadBingo()) {
+        User.user.achievements.triadBingo = true;
+        $rootScope.openModal('achievements/triadBingo');
+      }
     }
 
     $scope.purchase = function(type, item){
@@ -123,6 +149,14 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
+        $rootScope.mountCount = Shared.countMounts(null, User.user.items.mounts);
+
+      // Checks if mountmaster has been reached for the first time
+      if(!User.user.achievements.mountMaster 
+          && Shared.countMounts(null, User.user.items.mounts) >= 90) {
+        User.user.achievements.mountMaster = true;
+        $rootScope.openModal('achievements/mountMaster');
+      }
 
       // Selecting Pet
       } else {

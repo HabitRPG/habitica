@@ -226,8 +226,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p(ng-show='user.stats.lvl < 100')
                     | 8&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
-                div(ng-show='petCount >= 90')
-                  button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'), popover-trigger='mouseenter', popover-placement='top', ng-click='openModal("pet-key")', class='pet_key')
+                div(ng-show='petCount >= 90 || mountCount >= 90')
+                  button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'), popover-trigger='mouseenter', popover-placement='top', ng-click='openModal("pet-key", {size:"lg"})', class='pet_key')
                   p
                     | 4&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
