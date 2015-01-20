@@ -77,6 +77,8 @@ api.sendGift = function(req, res, next){
         case "gems":
           var amt = req.body.gems.amount / 4,
             user = res.locals.user;
+          if (member.id == user.id)
+            return cb({code: 401, err: "Cannot send gems to yourself. Try a subscription instead."});
           if (!amt || amt <=0 || user.balance < amt)
             return cb({code: 401, err: "Amount must be within 0 and your current number of gems."});
           member.balance += amt;
