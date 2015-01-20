@@ -923,6 +923,11 @@ api.quests =
         stables:t('questStressbeastBossRageStables')
         bailey:t('questStressbeastBossRageBailey')
         guide:t('questStressbeastBossRageGuide')
+      desperation:
+        threshold: 500000
+        str: 3.5
+        def: 2
+        text:t('questStressbeastDesperation')
     drop:
       items: [
         {type: 'pets', key: 'Mammoth-Base', text: t('questStressbeastDropMammothPet')}
