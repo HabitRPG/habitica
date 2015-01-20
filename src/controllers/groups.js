@@ -303,7 +303,7 @@ api.flagChatMessage = function(req, res, next){
       if(err) return next(err);
       if (isProd){
 
-        var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+        var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
         
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
