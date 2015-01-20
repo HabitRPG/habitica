@@ -13,7 +13,7 @@
   "questEvilSanta2DropBearCubPolarPet": "Polar Bear (Pet)",
 
   "questGryphonText": "The Fiery Gryphon",
-  "questGryphonNotes": "The grand beastmaster, <strong>baconsaur</strong>, has come to your party seeking help. \"Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!\"",
+  "questGryphonNotes": "The grand beast master, <strong>baconsaur</strong>, has come to your party seeking help. \"Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!\"",
   "questGryphonCompletion": "Defeated, the mighty beast ashamedly slinks back to its master. \"My word! Well done, adventurers!\" <strong>baconsaur</strong> exclaims, \"Please, have some of the gryphon's eggs. I am sure you will raise these young ones well!\"",
   "questGryphonBoss": "Fiery Gryphon",
   "questGryphonDropGryphonEgg": "Gryphon (Egg)",
@@ -90,7 +90,7 @@
 
   "questMoonstone3Text": "Recidivate Transformed",
   "questMoonstone3Notes": "<p>Recidivate crumples to the ground, and you strike at her with the moonstone chain. To your horror, Recidivate seizes the gems, eyes burning with triumph.</p><br/><p>\"Foolish creature of flesh!\" she shouts. \"These moonstones will restore me to a physical form, true, but not as you imagined. As the full moon waxes from the dark, so too does my power flourish, and from the shadows I summon the specter of your most feared foe!\"</p><br/><p>A sickly green fog rises from the swamp, and Recidivate’s body writhes and contorts into a shape that fills you with dread – the undead body of Vice, horribly reborn.</p>",
-  "questMoonstone3Completion": "<p>Your breath comes hard and sweat stings your eyes as the undead Wyrm collapses. The remains of Recidivate dissipate into a thin grey mist that clears quickly under the onslaught of a refreshing breeze, and you hear the distant, rallying cries of Habiticans defeating their Bad Habits for once and for all.</p><br/><p>@Baconsaur the beastmaster swoops down on a gryphon. \"I saw the end of your battle from the sky, and I was greatly moved. Please, take this enchanted tunic – your bravery speaks of a noble heart, and I believe you were meant to have it.\"</p>",
+  "questMoonstone3Completion": "<p>Your breath comes hard and sweat stings your eyes as the undead Wyrm collapses. The remains of Recidivate dissipate into a thin grey mist that clears quickly under the onslaught of a refreshing breeze, and you hear the distant, rallying cries of Habiticans defeating their Bad Habits for once and for all.</p><br/><p>@Baconsaur the beast master swoops down on a gryphon. \"I saw the end of your battle from the sky, and I was greatly moved. Please, take this enchanted tunic – your bravery speaks of a noble heart, and I believe you were meant to have it.\"</p>",
   "questMoonstone3Boss": "Necro-Vice",
   "questMoonstone3DropRottenMeat": "Rotten Meat (Food)",
   "questMoonstone3DropZombiePotion": "Zombie Hatching Potion",
