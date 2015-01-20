@@ -302,7 +302,18 @@ api.flagChatMessage = function(req, res, next){
     group.save(function(err,_saved){
       if(err) return next(err);
       if (isProd){
-        utils.txnEmail({email: nconf.get('FLAG_REPORT_EMAIL')}, 'flag-report-to-mods', [
+
+        var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+        
+        if(Array.isArray(addressesToSendTo)){
+          addressesToSendTo = addressesToSendTo.map(function(email){
+            return {email: email}
+          });
+        }else{
+          addressesToSendTo = {email: addressesToSendTo}
+        }
+
+        utils.txnEmail(addressesToSendTo, 'flag-report-to-mods', [
           {name: "MESSAGE_TIME", content: (new Date(message.timestamp)).toString()},
           {name: "MESSAGE_TEXT", content: message.text},
 
