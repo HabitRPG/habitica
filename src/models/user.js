@@ -455,14 +455,9 @@ UserSchema.pre('save', function(next) {
 
   // Determines if Triad Bingo should be awarded
 
-  var giveTriadBingo = function(pets) {
-    for(var p in pets) {
-      if(pets[p] == -1) return false;
-    }
-    return true;
-  };
+  var triadCount = shared.countTriad(this.items.pets);
 
-  if ((mountCount >= 90 && giveTriadBingo(this.items.pets)) || this.achievements.triadBingoCount > 0) {
+  if ((mountCount >= 90 && triadCount >= 90) || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
   }
 
