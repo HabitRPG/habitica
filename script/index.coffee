@@ -336,6 +336,13 @@ api.countMounts = (originalCount, mounts) ->
     count2-- if mounts[mount]
   count2
 
+api.countTriad = (pets) ->
+  count3 = 0
+  for egg of content.dropEggs
+    for potion of content.hatchingPotions
+      if pets[egg + "-" + potion] > 0 then count3++
+  count3
+
 ###
 ------------------------------------------------------
 User (prototype wrapper to give it ops, helper funcs, and virtuals

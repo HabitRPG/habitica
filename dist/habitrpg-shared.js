@@ -14965,6 +14965,19 @@ api.countMounts = function(originalCount, mounts) {
   return count2;
 };
 
+api.countTriad = function(pets) {
+  var count3, egg, potion;
+  count3 = 0;
+  for (egg in content.dropEggs) {
+    for (potion in content.hatchingPotions) {
+      if (pets[egg + "-" + potion] > 0) {
+        count3++;
+      }
+    }
+  }
+  return count3;
+};
+
 
 /*
 ------------------------------------------------------
