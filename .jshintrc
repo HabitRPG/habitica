@@ -1,0 +1,12 @@
+{
+	"globals": {
+		"confirm": false
+	},
+
+	"browser": true,
+	"node": true,
+
+	"asi": true,
+	"boss": true,
+	"newcap": false,
+}

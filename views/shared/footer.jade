@@ -1,0 +1,92 @@
+footer.footer(ng-controller='FooterCtrl')
+  .container
+    .row
+      .col-sm-3
+        h4=env.t('footerMobile')
+        ul.list-unstyled
+          li
+            a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank')=env.t('mobileIOS')
+          li
+            a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank')=env.t('mobileAndroid')
+        if env.isStaticPage
+          h4=env.t('language')
+          select(ng-change='changeLang()', ng-model='selectedLanguage', ng-options='language.name for language in languages')
+
+      .col-sm-3
+        h4=env.t('footerCompany')
+        ul.list-unstyled
+          if (!env.isStaticPage)
+            li
+              .btn.btn-sm.btn-success(ng-click='openModal("buyGems",{track:"Gems > Donate"})')
+                span.glyphicon.glyphicon-heart
+                |&nbsp;
+                =env.t('companyDonate')
+          li
+            a(href='/static/features')=env.t('companyAbout')
+          li
+            a(target='_blank', href='http://blog.habitrpg.com/')=env.t('companyBlog')
+          li
+            a(href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('companyExtensions')
+          li
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+          li
+            a(href='/static/privacy')=env.t('companyPrivacy')
+          li
+            a(href='/static/terms')=env.t('companyTerms')
+          li
+            a(href='/static/contact')=env.t('contactUs')
+      .col-sm-3
+        h4=env.t('footerCommunity')
+        ul.list-unstyled
+          li
+            a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
+          li
+            a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('communityBug')
+          li
+            a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')
+          li
+            a(target='_blank', href='https://habitrpg.com/static/api')=env.t('API')
+          li
+            a(href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('communityExtensions')
+          li
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum')=env.t('communityForum')
+          li
+            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile')=env.t('communityKickstarter')
+          li
+            a(target='_blank', href='https://www.facebook.com/Habitrpg')=env.t('communityFacebook')
+          li
+            a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
+      .col-sm-3
+        if (env.NODE_ENV == 'production' && !env.IS_MOBILE)
+          h4=env.t('footerSocial')
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title=env.t('socialTitle'))
+            table
+              tr
+                td
+                  a.addthis_button_facebook_like(fb:like:layout='button_count')
+              tr
+                td
+                  a.addthis_button_tweet(tw:via='habitrpg')
+              tr
+                td
+                  iframe(src='/bower_components/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
+              tr
+                td
+                  a.addthis_button_google_plusone(g:plusone:size='medium')
+        else if (env.NODE_ENV==='development' || env.NODE_ENV==='test') && !env.isStaticPage
+          h4 Debug
+          .btn-group-vertical
+            a.btn.btn-default(ng-click='setHealthLow()') Health = 1
+            a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day
+            a.btn.btn-default(ng-click='addTenGems()') +10 Gems
+            a.btn.btn-default(ng-click='addGold()') +GP
+            a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP +MP
+            a.btn.btn-default(ng-click='addOneLevel()') +1 Level
+            a.btn.btn-default(ng-click='addBossQuestProgressUp()') +1000 Boss Quest Progress Up
+
+  div(ng-init='deferredScripts()')
+
+  // Load audio last
+  audio#sound(autoplay)
+      source#oggSource(type="audio/ogg")
+      source#mp3Source(type="audio/mp3")

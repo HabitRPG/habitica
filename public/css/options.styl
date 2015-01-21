@@ -1,0 +1,26 @@
+#main > div > div > div > .tab-content
+  margin: 1.618em 0em
+  @media screen and (min-width:768px)
+    border: 1px solid darken($color-options-menu, 12%)
+    padding-bottom: 1.618em
+.options-menu, .options-submenu
+  @extend $hrpg-submenu
+  border-bottom: 1px solid darken($color-options-menu, 12%)
+.options-menu
+  @media screen and (min-width:768px)
+    background-color: $color-options-menu
+  li
+    @extend $hrpg-button
+    hrpg-button-color-mixin($color-options-menu)  
+.options-submenu
+  margin-top: -1.618em
+  background-color: $color-options-submenu
+  li
+    @extend $hrpg-button
+    hrpg-button-color-mixin($color-options-submenu)
+  @media screen and (max-width:768px)
+    padding: 1em 0.618em 0 0.618em
+    border: 1px solid darken($color-options-menu, 12%)
+    border-top: none
+    
+  

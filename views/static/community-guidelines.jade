@@ -1,0 +1,356 @@
+extends ./layout
+
+block extraHead
+  style.
+    .pull-left  { margin-right: 20px }
+    .peopleList { list-style-type: none }
+    .listColumns2 {
+      width: 50%;
+      columns:         2;
+      -moz-columns:    2;
+      -webkit-columns: 2;
+      // 2-column list: Allow a single ul/ol list to split into two columns.
+      // (Will not work in IE. Not important enough to make a workaround.)
+    }
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title HabitRPG &VerticalLine;&nbsp;
+    =env.t('communityGuidelines')
+
+block content
+  .row
+    .col-md-12
+      .page-header
+        h1=env.t('communityGuidelines')
+      p.pagemeta
+        |Last updated&nbsp;
+        =env.t('October')
+        |&nbsp;27&comma; 2014
+      h2=env.t('commGuideHeadingWelcome')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/intro.png', alt='')
+        p=env.t('commGuidePara001')
+        p=env.t('commGuidePara002')
+        p=env.t('commGuidePara003')
+        p=env.t('commGuidePara004')
+        h2=env.t('commGuideHeadingBeing')
+        p=env.t('commGuidePara005')
+
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/beingHabitican.png', alt='')
+        ul
+          li!=env.t('commGuideList01A')
+          li!=env.t('commGuideList01B')
+          li!=env.t('commGuideList01C')
+          li!=env.t('commGuideList01D')
+
+      h2=env.t('commGuideHeadingMeet')
+      p=env.t('commGuidePara006')
+      p
+        strong=env.t('commGuidePara007')
+      p
+        strong=env.t('commGuidePara008')
+      p
+        strong=env.t('commGuidePara009')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/staff.png', alt='')
+        ul(class='pull-left list-unstyled')
+          li
+            strong Lefnire (Tyler Renelle)
+          li
+            strong redphoenix (caffeinatedvee&nbsp;
+              =env.t('commGuidePara009a')
+              |, veeeeeee&nbsp;
+              =env.t('commGuidePara009b')
+              |) (Vicky Hsu)
+          li
+            strong Lemoness (Siena Leslie)
+          li
+            strong SabreCat (Sabe)
+          li
+            strong paglias (Matteo)
+
+      p=env.t('commGuidePara010')
+      p
+        strong=env.t('commGuidePara011')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/moderators.png', alt='')
+        ul(class='pull-left list-unstyled')
+          li
+            strong Bailey (It's Bailey&nbsp;
+              =env.t('commGuidePara011a')
+              |)
+          li
+            strong Ryan (deilann&nbsp;
+              =env.t('commGuidePara011b')
+              |)
+          li
+            strong Alys (LadyAlys&nbsp;
+              =env.t('commGuidePara011c')
+              |)
+          li
+            strong Breadstrings
+          li
+            strong Megan
+          li
+            strong Daniel the Bard
+      p!=env.t('commGuidePara012')
+      p=env.t('commGuidePara013')
+      p=env.t('commGuidePara014')
+        |&nbsp;
+        em Slappybag, litenull, Shaner, Bobbyroberts99, wc8
+      h2=env.t('commGuideHeadingPublicSpaces')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/publicSpaces.png', alt='')
+        p=env.t('commGuidePara015')
+        p=env.t('commGuidePara016')
+        p!=env.t('commGuidePara017')
+        ul
+          li!=env.t('commGuideList02A')
+          li!=env.t('commGuideList02B')
+          li!=env.t('commGuideList02C')
+          li!=env.t('commGuideList02D')
+          li!=env.t('commGuideList02E')
+          li!=env.t('commGuideList02F')
+          li!=env.t('commGuideList02G')
+          li!=env.t('commGuideList02H')
+        p!=env.t('commGuidePara019')
+        p=env.t('commGuidePara021')
+
+      h3=env.t('commGuideHeadingTavern')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/tavern.png', alt='')
+        p=env.t('commGuidePara022')
+        p
+          strong=env.t('commGuidePara023')
+        p!=env.t('commGuidePara024')
+        p!=env.t('commGuidePara027')
+
+      h3=env.t('commGuideHeadingPublicGuilds')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/publicGuilds.png', alt='')
+        p!=env.t('commGuidePara029')
+        p!=env.t('commGuidePara031')
+        p!=env.t('commGuidePara033')
+        p!=env.t('commGuidePara035')
+        p
+          strong=env.t('commGuidePara037')
+
+      h3=env.t('commGuideHeadingBackCorner')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/backCorner.png', alt='')
+        p!=env.t('commGuidePara038')
+        p!=env.t('commGuidePara039')
+
+      h3=env.t('commGuideHeadingTrello')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/trello.png', alt='')
+        p!=env.t('commGuidePara040')
+        p
+          strong=env.t('commGuidePara041')
+        ul
+          li!=env.t('commGuideList03A')
+          li!=env.t('commGuideList03B')
+          li!=env.t('commGuideList03C')
+          li!=env.t('commGuideList03D')
+          li!=env.t('commGuideList03E')
+        p!=env.t('commGuidePara042')
+
+      h3=env.t('commGuideHeadingGitHub')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/github.gif', alt='')
+        p!=env.t('commGuidePara043')
+        p
+          strong=env.t('commGuidePara044')
+        ul(class='listColumns2 peopleList')
+          li lefnire (Tyler)
+          li Alys
+          li benmanley (Pixel)
+          li colegleason (Cole)
+          li deilann (Ryan)
+          li djuretic
+          li Fandekasp
+          li Lemoness
+          li litenull
+          li paglias
+          li SabreCat
+          li Sinza-
+          li snicker
+          li thepeopleseason
+          li wc8
+          li zakkain
+
+      h3=env.t('commGuideHeadingWiki')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/wiki.png', alt='')
+        p!=env.t('commGuidePara045')
+        p=env.t('commGuidePara046')
+        p
+          strong=env.t('commGuidePara047')
+        p=env.t('commGuidePara048')
+        ul
+          li=env.t('commGuideList04A')
+          li=env.t('commGuideList04B')
+          li=env.t('commGuideList04C')
+          li=env.t('commGuideList04D')
+          li=env.t('commGuideList04E')
+          li=env.t('commGuideList04F')
+          li=env.t('commGuideList04G')
+          li=env.t('commGuideList04H')
+        p
+          strong=env.t('commGuidePara049')
+        ul(class='peopleList')
+          li Breadstrings (bureaucrat)
+          li JiggerD
+          li LadyAlys
+          li LadyKatFrog
+          li Lefnire (bureaucrat)
+        p=env.t('commGuidePara018')
+          |:&nbsp;
+          em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat)
+
+      h2=env.t('commGuideHeadingInfractionsEtc')
+      h3=env.t('commGuideHeadingInfractions')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/infractions.png', alt='')
+        p=env.t('commGuidePara050')
+        p!=env.t('commGuidePara051')
+        h4=env.t('commGuideHeadingSevereInfractions')
+        p=env.t('commGuidePara052')
+        p=env.t('commGuidePara053')
+        ul
+          li=env.t('commGuideList05A')
+          li=env.t('commGuideList05B')
+          li=env.t('commGuideList05C')
+          li=env.t('commGuideList05D')
+          li=env.t('commGuideList05E')
+        h4=env.t('commGuideHeadingModerateInfractions')
+        p=env.t('commGuidePara054')
+        p=env.t('commGuidePara055')
+        ul
+          li!=env.t('commGuideList06A')
+          li=env.t('commGuideList06B')
+          li=env.t('commGuideList06C')
+          li=env.t('commGuideList06D')
+        h4=env.t('commGuideHeadingMinorInfractions')
+        p=env.t('commGuidePara056')
+        p=env.t('commGuidePara057')
+        ul
+          li=env.t('commGuideList07A')
+          li=env.t('commGuideList07B')
+
+      h3=env.t('commGuideHeadingConsequences')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/consequences.png', alt='')
+        p=env.t('commGuidePara058')
+        p!=env.t('commGuidePara059')
+        p
+          strong=env.t('commGuidePara060')
+        ul
+          li=env.t('commGuideList08A')
+          li=env.t('commGuideList08B')
+          li=env.t('commGuideList08C')
+        h4=env.t('commGuideHeadingSevereConsequences')
+        ul
+          li=env.t('commGuideList09A')
+          li=env.t('commGuideList09B')
+          li=env.t('commGuideList09C')
+        h4=env.t('commGuideHeadingModerateConsequences')
+        ul
+          li=env.t('commGuideList10A')
+          li=env.t('commGuideList10B')
+          li=env.t('commGuideList10C')
+          li=env.t('commGuideList10D')
+          li=env.t('commGuideList10E')
+          li=env.t('commGuideList10F')
+        h4=env.t('commGuideHeadingMinorConsequences')
+        ul
+          li=env.t('commGuideList11A')
+          li=env.t('commGuideList11B')
+          li=env.t('commGuideList11C')
+          li=env.t('commGuideList11D')
+          li=env.t('commGuideList11E')
+
+      h3=env.t('commGuideHeadingRestoration')
+      div(class='clearfix')
+        img(class='pull-left', src='/community-guidelines-images/restoration.png', alt='')
+        p!=env.t('commGuidePara061')
+        p!=env.t('commGuidePara062')
+        p!=env.t('commGuidePara063')
+
+      h2=env.t('commGuideHeadingContributing')
+      div(class='clearfix')
+        img(class='pull-right', src='/community-guidelines-images/contributing.png', alt='')
+        p=env.t('commGuidePara064')
+        ol
+          li=env.t('commGuideList12A')
+          li=env.t('commGuideList12B')
+          li=env.t('commGuideList12C')
+          li=env.t('commGuideList12D')
+          li=env.t('commGuideList12E')
+          li=env.t('commGuideList12F')
+          li=env.t('commGuideList12G')
+        p=env.t('commGuidePara065')
+        p=env.t('commGuidePara066')
+        ul
+          li!=env.t('commGuideList13A')
+          li!=env.t('commGuideList13B')
+          li!=env.t('commGuideList13C')
+          li!=env.t('commGuideList13D')
+
+      h2=env.t('commGuideHeadingFinal')
+      p!=env.t('commGuidePara067')
+      p=env.t('commGuidePara068')
+
+      h2=env.t('commGuideHeadingLinks')
+      ul
+       li
+         a(href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank')=env.t('commGuideLink01')
+         |:&nbsp;
+         =env.t('commGuideLink01description')
+       li
+         a(href='https://habitrpg.com/#/options/groups/guilds/426c2c1a-eed0-4997-9b73-d30fc1397688' target='_blank')=env.t('commGuideLink02')
+         |:&nbsp;
+         =env.t('commGuideLink02description')
+       li
+         a(href='http://habitrpg.wikia.com/wiki/HabitRPG_Wiki' target='_blank')=env.t('commGuideLink03')
+         |:&nbsp;
+         =env.t('commGuideLink03description')
+       li
+         a(href='https://github.com/HabitRPG/habitrpg' target='_blank')=env.t('commGuideLink04')
+         |:&nbsp;
+         =env.t('commGuideLink04description')
+       li
+         a(href='https://trello.com/b/EpoYEYod/habitrpg' target='_blank')=env.t('commGuideLink05')
+         |:&nbsp;
+         =env.t('commGuideLink05description')
+       li
+         a(href='https://trello.com/b/mXK3Eavg/habitrpg-mobile' target='_blank')=env.t('commGuideLink06')
+         |:&nbsp;
+         =env.t('commGuideLink06description')
+       li
+         a(href='https://trello.com/b/vwuE9fbO/habitrpg-pixel-art' target='_blank')=env.t('commGuideLink07')
+         |:&nbsp;
+         =env.t('commGuideLink07description')
+       li
+         a(href='https://trello.com/b/nnv4QIRX/habitrpg-quests' target='_blank')=env.t('commGuideLink08')
+         |:&nbsp;
+         =env.t('commGuideLink08description')
+
+      p
+        strong=env.t('commGuidePara069')
+      ul(class='listColumns2 peopleList')
+        li Breadstrings
+        li Draayder
+        li Kiwibot
+        li Leephon
+        li Lemoness
+        li Luciferian
+        li Revcleo
+        li Shaner
+        li Starsystemic
+        li UncommonCriminal
+

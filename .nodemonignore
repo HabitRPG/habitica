@@ -1,0 +1,15 @@
+node_modules/**
+.bower-cache/**
+.bower-tmp/**
+.bower-registry/**
+public/**
+views/**
+build/**
+.git/**
+Gruntfile.js
+CHANGELOG.md
+.idea*
+*.log
+newrelic_agent.log
+*.swp
+*.swx

@@ -1,0 +1,41 @@
+doctype html
+//html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
+html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}")
+  head
+    title=env.t('titleIndex')
+    // ?v=1 needed to force refresh
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=3')
+
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+
+    //FIXME for some reason this won't load when in footerCtrl.js#deferredScripts()
+    script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
+
+    script(type='text/javascript').
+      window.env = !{JSON.stringify(env)};
+
+    != env.getManifestFiles("app")
+
+    //webfonts
+    link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
+
+
+  body(ng-cloak, ng-controller='GroupsCtrl')
+    include ./shared/mixins
+    include ./shared/header/avatar
+    include ./shared/header/menu
+    include ./shared/modals/index
+    include ./shared/header/header
+    include ./shared/tasks/lists
+    include ./main/index
+    include ./options/index
+
+    #notification-area(ng-controller='NotificationCtrl')
+    #wrap.container-fluid
+      .row
+        .col-md-12.exp-chart(ng-show='charts.exp')
+        #main(ui-view)
+
+    include ./shared/footer
