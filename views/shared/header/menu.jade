@@ -235,6 +235,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.settings.settings')=env.t('site')
               li
+                a(ui-sref='options.settings.difficulty')=env.t('difficulty')
+              li
                 a(ui-sref='options.settings.api')=env.t('API')
               li
                 a(ui-sref='options.settings.export')=env.t('export')
