@@ -1071,6 +1071,7 @@ api.wrap = (user, main=true) ->
           user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
           user.stats.mp = 0 if user.stats.mp < 0
 
+        # ===== starting to actually do stuff, most of above was definitions ==========
         switch task.type
           when 'habit'
             changeTaskValue()
@@ -1465,8 +1466,12 @@ api.wrap = (user, main=true) ->
               thatDay = moment(now).subtract({days: n + 1})
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
-            perfect = false if type is 'daily'
-            dailyDueUnchecked++ if type is 'daily'
+            if type is 'daily'
+              perfect = false 
+              if task.checklist?.length > 0  # Partially completed checklists dock less mana points
+                dailyDueUnchecked += (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
+              else
+               dailyDueUnchecked += 1
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
             user.party.quest.progress.down += delta if type is 'daily'
         else
@@ -1481,9 +1486,6 @@ api.wrap = (user, main=true) ->
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value
             todoTally += absVal
-
-      console.log("DueUnchecked: " + dailyDueUnchecked)
-      console.log("Checked: " + dailyChecked)
 
       user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
         if task.up is false or task.down is false
@@ -1523,7 +1525,12 @@ api.wrap = (user, main=true) ->
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
       # Adjust for fraction of dailies completed
+      #console.log("Prior MP: " + user.stats.mp)
+      dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
+      # console.log("DueUnchecked: " + dailyDueUnchecked)
+      # console.log("Checked: " + dailyChecked)
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
+      # console.log("After MP: " +user.stats.mp)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
