@@ -317,6 +317,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
         group.sendChat(quest.boss.rage.effect('en'));
         group.quest.progress.rage = 0;
         if (quest.boss.rage.healing) group.quest.progress.hp += (group.quest.progress.hp * quest.boss.rage.healing); //TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
+        if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
       }
     }
     // Everyone takes damage

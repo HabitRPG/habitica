@@ -104,15 +104,6 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.openModal('achievements/ultimateGear');
     });
 
-    $rootScope.$watch('user.items.pets', function(after, before){
-      if(_.size(after) === _.size(before) ||
-        Shared.countPets(null, after) < 90) return;
-      if (User.user.achievements.beastMaster == false) {
-        User.user.achievements.beastMaster = true;
-        $rootScope.openModal('achievements/beastMaster');
-      }
-    }, true);
-
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
       $rootScope.openModal('achievements/rebirth');

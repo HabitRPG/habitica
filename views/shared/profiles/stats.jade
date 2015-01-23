@@ -4,6 +4,10 @@ table.table.table-striped
     td
       strong=env.t('health')
       | : {{profile.stats.hp | number:0}} / 50
+  tr(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
+    td
+      strong=env.t('mana')
+      | : {{profile.stats.mp | number:0}} / {{profile._statsComputed.maxMP}}
   tr
     td
       strong=env.t('gold')
@@ -21,7 +25,6 @@ table.table.table-striped
 unless mobile
   h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
-    // FIXME this isn't refreshing properly. On first party modal, correct. Second party modal click gives the previous gear. It's always one behind.
     tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
       td
         strong {{piece.text()}}:&nbsp;
@@ -65,14 +68,24 @@ table.table.table-striped
       strong.hint(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))=env.t('streaksFrozen')
     td
 
-h4(class=mobile?'item item-divider':'',ng-show='user.flags.dropsEnabled')=env.t('pets')
-table.table.table-striped(ng-show='user.flags.dropsEnabled')
+h4(class=mobile?'item item-divider':'',ng-if='user.flags.dropsEnabled')=env.t('pets')
+table.table.table-striped(ng-if='user.flags.dropsEnabled')
   tr
     td
       strong=env.t('petsFound')
-      | : {{profile.petCount}}
-// Dunno why this doesn't work //
-// tr
+      | : {{_.size(profile.items.pets)}}
+  tr
+    td
+      strong=env.t('beastMasterProgress')
+      | : {{profile.petCount}}/90
+
+h4(class=mobile?'item item-divider':'', ng-if='user.flags.dropsEnabled')=env.t('mounts')
+table.table.table-striped(ng-if='user.flags.dropsEnabled')
+  tr
     td
       strong=env.t('mountsTamed')
-      | : {{profile.mountCount}} //
+      | : {{_.size(profile.items.mounts)}}
+  tr
+    td
+      strong=env.t('mountMasterProgress')
+      | : {{profile.mountCount}}/90
