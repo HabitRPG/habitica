@@ -12,6 +12,7 @@ var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var pushNotify = require('./pushNotifications');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 
@@ -536,9 +537,13 @@ api.invite = function(req, res, next) {
     function sendInvite (){
       if(group.type === 'guild'){
         invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
+
+        pushNotify.sendNotify(invite, "HabitRPG", "Invitation to the Guild "+ group.name);
       }else{
         //req.body.type in 'guild', 'party'
         invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
+
+        pushNotify.sendNotify(invite, "HabitRPG", "Invitation to the Party "+ group.name);
       }
 
       group.invites.push(invite._id);

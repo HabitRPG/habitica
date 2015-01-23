@@ -8,7 +8,7 @@ var gcmApiKey = nconf.get("PUSH_CONFIGS:GCM_SERVER_API_KEY");
 
 var gcm = gcmApiKey ? pushNotify.gcm({
     apiKey: gcmApiKey,
-    retries: 1
+    retries: 3
 }) : undefined;
 
 if(gcm){
