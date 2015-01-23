@@ -357,11 +357,11 @@ var UserSchema = new Schema({
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
   extra: Schema.Types.Mixed,
-  
+
   pushDevices: {type: [{
     regId: {type: String},
     type: {type: String}
-  }],'default': {}}
+  }],'default': []}
 }, {
   strict: true,
   minimize: false // So empty objects are returned
