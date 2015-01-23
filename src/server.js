@@ -8,6 +8,7 @@ var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 var cores = +nconf.get("CORES");
+var pushNotifs = require("./controllers/pushNotifications");
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
@@ -131,6 +132,17 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   require('./routes/apiv2.coffee')(swagger, v2);
   app.use(middleware.errorHandler);
 
+  if(isDev){
+    app.use('/test', function(req, res) {
+      var users = db.model("User").find({'pushDevices.0': {$exists: true}}, function(err, results){
+
+        _.forEach(results, function(user){
+          pushNotifs.sendNotify(user, req.query.title, req.query.msg);
+        });
+      });
+
+    });
+  }
   server.on('request', app);
   server.listen(app.get("port"), function() {
     return logging.info("Express server listening on port " + app.get("port"));
