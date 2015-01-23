@@ -24,7 +24,9 @@ if(gcm){
     });
 }
 
-api.sendNotify = function(user, title, msg){
+api.sendNotify = function(user, title, msg, timeToLive){
+    timeToLive = timeToLive || 15;
+
     _.forEach(user.pushDevices, function(pushDevice){
        switch(pushDevice.type){
            case "android":
@@ -37,7 +39,7 @@ api.sendNotify = function(user, title, msg){
                        registrationId: pushDevice.regId,
                        //collapseKey: 'COLLAPSE_KEY',
                        delayWhileIdle: true,
-                       timeToLive: 3,
+                       timeToLive: timeToLive,
                        data: {
                            title: title,
                            message: msg

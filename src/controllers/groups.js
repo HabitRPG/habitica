@@ -725,8 +725,13 @@ api.questAccept = function(req, res, next) {
       if (m == user._id) {
         group.quest.members[m] = true;
         group.quest.leader = user._id;
-      } else
+      } else {
         group.quest.members[m] = undefined;
+
+        User.findById(m, function(err,groupMember){
+          pushNotify.sendNotify(groupMember, "HabitRPG", "Invitation for the Quest "+quest.text());
+        });
+      }
     });
 
   // Party member accepting the invitation
