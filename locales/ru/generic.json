@@ -35,7 +35,7 @@
     "neverMind": "Не надо",
     "buyMoreGems": "Купите еще самоцветов",
     "notEnoughGems": "Недостаточно самоцветов",
-    "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
+    "alreadyHave": "Упс! У вас уже есть эта вещь. Нет нужды покупать ее снова!",
     "delete": "Удалить",
     "gems": "самоцв.",
     "moreInfo": "Узнать больше",
@@ -85,7 +85,7 @@
     "October": "Октябрь",
     "November": "Ноябрь",
     "December": "Декабрь",
-    "dateFormat": "Date Format",
-    "achievementStressbeast": "Savior of Stoïkalm",
-    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
+    "dateFormat": "Формат даты",
+    "achievementStressbeast": "Спаситель от Промедления",
+    "achievementStressbeastText": "Помог победить Ужасное Стресс-чудище во время события Зимняя Страна Чудес 2015!"
 }

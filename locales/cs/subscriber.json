@@ -8,7 +8,7 @@
     "disableAds": "Zablokuj reklamy",
     "disableAdsText": "Reklamy zůstanou vypnuté, dokud je předplatné aktivní. (pro uživatele kteří si reklamy odstranili v dřívější akci to neplatí)",
     "buyGemsGold": "Kup drahokamy za zlato",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 drahokam stojí <%= gemCost %> zlaťáků) Řeší obavu o \"zaplacení výhry\", jelikož vše lze nyní získat tvrdou prací. Existuje měsíční limit převodu <%= gemLimit %> drahokamů, kvůli omezení farmingu.",
     "retainHistory": "Ponech si veškeré položky historie",
     "retainHistoryText": "Tvá plná historie bude k dispozici v grafu a pro export. Ostatním uživatelům se historie kvůli optimalizaci databáze slučuje.",
     "doubleDrops": "Denně získáš dvakrát více předmětů",
