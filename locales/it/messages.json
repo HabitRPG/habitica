@@ -17,7 +17,7 @@
     "messageHatched": "Il tuo uovo si è schiuso! Vai alla Scuderia per equipaggiarlo.",
     "messageNotEnoughGold": "Non hai abbastanza Oro",
     "messageTwoHandled": "<%= gearText %> è un'arma a due mani.",
-    "messageDropFood": "Hai trovato <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropFood": "Hai trovato <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Hai trovato un Uovo <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Hai trovato una Pozione di Schiusura <%= dropText %>! <%= dropNotes %>",
     "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!"

@@ -8,7 +8,7 @@
     "disableAds": "去掉广告",
     "disableAdsText": "当你激活了订阅服务,广告就会关闭 (早期用户仍然保留免广告功能)",
     "buyGemsGold": "用金币购买宝石",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1个宝石需要 <%= gemCost %> 黄金) 为了避免\"人民币\"玩家的出现，游戏中的成就都能通过努力获得。 但是每月的有<%= gemLimit %>个宝石的兑换上限，以避免刷机。",
     "retainHistory": "保留所有历史记录了",
     "retainHistoryText": "使你的所有历史数据可以用图表展示或者导出。非订阅用户的历史数据会因为数据库优化而合并。",
     "doubleDrops": "日常掉率上限翻倍",

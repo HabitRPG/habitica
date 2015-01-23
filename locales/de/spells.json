@@ -15,7 +15,7 @@
     "spellWarriorValorousPresenceNotes": "Deine Gegenwart ermutigt Deine Gruppe. Dieser Mut lässt euch neue Kraft schöpfen. Alle Gruppenmitglieder erhalten einen Stärkebonus.",
     "spellWarriorIntimidateText": "Einschüchternder Blick",
     "spellWarriorIntimidateNotes": "Dein Blick lässt eure Gegner vor Furcht erstarren. Deine Gruppe erhält einen Verteidigungsbonus.",
-    "spellRoguePickPocketText": "Stehlen",
+    "spellRoguePickPocketText": "Taschendiebstahl",
     "spellRoguePickPocketNotes": "Deine geschickten Finger arbeiten sich durch die Taschen deiner Aufgabe und fördern ein paar Schätze zu Tage. Du erhältst einen sofortigen Goldbonus für die Aufgabe. Je fetter (blauer) deine Aufgabe ist, desto mehr Gold bekommst du.",
     "spellRogueBackStabText": "Überraschungsangriff",
     "spellRogueBackStabNotes": "Lautlos schleichst Du Dich hinter eine Aufgabe und fällst ihr in den Rücken. Du fügst mehr Schaden zu und hast eine hohe Chance auf einen kritischen Treffer.",
@@ -35,8 +35,8 @@
     "spellSpecialSnowballAuraNotes": "Wirf einen Schneeball auf ein Gruppenmitglied! Was kann dabei schon schief gehen? Dauert bis zum Tageswechsel des Gruppenmitglieds an.",
     "spellSpecialSaltText": "Salz",
     "spellSpecialSaltNotes": "Jemand hat Dich mit Schnee eingeseift. Haha, sehr lustig. Jetzt ist aber Schluss!",
-    "spellSpecialSpookDustText": "Spukglitter",
+    "spellSpecialSpookDustText": "Spukglitzer",
     "spellSpecialSpookDustNotes": "Verwandle Deine Freunde in schwebende Bettlaken mit Augen!",
-    "spellSpecialOpaquePotionText": "Trank der Entgeisterung.",
+    "spellSpecialOpaquePotionText": "Trank der Entgeisterung",
     "spellSpecialOpaquePotionNotes": "Beendet den Effekt von Spukglitter"
 }
