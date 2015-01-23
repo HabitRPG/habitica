@@ -1,5 +1,5 @@
 {
-    "weapon": "Оружие",
+    "weapon": "оружие",
     "weaponBase0Text": "Нет оружия",
     "weaponBase0Notes": "Нет оружия.",
     "weaponWarrior0Text": "Тренировочный меч",
@@ -393,10 +393,10 @@
     "shieldSpecialWinter2015RogueNotes": "You truly, definitely, absolutely just picked these up off of the ground. Increases Strength by <%= str %>. Limited Edition 2014-2015 Winter Gear.",
     "shieldSpecialWinter2015WarriorText": "Gumdrop Shield",
     "shieldSpecialWinter2015WarriorNotes": "This seemingly-sugary shield is actually made of nutritious, gelatinous vegetables. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
-    "shieldSpecialWinter2015HealerText": "Soothing Shield",
+    "shieldSpecialWinter2015HealerText": "Щит успокоения",
     "shieldSpecialWinter2015HealerNotes": "This shield deflects the freezing wind. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
     "shieldMystery301405Text": "Часовой щит",
-    "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
+    "shieldMystery301405Notes": "С этим монументальным часовым щитом время на вашей стороне! Подарок подписчикам июня 3015. Преимуществ не дает.",
     "backBase0Text": "Нет аксессуаров на спине",
     "backBase0Notes": "Нет аксессуаров на спине.",
     "backMystery201402Text": "Золотые крылья",
@@ -438,7 +438,7 @@
     "headAccessoryMystery201409Text": "Осенние Рога",
     "headAccessoryMystery201409Notes": "Эти могучие рога меняют цвет вместе с листвой. Преимуществ не дают. Подарок подписчикам сентября 2014.",
     "headAccessoryMystery301405Text": "Очки на голове",
-    "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
+    "headAccessoryMystery301405Notes": "\"Защищать очками надо глаза,\" говорили они. \"Кому сдались защитные очки на макушке,\" говорили они. Ха! Вы им показали! Подарок подписчикам августа 3015. Преимуществ не дает.",
     "eyewearBase0Text": "Нет очков или маски",
     "eyewearBase0Notes": "Нет очков или маски.",
     "eyewearSpecialSummerRogueText": "Разбойничья повязка",
@@ -450,7 +450,7 @@
     "eyewearSpecialWonderconBlackText": "Тайная маска",
     "eyewearSpecialWonderconBlackNotes": "Ваши побуждения определенно не противоречат закону. Преимуществ не дает. Предмет специального фестивального выпуска.",
     "eyewearMystery301404Text": "Защитные очки",
-    "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
+    "eyewearMystery301404Notes": "Нет ничего более стильного, чем защитные очки. Ну, разве что монокль. Подарок подписчикам апреля 3015. Преимуществ не дает.",
     "eyewearMystery301405Text": "Монокль",
-    "eyewearMystery301405Notes": "No eyewear could be fancier than a monocle - except, perhaps, for a pair of goggles. Confers no benefit. July 3015 Subscriber Item."
+    "eyewearMystery301405Notes": "Нет ничего более стильного, чем монокль. Ну, разве что пара защитных очков. Подарок подписчикам июля 3015. Преимуществ не дает."
 }

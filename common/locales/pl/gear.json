@@ -339,7 +339,7 @@
     "headMystery301405Text": "Klasyczny cylinder",
     "headMystery301405Notes": "Zwyczajny cylinder, aż prosi się by połączyć go z jakimiś gustownymi akcesoriami na głowę. Brak dodatkowych korzyści. Przedmiot Abonencki Maj 3015.",
     "offhand": "shield-hand item",
-    "shieldBase0Text": "No Shield-Hand Equipment",
+    "shieldBase0Text": "Brak tarczy w ekwipunku.",
     "shieldBase0Notes": "Bez tarczy lub drugiej broni.",
     "shieldWarrior1Text": "Drewniana tarcza",
     "shieldWarrior1Notes": "Okrągła tarcza z grubego drewna. Zwiększa Kondycję o <%= con %>.",

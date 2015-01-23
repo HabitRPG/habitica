@@ -4,8 +4,6 @@
     "mattBoch": "Matt Boch",
     "mattShall": "¿Te traigo tu corcel,  <%= name %>? Haz clic en una montura para ensillarlo.",
     "mattBochText1": "¡Bienvenidos al Establo! Soy Matt, el maestro de las bestias. Escoge una mascota aquí para que aventure a tu lado. Aliméntalas y se convertirán en corceles poderosos.",
-    "mattBochText2": "Échale un vistazo",
-    "mattBochText3": "a todas las mascotas que puedes coleccionar.",
     "daniel": "Daniel",
     "danielText": "¡Bienvenidos a la Taberna! Quédate un rato y conoce a los lugareños. Si necesitas descansar (¿vas de vacaciones? ¿enfermedad repentina?), te invito a visitar la posada. Mientras estés registrado en la posada tus Diarias quedan congeladas tal cual (seleccionadas/en blanco) hasta el día siguiente de la salida. No se te penalizará al finalizar el día por no cumplirlas.",
     "danielText2": "Aviso: Si estas participando en una misión contra un jefe, ¡el jefe todavía te hará daño si los de tu equipo no completan sus Diarias!",

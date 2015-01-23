@@ -4,8 +4,6 @@
     "mattBoch": "Matt Boch",
     "mattShall": "Skal jeg hente dit ridedyr, <%= name %>? Klik på et ridedyr for at bestige det.",
     "mattBochText1": "Velkommen til Stalden! Jeg er Matt, bæstmesteren. Vælg det kæledyr, du vil have til at følge dig, her. Fodr dem, og de vil vokse til kraftfulde ridedyr.",
-    "mattBochText2": "Kast et kig",
-    "mattBochText3": "på alle de kæledyr, du kan samle.",
     "daniel": "Daniel",
     "danielText": "Velkommen til Værtshuset! Hæng ud og mød de lokale. Hvis du har brug for at slappe af (ferie? sygdom?), så er der plads på Kroen. Når du er tjekket ing på Kroen vil dine Daglige blive frosset i den tilstand, de er i (markerede/umarkerede) indtil dagen efter du tjekker ud. Du vil ikke ved dagens afslutning lide under at have sprunget dem over.",
     "danielText2": "Advarsel: Hvis du deltager i en Boss-quest vil bossen stadig skade dig for de andre gruppemedlemmers oversprungne Daglige!",
