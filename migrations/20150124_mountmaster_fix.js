@@ -7,8 +7,7 @@ var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
  * Convert false to null for mounts that used to be owned.
  */
 
-// var dbserver = 'ds031379-a0.mongolab.com:31379'
-var dbserver = 'localhost:27017'
+var dbserver = 'localhost:27017' // CHANGE THIS FOR PRODUCTION DATABASE
 
 var mongo = require('mongoskin');
 var _ = require('lodash');
