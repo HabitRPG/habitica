@@ -1457,7 +1457,10 @@ api.wrap = (user, main=true) ->
         # Magic points calculated AFTER stealth -- stealthed tasks are treated as just not being there
 
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
-        unless completed
+        if completed
+          if (type is 'daily')
+            dailyChecked++
+        else
           scheduleMisses = daysMissed
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
           if (type is 'daily') and repeat
@@ -1474,8 +1477,7 @@ api.wrap = (user, main=true) ->
                dailyDueUnchecked += 1
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
             user.party.quest.progress.down += delta if type is 'daily'
-        else
-          dailyChecked++
+        
 
         switch type
           when 'daily'
@@ -1527,10 +1529,10 @@ api.wrap = (user, main=true) ->
       # Adjust for fraction of dailies completed
       #console.log("Prior MP: " + user.stats.mp)
       dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
-      # console.log("DueUnchecked: " + dailyDueUnchecked)
-      # console.log("Checked: " + dailyChecked)
+      #console.log("DueUnchecked: " + dailyDueUnchecked)
+      #console.log("Checked: " + dailyChecked)
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
-      # console.log("After MP: " +user.stats.mp)
+      #console.log("After MP: " +user.stats.mp)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
