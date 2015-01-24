@@ -91,6 +91,7 @@
       link: function(scope, element, attrs) {
         var removeWatch = !!scope.$eval(attrs.removeWatch);
         var useTimeout = !!scope.$eval(attrs.useTimeout);
+        var timeoutTime = scope.$eval(attrs.timeoutTime) || 0;
 
         var doRemoveWatch = scope.$watch(attrs.text, function(value, oldValue) {
           var replaceMarkdown = function(){
@@ -114,7 +115,7 @@
 
           if(useTimeout)
           {
-            $timeout(replaceMarkdown, 0);
+            $timeout(replaceMarkdown, timeoutTime);
           }
           else
           {

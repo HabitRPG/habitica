@@ -129,5 +129,8 @@
     "youCast": "הטלת <%= spell %>.",
     "youCastTarget": "הטלת <%= spell %> על <%= target %>.",
     "youCastParty": "הטלת <%= spell %> בשביל החבר'ה שלך. כל הכבוד!",
-    "critBonus": "פגיעה חמורה! בונוס:"
+    "critBonus": "פגיעה חמורה! בונוס:",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
+    "displayNameDescription2": "Settings->Site",
+    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
 }

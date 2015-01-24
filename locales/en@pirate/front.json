@@ -45,7 +45,7 @@
     "passMan": "In case ye be usin' a passcode manager (like 1Password) 'n have problems loggin' in, give a go' typin' piratename 'n passcode manually.",
     "forgotPass": "Lost me Passcode",
     "emailNewPass": "Email New Passcode",
-    "invalidEmail": "A valid email address is required in order to perform a password reset.",
+    "invalidEmail": "Arr, we need yer email before we can resent yer password, matey!",
     "email": "Email",
     "passConfirm": "Confirm Passcode",
     "accept1Terms": "By clicking th' button below, I agree to th'",

@@ -12749,6 +12749,18 @@ api.questPets = _.transform(api.questEggs, function(m, egg) {
   }));
 });
 
+api.mounts = _.transform(api.dropEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    return m2[egg.key + "-" + pot.key] = true;
+  }));
+});
+
+api.questMounts = _.transform(api.questEggs, function(m, egg) {
+  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+    return m2[egg.key + "-" + pot.key] = true;
+  }));
+});
+
 api.food = {
   Meat: {
     canBuy: true,
@@ -13074,6 +13086,12 @@ api.quests = {
         stables: t('questStressbeastBossRageStables'),
         bailey: t('questStressbeastBossRageBailey'),
         guide: t('questStressbeastBossRageGuide')
+      },
+      desperation: {
+        threshold: 500000,
+        str: 3.5,
+        def: 2,
+        text: t('questStressbeastDesperation')
       }
     },
     drop: {
@@ -14816,9 +14834,6 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     return;
   }
   type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-  if ((type === 'todo' && completed !== showCompleted) && main) {
-    return 'hidden';
-  }
   if (main) {
     if (!task._editing) {
       for (filter in filters) {
@@ -14935,14 +14950,32 @@ api.countPets = function(originalCount, pets) {
 };
 
 api.countMounts = function(originalCount, mounts) {
-  var count, mount;
-  count = originalCount != null ? originalCount : _.size(mounts);
-  for (mount in content.specialMounts) {
+  var count2, mount;
+  count2 = originalCount != null ? originalCount : _.size(mounts);
+  for (mount in content.questPets) {
     if (mounts[mount]) {
-      count--;
+      count2--;
     }
   }
-  return count;
+  for (mount in content.specialMounts) {
+    if (mounts[mount]) {
+      count2--;
+    }
+  }
+  return count2;
+};
+
+api.countTriad = function(pets) {
+  var count3, egg, potion;
+  count3 = 0;
+  for (egg in content.dropEggs) {
+    for (potion in content.hatchingPotions) {
+      if (pets[egg + "-" + potion] > 0) {
+        count3++;
+      }
+    }
+  }
+  return count3;
 };
 
 
@@ -15575,7 +15608,7 @@ api.wrap = function(user, main) {
         }
         return ga != null ? ga.event('purchase', key).send() : void 0;
       },
-      release: function(req, cb) {
+      releasePets: function(req, cb) {
         var pet;
         if (user.balance < 1) {
           return typeof cb === "function" ? cb({
@@ -15595,25 +15628,59 @@ api.wrap = function(user, main) {
         }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
-      release2: function(req, cb) {
-        var pet;
-        if (user.balance < 2) {
+      releaseMounts: function(req, cb) {
+        var mount;
+        if (user.balance < 1) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
-          user.balance -= 2;
+          user.balance -= 1;
+          user.items.currentMount = "";
+          for (mount in content.pets) {
+            user.items.mounts[mount] = null;
+          }
+          if (!user.achievements.mountMasterCount) {
+            user.achievements.mountMasterCount = 0;
+          }
+          user.achievements.mountMasterCount++;
+        }
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      releaseBoth: function(req, cb) {
+        var animal, giveTriadBingo;
+        if (user.balance < 1.5) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: i18n.t('notEnoughGems', req.language)
+          }) : void 0;
+        } else {
+          giveTriadBingo = true;
+          user.balance -= 1.5;
           user.items.currentMount = "";
           user.items.currentPet = "";
-          for (pet in content.pets) {
-            user.items.mounts[pet] = false;
-            user.items.pets[pet] = 0;
+          for (animal in content.pets) {
+            if (user.items.pets[animal] === -1) {
+              giveTriadBingo = false;
+            }
+            user.items.pets[animal] = 0;
+            user.items.mounts[animal] = null;
           }
           if (!user.achievements.beastMasterCount) {
             user.achievements.beastMasterCount = 0;
           }
           user.achievements.beastMasterCount++;
+          if (!user.achievements.mountMasterCount) {
+            user.achievements.mountMasterCount = 0;
+          }
+          user.achievements.mountMasterCount++;
+          if (giveTriadBingo) {
+            if (!user.achievements.triadBingoCount) {
+              user.achievements.triadBingoCount = 0;
+            }
+            user.achievements.triadBingoCount++;
+          }
         }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },

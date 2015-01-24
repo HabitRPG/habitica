@@ -248,7 +248,7 @@ api.silver = (num) ->
 ###
 Task classes given everything about the class
 ###
-api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, main=false) ->
+api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showCompleted=false, main=false) ->
   return unless task
   {type, completed, value, repeat} = task
 
@@ -328,11 +328,20 @@ api.countPets = (originalCount, pets) ->
     count-- if pets[pet]
   count
 
-api.countMounts= (originalCount, mounts) ->
-  count = if originalCount? then originalCount else _.size(mounts)
+api.countMounts = (originalCount, mounts) ->
+  count2 = if originalCount? then originalCount else _.size(mounts)
+  for mount of content.questPets
+    count2-- if mounts[mount]
   for mount of content.specialMounts
-    count-- if mounts[mount]
-  count
+    count2-- if mounts[mount]
+  count2
+
+api.countTriad = (pets) ->
+  count3 = 0
+  for egg of content.dropEggs
+    for potion of content.hatchingPotions
+      if pets[egg + "-" + potion] > 0 then count3++
+  count3
 
 ###
 ------------------------------------------------------
@@ -727,7 +736,7 @@ api.wrap = (user, main=true) ->
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('purchase', key).send()
 
-      release: (req, cb) ->
+      releasePets: (req, cb) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
@@ -740,19 +749,41 @@ api.wrap = (user, main=true) ->
           user.items.currentPet = ""
         cb? null, user
 
-      release2: (req, cb) ->
-        if user.balance < 2
+      releaseMounts: (req, cb) ->
+        if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          user.balance -= 2
+          user.balance -= 1
+          user.items.currentMount = ""
+          for mount of content.pets
+            user.items.mounts[mount] = null
+          if not user.achievements.mountMasterCount
+            user.achievements.mountMasterCount = 0
+          user.achievements.mountMasterCount++
+        cb? null, user
+
+      releaseBoth: (req, cb) ->
+        if user.balance < 1.5
+          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+        else
+          giveTriadBingo = true
+          user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
-          for pet of content.pets
-            user.items.mounts[pet] = false
-            user.items.pets[pet] = 0
+          for animal of content.pets
+            giveTriadBingo = false if user.items.pets[animal] == -1 
+            user.items.pets[animal] = 0
+            user.items.mounts[animal] = null
           if not user.achievements.beastMasterCount
             user.achievements.beastMasterCount = 0
           user.achievements.beastMasterCount++
+          if not user.achievements.mountMasterCount
+            user.achievements.mountMasterCount = 0
+          user.achievements.mountMasterCount++
+          if giveTriadBingo
+            if not user.achievements.triadBingoCount
+              user.achievements.triadBingoCount = 0
+            user.achievements.triadBingoCount++
         cb? null, user
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)

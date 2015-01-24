@@ -8,7 +8,7 @@
     "disableAds": "Desativar propagandas",
     "disableAdsText": "Propagandas serão desativadas enquanto você tiver uma assinatura ativa (usuários originais com propagandas desabilitadas são isentados).",
     "buyGemsGold": "Comprar Gemas com Ouro",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 Gema custa <%= gemCost %> Ouro) Consiste da idéia de \"pagar para ganhar\", já que tudo agora é conquistável através de trabalho duro. Existe um limite de conversão de <%= gemLimit %>G para prevenir um cultivo ilimitado.",
     "retainHistory": "Retém histórico completo de registros",
     "retainHistoryText": "Deixa seu histórico completo disponível em gráficos e exportações. Históricos de não-assinantes se consolidam para otimização do banco de dados.",
     "doubleDrops": "Capacidade de drop diário dobrado",
@@ -61,7 +61,7 @@
     "buySubsText": "Compre gemas com Ouro, Sem Propagandas, Ajude os Desenvolvedores",
     "sureCancelSub": "Tem certeza de que deseja cancelar sua assinatura?",
     "subCanceled": "Assinatura ficará inativa em",
-    "subGemPop": "Porque você assinou o HabitRPG, você pode comprar uma quantidade de Gemas a cada mês usando Ouro. Você pode ver quantas Gemas ainda pode comprar no canto do ícone de Gemas.",
+    "subGemPop": "Agora que assinou o HabitRPG, você pode comprar uma quantidade de Gemas a cada mês usando Ouro. Você pode ver quantas Gemas ainda pode comprar no canto do ícone de Gemas.",
     "subGemName": "Gemas de Assinante",
     "timeTravelers": "Viajantes do Tempo",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> e <%= linkStartVicky %>Vicky<%= linkEnd %>",
@@ -71,5 +71,5 @@
     "mysticHourglassPopover": "Ampulhetas Místicas te permitem comprar os conjuntos de assinante dos meses anteriores.",
     "subUpdateCard": "Atualizar Cartão",
     "subUpdateTitle": "Atualizar",
-    "subUpdateDescription": "Atualize o cartão para se cobrado."
+    "subUpdateDescription": "Atualize o cartão para ser cobrado."
 }
