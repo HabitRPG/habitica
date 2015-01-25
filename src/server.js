@@ -25,7 +25,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var path = require("path");
   var swagger = require("swagger-node-express");
   var autoinc = require('mongoose-id-autoinc');
-  var shared = require('habitrpg-shared');
+  var shared = require('../common');
 
   // Setup translations
   var i18n = require('./i18n');
