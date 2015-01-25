@@ -5,7 +5,7 @@ var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var shared = require('habitrpg-shared');
+var shared = require('../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
 var ga = utils.ga;
@@ -477,7 +477,7 @@ api.sessionPartyInvite = function(req,res,next){
 }
 
 /**
- * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
+ * All other user.ops which can easily be mapped to ../../common/scripts/index.coffee, not requiring custom API-wrapping
  */
 _.each(shared.wrap({}).ops, function(op,k){
   if (!api[k]) {
