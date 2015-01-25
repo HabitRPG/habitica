@@ -3,7 +3,7 @@ var stripe = require("stripe")(nconf.get('STRIPE_API_KEY'));
 var async = require('async');
 var payments = require('./index');
 var User = require('mongoose').model('User');
-var shared = require('habitrpg-shared');
+var shared = require('../../../common');
 var mongoose = require('mongoose');
 var cc = require('coupon-code');
 
