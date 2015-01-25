@@ -23,7 +23,7 @@ User = require("../src/models/user").model
 Group = require("../src/models/group").model
 Challenge = require("../src/models/challenge").model
 app = require("../src/server")
-shared = require("habitrpg-shared")
+shared = require("../common")
 payments = require("../src/controllers/payments")
 
 # ###### Helpers & Variables ######
