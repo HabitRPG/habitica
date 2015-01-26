@@ -77,18 +77,6 @@ habitrpg.controller("InventoryCtrl",
       return _.pick(inventory, function(v,k){return v>0;});
     }
 
-    $scope.calcTriadBingo = function() {
-      var hasPets = Shared.countPets(null, User.user.items.pets) >= 90 ;
-      var hasMounts = Shared.countMounts(null, User.user.items.mounts) >= 90;
-
-      if(!(hasPets && hasMounts)) return false;
-
-      for (var p in User.user.items.pets) {
-        if(User.user.items.pets[p] < 0) return false;
-      }
-      return true;
-    }
-
     $scope.hatch = function(egg, potion){
       var eggName = Content.eggs[egg.key].text();
       var potName = Content.hatchingPotions[potion.key].text();
@@ -97,16 +85,19 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
+      $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
+
       // Checks if beastmaster has been reached for the first time
       if(!User.user.achievements.beastMaster 
-          && Shared.countPets(null, User.user.items.pets) >= 90) {
+          && $rootScope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
         $rootScope.openModal('achievements/beastMaster');
       }
 
       // Checks if Triad Bingo has been reached for the first time
       if(!User.user.achievements.triadBingo
-          && $scope.calcTriadBingo()) {
+          && $rootScope.mountCount >= 90
+          && Shared.countTriad(User.user.items.pets)) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
