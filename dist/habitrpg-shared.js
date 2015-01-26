@@ -9916,6 +9916,11 @@ api.mystery = {
     end: '2015-01-02',
     text: 'Penguin Set'
   },
+  201501: {
+    start: '2015-01-26',
+    end: '2015-02-02',
+    text: 'Starry Knight Set'
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
@@ -10977,6 +10982,12 @@ gear = {
         mystery: '201412',
         value: 0
       },
+      201501: {
+        text: t('armorMystery201501Text'),
+        notes: t('armorMystery201501Notes'),
+        mystery: '201501',
+        value: 0
+      },
       301404: {
         text: t('armorMystery301404Text'),
         notes: t('armorMystery301404Notes'),
@@ -11468,6 +11479,12 @@ gear = {
         text: t('headMystery201412Text'),
         notes: t('headMystery201412Notes'),
         mystery: '201412',
+        value: 0
+      },
+      201501: {
+        text: t('headMystery201501Text'),
+        notes: t('headMystery201501Notes'),
+        mystery: '201501',
         value: 0
       },
       301404: {
@@ -16783,5 +16800,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
