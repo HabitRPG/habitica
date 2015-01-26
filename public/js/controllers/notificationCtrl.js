@@ -6,6 +6,7 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
+        $rootScope.playSound('Death');
         $rootScope.openModal('death', {keyboard:false, backdrop:'static'});
       }
       if (after == before) return;
