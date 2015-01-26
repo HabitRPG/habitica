@@ -39,7 +39,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
             span.Pet_Currency_Gem1x.inline-gems
       menu.pets-menu(label=env.t('quests'))
         div(ng-repeat='quest in ::getSeasonalShopQuests()')
-          button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+          button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='buyQuest(quest.key)', ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
           p
             | {{::quest.value}}&nbsp;
             span.Pet_Currency_Gem1x.inline-gems
@@ -114,7 +114,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               p.muted(ng-show='questCount < 1')=env.t('noScrolls')
               p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
               div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
-                button.customize-option(popover="{{:: quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                button.customize-option(popover="{{:: quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
                   .badge.badge-info.stack-count {{points}}
 
           li.customize-menu
@@ -209,7 +209,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               menu.pets-menu(label=env.t('quests'))
                 p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
                 div(ng-repeat='quest in Content.quests', ng-if='quest.canBuy')
-                  button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                  button.customize-option(popover="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes() | htmlDecode}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='buyQuest(quest.key)', ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
                   p
                     |  {{::quest.value}}&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
