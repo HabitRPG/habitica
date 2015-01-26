@@ -1102,7 +1102,7 @@ api.wrap = (user, main=true) ->
           user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
           user.stats.mp = 0 if user.stats.mp < 0
 
-        # ===== starting to actually do stuff, most of above was definitions ==========
+        # ===== starting to actually do stuff, most of above was definitions =====
         switch task.type
           when 'habit'
             changeTaskValue()
@@ -1484,8 +1484,8 @@ api.wrap = (user, main=true) ->
 
         {id, type, completed, repeat} = task
 
-        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
-        # Magic points calculated AFTER stealth -- stealthed tasks are treated as just not being there
+        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies (includes uncompletd GREY dailies - TODO fix that?)
+        # All processing of Dailies is calculated AFTER stealth -- stealthed Dailies are treated as just not being there
 
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
         if completed
@@ -1502,7 +1502,7 @@ api.wrap = (user, main=true) ->
           if scheduleMisses > 0
             if type is 'daily'
               perfect = false 
-              if task.checklist?.length > 0  # Partially completed checklists dock less mana points
+              if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
                 dailyDueUnchecked += (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
               else
                dailyDueUnchecked += 1
