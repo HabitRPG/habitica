@@ -18,6 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",
     "seasonalShopClosedText": "Der saisonale Shop ist zurzeit geschlossen!!! Ich weiß nicht wo zurzeit die saisonale Zauberin ist, aber ich wette sie kommt zur nächsten <%= linkStart %>Grand Gala<%= linkEnd %> wieder!",
     "seasonalShopText": "Willkommen im Festtags-Laden!  Von heute bis zum 31. Januar gibt einige Sonderangebote für die Feiertage.  Danach sind die Sachen für ein ganzes Jahr lang nicht mehr erhältlich, also schlagt zu, solange sie heiß (äh, kalt) sind!",
+    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Zuckerstange (Magier)",
     "skiSet": "Ski-Attentäter (Schurke)",
     "snowflakeSet": "Schneeflocke (Heiler)",

@@ -18,6 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Sæson-heksen<%= linkEnd %>",
     "seasonalShopClosedText": "Sæson-markedet er lukket! Jeg ved ikke hvor Sæson-heksen er lige nu, men hun kommer sikkert tilbage til den næste <%= linkStart %>Store Fest<%= linkEnd %>!",
     "seasonalShopText": "Velkommen til Sæson-markedet! Fra nu og indtil 31. januar har vi masser af vintersæsonvarer til salg! Efter denne dato kommer disse ting ikke på hylderne i et helt år, så køb dem mens du kan!",
+    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
     "snowflakeSet": "Snefnug (Helbreder)",
@@ -30,6 +31,6 @@
     "newYear0": "Godt Nytår! Må du overvinde mange dårlige Vaner.",
     "newYear1": "Godt Nytår! Må du modtage mange Belønninger.",
     "newYear2": "Godt Nytår! Må du udføre mange Perfekt Dage.",
-    "newYear3": "Godt Nytår! Må din Gøremålsliste forblive kort og overskuelig.",
+    "newYear3": "Godt Nytår! Må din To-do-liste forblive kort og overskuelig.",
     "newYear4": "Godt Nytår! Må du undgå at blive angrebet af vrede Hippogriffer!"
 }
