@@ -32,6 +32,10 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
             p!=env.t('seasonalShopText')
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
+        // The `if true || false` conditional for applying the transparent class is necessary because
+        // when a user activates the orb of rebirth, the seasonal items are still in their inventory, but 
+        // they have each have a value of false. The item can be purchased for gold in the rewards column,
+        // not the seasonal shop. This makes that more clear.
         div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key] === true ||user.items.gear.owned[item.key] === false}")
           button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
           .text-center
