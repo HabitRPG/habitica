@@ -4,6 +4,9 @@ var crypto = require('crypto');
 var path = require("path");
 var request = require('request');
 
+// Set when utils.setupConfig is run
+var isProd, baseUrl;
+
 module.exports.ga = undefined; // set Google Analytics on nconf init
 
 module.exports.sendEmail = function(mailData) {
@@ -22,48 +25,75 @@ module.exports.sendEmail = function(mailData) {
   });
 }
 
-function getMailingInfo(user) {
-  var email, name;
-  if(user.auth.local && user.auth.local.email){
-    email = user.auth.local.email;
-    name = user.profile.name || user.auth.local.username;
-  }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
-    email = user.auth.facebook.emails[0].value;
-    name = user.auth.facebook.displayName || user.auth.facebook.username;
+function getUserInfo(user, fields) {
+  var info = {};
+
+  if(fields.indexOf('name') != -1){
+    if(user.auth.local){
+      info.name = user.profile.name || user.auth.local.username;
+    }else if(user.auth.facebook){
+      info.name = user.auth.facebook.displayName || user.auth.facebook.username;
+    }
   }
-  return {email: email, name: name};
+
+  if(fields.indexOf('email') != -1){
+    if(user.auth.local){
+      info.email = user.auth.local.email;
+    }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
+      info.email = user.auth.facebook.emails[0].value;
+    }
+  }
+
+  if(fields.indexOf('canSend') != -1){
+    info.canSend = user.preferences.emailNotifications.unsubscribeFromAll !== true;
+  }
+
+  return info;
 }
 
+module.exports.getUserInfo = getUserInfo;
+
 module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
-  var variables = [{name: 'BASE_URL', content: nconf.get('BASE_URL')}].concat(variables || []);
   var mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
+  var variables = [
+    {name: 'BASE_URL', content: baseUrl},
+    {name: 'EMAIL_SETTINGS_URL', content: baseUrl + '/#/options/settings/notifications'}
+  ].concat(variables || []);
 
+  // It's important to pass at least a user with its `preferences` as we need to check if he unsubscribed
   mailingInfoArray = mailingInfoArray.map(function(mailingInfo){
-    return mailingInfo._id ? getMailingInfo(mailingInfo) : mailingInfo;
+    return mailingInfo._id ? getUserInfo(mailingInfo, ['email', 'name', 'canSend']) : mailingInfo;
   }).filter(function(mailingInfo){
-    return mailingInfo.email ? true : false;
+    return (mailingInfo.email && mailingInfo.canSend);
   });
 
-  request({
-    url: nconf.get('EMAIL_SERVER:url') + '/job',
-    method: 'POST',
-    auth: {
-      user: nconf.get('EMAIL_SERVER:authUser'),
-      pass: nconf.get('EMAIL_SERVER:authPassword')
-    },
-    json: {
-      type: 'email',
-      data: {
-        emailType: emailType,
-        to: mailingInfoArray,
-        variables: variables
+  // When only one recipient send his info as variables
+  if(mailingInfoArray.length === 1 && mailingInfoArray[0].name){
+    variables.push({name: 'RECIPIENT_NAME', content: mailingInfoArray[0].name});
+  }  
+
+  if(isProd && mailingInfoArray.length > 0){
+    request({
+      url: nconf.get('EMAIL_SERVER:url') + '/job',
+      method: 'POST',
+      auth: {
+        user: nconf.get('EMAIL_SERVER:authUser'),
+        pass: nconf.get('EMAIL_SERVER:authPassword')
       },
-      options: {
-        attemps: 5,
-        backoff: {delay: 10*60*1000, type: 'fixed'}
+      json: {
+        type: 'email',
+        data: {
+          emailType: emailType,
+          to: mailingInfoArray,
+          variables: variables
+        },
+        options: {
+          attemps: 5,
+          backoff: {delay: 10*60*1000, type: 'fixed'}
+        }
       }
-    }
-  });
+    });
+  }
 }
 
 // Encryption using http://dailyjs.com/2010/12/06/node-tutorial-5/
@@ -92,6 +122,9 @@ module.exports.setupConfig = function(){
     Error.stackTraceLimit = Infinity;
   if (nconf.get('NODE_ENV') === 'production')
     require('newrelic');
+
+  isProd = nconf.get('NODE_ENV') === 'production';
+  baseUrl = nconf.get('BASE_URL');
 
   module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
 };

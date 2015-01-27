@@ -445,6 +445,9 @@ api.inviteFriends = function(req, res, next) {
           {name: 'INVITER', content: req.body.inviter || res.locals.user.profile.name},
           {name: 'INVITEE', content: invite.name}
         ];
+
+        invite.canSend = true;
+
         // TODO implement "users can only be invited once"
         utils.txnEmail(invite, 'invite-friend', variables);
       }

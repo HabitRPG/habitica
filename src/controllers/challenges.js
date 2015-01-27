@@ -9,6 +9,7 @@ var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
 var csv = require('express-csv');
+var utils = require('../utils');
 var api = module.exports;
 
 
@@ -335,6 +336,11 @@ api.selectWinner = function(req, res, next) {
       winner.save(cb);
     },
     function(saved, num, cb) {
+      if(saved.preferences.emailNotifications.wonChallenge !== false){
+        utils.txnEmail(saved, 'won-challenge', [
+          {name: 'CHALLENGE_NAME', content: chal.name}
+        ]);
+      }
       closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){

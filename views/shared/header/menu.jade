@@ -242,6 +242,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.settings.coupon') Coupon
               li
                 a(ui-sref='options.settings.subscription')=env.t('subscription')
+              li
+                a(ui-sref='options.settings.notifications')=env.t('notifications')
             ul.toolbar-submenu(ng-click='expandMenu(null)')
               li
                 a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')=env.t('FAQ')

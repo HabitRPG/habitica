@@ -103,7 +103,7 @@ api.registerUser = function(req, res, next) {
       }
 
       user.save(cb);
-      if(isProd) utils.txnEmail({name:username, email:email}, 'welcome');
+      utils.txnEmail(user, 'welcome');
       ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
@@ -173,9 +173,7 @@ api.loginSocial = function(req, res, next) {
       user = new User(user);
       user.save(cb);
 
-      if (isProd && prof.emails && prof.emails[0] && prof.emails[0].value) {
-        utils.txnEmail({name: prof.displayName || prof.username, email: prof.emails[0].value}, 'welcome');
-      }
+      utils.txnEmail(user, 'welcome');
       ga.event('register', network).send();
     }]
   }, function(err, results){

@@ -5,6 +5,8 @@ var api = module.exports;
 var async = require('async');
 var _ = require('lodash');
 var shared = require('habitrpg-shared');
+var utils = require('../utils');
+var nconf = require('nconf');
 
 var fetchMember = function(uuid, restrict){
   return function(cb){
@@ -48,9 +50,11 @@ api.sendMessage = function(user, member, data){
 }
 
 api.sendPrivateMessage = function(req, res, next){
+  var fetchedMember;
   async.waterfall([
     fetchMember(req.params.uuid),
     function(member, cb) {
+      fetchedMember = member;
       if (~member.inbox.blocks.indexOf(res.locals.user._id) // can't send message if that user blocked me
         || ~res.locals.user.inbox.blocks.indexOf(member._id) // or if I blocked them
         || member.inbox.optOut) { // or if they've opted out of messaging
@@ -64,6 +68,14 @@ api.sendPrivateMessage = function(req, res, next){
     }
   ], function(err){
     if (err) return sendErr(err, res, next);
+
+    if(fetchedMember.preferences.emailNotifications.newPM !== false){
+      utils.txnEmail(fetchedMember, 'new-pm', [
+        {name: 'SENDER', content: utils.getUserInfo(res.locals.user, ['name']).name},
+        {name: 'PMS_INBOX_URL', content: nconf.get('BASE_URL') + '/#/options/groups/inbox'}
+      ]);
+    }
+
     res.send(200);
   })
 }
@@ -84,6 +96,12 @@ api.sendGift = function(req, res, next){
           member.balance += amt;
           user.balance -= amt;
           api.sendMessage(user, member, req.body);
+          if(member.preferences.emailNotifications.giftedGems !== false){
+            utils.txnEmail(member, 'gifted-gems', [
+              {name: 'GIFTER', content: utils.getUserInfo(user, ['name']).name},
+              {name: 'X_GEMS_GIFTED', content: amt}
+            ]);
+          }
           return async.parallel([
             function (cb2) { member.save(cb2) },
             function (cb2) { user.save(cb2) }
