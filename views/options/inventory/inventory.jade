@@ -94,7 +94,7 @@ script(type='text/ng-template', id='partials/options.inventory.timetravelers.htm
 script(type='text/ng-template', id='partials/options.inventory.drops.html')
   .container-fluid
     .row
-      .col-md-6.border-right
+      .col-md-6
         h2=env.t('inventory')
         p.well=env.t('inventoryText')
         menu.inventory-list(type='list')
@@ -156,7 +156,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 button.customize-option(popover="New Year's Card from {{User.user.items.special.nyeReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("nye")', class='inventory_special_nye')
                   .badge.badge-info.stack-count {{user.items.special.nyeReceived.length}}
 
-      .col-md-6
+      .col-md-6.border-left
         h2=env.t('market')
         .row-fluid
           table.npc_alex_container
