@@ -30,6 +30,8 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
           h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
             p!=env.t('seasonalShopText')
+    br
+    .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
         // The `if true || false` conditional for applying the transparent class is necessary because
