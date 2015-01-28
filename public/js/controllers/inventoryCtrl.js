@@ -160,6 +160,7 @@ habitrpg.controller("InventoryCtrl",
     }
 
     $scope.questPopover = function(quest) {
+      // The popover gets parsed as markdown (hence the double \n for line breaks
       var text = '';
       if(quest.boss) {
         text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + '\n\n';
