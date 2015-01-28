@@ -13,25 +13,25 @@ script(type='text/ng-template', id='modals/questCompleted.html')
 
 script(type='text/ng-template', id='modals/showQuest.html')  
   .modal-header
-    h4 {{selectedQuest.text()}}
+    h4 {{::selectedQuest.text()}}
   .modal-body
     .pull-right-sm.text-center
-      .col-centered(class='quest_{{selectedQuest.key}}')
-      div(ng-if='selectedQuest.boss')
-        h4 {{selectedQuest.boss.name()}}
+      .col-centered(class='quest_{{::selectedQuest.key}}')
+      div(ng-if='::selectedQuest.boss')
+        h4 {{::selectedQuest.boss.name()}}
         p
           strong=env.t('bossHP') + ': ' 
-          ='{{selectedQuest.boss.hp}} ' + env.t('hp')
+          ='{{::selectedQuest.boss.hp}} ' + env.t('hp')
         p
           strong=env.t('bossStrength') + ': '
-          | {{selectedQuest.boss.str}}
-      div(ng-if='selectedQuest.collect')
-        p(ng-repeat='(k,v) in selectedQuest.collect')
+          | {{::selectedQuest.boss.str}}
+      div(ng-if='::selectedQuest.collect')
+        p(ng-repeat='(k,v) in ::selectedQuest.collect')
           strong=env.t('collect') + ': '
           | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}} 
 
-    div(ng-bind-html='selectedQuest.notes()')
-    quest-rewards(key='{{selectedQuest.key}}')
+    div(ng-bind-html='::selectedQuest.notes()')
+    quest-rewards(key='{{::selectedQuest.key}}')
     hr    
     .npc_ian.pull-left
     p=env.t('questSend')
@@ -42,24 +42,24 @@ script(type='text/ng-template', id='modals/showQuest.html')
 
 script(type='text/ng-template', id='modals/buyQuest.html')  
   .modal-header
-    h4 {{selectedQuest.text()}}
+    h4 {{::selectedQuest.text()}}
   .modal-body
     .pull-right-sm.text-center
-      .col-centered(class='quest_{{selectedQuest.key}}')
-      div(ng-if='selectedQuest.boss')
-        h4 {{selectedQuest.boss.name()}}
+      .col-centered(class='quest_{{::selectedQuest.key}}')
+      div(ng-if='::selectedQuest.boss')
+        h4 {{::selectedQuest.boss.name()}}
         p
           strong=env.t('bossHP') + ': ' 
-          ='{{selectedQuest.boss.hp}} ' + env.t('hp')
+          ='{{::selectedQuest.boss.hp}} ' + env.t('hp')
         p
           strong=env.t('bossStrength') + ': '
-          | {{selectedQuest.boss.str}}
-      div(ng-if='selectedQuest.collect')
-        p(ng-repeat='(k,v) in selectedQuest.collect')
+          | {{::selectedQuest.boss.str}}
+      div(ng-if='::selectedQuest.collect')
+        p(ng-repeat='(k,v) in ::selectedQuest.collect')
           strong=env.t('collect') + ': '
           | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}} 
-    div(ng-bind-html='selectedQuest.notes()')
-    quest-rewards(key='{{selectedQuest.key}}')
+    div(ng-bind-html='::selectedQuest.notes()')
+    quest-rewards(key='{{::selectedQuest.key}}')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
     button.btn.btn-primary(ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest')
