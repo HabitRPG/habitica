@@ -23,6 +23,8 @@
   "defaultDaily4Checklist2": "Sit-ups",  
   "defaultDaily4Checklist3": "Push-ups",  
 
+  "defaultTodoBlank": "",
+
   "defaultTodo1Text": "Join HabitRPG (Check me off!)",
 
   "defaultTodo2Text": "_Learn_ **Markdown** :book:",
