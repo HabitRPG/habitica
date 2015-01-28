@@ -14,6 +14,8 @@
     "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), the quest owner can start the quest without them by clicking \"Begin\". The quest owner can also cancel the quest and regain the quest scroll by clicking \"Cancel\".",
     "begin": "Begin",
     "bossHP": "Boss Health",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Collected",
     "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot.",
