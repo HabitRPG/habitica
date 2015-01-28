@@ -14,6 +14,8 @@
     "questStart": "La misión comienza cuando todos los participantes la hayan aceptado o rechazado. Sólo aquellos que hayan hecho clic en \"aceptar\" podrán participar en la misión y recibir el botín. Si los participantes tardan demasiado (o están inactivos) el organizador de la misión puede comenzarla sin ellos haciendo clic en \"Iniciar\". El organizador también puede cancelar la misión y recuperar el pergamino de misión haciendo clic en \"Cancelar\".",
     "begin": "Comenzar",
     "bossHP": "Vida del Jefe",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Recogido",
     "bossDmg1": "Para hacerle daño a un jefe, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando los rojos, hechizos de los Magos, ataques de los Guerreros, etc). Ele jefe le hará daño a cada participante en la misión por cada Diaria que no completas (multiplicado por la Fuerza del jefe) además del daño regular, ¡mantén tu equipo saludable completando tus diarias! <strong>Todo el daño que ocasionen tú y el jefe es calculada durante el cron (al reinicio de tu día).<strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot.",

@@ -14,6 +14,8 @@
     "questStart": "Once all members have either accepted or rejected, th' quest begins. Only them that clicked \"accept\" gunna be able to participate in th' quest 'n receive th' loot. If members be pendin' too long (inactive?), th' quest owner can start th' quest without them by clickin' \"Begin\". th' quest owner can also cancel th' quest 'n regain th' quest scroll by clickin' \"Cancel\".",
     "begin": "Embark",
     "bossHP": "Boss Health",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Collected",
     "bossDmg1": "To hurt a boss, complete ye Dailies 'n To-Dos. Higher task damage means higher boss damage (completin' reds, Magician spells, Warrior attacks, etc). th' boss gunna deal damage to every quest participant fer every Daily ye've missed (multiplied by th' boss's Strength) in addition to ye regular damage, so keep ye crew healthy by completin' ye dailies! <strong>All damage to 'n from a boss be tallied on cron (ye day roll-over).</strong>",
     "bossDmg2": "Only participants will fight th' boss an' share in the adventure's loot.",

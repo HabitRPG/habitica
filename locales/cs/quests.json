@@ -14,6 +14,8 @@
     "questStart": "Výprava začíná jakmile všichni členové výzvu přijmou či odmítnou. Pouze ti, kteří klikli na \"Přijmout\" se mohou výpravy zúčastnit a obdrží ceny. Pokud to některým uživatelům trvá příliš dlouho (nejsou aktivní?), majitel výpravy může začít bez nich kliknutím na \"Začít\". Majitel výpravy začal také může výpravu přerušit a získat tak zpět svitek výpravy kliknutím na \"Zrušit\".",
     "begin": "Začít",
     "bossHP": "Zdraví bosse",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Získáno",
     "bossDmg1": "Abys zranil bosse, plň své Denní úkoly a Úkoly. Více bodů získaných za úkol znamená větší zranění bosse (plnění červených úkolů, kouzla Mága, útoky Válečníka, atd.). Boss zraní každého účastníka výpravy za každý nesplněný Denní úkol (újma je násobena jeho Silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění bossovi i vám se přičítají na kronu (na konci dne).</strong>",
     "bossDmg2": "Jen ti, kteří přijmou pozvání, budou bojovat proti bossovi a rozdělí si odměnu za výpravu.",

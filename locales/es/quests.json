@@ -14,6 +14,8 @@
     "questStart": "Una vez todos los miembros hayan aceptado o rechazado, la misión comenzará. Solo aquellos que hicieron click en \"aceptar\" podrán participar en la misión y recibir los premios. Si algún miembro queda pendiente durante mucho tiempo (¿inactivo?), el dueño de la misión puede empezar ésta sin que éstos hayan hecho click en \"Empezar\". El dueño de la misión también puede cancelar ésta y volver a obtener el pergamino de la misión haciendo click en \"Cancelar\".",
     "begin": "Comenzar",
     "bossHP": "Salud del Jefe",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Recogido",
     "bossDmg1": "Para causar daño a un jefe, completa tus tareas diarias y tus tareas pendientes. Cuanto mayor sea el daño causado a la tarea, mayor será el daño causado al jefe (completar tareas en rojo, conjuros de Mago, ataques de Guerrero, etc). El jefe infligirá daño a cada participante en la misión por cada tarea diaria que te hayas saltado (multiplicado por la Fuerza del jefe) además del daño que hubiera causado el incumplimiento de la tarea diaria, ¡así que mantén a tu grupo sano completando todas tus tareas diarias! <strong>Todo el daño que hagas y que te haga un jefe quedará anotado en el cron (tu reinicio del día). </strong>",
     "bossDmg2": "Solo los participantes pelearan contra el jefe y compartiran el botín de la misión.",

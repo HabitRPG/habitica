@@ -14,6 +14,8 @@
     "questStart": "Assim que todos os membros tenham aceitado ou rejeitado, a missão começa. Apenas aqueles que clicaram \"aceitar\" participarão da missão e receberão os prêmios. Se os membros estiverem pendentes por muito tempo (inativos?), o dono da missão pode começá-la sem eles clicando em \"Começar\". O dono da missão também pode cancelá-la e recuperar o pergaminho de missão clicando em \"Cancelar\".",
     "begin": "Começar",
     "bossHP": "Vida do Chefão",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Coletado",
     "bossDmg1": "Para machucar um chefão, complete suas Tarefas Diárias e Afazeres. Dano alto em tarefas significa dano alto ao chefão (completando vermelhos, magias do Mago, ataques do Guerreiro, etc.). O chefão causará dano à equipe para cada Tarefa Diária que você não completar (multiplicado pela Força do chefão) além do seu dano normal, então mantenha a saúde de sua equipe completando suas Tarefas Diárias! <strong>Todo dano contra ou a favor do chefão é registrado no cron (sua virada do dia).</strong>",
     "bossDmg2": "Apenas participantes lutarão contra o chefão e dividirão as recompensas da missão.",

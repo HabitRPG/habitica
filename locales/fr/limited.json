@@ -18,7 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Sorcière Saisonnière<%= linkEnd %>",
     "seasonalShopClosedText": "La Boutique Saisonnière est actuellement fermée !! Je ne sais pas où est passé la Sorcière Saisonnière, mais je parie qu'elle sera de retour lors du prochain <%= linkStart %>Grand Gala<%= linkEnd %> !",
     "seasonalShopText": "Bienvenue à la Boutique Saisonnière ! Dès à présent et jusqu'au 31 Janvier, tout avons tout un stock d'équipements d'éditions saisonnières hivernales. Après cette date, ces objets ne seront plus accessibles pendant un an, alors prenez-les tant qu'ils sont chaud !! Ou, euh, froids.",
-    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
+    "seasonalShopRebirth": "Si vous avez utilisé l'Orbe de Renaissance, vous pouvez acheter ces équipements à nouveau dès lors que vous débloquez la Boutique. Dans un premier temps, vous ne pourrez acheter que les objets de votre classe actuelle (Guerrier, par défaut), mais ne craignez rien, les autres objets de classes seront disponibles si vous changez de classe.",
     "candycaneSet": "Sucre d'Orge (Mage)",
     "skiSet": "Ski-sassin (Voleur)",
     "snowflakeSet": "Flocon de Neige (Guérisseur)",

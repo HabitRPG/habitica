@@ -14,6 +14,8 @@
     "questStart": "Sobald alle Mitglieder die Einladung entweder angenommen oder abgelehnt haben beginnt die Quest. Nur diejenigen, die die Einladung \"angenommen\" haben können an der Quest teilnehmen und die Belohnungen kassieren. Wenn Mitglieder zu lange überlegen (inaktiv?), kannst Du die Quest ohne sie starten indem Du auf \"Beginnen\" klickst. Der Quest-Besitzer kann die Quest auch abbrechen und die Questrolle zurückerhalten indem er \"Abbrechen\" klickt. ",
     "begin": "Beginnen",
     "bossHP": "Boss Lebenspunkte",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Gesammelt",
     "bossDmg1": "Um einem Boss Schaden zuzufügen, erfülle Deine Aufgaben und Deine täglichen Aufgaben. Je mehr Schaden du Deinen Aufgaben zufügst, desto höheren Schaden fügst Du dem Boss zu (Rote Aufgaben, Magier-Zauber, Krieger-Angriffe, usw). Der Boss wird Deiner Gruppe für jede tägliche Aufgabe, die Du nicht erfüllt hast, Schaden zufügen (je mehr, desto stärker der Boss ist). Also hilf Deiner Gruppe, gesund zu bleiben, indem du Deine täglichen Aufgaben erfüllst! <strong>Jeder Schaden, der dem Boss zugefügt wird oder den er der Gruppe zufügt wird zum Tageswechsel abgerechnet (individuell festlegbar).</strong>",
     "bossDmg2": "Nur Teilnehmer kämpfen gegen den Boss bekommen ihren Anteil an der Beute.",

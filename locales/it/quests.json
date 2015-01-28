@@ -14,6 +14,8 @@
     "questStart": "Un volta che ogni membro ha accettato o rifiutato, la missione inizia. Solo chi ha selezionato \"Accetta\" potrà partecipare e ricevere le ricompense. Se dei membri rimangono in attesa per troppo tempo (forse perché inattivi?) il fautore della missione può iniziare la missione senza di loro selezionando \"Inizia\". Può anche annullare la missione e riottenere la pergamenna selezionando \"Annulla\"",
     "begin": "Inizia",
     "bossHP": "Salute del Boss",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Collezionati",
     "bossDmg1": "Per danneggiare un boss, completa le tue attività giornaliere e i \"to-do\". Finire attività che ti darebbero tanti danni se non finite, significano tanti danni per il boss (completando le attività rosse,I maghi incanteranno, i guerrieri attaccheranno, etc). Il boss infliggerà danni ad ogni partecipante per ogni attività giornaliera mancata (moltiplicata per la forza del boss) in aggiunta al danno regolare, quindi tieni il tuo party sano completando le tue attività giornaliere!<strong> Tutto il danno inflitto e ricevuto da un boss viene calcolato al cambio di giorno (il tuo giornaliero reset).</strong>",
     "bossDmg2": "Solo i partecipanti potranno combattere il boss e condividere il bottino della missione.",

@@ -14,6 +14,8 @@
     "questStart": "Når alle medlemmer har enten accepteret eller afvist vil questen begynde. Kun dem, der har klikket \"acceptér\" vil kunne deltage i questen og modtage præmierne. Hvis medlemmer afventer for længe (måske er de inaktive?) kan quest-lederen starte questen uden dem ved at klikke \"Begynd\". Quest-lederen kan også afbryde questen og få quest-skriftrullen tilbage ved at klikke \"Afbryd\"",
     "begin": "Begynd",
     "bossHP": "Boss Helbred",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Indsamlet",
     "bossDmg1": "For at skade en boss skal du færdiggøre dine Daglige og To-dos. Jo mere skade du gør på opgaver, des mere skade tager Bossen (færdiggørelse af røde opgaver, Magikeres fortryllelser, Krigeres angreb osv.). Bossen vil give skade til alle quest-deltagere for hver Daglige du springer over (ganget med bossens Styrke) oveni din sædvanlige skade, så hold din gruppe i live ved at færdiggøre dine Daglige! <strong>Al skade på og fra bossen bliver opgjort ved cron (når din dag skifter).</strong>",
     "bossDmg2": "Kun deltagere vil kæmpe mod bossen og få del i quest-byttet.",

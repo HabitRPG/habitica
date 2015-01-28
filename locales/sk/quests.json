@@ -14,6 +14,8 @@
     "questStart": "V momente, keď všetci členovia prijmú alebo odmietnu, výprava sa začne. Len tí, ktorí klikli na \"prijať\" sa zúčastnia výpravy a po jej dokončení dostanú odmenu. Ak sa pridlho čaká na niektorých členov družiny (sú neaktívni?), vlastník výpravy môže začať aj bez nich kliknutím na \"začať\". Vlastník výpravy môže tiež zrušiť výpravu klinutím na \"zrušiť\" a tým sa mu vráti zvitok do inventára.",
     "begin": "Začať",
     "bossHP": "Bossove zdravie",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Nazbieraných",
     "bossDmg1": "Aby si ublížil bossovi, spĺňaj úlohy a denné úlohy. Čím väčšiu ranu úlohe zasadíš, tým viac bossa raníš (plnenie červených úloh, mágove kúzla, útoky bojovníka, atď.). Za každú vynechanú dennú úlohu dostane každý účastník výpravy od bossa úder (sila úderu je vynásobená bossovou silou), ktorý sa pripočíta k bežnému zraneniu za nesplnené úlohy. Tak pomáhaj členom svojej družiny plnením svojich denných úloh! <strong>Útoky bossa a na bossa sa spočítavajú pri crone (na konci tvojho dňa).</strong>",
     "bossDmg2": "Len tí, čo sú na výprave môžu bojovať s bossom a podeliť sa o korisť.",

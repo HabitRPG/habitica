@@ -14,6 +14,8 @@
     "questStart": "De queeste begint wanneer alle groepsleden de uitnodiging ofwel geaccepteerd ofwel geweigerd hebben. Alleen de leden die geaccepteerd hebben, nemen deel aan de queeste en ontvangen de daarbij horende vondsten. Als groepsleden te lang in afwachting zijn (inactief?), kan de eigenaar van de queeste zonder hen beginnen door op 'Starten' te klikken. De eigenaar van de queeste kan de queeste-perkamentrol terugkrijgen en de queeste annuleren door op 'Annuleren' te klikken.",
     "begin": "Starten",
     "bossHP": "Gezondheid eindbaas",
+    "bossStrength": "Boss Strength",
+    "collect": "Collect",
     "collected": "Verzameld",
     "bossDmg1": "Om een eindbaas schade toe te brengen, moet je je Dagelijkse Taken en To-do's voltooien. Meer schade aan een taak betekent meer schade aan de eindbaas (rode taken voltooien, toverspreuken van de Magiër, aanvallen van de Krijger, etc.). De eindbaas brengt iedereen die meedoet aan de queeste schade toe voor iedere Dagelijkse Taak die je gemist hebt (vermenigvuldigd met de Kracht van de eindbaas), bovenop je normale schade, dus houd je groep gezond door je dagelijkse taken te doen! <strong>Alle schade van en aan een eindbaas wordt verrekend tijdens cron (je dagelijkse nieuwe start).</strong>",
     "bossDmg2": "Alleen deelnemers bevechten de eindbaas en delen de buit.",
