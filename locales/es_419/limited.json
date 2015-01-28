@@ -18,6 +18,7 @@
     "seasonalShopTitle": "Hechicera estacional",
     "seasonalShopClosedText": "¡¡La Tienda estacional está actualmente cerrada!! No sé dónde está la Hechicera estacional, pero apuesto a que volverá durante la próxima <%= linkStart %>Gran gala<%= linkEnd %>!",
     "seasonalShopText": "¡Bienvenidos a la Tienda estacional! Desde ahora hasta el 31 de enero, estamos almacenando varios artículos de edición invierno.  Después de esa fecha, esos artículos no vuelven por un año, así que ¡¡consiguelos mientras están calientes!! O, em, fríos.",
+    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Bastón de caramelo (Mago)",
     "skiSet": "Esquia-sesino (Granuja)",
     "snowflakeSet": "Copo de nieve (Curandero)",

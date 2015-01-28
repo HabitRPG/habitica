@@ -18,6 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Seizoenstovenares<%= linkEnd %>",
     "seasonalShopClosedText": "De Seizoenswinkel is momenteel gesloten!! Ik weet niet waar de Seizoenstovenares momenteel is, maar ik durf te wedden dat ze er tijdens het volgende <%= linkStart %>Grote Gala<%= linkEnd %> weer is!",
     "seasonalShopText": "Welkom bij de Seizoenswinkel! Vanaf nu tot en met 31 januari hebben we veel winter-editie seizoensgoederen op voorraad. Daarna zijn ze pas weer terug over een jaar, dus grijp je kans terwijl ze nog warm zijn! Of, ehm, koud.",
+    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Zuurstok (Magiër)",
     "skiSet": "Skimoordenaar (Dief)",
     "snowflakeSet": "Sneeuwvolk (Heler)",

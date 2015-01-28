@@ -69,6 +69,7 @@
     "audioTheme": "声音主题",
     "audioTheme_off": "关",
     "audioTheme_danielTheBard": "诗人丹尼尔",
+    "audioTheme_wattsTheme": "Watts' Theme",
     "askQuestion": "问个问题",
     "reportBug": "报告一个问题",
     "contributeToHRPG": "为HabitRPG作出贡献",
@@ -85,7 +86,7 @@
     "October": "十月",
     "November": "十一月",
     "December": "十二月\n",
-    "dateFormat": "Date Format",
-    "achievementStressbeast": "Savior of Stoïkalm",
-    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
+    "dateFormat": "日期格式",
+    "achievementStressbeast": "Stoïkalm的救星",
+    "achievementStressbeastText": "在\"2015冬季仙境事件\"中协助战胜可恶Stressbeast！"
 }

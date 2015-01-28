@@ -71,13 +71,13 @@
     "usernameSuccess": "Login Name successfully changed",
     "data": "Dati utente",
     "exportData": "Esporta dati",
-    "emailChange1": "To change your email address, please send an email to",
+    "emailChange1": "Per cambiare il tuo indirizzo email, per favore manda un'email a",
     "emailChange2": "admin@habitrpg.com",
-    "emailChange3": "including both your old and new email address as well as your User ID.",
+    "emailChange3": "inserendo sia il vecchio che il tuo nuovo indirizzo email assieme al tuo ID Utente",
     "username": "Login Name",
     "email": "Email",
-    "registeredWithFb": "Registered with Facebook",
+    "registeredWithFb": "Registrato tramite Facebook",
     "loginNameDescription1": "This is what you use to login to HabitRPG. Go to",
-    "loginNameDescription2": "User->Profile",
-    "loginNameDescription3": "to change the name that appears in your avatar and chat messages."
+    "loginNameDescription2": "Utente->Profilo",
+    "loginNameDescription3": "per cambiare il nome che appare nel tuo avatar e nei messaggi della chat."
 }

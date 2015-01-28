@@ -60,7 +60,7 @@
     "hatchingPotionCottonCandyPink": "Zuckerwattenrosaner",
     "hatchingPotionCottonCandyBlue": "Zuckerwattenblauer",
     "hatchingPotionGolden": "Goldener",
-    "hatchingPotionNotes": "Gieße das über ein Ei und es wird ein <%= potText() %> Tierwelpe daraus schlüpfen.",
+    "hatchingPotionNotes": "Gieße dies über ein Ei und es wird ein <%= potText() %> Tierwelpe daraus schlüpfen.",
     "foodMeat": "Fleisch",
     "foodMilk": "Milch",
     "foodPotatoe": "Kartoffel",

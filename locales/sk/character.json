@@ -38,7 +38,7 @@
     "supernaturalSkins": "Nadprirodzené pokožky",
     "rainbowColors": "Dúhové farby",
     "hauntedColors": "Strašidelné farby",
-    "winteryColors": "Wintery Colors",
+    "winteryColors": "Zimné Farby",
     "equipment": "Výstroj",
     "equipmentBonusText": "Bonusy k atribútom, ktoré ti poskytuje bojová výzbroj. Ak ju chceš zmeniť, nájdeš ju v záložke \"výstroj\" v inventári.",
     "classBonus": "Bonus za výstroj povolania",
@@ -131,6 +131,6 @@
     "youCastParty": "Na družinu si zoslal <%= spell %>.",
     "critBonus": "Kritický zásah! Bonus:",
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription2": "Nastavenia->Stránka",
+    "displayNameDescription3": "a na zmenu prihlasovacieho mena sa presuňte sa nadol k sekcii Registrácia"
 }
