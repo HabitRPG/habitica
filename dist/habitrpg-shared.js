@@ -14303,20 +14303,67 @@ api.userDefaults = {
     {
       type: 'todo',
       text: t('defaultTodo1Text'),
-      notes: t('defaultTodo1Notes'),
+      notes: t('defaultTodoBlank'),
       completed: false,
       attribute: 'int'
     }, {
       type: 'todo',
       text: t('defaultTodo2Text'),
-      notes: t('defaultTodo2Notes'),
+      notes: t('defaultTodoBlank'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo2Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo2Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo2Checklist3')
+        }
+      ],
       completed: false,
-      attribute: 'int'
+      attribute: 'per'
     }, {
       type: 'todo',
       text: t('defaultTodo3Text'),
-      notes: t('defaultTodo3Notes'),
-      value: -3,
+      notes: t('defaultTodoBlank'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo3Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo3Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo3Checklist3')
+        }
+      ],
+      completed: false,
+      attribute: 'per'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo4Text'),
+      notes: t('defaultTodoBlank'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo4Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo4Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo4Checklist3')
+        }
+      ],
+      completed: false,
+      attribute: 'per'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo5Text'),
+      notes: t('defaultTodoBlank'),
       completed: false,
       attribute: 'per'
     }
@@ -16800,5 +16847,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
