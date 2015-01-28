@@ -14303,13 +14303,13 @@ api.userDefaults = {
     {
       type: 'todo',
       text: t('defaultTodo1Text'),
-      notes: t('defaultTodoBlank'),
+      notes: t('defaultTodoNotes'),
       completed: false,
       attribute: 'int'
     }, {
       type: 'todo',
       text: t('defaultTodo2Text'),
-      notes: t('defaultTodoBlank'),
+      notes: t('defaultTodoNotes'),
       checklist: [
         {
           completed: false,
@@ -14327,7 +14327,7 @@ api.userDefaults = {
     }, {
       type: 'todo',
       text: t('defaultTodo3Text'),
-      notes: t('defaultTodoBlank'),
+      notes: t('defaultTodoNotes'),
       checklist: [
         {
           completed: false,
@@ -14345,7 +14345,7 @@ api.userDefaults = {
     }, {
       type: 'todo',
       text: t('defaultTodo4Text'),
-      notes: t('defaultTodoBlank'),
+      notes: t('defaultTodoNotes'),
       checklist: [
         {
           completed: false,
@@ -14363,7 +14363,7 @@ api.userDefaults = {
     }, {
       type: 'todo',
       text: t('defaultTodo5Text'),
-      notes: t('defaultTodoBlank'),
+      notes: t('defaultTodoNotes'),
       completed: false,
       attribute: 'per'
     }
