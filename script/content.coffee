@@ -1597,11 +1597,11 @@ api.userDefaults =
   ]
 
   todos: [
-    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodoBlank'), completed: false, attribute: 'int' }
-    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodoBlank'), checklist: [{completed: false, text: t('defaultTodo2Checklist1') }, {completed: false, text: t('defaultTodo2Checklist2')}, {completed: false, text: t('defaultTodo2Checklist3')}], completed: false, attribute: 'per' }
-    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodoBlank'), checklist: [{completed: false, text: t('defaultTodo3Checklist1') }, {completed: false, text: t('defaultTodo3Checklist2')}, {completed: false, text: t('defaultTodo3Checklist3')}], completed: false, attribute: 'per' }
-    {type: 'todo', text: t('defaultTodo4Text'), notes: t('defaultTodoBlank'), checklist: [{completed: false, text: t('defaultTodo4Checklist1') }, {completed: false, text: t('defaultTodo4Checklist2')}, {completed: false, text: t('defaultTodo4Checklist3')}], completed: false, attribute: 'per' }
-    {type: 'todo', text: t('defaultTodo5Text'), notes: t('defaultTodoBlank'), completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'int' }
+    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo2Checklist1') }, {completed: false, text: t('defaultTodo2Checklist2')}, {completed: false, text: t('defaultTodo2Checklist3')}], completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo3Checklist1') }, {completed: false, text: t('defaultTodo3Checklist2')}, {completed: false, text: t('defaultTodo3Checklist3')}], completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo4Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo4Checklist1') }, {completed: false, text: t('defaultTodo4Checklist2')}, {completed: false, text: t('defaultTodo4Checklist3')}], completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo5Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'per' }
   ]
 
   rewards: [
