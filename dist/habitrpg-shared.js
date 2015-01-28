@@ -14308,9 +14308,38 @@ api.userDefaults = {
       attribute: 'int'
     }, {
       type: 'todo',
+      text: t('defaultTodo2Text'),
+      notes: t('defaultTodoBlank'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo2Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo2Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo2Checklist3')
+        }
+      ],
+      completed: false,
+      attribute: 'per'
+    }, {
+      type: 'todo',
       text: t('defaultTodo3Text'),
-      notes: t('defaultTodo3Notes'),
-      value: -3,
+      notes: t('defaultTodoBlank'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo3Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo3Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo3Checklist3')
+        }
+      ],
       completed: false,
       attribute: 'per'
     }, {
@@ -14335,50 +14364,8 @@ api.userDefaults = {
       type: 'todo',
       text: t('defaultTodo5Text'),
       notes: t('defaultTodoBlank'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo5Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo5Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo5Checklist3')
-        }
-      ],
       completed: false,
       attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo6Text'),
-      notes: t('defaultTodoBlank'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo6Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo6Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo6Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo7Text'),
-      notes: t('defaultTodoBlank'),
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo2Text'),
-      notes: t('defaultTodo2Notes'),
-      completed: false,
-      attribute: 'int'
     }
   ],
   rewards: [
