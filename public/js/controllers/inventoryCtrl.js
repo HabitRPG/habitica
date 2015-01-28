@@ -97,7 +97,7 @@ habitrpg.controller("InventoryCtrl",
       // Checks if Triad Bingo has been reached for the first time
       if(!User.user.achievements.triadBingo
           && $rootScope.mountCount >= 90
-          && Shared.countTriad(User.user.items.pets)) {
+          && Shared.countTriad(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
