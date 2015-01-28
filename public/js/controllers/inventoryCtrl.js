@@ -162,7 +162,7 @@ habitrpg.controller("InventoryCtrl",
     $scope.questPopover = function(quest) {
       var text = '';
       if(quest.boss) {
-        text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + '\n\n';
+        text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + ' ' + window.env.t('hp') + '\n\n';
         text += '**' + window.env.t('bossStrength') + ':** ' + quest.boss.str + '\n\n';
       } else if(quest.collect) {
         var count = 0;
