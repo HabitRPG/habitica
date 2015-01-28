@@ -23,14 +23,30 @@
   "defaultDaily4Checklist2": "Sit-ups",  
   "defaultDaily4Checklist3": "Push-ups",  
 
-  "defaultTodo1Text": "Use emojis :+1:",
-  "defaultTodo1Notes": "You can use emojis in all your Habit, Daily, and To-Do titles.",
+  "defaultTodo1Text": "Join HabitRPG (Check me off!)",
 
   "defaultTodo2Text": "_Learn_ **Markdown** :book:",
   "defaultTodo2Notes": "You can use Markdown for styling your task names.",
 
-  "defaultTodo3Text": "Call Mom :telephone_receiver:",
+  "defaultTodo3Text": "Join the Newbies Guild and introduce yourself (Social > Guilds > Newbies Guild)",
   "defaultTodo3Notes": "While not completing a To-Do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.",
+
+  "defaultTodo4Text": "Set up a Habit",
+  "defaultTodo4Checklist1": "create a Habit",
+  "defaultTodo4Checklist2": "make it \"+\" only, \"-\" only, or \"+/-\" under Edit",
+  "defaultTodo4Checklist3": "set difficulty under Advanced Options",
+
+  "defaultTodo5Text": "Set up a Daily",
+  "defaultTodo5Checklist1": "decide whether to use Dailies (they hurt you if you don't do them every day)",
+  "defaultTodo5Checklist2": "if so, add a Daily (don't add too many at first!)",
+  "defaultTodo5Checklist3": "set its due days under Edit",
+
+  "defaultTodo6Text": "Set up a To-Do (can be checked off without ticking all checkboxes!)",
+  "defaultTodo6Checklist1": "create a To-Do",
+  "defaultTodo6Checklist2": "set difficulty under Advanced Options",
+  "defaultTodo6Checklist3": "optional: set a Due Date",
+
+  "defaultTodo7Text": "Start a Party (private group) with Your Friends (Social > Party)",
 
   "defaultReward1Text": "1 Episode of Game of Thrones",
   "defaultReward1Notes": "Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.",
