@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Vlastný začiatok dňa",
     "24HrClock": "24-hodinový formát hodí",
-    "clockInfo": "HabitRPG štandardne kontroluje a resetuje tvoje denné úlohy o polnoci každého dňa. Tento čas môžeš zmeniť (zadaj číslo od 0 do 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Rôzne",
     "showHeader": "Zobraziť záhlavie",
     "changePass": "Zmeniť heslo",

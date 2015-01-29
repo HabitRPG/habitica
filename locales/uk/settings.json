@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Обрати початок доби",
     "24HrClock": "24-годинний формат",
-    "clockInfo": "HabitRPG перевіряє щоденні завдання опівночі. Ви можете налаштувати час, коли відбуватиметься перевірка (число від 0 до 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Усяке",
     "showHeader": "Показати заголовок",
     "changePass": "Змінити пароль",

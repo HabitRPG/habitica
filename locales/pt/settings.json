@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Início do Dia Personalizado",
     "24HrClock": "Relógio 24hrs",
-    "clockInfo": "HabitRPG reinicia, por padrão, suas tarefas diárias à meia-noite de cada dia. Você pode personalizar isso aqui (Digite um número entre 0 e 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Variados",
     "showHeader": "Mostrar Cabeçalho",
     "changePass": "Alterar Senha",

@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Tageswechsel einstellen",
     "24HrClock": "24h Uhr",
-    "clockInfo": "HabitRPG wählt normalerweise Mitternacht für den Tageswechsel. Das kannst Du hier ändern (Gib' eine Nummer zwischen 0 und 24 ein).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Verschiedenes",
     "showHeader": "Header anzeigen",
     "changePass": "Passwort ändern",

@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "自定义起始日期",
     "24HrClock": "24小时表",
-    "clockInfo": "HabitRPG默认在午夜12点检查并重置你的日常。你可以在这里自定义时间 (输入一个0到24之间的数字)",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "其他",
     "showHeader": "显示顶部",
     "changePass": "修改密码",

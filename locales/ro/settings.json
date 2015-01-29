@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Când începe ziua",
     "24HrClock": "Ceas cu 24H",
-    "clockInfo": "În mod normal HabitRPG îți verifică și resetează cotidienele la miezul nopții în fiecare zi. Poți modifica asta aici (Introdu un număr între 0 și 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Altele",
     "showHeader": "Arată antet",
     "changePass": "Schimbă parola",

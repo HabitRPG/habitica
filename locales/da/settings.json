@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Brugerdefineret Dagstart",
     "24HrClock": "24-timers tid",
-    "clockInfo": "Som udgangspunkt vil HabitRPG tjekke og nulstille dine Daglige ved midnat hver dag. Du kan ændre dette her (Indtast et tal mellem 0 og 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Diverse",
     "showHeader": "Vis Sidehoved",
     "changePass": "Skift Kodeord",

@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Egyedi nap indítás",
     "24HrClock": "24 órás óra",
-    "clockInfo": "A HabitRPG alapbeállításként alapállapotra állítja a napi feladataidat éjfélkor. Ezt testre szabhatod itt (0 és 24 közötti számot írj be)",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Egyéb",
     "showHeader": "Mutasd a fejlécet",
     "changePass": "Jelszó megváltoztatása",

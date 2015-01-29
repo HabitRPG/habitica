@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Data di inizio giorno personalizzata",
     "24HrClock": "orologio 24h",
-    "clockInfo": "HabitRPG controlla e resetta le tue Daily ogni giorno a mezzanotte. Qui puoi cambiare quell'ora (inserisci un numero tra 0 e 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Altro",
     "showHeader": "Mostra header",
     "changePass": "Cambia password",
