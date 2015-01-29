@@ -85,7 +85,7 @@
     };
   }();
 
-  habitrpg.directive('markdown', ['$timeout', function($timeout) {
+  habitrpg.directive('markdown', ['$timeout','MOBILE_APP', function($timeout, MOBILE_APP) {
     return {
       restrict: 'E',
       link: function(scope, element, attrs) {
@@ -106,6 +106,21 @@
 
             html = html.replace(' href',' target="'+linktarget+'" href');
             element.html(html);
+
+            if(MOBILE_APP) {
+              var elements = element.find("a");
+              _.forEach(elements, function(link){
+                if(link.href) {
+
+                  link.onclick = function (e) {
+                    scope.externalLink(this.href);
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                  };
+                }
+              });
+            }
 
             if(removeWatch)
             {
