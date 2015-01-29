@@ -247,7 +247,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
   .container-fluid(ng-init='_subscription={key:"basic_earned"}')
     .row
       .col-md-6
-        h3 Benefits
+        h3 {{env.t('benefits')}}
         +subPerks()
 
       .col-md-6
@@ -270,13 +270,13 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
-            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"')
+            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"')
               label
                 input(type="radio", name="subRadio", ng-value="block.key", ng-model='_subscription.key')
                 span(ng-show='block.original')
-                  | Recurring <span class='line-through'>${{block.original}}</span> <span class='label label-success'>${{block.price}}</span> each {{block.months}} Month(s)
+                  |  <span class='label label-success line-through'>${{ block.original }}</span> {{env.t('subscriptionRateText', {price:block.price, months: block.months})}}
                 span(ng-hide='block.original')
-                    | {{env.t('subscriptionRateText', {price:block.price, months: block.months})}}
+                  | {{env.t('subscriptionRateText', {price:block.price, months: block.months})}}
 
           .form-inline
             .form-group
