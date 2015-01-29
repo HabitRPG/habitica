@@ -11,7 +11,7 @@ script(id='partials/options.settings.html', type="text/ng-template")
         =env.t('dataExport')
     li(ng-class="{ active: $state.includes('options.settings.coupon') }")
       a(ui-sref='options.settings.coupon')
-        | Coupon
+        =env.t('coupon')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
       a(ui-sref='options.settings.subscription')=env.t('subscription')
 
@@ -138,12 +138,12 @@ script(type='text/ng-template', id='partials/options.settings.coupon.html')
   .container-fluid
     .row
       .col-md-6
-        h2 Coupon
+        h2 {{env.t('coupon')}}
         form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
-          input.form-control(type='text', ng-model='_couponCode', placeholder='Enter Coupon Code')
+            input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('couponPlaceholder'))
           button.btn.btn-primary(type='submit') Submit
         div
-          small We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)
+            small {{env.t('couponText')}}
         div(ng-if='user.contributor.sudo')
           hr
           h4 Generate Codes
