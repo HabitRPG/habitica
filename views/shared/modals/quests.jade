@@ -17,7 +17,7 @@ script(type='text/ng-template', id='modals/showQuest.html')
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes()')
-    quest-rewards(key='{{selectedQuest.key}}')
+    quest-rewards(key='{{selectedQuest.key}}', header=env.t('rewards'))
     hr    
     .npc_ian.pull-left
     p=env.t('questSend')
@@ -32,7 +32,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes()')
-    quest-rewards(key='{{selectedQuest.key}}')
+    quest-rewards(key='{{selectedQuest.key}}', header=env.t('rewards'))
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
     button.btn.btn-primary(ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest')
@@ -43,7 +43,7 @@ script(type='text/ng-template', id='modals/questInvitation.html')
       |&nbsp;{{Content.quests[party.quest.key].text()}}
   .modal-body
     div(ng-bind-html='Content.quests[party.quest.key].notes()')
-    quest-rewards(key='{{party.quest.key}}')
+    quest-rewards(key='{{party.quest.key}}', header=env.t('rewards'))
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
     button.btn.btn-default(ng-click='party.$questReject(); $close()')=env.t('reject')
