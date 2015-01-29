@@ -25,10 +25,7 @@ db.users.update({},{$inc:{
 
 db.users.update(
     {'achievements.habitBirthday':true},
-    {$set:{
-        'achievements.habitBirthday':null,
-        'achievements.habitBirthdays':1
-    }},
+    {$set:{'achievements.habitBirthdays':1}},
     {multi:1}
 )
 
