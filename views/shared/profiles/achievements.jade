@@ -168,11 +168,13 @@ div(ng-if='profile.achievements.spookDust')
     =env.t('alarmingFriendsText', {spookDust: "{{profile.achievements.spookDust}}"})
   hr
 
-div(ng-if='::profile.achievements.habitBirthday')
+div(ng-if='::profile.achievements.habitBirthdays')
   .achievement.achievement-habitBirthday
   h5=env.t('habitBirthday')
-  small
+  small(ng-if='::profile.achievements.habitBirthdays == 1')
     =env.t('habitBirthdayText')
+  small(ng-if='::profile.achievements.habitBirthdays > 1')
+    =env.t('habitBirthdayPluralText', {number: "{{profile.achievements.habitBirthdays}}"})
   hr
 
 div(ng-if='::profile.achievements.valentine')

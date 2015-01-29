@@ -50,6 +50,7 @@ var UserSchema = new Schema({
     rebirthLevel: Number,
     perfect: Number,
     habitBirthday: Boolean,
+    habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean,
     nye: Number
