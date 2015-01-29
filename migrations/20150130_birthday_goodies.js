@@ -24,16 +24,16 @@ db.users.update({},{$inc:{
 }},{multi:1})
 
 db.users.update(
-    {'profile.achievements.habitBirthday':true},
+    {'achievements.habitBirthday':true},
     {$set:{
-        'profile.achievements.habitBirthday':null,
-        'profile.achievements.habitBirthdays':1
+        'achievements.habitBirthday':null,
+        'achievements.habitBirthdays':1
     }},
     {multi:1}
 )
 
 db.users.update(
     {},
-    {$inc:{'profile.achievements.habitBirthdays':1}},
+    {$inc:{'achievements.habitBirthdays':1}},
     {multi:1}
 )
