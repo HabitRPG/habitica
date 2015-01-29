@@ -164,7 +164,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           $rootScope.charts[id] = (history.length == 0) ? false : !$rootScope.charts[id];
           if (task && task._editing) task._editing = false;
       }
-      matrix = [['Date', 'Score']];
+      matrix = [[env.t('date'), env.t('score')]];
       _.each(history, function(obj) {
         matrix.push([moment(obj.date).format('MM/DD/YY'), obj.value]);
       });
@@ -220,7 +220,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       $http.post(ApiUrl.get() + '/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
       .success(function(){
-        var msg = window.env.t('youCast', {spell: spell.text()}); 
+        var msg = window.env.t('youCast', {spell: spell.text()});
         switch (type) {
          case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
          case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
