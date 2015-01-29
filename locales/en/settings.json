@@ -89,5 +89,10 @@
     "invitedGuild": "Invited To Guild",
     "importantAnnouncements": "Important Announcements",
     "unsubscribeAllEmails": "Check to Unsubscribe from Emails",
-    "unsubscribeAllEmailsText": "By checking this box, I certify that I understand that by unsubscribing from all emails, HabitRPG will never be able to notify me via email about important changes to the site or my account."
+    "unsubscribeAllEmailsText": "By checking this box, I certify that I understand that by unsubscribing from all emails, HabitRPG will never be able to notify me via email about important changes to the site or my account.",
+    "subscriptionRateText": "Recurring $<%= price %> every <%= months %> months",
+    "benefits": "Benefits",
+    "coupon": "Coupon",
+    "couponPlaceholder": "Enter Coupon Code",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)"
 }
