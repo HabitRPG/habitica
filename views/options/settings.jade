@@ -276,7 +276,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
                 span(ng-show='block.original')
                   | Recurring <span class='line-through'>${{block.original}}</span> <span class='label label-success'>${{block.price}}</span> each {{block.months}} Month(s)
                 span(ng-hide='block.original')
-                  | Recurring ${{block.price}} each {{block.months}} Month(s)
+                    | {{env.t('subscriptionRateText', {price:block.price, months: block.months})}}
 
           .form-inline
             .form-group
