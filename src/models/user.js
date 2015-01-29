@@ -49,7 +49,7 @@ var UserSchema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean,
+    habitBirthday: Boolean, // TODO: Deprecate this. Superseded by habitBirthdays
     habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean,
