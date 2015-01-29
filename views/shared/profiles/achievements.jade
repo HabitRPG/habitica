@@ -11,12 +11,6 @@
 // <div class='achievement achievement-shield'></div>
 // <div class='achievement achievement-karaoke'></div>
 
-mixin aLink(url, label)
-  if mobile
-    a(href="", ng-click="externalLink('#{url}')")= label
-  else
-    a(href='#{url}', target='_blank')= label
-
 if mobile
   .item.item-divider=env.t('achievements')
 
