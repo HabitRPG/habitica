@@ -11,6 +11,12 @@
 // <div class='achievement achievement-shield'></div>
 // <div class='achievement achievement-karaoke'></div>
 
+mixin aLink(url, label)
+  if mobile
+    a(href="", ng-click="externalLink('#{url}')")= label
+  else
+    a(href='#{url}', target='_blank')= label
+
 if mobile
   .item.item-divider=env.t('achievements')
 
@@ -32,7 +38,7 @@ div(ng-if='::profile.contributor.level || user._id == profile._id')
     small
       =env.t('contribText')
       |&nbsp;
-      a(href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', target='_blank')=env.t('readMore') 
+      +aLink('http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', env.t('readMore'))
       | .
   hr
 
@@ -75,7 +81,8 @@ div(ng-if='profile.achievements.perfect || user._id == profile._id')
 div(ng-if='::user._id == profile._id')
   div.muted
     h5=env.t('ultimGearName')
-    small <a href='https://github.com/HabitRPG/habitrpg/issues/2232' target='_blank'>Returning soon</a>
+    small 
+      +aLink('https://github.com/HabitRPG/habitrpg/issues/2232', 'Returning soon')
   hr
 
 div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
@@ -121,7 +128,7 @@ div(ng-if='::profile.achievements.helpedHabit')
   small
     =env.t('helpedText1')
     |&nbsp;
-    a(href='http://community.habitrpg.com/node/290', target='_blank')=env.t('helpedText2')
+    +aLink('http://community.habitrpg.com/node/290', env.t('helpedText2'))
   hr
 
 div(ng-if=':: profile.achievements.originalUser || profile.achievements.veteran')
