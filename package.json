@@ -33,7 +33,7 @@
     "loggly": "~1.0.8",
     "method-override": "~2.2.0",
     "moment": "~2.8.3",
-    "mongoose": "~3.8.17",
+    "mongoose": "~3.8.20",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "nconf": "~0.6.9",
     "newrelic": "~1.11.2",
@@ -63,8 +63,7 @@
     "www.habitrpg.com"
   ],
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
+    "node": "0.10.x"
   },
   "scripts": {
     "test": "./test/run_tests.sh",
