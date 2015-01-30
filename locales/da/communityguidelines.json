@@ -1,5 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Jeg lover at overholde Retningslinjerne for Fællesskabet.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines below if you have questions.",
     "commGuideHeadingWelcome": "Velkommen til Habitica!",
     "commGuidePara001": "Velkommen, eventyrer! Dette er Habitica, landet med produktivitet, sund livsstil og sporadiske grif-angreb. Vi har et positivt fællesskab fyldt med hjælpsomme mennesker, der støtter hinanden på vejen til selvforbedring. ",
     "commGuidePara002": "For at alle er sikre, glade og produktive i fællesskabet har vi nogle retningslinjer. Vi har omhyggeligt lavet dem så venlige og letlæselige som muligt. Brug venligst den tid, det tager at læse dem.",
@@ -150,7 +151,7 @@
     "commGuideList13D": "<strong>Brugere på prøvetid kan ikke blive forfremmet til næste niveau.</strong> Moderatorer har retten til at indefryse en brugers fremskridt pga. overtrædelser. Hvis dette sker vil brugeren altid blive informeret om beslutningen, og hvordan de kan ændre det. Niveauer kan også fjernes på grund af overtrædelser eller prøvetid.",
     "commGuideHeadingFinal": "Den Sidste Sektion",
     "commGuidePara067": "Så det er sådan det er, modige Habitbo - Retningslinjerne for Fællesskabet! Tør sveden af panden og giv dig selv nogle XP for at læse det hele. Hvis du har nogen spørgsmål eller bekymringer over disse Retningslinjer er du velkommen til at sende en email til Lemoness (<a href=\"mailto:leslie@habitrpg.com\">leslie@habitrpg.com</a> - på engelsk) og så vil hun forklare nærmere.",
-    "commGuidePara068": "Now go forth, brave adventurer, and slay some Dailies!",
+    "commGuidePara068": "Tag afsted, modige eventyrer, og bekæmp nogle Daglige!",
     "commGuideHeadingLinks": "Nyttige links",
     "commGuidePara069": "Følgende talentfulde kunstnere har bidraget med disse illustrationer:",
     "commGuideLink01": "Nybegyndernes Klan",
