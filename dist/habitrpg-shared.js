@@ -9857,6 +9857,10 @@ events = {
   winter2015: {
     start: '2014-12-21',
     end: '2015-01-31'
+  },
+  birthday2015: {
+    start: '2015-01-30',
+    end: '2015-02-01'
   }
 };
 
@@ -10919,6 +10923,12 @@ gear = {
         }),
         value: 90,
         con: 15
+      },
+      birthday2015: {
+        event: events.birthday2015,
+        text: t('armorSpecialBirthday2015Text'),
+        notes: t('armorSpecialBirthday2015Notes'),
+        value: 0
       },
       gaymerx: {
         event: events.gaymerx,
@@ -12780,71 +12790,71 @@ api.questMounts = _.transform(api.questEggs, function(m, egg) {
 
 api.food = {
   Meat: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodMeat'),
     target: 'Base',
     article: ''
   },
   Milk: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodMilk'),
     target: 'White',
     article: ''
   },
   Potatoe: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a '
   },
   Strawberry: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a '
   },
   Chocolate: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodChocolate'),
     target: 'Shade',
     article: ''
   },
   Fish: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a '
   },
   RottenMeat: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: ''
   },
   CottonCandyPink: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   CottonCandyBlue: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Honey: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodHoney'),
     target: 'Golden',
     article: ''
@@ -12857,71 +12867,71 @@ api.food = {
     notes: t('foodSaddleNotes')
   },
   Cake_Skeleton: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
     article: ''
   },
   Cake_Base: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeBase'),
     target: 'Base',
     article: ''
   },
   Cake_CottonCandyBlue: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Cake_CottonCandyPink: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   Cake_Shade: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeShade'),
     target: 'Shade',
     article: ''
   },
   Cake_White: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeWhite'),
     target: 'White',
     article: ''
   },
   Cake_Golden: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeGolden'),
     target: 'Golden',
     article: ''
   },
   Cake_Zombie: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeZombie'),
     target: 'Zombie',
     article: ''
   },
   Cake_Desert: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeDesert'),
     target: 'Desert',
     article: ''
   },
   Cake_Red: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeRed'),
     target: 'Red',
     article: ''
@@ -16847,5 +16857,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
