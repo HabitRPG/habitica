@@ -3,8 +3,7 @@ var authorName = 'Alys'; // in case script author needs to know when their ...
 var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
 
 /**
- * https://github.com/HabitRPG/habitrpg/pull/4374#issuecomment-71038795
- * Convert false to null for mounts that used to be owned.
+ * remove new birthday robes from people who don't have original birthday achievement
  */
 
 var dbserver = 'localhost:27017' // CHANGE THIS FOR PRODUCTION DATABASE
