@@ -27,7 +27,6 @@ events =
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
   winter2015: {start:'2014-12-21',end:'2015-02-02'}
-  birthday2015: {start:'2015-01-30',end:'2015-02-01'}
 # IMPORTANT: The end date should be one to two days AFTER the actual end of
 # the event, to allow people in different timezones to still buy the
 # event gear up until at least the actual end of the event.
@@ -191,7 +190,7 @@ gear =
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('armorSpecialWinter2015WarriorText'), notes: t('armorSpecialWinter2015WarriorNotes', {con: 9}), value: 90, con: 9
       winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('armorSpecialWinter2015MageText'), notes: t('armorSpecialWinter2015MageNotes', {int: 9}), value: 90, int: 9
       winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('armorSpecialWinter2015HealerText'), notes: t('armorSpecialWinter2015HealerNotes', {con: 15}), value: 90, con: 15
-      birthday2015:   event: events.birthday2015, text: t('armorSpecialBirthday2015Text'), notes: t('armorSpecialBirthday2015Notes'), value: 0
+      birthday2015:   text: t('armorSpecialBirthday2015Text'), notes: t('armorSpecialBirthday2015Notes'), value: 0, canOwn: ((u)-> u.items.gear.owned.head_special_birthday2015?)
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
