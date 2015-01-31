@@ -28,6 +28,9 @@ events =
   fall: {start:'2014-09-21',end:'2014-11-01'}
   winter2015: {start:'2014-12-21',end:'2015-02-02'}
   birthday2015: {start:'2015-01-30',end:'2015-02-01'}
+### IMPORTANT: The end date should be one to two days AFTER the actual end of
+### the event, to allow people in different timezones to still buy the
+### event gear up until at least the actual end of the event.
 
 api.mystery =
   201402: {start:'2014-02-22',end:'2014-02-28', text:'Winged Messenger Set'}
