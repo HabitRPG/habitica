@@ -9857,10 +9857,6 @@ events = {
   winter2015: {
     start: '2014-12-21',
     end: '2015-02-02'
-  },
-  birthday2015: {
-    start: '2015-01-30',
-    end: '2015-02-01'
   }
 };
 
@@ -10925,10 +10921,12 @@ gear = {
         con: 15
       },
       birthday2015: {
-        event: events.birthday2015,
         text: t('armorSpecialBirthday2015Text'),
         notes: t('armorSpecialBirthday2015Notes'),
-        value: 0
+        value: 0,
+        canOwn: (function(u) {
+          return u.items.gear.owned.head_special_birthday2015 != null;
+        })
       },
       gaymerx: {
         event: events.gaymerx,
@@ -16857,5 +16855,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
