@@ -10925,7 +10925,7 @@ gear = {
         notes: t('armorSpecialBirthday2015Notes'),
         value: 0,
         canOwn: (function(u) {
-          return u.items.gear.owned.head_special_birthday2015 != null;
+          return u.items.gear.owned.armor_special_birthday2015 != null;
         })
       },
       gaymerx: {
