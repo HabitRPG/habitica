@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Tageswechsel einstellen",
     "24HrClock": "24h Uhr",
-    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
+    "clockInfo": "Nach den Grundeinstellungen von HabitRPG werden Deine täglichen Aufgaben immer um Mitternacht überprüft und zurückgesetzt. Du kannst diesen Zeitpunkt aber hier ändern (Gib eine Zahl/Uhrzeit zwischen 0 und 24 an).",
     "misc": "Verschiedenes",
     "showHeader": "Header anzeigen",
     "changePass": "Passwort ändern",

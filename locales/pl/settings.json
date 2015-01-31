@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Własny początek dnia",
     "24HrClock": "zegar 24-godzinny",
-    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
+    "clockInfo": "HabitRPG standardowo resetuje Twoje Codzienne o północy każdego dnia. Możesz to zmienić tutaj (Wpisz liczbę pomiędzy 0 a 24).",
     "misc": "Pozostałe",
     "showHeader": "Pokaż nagłówek",
     "changePass": "Zmień hasło",
