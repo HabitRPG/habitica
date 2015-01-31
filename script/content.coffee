@@ -26,7 +26,7 @@ events =
   summer: {start:'2014-06-20',end:'2014-08-01'}
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
-  winter2015: {start:'2014-12-21',end:'2015-01-31'}
+  winter2015: {start:'2014-12-21',end:'2015-02-02'}
   birthday2015: {start:'2015-01-30',end:'2015-02-01'}
 
 api.mystery =
