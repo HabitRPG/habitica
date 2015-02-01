@@ -1,5 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Zgadzam się na przestrzeganie Regulaminu Społeczności",
+    "tavernCommunityGuidelinesPlaceholder": "Życzliwe przypomnienie: to czat dla ludzi w każdym wieku, więc uważaj na język oraz treść swoich wypowiedzi! Jeśli masz jakieś pytania, zajrzyj do Regulaminu społeczności poniżej.",
     "commGuideHeadingWelcome": "Witamy w Habitice!",
     "commGuidePara001": "Witaj, poszukiwaczu przygód! Witaj w Habitice, krainie produktywności, zdrowego stylu życia i sporadycznych wściekłych gryfów. Mamy tu radosną społeczność pełną pomocnych ludzi wspierających się nawzajem w swej drodze do samodoskonalenia.",
     "commGuidePara002": "By utrzymać społeczność w atmosferze bezpieczeństwa, radości i produktywności, mamy kilka wskazówek. Sporządziliśmy je z rozwagą, by były tak przyjazne i łatwe w rozumieniu, jak to tylko możliwe. Prosimy o poświęcenie czasu na ich przeczytanie.",
@@ -150,7 +151,7 @@
     "commGuideList13D": "<strong>Użytkownicy poddani próbie nie mogą dostać wyższej rangi.</strong> Modzi mają prawo zamrozić awans użytkownika przez wykroczenia. Jeśli się to zdarzy, użytkownik będzie poinformowany o decyzji, oraz o tym, jak ją zmienić. Rangi mogą też zostać zmienione jako rezultat wykroczeń lub prób.",
     "commGuideHeadingFinal": "Ostatni Rozdział ",
     "commGuidePara067": "No i tyle, odważny Habitaninie, jeśli chodzi o Regulamin Społeczności! Otrzyj pot ze swego czoła i przyznaj sobie nieco PD za przeczytanie go całego. Jeśli masz jakieś wątpliwości czy zastrzeżenia na ich temat, to proszę, napisz do Lemoness (<a href=\"mailto:leslie@habitrpg.com\">leslie@habitrpg.com</a>), a ona chętnie ci wszystko wyjaśni.",
-    "commGuidePara068": "A teraz naprzód, dzielny poszukiwaczu przygód, i zgładź kilka Codziennych!",
+    "commGuidePara068": "A teraz naprzód, dzielny poszukiwaczu przygód, zgładź kilka Codziennych!",
     "commGuideHeadingLinks": "Użyteczne linki:",
     "commGuidePara069": "Poniżsi utalentowani artyści przyczynili się do tych ilustracji:",
     "commGuideLink01": "Gildia Świeżaków",

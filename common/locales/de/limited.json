@@ -18,6 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",
     "seasonalShopClosedText": "Der saisonale Shop ist zurzeit geschlossen!!! Ich weiß nicht wo zurzeit die saisonale Zauberin ist, aber ich wette sie kommt zur nächsten <%= linkStart %>Grand Gala<%= linkEnd %> wieder!",
     "seasonalShopText": "Willkommen im Festtags-Laden!  Von heute bis zum 31. Januar gibt einige Sonderangebote für die Feiertage.  Danach sind die Sachen für ein ganzes Jahr lang nicht mehr erhältlich, also schlagt zu, solange sie heiß (äh, kalt) sind!",
+    "seasonalShopRebirth": "Wenn Du eine Sphäre der Wiedergeburt benutzt hast, kannst Du diese Ausrüstung wieder in der Belohnungs Spalte finden und kaufen, nachdem Du den Item Shop freigeschaltet hast. Zunächst wirst Du nur die Items für deine aktuelle Klasse kaufen können (zu Beginn Krieger), aber keine Sorge, die anderen Klassen spezifischen Items werden Dir zur Verfügung stehen, wenn Du zu der entsprechenden Klasse wechselst.",
     "candycaneSet": "Zuckerstange (Magier)",
     "skiSet": "Ski-Attentäter (Schurke)",
     "snowflakeSet": "Schneeflocke (Heiler)",

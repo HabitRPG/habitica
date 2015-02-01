@@ -8,7 +8,7 @@
     "disableAds": "Desactivar anuncios",
     "disableAdsText": "Los anuncios se desactivarán mientras tengas una suscripción activa  (usuarios originales con anuncios desactivados también entran dentro de este grupo).",
     "buyGemsGold": "Comprar Gemas con oro",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 Gema cuesta <%= gemCost %> monedas de Oro) Esto resuelve el problema de \"pagar para ganar,\" debido a que ahora todo es alcanzable a través del trabajo duro. Hay una restricción de <%= gemLimit %> Gemas máximo al mes para evitar la sobre-explotación.",
     "retainHistory": "Conservación completa de historial de entradas",
     "retainHistoryText": "Hace que tu historial completo esté disponible en forma de gráficos y exportaciones. Los historiales de personas que no son suscriptores se consolidan para la optimización de la base de datos.",
     "doubleDrops": "Duplica la cantidad de botines diarios",

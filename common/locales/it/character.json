@@ -130,7 +130,7 @@
     "youCastTarget": "Hai lanciato l'incantesimo <%= spell %> su <%= target %>.",
     "youCastParty": "Hai lanciato l'incantesimo <%= spell %> per la squadra.",
     "critBonus": "Colpo critico! Bonus:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Questo è ciò che appare nei messaggi che scrivi nella Taverna, nelle gilde e nella chat di squadra, insieme al tuo avatar. Vai in",
+    "displayNameDescription2": "Impostazioni->Sito",
+    "displayNameDescription3": "nella sezione Registrazione per modificare il nome con cui accedi al sito.."
 }

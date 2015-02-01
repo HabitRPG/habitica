@@ -26,7 +26,10 @@ events =
   summer: {start:'2014-06-20',end:'2014-08-01'}
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
-  winter2015: {start:'2014-12-21',end:'2015-01-31'}
+  winter2015: {start:'2014-12-21',end:'2015-02-02'}
+# IMPORTANT: The end date should be one to two days AFTER the actual end of
+# the event, to allow people in different timezones to still buy the
+# event gear up until at least the actual end of the event.
 
 api.mystery =
   201402: {start:'2014-02-22',end:'2014-02-28', text:'Winged Messenger Set'}
@@ -40,6 +43,7 @@ api.mystery =
   201410: {start:'2014-10-24',end:'2014-11-02', text:'Winged Goblin Set'}
   201411: {start:'2014-11-24',end:'2014-12-02', text:'Feast and Fun Set'}
   201412: {start:'2014-12-25',end:'2015-01-02', text:'Penguin Set'}
+  201501: {start:'2015-01-26',end:'2015-02-02', text:'Starry Knight Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -186,6 +190,7 @@ gear =
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('armorSpecialWinter2015WarriorText'), notes: t('armorSpecialWinter2015WarriorNotes', {con: 9}), value: 90, con: 9
       winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('armorSpecialWinter2015MageText'), notes: t('armorSpecialWinter2015MageNotes', {int: 9}), value: 90, int: 9
       winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('armorSpecialWinter2015HealerText'), notes: t('armorSpecialWinter2015HealerNotes', {con: 15}), value: 90, con: 15
+      birthday2015:   text: t('armorSpecialBirthday2015Text'), notes: t('armorSpecialBirthday2015Notes'), value: 0, canOwn: ((u)-> u.items.gear.owned.armor_special_birthday2015?)
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
@@ -198,6 +203,7 @@ gear =
       201409: text: t('armorMystery201409Text'), notes: t('armorMystery201409Notes'), mystery:'201409', value: 0
       201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:'201410', value: 0
       201412: text: t('armorMystery201412Text'), notes: t('armorMystery201412Notes'), mystery:'201412', value: 0
+      201501: text: t('armorMystery201501Text'), notes: t('armorMystery201501Notes'), mystery:'201501', value: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
 
   head:
@@ -272,6 +278,7 @@ gear =
       201408: text: t('headMystery201408Text'), notes: t('headMystery201408Notes'), mystery:'201408', value: 0
       201411: text: t('headMystery201411Text'), notes: t('headMystery201411Notes'), mystery:'201411', value: 0
       201412: text: t('headMystery201412Text'), notes: t('headMystery201412Notes'), mystery:'201412', value: 0
+      201501: text: t('headMystery201501Text'), notes: t('headMystery201501Notes'), mystery:'201501', value: 0
       301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
 
@@ -829,30 +836,30 @@ api.questMounts = _.transform api.questEggs, (m, egg) ->
 
 api.food =
   # Base
-  Meat:                 canBuy:true, canDrop:true, text: t('foodMeat'), target: 'Base', article: ''
-  Milk:                 canBuy:true, canDrop:true, text: t('foodMilk'), target: 'White', article: ''
-  Potatoe:              canBuy:true, canDrop:true, text: t('foodPotatoe'), target: 'Desert', article: 'a '
-  Strawberry:           canBuy:true, canDrop:true, text: t('foodStrawberry'), target: 'Red', article: 'a '
-  Chocolate:            canBuy:true, canDrop:true, text: t('foodChocolate'), target: 'Shade', article: ''
-  Fish:                 canBuy:true, canDrop:true, text: t('foodFish'), target: 'Skeleton', article: 'a '
-  RottenMeat:           canBuy:true, canDrop:true, text: t('foodRottenMeat'), target: 'Zombie', article: ''
-  CottonCandyPink:      canBuy:true, canDrop:true, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:      canBuy:true, canDrop:true, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Honey:                canBuy:true, canDrop:true, text: t('foodHoney'), target: 'Golden', article: ''
+  Meat:                 canBuy:false, canDrop:false, text: t('foodMeat'), target: 'Base', article: ''
+  Milk:                 canBuy:false, canDrop:false, text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:              canBuy:false, canDrop:false, text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:           canBuy:false, canDrop:false, text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:            canBuy:false, canDrop:false, text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:                 canBuy:false, canDrop:false, text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:           canBuy:false, canDrop:false, text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:      canBuy:false, canDrop:false, text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:      canBuy:false, canDrop:false, text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Honey:                canBuy:false, canDrop:false, text: t('foodHoney'), target: 'Golden', article: ''
 
   Saddle:               canBuy:true, canDrop:false, text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 
   # Cake
-  Cake_Skeleton:        canBuy:false, canDrop:false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
-  Cake_Base:            canBuy:false, canDrop:false, text: t('foodCakeBase'), target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy:false, canDrop:false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy:false, canDrop:false, text: t('foodCakeShade'), target: 'Shade', article: ''
-  Cake_White:           canBuy:false, canDrop:false, text: t('foodCakeWhite'), target: 'White', article: ''
-  Cake_Golden:          canBuy:false, canDrop:false, text: t('foodCakeGolden'), target: 'Golden', article: ''
-  Cake_Zombie:          canBuy:false, canDrop:false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
-  Cake_Desert:          canBuy:false, canDrop:false, text: t('foodCakeDesert'), target: 'Desert', article: ''
-  Cake_Red:             canBuy:false, canDrop:false, text: t('foodCakeRed'), target: 'Red', article: ''
+  Cake_Skeleton:        canBuy:true, canDrop:true, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
+  Cake_Base:            canBuy:true, canDrop:true, text: t('foodCakeBase'), target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy:true, canDrop:true, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy:true, canDrop:true, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy:true, canDrop:true, text: t('foodCakeShade'), target: 'Shade', article: ''
+  Cake_White:           canBuy:true, canDrop:true, text: t('foodCakeWhite'), target: 'White', article: ''
+  Cake_Golden:          canBuy:true, canDrop:true, text: t('foodCakeGolden'), target: 'Golden', article: ''
+  Cake_Zombie:          canBuy:true, canDrop:true, text: t('foodCakeZombie'), target: 'Zombie', article: ''
+  Cake_Desert:          canBuy:true, canDrop:true, text: t('foodCakeDesert'), target: 'Desert', article: ''
+  Cake_Red:             canBuy:true, canDrop:true, text: t('foodCakeRed'), target: 'Red', article: ''
 
   # Fall
   Candy_Skeleton:        canBuy:false, canDrop:false, text: t('foodCandySkeleton'), target: 'Skeleton', article: ''
@@ -1594,9 +1601,11 @@ api.userDefaults =
   ]
 
   todos: [
-    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodo1Notes'), completed: false, attribute: 'int' }
-    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodo2Notes'), completed: false, attribute: 'int' }
-    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodo3Notes'), value: -3, completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'int' }
+    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo2Checklist1') }, {completed: false, text: t('defaultTodo2Checklist2')}, {completed: false, text: t('defaultTodo2Checklist3')}], completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo3Checklist1') }, {completed: false, text: t('defaultTodo3Checklist2')}, {completed: false, text: t('defaultTodo3Checklist3')}], completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo4Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo4Checklist1') }, {completed: false, text: t('defaultTodo4Checklist2')}, {completed: false, text: t('defaultTodo4Checklist3')}], completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo5Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'per' }
   ]
 
   rewards: [

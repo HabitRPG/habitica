@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Anpassad Dagsstart",
     "24HrClock": "24h-Klocka",
-    "clockInfo": "HabitRPGs standardinstllning är att kolla och återställa dina dagliga uppgifter vid midnatt varje dag. Du kan ändra på det här (Ange nummer mellan 0 och 24).",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "Blandat",
     "showHeader": "Visa sidhuvud",
     "changePass": "Ändra lösenord",

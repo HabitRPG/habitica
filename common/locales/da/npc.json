@@ -36,10 +36,10 @@
     "expPoints": "Erfaringspoint",
     "expPointsText": "Den gule bar viser din avatars erfaringspoint. Når du udfører en opgave får du både guld og erfaring. Når din erfaringsbar er fyldt ud stiger du et niveau. Ved at stige i niveau låser du op for nye spændende funktioner på HabitRPG.",
     "typeGoals": "Opgavetyper",
-    "typeGoalsText": "HabitRPG giver dig mulighed for at tracke dine opgaver på tre måder. Disse opgaver er kategoriseret i kolonner som Vaner, Daglige eller Gøremål.",
-    "tourHabits": "Vaner er opgaver, som du tracker konstant. De kan blive tildelt plus- og/eller minus-værdier, hvilket gør dig i stand til at optjene erfaring og guld for gode vaner, eller tabe helbred for dårlige.",
-    "tourDailies": "Daglige er opgaver som du vil færdiggøre én gang om dagen. Når du markerer en Daglig som klaret får du erfaring og guld. Hvis du ikke når at markere en daglig før dagen slutter, mister du helbred. Du kan ændre hvornår din dag starter under Indstillinger (klik tandhjulsikonet, og klik derefter på \"Side\").",
-    "tourTodos": "Gøremål er engangsopgaver som du når til med tiden. Du kan godt sætte en dato på et Gøremål, men det er ikke obligatorisk. Gøremål giver en let og hurtig måde at opnå erfaring.",
+    "typeGoalsText": "HabitRPG giver dig mulighed for at tracke dine opgaver på tre måder. Disse opgaver er kategoriseret i kolonner som Vaner, Daglige eller To-Dos.",
+    "tourHabits": "Vaner er opgaver, som du tracker konstant. De kan blive tildelt plus- og/eller minus-værdier, hvilket gør dig i stand til at optjene erfaring og guld for gode Vaner, eller tabe helbred for dårlige.",
+    "tourDailies": "Daglige er opgaver som du vil færdiggøre én gang om dagen. Når du markerer en Daglig som klaret får du erfaring og guld. Hvis du ikke når at markere en Daglig før dagen slutter, mister du helbred. Du kan ændre hvornår din dag starter under Indstillinger (klik tandhjulsikonet, og klik derefter på \"Side\").",
+    "tourTodos": "To-Dos er engangsopgaver som du når til med tiden. Du kan godt sætte en dato på en To-Do, men det er ikke obligatorisk. To-Dos er en let og hurtig måde at opnå erfaring.",
     "tourRewards": "Alt det guld, du tjener, giver dig mulighed for at belønne dig selv, enten med selvvalgte præmier, eller præmier i spillet. Køb mange af dem - at belønne dig selv er en vigtig del af at opbygge gode vaner.",
     "hoverOver": "Hold musen over kommentarer",
     "hoverOverText": "Du kan tilføje kommentarer til dine opgaver ved at klikke på ret-ikonet. Hold musen over hver enkelt opgaves kommentar for flere detalker om hvordan HabitRPG virker. Når du er klar til at begynde kan du slette de eksisterende opgaver og tilføje dine egne.",
@@ -60,6 +60,6 @@
     "autoAllocateText": "Hvis 'tildel automatisk' er markeret vil din avatars attributter stige automatisk baseret på dine opgavers attributter, hvilket du kan finde i <strong>Opgave > Ret > Avanceret > Attributter</strong>. Hvis du for eksempel dyrker motion ofte, og din Daglige 'Motion' er sat til 'Fysisk' vil du automatisk gå på i Styrke.",
     "spells": "Fortryllelser",
     "spellsText": "Du kan nu låse op for klasse-specifikke fortryllelser. Du vil se din første ved niveau 11. Dit mana vil blive genopfyldt med 10 point per dag, samt et point per færdiggjort",
-    "toDo": "Gøremål",
+    "toDo": "To-Do",
     "moreClass": "For mere information om klassesystemet, se"
 }

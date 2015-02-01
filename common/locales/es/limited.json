@@ -18,6 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Hechicera Estacional<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!",
     "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Bastón de Caramelo (Mag0)",
     "skiSet": "Ski-asesino (Ladrón)",
     "snowflakeSet": "Copo de nieve (Sanador)",
@@ -25,11 +26,11 @@
     "nyeCard": "Carta de Nuevo Año",
     "nyeCardNotes": "Enviar una carta de Nuevo Año a un amigo.",
     "seasonalItems": "Cosas de la temporada",
-    "auldAcquaintance": "Auld Acquaintance",
+    "auldAcquaintance": "Conocido desde hace Tiempo",
     "auldAcquaintanceText": "Feliz Año Nuevo! Se enviaron o mandaron <%= cards %> cartas de Año Nuevo.",
     "newYear0": "Feliz Año Nuevo! Que mates a muchos malos Hábitos.",
     "newYear1": "Feliz Año Nuevo! Que ganes muchas Recompensas.",
     "newYear2": "Feliz Año Nuevo! Que ganes muchos Días Perfectos.",
     "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
-    "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff."
+    "newYear4": "¡Felíz Año Nuevo! Que un Hipogrifón furioso no te ataque."
 }
