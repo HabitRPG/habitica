@@ -18,6 +18,15 @@ var config = {
        staticPage: 'public/css/static.styl' // static is a 'future' reserved word
      },
      dest: './build/'
+  },
+  sprite: {
+    
+  },
+  copy: {
+    src: ['./common/img/sprites/backer-only/*.gif', 
+      './common/img/sprites/npc_ian.gif',
+      './bower_components/bootstrap/dist/fonts/*'],
+    dest: './build/'
   }
 };
 
@@ -48,7 +57,8 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('copy', function() {
-  // @TODO: Finish this
+  gulp.src(config.copy.src)
+    .pipe(gulp.dest(config.copy.dest));
 });
 
 gulp.task('hashres', function() {
@@ -64,7 +74,7 @@ gulp.task('dev', ['watch'], function() {
   nodemon({ script: pkg.main });
 });
 
-gulp.task('prod', function() {
+gulp.task('prod', ['clean', 'stylus', 'copy'], function() {
   // @TODO: Finish this
 });
 gulp.task('default', ['dev']);
