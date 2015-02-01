@@ -1,5 +1,6 @@
 var gulp      = require('gulp'),
     _         = require('lodash'),
+    rimraf    = require('rimraf'),
     nodemon   = require('gulp-nodemon'),
     karma     = require('karma').server,
     stylus    = require('gulp-stylus'),
@@ -31,8 +32,8 @@ gulp.task('git_changelog', function() {
   // @TODO: Finish this
 });
 
-gulp.task('clean', function() {
-  // @TODO: Finish this
+gulp.task('clean', function(cb) {
+  rimraf('./build', cb);
 });
 
 gulp.task('stylus', function() {
