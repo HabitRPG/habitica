@@ -1,5 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "אני מסכימ/ה לציית לחוקים הקהילתיים",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines below if you have questions.",
     "commGuideHeadingWelcome": "ברוכ/ה הבא/ה להאביטיקה!",
     "commGuidePara001": "ברכות, הרפתקנ/ית! ברוך בואך להאביטיקה, ארצם של היצרנים, החיים הבריאים, והגריפון המשתולל המזדמן. יש כאן קהילה מסבירת פנים של אנשים שמחים לעזור, שנהנים לתמוך זו בזה בדרכם לשיפור עצמי.",
     "commGuidePara002": "כדי לשמור על כל חברי הקהילה בטוחים, שמחים, ויצרניים, יש לנו כמה הנחיות. בררנו אותן בקפידה בעזרת פולחנים עתיקים בכדי שיהיו ידידותיים וקלים לקריאה לכל הניתן. אנא, הקדישו את הזמן לעיין בהם, או שנשמתכם תישרף לנצח נצחים בשאול תחתיות. טוב, אולי קצת הגזמתי, אבל בכנות, תקרא/י אותם.",
@@ -150,7 +151,7 @@
     "commGuideList13D": "<strong>Users on probation cannot be promoted to the next tier.</strong> Mods have the right to freeze user advancement due to infractions. If this happens, the user will always be informed of the decision, and how to correct it. Tiers may also be removed as a result of infractions or probation.",
     "commGuideHeadingFinal": "The Final Section",
     "commGuidePara067": "So there you have it, brave Habitican -- the Community Guidelines! Wipe that sweat off of your brow and give yourself some XP for reading it all. If you have any questions or concerns about these Community Guidelines, please email Lemoness (<a href=\"mailto:leslie@habitrpg.com\">leslie@habitrpg.com</a>) and she will be happy to help clarify things.",
-    "commGuidePara068": "Now go forth, brave adventurer, and slay some dailies!",
+    "commGuidePara068": "Now go forth, brave adventurer, and slay some Dailies!",
     "commGuideHeadingLinks": "Useful Links",
     "commGuidePara069": "The following talented artists contributed to these illustrations:",
     "commGuideLink01": "The Newbies Guild",

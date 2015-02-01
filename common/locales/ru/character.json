@@ -130,7 +130,7 @@
     "youCastTarget": "Вы накладываете <%= spell %> на <%= target %>.",
     "youCastParty": "Вы накладываете командный <%= spell %> ",
     "critBonus": "Критический удар! Бонус:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Отображается в сообщениях, которые вы пишете в Таверне, гильдиях и командных чатах вместе с вашим аватаром. Перейдите в",
+    "displayNameDescription2": "Настройки->Сайт",
+    "displayNameDescription3": "и прокрутите вниз до раздела Регистрация, чтобы изменить ваш логин."
 }

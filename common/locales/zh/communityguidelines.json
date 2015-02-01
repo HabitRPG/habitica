@@ -1,5 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "我同意遵守社区守则",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines below if you have questions.",
     "commGuideHeadingWelcome": "欢迎来到Habitica!",
     "commGuidePara001": "你好,冒险者!欢迎来到Habitica,这里是一个高效的,健康,偶尔搞怪一下的地方.我们有个令人愉快的社区,那里充满了自我进步的同时,乐于助人并互相支持的人们.",
     "commGuidePara002": "为了保证社区中的所有人都能安全,快乐并且高效,我们制定了一些守则.我们尽量使它们友好,并且容易阅读.请花些时间阅读一下.",
@@ -150,7 +151,7 @@
     "commGuideList13D": "<strong>Users on probation cannot be promoted to the next tier.</strong> Mods have the right to freeze user advancement due to infractions. If this happens, the user will always be informed of the decision, and how to correct it. Tiers may also be removed as a result of infractions or probation.",
     "commGuideHeadingFinal": "The Final Section",
     "commGuidePara067": "So there you have it, brave Habitican -- the Community Guidelines! Wipe that sweat off of your brow and give yourself some XP for reading it all. If you have any questions or concerns about these Community Guidelines, please email Lemoness (<a href=\"mailto:leslie@habitrpg.com\">leslie@habitrpg.com</a>) and she will be happy to help clarify things.",
-    "commGuidePara068": "前进吧,勇敢的冒险者,去攻克你的那些每日任务!",
+    "commGuidePara068": "Now go forth, brave adventurer, and slay some Dailies!",
     "commGuideHeadingLinks": "有用的链接",
     "commGuidePara069": "这些插图由以下富有天赋的艺术家贡献",
     "commGuideLink01": "新手公会",

@@ -44,8 +44,9 @@
     "veteranText": "Przetrwał \"Habita Szarego\" (naszej strony przed aktualizacją Angular) i zdobył wiele wojennych blizn od jej błędów.",
     "originalUser": "Pierwotny użytkownik!",
     "originalUserText": "Jeden z <em>najwcześniejszych</em> użytkowników – najprawdziwszy alfa-tester!",
-    "habitBirthday": "2014 HabitRPG Birthday Bash",
-    "habitBirthdayText": "Brał udział w \"HabitRPG Birthday Bash of 2014\".",
+    "habitBirthday": "HabitRPG Birthday Bash",
+    "habitBirthdayText": "Celebrated the HabitRPG Birthday Bash!",
+    "habitBirthdayPluralText": "Celebrated <%= number %> HabitRPG Birthday Bashes!",
     "achievementDilatory": "Zbawca Atleńtydy",
     "achievementDilatoryText": "Pomógł pokonać Straszliwego Smoka Atleńtydy podczas \"2014 Summer Splash!\"",
     "costumeContest": "Konkurs Kostiumowy 2014",
@@ -69,6 +70,7 @@
     "audioTheme": "Zestaw dźwięków",
     "audioTheme_off": "Wyłączone",
     "audioTheme_danielTheBard": "Bard Daniel",
+    "audioTheme_wattsTheme": "Zestaw Wattsa",
     "askQuestion": "Zadaj pytanie",
     "reportBug": "Zgłoś błąd",
     "contributeToHRPG": "Wspomóż HabitRPG",
@@ -86,6 +88,6 @@
     "November": "Listopad",
     "December": "Grudzień",
     "dateFormat": "Format daty",
-    "achievementStressbeast": "Zbawca Stoïkalmu",
+    "achievementStressbeast": "Zbawca Stoikonii",
     "achievementStressbeastText": "Pomógł pokonać Potworną Stresobestię podczas Obchodów Cudownej Zimy 2015"
 }

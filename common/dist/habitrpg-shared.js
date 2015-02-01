@@ -9856,7 +9856,7 @@ events = {
   },
   winter2015: {
     start: '2014-12-21',
-    end: '2015-01-31'
+    end: '2015-02-02'
   }
 };
 
@@ -9915,6 +9915,11 @@ api.mystery = {
     start: '2014-12-25',
     end: '2015-01-02',
     text: 'Penguin Set'
+  },
+  201501: {
+    start: '2015-01-26',
+    end: '2015-02-02',
+    text: 'Starry Knight Set'
   },
   301404: {
     start: '3014-03-24',
@@ -10915,6 +10920,14 @@ gear = {
         value: 90,
         con: 15
       },
+      birthday2015: {
+        text: t('armorSpecialBirthday2015Text'),
+        notes: t('armorSpecialBirthday2015Notes'),
+        value: 0,
+        canOwn: (function(u) {
+          return u.items.gear.owned.armor_special_birthday2015 != null;
+        })
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('armorSpecialGaymerxText'),
@@ -10975,6 +10988,12 @@ gear = {
         text: t('armorMystery201412Text'),
         notes: t('armorMystery201412Notes'),
         mystery: '201412',
+        value: 0
+      },
+      201501: {
+        text: t('armorMystery201501Text'),
+        notes: t('armorMystery201501Notes'),
+        mystery: '201501',
         value: 0
       },
       301404: {
@@ -11468,6 +11487,12 @@ gear = {
         text: t('headMystery201412Text'),
         notes: t('headMystery201412Notes'),
         mystery: '201412',
+        value: 0
+      },
+      201501: {
+        text: t('headMystery201501Text'),
+        notes: t('headMystery201501Notes'),
+        mystery: '201501',
         value: 0
       },
       301404: {
@@ -12763,71 +12788,71 @@ api.questMounts = _.transform(api.questEggs, function(m, egg) {
 
 api.food = {
   Meat: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodMeat'),
     target: 'Base',
     article: ''
   },
   Milk: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodMilk'),
     target: 'White',
     article: ''
   },
   Potatoe: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a '
   },
   Strawberry: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a '
   },
   Chocolate: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodChocolate'),
     target: 'Shade',
     article: ''
   },
   Fish: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a '
   },
   RottenMeat: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: ''
   },
   CottonCandyPink: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   CottonCandyBlue: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Honey: {
-    canBuy: true,
-    canDrop: true,
+    canBuy: false,
+    canDrop: false,
     text: t('foodHoney'),
     target: 'Golden',
     article: ''
@@ -12840,71 +12865,71 @@ api.food = {
     notes: t('foodSaddleNotes')
   },
   Cake_Skeleton: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
     article: ''
   },
   Cake_Base: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeBase'),
     target: 'Base',
     article: ''
   },
   Cake_CottonCandyBlue: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: ''
   },
   Cake_CottonCandyPink: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
     article: ''
   },
   Cake_Shade: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeShade'),
     target: 'Shade',
     article: ''
   },
   Cake_White: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeWhite'),
     target: 'White',
     article: ''
   },
   Cake_Golden: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeGolden'),
     target: 'Golden',
     article: ''
   },
   Cake_Zombie: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeZombie'),
     target: 'Zombie',
     article: ''
   },
   Cake_Desert: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeDesert'),
     target: 'Desert',
     article: ''
   },
   Cake_Red: {
-    canBuy: false,
-    canDrop: false,
+    canBuy: true,
+    canDrop: true,
     text: t('foodCakeRed'),
     target: 'Red',
     article: ''
@@ -14286,20 +14311,67 @@ api.userDefaults = {
     {
       type: 'todo',
       text: t('defaultTodo1Text'),
-      notes: t('defaultTodo1Notes'),
+      notes: t('defaultTodoNotes'),
       completed: false,
       attribute: 'int'
     }, {
       type: 'todo',
       text: t('defaultTodo2Text'),
-      notes: t('defaultTodo2Notes'),
+      notes: t('defaultTodoNotes'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo2Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo2Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo2Checklist3')
+        }
+      ],
       completed: false,
-      attribute: 'int'
+      attribute: 'per'
     }, {
       type: 'todo',
       text: t('defaultTodo3Text'),
-      notes: t('defaultTodo3Notes'),
-      value: -3,
+      notes: t('defaultTodoNotes'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo3Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo3Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo3Checklist3')
+        }
+      ],
+      completed: false,
+      attribute: 'per'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo4Text'),
+      notes: t('defaultTodoNotes'),
+      checklist: [
+        {
+          completed: false,
+          text: t('defaultTodo4Checklist1')
+        }, {
+          completed: false,
+          text: t('defaultTodo4Checklist2')
+        }, {
+          completed: false,
+          text: t('defaultTodo4Checklist3')
+        }
+      ],
+      completed: false,
+      attribute: 'per'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo5Text'),
+      notes: t('defaultTodoNotes'),
       completed: false,
       attribute: 'per'
     }
@@ -16783,5 +16855,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/common/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/common/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])

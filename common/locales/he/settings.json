@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "התחלת יום מותאמת אישית",
     "24HrClock": "שעות 24 שעות",
-    "clockInfo": "habitRPG מחליף בין הימים בחצות בתור ברירת מחדל. את/ה יכול/ה לשנות זאת כאן לשעה שנוחה לך. (כל מספר בין 0 ל24)",
+    "clockInfo": "HabitRPG defaults to check and reset your Dailies at midnight each day. You can customize that here (Enter number between 0 and 24).",
     "misc": "שונות",
     "showHeader": "הראה כותרת",
     "changePass": "שנה סיסמה",

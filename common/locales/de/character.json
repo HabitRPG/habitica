@@ -130,7 +130,7 @@
     "youCastTarget": "Du wendest <%= spell %> auf <%= target %> an.",
     "youCastParty": "Du wendest <%= spell %> für Deine Gruppe.",
     "critBonus": "Kritischer Treffer! Bonus:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Dies hier erscheint bei Nachrichten, die Du im Gasthaus, in Gilden und im Gruppen Chat postest, sowie bei deinem Avatar. Gehe zu",
+    "displayNameDescription2": "Einstellungen->Seite",
+    "displayNameDescription3": "und scrolle nach unten zum Registrations-Abschnitt, um deinen Login Namen zu ändern."
 }

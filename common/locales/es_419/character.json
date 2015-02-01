@@ -130,7 +130,7 @@
     "youCastTarget": "Lanzas <%= spell %> a <%= target %>.",
     "youCastParty": "Lanzas <%= spell %> para el grupo.",
     "critBonus": "¡Golpe Crítico! Bono:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Éste es el que aparecerá en los mensajes que publiques en la Taverna, Gremios o Chats de Grupo, junto con lo que se muestre en tu avatar. Ve a ",
+    "displayNameDescription2": "Ajustes -> Sitio",
+    "displayNameDescription3": "y desplázate hacia abajo a la sección de Registro para cambiar tu nombre de usuario."
 }

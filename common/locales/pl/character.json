@@ -130,7 +130,7 @@
     "youCastTarget": "Rzucasz <%= spell %> na <%= target %>.",
     "youCastParty": "Rzucasz <%= spell %> dla drużyny.",
     "critBonus": "Trafienie krytyczne! Premia:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Ta nazwa pojawia się przy wiadomościach, które publikujesz w czatach Karczmy, gildii i drużyny, a także widoczna jest na Twoim avatarze. Idź do",
+    "displayNameDescription2": "Ustawienia → Strona",
+    "displayNameDescription3": "i zjedź do sekcji „Rejestracja”, by zmienić swoją nazwę użytkownika."
 }

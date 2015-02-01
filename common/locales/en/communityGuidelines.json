@@ -1,5 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "I agree to abide by the Community Guidelines",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines below if you have questions.",
     "commGuideHeadingWelcome": "Welcome to Habitica!",
     "commGuidePara001": "Greetings, adventurer! Welcome to Habitica, the land of productivity, healthy living, and the occasional rampaging gryphon. We have a cheerful community full of helpful people supporting each other on their way to self-improvement.",
     "commGuidePara002": "To help keep everyone safe, happy, and productive in the community, we have some guidelines. We have carefully crafted them to make them as friendly and easy-to-read as possible. Please take the time to read them.",
@@ -158,7 +159,7 @@
     "commGuideList13D": "<strong>Users on probation cannot be promoted to the next tier.</strong> Mods have the right to freeze user advancement due to infractions. If this happens, the user will always be informed of the decision, and how to correct it. Tiers may also be removed as a result of infractions or probation.",
     "commGuideHeadingFinal": "The Final Section",
     "commGuidePara067": "So there you have it, brave Habitican -- the Community Guidelines! Wipe that sweat off of your brow and give yourself some XP for reading it all. If you have any questions or concerns about these Community Guidelines, please email Lemoness (<a href=\"mailto:leslie@habitrpg.com\">leslie@habitrpg.com</a>) and she will be happy to help clarify things.",
-    "commGuidePara068": "Now go forth, brave adventurer, and slay some dailies!",
+    "commGuidePara068": "Now go forth, brave adventurer, and slay some Dailies!",
     "commGuideHeadingLinks": "Useful Links",
     "commGuidePara069": "The following talented artists contributed to these illustrations:",
     "commGuideLink01": "The Newbies Guild",
