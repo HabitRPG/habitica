@@ -274,9 +274,11 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               label
                 input(type="radio", name="subRadio", ng-value="block.key", ng-model='_subscription.key')
                 span(ng-show='block.original')
-                  |  <span class='label label-success line-through'>${{ block.original }}</span> {{env.t('subscriptionRateText', {price:block.price, months: block.months})}}
+                  span.label.label-success.line-through
+                    | ${{:: block.original }}
+                  =env.t('subscriptionRateText', {price:'{{::block.price}}', months: '{{::block.months}}'})
                 span(ng-hide='block.original')
-                  | {{env.t('subscriptionRateText', {price:block.price, months: block.months})}}
+                  =env.t('subscriptionRateText', {price: '{{::block.price}}', months: '{{block.months}}'})
 
           .form-inline
             .form-group
