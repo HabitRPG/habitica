@@ -536,12 +536,12 @@ api.invite = function(req, res, next) {
       if(group.type === 'guild'){
         invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
 
-        pushNotify.sendNotify(invite, "HabitRPG", "Invitation to the Guild "+ group.name);
+        pushNotify.sendNotify(invite, shared.i18n.t('invitedGuild'), group.name);
       }else{
         //req.body.type in 'guild', 'party'
         invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
 
-        pushNotify.sendNotify(invite, "HabitRPG", "Invitation to the Party "+ group.name);
+        pushNotify.sendNotify(invite, shared.i18n.t('invitedParty'), group.name);
       }
 
       group.invites.push(invite._id);
