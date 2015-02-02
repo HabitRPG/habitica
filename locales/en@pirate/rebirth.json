@@ -19,7 +19,7 @@
     "rebirthBegan": "Embarked on a New Adventure",
     "rebirthText": "Embarked on <%= rebirths %> New Adventures",
     "rebirthOrb": "Used an Orb o' Rebirth to start ov'r after attainin' Level",
-    "rebirthPop": "Begin a new character at Level 1 whilst retaining achievements, collectibles, and tasks with histroy.",
+    "rebirthPop": "Begin a new character at Level 1 whilst retaining achievements, collectibles, and tasks with history.",
     "rebirthName": "Orb o' Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
     "welcome100": "Welcome t' Level 100!",

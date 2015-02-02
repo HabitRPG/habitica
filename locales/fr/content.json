@@ -48,7 +48,7 @@
     "questEggPenguinText": "Manchot",
     "questEggPenguinAdjective": "perspicace",
     "questEggTRexText": "Tyrannosaure",
-    "questEggTRexAdjective": "tiny-armed",
+    "questEggTRexAdjective": "court-sur-pattes",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un <%= eggText() %> <%= eggAdjective() %>.",
     "hatchingPotionBase": "de Base",
     "hatchingPotionWhite": "Blanc",

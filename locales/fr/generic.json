@@ -44,9 +44,9 @@
     "veteranText": "A résisté à Habit le Gris (notre site pré-Angular) et a gagné de nombreuses cicatrices de guerre à cause de ses bugs.",
     "originalUser": "Utilisateur d'origine !",
     "originalUserText": "L'un·e des adeptes <em>les plus</em> précoces, présent·e depuis l'origine. Ça c'est du test alpha !",
-    "habitBirthday": "HabitRPG Birthday Bash",
-    "habitBirthdayText": "Celebrated the HabitRPG Birthday Bash!",
-    "habitBirthdayPluralText": "Celebrated <%= number %> HabitRPG Birthday Bashes!",
+    "habitBirthday": "Anniversaire d'Enfer d'HabitRPG",
+    "habitBirthdayText": "A fêté l'Anniversaire d'Enfer d'HabitRPG !",
+    "habitBirthdayPluralText": "A fêté <%= number %> Anniversaire d'Enfer d'HabitRPG !",
     "achievementDilatory": "Sauveur de Dilatoire",
     "achievementDilatoryText": "A contribué à vaincre le Redoutable Drag'on de Dilatoire au cours du \"Summer Splash Event\" 2014 !",
     "costumeContest": "Concours de Costumes 2014",
@@ -88,6 +88,6 @@
     "November": "Novembre",
     "December": "Décembre",
     "dateFormat": "Format de la Date",
-    "achievementStressbeast": "Sauveur de Stoïkalme",
-    "achievementStressbeastText": "A contribué à vaincre l'Abominable Monstress au cours du \"Winter Wonderland Event\" 2015 !"
+    "achievementStressbeast": "Sauveur de Stoïcalme",
+    "achievementStressbeastText": "A contribué à vaincre l'Abominable Monstressé au cours du \"Winter Wonderland Event\" 2015 !"
 }
