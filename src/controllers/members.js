@@ -106,7 +106,7 @@ api.sendGift = function(req, res, next){
             ]);
           }
 
-          pushNotify.sendNotify(member, shared.i18n.t('giftedGems'), req.body.gems.amount + ' GEMS - by '+byUsername);
+          pushNotify.sendNotify(member, shared.i18n.t('giftedGems'), req.body.gems.amount + ' Gems - by '+byUsername);
 
           return async.parallel([
             function (cb2) { member.save(cb2) },

@@ -567,7 +567,7 @@ api.invite = function(req, res, next) {
           if(group.type == 'guild'){
             emailVars.push(
               {name: 'GUILD_NAME', content: group.name},
-              {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/' + group._id}
+              {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'}
             );
           }else{
             emailVars.push(

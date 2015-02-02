@@ -126,16 +126,17 @@ exports.buyGems = function(data, cb) {
   }
   if (data.gift){
     var byUsername = utils.getUserInfo(data.user, ['name']).name;
+    var gemAmount = data.gift.gems.amount || 20;
 
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
       utils.txnEmail(member, 'gifted-gems', [
         {name: 'GIFTER', content: byUsername},
-        {name: 'X_GEMS_GIFTED', content: amt}
+        {name: 'X_GEMS_GIFTED', content: gemAmount}
       ]);
     }
 
-    pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), req.body.gems.amount + ' GEMS - by '+byUsername);
+    pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), gemAmount + ' Gems - by '+byUsername);
   }
   async.parallel([
     function(cb2){data.user.save(cb2)},
