@@ -1,26 +1,36 @@
-var gulp      = require('gulp'),
-    _         = require('lodash'),
-    rimraf    = require('rimraf'),
-    nodemon   = require('gulp-nodemon'),
-    karma     = require('karma').server,
-    stylus    = require('gulp-stylus'),
-    nib       = require('nib'),
-    minifycss = require('gulp-minify-css'),
-    rename    = require('gulp-rename'),
-    uglify    = require('gulp-uglify'),
-    concat    = require('gulp-concat'),
-    pkg       = require('./package');
+var gulp        = require('gulp'),
+    _           = require('lodash'),
+    browserify  = require('browserify'),
+    coffeeify   = require('coffeeify'),
+    source      = require('vinyl-source-stream');
+    transform   = require('vinyl-transform'),
+    rimraf      = require('rimraf'),
+    nodemon     = require('gulp-nodemon'),
+    karma       = require('karma').server,
+    stylus      = require('gulp-stylus'),
+    nib         = require('nib'),
+    minifycss   = require('gulp-minify-css'),
+    rename      = require('gulp-rename'),
+    uglify      = require('gulp-uglify'),
+    concat      = require('gulp-concat'),
+    spritesmith = require('gulp.spritesmith'),
+    pkg         = require('./package');
 
-var config = {
+var paths = {
   stylus: {
      src: {
-       app: 'public/css/index.styl',
-       staticPage: 'public/css/static.styl' // static is a 'future' reserved word
+       app: './common/public/css/index.styl',
+       staticPage: './common/public/css/static.styl' // static is a 'future' reserved word
      },
      dest: './build/'
   },
-  sprite: {
-    
+  common: {
+    src: ['./common/index.js'],
+    dest: './common/public/'
+  },
+  sprites: {
+    src: 'img/sprites/spritesmith/**/*.png',
+    dest: './common/public/sprites/'
   },
   copy: {
     src: ['./common/img/sprites/backer-only/*.gif', 
@@ -46,24 +56,38 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('stylus', function() {
-  gulp.src(config.stylus.src.app)
+  gulp.src(paths.stylus.src.app)
     .pipe(stylus({use: [nib()]}))
     .pipe(rename('app.css'))
-    .pipe(gulp.dest(config.stylus.dest));
-  gulp.src(config.stylus.src.staticPage)
+    .pipe(gulp.dest(paths.stylus.dest));
+  gulp.src(paths.stylus.src.staticPage)
     .pipe(stylus({use: [nib()]}))
     .pipe(rename('static.css'))
-    .pipe(gulp.dest(config.stylus.dest));
+    .pipe(gulp.dest(paths.stylus.dest));
 });
 
 gulp.task('copy', function() {
-  gulp.src(config.copy.src)
-    .pipe(gulp.dest(config.copy.dest));
+  gulp.src(paths.copy.src)
+    .pipe(gulp.dest(paths.copy.dest));
 });
 
 gulp.task('hashres', function() {
   // @TODO: Finish this
 });
+
+gulp.task('sprite', function() {
+  // @TODO: Finish this
+});
+
+gulp.task('browserify', function() {
+  var bundleStream = browserify(paths.common.src)
+        .transform(coffeeify)
+        .bundle()
+ 
+  bundleStream
+    .pipe(source('habitrpg-shared.js'))
+    .pipe(gulp.dest(paths.common.dest))
+})
 
 gulp.task('watch', ['stylus'], function() {
   // @TODO: Finish this

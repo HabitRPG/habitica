@@ -63,7 +63,9 @@
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {
+    "browserify": "^3.30.4",
     "coffee-coverage": "~0.4.2",
+    "coffeeify": "^0.6.0",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",
     "expect.js": "~0.2.0",
@@ -74,6 +76,7 @@
     "gulp-rename": "^1.2.0",
     "gulp-stylus": "^2.0.0",
     "gulp-uglify": "^1.1.0",
+    "gulp.spritesmith": "^2.5.0",
     "karma": "~0.10.2",
     "karma-chai-plugins": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
@@ -93,6 +96,8 @@
     "protractor": "~0.14.0",
     "rimraf": "^2.2.8",
     "superagent": "~0.15.7",
-    "superagent-defaults": "~0.1.5"
+    "superagent-defaults": "~0.1.5",
+    "vinyl-source-stream": "^1.0.0",
+    "vinyl-transform": "^1.0.0"
   }
 }

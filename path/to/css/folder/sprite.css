@@ -1,0 +1,259 @@
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+```html
+<i class="icon-home"></i>
+```
+*/
+.icon-broad_armor_special_birthday2015 {
+  background-image: url(sprite.png);
+  background-position: -90px 0px;
+  width: 90px;
+  height: 90px;
+}
+.icon-shop_armor_special_birthday2015 {
+  background-image: url(sprite.png);
+  background-position: -336px -102px;
+  width: 40px;
+  height: 40px;
+}
+.icon-slim_armor_special_birthday2015 {
+  background-image: url(sprite.png);
+  background-position: 0px 0px;
+  width: 90px;
+  height: 90px;
+}
+.icon-inventory_quest_scroll_locked {
+  background-image: url(sprite.png);
+  background-position: 0px -255px;
+  width: 48px;
+  height: 51px;
+}
+.icon-promo_mystery_201501 {
+  background-image: url(sprite.png);
+  background-position: 0px -90px;
+  width: 48px;
+  height: 63px;
+}
+.icon-inventory_quest_scroll_atom1 {
+  background-image: url(sprite.png);
+  background-position: -48px -345px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_atom2 {
+  background-image: url(sprite.png);
+  background-position: -48px -90px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_atom2_locked {
+  background-image: url(sprite.png);
+  background-position: -96px -90px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_atom3 {
+  background-image: url(sprite.png);
+  background-position: -48px -141px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_atom3_locked {
+  background-image: url(sprite.png);
+  background-position: 0px -153px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_basilist {
+  background-image: url(sprite.png);
+  background-position: -144px -90px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_dilatory_derby {
+  background-image: url(sprite.png);
+  background-position: -96px -141px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_egg {
+  background-image: url(sprite.png);
+  background-position: -180px 0px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_evilsanta {
+  background-image: url(sprite.png);
+  background-position: -48px -192px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_evilsanta2 {
+  background-image: url(sprite.png);
+  background-position: -192px -51px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_ghost_stag {
+  background-image: url(sprite.png);
+  background-position: -144px -141px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_goldenknight1 {
+  background-image: url(sprite.png);
+  background-position: 0px -204px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_goldenknight2 {
+  background-image: url(sprite.png);
+  background-position: -96px -192px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_goldenknight2_locked {
+  background-image: url(sprite.png);
+  background-position: -192px -102px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_goldenknight3 {
+  background-image: url(sprite.png);
+  background-position: -228px 0px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_goldenknight3_locked {
+  background-image: url(sprite.png);
+  background-position: -144px -192px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_gryphon {
+  background-image: url(sprite.png);
+  background-position: -240px -51px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_harpy {
+  background-image: url(sprite.png);
+  background-position: -192px -153px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_hedgehog {
+  background-image: url(sprite.png);
+  background-position: -48px -243px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_moonstone1 {
+  background-image: url(sprite.png);
+  background-position: -240px -255px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_moonstone2 {
+  background-image: url(sprite.png);
+  background-position: -240px -102px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_moonstone2_locked {
+  background-image: url(sprite.png);
+  background-position: -96px -243px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_moonstone3 {
+  background-image: url(sprite.png);
+  background-position: -276px 0px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_moonstone3_locked {
+  background-image: url(sprite.png);
+  background-position: -192px -204px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_octopus {
+  background-image: url(sprite.png);
+  background-position: -144px -243px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_owl {
+  background-image: url(sprite.png);
+  background-position: -240px -153px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_penguin {
+  background-image: url(sprite.png);
+  background-position: -288px -51px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_rat {
+  background-image: url(sprite.png);
+  background-position: -48px -294px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_rooster {
+  background-image: url(sprite.png);
+  background-position: -288px -102px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_spider {
+  background-image: url(sprite.png);
+  background-position: 0px -306px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_trex {
+  background-image: url(sprite.png);
+  background-position: -96px -294px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_trex_undead {
+  background-image: url(sprite.png);
+  background-position: -240px -204px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_vice1 {
+  background-image: url(sprite.png);
+  background-position: -192px -255px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_vice2 {
+  background-image: url(sprite.png);
+  background-position: -324px 0px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_vice2_locked {
+  background-image: url(sprite.png);
+  background-position: -288px -153px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_vice3 {
+  background-image: url(sprite.png);
+  background-position: -144px -294px;
+  width: 48px;
+  height: 51px;
+}
+.icon-inventory_quest_scroll_vice3_locked {
+  background-image: url(sprite.png);
+  background-position: -336px -51px;
+  width: 48px;
+  height: 51px;
+}
