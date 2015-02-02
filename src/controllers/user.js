@@ -458,8 +458,8 @@ api.inviteFriends = function(req, res, next) {
             invite.canSend = true;
 
             // We check for unsubscribeFromAll here because don't pass through utils.getUserInfo
-            if(userToContact.preferences.emailNotifications.invitedParty !== false && 
-                userToContact.preferences.emailNotifications.unsubscribeFromAll !== true){
+            if(!userToContact || (userToContact.preferences.emailNotifications.invitedParty !== false && 
+                userToContact.preferences.emailNotifications.unsubscribeFromAll !== true)){
               // TODO implement "users can only be invited once"
               utils.txnEmail(invite, 'invite-friend', variables);
             }
