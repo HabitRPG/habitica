@@ -571,7 +571,7 @@ api.invite = function(req, res, next) {
             )
           }
 
-          utils.txnEmail(invite, ('invited-' + group.type == 'guild' ? 'guild' : 'party'), emailVars);
+          utils.txnEmail(invite, ('invited-' + (group.type == 'guild' ? 'guild' : 'party')), emailVars);
         }
 
         // Have to return whole group and its members for angular to show the invited user
