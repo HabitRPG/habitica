@@ -123,7 +123,7 @@ exports.buyGems = function(data, cb) {
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
       utils.txnEmail(member, 'gifted-gems', [
         {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
-        {name: 'X_GEMS_GIFTED', content: amt}
+        {name: 'X_GEMS_GIFTED', content: data.gift.gems.amount || 20}
       ]);
     }
   }

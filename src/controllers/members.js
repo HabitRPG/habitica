@@ -99,7 +99,7 @@ api.sendGift = function(req, res, next){
           if(member.preferences.emailNotifications.giftedGems !== false){
             utils.txnEmail(member, 'gifted-gems', [
               {name: 'GIFTER', content: utils.getUserInfo(user, ['name']).name},
-              {name: 'X_GEMS_GIFTED', content: amt}
+              {name: 'X_GEMS_GIFTED', content: req.body.gems.amount}
             ]);
           }
           return async.parallel([
