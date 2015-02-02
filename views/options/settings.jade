@@ -11,9 +11,11 @@ script(id='partials/options.settings.html', type="text/ng-template")
         =env.t('dataExport')
     li(ng-class="{ active: $state.includes('options.settings.coupon') }")
       a(ui-sref='options.settings.coupon')
-        | Coupon
+        =env.t('coupon')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
       a(ui-sref='options.settings.subscription')=env.t('subscription')
+    li(ng-class="{ active: $state.includes('options.settings.notifications') }")
+      a(ui-sref='options.settings.notifications')=env.t('notifications')
 
   .tab-content
     .tab-pane.active
@@ -84,6 +86,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   |&nbsp;
                   =env.t('subWarning3')
 
+      .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
             span Registration
@@ -138,12 +141,12 @@ script(type='text/ng-template', id='partials/options.settings.coupon.html')
   .container-fluid
     .row
       .col-md-6
-        h2 Coupon
+        h2= env.t('coupon')
         form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
-          input.form-control(type='text', ng-model='_couponCode', placeholder='Enter Coupon Code')
+          input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('couponPlaceholder'))
           button.btn.btn-primary(type='submit') Submit
         div
-          small We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)
+          small= env.t('couponText')
         div(ng-if='user.contributor.sudo')
           hr
           h4 Generate Codes
@@ -242,12 +245,70 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
     input.focusable(type='checkbox', checked)
     label
 
+script(id='partials/options.settings.notifications.html', type="text/ng-template")
+  .container-fluid
+    .row
+      .personal-options.col-md-6
+        .panel.panel-default
+          .panel-heading
+            =env.t('emailNotifications')
+          .panel-body
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.newPM', ng-change='set({"preferences.emailNotifications.newPM": user.preferences.emailNotifications.newPM ? true: false})')
+                span=env.t('newPM')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.wonChallenge', ng-change='set({"preferences.emailNotifications.wonChallenge": user.preferences.emailNotifications.wonChallenge ? true: false})')
+                span=env.t('wonChallenge')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedGems', ng-change='set({"preferences.emailNotifications.giftedGems": user.preferences.emailNotifications.giftedGems ? true: false})')
+                span=env.t('giftedGems')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedSubscription', ng-change='set({"preferences.emailNotifications.giftedSubscription": user.preferences.emailNotifications.giftedSubscription ? true: false})')
+                span=env.t('giftedSubscription')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedParty', ng-change='set({"preferences.emailNotifications.invitedParty": user.preferences.emailNotifications.invitedParty ? true: false})')
+                span=env.t('invitedParty')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedGuild', ng-change='set({"preferences.emailNotifications.invitedGuild": user.preferences.emailNotifications.invitedGuild ? true: false})')
+                span=env.t('invitedGuild')
+
+            //.checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.remindersToLogin', ng-change='set({"preferences.emailNotifications.remindersToLogin": user.preferences.emailNotifications.remindersToLogin ? true: false})')
+                span=env.t('remindersToLogin')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
+                span=env.t('importantAnnouncements')
+            
+            hr
+
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll', ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
+                span=env.t('unsubscribeAllEmails')
+            
+            small=env.t('unsubscribeAllEmailsText')
+
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
   //-h2=env.t('individualSub')
   .container-fluid(ng-init='_subscription={key:"basic_earned"}')
     .row
       .col-md-6
-        h3 Benefits
+        h3= env.t('benefits')
         +subPerks()
 
       .col-md-6
@@ -270,13 +331,15 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
-            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"')
+            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"')
               label
                 input(type="radio", name="subRadio", ng-value="block.key", ng-model='_subscription.key')
                 span(ng-show='block.original')
-                  | Recurring <span class='line-through'>${{block.original}}</span> <span class='label label-success'>${{block.price}}</span> each {{block.months}} Month(s)
+                  span.label.label-success.line-through
+                    | ${{:: block.original }}
+                  =env.t('subscriptionRateText', {price:'{{::block.price}}', months: '{{::block.months}}'})
                 span(ng-hide='block.original')
-                  | Recurring ${{block.price}} each {{block.months}} Month(s)
+                  =env.t('subscriptionRateText', {price: '{{::block.price}}', months: '{{block.months}}'})
 
           .form-inline
             .form-group

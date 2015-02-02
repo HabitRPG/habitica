@@ -49,7 +49,8 @@ var UserSchema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean,
+    habitBirthday: Boolean, // TODO: Deprecate this. Superseded by habitBirthdays
+    habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean,
     nye: Number
@@ -130,7 +131,7 @@ var UserSchema = new Schema({
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
     chatRevoked: Boolean,
     // Used to track the status of recapture emails sent to each user,
-    // can be 0 - no email sent - 1, 2 or 3 - 3 means no more email will be sent to the user
+    // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {type: Number, 'default': 0},
     communityGuidelinesAccepted: {type: Boolean, 'default': false}
   },
@@ -281,7 +282,7 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
-    sound: {type:String, 'default':'off', enum: ['off','danielTheBard']},
+    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme']},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
@@ -296,7 +297,20 @@ var UserSchema = new Schema({
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
-    webhooks: {type: Schema.Types.Mixed, 'default': {}}
+    webhooks: {type: Schema.Types.Mixed, 'default': {}},
+    // For this fields make sure to use strict comparison when searching for falsey values (=== false)
+    // As users who didn't login after these were introduced may have them undefined/null
+    emailNotifications: {
+      unsubscribeFromAll: {type: Boolean, 'default': false},
+      newPM: {type: Boolean, 'default': true},
+      wonChallenge: {type: Boolean, 'default': true},
+      giftedGems: {type: Boolean, 'default': true},
+      giftedSubscription: {type: Boolean, 'default': true},
+      invitedParty: {type: Boolean, 'default': true},
+      invitedGuild: {type: Boolean, 'default': true},
+      //remindersToLogin: {type: Boolean, 'default': true},
+      importantAnnouncements: {type: Boolean, 'default': true}
+    }
   },
   profile: {
     blurb: String,

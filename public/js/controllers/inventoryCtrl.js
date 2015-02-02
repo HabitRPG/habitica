@@ -77,18 +77,6 @@ habitrpg.controller("InventoryCtrl",
       return _.pick(inventory, function(v,k){return v>0;});
     }
 
-    $scope.calcTriadBingo = function() {
-      var hasPets = Shared.countPets(null, User.user.items.pets) >= 90 ;
-      var hasMounts = Shared.countMounts(null, User.user.items.mounts) >= 90;
-
-      if(!(hasPets && hasMounts)) return false;
-
-      for (var p in User.user.items.pets) {
-        if(User.user.items.pets[p] < 0) return false;
-      }
-      return true;
-    }
-
     $scope.hatch = function(egg, potion){
       var eggName = Content.eggs[egg.key].text();
       var potName = Content.hatchingPotions[potion.key].text();
@@ -97,16 +85,19 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
+      $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
+
       // Checks if beastmaster has been reached for the first time
       if(!User.user.achievements.beastMaster 
-          && Shared.countPets(null, User.user.items.pets) >= 90) {
+          && $rootScope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
         $rootScope.openModal('achievements/beastMaster');
       }
 
       // Checks if Triad Bingo has been reached for the first time
       if(!User.user.achievements.triadBingo
-          && $scope.calcTriadBingo()) {
+          && $rootScope.mountCount >= 90
+          && Shared.countTriad(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
@@ -149,11 +140,11 @@ habitrpg.controller("InventoryCtrl",
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
-        $rootScope.mountCount = Shared.countMounts(null, User.user.items.mounts);
+        $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
 
       // Checks if mountmaster has been reached for the first time
       if(!User.user.achievements.mountMaster 
-          && Shared.countMounts(null, User.user.items.mounts) >= 90) {
+          && $rootScope.mountCount >= 90) {
         User.user.achievements.mountMaster = true;
         $rootScope.openModal('achievements/mountMaster');
       }
@@ -166,6 +157,33 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.chooseMount = function(egg, potion) {
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
+    }
+
+    $scope.questPopover = function(quest) {
+      // The popover gets parsed as markdown (hence the double \n for line breaks
+      var text = '';
+      if(quest.boss) {
+        text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + '\n\n';
+        text += '**' + window.env.t('bossStrength') + ':** ' + quest.boss.str + '\n\n';
+      } else if(quest.collect) {
+        var count = 0;
+        for (var key in quest.collect) {
+          text += '**' + window.env.t('collect') + ':** ' + quest.collect[key].count + ' ' + quest.collect[key].text() + '\n\n';
+        }
+      }
+      text += '---\n\n';
+      text += '**' + window.env.t('rewards') + ':**\n\n';
+      if(quest.drop.items) {
+        for (var item in quest.drop.items) {
+          text += quest.drop.items[item].text() + '\n\n';
+        }
+      }
+      if(quest.drop.exp)
+        text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
+      if(quest.drop.gp)
+        text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
+
+      return text;
     }
 
     $scope.showQuest = function(quest) {

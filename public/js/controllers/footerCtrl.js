@@ -4,7 +4,7 @@ angular.module('habitrpg').controller("FooterCtrl",
 ['$scope', '$rootScope', 'User', '$http', 'Notification', 'ApiUrl',
 function($scope, $rootScope, User, $http, Notification, ApiUrl) {
 
-  if(typeof habitrpg === "undefined"){
+  if(env.isStaticPage){
     $scope.languages = env.avalaibleLanguages;
     $scope.selectedLanguage = _.find(env.avalaibleLanguages, {code: env.language.code});
 
