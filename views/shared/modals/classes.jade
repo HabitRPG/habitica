@@ -13,7 +13,7 @@ script(type='text/ng-template', id='modals/chooseClass.html')
         .col-md-3(ng-click='selectedClass = "warrior"')
           h5
             a(href='http://habitrpg.wikia.com/wiki/Warrior' target='_blank')=env.t('warrior')
-          figure.herobox(ng-class='{"selected-class": selectedClass=="warrior"}')
+          figure.herobox(ng-class='{"selected-class": selectedClass=="warrior"}', data-name=env.t('warriorCaption'))
             .character-sprites
               span(class='skin_{{user.preferences.skin}}')
               span(class='{{user.preferences.size}}_armor_warrior_5')
@@ -28,7 +28,7 @@ script(type='text/ng-template', id='modals/chooseClass.html')
         .col-md-3(ng-click='selectedClass = "wizard"')
           h5
             a(href='http://habitrpg.wikia.com/wiki/Mage' target='_blank')=env.t('mage')
-          figure.herobox(ng-class='{"selected-class": selectedClass=="wizard"}')
+          figure.herobox(ng-class='{"selected-class": selectedClass=="wizard"}', data-name=env.t('mageCaption'))
             .character-sprites
               span(class='skin_{{user.preferences.skin}}')
               span(class='{{user.preferences.size}}_armor_wizard_5')
@@ -43,7 +43,7 @@ script(type='text/ng-template', id='modals/chooseClass.html')
         .col-md-3(ng-click='selectedClass = "rogue"')
           h5
             a(href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank')=env.t('rogue')
-          figure.herobox(ng-class='{"selected-class": selectedClass=="rogue"}')
+          figure.herobox(ng-class='{"selected-class": selectedClass=="rogue"}', data-name=env.t('rogueCaption'))
             .character-sprites
               span(class='skin_{{user.preferences.skin}}')
               span(class='{{user.preferences.size}}_armor_rogue_5')
@@ -58,7 +58,7 @@ script(type='text/ng-template', id='modals/chooseClass.html')
         .col-md-3(ng-click='selectedClass = "healer"')
           h5
             a(href='http://habitrpg.wikia.com/wiki/Healer' target='_blank')=env.t('healer')
-          figure.herobox(ng-class='{"selected-class": selectedClass=="healer"}')
+          figure.herobox(ng-class='{"selected-class": selectedClass=="healer"}', data-name=env.t('healerCaption'))
             .character-sprites
               span(class='skin_{{user.preferences.skin}}')
               span(class='{{user.preferences.size}}_armor_healer_5')

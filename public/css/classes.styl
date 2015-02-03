@@ -1,6 +1,12 @@
 .select-class
   .herobox
     width: 115px
+    border-radius: 10px
+  .herobox:after
+    font-weight: bold;
+    text-align: center;
+    border: thin solid gray !important
+    color: black !important
   .character-sprites
     width: 0px
     height: 0px
@@ -14,4 +20,8 @@ html.applying-action, html.applying-action *
 .cast-target:hover
   border: 5px solid green !important
 .selected-class
-  background-color: green
+  background-color: green !important
+.selected-class.herobox:after
+    background-color: lightgreen !important
+    opacity: 100
+
