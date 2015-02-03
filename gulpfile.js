@@ -22,20 +22,20 @@ var gulp        = require('gulp'),
 var paths = {
   stylus: {
      src: {
-       app: './common/public/css/index.styl',
-       staticPage: './common/public/css/static.styl' // static is a 'future' reserved word
+       app: './website/public/css/index.styl',
+       staticPage: './website/public/css/static.styl' // static is a 'future' reserved word
      },
      dest: './build/'
   },
   common: {
     src: ['./common/index.js'],
-    dest: './common/public/'
+    dest: './common/dist/scripts/'
   },
   sprites: {
-    src: 'img/sprites/spritesmith/**/*.png',
-    dest: './common/public/sprites/',
-    cssminSrc: './common/public/sprites/*.css',
-    cssminDest: './common/public/sprites/'
+    src: './common/img/sprites/spritesmith/**/*.png',
+    dest: './common/dist/sprites/',
+    cssminSrc: './common/dist/sprites/*.css',
+    cssminDest: './common/dist/sprites/'
   },
   copy: {
     src: ['./common/img/sprites/backer-only/*.gif', 
