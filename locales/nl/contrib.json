@@ -18,7 +18,7 @@
     "heroicText": "The Heroic tier contains HabitRPG staff and staff-level contributors. If you have this title, you were appointed to it (or hired!).",
     "npcText": "NPC's hebben het Kickstarterproject van HabitRPG op het hoogste niveau gesteund. Hun avatars waken over sitefuncties!",
     "modalContribAchievement": "Bijdragersprestatie!",
-    "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping HabitRPG. See",
+    "contribModal": "<%= name %>, jij geweldig persoon! Je bent nu een niveau <%= level %> bijdrager omdat je HabitRPG helpt. Zie",
     "contribLink": "welke prijzen je hebt verdiend voor je bijdrage!",
     "contribName": "Bijdrager",
     "contribText": "Heeft een bijdrage geleverd aan HabitRPG (code, ontwerp, pixelkunst, juridisch advies, documenten, etc). Wil je deze badge ook verdienen? ",
