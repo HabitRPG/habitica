@@ -1,5 +1,6 @@
 var gulp        = require('gulp'),
     _           = require('lodash'),
+    glob        = require('glob'),
     browserify  = require('browserify'),
     coffeeify   = require('coffeeify'),
     source      = require('vinyl-source-stream');
@@ -14,6 +15,8 @@ var gulp        = require('gulp'),
     uglify      = require('gulp-uglify'),
     concat      = require('gulp-concat'),
     spritesmith = require('gulp.spritesmith'),
+    csso        = require('gulp-csso'),
+    cssmin      = require('gulp-cssmin'),
     pkg         = require('./package');
 
 var paths = {
@@ -30,7 +33,9 @@ var paths = {
   },
   sprites: {
     src: 'img/sprites/spritesmith/**/*.png',
-    dest: './common/public/sprites/'
+    dest: './common/public/sprites/',
+    cssminSrc: './common/public/sprites/*.css',
+    cssminDest: './common/public/sprites/'
   },
   copy: {
     src: ['./common/img/sprites/backer-only/*.gif', 
@@ -75,8 +80,80 @@ gulp.task('hashres', function() {
   // @TODO: Finish this
 });
 
-gulp.task('sprite', function() {
-  // @TODO: Finish this
+gulp.task('sprite', function(cb) {
+  var images = glob.sync('./common/img/sprites/spritesmith/**/*.png');
+//  var totalDims = {width:0,height:0};
+//  _.each(images, function(img){
+//    var dims = sizeOf(img);
+//    if(!dims.width || !dims.height) console.log(dims);
+//    totalDims.width += dims.width;
+//    totalDims.height += dims.height;
+//  })
+  var COUNT = 6;//Math.ceil( (totalDims.width * totalDims.height) / (1024*1024*3) );
+  var STEP = 0;
+  //console.log({totalDims:totalDims,COUNT:COUNT});
+
+  var sprite = {};
+  _.times(COUNT, function(i){
+    sliced = images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT)
+    sprite[''+i] = {
+      src: sliced,
+      imgName: 'spritesmith'+i+'.png',
+      cssName: 'spritesmith'+i+'.css',
+      engine: 'phantomjssmith',
+      algorithm: 'binary-tree',
+      padding:1,
+      cssTemplate: './common/css/css.template.mustache',
+      cssVarMap: function (sprite) {
+        // For hair, skins, beards, etc. we want to output a '.customize-options.WHATEVER' class, which works as a
+        // 60x60 image pointing at the proper part of the 90x90 sprite.
+        // We set up the custom info here, and the template makes use of it.
+        if (sprite.name.match(/hair|skin|beard|mustach|shirt|flower/) || sprite.name=='head_0') {
+          sprite.custom = {
+            px: {
+              offset_x: "-" + (sprite.x + 25) + "px",
+              offset_y: "-" + (sprite.y + 15) + "px",
+              width: "" + 60 + "px",
+              height: "" + 60 + "px"
+            }
+          }
+        }
+        if (~sprite.name.indexOf('shirt'))
+          sprite.custom.px.offset_y = "-" + (sprite.y + 30) + "px"; // even more for shirts
+      }
+      /*,cssOpts: {
+       cssClass: function (item) {
+       return '.' + item.name; //'.sprite-' + item.name;
+       }
+       }*/
+    }
+  })
+
+  _.forIn(sprite, function(value, key){
+      console.log("Starting spritesmith" + key + ".png");
+      var spriteData = gulp.src(sliced).pipe(spritesmith(sprite[key]));
+
+      spriteData.img
+        //.pipe(imagemin())
+        .pipe(gulp.dest(paths.sprites.dest));
+
+      // Pipe CSS stream through CSS optimizer and onto disk
+      spriteData.css
+        .pipe(csso())
+        .pipe(gulp.dest(paths.sprites.dest))
+        .on('end', function(){
+          STEP++;
+          console.log("Finished spritesmith" + key + ".png");
+          if(STEP >= COUNT) {
+
+            gulp.src(paths.sprites.cssminSrc)
+              .pipe(cssmin())
+              .pipe(rename('habitrpg-shared.css'))
+              .pipe(gulp.dest(paths.sprites.cssminDest))
+              .on('end', function(){cb()});
+          }
+        });
+  });
 });
 
 gulp.task('browserify', function() {
