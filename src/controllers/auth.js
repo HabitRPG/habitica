@@ -23,6 +23,10 @@ var accountSuspended = function(uuid){
     code: 'ACCOUNT_SUSPENDED'
   };
 }
+// escape email for regex, then search case-insensitive. See http://stackoverflow.com/a/3561711/362790
+var mongoEmailRegex = function(email){
+  return new RegExp('^' + email.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
+}
 
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
@@ -196,9 +200,7 @@ api.resetPassword = function(req, res, next){
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
     hashed_password = utils.encryptPassword(newPassword, salt);
 
-  // escape email for regex, then search case-insensitive. See http://stackoverflow.com/a/3561711/362790
-  var emailRegExp = new RegExp('^' + email.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
-  User.findOne({'auth.local.email':emailRegExp}, function(err, user){
+  User.findOne({'auth.local.email':mongoEmailRegex(email)}, function(err, user){
     if (err) return next(err);
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
@@ -215,28 +217,45 @@ api.resetPassword = function(req, res, next){
   });
 };
 
+var invalidPassword = function(user, password){
+  var hashed_password = utils.encryptPassword(password, user.auth.local.salt);
+  if (hashed_password !== user.auth.local.hashed_password)
+    return {code:401, err:"Incorrect password"};
+  return false;
+}
+
 api.changeUsername = function(req, res, next) {
-  var user = res.locals.user,
-    password = req.body.password,
-    newUsername = req.body.newUsername;
+  async.waterfall([
+    function(cb){
+      User.findOne({'auth.local.username': req.body.username}, {auth:1}, cb);
+    },
+    function(found, cb){
+      if (found) return cb({code:401, err: "Username already taken"});
+      if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
+      res.locals.user.auth.local.username = req.body.username;
+      res.locals.user.save(cb);
+    }
+  ], function(err){
+    if (err) return err.code ? res.json(err.code, err) : next(err);
+    res.send(200);
+  })
+}
 
-  User.findOne({'auth.local.username': newUsername}, function(err, result) {
-    if (err) next(err);
-    if(result) return res.json(401, {err: "Username already taken"});
-
-    var salt = user.auth.local.salt;
-    var hashed_password = utils.encryptPassword(password, salt);
-
-    if (hashed_password !== user.auth.local.hashed_password)
-      return res.json(401, {err:"Incorrect password"});
-
-    user.auth.local.username = newUsername;
-    user.save(function(err, saved){
-      if (err) next(err);
-      res.send(200);
-      user = password = newUsername = null;
-    })
-  });
+api.changeEmail = function(req, res, next){
+  async.waterfall([
+    function(cb){
+      User.findOne({'auth.local.email': mongoEmailRegex(req.body.email)}, {auth:1}, cb);
+    },
+    function(found, cb){
+      if(found) return cb({code:401, err: "Email already taken"});
+      if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
+      res.locals.user.auth.local.email = req.body.email;
+      res.locals.user.save(cb);
+    }
+  ], function(err){
+    if (err) return err.code ? res.json(err.code,err) : next(err);
+    res.send(200);
+  })
 }
 
 api.changePassword = function(req, res, next) {

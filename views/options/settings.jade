@@ -103,7 +103,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                     |&nbsp;
                     =env.t('loginNameDescription3')                 
               p=env.t('email')
-                |: {{::user.auth.local.email}} 
+                |: {{user.auth.local.email}}
               p
                 small.muted
                     =env.t('emailChange1')
@@ -112,22 +112,33 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                     |&nbsp;
                     =env.t('emailChange3')
               hr
+
               h5=env.t('changeUsername')
-              form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
+              form(ng-submit='changeUser("username", usernameUpdates)', ng-init='usernameUpdates={}', ng-show='user.auth.local', name='changeUsername', novalidate)
+                //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
                 .form-group
-                  input.form-control(type='text', placeholder=env.t('newUsername'), ng-model='changeUser.newUsername', required)
+                  input.form-control(type='text', placeholder=env.t('newUsername'), ng-model='usernameUpdates.username', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('password'), ng-model='changeUser.password', required)
-                input.btn.btn-default(type='submit', value=env.t('submit'))
+                  input.form-control(type='password', placeholder=env.t('password'), ng-model='usernameUpdates.password', required)
+                input.btn.btn-default(type='submit', ng-disabled='changeUsername.$invalid', value=env.t('submit'))
+
+              h5=env.t('changeEmail')
+              form(ng-submit='changeUser("email", emailUpdates)', ng-show='user.auth.local', name='changeEmail', novalidate)
+                .form-group
+                  input.form-control(type='text', placeholder=env.t('newEmail'), ng-model='emailUpdates.email', required)
+                .form-group
+                  input.form-control(type='password', placeholder=env.t('password'), ng-model='emailUpdates.password', required)
+                input.btn.btn-default(type='submit', ng-disabled='changeEmail.$invalid', value=env.t('submit'))
+
               h5=env.t('changePass')
-              form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
+              form(ng-submit='changeUser("password", passwordUpdates)', ng-show='user.auth.local', name='changePassword', novalidate)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
+                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='passwordUpdates.oldPassword', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
+                  input.form-control(type='password', placeholder=env.t('newPass'), ng-model='passwordUpdates.newPassword', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
-                input.btn.btn-default(type='submit', value=env.t('submit'))
+                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='passwordUpdates.confirmNewPassword', required)
+                input.btn.btn-default(type='submit', ng-disabled='changePassword.$invalid', value=env.t('submit'))
 
 
         .panel.panel-default
