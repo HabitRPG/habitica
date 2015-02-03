@@ -6,7 +6,7 @@ node_modules
 config.json
 npm-debug.log
 lib
-common/public/bower_components
+website/public/bower_components
 common/public/sprites
 build
 newrelic_agent.log
