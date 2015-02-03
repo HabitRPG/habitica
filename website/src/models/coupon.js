@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var shared = require('../../common');
+var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
 var cc = require('coupon-code');
