@@ -8,7 +8,7 @@ var payments = require('./index');
 var logger = require('../../logging');
 var ipn = require('paypal-ipn');
 var paypal = require('paypal-rest-sdk');
-var shared = require('../../../common');
+var shared = require('../../../../common');
 var mongoose = require('mongoose');
 var cc = require('coupon-code');
 

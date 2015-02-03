@@ -2,10 +2,10 @@ var fs = require('fs'),
     path = require('path'),
     _ = require('lodash'),
     User = require('./models/user').model,
-    shared = require('../common'),
+    shared = require('../../common'),
     translations = {};
 
-var localePath = path.join(__dirname, "/../common/locales/")
+var localePath = path.join(__dirname, "/../../common/locales/")
 
 var loadTranslations = function(locale){
   var files = fs.readdirSync(path.join(localePath, locale));

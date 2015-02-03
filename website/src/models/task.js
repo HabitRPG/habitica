@@ -6,7 +6,7 @@
 // ------------
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var shared = require('../../common');
+var shared = require('../../../common');
 var _ = require('lodash');
 
 // Task Schema

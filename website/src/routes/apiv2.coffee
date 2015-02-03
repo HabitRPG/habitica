@@ -19,7 +19,7 @@ nconf = require("nconf")
 middleware = require("../middleware")
 cron = user.cron
 _ = require('lodash')
-content = require('../../common').content
+content = require('../../../common').content
 i18n = require('../i18n')
 
 

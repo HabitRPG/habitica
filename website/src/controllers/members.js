@@ -4,7 +4,7 @@ var partyFields = require('./groups').partyFields
 var api = module.exports;
 var async = require('async');
 var _ = require('lodash');
-var shared = require('../../common');
+var shared = require('../../../common');
 
 var fetchMember = function(uuid, restrict){
   return function(cb){

@@ -8,7 +8,7 @@ var logging = require('./logging');
 var domainMiddleware = require('domain-middleware');
 var cluster = require('cluster');
 var i18n = require('./i18n.js');
-var shared = require('../common');
+var shared = require('../../common');
 var request = require('request');
 var os = require('os');
 var moment = require('moment');
@@ -148,7 +148,7 @@ var getBuildUrl = function(url){
   return '/' + url;
 }
 
-var manifestFiles = require("../common/public/manifest.json");
+var manifestFiles = require("../public/manifest.json");
 
 var getManifestFiles = function(page){
   var files = manifestFiles[page];
