@@ -22,20 +22,20 @@ var gulp        = require('gulp'),
 var paths = {
   stylus: {
      src: {
-       app: './common/public/css/index.styl',
-       staticPage: './common/public/css/static.styl' // static is a 'future' reserved word
+       app: './website/public/css/index.styl',
+       staticPage: './website/public/css/static.styl' // static is a 'future' reserved word
      },
-     dest: './build/'
+     dest: './website/build/'
   },
   common: {
     src: ['./common/index.js'],
-    dest: './common/public/'
+    dest: './common/dist/scripts/'
   },
   sprites: {
-    src: 'img/sprites/spritesmith/**/*.png',
-    dest: './common/public/sprites/',
-    cssminSrc: './common/public/sprites/*.css',
-    cssminDest: './common/public/sprites/'
+    src: './common/img/sprites/spritesmith/**/*.png',
+    dest: './common/dist/sprites/',
+    cssminSrc: './common/dist/sprites/spritesmith*.css',
+    cssminDest: './common/dist/sprites/'
   },
   copy: {
     src: ['./common/img/sprites/backer-only/*.gif', 
@@ -95,9 +95,8 @@ gulp.task('sprite', function(cb) {
 
   var sprite = {};
   _.times(COUNT, function(i){
-    sliced = images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT)
     sprite[''+i] = {
-      src: sliced,
+      slice: images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT),
       imgName: 'spritesmith'+i+'.png',
       cssName: 'spritesmith'+i+'.css',
       engine: 'phantomjssmith',
@@ -131,7 +130,7 @@ gulp.task('sprite', function(cb) {
 
   _.forIn(sprite, function(value, key){
       console.log("Starting spritesmith" + key + ".png");
-      var spriteData = gulp.src(sliced).pipe(spritesmith(sprite[key]));
+      var spriteData = gulp.src(sprite[key].slice).pipe(spritesmith(sprite[key]));
 
       spriteData.img
         //.pipe(imagemin())
@@ -145,10 +144,9 @@ gulp.task('sprite', function(cb) {
           STEP++;
           console.log("Finished spritesmith" + key + ".png");
           if(STEP >= COUNT) {
-
             gulp.src(paths.sprites.cssminSrc)
+              .pipe(concat('habitrpg-shared.css'))
               .pipe(cssmin())
-              .pipe(rename('habitrpg-shared.css'))
               .pipe(gulp.dest(paths.sprites.cssminDest))
               .on('end', function(){cb()});
           }
