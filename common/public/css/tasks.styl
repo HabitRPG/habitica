@@ -491,29 +491,38 @@ form
 // Habits – task button styles (+ -)
 .habits
   .task-actions
-    display: inline-block
     width: 3em
     height: 100%
+    
     a
-      display: table;
+      display: block
       width: 100%
       height: 100%
+      position: relative
       font-size: 0.8em
+      
       span
-        display: table-cell
-        text-align: center
-        vertical-align: middle
-        width: 100%
-        height: 100%
+        position: absolute
+        margin: auto
+        display: block
+        height: 1em
+        width: 1em
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+        
       &:hover, &:focus
         color: #222
         text-decoration: none
+
   .habit-wide
     // When there are two buttons...
     min-height: 4.5em
     .task-actions
       a
         height: 50%
+
   .habit-narrow
     // When there are no buttons...
     .task-actions
@@ -604,4 +613,4 @@ form
         margin: auto
     .shop_gold + .reward-cost
       line-height: 1
-      top: -0.1em       
+      top: -0.1em  

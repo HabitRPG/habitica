@@ -86,7 +86,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
    ));
 
   // ------------  Server Configuration ------------
-  var publicDir = path.join(__dirname, "/../public");
+  var publicDir = path.join(__dirname, "/../common/public");
 
   app.set("port", nconf.get('PORT'));
   middleware.apiThrottle(app);

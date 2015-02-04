@@ -58,7 +58,7 @@ module.exports = function(grunt) {
       build: {
         files: [
           {expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'},
-          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/dist/spritesmith.png', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/dist/spritesmith*.png', dest: 'build/'},
           {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/img/sprites/backer-only/*.gif', dest: 'build/'},
           {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/img/sprites/npc_ian.gif', dest: 'build/'},
           {expand: true, cwd: 'public/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'build/'}

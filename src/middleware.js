@@ -148,7 +148,7 @@ var getBuildUrl = function(url){
   return '/' + url;
 }
 
-var manifestFiles = require("../public/manifest.json");
+var manifestFiles = require("../common/public/manifest.json");
 
 var getManifestFiles = function(page){
   var files = manifestFiles[page];

@@ -97,7 +97,7 @@ habitrpg.controller("InventoryCtrl",
       // Checks if Triad Bingo has been reached for the first time
       if(!User.user.achievements.triadBingo
           && $rootScope.mountCount >= 90
-          && Shared.countTriad(User.user.items.pets)) {
+          && Shared.countTriad(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
@@ -157,6 +157,33 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.chooseMount = function(egg, potion) {
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
+    }
+
+    $scope.questPopover = function(quest) {
+      // The popover gets parsed as markdown (hence the double \n for line breaks
+      var text = '';
+      if(quest.boss) {
+        text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + '\n\n';
+        text += '**' + window.env.t('bossStrength') + ':** ' + quest.boss.str + '\n\n';
+      } else if(quest.collect) {
+        var count = 0;
+        for (var key in quest.collect) {
+          text += '**' + window.env.t('collect') + ':** ' + quest.collect[key].count + ' ' + quest.collect[key].text() + '\n\n';
+        }
+      }
+      text += '---\n\n';
+      text += '**' + window.env.t('rewards') + ':**\n\n';
+      if(quest.drop.items) {
+        for (var item in quest.drop.items) {
+          text += quest.drop.items[item].text() + '\n\n';
+        }
+      }
+      if(quest.drop.exp)
+        text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
+      if(quest.drop.gp)
+        text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
+
+      return text;
     }
 
     $scope.showQuest = function(quest) {
