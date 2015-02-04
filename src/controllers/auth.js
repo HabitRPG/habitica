@@ -65,55 +65,57 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
-  var confirmPassword = req.body.confirmPassword,
-    email = req.body.email,
-    password = req.body.password,
-    username = req.body.username;
-  if (!(username && password && email)) return res.json(401, {err: ":username, :email, :password, :confirmPassword required"});
-  if (password !== confirmPassword) return res.json(401, {err: ":password and :confirmPassword don't match"});
-  if (!validator.isEmail(email)) return res.json(401, {err: ":email invalid"});
-  async.waterfall([
-    function(cb) {
-      User.findOne({'auth.local.email': email}, cb);
+  async.auto({
+    validate: function(cb) {
+      if (!(req.body.username && req.body.password && req.body.email))
+        return cb({code:401, err: ":username, :email, :password, :confirmPassword required"});
+      if (req.body.password !== req.body.confirmPassword)
+        return cb({code:401, err: ":password and :confirmPassword don't match"});
+      if (!validator.isEmail(req.body.email))
+        return cb({code:401, err: ":email invalid"});
+      cb();
     },
-    function(found, cb) {
-      if (found) return cb("Email already taken");
-      User.findOne({'auth.local.username': username}, cb);
-    }, function(found, cb) {
-      var newUser, salt, user;
-      if (found) return cb("Username already taken");
-      salt = utils.makeSalt();
-      newUser = {
+    findEmail: function(cb) {
+      User.findOne({'auth.local.email': req.body.email}, cb);
+    },
+    findUname: function(cb) {
+      User.findOne({'auth.local.username': req.body.username}, cb);
+    },
+    findFacebook: function(cb){
+      User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
+    },
+    register: ['validate', 'findEmail', 'findUname', 'findFacebook', function(cb, data) {
+      if (data.findEmail) return cb({code:401, err:"Email already taken"});
+      if (data.findUname) return cb({code:401, err:"Username already taken"});
+      var salt = utils.makeSalt();
+      var newUser = {
         auth: {
           local: {
-            username: username,
-            email: email,
+            username: req.body.username,
+            email: req.body.email,
             salt: salt,
-            hashed_password: utils.encryptPassword(password, salt)
+            hashed_password: utils.encryptPassword(req.body.password, salt)
           },
           timestamps: {created: +new Date(), loggedIn: +new Date()}
         }
       };
-      newUser.preferences = newUser.preferences || {};
-      newUser.preferences.language = req.language; // User language detected from browser, not saved
-      user = new User(newUser);
-
-      // temporary for conventions
-      if (req.subdomains[0] == 'con') {
-        _.each(user.dailys, function(h){
-          h.repeat = {m:false,t:false,w:false,th:false,f:false,s:false,su:false};
-        })
-        user.extra = {signupEvent: 'wondercon'};
+      // existing user, allow them to add local authentication
+      if (data.findFacebook) {
+        data.findFacebook.auth.local = newUser.auth.local;
+        data.findFacebook.save(cb);
+      // new user, register them
+      } else {
+        newUser.preferences = newUser.preferences || {};
+        newUser.preferences.language = req.language; // User language detected from browser, not saved
+        var user = new User(newUser);
+        utils.txnEmail(user, 'welcome');
+        ga.event('register', 'Local').send();
+        user.save(cb);
       }
-
-      user.save(cb);
-      utils.txnEmail(user, 'welcome');
-      ga.event('register', 'Local').send()
-    }
-  ], function(err, saved) {
-    if (err) return res.json(401, {err: err});
-    res.json(200, saved);
-    email = password = username = null;
+    }]
+  }, function(err, data) {
+    if (err) return err.code ? res.json(err.code, err) : next(err);
+    res.json(200, data.register[0]);
   });
 };
 
@@ -190,9 +192,18 @@ api.loginSocial = function(req, res, next) {
 
 /**
  * DELETE /user/auth/social
- * TODO implement
  */
-api.deleteSocial = function(req,res,next){next()}
+api.deleteSocial = function(req,res,next){
+  if (!res.locals.user.auth.local.username)
+    return res.json(401, {err:"Account lacks another authentication method, can't detach Facebook"});
+  //FIXME for some reason, the following gives https://gist.github.com/lefnire/f93eb306069b9089d123
+  //res.locals.user.auth.facebook = null;
+  //res.locals.user.auth.save(function(err, saved){
+  User.update({_id:res.locals.user._id}, {$unset:{'auth.facebook':1}}, function(err){
+    if (err) return next(err);
+    res.send(200);
+  })
+}
 
 api.resetPassword = function(req, res, next){
   var email = req.body.email,
