@@ -84,6 +84,8 @@ gulp.task('hashres', function() {
 });
 
 gulp.task('sprite', function(cb) {
+  // Mobile Safari can't render image files > 1024x1024*3, so we have to break it down to multiple
+  // files in this hack approach. See https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
   var images = glob.sync('./common/img/sprites/spritesmith/**/*.png');
 //  var totalDims = {width:0,height:0};
 //  _.each(images, function(img){
