@@ -242,5 +242,14 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       window.location.href = url;
       window.location.reload(false);
     }
+
+    // Universal method for sending HTTP methods
+    $rootScope.http = function(method, route, data, alertMsg){
+      $http[method](ApiUrl.get() + route, data).success(function(){
+        if (alertMsg) Notification.text(window.env.t(alertMsg));
+        User.sync();
+      });
+      // error will be handled via $http interceptor
+    }
   }
 ]);
