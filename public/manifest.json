@@ -1,6 +1,8 @@
 {
     "app": {
         "js": [
+            "js/new_relic.js",
+
             "bower_components/jquery/dist/jquery.min.js",
             "bower_components/jquery.cookie/jquery.cookie.js",
             "bower_components/pnotify/jquery.pnotify.min.js",
@@ -78,6 +80,8 @@
     },
     "static": {
         "js": [
+            "js/new_relic.js",
+            
             "bower_components/jquery/dist/jquery.min.js",
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
             "bower_components/angular/angular.js",
