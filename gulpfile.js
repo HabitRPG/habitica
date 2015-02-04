@@ -34,7 +34,10 @@ var paths = {
   sprites: {
     src: './common/img/sprites/spritesmith/**/*.png',
     dest: './common/dist/sprites/',
-    cssminSrc: './common/dist/sprites/spritesmith*.css',
+    cssminSrc: ['./common/dist/sprites/spritesmith*.css',
+                './common/css/backer.css',
+                './common/css/Mounts.css',
+                './common/css/index.css'],
     cssminDest: './common/dist/sprites/'
   },
   copy: {
