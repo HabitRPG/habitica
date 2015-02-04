@@ -32,16 +32,16 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
 
-            "habitrpg-shared.js",
+            "common/habitrpg-shared.js",
 
             "js/env.js",
 
             "js/app.js",
-            "js/configs/config.js",
+            "common/config.js",
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
-            "js/services/userServices.js",
-            "js/directives/common-directives.js",
+            "common/userServices.js",
+            "common/directives.js",
             "js/services/groupServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
@@ -101,7 +101,7 @@
             "bower_components/css-social-buttons/css/zocial.css",
             "bower_components/jquery-colorbox/example1/colorbox.css",
             "app.css",
-            "sprites/habitrpg-shared.css",
+            "common/sprites/habitrpg-shared.css",
             "static.css"
         ]
     }

@@ -25,7 +25,7 @@ var paths = {
        app: './website/public/css/index.styl',
        staticPage: './website/public/css/static.styl' // static is a 'future' reserved word
      },
-     dest: './build/'
+     dest: './website/build/'
   },
   common: {
     src: ['./common/index.js'],
@@ -145,7 +145,6 @@ gulp.task('sprite', function(cb) {
           STEP++;
           console.log("Finished spritesmith" + key + ".png");
           if(STEP >= COUNT) {
-
             gulp.src(paths.sprites.cssminSrc)
               .pipe(cssmin())
               .pipe(rename('habitrpg-shared.css'))
