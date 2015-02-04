@@ -32,7 +32,7 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
 
-            "common/habitrpg-shared.js",
+            "common/scripts/habitrpg-shared.js",
 
             "js/env.js",
 
@@ -79,7 +79,7 @@
     "static": {
         "js": [
             "bower_components/jquery/dist/jquery.min.js",
-            "habitrpg-shared.js",
+            "common/scripts/habitrpg-shared.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/angular-bootstrap/ui-bootstrap.js",

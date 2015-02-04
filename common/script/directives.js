@@ -20,7 +20,7 @@
 //      }
     });
 
-    emoji.img_path = 'bower_components/habitrpg-shared/img/emoji/unicode/';
+    emoji.img_path = 'common/img/emoji/unicode/';
 
     var toHtml = function (markdown) {
       if (markdown == undefined)
