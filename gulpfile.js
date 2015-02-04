@@ -34,7 +34,7 @@ var paths = {
   sprites: {
     src: './common/img/sprites/spritesmith/**/*.png',
     dest: './common/dist/sprites/',
-    cssminSrc: './common/dist/sprites/*.css',
+    cssminSrc: './common/dist/sprites/spritesmith*.css',
     cssminDest: './common/dist/sprites/'
   },
   copy: {
@@ -95,9 +95,8 @@ gulp.task('sprite', function(cb) {
 
   var sprite = {};
   _.times(COUNT, function(i){
-    sliced = images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT)
     sprite[''+i] = {
-      src: sliced,
+      slice: images.slice(i * (images.length/COUNT), (i+1) * images.length/COUNT),
       imgName: 'spritesmith'+i+'.png',
       cssName: 'spritesmith'+i+'.css',
       engine: 'phantomjssmith',
@@ -131,7 +130,7 @@ gulp.task('sprite', function(cb) {
 
   _.forIn(sprite, function(value, key){
       console.log("Starting spritesmith" + key + ".png");
-      var spriteData = gulp.src(sliced).pipe(spritesmith(sprite[key]));
+      var spriteData = gulp.src(sprite[key].slice).pipe(spritesmith(sprite[key]));
 
       spriteData.img
         //.pipe(imagemin())
@@ -146,8 +145,8 @@ gulp.task('sprite', function(cb) {
           console.log("Finished spritesmith" + key + ".png");
           if(STEP >= COUNT) {
             gulp.src(paths.sprites.cssminSrc)
+              .pipe(concat('habitrpg-shared.css'))
               .pipe(cssmin())
-              .pipe(rename('habitrpg-shared.css'))
               .pipe(gulp.dest(paths.sprites.cssminDest))
               .on('end', function(){cb()});
           }

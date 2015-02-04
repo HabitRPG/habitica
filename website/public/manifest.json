@@ -72,7 +72,7 @@
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
-            "sprites/habitrpg-shared.css",
+            "common/sprites/habitrpg-shared.css",
             "fontello/css/fontelico.css"
         ]
     },

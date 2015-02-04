@@ -1,5 +1,6 @@
 .DS_Store
 website/public/gen
+website/public/common
 node_modules
 *.swp
 .idea*
@@ -8,7 +9,7 @@ npm-debug.log
 lib
 website/public/bower_components
 common/dist
-build
+website/build
 newrelic_agent.log
 .bower-tmp
 .bower-registry
