@@ -15,7 +15,7 @@
     "guardianText": "Los moderadores fueron seleccionados cuidadosamente de los contribuidores de alto nivel, por lo que rogamos que los tratéis con el máximo respeto y que escuchéis sus sugerencias.",
     "staff": "Equipo",
     "heroic": "Heroico",
-    "heroicText": "The Heroic tier contains HabitRPG staff and staff-level contributors. If you have this title, you were appointed to it (or hired!).",
+    "heroicText": "El nivel Heroico contiene el personal de HabitRPG y colaboradores a nivel personal. Si usted tiene este título, estabas designado para él (o contratado!).",
     "npcText": "Los NPCs contribuyeron al Kickstarter de HabitRPG en su nivel más alto. ¡Puedes encontrar sus avatares velando sobre las características del sitio!",
     "modalContribAchievement": "¡Hazaña de Colaborador!",
     "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping HabitRPG. See",

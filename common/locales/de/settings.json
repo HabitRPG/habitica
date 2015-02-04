@@ -79,5 +79,21 @@
     "registeredWithFb": "Mit Facebook registriert",
     "loginNameDescription1": "Dies hier benutzt Du, um Dich bei HabitRPG einzuloggen. Gehe zu",
     "loginNameDescription2": "Benutzer->Profil",
-    "loginNameDescription3": "um den Namen, der bei Deinem Avatar und bei Deinen Chat Nachrichten steht zu ändern."
+    "loginNameDescription3": "um den Namen, der bei Deinem Avatar und bei Deinen Chat Nachrichten steht zu ändern.",
+    "emailNotifications": "Email Benachrichtigungen",
+    "wonChallenge": "Du hast einen Wettbewerb gewonnen",
+    "newPM": "Du hast eine private Nachricht erhalten",
+    "giftedGems": "Verschenkte Edelsteine",
+    "giftedSubscription": "Verschenkte Abonnements ",
+    "invitedParty": "In die Gruppe eingeladen",
+    "invitedGuild": "In die Gilde eingeladen",
+    "importantAnnouncements": "Wichtige Ankündigungen",
+    "remindersToLogin": "Erinnerungen, HabitRPG zu überprüfen",
+    "unsubscribeAllEmails": "Häkchen setzen, um keine weiteren Emails zu erhalten",
+    "unsubscribeAllEmailsText": "Indem ich hier ein Häkchen gesetzt habe, bestätige ich, dass ich verstanden habe, dass ich aus allen HabitRPG Email-Listen ausgetragen wurde. HabitRPG kann mir keine Emails mehr zu wichtigen Änderungen der Seite oder meines Accounts schicken.",
+    "subscriptionRateText": "Alle <%= months %> Monate wiederkehrender Preis: <%= price %>$",
+    "benefits": "Vorteile",
+    "coupon": "Gutschein",
+    "couponPlaceholder": "Gib Deinen Gutschein Code ein",
+    "couponText": "Manchmal nehmen wir an besonderen Events Teil und geben Gutschein Codes für spezielle Ausrüstungsgegenstände aus. (z.B. an die, die bei unserem Wondercon Stand vorbeischauen)"
 }
