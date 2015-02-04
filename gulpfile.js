@@ -60,7 +60,7 @@ gulp.task('git_changelog', function() {
 });
 
 gulp.task('clean', function(cb) {
-  rimraf('./build', cb);
+  rimraf('./webiste/build', cb);
 });
 
 gulp.task('stylus', function() {
@@ -84,6 +84,8 @@ gulp.task('hashres', function() {
 });
 
 gulp.task('sprite', function(cb) {
+  console.log('Cleaning sprites directory...');
+  rimraf.sync('./common/dist/sprites');
   // Mobile Safari can't render image files > 1024x1024*3, so we have to break it down to multiple
   // files in this hack approach. See https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
   var images = glob.sync('./common/img/sprites/spritesmith/**/*.png');
