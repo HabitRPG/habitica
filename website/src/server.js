@@ -19,7 +19,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   });
 
 } else {
-  require('coffee-script/register'); // remove this once we've fully converted over
+  require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
   var path = require("path");
