@@ -193,7 +193,7 @@ gulp.task('dev', ['watch'], function() {
   nodemon({ script: pkg.main });
 });
 
-gulp.task('prod', ['clean', 'stylus', 'copy'], function() {
+gulp.task('prod', ['clean', 'stylus', 'browserify', 'copy'], function() {
   // @TODO: Finish this
 });
 gulp.task('default', ['dev']);
