@@ -14191,6 +14191,20 @@ api.backgrounds = {
       text: t('backgroundSnowyPinesText'),
       notes: t('backgroundSnowyPinesNotes')
     }
+  },
+  backgrounds022015: {
+    blacksmithy: {
+      text: t('backgroundBlacksmithyText'),
+      notes: t('backgroundBlacksmithyNotes')
+    },
+    crystal_cave: {
+      text: t('backgroundCrystalCaveText'),
+      notes: t('backgroundCrystalCaveNotes')
+    },
+    distant_castle: {
+      text: t('backgroundDistantCastleText'),
+      notes: t('backgroundDistantCastleNotes')
+    }
   }
 };
 
