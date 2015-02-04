@@ -23,9 +23,9 @@ var accountSuspended = function(uuid){
     code: 'ACCOUNT_SUSPENDED'
   };
 }
-// escape email for regex, then search case-insensitive. See http://stackoverflow.com/a/3561711/362790
-var mongoEmailRegex = function(email){
-  return new RegExp('^' + email.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
+// Allow case-insensitive regex searching for Mongo queries. See http://stackoverflow.com/a/3561711/362790
+var RegexEscape = function(s){
+  return new RegExp('^' + s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
 }
 
 api.auth = function(req, res, next) {
@@ -76,10 +76,10 @@ api.registerUser = function(req, res, next) {
       cb();
     },
     findEmail: function(cb) {
-      User.findOne({'auth.local.email': req.body.email}, cb);
+      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {_id:1}, cb);
     },
     findUname: function(cb) {
-      User.findOne({'auth.local.username': req.body.username}, cb);
+      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {_id:1}, cb);
     },
     findFacebook: function(cb){
       User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
@@ -211,7 +211,7 @@ api.resetPassword = function(req, res, next){
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
     hashed_password = utils.encryptPassword(newPassword, salt);
 
-  User.findOne({'auth.local.email':mongoEmailRegex(email)}, function(err, user){
+  User.findOne({'auth.local.email': RegexEscape(email)}, function(err, user){
     if (err) return next(err);
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
@@ -238,7 +238,7 @@ var invalidPassword = function(user, password){
 api.changeUsername = function(req, res, next) {
   async.waterfall([
     function(cb){
-      User.findOne({'auth.local.username': req.body.username}, {auth:1}, cb);
+      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {auth:1}, cb);
     },
     function(found, cb){
       if (found) return cb({code:401, err: "Username already taken"});
@@ -255,7 +255,7 @@ api.changeUsername = function(req, res, next) {
 api.changeEmail = function(req, res, next){
   async.waterfall([
     function(cb){
-      User.findOne({'auth.local.email': mongoEmailRegex(req.body.email)}, {auth:1}, cb);
+      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {auth:1}, cb);
     },
     function(found, cb){
       if(found) return cb({code:401, err: "Email already taken"});
