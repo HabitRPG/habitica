@@ -17,6 +17,7 @@ var gulp        = require('gulp'),
     spritesmith = require('gulp.spritesmith'),
     csso        = require('gulp-csso'),
     cssmin      = require('gulp-cssmin'),
+    config      = require('./website/config'),
     pkg         = require('./package');
 
 var paths = {
@@ -196,4 +197,8 @@ gulp.task('dev', ['watch'], function() {
 gulp.task('prod', ['clean', 'stylus', 'browserify', 'copy'], function() {
   // @TODO: Finish this
 });
-gulp.task('default', ['dev']);
+if(config.NODE_ENV == 'development') {
+  gulp.task('default', ['dev']);
+} else if(config.NODE_ENV == 'production') {
+  gulp.task('default', ['prod']);
+}
