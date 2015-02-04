@@ -98,6 +98,7 @@
     "phantomjssmith": "~0.5.4",
     "protractor": "~0.14.0",
     "rimraf": "^2.2.8",
+    "sinon": "^1.12.2",
     "superagent": "~0.15.7",
     "superagent-defaults": "~0.1.5",
     "vinyl-source-stream": "^1.0.0",
