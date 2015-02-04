@@ -213,6 +213,10 @@ window.habitrpg = angular.module('habitrpg',
           url: "/subscription",
           templateUrl: "partials/options.settings.subscription.html"
         })
+        .state('options.settings.notifications', {
+          url: "/notifications",
+          templateUrl: "partials/options.settings.notifications.html"
+        })
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
       if (settings && settings.auth) {

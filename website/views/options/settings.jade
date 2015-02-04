@@ -14,6 +14,8 @@ script(id='partials/options.settings.html', type="text/ng-template")
         =env.t('coupon')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
       a(ui-sref='options.settings.subscription')=env.t('subscription')
+    li(ng-class="{ active: $state.includes('options.settings.notifications') }")
+      a(ui-sref='options.settings.notifications')=env.t('notifications')
 
   .tab-content
     .tab-pane.active
@@ -84,11 +86,29 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   |&nbsp;
                   =env.t('subWarning3')
 
+      .personal-options.col-md-6
         .panel.panel-default
           .panel-heading
             span Registration
           .panel-body
-            p(ng-if='user.auth.facebook.id')=env.t('registeredWithFb')
+            div(ng-if='user.auth.facebook.id')
+              button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
+              button.btn.btn-danger(ng-click='http("delete","/api/v2/user/auth/social",null,"detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
+              hr
+              div(ng-if='!user.auth.local.username')
+                p Add local authentication:
+                form(ng-submit='http("post","/api/v2/register",localAuth,"addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
+                  //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
+                  .form-group
+                    input.form-control(type='text', placeholder=env.t('username'), ng-model='localAuth.username', required)
+                  .form-group
+                    input.form-control(type='text', placeholder=env.t('email'), ng-model='localAuth.email', required)
+                  .form-group
+                    input.form-control(type='password', placeholder=env.t('password'), ng-model='localAuth.password', required)
+                  .form-group
+                    input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='localAuth.confirmPassword', required)
+                  input.btn.btn-default(type='submit', ng-disabled='localAuth.$invalid', value=env.t('submit'))
+
             div(ng-if='user.auth.local.username')
               p=env.t('username') 
                 |: {{user.auth.local.username}}
@@ -100,31 +120,35 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                     |&nbsp;
                     =env.t('loginNameDescription3')                 
               p=env.t('email')
-                |: {{::user.auth.local.email}} 
-              p
-                small.muted
-                    =env.t('emailChange1')
-                    |&nbsp;
-                    a(href='mailto:admin@habitrpg.com')=env.t('emailChange2')
-                    |&nbsp;
-                    =env.t('emailChange3')
+                |: {{user.auth.local.email}}
               hr
+
               h5=env.t('changeUsername')
-              form(ng-submit='changeUsername(changeUser)', ng-show='user.auth.local')
+              form(ng-submit='changeUser("username", usernameUpdates)', ng-init='usernameUpdates={}', ng-show='user.auth.local', name='changeUsername', novalidate)
+                //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted')=env.t('fillAll')
                 .form-group
-                  input.form-control(type='text', placeholder=env.t('newUsername'), ng-model='changeUser.newUsername', required)
+                  input.form-control(type='text', placeholder=env.t('newUsername'), ng-model='usernameUpdates.username', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('password'), ng-model='changeUser.password', required)
-                input.btn.btn-default(type='submit', value=env.t('submit'))
+                  input.form-control(type='password', placeholder=env.t('password'), ng-model='usernameUpdates.password', required)
+                input.btn.btn-default(type='submit', ng-disabled='changeUsername.$invalid', value=env.t('submit'))
+
+              h5=env.t('changeEmail')
+              form(ng-submit='changeUser("email", emailUpdates)', ng-show='user.auth.local', name='changeEmail', novalidate)
+                .form-group
+                  input.form-control(type='text', placeholder=env.t('newEmail'), ng-model='emailUpdates.email', required)
+                .form-group
+                  input.form-control(type='password', placeholder=env.t('password'), ng-model='emailUpdates.password', required)
+                input.btn.btn-default(type='submit', ng-disabled='changeEmail.$invalid', value=env.t('submit'))
+
               h5=env.t('changePass')
-              form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
+              form(ng-submit='changeUser("password", passwordUpdates)', ng-show='user.auth.local', name='changePassword', novalidate)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
+                  input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='passwordUpdates.oldPassword', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
+                  input.form-control(type='password', placeholder=env.t('newPass'), ng-model='passwordUpdates.newPassword', required)
                 .form-group
-                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
-                input.btn.btn-default(type='submit', value=env.t('submit'))
+                  input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='passwordUpdates.confirmNewPassword', required)
+                input.btn.btn-default(type='submit', ng-disabled='changePassword.$invalid', value=env.t('submit'))
 
 
         .panel.panel-default
@@ -241,6 +265,64 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
   span.task-checker.action-yesno
     input.focusable(type='checkbox', checked)
     label
+
+script(id='partials/options.settings.notifications.html', type="text/ng-template")
+  .container-fluid
+    .row
+      .personal-options.col-md-6
+        .panel.panel-default
+          .panel-heading
+            =env.t('emailNotifications')
+          .panel-body
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.newPM', ng-change='set({"preferences.emailNotifications.newPM": user.preferences.emailNotifications.newPM ? true: false})')
+                span=env.t('newPM')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.wonChallenge', ng-change='set({"preferences.emailNotifications.wonChallenge": user.preferences.emailNotifications.wonChallenge ? true: false})')
+                span=env.t('wonChallenge')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedGems', ng-change='set({"preferences.emailNotifications.giftedGems": user.preferences.emailNotifications.giftedGems ? true: false})')
+                span=env.t('giftedGems')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedSubscription', ng-change='set({"preferences.emailNotifications.giftedSubscription": user.preferences.emailNotifications.giftedSubscription ? true: false})')
+                span=env.t('giftedSubscription')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedParty', ng-change='set({"preferences.emailNotifications.invitedParty": user.preferences.emailNotifications.invitedParty ? true: false})')
+                span=env.t('invitedParty')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedGuild', ng-change='set({"preferences.emailNotifications.invitedGuild": user.preferences.emailNotifications.invitedGuild ? true: false})')
+                span=env.t('invitedGuild')
+
+            //.checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.remindersToLogin', ng-change='set({"preferences.emailNotifications.remindersToLogin": user.preferences.emailNotifications.remindersToLogin ? true: false})')
+                span=env.t('remindersToLogin')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
+                span=env.t('importantAnnouncements')
+            
+            hr
+
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll', ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
+                span=env.t('unsubscribeAllEmails')
+            
+            small=env.t('unsubscribeAllEmailsText')
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
   //-h2=env.t('individualSub')

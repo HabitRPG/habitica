@@ -261,58 +261,36 @@ api.update = function(req, res, next) {
 };
 
 api.cron = function(req, res, next) {
-  try{
-    var user = res.locals.user,
-      progress = user.fns.cron(),
-      ranCron = user.isModified(),
-      quest = shared.content.quests[user.party.quest.key];
+  var user = res.locals.user,
+    progress = user.fns.cron(),
+    ranCron = user.isModified(),
+    quest = shared.content.quests[user.party.quest.key];
 
-    if (ranCron) res.locals.wasModified = true;
-    if (!ranCron) return next(null,user);
-    Group.tavernBoss(user,progress);
-    if (!quest) return user.save(next);
+  if (ranCron) res.locals.wasModified = true;
+  if (!ranCron) return next(null,user);
+  Group.tavernBoss(user,progress);
+  if (!quest) return user.save(next);
 
-    // FOR DEBUGGING, PLEASE IGNORE
-    var opStatus = null;
-
-    // If user is on a quest, roll for boss & player, or handle collections
-    // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
-    async.waterfall([
-      function(cb){
-        opStatus = 'saveUser';
-        user.save(cb); // make sure to save the cron effects
-      },
-      function(saved, count, cb){
-        opStatus = 'runQuest';
-        var type = quest.boss ? 'boss' : 'collect';
-        Group[type+'Quest'](user,progress,cb);
-      },
-      function(){
-        var cb = arguments[arguments.length-1];
-        // User has been updated in boss-grapple, reload
-        User.findById(user._id, cb);
-      }
-    ], function(err, saved) {
-      if(err) logging.loggly({
-        error: "Cron caught",
-        stack: (err.stack || err.message || err),
-        body: req.body, headers: req.header,
-        auth: req.headers['x-api-user'],
-        originalUrl: req.originalUrl,
-        opStatus: opStatus
-      });
-      res.locals.user = saved;
-      next(err,saved);
-      user = progress = quest = null;
-    });
-  }catch(e){
-    logging.loggly({
-      error: "Cron uncaught",
-      stack: e.stack || e
-    });
-    throw e;
-  }
-
+  // If user is on a quest, roll for boss & player, or handle collections
+  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+  async.waterfall([
+    function(cb){
+      user.save(cb); // make sure to save the cron effects
+    },
+    function(saved, count, cb){
+      var type = quest.boss ? 'boss' : 'collect';
+      Group[type+'Quest'](user,progress,cb);
+    },
+    function(){
+      var cb = arguments[arguments.length-1];
+      // User has been updated in boss-grapple, reload
+      User.findById(user._id, cb);
+    }
+  ], function(err, saved) {
+    res.locals.user = saved;
+    next(err,saved);
+    user = progress = quest = null;
+  });
 };
 
 // api.reroll // Shared.ops
@@ -437,16 +415,34 @@ api.cast = function(req, res, next) {
 api.inviteFriends = function(req, res, next) {
   Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
     if (err) return next(err);
-    var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:party._id, inviter:res.locals.user._id, name:party.name}));
+
     _.each(req.body.emails, function(invite){
       if (invite.email) {
-        var variables = [
-          {name: 'LINK', content: link},
-          {name: 'INVITER', content: req.body.inviter || res.locals.user.profile.name},
-          {name: 'INVITEE', content: invite.name}
-        ];
-        // TODO implement "users can only be invited once"
-        utils.txnEmail(invite, 'invite-friend', variables);
+
+        User.findOne({$or: [
+          {'auth.local.email': invite.email},
+          {'auth.facebook.emails.value': invite.email}
+        ]}).select({_id: true, 'preferences.emailNotifications': true})
+          .exec(function(err, userToContact){
+            if(err) return next(err);
+
+            var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:party._id, inviter:res.locals.user._id, name:party.name}));
+
+            var variables = [
+              {name: 'LINK', content: link},
+              {name: 'INVITER', content: req.body.inviter || utils.getUserInfo(res.locals.user, ['name']).name}
+            ];
+
+            invite.canSend = true;
+
+            // We check for unsubscribeFromAll here because don't pass through utils.getUserInfo
+            if(!userToContact || (userToContact.preferences.emailNotifications.invitedParty !== false && 
+                userToContact.preferences.emailNotifications.unsubscribeFromAll !== true)){
+              // TODO implement "users can only be invited once"
+              utils.txnEmail(invite, 'invite-friend', variables);
+            }
+          });
+
       }
     });
     res.send(200);
@@ -477,7 +473,7 @@ api.sessionPartyInvite = function(req,res,next){
 }
 
 /**
- * All other user.ops which can easily be mapped to ../../common/scripts/index.coffee, not requiring custom API-wrapping
+ * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
  */
 _.each(shared.wrap({}).ops, function(op,k){
   if (!api[k]) {

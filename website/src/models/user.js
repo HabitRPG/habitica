@@ -297,7 +297,20 @@ var UserSchema = new Schema({
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
-    webhooks: {type: Schema.Types.Mixed, 'default': {}}
+    webhooks: {type: Schema.Types.Mixed, 'default': {}},
+    // For this fields make sure to use strict comparison when searching for falsey values (=== false)
+    // As users who didn't login after these were introduced may have them undefined/null
+    emailNotifications: {
+      unsubscribeFromAll: {type: Boolean, 'default': false},
+      newPM: {type: Boolean, 'default': true},
+      wonChallenge: {type: Boolean, 'default': true},
+      giftedGems: {type: Boolean, 'default': true},
+      giftedSubscription: {type: Boolean, 'default': true},
+      invitedParty: {type: Boolean, 'default': true},
+      invitedGuild: {type: Boolean, 'default': true},
+      //remindersToLogin: {type: Boolean, 'default': true},
+      importantAnnouncements: {type: Boolean, 'default': true}
+    }
   },
   profile: {
     blurb: String,

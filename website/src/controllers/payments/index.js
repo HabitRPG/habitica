@@ -73,7 +73,15 @@ exports.createSubscription = function(data, cb) {
     utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
   }
   data.user.purchased.txnCount++;
-  if (data.gift) members.sendMessage(data.user, data.gift.member, data.gift);
+  if (data.gift){
+    members.sendMessage(data.user, data.gift.member, data.gift);
+    if(data.gift.member.preferences.emailNotifications.giftedSubscription !== false){
+      utils.txnEmail(member, 'gifted-subscription', [
+        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
+        {name: 'X_MONTHS_SUBSCRIPTION', content: months}
+      ]);
+    }    
+  }
   async.parallel([
     function(cb2){data.user.save(cb2)},
     function(cb2){data.gift ? data.gift.member.save(cb2) : cb2(null);}
@@ -96,7 +104,7 @@ exports.cancelSubscription = function(data, cb) {
   p.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
   data.user.save(cb);
-  if(isProduction) utils.txnEmail(data.user, 'cancel-subscription');
+  utils.txnEmail(data.user, 'cancel-subscription');
   utils.ga.event('unsubscribe', data.paymentMethod).send();
 }
 
@@ -110,7 +118,15 @@ exports.buyGems = function(data, cb) {
     //TODO ga.transaction to reflect whether this is gift or self-purchase
     utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
   }
-  if (data.gift) members.sendMessage(data.user, data.gift.member, data.gift);
+  if (data.gift){
+    members.sendMessage(data.user, data.gift.member, data.gift);
+    if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
+      utils.txnEmail(member, 'gifted-gems', [
+        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
+        {name: 'X_GEMS_GIFTED', content: data.gift.gems.amount || 20}
+      ]);
+    }
+  }
   async.parallel([
     function(cb2){data.user.save(cb2)},
     function(cb2){data.gift ? data.gift.member.save(cb2) : cb2(null);}

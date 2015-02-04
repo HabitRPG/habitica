@@ -77,33 +77,12 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
-    $scope.changeUsername = function(changeUser){
-      if (!changeUser.newUsername || !changeUser.password) {
-        return alert(window.env.t('fillAll'));
-      }
-      $http.post(ApiUrl.get() + '/api/v2/user/change-username', changeUser)
+    $scope.changeUser = function(attr, updates){
+      $http.post(ApiUrl.get() + '/api/v2/user/change-'+attr, updates)
         .success(function(){
-          alert(window.env.t('usernameSuccess'));
-          $scope.changeUser = {};
+          alert(window.env.t(attr+'Success'));
+          _.each(updates, function(v,k){updates[k]=null;});
           User.sync();
-        })
-        .error(function(data){
-          alert(data.err);
-        });
-    }
-
-    $scope.changePassword = function(changePass){
-      if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
-        return alert(window.env.t('fillAll'));
-      }
-      $http.post(ApiUrl.get() + '/api/v2/user/change-password', changePass)
-        .success(function(data, status, headers, config){
-          if (data.err) return alert(data.err);
-          alert(window.env.t('passSuccess'));
-          $scope.changePass = {};
-        })
-        .error(function(data, status, headers, config){
-          alert(data.err);
         });
     }
 
