@@ -25,11 +25,13 @@ var paths = {
        app: './website/public/css/index.styl',
        staticPage: './website/public/css/static.styl' // static is a 'future' reserved word
      },
-     dest: './website/build/'
+     dest: './website/build/',
+     watch: './website/public/css/*.styl'
   },
   common: {
     src: ['./common/index.js'],
-    dest: './common/dist/scripts/'
+    dest: './common/dist/scripts/',
+    watch: ['./common/*.js', './common/script/*.coffee']
   },
   sprites: {
     src: './common/img/sprites/spritesmith/**/*.png',
@@ -45,6 +47,17 @@ var paths = {
       './common/img/sprites/npc_ian.gif',
       './bower_components/bootstrap/dist/fonts/*'],
     dest: './build/'
+  },
+  hashres: {
+    fileNameFormat: '${name}-${hash}.${ext}',
+    src: [
+      'website/build/*.js', 'website/build/*.css', 'website/build/favicon.ico',
+      'common/dist/sprites/*.png',
+      'common/img/sprites/backer-only/*.gif',
+      'common/img/sprites/npc_ian.gif',
+      'website/public/bower_components/bootstrap/dist/fonts/*'
+    ],
+    dest: 'build/*.css'
   }
 };
 
@@ -171,12 +184,12 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest(paths.common.dest))
 })
 
-gulp.task('watch', ['stylus'], function() {
-  // @TODO: Finish this
+gulp.task('watch', ['stylus', 'browserify'], function() {
+  gulp.watch(paths.stylus.watch, ['stylus']);
+  gulp.watch(paths.common.watch, ['browserify']);
 });
 
 gulp.task('dev', ['watch'], function() {
-  // @TODO: Finish this
   nodemon({ script: pkg.main });
 });
 
