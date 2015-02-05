@@ -409,46 +409,6 @@ api.cast = function(req, res, next) {
   }
 }
 
-/**
- * POST /user/invite-friends
- */
-api.inviteFriends = function(req, res, next) {
-  Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
-    if (err) return next(err);
-
-    _.each(req.body.emails, function(invite){
-      if (invite.email) {
-
-        User.findOne({$or: [
-          {'auth.local.email': invite.email},
-          {'auth.facebook.emails.value': invite.email}
-        ]}).select({_id: true, 'preferences.emailNotifications': true})
-          .exec(function(err, userToContact){
-            if(err) return next(err);
-
-            var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:party._id, inviter:res.locals.user._id, name:party.name}));
-
-            var variables = [
-              {name: 'LINK', content: link},
-              {name: 'INVITER', content: req.body.inviter || utils.getUserInfo(res.locals.user, ['name']).name}
-            ];
-
-            invite.canSend = true;
-
-            // We check for unsubscribeFromAll here because don't pass through utils.getUserInfo
-            if(!userToContact || (userToContact.preferences.emailNotifications.invitedParty !== false && 
-                userToContact.preferences.emailNotifications.unsubscribeFromAll !== true)){
-              // TODO implement "users can only be invited once"
-              utils.txnEmail(invite, 'invite-friend', variables);
-            }
-          });
-
-      }
-    });
-    res.send(200);
-  })
-}
-
 api.sessionPartyInvite = function(req,res,next){
   if (!req.session.partyInvite) return next();
   var inv = res.locals.user.invitations;

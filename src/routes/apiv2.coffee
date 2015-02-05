@@ -365,15 +365,6 @@ module.exports = (swagger, v2) ->
         ]
       action: user.deleteTag
 
-    "/user/social/invite-friends":
-      spec:
-        method: 'POST'
-        description: 'Invite friends via email'
-        parameters: [
-          body 'invites','Array of [{name:"Friend\'s Name", email:"friends@email.com"}] to invite to play in your party','object'
-        ]
-      action: user.inviteFriends
-
     # Webhooks
     "/user/webhooks":
       spec:
@@ -469,7 +460,7 @@ module.exports = (swagger, v2) ->
         description: "Invite a user to a group"
         parameters: [
           path 'gid','Group id','string'
-          query 'uuid','User id to invite','string'
+          query 'invitationType','The type of invitation to send (uuid or email)','string'
         ]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action:groups.invite

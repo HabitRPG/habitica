@@ -508,80 +508,149 @@ api.leave = function(req, res, next) {
   })
 }
 
-api.invite = function(req, res, next) {
-  var group = res.locals.group;
-  var uuid = req.query.uuid;
+var inviteByUUID = function(uuids, group, req, res, next){
+  uuids = Array.isArray(uuids) ? uuids : [uuids];
 
-  User.findById(uuid, function(err,invite){
-    if (err) return next(err);
-    if (!invite)
-       return res.json(400,{err:'User with id "' + uuid + '" not found'});
-    if (group.type == 'guild') {
-      if (_.contains(group.members,uuid))
-        return res.json(400,{err: "User already in that group"});
-      if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
-        return res.json(400, {err:"User already invited to that group"});
-      sendInvite();
-    } else if (group.type == 'party') {
-      if (invite.invitations && !_.isEmpty(invite.invitations.party))
-        return res.json(400,{err:"User already pending invitation."});
-      Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
-        if (err) return next(err);
-        if (!_.isEmpty(groups))
-          return res.json(400,{err:"User already in a party."})
+  async.each(uuids, function(uuid, cb){
+    User.findById(uuid, function(err,invite){
+      if (err) return cb(err);
+      if (!invite)
+         return cb({code:400,err:'User with id "' + uuid + '" not found'});
+      if (group.type == 'guild') {
+        if (_.contains(group.members,uuid))
+          return cb({code:400,err: "User already in that group"});
+        if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
+          return cb({code:400,err:"User already invited to that group"});
         sendInvite();
-      });
-    }
-
-    function sendInvite (){
-      if(group.type === 'guild'){
-        invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
-      }else{
-        //req.body.type in 'guild', 'party'
-        invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
+      } else if (group.type == 'party') {
+        if (invite.invitations && !_.isEmpty(invite.invitations.party))
+          return cb({code:400,err:"User already pending invitation."});
+        Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
+          if (err) return cb(err);
+          if (!_.isEmpty(groups))
+            return cb({code:400,err:"User already in a party."})
+          sendInvite();
+        });
       }
 
-      group.invites.push(invite._id);
-
-      async.series([
-        function(cb){
-          invite.save(cb);
-        },
-        function(cb){
-          group.save(cb);
-        },
-        function(cb){
-          populateQuery(group.type, Group.findById(group._id)).exec(cb);
+      function sendInvite (){
+        if(group.type === 'guild'){
+          invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
+        }else{
+          //req.body.type in 'guild', 'party'
+          invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
         }
-      ], function(err, results){
-        if (err) return next(err);
 
-        if(invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false){
-          var emailVars = [
-            {name: 'INVITER', content: utils.getUserInfo(res.locals.user, ['name']).name}
-          ];
+        group.invites.push(invite._id);
 
-          if(group.type == 'guild'){
-            emailVars.push(
-              {name: 'GUILD_NAME', content: group.name},
-              {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'}
-            );
-          }else{
-            emailVars.push(
-              {name: 'PARTY_NAME', content: group.name},
-              {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-            )
+        async.series([
+          function(cb){
+            invite.save(cb);
+          },
+          function(cb){
+            group.save(cb);
+          }
+        ], function(err, results){
+          if (err) return cb(err);
+
+          if(invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false){
+            var emailVars = [
+              {name: 'INVITER', content: utils.getUserInfo(res.locals.user, ['name']).name}
+            ];
+
+            if(group.type == 'guild'){
+              emailVars.push(
+                {name: 'GUILD_NAME', content: group.name},
+                {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'}
+              );
+            }else{
+              emailVars.push(
+                {name: 'PARTY_NAME', content: group.name},
+                {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+              )
+            }
+
+            utils.txnEmail(invite, ('invited-' + (group.type == 'guild' ? 'guild' : 'party')), emailVars);
           }
 
-          utils.txnEmail(invite, ('invited-' + (group.type == 'guild' ? 'guild' : 'party')), emailVars);
-        }
+          cb();
+        });
+      }
+    });    
+  }, function(err){
+    if(err){
+      return err.code ? res.json(err.code, {err: err.err}) : next(err);
+    }
 
-        // Have to return whole group and its members for angular to show the invited user
-        res.json(results[2]);
-        group = uuid = null;
-      });
+    populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
+      if(err) return next(err);
+
+      res.json(populatedGroup);
+    });
+  });
+
+};
+
+var inviteByEmail = function(invites, group, req, res, next){
+  var usersAlreadyRegistered = [];
+
+  async.each(invites, function(invite, cb){
+    if (invite.email) {
+      User.findOne({$or: [
+        {'auth.local.email': invite.email},
+        {'auth.facebook.emails.value': invite.email}
+      ]}).select({_id: true, 'preferences.emailNotifications': true})
+        .exec(function(err, userToContact){
+          if(err) return next(err);
+
+          if(userToContact){
+            usersAlreadyRegistered.push(userToContact._id);
+            return cb();
+          }
+
+          var link = nconf.get('BASE_URL')+'?groupInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
+
+          var variables = [
+            {name: 'LINK', content: link},
+            {name: 'INVITER', content: req.body.inviter || utils.getUserInfo(res.locals.user, ['name']).name}
+          ];
+
+          // We check for unsubscribeFromAll here because don't pass through utils.getUserInfo
+          if(!userToContact || 
+              (invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false && 
+              userToContact.preferences.emailNotifications.unsubscribeFromAll !== true)){
+            // TODO implement "users can only be invited once"
+            invite.canSend = true;
+            utils.txnEmail(invite, 'invite-friend', variables);
+          }
+
+          cb();
+        });
+    }else{
+      cb('Email address is required.');
+    }
+  }, function(err){
+    if(err) return next(err);
+
+    if(usersAlreadyRegistered.length > 0){
+      inviteByUUID(usersAlreadyRegistered, group, req, res, next);
+    }else{
+      res.send(200);
     }
   });
+};
+
+api.invite = function(req, res, next){
+  var group = res.locals.group;
+  var invitationType = req.query.invitationType;
+
+  if(invitationType == 'uuid'){
+    inviteByUUID(req.query.uuid, group, req, res, next);
+  }else if(invitationType == 'email'){
+    inviteByEmail(req.body.emails, group, req, res, next)
+  }else{
+    return res.json(400,{err: "Can invite only by email or uuid"});
+  }
 }
 
 api.removeMember = function(req, res, next){
