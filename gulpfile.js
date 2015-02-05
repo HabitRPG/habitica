@@ -239,7 +239,7 @@ gulp.task('build:js', function() {
   });
 });
 
-gulp.task('build', ['loadManifest', 'build:css', 'build:js'], function() {
+gulp.task('build', ['loadManifest', 'clean', 'stylus', 'browserify', 'build:css', 'build:js'], function() {
   
 });
 
@@ -252,9 +252,10 @@ gulp.task('dev', ['watch'], function() {
   nodemon({ script: pkg.main });
 });
 
-gulp.task('prod', ['clean', 'stylus', 'browserify', 'copy'], function() {
-  // @TODO: Finish this
+gulp.task('prod', ['build'], function() {
+  nodemon({ script: pkg.main });
 });
+
 if(config.NODE_ENV == 'development') {
   gulp.task('default', ['dev']);
 } else if(config.NODE_ENV == 'production') {
