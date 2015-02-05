@@ -166,7 +166,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       }
       matrix = [[env.t('date'), env.t('score')]];
       _.each(history, function(obj) {
-        matrix.push([moment(obj.date).format('MM/DD/YY'), obj.value]);
+        matrix.push([moment(obj.date).format(User.user.preferences.dateFormat.toUpperCase().replace('YYYY','YY') ), obj.value]);
       });
       data = google.visualization.arrayToDataTable(matrix);
       options = {
