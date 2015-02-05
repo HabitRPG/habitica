@@ -190,7 +190,8 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest(paths.common.dest))
 })
 
-gulp.task('build', function() {
+gulp.task('loadManifest', function(cb) {
+
   var files = require('./website/public/manifest');
   var j = paths.build.js;
   var c = paths.build.css;
@@ -211,7 +212,12 @@ gulp.task('build', function() {
     });
 
   });
+  cb();
+});
 
+gulp.task('build:css', function() {
+
+  var c = paths.build.css;
   // Concat CSS
   _.each(c, function(val, key) {
     gulp.src(val)
@@ -219,7 +225,11 @@ gulp.task('build', function() {
       .pipe(cssmin())
       .pipe(gulp.dest(paths.build.dest))
   });
+});
 
+gulp.task('build:js', function() {
+
+  var j = paths.build.js;
   // Uglify JS
   _.each(j, function(val, key) {
     gulp.src(val)
@@ -227,6 +237,10 @@ gulp.task('build', function() {
       .pipe(uglify())
       .pipe(gulp.dest(paths.build.dest))
   });
+});
+
+gulp.task('build', ['loadManifest', 'build:css', 'build:js'], function() {
+  
 });
 
 gulp.task('watch', ['stylus', 'browserify'], function() {
