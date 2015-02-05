@@ -55,7 +55,7 @@ function($rootScope, User, $timeout, $state) {
         element: "ul.todos",
         title: window.env.t('todos'),
         content: window.env.t('tourTodos'),
-        placement: "top"
+        placement: "top",
       }, {
         element: "ul.main-list.rewards",
         title: window.env.t('rewards'),
@@ -73,30 +73,26 @@ function($rootScope, User, $timeout, $state) {
         placement: "right"
       }
     ];
-    _.each(tourSteps, function(step){
-      if (env.worldDmg.guide) {
-        step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
-      } else {
-        step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>";
+    $('.main-herobox').popover('destroy');
+    var tour = new Tour({
+      backdrop: true,
+      //orphan: true,
+      //keyboard: false,
+      template: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> <button class="btn btn-sm btn-default" data-role="end">' + window.env.t('endTour') + '</button> </div> </div>',
+      onEnd: function(){
+        User.set({'flags.showTour': false});
       }
+    });
+    _.each(tourSteps, function(step) {
+      step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       step.onShow = function(){
         // Since all the steps are currently on the tasks page, ensure we go back there for each step in case they
         // clicked elsewhere during the tour. FIXME: $state.go() returns a promise, necessary for async tour steps;
         // however, that's not working here - have to use timeout instead :/
         if (!$state.is('tasks')) return $timeout(function(){$state.go('tasks');}, 0)
       }
-    });
-    $('.main-herobox').popover('destroy');
-    var tour = new Tour({
-      backdrop: true,
-      //orphan: true,
-      template: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> <button class="btn btn-sm btn-default" data-role="end">' + window.env.t('endTour') + '</button> </div> </div>',
-      onEnd: function(){
-        User.set({'flags.showTour': false});
-      }
-    });
-    tourSteps.forEach(function(step) {
-      tour.addStep(_.defaults(step, {html: true}));
+      step.html = true;
+      tour.addStep(step);
     });
     tour.restart(); // Tour doesn't quite mesh with our handling of flags.showTour, just restart it on page load
     //tour.start(true);
