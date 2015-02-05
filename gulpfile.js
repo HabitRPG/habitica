@@ -21,7 +21,11 @@ var gulp        = require('gulp'),
     pkg         = require('./package');
 
 var paths = {
-  build: "./website/build",
+  build: {
+    css: {},
+    js: {},
+    dest: "./website/build"
+  },
   stylus: {
      src: {
        app: './website/public/css/index.styl',
@@ -166,7 +170,6 @@ gulp.task('sprite', function(cb) {
           STEP++;
           console.log("Finished spritesmith" + key + ".png");
           if(STEP >= COUNT) {
-            console.log(paths.sprites.cssminSrc);
             gulp.src(paths.sprites.cssminSrc)
               .pipe(concat('habitrpg-shared.css'))
               .pipe(cssmin())
@@ -189,40 +192,40 @@ gulp.task('browserify', function() {
 
 gulp.task('build', function() {
   var files = require('./website/public/manifest');
-  var uglifySrc = {};
-  var cssminSrc = {};
+  var j = paths.build.js;
+  var c = paths.build.css;
 
   _.each(files, function(val, key){
 
-    var js = uglifySrc[key + '.js'] = [];
+    var js = j[key + '.js'] = [];
 
     _.each(files[key].js, function(val){
       js.push('./website/public/' + val);
     });
 
-    var css = cssminSrc[key + '.css'] = [];
+    var css = c[key + '.css'] = [];
 
     _.each(files[key].css, function(val){
-      var path = (val == 'app.css' || val == 'static.css') ?  paths.build : './website/public/';
+      var path = (val == 'app.css' || val == 'static.css') ?  paths.build.dest : './website/public/';
       css.push(path + val)
     });
 
   });
 
   // Concat CSS
-  _.each(cssminSrc, function(val, key) {
+  _.each(c, function(val, key) {
     gulp.src(val)
       .pipe(concat(key))
       .pipe(cssmin())
-      .pipe(gulp.dest(paths.build))
+      .pipe(gulp.dest(paths.build.dest))
   });
 
   // Uglify JS
-  _.each(uglifySrc, function(val, key) {
+  _.each(j, function(val, key) {
     gulp.src(val)
       .pipe(concat(key))
       .pipe(uglify())
-      .pipe(gulp.dest(paths.build))
+      .pipe(gulp.dest(paths.build.dest))
   });
 });
 
