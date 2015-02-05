@@ -11,6 +11,7 @@ var gulp        = require('gulp'),
     stylus      = require('gulp-stylus'),
     nib         = require('nib'),
     minifycss   = require('gulp-minify-css'),
+    hash        = require('gulp-hash'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglify'),
     concat      = require('gulp-concat'),
@@ -54,8 +55,12 @@ var paths = {
       './bower_components/bootstrap/dist/fonts/*'],
     dest: './build/'
   },
-  hashres: {
-    fileNameFormat: '${name}-${hash}.${ext}',
+  hash: {
+    options : {
+      algorithm: 'md5',
+      hashLength: 8,
+      template: '<%= name %>-<%= hash %><%= ext %>'
+    },
     src: [
       'website/build/*.js', 'website/build/*.css', 'website/build/favicon.ico',
       'common/dist/sprites/*.png',
@@ -96,10 +101,6 @@ gulp.task('stylus', function() {
 gulp.task('copy', function() {
   gulp.src(paths.copy.src)
     .pipe(gulp.dest(paths.copy.dest));
-});
-
-gulp.task('hashres', function() {
-  // @TODO: Finish this
 });
 
 gulp.task('sprite', function(cb) {
@@ -239,8 +240,16 @@ gulp.task('build:js', function() {
   });
 });
 
-gulp.task('build', ['loadManifest', 'clean', 'stylus', 'browserify', 'build:css', 'build:js'], function() {
-  
+gulp.task('build', ['loadManifest', 'clean', 'stylus', 'browserify', 'build:css', 'build:js'], function(cb) {
+
+  gulp.src(paths.hash.src)
+    .pipe(hash(paths.hash.options)) // Add hashes to the files' names 
+    .pipe(gulp.dest('./website/build')) // Write the now-renamed files 
+    //.pipe(hash.manifest('asset-hashes.json')) // Change the stream to the manifest file 
+    //.pipe(gulp.dest('public')); // Write the manifest file 
+    .on('end', function(){
+      cb();
+    });
 });
 
 gulp.task('watch', ['stylus', 'browserify'], function() {
