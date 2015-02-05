@@ -196,13 +196,13 @@ gulp.task('build', function() {
 
     var js = uglifySrc[key + '.js'] = [];
 
-    _.each(files[key]['js'], function(val){
+    _.each(files[key].js, function(val){
       js.push('./website/public/' + val);
     });
 
     var css = cssminSrc[key + '.css'] = [];
 
-    _.each(files[key]['css'], function(val){
+    _.each(files[key].css, function(val){
       var path = (val == 'app.css' || val == 'static.css') ?  paths.build : './website/public/';
       css.push(path + val)
     });
