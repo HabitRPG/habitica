@@ -21,6 +21,7 @@ var gulp        = require('gulp'),
     pkg         = require('./package');
 
 var paths = {
+  build: "./website/build",
   stylus: {
      src: {
        app: './website/public/css/index.styl',
@@ -165,6 +166,7 @@ gulp.task('sprite', function(cb) {
           STEP++;
           console.log("Finished spritesmith" + key + ".png");
           if(STEP >= COUNT) {
+            console.log(paths.sprites.cssminSrc);
             gulp.src(paths.sprites.cssminSrc)
               .pipe(concat('habitrpg-shared.css'))
               .pipe(cssmin())
@@ -184,6 +186,45 @@ gulp.task('browserify', function() {
     .pipe(source('habitrpg-shared.js'))
     .pipe(gulp.dest(paths.common.dest))
 })
+
+gulp.task('build', function() {
+  var files = require('./website/public/manifest');
+  var uglifySrc = {};
+  var cssminSrc = {};
+
+  _.each(files, function(val, key){
+
+    var js = uglifySrc[key + '.js'] = [];
+
+    _.each(files[key]['js'], function(val){
+      js.push('./website/public/' + val);
+    });
+
+    var css = cssminSrc[key + '.css'] = [];
+
+    _.each(files[key]['css'], function(val){
+      var path = (val == 'app.css' || val == 'static.css') ?  paths.build : './website/public/';
+      css.push(path + val)
+    });
+
+  });
+
+  // Concat CSS
+  _.each(cssminSrc, function(val, key) {
+    gulp.src(val)
+      .pipe(concat(key))
+      .pipe(cssmin())
+      .pipe(gulp.dest(paths.build))
+  });
+
+  // Uglify JS
+  _.each(uglifySrc, function(val, key) {
+    gulp.src(val)
+      .pipe(concat(key))
+      .pipe(uglify())
+      .pipe(gulp.dest(paths.build))
+  });
+});
 
 gulp.task('watch', ['stylus', 'browserify'], function() {
   gulp.watch(paths.stylus.watch, ['stylus']);

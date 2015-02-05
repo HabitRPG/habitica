@@ -111,7 +111,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
   .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
     function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
       $scope.timestamp = function(timestamp){
-        return moment(timestamp).format('MM/DD/YYYY');
+        return moment(timestamp).format($rootScope.User.user.preferences.dateFormat.toUpperCase());
       }
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {

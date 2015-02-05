@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 
   //Load build files from public/manifest.json
   grunt.registerTask('loadManifestFiles', 'Load all build files from public/manifest.json', function(){
-    var files = grunt.file.readJSON('./public/manifest.json');
+    var files = grunt.file.readJSON('./website/public/manifest.json');
     var uglify = {};
     var cssmin = {};
 
@@ -130,6 +130,8 @@ module.exports = function(grunt) {
       });
 
     });
+    console.log(uglify);
+    console.log(cssmin);
 
     grunt.config.set('uglify.build.files', uglify);
     grunt.config.set('uglify.build.options', {compress: false});
@@ -142,6 +144,7 @@ module.exports = function(grunt) {
   // Register tasks.
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
   grunt.registerTask('build:dev', ['stylus']);
+  grunt.registerTask('test', ['loadManifestFiles', 'uglify', 'cssmin']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
