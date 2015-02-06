@@ -9,6 +9,7 @@ var gulp        = require('gulp'),
     nodemon     = require('gulp-nodemon'),
     karma       = require('karma').server,
     stylus      = require('gulp-stylus'),
+    filter      = require('gulp-filter'),
     nib         = require('nib'),
     minifycss   = require('gulp-minify-css'),
     hash        = require('gulp-hash'),
@@ -28,10 +29,8 @@ var paths = {
     dest: "./website/build"
   },
   stylus: {
-     src: {
-       app: './website/public/css/index.styl',
-       staticPage: './website/public/css/static.styl' // static is a 'future' reserved word
-     },
+     src: ['./website/public/css/index.styl', 
+           './website/public/css/static.styl'],
      dest: './website/build/',
      watch: './website/public/css/*.styl'
   },
@@ -89,21 +88,15 @@ gulp.task('clean', function() {
   rimraf.sync(paths.build.dest);
 });
 
-gulp.task('stylus:app', function() {
-  return gulp.src(paths.stylus.src.app)
+gulp.task('stylus', function() { 
+  var appFilter = filter(['*', '!static.styl']);
+  return gulp.src(paths.stylus.src)
+    .pipe(appFilter)
+    .pipe(rename('app.styl'))
+    .pipe(appFilter.restore())
     .pipe(stylus({use: [nib()]}))
-    .pipe(rename('app.css'))
     .pipe(gulp.dest(paths.stylus.dest));
 });
-
-gulp.task('stylus:static', function() {
-  return gulp.src(paths.stylus.src.staticPage)
-    .pipe(stylus({use: [nib()]}))
-    .pipe(rename('static.css'))
-    .pipe(gulp.dest(paths.stylus.dest));
-});
-
-gulp.task('stylus', ['stylus:app', 'stylus:static'], function() { });
 
 gulp.task('copy', function() {
   gulp.src(paths.copy.src)

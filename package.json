@@ -74,6 +74,7 @@
     "gulp-concat": "^2.4.3",
     "gulp-cssmin": "^0.1.6",
     "gulp-csso": "^1.0.0",
+    "gulp-filter": "^2.0.0",
     "gulp-hash": "^2.0.3",
     "gulp-minify-css": "^0.4.2",
     "gulp-nodemon": "^1.0.5",
