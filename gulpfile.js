@@ -9,7 +9,7 @@ var gulp        = require('gulp'),
     nodemon     = require('gulp-nodemon'),
     karma       = require('karma').server,
     stylus      = require('gulp-stylus'),
-    filter      = require('gulp-filter'),
+    es          = require('event-stream'),
     nib         = require('nib'),
     minifycss   = require('gulp-minify-css'),
     hash        = require('gulp-hash'),
@@ -29,8 +29,10 @@ var paths = {
     dest: "./website/build"
   },
   stylus: {
-     src: ['./website/public/css/index.styl', 
-           './website/public/css/static.styl'],
+     src: {
+       app: './website/public/css/index.styl', 
+       staticPage:'./website/public/css/static.styl'
+     },
      dest: './website/build/',
      watch: './website/public/css/*.styl'
   },
@@ -89,11 +91,11 @@ gulp.task('clean', function() {
 });
 
 gulp.task('stylus', function() { 
-  var appFilter = filter(['*', '!static.styl']);
-  return gulp.src(paths.stylus.src)
-    .pipe(appFilter)
-    .pipe(rename('app.styl'))
-    .pipe(appFilter.restore())
+  return es.merge(
+    gulp.src(paths.stylus.src.app)
+      .pipe(rename('app.styl')),
+    gulp.src(paths.stylus.src.staticPage)
+  )
     .pipe(stylus({use: [nib()]}))
     .pipe(gulp.dest(paths.stylus.dest));
 });
