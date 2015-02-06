@@ -12,7 +12,6 @@ var gulp        = require('gulp'),
     es          = require('event-stream'),
     nib         = require('nib'),
     minifycss   = require('gulp-minify-css'),
-    hash        = require('gulp-hash'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglify'),
     concat      = require('gulp-concat'),
@@ -51,27 +50,14 @@ var paths = {
     cssminDest: './common/dist/sprites/'
   },
   copy: {
-    src: ['./common/img/sprites/backer-only/*.gif', 
-      './common/img/sprites/npc_ian.gif',
-      './bower_components/bootstrap/dist/fonts/*'],
-    dest: './build/'
-  },
-  hash: {
-    options : {
-      algorithm: 'md5',
-      hashLength: 8,
-      template: '<%= name %>-<%= hash %><%= ext %>'
+    src: {
+      favicon: './website/public/favicon.ico',
+      sprites: './common/dist/sprites/spritesmith*.png',
+      backer: './common/img/sprites/backer-only/*.gif',
+      ian: './common/img/sprites/npc_ian.gif',
+      fonts: './website/public/bower_components/bootstrap/dist/fonts/*' 
     },
-    src: [
-      'website/build/*.js', 
-      'website/build/*.css', 
-      'website/public/favicon.ico',
-      'common/dist/sprites/*.png',
-      'common/img/sprites/backer-only/*.gif',
-      'common/img/sprites/npc_ian.gif',
-      'website/public/bower_components/bootstrap/dist/fonts/*'
-    ],
-    dest: 'build/*.css'
+    dest: './website/build/'
   }
 };
 
@@ -100,8 +86,30 @@ gulp.task('stylus', function() {
     .pipe(gulp.dest(paths.stylus.dest));
 });
 
-gulp.task('copy', function() {
-  gulp.src(paths.copy.src)
+gulp.task('copy', ['clean'], function() {
+  var getDir = function(file) {
+    var index = file.lastIndexOf("/");
+    return file.substring(1, index);
+  };
+  return es.merge(
+    gulp.src(paths.copy.src.favicon),
+    gulp.src(paths.copy.src.sprites)
+      .pipe(rename(function(path) {
+        path.dirname += getDir(paths.copy.src.sprites);
+      })),
+    gulp.src(paths.copy.src.backer)
+      .pipe(rename(function(path) {
+        path.dirname += getDir(paths.copy.src.backer);
+      })),
+    gulp.src(paths.copy.src.ian)
+      .pipe(rename(function(path) {
+        path.dirname += getDir(paths.copy.src.ian);
+      })),
+    gulp.src(paths.copy.src.fonts)
+      .pipe(rename(function(path) {
+        path.dirname += '/bower_components/bootstrap/dist/fonts';
+      }))
+    )
     .pipe(gulp.dest(paths.copy.dest));
 });
 
