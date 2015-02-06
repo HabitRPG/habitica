@@ -62,7 +62,9 @@ var paths = {
       template: '<%= name %>-<%= hash %><%= ext %>'
     },
     src: [
-      'website/build/*.js', 'website/build/*.css', 'website/build/favicon.ico',
+      'website/build/*.js', 
+      'website/build/*.css', 
+      'website/public/favicon.ico',
       'common/dist/sprites/*.png',
       'common/img/sprites/backer-only/*.gif',
       'common/img/sprites/npc_ian.gif',
@@ -83,20 +85,25 @@ gulp.task('git_changelog', function() {
   // @TODO: Finish this
 });
 
-gulp.task('clean', function(cb) {
-  rimraf('./webiste/build', cb);
+gulp.task('clean', function() {
+  rimraf.sync(paths.build.dest);
 });
 
-gulp.task('stylus', function() {
-  gulp.src(paths.stylus.src.app)
+gulp.task('stylus:app', function() {
+  return gulp.src(paths.stylus.src.app)
     .pipe(stylus({use: [nib()]}))
     .pipe(rename('app.css'))
     .pipe(gulp.dest(paths.stylus.dest));
-  gulp.src(paths.stylus.src.staticPage)
+});
+
+gulp.task('stylus:static', function() {
+  return gulp.src(paths.stylus.src.staticPage)
     .pipe(stylus({use: [nib()]}))
     .pipe(rename('static.css'))
     .pipe(gulp.dest(paths.stylus.dest));
 });
+
+gulp.task('stylus', ['stylus:app', 'stylus:static'], function() { });
 
 gulp.task('copy', function() {
   gulp.src(paths.copy.src)
@@ -186,7 +193,7 @@ gulp.task('browserify', function() {
         .transform(coffeeify)
         .bundle()
  
-  bundleStream
+  return bundleStream
     .pipe(source('habitrpg-shared.js'))
     .pipe(gulp.dest(paths.common.dest))
 })
@@ -202,13 +209,20 @@ gulp.task('loadManifest', function(cb) {
     var js = j[key + '.js'] = [];
 
     _.each(files[key].js, function(val){
-      js.push('./website/public/' + val);
+      var path = "./";
+      if( val.indexOf('common/') == -1) {
+        path = './website/public/';
+      } 
+      js.push(path + val);
     });
 
     var css = c[key + '.css'] = [];
-
+    
     _.each(files[key].css, function(val){
-      var path = (val == 'app.css' || val == 'static.css') ?  paths.build.dest : './website/public/';
+      var path = "./";
+      if( val.indexOf('common/') == -1) {
+        path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/public/';
+      } 
       css.push(path + val)
     });
 
@@ -216,40 +230,44 @@ gulp.task('loadManifest', function(cb) {
   cb();
 });
 
-gulp.task('build:css', function() {
+gulp.task('build:css', ['clean', 'loadManifest', 'stylus'], function(cb) {
 
   var c = paths.build.css;
+  var count = 0;
   // Concat CSS
   _.each(c, function(val, key) {
-    gulp.src(val)
+     gulp.src(val)
       .pipe(concat(key))
       .pipe(cssmin())
       .pipe(gulp.dest(paths.build.dest))
+      .on('end', function() {
+        count++;
+        if(count >= _.size(c))
+          cb()
+      });
   });
 });
 
-gulp.task('build:js', function() {
+gulp.task('build:js', ['clean', 'loadManifest', 'browserify'], function(cb) {
 
   var j = paths.build.js;
+  count = 0;
   // Uglify JS
   _.each(j, function(val, key) {
     gulp.src(val)
       .pipe(concat(key))
       .pipe(uglify())
       .pipe(gulp.dest(paths.build.dest))
+      .on('end', function() {
+        count++;
+        if(count >= _.size(j))
+          cb()
+      });
   });
 });
 
-gulp.task('build', ['loadManifest', 'clean', 'stylus', 'browserify', 'build:css', 'build:js'], function(cb) {
+gulp.task('build', ['build:css', 'build:js'], function() {
 
-  gulp.src(paths.hash.src)
-    .pipe(hash(paths.hash.options)) // Add hashes to the files' names 
-    .pipe(gulp.dest('./website/build')) // Write the now-renamed files 
-    //.pipe(hash.manifest('asset-hashes.json')) // Change the stream to the manifest file 
-    //.pipe(gulp.dest('public')); // Write the manifest file 
-    .on('end', function(){
-      cb();
-    });
 });
 
 gulp.task('watch', ['stylus', 'browserify'], function() {
