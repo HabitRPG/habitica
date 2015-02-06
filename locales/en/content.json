@@ -72,7 +72,7 @@
   "questEggTRexText": "Tyrannosaur",
   "questEggTRexAdjective": "tiny-armed",
 
-  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective() %> <%= eggText() %>.",
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
   "hatchingPotionWhite": "White",
@@ -85,7 +85,7 @@
   "hatchingPotionCottonCandyBlue": "Cotton Candy Blue",
   "hatchingPotionGolden": "Golden",
 
-  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText() %> pet.",
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
 
   "foodMeat": "Meat",
   "foodMilk": "Milk",
