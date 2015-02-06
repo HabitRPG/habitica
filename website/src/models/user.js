@@ -118,6 +118,10 @@ var UserSchema = new Schema({
   flags: {
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
+    tour: {
+      intro: {type: Number, 'default': 0},
+      classes: {type: Number, 'default': 0}
+    },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
@@ -149,12 +153,12 @@ var UserSchema = new Schema({
     gear: {
       owned: _.transform(shared.content.gear.flat, function(m,v,k){
         m[v.key] = {type: Boolean};
-        if (v.key.match(/[weapon|armor|head|shield]_warrior_0/))
+        if (v.key.match(/[armor|head|shield]_warrior_0/))
           m[v.key]['default'] = true;
       }),
 
       equipped: {
-        weapon: {type: String, 'default': 'weapon_warrior_0'},
+        weapon: String,
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
@@ -164,7 +168,7 @@ var UserSchema = new Schema({
         body: String
       },
       costume: {
-        weapon: {type: String, 'default': 'weapon_base_0'},
+        weapon: String,
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
@@ -172,7 +176,7 @@ var UserSchema = new Schema({
         headAccessory: String,
         eyewear: String,
         body: String
-      },
+      }
     },
 
     special:{

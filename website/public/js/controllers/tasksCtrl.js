@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -15,6 +15,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               break;
           case 'todo':
               $rootScope.playSound('ToDo');
+              Guide.goto('intro', 1);
               break;
           default:
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
@@ -46,6 +47,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
       delete listDef.newTask;
       delete listDef.focus;
+      if (listDef.type=='daily') Guide.goto('intro', 2);
     };
 
     $scope.toggleBulk = function(list) {
@@ -92,6 +94,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (!stayOpen) task._editing = false;
       if (isSaveAndClose)
         $("#task-" + task.id).parent().children('.popover').removeClass('in');
+      if (task.type == 'habit') Guide.goto('intro', 3);
     };
 
     /**
@@ -194,6 +197,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
       $rootScope.playSound('Reward');
+      Guide.goto('intro', 4);
     };
 
 

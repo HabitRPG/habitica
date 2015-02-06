@@ -2,6 +2,7 @@
 
 habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared',
   function($rootScope, $scope, $location, User, $http, $state, Guide, Shared) {
+    Guide.goto('intro', 5);
     $scope.profile = User.user;
     $scope.profile.petCount = Shared.countPets($rootScope.countExists($scope.profile.items.pets), $scope.profile.items.pets);
     $scope.profile.mountCount = Shared.countMounts($rootScope.countExists($scope.profile.items.mounts), $scope.profile.items.mounts);
@@ -27,8 +28,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       User.user.ops.changeClass({query:{class:klass}});
       $scope.selectedClass = undefined;
       Shared.updateStore(User.user);
-      $state.go('options.profile.stats');
-      window.setTimeout(Guide.classesTour, 10);
+      Guide.goto('classes', 0,true);
     }
 
     $scope.save = function(){

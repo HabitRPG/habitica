@@ -24,6 +24,7 @@
     "payNote": "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
     "card": "Card",
     "paymentMethods": "Payment Methods:",
+
     "welcomeHabit": "Welcome to HabitRPG",
     "welcomeHabitT1": "Welcome to HabitRPG, a habit tracker that treats your tasks like a Role Playing Game. I'm",
     "welcomeHabitT2": "your guide!",
@@ -61,5 +62,17 @@
     "spells": "Spells",
     "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed ",
     "toDo": "To-Do",
-    "moreClass": "For more information on the class-system, see"
+    "moreClass": "For more information on the class-system, see",
+
+    "tourWelcome": "Welcome to Habitica! This is your To-Do list. Check off a task!",
+    "tourExp": "Great job! Checking off a task gives you Experience and Gold!",
+    "tourDailies": "This column is for Daily tasks. Enter a task you should do every day! <b>Sample Dailies</b>: <b>Make Bed</b>, <b>Floss</b>, <b>Check Work Email</b>",
+    "tourCron": "Splendid! Your Dailies will reset every day.",
+    "tourHP": "Watch out! If you don't complete a Daily by midnight, it will hurt you!",
+    "tourHabits": "This column is for good and bad Habits that you do many times a day! Click the pencil to edit the names.<ul><li><b>Sample Good Habits</b>: <b>Eat a vegetable</b>, <b>15 minutes productive work</b></li><li><b>Sample Bad Habits</b>: <b>Smoke</b>, <b>Procrastinate</b></li><li><b>Sample Good or Bad Habits</b>: <b>Took Stairs/Elevator</b>, <b>Drank Water/Soda</b>",
+    "tourStats": "Good Habits add Experience and Gold! Bad Habits remove health.",
+    "tourGP": "Use your gold to buy Rewards!",
+    "tourAvatar": "Now your avatar has the Training Sword. Click on your avatar to customize it!",
+    "tourScrollDown": "Be sure to scroll all the way down to see all the options! Click on your avatar again to return to the tasks page.",
+    "tourMuchMore": "When you're done with tasks, you can form a Party with friends, chat in the shared-interest Guilds, join Challenges, and more!"
 }

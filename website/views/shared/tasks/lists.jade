@@ -78,12 +78,8 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           +taskColumnTabs('top')
 
-          // Actual List
-          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
-            include ./task
-
           // Static Rewards
-          ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
+          ul.items.rewards(ng-if='main && list.type=="reward"')
             li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes()}}')
               // right-hand side control buttons
               .task-meta-controls
@@ -123,6 +119,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
             +specialSpell('salt','snowball')
             +specialSpell('opaquePotion','spookDust')
+
+          // Actual List
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
+            include ./task
 
           // Spells
           ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
