@@ -1489,8 +1489,8 @@ api.wrap = (user, main=true) ->
 
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
         if completed
-          if (type is 'daily')
-            dailyChecked++
+          if type is 'daily'
+            dailyChecked += 1
         else
           scheduleMisses = daysMissed
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
@@ -1503,7 +1503,9 @@ api.wrap = (user, main=true) ->
             if type is 'daily'
               perfect = false 
               if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
-                dailyDueUnchecked += (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
+                fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
+                dailyDueUnchecked += (1 - fractionChecked)
+                dailyChecked += fractionChecked
               else
                dailyDueUnchecked += 1
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
