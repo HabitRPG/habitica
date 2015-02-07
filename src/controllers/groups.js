@@ -675,7 +675,6 @@ questStart = function(req, res, next) {
     if (m == group.quest.leader)
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
-      console.log(m);
       // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
       //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
       updates['$set']['party.quest.key'] = key;
@@ -765,12 +764,33 @@ api.questAccept = function(req, res, next) {
       }
     });
 
+    User.find({
+      _id: {
+        $in: _.without(group.members, user._id)
+      }
+    }, {auth: 1, preferences: 1, profile: 1}, function(err, members){
+      if(err) return next(err);
+
+      _.each(members, function(member){
+        if(member.preferences.emailNotifications.invitedQuest !== false && false
+           ){
+          utils.txnEmail(member, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
+            {name: 'QUEST_NAME', content: quest.text()},
+            {name: 'INVITER', content: utils.getUserInfo(user, ['name']).name},
+            {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+          ]);
+        }
+      });
+
+      questStart(req,res,next);
+    });
+
   // Party member accepting the invitation
   } else {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
     group.quest.members[user._id] = true;
+    questStart(req,res,next);
   }
-  questStart(req,res,next);
 }
 
 api.questReject = function(req, res, next) {

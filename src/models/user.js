@@ -308,6 +308,8 @@ var UserSchema = new Schema({
       giftedSubscription: {type: Boolean, 'default': true},
       invitedParty: {type: Boolean, 'default': true},
       invitedGuild: {type: Boolean, 'default': true},
+      questStarted: {type: Boolean, 'default': true},
+      invitedQuest: {type: Boolean, 'default': true},
       //remindersToLogin: {type: Boolean, 'default': true},
       importantAnnouncements: {type: Boolean, 'default': true}
     }
