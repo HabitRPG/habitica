@@ -30,10 +30,12 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
  * @param type: 'party' or otherwise
  * @param q: the Mongoose query we're building up
+ * @param additionalFields: if we want to populate some additional field not fetched normally 
+ *        pass it as a string, parties only
  */
-var populateQuery = function(type, q){
+var populateQuery = function(type, q, additionalFields){
   if (type == 'party')
-    q.populate('members', partyFields);
+    q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
   else
     q.populate(guildPopulate);
   q.populate('invites', nameFields);
@@ -673,6 +675,7 @@ questStart = function(req, res, next) {
     if (m == group.quest.leader)
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
+      console.log(m);
       // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
       //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
       updates['$set']['party.quest.key'] = key;
@@ -700,7 +703,8 @@ questStart = function(req, res, next) {
   parallel.push(function(cb2){group.save(cb2)});
 
   parallel.push(function(cb){
-    populateQuery(group.type, Group.findById(group._id)).exec(cb);
+    // Fetch user.auth to send email, then remove it from data sent to the client
+    populateQuery(group.type, Group.findById(group._id), 'auth.facebook auth.local').exec(cb);
   });
 
   async.parallel(parallel,function(err, results){
@@ -711,7 +715,25 @@ questStart = function(req, res, next) {
 
     groupClone.members = results[lastIndex].members;
 
+    // Send quest started email and remove auth information
+    _.each(groupClone.members, function(user){
+
+      if(user.preferences.emailNotifications.questStarted !== false &&
+         user._id !== res.locals.user._id &&
+         group.quest.members[user._id] == true
+         ){
+        utils.txnEmail(user, 'quest-started', [
+          {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+        ]);
+      }
+
+      // Remove sensitive data from what is sent to the public
+      user.auth.facebook = undefined;
+      user.auth.local = undefined;
+    });
+
     group = null;
+
     return res.json(groupClone);
   });
 }
