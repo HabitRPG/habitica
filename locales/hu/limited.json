@@ -18,7 +18,7 @@
     "seasonalShopTitle": "<%= linkStart %>Szezonális Varázslónő<%= linkEnd %>",
     "seasonalShopClosedText": "A Szezonális Bolt jelenleg zárva van! Nem tudom, hogy hol van jelenleg a Szezonális Varázslónő, de fogadni mernék, hogy visszatér a következő <%= linkStart %>Nagy Gálára<%= linkEnd %>!",
     "seasonalShopText": "Üdv a Szezonális Boltban! Mostantól január 31-ig rengeteg szezonális kiadású téli áru kapható itt. Ezután egy évig nem lesznek kaphatók, úgyhogy csapj le rájuk!",
-    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
+    "seasonalShopRebirth": "Ha használtad az Újjászületés Gömbjét, újra megveheted az elvesztett felszereléseidet a Jutalom Oszlopban miután újra hozzáfértél a Tárgy Bolthoz. Eleinte csak az aktuális kasztodhoz (alapesetben ez a Harcos) tartozó tárgyak lesznek elérhetőek, de ne aggódj a többi kaszt-specifikus tárgy is elérhetővé válik ha átváltasz a megfelelő kasztra.",
     "candycaneSet": "Botcukor (Varázsló)",
     "skiSet": "Orgyilkos (Tolvaj)",
     "snowflakeSet": "Hópehely (Gyógyító)",
