@@ -771,12 +771,13 @@ api.questAccept = function(req, res, next) {
     }, {auth: 1, preferences: 1, profile: 1}, function(err, members){
       if(err) return next(err);
 
+      var inviterName = utils.getUserInfo(user, ['name']).name;
+
       _.each(members, function(member){
-        if(member.preferences.emailNotifications.invitedQuest !== false && false
-           ){
+        if(member.preferences.emailNotifications.invitedQuest !== false){
           utils.txnEmail(member, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
             {name: 'QUEST_NAME', content: quest.text()},
-            {name: 'INVITER', content: utils.getUserInfo(user, ['name']).name},
+            {name: 'INVITER', content: inviterName},
             {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
           ]);
         }
