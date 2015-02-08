@@ -1487,7 +1487,7 @@ api.wrap = (user, main=true) ->
         return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies (includes uncompletd GREY dailies - TODO fix that?)
         # All processing of Dailies is calculated AFTER stealth -- stealthed Dailies are treated as just not being there
 
-        # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
+        # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
         if completed
           if type is 'daily'
             dailyChecked += 1

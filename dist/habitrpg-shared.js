@@ -6886,7 +6886,7 @@ api.wrap = function(user, main) {
         _base.down = 0;
       }
       user.todos.concat(user.dailys).forEach(function(task) {
-        var absVal, completed, delta, id, repeat, scheduleMisses, type, _ref1;
+        var absVal, completed, delta, fractionChecked, id, repeat, scheduleMisses, type, _ref1;
         if (!task) {
           return;
         }
@@ -6896,7 +6896,7 @@ api.wrap = function(user, main) {
         }
         if (completed) {
           if (type === 'daily') {
-            dailyChecked++;
+            dailyChecked += 1;
           }
         } else {
           scheduleMisses = daysMissed;
@@ -6916,9 +6916,11 @@ api.wrap = function(user, main) {
             if (type === 'daily') {
               perfect = false;
               if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-                dailyDueUnchecked += 1 - _.reduce(task.checklist, (function(m, i) {
+                fractionChecked = _.reduce(task.checklist, (function(m, i) {
                   return m + (i.completed ? 1 : 0);
                 }), 0) / task.checklist.length;
+                dailyDueUnchecked += 1 - fractionChecked;
+                dailyChecked += fractionChecked;
               } else {
                 dailyDueUnchecked += 1;
               }
