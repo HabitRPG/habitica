@@ -87,9 +87,9 @@ module.exports = function(grunt) {
           'website/build/*.js', 
           'website/build/*.css', 
           'website/build/favicon.ico',
-          'website/build/bower_components/habitrpg-shared/dist/*.png',
-          'website/build/bower_components/habitrpg-shared/img/sprites/backer-only/*.gif',
-          'website/build/bower_components/habitrpg-shared/img/sprites/npc_ian.gif',
+          'website/build/common/dist/sprites/*.png',
+          'website/build/common/img/sprites/backer-only/*.gif',
+          'website/build/common/img/sprites/npc_ian.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
         dest: 'website/build/*.css'
@@ -132,13 +132,19 @@ module.exports = function(grunt) {
       var js = uglify['website/build/' + key + '.js'] = [];
 
       _.each(files[key].js, function(val){
-        js.push('website/public/' + val);
+        var path = "./";
+        if( val.indexOf('common/') == -1) 
+          path = './website/public/';
+        js.push(path + val);
       });
 
       var css = cssmin['website/build/' + key + '.css'] = [];
 
       _.each(files[key].css, function(val){
-        var path = (val == 'app.css' || val == 'static.css') ? 'website/build/' : 'website/public/';
+        var path = "./";
+        if( val.indexOf('common/') == -1) {
+          path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/public/';
+        } 
         css.push(path + val)
       });
 
