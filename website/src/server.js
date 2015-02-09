@@ -118,7 +118,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   app.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
   app.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
-  app.use('/common/scripts/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
+  app.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
   app.use('/common/img/emoji/unicode', express['static'](publicDir + "/../../common/img/emoji/unicode", { maxAge: maxAge }));
   app.use(express['static'](publicDir));
 

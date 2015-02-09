@@ -37,11 +37,11 @@
             "js/env.js",
 
             "js/app.js",
-            "common/scripts/public/config.js",
+            "common/script/public/config.js",
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
-            "common/scripts/public/userServices.js",
-            "common/scripts/public/directives.js",
+            "common/script/public/userServices.js",
+            "common/script/public/directives.js",
             "js/services/groupServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
@@ -93,7 +93,7 @@
             "js/env.js",
             "js/static.js",
             "js/services/notificationServices.js",
-            "js/services/userServices.js",
+            "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
         ],
