@@ -17,7 +17,7 @@
     "messageHatched": "你的蛋孵化了，造访你的马厩来装备你的宠物吧。",
     "messageNotEnoughGold": "金币不够",
     "messageTwoHandled": "<%= gearText %>是双手武器",
-    "messageDropFood": "你找到了<%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropFood": "你找到了 <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "你找到了一粒<%= dropText %>蛋！<%= dropNotes %>",
     "messageDropPotion": "你找到了一瓶 <%= dropText %> 药水! <%= dropNotes %>",
     "messageFoundQuest": "你有个新任务\"<%= questText %>\"!"

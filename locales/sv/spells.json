@@ -24,7 +24,7 @@
     "spellRogueStealthText": "Smygande",
     "spellRogueStealthNotes": "You duck into the shadows, pulling up your hood. Many Dailies won't find you this night; fewer yet the higher your Perception.",
     "spellHealerHealText": "Helande ljus",
-    "spellHealerHealNotes": "Light covers your body, healing your wounds. You recover Health.",
+    "spellHealerHealNotes": "Ljus täcker din kropp, läker dina sår. Du återvinner Hälsa.",
     "spellHealerBrightnessText": "Searing Brightness",
     "spellHealerBrightnessNotes": "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced.",
     "spellHealerProtectAuraText": "Skyddande aura",
@@ -36,7 +36,7 @@
     "spellSpecialSaltText": "Salt",
     "spellSpecialSaltNotes": "Någon kastade en snöboll på dig. Ha ha, väldigt roligt. Se nu till att få bort den här snön från mig!",
     "spellSpecialSpookDustText": "Spöklik hud",
-    "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+    "spellSpecialSpookDustNotes": "Förvandla dina vänner till en svävande filt med ögon!",
     "spellSpecialOpaquePotionText": "Ogenomskinlig Dryck",
     "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
 }

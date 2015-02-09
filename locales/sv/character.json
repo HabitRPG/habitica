@@ -65,7 +65,7 @@
     "allocateConPop": "Lägg till ett poäng till Tålighet",
     "allocatePer": "Points allocated to Perception:",
     "allocatePerPop": "Lägg till ett poäng till Uppmärksamhet",
-    "allocateInt": "Points allocated to Intelligence:",
+    "allocateInt": "Poäng tilldelas Intelligens",
     "allocateIntPop": "Lägg till ett poäng till Intelligens",
     "stats": "Statistik",
     "strength": "Styrka",
@@ -90,7 +90,7 @@
     "healer": "Helare",
     "rogue": "Smygare",
     "mage": "Magiker",
-    "mystery": "Mystery",
+    "mystery": "Mysterium",
     "changeClass": "Byt Klass, Återbetala Egenskapspoäng",
     "levelPopover": "Varje level ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under Automatisk Utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",
@@ -129,8 +129,8 @@
     "youCast": "Du kastar <%= spell %>.",
     "youCastTarget": "Du kastar <%= spell %> på <%= target %>.",
     "youCastParty": "Du kastar <%= spell %> på sällskapet.",
-    "critBonus": "Critical Hit! Bonus:",
+    "critBonus": "Kritisk träff! Bonus:",
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
     "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription3": "och scrolla ner till Registrerings sektionen för att ändra ditt inloggningsnamn."
 }

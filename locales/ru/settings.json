@@ -94,6 +94,8 @@
     "invitedParty": "Invited To Party",
     "invitedGuild": "Invited To Guild",
     "importantAnnouncements": "Important Announcements",
+    "questStarted": "Your Quest has Begun",
+    "invitedQuest": "Invited to Quest",
     "remindersToLogin": "Reminders to check in to HabitRPG",
     "unsubscribeAllEmails": "Поставьте галочку, чтобы отписаться от е-мейлов.",
     "unsubscribeAllEmailsText": "Отписываясь от е-мейлов, я понимаю, что HabitRPG никогда не сможет известить меня по электронной почте о важных изменениях на сайте или в моем аккаунте.",
