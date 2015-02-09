@@ -14424,7 +14424,7 @@ module.exports = {
   strings: null,
   translations: {},
   t: function(stringName) {
-    var e, locale, string, stringNotFound, vars;
+    var clonedVars, e, locale, string, stringNotFound, vars;
     vars = arguments[1];
     if (_.isString(arguments[1])) {
       vars = null;
@@ -14437,9 +14437,11 @@ module.exports = {
       locale = 'en';
     }
     string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    clonedVars = _.clone(vars) || {};
+    clonedVars.locale = locale;
     if (string) {
       try {
-        return _.template(string, vars || {});
+        return _.template(string, clonedVars);
       } catch (_error) {
         e = _error;
         return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
