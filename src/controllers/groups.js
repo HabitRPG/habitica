@@ -573,15 +573,15 @@ var inviteByUUID = function(uuids, group, req, res, next){
             utils.txnEmail(invite, ('invited-' + (group.type == 'guild' ? 'guild' : 'party')), emailVars);
           }
 
+          // TODO what does this cb calls? anything?
           cb();
         });
       }
     });    
   }, function(err){
-    if(err){
-      return err.code ? res.json(err.code, {err: err.err}) : next(err);
-    }
+    if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
+    // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
     populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
       if(err) return next(err);
 
@@ -616,6 +616,7 @@ var inviteByEmail = function(invites, group, req, res, next){
           ];
 
           // We check for unsubscribeFromAll here because don't pass through utils.getUserInfo
+          // Todo now this should be only for non registered users so no need to check preferences
           if(!userToContact || 
               (invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false && 
               userToContact.preferences.emailNotifications.unsubscribeFromAll !== true)){
@@ -635,6 +636,7 @@ var inviteByEmail = function(invites, group, req, res, next){
     if(usersAlreadyRegistered.length > 0){
       inviteByUUID(usersAlreadyRegistered, group, req, res, next);
     }else{
+      // todo send back group here as we do when inviting by uuid?
       res.send(200);
     }
   });
