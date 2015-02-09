@@ -459,7 +459,11 @@ api.sessionPartyInvite = function(req,res,next){
       .select('invites members').exec(cb);
     },
     function(group, cb){
-      if (!group) return cb("Inviter not in party");
+      if (!group){
+        // Don't send error as it will prevent users from using the site
+        delete req.session.partyInvite;
+        return cb();
+      }
       inv.party = req.session.partyInvite;
       delete req.session.partyInvite;
       if (!~group.invites.indexOf(res.locals.user._id))
