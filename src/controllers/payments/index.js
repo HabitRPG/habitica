@@ -76,7 +76,7 @@ exports.createSubscription = function(data, cb) {
   if (data.gift){
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedSubscription !== false){
-      utils.txnEmail(member, 'gifted-subscription', [
+      utils.txnEmail(data.gift.member, 'gifted-subscription', [
         {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
         {name: 'X_MONTHS_SUBSCRIPTION', content: months}
       ]);
