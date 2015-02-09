@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 
     browserify: {
       dist: {
-        src: ["common/script/index.js"],
+        src: ["common/index.js"],
         dest: "common/dist/scripts/habitrpg-shared.js"
       },
       options: {

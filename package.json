@@ -83,6 +83,7 @@
     "expect.js": "~0.2.0",
     "git-changelog": "colegleason/git-changelog",
     "glob": "^4.3.5",
+    "grunt-browserify": "^3.3.0",
     "gulp-concat": "^2.4.3",
     "gulp-cssmin": "^0.1.6",
     "gulp-csso": "^1.0.0",
