@@ -54,7 +54,7 @@ _.each(langCodes, function(code){
   lang.momentLangCode = (momentLangsMapping[code] || code);
   try{
     // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
-    var f = fs.readFileSync(path.join(__dirname, '/../node_modules/moment/lang/' + lang.momentLangCode + '.js'), 'utf8');
+    var f = fs.readFileSync(path.join(__dirname, '/../../node_modules/moment/locale/' + lang.momentLangCode + '.js'), 'utf8');
     momentLangs[code] = f;
   }catch (e){}
 });
