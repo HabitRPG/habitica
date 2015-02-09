@@ -121,7 +121,7 @@ exports.buyGems = function(data, cb) {
   if (data.gift){
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
-      utils.txnEmail(member, 'gifted-gems', [
+      utils.txnEmail(data.gift.member, 'gifted-gems', [
         {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
         {name: 'X_GEMS_GIFTED', content: data.gift.gems.amount || 20}
       ]);
