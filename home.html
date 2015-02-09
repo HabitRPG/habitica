@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta charset="utf-8" />
+	<link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel='stylesheet' type="text/css">
+	<title>HabitRPG | Gamify Your Life</title>
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<meta name="geo.placename" content="">
+	<!--[if IE]><meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+	<meta name="viewport" content="width=device-width, maximum-scale=1" />
+
+	<meta property="og:title" content="" />
+	<meta property="og:description" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:site_name" content="" />
+
+	<link rel="canonical" href="" type="text/html" />
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+	<link rel="shortcut icon" href="/images/favicon.png" />
+	<link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+	
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+	<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header">
+		<nav class="navbar navbar-default navbar-static-top">
+			 <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#"><img src="images/icon175x175.png" />
+				<img src="images/habitrpg_pixel.png" /></a>
+		    </div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    		<ul class="nav navbar-nav nav-pills navbar-right">
+				<li><a href="/howitworks">How it works</a></li>
+				<li><a href="/enterprise">For business</a></li>
+				<li><a href="/about">About us</a></li>
+				<li><a href="http://blog.habitrpg.com/">Blog</a></li>
+				<li><a href="/contact">Contact us</a></li>
+				<li><button id="header-play-button" class="btn btn-primary navbar-btn navbar-right">Play HabitRPG</button></li>
+			</ul>
+		</div>
+		</div>
+		</nav>
+	</header>
+
+
+
+	<section id="intro" class="text-center">
+		<div class="page-header">
+			<h1>Turn your to-do list into a game</h1>
+		</div>
+		<img class="text-center" src="http://placehold.it/800x300" /><!--insert intro images-->
+		<div class="introcall">
+			<h3>Join 150,000 players making it fun to get things done!
+			<small><button class="btn btn-primary gamifybutton">Gamify your life, for free</button></small>
+			</h3>
+		</div>
+		<div class="presslogos">
+			<img src="images/presslogos/lifehacker.png" />
+			<img src="images/presslogos/nyt-logo.png" />
+			<img src="images/presslogos/makeuseof.png" />
+			<img src="images/presslogos/kickstarter-logo.png" />
+			<img src="images/presslogos/Forbes_logo.png" />
+			<img src="images/presslogos/Cnetlogo.png" />
+			<img src="images/presslogos/Fast-Company-logo.png" />
+		</div>
+			
+		<h3>Join us on a mini-quest!</h3><h4><span class="glyphicon glyphicon-chevron-down"></span></h4>
+
+		<!--Avatar fades in from behind, is affixed to travel at the center of the page all the way down until it hits the footer call-to-action-->
+		<img id="myAvatar" data-spy="affix" data-offset-top="400" src="http://placehold.it/150x150" />
+		
+	</section>
+
+
+	<section id="rewards">
+		<h2 class="headline">Get gold to buy stuff</h2>
+
+		<!--3rd level equipment fades in on avatar, gets affixed until more equipment presented in Features area-->
+
+		<p class="sectioninfo">
+			Every time you check something of your lists, you receive gold you can redeem for virtual rewards!
+		</p>
+		
+		<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-5 col-md-offset-7">
+				<div class="scrolltweet tweet popover right">
+					<div class="arrow"></div>
+					<div class="popover-content"><a href="https://twitter.com/tonitonirocca/status/448618440975085568">I really like http://HabitRPG.com. I did a bunch of jumping jacks because I needed a bit more gold for a helmet.<span class="tweep">‏@tonitonirocca</span></a></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-5 col-md-offset-1">		
+				<div class="scrolltweet tweet popover left">
+					<div class="arrow"></div>
+					<div class="popover-content"><a href-"https://twitter.com/L0stPuppy/status/507034694970781696">I just found myself drinking more water so I could buy some leather armor. #habitrpg<span class="tweep">@L0stPuppy</span></a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+
+	<section id="health">
+		<h2 class="headline">Miss a daily to-do?</h2>
+
+		<!--Progress bar appears next to avatar, decreases on scroll. Probably will require SVG animation-->
+
+		<h2>Lose health!</h2>
+		<p class="sectioninfo">
+			If you lose too much health, your character dies and you lose all your gold
+		</p>
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-5 col-md-offset-7">
+					<div class="scrolltweet tweet popover right">
+						<div class="arrow"></div>
+						<div class="popover-content"><a href="https://twitter.com/kevinpurdy/status/494498960116293633">Pleasantly surprised how well I'm sticking to @habitrpg as a task list/habit enforcer. A lifetime of watching health meters pays off.<span class="tweep">@kevinpurdy</span></a></div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+				<div class="col-md-5 col-md-offset-1">		
+					<div class="scrolltweet tweet popover left">
+						<div class="arrow"></div>
+						<div class="popover-content"><a href="https://twitter.com/soft_lit/status/560231146467127297">I need to stop neglecting habitrpg otherwise my little dude will die soon<span class="tweep">@soft_lit</span></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="quest">
+		<h2 class="headline">Fighting a boss with a group?</h2>
+
+		<!--Boss image background, with other avatars present. Their progress bars decrease on scroll. The one on the bottom right corner could die, haha-->
+
+		<h2>Make all your friends sad!</h2>
+		<p class="sectioninfo">If you are playing in a Quest, every daily to-do you miss hits your friends' health too!</p>
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-5 col-md-offset-7">
+					<div class="scrolltweet tweet popover right">
+						<div class="arrow"></div>
+						<div class="popover-content"><a href="https://twitter.com/DejiNyucu/status/429211504726900737">Oh, we did it! we completed our first quest in #HabitRPG as a party and we got the polar bear mount!<span class="tweep">@DejiNyucu</span></a></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-5 col-md-offset-1">
+					<div class="scrolltweet tweet popover left">
+						<div class="arrow"></div>
+						<div class="popover-content"><a href="https://twitter.com/korybing/status/539135640072253440">oh shoot I forgot to check off a couple dailies on my habitrpg I'M SORRY, HABITRPG PARTY.<span class="tweep">@korybing</span></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="uses">
+		<h2>Players use HabitRPG for...</h2>
+
+		<!--Will insert background images in each carousel item for main avatar to be situated in-->
+
+	<div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<ul class="nav nav-pills nav-justified">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"><a href="#">Health</a></li>
+			<li data-target="#myCarousel" data-slide-to="1"><a href="#">Housework</a></li>
+			<li data-target="#myCarousel" data-slide-to="2"><a href="#">Self-improvement</a></li>
+			<li data-target="#myCarousel" data-slide-to="3"><a href="#">School</a></li>
+			<li data-target="#myCarousel" data-slide-to="4"><a href="#">Work</a></li>
+		</ul>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <h3>Health</h3>
+                <div class="carousel-content">
+                <div class="sampletasks">
+                	<h4>Sample habits</h4>
+                	<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Drink Water/Soda</div></div><br />
+					<div style="width:19em; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Chew Gum/Smoke</div></div><br />
+					<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Take Stairs/Elevator</div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(255, 207, 66); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Eat Healthy/Junk Food</div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Break a Sweat for 1 hr</div></div>
+                </div>
+            <!--insert use case background image-->
+				
+			<div class="usetweet-group">
+	            <div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/mwkelley/status/484390723585064960">The only reason I'm remembering to floss this week is because a sea serpent is attacking the tavern in @HabitRPG and that's weird but cool.</a></div>
+	            </div>
+				<div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/Myg/status/514095570936688641">Don't laugh, but I'm playing http://Habitrpg.com and it's making me walk around the house saying things like, "What vegetable can I eat?"</a></div>
+	            </div>
+       		</div>
+	        </div>
+      		</div>
+            <!-- End Item -->
+            <div class="item">
+                <h3>Housework</h3>
+                <div class="carousel-content">
+                <div class="sampletasks">
+                	<h4>Sample habits</h4>
+                	<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Put Dirty Clothes in Hamper</div></div><br />
+					<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">20 mins of Housework</div></div><br />
+					<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Wash a Load of Dishes</div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Tidy One Room</div></div><br />
+					<div style="width:19em; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Wash and Dry a Load of Clothes</div></div>
+                </div>
+            <!--insert use case background image-->
+				
+			<div class="usetweet-group">
+	            <div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/wholemilk/status/483341884929359872">Just did all the dishes AND scrubbed the sink, all for imaginary internet points! Thanks @habitrpg!</a></div>
+	            </div>
+				<div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/Caroline_Eising/status/553484464794267648">Remembered @habitrpg and started using it again. Today I cleaned the light fittings, which I have meant to do for at least a year #itworks</a></div>
+	            </div>
+       		</div>
+	        </div>
+      		</div>
+            <!-- End Item -->
+            <div class="item">
+                <h3>Self-improvement</h3>
+                <div class="carousel-content">
+                <div class="sampletasks">
+                	<h4>Sample habits</h4>
+                	<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Learn Something New </div></div><br />
+					<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Accept a Compliment</div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Creative Session</div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Do a Good Deed</div></div><br />
+					<div style="width:19em; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Read an Informative Article</div></div>
+                </div>
+            <!--insert use case background image-->
+				
+			<div class="usetweet-group">
+	            <div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/tessa_racked/status/488024741278543872">HabitRPG! Because I won't do yoga and practice Spanish for their own benefits, but I will to get a giant mantis shrimp mount for my avatar.</a></div>
+	            </div>
+				<div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/kristenrapp/status/522771210602807296">Without @habitrpg I don't think I would have finished my novel draft.</a></div>
+	            </div>
+       		</div>
+	        </div>
+      		</div>
+            <!-- End Item -->
+            <div class="item">
+                <h3>School</h3>
+                <div class="carousel-content">
+                <div class="sampletasks">
+                	<h4>Sample habits</h4>
+                	<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Finish 1 Assignment</div></div><br />
+					<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Study 1 hour </div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Meet with Study Group</div></div><br />
+					<div style="width:19em; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Notes for 1 Chapter</div></div><br />
+					<div style="width:19em; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(90, 98, 223); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Read 1 Chapter</div></div>
+                </div>
+            <!--insert use case background image-->
+				
+			<div class="usetweet-group">
+	            <div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/alteriego/status/481560395048427520">My nerdiest venture yet: Using @habitrpg to gamify my to-do list. Because my thesis isn't gonna write itself</a></div>
+	            </div>
+				<div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/NightBlogger2/status/512040760250605568">Full-time graduate student and part-time TA. I need #habitrpg to keep my days organized and efficient on my quest to earn a Masters!</a></div>
+	            </div>
+       		</div>
+	        </div>
+      		</div>
+            <!-- End Item -->
+            <div class="item">
+                <h3>Work<br/><small><a href="/business.html">Use HabitRPG at your business</a></small></h3>
+                <div class="carousel-content">
+                <div class="sampletasks">
+                	<h4>Sample habits</h4>
+                	<div style="width:19em; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Confirm 1 page of Inventory</div></div><br />
+					<div style="width:19em; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">20 mins Filing</div></div><br />
+					<div style="width:19em; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Sort and Process Inbox</div></div><br />
+					<div style="width:19em; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div>&#160;<div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Prepare 1 Document for Client</div></div><br />
+					<div style="width:19em; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; font-size: 1.41em; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;">
+					<div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);">+</div><div style="display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; font-size: 1.41em; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;">-</div><div style="display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; font-size: .8em; letter-spacing: normal; float:left; word-wrap: break-word;">Call Clients/Put Off Phone Calls</div></div>
+                </div>
+            <!--insert use case background image-->
+				
+			<div class="usetweet-group">
+	            <div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/JoshHapless/status/474714826045161472">I'm trying http://habitRPG.com to motivate myself more. It's working: I wanna do 2 more hours work just so I'll have completed my dailies</a></div>
+	            </div>
+				<div class="usetweet tweet popover right">
+	            	<div class="arrow"></div>
+	            	<div class="popover-content"><a href="https://twitter.com/littlehux/status/482102144154501121">Rediscovered @habitrpg from last year as an Intern learning how to work in an office and already re-addicted.</a></div>
+	            </div>
+       		</div>
+	        </div>
+      		</div><!--End item-->
+        </div>
+    </div>
+    <!-- End Carousel -->
+	</div>
+	</section>
+
+	<section id="features">
+		<h2>We also feature...</h2>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--Pets and mount fade-in. Need to think about how to sticky it to the avatar-->
+	   			<div class="col-md-4 col-md-offset-7">
+					<div class="featuretext">
+						<h4>Pets and Mounts</h4>
+						<p>Text about pets and mounts and how fun they are. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere elit ac ex sagittis euismod. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--Level 5 equipment fade-in, with candy/potion/quest scroll. Level 5 equipment stickies on avatar all the way down-->
+	   			<div class="col-md-4 col-md-offset-7">
+					<div class="featuretext">
+						<h4>Equipment and extras</h4>
+						<p>Text about equipment and extras and how fun they are. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere elit ac ex sagittis euismod. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--other avatars fly in from sides to be next to main avatar-->
+	   			<div class="col-md-4 col-md-offset-7">
+					<div class="featuretext">
+						<h4>Social play</h4>
+						<p>Text about parties and guildes and challenges and how fun they are. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere elit ac ex sagittis euismod. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="testimonials">
+		<h2>What people say...</h2>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-5 col-md-offset-7">
+		<div class="testimonialgroup">
+			<div class="testimonial tweet popover right">
+				<div class="arrow"></div>
+				<div class="popover-content"><a href="https://twitter.com/MayLHarrison/status/559440289556103169">Can't remember how I kept control of my life before @habitrpg. Best tool I've ever found for becoming the best version of myself I can be.</a></div>
+			</div>
+			<img class="tweeppic" /><!--insert twitter photo here-->
+			<span class="tweep">@MayLHarrison</span>
+		</div>
+		</div></div>
+
+		<div class="row">
+				<div class="col-md-5 col-md-offset-1">
+		<div class="testimonialgroup">
+			<div class="testimonial tweet popover left">
+				<div class="arrow"></div>
+				<div class="popover-content"><a href="https://twitter.com/wholemilk/status/484533856864071680">Thank you, @habitrpg , I have now run five mornings in a row, my house is cleaner, and I'm drinking more water!</a></div>
+			</div>
+			<img class="tweeppic" /><!--insert twitter pic here-->
+			<span class="tweep">@wholemilk</span>
+		</div></div></div>
+
+		<div class="row">
+				<div class="col-md-5 col-md-offset-7">
+
+		<div class="testimonialgroup">
+			<div class="testimonial tweet popover right">
+				<div class="arrow"></div>
+				<div class="popover-content"><a href="https://twitter.com/mattjoehunt/status/559613163654905856">The best game I have ever played is @habitrpg - I have never been more productive.</a></div>
+			</div>
+			<img class="tweeppic" /><!--insert twitter pic here-->
+			<span class="tweep">@mattjoehunt</span>
+		</div>
+	</div></div></div>
+	</section>
+
+	<div id="footercall">
+		<h3>Join 150,000 players making it fun to get things done!
+			<small><button class="btn btn-primary gamifybutton">Gamify your life, for free</button></small>
+		</h3>
+	</div>
+
+	<footer class="footer">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<h4>Mobile</h4>
+					<ul class="list-unstyled">
+						<li><a href="https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8" target="_blank">iOS</a></li>
+						<li><a href="https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg" target="_blank">Android</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-3">
+					<h4>Company</h4>
+					<ul class="list-unstyled">
+						<li><a href="/static/features">Features</a></li>
+						<li><a target="_blank" href="http://blog.habitrpg.com/">Blog</a></li>
+						<li><a href="http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations" target="_blank">Extensions</a></li>
+						<li><a target="_blank" href="http://habitrpg.wikia.com/wiki/FAQ">FAQ</a></li>
+						<li><a href="/static/privacy">Privacy</a></li>
+						<li><a href="/static/terms">Terms</a></li>
+						<li><a href="/static/contact">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-3">
+					<h4>Community</h4>
+					<ul class="list-unstyled">
+						<li><a target="_blank" href="/static/community-guidelines">Community Guidelines</a></li><li><a target="_blank" href="https://github.com/HabitRPG/habitrpg/issues/2760">Submit Bug</a></li><li><a target="_blank" href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents">Request Feature</a></li>
+						<li><a target="_blank" href="https://habitrpg.com/static/api">API</a></li>
+						<li><a href="http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations" target="_blank">Add-ons &amp; Extensions</a></li>
+						<li><a target="_blank" href="http://habitrpg.wikia.com/wiki/Special:Forum">Forum</a></li>
+						<li><a target="_blank" href="http://www.kickstarter.com/projects/lefnire/habitrpg-mobile">Kickstarter</a></li>
+						<li><a target="_blank" href="https://www.facebook.com/Habitrpg">Facebook</a></li>
+						<li><a target="_blank" href="http://www.reddit.com/r/habitrpg/">Reddit</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-3">
+					<h4>Social</h4>
+					<div addthis:url="https://habitrpg.com" addthis:title="HabitRPG - Gamify Your Life" class="addthis_toolbox addthis_default_style">
+						<table>
+							<tr>
+								<td><a fb:like:layout="button_count" class="addthis_button_facebook_like"></a></td>
+							</tr>
+							<tr>
+								<td><a tw:via="habitrpg" class="addthis_button_tweet"></a></td>
+							</tr>
+							<tr>
+								<td><iframe src="/bower_components/github-buttons/github-btn.html?user=lefnire&amp;repo=habitrpg&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe></td>
+							</tr>
+							<tr>
+								<td><a g:plusone:size="medium" class="addthis_button_google_plusone"></a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+		</div>
+	</div>
+	</footer>
+
+	<!-- footer scripts -->
+<script type="text/javascript">
+$(document).ready( function() {
+    $('#myCarousel').carousel({
+		interval:   false
+	});
+	
+	var clickEvent = false;
+	$('#myCarousel').on('click', '.nav a', function() {
+			clickEvent = true;
+			$('.nav li').removeClass('active');
+			$(this).parent().addClass('active');		
+	}).on('slid.bs.carousel', function(e) {
+		if(!clickEvent) {
+			var count = $('.nav').children().length -1;
+			var current = $('.nav li.active');
+			current.removeClass('active').next().addClass('active');
+			var id = parseInt(current.data('slide-to'));
+			if(count == id) {
+				$('.nav li').first().addClass('active');	
+			}
+		}
+		clickEvent = false;
+	});
+});
+</script>
+<script type="text/javascript">
+$('#myAvatar').affix({
+  offset: {
+    top: 400,
+    bottom: function () {
+      return (this.bottom = $('.footer').outerHeight(true))
+    }
+  }
+})</script>
+</body>
+</html>

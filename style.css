@@ -1,0 +1,127 @@
+.navbar-brand img {
+  height:40px;
+  float:left;
+  vertical-align: middle;
+  margin:-10px 10px 10px;
+}
+
+.navbar-right {
+  margin-right:0px!important;
+}
+
+section {
+  height:100vh;
+}
+
+h1, h2, h3, h4, p.sectioninfo {
+  text-align: center;
+}
+
+.featuretext h4, .footer h4 {
+  text-align:left;
+}
+
+#uses .btn-toolbar {
+    text-align: center;
+}
+
+.presslogos img {
+    max-height:30px;
+    max-width:120px;
+    vertical-align: middle;
+    margin:10px 30px;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
+
+.testimonialgroup .popover, .scrolltweet.popover {
+  max-width:400px;
+}
+
+
+button.gamifybutton {
+  margin: 20px;
+  width:20%;
+}
+
+.tweet.popover {
+  position:relative;
+  display:block;
+}
+
+.scrolltweet {
+  margin-top:-200px;
+}
+
+.headline {
+  display:block;
+  margin-bottom:400px;
+}
+
+#myCarousel .nav a small
+{
+    display: block;
+}
+
+#myCarousel .nav a {
+    border-radius:10px;
+    margin:10px;
+}
+#myCarousel .nav-justified > li > a
+{
+    border-radius: 10px;
+    background-color:#eee;
+}
+
+#myCarousel .nav-justified > li > a:hover
+{
+    background-color:#ccc;
+}
+
+#myCarousel .nav-pills>li.active a { background-color: #16a085; }
+
+.carousel-content {
+    width:100%;
+    height:500px;
+    min-width:100%;
+    min-height:500px;
+    max-width:100%;
+    max-height:500px;
+    overflow:hidden;
+    display:block;
+}
+
+.sampletasks {
+  display:block;
+  float:left;
+  background-color: #eee;
+  padding:20px;
+}
+.usetweet-group {
+  width:40%;
+  float:right;
+}
+.carousel-content .usetweet {
+  float:right;
+  max-width:350px;
+  margin:20px 0;
+}
+
+.featuretext {
+  margin:30px 0;
+}
+
+#footercall small {
+  margin-left:50px;
+}
+
+.footer {
+  margin-top:20px;
+  background-color:#eee;
+  padding:20px 0;
+}
