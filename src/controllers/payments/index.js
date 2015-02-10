@@ -1,6 +1,6 @@
 /* @see ./routes.coffee for routing*/
 var _ = require('lodash');
-var shared = require('../../../../common');
+var shared = require('habitrpg-shared');
 var nconf = require('nconf');
 var utils = require('./../../utils');
 var moment = require('moment');

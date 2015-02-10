@@ -12,9 +12,11 @@ function($rootScope, User, $timeout, $state) {
    * this because we need to determine whether to show the tour *after* the user has been pulled from the server,
    * otherwise it's always start off as true, and then get set to false later
    */
+  var tourRunning = false;
   $rootScope.$on('userUpdated', initTour);
   function initTour(){
-    if (User.user.flags.showTour === false) return;
+    if (User.user.flags.showTour === false || tourRunning) return;
+    tourRunning = true;
     var tourSteps = [
       {
         orphan:true,

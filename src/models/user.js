@@ -6,7 +6,7 @@
 // ------------
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var shared = require('../../../common');
+var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
 var Challenge = require('./challenge').model;
