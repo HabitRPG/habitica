@@ -43,14 +43,32 @@ h1, h2, h3, h4, p.sectioninfo {
   max-width:400px;
 }
 
-img#myAvatar.affix-top {
+img#myAvatar {
   margin-left:50%;
   left:-75px;
+}
+
+img#myAvatar.affix-top {
+  position: absolute;
+  top: 750px;
+}
+
+img#myAvatar.affix-bottom {
+  position:absolute;
+  bottom:500px;
+}
+
+img#myAvatar.affix {
+  top: 400px;
 }
 
 button.gamifybutton {
   margin: 20px;
   width:20%;
+}
+
+#rewards {
+  margin-top:200px;
 }
 
 .tweet.popover {

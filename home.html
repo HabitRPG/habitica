@@ -77,7 +77,7 @@
 		<div class="page-header">
 			<h1>Turn your to-do list into a game</h1>
 		</div>
-		<img class="text-center" src="http://placehold.it/800x300" /><!--insert intro images-->
+		<img class="text-center" src="images/intro.jpg" /><!--insert intro images-->
 		<div class="introcall">
 			<h3>Join 150,000 players making it fun to get things done!
 			<small><button class="btn btn-primary gamifybutton">Gamify your life, for free</button></small>
@@ -96,7 +96,7 @@
 		<h3>Join us on a mini-quest!</h3><h4><span class="glyphicon glyphicon-chevron-down"></span></h4>
 
 		<!--Avatar fades in from behind, is affixed to travel at the center of the page all the way down until it hits the footer call-to-action-->
-		<img id="myAvatar" data-spy="affix" data-offset-top="400" data-offset-bottom="200" src="http://placehold.it/150x150" />
+		<img id="myAvatar" data-spy="affix" data-offset-top="380" data-offset-bottom="400" src="http://placehold.it/150x150" />
 		
 	</section>
 
@@ -539,14 +539,6 @@ $(document).ready( function() {
 	});
 });
 </script>
-<script type="text/javascript">
-$('#myAvatar').affix({
-  offset: {
-    top: 400,
-    bottom: function () {
-      return (this.bottom = $('.footer').outerHeight(true))
-    }
-  }
-})</script>
+
 </body>
 </html>
