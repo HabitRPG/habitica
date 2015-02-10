@@ -94,6 +94,22 @@ module.exports = function(grunt) {
 
     sprite: sprite,
 
+    cssmin: {
+      dist: {
+        options: {
+          report: 'gzip'
+        },
+        files:{
+          "common/dist/sprites/habitrpg-shared.css": [
+            "common/dist/sprites/spritesmith*.css",
+            "common/css/backer.css",
+            "common/css/Mounts.css",
+            "common/css/index.css"
+          ]
+        }
+      }
+    },
+
     stylus: {
       build: {
         options: {
@@ -212,7 +228,8 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'clean:sprite', 'sprite', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'cssmin']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'compile:sprites', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
   grunt.registerTask('build:dev', ['browserify', 'stylus']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
