@@ -417,7 +417,7 @@ api.sessionPartyInvite = function(req,res,next){
   async.waterfall([
     function(cb){
       Group.findOne({_id:req.session.partyInvite.id, members:{$in:[req.session.partyInvite.inviter]}})
-      .select('invites members').exec(cb);
+      .select('invites members type').exec(cb);
     },
     function(group, cb){
       if (!group){
@@ -426,7 +426,7 @@ api.sessionPartyInvite = function(req,res,next){
         return cb();
       }
 
-      if(group.type === 'guild'){
+      if(group.type == 'guild'){
         inv.guilds.push(req.session.partyInvite);
       }else{
         //req.body.type in 'guild', 'party'
