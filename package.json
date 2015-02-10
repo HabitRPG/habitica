@@ -89,6 +89,7 @@
     "gulp-cssmin": "^0.1.6",
     "gulp-csso": "^1.0.0",
     "gulp-hash": "^2.0.3",
+    "grunt-karma": "~0.6.2",
     "gulp-minify-css": "^0.4.2",
     "gulp-nodemon": "^1.0.5",
     "gulp-rename": "^1.2.0",
