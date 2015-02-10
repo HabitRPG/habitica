@@ -97,21 +97,24 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', function($scope, User, Groups, injectedGroup, $http){    $scope.group = injectedGroup;
+  .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){    
+    $scope.group = injectedGroup;
 
     $scope.inviter = User.user.profile.name;
     $scope.emails = [{name:"",email:""},{name:"",email:""}];
 
-    // todo use Groups.Group.invite for everything not raw $http
     $scope.inviteEmails = function(){
-      $http.post('/api/v2/user/social/invite-friends/' + $scope.group._id, {inviter:$scope.inviter, emails:$scope.emails}).success(function(){
-        Notification.text("Invitations sent!");
+      Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
+        Notification.text("Invitation(s) sent!");
+        $scope.emails = [{name:'',email:''},{name:'',email:''}];
+      }, function(){
         $scope.emails = [{name:'',email:''},{name:'',email:''}];
       });
     };
 
     $scope.invite = function(){
-      Groups.Group.invite({gid: $scope.group._id, uuid: $scope.invitee}, undefined, function(){
+      Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitee]}, function(){
+        Notification.text("Invitation(s) sent!");
         $scope.invitee = '';
       }, function(){
         $scope.invitee = '';

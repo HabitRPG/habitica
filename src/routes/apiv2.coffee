@@ -460,7 +460,7 @@ module.exports = (swagger, v2) ->
         description: "Invite a user to a group"
         parameters: [
           path 'gid','Group id','string'
-          query 'invitationType','The type of invitation to send (uuid or email)','string'
+          body '','a payload of invites either under body.uuids or body.emails, only one of them!','object'
         ]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action:groups.invite

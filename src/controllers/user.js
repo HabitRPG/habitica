@@ -409,13 +409,14 @@ api.cast = function(req, res, next) {
   }
 }
 
+// It supports guild too now but we'll stick to partyInvite for backward compatibility
 api.sessionPartyInvite = function(req,res,next){
   if (!req.session.partyInvite) return next();
   var inv = res.locals.user.invitations;
   if (inv.party && inv.party.id) return next(); // already invited to a party
   async.waterfall([
     function(cb){
-      Group.findOne({_id:req.session.partyInvite.id, type:'party', members:{$in:[req.session.partyInvite.inviter]}})
+      Group.findOne({_id:req.session.partyInvite.id, members:{$in:[req.session.partyInvite.inviter]}})
       .select('invites members').exec(cb);
     },
     function(group, cb){
@@ -423,6 +424,13 @@ api.sessionPartyInvite = function(req,res,next){
         // Don't send error as it will prevent users from using the site
         delete req.session.partyInvite;
         return cb();
+      }
+
+      if(group.type === 'guild'){
+        inv.guilds.push(req.session.partyInvite);
+      }else{
+        //req.body.type in 'guild', 'party'
+        inv.party = req.session.partyInvite;
       }
       inv.party = req.session.partyInvite;
       delete req.session.partyInvite;
