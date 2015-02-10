@@ -59,7 +59,7 @@ img#myAvatar.affix-bottom {
 }
 
 img#myAvatar.affix {
-  top: 400px;
+  top: 300px;
 }
 
 button.gamifybutton {
@@ -82,7 +82,50 @@ button.gamifybutton {
 
 .headline {
   display:block;
-  margin-bottom:400px;
+  margin-bottom:450px;
+}
+
+.avatarscroll {
+  position:absolute;
+  display:block;
+  width:300px;
+  left:50%;
+  margin-left:-150px;
+  margin-top:-400px;
+  text-align: center;
+}
+
+.avatarscroll img {
+  display:inline-block;
+  margin-top:20px;
+}
+
+.avatarscroll .scroll-armor {
+  margin-left:50%;
+  left:-75px;
+}
+
+.avatarscroll .scroll-armor.affix-top {
+  position:relative;
+  display:block;
+}
+
+.avatarscroll .scroll-armor.affix-bottom {
+  position:absolute;
+  bottom:500px;
+  display:block;
+}
+
+.avatarscroll .scroll-armor.affix {
+  top: 280px;
+  left:0;
+}
+
+.avatarscroll .scroll-armor img.armor {
+  position:absolute;
+  top:0;
+  left:50%;
+  margin-left:-75px;
 }
 
 #myCarousel .nav a small
