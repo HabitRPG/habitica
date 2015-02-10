@@ -43,6 +43,10 @@ h1, h2, h3, h4, p.sectioninfo {
   max-width:400px;
 }
 
+img#myAvatar.affix-top {
+  margin-left:50%;
+  left:-75px;
+}
 
 button.gamifybutton {
   margin: 20px;
@@ -96,6 +100,26 @@ button.gamifybutton {
     display:block;
 }
 
+.health-use .carousel-content {
+  background:#ffffff url("images/uses/meditation-bkgd.png") no-repeat fixed center;
+}
+
+.housework-use .carousel-content {
+  background:#ffffff url("images/uses/dusting-bkgd.png") no-repeat fixed center;
+}
+
+.improvement-use .carousel-content {
+  background:#ffffff url("images/uses/achievement-bkgd.png") no-repeat fixed center;
+}
+
+.school-use .carousel-content {
+  background:#ffffff url("images/uses/reading.png") no-repeat fixed center;
+}
+
+.work-use .carousel-content {
+  background:#ffffff url("images/uses/coding.png") no-repeat fixed center;
+}
+
 .sampletasks {
   display:block;
   float:left;
@@ -103,7 +127,7 @@ button.gamifybutton {
   padding:20px;
 }
 .usetweet-group {
-  width:40%;
+  width:30%;
   float:right;
 }
 .carousel-content .usetweet {
@@ -125,3 +149,4 @@ button.gamifybutton {
   background-color:#eee;
   padding:20px 0;
 }
+
