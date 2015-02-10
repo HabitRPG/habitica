@@ -201,7 +201,8 @@ module.exports.locals = function(req, res, next) {
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
   });
 
-  // Put query-string party invitations into session to be handled later
+  // Put query-string party (& guild but use partyInvite for backward compatibility)
+  // invitations into session to be handled later
   try{
     req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite))
   } catch(e){}

@@ -55,7 +55,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-heading
           h3.panel-title
             =env.t('members')
-            button.pull-right.btn.btn-primary(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})", ng-if='::group.type=="party"') Invite Friends
+            button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)") Invite Friends
         .panel-body.modal-fixed-height
           div.form-group(ng-if='::group.type=="party"')
             p=env.t('partyList')
@@ -99,14 +99,6 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 a.media-body
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
-        .panel-footer(ng-if='::group.type!="party"')
-          form.form-inline(ng-submit='invite(group)')
-            //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
-            .input-group
-              input.form-control(type='text', placeholder=env.t('userId'), ng-model='group.invitee')
-              span.input-group-btn
-                input.btn.btn-default(type='submit', value=env.t('invite'))
-
 
       a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
 

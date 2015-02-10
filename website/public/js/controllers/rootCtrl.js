@@ -114,6 +114,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         templateUrl: 'modals/' + template + '.html',
         controller: options.controller, // optional
         scope: options.scope, // optional
+        resolve: options.resolve, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
         backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
         size: options.size, // optional, 'sm' or 'lg'
