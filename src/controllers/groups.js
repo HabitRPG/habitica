@@ -620,7 +620,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           cb();
         });
     }else{
-      cb({code: 400, err: 'Email address is required.'});
+      cb();
     }
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
