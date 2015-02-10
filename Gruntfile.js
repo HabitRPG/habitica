@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 
     clean: {
       build: ['website/build'],
-      sprites: ['common/dist/sprites']
+      sprite: ['common/dist/sprites']
     },
 
     sprite: sprite,
@@ -212,7 +212,7 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'clean:sprite', 'sprite', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
   grunt.registerTask('build:dev', ['browserify', 'stylus']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
