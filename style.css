@@ -11,6 +11,11 @@
 
 section {
   height:100vh;
+  padding:30px 0;
+}
+
+section#intro {
+  padding:0;
 }
 
 h1, h2, h3, h4, p.sectioninfo {
@@ -19,6 +24,16 @@ h1, h2, h3, h4, p.sectioninfo {
 
 .featuretext h4, .footer h4 {
   text-align:left;
+}
+
+#levels, #quest, #features {
+  background-color: #eee;
+}
+
+p.sectioninfo {
+  display:block;
+  width:500px;
+  margin:0 auto;
 }
 
 #uses .btn-toolbar {
@@ -46,6 +61,7 @@ h1, h2, h3, h4, p.sectioninfo {
 img#myAvatar {
   margin-left:50%;
   left:-75px;
+  z-index:1;
 }
 
 img#myAvatar.affix-top {
@@ -103,6 +119,7 @@ button.gamifybutton {
 .avatarscroll .scroll-armor {
   margin-left:50%;
   left:-75px;
+  z-index:2;
 }
 
 .avatarscroll .scroll-armor.affix-top {
@@ -118,7 +135,7 @@ button.gamifybutton {
 
 .avatarscroll .scroll-armor.affix {
   top: 280px;
-  left:0;
+  left:0px;
 }
 
 .avatarscroll .scroll-armor img.armor {
@@ -152,33 +169,34 @@ button.gamifybutton {
 
 .carousel-content {
     width:100%;
-    height:500px;
+    height:400px;
     min-width:100%;
-    min-height:500px;
+    min-height:400px;
     max-width:100%;
-    max-height:500px;
+    max-height:400px;
     overflow:hidden;
     display:block;
 }
 
+
 .health-use .carousel-content {
-  background:#ffffff url("images/uses/meditation-bkgd.png") no-repeat fixed center;
+  background:#ffffff url("images/uses/meditation-bkgd.png") no-repeat center center fixed;
 }
 
 .housework-use .carousel-content {
-  background:#ffffff url("images/uses/dusting-bkgd.png") no-repeat fixed center;
+  background:#ffffff url("images/uses/dusting-bkgd.png") no-repeat center center fixed;
 }
 
 .improvement-use .carousel-content {
-  background:#ffffff url("images/uses/achievement-bkgd.png") no-repeat fixed center;
+  background:#ffffff url("images/uses/achievement-bkgd.png") no-repeat center center fixed;
 }
 
 .school-use .carousel-content {
-  background:#ffffff url("images/uses/reading.png") no-repeat fixed center;
+  background:#ffffff url("images/uses/reading.png") no-repeat center center fixed;
 }
 
 .work-use .carousel-content {
-  background:#ffffff url("images/uses/coding.png") no-repeat fixed center;
+  background:#ffffff url("images/uses/coding.png") no-repeat center center fixed;
 }
 
 .sampletasks {
@@ -210,4 +228,3 @@ button.gamifybutton {
   background-color:#eee;
   padding:20px 0;
 }
-
