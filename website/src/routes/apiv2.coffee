@@ -2,7 +2,7 @@
 ---------- /api/v2 API ------------
 see https://github.com/wordnik/swagger-node-express
 Every url added to router is prefaced by /api/v2
-Note: Many user-route ops exist in habitrpg-shard/script/index.coffee#user.ops, so that they can (1) be called both
+Note: Many user-route ops exist in ../../common/script/index.coffee#user.ops, so that they can (1) be called both
 client and server.
 v1 user. Requires x-api-user (user id) and x-api-key (api key) headers, Test with:
 $ mocha test/user.mocha.coffee
@@ -19,7 +19,7 @@ nconf = require("nconf")
 middleware = require("../middleware")
 cron = user.cron
 _ = require('lodash')
-content = require('habitrpg-shared').content
+content = require('../../../common').content
 i18n = require('../i18n')
 
 
@@ -298,7 +298,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Casts a spell on a target."
         parameters: [
-          path 'spell',"The key of the spell to cast (see habitrpg-shared#content.coffee)",'string'
+          path 'spell',"The key of the spell to cast (see ../../common#content.coffee)",'string'
           query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
           query 'targetId',"The ID of the object you're targeting",'string'
 

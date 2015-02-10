@@ -19,13 +19,13 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   });
 
 } else {
-  require('coffee-script'); // remove this once we've fully converted over
+  require('coffee-script/register'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
   var path = require("path");
   var swagger = require("swagger-node-express");
   var autoinc = require('mongoose-id-autoinc');
-  var shared = require('habitrpg-shared');
+  var shared = require('../../common');
 
   // Setup translations
   var i18n = require('./i18n');
@@ -116,7 +116,10 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](publicDir + "/bower_components/habitrpg-shared/img/emoji/unicode", { maxAge: maxAge }));
+  app.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
+  app.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
+  app.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
+  app.use('/common/img/emoji/unicode', express['static'](publicDir + "/../../common/img/emoji/unicode", { maxAge: maxAge }));
   app.use(express['static'](publicDir));
 
   // Custom Directives

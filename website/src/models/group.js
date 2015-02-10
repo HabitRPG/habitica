@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var shared = require('habitrpg-shared');
+var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
 var logging = require('../logging');
