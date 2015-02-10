@@ -409,53 +409,14 @@ api.cast = function(req, res, next) {
   }
 }
 
-/**
- * POST /user/invite-friends
- */
-api.inviteFriends = function(req, res, next) {
-  Group.findOne({type:'party', members:{'$in': [res.locals.user._id]}}).select('_id name').exec(function(err,party){
-    if (err) return next(err);
-
-    _.each(req.body.emails, function(invite){
-      if (invite.email) {
-
-        User.findOne({$or: [
-          {'auth.local.email': invite.email},
-          {'auth.facebook.emails.value': invite.email}
-        ]}).select({_id: true, 'preferences.emailNotifications': true})
-          .exec(function(err, userToContact){
-            if(err) return next(err);
-
-            var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:party._id, inviter:res.locals.user._id, name:party.name}));
-
-            var variables = [
-              {name: 'LINK', content: link},
-              {name: 'INVITER', content: req.body.inviter || utils.getUserInfo(res.locals.user, ['name']).name}
-            ];
-
-            invite.canSend = true;
-
-            // We check for unsubscribeFromAll here because don't pass through utils.getUserInfo
-            if(!userToContact || (userToContact.preferences.emailNotifications.invitedParty !== false && 
-                userToContact.preferences.emailNotifications.unsubscribeFromAll !== true)){
-              // TODO implement "users can only be invited once"
-              utils.txnEmail(invite, 'invite-friend', variables);
-            }
-          });
-
-      }
-    });
-    res.send(200);
-  })
-}
-
+// It supports guild too now but we'll stick to partyInvite for backward compatibility
 api.sessionPartyInvite = function(req,res,next){
   if (!req.session.partyInvite) return next();
   var inv = res.locals.user.invitations;
   if (inv.party && inv.party.id) return next(); // already invited to a party
   async.waterfall([
     function(cb){
-      Group.findOne({_id:req.session.partyInvite.id, type:'party', members:{$in:[req.session.partyInvite.inviter]}})
+      Group.findOne({_id:req.session.partyInvite.id, members:{$in:[req.session.partyInvite.inviter]}})
       .select('invites members').exec(cb);
     },
     function(group, cb){
@@ -463,6 +424,13 @@ api.sessionPartyInvite = function(req,res,next){
         // Don't send error as it will prevent users from using the site
         delete req.session.partyInvite;
         return cb();
+      }
+
+      if(group.type === 'guild'){
+        inv.guilds.push(req.session.partyInvite);
+      }else{
+        //req.body.type in 'guild', 'party'
+        inv.party = req.session.partyInvite;
       }
       inv.party = req.session.partyInvite;
       delete req.session.partyInvite;

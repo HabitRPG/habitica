@@ -65,15 +65,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
       }
 
-      // ------ Invites ------
-
-      $scope.invite = function(group){
-        Groups.Group.invite({gid: group._id, uuid: group.invitee}, undefined, function(){
-          group.invitee = '';
-        }, function(){
-          group.invitee = '';
-        });
-      }
+      $scope.openInviteModal = function(group){
+        $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve: 
+          {injectedGroup: function(){
+            return group;
+          }}});
+      };
 
       //var serializeQs = function(obj, prefix){
       //  var str = [];
@@ -91,14 +88,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       //$scope.inviteLink = function(obj){
       //  return window.env.BASE_URL + '?' + serializeQs({partyInvite: obj});
       //}
-      $scope.emails = [{name:"",email:""},{name:"",email:""}];
-      $scope.inviter = User.user.profile.name;
-      $scope.inviteEmails = function(inviter, emails){
-        $http.post('/api/v2/user/social/invite-friends', {inviter:inviter, emails:emails}).success(function(){
-          Notification.text("Invitations sent!");
-          $scope.emails = [{name:'',email:''},{name:'',email:''}];
-        });
-      }
 
       $scope.quickReply = function(uid) {
         Members.selectMember(uid, function(){
@@ -107,6 +96,31 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
     }
   ])
+
+  .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){    
+    $scope.group = injectedGroup;
+
+    $scope.inviter = User.user.profile.name;
+    $scope.emails = [{name:"",email:""},{name:"",email:""}];
+
+    $scope.inviteEmails = function(){
+      Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
+        Notification.text("Invitation(s) sent!");
+        $scope.emails = [{name:'',email:''},{name:'',email:''}];
+      }, function(){
+        $scope.emails = [{name:'',email:''},{name:'',email:''}];
+      });
+    };
+
+    $scope.invite = function(){
+      Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitee]}, function(){
+        Notification.text("Invitation(s) sent!");
+        $scope.invitee = '';
+      }, function(){
+        $scope.invitee = '';
+      });
+    };
+  }])
 
   .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
     function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
