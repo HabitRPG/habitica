@@ -613,6 +613,10 @@ var inviteByEmails = function(invites, group, req, res, next){
             {name: 'INVITER', content: req.body.inviter || utils.getUserInfo(res.locals.user, ['name']).name}
           ];
 
+          if(group.type == 'guild'){
+            variables.push({name: 'GUILD_NAME', content: group.name});
+          }
+
           // TODO implement "users can only be invited once"
           invite.canSend = true; // Requested by utils.txnEmail
           utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
