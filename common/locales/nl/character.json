@@ -130,7 +130,7 @@
     "youCastTarget": "Je hebt <%= spell %> uitgesproken over <%= target %>.",
     "youCastParty": "Je hebt <%= spell %> uitgesproken over de groep.",
     "critBonus": "Voltreffer! Bonus:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Dit is te zien in berichten die je plaatst in de herberg, gildes en de groepschat, en op je avatar. Ga naar",
+    "displayNameDescription2": "Instellingen->Site",
+    "displayNameDescription3": "en scroll naar beneden naar Registratie om je inlognaam te veranderen."
 }

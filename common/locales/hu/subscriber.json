@@ -8,7 +8,7 @@
     "disableAds": "Reklámok kikapcsolása",
     "disableAdsText": "A reklámok le vannak tiltva amíg van aktív előfizetésed (egyes régi felhasználóknál nincsenek reklámok).",
     "buyGemsGold": "Drágakő vásárlása aranyért",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 Drágakő  <%= gemCost %> Aranyba kerül). Megoldja a \"fizess a győzelemért\" problémát, mert így kemény munkával minden elérhetővé válik. Egy <%= gemLimit %> Drágaköves havi konverziós limittel előzzük meg a farmolást.",
     "retainHistory": "Összes előzmény megőrzése",
     "retainHistoryText": "Az összes felhasználói előzményt elérhetővé teszi grafikonokban és exporthoz. A nem-előfizetők előzményei törlődnek, hogy az adatbázist optimalizáljuk.",
     "doubleDrops": "Napi tárgy találati korlátozás megduplázva",

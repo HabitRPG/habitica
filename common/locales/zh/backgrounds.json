@@ -2,7 +2,7 @@
     "backgrounds": "背景",
     "backgrounds062014": "第一组：2014年6月推出",
     "backgroundBeachText": "沙滩",
-    "backgroundBeachNotes": "在一个温暖的沙滩松弛。",
+    "backgroundBeachNotes": "懒洋洋的躺在温暖的沙滩上",
     "backgroundFairyRingText": "蘑菇圈",
     "backgroundFairyRingNotes": "在蘑菇圈里和小仙子舞蹈。",
     "backgroundForestText": "夏季森林",
@@ -35,7 +35,7 @@
     "backgroundHauntedHouseNotes": "潜行通过一间鬼屋",
     "backgroundPumpkinPatchText": "南瓜田",
     "backgroundPumpkinPatchNotes": "在南瓜田雕刻杰克南瓜灯笼",
-    "backgrounds112014": "第6组:2014年11月退出",
+    "backgrounds112014": "第6组:2014年11月推出",
     "backgroundHarvestFeastText": "大丰收",
     "backgroundHarvestFeastNotes": "享受着一场大丰收",
     "backgroundStarrySkiesText": "布满繁星的苍穹",
@@ -55,5 +55,12 @@
     "backgroundFrigidPeakText": "寒冰山顶",
     "backgroundFrigidPeakNotes": "登上寒冰山顶",
     "backgroundSnowyPinesText": "落雪的松林",
-    "backgroundSnowyPinesNotes": "躲在落雪的松林中"
+    "backgroundSnowyPinesNotes": "躲在落雪的松林中",
+    "backgrounds022015": "第9组：2015年2月推出",
+    "backgroundBlacksmithyText": "Blacksmithy",
+    "backgroundBlacksmithyNotes": "Labor in the Blacksmithy.",
+    "backgroundCrystalCaveText": "Crystal Cave",
+    "backgroundCrystalCaveNotes": "Explore a Crystal Cave.",
+    "backgroundDistantCastleText": "Distant Castle",
+    "backgroundDistantCastleNotes": "Defend a Distant Castle."
 }
