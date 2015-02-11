@@ -10,11 +10,11 @@ script(id='modals/valentine.html', type='text/ng-template')
       hr
       ul.list-unstyled(ng-switch='::Math.floor(Math.random()*3)')
         li(ng-switch-when='0')
-          =env.t('valentine0')
+          !=env.t('valentine0', {lineBreak:"<br>"})
         li(ng-switch-when='1')
-          =env.t('valentine1')
+          !=env.t('valentine1', {lineBreak:"<br>"})
         li(ng-switch-default)
-          =env.t('valentine2')
+          !=env.t('valentine2', {lineBreak:"<br>"})
     p
      small For enduring such a saccharine poem, you both receive the "Adoring Friends" badge!
   .modal-footer
