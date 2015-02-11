@@ -389,7 +389,7 @@ api.cast = function(req, res, next) {
             series.push(function(cb2){found.save(cb2)});
           }
 
-          if (group) {
+          if (group && !spell.silent) {
             series.push(function(cb2){
               var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
               group.sendChat(message);
