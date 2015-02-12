@@ -84,12 +84,14 @@ angular.module('habitrpg')
         $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
       };
 
-      function selectNotificationValue(mysteryValue, invitationValue, unallocatedValue, messageValue, noneValue) {
+      function selectNotificationValue(mysteryValue, invitationValue, holidayCardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
         } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
           return invitationValue;
+        } else if ((user.items.special.valentineReceived[0] || user.items.special.nyeReceived[0])) {
+          return holidayCardValue;
         } else if (user.flags.classSelected && !(user.preferences && user.preferences.disableClasses) && user.stats.points) {
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
@@ -103,13 +105,14 @@ angular.module('habitrpg')
         return selectNotificationValue(
             "glyphicon-gift",
             "glyphicon-user",
+            "glyphicon-envelope",
             "glyphicon-plus-sign",
             "glyphicon-comment",
             "glyphicon-comment inactive");
       };
 
       $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, true);
+        return selectNotificationValue(false, false, false, false, false, true);
       }
 
       // ------ Social ----------
