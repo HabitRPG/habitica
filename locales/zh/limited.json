@@ -7,6 +7,11 @@
     "alarmingFriends": "惊人的朋友",
     "alarmingFriendsText": "被队友吓到了 <%= spookDust %> 次",
     "valentineCard": "情人节卡片",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "爱慕的朋友",
     "adoringFriendsText": "啊，你和你的朋友一定很关心彼此！发送或接受了<%= cards %>张情人节卡片。",
     "polarBear": "北极熊",
@@ -24,7 +29,7 @@
     "snowflakeSet": "雪花 (医师)",
     "yetiSet": "野人驯化 (战士)",
     "nyeCard": "贺年片",
-    "nyeCardNotes": "把贺年片送给朋友",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "季节性商品",
     "auldAcquaintance": "友谊万岁",
     "auldAcquaintanceText": "新年快乐！发送或接受了<%= cards %> 张贺年片。",
@@ -32,5 +37,6 @@
     "newYear1": "新年快乐！愿你收获许多奖励。",
     "newYear2": "新年快乐！愿你有完美的一天。",
     "newYear3": "新年快乐！愿你的待办列表保持简短而亲切。",
-    "newYear4": "新年快乐！愿你免受骏鹰的攻击。"
+    "newYear4": "新年快乐！愿你免受骏鹰的攻击。",
+    "holidayCard": "Received a holiday card!"
 }
