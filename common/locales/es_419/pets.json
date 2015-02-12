@@ -29,7 +29,7 @@
     "beastMasterProgress": "Beast Master Progress",
     "beastAchievement": "¡Has ganado el Logro de \"Maestro de las Bestias\" por haber coleccionado todas las mascotas!",
     "beastMasterName": "Beast Master",
-    "beastMasterText": "Has found all 90 pets (insanely difficult, congratulate this user!)",
+    "beastMasterText": "Ha encontrado todas las 90 mascotas (¡es un hito histórico! ¡Hay que felicitar a este usuario!)",
     "beastMasterText2": "and has released their pets a total of <%= count %> times",
     "mountMasterProgress": "Mount Master Progress",
     "mountAchievement": "You have earned the \"Mount Master\" achievement for taming all the mounts!",

@@ -7,6 +7,11 @@
     "alarmingFriends": "Niepokojący przyjaciele",
     "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
     "valentineCard": "Kartka Walentynkowa",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Kochani przyjaciele",
     "adoringFriendsText": "Och, Ty i Twój przyjaciel musicie naprawdę troszczyć się o siebie! Wysłałeś lub otrzymałeś <%= cards %> walentynek.",
     "polarBear": "Niedźwiedź polarny",
@@ -24,7 +29,7 @@
     "snowflakeSet": "Płatek śniegu (Uzdrowiciel)",
     "yetiSet": "Pogromca Yeti (Wojownik)",
     "nyeCard": "Noworoczna kartka",
-    "nyeCardNotes": "Wyślij noworoczną kartkę do przyjaciela.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Przedmioty sezonowe",
     "auldAcquaintance": "Stara znajomość",
     "auldAcquaintanceText": "Szczęśliwego Nowego Roku! Wysłano lub otrzymano <%= cards %> noworocznych kartek.",
@@ -32,5 +37,6 @@
     "newYear1": "Szczęśliwego Nowego Roku! Obyś zebrał wiele Nagród.",
     "newYear2": "Szczęśliwego Nowego Roku! Obyś zdobył wiele Doskonałych Dni.",
     "newYear3": "Szczęśliwego Nowego Roku! Niech twoja lista zadań Do-Zrobienie pozostanie krótka.",
-    "newYear4": "Szczęśliwego Nowego Roku! Obyś nie został zaatakowany przez rozwścieczonego hipogryfa."
+    "newYear4": "Szczęśliwego Nowego Roku! Obyś nie został zaatakowany przez rozwścieczonego hipogryfa.",
+    "holidayCard": "Received a holiday card!"
 }
