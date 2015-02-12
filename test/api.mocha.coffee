@@ -161,16 +161,15 @@ describe "API", ->
     describe "Groups", ->
       group = undefined
       before (done) ->
-        registerNewUser ->
-          request.post(baseURL + "/groups").send(
-            name: "TestGroup"
-            type: "party"
-          ).end (res) ->
-            expectCode res, 200
-            group = res.body
-            expect(group.members.length).to.be 1
-            expect(group.leader).to.be user._id
-            done()
+        request.post(baseURL + "/groups").send(
+          name: "TestGroup"
+          type: "party"
+        ).end (res) ->
+          expectCode res, 200
+          group = res.body
+          expect(group.members.length).to.be 1
+          expect(group.leader).to.be user._id
+          done()
 
       describe "Challenges", ->
         challenge = undefined
