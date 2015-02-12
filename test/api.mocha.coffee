@@ -111,7 +111,7 @@ describe "API", ->
           }
         ]).end (res) ->
           expectCode res, 200
-          expect(_.size(res.body.todos)).to.be 6
+          expect(_.size(res.body.todos)).to.be 8
           request.post(baseURL + "/user/batch-update?_v=998").send([
             {
               op: "score"
@@ -133,7 +133,7 @@ describe "API", ->
             }
           ]).end (res) ->
             expectCode res, 200
-            expect(_.size(res.body.todos)).to.be 6
+            expect(_.size(res.body.todos)).to.be 8
             request.post(baseURL + "/user/batch-update?_v=997").send([
               {
                 op: "updateTask"
@@ -152,7 +152,7 @@ describe "API", ->
                   dateCompleted: moment().subtract(4, "days")
               }
             ]).end (res) ->
-              expect(_.size(res.body.todos)).to.be 4
+              expect(_.size(res.body.todos)).to.be 6
               done()
 
     ###*
