@@ -232,11 +232,12 @@ describe "API", ->
 
         it "Complete To-Dos", (done) ->
           u = user
+          numTasks = (_.size(u.todos))
           request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (res) ->
             request.post(baseURL + "/user/tasks/" + u.todos[1].id + "/up").end (res) ->
               request.post(baseURL + "/user/tasks/").send(type: "todo").end (res) ->
                 request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
-                  expect(_.size(res.body)).to.be 3
+                  expect(_.size(res.body)).to.be numTasks - 2
                   done()
 
         it "Challenge deleted, breaks task link", (done) ->
