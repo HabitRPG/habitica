@@ -705,6 +705,7 @@ api.spells =
       mana: 0
       value: 10
       immediateUse: true
+      silent: true
       target: 'user'
       notes: t('nyeCardNotes')
       cast: (user, target) ->
@@ -722,6 +723,29 @@ api.spells =
         target.markModified? 'items.special.nyeReceived'
         user.stats.gp -= 10
 
+    valentine:
+      text: t('valentineCard')
+      mana: 0
+      value: 10
+      immediateUse: true
+      silent: true
+      target: 'user'
+      notes: t('valentineCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.valentine ?= 0
+          user.achievements.valentine++
+        else
+          _.each [user,target], (t)->
+            t.achievements.valentine ?= 0
+            t.achievements.valentine++
+        if !target.items.special.valentineReceived
+          target.items.special.valentineReceived = []
+        target.items.special.valentineReceived.push user.profile.name
+
+        target.markModified? 'items.special.valentineReceived'
+        user.stats.gp -= 10
+        
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->
