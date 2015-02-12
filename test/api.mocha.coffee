@@ -380,6 +380,7 @@ describe "API", ->
               (whatever, cb) ->
                 Group.findById group._id, (err, g) ->
                   group = g
+                  # @TODO Determine why members aren't being saved
                   expect(g.members.length).to.be 4
                   cb()
 
