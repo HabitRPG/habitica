@@ -16,7 +16,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
           button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
           h3 {{obj.profile.name}}
         .modal-body
-          habitrpg-tasks(main=false)
+          habitrpg-tasks(main=false, modal='true')
         .modal-footer
           a.btn.btn-default(ng-click='$state.go("^")')=env.t('close')
 

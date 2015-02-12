@@ -75,13 +75,13 @@ module.exports.errorHandler = function(err, req, res, next) {
     "\n\nbody: " + JSON.stringify(req.body) +
     (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
   logging.error(stack);
-  logging.loggly({
+  /*logging.loggly({
     error: "Uncaught error",
     stack: (err.stack || err.message || err),
     body: req.body, headers: req.header,
     auth: req.headers['x-api-user'],
     originalUrl: req.originalUrl
-  });
+  });*/
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.json(500,{err:message}); //res.end(err.message);
@@ -201,7 +201,8 @@ module.exports.locals = function(req, res, next) {
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
   });
 
-  // Put query-string party invitations into session to be handled later
+  // Put query-string party (& guild but use partyInvite for backward compatibility)
+  // invitations into session to be handled later
   try{
     req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite))
   } catch(e){}

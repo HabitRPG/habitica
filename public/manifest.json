@@ -73,6 +73,7 @@
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
             "bower_components/habitrpg-shared/dist/habitrpg-shared.css",
+            "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
             "fontello/css/fontelico.css"
         ]
     },

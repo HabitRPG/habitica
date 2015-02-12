@@ -5,19 +5,21 @@
  */
 
 angular.module('habitrpg').factory('Guide',
-['$rootScope', 'User', '$timeout',
-function($rootScope, User, $timeout) {
+['$rootScope', 'User', '$timeout', '$state',
+function($rootScope, User, $timeout, $state) {
   /**
    * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
    * this because we need to determine whether to show the tour *after* the user has been pulled from the server,
    * otherwise it's always start off as true, and then get set to false later
    */
+  var tourRunning = false;
   $rootScope.$on('userUpdated', initTour);
   function initTour(){
-    if (User.user.flags.showTour === false) return;
+    if (User.user.flags.showTour === false || tourRunning) return;
+    tourRunning = true;
     var tourSteps = [
       {
-        element: ".main-herobox",
+        orphan:true,
         title: window.env.t('welcomeHabit'),
         content: window.env.t('welcomeHabitT1') + " <a href='http://www.kickstarter.com/profile/1823740484' target='_blank'>Justin</a>, " + window.env.t('welcomeHabitT2'),
       }, {
@@ -29,11 +31,11 @@ function($rootScope, User, $timeout) {
         title: window.env.t('avatarCustom'),
         content: window.env.t('avatarCustomText'),
       }, {
-        element: "#bars",
+        element: ".hero-stats",
         title: window.env.t('hitPoints'),
         content: window.env.t('hitPointsText'),
       }, {
-        element: "#bars",
+        element: ".hero-stats",
         title: window.env.t('expPoints'),
         content: window.env.t('expPointsText'),
       }, {
@@ -55,7 +57,7 @@ function($rootScope, User, $timeout) {
         element: "ul.todos",
         title: window.env.t('todos'),
         content: window.env.t('tourTodos'),
-        placement: "top"
+        placement: "top",
       }, {
         element: "ul.main-list.rewards",
         title: window.env.t('rewards'),
@@ -67,34 +69,32 @@ function($rootScope, User, $timeout) {
         content: window.env.t('hoverOverText'),
         placement: "right"
       }, {
-        element: "ul.habits li:first-child",
+        orphan:true,
         title: window.env.t('unlockFeatures'),
         content: window.env.t('unlockFeaturesT1') + " <a href='http://habitrpg.wikia.com' target='_blank'>" + window.env.t('habitWiki') + "</a> " + window.env.t('unlockFeaturesT2'),
         placement: "right"
       }
     ];
-    _.each(tourSteps, function(step){
-      if (env.worldDmg.guide) {
-        step.content = "<div><div class='npc_justin_broken float-left'></div>" + step.content + "</div>";
-      } else {
-        step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>";
-      }
-    });
     $('.main-herobox').popover('destroy');
     var tour = new Tour({
-      template: "<div class='popover'>" +
-        "<div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div>" +
-        "<div class='popover-navigation'><div class='btn-group'>" +
-        "<button class='btn btn-sm btn-default' data-role='prev'>&laquo;</button>" +
-        "<button class='btn btn-sm btn-default' data-role='next'>&raquo;</button>" +
-        "<button class='btn btn-sm btn-default' data-role='pause-resume' data-pause-text='Pause' data-resume-text='Resume'>Pause</button></div>" +
-        "<button class='btn btn-sm btn-default' data-role='end'>" + window.env.t('endTour') + "</button></div></div>",
+      backdrop: true,
+      //orphan: true,
+      //keyboard: false,
+      template: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> <button class="btn btn-sm btn-default" data-role="end">' + window.env.t('endTour') + '</button> </div> </div>',
       onEnd: function(){
         User.set({'flags.showTour': false});
       }
     });
-    tourSteps.forEach(function(step) {
-      tour.addStep(_.defaults(step, {html: true}));
+    _.each(tourSteps, function(step) {
+      step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
+      step.onShow = function(){
+        // Since all the steps are currently on the tasks page, ensure we go back there for each step in case they
+        // clicked elsewhere during the tour. FIXME: $state.go() returns a promise, necessary for async tour steps;
+        // however, that's not working here - have to use timeout instead :/
+        if (!$state.is('tasks')) return $timeout(function(){$state.go('tasks');}, 0)
+      }
+      step.html = true;
+      tour.addStep(step);
     });
     tour.restart(); // Tour doesn't quite mesh with our handling of flags.showTour, just restart it on page load
     //tour.start(true);

@@ -114,6 +114,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         templateUrl: 'modals/' + template + '.html',
         controller: options.controller, // optional
         scope: options.scope, // optional
+        resolve: options.resolve, // optional
         keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
         backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
         size: options.size, // optional, 'sm' or 'lg'
@@ -166,7 +167,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       }
       matrix = [[env.t('date'), env.t('score')]];
       _.each(history, function(obj) {
-        matrix.push([moment(obj.date).format('MM/DD/YY'), obj.value]);
+        matrix.push([moment(obj.date).format(User.user.preferences.dateFormat.toUpperCase().replace('YYYY','YY') ), obj.value]);
       });
       data = google.visualization.arrayToDataTable(matrix);
       options = {
@@ -241,6 +242,15 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.hardRedirect = function(url){
       window.location.href = url;
       window.location.reload(false);
+    }
+
+    // Universal method for sending HTTP methods
+    $rootScope.http = function(method, route, data, alertMsg){
+      $http[method](ApiUrl.get() + route, data).success(function(){
+        if (alertMsg) Notification.text(window.env.t(alertMsg));
+        User.sync();
+      });
+      // error will be handled via $http interceptor
     }
   }
 ]);

@@ -15,7 +15,7 @@ angular.module('habitrpg')
 
       var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
-          $window.location.href = '/';
+          $window.location.href = ('/' + window.location.hash);
         });
       };
 
@@ -57,7 +57,7 @@ angular.module('habitrpg')
       $scope.playButtonClick = function(){
         window.ga && ga('send', 'event', 'button', 'click', 'Play');
         if (User.authenticated()) {
-          window.location.href = '/#/tasks';
+          window.location.href = ('/' + window.location.hash);
         } else {
           $modal.open({
             templateUrl: 'modals/login.html'

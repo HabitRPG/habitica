@@ -5,6 +5,7 @@ require('winston-newrelic');
 
 var logger, loggly;
 
+// Currently disabled
 if (nconf.get('LOGGLY:enabled')){
   loggly = require('loggly').createClient({
     token: nconf.get('LOGGLY:token'),

@@ -23,6 +23,10 @@ var accountSuspended = function(uuid){
     code: 'ACCOUNT_SUSPENDED'
   };
 }
+// Allow case-insensitive regex searching for Mongo queries. See http://stackoverflow.com/a/3561711/362790
+var RegexEscape = function(s){
+  return new RegExp('^' + s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
+}
 
 api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
@@ -61,55 +65,57 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
-  var confirmPassword = req.body.confirmPassword,
-    email = req.body.email,
-    password = req.body.password,
-    username = req.body.username;
-  if (!(username && password && email)) return res.json(401, {err: ":username, :email, :password, :confirmPassword required"});
-  if (password !== confirmPassword) return res.json(401, {err: ":password and :confirmPassword don't match"});
-  if (!validator.isEmail(email)) return res.json(401, {err: ":email invalid"});
-  async.waterfall([
-    function(cb) {
-      User.findOne({'auth.local.email': email}, cb);
+  async.auto({
+    validate: function(cb) {
+      if (!(req.body.username && req.body.password && req.body.email))
+        return cb({code:401, err: ":username, :email, :password, :confirmPassword required"});
+      if (req.body.password !== req.body.confirmPassword)
+        return cb({code:401, err: ":password and :confirmPassword don't match"});
+      if (!validator.isEmail(req.body.email))
+        return cb({code:401, err: ":email invalid"});
+      cb();
     },
-    function(found, cb) {
-      if (found) return cb("Email already taken");
-      User.findOne({'auth.local.username': username}, cb);
-    }, function(found, cb) {
-      var newUser, salt, user;
-      if (found) return cb("Username already taken");
-      salt = utils.makeSalt();
-      newUser = {
+    findEmail: function(cb) {
+      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {_id:1}, cb);
+    },
+    findUname: function(cb) {
+      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {_id:1}, cb);
+    },
+    findFacebook: function(cb){
+      User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
+    },
+    register: ['validate', 'findEmail', 'findUname', 'findFacebook', function(cb, data) {
+      if (data.findEmail) return cb({code:401, err:"Email already taken"});
+      if (data.findUname) return cb({code:401, err:"Username already taken"});
+      var salt = utils.makeSalt();
+      var newUser = {
         auth: {
           local: {
-            username: username,
-            email: email,
+            username: req.body.username,
+            email: req.body.email,
             salt: salt,
-            hashed_password: utils.encryptPassword(password, salt)
+            hashed_password: utils.encryptPassword(req.body.password, salt)
           },
           timestamps: {created: +new Date(), loggedIn: +new Date()}
         }
       };
-      newUser.preferences = newUser.preferences || {};
-      newUser.preferences.language = req.language; // User language detected from browser, not saved
-      user = new User(newUser);
-
-      // temporary for conventions
-      if (req.subdomains[0] == 'con') {
-        _.each(user.dailys, function(h){
-          h.repeat = {m:false,t:false,w:false,th:false,f:false,s:false,su:false};
-        })
-        user.extra = {signupEvent: 'wondercon'};
+      // existing user, allow them to add local authentication
+      if (data.findFacebook) {
+        data.findFacebook.auth.local = newUser.auth.local;
+        data.findFacebook.save(cb);
+      // new user, register them
+      } else {
+        newUser.preferences = newUser.preferences || {};
+        newUser.preferences.language = req.language; // User language detected from browser, not saved
+        var user = new User(newUser);
+        utils.txnEmail(user, 'welcome');
+        ga.event('register', 'Local').send();
+        user.save(cb);
       }
-
-      user.save(cb);
-      utils.txnEmail(user, 'welcome');
-      ga.event('register', 'Local').send()
-    }
-  ], function(err, saved) {
-    if (err) return res.json(401, {err: err});
-    res.json(200, saved);
-    email = password = username = null;
+    }]
+  }, function(err, data) {
+    if (err) return err.code ? res.json(err.code, err) : next(err);
+    res.json(200, data.register[0]);
   });
 };
 
@@ -186,9 +192,18 @@ api.loginSocial = function(req, res, next) {
 
 /**
  * DELETE /user/auth/social
- * TODO implement
  */
-api.deleteSocial = function(req,res,next){next()}
+api.deleteSocial = function(req,res,next){
+  if (!res.locals.user.auth.local.username)
+    return res.json(401, {err:"Account lacks another authentication method, can't detach Facebook"});
+  //FIXME for some reason, the following gives https://gist.github.com/lefnire/f93eb306069b9089d123
+  //res.locals.user.auth.facebook = null;
+  //res.locals.user.auth.save(function(err, saved){
+  User.update({_id:res.locals.user._id}, {$unset:{'auth.facebook':1}}, function(err){
+    if (err) return next(err);
+    res.send(200);
+  })
+}
 
 api.resetPassword = function(req, res, next){
   var email = req.body.email,
@@ -196,9 +211,7 @@ api.resetPassword = function(req, res, next){
     newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
     hashed_password = utils.encryptPassword(newPassword, salt);
 
-  // escape email for regex, then search case-insensitive. See http://stackoverflow.com/a/3561711/362790
-  var emailRegExp = new RegExp('^' + email.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i');
-  User.findOne({'auth.local.email':emailRegExp}, function(err, user){
+  User.findOne({'auth.local.email': RegexEscape(email)}, function(err, user){
     if (err) return next(err);
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
@@ -215,28 +228,45 @@ api.resetPassword = function(req, res, next){
   });
 };
 
+var invalidPassword = function(user, password){
+  var hashed_password = utils.encryptPassword(password, user.auth.local.salt);
+  if (hashed_password !== user.auth.local.hashed_password)
+    return {code:401, err:"Incorrect password"};
+  return false;
+}
+
 api.changeUsername = function(req, res, next) {
-  var user = res.locals.user,
-    password = req.body.password,
-    newUsername = req.body.newUsername;
+  async.waterfall([
+    function(cb){
+      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {auth:1}, cb);
+    },
+    function(found, cb){
+      if (found) return cb({code:401, err: "Username already taken"});
+      if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
+      res.locals.user.auth.local.username = req.body.username;
+      res.locals.user.save(cb);
+    }
+  ], function(err){
+    if (err) return err.code ? res.json(err.code, err) : next(err);
+    res.send(200);
+  })
+}
 
-  User.findOne({'auth.local.username': newUsername}, function(err, result) {
-    if (err) next(err);
-    if(result) return res.json(401, {err: "Username already taken"});
-
-    var salt = user.auth.local.salt;
-    var hashed_password = utils.encryptPassword(password, salt);
-
-    if (hashed_password !== user.auth.local.hashed_password)
-      return res.json(401, {err:"Incorrect password"});
-
-    user.auth.local.username = newUsername;
-    user.save(function(err, saved){
-      if (err) next(err);
-      res.send(200);
-      user = password = newUsername = null;
-    })
-  });
+api.changeEmail = function(req, res, next){
+  async.waterfall([
+    function(cb){
+      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {auth:1}, cb);
+    },
+    function(found, cb){
+      if(found) return cb({code:401, err: "Email already taken"});
+      if (invalidPassword(res.locals.user, req.body.password)) return cb(invalidPassword(res.locals.user, req.body.password));
+      res.locals.user.auth.local.email = req.body.email;
+      res.locals.user.save(cb);
+    }
+  ], function(err){
+    if (err) return err.code ? res.json(err.code,err) : next(err);
+    res.send(200);
+  })
 }
 
 api.changePassword = function(req, res, next) {

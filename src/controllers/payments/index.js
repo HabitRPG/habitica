@@ -80,7 +80,7 @@ exports.createSubscription = function(data, cb) {
     var byUserName = utils.getUserInfo(data.user, ['name']).name;
 
     if(data.gift.member.preferences.emailNotifications.giftedSubscription !== false){
-      utils.txnEmail(member, 'gifted-subscription', [
+      utils.txnEmail(data.gift.member, 'gifted-subscription', [
         {name: 'GIFTER', content: byUserName},
         {name: 'X_MONTHS_SUBSCRIPTION', content: months}
       ]);
@@ -130,7 +130,7 @@ exports.buyGems = function(data, cb) {
 
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
-      utils.txnEmail(member, 'gifted-gems', [
+      utils.txnEmail(data.gift.member, 'gifted-gems', [
         {name: 'GIFTER', content: byUsername},
         {name: 'X_GEMS_GIFTED', content: gemAmount}
       ]);
