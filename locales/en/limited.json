@@ -7,10 +7,11 @@
     "alarmingFriends": "Alarming Friends",
     "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
     "valentineCard": "Valentine's Day Card",
-    "valentineCardNotes": "Send a Valentine's Day card to a friend.",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
     "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
     "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Adoring Friends",
     "adoringFriendsText": "Aww, you and your friend must really care about each other! Sent or received <%= cards %> Valentine's Day cards.",
     "polarBear": "Polar Bear",
@@ -28,7 +29,7 @@
     "snowflakeSet": "Snowflake (Healer)",
     "yetiSet": "Yeti Tamer (Warrior)",
     "nyeCard": "New Year's Card",
-    "nyeCardNotes": "Send a New Year's card to a friend.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Seasonal Items",
     "auldAcquaintance": "Auld Acquaintance",
     "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards.",
@@ -36,5 +37,6 @@
     "newYear1": "Happy New Year! May you reap many Rewards.",
     "newYear2": "Happy New Year! May you earn many a Perfect Day.",
     "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
-    "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff."
+    "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
+    "holidayCard": "Received a holiday card!"
 }
