@@ -7,6 +7,11 @@
     "alarmingFriends": "Unheimliche Freunde",
     "alarmingFriendsText": "Wurde <%= spookDust %> mal von Gruppenmitgliedern erschreckt.",
     "valentineCard": "Valentinstagskarte",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Heiß geliebte Freunde",
     "adoringFriendsText": "Ohh, Deine Freunde und Du, Ihr müsst euch ja wirklich gern haben. Du hast insgesamt <%= cards %>  Valentinstagskarten gesendet und bekommen.",
     "polarBear": "Eisbär",
@@ -24,7 +29,7 @@
     "snowflakeSet": "Schneeflocke (Heiler)",
     "yetiSet": "Yeti Zähmer (Krieger)",
     "nyeCard": "Neujahrskarte",
-    "nyeCardNotes": "Send eine Neujahrskarte zu einem Freund.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Saisonaler Artikel",
     "auldAcquaintance": "Alte(r) Bekannte(r)",
     "auldAcquaintanceText": "Fröhliches neues Jahr! Hat <%= cards %> Neujahrskarten verschickt oder erhalten. ",
@@ -32,5 +37,6 @@
     "newYear1": "Fröhliches neues Jahr! Mögest du viele Belohnungen ernten.",
     "newYear2": "Fröhliches neues Jahr! Mögest du viele Perfekte Tage verdienen.",
     "newYear3": "Fröhliches neues Jahr! Möge deine Aufgabenliste kurz und knackig bleiben.",
-    "newYear4": "Fröhliches neues Jahr! Mögest du nicht von einem vandalierenden Hippogreif angegriffen werden."
+    "newYear4": "Fröhliches neues Jahr! Mögest du nicht von einem vandalierenden Hippogreif angegriffen werden.",
+    "holidayCard": "Received a holiday card!"
 }

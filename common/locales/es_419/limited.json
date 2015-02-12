@@ -7,6 +7,11 @@
     "alarmingFriends": "Amigos atemorizadores",
     "alarmingFriendsText": "Tus compañeros te han asustado <%= spookDust %> veces.",
     "valentineCard": "Tarjeta del día de San Valentin",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Amigos cariñosos",
     "adoringFriendsText": "Aww, tú y tu amigo se quieren mucho el uno al otro. Enviaste o recibiste <%= cards %> tarjetas del día de San Valentín.",
     "polarBear": "Oso polar",
@@ -24,7 +29,7 @@
     "snowflakeSet": "Copo de nieve (Curandero)",
     "yetiSet": "Domadora de yetis (Guerrero)",
     "nyeCard": "Tarjeta del Año Nuevo",
-    "nyeCardNotes": "Manda una tarjeta de Año Nuevo a un amigo.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Artículos estacionales",
     "auldAcquaintance": "Antiguo conocido",
     "auldAcquaintanceText": "¡Feliz Año Nuevo! Enviaste o recibiste <%= cards %> tarjetas del Año Nuevo.",
@@ -32,5 +37,6 @@
     "newYear1": "¡Feliz Año Nuevo! Que obtengas muchas recompensas.",
     "newYear2": "¡Feliz Año Nuevo! Que logres muchos Días perfectos.",
     "newYear3": "¡Feliz Año Nuevo! Que tu lista de Pendientes se mantenga corto y conciso.",
-    "newYear4": "¡Feliz Año Nuevo! Que no te ataque un hipogrifo furioso."
+    "newYear4": "¡Feliz Año Nuevo! Que no te ataque un hipogrifo furioso.",
+    "holidayCard": "Received a holiday card!"
 }

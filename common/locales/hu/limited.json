@@ -7,6 +7,11 @@
     "alarmingFriends": "Ijesztő barátok",
     "alarmingFriendsText": "A csapattagjaid <%= spookDust %>-szor kísértettek.",
     "valentineCard": "Valentin napi képeslap",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Cuki Barátok",
     "adoringFriendsText": "Óóó, te és a barátod igazán törödtök egymással! <%= cards %> Valentin napi kártyát küldtél vagy kaptál.",
     "polarBear": "Jegesmedve",
@@ -24,7 +29,7 @@
     "snowflakeSet": "Hópehely (Gyógyító)",
     "yetiSet": "Yetiszelíditő (Harcos)",
     "nyeCard": "Új évi üdvözlőkártya",
-    "nyeCardNotes": "Küldj új évi üdvözlőkártyát egy barátnak.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Szezonális tárgyak",
     "auldAcquaintance": "Régi ismerős",
     "auldAcquaintanceText": "Boldog új évet! <%= cards %> új évi üdvözlőkártyát küldött vagy kapott.",
@@ -32,5 +37,6 @@
     "newYear1": "Boldog új évet! Arass sok Jutalmat.",
     "newYear2": "Boldog új évet! Legyen sok Tökéletes Napod.",
     "newYear3": "Boldog Új Évet! Legyen a teendőid listája ugyanolyan rövid és aranyos mint mindig.",
-    "newYear4": "Boldog új évet! Ne támadjon meg téged egy dühöngő Hippogriff."
+    "newYear4": "Boldog új évet! Ne támadjon meg téged egy dühöngő Hippogriff.",
+    "holidayCard": "Received a holiday card!"
 }

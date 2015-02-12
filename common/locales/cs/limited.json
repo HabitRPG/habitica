@@ -7,6 +7,11 @@
     "alarmingFriends": "Strašliví přátelé",
     "alarmingFriendsText": "Byl <%= spookDust %>krát vyděšen členy družiny.",
     "valentineCard": "Valentýnka",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Nejlepší přátelé",
     "adoringFriendsText": "Jůů, se svými přáteli musíš opravdu dobře vycházet! Odeslal jsi anebo jsi přijal  <%= cards %> Valentýnských přání.",
     "polarBear": "Lední medvěd",
@@ -24,7 +29,7 @@
     "snowflakeSet": "Sněhová vločka (léčitel)",
     "yetiSet": "Krotitel Yeti (válečník)",
     "nyeCard": "Novoroční přání",
-    "nyeCardNotes": "Pošli Novoroční přání příteli.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Sezonní předměty",
     "auldAcquaintance": "Letmá známost",
     "auldAcquaintanceText": "Šťastný nový rok! Poslal nebo dostal <%= cards %> novoročních přání.",
@@ -32,5 +37,6 @@
     "newYear1": "Šťastný nový rok! Ať ti spadne do klína pořádná odměna.",
     "newYear2": "Šťastný nový rok! Ať si zasloužíš perfektní den.",
     "newYear3": "Šťastný nový rok! Ať je úkolů v tvém úkolníčku málo.",
-    "newYear4": "Šťastný nový rok! Ať tě nenapadne řádící gryf."
+    "newYear4": "Šťastný nový rok! Ať tě nenapadne řádící gryf.",
+    "holidayCard": "Received a holiday card!"
 }

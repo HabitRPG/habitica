@@ -60,7 +60,7 @@
     "hatchingPotionCottonCandyPink": "Suikerspinroze",
     "hatchingPotionCottonCandyBlue": "Suikerspinblauwe",
     "hatchingPotionGolden": "Gouden",
-    "hatchingPotionNotes": "Giet dit over een ei, en het zal uitkomen als een <%= potText(locale) %> dier.",
+    "hatchingPotionNotes": "Giet dit over een ei, en er zal een <%= potText(locale) %> dierlijke metgezel uitkomen.",
     "foodMeat": "Vlees",
     "foodMilk": "Melk",
     "foodPotatoe": "Aardappel",

@@ -7,6 +7,11 @@
     "alarmingFriends": "Amici Inquietanti",
     "alarmingFriendsText": "Sei stato spaventato <%= spookDust %> volte dai tuoi compagni di squadra.",
     "valentineCard": "Biglietto di San Valentino",
+    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
+    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Amici Inseparabili",
     "adoringFriendsText": "Aww, tu e il tuo amico dovete davvero volervi bene! <%= cards %> biglietti di San Valentino spediti o ricevuti.",
     "polarBear": "Orso Polare",
@@ -24,7 +29,7 @@
     "snowflakeSet": "Fioccodineve (Guaritore)",
     "yetiSet": "Addestra-Yeti (Guerriero)",
     "nyeCard": "Biglietto d'auguri per il Nuovo Anno",
-    "nyeCardNotes": "Manda un biglietto d'auguri per il Nuovo Anno a un amico.",
+    "nyeCardNotes": "Send a New Year's card to a party member.",
     "seasonalItems": "Oggetti Stagionali",
     "auldAcquaintance": "Vecchia Conoscenza",
     "auldAcquaintanceText": "Buon anno nuovo! Hai inviato o ricevuto <%= cards %> biglietti d'auguri per il nuovo anno.",
@@ -32,5 +37,6 @@
     "newYear1": "Buon anno nuovo! Ti auguro di collezionare molte Ricompense.",
     "newYear2": "Buon anno nuovo! Ti auguro di aggiudicarti molti Giorni Perfetti.",
     "newYear3": "Buon anno nuovo! Ti auguro che la tua lista di To-Do resti breve e piacevole.",
-    "newYear4": "Buon anno nuovo! Ti auguro di non essere attaccato da un Ippogrifo inferocito."
+    "newYear4": "Buon anno nuovo! Ti auguro di non essere attaccato da un Ippogrifo inferocito.",
+    "holidayCard": "Received a holiday card!"
 }
