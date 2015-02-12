@@ -12,6 +12,7 @@ var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var pushNotify = require('./pushNotifications');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 
@@ -534,9 +535,13 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
       function sendInvite (){
         if(group.type === 'guild'){
           invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
+
+          pushNotify.sendNotify(invite, shared.i18n.t('invitedGuild'), group.name);
         }else{
           //req.body.type in 'guild', 'party'
           invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
+
+          pushNotify.sendNotify(invite, shared.i18n.t('invitedParty'), group.name);
         }
 
         group.invites.push(invite._id);
@@ -829,6 +834,10 @@ api.questAccept = function(req, res, next) {
         group.quest.leader = user._id;
       } else {
         group.quest.members[m] = undefined;
+
+        User.findById(m, function(err,groupMember){
+          pushNotify.sendNotify(groupMember, "HabitRPG", "Invitation for the Quest "+quest.text());
+        });
       }
     });
 

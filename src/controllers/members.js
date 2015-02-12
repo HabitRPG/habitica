@@ -6,6 +6,7 @@ var async = require('async');
 var _ = require('lodash');
 var shared = require('habitrpg-shared');
 var utils = require('../utils');
+var pushNotify = require('./pushNotifications');
 var nconf = require('nconf');
 
 var fetchMember = function(uuid, restrict){
@@ -96,12 +97,17 @@ api.sendGift = function(req, res, next){
           member.balance += amt;
           user.balance -= amt;
           api.sendMessage(user, member, req.body);
+          var byUsername = utils.getUserInfo(user, ['name']).name;
+
           if(member.preferences.emailNotifications.giftedGems !== false){
             utils.txnEmail(member, 'gifted-gems', [
-              {name: 'GIFTER', content: utils.getUserInfo(user, ['name']).name},
+              {name: 'GIFTER', content: byUsername},
               {name: 'X_GEMS_GIFTED', content: req.body.gems.amount}
             ]);
           }
+
+          pushNotify.sendNotify(member, shared.i18n.t('giftedGems'), req.body.gems.amount + ' Gems - by '+byUsername);
+
           return async.parallel([
             function (cb2) { member.save(cb2) },
             function (cb2) { user.save(cb2) }
