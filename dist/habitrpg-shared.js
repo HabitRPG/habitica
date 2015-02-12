@@ -12498,6 +12498,7 @@ api.spells = {
       mana: 0,
       value: 10,
       immediateUse: true,
+      silent: true,
       target: 'user',
       notes: t('nyeCardNotes'),
       cast: function(user, target) {
@@ -12522,6 +12523,40 @@ api.spells = {
         target.items.special.nyeReceived.push(user.profile.name);
         if (typeof target.markModified === "function") {
           target.markModified('items.special.nyeReceived');
+        }
+        return user.stats.gp -= 10;
+      }
+    },
+    valentine: {
+      text: t('valentineCard'),
+      mana: 0,
+      value: 10,
+      immediateUse: true,
+      silent: true,
+      target: 'user',
+      notes: t('valentineCardNotes'),
+      cast: function(user, target) {
+        var _base;
+        if (user === target) {
+          if ((_base = user.achievements).valentine == null) {
+            _base.valentine = 0;
+          }
+          user.achievements.valentine++;
+        } else {
+          _.each([user, target], function(t) {
+            var _base1;
+            if ((_base1 = t.achievements).valentine == null) {
+              _base1.valentine = 0;
+            }
+            return t.achievements.valentine++;
+          });
+        }
+        if (!target.items.special.valentineReceived) {
+          target.items.special.valentineReceived = [];
+        }
+        target.items.special.valentineReceived.push(user.profile.name);
+        if (typeof target.markModified === "function") {
+          target.markModified('items.special.valentineReceived');
         }
         return user.stats.gp -= 10;
       }
@@ -16871,5 +16906,5 @@ api.wrap = function(user, main) {
 };
 
 
-}).call(this,require("/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"./content.coffee":5,"./i18n.coffee":6,"/Users/blade/habitrpg/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
+}).call(this,require("/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"./content.coffee":5,"./i18n.coffee":6,"/home/sabrecat/habitrpg-shared/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":2,"lodash":3,"moment":4}]},{},[1])
