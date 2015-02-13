@@ -1,0 +1,56 @@
+{
+  "defaultHabit1Text": "1h Productive Work",
+  "defaultHabit1Notes": "When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.",
+  
+  "defaultHabit2Text": "Eat Junk Food",
+  "defaultHabit2Notes": "For others, it only makes sense to *lose* points.",
+  
+  "defaultHabit3Text": "Take The Stairs",
+  "defaultHabit3Notes": "For the rest, both + and - make sense (stairs = gain, elevator = lose).",
+
+  "defaultDaily1Text": "1h Personal Project",
+  "defaultDaily1Notes": "All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.",
+  
+  "defaultDaily2Text": "Clean your apartment",
+  "defaultDaily2Notes": "Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.",
+  
+  "defaultDaily3Text": "45m Reading",  
+  "defaultDaily3Notes": "If you miss a Daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.",
+
+  "defaultDaily4Text": "Exercise",  
+  "defaultDaily4Notes": "You can add checklists to Dailies and To-Dos. As you progress through the checklist, you will get a proportionate reward.",
+  "defaultDaily4Checklist1": "Stretching",  
+  "defaultDaily4Checklist2": "Sit-ups",  
+  "defaultDaily4Checklist3": "Push-ups",  
+
+  "defaultTodoNotes": "You can either complete this To-Do, edit it, or remove it.",
+
+  "defaultTodo1Text": "Join HabitRPG (Check me off!)",
+
+  "defaultTodo2Text": "Set up a Habit",
+  "defaultTodo2Checklist1": "create a Habit",
+  "defaultTodo2Checklist2": "make it \"+\" only, \"-\" only, or \"+/-\" under Edit",
+  "defaultTodo2Checklist3": "set difficulty under Advanced Options",
+
+  "defaultTodo3Text": "Set up a Daily",
+  "defaultTodo3Checklist1": "decide whether to use Dailies (they hurt you if you don't do them every day)",
+  "defaultTodo3Checklist2": "if so, add a Daily (don't add too many at first!)",
+  "defaultTodo3Checklist3": "set its due days under Edit",
+
+  "defaultTodo4Text": "Set up a To-Do (can be checked off without ticking all checkboxes!)",
+  "defaultTodo4Checklist1": "create a To-Do",
+  "defaultTodo4Checklist2": "set difficulty under Advanced Options",
+  "defaultTodo4Checklist3": "optional: set a Due Date",
+
+  "defaultTodo5Text": "Start a Party (private group) with your friends (Social > Party)",
+
+  "defaultReward1Text": "1 Episode of Game of Thrones",
+  "defaultReward1Notes": "Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.",
+
+  "defaultReward2Text": "Cake",
+  "defaultReward2Notes": "Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.",
+
+  "defaultTag1": "morning",
+  "defaultTag2": "afternoon",
+  "defaultTag3": "evening"
+}

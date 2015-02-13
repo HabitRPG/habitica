@@ -30,7 +30,7 @@ if [ -z "$TRAVIS" ]; then
 	done
 fi
 
-NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./src/server.js > /dev/null &
+NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./website/src/server.js > /dev/null &
 NODE_PID=$!
 trap "kill $NODE_PID" EXIT
 

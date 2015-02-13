@@ -1,0 +1,129 @@
+{
+  "potionText": "Health Potion",
+  "potionNotes": "Recover 15 Health (Instant Use)",
+
+  "dropEggWolfText": "Wolf",
+  "dropEggWolfAdjective": "loyal",
+
+  "dropEggTigerCubText": "Tiger Cub",
+  "dropEggTigerCubMountText": "Tiger",
+  "dropEggTigerCubAdjective": "fierce",
+
+  "dropEggPandaCubText": "Panda Cub",
+  "dropEggPandaCubMountText": "Panda",
+  "dropEggPandaCubAdjective": "gentle",
+
+  "dropEggLionCubText": "Lion Cub",
+  "dropEggLionCubMountText": "Lion",
+  "dropEggLionCubAdjective": "regal",
+
+  "dropEggFoxText": "Fox",
+  "dropEggFoxAdjective": "wily",
+
+  "dropEggFlyingPigText": "Flying Pig",
+  "dropEggFlyingPigAdjective": "whimsical",
+
+  "dropEggDragonText": "Dragon",
+  "dropEggDragonAdjective": "mighty",
+
+  "dropEggCactusText": "Cactus",
+  "dropEggCactusAdjective": "prickly",
+
+  "dropEggBearCubText": "Bear Cub",
+  "dropEggBearCubMountText": "Bear",
+  "dropEggBearCubAdjective": "cuddly",
+
+  "questEggGryphonText": "Gryphon",
+  "questEggGryphonAdjective": "proud",
+
+  "questEggHedgehogText": "Hedgehog",
+  "questEggHedgehogAdjective": "spiky",
+
+  "questEggDeerText": "Deer",
+  "questEggDeerAdjective": "elegant",
+
+  "questEggEggText": "Egg",
+  "questEggEggAdjective": "colorful",
+
+  "questEggRatText": "Rat",
+  "questEggRatAdjective": "dirty",
+
+  "questEggOctopusText": "Octopus",
+  "questEggOctopusAdjective": "slippery",
+
+  "questEggSeahorseText": "Seahorse",
+  "questEggSeahorseAdjective": "prize",
+
+  "questEggParrotText": "Parrot",
+  "questEggParrotAdjective": "vibrant",
+
+  "questEggRoosterText": "Rooster",
+  "questEggRoosterAdjective": "strutting",
+
+  "questEggSpiderText": "Spider",
+  "questEggSpiderAdjective": "creepy",
+
+  "questEggOwlText": "Owl",
+  "questEggOwlAdjective": "wise",
+
+  "questEggPenguinText": "Penguin",
+  "questEggPenguinAdjective": "perspicacious",
+
+  "questEggTRexText": "Tyrannosaur",
+  "questEggTRexAdjective": "tiny-armed",
+
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+
+  "hatchingPotionBase": "Base",
+  "hatchingPotionWhite": "White",
+  "hatchingPotionDesert": "Desert",
+  "hatchingPotionRed": "Red",
+  "hatchingPotionShade": "Shade",
+  "hatchingPotionSkeleton": "Skeleton",
+  "hatchingPotionZombie": "Zombie",
+  "hatchingPotionCottonCandyPink": "Cotton Candy Pink",
+  "hatchingPotionCottonCandyBlue": "Cotton Candy Blue",
+  "hatchingPotionGolden": "Golden",
+
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
+
+  "foodMeat": "Meat",
+  "foodMilk": "Milk",
+  "foodPotatoe": "Potato",
+  "foodStrawberry": "Strawberry",
+  "foodChocolate": "Chocolate",
+  "foodFish": "Fish",
+  "foodRottenMeat": "Rotten Meat",
+  "foodCottonCandyPink": "Pink Cotton Candy",
+  "foodCottonCandyBlue": "Blue Cotton Candy",
+  "foodHoney": "Honey",
+
+  "foodCakeSkeleton": "Bare Bones Cake",
+  "foodCakeBase": "Basic Cake",
+  "foodCakeCottonCandyBlue": "Candy Blue Cake",
+  "foodCakeCottonCandyPink": "Candy Pink Cake",
+  "foodCakeShade": "Chocolate Cake",
+  "foodCakeWhite": "Cream Cake",
+  "foodCakeGolden": "Honey Cake",
+  "foodCakeZombie": "Rotten Cake",
+  "foodCakeDesert": "Sand Cake",
+  "foodCakeRed": "Strawberry Cake",
+
+  "foodCandySkeleton": "Bare Bones Candy",
+  "foodCandyBase": "Basic Candy",
+  "foodCandyCottonCandyBlue": "Sour Blue Candy",
+  "foodCandyCottonCandyPink": "Sour Pink Candy",
+  "foodCandyShade": "Chocolate Candy",
+  "foodCandyWhite": "Vanilla Candy",
+  "foodCandyGolden": "Honey Candy ",
+  "foodCandyZombie": "Rotten Candy",
+  "foodCandyDesert": "Sand Candy",
+  "foodCandyRed": "Cinnamon Candy",
+
+  "foodSaddleText": "Saddle",
+  "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
+
+  "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
+
+
+}

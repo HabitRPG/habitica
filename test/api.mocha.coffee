@@ -10,7 +10,7 @@ superagentDefaults = require("superagent-defaults")
 request = superagentDefaults()
 moment = require("moment")
 conf = require("nconf")
-conf.argv().env().file(file: __dirname + "../config.json").defaults()
+conf.argv().env().file(file: __dirname + "../website/config.json").defaults()
 conf.set "port", "1337"
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
@@ -19,12 +19,12 @@ process.env.BASE_URL = conf.get("BASE_URL")
 process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
 process.env.NODE_DB_URI = "mongodb://localhost/habitrpg"
-User = require("../src/models/user").model
-Group = require("../src/models/group").model
-Challenge = require("../src/models/challenge").model
-app = require("../src/server")
-shared = require("habitrpg-shared")
-payments = require("../src/controllers/payments")
+User = require("../website/src/models/user").model
+Group = require("../website/src/models/group").model
+Challenge = require("../website/src/models/challenge").model
+app = require("../website/src/server")
+shared = require("../common")
+payments = require("../website/src/controllers/payments")
 
 # ###### Helpers & Variables ######
 model = undefined
@@ -64,7 +64,7 @@ describe "API", ->
         cb null, res.body
 
   before (done) ->
-    require "../src/server" # start the server
+    require "../website/src/server" # start the server
     # then wait for it to do it's thing. TODO make a cb-compatible export of server
     setTimeout done, 2000
 

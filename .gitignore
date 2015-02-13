@@ -1,13 +1,14 @@
 .DS_Store
-public/gen
+website/public/gen
+website/public/common
 node_modules
 *.swp
 .idea*
 config.json
 npm-debug.log
 lib
-public/bower_components
-build
+website/public/bower_components
+website/build
 newrelic_agent.log
 .bower-tmp
 .bower-registry
@@ -19,5 +20,6 @@ src/*/*.map
 src/*/*/*.map
 test/*.js
 test/*.map
-public/docs
+website/public/docs
 *.sublime-workspace
+coverage.html

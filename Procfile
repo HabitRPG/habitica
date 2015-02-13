@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/grunt build:prod;./node_modules/.bin/grunt nodemon;
+web: ./node_modules/.bin/grunt nodemon;
