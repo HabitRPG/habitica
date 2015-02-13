@@ -1,6 +1,5 @@
 /*global module:false*/
 var _ = require('lodash');
-var config = require('./config');
 module.exports = function(grunt) {
 
   // Ported from shared
@@ -235,7 +234,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
-  if(config.NODE_ENV == 'production')
+  if(process.env.NODE_ENV == 'production')
     grunt.registerTask('default', ['build:prod']);
   else
     grunt.registerTask('default', ['build:dev']);
