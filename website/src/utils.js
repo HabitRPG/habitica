@@ -1,5 +1,6 @@
 var nodemailer = require('nodemailer');
 var nconf = require('nconf');
+nconf.file({ file: './config.json' });
 var crypto = require('crypto');
 var path = require("path");
 var request = require('request');
