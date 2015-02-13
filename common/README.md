@@ -7,3 +7,10 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
  * Algorithms - level up algorithm, scoring functions, etc
  * View helper functions that may come in handy for multiple client MVCs
  * Item definitions - weapons, armor, pets 
+
+## Compiling spritesheets
+Because of some wonkiness with Heroku, the spritesheet compilation is not part of the production build process and must be done manually when new images are added by running: 
+
+``` bash
+grunt compile:sprites
+```
