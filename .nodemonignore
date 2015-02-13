@@ -2,9 +2,9 @@ node_modules/**
 .bower-cache/**
 .bower-tmp/**
 .bower-registry/**
-public/**
-views/**
-build/**
+website/public/**
+website/views/**
+website/build/**
 .git/**
 Gruntfile.js
 CHANGELOG.md
