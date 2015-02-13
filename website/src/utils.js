@@ -1,6 +1,5 @@
 var nodemailer = require('nodemailer');
 var nconf = require('nconf');
-nconf.file({ file: './config.json' });
 var crypto = require('crypto');
 var path = require("path");
 var request = require('request');
@@ -117,7 +116,7 @@ module.exports.setupConfig = function(){
   nconf.argv()
     .env()
     //.file('defaults', path.join(path.resolve(__dirname, '../config.json.example')))
-    .file('user', path.join(path.resolve(__dirname, '../config.json')));
+    .file('user', path.join(path.resolve(__dirname, './../../config.json')));
 
   if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;
