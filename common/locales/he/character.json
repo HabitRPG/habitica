@@ -28,7 +28,7 @@
     "hairBangs": "פוני",
     "hairBase": "בסיס",
     "hairSet1": "קבוצת תספורות 1",
-    "hairSet2": "Hairstyle Set 2",
+    "hairSet2": "סדרת תסרוקות 2",
     "bodyFacialHair": "שיער פנים",
     "beard": "זקן",
     "mustache": "שפם",
@@ -131,7 +131,7 @@
     "youCastTarget": "הטלת <%= spell %> על <%= target %>.",
     "youCastParty": "הטלת <%= spell %> בשביל החבר'ה שלך. כל הכבוד!",
     "critBonus": "פגיעה חמורה! בונוס:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
+    "displayNameDescription1": "זה מה שמופיע בהודעות שאתה מפרסם בפאב, בגילדות ובשיחת החבורה, בנוסף למה שמופיע כבר על גבי האווטאר שלך. לך ל:",
     "displayNameDescription2": "הגדרות->אתר",
     "displayNameDescription3": "וגלל למטה לאיזור ההרשמה כדי לשנות את שם המשתמש שלך"
 }

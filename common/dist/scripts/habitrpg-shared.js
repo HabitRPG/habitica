@@ -34,13 +34,13 @@ t = function(string, vars) {
   return func;
 };
 
+
 /*
   ---------------------------------------------------------------
   Gear (Weapons, Armor, Head, Shield)
   Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
   ---------------------------------------------------------------
-*/
-
+ */
 
 classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
@@ -2284,11 +2284,11 @@ gear = {
   }
 };
 
+
 /*
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
   they are needed in different froms at different points in the app
-*/
-
+ */
 
 api.gear = {
   tree: gear,
@@ -2328,10 +2328,10 @@ _.each(gearTypes, function(type) {
   });
 });
 
+
 /*
   Time Traveler Store, mystery sets need their items mapped in
-*/
-
+ */
 
 _.each(api.mystery, function(v, k) {
   return v.items = _.where(api.gear.flat, {
@@ -2351,12 +2351,12 @@ api.timeTravelerStore = function(owned) {
   }, {});
 };
 
+
 /*
   ---------------------------------------------------------------
   Potion
   ---------------------------------------------------------------
-*/
-
+ */
 
 api.potion = {
   type: 'potion',
@@ -2366,23 +2366,24 @@ api.potion = {
   key: 'potion'
 };
 
+
 /*
    ---------------------------------------------------------------
    Classes
    ---------------------------------------------------------------
-*/
-
+ */
 
 api.classes = classes;
+
 
 /*
    ---------------------------------------------------------------
    Gear Types
    ---------------------------------------------------------------
-*/
-
+ */
 
 api.gearTypes = gearTypes;
+
 
 /*
   ---------------------------------------------------------------
@@ -2403,8 +2404,7 @@ api.gearTypes = gearTypes;
     so you'll want to iterate over them like: `_.each(target,function(member){...})`
 
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
-*/
-
+ */
 
 diminishingReturns = function(bonus, max, halfway) {
   if (halfway == null) {
@@ -2795,12 +2795,12 @@ _.each(api.spells, function(spellClass) {
 
 api.special = api.spells.special;
 
+
 /*
   ---------------------------------------------------------------
   Drops
   ---------------------------------------------------------------
-*/
-
+ */
 
 api.dropEggs = {
   Wolf: {
@@ -4735,30 +4735,32 @@ $w = api.$w = function(s) {
 };
 
 api.dotSet = function(obj, path, val) {
-  var arr,
-    _this = this;
+  var arr;
   arr = path.split('.');
-  return _.reduce(arr, function(curr, next, index) {
-    if ((arr.length - 1) === index) {
-      curr[next] = val;
-    }
-    return curr[next] != null ? curr[next] : curr[next] = {};
-  }, obj);
+  return _.reduce(arr, (function(_this) {
+    return function(curr, next, index) {
+      if ((arr.length - 1) === index) {
+        curr[next] = val;
+      }
+      return curr[next] != null ? curr[next] : curr[next] = {};
+    };
+  })(this), obj);
 };
 
 api.dotGet = function(obj, path) {
-  var _this = this;
-  return _.reduce(path.split('.'), (function(curr, next) {
-    return curr != null ? curr[next] : void 0;
-  }), obj);
+  return _.reduce(path.split('.'), ((function(_this) {
+    return function(curr, next) {
+      return curr != null ? curr[next] : void 0;
+    };
+  })(this)), obj);
 };
+
 
 /*
   Reflists are arrays, but stored as objects. Mongoose has a helluvatime working with arrays (the main problem for our
   syncing issues) - so the goal is to move away from arrays to objects, since mongoose can reference elements by ID
   no problem. To maintain sorting, we use these helper functions:
-*/
-
+ */
 
 api.refPush = function(reflist, item, prune) {
   if (prune == null) {
@@ -4776,19 +4778,19 @@ api.planGemLimits = {
   convCap: 25
 };
 
+
 /*
   ------------------------------------------------------
   Time / Day
   ------------------------------------------------------
-*/
+ */
 
 
 /*
   Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
   Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
   {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
-*/
-
+ */
 
 sanitizeOptions = function(o) {
   var dayStart, now, timezoneOffset, _ref;
@@ -4838,10 +4840,10 @@ api.dayMapping = {
   6: 's'
 };
 
+
 /*
   Absolute diff from "yesterday" till now
-*/
-
+ */
 
 api.daysSince = function(yesterday, options) {
   var o;
@@ -4856,10 +4858,10 @@ api.daysSince = function(yesterday, options) {
   }, o)), 'days'));
 };
 
+
 /*
   Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
-*/
-
+ */
 
 api.shouldDo = function(day, repeat, options) {
   var o, selected;
@@ -4876,24 +4878,24 @@ api.shouldDo = function(day, repeat, options) {
   return selected;
 };
 
+
 /*
   ------------------------------------------------------
   Scoring
   ------------------------------------------------------
-*/
-
+ */
 
 api.tnl = function(lvl) {
   return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
 };
+
 
 /*
   A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
   {max} The asymptote
   {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
   {halfway} (optional) the point at which the graph starts bending
-*/
-
+ */
 
 api.diminishingReturns = function(bonus, max, halfway) {
   if (halfway == null) {
@@ -4906,13 +4908,13 @@ api.monod = function(bonus, rateOfIncrease, max) {
   return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
 };
 
+
 /*
 Preen history for users with > 7 history entries
 This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
 of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
 of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
-*/
-
+ */
 
 preenHistory = function(history) {
   var newHistory, preen, thisMonth;
@@ -4948,10 +4950,10 @@ preenHistory = function(history) {
   return newHistory;
 };
 
+
 /*
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
-*/
-
+ */
 
 sortOrder = _.reduce(content.gearTypes, (function(m, v, k) {
   m[v] = k;
@@ -4984,21 +4986,21 @@ api.updateStore = function(user) {
   });
 };
 
+
 /*
 ------------------------------------------------------
 Content
 ------------------------------------------------------
-*/
-
+ */
 
 api.content = content;
+
 
 /*
 ------------------------------------------------------
 Misc Helpers
 ------------------------------------------------------
-*/
-
+ */
 
 api.uuid = function() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
@@ -5015,11 +5017,11 @@ api.countExists = function(items) {
   }), 0);
 };
 
+
 /*
 Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
 sending up to the server for performance
-*/
-
+ */
 
 api.taskDefaults = function(task) {
   var defaults, _ref, _ref1, _ref2;
@@ -5097,10 +5099,10 @@ api.percent = function(x, y, dir) {
   return Math.max(0, roundFn(x / y * 100));
 };
 
+
 /*
 Remove whitespace #FIXME are we using this anywwhere? Should we be?
-*/
-
+ */
 
 api.removeWhitespace = function(str) {
   if (!str) {
@@ -5109,10 +5111,10 @@ api.removeWhitespace = function(str) {
   return str.replace(/\s/g, '');
 };
 
+
 /*
 Encode the download link for .ics iCal file
-*/
-
+ */
 
 api.encodeiCalLink = function(uid, apiToken) {
   var loc, _ref;
@@ -5120,10 +5122,10 @@ api.encodeiCalLink = function(uid, apiToken) {
   return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
 };
 
+
 /*
 Gold amount from their money
-*/
-
+ */
 
 api.gold = function(num) {
   if (num) {
@@ -5133,10 +5135,10 @@ api.gold = function(num) {
   }
 };
 
+
 /*
 Silver amount from their money
-*/
-
+ */
 
 api.silver = function(num) {
   if (num) {
@@ -5146,10 +5148,10 @@ api.silver = function(num) {
   }
 };
 
+
 /*
 Task classes given everything about the class
-*/
-
+ */
 
 api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
   var classes, completed, enabled, filter, repeat, type, value, _ref;
@@ -5220,19 +5222,19 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
   return classes;
 };
 
+
 /*
 Friendly timestamp
-*/
-
+ */
 
 api.friendlyTimestamp = function(timestamp) {
   return moment(timestamp).format('MM/DD h:mm:ss a');
 };
 
+
 /*
 Does user have new chat messages?
-*/
-
+ */
 
 api.newChatMessages = function(messages, lastMessageSeen) {
   if (!((messages != null ? messages.length : void 0) > 0)) {
@@ -5241,10 +5243,10 @@ api.newChatMessages = function(messages, lastMessageSeen) {
   return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
 };
 
+
 /*
 are any tags active?
-*/
-
+ */
 
 api.noTags = function(tags) {
   return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
@@ -5252,10 +5254,10 @@ api.noTags = function(tags) {
   }));
 };
 
+
 /*
 Are there tags applied?
-*/
-
+ */
 
 api.appliedTags = function(userTags, taskTags) {
   var arr;
@@ -5316,11 +5318,12 @@ api.countTriad = function(pets) {
   return count3;
 };
 
+
 /*
 ------------------------------------------------------
 User (prototype wrapper to give it ops, helper funcs, and virtuals
 ------------------------------------------------------
-*/
+ */
 
 
 /*
@@ -5351,8 +5354,7 @@ TODO
     user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
     move to $resource for user
   * Move to $resource!
-*/
-
+ */
 
 api.wrap = function(user, main) {
   if (main == null) {
@@ -6578,11 +6580,11 @@ api.wrap = function(user, main) {
       }
       return message;
     },
+
     /*
     Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
     we need things to be "random", but technically predictable so that they don't go out-of-sync
-    */
-
+     */
     predictableRandom: function(seed) {
       var x;
       if (!seed || seed === Math.PI) {
@@ -6610,11 +6612,11 @@ api.wrap = function(user, main) {
         return 1;
       }
     },
+
     /*
       Get a random property from an object
       returns random property (the value)
-    */
-
+     */
     randomVal: function(obj, options) {
       var array, rand;
       array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
@@ -6622,13 +6624,13 @@ api.wrap = function(user, main) {
       array.sort();
       return array[Math.floor(rand * array.length)];
     },
+
     /*
     This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
     user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
     so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
     Angular sets object properties directly - in which case, this function will be used.
-    */
-
+     */
     dotSet: function(path, val) {
       return api.dotSet(user, path, val);
     },
@@ -6706,12 +6708,12 @@ api.wrap = function(user, main) {
         return user.items.lastDrop.count++;
       }
     },
+
     /*
       Updates user stats with new stats. Handles death, leveling up, etc
       {stats} new stats
       {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-    */
-
+     */
     autoAllocate: function() {
       return user.stats[(function() {
         var diff, ideal, preference, stats, suggested;
@@ -6816,7 +6818,7 @@ api.wrap = function(user, main) {
             _base[k] = 0;
           }
           user.items.quests[k]++;
-          ((_base1 = user.flags).levelDrops != null ? (_base1 = user.flags).levelDrops : _base1.levelDrops = {})[k] = true;
+          ((_base1 = user.flags).levelDrops != null ? _base1.levelDrops : _base1.levelDrops = {})[k] = true;
           if (typeof user.markModified === "function") {
             user.markModified('flags.levelDrops');
           }
@@ -6835,11 +6837,12 @@ api.wrap = function(user, main) {
         return user.flags.freeRebirth = true;
       }
     },
+
     /*
       ------------------------------------------------------
       Cron
       ------------------------------------------------------
-    */
+     */
 
     /*
       At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
@@ -6847,8 +6850,7 @@ api.wrap = function(user, main) {
       Make sure to run this function once in a while as server will not take care of overnight calculations.
       And you have to run it every time client connects.
       {user}
-    */
-
+     */
     cron: function(options) {
       var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
       if (options == null) {
@@ -6988,7 +6990,7 @@ api.wrap = function(user, main) {
           }
         }
       });
-      ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base1 = (user.history != null ? user.history : user.history = {})).todos : _base1.todos = []).push({
+      ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? _base1.todos : _base1.todos = []).push({
         date: now,
         value: todoTally
       });
@@ -6998,7 +7000,7 @@ api.wrap = function(user, main) {
         lvl++;
         expTally += api.tnl(lvl);
       }
-      ((_base2 = user.history).exp != null ? (_base2 = user.history).exp : _base2.exp = []).push({
+      ((_base2 = user.history).exp != null ? _base2.exp : _base2.exp = []).push({
         date: now,
         value: expTally
       });
@@ -7011,7 +7013,7 @@ api.wrap = function(user, main) {
           user.markModified('dailys');
         }
       }
-      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? (_base3 = user.achievements).perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
+      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
         str: lvlDiv2,
         int: lvlDiv2,
         per: lvlDiv2,
@@ -7091,21 +7093,22 @@ api.wrap = function(user, main) {
   };
   Object.defineProperty(user, '_statsComputed', {
     get: function() {
-      var computed,
-        _this = this;
-      computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
-        m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
-          var item, val;
-          val = user.fns.dotGet(path);
-          return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
-        }, 0);
-        if (user.stats.lvl < 100) {
-          m[stat] += (user.stats.lvl - 1) / 2;
-        } else {
-          m[stat] += 50;
-        }
-        return m;
-      }, {});
+      var computed;
+      computed = _.reduce(['per', 'con', 'str', 'int'], (function(_this) {
+        return function(m, stat) {
+          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
+            var item, val;
+            val = user.fns.dotGet(path);
+            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
+          }, 0);
+          if (user.stats.lvl < 100) {
+            m[stat] += (user.stats.lvl - 1) / 2;
+          } else {
+            m[stat] += 50;
+          }
+          return m;
+        };
+      })(this), {});
       computed.maxMP = computed.int * 2 + 30;
       return computed;
     }

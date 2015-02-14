@@ -98,10 +98,10 @@
     "invitedQuest": "Uitgenodigd voor queeste",
     "remindersToLogin": "Herinneringsberichten om HabitRPG te checken",
     "unsubscribeAllEmails": "Klik hier om emails uit te zetten",
-    "unsubscribeAllEmailsText": "Door dit aan te klikken geef ik aan dat ik begrijp dat als ik me uitschrijf van emails, HabitRPG nooit per email contact met me op kan nemen om belangrijke wijzigingen in de site of mijn account door te geven.",
+    "unsubscribeAllEmailsText": "Door dit aan te klikken geef ik aan dat ik begrijp dat als ik me uitschrijf van emails, HabitRPG nooit meer per email contact met me op kan nemen om belangrijke wijzigingen in de site of mijn account door te geven.",
     "subscriptionRateText": "$<%= price %> elke <%= months %> maanden, terugkerend",
     "benefits": "Voordelen",
-    "coupon": "Korting",
-    "couponPlaceholder": "Kortingscode invoeren",
-    "couponText": "Soms hebben we evenementen waarbij we kortingsbonnen uitdelen voor speciale uitrustingsstukken. (Bijvoorbeeld aan mensen die langskomen bij onze Wonderconkraam.)"
+    "coupon": "Kadobon",
+    "couponPlaceholder": "Kadocode invoeren",
+    "couponText": "Soms hebben we evenementen waarbij we kadobonnen uitdelen voor speciale uitrustingsstukken. (Bijvoorbeeld aan mensen die langskomen bij onze Wonderconkraam.)"
 }
