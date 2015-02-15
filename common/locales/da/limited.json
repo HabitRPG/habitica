@@ -7,11 +7,11 @@
     "alarmingFriends": "Foruroligende Venner",
     "alarmingFriendsText": "Blev skræmt <%= spookDust %> gange af gruppemedlemmer.",
     "valentineCard": "Valentinsdagskort",
-    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
-    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
-    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
-    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
-    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
+    "valentineCardNotes": "Send et Valentinskort til et gruppemedlem.",
+    "valentine0": "\"Roser er røde<%= lineBreak %>Mine Daglige er blå<%= lineBreak %>Jeg er glad for at jeg<%= lineBreak %>i din Gruppe være må!\"",
+    "valentine1": "\"Roser er røde<%= lineBreak %>og bundet med bast<%= lineBreak %>Lad os arbejde sammen<%= lineBreak %>og nedkæmpe Last!\"",
+    "valentine2": "\"Roser er røde<%= lineBreak %>dette digt er fuld<%= lineBreak %>af gamle klichéer<%= lineBreak %>og koster ti Guld!\"",
+    "valentine3": "\"Roser er røde<%= lineBreak %>Mit liv er en leg<%= lineBreak %>Når jeg er så heldig<%= lineBreak %>at queste med dig!\"",
     "adoringFriends": "Tilbedende venner",
     "adoringFriendsText": "Åååh, du og din ven kan virkelig godt lide hinanden! Sendte eller modtog <%= cards %> Valentinsdagskort.",
     "polarBear": "Isbjørn",
@@ -29,7 +29,7 @@
     "snowflakeSet": "Snefnug (Helbreder)",
     "yetiSet": "Yeti-tæmmer (Kriger)",
     "nyeCard": "Nytårskort",
-    "nyeCardNotes": "Send a New Year's card to a party member.",
+    "nyeCardNotes": "Send et Nytårskort til et gruppemedlem.",
     "seasonalItems": "Sæson-ting",
     "auldAcquaintance": "Gammel Kending",
     "auldAcquaintanceText": "Godt Nytår! Har sendt eller modtaget <%= cards %> Nytårskort.",
@@ -38,5 +38,5 @@
     "newYear2": "Godt Nytår! Må du udføre mange Perfekt Dage.",
     "newYear3": "Godt Nytår! Må din To-Do-liste forblive kort og overskuelig.",
     "newYear4": "Godt Nytår! Må du undgå at blive angrebet af vrede Hippogriffer!",
-    "holidayCard": "Received a holiday card!"
+    "holidayCard": "Modtog et højtidskort!"
 }

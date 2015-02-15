@@ -46,7 +46,7 @@
     "originalUserText": "Een van de oorspronkelijke <em>zeer</em> early adopters. Een echte alpha tester!",
     "habitBirthday": "HabitRPG-verjaardagsfeest",
     "habitBirthdayText": "Heeft meegedaan aan het verjaardagsfeest van HabitRPG!",
-    "habitBirthdayPluralText": "Heeft <%= number %> de verjaardag van HabitRPG gevierd!",
+    "habitBirthdayPluralText": "Heeft <%= number %> keer de verjaardag van HabitRPG gevierd!",
     "achievementDilatory": "Redder van Dralen",
     "achievementDilatoryText": "Heeft geholpen de Donkere Draak van Dralen te verslaan tijdens het Zomerse Spetterevenement 2014!",
     "costumeContest": "Verkleedwedstrijd 2014",
