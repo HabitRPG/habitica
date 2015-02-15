@@ -71,9 +71,6 @@ npm install --no-bin-link
 echo Installing Bower packages
 sudo -H -u vagrant bower --config.interactive=false install -f
 
-echo Running Grunt
-sudo -H -u vagrant grunt
-
 ## # echo Seeding Mongodb...
 ## node ./src/seed.js
 ## no longer required - see comments in src/seed.js
