@@ -74,7 +74,7 @@
   "scripts": {
     "test": "./test/run_tests.sh",
     "start": "grunt run:dev",
-    "postinstall": "bower --config.interactive=false install -f; grunt;",
+    "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/grunt;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {
