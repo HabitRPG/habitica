@@ -250,7 +250,7 @@ Task classes given everything about the class
 ###
 api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showCompleted=false, main=false) ->
   return unless task
-  {type, completed, value, repeat} = task
+  {type, completed, value, repeat, priority} = task
 
   # Filters
   if main # only show when on your own list
@@ -276,6 +276,13 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
   else if type is 'habit'
     classes += ' habit-wide' if task.down and task.up
     classes += ' habit-narrow' if !task.down and !task.up
+
+  if priority == 1
+    classes += ' difficulty-easy'
+  else if priority == 1.5
+    classes += ' difficulty-medium'
+  else # priority == 2
+    classes += ' difficulty-hard'
 
   if value < -20
     classes += ' color-worst'
@@ -771,7 +778,7 @@ api.wrap = (user, main=true) ->
           user.items.currentMount = ""
           user.items.currentPet = ""
           for animal of content.pets
-            giveTriadBingo = false if user.items.pets[animal] == -1 
+            giveTriadBingo = false if user.items.pets[animal] == -1
             user.items.pets[animal] = 0
             user.items.mounts[animal] = null
           if not user.achievements.beastMasterCount
@@ -1353,7 +1360,7 @@ api.wrap = (user, main=true) ->
       user.stats.gp = if stats.gp >= 0 then stats.gp else 0
 
       tnl = api.tnl(user.stats.lvl)
-      
+
       # level up & carry-over exp
       if stats.exp >= tnl
       #silent = true # push through the negative xp silently
