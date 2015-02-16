@@ -281,7 +281,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
     classes += ' difficulty-easy'
   else if priority == 1.5
     classes += ' difficulty-medium'
-  else # priority == 2
+  else if priority == 2
     classes += ' difficulty-hard'
 
   if value < -20

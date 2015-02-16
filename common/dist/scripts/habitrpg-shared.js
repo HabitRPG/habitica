@@ -5208,7 +5208,7 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     classes += ' difficulty-easy';
   } else if (priority === 1.5) {
     classes += ' difficulty-medium';
-  } else {
+  } else if (priority === 2) {
     classes += ' difficulty-hard';
   }
   if (value < -20) {
