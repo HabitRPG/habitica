@@ -129,26 +129,14 @@ div(ng-if='::profile.achievements.helpedHabit')
     +aLink('http://community.habitrpg.com/node/290', env.t('helpedText2'))
   hr
 
-<<<<<<< HEAD
-div(ng-if='profile.achievements.veteran')
-  .achievement.achievement-alpha
-=======
 div(ng-if=':: profile.achievements.veteran')
   .achievement.achievement-cake
->>>>>>> 7a08ff360f988a02b96417b2040b5d806b426101
   div(ng-if='::profile.achievements.veteran')
     h5=env.t('veteran')
     small=env.t('veteranText')
-  div(ng-if='::profile.achievements.originalUser')
-    h5=env.t('originalUser')
-    small!=env.t('originalUserText')
   hr
 
-<<<<<<< HEAD
-div(ng-if='::profile.achievements.originalUser')
-=======
 div(ng-if=':: profile.achievements.originalUser')
->>>>>>> 7a08ff360f988a02b96417b2040b5d806b426101
   .achievement.achievement-alpha
   div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
