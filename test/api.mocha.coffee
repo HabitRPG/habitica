@@ -356,6 +356,11 @@ describe "API", ->
 
               # Send them invitations
               (_party, cb) ->
+                 # @TODO - _party should be array of newly
+                 # registered party members, instead
+                 # _party = an array of 3 user objects
+                 # all the user objects are the main user
+                 # instead of the party members just registered
                 party = _party
                 inviteURL = baseURL + "/groups/" + group._id + "/invite?uuid="
                 async.parallel [
