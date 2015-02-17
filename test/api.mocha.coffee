@@ -93,6 +93,7 @@ describe "API", ->
 
     describe "Todos", ->
       it "Archives old todos", (done) ->
+        numTasks = _.size(user.todos)
         request.post(baseURL + "/user/batch-update?_v=999").send([
           {
             op: "addTask"
@@ -111,7 +112,10 @@ describe "API", ->
           }
         ]).end (res) ->
           expectCode res, 200
-          expect(_.size(res.body.todos)).to.be 8
+          # Expect number of todos to be 3 greater than the number the user started with
+          expect(_.size(res.body.todos)).to.be numTasks + 3
+          # Assign new number to numTasks variable
+          numTasks += 3
           request.post(baseURL + "/user/batch-update?_v=998").send([
             {
               op: "score"
@@ -133,7 +137,7 @@ describe "API", ->
             }
           ]).end (res) ->
             expectCode res, 200
-            expect(_.size(res.body.todos)).to.be 8
+            expect(_.size(res.body.todos)).to.be numTasks
             request.post(baseURL + "/user/batch-update?_v=997").send([
               {
                 op: "updateTask"
@@ -152,7 +156,8 @@ describe "API", ->
                   dateCompleted: moment().subtract(4, "days")
               }
             ]).end (res) ->
-              expect(_.size(res.body.todos)).to.be 6
+              # Expect todos to be 2 less than the total count
+              expect(_.size(res.body.todos)).to.be numTasks - 2
               done()
 
     ###*
