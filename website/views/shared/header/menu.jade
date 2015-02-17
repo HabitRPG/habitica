@@ -202,7 +202,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                   span {{v.name}}
                 a(ng-click='Groups.seenMessage(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
-              li(ng-if='user.items.special.valentineReceived[0] || user.items.special.nyeReceived[0]')
+              // li(ng-if='user.items.special.valentineReceived[0] || user.items.special.nyeReceived[0]')
                 a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
                   span.glyphicon.glyphicon-envelope
                   span=env.t('holidayCard')
