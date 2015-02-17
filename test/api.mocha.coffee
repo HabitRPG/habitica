@@ -236,6 +236,7 @@ describe "API", ->
             request.post(baseURL + "/user/tasks/" + u.todos[1].id + "/up").end (res) ->
               request.post(baseURL + "/user/tasks/").send(type: "todo").end (res) ->
                 request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
+                  # 2 tasks set to be completed, so tasks should equal numTasks - 2
                   expect(_.size(res.body)).to.be numTasks - 2
                   done()
 
