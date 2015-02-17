@@ -130,15 +130,15 @@ div(ng-if='::profile.achievements.helpedHabit')
   hr
 
 div(ng-if='profile.achievements.veteran')
-  .achievement.achievement-cake
-  div(ng-if='profile.achievements.veteran')
+  .achievement.achievement-alpha
+  div(ng-if='::profile.achievements.veteran')
     h5=env.t('veteran')
     small=env.t('veteranText')
   hr
 
-div(ng-if='profile.achievements.originalUser')
+div(ng-if='::profile.achievements.originalUser')
   .achievement.achievement-alpha
-  div(ng-if='profile.achievements.originalUser')
+  div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
     small!=env.t('originalUserText')
   hr
