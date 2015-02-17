@@ -23,16 +23,35 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    $scope.addTask = function(addTo, listDef) {
+    function addTask(addTo, listDef, task) {
       var newTask = {
-        text: listDef.newTask,
+        text: task,
         type: listDef.type,
         tags: _.transform(User.user.filters, function(m,v,k){
           if (v) m[k]=v;
         })
-      }
+      };
       User.user.ops.addTask({body:newTask});
+    }
+
+    $scope.addTask = function(addTo, listDef) {
+      if (listDef.bulk) {
+        var tasks = listDef.newTask.split(/[\n\r]+/);
+        _.each(tasks, function(t) {
+          addTask(addTo, listDef, t);
+        });
+        listDef.bulk = false;
+      } else {
+        addTask(addTo, listDef, listDef.newTask);
+      }
       delete listDef.newTask;
+    };
+
+    $scope.toggleBulk = function(list) {
+      if (typeof list.bulk === 'undefined') {
+        list.bulk = false;
+      }
+      list.bulk = !list.bulk;
     };
 
     /**

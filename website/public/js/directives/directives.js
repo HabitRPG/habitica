@@ -73,21 +73,25 @@ habitrpg
             header: window.env.t('habits'),
             type: 'habit',
             placeHolder: window.env.t('newHabit'),
+            placeHolderBulk: window.env.t('newHabitBulk'),
             view: "all"
           }, {
             header: window.env.t('dailies'),
             type: 'daily',
             placeHolder: window.env.t('newDaily'),
+            placeHolderBulk: window.env.t('newDailyBulk'),
             view: dailiesView
           }, {
             header: window.env.t('todos'),
             type: 'todo',
             placeHolder: window.env.t('newTodo'),
+            placeHolderBulk: window.env.t('newTodoBulk'),
             view: "remaining"
           }, {
             header: window.env.t('rewards'),
             type: 'reward',
             placeHolder: window.env.t('newReward'),
+            placeHolderBulk: window.env.t('newRewardBulk'),
             view: "all"
           }
         ];
