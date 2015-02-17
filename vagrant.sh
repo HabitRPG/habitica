@@ -40,7 +40,7 @@ echo Installing GraphicsMagick - provides gm and convert...
 apt-get install -qq graphicsmagick
 
 echo Installing phantomjs and dependency...
-apt-get install -qq phantomjs libicu48
+apt-get install -qq libicu48
 
 echo Installing requirements for grunt-spritesmith...
 apt-get install -qq pkg-config libcairo2-dev libjpeg-dev
@@ -63,10 +63,10 @@ apt-get install -qq nodejs
 cd /vagrant
 
 echo Installing grunt/bower...
-npm install -g grunt-cli bower
+npm install -g grunt-cli bower phantomjs
 
 echo Installing HabitRPG
-npm install
+npm install --no-bin-link
 
 echo Installing Bower packages
 sudo -H -u vagrant bower --config.interactive=false install -f
