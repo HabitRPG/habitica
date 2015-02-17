@@ -362,16 +362,22 @@ describe "API", ->
                  # all the user objects are the main user
                  # instead of the party members just registered
                 party = _party
-                inviteURL = baseURL + "/groups/" + group._id + "/invite?uuid="
+                inviteURL = baseURL + "/groups/" + group._id + "/invite"
                 async.parallel [
                   (cb2) ->
-                    request.post(inviteURL + party[0]._id).end ->
+                    request.post(inviteURL).send(
+                      uuids: [party[0]._id]
+                    ).end ->
                       cb2()
                   (cb2) ->
-                    request.post(inviteURL + party[1]._id).end ->
+                    request.post(inviteURL).send(
+                      uuids: [party[1]._id]
+                    ).end ->
                       cb2()
                   (cb2) ->
-                    request.post(inviteURL + party[2]._id).end ->
+                    request.post(inviteURL).send(
+                      uuids: [party[2]._id]
+                    ).end (res)->
                       cb2()
                 ], cb
 
