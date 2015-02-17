@@ -5,7 +5,7 @@ mixin gemButton(isGemsModal)
     span.task-action-btn.tile.flush.neutral
       .Pet_Currency_Gem2x.Gems
       | {{user.balance * 4 | number:0}} 
-      =env.t('gems')
+      =env.t('userGems')
 
 mixin aLink(url, label)
   if mobile
