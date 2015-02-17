@@ -145,13 +145,24 @@ for $stage in $stages
 // "Add new task" form
 // -----------------
 .task-add
+  position: relative
   margin-top: 1.5em
   @extend $hrpg-button-with-input
   hrpg-button-color-mixin($color-options-submenu)
   input, button
     height: 2.618em
-  input
+  input, textarea
     width: 80%
+  textarea
+    float: none
+    resize: vertical
+    border-radius: 4px 0 0 4px
+    + button
+      position: absolute
+      top: 0
+      bottom: 0
+      right: 0
+      height: 100%
   button
     width: 20%
     span
