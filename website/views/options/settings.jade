@@ -228,6 +228,23 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
       .col-md-6
         h2=env.t('dataExport')
         small=env.t('saveData')
+        h4=env.t('taskLists')
+        small=env.t('taskData')
+        p
+          =env.t('exportHabits')
+          a(href="/export/habits.json")= ' ' + env.t('json')
+        p
+          =env.t('exportDailies')
+          a(href="/export/dailies.json")= ' ' + env.t('json')
+        p
+          =env.t('exportToDos')
+          a(href="/export/todos.json")= ' ' + env.t('json')
+        p
+          =env.t('exportRewards')
+          a(href="/export/rewards.json")= ' ' + env.t('json')
+        p
+          =env.t('exportAllTasks')
+          a(href="/export/tasks.json")= ' ' + env.t('json')
         h4=env.t('habitHistory')
         =env.t('exportHistory')
         a(href="/export/history.csv")= ' ' + env.t('csv')
