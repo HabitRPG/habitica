@@ -46,6 +46,7 @@ div(ng-if='profile.achievements.streak || user._id == profile._id')
   .achievement.achievement-thermometer(ng-show='profile.achievements.streak')
   div(ng-class='{muted: !profile.achievements.streak}')
     h5(ng-show='profile.achievements.streak > 1 || !profile.achievements.streak')
+
       | {{profile.achievements.streak || 0 }}&nbsp;
       =env.t('streakName')
     small(ng-show='profile.achievements.streak > 1 || !profile.achievements.streak')=env.t('streakText', {streaks: "{{profile.achievements.streak || 0 }}"})
@@ -53,10 +54,12 @@ div(ng-if='profile.achievements.streak || user._id == profile._id')
       =env.t('streakSingular')
     small(ng-show='profile.achievements.streak == 1')=env.t('streakSingularText')
   hr
+
 div(ng-if='profile.achievements.perfect || user._id == profile._id')
   .achievement.achievement-perfect(ng-show='profile.achievements.perfect')
   div(ng-class='{muted: !profile.achievements.perfect}')
     h5(ng-show='profile.achievements.perfect > 1 || !profile.achievements.perfect')
+
       | {{profile.achievements.perfect || 0 }}&nbsp;
       =env.t('perfectName')
     small(ng-show='profile.achievements.perfect > 1 || !profile.achievements.perfect')=env.t('perfectText', {perfects: "{{profile.achievements.perfect || 0 }}"})
@@ -101,6 +104,7 @@ div(ng-if='profile.achievements.triadBingo || user._id == profile._id')
   .achievement.achievement-triadbingo(ng-show='profile.achievements.triadBingo')
   div(ng-class='{muted: !profile.achievements.triadBingo}')
     h5=env.t('triadBingoName')
+
     small=env.t('triadBingoText')
     small(ng-if='profile.achievements.triadBingoCount')
       =env.t('triadBingoText2', {count: "{{profile.achievements.triadBingoCount}}"})
@@ -125,16 +129,20 @@ div(ng-if='::profile.achievements.helpedHabit')
     +aLink('http://community.habitrpg.com/node/290', env.t('helpedText2'))
   hr
 
-div(ng-if=':: profile.achievements.originalUser || profile.achievements.veteran')
+div(ng-if=':: profile.achievements.veteran')
   .achievement.achievement-cake
   div(ng-if='::profile.achievements.veteran')
     h5=env.t('veteran')
     small=env.t('veteranText')
+  hr
+
+div(ng-if=':: profile.achievements.originalUser')
+  .achievement.achievement-alpha
   div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
     small!=env.t('originalUserText')
   hr
-
+  
 div(ng-if='profile.achievements.challenges || user._id == profile._id')
   // This is a very strange icon to use. revisit
   .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
@@ -173,6 +181,7 @@ div(ng-if='::profile.achievements.habitBirthdays')
   .achievement.achievement-habitBirthday
   h5=env.t('habitBirthday')
   small(ng-if='::profile.achievements.habitBirthdays == 1')
+
     =env.t('habitBirthdayText')
   small(ng-if='::profile.achievements.habitBirthdays > 1')
     =env.t('habitBirthdayPluralText', {number: "{{profile.achievements.habitBirthdays}}"})
