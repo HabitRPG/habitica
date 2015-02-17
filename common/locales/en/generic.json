@@ -37,7 +37,11 @@
     "notEnoughGems": "Not enough Gems",
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
     "delete": "Delete",
+<<<<<<< HEAD
     "gems": "Gems",
+=======
+	"gems": "Gems",
+>>>>>>> 4ea0669a5e9582747ae13672b0bd3a98b25792f0
     "userGems": "Your Gems",
     "moreInfo": "More Info",
     "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
