@@ -2924,6 +2924,11 @@ api.questEggs = {
     text: t('questEggTRexText'),
     adjective: t('questEggTRexAdjective'),
     canBuy: false
+  },
+  Rock: {
+    text: t('questEggRockText'),
+    adjective: t('questEggRockAdjective'),
+    canBuy: false
   }
 };
 
@@ -4306,6 +4311,36 @@ api.quests = {
       ],
       gp: 55,
       exp: 500
+    }
+  },
+  rock: {
+    text: t('questRockText'),
+    notes: t('questRockNotes'),
+    completion: t('questRockCompletion'),
+    value: 4,
+    boss: {
+      name: t('questRockBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Rock',
+          text: t('questRockDropRockEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rock',
+          text: t('questRockDropRockEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rock',
+          text: t('questRockDropRockEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
     }
   }
 };

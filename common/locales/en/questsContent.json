@@ -197,5 +197,11 @@
   "questTRexUndeadRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Skeletal Tyrannosaur will heal 30% of its remaining health!",
   "questTRexUndeadRageEffect": "`Skeletal Tyrannosaur uses SKELETON HEALING!`\n\nThe monster lets forth an unearthly roar, and some of its damaged bones knit back together!",
 
-  "questTRexDropTRexEgg": "Tyrannosaur (Egg)"
+  "questTRexDropTRexEgg": "Tyrannosaur (Egg)",
+
+  "questRockText": "Escape the Cave Creature",
+  "questRockNotes": "Crossing Habitica's Meandering Mountains with some friends, you make camp one night in a beautiful cave laced with shining minerals. But when you wake up the next morning, the entrance has disappeared, and the floor of the cave is shifting underneath you.<br><br>\"The mountain's alive!\" shouts your companion @pfeffernusse. \"These aren't crystals - these are teeth!\"<br><br>@Painter de Cluster grabs your hand. \"We'll have to find another way out – stay with me and don't get distracted, or we could be trapped in here forever!\"",
+  "questRockBoss": "Crystal Colossus",
+  "questRockCompletion": "Your diligence has allowed you to find a safe path through the living mountain. Standing in the sunshine, your friend @intune notices something glinting on the ground by the cave’s exit. You stoop to pick it up, and see that it’s a small rock with a vein of gold running through it. Beside it are a number of other rocks with rather peculiar shapes. They almost look like… eggs?",
+  "questRockDropRockEgg": "Rock (Egg)"
 }
