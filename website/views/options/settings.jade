@@ -33,15 +33,15 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             .form-horizontal
               h5=env.t('language')
               select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
-              small 
+              small
                 !=env.t('americanEnglishGovern')
                 br
                 strong
                   !=env.t('helpWithTranslation')
-                  
+
             .form-horizontal
               h5=env.t('dateFormat')
-              select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='set({"preferences.dateFormat": user.preferences.dateFormat})')                  
+              select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='set({"preferences.dateFormat": user.preferences.dateFormat})')
             .checkbox
               label
                 input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
@@ -110,7 +110,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   input.btn.btn-default(type='submit', ng-disabled='localAuth.$invalid', value=env.t('submit'))
 
             div(ng-if='user.auth.local.username')
-              p=env.t('username') 
+              p=env.t('username')
                 |: {{user.auth.local.username}}
               p
                 small.muted
@@ -118,7 +118,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                     |&nbsp;
                     a(href='/#/options/profile/profile')=env.t('loginNameDescription2')
                     |&nbsp;
-                    =env.t('loginNameDescription3')                 
+                    =env.t('loginNameDescription3')
               p=env.t('email')
                 |: {{user.auth.local.email}}
               hr
@@ -324,14 +324,14 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
               label
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
                 span=env.t('importantAnnouncements')
-            
+
             hr
 
             .checkbox
               label
                 input(type='checkbox', ng-model='user.preferences.emailNotifications.unsubscribeFromAll', ng-change='set({"preferences.emailNotifications.unsubscribeFromAll": user.preferences.emailNotifications.unsubscribeFromAll ? true: false})')
                 span=env.t('unsubscribeAllEmails')
-            
+
             small=env.t('unsubscribeAllEmailsText')
 
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
