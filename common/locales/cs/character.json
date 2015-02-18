@@ -131,7 +131,7 @@
     "youCastTarget": "Seslal jsi <%= spell %> na <%= target %>.",
     "youCastParty": "Seslal jsi na družinu <%= spell %>.",
     "critBonus": "Kritický zásah! Bonus:",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
-    "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription1": "Toto se zobrazí ve zprávách, které uveřejníš v Krčmě, ceších, a chatu v družině, spolu s tvým avatarem. Jdi na",
+    "displayNameDescription2": "Nastavení -> Stránka",
+    "displayNameDescription3": "a sjeď dolů na sekci registrace, aby sis změnil své přihlašovací jméno."
 }

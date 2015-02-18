@@ -7,7 +7,7 @@
     "alarmingFriends": "Niepokojący przyjaciele",
     "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
     "valentineCard": "Kartka Walentynkowa",
-    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
+    "valentineCardNotes": "Wyślij Kartkę Walentynkową do członka drużyny.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
     "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
     "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
@@ -29,7 +29,7 @@
     "snowflakeSet": "Płatek śniegu (Uzdrowiciel)",
     "yetiSet": "Pogromca Yeti (Wojownik)",
     "nyeCard": "Noworoczna kartka",
-    "nyeCardNotes": "Send a New Year's card to a party member.",
+    "nyeCardNotes": "Wyślij Noworoczną Kartkę do członka drużyny.",
     "seasonalItems": "Przedmioty sezonowe",
     "auldAcquaintance": "Stara znajomość",
     "auldAcquaintanceText": "Szczęśliwego Nowego Roku! Wysłano lub otrzymano <%= cards %> noworocznych kartek.",
@@ -38,5 +38,5 @@
     "newYear2": "Szczęśliwego Nowego Roku! Obyś zdobył wiele Doskonałych Dni.",
     "newYear3": "Szczęśliwego Nowego Roku! Niech twoja lista zadań Do-Zrobienie pozostanie krótka.",
     "newYear4": "Szczęśliwego Nowego Roku! Obyś nie został zaatakowany przez rozwścieczonego hipogryfa.",
-    "holidayCard": "Received a holiday card!"
+    "holidayCard": "Dostałeś Wakacyjną Kartkę!"
 }

@@ -44,7 +44,7 @@
     "useUUID": "Použij UUID / API Token (pro uživatele Facebooku) ",
     "passMan": "Pokud používáš správce hesel ( jako 1Password) a máš problémy se přihlásit, zkus napsat uživatelské jméno a heslo ručně.",
     "forgotPass": "Zapoměl jsem heslo",
-    "emailNewPass": "Poslat nové heslo na e-mail",
+    "emailNewPass": "Poslat nové heslo na email",
     "invalidEmail": "Aby mohlo proběhnout resetování hesla, musí být zadán platný email.",
     "email": "Email",
     "passConfirm": "Potvrdit heslo",
@@ -90,7 +90,7 @@
     "footerSocial": "Komunita",
     "socialTitle": "HabitRPG - Ať je život hrou",
     "watchVideos": "Podívej se na videa",
-    "presskit": "Press Kit",
-    "presskitText": "Thanks for your interest in HabitRPG! The following images can be used for articles or videos about HabitRPG. For more information, please contact Siena Leslie at leslie@habitrpg.com.",
-    "presskitDownload": "Download all images:"
+    "presskit": "Pro novináře",
+    "presskitText": "Děkujeme za zájem o HabitRPG! Následující obrázky mohou být použity pro články nebo videa o HabitRPG. pro více informací, prosíme, kontaktujte Sienu Leslie na leslie@habitrpg.com.",
+    "presskitDownload": "Stáhnout všechny obrázky:"
 }
