@@ -798,6 +798,7 @@ api.questEggs =
   Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
   Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
   TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
+  Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1510,6 +1511,24 @@ api.quests =
       ]
       gp: 55
       exp: 500
+
+  rock:
+    text: t('questRockText')
+    notes: t('questRockNotes')
+    completion: t('questRockCompletion')
+    value: 4
+    boss:
+      name: t('questRockBoss')
+      hp: 400
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Rock', text: t('questRockDropRockEgg')}
+        {type: 'eggs', key: 'Rock', text: t('questRockDropRockEgg')}
+        {type: 'eggs', key: 'Rock', text: t('questRockDropRockEgg')}
+      ]
+      gp: 31
+      exp: 200
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
