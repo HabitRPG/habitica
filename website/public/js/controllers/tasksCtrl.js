@@ -45,6 +45,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         addTask(addTo, listDef, listDef.newTask);
       }
       delete listDef.newTask;
+      delete listDef.focus;
     };
 
     $scope.toggleBulk = function(list) {
@@ -52,6 +53,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         list.bulk = false;
       }
       list.bulk = !list.bulk;
+      list.focus = true;
     };
 
     /**
