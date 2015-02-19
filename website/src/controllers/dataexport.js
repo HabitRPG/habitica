@@ -22,48 +22,6 @@ var request = require('request');
   ------------------------------------------------------------------------
 */
 
-function buildTaskList(list) {
-  var output = [];
-  _.each(list, function(task) {
-    output.push(task);
-  });
-  return output;
-}
-
-dataexport.habits = function(req, res) {
-  return res.jsonstring({
-    'habits': buildTaskList(res.locals.user.habits)
-  });
-}
-
-dataexport.dailies = function(req, res) {
-  return res.jsonstring({
-    'dailies': buildTaskList(res.locals.user.dailys)
-  });
-}
-
-dataexport.todos = function(req, res) {
-  return res.jsonstring({
-    'todos': buildTaskList(res.locals.user.todos)
-  });
-}
-
-dataexport.rewards = function(req, res) {
-  return res.jsonstring({
-    'rewards': buildTaskList(res.locals.user.rewards)
-  });
-}
-
-dataexport.tasks = function(req, res) {
-  var user = res.locals.user;
-  return res.jsonstring({
-    'habits': buildTaskList(user.habits),
-    'dailies': buildTaskList(user.dailys),
-    'todos': buildTaskList(user.todos),
-    'rewards': buildTaskList(user.rewards)
-  });
-}
-
 dataexport.history = function(req, res) {
   var user = res.locals.user;
   var output = [

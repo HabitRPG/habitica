@@ -21,7 +21,7 @@
     "seasonalShop": "Negozio Stagionale",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Maga Stagionale<%= linkEnd %>",
-    "seasonalShopClosedText": "Il Negozio Stagionale è attualmente chiuso!! Non so dove sia la Maga Stagionale ora, ma scommetto che sarà di ritorno durante il prossimo <%= linkStart %>Grand Gala<%= linkEnd %>!",
+    "seasonalShopClosedText": "Il Negozio Stagionale è attualmente chiuso! Non so dove sia la Maga Stagionale ora, ma scommetto che sarà di ritorno durante il prossimo <%= linkStart %>Grand Gala<%= linkEnd %>!",
     "seasonalShopText": "Benvenuto nel Negozio Stagionale! Da adesso fino al 31 gennaio, offriamo un sacco di oggetti in una speciale edizione invernale. Dopodichè questi oggetti non saranno più disponibili fino al prossimo anno, quindi comprali finchè sono ancora caldi! O, ehm, freschi.",
     "seasonalShopRebirth": "Se hai usato la Sfera della Rinascita, potrai riacquistare questo equipaggiamento dalla Colonna delle Ricompense dopo aver sbloccato l'Item Shop. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero per default), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
     "candycaneSet": "Caramello (Mago)",

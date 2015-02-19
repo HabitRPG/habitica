@@ -2924,6 +2924,11 @@ api.questEggs = {
     text: t('questEggTRexText'),
     adjective: t('questEggTRexAdjective'),
     canBuy: false
+  },
+  Rock: {
+    text: t('questEggRockText'),
+    adjective: t('questEggRockAdjective'),
+    canBuy: false
   }
 };
 
@@ -4307,6 +4312,36 @@ api.quests = {
       gp: 55,
       exp: 500
     }
+  },
+  rock: {
+    text: t('questRockText'),
+    notes: t('questRockNotes'),
+    completion: t('questRockCompletion'),
+    value: 4,
+    boss: {
+      name: t('questRockBoss'),
+      hp: 400,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Rock',
+          text: t('questRockDropRockEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rock',
+          text: t('questRockDropRockEgg')
+        }, {
+          type: 'eggs',
+          key: 'Rock',
+          text: t('questRockDropRockEgg')
+        }
+      ],
+      gp: 31,
+      exp: 200
+    }
   }
 };
 
@@ -5154,7 +5189,7 @@ Task classes given everything about the class
  */
 
 api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
-  var classes, completed, enabled, filter, repeat, type, value, _ref;
+  var classes, completed, enabled, filter, priority, repeat, type, value, _ref;
   if (filters == null) {
     filters = [];
   }
@@ -5173,7 +5208,7 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
   if (!task) {
     return;
   }
-  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
+  type = task.type, completed = task.completed, value = task.value, repeat = task.repeat, priority = task.priority;
   if (main) {
     if (!task._editing) {
       for (filter in filters) {
@@ -5203,6 +5238,13 @@ api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, mai
     if (!task.down && !task.up) {
       classes += ' habit-narrow';
     }
+  }
+  if (priority === 1) {
+    classes += ' difficulty-easy';
+  } else if (priority === 1.5) {
+    classes += ' difficulty-medium';
+  } else if (priority === 2) {
+    classes += ' difficulty-hard';
   }
   if (value < -20) {
     classes += ' color-worst';

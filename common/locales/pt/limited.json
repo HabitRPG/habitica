@@ -7,11 +7,11 @@
     "alarmingFriends": "Amigos Alarmantes",
     "alarmingFriendsText": "Membros da equipe te assustaram <%= spookDust %> vezes.",
     "valentineCard": "Cartão do Dia dos Namorados",
-    "valentineCardNotes": "Send a Valentine's Day card to a party member.",
-    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
-    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
-    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
-    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
+    "valentineCardNotes": "Envie um cartão de Dia dos Namorados para um membro de sua equipe.",
+    "valentine0": "\"Rosas são vermelhas<%= lineBreak %>Minhas atividades diárias são azuis<%= lineBreak %>Estou feliz que estou<%= lineBreak %>Em equipe com você!\"",
+    "valentine1": "\"Rosas são vermelhas<%= lineBreak %>Violetas são legais<%= lineBreak %>Vamos nos juntar<%= lineBreak %>E o Vício enfrentar!\"",
+    "valentine2": "\"Rosas são vermelhas<%= lineBreak %>Esse estilo de poema é antigo<%= lineBreak %>Espero que goste<%= lineBreak %>'Pois custou 10 moedas de ouro para compartilhar contigo.\"",
+    "valentine3": "\"Rosas são vermelhas<%= lineBreak %>Dragões de gelo são azuis<%= lineBreak %>Nenhum tesouro é melhor<%= lineBreak %>Que tempo que tempo gasto ao seu redor!\"",
     "adoringFriends": "Amigos Adoráveis",
     "adoringFriendsText": "Aww, você e seu amigo devem se preocupar muito um com o outro! Enviou ou recebeu <%= cards %> Cartão(ões) do Dia dos Namorados.",
     "polarBear": "Urso Polar",
@@ -29,7 +29,7 @@
     "snowflakeSet": "Floco de Neve (Curandeiro)",
     "yetiSet": "Domador de Ieti (Guerreiro)",
     "nyeCard": "Cartão de Ano Novo",
-    "nyeCardNotes": "Send a New Year's card to a party member.",
+    "nyeCardNotes": "Enviou um cartão de ano novo para um membro da equipe.",
     "seasonalItems": "Itens Sazonais",
     "auldAcquaintance": "Velhos Conhecidos",
     "auldAcquaintanceText": "Feliz Ano Novo! Mandou ou recebeu <%= cards %> Cartões de Ano Novo.",
@@ -38,5 +38,5 @@
     "newYear2": "Feliz Ano Novo! Que você conquiste vários Dias Perfeitos.",
     "newYear3": "Feliz Ano Novo! Que a sua lista de Tarefas Diárias seja curta e objetiva.",
     "newYear4": "Feliz Ano Novo! Que você não seja atacado por um Hipogrifo enraivecido.",
-    "holidayCard": "Received a holiday card!"
+    "holidayCard": "Recebeu um cartão de feriado comemorativo!"
 }
