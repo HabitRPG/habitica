@@ -23,6 +23,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
+    function parseTaskInfo(task) {
+      //parse priority
+      //parse days (for dailies)
+      //parse due date (for to-dos)
+      //parse tags
+      //parse + - (for habits)
+    }
+
     $scope.addTask = function(addTo, listDef) {
       var newTask = {
         text: listDef.newTask,
