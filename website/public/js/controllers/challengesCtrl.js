@@ -33,7 +33,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         todos: [],
         rewards: [],
         leader: User.user._id,
-        group: null,
+        group: $scope.groups[0]._id,
         timestamp: +(new Date),
         members: [],
         official: false
