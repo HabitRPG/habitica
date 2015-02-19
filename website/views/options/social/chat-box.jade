@@ -22,10 +22,7 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
       .panel-heading=env.t('msgPreviewHeading')
       markdown.panel-body(text='message.content')
   .chat-controls
-    .chat-formatting
-      button.btn.btn-default(type="button", ng-if='!preview', ng-click='togglePreview()', ng-disabled='message.content == ""')=env.t('msgPreview')
-      button.btn.btn-default(type="button", ng-if='preview', ng-click='togglePreview()')=env.t('msgEdit')
-      include ../../shared/formatting-help
+    +chatFormatting('message.content')
     .chat-buttons
       input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
       button(type="button", ng-click='sync(group)')=env.t('toolTipMsg')
