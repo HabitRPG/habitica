@@ -143,7 +143,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           br
 
           // Ads
-          div(ng-if='::main && !user.purchased.ads && !user.purchased.plan.customerId && list.type!="reward"')
+          div(ng-if='::main && !user.purchased.ads && !user.purchased.plan.customerId && list.type!="reward" && user.stats.lvl>1')
             span.pull-right
               a(ui-sref='options.settings.subscription', popover=env.t('removeAds'), popover-trigger='mouseenter')
                 span.glyphicon.glyphicon-remove
