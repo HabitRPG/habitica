@@ -229,6 +229,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrl, Notification, Members, $rootScope){
     $scope.message = {content:''};
     $scope._sending = false;
+
+    $scope.preview = false;
+    $scope.togglePreview = function(){
+      $scope.preview = !$scope.preview;
+    }
     
     $scope.isUserMentioned = function(user, message) {
       if(message.hasOwnProperty("highlight"))
@@ -249,6 +254,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
 
     $scope.postChat = function(group, message){
+      $scope.preview = false;
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
       var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;

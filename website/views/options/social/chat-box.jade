@@ -12,13 +12,19 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
-    textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == 'habitrpg' ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}")
+    // Must be ng-show and not ng-if for autocomplete box to populate correctly
+    textarea.form-control(ng-show='!preview' rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == 'habitrpg' ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}")
     span.user-list(ng-show='!isAtListHidden')
       ul.list-at-user
         li(ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
           span.username.label.label-default(ng-class=':: userLevelStyle(user)') {{::user.user}}
+    .panel.panel-warning(ng-if='preview') 
+      .panel-heading=env.t('msgPreviewHeading')
+      markdown.panel-body(text='message.content')
   .chat-controls
     .chat-formatting
+      button.btn.btn-default(type="button", ng-if='!preview', ng-click='togglePreview()', ng-disabled='message.content == ""')=env.t('msgPreview')
+      button.btn.btn-default(type="button", ng-if='preview', ng-click='togglePreview()')=env.t('msgEdit')
       include ../../shared/formatting-help
     .chat-buttons
       input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
