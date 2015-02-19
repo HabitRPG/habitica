@@ -124,6 +124,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
   .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
     function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
+
+      $scope.preview = false;
+      $scope.togglePreview = function() {
+        $scope.preview = !$scope.preview;
+      }
+
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format($rootScope.User.user.preferences.dateFormat.toUpperCase());
       }
