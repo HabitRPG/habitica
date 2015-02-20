@@ -347,6 +347,14 @@ describe "API", ->
               (cb) ->
                 async.parallel [
                   (cb2) ->
+                    # @TODO: The registerNewUser function posts to /api/v2/register
+                    # since superagent-defaults has the user id and token set
+                    # Subsequent calls to registerNewUser are being called with
+                    # the uuid and token that is generated when the initial user is
+                    # made. Instead of creating new users, it updaes the original user
+                    # with a new login name, email and password. That is why
+                    # all the users have the same uuid, because they're not actually
+                    # being created. The original is just being updated. 
                     registerNewUser cb2, false
                   (cb2) ->
                     registerNewUser cb2, false
