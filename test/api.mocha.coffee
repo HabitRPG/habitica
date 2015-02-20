@@ -351,7 +351,7 @@ describe "API", ->
                     # since superagent-defaults has the user id and token set
                     # Subsequent calls to registerNewUser are being called with
                     # the uuid and token that is generated when the initial user is
-                    # made. Instead of creating new users, it updaes the original user
+                    # made. Instead of creating new users, it updates the original user
                     # with a new login name, email and password. That is why
                     # all the users have the same uuid, because they're not actually
                     # being created. The original is just being updated. 
