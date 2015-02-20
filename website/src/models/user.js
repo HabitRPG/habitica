@@ -311,6 +311,7 @@ var UserSchema = new Schema({
       questStarted: {type: Boolean, 'default': true},
       invitedQuest: {type: Boolean, 'default': true},
       //remindersToLogin: {type: Boolean, 'default': true},
+      // Those importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, 'default': true}
     }
   },

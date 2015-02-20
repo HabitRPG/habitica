@@ -320,10 +320,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.remindersToLogin', ng-change='set({"preferences.emailNotifications.remindersToLogin": user.preferences.emailNotifications.remindersToLogin ? true: false})')
                 span=env.t('remindersToLogin')
 
+            // These are the recapture emails, important announcements was the previous name used for them
             .checkbox
               label
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
-                span=env.t('importantAnnouncements')
+                span=env.t('inactivityEmails')
 
             hr
 
