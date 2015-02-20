@@ -38,7 +38,7 @@
     "mustLevel": "Du måste vara level <%= level %>.",
     "mustLvlQuest": "Du måste vara level <%= level %> för att köpa detta uppdrag!",
     "sureCancel": "Är du säker på att du vill avbryta uppdraget? Alla accepterade inbjudningar kommer att gå förlorade. Uppdragsägaren får behålla uppdragsskriftrullen.",
-    "sureAbort": "Are you sure you want to abort this mission? It will abort it for everyone in your party and all progress will be lost. The quest scroll will be returned to the quest owner.",
+    "sureAbort": "Är du säker att du vill avbryta detta uppdrag? Det kommer att avbrytas för alla i ditt sällskap och alla framsteg kommer att förloras. Uppdragsrullen kommer att återvända till uppdragsägaren.",
     "doubleSureAbort": "Är du helt säker? Se till att de inte kommer hata dig för alltid!",
     "questWarning": "Nya spelare som går med i sällskapet innan uppdraget påbörjas får också en inbjudan. Däremot kan inga nya sällskapsmedlemmar ansluta sig till uppdraget när det väl har påbörjats.",
     "bossRageTitle": "Vrede",
