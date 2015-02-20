@@ -23,21 +23,101 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    function parseTaskInfo(task) {
-      //parse priority
-      //parse days (for dailies)
-      //parse due date (for to-dos)
-      //parse tags
-      //parse + - (for habits)
-    }
-
     $scope.addTask = function(addTo, listDef) {
+      var checkRegex = function(match, k) {
+        var key = k || 1;
+        if (match && match.length > key && typeof match[key] !== 'undefined') {
+          return match[key];
+        }
+        return;
+      };
+      var regexes = {
+        notes: /(?:\s+--"([^"]+)")/,
+        due: /(?:\s+\^(\d?\d\/\d?\d\/\d?\d?\d\d))/,
+        diff: /(?:\s+\!(easy|medium|hard))/,
+        tag: /(?:\s+\#([^"\s]+|"[^"]+"))/g,
+        value: /(?:\s+(\d+(?:\.\d{1,2})?|0?\.\d{1,2})?GP)/,
+        up: /(?:\s+(\+))/,
+        down: /(?:\s+(\-))/,
+        days: /(?:\s+\^((?:m|t|w|r|f|s|u)+))/
+      };
+      var task = listDef.newTask;
+
+      var notes = task.match(regexes.notes);
+      task = task.replace(regexes.notes, '');
+      var due = task.match(regexes.due);
+      task = task.replace(regexes.due, '');
+      var diff = task.match(regexes.diff);
+      task = task.replace(regexes.diff, '');
+      var tags = task.match(regexes.tag);
+      task = task.replace(regexes.tag, '');
+      var value = task.match(regexes.value);
+      task = task.replace(regexes.value, '');
+      var up = task.match(regexes.up);
+      task = task.replace(regexes.up, '');
+      var down = task.match(regexes.down);
+      task = task.replace(regexes.down, '');
+      var days = task.match(regexes.days);
+      task = task.replace(regexes.days, '');
+
       var newTask = {
-        text: listDef.newTask,
-        type: listDef.type,
-        tags: _.transform(User.user.filters, function(m,v,k){
+        text: task,
+        type: listDef.type
+      };
+      newTask.notes = checkRegex(notes) || '';
+      if (listDef.type === 'habit') {
+        newTask.up = (checkRegex(up)) ? 1 : 0;
+        newTask.down = (checkRegex(down)) ? 1 : 0;
+      }
+      if (listDef.type === 'daily') {
+        newTask.repeat = (function(days){
+          if (typeof days === 'undefined') {
+            return {su:1,m:1,t:1,w:1,th:1,f:1,s:1};
+          }
+          var repeat = {su:0,m:0,t:0,w:0,th:0,f:0,s:0};
+          repeat.su = (days.indexOf('u') > -1) ? 1 : 0;
+          repeat.m = (days.indexOf('m') > -1) ? 1 : 0;
+          repeat.t = (days.indexOf('t') > -1) ? 1 : 0;
+          repeat.w = (days.indexOf('w') > -1) ? 1 : 0;
+          repeat.th = (days.indexOf('r') > -1) ? 1 : 0;
+          repeat.f = (days.indexOf('f') > -1) ? 1 : 0;
+          repeat.s = (days.indexOf('s') > -1) ? 1 : 0;
+          return repeat;
+        })(checkRegex(days));
+      }
+      if (listDef.type === 'todo') {
+        newTask.date = checkRegex(due);
+      }
+      if (listDef.type === 'reward') {
+        newTask.value = parseInt(checkRegex(value));
+      } else {
+        switch (checkRegex(diff)) {
+          case 'hard':
+            newTask.priority = 2;
+            break;
+          case 'medium':
+            newTask.priority = 1.5;
+            break;
+          case 'easy':
+          default:
+            newTask.priority = 1;
+            break;
+        }
+      }
+      if (tags.length === 0) {
+        newTask.tags = _.transform(User.user.filters, function(m,v,k){
           if (v) m[k]=v;
-        })
+        });
+      } else {
+        tags = _.transform(tags, function(m,v){
+          m.push(v.replace(/\s+\#/, ''));
+        });
+        newTask.tags = {};
+        for (var i = 0; i < User.user.tags.length; i++) {
+          if (tags.indexOf(User.user.tags[i].name) > -1) {
+            newTask.tags[User.user.tags[i].id] = true;
+          }
+        }
       }
       User.user.ops.addTask({body:newTask});
       delete listDef.newTask;
