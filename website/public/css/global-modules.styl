@@ -21,16 +21,16 @@ hrpg-button-color-mixin($hrpg-button-color)
     @media screen and (min-width:768px)
       &:hover
         background-color: darken($hrpg-button-color, 2.36%) !important
-  > a, > button, > input  
+  > a, > button, > input, textarea  
     color: darken($hrpg-button-color, 70%) !important 
     border-color: darken($hrpg-button-color, 16.18%) !important
-  > input
+  > input, textarea
     &:hover
       border-color: darken($hrpg-button-color, 32.8%) !important
     &:focus
       border-color: darken($hrpg-button-color, 61.8%) !important;
       outline: none;
-  > input + button
+  > input + button, textarea + button
     &:focus
       border-color: darken($hrpg-button-color, 32.8%) !important;
       background-color: darken($hrpg-button-color, 6.18%) !important;
@@ -105,11 +105,13 @@ $hrpg-button-with-input
   @extend $hrpg-button-master
   border: none
   border-radius: 0.382em
-  input, a, button
+  input, a, button, textarea
     display: block
     float: left
     height: 2em
-  input
+  textarea
+    height: auto
+  input, textarea
     border: 1px solid #ccc
     border-radius: 0.382em 0em 0em 0.382em !important 
     padding-left: 0.618em

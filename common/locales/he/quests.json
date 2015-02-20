@@ -15,7 +15,7 @@
     "begin": "התחל",
     "bossHP": "בריאות האויב",
     "bossStrength": "עוצמת הבוס",
-    "collect": "Collect",
+    "collect": "לפדות",
     "collected": "נאסף",
     "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "רק משתתפים שנלחמים בבוס חולקים בביזת המשימה.",

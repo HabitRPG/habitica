@@ -552,8 +552,10 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           if (err) return cb(err);
 
           if(invite.preferences.emailNotifications['invited' + (group.type == 'guild' ? 'Guild' : 'Party')] !== false){
+            var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
             var emailVars = [
-              {name: 'INVITER', content: utils.getUserInfo(res.locals.user, ['name']).name}
+              {name: 'INVITER', content: inviterVars.name},
+              {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
             ];
 
             if(group.type == 'guild'){
@@ -608,9 +610,11 @@ var inviteByEmails = function(invites, group, req, res, next){
           // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
           var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
+          var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
           var variables = [
             {name: 'LINK', content: link},
-            {name: 'INVITER', content: req.body.inviter || utils.getUserInfo(res.locals.user, ['name']).name}
+            {name: 'INVITER', content: req.body.inviter || inviterVars.name},
+            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email}
           ];
 
           if(group.type == 'guild'){
@@ -839,13 +843,14 @@ api.questAccept = function(req, res, next) {
     }, {auth: 1, preferences: 1, profile: 1}, function(err, members){
       if(err) return next(err);
 
-      var inviterName = utils.getUserInfo(user, ['name']).name;
+      var inviterVars = utils.getUserInfo(user, ['name', 'email']);
 
       _.each(members, function(member){
         if(member.preferences.emailNotifications.invitedQuest !== false){
           utils.txnEmail(member, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
             {name: 'QUEST_NAME', content: quest.text()},
-            {name: 'INVITER', content: inviterName},
+            {name: 'INVITER', content: inviterVars.name},
+            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
             {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
           ]);
         }

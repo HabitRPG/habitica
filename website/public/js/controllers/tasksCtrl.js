@@ -23,7 +23,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    $scope.addTask = function(addTo, listDef) {
+    function addTask(addTo, listDef, task) {
       var checkRegex = function(match, k) {
         var key = k || 1;
         if (match && match.length > key && typeof match[key] !== 'undefined') {
@@ -41,7 +41,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         down: /(?:\s+(\-))/,
         days: /(?:\s+\^((?:m|t|w|r|f|s|u)+))/
       };
-      var task = listDef.newTask;
 
       var notes = task.match(regexes.notes);
       task = task.replace(regexes.notes, '');
@@ -120,7 +119,28 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         }
       }
       User.user.ops.addTask({body:newTask});
+    }
+
+    $scope.addTask = function(addTo, listDef) {
+      if (listDef.bulk) {
+        var tasks = listDef.newTask.split(/[\n\r]+/);
+        _.each(tasks, function(t) {
+          addTask(addTo, listDef, t);
+        });
+        listDef.bulk = false;
+      } else {
+        addTask(addTo, listDef, listDef.newTask);
+      }
       delete listDef.newTask;
+      delete listDef.focus;
+    };
+
+    $scope.toggleBulk = function(list) {
+      if (typeof list.bulk === 'undefined') {
+        list.bulk = false;
+      }
+      list.bulk = !list.bulk;
+      list.focus = true;
     };
 
     /**
@@ -230,7 +250,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           focusChecklist(task,$index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
-      } 
+      }
     }
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
@@ -250,7 +270,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items 
+     Items
      ------------------------
      */
 
