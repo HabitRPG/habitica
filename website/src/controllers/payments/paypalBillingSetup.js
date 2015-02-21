@@ -48,6 +48,12 @@ _.each(blocks, function(block){
   });
 })
 
+var webProfileAttributes = {
+  "input_fields": {
+    "no_shipping": 1
+  }
+};
+
 switch(OP) {
   case "list":
     paypal.billingPlan.list({status: 'ACTIVE'}, function(err, plans){
@@ -87,6 +93,11 @@ switch(OP) {
       paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, function(err, response){
         console.log({err:err, response:response, id:plan.id});
       });
+    });
+    
+    // Don't ask the user for payment information.
+    paypal.webProfile.create(webProfileAttributes, function(err, response){
+      if(err) return console.log(err);
     });
     break;
   case "remove": break;
