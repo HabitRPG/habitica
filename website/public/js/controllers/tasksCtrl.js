@@ -23,7 +23,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    function addTask(addTo, listDef, task) {
+    $scope.parseTask = function(listDef, task) {
       var checkRegex = function(match, k) {
         var key = k || 1;
         if (match && match.length > key && typeof match[key] !== 'undefined') {
@@ -31,6 +31,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         }
         return;
       };
+
       var regexes = {
         notes: /(?:\s+--"([^"]+)")/,
         due: /(?:\s+\^(\d?\d\/\d?\d\/\d?\d?\d\d))/,
@@ -67,6 +68,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (listDef.type === 'habit') {
         newTask.up = (checkRegex(up)) ? 1 : 0;
         newTask.down = (checkRegex(down)) ? 1 : 0;
+        if (newTask.up === 0 && newTask.down === 0) {
+          newTask.up = 1;
+          newTask.down = 1;
+        }
       }
       if (listDef.type === 'daily') {
         newTask.repeat = (function(days){
@@ -88,7 +93,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         newTask.date = checkRegex(due);
       }
       if (listDef.type === 'reward') {
-        newTask.value = parseInt(checkRegex(value));
+        newTask.value = parseInt(checkRegex(value)) || 10;
       } else {
         switch (checkRegex(diff)) {
           case 'hard':
@@ -103,7 +108,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
             break;
         }
       }
-      if (tags.length === 0) {
+      if (!tags || tags.length === 0) {
         newTask.tags = _.transform(User.user.filters, function(m,v,k){
           if (v) m[k]=v;
         });
@@ -118,18 +123,20 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           }
         }
       }
-      User.user.ops.addTask({body:newTask});
-    }
+      return newTask;
+    };
 
     $scope.addTask = function(addTo, listDef) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
         _.each(tasks, function(t) {
-          addTask(addTo, listDef, t);
+          var newTask = $scope.parseTask(listDef, t);
+          User.user.ops.addTask({body:newTask});
         });
         listDef.bulk = false;
       } else {
-        addTask(addTo, listDef, listDef.newTask);
+        var newTask = $scope.parseTask(listDef, listDef.newTask);
+        User.user.ops.addTask({body:newTask});
       }
       delete listDef.newTask;
       delete listDef.focus;
