@@ -95,7 +95,7 @@ switch(OP) {
       });
     });
     
-    // Don't ask the user for payment information.
+    // Don't ask the user for shipping information.
     paypal.webProfile.create(webProfileAttributes, function(err, response){
       if(err) return console.log(err);
     });
