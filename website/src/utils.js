@@ -32,7 +32,7 @@ function getUserInfo(user, fields) {
     if(user.auth.local){
       info.name = user.profile.name || user.auth.local.username;
     }else if(user.auth.facebook){
-      info.name = user.auth.facebook.displayName || user.auth.facebook.username;
+      info.name = user.profile.name || user.auth.facebook.displayName || user.auth.facebook.username;
     }
   }
 

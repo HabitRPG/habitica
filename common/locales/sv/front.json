@@ -45,7 +45,7 @@
     "passMan": "Om du använder en lösenordsmanager (som 1Password) och har problem med att logga in, försök att skriva användarnamn och lösenord manuellt.",
     "forgotPass": "Glömt lösenord",
     "emailNewPass": "Maila nytt lösenord",
-    "invalidEmail": "A valid email address is required in order to perform a password reset.",
+    "invalidEmail": "En giltig e-postadress krävs för att kunna utföra en lösenordsåterställning.",
     "email": "E-post",
     "passConfirm": "Bekräfta lösenord",
     "accept1Terms": "Genom att klicka på knappen nedan godkänner jag",
