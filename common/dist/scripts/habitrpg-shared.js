@@ -5821,11 +5821,17 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user.inbox.blocks) : void 0;
       },
       feed: function(req, cb) {
-        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+        var egg, eggText, evolve, food, message, pet, petDisplayName, potion, potionText, userPets, _ref, _ref1, _ref2;
         _ref = req.params, pet = _ref.pet, food = _ref.food;
         food = content.food[food];
         _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
         userPets = user.items.pets;
+        potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
+        eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+        petDisplayName = i18n.t('petName', {
+          potion: potionText,
+          egg: eggText
+        });
         if (!userPets[pet]) {
           return typeof cb === "function" ? cb({
             code: 404,
@@ -5858,7 +5864,7 @@ api.wrap = function(user, main) {
             user.items.currentPet = "";
           }
           return message = i18n.t('messageEvolve', {
-            egg: egg
+            pet: petDisplayName
           }, req.language);
         };
         if (food.key === 'Saddle') {
@@ -5867,13 +5873,13 @@ api.wrap = function(user, main) {
           if (food.target === potion) {
             userPets[pet] += 5;
             message = i18n.t('messageLikesFood', {
-              egg: egg,
+              pet: petDisplayName,
               foodText: food.text(req.language)
             }, req.language);
           } else {
             userPets[pet] += 2;
             message = i18n.t('messageDontEnjoyFood', {
-              egg: egg,
+              pet: petDisplayName,
               foodText: food.text(req.language)
             }, req.language);
           }
