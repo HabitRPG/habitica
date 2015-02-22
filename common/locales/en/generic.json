@@ -38,7 +38,7 @@
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
     "delete": "Delete",
     "gems": "Gems",
-	"gemButton": "You have <%= number %> Gems.",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "More Info",
     "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
     "veteran": "Veteran",
