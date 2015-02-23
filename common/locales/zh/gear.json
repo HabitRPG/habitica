@@ -200,7 +200,7 @@
     "armorSpecialFallHealerText": "轻型装备",
     "armorSpecialFallHealerNotes": "带头进攻甚至提前打了绷带！增加感知<%= con %>。2014年秋季限量版装备。",
     "armorSpecialWinter2015RogueText": "德雷克寒冰护甲",
-    "armorSpecialWinter2015RogueNotes": "This armor is freezing cold, but it will definitely be worth it when you uncover the untold riches at the center of the Icicle Drake hives. Not that you are looking for any such untold riches, because you are truly, definitely, absolutely a genuine Icicle Drake, okay?! Stop asking questions! Increases Perception by <%= per %>. Limited Edition 2014-2015 Winter Gear.",
+    "armorSpecialWinter2015RogueNotes": "这件护甲是极寒冰冻的。然而，当你在冰柱龙聚集地的中心发现了无尽的财宝时，它肯定是值得拥有的。不是为了你正在寻找的那些数不清的财宝，而是因为你就是真正的、理所当然的、绝对的真冰柱龙，好吗？别再问问题了！增加 <%= per %>感知。2014-2015冬季限量版装备。",
     "armorSpecialWinter2015WarriorText": "姜饼护甲",
     "armorSpecialWinter2015WarriorNotes": "舒适且温暖，火炉特供哟！增加体质<%= con %>。2014-2015 冬日限定版装备",
     "armorSpecialWinter2015MageText": "北部长袍",

@@ -42,7 +42,7 @@
     "moreDetails2": "mais detalhes (8-9)",
     "contributions": "Contribuições",
     "admin": "Admin",
-    "notGems": "é em Dólares. <em>Não</em> em Gemas. Também, se esse número é 1, significa que corresponde a 4 gemas. Somente use essa opção quando conceder gemas manualmente para jogadores, não use quando conceder níveis de contribuidor. Níveis de contribuição irão adicionar gemas automaticamente.",
+    "notGems": "é em Dólares, <em>não</em> em Gemas. Também, se esse número é 1, significa que corresponde a 4 gemas. Somente use essa opção quando conceder gemas manualmente para jogadores, não use quando conceder níveis de contribuidor. Níveis de contribuição irão adicionar gemas automaticamente.",
     "hideAds": "Ocultar Propagandas",
     "gamemaster": "Mestre do Jogo (equipe/moderador)",
     "backerTier": "Nível de Apoiador",
