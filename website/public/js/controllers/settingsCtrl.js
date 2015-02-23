@@ -27,10 +27,10 @@ habitrpg.controller('SettingsCtrl',
     $timeout(function(){
       var unsubFrom = $location.search().unsubFrom;
       if(unsubFrom){
-        var emailPrefKey = 'preferences.emailNotifications.' + qs.unsubFrom;
-        var emailTypeString = env.t(mapPrefToEmailString[qs.unsubFrom] || qs.unsubFrom);
+        var emailPrefKey = 'preferences.emailNotifications.' + unsubFrom;
+        var emailTypeString = env.t(mapPrefToEmailString[unsubFrom] || unsubFrom);
         User.set({emailPrefKey: false});
-        User.user.preferences.emailNotifications[qs.unsubFrom] = false;
+        User.user.preferences.emailNotifications[unsubFrom] = false;
         Notification.text(env.t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
         $location.search({});
       }
