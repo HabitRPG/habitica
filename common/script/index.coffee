@@ -1493,28 +1493,35 @@ api.wrap = (user, main=true) ->
 
         {id, type, completed, repeat} = task
 
-        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
+#        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
 
 
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
+        EvadeTask = 0
+        scheduleMisses = daysMissed
         unless completed
-          scheduleMisses = daysMissed
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
           if (type is 'daily') and repeat
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
-          if scheduleMisses > 0
+              if api.shouldDo(thatDay, repeat, user.preferences)
+                scheduleMisses++ 
+                if user.stats.buffs.stealth 
+                  user.stats.buffs.stealth--
+                  EvadeTask++ 
+          if scheduleMisses > EvadeTask
             perfect = false if type is 'daily'
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
             user.party.quest.progress.down += delta if type is 'daily'
 
         switch type
           when 'daily'
+            # This occurs whether or not the task is completed
             (task.history ?= []).push({ date: +new Date, value: task.value })
             task.completed = false
-            _.each task.checklist, ((i)->i.completed=false;true)
+            if completed || (scheduleMisses > 0)
+              _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
           when 'todo'
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value
