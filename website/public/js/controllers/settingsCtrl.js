@@ -15,6 +15,27 @@ habitrpg.controller('SettingsCtrl',
 //        });
 //    }
 
+    // A simple object to map the key stored in the db (user.preferences.emailNotification[key])
+    // to its string but ONLY when the preferences' key and the string key don't match
+    var mapPrefToEmailString = {
+      'importantAnnouncements': 'inactivityEmails'
+    };
+    
+    // If ?unsubFrom param is passed with valid email type,
+    // automatically unsubscribe users from that email and
+    // show an alert
+    $timeout(function(){
+      var unsubFrom = $location.search().unsubFrom;
+      if(unsubFrom){
+        var emailPrefKey = 'preferences.emailNotifications.' + qs.unsubFrom;
+        var emailTypeString = env.t(mapPrefToEmailString[qs.unsubFrom] || qs.unsubFrom);
+        User.set({emailPrefKey: false});
+        User.user.preferences.emailNotifications[qs.unsubFrom] = false;
+        Notification.text(env.t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
+        $location.search({});
+      }
+    }, 500);
+
     $scope.hideHeader = function(){
       User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
       if (User.user.preferences.hideHeader && User.user.preferences.stickyHeader){
