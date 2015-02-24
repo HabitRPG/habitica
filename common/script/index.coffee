@@ -691,17 +691,17 @@ api.wrap = (user, main=true) ->
           # changed to -1 to mark "owned" pets
           user.items.mounts[pet] = true
           user.items.currentPet = "" if pet is user.items.currentPet
-          message = i18n.t('messageEvolve', {pet: petDisplayName}, req.language)
+          message = i18n.t('messageEvolve', {egg: petDisplayName}, req.language)
 
         if food.key is 'Saddle'
           evolve()
         else
           if food.target is potion
             userPets[pet] += 5
-            message = i18n.t('messageLikesFood', {pet: petDisplayName, foodText: food.text(req.language)}, req.language)
+            message = i18n.t('messageLikesFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           else
             userPets[pet] += 2
-            message = i18n.t('messageDontEnjoyFood', {pet: petDisplayName, foodText: food.text(req.language)}, req.language)
+            message = i18n.t('messageDontEnjoyFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--

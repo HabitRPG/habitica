@@ -5864,7 +5864,7 @@ api.wrap = function(user, main) {
             user.items.currentPet = "";
           }
           return message = i18n.t('messageEvolve', {
-            pet: petDisplayName
+            egg: petDisplayName
           }, req.language);
         };
         if (food.key === 'Saddle') {
@@ -5873,13 +5873,13 @@ api.wrap = function(user, main) {
           if (food.target === potion) {
             userPets[pet] += 5;
             message = i18n.t('messageLikesFood', {
-              pet: petDisplayName,
+              egg: petDisplayName,
               foodText: food.text(req.language)
             }, req.language);
           } else {
             userPets[pet] += 2;
             message = i18n.t('messageDontEnjoyFood', {
-              pet: petDisplayName,
+              egg: petDisplayName,
               foodText: food.text(req.language)
             }, req.language);
           }
