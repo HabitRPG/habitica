@@ -65,6 +65,8 @@ api.authWithUrl = function(req, res, next) {
 }
 
 api.registerUser = function(req, res, next) {
+  var regEmail = RegexEscape(req.body.email),
+    regUname = RegexEscape(req.body.username);
   async.auto({
     validate: function(cb) {
       if (!(req.body.username && req.body.password && req.body.email))
@@ -75,18 +77,17 @@ api.registerUser = function(req, res, next) {
         return cb({code:401, err: ":email invalid"});
       cb();
     },
-    findEmail: function(cb) {
-      User.findOne({'auth.local.email': RegexEscape(req.body.email)}, {_id:1}, cb);
-    },
-    findUname: function(cb) {
-      User.findOne({'auth.local.username': RegexEscape(req.body.username)}, {_id:1}, cb);
+    findReg: function(cb) {
+      User.findOne({$or:[{'auth.local.email': regEmail}, {'auth.local.username': regUname}]}, {'auth.local':1}, cb);
     },
     findFacebook: function(cb){
       User.findOne({_id: req.headers['x-api-user'], apiToken: req.headers['x-api-key']}, {auth:1}, cb);
     },
-    register: ['validate', 'findEmail', 'findUname', 'findFacebook', function(cb, data) {
-      if (data.findEmail) return cb({code:401, err:"Email already taken"});
-      if (data.findUname) return cb({code:401, err:"Username already taken"});
+    register: ['validate', 'findReg', 'findFacebook', function(cb, data) {
+      if (data.findReg) {
+        if (regEmail.test(data.findReg.auth.local.email)) return cb({code:401, err:"Email already taken"});
+        if (regUname.test(data.findReg.auth.local.username)) return cb({code:401, err:"Username already taken"});
+      }
       var salt = utils.makeSalt();
       var newUser = {
         auth: {
