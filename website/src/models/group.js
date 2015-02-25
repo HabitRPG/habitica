@@ -7,6 +7,7 @@ var logging = require('../logging');
 
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
+  _isMember: Boolean,
   name: String,
   description: String,
   leader: {type: String, ref: 'User'},
