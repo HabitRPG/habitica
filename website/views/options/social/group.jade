@@ -100,7 +100,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
 
-      a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
+      div(ng-if="group")
+        a.btn.btn-danger(ng-if=':: isMemberOfGroup(User.user._id, group)', data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
+        a.btn.btn-success(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='clickLeave(group, $event)')=env.t('join')
 
     .col-md-8
       div()
