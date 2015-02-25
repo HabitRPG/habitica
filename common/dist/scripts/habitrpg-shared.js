@@ -138,6 +138,11 @@ api.mystery = {
     end: '2015-02-02',
     text: 'Starry Knight Set'
   },
+  201502: {
+    start: '2015-02-24',
+    end: '2015-03-02',
+    text: 'Winged Enchanter Set'
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
@@ -700,6 +705,12 @@ gear = {
         text: t('weaponMystery201411Text'),
         notes: t('weaponMystery201411Notes'),
         mystery: '201411',
+        value: 0
+      },
+      201502: {
+        text: t('weaponMystery201502Text'),
+        notes: t('weaponMystery201502Notes'),
+        mystery: '201502',
         value: 0
       },
       301404: {
@@ -2220,6 +2231,12 @@ gear = {
         text: t('headAccessoryMystery201409Text'),
         notes: t('headAccessoryMystery201409Notes'),
         mystery: '201409',
+        value: 0
+      },
+      201502: {
+        text: t('headAccessoryMystery201502Text'),
+        notes: t('headAccessoryMystery201502Notes'),
+        mystery: '201502',
         value: 0
       },
       301405: {
