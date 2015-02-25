@@ -81,6 +81,7 @@ api.list = function(req, res, next) {
       Group.find({privacy: 'public'})
         .select(groupFields + ' members')
         .sort(sort)
+        .lean()
         .exec(function(err, groups){
           if (err) return cb(err);
           _.each(groups, function(g){
