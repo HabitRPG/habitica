@@ -75,7 +75,7 @@ mixin boss(tavern, mobile)
           hr
           h5=env.t('participants')
           table.table.table-striped
-            tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
+            tr(ng-repeat='(k,v) in group.members', ng-if='group.quest.members[v._id]')
               td
                 span(ng-if=':: group.quest.leader && group.quest.leader==v._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
                   |*&nbsp;
