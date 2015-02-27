@@ -55,6 +55,14 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
   o = sanitizeOptions(options)
   moment(o.now).startOf('week')
 
+api.endOfWeek = (options={}) ->
+  o = sanitizeOptions(options)
+  moment(o.now).endOf('week')
+
+api.endOfMonth = (options={}) ->
+  o = sanitizeOptions(options)
+  moment(o.now).endOf('month')
+
 api.startOfDay = (options={}) ->
   o = sanitizeOptions(options)
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
@@ -79,6 +87,16 @@ api.shouldDo = (day, repeat, options={}) ->
   o = sanitizeOptions options
   selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
   return selected
+
+###
+  Check if this day is the end of the period ie subtype of task
+###
+api.endOfPeriod = (subtype, options={}) ->
+  return true if subtype is 'daily'
+  o = sanitizeOptions options
+  return true if subtype is 'weekly' and o.day() == api.endOfWeek(o).day()
+  return true if subtype is 'monthly' and o.day() == api.endOfMonth(o).day()
+  false
 
 ###
   ------------------------------------------------------
@@ -210,6 +228,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
+  _.defaults(task, {subtype:'daily'}) if task.type in ['daily']
   _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
@@ -1510,6 +1529,9 @@ api.wrap = (user, main=true) ->
 
         {id, type, completed, repeat} = task
 
+	# for dailies, only continue if we are at the end of the period
+        return if type is 'daily' and !api.endOfPeriod(task.subtype)
+
         # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
         EvadeTask = 0
         scheduleMisses = daysMissed
@@ -1518,7 +1540,7 @@ api.wrap = (user, main=true) ->
             dailyChecked += 1
         else
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
-          if (type is 'daily') and repeat
+          if type is 'daily' and task.subtype is "daily" and repeat
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})

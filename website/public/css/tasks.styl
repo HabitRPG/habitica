@@ -12,7 +12,7 @@ for $stage in $stages
     .color-{$stage[0]}:not(.completed)
       background-color: $stage[1]
       border: 1px solid shade($stage[1],10%)
-      .priority-multiplier, .task-attributes, .repeat-days
+      .priority-multiplier, .task-attributes, .repeat-days, .daily-types
         li
           hrpg-button-color-mixin($stage[1])
           button
@@ -63,7 +63,7 @@ for $stage in $stages
   color: darken($completed,30%)
   background-color: $completed
   border: 1px solid shade($completed,10%)
-  .priority-multiplier, .task-attributes, .repeat-days
+  .priority-multiplier, .task-attributes, .repeat-days, .daily-types
     li
       hrpg-button-color-mixin($completed)
       button
@@ -488,7 +488,7 @@ form
 
   form
     padding-bottom: 1em
-  .priority-multiplier, .task-attributes, .repeat-days
+  .priority-multiplier, .task-attributes, .repeat-days, .daily-types
     text-align: center
     li
       @extend $hrpg-button
