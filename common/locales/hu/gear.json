@@ -200,7 +200,7 @@
     "armorSpecialFallHealerText": "Fátyolszerű Felszerelés",
     "armorSpecialFallHealerNotes": "Rohanj a csatába előre bekötözve! <%= con %> pontot ad a szervezettséghez. Korlátozott 2014 Őszi Felszerelés.",
     "armorSpecialWinter2015RogueText": "Jeges Sárkány Páncél",
-    "armorSpecialWinter2015RogueNotes": "Ez a páncél rettentő fagyos, de mindenképp megéri viselni amikor megleled a tömérdek kincset a Jégtüskés Sárkányok fészkének közepén. Nem mintha bármiféle tömérdek kincs után kutakodnál, hiszen te igazán, biztosan és abszolút egy valódi Jégtüskés Sárkány vagy, érted?! Ne kérdezz többet! Növeli az észlelésedet <%= per %> ponttal. Korlátozott Példányszámú 2014-2015-ös Téli felszerelés!",
+    "armorSpecialWinter2015RogueNotes": "Ez a páncél rettentő fagyos, de mindenképp megéri viselni amikor megleled a tömérdek kincset a Jégtüskés Sárkányok fészkének közepén. Nem mintha bármiféle tömérdek kincs után kutakodnál, hiszen te igazán, biztosan és abszolút egy valódi Jégtüskés Sárkány vagy, ugye?! Ne kérdezz többet! Növeli az észlelésedet <%= per %> ponttal. Korlátozott Példányszámú 2014-2015-ös Téli felszerelés!",
     "armorSpecialWinter2015WarriorText": "Mézeskalács páncél",
     "armorSpecialWinter2015WarriorNotes": "Kényelmes és meleg, egyenesen a sütőből! Növeli a szervezettséget <%= con %> ponttal. Korlátozott Példányszámú 2014-2015-ös Téli felszerelés.",
     "armorSpecialWinter2015MageText": "Örökzöld köpeny",

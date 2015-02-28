@@ -39,7 +39,7 @@
     "remaining": "Activo",
     "complete": "Hecho",
     "dated": "Con fecha de",
-    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
+    "datedNotSorted": "Tareas Pendientes fechadas no son ordenados por fecha. Hay un gran posibilidad que ordenando va a ser implementado en el futuro.",
     "due": "Por vencer",
     "grey": "Gris",
     "score": "Puntaje",

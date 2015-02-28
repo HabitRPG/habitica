@@ -29,7 +29,7 @@
     "beastMasterProgress": "Voortgang tot dierenmeester",
     "beastAchievement": "Je hebt de \"Dierenmeester\"-prestatie behaald voor het verzamelen van alle huisdieren!",
     "beastMasterName": "Dierenmeester",
-    "beastMasterText": "Heeft alle 90 huisdieren gevonden (ontzettend moeilijk, feliciteer deze gebruiker!)",
+    "beastMasterText": "Heeft alle 90 huisdieren gevonden (ontzettend moeilijk, feliciteer deze gebruiker!) ",
     "beastMasterText2": "en heeft zijn of haar huisdieren in totaal <%= count %> keer vrijgelaten",
     "mountMasterProgress": "Voortgang tot rijdiermeester",
     "mountAchievement": "Je hebt de prestatie \"Rijdiermeester\" behaald voor het temmen van alle rijdieren!",

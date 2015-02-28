@@ -60,7 +60,7 @@
     "hatchingPotionCottonCandyPink": "Cukierkoworóżowy",
     "hatchingPotionCottonCandyBlue": "Cukierkowoniebieski",
     "hatchingPotionGolden": "Złoty",
-    "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
+    "hatchingPotionNotes": "Wylej to na jajku, a wykluje się z niego <%=potText(locale)%>.",
     "foodMeat": "Mięso",
     "foodMilk": "Mleko",
     "foodPotatoe": "Ziemniak",
