@@ -8,13 +8,13 @@ async = require("async")
 diff = require("deep-diff")
 superagentDefaults = require("superagent-defaults")
 request = superagentDefaults()
+path = require("path")
 moment = require("moment")
 conf = require("nconf")
-conf.argv().env().file(file: __dirname + "../website/config.json").defaults()
+conf.argv().env().file(file: path.join(__dirname, "../config.json")).defaults()
 conf.set "port", "1337"
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
-# FIXME can't get nconf file above to load...
 process.env.BASE_URL = conf.get("BASE_URL")
 process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
