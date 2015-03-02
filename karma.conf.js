@@ -31,9 +31,9 @@ module.exports = function(config) {
       'website/public/bower_components/marked/lib/marked.js',
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
-      'common/script/public/userServices.js',
       'website/public/js/*.js',
       'website/public/js/**/*.js',
+      'common/script/public/userServices.js',
       // @TODO where did this directory go?
       //'test/mock/**/*.js',
       'test/spec/*.js',
