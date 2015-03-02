@@ -5,12 +5,12 @@ angular.module('habitrpg')
     this.setApiUrl = function(newUrl){
       currentApiUrl = newUrl;
     };
-    
+
     this.get = function(){
       return currentApiUrl;
     };
   }])
-  
+
 /**
  * Services that persists and retrieves user from localStorage.
  */
@@ -28,6 +28,11 @@ angular.module('habitrpg')
       };
       var settings = {}; //habit mobile settings (like auth etc.) to be stored here
       var user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
+
+      var userNotifications = {
+        "party.order" : "Party order updated.",
+        "party.orderAscending" : "Party order updated."
+      }; // this is a list of notifications to send to the user when changes are made, along with the message.
 
       //first we populate user with schema
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
@@ -70,6 +75,9 @@ angular.module('habitrpg')
 
         $http.post(ApiUrl.get() + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
+          //alert("Updating " + JSON.stringify(sent));
+          //alert("Response was " + status);
+          //user.party.
             //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
             if (!queue.length) {
               //we can't do user=data as it will not update user references in all other angular controllers.
@@ -93,7 +101,11 @@ angular.module('habitrpg')
                 _.each(user.ops, function(op,k){
                   user.ops[k] = function(req,cb){
                     if (cb) return op(req,cb);
-                    op(req,function(err,response){
+                    op(req,function(err,response) {
+                      for(var updatedItem in req.body) {
+                        var itemUpdateResponse = userNotifications[updatedItem]
+                        if(itemUpdateResponse) Notification.text(itemUpdateResponse);
+                      }
                       if (err) {
                         var message = err.code ? err.message : err;
                         console.log(message);
@@ -149,6 +161,7 @@ angular.module('habitrpg')
         set: function(updates) {
           user.ops.update({body:updates});
         },
+
         online: function (status) {
           if (status===true) {
             settings.online = true;
