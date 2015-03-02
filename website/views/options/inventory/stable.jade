@@ -88,7 +88,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
 
     .well.food-tray
       p(ng-show='foodCount < 1')=env.t('noFood')
-      menu.inventory-list(type='list', ng-if='foodCount > 0')
+      menu.inventory-list(type='list', ng-if='foodCount > 0', ui-keyup="{27:'cancelItem()'}")
         li.customize-menu
           menu.pets-menu(label=env.t('food'))
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
