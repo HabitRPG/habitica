@@ -101,7 +101,7 @@
     "unsubscribeAllEmailsText": "Selezionando questa opzione, confermo di essere cosciente del fatto che, disattivando le notifiche via email, HabitRPG non sarà mai in grado di notificarmi via email cambiamenti importanti riguardo al sito o al mio account.",
     "subscriptionRateText": "<%= price %>$ ogni <%= months %> mesi",
     "benefits": "Vantaggi",
-    "coupon": "Coupon",
-    "couponPlaceholder": "Inserisci codice coupon",
-    "couponText": "A volte organizziamo degli eventi e distribuiamo dei codici coupon per degli oggetti speciali. (per esempio a chi passa a trovarci al Wondercon)"
+    "coupon": "buono",
+    "couponPlaceholder": "Inserisci codice buono",
+    "couponText": "A volte organizziamo degli eventi e distribuiamo dei codici buono per degli oggetti speciali. (per esempio a chi passa a trovarci al Wondercon)"
 }
