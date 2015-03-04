@@ -4509,6 +4509,20 @@ api.backgrounds = {
       text: t('backgroundDistantCastleText'),
       notes: t('backgroundDistantCastleNotes')
     }
+  },
+  backgrounds032015: {
+    spring_rain: {
+      text: t('backgroundSpringRainText'),
+      notes: t('backgroundSpringRainNotes')
+    },
+    stained_glass: {
+      text: t('backgroundStainedGlassText'),
+      notes: t('backgroundStainedGlassNotes')
+    },
+    rolling_hills: {
+      text: t('backgroundRollingHillsText'),
+      notes: t('backgroundRollingHillsNotes')
+    }
   }
 };
 
