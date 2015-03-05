@@ -234,16 +234,25 @@ habitrpg.controller("InventoryCtrl",
       return filteredArray;
     };
 
-    $scope.dequip = function(){
+    $scope.dequip = function(gearSet){
 
-      for ( item in user.items.gear.equipped ){
-        var itemKey = user.items.gear.equipped[item];
-        if ( user.items.gear.owned[itemKey] ) {
-          user.ops.equip({params: {key: itemKey}});
+      if ( gearSet == "battleGear" ) {
+        for ( item in user.items.gear.equipped ){
+          var itemKey = user.items.gear.equipped[item];
+          if ( user.items.gear.owned[itemKey] ) {
+            user.ops.equip({params: {key: itemKey}});
+          }
         }
       }
 
-      user.preferences.background = "";
+      if ( gearSet == "costume" ) {
+        for ( item in user.items.gear.costume ){
+          var itemKey = user.items.gear.costume[item];
+          if ( user.items.gear.owned[itemKey] ) {
+            user.ops.equip({params: {type:"costume", key: itemKey}});
+          }
+        }
+      }
 
     }
   }
