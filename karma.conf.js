@@ -15,11 +15,13 @@ module.exports = function(config) {
       'website/public/bower_components/angular/angular.js',
       'website/public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'website/public/bower_components/angular-resource/angular-resource.min.js',
+      'website/public/bower_components/hello/dist/hello.all.min.js',
       'website/public/bower_components/angular-sanitize/angular-sanitize.js',
       'website/public/bower_components/bootstrap/dist/js/bootstrap.js',
       'website/public/bower_components/angular-bootstrap/ui-bootstrap.js',
       'website/public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'website/public/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'website/public/bower_components/angular-filter/dist/angular-filter.js',
       'website/public/bower_components/angular-ui/build/angular-ui.js',
       'website/public/bower_components/angular-ui-utils/ui-utils.min.js',
       'website/public/bower_components/Angular-At-Directive/src/at.js',
@@ -31,13 +33,42 @@ module.exports = function(config) {
       'website/public/bower_components/marked/lib/marked.js',
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
-      'website/public/js/*.js',
-      'website/public/js/**/*.js',
-      'common/script/public/userServices.js',
+
+      "website/public/js/env.js",
+
+      "website/public/js/app.js",
+      "common/script/public/config.js",
+      "website/public/js/services/sharedServices.js",
+      "website/public/js/services/notificationServices.js",
+      "common/script/public/userServices.js",
+      "common/script/public/directives.js",
+      "website/public/js/services/groupServices.js",
+      "website/public/js/services/memberServices.js",
+      "website/public/js/services/guideServices.js",
+      "website/public/js/services/challengeServices.js",
+      "website/public/js/services/paymentServices.js",
+
+      "website/public/js/filters/filters.js",
+
+      "website/public/js/directives/directives.js",
+
+      "website/public/js/controllers/authCtrl.js",
+      "website/public/js/controllers/notificationCtrl.js",
+      "website/public/js/controllers/rootCtrl.js",
+      "website/public/js/controllers/settingsCtrl.js",
+      "website/public/js/controllers/headerCtrl.js",
+      "website/public/js/controllers/tasksCtrl.js",
+      "website/public/js/controllers/filtersCtrl.js",
+      "website/public/js/controllers/userCtrl.js",
+      "website/public/js/controllers/groupsCtrl.js",
+      "website/public/js/controllers/inventoryCtrl.js",
+      "website/public/js/controllers/footerCtrl.js",
+      "website/public/js/controllers/challengesCtrl.js",
+      "website/js/controllers/hallCtrl.js",
       // @TODO where did this directory go?
       //'test/mock/**/*.js',
-      'test/spec/*.js',
-      'test/spec/**/*.js'
+      'test/spec/specHelper.js',
+      'test/spec/*.js'
     ],
 
     // list of files / patterns to exclude

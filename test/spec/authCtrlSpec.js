@@ -2,8 +2,6 @@
 
 describe('Auth Controller', function() {
 
-  beforeEach(module('habitrpgStatic'));
-
   describe('AuthCtrl', function(){
     var scope, ctrl, user, $httpBackend, $window;
 

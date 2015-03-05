@@ -1,3 +1,5 @@
+beforeEach(module('habitrpg'));
+
 specHelper = {
   newUser: function(){
     var buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false};
