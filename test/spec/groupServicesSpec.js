@@ -3,22 +3,19 @@
 describe('groupServices', function() {
   var $httpBackend, groups;
 
-  beforeEach(module('groupServices'));
-  beforeEach(module('habitrpg'));
-  
   beforeEach(inject(function(_$httpBackend_, Groups) {
       $httpBackend = _$httpBackend_;
       groups = Groups;
   }));
 
   it('calls party endpoint', function() {
-    $httpBackend.expectGET('/api/v2/groups/party?').respond({});
+    $httpBackend.expectGET('/api/v2/groups/party').respond({});
     groups.party();
     $httpBackend.flush();
   });
 
   it('calls tavern endpoint', function() {
-    $httpBackend.expectGET('/api/v2/groups/habitrpg?').respond({});
+    $httpBackend.expectGET('/api/v2/groups/habitrpg').respond({});
     groups.tavern();
     $httpBackend.flush();
   });

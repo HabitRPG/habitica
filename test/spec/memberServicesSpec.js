@@ -3,9 +3,6 @@
 describe('memberServices', function() {
   var $httpBackend, members;
 
-  beforeEach(module('memberServices'));
-  beforeEach(module('habitrpg'));
-  
   beforeEach(inject(function (_$httpBackend_, Members) {
     $httpBackend = _$httpBackend_;
     members = Members;
