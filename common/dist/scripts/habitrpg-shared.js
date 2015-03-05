@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 }
 
 },{"./script/index.coffee":4,"lodash":6,"moment":7}],2:[function(require,module,exports){
-var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
+var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, potions, repeat, t, _;
 
 _ = require('lodash');
 
@@ -2375,13 +2375,45 @@ api.timeTravelerStore = function(owned) {
   ---------------------------------------------------------------
  */
 
-api.potion = {
-  type: 'potion',
-  text: t('potionText'),
-  notes: t('potionNotes'),
-  value: 25,
-  key: 'potion'
+potions = {
+  healthMinor: {
+    text: t('minorHealthPotionText'),
+    notes: t('minorHealthPotionNotes'),
+    value: 25,
+    hp: 15
+  },
+  manaMinor: {
+    text: t('minorManaPotionText'),
+    notes: t('minorManaPotionNotes'),
+    value: 50,
+    mp: 15
+  },
+  healMinor: {
+    text: t('minorHealPotionText'),
+    notes: t('minorHealPotionNotes'),
+    value: 125,
+    mp: 25,
+    hp: 25
+  }
 };
+
+api.potions = {
+  tree: potions,
+  flat: {}
+};
+
+_.each(potions, function(item, name) {
+  var key;
+  key = "potion_" + name;
+  _.defaults(item, {
+    type: 'potion',
+    key: key,
+    hp: 0,
+    mp: 0,
+    value: 25
+  });
+  return api.potions.flat[key] = item;
+});
 
 
 /*
@@ -5046,7 +5078,11 @@ api.updateStore = function(user) {
     var _ref;
     return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
   }));
-  changes.push(content.potion);
+  _.each(content.potions.flat, function(potion) {
+    console.log(potion);
+    changes.push(potion);
+    return true;
+  });
   return _.sortBy(changes, function(c) {
     return sortOrder[c.type];
   });
@@ -6106,7 +6142,7 @@ api.wrap = function(user, main) {
       buy: function(req, cb) {
         var item, key, message;
         key = req.params.key;
-        item = key === 'potion' ? content.potion : content.gear.flat[key];
+        item = _.has(content.potions.flat, key) ? content.potions.flat[key] : content.gear.flat[key];
         if (!item) {
           return typeof cb === "function" ? cb({
             code: 404,
@@ -6125,10 +6161,14 @@ api.wrap = function(user, main) {
             message: "You can't own this item"
           }) : void 0;
         }
-        if (item.key === 'potion') {
-          user.stats.hp += 15;
+        if (item.type === 'potion') {
+          user.stats.hp += item.hp;
           if (user.stats.hp > 50) {
             user.stats.hp = 50;
+          }
+          user.stats.mp += item.mp;
+          if (user.stats.mp > user._statsComputed.maxMP) {
+            user.stats.mp = user._statsComputed.maxMP;
           }
         } else {
           user.items.gear.equipped[item.type] = item.key;

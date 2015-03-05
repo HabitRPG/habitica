@@ -3,7 +3,7 @@ api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
 t = (string, vars) ->
-  func = (lang) -> 
+  func = (lang) ->
     vars ?= {a: 'a'}
     i18n.t(string, vars, lang)
   func.i18nLangFunc = true #Trick to recognize this type of function
@@ -53,7 +53,7 @@ _.each api.mystery, (v,k)->v.key = k
 gear =
   weapon:
     base:
-      0: 
+      0:
         text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
       0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:0
@@ -370,7 +370,7 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
-      
+
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -437,7 +437,20 @@ api.timeTravelerStore = (owned) ->
   ---------------------------------------------------------------
 ###
 
-api.potion = type: 'potion', text: t('potionText'), notes: t('potionNotes'), value: 25, key: 'potion'
+potions =
+  healthMinor: {text: t('minorHealthPotionText'), notes: t('minorHealthPotionNotes'), value: 25, hp: 15}
+  manaMinor: {text: t('minorManaPotionText'), notes: t('minorManaPotionNotes'), value: 50, mp: 15}
+  healMinor: {text: t('minorHealPotionText'), notes: t('minorHealPotionNotes'), value: 125, mp: 25, hp: 25}
+
+api.potions =
+  tree: potions
+  flat: {}
+
+_.each potions, (item, name) ->
+  key = "potion_#{name}"
+  _.defaults item, {type: 'potion', key, hp: 0, mp: 0, value: 25}
+
+  api.potions.flat[key] = item
 
 ###
    ---------------------------------------------------------------
@@ -748,7 +761,7 @@ api.spells =
 
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
-        
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->
@@ -1043,7 +1056,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      
+
   hedgehog:
     text: t('questHedgehogText')
     notes: t('questHedgehogNotes')
