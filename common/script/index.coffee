@@ -675,7 +675,7 @@ api.wrap = (user, main=true) ->
         # Generate pet display name variable
         potionText = if content.hatchingPotions[potion] then content.hatchingPotions[potion].text() else potion
         eggText = if content.eggs[egg] then content.eggs[egg].text() else egg
-        petDisplayName = i18n.t('petName', { 
+        petDisplayName = i18n.t('petName', {
           potion: potionText
           egg: eggText
         })
@@ -1067,12 +1067,10 @@ api.wrap = (user, main=true) ->
             nextDelta = if not options.cron and direction is 'down' then calculateReverseDelta() else calculateDelta()
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
-              # ===== STRENGTH =====
-              # (Only for up-scoring, ignore up-onlies and rewards)
-              # Note, we create a new val (adjustAmt) to add to task.value, since delta will be used in Exp & GP calculations - we don't want STR to bonus that
-              if direction is 'up' and !(task.type is 'habit' and !task.down)
+              if direction is 'up' # Make progress on quest based on STR
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
+                user.party.quest.progress.up += (nextDelta * (0.5 + (user._statsComputed.str / 400))) if task.type is 'habit'
               task.value += nextDelta
             delta += nextDelta
 
@@ -1113,9 +1111,17 @@ api.wrap = (user, main=true) ->
           hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
           stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
+        gainMP = (delta) ->
+          delta *= user._tmp.crit or 1
+          user.stats.mp += delta
+          user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
+          user.stats.mp = 0 if user.stats.mp < 0
+
+        # ===== starting to actually do stuff, most of above was definitions =====
         switch task.type
           when 'habit'
             changeTaskValue()
+            gainMP(_.max([0.25, (.0025 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
             # Add habit value to habit-history (if different)
             if (delta > 0) then addPoints() else subtractPoints()
 
@@ -1134,6 +1140,7 @@ api.wrap = (user, main=true) ->
               task.streak = 0 unless user.stats.buffs.streaks
             else
               changeTaskValue()
+              gainMP(_.max([1, (.01 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
               if direction is 'down'
                 delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
@@ -1160,12 +1167,7 @@ api.wrap = (user, main=true) ->
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
-              mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
-              mpDelta *= user._tmp.crit or 1
-              mpDelta *= -1 if direction is 'down'  # unticking a todo
-              user.stats.mp += mpDelta
-              user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
-              user.stats.mp = 0 if user.stats.mp < 0   # BUT DO WE WANT THIS? SEE COMMIT DESCRIPTION
+              gainMP(_.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)]) * if direction is 'down' then -1 else 1)
 
           when 'reward'
           # Don't adjust values for rewards
@@ -1222,7 +1224,9 @@ api.wrap = (user, main=true) ->
 
     crit: (stat='str', chance=.03) ->
       #console.log("Crit Chance:"+chance*(1+user._statsComputed[stat]/100))
-      if user.fns.predictableRandom() <= chance*(1+user._statsComputed[stat]/100) then 1.5 + (.02*user._statsComputed[stat])
+      s = user._statsComputed[stat]
+      if user.fns.predictableRandom() <= chance*(1 + s/100)
+        1.5 + 4*s/(s + 200)
       else 1
 
     ###
@@ -1473,7 +1477,7 @@ api.wrap = (user, main=true) ->
             plan.consecutive.trinkets++
             plan.consecutive.gemCapExtra+=5
             plan.consecutive.gemCapExtra=25 if plan.consecutive.gemCapExtra>25 # cap it at 50 (hard 25 limit + extra 25)
-        # If user cancelled subscription, we give them until 30day's end until it terminates
+        # If user cancelled subscription, we give them until 30 days end until it terminates
         if plan.dateTerminated && moment(plan.dateTerminated).isBefore(+new Date)
           _.merge plan, {planId:null, customerId:null, paymentMethod:null}
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
@@ -1487,17 +1491,22 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
+      dailyChecked = 0        # how many dailies were checked?
+      dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
         {id, type, completed, repeat} = task
 
-        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
+        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies (includes uncompletd GREY dailies - TODO fix that?)
+        # All processing of Dailies is calculated AFTER stealth -- stealthed Dailies are treated as just not being there
 
-
-        # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
-        unless completed
+        # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
+        if completed
+          if type is 'daily'
+            dailyChecked += 1
+        else
           scheduleMisses = daysMissed
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
           if (type is 'daily') and repeat
@@ -1506,7 +1515,14 @@ api.wrap = (user, main=true) ->
               thatDay = moment(now).subtract({days: n + 1})
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
-            perfect = false if type is 'daily'
+            if type is 'daily'
+              perfect = false
+              if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
+                fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
+                dailyDueUnchecked += (1 - fractionChecked)
+                dailyChecked += fractionChecked
+              else
+               dailyDueUnchecked += 1
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
             user.party.quest.progress.down += delta if type is 'daily'
 
@@ -1557,7 +1573,13 @@ api.wrap = (user, main=true) ->
         else clearBuffs
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
-      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
+      # Adjust for fraction of dailies completed
+      #console.log("Prior MP: " + user.stats.mp)
+      dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
+      #console.log("DueUnchecked: " + dailyDueUnchecked)
+      #console.log("Checked: " + dailyChecked)
+      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
+      #console.log("After MP: " +user.stats.mp)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
