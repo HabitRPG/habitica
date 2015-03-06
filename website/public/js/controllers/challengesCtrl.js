@@ -44,6 +44,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Save
      */
     $scope.save = function(challenge) {
+
       if (!challenge.group) return alert(window.env.t('selectGroup'));
       var isNew = !challenge._id;
       challenge.$save(function(_challenge){
@@ -57,6 +58,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
           challenge._locked = true;
+
+          //Resync the challenges when they are edited.
+          $scope.challenges = Challenges.Challenge.query();
         }
       });
     };
