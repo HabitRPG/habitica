@@ -57,6 +57,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
           challenge._locked = true;
+
+          //Resynce challenges after edit
+          $scope.challenges = Challenges.Challenge.query();
         }
       });
     };
