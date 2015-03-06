@@ -163,6 +163,7 @@ function($rootScope, User, $timeout, $state) {
   var watcher = $rootScope.$watch('User.user.ops.update', function(updateFn){
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
+    if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
     goto('intro', User.user.flags.tour.intro, true);
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
