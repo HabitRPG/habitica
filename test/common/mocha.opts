@@ -1,0 +1,8 @@
+--colors
+--reporter spec
+--timeout 8000
+--check-leaks
+--growl
+--debug
+--compilers coffee:coffee-script/register
+--globals io

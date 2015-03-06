@@ -1,0 +1,12 @@
+include ./profile
+include ./social/index
+include ./inventory/index
+include ./settings
+
+script(id='partials/options.html', type="text/ng-template")
+  .container-fluid
+    .row
+      .col-md-12
+        .tab-content.row
+          .tab-pane.active
+            div(ui-view)

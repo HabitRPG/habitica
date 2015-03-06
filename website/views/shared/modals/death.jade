@@ -1,0 +1,16 @@
+//div(modal='user.stats.hp <= 0', options='{backdrop:true, keyboard:false, backdropClick:false}')
+script(type='text/ng-template', id='modals/death.html')  
+  .modal-body.death-modal
+    .container-fluid
+      .row
+        .col-md-3
+          figure
+            .GrimReaper
+        .col-md-9
+          h2=env.t('youDied')
+      .row
+        .col-md-3
+          p
+            a.btn.btn-danger.btn-lg(ng-click='user.ops.revive({}); $close()')=env.t('continue')
+        .col-md-9
+          p=env.t('dieText')

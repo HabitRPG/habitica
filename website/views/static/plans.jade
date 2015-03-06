@@ -1,0 +1,104 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+  - var menuItem = 'plans'
+
+block title
+  title=env.t('groupPlans')
+
+block content
+  .row(ng-controller='PlansCtrl')
+    .col-md-12
+      h2=env.t('groupPlans')
+
+      p
+        =env.t('indivPlan1')
+        |&nbsp;
+        a(href='http://habitrpg.wikia.com/wiki/Guilds' target='_blank')=env.t('guilds')
+        = ' ' + env.t('and') + ' '
+        a(href='http://habitrpg.wikia.com/wiki/Challenges' target='_blank')=env.t('challenges')
+        |&nbsp;
+        =env.t('indivPlan2')
+      p
+        =env.t('groupText1')
+        |&nbsp;
+        a(href='http://habitrpg.wikia.com/wiki/Habitica' target='_blank')=env.t('habitica')
+        |.&nbsp;
+        =env.t('groupText2')
+
+      .subscription-features
+        table.table.table-striped
+          thead
+            tr
+              th.feature-name
+              th.feature-name.muted=env.t('planFamily')
+              th.feature-name.muted=env.t('planGroup')
+              th.feature-name=env.t('organization')
+          tbody
+            tr
+              th
+                span.dashed-underline(popover=env.t('organizationSubText'),popover-trigger='mouseenter',popover-placement='right')=env.t('organizationSub')
+              td.muted
+                span.glyphicon.glyphicon-ok
+              td.muted
+                span.glyphicon.glyphicon-ok
+              td
+                span.glyphicon.glyphicon-ok
+            tr
+              th
+                span.dashed-underline(popover=env.t('dedicatedHostText'),popover-trigger='mouseenter',popover-placement='right')=env.t('dedicatedHost')
+              td
+              td
+              td
+                span.glyphicon.glyphicon-ok
+            tr
+              th
+                span.dashed-underline(popover=env.t('customDomainText'),popover-trigger='mouseenter',popover-placement='right')=env.t('customDomain')
+              td
+              td
+              td
+                span.glyphicon.glyphicon-ok
+            tr
+              th
+                span.dashed-underline(popover=env.t('maxPlayersText'),popover-trigger='mouseenter',popover-placement='right')=env.t('maxPlayers')
+              td.muted 10
+              td.muted 75
+              td=env.t('unlimited')
+            tr
+              th
+                span.dashed-underline(popover=env.t('priSupportText'),popover-trigger='mouseenter',popover-placement='right')=env.t('priSupport')
+              td
+              td
+              td
+                span.glyphicon.glyphicon-ok
+            tr
+              th
+                span.dashed-underline(popover=env.t('timeSupportText'),popover-trigger='mouseenter',popover-placement='right')=env.t('timeSupport')
+              td.muted -
+              td.muted 5
+              td 10
+            tr
+              th
+                h5=env.t('gameFeatures') + ':'
+                ul
+                  li=env.t('gameNoAds')
+                  li
+                    span.dashed-underline(popover=env.t('gold2GemText'),popover-trigger='mouseenter',popover-placement='right')=env.t('gold2Gem')
+                  li
+                    span.dashed-underline(popover=env.t('infiniteGemText'),popover-trigger='mouseenter',popover-placement='right')=env.t('infiniteGem')
+              td.muted
+                span.glyphicon.glyphicon-ok
+              td.muted
+                span.glyphicon.glyphicon-ok
+              td
+                span.glyphicon.glyphicon-ok
+            tr
+              th
+                //| Price
+              td
+                a.btn.btn-default.muted(ng-click='clickContact()', href='https://docs.google.com/forms/d/17torT7OlxgtbHAPdBDRQNG2lTdIQyrGXk4O2YXvUMig/viewform',popover=env.t('notYetPlan'),popover-placement='right',popover-trigger='mouseenter')=env.t('contactUs')
+              td
+                a.btn.btn-default.muted(ng-click='clickContact()', href='https://docs.google.com/forms/d/17torT7OlxgtbHAPdBDRQNG2lTdIQyrGXk4O2YXvUMig/viewform',popover=env.t('notYetPlan'),popover-placement='right',popover-trigger='mouseenter')=env.t('contactUs')
+              td
+                a.btn.btn-primary(ng-click='clickContact()', href='https://docs.google.com/forms/d/12Jqj_8f3oQS0B3ZUHewHbK61uLjBdzBeB0zyEqB9lxM/viewform')=env.t('contactUs')

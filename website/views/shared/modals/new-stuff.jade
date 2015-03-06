@@ -1,0 +1,12 @@
+script(type='text/ng-template', id='modals/newStuff.html')
+  .modal-header
+    | #{env.t('newStuff')} by&nbsp;
+    a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
+  .modal-body.new-stuff-modal.modal-fixed-height
+    div(class="#{env.worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey'}")
+    br
+    br
+    include ../new-stuff
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('cool') 
+    button.btn.btn-warning(ng-click='dismissAlert(); $close()')=env.t('dismissAlert')

@@ -1,0 +1,55 @@
+{
+    "PORT":3000,
+    "IP":"0.0.0.0",
+    "CORES":1,
+    "BASE_URL":"http://localhost",
+    "FACEBOOK_KEY":"123456789012345",
+    "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
+    "NODE_DB_URI":"mongodb://localhost/habitrpg",
+    "NODE_ENV":"development",
+    "SESSION_SECRET":"YOUR SECRET HERE",
+    "ADMIN_EMAIL": "you@yours.com",
+    "SMTP_USER":"user@domain.com",
+    "SMTP_PASS":"password",
+    "SMTP_SERVICE":"Gmail",
+    "SMTP_HOST":"smtp.gmail.com",
+    "SMTP_PORT": 587,
+    "SMTP_TLS": true,
+    "STRIPE_API_KEY":"aaaabbbbccccddddeeeeffff00001111",
+    "STRIPE_PUB_KEY":"22223333444455556666777788889999",
+    "NEW_RELIC_LICENSE_KEY":"NEW_RELIC_LICENSE_KEY",
+    "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
+    "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
+    "GA_ID": "GA_ID",
+    "FLAG_REPORT_EMAIL": "email@mod.com",
+    "EMAIL_SERVER": {
+        "url": "http://example.com",
+        "authUser": "user",
+        "authPassword": "password" 
+    },
+    "S3":{
+        "bucket":"bucket",
+        "accessKeyId":"accessKeyId",
+        "secretAccessKey":"secretAccessKey"
+    },
+    "PAYPAL":{
+        "billing_plans": {
+            "basic_earned":"basic_earned",
+            "basic_3mo":"basic_3mo",
+            "basic_6mo":"basic_6mo",
+            "google_6mo":"google_6mo",
+            "basic_12mo":"basic_12mo"
+        },
+        "mode":"sandbox",
+        "client_id":"client_id",
+        "client_secret":"client_secret"
+    },
+    "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
+    "LOGGLY": {
+        "enabled": false,
+        "subdomain": "subdomain",
+        "token": "token",
+        "username": "username",
+        "password": "password"    
+    }
+}

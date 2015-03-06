@@ -1,0 +1,65 @@
+script(type='text/ng-template', id='modals/reset.html')  
+  .modal-header
+    h4=env.t('resetAccount')
+  .modal-body
+    p=env.t('resetText1')
+    p=env.t('resetText2')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close();')=env.t('neverMind')
+    button.btn.btn-danger(ng-click='$close(); reset()')=env.t('resetDo')
+
+script(type='text/ng-template', id='modals/restore.html')
+  .modal-header
+    h4=env.t('fixValues')
+  .modal-body
+    p=env.t('fixValuesText1')
+    p=env.t('fixValuesText2')
+    form.form-horizontal
+      h3=env.t('stats')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.hp', ng-model='$parent.restoreValues.stats.hp')
+        label.control-label=env.t('health')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.exp', ng-model='$parent.restoreValues.stats.exp')
+        label.control-label=env.t('experience')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.gp', ng-model='$parent.restoreValues.stats.gp')
+        //input.form-control(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
+        label.control-label=env.t('gold')
+        //-p.alert
+          small=env.t('disabledWinterEvent')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.mp', ng-model='$parent.restoreValues.stats.mp')
+        label.control-label=env.t('mana')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', data-for='stats.lvl', ng-model='$parent.restoreValues.stats.lvl')
+        label.control-label=env.t('level')
+      h3=env.t('achievements')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', data-for='achievements.streak', ng-model='$parent.restoreValues.achievements.streak')
+        label.control-label=env.t('fix21Streaks')
+    //- This is causing too many problems for users
+      h3=env.t('other')
+      a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('discardChanges')
+    button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')
+
+script(type='text/ng-template', id='modals/delete.html')  
+  .modal-header
+    h4=env.t('deleteAccount')
+  .modal-body
+    p!=env.t('deleteText', {deleteWord: 'DELETE'})
+    br
+    .row
+      .col-md-6
+        input.form-control(type='text', ng-model='_deleteAccount')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    button.btn.btn-danger(ng-disabled='_deleteAccount != "DELETE"', ng-click='$close(); delete()')=env.t('deleteDo')

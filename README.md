@@ -1,36 +1,12 @@
-[![Build Status](https://travis-ci.org/HabitRPG/habitrpg-shared.png?branch=master)](https://travis-ci.org/HabitRPG/habitrpg-shared)
+HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=develop)](https://travis-ci.org/HabitRPG/habitrpg) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.png)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE) [![Dependency Status](https://gemnasium.com/HabitRPG/habitrpg.svg)](https://gemnasium.com/HabitRPG/habitrpg)
+===============
 
-## We're in the process of migrating this repository to the main HabitRPG repository, you can report any issue [here](https://github.com/HabitRPG/habitrpg).
-Shared resources useful for the multiple HabitRPG repositories, that way all the repositories remain in-sync with common characteristics. Includes things like:
- * Assets - sprites, images, etc
- * CSS - especially, esp. sprite-sheet mapping
- * Algorithms - level up algorithm, scoring functions, etc
- * View helper functions that may come in handy for multiple client MVCs
- * Item definitions - weapons, armor, pets 
+[HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
 
-##Installation
-* `npm install`
-* `grunt` - after you've made modifications and want to compile the dist files for browser
+We need more programmers! Your assistance will be greatly appreciated.
 
-* Node.js
-    * `require ('coffee-script')`
-    * `require('./script/algos.coffee')`, `require('./script/helpers.coffee')`, etc.
-* Browser
-    * Use `<script/>` tag to include ./dist/habitrpg-shared.js it will export `window.habitrpgShared` object.
-    * // Use `browser.debug.js' if you want to have sourcemaps. - EDIT: Only one file now, and it has sourcemaps. Fix this
+For an introduction to the technologies used and how the software is organised, refer to [Contributing to HabitRPG](http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG#Coders_.28Web_.26_Mobile.29) - "Coders (Web & Mobile)" section.
 
-* Note how to invoke scoring function:
-  * `algos.score(user, task, direction)`, etc
-  * TODO document all the functions
+To set up a local install of HabitRPG for development and testing, see [Setting up HabitRPG locally](http://habitrpg.wikia.com/wiki/Setting_up_HabitRPG_locally), which contains instructions for Windows, *nix / Mac OS, and Vagrant.
 
-##Tests
-* `npm test`
-
-##CSS
-Shared CSS between the website and the mobile app is a fuzzy area. Spritesheets definitely go in habitrpg-shared (since mobile
-uses them too). Other things, like customizer buttons, *may* want to go here? As you find sharable components, (1) move them
-from the website into habitrpg-shared, (2) remove from website & make sure all html/css references are updated.
-
-Currently, all or most spritesheets are available. They're in css/*.css, but that's not what you want. You want `/spritesheets.css`
-which is the concat'd file (using `grunt`) which includes all the spritesheets. I'd prefer this be in /dist/spritesheets.css
-for consistency, but it's having image referencing weirdness
+Then read [Guidance for Blacksmiths](http://habitrpg.wikia.com/wiki/Guidance_for_Blacksmiths) for additional instructions and useful tips.
