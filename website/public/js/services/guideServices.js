@@ -137,7 +137,7 @@ function($rootScope, User, $timeout, $state) {
     tour[k] = new Tour({
       backdrop: true,
       template: function(i,step){
-        return '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> ' + (true ? '<button class="btn btn-sm btn-default" data-role="end">' + window.env.t('ok') + '</button> ' : '') +' </div> </div>';
+        return '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> ' + (true ? '<button class="btn btn-sm btn-default" data-role="end">Hide</button> ' : '') +' </div> </div>';
         // FIXME: see https://github.com/HabitRPG/habitrpg/issues/4726
         //return '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> ' + (step.final ? '<button class="btn btn-sm btn-default" data-role="end">' + window.env.t('ok') + '</button> ' : '') +' </div> </div>';
       },
@@ -153,10 +153,20 @@ function($rootScope, User, $timeout, $state) {
     if ((page != curr+1 || curr > page) && !force) return;
     var updates = {};updates['flags.tour.'+chapter] = page;
     User.set(updates);
-    var end = tour[chapter]._options.steps.length;
-    tour[chapter].addSteps(chapters[chapter][page]);
-    tour[chapter].restart(); // Tour doesn't quite mesh with our handling of flags.showTour, just restart it on page load
-    tour[chapter].goTo(end);
+    var chap = tour[chapter], opts = chap._options;
+    opts.steps = [];
+    _.times(page, function(p){
+      opts.steps  = opts.steps.concat(chapters[chapter][p]);
+    })
+    var end = opts.steps.length;
+    opts.steps = opts.steps.concat(chapters[chapter][page]);
+    chap._removeState('end');
+    if (chap._inited) {
+      chap.goTo(end);
+    } else {
+      chap.setCurrentStep(end);
+      chap.start();
+    }
   }
 
   //Init and show the welcome tour (only after user is pulled from server & wrapped).
@@ -168,6 +178,9 @@ function($rootScope, User, $timeout, $state) {
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
     //$rootScope.$watch('user.flags.dropsEnabled', _.flow(alreadyShown, function(already) { //FIXME requires lodash@~3.2.0
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+      if (toState.name == 'options.profile.avatar') goto('intro', 5);
+    })
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before,after)) return;
       var eggs = User.user.items.eggs || {};
