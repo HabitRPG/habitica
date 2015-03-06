@@ -3,6 +3,8 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
     .row
       .col-md-6.border-right
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', popover=env.t('battleGearText'))=env.t('battleGear')
+        div(ng-click='dequip("battleGear");')
+          button.btn.btn-default(type="button") {{env.t("dequipAll")}}
         li.customize-menu.inventory-gear
           menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
@@ -14,6 +16,8 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
             input(type="checkbox", ng-model="user.preferences.costume", ng-change='set({"preferences.costume":user.preferences.costume ? true : false})')
             |&nbsp;
             =env.t('useCostume')
+        div(ng-click='dequip("costume");')
+          button.btn.btn-default(type="button") {{env.t("dequipAll")}}
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
@@ -35,7 +39,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
         // The `if true || false` conditional for applying the transparent class is necessary because
-        // when a user activates the orb of rebirth, the seasonal items are still in their inventory, but 
+        // when a user activates the orb of rebirth, the seasonal items are still in their inventory, but
         // they have each have a value of false. The item can be purchased for gold in the rewards column,
         // not the seasonal shop. This makes that more clear.
         div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key] === true ||user.items.gear.owned[item.key] === false}")
