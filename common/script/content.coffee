@@ -3,7 +3,7 @@ api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
 t = (string, vars) ->
-  func = (lang) -> 
+  func = (lang) ->
     vars ?= {a: 'a'}
     i18n.t(string, vars, lang)
   func.i18nLangFunc = true #Trick to recognize this type of function
@@ -53,7 +53,7 @@ _.each api.mystery, (v,k)->v.key = k
 gear =
   weapon:
     base:
-      0: 
+      0:
         text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
       0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:0
@@ -370,7 +370,7 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
-      
+
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -479,6 +479,8 @@ api.gearTypes = gearTypes
 #
 diminishingReturns = (bonus, max, halfway=max/2) -> max*(bonus/(bonus+halfway))
 
+calculateBonus = (value, stat, crit=1, stat_scale=0.5) -> (if value < 0 then 1 else value+1) + (stat * stat_scale * crit)
+
 api.spells =
 
   wizard:
@@ -489,13 +491,11 @@ api.spells =
       target: 'task'
       notes: t('spellWizardFireballNotes')
       cast: (user, target) ->
-        # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
-        target.value += diminishingReturns(bonus*.02, 4)
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
-        #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30)
+        user.party.quest.progress.up ?= 0
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1)
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -505,9 +505,8 @@ api.spells =
       notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = Math.ceil(user._statsComputed.int * .1)
-          bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
-          member.stats.mp += bonus
+          bonus = user._statsComputed.int
+          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
       text: t('spellWizardEarthText')
@@ -517,8 +516,9 @@ api.spells =
       notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.int
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
+          member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30,200))
 
     frost:
       text: t('spellWizardFrostText'),
@@ -537,8 +537,11 @@ api.spells =
       target: 'task'
       notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
-        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2)
+        bonus = user._statsComputed.str * user.fns.crit('con')
+        target.value += diminishingReturns(bonus, 2.5, 35)
+        user.party.quest.progress.up ?= 0
+        user.party.quest.progress.up += diminishingReturns(bonus, 55, 70)
+
     defensiveStance:
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
@@ -546,8 +549,10 @@ api.spells =
       target: 'self'
       notes: t('spellWarriorDefensiveStanceNotes')
       cast: (user, target) ->
+        bonus = user._statsComputed.con
         user.stats.buffs.con ?= 0
-        user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
+        user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200))
+
     valorousPresence:
       text: t('spellWarriorValorousPresenceText')
       mana: 20
@@ -556,8 +561,10 @@ api.spells =
       notes: t('spellWarriorValorousPresenceNotes')
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.str
           member.stats.buffs.str ?= 0
-          member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
+          member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200))
+
     intimidate:
       text: t('spellWarriorIntimidateText')
       mana: 15
@@ -566,8 +573,9 @@ api.spells =
       notes: t('spellWarriorIntimidateNotes')
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con *  .03)
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus,24,200))
 
   rogue:
     pickPocket:
@@ -577,8 +585,9 @@ api.spells =
       target: 'task'
       notes: t('spellRoguePickPocketNotes')
       cast: (user, target) ->
-        bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
-        user.stats.gp += 25 * (bonus / (bonus + 75))
+        bonus = calculateBonus(target.value, user._statsComputed.per)
+        user.stats.gp += diminishingReturns(bonus, 25, 75)
+
     backStab:
       text: t('spellRogueBackStabText')
       mana: 15
@@ -587,11 +596,10 @@ api.spells =
       notes: t('spellRogueBackStabNotes')
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
-        target.value += _crit * .03
-        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
-        user.stats.exp += bonus
-        user.stats.gp += bonus
-        # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
+        bonus = calculateBonus(target.value, user._statsComputed.str, _crit)
+        user.stats.exp += diminishingReturns(bonus, 75, 50)
+        user.stats.gp += diminishingReturns(bonus, 18, 75)
+
     toolsOfTrade:
       text: t('spellRogueToolsOfTradeText')
       mana: 25
@@ -599,10 +607,11 @@ api.spells =
       target: 'party'
       notes: t('spellRogueToolsOfTradeNotes')
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.per
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
+          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100))
+
     stealth:
       text: t('spellRogueStealthText')
       mana: 45
@@ -633,7 +642,7 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
+          target.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40))
     protectAura:
       text: t('spellHealerProtectAuraText')
       mana: 30
@@ -641,10 +650,10 @@ api.spells =
       target: 'party'
       notes: t('spellHealerProtectAuraNotes')
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200))
     heallAll:
       text: t('spellHealerHealAllText')
       mana: 25
@@ -825,11 +834,11 @@ api.specialPets =
   'Mammoth-Base':       'mammoth'
 
 api.specialMounts =
-  'BearCub-Polar':	'polarBear'
-  'LionCub-Ethereal':	'etherealLion'
-  'MantisShrimp-Base':	'mantisShrimp'
-  'Turkey-Base': 'turkey'
-  'Mammoth-Base': 'mammoth'
+  'BearCub-Polar':      'polarBear'
+  'LionCub-Ethereal':   'etherealLion'
+  'MantisShrimp-Base':  'mantisShrimp'
+  'Turkey-Base':        'turkey'
+  'Mammoth-Base':       'mammoth'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1043,7 +1052,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      
+
   hedgehog:
     text: t('questHedgehogText')
     notes: t('questHedgehogNotes')
