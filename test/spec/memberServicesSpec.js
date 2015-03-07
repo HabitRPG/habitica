@@ -27,7 +27,7 @@ describe('memberServices', function() {
   it('selects a member', function(){
     var uid = 'abc';
     $httpBackend.expectGET('/api/v2/members/' + uid).respond({ _id: uid });
-    members.selectMember(uid);
+    members.selectMember(uid, function(){});
     $httpBackend.flush();
 
     expect(members.selectedMember._id).to.eql(uid);

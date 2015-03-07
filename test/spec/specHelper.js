@@ -12,6 +12,7 @@ specHelper = {
         eggs: {},
         food: {},
         pets: {},
+        mounts: {},
         gear: {equipped: {}, costume: {}},
       },
       party: {
