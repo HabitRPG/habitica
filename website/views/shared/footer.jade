@@ -77,7 +77,8 @@ footer.footer(ng-controller='FooterCtrl')
           h4 Debug
           .btn-group-vertical
             a.btn.btn-default(ng-click='setHealthLow()') Health = 1
-            a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day
+            a.btn.btn-default(ng-click='addMissedDay(1)') +1 Missed Day
+            a.btn.btn-default(ng-click='addMissedDay(2)') +2 Missed Days
             a.btn.btn-default(ng-click='addTenGems()') +10 Gems
             a.btn.btn-default(ng-click='addGold()') +GP
             a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP +MP
