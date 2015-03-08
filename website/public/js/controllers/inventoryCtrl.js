@@ -234,24 +234,43 @@ habitrpg.controller("InventoryCtrl",
       return filteredArray;
     };
 
-    $scope.dequip = function(gearSet){
+    $scope.dequip = function(itemSet){
 
-      if ( gearSet == "battleGear" ) {
-        for ( item in user.items.gear.equipped ){
-          var itemKey = user.items.gear.equipped[item];
-          if ( user.items.gear.owned[itemKey] ) {
-            user.ops.equip({params: {key: itemKey}});
+      switch (itemSet) {
+        case "battleGear":
+          for ( item in user.items.gear.equipped ){
+            var itemKey = user.items.gear.equipped[item];
+            if ( user.items.gear.owned[itemKey] ) {
+              user.ops.equip({params: {key: itemKey}});
+            }
           }
-        }
-      }
+          break;
 
-      if ( gearSet == "costume" ) {
-        for ( item in user.items.gear.costume ){
-          var itemKey = user.items.gear.costume[item];
-          if ( user.items.gear.owned[itemKey] ) {
-            user.ops.equip({params: {type:"costume", key: itemKey}});
+        case "costume":
+          for ( item in user.items.gear.costume ){
+            var itemKey = user.items.gear.costume[item];
+            if ( user.items.gear.owned[itemKey] ) {
+              user.ops.equip({params: {type:"costume", key: itemKey}});
+            }
           }
-        }
+          break;
+
+        case "petMountBackground":
+
+          var pet = user.items.currentPet;
+          if ( pet ) {
+            user.ops.equip({params:{type: 'pet', key: pet}});
+          }
+
+          var mount = user.items.currentMount;
+          if ( mount ) {
+            user.ops.equip({params:{type: 'mount', key: mount}});
+          }
+
+          var background = user.preferences.background;
+          User.user.ops.unlock({query:{path:"background."+background}});
+
+          break;
       }
 
     }
