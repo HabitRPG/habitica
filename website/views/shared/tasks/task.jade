@@ -124,6 +124,12 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             | &nbsp;|&nbsp;
             a(ng-click="unlink(task, 'remove-all')")=env.t('removeThem')
 
+
+      form(ng-submit='saveTask(task,false,true)')
+        // Title text input
+        label.option-title=env.t('title')
+        input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
+
       // Checklists
       .task-checklist-edit(ng-if='!$state.includes("options.social.challenges")')
         ul
@@ -132,24 +138,20 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
               span.glyphicon.glyphicon-tasks
               span=env.t('addChecklist')
         form.checklist-form(ng-if='task.checklist')
-          fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
-            legend.option-title
-              span.hint(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')=env.t('checklist')
-            ul(hrpg-sort-checklist)
-              li(ng-repeat='item in task.checklist') 
-                //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
-                //-,ng-blur='saveTask(task,true)')
-                span.checklist-icon.glyphicon.glyphicon-resize-vertical()
-                input(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
-                a(ng-click='removeChecklistItem(task,$event,$index,true)')
-                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+          legend.option-title(ng-if='task.checklist[0]')
+            span.hint(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')=env.t('checklist')
+          ul(hrpg-sort-checklist)
+            li(ng-repeat='item in task.checklist') 
+              //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
+              //-,ng-blur='saveTask(task,true)')
+              span.checklist-icon.glyphicon.glyphicon-resize-vertical()
+              input(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
+              a(ng-click='removeChecklistItem(task,$event,$index,true)')
+                span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
 
       form(ng-submit='saveTask(task,false,true)')
-        // text & notes
+        // Notes text input
         fieldset.option-group
-          label.option-title=env.t('text')
-          input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
-
           label.option-title=env.t('extraNotes')
           textarea.option-content(rows='3', ng-model='task.notes', ng-model-options="{debounce: 1000}")
 
