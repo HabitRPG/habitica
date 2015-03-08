@@ -7,7 +7,7 @@ table.table.table-striped
   tr(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
     td
       strong=env.t('mana')
-      | : {{profile.stats.mp | number:0}} / {{profile._statsComputed.maxMP}}
+      | : {{Math.floor(profile.stats.mp)}} / {{profile._statsComputed.maxMP}}
   tr
     td
       strong=env.t('gold')
