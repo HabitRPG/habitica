@@ -34,7 +34,7 @@ habitrpg.controller('SettingsCtrl',
         Notification.text(env.t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
         $location.search({});
       }
-    }, 500);
+    }, 1000);
 
     $scope.hideHeader = function(){
       User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
