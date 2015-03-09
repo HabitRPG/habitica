@@ -11,7 +11,7 @@ table.table.table-striped
   tr
     td
       strong=env.t('gold')
-      | : {{profile.stats.gp}}
+      | : {{Math.floor(profile.stats.gp)}}
   tr
     td
       strong=env.t('level')
