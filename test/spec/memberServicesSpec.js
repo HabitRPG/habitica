@@ -3,9 +3,6 @@
 describe('memberServices', function() {
   var $httpBackend, members;
 
-  beforeEach(module('memberServices'));
-  beforeEach(module('habitrpg'));
-  
   beforeEach(inject(function (_$httpBackend_, Members) {
     $httpBackend = _$httpBackend_;
     members = Members;
@@ -30,7 +27,7 @@ describe('memberServices', function() {
   it('selects a member', function(){
     var uid = 'abc';
     $httpBackend.expectGET('/api/v2/members/' + uid).respond({ _id: uid });
-    members.selectMember(uid);
+    members.selectMember(uid, function(){});
     $httpBackend.flush();
 
     expect(members.selectedMember._id).to.eql(uid);
