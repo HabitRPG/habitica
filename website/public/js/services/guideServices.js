@@ -142,7 +142,7 @@ function($rootScope, User, $timeout, $state) {
           '<h3 class="popover-title"></h3> ' +
           '<div class="popover-content"></div> ' +
           '<div class="popover-navigation"> ' +
-          '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Hide</button>'+
+          '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>'+
           '<div class="btn-group" style="float:right;"> ' +
           '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> ' +
           '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> ' +
@@ -150,8 +150,6 @@ function($rootScope, User, $timeout, $state) {
           '</div> ' +
           '</div>' +
           '</div>';
-        // FIXME: see https://github.com/HabitRPG/habitrpg/issues/4726
-        //return '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> <button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> </div> ' + (step.final ? '<button class="btn btn-sm btn-default" data-role="end">' + window.env.t('ok') + '</button> ' : '') +' </div> </div>';
       },
       storage: false,
       //onEnd: function(){
