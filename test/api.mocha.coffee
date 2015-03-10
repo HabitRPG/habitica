@@ -464,6 +464,7 @@ describe "API", ->
             expect(_.size(res.body.quest.members)).to.be 3
             done()
 
+        # This test is a complete hell.
         it "Hurts the boss", (done) ->
           request.post(baseURL + "/user/batch-update").end (res) ->
             user = res.body
@@ -622,30 +623,46 @@ describe "API", ->
           user = _user
           done()
 
-      it "Handles unsubscription", (done) ->
-        cron = ->
-          user.lastCron = moment().subtract(1, "d")
-          user.fns.cron()
+    it "Handles unsubscription", (done) ->
+      cron = ->
+        user.lastCron = moment().subtract(1, "d")
+        user.fns.cron()
 
-        expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
-          customerId: "123"
-          paymentMethod: "Stripe"
+      expect(user.purchased.plan.customerId).to.not.be.ok()
 
-        expect(user.purchased.plan.customerId).to.be.ok()
-        shared.wrap user
-        cron()
-        expect(user.purchased.plan.customerId).to.be.ok()
-        payments.cancelSubscription user
-        cron()
-        expect(user.purchased.plan.customerId).to.be.ok()
-        expect(user.purchased.plan.dateTerminated).to.be.ok()
-        user.purchased.plan.dateTerminated = moment().subtract(2, "d")
-        cron()
-        expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
-          customerId: "123"
-          paymentMethod: "Stripe"
+      # Subscription blocks are defined this way:
+      # api.subscriptionBlocks =
+      #   basic_earned: months:1, price:5
+      #   basic_3mo:    months:3, price:15
+      #   basic_6mo:    months:6, price:30
+      #   google_6mo:   months:6, price:24, discount:true, original:30
+      #   basic_12mo:   months:12, price:48
 
-        expect(user.purchased.plan.dateTerminated).to.not.be.ok()
-        done()
+      # _.each api.subscriptionBlocks, (b, k) -> b.key = k
+
+      payments.createSubscription
+        user:          user
+        customerId:    "123"
+        paymentMethod: "Stripe"
+        sub:           {months:6, price:30, key: "basic_6mo"} # random hardcoded subscription block
+
+
+      expect(user.purchased.plan.customerId).to.be.ok()
+      shared.wrap user
+      cron()
+      expect(user.purchased.plan.customerId).to.be.ok()
+      payments.cancelSubscription {user: user}
+      cron()
+      expect(user.purchased.plan.customerId).to.be.ok()
+      expect(user.purchased.plan.dateTerminated).to.be.ok()
+      user.purchased.plan.dateTerminated = moment().subtract(2, "d")
+      cron()
+      expect(user.purchased.plan.customerId).to.not.be.ok()
+      payments.createSubscription
+        user:          user
+        customerId:    "123"
+        paymentMethod: "Stripe"
+        sub:           {months:3, price:15, key: "basic_3mo"} # random hardcoded subscription block
+
+      expect(user.purchased.plan.dateTerminated).to.not.be.ok()
+      done()
