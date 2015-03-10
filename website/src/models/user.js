@@ -32,7 +32,8 @@ var UserSchema = new Schema({
   _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
-    helpedHabit: Boolean,
+    helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
+    habitSurveys: Number,
     ultimateGear: Boolean,
     beastMaster: Boolean,
     beastMasterCount: Number,
