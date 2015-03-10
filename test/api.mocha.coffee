@@ -52,7 +52,8 @@ describe "API", ->
     expect(randomIDs.indexOf(randomID)).to.be(-1)
     randomIDs.push(randomID);
 
-    request.post(baseURL + "/register")
+    request
+      .post(baseURL + "/register")
       .set("Accept", "application/json")
       .set("X-API-User", undefined) # there is no '.unset' method in 'superagent-defaults' module
       .set("X-API-Key", undefined)  # but 'superagent' has it! Should we create an issue?
@@ -62,20 +63,26 @@ describe "API", ->
         confirmPassword: randomID
         email:           randomID + "@gmail.com"
       ).end (res) ->
-      return cb(null, res.body) unless main
-      
-      _id      = res.body._id
-      apiToken = res.body.apiToken
+        return cb(null, res.body) unless main
 
-      expect(typeof _id).to.be("string")
-      expect(typeof apiToken).to.be("string")
+        expect(res).to.be.ok
 
-      User.findOne {_id: _id, apiToken: apiToken}, (err, _user) ->
-        expect(err).to.not.be.ok()
-        user = _user
+        _id      = res.body._id
+        apiToken = res.body.apiToken
 
-        request.set("Accept", "application/json").set("X-API-User", _id).set("X-API-Key", apiToken)
-        cb null, res.body
+        expect(typeof _id).to.be("string")
+        expect(typeof apiToken).to.be("string")
+
+        User.findOne {_id: _id, apiToken: apiToken}, (err, _user) ->
+          expect(err).to.not.be.ok()
+          user = _user
+
+          request
+            .set("Accept", "application/json")
+            .set("X-API-User", _id)
+            .set("X-API-Key", apiToken)
+
+          cb null, res.body
 
   before (done) ->
     require "../website/src/server" # start the server
@@ -96,8 +103,7 @@ describe "API", ->
         done()
 
   describe "With token and user id", ->
-    before (done) ->
-      registerNewUser done, true
+    before (done) -> registerNewUser done, true
 
     beforeEach (done) ->
       User.findById _id, (err, _user) ->
@@ -174,53 +180,50 @@ describe "API", ->
               expect(_.size(res.body.todos)).to.be numTasks - 2
               done()
 
-    ###*
+    ###
     GROUPS
     ###
-    # @TODO: New users are being registered with original user api
-    # which results in changing the original user's name and password
-    # instead of creating a new error, so the group tests fail
-    # because no users are actually being created
-    describe.skip "Groups", ->
+    describe "Groups", ->
       group = undefined
       before (done) ->
-        request.post(baseURL + "/groups").send(
-          name: "TestGroup"
-          type: "party"
-        ).end (res) ->
-          expectCode res, 200
-          group = res.body
-          expect(group.members.length).to.be 1
-          expect(group.leader).to.be user._id
-          done()
+        registerNewUser (err, user) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+            group = res.body
+            expect(group.members.length).to.be 1
+            expect(group.leader).to.be user._id
+            done()
 
       describe "Challenges", ->
         challenge = undefined
         updateTodo = undefined
         it "Creates a challenge", (done) ->
           request.post(baseURL + "/challenges").send(
+            
             group: group._id
             dailys: [
               type: "daily"
               text: "Challenge Daily"
             ]
             todos: [
-              type: "todo"
-              text: "Challenge Todo"
+              type:  "todo"
+              text:  "Challenge Todo"
               notes: "Challenge Notes"
             ]
-            rewards: []
-            habits: []
+            rewards:  []
+            habits:   []
             official: true
+
           ).end (res) ->
             expectCode res, 200
             async.parallel [
-              (cb) ->
-                User.findById _id, cb
-              (cb) ->
-                Challenge.findById res.body._id, cb
+              (cb) -> User.findById _id, cb
+              (cb) -> Challenge.findById res.body._id, cb
             ], (err, results) ->
-              _user = results[0]
+              _user     = results[0]
               challenge = results[1]
               expect(_user.dailys[_user.dailys.length - 1].text).to.be "Challenge Daily"
               updateTodo = _user.todos[_user.todos.length - 1]
