@@ -294,22 +294,22 @@ describe "API", ->
             async.parallel [
               (cb) ->
                 request.post(baseURL + "/challenges").send(
-                  group: group._id
-                  dailys: []
-                  todos: []
-                  rewards: []
-                  habits: []
+                  group:    group._id
+                  dailys:   []
+                  todos:    []
+                  rewards:  []
+                  habits:   []
                   official: false
                 ).end (res) ->
                   expect(res.body.official).to.be false
                   cb()
               (cb) ->
                 request.post(baseURL + "/challenges").send(
-                  group: group._id
-                  dailys: []
-                  todos: []
-                  rewards: []
-                  habits: []
+                  group:    group._id
+                  dailys:   []
+                  todos:    []
+                  rewards:  []
+                  habits:   []
                   official: true
                 ).end (res) ->
                   expect(res.body.official).to.be true
@@ -317,8 +317,8 @@ describe "API", ->
             ], done
 
       describe "Quests", ->
-        party = undefined
-        participating = []
+        party            = undefined
+        participating    = []
         notParticipating = []
         before (done) ->
 
@@ -365,20 +365,9 @@ describe "API", ->
               # Register new users
               (cb) ->
                 async.parallel [
-                  (cb2) ->
-                    # @TODO: The registerNewUser function posts to /api/v2/register
-                    # since superagent-defaults has the user id and token set
-                    # Subsequent calls to registerNewUser are being called with
-                    # the uuid and token that is generated when the initial user is
-                    # made. Instead of creating new users, it updates the original user
-                    # with a new login name, email and password. That is why
-                    # all the users have the same uuid, because they're not actually
-                    # being created. The original is just being updated. 
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
+                  (cb2) -> registerNewUser cb2, false
+                  (cb2) -> registerNewUser cb2, false
+                  (cb2) -> registerNewUser cb2, false
                 ], cb
 
               # Send them invitations
@@ -391,21 +380,9 @@ describe "API", ->
                 party = _party
                 inviteURL = baseURL + "/groups/" + group._id + "/invite"
                 async.parallel [
-                  (cb2) ->
-                    request.post(inviteURL).send(
-                      uuids: [party[0]._id]
-                    ).end ->
-                      cb2()
-                  (cb2) ->
-                    request.post(inviteURL).send(
-                      uuids: [party[1]._id]
-                    ).end ->
-                      cb2()
-                  (cb2) ->
-                    request.post(inviteURL).send(
-                      uuids: [party[2]._id]
-                    ).end (res)->
-                      cb2()
+                  (cb2) -> request.post(inviteURL).send( uuids: [party[0]._id]).end -> cb2()
+                  (cb2) -> request.post(inviteURL).send( uuids: [party[1]._id]).end -> cb2()
+                  (cb2) -> request.post(inviteURL).send( uuids: [party[2]._id]).end (res)-> cb2()
                 ], cb
 
               # Accept / Reject
@@ -531,15 +508,9 @@ describe "API", ->
                         (cb2) ->
                           expect(res.body.quest.progress.hp).to.be.below shared.content.quests.vice3.boss.hp
                           _party = res.body.members
-                          expect(_.find(_party,
-                            _id: party[0]._id
-                          ).stats.hp).to.be.below 50
-                          expect(_.find(_party,
-                            _id: party[1]._id
-                          ).stats.hp).to.be.below 50
-                          expect(_.find(_party,
-                            _id: party[2]._id
-                          ).stats.hp).to.be 50
+                          expect(_.find(_party, _id: party[0]._id).stats.hp).to.be.below 50
+                          expect(_.find(_party, _id: party[1]._id).stats.hp).to.be.below 50
+                          expect(_.find(_party, _id: party[2]._id).stats.hp).to.be 50
                           cb2()
                       ], cb
 
