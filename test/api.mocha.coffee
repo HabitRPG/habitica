@@ -27,10 +27,11 @@ shared                      = require("../common")
 payments                    = require("../website/src/controllers/payments")
 
 # ###### Helpers & Variables ######
-model    = undefined
-uuid     = undefined
-taskPath = undefined
-baseURL  = "http://localhost:3000/api/v2"
+model     = undefined
+uuid      = undefined
+taskPath  = undefined
+baseURL   = "http://localhost:3000/api/v2"
+randomIDs = []
 
 expectCode = (res, code) ->
   expect(res.body.err).to.be `undefined`  if code is 200
@@ -47,23 +48,33 @@ describe "API", ->
     main     = true  if main is `undefined`
     randomID = shared.uuid()
     username = password = randomID  if main
-    
-    request.post(baseURL + "/register").set("Accept", "application/json").send(
-      username:        randomID
-      password:        randomID
-      confirmPassword: randomID
-      email:           randomID + "@gmail.com"
-    ).end (res) ->
-      return cb(null, res.body)  unless main
-      _id = res.body._id
+
+    expect(randomIDs.indexOf(randomID)).to.be(-1)
+    randomIDs.push(randomID);
+
+    request.post(baseURL + "/register")
+      .set("Accept", "application/json")
+      .set("X-API-User", undefined) # there is no '.unset' method in 'superagent-defaults' module
+      .set("X-API-Key", undefined)  # but 'superagent' has it! Should we create an issue?
+      .send(
+        username:        randomID
+        password:        randomID
+        confirmPassword: randomID
+        email:           randomID + "@gmail.com"
+      ).end (res) ->
+      return cb(null, res.body) unless main
+      
+      _id      = res.body._id
       apiToken = res.body.apiToken
-      User.findOne
-        _id: _id
-        apiToken: apiToken
-      , (err, _user) ->
+
+      expect(typeof _id).to.be("string")
+      expect(typeof apiToken).to.be("string")
+
+      User.findOne {_id: _id, apiToken: apiToken}, (err, _user) ->
         expect(err).to.not.be.ok()
         user = _user
-        request.set("Accept", "application/json").set("X-API-User", _id).set "X-API-Key", apiToken
+
+        request.set("Accept", "application/json").set("X-API-User", _id).set("X-API-Key", apiToken)
         cb null, res.body
 
   before (done) ->
