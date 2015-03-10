@@ -2,54 +2,57 @@
 
 #global describe, before, beforeEach, it
 "use strict"
-_ = require("lodash")
-expect = require("expect.js")
-async = require("async")
-diff = require("deep-diff")
+_                  = require("lodash")
+expect             = require("expect.js")
+async              = require("async")
+diff               = require("deep-diff")
 superagentDefaults = require("superagent-defaults")
-request = superagentDefaults()
-path = require("path")
-moment = require("moment")
-conf = require("nconf")
+request            = superagentDefaults()
+path               = require("path")
+moment             = require("moment")
+conf               = require("nconf")
 conf.argv().env().file(file: path.join(__dirname, "../config.json")).defaults()
 conf.set "port", "1337"
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
-process.env.BASE_URL = conf.get("BASE_URL")
-process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
+process.env.BASE_URL        = conf.get("BASE_URL")
+process.env.FACEBOOK_KEY    = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
-process.env.NODE_DB_URI = "mongodb://localhost/habitrpg"
-User = require("../website/src/models/user").model
-Group = require("../website/src/models/group").model
-Challenge = require("../website/src/models/challenge").model
-app = require("../website/src/server")
-shared = require("../common")
-payments = require("../website/src/controllers/payments")
+process.env.NODE_DB_URI     = "mongodb://localhost/habitrpg"
+User                        = require("../website/src/models/user").model
+Group                       = require("../website/src/models/group").model
+Challenge                   = require("../website/src/models/challenge").model
+app                         = require("../website/src/server")
+shared                      = require("../common")
+payments                    = require("../website/src/controllers/payments")
 
 # ###### Helpers & Variables ######
-model = undefined
-uuid = undefined
+model    = undefined
+uuid     = undefined
 taskPath = undefined
-baseURL = "http://localhost:3000/api/v2"
+baseURL  = "http://localhost:3000/api/v2"
+
 expectCode = (res, code) ->
   expect(res.body.err).to.be `undefined`  if code is 200
   expect(res.statusCode).to.be code
 
 describe "API", ->
-  user = undefined
-  _id = undefined
+  user     = undefined
+  _id      = undefined
   apiToken = undefined
   username = undefined
   password = undefined
+
   registerNewUser = (cb, main) ->
-    main = true  if main is `undefined`
+    main     = true  if main is `undefined`
     randomID = shared.uuid()
     username = password = randomID  if main
+    
     request.post(baseURL + "/register").set("Accept", "application/json").send(
-      username: randomID
-      password: randomID
+      username:        randomID
+      password:        randomID
       confirmPassword: randomID
-      email: randomID + "@gmail.com"
+      email:           randomID + "@gmail.com"
     ).end (res) ->
       return cb(null, res.body)  unless main
       _id = res.body._id
