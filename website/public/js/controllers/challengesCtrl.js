@@ -45,6 +45,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      */
     $scope.save = function(challenge) {
       if (!challenge.group) return alert(window.env.t('selectGroup'));
+      if (!$scope.enoughGems) return alert(window.env.t('challengeNotEnoughGems'));
       var isNew = !challenge._id;
       challenge.$save(function(_challenge){
         if (isNew) {
@@ -218,7 +219,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!gid) return;
       var group = _.find($scope.groups, {_id:gid});
       $scope.maxPrize = User.user.balance*4 + ((group && group.balance && group.leader==User.user._id) ? group.balance*4 : 0);
-      if (gid == 'habitrpg') $scope.newChallenge.prize = 1;
+      $scope.enoughGems = true;
+      if (gid == 'habitrpg') {
+        $scope.newChallenge.prize = 1;
+        if ( $scope.maxPrize <= 0 ) $scope.enoughGems = false;
+      }
     })
 
     $scope.selectAll = function(){
