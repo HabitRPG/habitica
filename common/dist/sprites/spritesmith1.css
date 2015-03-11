@@ -12,13 +12,13 @@
 }
 .hair_base_11_purple {
   background-image: url(spritesmith1.png);
-  background-position: -1001px -1183px;
+  background-position: -1092px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_11_purple {
   background-image: url(spritesmith1.png);
-  background-position: -1026px -1198px;
+  background-position: -1117px -1198px;
   width: 60px;
   height: 60px;
 }
@@ -2316,25 +2316,25 @@
 }
 .hair_base_3_peppermint {
   background-image: url(spritesmith1.png);
-  background-position: 0px 0px;
+  background-position: -1001px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_3_peppermint {
   background-image: url(spritesmith1.png);
-  background-position: -25px -15px;
+  background-position: -1026px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_base_3_pgreen {
   background-image: url(spritesmith1.png);
-  background-position: -1092px -1183px;
+  background-position: 0px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_3_pgreen {
   background-image: url(spritesmith1.png);
-  background-position: -1117px -1198px;
+  background-position: -25px -15px;
   width: 60px;
   height: 60px;
 }
@@ -4639,6 +4639,18 @@
 .customize-option.hair_base_9_halloween {
   background-image: url(spritesmith1.png);
   background-position: -571px -1744px;
+  width: 60px;
+  height: 60px;
+}
+.hair_base_9_holly {
+  background-image: url(spritesmith1.png);
+  background-position: -637px -1729px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.hair_base_9_holly {
+  background-image: url(spritesmith1.png);
+  background-position: -662px -1744px;
   width: 60px;
   height: 60px;
 }

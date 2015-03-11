@@ -14,6 +14,20 @@
 if mobile
   .item.item-divider=env.t('achievements')
 
+div(ng-if='::profile.achievements.habitSurveys || user._id == profile._id')
+  .achievement.achievement-tree(ng-show='profile.achievements.habitSurveys')
+  div(ng-class='{muted: !profile.achievements.habitSurveys}')
+    h5=env.t('helped')
+    small(ng-if='profile.achievements.habitSurveys > 1')
+      =env.t('surveysMultiple', {surveys: "{{profile.achievements.habitSurveys}}"})
+      |&nbsp;
+      +aLink('https://www.surveymonkey.com/s/62RXRF3', env.t('currentSurvey'))
+    small(ng-if='!(profile.achievements.habitSurveys > 1)')
+      =env.t('surveysSingle')
+      | &nbsp;
+      +aLink('https://www.surveymonkey.com/s/62RXRF3', env.t('currentSurvey'))
+  hr
+
 div(ng-if='::profile.backer.npc')
   .achievement.achievement-helm
   h5
@@ -118,15 +132,6 @@ div(ng-if='profile.achievements.rebirths')
   small
     =env.t('rebirthOrb')
     |&nbsp;{{profile.achievements.rebirthLevel}}.
-  hr
-
-div(ng-if='::profile.achievements.helpedHabit')
-  .achievement.achievement-tree
-  h5=env.t('helped')
-  small
-    =env.t('helpedText1')
-    |&nbsp;
-    +aLink('http://community.habitrpg.com/node/290', env.t('helpedText2'))
   hr
 
 div(ng-if=':: profile.achievements.veteran')

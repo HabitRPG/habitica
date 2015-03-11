@@ -176,7 +176,7 @@ gear = {
       0: {
         text: t('weaponWarrior0Text'),
         notes: t('weaponWarrior0Notes'),
-        value: 0
+        value: 1
       },
       1: {
         text: t('weaponWarrior1Text'),
@@ -4606,7 +4606,7 @@ api.userDefaults = {
       value: 0,
       up: true,
       down: false,
-      attribute: 'per'
+      attribute: 'str'
     }, {
       type: 'habit',
       text: t('defaultHabit2Text'),
@@ -4614,7 +4614,7 @@ api.userDefaults = {
       value: 0,
       up: false,
       down: true,
-      attribute: 'con'
+      attribute: 'str'
     }, {
       type: 'habit',
       text: t('defaultHabit3Text'),
@@ -4625,52 +4625,7 @@ api.userDefaults = {
       attribute: 'str'
     }
   ],
-  dailys: [
-    {
-      type: 'daily',
-      text: t('defaultDaily1Text'),
-      notes: t('defaultDaily1Notes'),
-      value: 0,
-      completed: false,
-      repeat: repeat,
-      attribute: 'per'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily2Text'),
-      notes: t('defaultDaily2Notes'),
-      value: 3,
-      completed: false,
-      repeat: repeat,
-      attribute: 'con'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily3Text'),
-      notes: t('defaultDaily3Notes'),
-      value: -10,
-      completed: false,
-      repeat: repeat,
-      attribute: 'int'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily4Text'),
-      notes: t('defaultDaily4Notes'),
-      checklist: [
-        {
-          completed: true,
-          text: t('defaultDaily4Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultDaily4Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultDaily4Checklist3')
-        }
-      ],
-      completed: false,
-      repeat: repeat,
-      attribute: 'str'
-    }
-  ],
+  dailys: [],
   todos: [
     {
       type: 'todo',
@@ -4678,81 +4633,9 @@ api.userDefaults = {
       notes: t('defaultTodoNotes'),
       completed: false,
       attribute: 'int'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo2Text'),
-      notes: t('defaultTodoNotes'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo2Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo2Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo2Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo3Text'),
-      notes: t('defaultTodoNotes'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo3Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo3Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo3Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo4Text'),
-      notes: t('defaultTodoNotes'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo4Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo4Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo4Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo5Text'),
-      notes: t('defaultTodoNotes'),
-      completed: false,
-      attribute: 'per'
     }
   ],
-  rewards: [
-    {
-      type: 'reward',
-      text: t('defaultReward1Text'),
-      notes: t('defaultReward1Notes'),
-      value: 20
-    }, {
-      type: 'reward',
-      text: t('defaultReward2Text'),
-      notes: t('defaultReward2Notes'),
-      value: 10
-    }
-  ],
+  rewards: [],
   tags: [
     {
       name: t('defaultTag1')
@@ -7280,6 +7163,7 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 

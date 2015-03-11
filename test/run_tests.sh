@@ -37,5 +37,7 @@ trap "kill $NODE_PID" EXIT
 NODE_ENV=testing mocha || exit $?
 
 if [ -z "$TRAVIS" ]; then
-	NODE_ENV=testing grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js || exit $?
+	NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js || exit $?
 fi
+
+NODE_ENV=testing grunt karma:continuous
