@@ -34,7 +34,7 @@ habitrpg.controller('SettingsCtrl',
         Notification.text(env.t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
         $location.search({});
       }
-    }, 500);
+    }, 1000);
 
     $scope.hideHeader = function(){
       User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
@@ -55,12 +55,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.showTour = function(){
       User.set({'flags.showTour':true});
-      $location.path('/tasks');
-      $timeout(Guide.initTour);
+      Guide.goto('intro', 0, true);
     }
 
     $scope.showClassesTour = function(){
-      Guide.classesTour();
+      Guide.goto('classes', 0, true);
     }
 
     $scope.showBailey = function(){
