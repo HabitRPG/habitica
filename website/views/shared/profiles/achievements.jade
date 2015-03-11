@@ -26,6 +26,8 @@ div(ng-if='::profile.achievements.habitSurveys || user._id == profile._id')
       =env.t('surveysSingle')
       | &nbsp;
       +aLink('https://www.surveymonkey.com/s/62RXRF3', env.t('currentSurvey'))
+      |. &nbsp;
+      strong=env.t('surveyWhen')
   hr
 
 div(ng-if='::profile.backer.npc')
