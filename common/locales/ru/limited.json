@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "Сиена Лезли",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Волшебница<%= linkEnd %>",
     "seasonalShopClosedText": "Сезонный магазин сейчас закрыт!!! Я не знаю где сейчас Сезонная Колдунья, но она вернется к следующему большому празднику.",
-    "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "seasonalShopText": "Добро пожаловать в сезонную лавку! С этого момента и до 31го января мы на наших полках можно найти множество зимних сезонных товаров. Потом вы не увидете этих вещей до следующего года, так что хватайте, пока они еще тепленькие! То есть, ээ, холодненькие.",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Жулик)",

@@ -138,6 +138,11 @@ api.mystery = {
     end: '2015-02-02',
     text: 'Starry Knight Set'
   },
+  201502: {
+    start: '2015-02-24',
+    end: '2015-03-02',
+    text: 'Winged Enchanter Set'
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
@@ -171,7 +176,7 @@ gear = {
       0: {
         text: t('weaponWarrior0Text'),
         notes: t('weaponWarrior0Notes'),
-        value: 0
+        value: 1
       },
       1: {
         text: t('weaponWarrior1Text'),
@@ -700,6 +705,12 @@ gear = {
         text: t('weaponMystery201411Text'),
         notes: t('weaponMystery201411Notes'),
         mystery: '201411',
+        value: 0
+      },
+      201502: {
+        text: t('weaponMystery201502Text'),
+        notes: t('weaponMystery201502Notes'),
+        mystery: '201502',
         value: 0
       },
       301404: {
@@ -2220,6 +2231,12 @@ gear = {
         text: t('headAccessoryMystery201409Text'),
         notes: t('headAccessoryMystery201409Notes'),
         mystery: '201409',
+        value: 0
+      },
+      201502: {
+        text: t('headAccessoryMystery201502Text'),
+        notes: t('headAccessoryMystery201502Notes'),
+        mystery: '201502',
         value: 0
       },
       301405: {
@@ -4492,6 +4509,20 @@ api.backgrounds = {
       text: t('backgroundDistantCastleText'),
       notes: t('backgroundDistantCastleNotes')
     }
+  },
+  backgrounds032015: {
+    spring_rain: {
+      text: t('backgroundSpringRainText'),
+      notes: t('backgroundSpringRainNotes')
+    },
+    stained_glass: {
+      text: t('backgroundStainedGlassText'),
+      notes: t('backgroundStainedGlassNotes')
+    },
+    rolling_hills: {
+      text: t('backgroundRollingHillsText'),
+      notes: t('backgroundRollingHillsNotes')
+    }
   }
 };
 
@@ -4543,7 +4574,7 @@ api.userDefaults = {
       value: 0,
       up: true,
       down: false,
-      attribute: 'per'
+      attribute: 'str'
     }, {
       type: 'habit',
       text: t('defaultHabit2Text'),
@@ -4551,7 +4582,7 @@ api.userDefaults = {
       value: 0,
       up: false,
       down: true,
-      attribute: 'con'
+      attribute: 'str'
     }, {
       type: 'habit',
       text: t('defaultHabit3Text'),
@@ -4562,52 +4593,7 @@ api.userDefaults = {
       attribute: 'str'
     }
   ],
-  dailys: [
-    {
-      type: 'daily',
-      text: t('defaultDaily1Text'),
-      notes: t('defaultDaily1Notes'),
-      value: 0,
-      completed: false,
-      repeat: repeat,
-      attribute: 'per'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily2Text'),
-      notes: t('defaultDaily2Notes'),
-      value: 3,
-      completed: false,
-      repeat: repeat,
-      attribute: 'con'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily3Text'),
-      notes: t('defaultDaily3Notes'),
-      value: -10,
-      completed: false,
-      repeat: repeat,
-      attribute: 'int'
-    }, {
-      type: 'daily',
-      text: t('defaultDaily4Text'),
-      notes: t('defaultDaily4Notes'),
-      checklist: [
-        {
-          completed: true,
-          text: t('defaultDaily4Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultDaily4Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultDaily4Checklist3')
-        }
-      ],
-      completed: false,
-      repeat: repeat,
-      attribute: 'str'
-    }
-  ],
+  dailys: [],
   todos: [
     {
       type: 'todo',
@@ -4615,81 +4601,9 @@ api.userDefaults = {
       notes: t('defaultTodoNotes'),
       completed: false,
       attribute: 'int'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo2Text'),
-      notes: t('defaultTodoNotes'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo2Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo2Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo2Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo3Text'),
-      notes: t('defaultTodoNotes'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo3Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo3Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo3Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo4Text'),
-      notes: t('defaultTodoNotes'),
-      checklist: [
-        {
-          completed: false,
-          text: t('defaultTodo4Checklist1')
-        }, {
-          completed: false,
-          text: t('defaultTodo4Checklist2')
-        }, {
-          completed: false,
-          text: t('defaultTodo4Checklist3')
-        }
-      ],
-      completed: false,
-      attribute: 'per'
-    }, {
-      type: 'todo',
-      text: t('defaultTodo5Text'),
-      notes: t('defaultTodoNotes'),
-      completed: false,
-      attribute: 'per'
     }
   ],
-  rewards: [
-    {
-      type: 'reward',
-      text: t('defaultReward1Text'),
-      notes: t('defaultReward1Notes'),
-      value: 20
-    }, {
-      type: 'reward',
-      text: t('defaultReward2Text'),
-      notes: t('defaultReward2Notes'),
-      value: 10
-    }
-  ],
+  rewards: [],
   tags: [
     {
       name: t('defaultTag1')
@@ -5821,11 +5735,17 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, user.inbox.blocks) : void 0;
       },
       feed: function(req, cb) {
-        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+        var egg, eggText, evolve, food, message, pet, petDisplayName, potion, potionText, userPets, _ref, _ref1, _ref2;
         _ref = req.params, pet = _ref.pet, food = _ref.food;
         food = content.food[food];
         _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
         userPets = user.items.pets;
+        potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
+        eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+        petDisplayName = i18n.t('petName', {
+          potion: potionText,
+          egg: eggText
+        });
         if (!userPets[pet]) {
           return typeof cb === "function" ? cb({
             code: 404,
@@ -5858,7 +5778,7 @@ api.wrap = function(user, main) {
             user.items.currentPet = "";
           }
           return message = i18n.t('messageEvolve', {
-            egg: egg
+            egg: petDisplayName
           }, req.language);
         };
         if (food.key === 'Saddle') {
@@ -5867,13 +5787,13 @@ api.wrap = function(user, main) {
           if (food.target === potion) {
             userPets[pet] += 5;
             message = i18n.t('messageLikesFood', {
-              egg: egg,
+              egg: petDisplayName,
               foodText: food.text(req.language)
             }, req.language);
           } else {
             userPets[pet] += 2;
             message = i18n.t('messageDontEnjoyFood', {
-              egg: egg,
+              egg: petDisplayName,
               foodText: food.text(req.language)
             }, req.language);
           }
@@ -7203,6 +7123,7 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 

@@ -99,7 +99,7 @@
     "remindersToLogin": "Przypominaj by meldować się do HabitRPG",
     "unsubscribeAllEmails": "Zaznacz by zrezygnować z otrzymywania emaili",
     "unsubscribeAllEmailsText": "Przez zaznaczenie tego pola poświadczam, że rozumiem, że po zrezygnowaniu z otrzymywania wszystkich emaili HabitRPG nie będzie mogło powiadamiać mnie przez email o ważnych zmianach na stronie i na moim koncie.",
-    "subscriptionRateText": "<%= price &> dolarów będzie ściągane z konta co każde <%= months %> miesięcy.",
+    "subscriptionRateText": "<%= price %> dolarów będzie ściągane z konta co każde <%= months %> miesięcy.",
     "benefits": "Korzyści",
     "coupon": "Kupon",
     "couponPlaceholder": "Podaj kod z kuponu",

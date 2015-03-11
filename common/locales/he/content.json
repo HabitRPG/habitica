@@ -48,7 +48,7 @@
     "questEggPenguinText": "פינגווין",
     "questEggPenguinAdjective": "בַּעַל תְפִיסָה חַדָה",
     "questEggTRexText": "טירנוזאורוס",
-    "questEggTRexAdjective": "tiny-armed",
+    "questEggTRexAdjective": "קצר-זרוע",
     "eggNotes": "מצא שיקוי בקיעה למזוג על ביצה זו, והיא תבקע כ: <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

@@ -46,7 +46,7 @@
     "originalUserText": "Um dos <em>muitos</em> adotadores originais. Pense em testadores alpha!",
     "habitBirthday": "HabitRPG Festança de Aniversário",
     "habitBirthdayText": "Celebrou a Festança de Aniversário do HabitRPG!",
-    "habitBirthdayPluralText": "Celebrou <%= number %> Festanças de Aniversário do HabitRPG",
+    "habitBirthdayPluralText": "Celebrou <%= number %> Festanças de Aniversário do HabitRPG!",
     "achievementDilatory": "Salvador de Dilatory",
     "achievementDilatoryText": "Ajudou a derrotar o Dread Drag'on de Dilatory durante o Evento Summer Splash 2014!",
     "costumeContest": "Concurso de Fantasia 2014",

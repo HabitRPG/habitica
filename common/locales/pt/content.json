@@ -60,7 +60,7 @@
     "hatchingPotionCottonCandyPink": "Rosa Algodão-doce",
     "hatchingPotionCottonCandyBlue": "Azul Algodão-doce",
     "hatchingPotionGolden": "Dourado",
-    "hatchingPotionNotes": "Use-o em um ovo, e ele chocará como um <%= potText(locale) %> Mascote.",
+    "hatchingPotionNotes": "Use-o em um ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "foodMeat": "Carne",
     "foodMilk": "Leite",
     "foodPotatoe": "Batata",

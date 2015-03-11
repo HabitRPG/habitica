@@ -20,7 +20,7 @@
     "spellRogueBackStabText": "Удар в спину",
     "spellRogueBackStabNotes": "Беззвучно вы возникаете за спиной задачи и наносите удар. Вы наносите повышенный урон задачи с увеличенной вероятностью критического удара.",
     "spellRogueToolsOfTradeText": "Орудия труда",
-    "spellRogueToolsOfTradeNotes": "You share your thievery tools with the party to aid them in 'acquiring' more gold. By buffing Perception, the party's gold bonus for tasks and chance of drops are boosted for a day.",
+    "spellRogueToolsOfTradeNotes": "Вы делитесь своим воровским инструментом с компаньонами, чтобы помочь им в «приобретении» золота. Количество получаемого золота за задачи и шансы выпадения предметов увеличиваются для всей команды в течение этого дня.",
     "spellRogueStealthText": "Уйти в тень",
     "spellRogueStealthNotes": "Вы погружаетесь в тень, натягивая капюшон. Чем выше ваше Восприятие, тем меньше ежедневных заданий обнаружат вас этой ночью.",
     "spellHealerHealText": "Исцеляющий свет",

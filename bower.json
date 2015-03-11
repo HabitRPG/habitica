@@ -38,7 +38,7 @@
     "jquery-colorbox": "~1.4.36",
     "pnotify": "~1.3.1",
     "jquery-ui": "~1.10.3",
-    "hello": "~1.3.1",
+    "hello": "~1.5.0",
     "css-social-buttons": "https://github.com/samcollins/css-social-buttons.git",
     "angular-filter": "~0.5.1",
     "angular-ui-router": "~0.2.13"

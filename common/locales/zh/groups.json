@@ -15,8 +15,8 @@
     "tavernTalk": "酒馆聊天",
     "tavernAlert1": "注意：如果你想报告bug，开发者不会来这里看。请",
     "tavernAlert2": "用Github",
-    "moderatorIntro1": "酒馆和公会领袖是：",
-    "communityGuidelines": "社区守则",
+    "moderatorIntro1": "酒馆和公会版主是：",
+    "communityGuidelines": "社区准则",
     "communityGuidelinesRead1": "请阅读我们的",
     "communityGuidelinesRead2": "在聊天之前",
     "party": "队伍",
@@ -60,7 +60,7 @@
     "guild": "公会",
     "guilds": "公会",
     "sureKick": "你真的想把这个成员踢出队伍/公会吗？",
-    "foreverAlone": "你不可以赞你自己的讯息。不要成为那样的人。",
+    "foreverAlone": "你不可以赞你自己的信息。不要成为那样的人。",
     "sortLevel": "以等级排序",
     "sortRandom": "乱序",
     "sortPets": "按宠物数量排序",
@@ -88,10 +88,10 @@
     "unblock": "解锁",
     "pm-reply": "发送回复",
     "inbox": "收件箱",
-    "abuseFlag": "举报违反社区指南的用户",
+    "abuseFlag": "举报违反社区准则的用户",
     "abuseFlagModalHeading": "举报 <%= name %> 违规",
-    "abuseFlagModalBody": "你确定要举报这个帖子？你只能举报违反了 <%= firstLinkStart %>社区指南<%= linkEnd %> 或者 <%= secondLinkStart %>服务条款<%= linkEnd %> 的帖子。不当的举报是违反社区指南的，并且你会因此而违规。",
+    "abuseFlagModalBody": "你确定要举报这个帖子？你只能举报违反了 <%= firstLinkStart %>社区准则<%= linkEnd %> 或者 <%= secondLinkStart %>服务条款<%= linkEnd %> 的帖子。不当的举报是违反社区准则的，并且你会因此而违规。",
     "abuseFlagModalButton": "报告",
     "abuseReported": "感谢您报告此违反服务条款的行为。版主已经接到通知。",
-    "abuseAlreadyReported": "你已经举报过此信息"
+    "abuseAlreadyReported": "你已经举报过此信息。"
 }
