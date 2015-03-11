@@ -139,7 +139,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
               span=env.t('addChecklist')
         form.checklist-form(ng-if='task.checklist')
           fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
-            legend.option-title(ng-if='task.checklist[0]')
+            legend.option-title
               span.hint(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')=env.t('checklist')
             ul(hrpg-sort-checklist)
               li(ng-repeat='item in task.checklist')
