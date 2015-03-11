@@ -2,66 +2,87 @@
 
 #global describe, before, beforeEach, it
 "use strict"
-_ = require("lodash")
-expect = require("expect.js")
-async = require("async")
-diff = require("deep-diff")
+_                  = require("lodash")
+expect             = require("expect.js")
+async              = require("async")
+diff               = require("deep-diff")
 superagentDefaults = require("superagent-defaults")
-request = superagentDefaults()
-path = require("path")
-moment = require("moment")
-conf = require("nconf")
+request            = superagentDefaults()
+path               = require("path")
+moment             = require("moment")
+conf               = require("nconf")
 conf.argv().env().file(file: path.join(__dirname, "../config.json")).defaults()
 conf.set "port", "1337"
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
-process.env.BASE_URL = conf.get("BASE_URL")
-process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
+process.env.BASE_URL        = conf.get("BASE_URL")
+process.env.FACEBOOK_KEY    = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
-process.env.NODE_DB_URI = "mongodb://localhost/habitrpg"
-User = require("../website/src/models/user").model
-Group = require("../website/src/models/group").model
-Challenge = require("../website/src/models/challenge").model
-app = require("../website/src/server")
-shared = require("../common")
-payments = require("../website/src/controllers/payments")
+process.env.NODE_DB_URI     = "mongodb://localhost/habitrpg"
+User                        = require("../website/src/models/user").model
+Group                       = require("../website/src/models/group").model
+Challenge                   = require("../website/src/models/challenge").model
+app                         = require("../website/src/server")
+shared                      = require("../common")
+payments                    = require("../website/src/controllers/payments")
 
 # ###### Helpers & Variables ######
-model = undefined
-uuid = undefined
-taskPath = undefined
-baseURL = "http://localhost:3000/api/v2"
+model     = undefined
+uuid      = undefined
+taskPath  = undefined
+baseURL   = "http://localhost:3000/api/v2"
+randomIDs = []
+
 expectCode = (res, code) ->
   expect(res.body.err).to.be `undefined`  if code is 200
   expect(res.statusCode).to.be code
 
 describe "API", ->
-  user = undefined
-  _id = undefined
+  user     = undefined
+  _id      = undefined
   apiToken = undefined
   username = undefined
   password = undefined
+
   registerNewUser = (cb, main) ->
-    main = true  if main is `undefined`
+    main     = true  if main is `undefined`
     randomID = shared.uuid()
     username = password = randomID  if main
-    request.post(baseURL + "/register").set("Accept", "application/json").send(
-      username: randomID
-      password: randomID
-      confirmPassword: randomID
-      email: randomID + "@gmail.com"
-    ).end (res) ->
-      return cb(null, res.body)  unless main
-      _id = res.body._id
-      apiToken = res.body.apiToken
-      User.findOne
-        _id: _id
-        apiToken: apiToken
-      , (err, _user) ->
-        expect(err).to.not.be.ok()
-        user = _user
-        request.set("Accept", "application/json").set("X-API-User", _id).set "X-API-Key", apiToken
-        cb null, res.body
+
+    expect(randomIDs.indexOf(randomID)).to.be(-1)
+    randomIDs.push(randomID);
+
+    request
+      .post(baseURL + "/register")
+      .set("Accept", "application/json")
+      .set("X-API-User", undefined) # there is no '.unset' method in 'superagent-defaults' module
+      .set("X-API-Key", undefined)  # but 'superagent' has it! Should we create an issue?
+      .send(
+        username:        randomID
+        password:        randomID
+        confirmPassword: randomID
+        email:           randomID + "@gmail.com"
+      ).end (res) ->
+        return cb(null, res.body) unless main
+
+        expect(res).to.be.ok
+
+        _id      = res.body._id
+        apiToken = res.body.apiToken
+
+        expect(typeof _id).to.be("string")
+        expect(typeof apiToken).to.be("string")
+
+        User.findOne {_id: _id, apiToken: apiToken}, (err, _user) ->
+          expect(err).to.not.be.ok()
+          user = _user
+
+          request
+            .set("Accept", "application/json")
+            .set("X-API-User", _id)
+            .set("X-API-Key", apiToken)
+
+          cb null, res.body
 
   before (done) ->
     require "../website/src/server" # start the server
@@ -82,8 +103,7 @@ describe "API", ->
         done()
 
   describe "With token and user id", ->
-    before (done) ->
-      registerNewUser done, true
+    before (done) -> registerNewUser done, true
 
     beforeEach (done) ->
       User.findById _id, (err, _user) ->
@@ -160,53 +180,50 @@ describe "API", ->
               expect(_.size(res.body.todos)).to.be numTasks - 2
               done()
 
-    ###*
+    ###
     GROUPS
     ###
-    # @TODO: New users are being registered with original user api
-    # which results in changing the original user's name and password
-    # instead of creating a new error, so the group tests fail
-    # because no users are actually being created
-    describe.skip "Groups", ->
+    describe "Groups", ->
       group = undefined
       before (done) ->
-        request.post(baseURL + "/groups").send(
-          name: "TestGroup"
-          type: "party"
-        ).end (res) ->
-          expectCode res, 200
-          group = res.body
-          expect(group.members.length).to.be 1
-          expect(group.leader).to.be user._id
-          done()
+        registerNewUser (err, user) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+            group = res.body
+            expect(group.members.length).to.be 1
+            expect(group.leader).to.be user._id
+            done()
 
       describe "Challenges", ->
         challenge = undefined
         updateTodo = undefined
         it "Creates a challenge", (done) ->
           request.post(baseURL + "/challenges").send(
+            
             group: group._id
             dailys: [
               type: "daily"
               text: "Challenge Daily"
             ]
             todos: [
-              type: "todo"
-              text: "Challenge Todo"
+              type:  "todo"
+              text:  "Challenge Todo"
               notes: "Challenge Notes"
             ]
-            rewards: []
-            habits: []
+            rewards:  []
+            habits:   []
             official: true
+
           ).end (res) ->
             expectCode res, 200
             async.parallel [
-              (cb) ->
-                User.findById _id, cb
-              (cb) ->
-                Challenge.findById res.body._id, cb
+              (cb) -> User.findById _id, cb
+              (cb) -> Challenge.findById res.body._id, cb
             ], (err, results) ->
-              _user = results[0]
+              _user     = results[0]
               challenge = results[1]
               expect(_user.dailys[_user.dailys.length - 1].text).to.be "Challenge Daily"
               updateTodo = _user.todos[_user.todos.length - 1]
@@ -239,15 +256,13 @@ describe "API", ->
             done()
 
         it "Complete To-Dos", (done) ->
-          u = user
-          numTasks = (_.size(u.todos))
-          request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end (res) ->
-            request.post(baseURL + "/user/tasks/" + u.todos[1].id + "/up").end (res) ->
-              request.post(baseURL + "/user/tasks/").send(type: "todo").end (res) ->
-                request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
-                  # 2 tasks set to be completed, so tasks should equal numTasks - 2
-                  expect(_.size(res.body)).to.be numTasks - 2
-                  done()
+          numTasks = (_.size(user.todos))
+          request.post(baseURL + "/user/tasks/" + user.todos[0].id + "/up").end (res) ->
+            request.post(baseURL + "/user/tasks/" + user.todos[1].id + "/up").end (res) ->
+              request.post(baseURL + "/user/tasks/clear-completed").end (res) ->
+                # 2 tasks set to be completed, so tasks should equal numTasks - 2
+                expect(_.size(res.body)).to.be numTasks - 2
+                done()
 
         it "Challenge deleted, breaks task link", (done) ->
           itThis = this
@@ -279,22 +294,22 @@ describe "API", ->
             async.parallel [
               (cb) ->
                 request.post(baseURL + "/challenges").send(
-                  group: group._id
-                  dailys: []
-                  todos: []
-                  rewards: []
-                  habits: []
+                  group:    group._id
+                  dailys:   []
+                  todos:    []
+                  rewards:  []
+                  habits:   []
                   official: false
                 ).end (res) ->
                   expect(res.body.official).to.be false
                   cb()
               (cb) ->
                 request.post(baseURL + "/challenges").send(
-                  group: group._id
-                  dailys: []
-                  todos: []
-                  rewards: []
-                  habits: []
+                  group:    group._id
+                  dailys:   []
+                  todos:    []
+                  rewards:  []
+                  habits:   []
                   official: true
                 ).end (res) ->
                   expect(res.body.official).to.be true
@@ -302,8 +317,8 @@ describe "API", ->
             ], done
 
       describe "Quests", ->
-        party = undefined
-        participating = []
+        party            = undefined
+        participating    = []
         notParticipating = []
         before (done) ->
 
@@ -350,20 +365,9 @@ describe "API", ->
               # Register new users
               (cb) ->
                 async.parallel [
-                  (cb2) ->
-                    # @TODO: The registerNewUser function posts to /api/v2/register
-                    # since superagent-defaults has the user id and token set
-                    # Subsequent calls to registerNewUser are being called with
-                    # the uuid and token that is generated when the initial user is
-                    # made. Instead of creating new users, it updates the original user
-                    # with a new login name, email and password. That is why
-                    # all the users have the same uuid, because they're not actually
-                    # being created. The original is just being updated. 
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
+                  (cb2) -> registerNewUser cb2, false
+                  (cb2) -> registerNewUser cb2, false
+                  (cb2) -> registerNewUser cb2, false
                 ], cb
 
               # Send them invitations
@@ -376,21 +380,9 @@ describe "API", ->
                 party = _party
                 inviteURL = baseURL + "/groups/" + group._id + "/invite"
                 async.parallel [
-                  (cb2) ->
-                    request.post(inviteURL).send(
-                      uuids: [party[0]._id]
-                    ).end ->
-                      cb2()
-                  (cb2) ->
-                    request.post(inviteURL).send(
-                      uuids: [party[1]._id]
-                    ).end ->
-                      cb2()
-                  (cb2) ->
-                    request.post(inviteURL).send(
-                      uuids: [party[2]._id]
-                    ).end (res)->
-                      cb2()
+                  (cb2) -> request.post(inviteURL).send( uuids: [party[0]._id]).end -> cb2()
+                  (cb2) -> request.post(inviteURL).send( uuids: [party[1]._id]).end -> cb2()
+                  (cb2) -> request.post(inviteURL).send( uuids: [party[2]._id]).end (res)-> cb2()
                 ], cb
 
               # Accept / Reject
@@ -472,6 +464,7 @@ describe "API", ->
             expect(_.size(res.body.quest.members)).to.be 3
             done()
 
+        # This test is a complete hell.
         it "Hurts the boss", (done) ->
           request.post(baseURL + "/user/batch-update").end (res) ->
             user = res.body
@@ -516,15 +509,9 @@ describe "API", ->
                         (cb2) ->
                           expect(res.body.quest.progress.hp).to.be.below shared.content.quests.vice3.boss.hp
                           _party = res.body.members
-                          expect(_.find(_party,
-                            _id: party[0]._id
-                          ).stats.hp).to.be.below 50
-                          expect(_.find(_party,
-                            _id: party[1]._id
-                          ).stats.hp).to.be.below 50
-                          expect(_.find(_party,
-                            _id: party[2]._id
-                          ).stats.hp).to.be 50
+                          expect(_.find(_party, _id: party[0]._id).stats.hp).to.be.below 50
+                          expect(_.find(_party, _id: party[1]._id).stats.hp).to.be.below 50
+                          expect(_.find(_party, _id: party[2]._id).stats.hp).to.be 50
                           cb2()
                       ], cb
 
@@ -636,30 +623,46 @@ describe "API", ->
           user = _user
           done()
 
-      it "Handles unsubscription", (done) ->
-        cron = ->
-          user.lastCron = moment().subtract(1, "d")
-          user.fns.cron()
+    it "Handles unsubscription", (done) ->
+      cron = ->
+        user.lastCron = moment().subtract(1, "d")
+        user.fns.cron()
 
-        expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
-          customerId: "123"
-          paymentMethod: "Stripe"
+      expect(user.purchased.plan.customerId).to.not.be.ok()
 
-        expect(user.purchased.plan.customerId).to.be.ok()
-        shared.wrap user
-        cron()
-        expect(user.purchased.plan.customerId).to.be.ok()
-        payments.cancelSubscription user
-        cron()
-        expect(user.purchased.plan.customerId).to.be.ok()
-        expect(user.purchased.plan.dateTerminated).to.be.ok()
-        user.purchased.plan.dateTerminated = moment().subtract(2, "d")
-        cron()
-        expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
-          customerId: "123"
-          paymentMethod: "Stripe"
+      # Subscription blocks are defined this way:
+      # api.subscriptionBlocks =
+      #   basic_earned: months:1, price:5
+      #   basic_3mo:    months:3, price:15
+      #   basic_6mo:    months:6, price:30
+      #   google_6mo:   months:6, price:24, discount:true, original:30
+      #   basic_12mo:   months:12, price:48
 
-        expect(user.purchased.plan.dateTerminated).to.not.be.ok()
-        done()
+      # _.each api.subscriptionBlocks, (b, k) -> b.key = k
+
+      payments.createSubscription
+        user:          user
+        customerId:    "123"
+        paymentMethod: "Stripe"
+        sub:           {months:6, price:30, key: "basic_6mo"} # random hardcoded subscription block
+
+
+      expect(user.purchased.plan.customerId).to.be.ok()
+      shared.wrap user
+      cron()
+      expect(user.purchased.plan.customerId).to.be.ok()
+      payments.cancelSubscription {user: user}
+      cron()
+      expect(user.purchased.plan.customerId).to.be.ok()
+      expect(user.purchased.plan.dateTerminated).to.be.ok()
+      user.purchased.plan.dateTerminated = moment().subtract(2, "d")
+      cron()
+      expect(user.purchased.plan.customerId).to.not.be.ok()
+      payments.createSubscription
+        user:          user
+        customerId:    "123"
+        paymentMethod: "Stripe"
+        sub:           {months:3, price:15, key: "basic_3mo"} # random hardcoded subscription block
+
+      expect(user.purchased.plan.dateTerminated).to.not.be.ok()
+      done()
