@@ -11,3 +11,9 @@ mixin aLink(url, label)
     a(href="", ng-click="externalLink('#{url}')")= label
   else
     a(href='#{url}', target='_blank')= label
+
+mixin chatFormatting(ngModel)
+  .chat-formatting
+    button.btn.btn-default(type="button", ng-if='!preview', ng-click='togglePreview()', ng-disabled='!#{ngModel}')=env.t('msgPreview')
+    button.btn.btn-default(type="button", ng-if='preview', ng-click='togglePreview()')=env.t('msgEdit')
+    include formatting-help
