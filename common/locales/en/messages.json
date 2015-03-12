@@ -1,6 +1,7 @@
 {
   "messageLostItem": "Your <%= itemText %> broke.",
   "messageTaskNotFound": "Task not found.",
+  "messageDuplicateTaskID": "A task with that ID already exists.",
   "messageTagNotFound": "Tag not found.",
   "messagePetNotFound": ":pet not found in user.items.pets",
   "messageFoodNotFound": ":food not found in user.items.food",
