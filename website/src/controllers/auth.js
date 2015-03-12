@@ -214,7 +214,7 @@ api.resetPassword = function(req, res, next){
 
   User.findOne({'auth.local.email': RegexEscape(email)}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
+    if (!user) return res.send(401, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
     utils.txnEmail(user, 'reset-password', [
