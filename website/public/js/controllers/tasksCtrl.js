@@ -24,6 +24,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
+    $scope.searchTags = function(item) {
+      console.log(item);
+    };
+
+    $scope.getTagLabel = function(item) {
+      console.log(item);
+    };
+
     $scope.parseTask = function(listDef, task) {
       var checkRegex = function(match, k) {
         var key = k || 1;

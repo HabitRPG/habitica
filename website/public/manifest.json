@@ -22,6 +22,8 @@
             "bower_components/angular-ui-select2/src/select2.js",
             "bower_components/hello/dist/hello.all.min.js",
             "bower_components/angular-filter/dist/angular-filter.min.js",
+            "bower_components/ment.io/dist/mentio.js",
+            "bower_components/ment.io/dist/templates.js",
 
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
