@@ -596,6 +596,7 @@ api.wrap = (user, main=true) ->
 
       addTask: (req, cb) ->
         task = api.taskDefaults(req.body)
+        return cb?({code:404,message:i18n.t('messageDuplicateTaskID', req.language)}) if user.tasks[task.id]?
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
