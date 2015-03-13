@@ -611,8 +611,8 @@ api.spells =
       notes: t('spellRogueStealthNotes')
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
-        ## scales to user's # of dailies; Diminishing Returns, maxes out at 25%, halfway point at 100 PER##
-        user.stats.buffs.stealth += Math.ceil( diminishingReturns(user._statsComputed.per, user.dailys.length*0.25,100))
+        ## scales to user's # of dailies; Diminishing Returns, maxes out at 65%, halfway point at 90 PER##
+        user.stats.buffs.stealth += Math.ceil( diminishingReturns(user._statsComputed.per, user.dailys.length*0.65,90))
 
   healer:
     heal:
