@@ -154,7 +154,10 @@ api.updateStore = (user) ->
   # Add special items (contrib gear, backer gear, etc)
   changes = changes.concat _.filter content.gear.flat, (v) ->
     v.klass in ['special','mystery'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
-  changes.push content.potion
+  _.each content.potions.flat, (potion) ->
+    console.log potion
+    changes.push potion
+    true
   # Return sorted store (array)
   _.sortBy changes, (c)->sortOrder[c.type]
 
@@ -675,7 +678,7 @@ api.wrap = (user, main=true) ->
         # Generate pet display name variable
         potionText = if content.hatchingPotions[potion] then content.hatchingPotions[potion].text() else potion
         eggText = if content.eggs[egg] then content.eggs[egg].text() else egg
-        petDisplayName = i18n.t('petName', { 
+        petDisplayName = i18n.t('petName', {
           potion: potionText
           egg: eggText
         })
@@ -805,13 +808,15 @@ api.wrap = (user, main=true) ->
       buy: (req, cb) ->
         {key} = req.params
 
-        item = if key is 'potion' then content.potion else content.gear.flat[key]
+        item = if _.has content.potions.flat, key then content.potions.flat[key] else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't own this item"}) if item.canOwn? and !item.canOwn(user)
-        if item.key is 'potion'
-          user.stats.hp += 15
+        if item.type is 'potion'
+          user.stats.hp += item.hp
           user.stats.hp = 50 if user.stats.hp > 50
+          user.stats.mp += item.mp
+          user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
         else
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true

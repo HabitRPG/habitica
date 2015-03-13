@@ -1,6 +1,12 @@
 {
-  "potionText": "Health Potion",
-  "potionNotes": "Recover 15 Health (Instant Use)",
+  "minorHealthPotionText": "Health Potion",
+  "minorHealthPotionNotes": "Recover 15 Health (Instant Use)",
+
+  "minorManaPotionText": "Mana Potion",
+  "minorManaPotionNotes": "Recover 15 Mana (Instant Use)",
+
+  "minorHealPotionText": "Elixir of Life",
+  "minorHealPotionNotes": "Recover 25 HP and 25 Mana (Instant Use)",
 
   "dropEggWolfText": "Wolf",
   "dropEggWolfAdjective": "loyal",
