@@ -87,6 +87,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
         'stats.gp': User.user.stats.gp + 500,
       });
     }
+    $scope.addMana = function(){
+      User.set({
+        'stats.mp': User.user.stats.mp + 500,
+      });
+    }
     $scope.addLevelsAndGold = function(){
       User.set({
         'stats.exp': User.user.stats.exp + 10000,
