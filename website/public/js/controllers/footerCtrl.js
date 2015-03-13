@@ -71,11 +71,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
         'stats.hp': 1
       });
     }
-    $scope.addMissedDay = function(){
-      if (!confirm("Are you sure you want to reset the day?")) return;
-      var dayBefore = moment(User.user.lastCron).subtract(1, 'days').toDate();
+    $scope.addMissedDay = function(numberOfDays){
+      if (!confirm("Are you sure you want to reset the day by " + numberOfDays + " day(s)?")) return;
+      var dayBefore = moment(User.user.lastCron).subtract(numberOfDays, 'days').toDate();
       User.set({'lastCron': dayBefore});
-      Notification.text('-1 day, remember to refresh');
+      Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
     }
     $scope.addTenGems = function(){
       $http.post(ApiUrl.get() + '/api/v2/user/addTenGems').success(function(){
@@ -85,6 +85,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     $scope.addGold = function(){
       User.set({
         'stats.gp': User.user.stats.gp + 500,
+      });
+    }
+    $scope.addMana = function(){
+      User.set({
+        'stats.mp': User.user.stats.mp + 500,
       });
     }
     $scope.addLevelsAndGold = function(){

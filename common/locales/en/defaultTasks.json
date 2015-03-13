@@ -1,12 +1,12 @@
 {
-  "defaultHabit1Text": "1h Productive Work",
-  "defaultHabit1Notes": "When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.",
+  "defaultHabit1Text": "Good Habit",
+  "defaultHabit1Notes": " ",
   
-  "defaultHabit2Text": "Eat Junk Food",
-  "defaultHabit2Notes": "For others, it only makes sense to *lose* points.",
-  
-  "defaultHabit3Text": "Take The Stairs",
-  "defaultHabit3Notes": "For the rest, both + and - make sense (stairs = gain, elevator = lose).",
+  "defaultHabit2Text": "Bad Habit",
+  "defaultHabit2Notes": " ",
+
+  "defaultHabit3Text": "Good or Bad Habit",
+  "defaultHabit3Notes": " ",
 
   "defaultDaily1Text": "1h Personal Project",
   "defaultDaily1Notes": "All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.",

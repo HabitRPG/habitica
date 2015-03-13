@@ -7,7 +7,7 @@ angular.module("habitrpg").factory("Notification",
   function notify(html, type, icon) {
     var notice = $.pnotify({
       type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
-    text: html,
+      text: html,
       opacity: 1,
       addclass: 'alert-' + type,
       delay: 7000,
