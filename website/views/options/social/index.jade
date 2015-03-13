@@ -11,7 +11,7 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
     .row
       .col-md-12
         .form-inline
-          a.btn.btn-xs.btn-danger(popover=env.t('deleteAllMessages'), popover-trigger='mouseenter', ng-click='deleteAllMessages()', popover-placement='right')=env.t('deleteAllMessages')
+          a.btn.btn-xs.btn-danger(ng-click='deleteAllMessages()')=env.t('clearAll')
           .checkbox
             label
               input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
