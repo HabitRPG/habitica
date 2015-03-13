@@ -4810,6 +4810,23 @@ api.dayMapping = {
 
 
 /*
+  ------------------------------------------------------
+  Level cap
+  ------------------------------------------------------
+ */
+
+api.maxLevel = 100;
+
+api.capByLevel = function(lvl) {
+  if (lvl > api.maxLevel) {
+    return api.maxLevel;
+  } else {
+    return lvl;
+  }
+};
+
+
+/*
   Absolute diff from "yesterday" till now
  */
 
@@ -5465,20 +5482,16 @@ api.wrap = function(user, main) {
       },
       rebirth: function(req, cb, ga) {
         var flags, gear, lvl, stats;
-        if (user.balance < 2 && user.stats.lvl < 100) {
+        if (user.balance < 2 && user.stats.lvl < api.maxLevel) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (user.stats.lvl < 100) {
+        if (user.stats.lvl < api.maxLevel) {
           user.balance -= 2;
         }
-        if (user.stats.lvl < 100) {
-          lvl = user.stats.lvl;
-        } else {
-          lvl = 100;
-        }
+        lvl = api.capByLevel(user.stats.lvl);
         _.each(user.tasks, function(task) {
           if (task.type !== 'reward') {
             task.value = 0;
@@ -6252,7 +6265,7 @@ api.wrap = function(user, main) {
             con: 0,
             per: 0,
             int: 0,
-            points: user.stats.lvl
+            points: api.capByLevel(user.stats.lvl)
           });
           user.flags.classSelected = false;
           if (ga != null) {
@@ -6266,7 +6279,7 @@ api.wrap = function(user, main) {
         user.flags.classSelected = true;
         user.preferences.disableClasses = true;
         user.preferences.autoAllocate = true;
-        user.stats.str = user.stats.lvl;
+        user.stats.str = api.capByLevel(user.stats.lvl);
         user.stats.points = 0;
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
       },
@@ -6703,13 +6716,14 @@ api.wrap = function(user, main) {
      */
     autoAllocate: function() {
       return user.stats[(function() {
-        var diff, ideal, preference, stats, suggested;
+        var diff, ideal, lvlDiv7, preference, stats, suggested;
         switch (user.preferences.allocationMode) {
           case "flat":
             stats = _.pick(user.stats, $w('con str per int'));
             return _.invert(stats)[_.min(stats)];
           case "classbased":
-            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+            lvlDiv7 = user.stats.lvl / 7;
+            ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
             preference = (function() {
               switch (user.stats["class"]) {
                 case "wizard":
@@ -6761,10 +6775,10 @@ api.wrap = function(user, main) {
           stats.exp -= tnl;
           user.stats.lvl++;
           tnl = api.tnl(user.stats.lvl);
-          if (user.preferences.automaticAllocation) {
+          if (user.preferences.automaticAllocation && user.stats.lvl <= api.maxLevel) {
             user.fns.autoAllocate();
           } else {
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = api.capByLevel(user.stats.lvl) - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
           }
           user.stats.hp = 50;
         }
@@ -6820,7 +6834,7 @@ api.wrap = function(user, main) {
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
         user.flags.rebirthEnabled = true;
       }
-      if (user.stats.lvl >= 100 && !user.flags.freeRebirth) {
+      if (user.stats.lvl >= api.maxLevel && !user.flags.freeRebirth) {
         return user.flags.freeRebirth = true;
       }
     },
