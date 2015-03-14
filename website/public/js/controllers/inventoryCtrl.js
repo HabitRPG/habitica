@@ -267,8 +267,10 @@ habitrpg.controller("InventoryCtrl",
             user.ops.equip({params:{type: 'mount', key: mount}});
           }
 
-          var background = user.preferences.background;
-          User.user.ops.unlock({query:{path:"background."+background}});
+          // var background = user.preferences.background;
+          // User.user.ops.unlock({query:{path:"background."+background}});
+          // commented out until we fix this bug:
+          // https://github.com/HabitRPG/habitrpg/issues/4857#issuecomment-80722868
 
           break;
       }
