@@ -41,12 +41,14 @@ apt-get install -qq graphicsmagick
 
 echo Installing phantomjs and dependency...
 apt-get install -qq libicu48
+npm install phantomjs
+
 
 echo Installing requirements for grunt-spritesmith...
 apt-get install -qq pkg-config libcairo2-dev libjpeg-dev
 
 echo Installing Mongodb...
-apt-get install -qq mongodb
+sudo apt-get install -y mongodb-org
 
 echo Installing Git...
 apt-get install -qq git
