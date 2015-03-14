@@ -7,7 +7,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
     ul.toolbar-mobile-nav
       li.toolbar-mobile
         a(ng-click='expandMenu("mobile")', ng-class='{active: _expandedMenu=="mobile"}')
-          span  &#9776;
+          span.glyphicon.glyphicon-align-justify
         div(ng-if='_expandedMenu=="mobile"', ng-click='expandMenu(null)')
           h4=env.t('menu')
           div
