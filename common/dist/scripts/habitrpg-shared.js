@@ -2623,7 +2623,7 @@ api.spells = {
         if ((_base = user.stats.buffs).stealth == null) {
           _base.stealth = 0;
         }
-        return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
+        return user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.dailys.length * 0.64, 55));
       }
     }
   },
@@ -6913,20 +6913,18 @@ api.wrap = function(user, main) {
         _base.down = 0;
       }
       user.todos.concat(user.dailys).forEach(function(task) {
-        var absVal, completed, delta, fractionChecked, id, repeat, scheduleMisses, type, _ref1;
+        var EvadeTask, absVal, completed, delta, fractionChecked, id, repeat, scheduleMisses, type, _ref1;
         if (!task) {
           return;
         }
         id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-        if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
-          return;
-        }
+        EvadeTask = 0;
+        scheduleMisses = daysMissed;
         if (completed) {
           if (type === 'daily') {
             dailyChecked += 1;
           }
         } else {
-          scheduleMisses = daysMissed;
           if ((type === 'daily') && repeat) {
             scheduleMisses = 0;
             _.times(daysMissed, function(n) {
@@ -6935,11 +6933,15 @@ api.wrap = function(user, main) {
                 days: n + 1
               });
               if (api.shouldDo(thatDay, repeat, user.preferences)) {
-                return scheduleMisses++;
+                scheduleMisses++;
+                if (user.stats.buffs.stealth) {
+                  user.stats.buffs.stealth--;
+                  return EvadeTask++;
+                }
               }
             });
           }
-          if (scheduleMisses > 0) {
+          if (scheduleMisses > EvadeTask) {
             if (type === 'daily') {
               perfect = false;
               if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
@@ -6958,7 +6960,7 @@ api.wrap = function(user, main) {
                 direction: 'down'
               },
               query: {
-                times: scheduleMisses,
+                times: scheduleMisses - EvadeTask,
                 cron: true
               }
             });
@@ -6974,10 +6976,13 @@ api.wrap = function(user, main) {
               value: task.value
             });
             task.completed = false;
-            return _.each(task.checklist, (function(i) {
-              i.completed = false;
-              return true;
-            }));
+            if (completed || (scheduleMisses > 0)) {
+              return _.each(task.checklist, (function(i) {
+                i.completed = false;
+                return true;
+              }));
+            }
+            break;
           case 'todo':
             absVal = completed ? Math.abs(task.value) : task.value;
             return todoTally += absVal;
