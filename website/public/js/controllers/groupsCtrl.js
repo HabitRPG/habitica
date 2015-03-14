@@ -33,6 +33,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         group.$save();
         group._editing = false;
       }
+                                   
+      $scope.deleteAllMessages = function() {
+        if (confirm(window.env.t('confirmDeleteAllMessages'))) {
+          User.user.ops.clearPMs({});
+        }
+      }
 
       // ------ Modals ------
 
