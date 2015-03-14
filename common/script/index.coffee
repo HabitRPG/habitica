@@ -1499,22 +1499,24 @@ api.wrap = (user, main=true) ->
 
         {id, type, completed, repeat} = task
 
-        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies (includes uncompletd GREY dailies - TODO fix that?)
-        # All processing of Dailies is calculated AFTER stealth -- stealthed Dailies are treated as just not being there
-
         # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
+        EvadeTask = 0
+        scheduleMisses = daysMissed
         if completed
           if type is 'daily'
             dailyChecked += 1
         else
-          scheduleMisses = daysMissed
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
           if (type is 'daily') and repeat
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
-          if scheduleMisses > 0
+              if api.shouldDo(thatDay, repeat, user.preferences)
+                scheduleMisses++ 
+                if user.stats.buffs.stealth 
+                  user.stats.buffs.stealth--
+                  EvadeTask++ 
+          if scheduleMisses > EvadeTask
             if type is 'daily'
               perfect = false 
               if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
@@ -1523,15 +1525,16 @@ api.wrap = (user, main=true) ->
                 dailyChecked += fractionChecked
               else
                dailyDueUnchecked += 1
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
             user.party.quest.progress.down += delta if type is 'daily'
-        
 
         switch type
           when 'daily'
+            # This occurs whether or not the task is completed
             (task.history ?= []).push({ date: +new Date, value: task.value })
             task.completed = false
-            _.each task.checklist, ((i)->i.completed=false;true)
+            if completed || (scheduleMisses > 0)
+              _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
           when 'todo'
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value
@@ -1575,12 +1578,8 @@ api.wrap = (user, main=true) ->
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
       # Adjust for fraction of dailies completed
-      #console.log("Prior MP: " + user.stats.mp)
       dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
-      #console.log("DueUnchecked: " + dailyDueUnchecked)
-      #console.log("Checked: " + dailyChecked)
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
-      #console.log("After MP: " +user.stats.mp)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
