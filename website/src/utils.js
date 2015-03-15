@@ -63,7 +63,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
   mailingInfoArray = mailingInfoArray.map(function(mailingInfo){
     return mailingInfo._id ? getUserInfo(mailingInfo, ['email', 'name', 'canSend']) : mailingInfo;
   }).filter(function(mailingInfo){
-    return (mailingInfo.email && mailingInfo.canSend);
+    return (mailingInfo.email && (mailingInfo.canSend || emailType === 'reset-password'));
   });
 
   // When only one recipient send his info as variables

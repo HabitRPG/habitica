@@ -34,6 +34,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         group._editing = false;
       }
 
+      $scope.deleteAllMessages = function() {
+        if (confirm(window.env.t('confirmDeleteAllMessages'))) {
+          User.user.ops.clearPMs({});
+        }
+      }
+
       // ------ Modals ------
 
       $scope.clickMember = function(uid, forceShow) {
@@ -66,7 +72,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
 
       $scope.openInviteModal = function(group){
-        $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve: 
+        $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve:
           {injectedGroup: function(){
             return group;
           }}});
@@ -97,7 +103,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){    
+  .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){
     $scope.group = injectedGroup;
 
     $scope.inviter = User.user.profile.name;
@@ -159,14 +165,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         Groups.Group.flagChatMessage({gid: groupId, messageId: message.id}, undefined, function(data){
           Notification.text(window.env.t('abuseReported'));
           $scope.$close();
-        });        
+        });
       }
       $scope.clearFlagCount = function(message, groupId) {
         Groups.Group.clearFlagCount({gid: groupId, messageId: message.id}, undefined, function(data){
           message.flagCount = 0;
           Notification.text("Flags cleared");
           $scope.$close();
-        });        
+        });
       }
     }
   ])
@@ -176,7 +182,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.response = [];
       $scope.usernames = [];
     }
-    
+
     $scope.addNewUser = function(user) {
       if($.inArray(user.user,$scope.usernames) == -1) {
         user.username = user.user;
@@ -184,9 +190,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.response.push(user);
       }
     }
-    
+
     $scope.clearUserlist();
-    
+
     $scope.chatChanged = function(newvalue,oldvalue){
       if($scope.group.chat && $scope.group.chat.length > 0){
         for(var i = 0; i < $scope.group.chat.length; i++) {
@@ -194,9 +200,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
       }
     }
-    
+
     $scope.$watch('group.chat',$scope.chatChanged);
-    
+
     $scope.caretChanged = function(newCaretPos) {
       var relativeelement = $('.chat-form div:first');
       var textarea = $('.chat-form textarea');
@@ -213,23 +219,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
                 });
       }
     }
-    
+
     $scope.updateTimer = false;
-    
+
     $scope.$watch(function () { return $scope.caretPos; },function(newCaretPos) {
       if($scope.updateTimer){
         $timeout.cancel($scope.updateTimer)
-      }  
+      }
       $scope.updateTimer = $timeout(function(){
         $scope.caretChanged(newCaretPos);
       },$scope.watchDelay)
     });
   }])
-  
+
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrl, Notification, Members, $rootScope){
     $scope.message = {content:''};
     $scope._sending = false;
-    
+
     $scope.isUserMentioned = function(user, message) {
       if(message.hasOwnProperty("highlight"))
         return message.highlight;
@@ -273,7 +279,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
             if(data.chat) group.chat = data.chat;
 
             var i = _.findIndex(group.chat, {id: message.id});
-            if(i !== -1) group.chat.splice(i, 1);          
+            if(i !== -1) group.chat.splice(i, 1);
           });
         }
       }
@@ -295,7 +301,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.flagChatMessage = function(groupId,message) {
       if(!message.flags) message.flags = {};
-      if(message.flags[User.user._id]) 
+      if(message.flags[User.user._id])
         Notification.text(window.env.t('abuseAlreadyReported'));
       else {
         $scope.abuseObject = message;

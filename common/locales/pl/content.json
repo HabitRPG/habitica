@@ -49,7 +49,7 @@
     "questEggPenguinAdjective": "przenikliwy",
     "questEggTRexText": "Tyranozaur",
     "questEggTRexAdjective": "mało-uzbrojony",
-    "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+    "eggNotes": "Znajdź eliksir wyklucia i wylej go na to jajo, a wykluje się z niego <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Zwyczajny",
     "hatchingPotionWhite": "Biały",
     "hatchingPotionDesert": "Pustynny",

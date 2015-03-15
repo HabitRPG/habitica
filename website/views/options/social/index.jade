@@ -10,14 +10,15 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
   .container-fluid
     .row
       .col-md-12
-        +chatMessages('inbox')
         .form-inline
-          a.btn.btn-xs.btn-danger(popover=env.t('clearAllPopover'), popover-trigger='mouseenter', ng-click='user.ops.clearPMs({})', popover-placement='right')=env.t('clearAll')
+          a.btn.btn-xs.btn-danger(ng-click='deleteAllMessages()')=env.t('clearAll')
+          | &nbsp; &nbsp; &nbsp;
           .checkbox
             label
               input(type='checkbox', ng-model='user.inbox.optOut', ng-change='set({"inbox.optOut": user.inbox.optOut?true: false})')
               | &nbsp;
               span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('optOutPopover'))=env.t('optOut')
+        +chatMessages('inbox')
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
