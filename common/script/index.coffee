@@ -6,7 +6,7 @@ api = module.exports = {}
 
 api.i18n = i18n
 
-# little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
+# little helper for large arrays of strings. %w"this that another" equivalent from Ruby, I really miss that function
 $w = api.$w = (s)->s.split(' ')
 
 api.dotSet = (obj,path,val)->
