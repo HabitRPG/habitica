@@ -44,6 +44,7 @@ dataexport.todolist = function(req, res) {
   ];
   var userTags = [];
   var tags = res.locals.user.tags;
+  var completed = false;
   _.each(tags, function(tag) {
     userTags[tag.id] = tag.name;
   });
@@ -54,12 +55,14 @@ dataexport.todolist = function(req, res) {
 	    tags = tags + ", " +userTags[tagId]
 	  });
 	  tags = tags.substr(2);
+      completed = task.completed ? moment(task.dateCompleted).toISOString() : "";
       output.push(
-        ["To-do", task.text, moment(task.dateCreated).format("MM-DD-YYYY HH:mm:ss"), tags, "", task.completed]
+        ["To-do", task.text, moment(task.dateCreated).toISOString(), tags, "", completed]
       );
 	  _.each(task.checklist, function(checklist) {
+        completed = (completed != "") ? completed : checklist.completed ? "Done" : "";
 		output.push(
-          ["Checklist", task.text, moment(task.dateCreated).format("MM-DD-YYYY HH:mm:ss"), tags, checklist.text, checklist.completed]
+          ["Checklist", task.text, moment(task.dateCreated).toISOString(), tags, checklist.text, completed]
         );
 	  });
 	}
