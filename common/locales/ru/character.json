@@ -133,5 +133,8 @@
     "critBonus": "Критический удар! Бонус:",
     "displayNameDescription1": "Отображается в сообщениях, которые вы пишете в Таверне, гильдиях и командных чатах вместе с вашим аватаром. Перейдите в",
     "displayNameDescription2": "Настройки->Сайт",
-    "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин."
+    "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин.",
+    "unequipBattleGear": "Unequip Battle Gear",
+    "unequipCostume": "Unequip Costume",
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }

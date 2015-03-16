@@ -57,5 +57,9 @@
     "whyAds": "Varför Reklam?",
     "whyAdsContent1": "Habit är ett projekt med öppen källkod som behöver all hjälp det kan få - se detta som en donation till medarbetarna. Du får också 20 Juveler från köpet, vilka du kan använda för att köpa speciella objekt.",
     "whyAdsContent2": "'Hallå, jag stödde Kickstartern!' - följ",
-    "whyAdsContent3": "dessa instruktioner"
+    "whyAdsContent3": "dessa instruktioner",
+    "surveysSingle": "Helped HabitRPG grow by filling out a survey. The latest survey can be found here:",
+    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. The latest survey can be found here:",
+    "currentSurvey": "Current Survey",
+    "surveyWhen": "The badge will be awarded to all participants when the survey period is over in mid April."
 }

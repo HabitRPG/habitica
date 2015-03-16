@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "bystrý",
     "questEggTRexText": "Tyranosaur",
     "questEggTRexAdjective": "s malými ručičkami",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a to se vylíhne v  <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základní",
     "hatchingPotionWhite": "Bílý",

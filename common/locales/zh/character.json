@@ -133,5 +133,8 @@
     "critBonus": "致命一击！额外奖励：",
     "displayNameDescription1": "这就是你发布在酒馆或公会的帖子以及队伍聊天中所显示的内容，同时也会显示你的角色形象。访问",
     "displayNameDescription2": "设置->站点",
-    "displayNameDescription3": "然后滚动至“注册”部分来改变你的登录名。"
+    "displayNameDescription3": "然后滚动至“注册”部分来改变你的登录名。",
+    "unequipBattleGear": "Unequip Battle Gear",
+    "unequipCostume": "Unequip Costume",
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }

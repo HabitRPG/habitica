@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "perspicaz",
     "questEggTRexText": "Tiranosaurio",
     "questEggTRexAdjective": "con brazos pequeños",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá un <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

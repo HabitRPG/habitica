@@ -133,5 +133,8 @@
     "critBonus": "Kritisk träff! Bonus:",
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
     "displayNameDescription2": "Inställningar->Sida",
-    "displayNameDescription3": "och scrolla ner till Registrerings sektionen för att ändra ditt inloggningsnamn."
+    "displayNameDescription3": "och scrolla ner till Registrerings sektionen för att ändra ditt inloggningsnamn.",
+    "unequipBattleGear": "Unequip Battle Gear",
+    "unequipCostume": "Unequip Costume",
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }

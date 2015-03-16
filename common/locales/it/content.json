@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "un perspicace",
     "questEggTRexText": "Tirannosauro",
     "questEggTRexAdjective": "un preistorico",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

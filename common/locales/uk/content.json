@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "perspicacious",
     "questEggTRexText": "Tyrannosaur",
     "questEggTRexAdjective": "tiny-armed",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Простий",
     "hatchingPotionWhite": "Білий",

@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "skarpsinnig",
     "questEggTRexText": "Tyrannosaurus",
     "questEggTRexAdjective": "småarmad",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Finn en kläckningsdryck att hälla på det här ägget, så kommer det att kläckas till<%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",

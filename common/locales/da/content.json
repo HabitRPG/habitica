@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "Skarpsindig",
     "questEggTRexText": "Tyrannosaurus",
     "questEggTRexAdjective": "kortarmet",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",

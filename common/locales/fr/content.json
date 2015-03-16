@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "perspicace",
     "questEggTRexText": "Tyrannosaure",
     "questEggTRexAdjective": "court-sur-pattes",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un·e <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "de Base",
     "hatchingPotionWhite": "Blanc",

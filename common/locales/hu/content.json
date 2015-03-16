@@ -49,6 +49,8 @@
     "questEggPenguinAdjective": "éles eszű",
     "questEggTRexText": "Tyrannosaurus",
     "questEggTRexAdjective": "kis-kezű",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
     "eggNotes": "Keress egy keltetőfőzetet ehhez a tojáshoz, és egy <%= eggAdjective(locale) %> <%= eggText(locale) %> kel majd ki belőle.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",
