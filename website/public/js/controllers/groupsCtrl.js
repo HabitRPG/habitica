@@ -59,7 +59,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
 
       $scope.removeMember = function(group, member, isMember){
-        var yes = confirm(window.env.t('sureKick'))
+        $rootScope.openModal('remove-member');
+        /*var yes = confirm(window.env.t('sureKick'))
         if(yes){
           Groups.Group.removeMember({gid: group._id, uuid: member._id }, undefined, function(){
             if(isMember){
@@ -68,7 +69,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
               _.pull(group.invites, member);
             }
           });
-        }
+        }*/
       }
 
       $scope.openInviteModal = function(group){

@@ -59,6 +59,8 @@
     "guild": "Guild",
     "guilds": "Guilds",
     "sureKick": "Do you really want to remove this member from the party/guild?",
+    "optionalMessage": "Optional message",
+    "yesRemove": "Yes, remove them",
     "foreverAlone": "Can't like your own message. Don't be that person.",
     "sortLevel": "Sort by level",
     "sortRandom": "Sort randomly",
