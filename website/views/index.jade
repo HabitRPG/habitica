@@ -1,6 +1,9 @@
 doctype html
 //html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
+<!--[if lt IE 8]><html class="lt-ie8" ng-app="habitrpg" ng-controller="RootCtrl" ng-class='{"applying-action":applyingAction}' ui-keyup="{27:'castCancel()'}"> <![endif]-->
+<!--[if !IE]><!-->
 html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}")
+  <!--<![endif]-->
   head
     title=env.t('titleIndex')
     // ?v=1 needed to force refresh
