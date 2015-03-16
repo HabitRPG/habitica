@@ -37,6 +37,36 @@ dataexport.history = function(req, res) {
   return res.csv(output);
 }
 
+dataexport.todolist = function(req, res) {
+  var user = res.locals.user;
+  var output = [
+    ["Type", "To-do", "Date Created", "Tags", "Checklist", "Completed"]
+  ];
+  var userTags = [];
+  var tags = res.locals.user.tags;
+  _.each(tags, function(tag) {
+    userTags[tag.id] = tag.name;
+  });
+  _.each(user.tasks, function(task) {
+    if(task.type == "todo") {
+	  var tags = "";
+	  _.each(Object.keys(task.tags), function(tagId) {	
+	    tags = tags + ", " +userTags[tagId]
+	  });
+	  tags = tags.substr(2);
+      output.push(
+        ["To-do", task.text, moment(task.dateCreated).format("MM-DD-YYYY HH:mm:ss"), tags, "", task.completed]
+      );
+	  _.each(task.checklist, function(checklist) {
+		output.push(
+          ["Checklist", task.text, moment(task.dateCreated).format("MM-DD-YYYY HH:mm:ss"), tags, checklist.text, checklist.completed]
+        );
+	  });
+	}
+  });
+  return res.csv(output);
+}
+
 var userdata = function(user) {
   if(user.auth && user.auth.local) {
     delete user.auth.local.salt;
