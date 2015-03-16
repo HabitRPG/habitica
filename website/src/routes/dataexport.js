@@ -8,6 +8,7 @@ var middleware = require('../middleware.js');
 
 /* Data export */
 router.get('/history.csv',auth.authWithSession,i18n.getUserLanguage,dataexport.history); //[todo] encode data output options in the data controller and use these to build routes
+router.get('/todolist.csv',auth.authWithSession,i18n.getUserLanguage,dataexport.todolist);
 router.get('/userdata.xml',auth.authWithSession,i18n.getUserLanguage,dataexport.leanuser,dataexport.userdata.xml);
 router.get('/userdata.json',auth.authWithSession,i18n.getUserLanguage,dataexport.leanuser,dataexport.userdata.json);
 router.get('/avatar-:uuid.html', i18n.getUserLanguage, middleware.locals, dataexport.avatarPage);
