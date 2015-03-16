@@ -235,46 +235,43 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.dequip = function(itemSet){
-
       switch (itemSet) {
         case "battleGear":
-          for ( item in user.items.gear.equipped ){
+          for (item in user.items.gear.equipped){
             var itemKey = user.items.gear.equipped[item];
-            if ( user.items.gear.owned[itemKey] ) {
+            if (user.items.gear.owned[itemKey]) {
               user.ops.equip({params: {key: itemKey}});
             }
           }
           break;
 
         case "costume":
-          for ( item in user.items.gear.costume ){
+          for (item in user.items.gear.costume){
             var itemKey = user.items.gear.costume[item];
-            if ( user.items.gear.owned[itemKey] ) {
+            if (user.items.gear.owned[itemKey]) {
               user.ops.equip({params: {type:"costume", key: itemKey}});
             }
           }
           break;
 
         case "petMountBackground":
-
           var pet = user.items.currentPet;
-          if ( pet ) {
+          if (pet) {
             user.ops.equip({params:{type: 'pet', key: pet}});
           }
 
           var mount = user.items.currentMount;
-          if ( mount ) {
+          if (mount) {
             user.ops.equip({params:{type: 'mount', key: mount}});
           }
 
-          // var background = user.preferences.background;
-          // User.user.ops.unlock({query:{path:"background."+background}});
-          // commented out until we fix this bug:
-          // https://github.com/HabitRPG/habitrpg/issues/4857#issuecomment-80722868
+          var background = user.preferences.background;
+          if (background) {
+            User.user.ops.unlock({query:{path:"background."+background}});
+          }
 
           break;
       }
-
-    }
+    };
   }
 ]);
