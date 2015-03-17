@@ -4872,7 +4872,11 @@ module.exports = {
     if ((locale == null) || (!module.exports.strings && !module.exports.translations[locale])) {
       locale = 'en';
     }
-    string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    if (module.exports.strings) {
+      string = module.exports.strings[stringName];
+    } else {
+      string = module.exports.translations[locale] && module.exports.translations[locale][stringName];
+    }
     clonedVars = _.clone(vars) || {};
     clonedVars.locale = locale;
     if (string) {
@@ -4883,7 +4887,11 @@ module.exports = {
         return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
       }
     } else {
-      stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      if (module.exports.strings) {
+        stringNotFound = module.exports.strings.stringNotFound;
+      } else if (module.exports.translations[locale]) {
+        stringNotFound = module.exports.translations[locale] && module.exports.translations[locale].stringNotFound;
+      }
       try {
         return _.template(stringNotFound, {
           string: stringName

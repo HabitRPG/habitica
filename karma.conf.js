@@ -96,6 +96,8 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['PhantomJS'],
 
+    // Enable mocha-style reporting, for better test visibility
+    reporters:  ['mocha'],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

@@ -8,7 +8,7 @@ TEST_SERVER_PORT=3001
 grunt build:dev
 
 # Launch Node server and Selenium
-echo "Recreating test database"
+echo "= Recreating test database"
 mongo "$TEST_DB" --eval "db.dropDatabase()"
 
 if [ -z "$TRAVIS" ]; then
@@ -34,10 +34,13 @@ NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./website/src/server.js >
 NODE_PID=$!
 trap "kill $NODE_PID" EXIT
 
+echo "= Running mocha specs"
 NODE_ENV=testing mocha || exit $?
 
 if [ -z "$TRAVIS" ]; then
+        echo "= Running protractor specs"
 	NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js || exit $?
 fi
 
+echo "= Running karma specs"
 NODE_ENV=testing grunt karma:continuous
