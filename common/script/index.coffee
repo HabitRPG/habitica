@@ -82,6 +82,17 @@ api.shouldDo = (day, repeat, options={}) ->
 
 ###
   ------------------------------------------------------
+  Level cap
+  ------------------------------------------------------
+###
+
+api.maxLevel = 100
+
+api.capByLevel = (lvl) ->
+  if lvl > api.maxLevel then api.maxLevel else lvl
+
+###
+  ------------------------------------------------------
   Scoring
   ------------------------------------------------------
 ###
@@ -476,16 +487,13 @@ api.wrap = (user, main=true) ->
 
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
-        if (user.balance < 2 && user.stats.lvl < 100)
+        if (user.balance < 2 && user.stats.lvl < api.maxLevel)
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
-        # only charge people if they are under level 100 - ryan
-        if user.stats.lvl < 100
+        # only charge people if they are under the max level - ryan
+        if user.stats.lvl < api.maxLevel
           user.balance -= 2
         # Save off user's level, for calculating achievement eligibility later
-        if user.stats.lvl < 100
-          lvl = user.stats.lvl
-        else
-          lvl = 100
+        lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -675,7 +683,7 @@ api.wrap = (user, main=true) ->
         # Generate pet display name variable
         potionText = if content.hatchingPotions[potion] then content.hatchingPotions[potion].text() else potion
         eggText = if content.eggs[egg] then content.eggs[egg].text() else egg
-        petDisplayName = i18n.t('petName', { 
+        petDisplayName = i18n.t('petName', {
           potion: potionText
           egg: eggText
         })
@@ -934,7 +942,7 @@ api.wrap = (user, main=true) ->
           else
             return cb?({code:401,message:i18n.t('notEnoughGems', req.language)}) unless user.balance >= .75
             user.balance -= .75
-          _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
+          _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
           ga?.event('purchase', 'changeClass').send()
           #'stats.points': this is handled on the server
@@ -945,7 +953,7 @@ api.wrap = (user, main=true) ->
         user.flags.classSelected = true
         user.preferences.disableClasses = true
         user.preferences.autoAllocate = true
-        user.stats.str = user.stats.lvl
+        user.stats.str = api.capByLevel(user.stats.lvl)
         user.stats.points = 0
         cb? null, _.pick(user,$w 'stats flags preferences')
 
@@ -1346,7 +1354,8 @@ api.wrap = (user, main=true) ->
             _.invert(stats)[_.min stats]
           when "classbased"
             # Attributes get 3:2:1:1 per 7 levels.
-            ideal = [(user.stats.lvl / 7 * 3), (user.stats.lvl / 7 * 2), (user.stats.lvl / 7), (user.stats.lvl / 7)]
+            lvlDiv7 = user.stats.lvl / 7
+            ideal = [(lvlDiv7 * 3), (lvlDiv7 * 2), lvlDiv7, lvlDiv7]
             # Primary, secondary etc. attributes aren't explicitly defined, so hardcode them. In order as above
             preference = switch user.stats.class
               when "wizard" then ["int", "per", "con", "str"]
@@ -1382,14 +1391,16 @@ api.wrap = (user, main=true) ->
           user.stats.lvl++
           tnl = api.tnl(user.stats.lvl)
 
+          user.stats.hp = 50
+
+          continue if user.stats.lvl > api.maxLevel
+
           # Auto-allocate a point, or give them a new manual point
           if user.preferences.automaticAllocation
             user.fns.autoAllocate()
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-
-          user.stats.hp = 50
       user.stats.exp = stats.exp
 
       # Set flags when they unlock features
@@ -1417,7 +1428,7 @@ api.wrap = (user, main=true) ->
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
-      if user.stats.lvl >= 100 and !user.flags.freeRebirth
+      if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
         user.flags.freeRebirth = true
 
     ###
@@ -1512,13 +1523,13 @@ api.wrap = (user, main=true) ->
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
               if api.shouldDo(thatDay, repeat, user.preferences)
-                scheduleMisses++ 
-                if user.stats.buffs.stealth 
+                scheduleMisses++
+                if user.stats.buffs.stealth
                   user.stats.buffs.stealth--
-                  EvadeTask++ 
+                  EvadeTask++
           if scheduleMisses > EvadeTask
             if type is 'daily'
-              perfect = false 
+              perfect = false
               if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
                 fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
                 dailyDueUnchecked += (1 - fractionChecked)
@@ -1569,10 +1580,7 @@ api.wrap = (user, main=true) ->
         if perfect
           user.achievements.perfect ?= 0
           user.achievements.perfect++
-          if user.stats.lvl < 100
-            lvlDiv2 = Math.ceil(user.stats.lvl/2)
-          else
-            lvlDiv2 = 50
+          lvlDiv2 = Math.ceil(api.capByLevel(user.stats.lvl) / 2)
           {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
         else clearBuffs
 
@@ -1654,10 +1662,7 @@ api.wrap = (user, main=true) ->
             else
               +val[stat] or 0
         , 0
-        if user.stats.lvl < 100
-          m[stat] += (user.stats.lvl - 1) / 2
-        else
-          m[stat] += 50
+        m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2)
         m
       , {}
       computed.maxMP = computed.int*2 + 30

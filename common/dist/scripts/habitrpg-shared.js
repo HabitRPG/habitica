@@ -4849,6 +4849,23 @@ api.shouldDo = function(day, repeat, options) {
 
 /*
   ------------------------------------------------------
+  Level cap
+  ------------------------------------------------------
+ */
+
+api.maxLevel = 100;
+
+api.capByLevel = function(lvl) {
+  if (lvl > api.maxLevel) {
+    return api.maxLevel;
+  } else {
+    return lvl;
+  }
+};
+
+
+/*
+  ------------------------------------------------------
   Scoring
   ------------------------------------------------------
  */
@@ -5465,20 +5482,16 @@ api.wrap = function(user, main) {
       },
       rebirth: function(req, cb, ga) {
         var flags, gear, lvl, stats;
-        if (user.balance < 2 && user.stats.lvl < 100) {
+        if (user.balance < 2 && user.stats.lvl < api.maxLevel) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (user.stats.lvl < 100) {
+        if (user.stats.lvl < api.maxLevel) {
           user.balance -= 2;
         }
-        if (user.stats.lvl < 100) {
-          lvl = user.stats.lvl;
-        } else {
-          lvl = 100;
-        }
+        lvl = api.capByLevel(user.stats.lvl);
         _.each(user.tasks, function(task) {
           if (task.type !== 'reward') {
             task.value = 0;
@@ -6252,7 +6265,7 @@ api.wrap = function(user, main) {
             con: 0,
             per: 0,
             int: 0,
-            points: user.stats.lvl
+            points: api.capByLevel(user.stats.lvl)
           });
           user.flags.classSelected = false;
           if (ga != null) {
@@ -6266,7 +6279,7 @@ api.wrap = function(user, main) {
         user.flags.classSelected = true;
         user.preferences.disableClasses = true;
         user.preferences.autoAllocate = true;
-        user.stats.str = user.stats.lvl;
+        user.stats.str = api.capByLevel(user.stats.lvl);
         user.stats.points = 0;
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
       },
@@ -6703,13 +6716,14 @@ api.wrap = function(user, main) {
      */
     autoAllocate: function() {
       return user.stats[(function() {
-        var diff, ideal, preference, stats, suggested;
+        var diff, ideal, lvlDiv7, preference, stats, suggested;
         switch (user.preferences.allocationMode) {
           case "flat":
             stats = _.pick(user.stats, $w('con str per int'));
             return _.invert(stats)[_.min(stats)];
           case "classbased":
-            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+            lvlDiv7 = user.stats.lvl / 7;
+            ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
             preference = (function() {
               switch (user.stats["class"]) {
                 case "wizard":
@@ -6761,12 +6775,15 @@ api.wrap = function(user, main) {
           stats.exp -= tnl;
           user.stats.lvl++;
           tnl = api.tnl(user.stats.lvl);
+          user.stats.hp = 50;
+          if (user.stats.lvl > api.maxLevel) {
+            continue;
+          }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
           }
-          user.stats.hp = 50;
         }
       }
       user.stats.exp = stats.exp;
@@ -6820,7 +6837,7 @@ api.wrap = function(user, main) {
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
         user.flags.rebirthEnabled = true;
       }
-      if (user.stats.lvl >= 100 && !user.flags.freeRebirth) {
+      if (user.stats.lvl >= api.maxLevel && !user.flags.freeRebirth) {
         return user.flags.freeRebirth = true;
       }
     },
@@ -7020,7 +7037,7 @@ api.wrap = function(user, main) {
           user.markModified('dailys');
         }
       }
-      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
+      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(api.capByLevel(user.stats.lvl) / 2), {
         str: lvlDiv2,
         int: lvlDiv2,
         per: lvlDiv2,
@@ -7111,11 +7128,7 @@ api.wrap = function(user, main) {
             val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
           }, 0);
-          if (user.stats.lvl < 100) {
-            m[stat] += (user.stats.lvl - 1) / 2;
-          } else {
-            m[stat] += 50;
-          }
+          m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
           return m;
         };
       })(this), {});
