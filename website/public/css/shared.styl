@@ -44,6 +44,42 @@ a.hint:hover
   ul
     padding-left: 10px
 
+.menu-highlighted
+  font-weight: bold;
+
+.user-search
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  background-clip: padding-box;
+  outline: 0;
+
+.user-search .list-group-item.active
+  color: #fff;
+  background-color: #428bca;
+  border-color: #428bca;
+
+.user-search .list-group-item.active .text-muted
+  color: #ccc;
+
+.user-search .list-group-item.active .text-primary
+  color: #fff;
+
+.user-search .list-group-item
+  padding: 5px;
+
+.user-search .user-photo
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 15px;
+
+.scrollable-menu
+  height: auto;
+  max-height: 300px;
+  overflow-y: auto;
+
+
 @media (max-width: 768px)
   .container-fluid
     padding-right: 5px

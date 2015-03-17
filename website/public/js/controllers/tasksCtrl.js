@@ -24,12 +24,21 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    $scope.searchTags = function(item) {
-      console.log(item);
+    $scope.searchTags = function(item, listType) {
+      if (item === '') {
+        return;
+      }
+      var tagList = [];
+      for (var i = 0; i < User.user.tags.length; i++) {
+        if (User.user.tags[i].name.indexOf(item) > -1) {
+          tagList.push({label: User.user.tags[i].name, id: User.user.tags[i].id});
+        }
+      }
+      $scope['task' + listType + 'Tags'] = tagList;
     };
 
     $scope.getTagLabel = function(item) {
-      console.log(item);
+      return '#' + item.label;
     };
 
     $scope.parseTask = function(listDef, task) {
