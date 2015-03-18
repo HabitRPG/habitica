@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1h Attività produttiva",
-    "defaultHabit1Notes": "Quando crei una nuova Habit, puoi cliccare sull'icona Modifica e scegliere se rappresenta una buona abitudine, una cattiva abitudine, o entrambe. Alcune Habit, ad esempio questa, hanno senso solo se fanno guadagnare punti.",
-    "defaultHabit2Text": "Mangia al fast food",
-    "defaultHabit2Notes": "Altre invece, hanno senso solo se fanno *perdere* punti.",
-    "defaultHabit3Text": "Usa le scale!",
-    "defaultHabit3Notes": "In altri casi, sia il + che il - vanno bene (scale = guadagni punti, ascensore = penalità)",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1h Progetto personale",
     "defaultDaily1Notes": "Le attività appena create sono inizialmente di colore giallo. Questo significa che subirai pochi danni se le trascuri e guadagnerai una ricompensa normale quando le completi.",
     "defaultDaily2Text": "Pulisci casa",

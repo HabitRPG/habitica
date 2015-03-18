@@ -38,6 +38,7 @@
     "alreadyHave": "Ups! Du har allerede denne ting. Ingen grund til at købe den igen!",
     "delete": "Slet",
     "gems": "Ædelsten",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Mere Information",
     "gemsWhatFor": "Købt for rigtige penge. Bruges til at købe specielle varer og funktioner (æg, udrugnings-eliksir, Forstærkning o.s.v.). Du skal låse op for disse funktioner for at kunne bruge Ædelsten.",
     "veteran": "Veteran",

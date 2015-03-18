@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1h produktívnej práce",
-    "defaultHabit1Notes": "Keď vytvoríš nový návyk, môžeš kliknúť na ikonu upraviť a vybrať, či má reprezentovať pozitívny návyk, zlozvyk alebo oboje. Pre niektoré návyky, ako je tento, dáva zmysel len získavanie bodov.",
-    "defaultHabit2Text": "Nezdravé jedlo",
-    "defaultHabit2Notes": "Pre niektoré dáva zmysel len *strácať* body.",
-    "defaultHabit3Text": "Ísť po schodoch",
-    "defaultHabit3Notes": "Pre zvyšok dávajú zmysel oboje, + aj - (schody = získať, výťah = stratiť).",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1h práce na vlastnom projekte",
     "defaultDaily1Notes": "Všetky úlohy sú v základe žlté, keď sa vytvoria. To znamená, že od nich dostaneš len jemné poškodenie, keď ich nesplníš a získaš len menšiu odmenu, keď ich splníš.",
     "defaultDaily2Text": "Uprac si izbu",

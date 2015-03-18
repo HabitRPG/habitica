@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1 Stunde produktive Arbeit",
-    "defaultHabit1Notes": "Nachdem Du eine neue Gewohnheit angelegt hast, kannst Du durch Klick auf das Bearbeiten-Icon auswählen, ob es sich um eine positive, eine negative Gewohnheit oder Beides handelt. Bei dieser und auch bei anderen Gewohnheiten ergibt es nur Sinn Punkte zu erhalten.",
-    "defaultHabit2Text": "Junkfood gegessen",
-    "defaultHabit2Notes": "Für andere hingegen ist es sinnvoll Punkte zu *verlieren*.",
-    "defaultHabit3Text": "Die Treppe nehmen",
-    "defaultHabit3Notes": "Für alle anderen ergibt beides Sinn (Die Treppe nehmen = Positiv; den Aufzug nehmen = Negativ).",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1 Stunde persönliches Projekt",
     "defaultDaily1Notes": "Standardmäßig haben alle neuen Aufgaben eine gelbe Farbe.  Verpasst Du sie zu Erledigen, nimmst Du nur mäßigen Schaden, wirst beim Erledigen aber auch nur durchschnittlich belohnt.",
     "defaultDaily2Text": "Wohnung aufräumen",

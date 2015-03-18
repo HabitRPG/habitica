@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1 óra produktív munka",
-    "defaultHabit1Notes": "Amikor egy új Szokást hozol létre, akkor rákattinthatsz a Szerkeszt ikonra és kiválaszthatod, hogy jó, vagy rossz szokást - esetleg mindkettőt - reprezentáljon. Pár Szokásnál, mint például ez, csak annak van értelme, hogy szerezz pontokat.",
-    "defaultHabit2Text": "Gyorsétel evés",
-    "defaultHabit2Notes": "Másoknál csak a pont *vesztésnek* van értelme.",
-    "defaultHabit3Text": "Lépcső használat",
-    "defaultHabit3Notes": "A maradéknak mind a \"+\" és a \"-\" nak is van értelme (lépcső = növelés, lift = vesztés)",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1 óra magán program",
     "defaultDaily1Notes": "Minden feladat alapszíne a sárga. Ez azt jelenti, hogy csak alacsony sebzést kapsz, ha kihagyod őket és a jutalom is alacsony lesz, ha elkészülsz velük.",
     "defaultDaily2Text": "Lakás kitakarítása",

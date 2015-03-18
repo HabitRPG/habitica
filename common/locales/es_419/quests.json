@@ -42,5 +42,5 @@
     "doubleSureAbort": "¿Verdaderamente estas seguro? ¡Asegúrate que no te oidarán eternamente! ",
     "questWarning": "Si nuevos miembros se unen al equipo antes de que comience la misión, también recibirán una invitación. Sin embargo, una vez que la misión ha comenzado, nuevos miembros no se pueden unir a la misión.",
     "bossRageTitle": "Ira",
-    "bossRageDescription": "Cuando esta barra se llena, el jefe va a soltar un ataque especial"
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
 }

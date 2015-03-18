@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1 Timme Produktivt Arbete",
-    "defaultHabit1Notes": "När du skapar en ny vana, kan du klicka på redigera-ikonen och välja ifall den ska representera en dålig vana, en bra vana, eller både och. För vissa vanor, som den här, är det vettigast att tjäna poäng.",
-    "defaultHabit2Text": "Ät skräpmat ",
-    "defaultHabit2Notes": "För andra är det mest vettigt att *förlora* poäng.",
-    "defaultHabit3Text": "Ta trapporna",
-    "defaultHabit3Notes": "För övriga är det rimligt med både + och - (trappor = tjäna, hiss = förlora)",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1 Timme Personligt Projekt",
     "defaultDaily1Notes": "Alla uppgifter är automatiskt gula när de skapas. Det betyder att du bara kommer att ta  måttlig skada när de missas, och att du får en måttlig belöning när de är fullföljda.",
     "defaultDaily2Text": "Städa din lägenhet",

@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1小时的高效工作",
-    "defaultHabit1Notes": "当你创建一个新的“习惯”，你可以点击编辑图标并选择这是一个“健康”的习惯，还是一个“不健康”的习惯，或是两者都有。对于一些习惯，例如这个，只能获得点数。",
-    "defaultHabit2Text": "吃垃圾食物",
-    "defaultHabit2Notes": "另外一些，还只能是*失去*点数。",
-    "defaultHabit3Text": "走楼梯",
-    "defaultHabit3Notes": "剩下的那些任务，既可以获得也可以失去点数 (楼梯 = \"+\"，电梯 = \"-\")。",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1小时的个人项目",
     "defaultDaily1Notes": "所有的任务在创建后默认是黄色的。这意味着当你错过的时候只会承担适度伤害，完成的时候获得适度奖励。",
     "defaultDaily2Text": "打扫你的房间",

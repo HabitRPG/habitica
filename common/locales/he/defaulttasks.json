@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "שעה 1 עבודה פורייה",
-    "defaultHabit1Notes": "כשאתה יוצר הרגל חדש, אתה יכול ללחוץ על אייקון העריכה ולסמן שהוא הרגל טוב, רע או שניהם. לכמה הרגלים, כמו זה, הגיוני רק לקבל נקודות",
-    "defaultHabit2Text": "אכלתי מזון מהיר",
-    "defaultHabit2Notes": "לאחרים, הגיוני רק *לאבד* נקודות",
-    "defaultHabit3Text": "לעלות במדרגות",
-    "defaultHabit3Notes": "לשאר הרגלים, גם + וגם - סבירים (למשל לעלות במדרגות = טוב, או לעלות במעלית = רע)",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "שעה 1 פרוייקט אישי",
     "defaultDaily1Notes": "כל המשימות מתחילות בצבע צהוב. זאת אומרת שתקבל נזק בינוני וסביר כשתפספס אותן ותקבל שכר בינוני וסביר גם כן, כשתעמוד בהן.",
     "defaultDaily2Text": "ניקיון הדירה",

@@ -38,6 +38,7 @@
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
     "delete": "Șterge",
     "gems": "Nestemate",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Mai multe informații",
     "gemsWhatFor": "Cumpărate cu bani reali. Folosite pentru cumpărarea obiectelor și serviciilor speciale (ouă, poțiuni de eclozare, Fortificare etc.). Va trebui să deblochezi acele facilități înainte să poți folosi Nestemate.",
     "veteran": "Veteran",

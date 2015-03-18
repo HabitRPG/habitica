@@ -38,6 +38,7 @@
     "alreadyHave": "Upsz! Ez a tárgy már megvan neked. Nem kell mégegyszer megvenni!",
     "delete": "Töröl",
     "gems": "Drágakövek",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Több infó",
     "gemsWhatFor": "Igazi pénzért vásárolható. Speciális tárgyak és szolgáltatások vásárlására való (pl.: tojások, keltetőfőzetek, Megerősítés). Mielőtt Drágakövet vásárolhatsz, előbb fel kell oldanod ezeket a funkciókat.",
     "veteran": "Veterán",

@@ -1,10 +1,7 @@
 {
-    "defaultHabit1Text": "1hr de trabajo productivo",
-    "defaultHabit1Notes": "Cuando creas un nuevo Hábito, puedes hacer clic en el ícono de Editar y hacer que represente un hábito positivo, negativo o ambos a la vez. Para algunos Hábitos, como éste, sólo tiene sentido ganar puntos.",
-    "defaultHabit2Text": "Comer comida chatarra",
-    "defaultHabit2Notes": "Para otros, sólo tiene sentido *perder* puntos.",
-    "defaultHabit3Text": "Usar las escaleras",
-    "defaultHabit3Notes": "Para el resto, tanto + como - hacen sentido (escaleras = ganancia, ascensor = pérdida).",
+    "defaultHabit1Text": "Good Habit",
+    "defaultHabit2Text": "Bad Habit",
+    "defaultHabit3Text": "Good or Bad Habit",
     "defaultDaily1Text": "1hr proyecto personal",
     "defaultDaily1Notes": "Todas las tareas son de color amarillo cuando son creadas. Esto significa que te harán un daño moderado cuando no las hagas y ganarás una recompensa moderada cuando las completes.",
     "defaultDaily2Text": "Limpia tu apartamento",

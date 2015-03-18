@@ -42,5 +42,5 @@
     "doubleSureAbort": "האם את/ה באמת באמת בטוח/ה? כל החבורה שלך עלולה לשנוא אותך לנצח!",
     "questWarning": "אם שחקנים חדשים מצטרפים לחבורה לפני תחילת המשימה, גם הם יקבלו הזמנה. לעומת זאת, ברגע שהמשימה תתחיל, אף אחד מהחבורה לא יוכל להצטרף אליה.",
     "bossRageTitle": "זעם",
-    "bossRageDescription": "כאשר המד הזה יתמלא, האויב ישחרר מתקפה מיוחדת"
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
 }

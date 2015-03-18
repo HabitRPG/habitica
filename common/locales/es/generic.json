@@ -38,6 +38,7 @@
     "alreadyHave": "Ups! Ya tienes este artículo. No necesitas comprarlo otra vez!",
     "delete": "Eliminar",
     "gems": "Gemas",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Más información",
     "gemsWhatFor": "Se adquiere mediante dinero real. Usado para compras objectos especiales y servicios (huevos, pociónes incubadoras, Fortificar, etcétera). Necesitarás desbloquear estas funciones antes de poder usar Gemas.",
     "veteran": "Veterano",

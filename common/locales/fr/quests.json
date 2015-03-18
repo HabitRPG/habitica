@@ -42,5 +42,5 @@
     "doubleSureAbort": "Êtes-vous sûr(e) et certain(e) ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",
     "questWarning": "Si de nouveaux joueurs rejoignent le groupe avant que la quête ne soit lancée, il recevront également une invitation. Cependant, une fois la quête débutée aucun nouveau membre du groupe ne pourra rejoindre celle-ci.",
     "bossRageTitle": "Rage",
-    "bossRageDescription": "Une fois cette jauge pleine, le boss lancera une attaque spéciale"
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
 }
