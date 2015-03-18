@@ -134,7 +134,7 @@
     "displayNameDescription1": "Questo è ciò che appare nei messaggi che scrivi nella Taverna, nelle gilde e nella chat di squadra, insieme al tuo avatar. Vai in",
     "displayNameDescription2": "Impostazioni->Sito",
     "displayNameDescription3": "nella sezione Registrazione per modificare il nome con cui accedi al sito..",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "Rimuovi equipaggiamento di battaglia",
+    "unequipCostume": "Rimuovi costume",
+    "unequipPetMountBackground": "Rimuovi animale, cavalcatura, sfondo"
 }

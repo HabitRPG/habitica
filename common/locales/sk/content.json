@@ -51,6 +51,8 @@
     "questEggTRexAdjective": "málo ozbrojený",
     "questEggRockText": "Rock",
     "questEggRockAdjective": "lively",
+    "questEggBunnyText": "Bunny",
+    "questEggBunnyAdjective": "snuggly",
     "eggNotes": "Nájdi liahoxír, ktorý vyleješ na vajíčko, a vyliahne sa z neho <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základný",
     "hatchingPotionWhite": "Biely",

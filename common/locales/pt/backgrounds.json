@@ -53,7 +53,7 @@
     "backgroundIceCaveText": "Caverna de Gelo",
     "backgroundIceCaveNotes": "Entre numa Caverna de Gelo.",
     "backgroundFrigidPeakText": "Pico Gelado",
-    "backgroundFrigidPeakNotes": "Top do Pico Gelado",
+    "backgroundFrigidPeakNotes": "Suba um Pico Gelado.",
     "backgroundSnowyPinesText": "Pinheiros de Neve",
     "backgroundSnowyPinesNotes": "Refúgio \"Pinheiros de Neve\"",
     "backgrounds022015": "Conjunto 9: Lançado em Fevereiro de 2015",
@@ -63,11 +63,11 @@
     "backgroundCrystalCaveNotes": "Explore uma Caverna de Cristal",
     "backgroundDistantCastleText": "Castelo Distante",
     "backgroundDistantCastleNotes": "Defenda um Castelo Distante.",
-    "backgrounds032015": "SET 10: Released March 2015",
-    "backgroundSpringRainText": "Spring Rain",
-    "backgroundSpringRainNotes": "Dance in the Spring Rain.",
-    "backgroundStainedGlassText": "Stained Glass",
-    "backgroundStainedGlassNotes": "Admire some Stained Glass.",
-    "backgroundRollingHillsText": "Rolling Hills",
-    "backgroundRollingHillsNotes": "Frolic through the Rolling Hills."
+    "backgrounds032015": "Conjunto 10: Lançado em Março de 2015",
+    "backgroundSpringRainText": "Chuva de Primavera",
+    "backgroundSpringRainNotes": "Dance na Chuva da Primavera.",
+    "backgroundStainedGlassText": "Vitral",
+    "backgroundStainedGlassNotes": "Admire alguns Vitrais.",
+    "backgroundRollingHillsText": "Colinas",
+    "backgroundRollingHillsNotes": "Divirta-se pelas Colinas"
 }

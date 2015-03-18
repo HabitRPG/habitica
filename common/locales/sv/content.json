@@ -51,6 +51,8 @@
     "questEggTRexAdjective": "småarmad",
     "questEggRockText": "Rock",
     "questEggRockAdjective": "lively",
+    "questEggBunnyText": "Bunny",
+    "questEggBunnyAdjective": "snuggly",
     "eggNotes": "Finn en kläckningsdryck att hälla på det här ägget, så kommer det att kläckas till<%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",

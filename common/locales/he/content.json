@@ -51,6 +51,8 @@
     "questEggTRexAdjective": "קצר-זרוע",
     "questEggRockText": "Rock",
     "questEggRockAdjective": "lively",
+    "questEggBunnyText": "Bunny",
+    "questEggBunnyAdjective": "snuggly",
     "eggNotes": "מצא שיקוי בקיעה למזוג על ביצה זו, והיא תבקע כ: <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

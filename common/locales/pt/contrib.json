@@ -58,8 +58,8 @@
     "whyAdsContent1": "HabitRPG é um projeto open source, e pode usar toda ajuda que conseguir - considere isso uma doação aos colaboradores. Você também ganha 20 Gemas da compra, as quais você pode usar para comprar itens especiais.",
     "whyAdsContent2": "'Olá, eu apoiei o Kickstarter!' - siga",
     "whyAdsContent3": "essas instruções",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. The latest survey can be found here:",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. The latest survey can be found here:",
-    "currentSurvey": "Current Survey",
-    "surveyWhen": "The badge will be awarded to all participants when the survey period is over in mid April."
+    "surveysSingle": "Ajudou o HabitRPG a crescer ao preencher uma pesquisa. A pesquisa mais recente pode ser encontrada aqui:",
+    "surveysMultiple": "Ajudou o HabitRPG a crescer ao preencher <%= surveys %> pesquisas. A pesquisa mais recente pode ser encontrada aqui:",
+    "currentSurvey": "Pesquisa Atual",
+    "surveyWhen": "The badge will be awarded to all participants when the survey period is over in late March."
 }

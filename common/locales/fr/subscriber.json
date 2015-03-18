@@ -8,7 +8,7 @@
     "disableAds": "Supprimer les pubs",
     "disableAdsText": "Les publicités seront désactivées tant que vous aurez un abonnement actif (cela reste acquis aux utilisateurs dont les publicités étaient désactivées à l'origine).",
     "buyGemsGold": "Acheter des Gemmes avec de l'Or",
-    "buyGemsGoldText": "(1 Gemme coûte <%= gemCost %> Or) Ceci règle le problème de la logique \"payer pour gagner\" : tout peut désormais être obtenu en récompense d'un dur labeur. Il y a un plafond de conversion de <%= gemLimit %> Gemmes par mois afin d'éviter le farm.",
+    "buyGemsGoldText": "(1 Gemme coûte <%= gemCost %> Or) Ceci règle le problème de la logique \"payer pour gagner\" : tout peut désormais être obtenu en récompense d'un dur labeur. Il y a un toutefois plafond de conversion de <%= gemLimit %> Gemmes par mois afin d'éviter le farm.",
     "retainHistory": "Conserve la totalité des entrées de l'historique",
     "retainHistoryText": "Rend votre historique complet disponible sous forme de graphiques et d'exportation. Les historiques des non-abonnés sont nettoyés pour optimiser la base de données.",
     "doubleDrops": "Limite journalière de butin doublée",
@@ -71,5 +71,5 @@
     "mysticHourglassPopover": "Un Sablier Mystique vous permet d'acheter les tenues d'abonné des mois précédents.",
     "subUpdateCard": "Mettre à jour la Carte",
     "subUpdateTitle": "Mettre à jour",
-    "subUpdateDescription": "Mettez à jour la carte à débiter."
+    "subUpdateDescription": "Mettre à jour la carte à débiter."
 }

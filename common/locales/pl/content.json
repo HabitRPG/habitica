@@ -51,6 +51,8 @@
     "questEggTRexAdjective": "mało-uzbrojony",
     "questEggRockText": "Rock",
     "questEggRockAdjective": "lively",
+    "questEggBunnyText": "Bunny",
+    "questEggBunnyAdjective": "snuggly",
     "eggNotes": "Znajdź eliksir wyklucia i wylej go na to jajo, a wykluje się z niego <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Zwyczajny",
     "hatchingPotionWhite": "Biały",
