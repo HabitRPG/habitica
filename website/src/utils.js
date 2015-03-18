@@ -71,6 +71,8 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
     variables.push({name: 'RECIPIENT_NAME', content: mailingInfoArray[0].name});
   }
 
+  console.log(variables, emailType, mailingInfoArray)
+
   if(isProd && mailingInfoArray.length > 0){
     request({
       url: nconf.get('EMAIL_SERVER:url') + '/job',

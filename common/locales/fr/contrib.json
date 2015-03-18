@@ -61,5 +61,5 @@
     "surveysSingle": "A aidé HabitRPG à croître en participant à une enquête. La dernière en date est accessible ici :",
     "surveysMultiple": "A aidé HabitRPG à croître en participant à <%= surveys %> enquêtes. La dernière en date est accessible ici :",
     "currentSurvey": "Enquête Actuelle",
-    "surveyWhen": "The badge will be awarded to all participants when the survey period is over in late March."
+    "surveyWhen": "Le badge sera attribué à tous les participants lorsque l'enquête sera terminée fin Mars"
 }

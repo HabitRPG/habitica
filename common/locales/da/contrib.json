@@ -61,5 +61,5 @@
     "surveysSingle": "Hjalp HabitRPG med at udvikle sig ved at udfylde et spørgeskema. Det seneste spørgeskema kan ses her:",
     "surveysMultiple": "Hjalp HabitRPG med at udvikle sig ved at udfylde <%= surveys %> spørgeskemaer. Det seneste spørgeskema kan ses her:",
     "currentSurvey": "Nuværende Spørgeskema",
-    "surveyWhen": "The badge will be awarded to all participants when the survey period is over in late March."
+    "surveyWhen": "Emblemet bliver givet til alle, der har udfyldt spørgeskemaet når undersøgelsen slutter ultimo marts."
 }
