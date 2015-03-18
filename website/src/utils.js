@@ -37,7 +37,7 @@ function getUserInfo(user, fields) {
   }
 
   if(fields.indexOf('email') != -1){
-    if(user.auth.local){
+    if(user.auth.local && user.auth.local.email){
       info.email = user.auth.local.email;
     }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
       info.email = user.auth.facebook.emails[0].value;
