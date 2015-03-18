@@ -236,24 +236,28 @@ api.getChat = function(req, res, next) {
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
 api.postChat = function(req, res, next) {
-  var user = res.locals.user
-  var group = res.locals.group;
-  if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
-  var lastClientMsg = req.query.previousMsg;
-  var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
+  if(typeof req.query.message === 'undefined' || req.query.message == '') {
+    return res.json(204,{err:'No content in the message.'});
+  } else {
+    var user = res.locals.user
+    var group = res.locals.group;
+    if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
+    var lastClientMsg = req.query.previousMsg;
+    var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-  group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
+    group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
 
-  if (group.type === 'party') {
-    user.party.lastMessageSeen = group.chat[0].id;
-    user.save();
+    if (group.type === 'party') {
+      user.party.lastMessageSeen = group.chat[0].id;
+      user.save();
+    }
+
+    group.save(function(err, saved){
+      if (err) return next(err);
+      return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+      group = chatUpdated = null;
+    });
   }
-
-  group.save(function(err, saved){
-    if (err) return next(err);
-    return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
-    group = chatUpdated = null;
-  });
 }
 
 api.deleteChatMessage = function(req, res, next){
