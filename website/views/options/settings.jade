@@ -307,6 +307,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
 
             .checkbox
               label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.kickedGroup', ng-change='set({"preferences.emailNotifications.kickedGroup": user.preferences.emailNotifications.kickedGroup ? true: false})')
+                span=env.t('kickedGroup')
+
+            .checkbox
+              label
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.questStarted', ng-change='set({"preferences.emailNotifications.questStarted": user.preferences.emailNotifications.questStarted ? true: false})')
                 span=env.t('questStarted')
 

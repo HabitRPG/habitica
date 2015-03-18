@@ -69,7 +69,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
   // When only one recipient send his info as variables
   if(mailingInfoArray.length === 1 && mailingInfoArray[0].name){
     variables.push({name: 'RECIPIENT_NAME', content: mailingInfoArray[0].name});
-  }  
+  }
 
   if(isProd && mailingInfoArray.length > 0){
     request({

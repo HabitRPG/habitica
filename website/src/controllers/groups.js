@@ -660,7 +660,20 @@ api.invite = function(req, res, next){
 api.removeMember = function(req, res, next){
   var group = res.locals.group;
   var uuid = req.query.uuid;
+  var message = req.query.message;
   var user = res.locals.user;
+
+  // Send an email to the removed user with an optional message from the leader
+  var sendMessage = function(removedUser){
+    if(removedUser.preferences.emailNotifications.kickedGroup !== false){
+      utils.txnEmail(removedUser, ('kicked-from-' + group.type), [
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'MESSAGE', content: message},
+        {name: 'GUILDS_LINK', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'},
+        {name: 'PARTY_WANTED_GUILD', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
+      ]);
+    }
+  }
 
   if(group.leader !== user._id){
     return res.json(401, {err: "Only group leader can remove a member!"});
@@ -678,12 +691,21 @@ api.removeMember = function(req, res, next){
     Group.update({_id:group._id},update, function(err, saved){
       if (err) return next(err);
 
-      // Sending an empty 204 because Group.update doesn't return the group
-      // see http://mongoosejs.com/docs/api.html#model_Model.update
-      return res.send(204);
+      User.findById(uuid, function(err, removedUser){
+        if(err) return next(err);
+
+        sendMessage(removedUser);
+
+        // Sending an empty 204 because Group.update doesn't return the group
+        // see http://mongoosejs.com/docs/api.html#model_Model.update
+        group = uuid = null;
+        return res.send(204);
+      });
     });
   }else if(_.contains(group.invites, uuid)){
     User.findById(uuid, function(err,invited){
+      if(err) return next(err);
+
       var invitations = invited.invitations;
       if(group.type === 'guild'){
         invitations.guilds.splice(_.indexOf(invitations.guilds, group._id), 1);
@@ -703,8 +725,9 @@ api.removeMember = function(req, res, next){
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
-        return res.send(204);
+        sendMessage(invited);
         group = uuid = null;
+        return res.send(204);
       });
 
     });

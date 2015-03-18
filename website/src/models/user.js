@@ -308,6 +308,7 @@ var UserSchema = new Schema({
     emailNotifications: {
       unsubscribeFromAll: {type: Boolean, 'default': false},
       newPM: {type: Boolean, 'default': true},
+      kickedGroup: {type: Boolean, 'default': true},
       wonChallenge: {type: Boolean, 'default': true},
       giftedGems: {type: Boolean, 'default': true},
       giftedSubscription: {type: Boolean, 'default': true},

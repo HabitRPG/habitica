@@ -106,7 +106,7 @@ script(type='text/ng-template', id='modals/remove-member.html')
   .modal-header
     h4=env.t('sureKick')
   .modal-body
-    textarea.form-control(type='text',rows='5', placeholder=env.t('optionalMessage'))
+    textarea.form-control(type='text',rows='5',placeholder=env.t('optionalMessage'),ng-model='removeMemberData.message')
   .modal-footer
-    button.pull-left.btn.btn-danger(ng-click='')=env.t('yesRemove')
-    button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+    button.pull-left.btn.btn-danger(ng-click='confirmRemoveMember(true); $close()')=env.t('yesRemove')
+    button.btn.btn-default(ng-click='confirmRemoveMember(false); $close()')=env.t('cancel')
