@@ -802,6 +802,7 @@ api.questEggs =
   Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
   TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
   Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
+  Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1043,6 +1044,9 @@ api.quests =
       ]
       gp: 25
       exp: 125
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggGryphonText')
       
   hedgehog:
     text: t('questHedgehogText')
@@ -1061,7 +1065,9 @@ api.quests =
       ]
       gp: 30
       exp: 125
-
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggHedgehogText')
 
   ghost_stag:
     text: t('questGhostStagText')
@@ -1080,6 +1086,9 @@ api.quests =
       ]
       gp: 80
       exp: 800
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggDeerText')
 
 
   vice1:
@@ -1176,6 +1185,9 @@ api.quests =
       ]
       gp: 80
       exp: 800
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggRatText')
 
   octopus:
     text: t('questOctopusText')
@@ -1194,6 +1206,9 @@ api.quests =
       ]
       gp: 80
       exp: 800
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggOctopusText')
 
   dilatory_derby:
     text:  t('questSeahorseText')
@@ -1212,6 +1227,9 @@ api.quests =
       ]
       gp: 25
       exp: 125
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggSeahorseText')
 
   atom1:
     text:  t('questAtom1Text')
@@ -1279,6 +1297,9 @@ api.quests =
       ]
       gp: 43
       exp: 350
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggParrotText')
 
   rooster:
     text:       t('questRoosterText')
@@ -1297,6 +1318,9 @@ api.quests =
       ]
       gp: 25
       exp: 125
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggRoosterText')
 
   spider:
     text:       t('questSpiderText')
@@ -1315,6 +1339,9 @@ api.quests =
       ]
       gp: 31
       exp: 200
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggSpiderText')
 
   moonstone1:
     text: t('questMoonstone1Text')
@@ -1454,6 +1481,9 @@ api.quests =
       ]
       gp: 37
       exp: 275
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggOwlText')
 
   penguin:
     text: t('questPenguinText')
@@ -1472,6 +1502,9 @@ api.quests =
       ]
       gp: 31
       exp: 200
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggPenguinText')
 
   trex:
     text: t('questTRexText')
@@ -1490,6 +1523,9 @@ api.quests =
       ]
       gp: 55
       exp: 500
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggTRexText')
 
   trex_undead:
     text: t('questTRexUndeadText')
@@ -1514,6 +1550,9 @@ api.quests =
       ]
       gp: 55
       exp: 500
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggTRexText')
 
   rock:
     text: t('questRockText')
@@ -1532,6 +1571,30 @@ api.quests =
       ]
       gp: 31
       exp: 200
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggRockText')
+      
+  bunny:
+    text: t('questBunnyText')
+    notes: t('questBunnyNotes')
+    completion: t('questBunnyCompletion')
+    value: 4
+    boss:
+      name: t('questBunnyBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Bunny', text: t('questBunnyDropBunnyEgg')}
+        {type: 'eggs', key: 'Bunny', text: t('questBunnyDropBunnyEgg')}
+        {type: 'eggs', key: 'Bunny', text: t('questBunnyDropBunnyEgg')}
+      ]
+      gp: 25
+      exp: 125
+      unlock:
+        text: t('questEggUnlockText')
+        item: t('questEggBunnyText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
