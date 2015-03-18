@@ -1,12 +1,9 @@
 {
   "defaultHabit1Text": "Good Habit",
-  "defaultHabit1Notes": " ",
   
   "defaultHabit2Text": "Bad Habit",
-  "defaultHabit2Notes": " ",
 
   "defaultHabit3Text": "Good or Bad Habit",
-  "defaultHabit3Notes": " ",
 
   "defaultDaily1Text": "1h Personal Project",
   "defaultDaily1Notes": "All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.",
