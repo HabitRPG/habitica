@@ -11,5 +11,4 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
       td {{quest.drop.gp}} 
         =env.t('gold')
     tr
-      td {{quest.drop.unlock}}
-        =env.t('quest.drop.unlock.text', {unlock: 'quest.drop.unlock.item'})
+      td {{quest.drop.unlock.text(quest.drop.unlock.item)}}
