@@ -2946,6 +2946,11 @@ api.questEggs = {
     text: t('questEggRockText'),
     adjective: t('questEggRockAdjective'),
     canBuy: false
+  },
+  Bunny: {
+    text: t('questEggBunnyText'),
+    adjective: t('questEggBunnyAdjective'),
+    canBuy: false
   }
 };
 
@@ -3528,7 +3533,8 @@ api.quests = {
         }
       ],
       gp: 25,
-      exp: 125
+      exp: 125,
+      unlock: t('questGryphonUnlockText')
     }
   },
   hedgehog: {
@@ -3558,7 +3564,8 @@ api.quests = {
         }
       ],
       gp: 30,
-      exp: 125
+      exp: 125,
+      unlock: t('questHedgehogUnlockText')
     }
   },
   ghost_stag: {
@@ -3588,7 +3595,8 @@ api.quests = {
         }
       ],
       gp: 80,
-      exp: 800
+      exp: 800,
+      unlock: t('questGhostStagUnlockText')
     }
   },
   vice1: {
@@ -3764,7 +3772,8 @@ api.quests = {
         }
       ],
       gp: 80,
-      exp: 800
+      exp: 800,
+      unlock: t('questRatUnlockText')
     }
   },
   octopus: {
@@ -3794,7 +3803,8 @@ api.quests = {
         }
       ],
       gp: 80,
-      exp: 800
+      exp: 800,
+      unlock: t('questOctopusUnlockText')
     }
   },
   dilatory_derby: {
@@ -3824,7 +3834,8 @@ api.quests = {
         }
       ],
       gp: 25,
-      exp: 125
+      exp: 125,
+      unlock: t('questSeahorseUnlockText')
     }
   },
   atom1: {
@@ -3932,7 +3943,8 @@ api.quests = {
         }
       ],
       gp: 43,
-      exp: 350
+      exp: 350,
+      unlock: t('questHarpyUnlockText')
     }
   },
   rooster: {
@@ -3962,7 +3974,8 @@ api.quests = {
         }
       ],
       gp: 25,
-      exp: 125
+      exp: 125,
+      unlock: t('questRoosterUnlockText')
     }
   },
   spider: {
@@ -3992,7 +4005,8 @@ api.quests = {
         }
       ],
       gp: 31,
-      exp: 200
+      exp: 200,
+      unlock: t('questSpiderUnlockText')
     }
   },
   moonstone1: {
@@ -4230,7 +4244,8 @@ api.quests = {
         }
       ],
       gp: 37,
-      exp: 275
+      exp: 275,
+      unlock: t('questOwlUnlockText')
     }
   },
   penguin: {
@@ -4260,7 +4275,8 @@ api.quests = {
         }
       ],
       gp: 31,
-      exp: 200
+      exp: 200,
+      unlock: t('questPenguinUnlockText')
     }
   },
   trex: {
@@ -4290,7 +4306,8 @@ api.quests = {
         }
       ],
       gp: 55,
-      exp: 500
+      exp: 500,
+      unlock: t('questTRexUnlockText')
     }
   },
   trex_undead: {
@@ -4327,7 +4344,8 @@ api.quests = {
         }
       ],
       gp: 55,
-      exp: 500
+      exp: 500,
+      unlock: t('questTRexUnlockText')
     }
   },
   rock: {
@@ -4357,7 +4375,39 @@ api.quests = {
         }
       ],
       gp: 31,
-      exp: 200
+      exp: 200,
+      unlock: t('questRockUnlockText')
+    }
+  },
+  bunny: {
+    text: t('questBunnyText'),
+    notes: t('questBunnyNotes'),
+    completion: t('questBunnyCompletion'),
+    value: 4,
+    boss: {
+      name: t('questBunnyBoss'),
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Bunny',
+          text: t('questBunnyDropBunnyEgg')
+        }, {
+          type: 'eggs',
+          key: 'Bunny',
+          text: t('questBunnyDropBunnyEgg')
+        }, {
+          type: 'eggs',
+          key: 'Bunny',
+          text: t('questBunnyDropBunnyEgg')
+        }
+      ],
+      gp: 25,
+      exp: 125,
+      unlock: t('questBunnyUnlockText')
     }
   }
 };
