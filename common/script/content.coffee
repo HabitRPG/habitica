@@ -1044,9 +1044,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggGryphonText')
+      unlock: t('questGryphonUnlockText')
       
   hedgehog:
     text: t('questHedgehogText')
@@ -1065,9 +1063,7 @@ api.quests =
       ]
       gp: 30
       exp: 125
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggHedgehogText')
+      unlock: t('questHedgehogUnlockText')
 
   ghost_stag:
     text: t('questGhostStagText')
@@ -1086,10 +1082,7 @@ api.quests =
       ]
       gp: 80
       exp: 800
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggDeerText')
-
+      unlock: t('questGhostStagUnlockText')
 
   vice1:
     text: t('questVice1Text')
@@ -1185,9 +1178,7 @@ api.quests =
       ]
       gp: 80
       exp: 800
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggRatText')
+      unlock: t('questRatUnlockText')
 
   octopus:
     text: t('questOctopusText')
@@ -1206,9 +1197,7 @@ api.quests =
       ]
       gp: 80
       exp: 800
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggOctopusText')
+      unlock: t('questOctopusUnlockText')
 
   dilatory_derby:
     text:  t('questSeahorseText')
@@ -1227,9 +1216,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggSeahorseText')
+      unlock: t('questSeahorseUnlockText')
 
   atom1:
     text:  t('questAtom1Text')
@@ -1297,9 +1284,7 @@ api.quests =
       ]
       gp: 43
       exp: 350
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggParrotText')
+      unlock: t('questHarpyUnlockText')
 
   rooster:
     text:       t('questRoosterText')
@@ -1318,9 +1303,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggRoosterText')
+      unlock: t('questRoosterUnlockText')
 
   spider:
     text:       t('questSpiderText')
@@ -1339,9 +1322,7 @@ api.quests =
       ]
       gp: 31
       exp: 200
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggSpiderText')
+      unlock: t('questSpiderUnlockText')
 
   moonstone1:
     text: t('questMoonstone1Text')
@@ -1481,9 +1462,7 @@ api.quests =
       ]
       gp: 37
       exp: 275
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggOwlText')
+      unlock: t('questOwlUnlockText')
 
   penguin:
     text: t('questPenguinText')
@@ -1502,9 +1481,7 @@ api.quests =
       ]
       gp: 31
       exp: 200
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggPenguinText')
+      unlock: t('questPenguinUnlockText')
 
   trex:
     text: t('questTRexText')
@@ -1523,9 +1500,7 @@ api.quests =
       ]
       gp: 55
       exp: 500
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggTRexText')
+      unlock: t('questTRexUnlockText')
 
   trex_undead:
     text: t('questTRexUndeadText')
@@ -1550,9 +1525,7 @@ api.quests =
       ]
       gp: 55
       exp: 500
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggTRexText')
+      unlock: t('questTRexUnlockText')
 
   rock:
     text: t('questRockText')
@@ -1571,9 +1544,7 @@ api.quests =
       ]
       gp: 31
       exp: 200
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggRockText')
+      unlock: t('questRockUnlockText')
       
   bunny:
     text: t('questBunnyText')
@@ -1592,9 +1563,7 @@ api.quests =
       ]
       gp: 25
       exp: 125
-      unlock:
-        text: t('questEggUnlockText')
-        item: t('questEggBunnyText')
+      unlock: t('questBunnyUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
