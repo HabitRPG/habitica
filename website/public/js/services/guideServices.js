@@ -135,6 +135,7 @@ function($rootScope, User, $timeout, $state) {
   var tour = {};
   _.each(chapters, function(v,k){
     tour[k] = new Tour({
+      name: k,
       backdrop: true,
       template: function(i,step){
         return '<div class="popover" role="tooltip"> ' +
@@ -203,6 +204,12 @@ function($rootScope, User, $timeout, $state) {
       $rootScope.openModal('rebirthEnabled');
     });
   });
+
+  $(document).on("keyup.tour-intro", function(e) {
+    if (e.which == 27) {
+      return User.set({'flags.tour.intro':-1});
+    }
+  })
 
   return {
     goto: goto
