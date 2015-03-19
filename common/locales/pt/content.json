@@ -51,7 +51,7 @@
     "questEggTRexAdjective": "de braço curto",
     "questEggRockText": "Pedra",
     "questEggRockAdjective": "ao vivo",
-    "questEggBunnyText": "Bunny",
+    "questEggBunnyText": "Coelho",
     "questEggBunnyAdjective": "snuggly",
     "eggNotes": "Ache uma poção de eclosão para usá-la nesse ovo, e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",

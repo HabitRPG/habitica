@@ -38,7 +38,7 @@
     "alreadyHave": "Hoppla! Du hast diesen Gegenstand bereits. Keine Notwendigkeit, ihn wieder zu kaufen!",
     "delete": "Löschen",
     "gems": "Edelsteine",
-    "gemButton": "You have <%= number %> Gems.",
+    "gemButton": "Du hast <%= number %> Edelsteine.",
     "moreInfo": "Mehr Informationen",
     "gemsWhatFor": "Kann mit echtem Geld gekauft werden. Wird benötigt, um besondere Gegenstände und Dienste zu kaufen (Eier, Schlüpftränke, Stärkungstränke, usw.). Du musst diese Features erst freischalten, bevor du Edelsteine dafür verwenden kannst. ",
     "veteran": "Veteran",

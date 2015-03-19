@@ -38,7 +38,7 @@
     "alreadyHave": "Oeps! Je hebt dit artikel al, en hoeft hem niet nog een keer te kopen!",
     "delete": "Verwijderen",
     "gems": "Edelstenen",
-    "gemButton": "You have <%= number %> Gems.",
+    "gemButton": "Je hebt <%= number %> edelstenen.",
     "moreInfo": "Meer informatie",
     "gemsWhatFor": "Gekocht met echt geld. Worden gebruikt voor speciale artikelen en diensten (eieren, uitbroedtoverdranken, Versterk, etc.). Je moet deze functies vrijspelen voordat je edelstenen kunt gebruiken. ",
     "veteran": "Veteraan",

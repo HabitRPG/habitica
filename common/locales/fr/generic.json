@@ -38,7 +38,7 @@
     "alreadyHave": "Oups ! Vous avez déjà cet objet. Pas besoin de le racheter !",
     "delete": "Effacer",
     "gems": "Gemmes",
-    "gemButton": "You have <%= number %> Gems.",
+    "gemButton": "Vous avez <%= number %> gemmes.",
     "moreInfo": "Plus d'infomations",
     "gemsWhatFor": "Obtenues à l'aide d'argent réel. Servent à acheter des objets spéciaux et des services (œufs, potions d'éclosion, Fortification, etc.). Vous aurez besoin de débloquer ces fonctionnalités avant de pouvoir utiliser les Gemmes.",
     "veteran": "Vétéran",
