@@ -18,16 +18,6 @@ habitrpg.directive('taskFocus',
   }
 ]);
 
-habitrpg.directive('habitrpgAdsense', function() {
-  return {
-    restrict: 'A',
-    transclude: true,
-    replace: true,
-    template: '<div ng-transclude></div>',
-    link: function ($scope, element, attrs) {}
-  }
-});
-
 habitrpg.directive('whenScrolled', function() {
   return function(scope, elm, attr) {
     var raw = elm[0];

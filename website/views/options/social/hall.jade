@@ -41,11 +41,6 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         label=env.t('balance')
         input.form-control(type='number', step="any", ng-model='hero.balance')
         small!= '`user.balance`' + env.t('notGems')
-      .form-group
-        .checkbox
-          label
-            input(type='checkbox', ng-model='hero.purchased.ads')
-            =env.t('hideAds')
       accordion
         accordion-group(heading='Items')
           h4 Update Item
