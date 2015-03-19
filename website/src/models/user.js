@@ -120,8 +120,15 @@ var UserSchema = new Schema({
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
     tour: {
-      intro: {type: Number, 'default': 0},
-      classes: {type: Number, 'default': 0}
+      // -1 indicates "uninitiated", -2 means "complete", any other number is the current tour step (0-index)
+      intro: {type: Number,       'default': 0},
+      classes: {type: Number,     'default': -1},
+      stats: {type: Number,       'default': -1},
+      tavern: {type: Number,      'default': -1},
+      party: {type: Number,       'default': -1},
+      guilds: {type: Number,      'default': -1},
+      challenges: {type: Number,  'default': -1},
+      market: {type: Number,      'default': -1}
     },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
