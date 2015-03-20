@@ -108,8 +108,8 @@ habitrpg.controller("InventoryCtrl",
 
       var gems = User.user.balance * 4;
 
-      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // this is ugly but temporary, once the purchase modal is done this will be removed
-      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield') {
+      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'headAccessory') ? window.env.t('headAccessory') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // this is ugly but temporary, once the purchase modal is done this will be removed
+      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield' || type == 'headAccessory') {
         if (gems < ((item.specialClass == "wizard") && (item.type == "weapon")) + 1) return $rootScope.openModal('buyGems');
         var message = window.env.t('buyThis', {text: string, price: ((item.specialClass == "wizard") && (item.type == "weapon")) + 1, gems: gems})
         if($window.confirm(message))
