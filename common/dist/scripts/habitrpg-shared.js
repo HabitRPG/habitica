@@ -74,6 +74,10 @@ events = {
   winter2015: {
     start: '2014-12-21',
     end: '2015-02-02'
+  },
+  spring2015: {
+    start: '2015-03-20',
+    end: '2015-05-02'
   }
 };
 
@@ -698,6 +702,49 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSpring2015RogueText'),
+        notes: t('weaponSpecialSpring2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('weaponSpecialSpring2015WarriorText'),
+        notes: t('weaponSpecialSpring2015WarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialSpring2015MageText'),
+        notes: t('weaponSpecialSpring2015MageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('weaponSpecialSpring2015HealerText'),
+        notes: t('weaponSpecialSpring2015HealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
       }
     },
     mystery: {
@@ -1155,6 +1202,46 @@ gear = {
         canOwn: (function(u) {
           return u.items.gear.owned.armor_special_birthday2015 != null;
         })
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('armorSpecialSpring2015RogueText'),
+        notes: t('armorSpecialSpring2015RogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('armorSpecialSpring2015WarriorText'),
+        notes: t('armorSpecialSpring2015WarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        text: t('armorSpecialSpring2015MageText'),
+        notes: t('armorSpecialSpring2015MageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('armorSpecialSpring2015HealerText'),
+        notes: t('armorSpecialSpring2015HealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
       },
       gaymerx: {
         event: events.gaymerx,
@@ -1667,6 +1754,46 @@ gear = {
           return u.items.gear.owned.head_special_nye2014 != null;
         })
       },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('headSpecialSpring2015RogueText'),
+        notes: t('headSpecialSpring2015RogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('headSpecialSpring2015WarriorText'),
+        notes: t('headSpecialSpring2015WarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        text: t('headSpecialSpring2015MageText'),
+        notes: t('headSpecialSpring2015MageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('headSpecialSpring2015HealerText'),
+        notes: t('headSpecialSpring2015HealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -2078,6 +2205,36 @@ gear = {
         }),
         value: 70,
         con: 9
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('shieldSpecialSpring2015RogueText'),
+        notes: t('shieldSpecialSpring2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('shieldSpecialSpring2015WarriorText'),
+        notes: t('shieldSpecialSpring2015WarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('shieldSpecialSpring2015HealerText'),
+        notes: t('shieldSpecialSpring2015HealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
       }
     },
     mystery: {
@@ -2211,6 +2368,34 @@ gear = {
         specialClass: 'healer',
         text: t('headAccessorySpecialSpringHealerText'),
         notes: t('headAccessorySpecialSpringHealerNotes'),
+        value: 20
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('headAccessorySpecialSpring2015RogueText'),
+        notes: t('headAccessorySpecialSpring2015RogueNotes'),
+        value: 20
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('headAccessorySpecialSpring2015WarriorText'),
+        notes: t('headAccessorySpecialSpring2015WarriorNotes'),
+        value: 20
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        text: t('headAccessorySpecialSpring2015MageText'),
+        notes: t('headAccessorySpecialSpring2015MageNotes'),
+        value: 20
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('headAccessorySpecialSpring2015HealerText'),
+        notes: t('headAccessorySpecialSpring2015HealerNotes'),
         value: 20
       }
     },
