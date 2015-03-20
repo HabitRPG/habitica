@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "før du chatter.",
     "party": "Gruppe",
     "createAParty": "Opret en Gruppe",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Du er enten ikke i en gruppe eller din gruppe tager lang tid at loade. Du kan enten oprette en og invitere venner, eller hvis du vil slutte dig til en eksisterende gruppe få dem til at indtaste dit unikke Bruger ID herunder, og komme tilbage senere for at se invitationen: ",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Opret",

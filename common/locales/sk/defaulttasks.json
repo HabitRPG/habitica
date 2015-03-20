@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Good Habit",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Bad Habit",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Good or Bad Habit",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1h práce na vlastnom projekte",
     "defaultDaily1Notes": "Všetky úlohy sú v základe žlté, keď sa vytvoria. To znamená, že od nich dostaneš len jemné poškodenie, keď ich nesplníš a získaš len menšiu odmenu, keď ich splníš.",
     "defaultDaily2Text": "Uprac si izbu",

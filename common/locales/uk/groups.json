@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "перед тим, як долучитися до чату.",
     "party": "Гурт",
     "createAParty": "Створити гурт",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Ви ще не в гурті, або ваш гурт завантажується. Ви можете створити гурт і запросити своїх друзів, або, якщо бажаєте, приєднатися до вже існуючого, виславши свій унікальний ID-користувача і повернувшись сюда, щоб дочекатись запрошення:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Створити",

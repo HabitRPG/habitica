@@ -38,10 +38,16 @@
     "tourDailies": "Ebben az oszlopban vannak a Napi Feladataid. Hozz létre egy feladatot, amit minden nap meg kell csinálnod! <b>Napi Feladatok minták:</b>: <b>Vesd be az ágyad</b>, <b>Használj fogselymet</b>, <b>Ellenőrizd le a munka e-mailedet.</b>",
     "tourCron": "Remek! A Napi Feladatok minden nap újrakezdődnek.",
     "tourHP": "Vigyázz! Ha nem teljesítesz egy Napi Feladatot éjfélig, akkor az sebezni fog téged!",
-    "tourHabits": "This column is for good and bad Habits that you do many times a day! Click the pencil to edit the names.<ul><li><b>Sample Good Habits: Eat a vegetable, 15 minutes productive work</li><li><b>Sample Bad Habits: Smoke, Procrastinate</b></li><li><b>Sample Good or Bad Habits: Took Stairs/Elevator, Drank Water/Soda</b></li></ul>",
+    "tourHabits": "This column is for good and bad Habits that you do many times a day! To proceed, click the pencil to edit the names, then click the checkmark to save.",
     "tourStats": "Jó szokások tapasztalatot és aranyat adnak! A rossz szokások csökkentik az életerődet.",
     "tourGP": "Vedd meg a Gyakorlókardot az arannyal, amit most szereztél!",
     "tourAvatar": "Most az avatárodnak van egy Gyakorlókardja. Kattints az avatárodra, hogy testre szabd!",
     "tourScrollDown": "Lapozz le teljesen az oldal aljára, hogy biztosan lásd az összes beállítási lehetőséget! Kattints még egyszer az avatárodra, hogy visszamenj a feladataidhoz.",
-    "tourMuchMore": "Ha végeztél a feladataiddal, akkor csinálhatsz csapatot a barátaiddal, társaloghatsz a hasonló érdeklődésű céhekben, kihívásokhoz csatlakozhatsz és még sok hasonlóval foglalkozhatsz!"
+    "tourMuchMore": "Ha végeztél a feladataiddal, akkor csinálhatsz csapatot a barátaiddal, társaloghatsz a hasonló érdeklődésű céhekben, kihívásokhoz csatlakozhatsz és még sok hasonlóval foglalkozhatsz!",
+    "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
+    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can freeze your account in case of illness or travel by clicking 'Rest in the Inn.' Come say hi!",
+    "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",
+    "tourGuildsPage": "Guilds are social groups with common themes. Search for the subjects that interest you! We recommend the Newbies Guild.",
+    "tourChallengesPage": "Joining a Challenge will add tasks to your account. Compete against other users to win gem prizes!",
+    "tourMarketPage": "Starting at Level 4, eggs and hatching potions drop randomly when you complete tasks. They appear here - use them to hatch pets! You can also buy items from the Market."
 }

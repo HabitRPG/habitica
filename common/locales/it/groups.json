@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "prima di scrivere.",
     "party": "Squadra",
     "createAParty": "Crea una Squadra",
-    "updatedParty": "Impostazioni squadra aggiornate. Per favore ricarica la pagina per vedere i cambiamenti.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Non sei in una squadra, oppure la tua squadra sta impiegando troppo tempo a caricarsi. Puoi crearne una ed invitare i tuoi amici; se invece vuoi unirti ad una squadra esistente, chiedi di inserire il tuo ID Utente e torna qui per visualizzare l'invito:",
     "LFG": "Per pubblicizzare la tua nuova squadra o trovarne una a cui unirti, vai alla Gilda <%= linkStart %>Party Wanted<%= linkEnd %> (in inglese).",
     "create": "Crea",

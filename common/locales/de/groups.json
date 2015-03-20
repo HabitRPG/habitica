@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "vor dem Chatten.",
     "party": "Gruppe",
     "createAParty": "Gruppe erstellen",
-    "updatedParty": "Gruppeneinstellungen geändert. Bitte aktualisiere die Seite um die Änderungen zu sehen. ",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Entweder bist Du noch in keiner Gruppe oder Deine Gruppe dauert etwas länger, um zu laden. Du kannst eine neue Gruppe erstellen und Freunde einladen. Wenn Du stattdessen einer bestehenden Gruppe beitreten willst, sag ihnen, dass sie Deine persönliche User ID eingeben sollen und komm dann zurück hierher um nach der Einladung zu suchen: ",
     "LFG": "Um deine Gruppe bekannt zu machen oder um eine zu finden, der du beitreten kannst, gehe zur <%= linkStart %>Gruppe gesucht<%= linkEnd %>-Gilde.",
     "create": "Erstellen",

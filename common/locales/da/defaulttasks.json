@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Good Habit",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Bad Habit",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Good or Bad Habit",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1 times Personligt Projekt",
     "defaultDaily1Notes": "Alle opgaver har gul som udgangspunkt når de er skabt. Det betyder, at du kun tager moderat skade når de bliver sprunget over, og at du får kun en moderat belønning når de er gennemført. ",
     "defaultDaily2Text": "Rengør din lejlighed",

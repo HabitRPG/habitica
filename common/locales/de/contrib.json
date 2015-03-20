@@ -58,8 +58,8 @@
     "whyAdsContent1": "HabitRPG ist ein \"open source Project\" und kann jede Hilfe brauchen, die es bekommen kann - Betrachte es als Spende an die Mitwirkenden. Du erhältst zudem 20 Edelsteine für den Kauf, die Du verwenden kannst um tolle Gegenstände zu kaufen.",
     "whyAdsContent2": "'Hey, ich habe die Kickstarter-Kampagne mitgetragen!' - Folge",
     "whyAdsContent3": "dieser Anleitung",
-    "surveysSingle": "Hilf HabitRPG zu wachsen, indem du eine Umfrage ausfüllst. Die aktuellste Umfrage findest du hier: ",
-    "surveysMultiple": "Half HabitRPG zu wachsen, durch ausfüllen von <%= surveys %> Umfrage(n). Die aktuellste Umfrage findest du hier: ",
+    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
+    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
     "currentSurvey": "Aktuelle Umfrage",
-    "surveyWhen": "Das Abzeichen wird allen Teilnehmern verliehen sobald der Umfragezeitraum etwa Ende März vorüber ist. "
+    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

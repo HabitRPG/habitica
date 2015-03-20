@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "przed rozpoczęciem rozmowy.",
     "party": "Drużyna",
     "createAParty": "Stwórz Drużynę",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Nie jesteś w drużynie albo twoja drużyna jeszcze się nie wczytała. Możesz albo stworzyć własną i zaprosić przyjaciół, albo - jeśli wolisz dołączyć do już istniejącej - poproś Przywódcę tej Drużyny aby wpisał twój unikalny ID użytkownika poniżej, a wtedy znajdziesz tutaj zaproszenie.",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Stwórz",

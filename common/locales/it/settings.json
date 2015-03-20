@@ -98,7 +98,7 @@
     "invitedQuest": "Invito ad unirti ad una missione",
     "kickedGroup": "Espulsione da un gruppo",
     "remindersToLogin": "Promemoria per accedere ad HabitRPG",
-    "unsubscribeAllEmails": "Non ricevere nessuna email",
+    "unsubscribeAllEmails": "Disattiva tutte le notifiche email",
     "unsubscribeAllEmailsText": "Selezionando questa opzione, confermo di essere cosciente del fatto che, disattivando le notifiche via email, HabitRPG non sarà mai in grado di notificarmi via email cambiamenti importanti riguardo al sito o al mio account.",
     "correctlyUnsubscribedEmailType": "Sottoscrizione alle mail \"<%= emailType %>\" annullata correttamente.",
     "subscriptionRateText": "<%= price %>$ ogni <%= months %> mesi",

@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "antes de chatear.",
     "party": "Equipo",
     "createAParty": "Crear un Equipo",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "O no tienes un equipo o tu equipo está tardando en cargar. Puedes crear uno e invitar algunos amigos, o si quieres unirte a un equipo existente, haz que introduzcan tu ID de usuario único abajo y después vuelves aquí para buscar la invitación:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Crear",

@@ -15,7 +15,7 @@
     "begin": "Starta",
     "bossHP": "Bossens Hälsa",
     "bossStrength": "Boss Strength",
-    "collect": "Collect",
+    "collect": "Samla",
     "collected": "Samlade",
     "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot.",

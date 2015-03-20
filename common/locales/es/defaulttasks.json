@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Good Habit",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Bad Habit",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Good or Bad Habit",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1h proyecto personal",
     "defaultDaily1Notes": "Todas las tareas creadas por defecto están de color amarillo Esto significa que te harán un daño moderado cuando no las haces y ganarás una recompensa moderada cuando las realizas.",
     "defaultDaily2Text": "Limpiar tu apartamento",

@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Good Habit",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Bad Habit",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Good or Bad Habit",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "שעה 1 פרוייקט אישי",
     "defaultDaily1Notes": "כל המשימות מתחילות בצבע צהוב. זאת אומרת שתקבל נזק בינוני וסביר כשתפספס אותן ותקבל שכר בינוני וסביר גם כן, כשתעמוד בהן.",
     "defaultDaily2Text": "ניקיון הדירה",

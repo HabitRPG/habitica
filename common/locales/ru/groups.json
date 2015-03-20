@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "до того, как включиться в чат.",
     "party": "Команда",
     "createAParty": "Создать команду",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Вы не в команде, либо ее загрузка занимает время. Вы можете создать новую команду и пригласить друзей или, если хотите присоединиться к существующей, попросите ее участников ввести ваш персональный ID:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Создать",

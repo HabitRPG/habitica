@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Gute Gewohnheit",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Schlechte Gewohnheit",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Gute oder schlechte Gewohnheit",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1 Stunde persönliches Projekt",
     "defaultDaily1Notes": "Standardmäßig haben alle neuen Aufgaben eine gelbe Farbe.  Verpasst Du sie zu Erledigen, nimmst Du nur mäßigen Schaden, wirst beim Erledigen aber auch nur durchschnittlich belohnt.",
     "defaultDaily2Text": "Wohnung aufräumen",

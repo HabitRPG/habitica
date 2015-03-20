@@ -58,8 +58,8 @@
     "whyAdsContent1": "Habit es un proyecto de código abierto y se puede utilizar toda la ayuda que pueda conseguir - considere esto como una donación a los colaboradores. También consigues 20 gemas con la compra, que puedes utilizar para comprar artículos especiales.",
     "whyAdsContent2": "«¡Oye, he respaldado el Kickstarter!» - sigue",
     "whyAdsContent3": "estas instrucciones",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. The latest survey can be found here:",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. The latest survey can be found here:",
+    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
+    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
     "currentSurvey": "Current Survey",
-    "surveyWhen": "The badge will be awarded to all participants when the survey period is over in late March."
+    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

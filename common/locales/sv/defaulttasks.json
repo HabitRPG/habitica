@@ -1,7 +1,10 @@
 {
-    "defaultHabit1Text": "Good Habit",
-    "defaultHabit2Text": "Bad Habit",
-    "defaultHabit3Text": "Good or Bad Habit",
+    "defaultHabit1Text": "Bra vana",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
+    "defaultHabit2Text": "Dålig vana",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
+    "defaultHabit3Text": "Bra eller dålig vana",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1 Timme Personligt Projekt",
     "defaultDaily1Notes": "Alla uppgifter är automatiskt gula när de skapas. Det betyder att du bara kommer att ta  måttlig skada när de missas, och att du får en måttlig belöning när de är fullföljda.",
     "defaultDaily2Text": "Städa din lägenhet",

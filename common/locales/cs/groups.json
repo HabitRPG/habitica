@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "než začneš chatovat.",
     "party": "Družina",
     "createAParty": "Vytvořit družinu",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Nejsi členem družiny nebo načítání tvé družiny trvá déle než obvykle. Můžeš družinu založit a pozvat do ní přátele, nebo se stát členem už existující družiny, v tom případě je nech zadat následující Uživatelské ID a poté se sem vrať přijmout pozvánku:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Vytvořit",

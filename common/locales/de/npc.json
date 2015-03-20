@@ -38,10 +38,16 @@
     "tourDailies": "Diese Spalte ist für tägliche Aufgaben. Gib eine Aufgabe ein, die du jeden Tag machen solltest! <b>Beispiele für tägliche Aufgaben</b>: <b>Bett machen</b>, <b>Zahnseide benutzen</b>, <b>Geschäfts-E-Mails durchsehen</b>",
     "tourCron": "Großartig! Deine täglichen Aufgaben werden jeden Tag zurück gesetzt. ",
     "tourHP": "Pass auf! Wenn du eine tägliche Aufgabe nicht bis Mitternacht erfüllst, wird sie dir Schaden zufügen!",
-    "tourHabits": "This column is for good and bad Habits that you do many times a day! Click the pencil to edit the names.<ul><li><b>Sample Good Habits: Eat a vegetable, 15 minutes productive work</li><li><b>Sample Bad Habits: Smoke, Procrastinate</b></li><li><b>Sample Good or Bad Habits: Took Stairs/Elevator, Drank Water/Soda</b></li></ul>",
+    "tourHabits": "This column is for good and bad Habits that you do many times a day! To proceed, click the pencil to edit the names, then click the checkmark to save.",
     "tourStats": "Gute Gewohnheiten bringen Erfahrung und Gold! Schlechte Gewohnheiten verringern deine Lebenspunkte. ",
     "tourGP": "Kaufe das Übungschwert mit dem Gold, das du gerade verdient hast!",
     "tourAvatar": "Nun besitzt dein Avatar das Übungsschwert. Klick auf deinen Avatar um ihn anzupassen!",
     "tourScrollDown": "Gehe sicher, dass du auch ganz nach unten scrollst um alle Optionen zu sehen! Klicke erneut auf deinen Avatar um zur Aufgabenseite zurück zu kehren. ",
-    "tourMuchMore": "Wenn du fertig bist mit den Aufgaben, kannst du eine Gruppe mit Freunden gründen, in den themenbezogenen Gilden chatten, Wettbewerben beitreten und vieles mehr!"
+    "tourMuchMore": "Wenn du fertig bist mit den Aufgaben, kannst du eine Gruppe mit Freunden gründen, in den themenbezogenen Gilden chatten, Wettbewerben beitreten und vieles mehr!",
+    "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
+    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can freeze your account in case of illness or travel by clicking 'Rest in the Inn.' Come say hi!",
+    "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",
+    "tourGuildsPage": "Guilds are social groups with common themes. Search for the subjects that interest you! We recommend the Newbies Guild.",
+    "tourChallengesPage": "Joining a Challenge will add tasks to your account. Compete against other users to win gem prizes!",
+    "tourMarketPage": "Starting at Level 4, eggs and hatching potions drop randomly when you complete tasks. They appear here - use them to hatch pets! You can also buy items from the Market."
 }

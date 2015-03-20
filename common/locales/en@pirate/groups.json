@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "before chatting.",
     "party": "Crew",
     "createAParty": "Form a Crew",
-    "updatedParty": "Party settings updated. Please refresh the page to see the changes.",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "Ye be either not in a crew or ye crew be takin' a while to load. ye can either create one 'n invite buckos, or if ye want to join an existin' crew, have them enter ye Unique User ID below 'n then come back here to look fer th' invitation:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Create",

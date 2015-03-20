@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Habit Positivo",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Habit Negativo",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Habit Positivo o Negativo",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1h Progetto personale",
     "defaultDaily1Notes": "Le attività appena create sono inizialmente di colore giallo. Questo significa che subirai pochi danni se le trascuri e guadagnerai una ricompensa normale quando le completi.",
     "defaultDaily2Text": "Pulisci casa",

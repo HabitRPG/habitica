@@ -1,7 +1,10 @@
 {
     "defaultHabit1Text": "Good Habit",
+    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
     "defaultHabit2Text": "Bad Habit",
+    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
     "defaultHabit3Text": "Good or Bad Habit",
+    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
     "defaultDaily1Text": "1 час работы над личным проектом",
     "defaultDaily1Notes": "Все задачи при создании по умолчанию имеют желтый цвет. Это означает, что вы получите только небольшой урон при их пропуске, а также небольшое вознаграждение при их выполнении.",
     "defaultDaily2Text": "Навести порядок дома",
