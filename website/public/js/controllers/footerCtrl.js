@@ -26,7 +26,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
     // Google Analytics, only in production
-    if (true || window.env.NODE_ENV === 'production') {
+    if (window.env.NODE_ENV === 'production') {
       // Get experiments API
       $.getScript('//www.google-analytics.com/cx/api.js?experiment=OPMHlSzSTj2gVYwUS72wlQ', function(){
         $rootScope.chosenVariation = cxApi.chooseVariation();
