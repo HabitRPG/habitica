@@ -187,7 +187,7 @@ function($rootScope, User, $timeout, $state) {
           '<div class="popover-content"></div> ' +
           '<div class="popover-navigation"> ' +
           //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>'+
-          ((step.final || name == "classes") ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '')+
+          ((step.final || k == 'classes') ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '')+
           '<div class="btn-group"> ' +
           '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> ' +
           '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> ' +
