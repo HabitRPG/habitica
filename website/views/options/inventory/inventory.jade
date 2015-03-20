@@ -28,13 +28,13 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
   .container-fluid
     .stable.row
       .col-md-2
-        .seasonalshop_closed
+        .seasonalshop_spring2015
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+          h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
-            p!=env.t('seasonalShopClosedText', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Grand_Galas' target='_blank'>", linkEnd: "</a>"})
+            p!=env.t('seasonalShopText')
     .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{springWarrior:env.t("mightyBunnySet"), springMage:env.t("magicMouseSet"), springHealer:env.t("lovingPupSet"), springRogue:env.t("stealthyKittySet")}')
@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
         // not the seasonal shop. This makes that more clear.
         div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key] === true ||user.items.gear.owned[item.key] === false}")
           button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
-          .text-center
+          .text-left
             | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
             span.Pet_Currency_Gem1x.inline-gems
       // menu.pets-menu(label=env.t('quests'))
