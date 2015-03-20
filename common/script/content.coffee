@@ -27,6 +27,7 @@ events =
   gaymerx: {start:'2014-07-02',end:'2014-08-01'}
   fall: {start:'2014-09-21',end:'2014-11-01'}
   winter2015: {start:'2014-12-21',end:'2015-02-02'}
+  spring2015: {start:'2015-03-20',end:'2015-05-02'}
 # IMPORTANT: The end date should be one to two days AFTER the actual end of
 # the event, to allow people in different timezones to still buy the
 # event gear up until at least the actual end of the event.
@@ -122,10 +123,15 @@ gear =
       fallMage:     event: events.fall, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialFallMageText'), notes: t('weaponSpecialFallMageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       fallHealer:   event: events.fall, specialClass: 'healer',  text: t('weaponSpecialFallHealerText'), notes: t('weaponSpecialFallHealerNotes', {int: 9}), value: 90, int: 9
       # Winter 2015
-      winter2015Rogue:  event: events.winter2015, specialClass: 'rogue', text: t('weaponSpecialWinter2015RogueText'), notes: t('weaponSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
+      winter2015Rogue:    event: events.winter2015, specialClass: 'rogue', text: t('weaponSpecialWinter2015RogueText'), notes: t('weaponSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('weaponSpecialWinter2015WarriorText'), notes: t('weaponSpecialWinter2015WarriorNotes', {str: 15}), value: 90, str: 15
       winter2015Mage:     event: events.winter2015, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialWinter2015MageText'), notes: t('weaponSpecialWinter2015MageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
       winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('weaponSpecialWinter2015HealerText'), notes: t('weaponSpecialWinter2015HealerNotes', {int: 9}), value: 90, int: 9
+      # Spring 2015
+      spring2015Rogue:    event: events.spring2015, specialClass: 'rogue', text: t('weaponSpecialSpring2015RogueText'), notes: t('weaponSpecialSpring2015RogueNotes', {str: 8}), value: 80, str: 8
+      spring2015Warrior:  event: events.spring2015, specialClass: 'warrior', text: t('weaponSpecialSpring2015WarriorText'), notes: t('weaponSpecialSpring2015WarriorNotes', {str: 15}), value: 90, str: 15
+      spring2015Mage:     event: events.spring2015, specialClass: 'wizard',  twoHanded:true, text: t('weaponSpecialSpring2015MageText'), notes: t('weaponSpecialSpring2015MageNotes', {int: 15, per: 7}), value: 160, int:15, per:7
+      spring2015Healer:   event: events.spring2015, specialClass: 'healer',  text: t('weaponSpecialSpring2015HealerText'), notes: t('weaponSpecialSpring2015HealerNotes', {int: 9}), value: 90, int: 9
     mystery:
       201411: text: t('weaponMystery201411Text'), notes: t('weaponMystery201411Notes'), mystery:'201411', value: 0
       201502: text: t('weaponMystery201502Text'), notes: t('weaponMystery201502Notes'), mystery:'201502', value: 0
@@ -193,6 +199,11 @@ gear =
       winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('armorSpecialWinter2015MageText'), notes: t('armorSpecialWinter2015MageNotes', {int: 9}), value: 90, int: 9
       winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('armorSpecialWinter2015HealerText'), notes: t('armorSpecialWinter2015HealerNotes', {con: 15}), value: 90, con: 15
       birthday2015:   text: t('armorSpecialBirthday2015Text'), notes: t('armorSpecialBirthday2015Notes'), value: 0, canOwn: ((u)-> u.items.gear.owned.armor_special_birthday2015?)
+      # Spring 2015
+      spring2015Rogue:    event: events.spring2015, specialClass: 'rogue',   text: t('armorSpecialSpring2015RogueText'), notes: t('armorSpecialSpring2015RogueNotes', {per: 15}), value: 90, per: 15
+      spring2015Warrior:  event: events.spring2015, specialClass: 'warrior', text: t('armorSpecialSpring2015WarriorText'), notes: t('armorSpecialSpring2015WarriorNotes', {con: 9}), value: 90, con: 9
+      spring2015Mage:     event: events.spring2015, specialClass: 'wizard',    text: t('armorSpecialSpring2015MageText'), notes: t('armorSpecialSpring2015MageNotes', {int: 9}), value: 90, int: 9
+      spring2015Healer:   event: events.spring2015, specialClass: 'healer',  text: t('armorSpecialSpring2015HealerText'), notes: t('armorSpecialSpring2015HealerNotes', {con: 15}), value: 90, con: 15
       # Other
       gaymerx:    event: events.gaymerx, text: t('armorSpecialGaymerxText'), notes: t('armorSpecialGaymerxNotes'), value: 0
     mystery:
@@ -270,6 +281,11 @@ gear =
       winter2015Mage:     event: events.winter2015, specialClass: 'wizard',    text: t('headSpecialWinter2015MageText'), notes: t('headSpecialWinter2015MageNotes', {per: 7}),value: 60,per: 7
       winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('headSpecialWinter2015HealerText'), notes: t('headSpecialWinter2015HealerNotes', {int: 7}), value: 60, int: 7
       nye2014:      text: t('headSpecialNye2014Text'), notes: t('headSpecialNye2014Notes'), value: 0, canOwn: ((u)-> u.items.gear.owned.head_special_nye2014?)
+      # Spring 2015
+      spring2015Rogue:    event: events.spring2015, specialClass: 'rogue',   text: t('headSpecialSpring2015RogueText'), notes: t('headSpecialSpring2015RogueNotes', {per: 9}),value: 60,per: 9
+      spring2015Warrior:  event: events.spring2015, specialClass: 'warrior', text: t('headSpecialSpring2015WarriorText'), notes: t('headSpecialSpring2015WarriorNotes', {str: 9}),value: 60,str: 9
+      spring2015Mage:     event: events.spring2015, specialClass: 'wizard',    text: t('headSpecialSpring2015MageText'), notes: t('headSpecialSpring2015MageNotes', {per: 7}),value: 60,per: 7
+      spring2015Healer:   event: events.spring2015, specialClass: 'healer',  text: t('headSpecialSpring2015HealerText'), notes: t('headSpecialSpring2015HealerNotes', {int: 7}), value: 60, int: 7
       # Other
       gaymerx:        event: events.gaymerx, text: t('headSpecialGaymerxText'), notes: t('headSpecialGaymerxNotes'), value: 0
     mystery:
@@ -336,6 +352,10 @@ gear =
       winter2015Rogue:    event: events.winter2015, specialClass: 'rogue',   text: t('shieldSpecialWinter2015RogueText'), notes: t('shieldSpecialWinter2015RogueNotes', {str: 8}), value: 80, str: 8
       winter2015Warrior:  event: events.winter2015, specialClass: 'warrior', text: t('shieldSpecialWinter2015WarriorText'), notes: t('shieldSpecialWinter2015WarriorNotes', {con: 7}), value: 70, con: 7
       winter2015Healer:   event: events.winter2015, specialClass: 'healer',  text: t('shieldSpecialWinter2015HealerText'), notes: t('shieldSpecialWinter2015HealerNotes', {con: 9}), value: 70, con: 9
+      # Spring 2015
+      spring2015Rogue:    event: events.spring2015, specialClass: 'rogue',   text: t('shieldSpecialSpring2015RogueText'), notes: t('shieldSpecialSpring2015RogueNotes', {str: 8}), value: 80, str: 8
+      spring2015Warrior:  event: events.spring2015, specialClass: 'warrior', text: t('shieldSpecialSpring2015WarriorText'), notes: t('shieldSpecialSpring2015WarriorNotes', {con: 7}), value: 70, con: 7
+      spring2015Healer:   event: events.spring2015, specialClass: 'healer',  text: t('shieldSpecialSpring2015HealerText'), notes: t('shieldSpecialSpring2015HealerNotes', {con: 9}), value: 70, con: 9
     mystery:
       301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:'301405', value: 0
 
@@ -370,6 +390,11 @@ gear =
       springWarrior: event: events.spring, specialClass: 'warrior', text: t('headAccessorySpecialSpringWarriorText'), notes: t('headAccessorySpecialSpringWarriorNotes'), value: 20
       springMage:    event: events.spring, specialClass: 'wizard',  text: t('headAccessorySpecialSpringMageText'), notes: t('headAccessorySpecialSpringMageNotes'), value: 20
       springHealer:  event: events.spring, specialClass: 'healer',  text: t('headAccessorySpecialSpringHealerText'), notes: t('headAccessorySpecialSpringHealerNotes'), value: 20
+      # Spring 2015
+      spring2015Rogue:   event: events.spring2015, specialClass: 'rogue',   text: t('headAccessorySpecialSpring2015RogueText'), notes: t('headAccessorySpecialSpring2015RogueNotes'), value: 20
+      spring2015Warrior: event: events.spring2015, specialClass: 'warrior', text: t('headAccessorySpecialSpring2015WarriorText'), notes: t('headAccessorySpecialSpring2015WarriorNotes'), value: 20
+      spring2015Mage:    event: events.spring2015, specialClass: 'wizard',  text: t('headAccessorySpecialSpring2015MageText'), notes: t('headAccessorySpecialSpring2015MageNotes'), value: 20
+      spring2015Healer:  event: events.spring2015, specialClass: 'healer',  text: t('headAccessorySpecialSpring2015HealerText'), notes: t('headAccessorySpecialSpring2015HealerNotes'), value: 20
       
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
