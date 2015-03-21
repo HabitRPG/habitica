@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Maga Stagionale<%= linkEnd %>",
     "seasonalShopClosedText": "Il Negozio Stagionale è attualmente chiuso! Non so dove sia la Maga Stagionale ora, ma scommetto che sarà di ritorno durante il prossimo <%= linkStart %>Grand Gala<%= linkEnd %>!",
-    "seasonalShopText": "Benvenuto nel Negozio Stagionale! Da adesso fino al 31 gennaio, offriamo un sacco di oggetti in una speciale edizione invernale. Dopodichè questi oggetti non saranno più disponibili fino al prossimo anno, quindi comprali finchè sono ancora caldi! O, ehm, freschi.",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Se hai usato la Sfera della Rinascita, potrai riacquistare questo equipaggiamento dalla Colonna delle Ricompense dopo aver sbloccato l'Item Shop. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero per default), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
     "candycaneSet": "Caramello (Mago)",
     "skiSet": "Nevassassino (Assassino)",
@@ -38,5 +38,9 @@
     "newYear2": "Buon anno nuovo! Ti auguro di aggiudicarti molti Giorni Perfetti.",
     "newYear3": "Buon anno nuovo! Ti auguro che la tua lista di To-Do resti breve e piacevole.",
     "newYear4": "Buon anno nuovo! Ti auguro di non essere attaccato da un Ippogrifo inferocito.",
-    "holidayCard": "Hai ricevuto un biglietto festivo!"
+    "holidayCard": "Hai ricevuto un biglietto festivo!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

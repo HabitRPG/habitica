@@ -1,10 +1,10 @@
 {
     "defaultHabit1Text": "Bom Hábito",
-    "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
+    "defaultHabit1Notes": "Exemplos de Bons Hábitos: + Comer vegetais +15 minutos de trabalho produtivo",
     "defaultHabit2Text": "Mau Hábito",
-    "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
+    "defaultHabit2Notes": "Exemplos de Maus Hábitos: - Fumar - Procrastinar",
     "defaultHabit3Text": "Bom ou Mau Hábito",
-    "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
+    "defaultHabit3Notes": "Exemplos de Bons ou Maus Hábitos: +/- Usar Escadas/Elevator ; +/- Beber Água/Refrigerante",
     "defaultDaily1Text": "1h de Projeto Pessoal",
     "defaultDaily1Notes": "Todas as tarefas são amarelas quando criadas. Isso quer dizer que você só tomará dano moderado quando não completá-las e ganhará uma recompensa moderada quando completá-las.",
     "defaultDaily2Text": "Limpe seu apartamento",

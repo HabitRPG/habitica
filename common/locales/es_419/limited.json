@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "Hechicera estacional",
     "seasonalShopClosedText": "¡¡La Tienda estacional está actualmente cerrada!! No sé dónde está la Hechicera estacional, pero apuesto a que volverá durante la próxima <%= linkStart %>Gran gala<%= linkEnd %>!",
-    "seasonalShopText": "¡Bienvenidos a la Tienda estacional! Desde ahora hasta el 31 de enero, estamos almacenando varios artículos de edición invierno.  Después de esa fecha, esos artículos no vuelven por un año, así que ¡¡consiguelos mientras están calientes!! O, em, fríos.",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Si has usado la Esfera de Renacimiento, puedes re-comprar este equipamiento en la columna de premios luego de que desbloquees la tienda de artículos. Inicialmente solo podrás comprar artículos para tu clase actual (Guerrero por defecto), pero no temas, los otros artículos específicos de clase van a estar disponibles cuando cambies a esa clase.",
     "candycaneSet": "Bastón de caramelo (Mago)",
     "skiSet": "Esquia-sesino (Granuja)",
@@ -38,5 +38,9 @@
     "newYear2": "¡Feliz Año Nuevo! Que logres muchos Días perfectos.",
     "newYear3": "¡Feliz Año Nuevo! Que tu lista de Pendientes se mantenga corto y conciso.",
     "newYear4": "¡Feliz Año Nuevo! Que no te ataque un hipogrifo furioso.",
-    "holidayCard": "Recibiste una carta de Vacaciones!"
+    "holidayCard": "Recibiste una carta de Vacaciones!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

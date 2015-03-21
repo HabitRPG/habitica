@@ -38,16 +38,16 @@
     "tourDailies": "Cette colonne est pour les tâches Quotidiennes. Ajoutez les tâches que vous devriez faire chaque jour ! <b>Exemple de tâches Quotidiennes</b>: <b>Faire le Lit</b>, <b>Se Brosser les Dents</b>, <b>Vérifier les Mails Professionnels</b>",
     "tourCron": "Magnifique ! Vos Quotidiennes sont réinitialisées chaque jour.",
     "tourHP": "Prenez garde ! Si vous ne complétez pas une Quotidienne avant minuit, elle vous infligera des dégâts.",
-    "tourHabits": "This column is for good and bad Habits that you do many times a day! To proceed, click the pencil to edit the names, then click the checkmark to save.",
+    "tourHabits": "Cette colonne est pour les bonnes et mauvaises habitudes que vous réalisez fréquemment ! Pour continuer, cliquez sur le crayon pour changer les noms, puis cliquez sur la coche pour enregistrer.",
     "tourStats": "Les bonnes habitudes vous donneront de l'expérience et de l'or. Les mauvaises habitude vous feront perdre de la vie.",
     "tourGP": "Achetez l'épée d'entrainement avec l'or que vous venez juste de gagner !",
     "tourAvatar": "Maintenant, votre avatar a l'épée d'entraînement. Cliquez sur votre avatar pour le personnaliser !",
     "tourScrollDown": "Faites attention à bien aller tout en bas de la page pour voir toutes les options ! Cliquez sur votre avatar à nouveau pour retourner à la page des tâches.",
     "tourMuchMore": "Quand vous aurez fini avec vos tâches, vous pourrez former une équipe avec vos amis, discuter dans les guildes liées à vos centres d'intérêts, participer à des défis, et bien plus !",
-    "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
-    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can freeze your account in case of illness or travel by clicking 'Rest in the Inn.' Come say hi!",
-    "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",
-    "tourGuildsPage": "Guilds are social groups with common themes. Search for the subjects that interest you! We recommend the Newbies Guild.",
-    "tourChallengesPage": "Joining a Challenge will add tasks to your account. Compete against other users to win gem prizes!",
-    "tourMarketPage": "Starting at Level 4, eggs and hatching potions drop randomly when you complete tasks. They appear here - use them to hatch pets! You can also buy items from the Market."
+    "tourStatsPage": "Ceci est votre page de statistiques ! Remportez des succès en complétant les tâches listées.",
+    "tourTavernPage": "Bienvenue à la Taverne, un lieu de discussion pour tout le monde ! Vous pouvez geler votre compte en cas de maladie ou de voyage, en cliquant sur 'Se reposer à l'Auberge.' Venez dire bonjour !",
+    "tourPartyPage": "Votre équipe vous aidera à rester responsable. Invitez des amis pour déverrouiller un parchemin de quête !",
+    "tourGuildsPage": "Les Guildes sont des groupes de personnes avec des centres d'intérêts communs. Recherchez les sujets qui vous plaisent ! Nous vous recommandons la guilde des nouveaux arrivants.",
+    "tourChallengesPage": "Rejoindre un défi ajoutera des tâches à votre compte. Rivaliser avec d'autres membres pour gagner des lots de gemmes !",
+    "tourMarketPage": "A partir du niveau 4, des œufs et des potions d'éclosion apparaitront au hasard comme butin lorsque vous réaliserez vos tâches. Ils apparaissent ici - utilisez les pour faire éclore des Familiers ! Vous pouvez aussi acheter des objets au Marché."
 }

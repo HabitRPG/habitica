@@ -38,7 +38,7 @@
     "alreadyHave": "Ups! Już masz ten przedmiot. Nie ma potrzeby kupować go ponownie!",
     "delete": "Usuń",
     "gems": "Klejnoty",
-    "gemButton": "You have <%= number %> Gems.",
+    "gemButton": "Masz <%= number %> klejnotów.",
     "moreInfo": "Więcej informacji",
     "gemsWhatFor": "Kupione za prawdziwe pieniądze. Są używane do kupowania specjalnych przedmiotów i usług (jaja, eliksiry wyklucia, Wzmocnienie itp.). Musisz najpierw odblokować te funkcje zanim będziesz w stanie użyć Klejnotów.",
     "veteran": "Weteran",

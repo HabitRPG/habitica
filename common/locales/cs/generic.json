@@ -38,7 +38,7 @@
     "alreadyHave": "Oops! Tohle už máš. Nemusíš si to kupovat znovu!",
     "delete": "Odstranit",
     "gems": "Drahokamy",
-    "gemButton": "You have <%= number %> Gems.",
+    "gemButton": "Máš <%= number %> Drahokamy/Drahokamů",
     "moreInfo": "Více informací",
     "gemsWhatFor": "Zakoupeno za reálné peníze. Používají se k nakupování speciálních předmětů a služeb (vejce, líhnoucí lektvary, posílení, atd.). Nejprve však musíš mít tyto funkce odemknuté, abys mohl drahokamy použít.",
     "veteran": "Veterán",

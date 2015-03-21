@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezónní mudrci<%= linkEnd %>",
     "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <%= linkStart %>Velkolepé Gala<%= linkEnd %>!",
-    "seasonalShopText": "Vítej v sezónním obchodě! Odteď až do 31. ledna ti nabízíme spoustu zimních věciček. Potom už je neseženeš až zas do příštího roku, takže si je nakup, dokud jsou horké! No, ehm, studené.",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Pokud jsi použil Kouli znovuzrození, můžeš si znovu zakoupit toto vybavení ve sloupci s odměnami, jakmile odemkneš Obchod. Ze začátku si budeš moci koupit pouze vybavení pro tvou momentální třídu (výchozí je Válečník), ale neboj, další vybavení pro další třídy bude přístupné jakmile si budeš moci svou třídu vybrat.",
     "candycaneSet": "Cukrátková hůl (mág)",
     "skiSet": "Lyžovrah (zloděj)",
@@ -38,5 +38,9 @@
     "newYear2": "Šťastný nový rok! Ať si zasloužíš perfektní den.",
     "newYear3": "Šťastný nový rok! Ať je úkolů v tvém úkolníčku málo.",
     "newYear4": "Šťastný nový rok! Ať tě nenapadne řádící gryf.",
-    "holidayCard": "Obdržel jsi přání!"
+    "holidayCard": "Obdržel jsi přání!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

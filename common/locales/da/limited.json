@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sæson-heksen<%= linkEnd %>",
     "seasonalShopClosedText": "Sæson-markedet er lukket! Jeg ved ikke hvor Sæson-heksen er lige nu, men hun kommer sikkert tilbage til den næste <%= linkStart %>Store Fest<%= linkEnd %>!",
-    "seasonalShopText": "Velkommen til Sæson-markedet! Fra nu og indtil 31. januar har vi masser af vintersæsonvarer til salg! Efter denne dato kommer disse ting ikke på hylderne i et helt år, så køb dem mens du kan!",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Hvis du har brugt Genfødselskuglen kan du genkøbe dette udstyr i Belønningskolonnen efter du har fået adgang til Udstyrsbutikken. I starten vil du kun kunne købe tingene, der passer til din nuværende klasse (Kriger som standard), men frygt ej, de andre klasse-specifikke varer bliver tilgængelige hvis du skifter til den klasse.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
@@ -38,5 +38,9 @@
     "newYear2": "Godt Nytår! Må du udføre mange Perfekt Dage.",
     "newYear3": "Godt Nytår! Må din To-Do-liste forblive kort og overskuelig.",
     "newYear4": "Godt Nytår! Må du undgå at blive angrebet af vrede Hippogriffer!",
-    "holidayCard": "Modtog et højtidskort!"
+    "holidayCard": "Modtog et højtidskort!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }
