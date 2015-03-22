@@ -3,15 +3,15 @@ table.table.table-striped
   tr
     td
       strong=env.t('health')
-      | : {{profile.stats.hp | number:0}} / 50
+      | : {{Math.ceil(profile.stats.hp)}} / 50
   tr(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
     td
       strong=env.t('mana')
-      | : {{profile.stats.mp | number:0}} / {{profile._statsComputed.maxMP}}
+      | : {{Math.floor(profile.stats.mp)}} / {{profile._statsComputed.maxMP}}
   tr
     td
       strong=env.t('gold')
-      | : {{profile.stats.gp | number:0}}
+      | : {{Math.floor(profile.stats.gp)}}
   tr
     td
       strong=env.t('level')
@@ -19,7 +19,7 @@ table.table.table-striped
   tr
     td
       strong=env.t('experience')
-      | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
+      | : {{Math.floor(profile.stats.exp)}} / {{Shared.tnl(profile.stats.lvl)}}
 
 // FIXME get translations working before can use this
 unless mobile
