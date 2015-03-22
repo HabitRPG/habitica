@@ -48,7 +48,7 @@ script(type='text/ng-template', id='modals/private-message.html')
   .modal-body
     textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',ng-model='_message')
   .modal-footer
-    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
+    button.btn.btn-primary(ng-disabled='!_message',ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
 
 script(type='text/ng-template', id='modals/send-gift.html')
