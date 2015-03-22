@@ -1,5 +1,6 @@
 'use strict';
 
+// @TODO: Something here is calling a full page reload
 xdescribe('Root Controller', function() {
   var scope, user, ctrl;
 
@@ -11,8 +12,7 @@ xdescribe('Root Controller', function() {
 
     ctrl = $controller('RootCtrl', {$scope: scope, User: {user: user}});
   }));
- 
-  // @TODO: Fix translations not loading here
+
   it('shows contributor level text', function(){
     expect(scope.contribText()).to.eql(undefined);
     expect(scope.contribText(null, {npc: 'NPC'})).to.eql('NPC');
@@ -24,8 +24,9 @@ xdescribe('Root Controller', function() {
     expect(scope.contribText({level: 5, text: 'Blacksmith'})).to.eql('Champion Blacksmith');
     expect(scope.contribText({level: 6, text: 'Blacksmith'})).to.eql('Champion Blacksmith');
     expect(scope.contribText({level: 7, text: 'Blacksmith'})).to.eql('Legendary Blacksmith');
-    expect(scope.contribText({level: 8, text: 'Blacksmith'})).to.eql('Heroic Blacksmith');
-    expect(scope.contribText({level: 8, text: 'Blacksmith'}, {npc: 'NPC'})).to.eql('NPC');
+    expect(scope.contribText({level: 8, text: 'Blacksmith'})).to.eql('Guardian Blacksmith');
+    expect(scope.contribText({level: 9, text: 'Blacksmith'})).to.eql('Heroic Blacksmith');
+    expect(scope.contribText({level: 9, text: 'Blacksmith'}, {npc: 'NPC'})).to.eql('NPC');
   });
 
 });

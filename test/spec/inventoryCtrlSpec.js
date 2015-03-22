@@ -66,13 +66,13 @@ describe('Inventory Controller', function() {
     expect(user.stats.gp).to.eql(1);
   });
 
-  xit('chooses a pet', function(){
+  it('chooses a pet', function(){
     user.items.pets['Cactus-Base'] = 5;
     scope.choosePet('Cactus', 'Base');
     expect(user.items.currentPet).to.eql('Cactus-Base');
   });
 
-  xit('purchases an egg', inject(function(Content){
+  it('purchases an egg', inject(function(Content){
     scope.purchase('eggs', Content.eggs['Wolf']);
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})

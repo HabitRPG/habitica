@@ -1,7 +1,7 @@
 'use strict';
 
-// @TODO the requests via $resource seem to be 
-// doing a full page reload which breaks the specs 
+// @TODO the requests via $resource seem to be
+// doing a full page reload which breaks the specs
 
 xdescribe('groupServices', function() {
   var $httpBackend, groups;
