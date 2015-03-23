@@ -230,7 +230,8 @@ module.exports = function(grunt) {
   // Register tasks.
   grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'cssmin']);
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['browserify', 'stylus', 'test:prepare:translations']);
+  grunt.registerTask('build:dev', ['browserify', 'stylus']);
+  grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 

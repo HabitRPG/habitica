@@ -23,3 +23,5 @@ test/*.map
 website/public/docs
 *.sublime-workspace
 coverage.html
+
+test/spec/translations.js
