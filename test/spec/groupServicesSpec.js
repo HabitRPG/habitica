@@ -1,15 +1,18 @@
 'use strict';
 
-// @TODO the requests via $resource seem to be
-// doing a full page reload which breaks the specs
+describe('groupServices', function() {
+  var $httpBackend, $http, groups;
 
-xdescribe('groupServices', function() {
-  var $httpBackend, groups;
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
 
-  beforeEach(inject(function(_$httpBackend_, Groups) {
+    inject(function(_$httpBackend_, Groups, User) {
       $httpBackend = _$httpBackend_;
       groups = Groups;
-  }));
+    });
+  });
 
   it('calls party endpoint', function() {
     $httpBackend.expectGET('/api/v2/groups/party').respond({});
