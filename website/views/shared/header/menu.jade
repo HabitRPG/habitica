@@ -189,7 +189,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
               li(ng-repeat='guild in user.invitations.guilds')
-                a(ui-sref='options.social.guilds', ng-click='expandMenu(null)')
+                a(ui-sref='options.social.guilds.public', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
               li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
