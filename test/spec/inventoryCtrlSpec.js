@@ -1,23 +1,31 @@
 'use strict';
-// @TODO Address why translations aren't loading
-// Possibly related to https://github.com/HabitRPG/habitrpg/commit/5aa401524934e6d9071f13cb2ccca0dba13cdcff
 
 describe('Inventory Controller', function() {
   var scope, ctrl, user, $rootScope;
 
-  beforeEach(inject(function($rootScope, $controller, Shared){
-    user = specHelper.newUser();
-    user.balance = 4,
-    user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}};
-    Shared.wrap(user);
-    var mockWindow = {
-      confirm: function(msg){
-        return true;
-      }
-    };
-    scope = $rootScope.$new();
-    ctrl = $controller('InventoryCtrl', {$scope: scope, User: {user: user}, $window: mockWindow});
-  }));
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
+
+    inject(function($rootScope, $controller, Shared){
+      user = specHelper.newUser();
+      user.balance = 4,
+      user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}, mounts: {}};
+      Shared.wrap(user);
+      var mockWindow = {
+        confirm: function(msg){
+          return true;
+        }
+      };
+      scope = $rootScope.$new();
+
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: {user: user}, $window: mockWindow});
+
+      ctrl = $controller('InventoryCtrl', {$scope: scope, User: {user: user}, $window: mockWindow});
+    });
+  });
 
   it('starts without any item selected', function(){
     expect(scope.selectedEgg).to.eql(null);
@@ -35,7 +43,7 @@ describe('Inventory Controller', function() {
     expect(scope.selectedPotion.key).to.eql('Base');
   });
 
-  xit('hatches a pet', function(){
+  it('hatches a pet', function(){
     scope.chooseEgg('Cactus');
     scope.choosePotion('Base');
     expect(user.items.eggs).to.eql({Cactus: 0});

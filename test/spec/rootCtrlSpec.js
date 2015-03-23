@@ -1,17 +1,23 @@
 'use strict';
 
 // @TODO: Something here is calling a full page reload
-xdescribe('Root Controller', function() {
+describe('Root Controller', function() {
   var scope, user, ctrl;
 
-  beforeEach(inject(function($rootScope, $controller) {
-    scope = $rootScope.$new();
-    scope.loginUsername = 'user'
-    scope.loginPassword = 'pass'
-    user = specHelper.newUser();
+  beforeEach(function () {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
 
-    ctrl = $controller('RootCtrl', {$scope: scope, User: {user: user}});
-  }));
+    inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
+      scope.loginUsername = 'user'
+      scope.loginPassword = 'pass'
+      user = specHelper.newUser();
+
+      ctrl = $controller('RootCtrl', {$scope: scope, User: {user: user}});
+    });
+  });
 
   it('shows contributor level text', function(){
     expect(scope.contribText()).to.eql(undefined);
