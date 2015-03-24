@@ -181,18 +181,19 @@ function($rootScope, User, $timeout, $state) {
       name: k,
       backdrop: true,
       template: function(i,step){
-        return '<div class="popover" role="tooltip"> ' +
-          '<div class="arrow"></div> ' +
-          '<h3 class="popover-title"></h3> ' +
-          '<div class="popover-content"></div> ' +
+        return '<div class="popover" role="tooltip">' +
+          '<div class="arrow"></div>' +
+          '<h3 class="popover-title"></h3>' +
+          '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
-          //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>'+
-          ((step.final || k == 'classes') ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '')+
-          '<div class="btn-group"> ' +
-          '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> ' +
-          '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> ' +
-          '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> ' +
-          '</div> ' +
+            //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
+            ((step.final || k == 'classes') ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '') +
+            (k=='intro' && !step.final ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
+            '<div class="btn-group">' +
+              '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button>' +
+              '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button>' +
+              '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button>' +
+            '</div>' +
           '</div>' +
           '</div>';
       },
