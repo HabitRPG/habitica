@@ -27,7 +27,6 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       User.user.ops.changeClass({query:{class:klass}});
       $scope.selectedClass = undefined;
       Shared.updateStore(User.user);
-      Guide.goto('classes', 0,true);
     }
 
     $scope.save = function(){

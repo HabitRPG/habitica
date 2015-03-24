@@ -256,6 +256,14 @@ function($rootScope, User, $timeout, $state) {
     });
   });
 
+  $rootScope.$watch('User.user.stats.class', function(after, before) {
+    //If we changed classes, show the user the class guide
+    if (after != before) {
+     chapters["classes"][0][0].content = window.env.t('classGearText', {klass: User.user.stats.class});
+     goto('classes', 0, true);
+    }
+  });
+
   $(document).on("keyup.tour-intro", function(e) {
     if (e.which == 27) {
       return User.set({'flags.tour.intro':-2});
