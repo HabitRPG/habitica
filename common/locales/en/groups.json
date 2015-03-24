@@ -95,5 +95,6 @@
     "abuseFlagModalButton": "Report",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
     "abuseAlreadyReported": "You have already reported this message.",
-    "needsText": "Type something in the box, then click this button."
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }
