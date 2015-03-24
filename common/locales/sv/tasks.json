@@ -1,5 +1,5 @@
 {
-    "clearCompleted": "Radering slutfört",
+    "clearCompleted": "Borttagning slutförd",
     "lotOfToDos": "Slutförda Att-göra sparas automatiskt efter 3 dagar. Du har tillgång till dem under Inställningar > Export.",
     "deleteToDosExplanation": "Om du klickar på knappen nedan, kommer alla dina Att-Göra uppgifter, och arkiverade Att-Göra uppgifter att bli permanent raderade. Exportera dem först om du vill behålla datan.",
     "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",

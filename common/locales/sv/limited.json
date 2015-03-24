@@ -18,7 +18,7 @@
     "turkey": "Kalkon",
     "polarBearPup": "Isbjörnsunge",
     "jackolantern": "Lyktgubbe",
-    "seasonalShop": "Seasonal Shop",
+    "seasonalShop": "Säsongsbutik",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!",
@@ -28,9 +28,9 @@
     "skiSet": "Ski-sassin (Rogue)",
     "snowflakeSet": "Snöflinga (Helare)",
     "yetiSet": "Yeti Tamer (Warrior)",
-    "nyeCard": "New Year's Card",
+    "nyeCard": "Nyårskort",
     "nyeCardNotes": "Send a New Year's card to a party member.",
-    "seasonalItems": "Seasonal Items",
+    "seasonalItems": "Säsongartiklar",
     "auldAcquaintance": "Auld Acquaintance",
     "auldAcquaintanceText": "Happy New Year! Sent or received <%= cards %> New Year's cards.",
     "newYear0": "Happy New Year! May you slay many a bad Habit.",
@@ -39,8 +39,8 @@
     "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
     "newYear4": "Gott nytt år! Må du inte bli attackerad av en fruktansvärd hippogryf.",
     "holidayCard": "Received a holiday card!",
-    "mightyBunnySet": "Mighty Bunny (Warrior)",
-    "magicMouseSet": "Magic Mouse (Mage)",
-    "lovingPupSet": "Loving Pup (Healer)",
-    "stealthyKittySet": "Stealthy Kitty (Rogue)"
+    "mightyBunnySet": "Mäktig kanin (Krigare)",
+    "magicMouseSet": "Magisk mus (Magiker)",
+    "lovingPupSet": "Kärleksfull valp (Helare)",
+    "stealthyKittySet": "Smygande kattunge (Smygare)"
 }

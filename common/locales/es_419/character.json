@@ -134,7 +134,7 @@
     "displayNameDescription1": "Éste es el que aparecerá en los mensajes que publiques en la Taverna, Gremios o Chats de Grupo, junto con lo que se muestre en tu avatar. Ve a ",
     "displayNameDescription2": "Ajustes -> Sitio",
     "displayNameDescription3": "y desplázate hacia abajo a la sección de Registro para cambiar tu nombre de usuario.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "Quitar Equipo de Batalla",
+    "unequipCostume": "Quitar Disfraz",
+    "unequipPetMountBackground": "Quitar Mascota, Montura y Fondo"
 }

@@ -38,7 +38,7 @@
     "alreadyHave": "你已經有這個了。不用再買了！",
     "delete": "删除",
     "gems": "宝石",
-    "gemButton": "You have <%= number %> Gems.",
+    "gemButton": "你拥有 <%= number %> 个宝石。",
     "moreInfo": "更多信息",
     "gemsWhatFor": "用现金购买。用来购买特殊物品和服务 (蛋，孵化药水，稳固药剂等等)。使用宝石之前你仍需解锁这些功能。",
     "veteran": "老兵",

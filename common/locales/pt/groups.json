@@ -23,7 +23,7 @@
     "createAParty": "Criar uma Equipe",
     "updatedParty": "Configurações de grupo atualizadas.",
     "noPartyText": "Você ou não faz parte de uma equipe ou sua equipe está demorando para carregar. Você pode criar uma e convidar amigos ou, se quiser entrar em uma equipe já existente, colocar o seu ID de Usuário abaixo e então voltar aqui para procurar por um convite:",
-    "LFG": "Para anunciar sua nova equipe ou achar uma à que se juntar, vá para a guilda <%= linkStart %>Quero Uma Equipe (Procurando por Grupo)<%= linkEnd %>.",
+    "LFG": "Para anunciar sua nova equipe ou achar uma à que se juntar, vá para a guilda <%= linkStart %>Mensagens de Procura de Grupo (Equipe Desejada)<%= linkEnd %>.",
     "create": "Criar",
     "userId": "ID do Usuário",
     "invite": "Convidar",

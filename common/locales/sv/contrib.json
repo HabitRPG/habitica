@@ -60,6 +60,6 @@
     "whyAdsContent3": "dessa instruktioner",
     "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
     "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
-    "currentSurvey": "Current Survey",
+    "currentSurvey": "Nuvarande undersökning",
     "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

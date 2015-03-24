@@ -38,16 +38,16 @@
     "tourDailies": "Diese Spalte ist für tägliche Aufgaben. Gib eine Aufgabe ein, die du jeden Tag machen solltest! <b>Beispiele für tägliche Aufgaben</b>: <b>Bett machen</b>, <b>Zahnseide benutzen</b>, <b>Geschäfts-E-Mails durchsehen</b>",
     "tourCron": "Großartig! Deine täglichen Aufgaben werden jeden Tag zurück gesetzt. ",
     "tourHP": "Pass auf! Wenn du eine tägliche Aufgabe nicht bis Mitternacht erfüllst, wird sie dir Schaden zufügen!",
-    "tourHabits": "This column is for good and bad Habits that you do many times a day! To proceed, click the pencil to edit the names, then click the checkmark to save.",
+    "tourHabits": "In dieser Spalte befinden sich gute und schlechte Angewohnheiten, die du öfters am Tag erledigst! Klicke auf das Stift-Icon um die Namen zu bearbeiten und anschließend auf das Häkchen um zu speichern.",
     "tourStats": "Gute Gewohnheiten bringen Erfahrung und Gold! Schlechte Gewohnheiten verringern deine Lebenspunkte. ",
     "tourGP": "Kaufe das Übungschwert mit dem Gold, das du gerade verdient hast!",
     "tourAvatar": "Nun besitzt dein Avatar das Übungsschwert. Klick auf deinen Avatar um ihn anzupassen!",
     "tourScrollDown": "Gehe sicher, dass du auch ganz nach unten scrollst um alle Optionen zu sehen! Klicke erneut auf deinen Avatar um zur Aufgabenseite zurück zu kehren. ",
     "tourMuchMore": "Wenn du fertig bist mit den Aufgaben, kannst du eine Gruppe mit Freunden gründen, in den themenbezogenen Gilden chatten, Wettbewerben beitreten und vieles mehr!",
-    "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
-    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can freeze your account in case of illness or travel by clicking 'Rest in the Inn.' Come say hi!",
-    "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",
-    "tourGuildsPage": "Guilds are social groups with common themes. Search for the subjects that interest you! We recommend the Newbies Guild.",
-    "tourChallengesPage": "Joining a Challenge will add tasks to your account. Compete against other users to win gem prizes!",
-    "tourMarketPage": "Starting at Level 4, eggs and hatching potions drop randomly when you complete tasks. They appear here - use them to hatch pets! You can also buy items from the Market."
+    "tourStatsPage": "Auf dieser Seite kannst du deine Werte im Auge behalten. Erreiche neue Erfolge indem du aufgelistete Aufgaben erledigst.",
+    "tourTavernPage": "Willkommen in der Taverne, hier kannst du dich mit Habiticanern aus ganz Habitica unterhalten. Falls du krank oder in Urlaub bist kannst du dich hier von deinen Gewohnheiten erholen und dir eine Auszeit gönnen, indem du auf \"Ruhe dich im Gasthaus aus\" klickst.",
+    "tourPartyPage": "Deine Gruppe wird dir dabei helfen verantwortungsbewusst zu bleiben. Lade Freunde ein um neue Quest Rollen freizuschalten",
+    "tourGuildsPage": "Gilden sind Gruppen mit gemeinsamen Interessen. Suche nach Begriffen, die dich interessieren! Wir empfehlen die \"Gilde für Neuankömmlinge\".",
+    "tourChallengesPage": "Wenn du einer Herausforderung beitrittst, erscheinen neue Aufgaben in deinem Aufgabenmenü. Messe dich mit andere Spieler um Edelsteine zu gewinnen!",
+    "tourMarketPage": "Ab Level 4 erhältst du Eier und Schlüpftränke zufällig, indem du Aufgaben löst. Diese erscheinen hier - nutze sie um Haustiere zu brüten. Du kannst außerdem Gegenstände vom Marktplatz kaufen."
 }
