@@ -78,5 +78,5 @@
     "streakCoins": "Streak Bonus!",
     "pushTaskToTop": "Push task to top",
     "pushTaskToBottom": "Push task to bottom",
-    "emptyTask": "Please enter a <%= taskType %>."
+    "emptyTask": "Enter the task's title first."
 }
