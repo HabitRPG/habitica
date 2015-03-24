@@ -37,8 +37,9 @@ var populateQuery = function(type, q, additionalFields, user){
   if (type == 'party')
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
   else
-    //Use Conditional Semantics to always include the user
-    guildPopulate.match =  {"_id": { "$ne" : null, "$in": [user._id] } };
+    if ( user )
+     //Use Conditional Semantics to always include the user
+     guildPopulate.match =  {"_id": { "$ne" : null, "$in": [user._id] } };
     q.populate(guildPopulate);
   q.populate('invites', nameFields);
   q.populate({
