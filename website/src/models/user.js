@@ -121,7 +121,7 @@ var UserSchema = new Schema({
     showTour: {type: Boolean, 'default': true},
     tour: {
       // -1 indicates "uninitiated", -2 means "complete", any other number is the current tour step (0-index)
-      intro: {type: Number,       'default': 0},
+      intro: {type: Number,       'default': -1},
       classes: {type: Number,     'default': -1},
       stats: {type: Number,       'default': -1},
       tavern: {type: Number,      'default': -1},

@@ -229,7 +229,7 @@ function($rootScope, User, $timeout, $state) {
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
     if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
-    goto('intro', User.user.flags.tour.intro, true);
+    goto('intro', 0); // kick off first step on first visit
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
     //$rootScope.$watch('user.flags.dropsEnabled', _.flow(alreadyShown, function(already) { //FIXME requires lodash@~3.2.0
@@ -256,14 +256,10 @@ function($rootScope, User, $timeout, $state) {
     });
   });
 
-  $(document).on("keyup.tour-intro", function(e) {
-    if (e.which == 27) {
-      return User.set({'flags.tour.intro':-2});
-    }
-  })
-
-  return {
+  var Guide = {
     goto: goto
   };
+  $rootScope.Guide = Guide;
+  return Guide;
 
 }]);
