@@ -78,8 +78,8 @@ angular.module("habitrpg").factory("Notification",
       notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
     },
     drop: function(val, item) {
+      var dropClass = "";
       if ( item !== undefined ) {
-       var dropClass = "";
        switch ( item.type ) {
         case "Egg":
          dropClass = 'Pet_Egg_' + item.key;
