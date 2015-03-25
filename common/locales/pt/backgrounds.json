@@ -53,9 +53,9 @@
     "backgroundIceCaveText": "Caverna de Gelo",
     "backgroundIceCaveNotes": "Entre numa Caverna de Gelo.",
     "backgroundFrigidPeakText": "Pico Gelado",
-    "backgroundFrigidPeakNotes": "Suba um Pico Gelado.",
-    "backgroundSnowyPinesText": "Pinheiros de Neve",
-    "backgroundSnowyPinesNotes": "Refúgio \"Pinheiros de Neve\"",
+    "backgroundFrigidPeakNotes": "Topo do Pico Gelado.",
+    "backgroundSnowyPinesText": "Pinheiros da Neve",
+    "backgroundSnowyPinesNotes": "Refúgio entre Pinheiros da Neve",
     "backgrounds022015": "Conjunto 9: Lançado em Fevereiro de 2015",
     "backgroundBlacksmithyText": "Forja",
     "backgroundBlacksmithyNotes": "Trabalhe na Forja.",
@@ -69,5 +69,5 @@
     "backgroundStainedGlassText": "Vitral",
     "backgroundStainedGlassNotes": "Admire alguns Vitrais.",
     "backgroundRollingHillsText": "Colinas",
-    "backgroundRollingHillsNotes": "Divirta-se pelas Colinas"
+    "backgroundRollingHillsNotes": "Divirta-se nas Colinas"
 }

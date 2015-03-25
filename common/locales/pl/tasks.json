@@ -77,5 +77,6 @@
     "sureDelete": "Jesteś pewien, że chcesz usunąć to zadanie?",
     "streakCoins": "Premia za serię!",
     "pushTaskToTop": "Prześlij zadanie na górę",
-    "pushTaskToBottom": "Prześlij zadanie na spód"
+    "pushTaskToBottom": "Prześlij zadanie na spód",
+    "emptyTask": "Enter the task's title first."
 }

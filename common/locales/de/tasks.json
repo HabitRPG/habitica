@@ -77,5 +77,6 @@
     "sureDelete": "Bist Du sicher, dass Du diese Aufgabe löschen möchtest?",
     "streakCoins": "Strähnen Bonus!",
     "pushTaskToTop": "Aufgabe nach oben verschieben",
-    "pushTaskToBottom": "Aufgabe nach unten verschieben"
+    "pushTaskToBottom": "Aufgabe nach unten verschieben",
+    "emptyTask": "Enter the task's title first."
 }

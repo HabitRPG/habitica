@@ -21,7 +21,7 @@
     "communityGuidelinesRead2": "voordat je begint met chatten.",
     "party": "Groep",
     "createAParty": "Creëer een groep",
-    "updatedParty": "Groep instellingen bijgewerkt.",
+    "updatedParty": "Groepsinstellingen bijgewerkt.",
     "noPartyText": "Of je zit niet in een groep, of het duurt een tijdje om je groep in te laden. Je kunt eventueel een nieuwe groep aanmaken en vrienden uitnodigen; als je je bij een bestaande groep aan wil sluiten, laat ze dan onderstaand unieke gebruikers-ID invoeren en kom dan hier terug voor de uitnodiging:",
     "LFG": "Ga om je nieuwe groep te promoten of om een groep te vinden naar het gilde voor <%= linkStart %>berichten: groep gezocht<%= linkEnd %>.",
     "create": "Creëren",

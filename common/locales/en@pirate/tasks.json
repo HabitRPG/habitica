@@ -77,5 +77,6 @@
     "sureDelete": "Arrr ye sure ye want t' delete this task?",
     "streakCoins": "Streak Bonus!",
     "pushTaskToTop": "Push task to top",
-    "pushTaskToBottom": "Push task to bottom"
+    "pushTaskToBottom": "Push task to bottom",
+    "emptyTask": "Enter the task's title first."
 }

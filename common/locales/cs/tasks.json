@@ -77,5 +77,6 @@
     "sureDelete": "Určitě chceš odstranit tento úkol?",
     "streakCoins": "Bonus za šňůru!",
     "pushTaskToTop": "Přesunout úkol na vrchol",
-    "pushTaskToBottom": "Posunout úkol na spodek"
+    "pushTaskToBottom": "Posunout úkol na spodek",
+    "emptyTask": "Enter the task's title first."
 }

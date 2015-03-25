@@ -77,5 +77,6 @@
     "sureDelete": "Ви справді бажаєте вилучити це завдання?",
     "streakCoins": "Бонус за серію!",
     "pushTaskToTop": "Перемістити завдання вгору",
-    "pushTaskToBottom": "Перемістити завдання вниз"
+    "pushTaskToBottom": "Перемістити завдання вниз",
+    "emptyTask": "Enter the task's title first."
 }

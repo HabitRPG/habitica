@@ -77,5 +77,6 @@
     "sureDelete": "Biztos vagy benne, hogy törölni akarod ezt a feladatot?",
     "streakCoins": "Széria bónusz!",
     "pushTaskToTop": "Tetejére",
-    "pushTaskToBottom": "Rakd a feladatot legalulra"
+    "pushTaskToBottom": "Rakd a feladatot legalulra",
+    "emptyTask": "Enter the task's title first."
 }

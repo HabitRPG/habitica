@@ -77,5 +77,6 @@
     "sureDelete": "בטוח/ה שיש צורך למחוק את המשימה הזו?",
     "streakCoins": "בונוס התמדה!",
     "pushTaskToTop": "דחיפת המשימה למעלה",
-    "pushTaskToBottom": "דחיפת המשימה לתחתית"
+    "pushTaskToBottom": "דחיפת המשימה לתחתית",
+    "emptyTask": "Enter the task's title first."
 }

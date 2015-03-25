@@ -77,5 +77,6 @@
     "sureDelete": "你确定要删除这个任务吗？",
     "streakCoins": "连击奖励！",
     "pushTaskToTop": "将任务置于顶部",
-    "pushTaskToBottom": "将任务置于底部"
+    "pushTaskToBottom": "将任务置于底部",
+    "emptyTask": "Enter the task's title first."
 }

@@ -77,5 +77,6 @@
     "sureDelete": "Вы уверены, что хотите удалить эту задачу?",
     "streakCoins": "Бонус за серию!",
     "pushTaskToTop": "Переместить задание наверх",
-    "pushTaskToBottom": "Переместить задание вниз"
+    "pushTaskToBottom": "Переместить задание вниз",
+    "emptyTask": "Enter the task's title first."
 }

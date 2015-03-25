@@ -77,5 +77,6 @@
     "sureDelete": "Vuoi davvero eliminare questa attività?",
     "streakCoins": "Bonus serie!",
     "pushTaskToTop": "Metti in cima alla lista",
-    "pushTaskToBottom": "Metti in fondo alla lista"
+    "pushTaskToBottom": "Metti in fondo alla lista",
+    "emptyTask": "Enter the task's title first."
 }

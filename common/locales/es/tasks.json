@@ -77,5 +77,6 @@
     "sureDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
     "streakCoins": "¡Bonus de Racha!",
     "pushTaskToTop": "Desplazar tarea al inicio",
-    "pushTaskToBottom": "Desplazar tarea hacia abajo"
+    "pushTaskToBottom": "Desplazar tarea hacia abajo",
+    "emptyTask": "Enter the task's title first."
 }

@@ -77,5 +77,6 @@
     "sureDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
     "streakCoins": "¡Bonus de racha!",
     "pushTaskToTop": "Enviar tarea al tope",
-    "pushTaskToBottom": "Enviar tarea al fondo"
+    "pushTaskToBottom": "Enviar tarea al fondo",
+    "emptyTask": "Enter the task's title first."
 }

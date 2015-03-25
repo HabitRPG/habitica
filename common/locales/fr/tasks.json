@@ -77,5 +77,6 @@
     "sureDelete": "Êtes-vous sûr de vouloir supprimer cette tâche ?",
     "streakCoins": "Bonus de combo ! ",
     "pushTaskToTop": "Déplacer la tâche en tête de liste",
-    "pushTaskToBottom": "Déplacer la tâche en fin de liste"
+    "pushTaskToBottom": "Déplacer la tâche en fin de liste",
+    "emptyTask": "Enter the task's title first."
 }

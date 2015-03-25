@@ -77,5 +77,6 @@
     "sureDelete": "Weet je zeker dat je deze taak wilt verwijderen?",
     "streakCoins": "seriebonus!",
     "pushTaskToTop": "Taak bovenaan zetten",
-    "pushTaskToBottom": "Taak onderaan zetten"
+    "pushTaskToBottom": "Taak onderaan zetten",
+    "emptyTask": "Enter the task's title first."
 }

@@ -77,5 +77,6 @@
     "sureDelete": "Är du säker att du vill ta bort denna uppgift?",
     "streakCoins": "Följdbonus!",
     "pushTaskToTop": "Förflytta uppgift till toppen",
-    "pushTaskToBottom": "Förflytta uppgift till botten"
+    "pushTaskToBottom": "Förflytta uppgift till botten",
+    "emptyTask": "Enter the task's title first."
 }
