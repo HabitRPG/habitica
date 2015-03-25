@@ -113,6 +113,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
           personalVariables: personalVariables
         },
         options: {
+          priority: 'high',
           attempts: 5,
           backoff: {delay: 10*60*1000, type: 'fixed'}
         }
