@@ -810,19 +810,22 @@ questStart = function(req, res, next) {
 
     groupClone.members = results[lastIndex].members;
 
-    // Send quest started email and remove auth information
+    // Send quest started email
+    var usersToEmail = groupClone.members.filter(function(user){
+      return (
+        user.preferences.emailNotifications.questStarted !== false &&
+        user._id !== res.locals.user._id &&
+        group.quest.members[user._id] == true
+      )
+    });
+
+    utils.txnEmail(usersToEmail, 'quest-started', [
+      {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+    ]);
+
     _.each(groupClone.members, function(user){
-
-      if(user.preferences.emailNotifications.questStarted !== false &&
-         user._id !== res.locals.user._id &&
-         group.quest.members[user._id] == true
-         ){
-        utils.txnEmail(user, 'quest-started', [
-          {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-        ]);
-      }
-
       // Remove sensitive data from what is sent to the public
+      // but after having sent emails as they are needed
       user.auth.facebook = undefined;
       user.auth.local = undefined;
     });
