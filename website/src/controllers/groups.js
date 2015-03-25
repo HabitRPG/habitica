@@ -872,16 +872,16 @@ api.questAccept = function(req, res, next) {
 
       var inviterVars = utils.getUserInfo(user, ['name', 'email']);
 
-      _.each(members, function(member){
-        if(member.preferences.emailNotifications.invitedQuest !== false){
-          utils.txnEmail(member, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
-            {name: 'QUEST_NAME', content: quest.text()},
-            {name: 'INVITER', content: inviterVars.name},
-            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
-            {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-          ]);
-        }
+      var membersToEmail = members.filter(function(member){
+        return member.preferences.emailNotifications.invitedQuest !== false;
       });
+
+      utils.txnEmail(membersToEmail, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
+        {name: 'QUEST_NAME', content: quest.text()},
+        {name: 'INVITER', content: inviterVars.name},
+        {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
+        {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+      ]);
 
       questStart(req,res,next);
     });
