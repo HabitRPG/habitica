@@ -3,7 +3,7 @@ api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
 t = (string, vars) ->
-  func = (lang) -> 
+  func = (lang) ->
     vars ?= {a: 'a'}
     i18n.t(string, vars, lang)
   func.i18nLangFunc = true #Trick to recognize this type of function
@@ -54,7 +54,7 @@ _.each api.mystery, (v,k)->v.key = k
 gear =
   weapon:
     base:
-      0: 
+      0:
         text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
       0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:1
@@ -395,7 +395,7 @@ gear =
       spring2015Warrior: event: events.spring2015, specialClass: 'warrior', text: t('headAccessorySpecialSpring2015WarriorText'), notes: t('headAccessorySpecialSpring2015WarriorNotes'), value: 20
       spring2015Mage:    event: events.spring2015, specialClass: 'wizard',  text: t('headAccessorySpecialSpring2015MageText'), notes: t('headAccessorySpecialSpring2015MageNotes'), value: 20
       spring2015Healer:  event: events.spring2015, specialClass: 'healer',  text: t('headAccessorySpecialSpring2015HealerText'), notes: t('headAccessorySpecialSpring2015HealerNotes'), value: 20
-      
+
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -521,6 +521,9 @@ api.spells =
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
         user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30)
+        #Sync the user stats to see if we level the user
+        req = { language: user.preferences.language }
+        user.fns.updateStats( user.stats , req )
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -773,7 +776,7 @@ api.spells =
 
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
-        
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->
@@ -1070,7 +1073,7 @@ api.quests =
       gp: 25
       exp: 125
       unlock: t('questGryphonUnlockText')
-      
+
   hedgehog:
     text: t('questHedgehogText')
     notes: t('questHedgehogNotes')
@@ -1570,7 +1573,7 @@ api.quests =
       gp: 31
       exp: 200
       unlock: t('questRockUnlockText')
-      
+
   bunny:
     text: t('questBunnyText')
     notes: t('questBunnyNotes')
