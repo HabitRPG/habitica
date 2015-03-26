@@ -120,7 +120,7 @@ api.mystery = {
   201409: {
     start: '2014-09-24',
     end: '2014-10-02',
-    text: 'Autumn Strider Item Set'
+    text: 'Autumn Strider Set'
   },
   201410: {
     start: '2014-10-24',
@@ -146,6 +146,11 @@ api.mystery = {
     start: '2015-02-24',
     end: '2015-03-02',
     text: 'Winged Enchanter Set'
+  },
+  201503: {
+    start: '2015-03-25',
+    end: '2015-04-02',
+    text: 'Aquamarine Set'
   },
   301404: {
     start: '3014-03-24',
@@ -1311,6 +1316,12 @@ gear = {
         mystery: '201501',
         value: 0
       },
+      201503: {
+        text: t('armorMystery201503Text'),
+        notes: t('armorMystery201503Notes'),
+        mystery: '201503',
+        value: 0
+      },
       301404: {
         text: t('armorMystery301404Text'),
         notes: t('armorMystery301404Notes'),
@@ -2470,6 +2481,12 @@ gear = {
       }
     },
     mystery: {
+      201503: {
+        text: t('eyewearMystery201503Text'),
+        notes: t('eyewearMystery201503Notes'),
+        mystery: '201503',
+        value: 0
+      },
       301404: {
         text: t('eyewearMystery301404Text'),
         notes: t('eyewearMystery301404Notes'),
@@ -3080,7 +3097,7 @@ api.questEggs = {
     text: t('questEggEggText'),
     adjective: t('questEggEggAdjective'),
     canBuy: false,
-    noMount: true
+    mountText: t('questEggEggMountText')
   },
   Rat: {
     text: t('questEggRatText'),
@@ -5993,7 +6010,7 @@ api.wrap = function(user, main) {
             message: i18n.t('messageFoodNotFound', req.language)
           }) : void 0;
         }
-        if (content.specialPets[pet] || (egg === "Egg")) {
+        if (content.specialPets[pet]) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('messageCannotFeedPet', req.language)
@@ -7358,6 +7375,7 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 

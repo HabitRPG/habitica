@@ -682,7 +682,7 @@ api.wrap = (user, main=true) ->
 
         return cb?({code:404, message:i18n.t('messagePetNotFound', req.language)}) unless userPets[pet]
         return cb?({code:404, message:i18n.t('messageFoodNotFound', req.language)}) unless user.items.food?[food.key]
-        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet] or (egg is "Egg")
+        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet]
         return cb?({code:401, message:i18n.t('messageAlreadyMount', req.language)}) if user.items.mounts[pet]
 
         message = ''
