@@ -3,6 +3,6 @@
  */
 db.users.update(
   {},
-  {$inc:{'items.quest.egg':1}},
+  {$inc:{'items.quests.egg':1}},
   {multi:1}
 )
