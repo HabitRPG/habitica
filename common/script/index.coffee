@@ -752,11 +752,10 @@ api.wrap = (user, main=true) ->
         ga?.event('purchase', key).send()
 
       releasePets: (req, cb) ->
-        if user.balance < 1 and not user.achievements.triadBingo
+        if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          if not user.achievements.triadBingo
-            user.balance -= 1
+          user.balance -= 1
           for pet of content.pets
             user.items.pets[pet] = 0
           if not user.achievements.beastMasterCount
@@ -766,11 +765,10 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       releaseMounts: (req, cb) ->
-        if user.balance < 1 and not user.achievements.triadBingo
+        if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          if not user.achievements.triadBingo
-            user.balance -= 1
+          user.balance -= 1
           user.items.currentMount = ""
           for mount of content.pets
             user.items.mounts[mount] = null

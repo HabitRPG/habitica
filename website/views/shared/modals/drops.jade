@@ -21,8 +21,7 @@ script(type='text/ng-template', id='modals/pet-key.html')
     - var masterTitle='{{petCount >= 90 && mountCount >= 90 ? env.t("beastMountMasterName") : petCount >= 90 ? env.t("beastMasterName") : env.t("mountMasterName")}}'
     h4=env.t('petKeyBegin', {title: masterTitle})
   .modal-body
-    div(ng-if='!user.achievements.triadBingo')
-      +gemButton
+    +gemButton
     figure
       .npc_matt
     p=env.t('petKeyInfo')
@@ -33,21 +32,19 @@ script(type='text/ng-template', id='modals/pet-key.html')
     p(ng-if='!user.achievements.triadBingo')=env.t('petKeyInfo3')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('petKeyNeverMind')
-    span(ng-if='user.balance < 1 && !user.achievements.triadBingo')
+    span(ng-if='user.balance < 1')
       a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
-    span(ng-if='(user.balance >= 1 || user.achievements.triadBingo) && petCount >= 90', ng-controller='SettingsCtrl')
+    span(ng-if='user.balance >= 1 && petCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releasePets()')
         =env.t('petKeyPets')
-        span(ng-if='!user.achievements.triadBingo')
-          | : 4&nbsp;
-          span.Pet_Currency_Gem1x.inline-gems
-    span(ng-if='(user.balance >= 1 || user.achievements.triadBingo) && mountCount >= 90', ng-controller='SettingsCtrl')
+        | : 4&nbsp;
+        span.Pet_Currency_Gem1x.inline-gems
+    span(ng-if='user.balance >= 1 && mountCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releaseMounts()')
         =env.t('petKeyMounts')
-        span(ng-if='!user.achievements.triadBingo')
-          | : 4&nbsp;
-          span.Pet_Currency_Gem1x.inline-gems
+        | : 4&nbsp;
+        span.Pet_Currency_Gem1x.inline-gems
     span(ng-if='(user.balance >= 1.5 || user.achievements.triadBingo) && petCount >= 90 && mountCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releaseBoth()')
         =env.t('petKeyBoth')

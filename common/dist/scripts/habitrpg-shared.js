@@ -6172,15 +6172,13 @@ api.wrap = function(user, main) {
       },
       releasePets: function(req, cb) {
         var pet;
-        if (user.balance < 1 && !user.achievements.triadBingo) {
+        if (user.balance < 1) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
-          if (!user.achievements.triadBingo) {
-            user.balance -= 1;
-          }
+          user.balance -= 1;
           for (pet in content.pets) {
             user.items.pets[pet] = 0;
           }
@@ -6194,15 +6192,13 @@ api.wrap = function(user, main) {
       },
       releaseMounts: function(req, cb) {
         var mount;
-        if (user.balance < 1 && !user.achievements.triadBingo) {
+        if (user.balance < 1) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
-          if (!user.achievements.triadBingo) {
-            user.balance -= 1;
-          }
+          user.balance -= 1;
           user.items.currentMount = "";
           for (mount in content.pets) {
             user.items.mounts[mount] = null;
