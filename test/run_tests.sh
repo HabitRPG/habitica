@@ -36,9 +36,14 @@ NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./website/src/server.js >
 NODE_PID=$!
 trap "kill $NODE_PID" EXIT
 
-if [ -z "$1" ] || [ "$1" == "mocha" ]; then
-  echo "= Running mocha specs"
+if [ -z "$1" ] || [ "$1" == "mocha:api" ]; then
+  echo "= Running mocha api unit specs"
   NODE_ENV=testing mocha || exit $?
+fi
+
+if [ -z "$1" ] || [ "$1" == "mocha:common" ]; then
+  echo "= Running mocha common unit specs"
+  NODE_ENV=testing mocha test/common || exit $?
 fi
 
 # If we're only running protractor, we need to let the server spin up.
