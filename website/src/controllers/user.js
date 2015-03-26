@@ -262,7 +262,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron(),
+    progress = user.fns.cron({ga:ga}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
