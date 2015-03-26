@@ -47,10 +47,10 @@ describe "API", ->
     randomID = shared.uuid()
     username = password = randomID  if main
     request
-      .post baseURL + "/register"
-      .set "Accept", "application/json"
-      .set "X-API-User", null
-      .set "X-API-Key", null
+      .post(baseURL + "/register")
+      .set("Accept", "application/json")
+      .set("X-API-User", null)
+      .set("X-API-Key", null)
       .send
         username: randomID
         password: randomID
@@ -67,9 +67,9 @@ describe "API", ->
           expect(err).to.not.be.ok()
           user = _user
           request
-            .set "Accept", "application/json"
-            .set "X-API-User", _id
-            .set "X-API-Key", apiToken
+            .set("Accept", "application/json")
+            .set("X-API-User", _id)
+            .set("X-API-Key", apiToken)
           cb null, res.body
 
   before (done) ->
