@@ -30,16 +30,13 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
  * @param type: 'party' or otherwise
  * @param q: the Mongoose query we're building up
- * @param additionalFields: if we want to populate some additional field not fetched normally
+ * @param additionalFields: if we want to populate some additional field not fetched normally 
  *        pass it as a string, parties only
  */
-var populateQuery = function(type, q, additionalFields, user){
+var populateQuery = function(type, q, additionalFields){
   if (type == 'party')
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
   else
-    if ( user )
-     //Use Conditional Semantics to always include the user
-     guildPopulate.match =  {"_id": { "$ne" : null, "$in": [user._id] } };
     q.populate(guildPopulate);
   q.populate('invites', nameFields);
   q.populate({
@@ -135,7 +132,7 @@ api.get = function(req, res, next) {
         {_id:gid, privacy:'public'},
         {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
       ]});
-  populateQuery(gid, q, null, user);
+  populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
     if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
@@ -308,7 +305,7 @@ api.flagChatMessage = function(req, res, next){
     group.save(function(err,_saved){
       if(err) return next(err);
         var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
-
+        
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
             return {email: email, canSend: true}
@@ -361,7 +358,7 @@ api.clearFlagCount = function(req, res, next){
   }else{
     return res.json(401, {err: "Only an admin can clear the flag count!"})
   }
-
+  
 }
 
 api.seenMessage = function(req,res,next){
@@ -580,7 +577,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           cb();
         });
       }
-    });
+    });    
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
@@ -641,7 +638,7 @@ var inviteByEmails = function(invites, group, req, res, next){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
     }else{
 
-      // Send only status code down the line because it doesn't need
+      // Send only status code down the line because it doesn't need 
       // info on invited users since they are not yet registered
       res.send(200);
     }
