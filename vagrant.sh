@@ -30,6 +30,14 @@ echo cd /vagrant >> /home/vagrant/.bashrc
 # Prevent warnings: "dpkg-preconfigure: unable to re-open stdin ..."
 export DEBIAN_FRONTEND=noninteractive
 
+# Import MongoDB public GPG key
+# http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+# Create a list file for MongoDB
+echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+
+
 echo Updating repositories...
 apt-get update -qq
 
@@ -41,8 +49,6 @@ apt-get install -qq graphicsmagick
 
 echo Installing phantomjs and dependency...
 apt-get install -qq libicu48
-npm install phantomjs
-
 
 echo Installing requirements for grunt-spritesmith...
 apt-get install -qq pkg-config libcairo2-dev libjpeg-dev
