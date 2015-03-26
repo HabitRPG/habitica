@@ -7049,7 +7049,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _base4, _progress, _ref, _ref1, _ref2, _ref3;
       if (options == null) {
         options = {};
       }
@@ -7221,6 +7221,13 @@ api.wrap = function(user, main) {
       user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
+      }
+      if ((_base4 = user.flags).cronCount == null) {
+        _base4.cronCount = 0;
+      }
+      user.flags.cronCount++;
+      if ((_ref3 = options.ga) != null) {
+        _ref3.event('cron', user.flags.cronCount).send();
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);

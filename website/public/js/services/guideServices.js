@@ -155,7 +155,7 @@ function($rootScope, User, $timeout, $state) {
   }
 
   _.each(chapters, function(chapter, k){
-    _(chapter).flatten().each(function(step) {
+    _(chapter).flatten().each(function(step, i) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
@@ -165,6 +165,7 @@ function($rootScope, User, $timeout, $state) {
           $state.go(step.state);
           return $timeout(function(){});
         }
+        window.ga && ga('send', 'event', 'tour', k, i+1);
       }
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
