@@ -134,7 +134,7 @@
     "displayNameDescription1": "Отображается в сообщениях, которые вы пишете в Таверне, гильдиях и командных чатах вместе с вашим аватаром. Перейдите в",
     "displayNameDescription2": "Настройки->Сайт",
     "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
+    "unequipBattleGear": "Снять боевую экипировку",
+    "unequipCostume": "Снять одежду",
     "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }

@@ -18,7 +18,7 @@
     "turkey": "Moriak",
     "polarBearPup": "Polárne medvieďa",
     "jackolantern": "Jack-O-Lantern",
-    "seasonalShop": "Seasonal Shop",
+    "seasonalShop": "Sezónny obchod",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!",
