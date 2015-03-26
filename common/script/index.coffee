@@ -1559,6 +1559,11 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
+      # Analytics
+      user.flags.cronCount?=0
+      user.flags.cronCount++
+      options.ga?.event('cron', user.flags.cronCount).send(); #TODO userId for cohort
+
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
       _.merge progress, {down:0,up:0}

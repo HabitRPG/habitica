@@ -3,7 +3,7 @@
     "messageTaskNotFound": "Task not found.",
     "messageTagNotFound": "Tag not found.",
     "messagePetNotFound": ":pet not found in user.items.pets",
-    "messageFoodNotFound": ":food not found in user.items.food",
+    "messageFoodNotFound": ":vittles not found in user.items.vittles",
     "messageCannotFeedPet": "Can't feed this pet.",
     "messageAlreadyMount": "Ye already 'ave that mount. Try feedin' another pet.",
     "messageEvolve": "Ye 'ave tamed <%= egg %>, let's go fer a ride!",
