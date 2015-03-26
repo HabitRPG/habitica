@@ -28,7 +28,7 @@
     "spellHealerBrightnessText": "Head Mirror",
     "spellHealerBrightnessNotes": "Ye reflect th' sun off ye head mirror that blinds all 'o ye tasks. th' redness 'o ye tasks be reduced.",
     "spellHealerProtectAuraText": "Preventative Medicine",
-    "spellHealerProtectAuraNotes": "A magical aura surrounds your party members, protecting them from damage. Your party members gain a boost to their defense by buffing Constitution.",
+    "spellHealerProtectAuraNotes": "A magical aura surrounds yer crew mates, protectin' 'em from damage. Yer crew gets a boost to their parryin' skills by buffin' their Constitution",
     "spellHealerHealAllText": "Bandage Yer Mates",
     "spellHealerHealAllNotes": "Soothing light envelops your party and heals them of their injuries. Your party members recover Health.",
     "spellSpecialSnowballAuraText": "Snowball",
@@ -37,6 +37,6 @@
     "spellSpecialSaltNotes": "Someone has snowballed ye. Ha ha, extra hardyharhar. Now get this snow off me!",
     "spellSpecialSpookDustText": "Spooky Sparkles",
     "spellSpecialSpookDustNotes": "Turn ye buckos into a floatin' blanket wit' eyes!",
-    "spellSpecialOpaquePotionText": "Opaque Potion",
+    "spellSpecialOpaquePotionText": "Murky Potion",
     "spellSpecialOpaquePotionNotes": "Cancel th' effects 'o Spooky Sparkles."
 }
