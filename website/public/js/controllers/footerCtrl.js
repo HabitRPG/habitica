@@ -115,10 +115,5 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
         'party.quest.progress.up': User.user.party.quest.progress.up + 1000
       });
     }
-    $scope.addCollectQuestProgress = function(){
-      User.set({
-        'party.quest.progress.collect.plainEgg': User.user.party.quest.progress.collect.plainEgg + 100
-      });
-    }
   }
 }])
