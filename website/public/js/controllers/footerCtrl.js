@@ -117,7 +117,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     }
     $scope.addCollectQuestProgress = function(){
       User.set({
-        'party.quest.progress.collect': User.user.party.quest.progress.collect + 100
+        'party.quest.progress.collect.plainEgg': User.user.party.quest.progress.collect.plainEgg + 100
       });
     }
   }
