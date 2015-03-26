@@ -1,4 +1,4 @@
-#jslint node: true 
+#jslint node: true
 
 #global describe, before, beforeEach, it
 "use strict"
@@ -41,27 +41,36 @@ describe "API", ->
   apiToken = undefined
   username = undefined
   password = undefined
+
   registerNewUser = (cb, main) ->
-    main = true  if main is `undefined`
+    main = true unless main?
     randomID = shared.uuid()
     username = password = randomID  if main
-    request.post(baseURL + "/register").set("Accept", "application/json").send(
-      username: randomID
-      password: randomID
-      confirmPassword: randomID
-      email: randomID + "@gmail.com"
-    ).end (res) ->
-      return cb(null, res.body)  unless main
-      _id = res.body._id
-      apiToken = res.body.apiToken
-      User.findOne
-        _id: _id
-        apiToken: apiToken
-      , (err, _user) ->
-        expect(err).to.not.be.ok()
-        user = _user
-        request.set("Accept", "application/json").set("X-API-User", _id).set "X-API-Key", apiToken
-        cb null, res.body
+    request
+      .post baseURL + "/register"
+      .set "Accept", "application/json"
+      .set "X-API-User", null
+      .set "X-API-Key", null
+      .send
+        username: randomID
+        password: randomID
+        confirmPassword: randomID
+        email: randomID + "@gmail.com"
+      .end (res) ->
+        return cb(null, res.body)  unless main
+        _id = res.body._id
+        apiToken = res.body.apiToken
+        User.findOne
+          _id: _id
+          apiToken: apiToken
+        , (err, _user) ->
+          expect(err).to.not.be.ok()
+          user = _user
+          request
+            .set "Accept", "application/json"
+            .set "X-API-User", _id
+            .set "X-API-Key", apiToken
+          cb null, res.body
 
   before (done) ->
     require "../website/src/server" # start the server
@@ -167,7 +176,7 @@ describe "API", ->
     # which results in changing the original user's name and password
     # instead of creating a new error, so the group tests fail
     # because no users are actually being created
-    describe.skip "Groups", ->
+    describe "Groups", ->
       group = undefined
       before (done) ->
         request.post(baseURL + "/groups").send(
@@ -333,7 +342,7 @@ describe "API", ->
               op: "score"
               params:
                 direction: "up"
-                id: user.dailys[1].id
+                id: user.dailys[0].id
             }
             {
               op: "update"
@@ -358,7 +367,7 @@ describe "API", ->
                     # made. Instead of creating new users, it updates the original user
                     # with a new login name, email and password. That is why
                     # all the users have the same uuid, because they're not actually
-                    # being created. The original is just being updated. 
+                    # being created. The original is just being updated.
                     registerNewUser cb2, false
                   (cb2) ->
                     registerNewUser cb2, false
@@ -472,7 +481,7 @@ describe "API", ->
             expect(_.size(res.body.quest.members)).to.be 3
             done()
 
-        it "Hurts the boss", (done) ->
+        xit "Hurts the boss", (done) ->
           request.post(baseURL + "/user/batch-update").end (res) ->
             user = res.body
             up = user.party.quest.progress.up
@@ -485,7 +494,7 @@ describe "API", ->
                 op: "score"
                 params:
                   direction: "up"
-                  id: user.dailys[1].id
+                  id: user.dailys[0].id
               }
               {
                 op: "update"
@@ -626,7 +635,7 @@ describe "API", ->
                       ], cb
                   ], done
 
-    describe.skip "Subscriptions", ->
+    describe "Subscriptions", ->
       user = undefined
       before (done) ->
         User.findOne
@@ -642,24 +651,28 @@ describe "API", ->
           user.fns.cron()
 
         expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
+        payments.createSubscription
+          user: user
           customerId: "123"
           paymentMethod: "Stripe"
+          sub: {key: 'basic_6mo'}
 
         expect(user.purchased.plan.customerId).to.be.ok()
         shared.wrap user
         cron()
         expect(user.purchased.plan.customerId).to.be.ok()
-        payments.cancelSubscription user
+        payments.cancelSubscription user: user
         cron()
         expect(user.purchased.plan.customerId).to.be.ok()
         expect(user.purchased.plan.dateTerminated).to.be.ok()
         user.purchased.plan.dateTerminated = moment().subtract(2, "d")
         cron()
         expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
+        payments.createSubscription
+          user: user
           customerId: "123"
           paymentMethod: "Stripe"
+          sub: {key: 'basic_6mo'}
 
         expect(user.purchased.plan.dateTerminated).to.not.be.ok()
         done()
