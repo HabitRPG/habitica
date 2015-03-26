@@ -172,10 +172,6 @@ describe "API", ->
     ###*
     GROUPS
     ###
-    # @TODO: New users are being registered with original user api
-    # which results in changing the original user's name and password
-    # instead of creating a new error, so the group tests fail
-    # because no users are actually being created
     describe "Groups", ->
       group = undefined
       before (done) ->
@@ -360,14 +356,6 @@ describe "API", ->
               (cb) ->
                 async.parallel [
                   (cb2) ->
-                    # @TODO: The registerNewUser function posts to /api/v2/register
-                    # since superagent-defaults has the user id and token set
-                    # Subsequent calls to registerNewUser are being called with
-                    # the uuid and token that is generated when the initial user is
-                    # made. Instead of creating new users, it updates the original user
-                    # with a new login name, email and password. That is why
-                    # all the users have the same uuid, because they're not actually
-                    # being created. The original is just being updated.
                     registerNewUser cb2, false
                   (cb2) ->
                     registerNewUser cb2, false
@@ -377,11 +365,6 @@ describe "API", ->
 
               # Send them invitations
               (_party, cb) ->
-                 # @TODO - _party should be array of newly
-                 # registered party members, instead
-                 # _party = an array of 3 user objects
-                 # all the user objects are the main user
-                 # instead of the party members just registered
                 party = _party
                 inviteURL = baseURL + "/groups/" + group._id + "/invite"
                 async.parallel [
@@ -418,7 +401,6 @@ describe "API", ->
               (whatever, cb) ->
                 Group.findById group._id, (err, g) ->
                   group = g
-                  # @TODO Determine why members aren't being saved
                   expect(g.members.length).to.be 4
                   cb()
 
