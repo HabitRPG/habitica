@@ -3,7 +3,6 @@
 describe('Filters Controller', function() {
   var scope, user;
 
-  beforeEach(module('habitrpg'));
   beforeEach(inject(function($rootScope, $controller, Shared) {
     user = specHelper.newUser();
     Shared.wrap(user);

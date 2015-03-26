@@ -1,8 +1,6 @@
 'use strict';
 
-// @TODO translations aren't loading
-
-xdescribe('Auth Controller', function() {
+describe('Auth Controller', function() {
 
   describe('AuthCtrl', function(){
     var scope, ctrl, user, $httpBackend, $window;

@@ -37,7 +37,7 @@ describe('front page', function() {
     var login = element(by.css("#login-tab input[value='Login']"));
     login.click();
     var alertDialog = browser.switchTo().alert();
-    expect(alertDialog.getText()).toMatch(/Username 'username' not found/);
+    expect(alertDialog.getText()).toMatch(/Username or password incorrect./);
     alertDialog.accept();
   });
 
