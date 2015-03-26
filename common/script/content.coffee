@@ -40,12 +40,13 @@ api.mystery =
   201406: {start:'2014-06-23',end:'2014-07-02', text:'Octomage Set'}
   201407: {start:'2014-07-23',end:'2014-08-02', text:'Undersea Explorer Set'}
   201408: {start:'2014-08-23',end:'2014-09-02', text:'Sun Sorcerer Set'}
-  201409: {start:'2014-09-24',end:'2014-10-02', text:'Autumn Strider Item Set'}
+  201409: {start:'2014-09-24',end:'2014-10-02', text:'Autumn Strider Set'}
   201410: {start:'2014-10-24',end:'2014-11-02', text:'Winged Goblin Set'}
   201411: {start:'2014-11-24',end:'2014-12-02', text:'Feast and Fun Set'}
   201412: {start:'2014-12-25',end:'2015-01-02', text:'Penguin Set'}
   201501: {start:'2015-01-26',end:'2015-02-02', text:'Starry Knight Set'}
   201502: {start:'2015-02-24',end:'2015-03-02', text:'Winged Enchanter Set'}
+  201503: {start:'2015-03-25',end:'2015-04-02', text:'Aquamarine Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -217,6 +218,7 @@ gear =
       201410: text: t('armorMystery201410Text'), notes: t('armorMystery201410Notes'), mystery:'201410', value: 0
       201412: text: t('armorMystery201412Text'), notes: t('armorMystery201412Notes'), mystery:'201412', value: 0
       201501: text: t('armorMystery201501Text'), notes: t('armorMystery201501Notes'), mystery:'201501', value: 0
+      201503: text: t('armorMystery201503Text'), notes: t('armorMystery201503Notes'), mystery:'201503', value: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
 
   head:
@@ -413,6 +415,7 @@ gear =
       summerRogue:   event: events.summer, specialClass: 'rogue',   text: t('eyewearSpecialSummerRogueText'), notes: t('eyewearSpecialSummerRogueNotes'), value: 20
       summerWarrior: event: events.summer, specialClass: 'warrior', text: t('eyewearSpecialSummerWarriorText'), notes: t('eyewearSpecialSummerWarriorNotes'), value: 20
     mystery:
+      201503: text: t('eyewearMystery201503Text'), notes: t('eyewearMystery201503Notes'), mystery:'201503', value: 0
       301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
 
@@ -816,7 +819,7 @@ api.questEggs =
   Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: false
   Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: false
   Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
-  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false, noMount: true
+  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false
   Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
   Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
   Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
