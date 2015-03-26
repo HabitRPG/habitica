@@ -614,7 +614,7 @@ describe 'Cron', ->
 
   describe 'dailies', ->
 
-    describe 'new day', ->
+    describe.skip 'new day', ->
 
       ###
       This section runs through a "cron matrix" of all permutations (that I can easily account for). It sets
