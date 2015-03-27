@@ -3896,7 +3896,7 @@ api.quests = {
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),
-        count: 100
+        count: 1
       }
     },
     drop: {
