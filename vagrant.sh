@@ -30,14 +30,6 @@ echo cd /vagrant >> /home/vagrant/.bashrc
 # Prevent warnings: "dpkg-preconfigure: unable to re-open stdin ..."
 export DEBIAN_FRONTEND=noninteractive
 
-# Import MongoDB public GPG key
-# http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-
-# Create a list file for MongoDB
-echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-
-
 echo Updating repositories...
 apt-get update -qq
 
@@ -53,8 +45,17 @@ apt-get install -qq libicu48
 echo Installing requirements for grunt-spritesmith...
 apt-get install -qq pkg-config libcairo2-dev libjpeg-dev
 
+# Import MongoDB public GPG key
+# http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+# Create a list file for MongoDB
+echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+
 echo Installing Mongodb...
-sudo apt-get install -y mongodb-org
+apt-get update
+apt-get install mongodb-10gen
+apt-get install -y mongodb-org=2.6.4 mongodb-org-server=2.6.4 mongodb-org-shell=2.6.4 mongodb-org-mongos=2.6.4 mongodb-org-tools=2.6.4
 
 echo Installing Git...
 apt-get install -qq git
