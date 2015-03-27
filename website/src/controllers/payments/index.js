@@ -12,6 +12,7 @@ var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');
 var cc = require('coupon-code');
+var pushNotify = require('./../pushNotifications');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -75,12 +76,17 @@ exports.createSubscription = function(data, cb) {
   data.user.purchased.txnCount++;
   if (data.gift){
     members.sendMessage(data.user, data.gift.member, data.gift);
+
+    var byUserName = utils.getUserInfo(data.user, ['name']).name;
+
     if(data.gift.member.preferences.emailNotifications.giftedSubscription !== false){
       utils.txnEmail(data.gift.member, 'gifted-subscription', [
-        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
+        {name: 'GIFTER', content: byUserName},
         {name: 'X_MONTHS_SUBSCRIPTION', content: months}
       ]);
-    }    
+    }
+
+    pushNotify.sendNotify(data.gift.member, shared.i18n.t('gifted-subscription'), months + " months - by "+ byUserName);
   }
   async.parallel([
     function(cb2){data.user.save(cb2)},
@@ -119,13 +125,18 @@ exports.buyGems = function(data, cb) {
     utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
   }
   if (data.gift){
+    var byUsername = utils.getUserInfo(data.user, ['name']).name;
+    var gemAmount = data.gift.gems.amount || 20;
+
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
       utils.txnEmail(data.gift.member, 'gifted-gems', [
-        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
-        {name: 'X_GEMS_GIFTED', content: data.gift.gems.amount || 20}
+        {name: 'GIFTER', content: byUsername},
+        {name: 'X_GEMS_GIFTED', content: gemAmount}
       ]);
     }
+
+    pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), gemAmount + ' Gems - by '+byUsername);
   }
   async.parallel([
     function(cb2){data.user.save(cb2)},

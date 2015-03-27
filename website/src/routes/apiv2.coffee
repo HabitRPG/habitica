@@ -396,6 +396,16 @@ module.exports = (swagger, v2) ->
         ]
       action: user.deleteWebhook
 
+    # Push Notifications
+    "/user/pushDevice":
+      spec:
+        method: 'POST'
+        description: 'Add a new push devices registration ID'
+        parameters: [
+          body '','New push registration { regId: "123123", type: "android"}','object'
+        ]
+      action: user.addPushDevice
+
     # ---------------------------------
     # Groups
     # ---------------------------------
