@@ -196,16 +196,31 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
   ])
 
   .controller('AutocompleteCtrl', ['$scope', '$timeout', 'Groups', 'User', 'InputCaret', function ($scope,$timeout,Groups,User,InputCaret) {
+    var response = [];
+    var usernames = [];
+
     $scope.clearUserlist = function() {
       $scope.response = [];
+      response = [];
       $scope.usernames = [];
+      usernames = [];
     }
 
+    $scope.updateAddNewUserWatch = false;
+
     $scope.addNewUser = function(user) {
-      if($.inArray(user.user,$scope.usernames) == -1) {
+      if($.inArray(user.user, usernames) == -1) {
         user.username = user.user;
-        $scope.usernames.push(user.user);
-        $scope.response.push(user);
+        usernames.push(user.user);
+        response.push({label:user.user});
+
+        if($scope.updateAddNewUserWatch){
+          $timeout.cancel($scope.updateAddNewUserWatch)
+        }
+        $scope.updateAddNewUserWatch = $timeout(function(){
+          $scope.response = response;
+          $scope.usernames = usernames;
+        },$scope.watchDelay)
       }
     }
 

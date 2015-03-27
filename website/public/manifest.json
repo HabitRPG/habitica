@@ -32,6 +32,9 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
 
+            "bower_components/ment.io/dist/mentio.min.js",
+            "bower_components/ment.io/dist/templates.js",
+
             "common/dist/scripts/habitrpg-shared.js",
 
             "js/env.js",
