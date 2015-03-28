@@ -688,6 +688,7 @@ module.exports = (swagger, v2) ->
         path: '/challenges/{cid}'
         description: 'Get a challenge'
         parameters: [path('cid','Challenge id','string')]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.get
 
     "/challenges/{cid}/csv":

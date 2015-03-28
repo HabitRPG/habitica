@@ -56,6 +56,7 @@ api.list = function(req, res, next) {
 
 // GET
 api.get = function(req, res, next) {
+  var user = res.locals.user;
   // TODO use mapReduce() or aggregate() here to
   // 1) Find the sum of users.tasks.values within the challnege (eg, {'profile.name':'tyler', 'sum': 100})
   // 2) Sort by the sum
@@ -65,8 +66,11 @@ api.get = function(req, res, next) {
     .exec(function(err, challenge){
       if(err) return next(err);
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
+      challenge._isMember = !!(_.find(challenge.members, function(member) {
+        return member._id === user._id;
+      }));
       res.json(challenge);
-    })
+    });
 }
 
 api.csv = function(req, res, next) {
