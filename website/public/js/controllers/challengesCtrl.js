@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -39,6 +39,13 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     //------------------------------------------------------------
     // Challenge
     //------------------------------------------------------------
+
+    // Use this to force the top view to change, not just the nested view.
+    $scope.edit = function(challenge) {
+      $state.transitionTo('options.social.challenges.edit', {cid: challenge._id}, {
+        reload: true, inherit: false, notify: true
+      });
+    };
 
     /**
      * Create
@@ -95,6 +102,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
           challenge._locked = true;
+          getChallenges();
         }
       });
     };
