@@ -3,15 +3,34 @@
 habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
   function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state) {
 
+    // Use presence of cid to determine whether to show a list or a single
+    // challenge
+    $scope.cid = $state.params.cid;
+
+    // Fetch single challenge if a cid is present; fetch multiple challenges
+    // otherwise
+    var getChallenges = function() {
+      if ($scope.cid) {
+        Challenges.Challenge.get({cid: $scope.cid}, function(challenge) {
+          $scope.challenges = [challenge];
+        });
+      } else {
+        Challenges.Challenge.query(function(challenges){
+          $scope.challenges = challenges;
+          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
+          $scope.search = {
+            group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
+          };
+        });
+      }
+    };
+
+    getChallenges();
+
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
-    Challenges.Challenge.query(function(challenges){
-      $scope.challenges = challenges;
-      $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-      $scope.search = {
-        group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
-      };
-    });
+
+
     // we should fix this, that's pretty brittle
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
@@ -178,7 +197,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.join = function(challenge){
       challenge.$join(function(){
-        $scope.challenges = Challenges.Challenge.query();
+        getChallenges()
         User.log({});
       });
 
@@ -189,7 +208,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         $scope.selectedChal = undefined;
       } else {
         $scope.selectedChal.$leave({keep:keep}, function(){
-          $scope.challenges = Challenges.Challenge.query();
+          getChallenges()
           User.log({});
         });
       }
