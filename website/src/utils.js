@@ -37,7 +37,7 @@ function getUserInfo(user, fields) {
   }
 
   if(fields.indexOf('email') != -1){
-    if(user.auth.local){
+    if(user.auth.local && user.auth.local.email){
       info.email = user.auth.local.email;
     }else if(user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value){
       info.email = user.auth.facebook.emails[0].value;
@@ -53,8 +53,9 @@ function getUserInfo(user, fields) {
 
 module.exports.getUserInfo = getUserInfo;
 
-module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
+module.exports.txnEmail = function(mailingInfoArray, emailType, variables, personalVariables){
   var mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
+
   var variables = [
     {name: 'BASE_URL', content: baseUrl}
   ].concat(variables || []);
@@ -63,13 +64,37 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
   mailingInfoArray = mailingInfoArray.map(function(mailingInfo){
     return mailingInfo._id ? getUserInfo(mailingInfo, ['email', 'name', 'canSend']) : mailingInfo;
   }).filter(function(mailingInfo){
-    return (mailingInfo.email && mailingInfo.canSend);
+    // Always send reset-password emails
+    return (mailingInfo.email && (mailingInfo.canSend || emailType === 'reset-password'));
   });
 
-  // When only one recipient send his info as variables
-  if(mailingInfoArray.length === 1 && mailingInfoArray[0].name){
-    variables.push({name: 'RECIPIENT_NAME', content: mailingInfoArray[0].name});
-  }  
+  // Personal variables are personal to each email recipient, if they are missing
+  // we manually create a structure for them with RECIPIENT_NAME
+  // otherwise we just add RECIPIENT_NAME to the existing personal variables
+  if(!personalVariables || personalVariables.length === 0){
+    personalVariables = mailingInfoArray.map(function(mailingInfo){
+      return {
+        rcpt: mailingInfo.email,
+        vars: [{
+          name: 'RECIPIENT_NAME',
+          content: mailingInfo.name
+        }]
+      }
+    });
+  }else{
+    var temporaryPersonalVariables = {};
+
+    mailingInfoArray.forEach(function(mailingInfo){
+      temporaryPersonalVariables[mailingInfo.email] = mailingInfo.name;
+    });
+
+    personalVariables.forEach(function(singlePersonalVariables){
+      singlePersonalVariables.vars.push({
+        name: 'RECIPIENT_NAME',
+        content: temporaryPersonalVariables[singlePersonalVariables.rcpt]
+      });
+    });
+  }
 
   if(isProd && mailingInfoArray.length > 0){
     request({
@@ -84,9 +109,11 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables){
         data: {
           emailType: emailType,
           to: mailingInfoArray,
-          variables: variables
+          variables: variables,
+          personalVariables: personalVariables
         },
         options: {
+          priority: 'high',
           attempts: 5,
           backoff: {delay: 10*60*1000, type: 'fixed'}
         }

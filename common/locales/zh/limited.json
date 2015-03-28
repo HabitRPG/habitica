@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季节魔女<%= linkEnd %>",
     "seasonalShopClosedText": "季节性商店目前停业！我不知道季节女巫现在在哪，但是我敢打赌她会在下一个<%= linkStart %>盛大的节日<%= linkEnd %>回来！",
-    "seasonalShopText": "欢迎来到季节性商店！从现在到1月31日，我们 存有大量季节性冬季版的物品。在这之后，明年这些东西将不再回来，所以当它们热门时买下吧！！要么，额，是冷的。",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "如果你用过重生球，你可以在解锁物品商店后在奖励栏再次购买它。开始，你只能为你当前职业购买物品(默认战士)，别害怕，如果你切换到别的职业，你将可以购买该职业的特别物品。",
     "candycaneSet": "拐杖糖 (法师)",
     "skiSet": "雪橇刺客 (盗贼)",
@@ -38,5 +38,9 @@
     "newYear2": "新年快乐！愿你有完美的一天。",
     "newYear3": "新年快乐！愿你的待办列表保持简短而亲切。",
     "newYear4": "新年快乐！愿你免受骏鹰的攻击。",
-    "holidayCard": "收到一封节日贺卡!"
+    "holidayCard": "收到一封节日贺卡!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

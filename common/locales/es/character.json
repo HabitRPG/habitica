@@ -133,5 +133,8 @@
     "critBonus": "¡Golpe Crítico! Bonificación :",
     "displayNameDescription1": "Esto es lo que aparece en los mensajes que publique en la Taberna, los gremios, y el chat de grupo, junto con lo que se muestra en su avatar.",
     "displayNameDescription2": "Ajustes->Sitio",
-    "displayNameDescription3": "y desplácese a la sección de Registro para cambiar su nombre de usuario."
+    "displayNameDescription3": "y desplácese a la sección de Registro para cambiar su nombre de usuario.",
+    "unequipBattleGear": "Quitarse el Equipo de Battalla",
+    "unequipCostume": "Quitarse el Disfraz",
+    "unequipPetMountBackground": "Quitar la Mascota, Montura, Fondo"
 }

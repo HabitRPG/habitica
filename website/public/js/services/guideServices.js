@@ -109,10 +109,53 @@ function($rootScope, User, $timeout, $state) {
           final: true
         }
       ]
-    ]
+    ],
+    stats: [[
+      {
+        orphan: true,
+        content: window.env.t('tourStatsPage'),
+        final: true
+      }
+    ]],
+    tavern: [[
+      {
+        orphan: true,
+        content: window.env.t('tourTavernPage'),
+        final: true
+      }
+    ]],
+    party: [[
+      {
+        orphan: true,
+        content: window.env.t('tourPartyPage'),
+        final: true
+      }
+    ]],
+    guilds: [[
+      {
+        orphan: true,
+        content: window.env.t('tourGuildsPage'),
+        final: true
+      }
+    ]],
+    challenges: [[
+      {
+        orphan: true,
+        content: window.env.t('tourChallengesPage'),
+        final: true
+      }
+    ]],
+    market: [[
+      {
+        orphan: true,
+        content: window.env.t('tourMarketPage'),
+        final: true
+      }
+    ]]
   }
+
   _.each(chapters, function(chapter, k){
-    _(chapter).flatten().each(function(step) {
+    _(chapter).flatten().each(function(step, i) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
@@ -122,10 +165,11 @@ function($rootScope, User, $timeout, $state) {
           $state.go(step.state);
           return $timeout(function(){});
         }
+        window.ga && ga('send', 'event', 'tour', k, i+1);
       }
       step.onHide = function(){
-        if (step.final) { // -1 indicates complete
-          var ups={};ups['flags.tour.'+k] = -1;
+        if (step.final) { // -2 indicates complete
+          var ups={};ups['flags.tour.'+k] = -2;
           User.set(ups);
         }
       }
@@ -135,20 +179,22 @@ function($rootScope, User, $timeout, $state) {
   var tour = {};
   _.each(chapters, function(v,k){
     tour[k] = new Tour({
+      name: k,
       backdrop: true,
       template: function(i,step){
-        return '<div class="popover" role="tooltip"> ' +
-          '<div class="arrow"></div> ' +
-          '<h3 class="popover-title"></h3> ' +
-          '<div class="popover-content"></div> ' +
+        return '<div class="popover" role="tooltip">' +
+          '<div class="arrow"></div>' +
+          '<h3 class="popover-title"></h3>' +
+          '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
-          //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>'+
-          (step.final ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '')+
-          '<div class="btn-group"> ' +
-          '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button> ' +
-          '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button> ' +
-          '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> ' +
-          '</div> ' +
+            //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
+            ((step.final || k == 'classes') ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '') +
+            (k=='intro' && !step.final ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
+            '<div class="btn-group">' +
+              '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button>' +
+              '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button>' +
+              '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button>' +
+            '</div>' +
           '</div>' +
           '</div>';
       },
@@ -161,7 +207,7 @@ function($rootScope, User, $timeout, $state) {
 
   var goto = function(chapter, page, force) {
     var curr = User.user.flags.tour[chapter];
-    if ((page != curr+1 || curr > page) && !force) return;
+    if (page != curr+1 && !force) return;
     var updates = {};updates['flags.tour.'+chapter] = page;
     User.set(updates);
     var chap = tour[chapter], opts = chap._options;
@@ -185,12 +231,20 @@ function($rootScope, User, $timeout, $state) {
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
     if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
-    goto('intro', User.user.flags.tour.intro, true);
+    goto('intro', 0); // kick off first step on first visit
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
     //$rootScope.$watch('user.flags.dropsEnabled', _.flow(alreadyShown, function(already) { //FIXME requires lodash@~3.2.0
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-      if (toState.name == 'options.profile.avatar') goto('intro', 5);
+      switch (toState.name) {
+        case 'options.profile.avatar':   return goto('intro', 5);
+        case 'options.profile.stats':    return goto('stats', 0);
+        case 'options.social.tavern':    return goto('tavern', 0);
+        case 'options.social.party':     return goto('party', 0);
+        case 'options.social.guilds':    return goto('guilds', 0);
+        case 'options.social.challenges':return goto('challenges', 0);
+        case 'options.inventory.drops':  return goto('market', 0);
+      }
     })
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before,after)) return;
@@ -204,8 +258,10 @@ function($rootScope, User, $timeout, $state) {
     });
   });
 
-  return {
+  var Guide = {
     goto: goto
   };
+  $rootScope.Guide = Guide;
+  return Guide;
 
 }]);

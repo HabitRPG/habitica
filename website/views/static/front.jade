@@ -20,7 +20,8 @@ block content
       //while acting similarly to a logo
       h1#tagline=env.t('tagline')
       p.lead
-        button.btn.btn-primary.btn-lg#frontpage-play-button(ng-click='playButtonClick()')=env.t('playButton')
+        button.btn.btn-primary.btn-lg#frontpage-play-button(ng-click='playButtonClick()')
+          | {{chosenVariation==1 ? "Play Now - It's Free!" : chosenVariation==2 ? "Start" : "#{env.t('playButton')}"}}
       hr
       img(src='/marketing/devices.png')
       //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron

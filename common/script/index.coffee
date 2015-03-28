@@ -6,7 +6,7 @@ api = module.exports = {}
 
 api.i18n = i18n
 
-# little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
+# little helper for large arrays of strings. %w"this that another" equivalent from Ruby, I really miss that function
 $w = api.$w = (s)->s.split(' ')
 
 api.dotSet = (obj,path,val)->
@@ -690,7 +690,7 @@ api.wrap = (user, main=true) ->
 
         return cb?({code:404, message:i18n.t('messagePetNotFound', req.language)}) unless userPets[pet]
         return cb?({code:404, message:i18n.t('messageFoodNotFound', req.language)}) unless user.items.food?[food.key]
-        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet] or (egg is "Egg")
+        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet]
         return cb?({code:401, message:i18n.t('messageAlreadyMount', req.language)}) if user.items.mounts[pet]
 
         message = ''
@@ -1589,6 +1589,11 @@ api.wrap = (user, main=true) ->
       dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
+
+      # Analytics
+      user.flags.cronCount?=0
+      user.flags.cronCount++
+      options.ga?.event('cron', user.flags.cronCount).send(); #TODO userId for cohort
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress

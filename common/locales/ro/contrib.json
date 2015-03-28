@@ -57,5 +57,9 @@
     "whyAds": "De ce reclame?",
     "whyAdsContent1": "Habit este un proiect open source și îi trebuie tot ajutorul posibil - consideră asta o donație pentru contribuitori. Când cumperi vei primi și 20 de nestemate pe care le poți folosi pentru a cumpăra obiecte speciale.",
     "whyAdsContent2": "'Hei, am susținut Kickstarter-ul!' - urmărește",
-    "whyAdsContent3": "instrucțiunile acestea"
+    "whyAdsContent3": "instrucțiunile acestea",
+    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
+    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
+    "currentSurvey": "Current Survey",
+    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

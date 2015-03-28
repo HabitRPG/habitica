@@ -57,5 +57,9 @@
     "whyAds": "¿Por qué los anuncios?",
     "whyAdsContent1": "Habit es un proyecto de código abierto y se puede utilizar toda la ayuda que pueda conseguir - considere esto como una donación a los colaboradores. También consigues 20 gemas con la compra, que puedes utilizar para comprar artículos especiales.",
     "whyAdsContent2": "«¡Oye, he respaldado el Kickstarter!» - sigue",
-    "whyAdsContent3": "estas instrucciones"
+    "whyAdsContent3": "estas instrucciones",
+    "surveysSingle": "Ayudó al crecimiento de HabitRPG rellenando una encuesta. No hay encuestas activas.",
+    "surveysMultiple": "Ayudó al crecimiento de HabitRPG rellenando  <%= surveys %> encuestas. No hay encuestas activas.",
+    "currentSurvey": "Encuesta Actual",
+    "surveyWhen": "Este logro será concedido a todos los participantes cuando la encuesta haya sido procesada a finales de marzo."
 }

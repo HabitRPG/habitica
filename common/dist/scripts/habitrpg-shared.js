@@ -74,6 +74,10 @@ events = {
   winter2015: {
     start: '2014-12-21',
     end: '2015-02-02'
+  },
+  spring2015: {
+    start: '2015-03-20',
+    end: '2015-05-02'
   }
 };
 
@@ -116,7 +120,7 @@ api.mystery = {
   201409: {
     start: '2014-09-24',
     end: '2014-10-02',
-    text: 'Autumn Strider Item Set'
+    text: 'Autumn Strider Set'
   },
   201410: {
     start: '2014-10-24',
@@ -142,6 +146,11 @@ api.mystery = {
     start: '2015-02-24',
     end: '2015-03-02',
     text: 'Winged Enchanter Set'
+  },
+  201503: {
+    start: '2015-03-25',
+    end: '2015-04-02',
+    text: 'Aquamarine Set'
   },
   301404: {
     start: '3014-03-24',
@@ -698,6 +707,49 @@ gear = {
         }),
         value: 90,
         int: 9
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('weaponSpecialSpring2015RogueText'),
+        notes: t('weaponSpecialSpring2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('weaponSpecialSpring2015WarriorText'),
+        notes: t('weaponSpecialSpring2015WarriorNotes', {
+          str: 15
+        }),
+        value: 90,
+        str: 15
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        twoHanded: true,
+        text: t('weaponSpecialSpring2015MageText'),
+        notes: t('weaponSpecialSpring2015MageNotes', {
+          int: 15,
+          per: 7
+        }),
+        value: 160,
+        int: 15,
+        per: 7
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('weaponSpecialSpring2015HealerText'),
+        notes: t('weaponSpecialSpring2015HealerNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
       }
     },
     mystery: {
@@ -1156,6 +1208,46 @@ gear = {
           return u.items.gear.owned.armor_special_birthday2015 != null;
         })
       },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('armorSpecialSpring2015RogueText'),
+        notes: t('armorSpecialSpring2015RogueNotes', {
+          per: 15
+        }),
+        value: 90,
+        per: 15
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('armorSpecialSpring2015WarriorText'),
+        notes: t('armorSpecialSpring2015WarriorNotes', {
+          con: 9
+        }),
+        value: 90,
+        con: 9
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        text: t('armorSpecialSpring2015MageText'),
+        notes: t('armorSpecialSpring2015MageNotes', {
+          int: 9
+        }),
+        value: 90,
+        int: 9
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('armorSpecialSpring2015HealerText'),
+        notes: t('armorSpecialSpring2015HealerNotes', {
+          con: 15
+        }),
+        value: 90,
+        con: 15
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('armorSpecialGaymerxText'),
@@ -1222,6 +1314,12 @@ gear = {
         text: t('armorMystery201501Text'),
         notes: t('armorMystery201501Notes'),
         mystery: '201501',
+        value: 0
+      },
+      201503: {
+        text: t('armorMystery201503Text'),
+        notes: t('armorMystery201503Notes'),
+        mystery: '201503',
         value: 0
       },
       301404: {
@@ -1667,6 +1765,46 @@ gear = {
           return u.items.gear.owned.head_special_nye2014 != null;
         })
       },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('headSpecialSpring2015RogueText'),
+        notes: t('headSpecialSpring2015RogueNotes', {
+          per: 9
+        }),
+        value: 60,
+        per: 9
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('headSpecialSpring2015WarriorText'),
+        notes: t('headSpecialSpring2015WarriorNotes', {
+          str: 9
+        }),
+        value: 60,
+        str: 9
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        text: t('headSpecialSpring2015MageText'),
+        notes: t('headSpecialSpring2015MageNotes', {
+          per: 7
+        }),
+        value: 60,
+        per: 7
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('headSpecialSpring2015HealerText'),
+        notes: t('headSpecialSpring2015HealerNotes', {
+          int: 7
+        }),
+        value: 60,
+        int: 7
+      },
       gaymerx: {
         event: events.gaymerx,
         text: t('headSpecialGaymerxText'),
@@ -2078,6 +2216,36 @@ gear = {
         }),
         value: 70,
         con: 9
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('shieldSpecialSpring2015RogueText'),
+        notes: t('shieldSpecialSpring2015RogueNotes', {
+          str: 8
+        }),
+        value: 80,
+        str: 8
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('shieldSpecialSpring2015WarriorText'),
+        notes: t('shieldSpecialSpring2015WarriorNotes', {
+          con: 7
+        }),
+        value: 70,
+        con: 7
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('shieldSpecialSpring2015HealerText'),
+        notes: t('shieldSpecialSpring2015HealerNotes', {
+          con: 9
+        }),
+        value: 70,
+        con: 9
       }
     },
     mystery: {
@@ -2212,6 +2380,34 @@ gear = {
         text: t('headAccessorySpecialSpringHealerText'),
         notes: t('headAccessorySpecialSpringHealerNotes'),
         value: 20
+      },
+      spring2015Rogue: {
+        event: events.spring2015,
+        specialClass: 'rogue',
+        text: t('headAccessorySpecialSpring2015RogueText'),
+        notes: t('headAccessorySpecialSpring2015RogueNotes'),
+        value: 20
+      },
+      spring2015Warrior: {
+        event: events.spring2015,
+        specialClass: 'warrior',
+        text: t('headAccessorySpecialSpring2015WarriorText'),
+        notes: t('headAccessorySpecialSpring2015WarriorNotes'),
+        value: 20
+      },
+      spring2015Mage: {
+        event: events.spring2015,
+        specialClass: 'wizard',
+        text: t('headAccessorySpecialSpring2015MageText'),
+        notes: t('headAccessorySpecialSpring2015MageNotes'),
+        value: 20
+      },
+      spring2015Healer: {
+        event: events.spring2015,
+        specialClass: 'healer',
+        text: t('headAccessorySpecialSpring2015HealerText'),
+        notes: t('headAccessorySpecialSpring2015HealerNotes'),
+        value: 20
       }
     },
     mystery: {
@@ -2285,6 +2481,12 @@ gear = {
       }
     },
     mystery: {
+      201503: {
+        text: t('eyewearMystery201503Text'),
+        notes: t('eyewearMystery201503Notes'),
+        mystery: '201503',
+        value: 0
+      },
       301404: {
         text: t('eyewearMystery301404Text'),
         notes: t('eyewearMystery301404Notes'),
@@ -2914,7 +3116,7 @@ api.questEggs = {
     text: t('questEggEggText'),
     adjective: t('questEggEggAdjective'),
     canBuy: false,
-    noMount: true
+    mountText: t('questEggEggMountText')
   },
   Rat: {
     text: t('questEggRatText'),
@@ -2964,6 +3166,11 @@ api.questEggs = {
   Rock: {
     text: t('questEggRockText'),
     adjective: t('questEggRockAdjective'),
+    canBuy: false
+  },
+  Bunny: {
+    text: t('questEggBunnyText'),
+    adjective: t('questEggBunnyAdjective'),
     canBuy: false
   }
 };
@@ -3547,7 +3754,8 @@ api.quests = {
         }
       ],
       gp: 25,
-      exp: 125
+      exp: 125,
+      unlock: t('questGryphonUnlockText')
     }
   },
   hedgehog: {
@@ -3577,7 +3785,8 @@ api.quests = {
         }
       ],
       gp: 30,
-      exp: 125
+      exp: 125,
+      unlock: t('questHedgehogUnlockText')
     }
   },
   ghost_stag: {
@@ -3607,7 +3816,8 @@ api.quests = {
         }
       ],
       gp: 80,
-      exp: 800
+      exp: 800,
+      unlock: t('questGhostStagUnlockText')
     }
   },
   vice1: {
@@ -3783,7 +3993,8 @@ api.quests = {
         }
       ],
       gp: 80,
-      exp: 800
+      exp: 800,
+      unlock: t('questRatUnlockText')
     }
   },
   octopus: {
@@ -3813,7 +4024,8 @@ api.quests = {
         }
       ],
       gp: 80,
-      exp: 800
+      exp: 800,
+      unlock: t('questOctopusUnlockText')
     }
   },
   dilatory_derby: {
@@ -3843,7 +4055,8 @@ api.quests = {
         }
       ],
       gp: 25,
-      exp: 125
+      exp: 125,
+      unlock: t('questSeahorseUnlockText')
     }
   },
   atom1: {
@@ -3951,7 +4164,8 @@ api.quests = {
         }
       ],
       gp: 43,
-      exp: 350
+      exp: 350,
+      unlock: t('questHarpyUnlockText')
     }
   },
   rooster: {
@@ -3981,7 +4195,8 @@ api.quests = {
         }
       ],
       gp: 25,
-      exp: 125
+      exp: 125,
+      unlock: t('questRoosterUnlockText')
     }
   },
   spider: {
@@ -4011,7 +4226,8 @@ api.quests = {
         }
       ],
       gp: 31,
-      exp: 200
+      exp: 200,
+      unlock: t('questSpiderUnlockText')
     }
   },
   moonstone1: {
@@ -4249,7 +4465,8 @@ api.quests = {
         }
       ],
       gp: 37,
-      exp: 275
+      exp: 275,
+      unlock: t('questOwlUnlockText')
     }
   },
   penguin: {
@@ -4279,7 +4496,8 @@ api.quests = {
         }
       ],
       gp: 31,
-      exp: 200
+      exp: 200,
+      unlock: t('questPenguinUnlockText')
     }
   },
   trex: {
@@ -4309,7 +4527,8 @@ api.quests = {
         }
       ],
       gp: 55,
-      exp: 500
+      exp: 500,
+      unlock: t('questTRexUnlockText')
     }
   },
   trex_undead: {
@@ -4346,7 +4565,8 @@ api.quests = {
         }
       ],
       gp: 55,
-      exp: 500
+      exp: 500,
+      unlock: t('questTRexUnlockText')
     }
   },
   rock: {
@@ -4376,7 +4596,39 @@ api.quests = {
         }
       ],
       gp: 31,
-      exp: 200
+      exp: 200,
+      unlock: t('questRockUnlockText')
+    }
+  },
+  bunny: {
+    text: t('questBunnyText'),
+    notes: t('questBunnyNotes'),
+    completion: t('questBunnyCompletion'),
+    value: 4,
+    boss: {
+      name: t('questBunnyBoss'),
+      hp: 300,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Bunny',
+          text: t('questBunnyDropBunnyEgg')
+        }, {
+          type: 'eggs',
+          key: 'Bunny',
+          text: t('questBunnyDropBunnyEgg')
+        }, {
+          type: 'eggs',
+          key: 'Bunny',
+          text: t('questBunnyDropBunnyEgg')
+        }
+      ],
+      gp: 25,
+      exp: 125,
+      unlock: t('questBunnyUnlockText')
     }
   }
 };
@@ -4656,7 +4908,11 @@ module.exports = {
     if ((locale == null) || (!module.exports.strings && !module.exports.translations[locale])) {
       locale = 'en';
     }
-    string = !module.exports.strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    if (module.exports.strings) {
+      string = module.exports.strings[stringName];
+    } else {
+      string = module.exports.translations[locale] && module.exports.translations[locale][stringName];
+    }
     clonedVars = _.clone(vars) || {};
     clonedVars.locale = locale;
     if (string) {
@@ -4667,7 +4923,11 @@ module.exports = {
         return 'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.';
       }
     } else {
-      stringNotFound = !module.exports.strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      if (module.exports.strings) {
+        stringNotFound = module.exports.strings.stringNotFound;
+      } else if (module.exports.translations[locale]) {
+        stringNotFound = module.exports.translations[locale] && module.exports.translations[locale].stringNotFound;
+      }
       try {
         return _.template(stringNotFound, {
           string: stringName
@@ -5790,7 +6050,7 @@ api.wrap = function(user, main) {
             message: i18n.t('messageFoodNotFound', req.language)
           }) : void 0;
         }
-        if (content.specialPets[pet] || (egg === "Egg")) {
+        if (content.specialPets[pet]) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('messageCannotFeedPet', req.language)
@@ -7051,6 +7311,13 @@ api.wrap = function(user, main) {
       user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
+      }
+      if ((_base4 = user.flags).cronCount == null) {
+        _base4.cronCount = 0;
+      }
+      user.flags.cronCount++;
+      if ((_ref3 = options.ga) != null) {
+        _ref3.event('cron', user.flags.cronCount).send();
       }
       progress = user.party.quest.progress;
       _progress = _.cloneDeep(progress);

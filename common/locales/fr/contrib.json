@@ -57,5 +57,9 @@
     "whyAds": "Pourquoi des publicités ?",
     "whyAdsContent1": "Habit est un projet open source et utilise toute l'aide qu'on lui donne : considérez une donation pour les contributeurs. Vous recevrez également 20 Gemmes que vous pourrez utiliser pour acheter des objets spéciaux.",
     "whyAdsContent2": "\"Hé ! J'ai soutenu le Kickstarter!\" - suivre",
-    "whyAdsContent3": "ces instructions."
+    "whyAdsContent3": "ces instructions.",
+    "surveysSingle": "A aidé HabitRPG à croître en participant à une enquête. Il n'y a actuellement pas d'enquête en cours.",
+    "surveysMultiple": "A aidé HabitRPG à croître en participant à <%= surveys %> enquêtes. Il n'y a actuellement pas d'enquête en cours.",
+    "currentSurvey": "Enquête Actuelle",
+    "surveyWhen": "Le badge sera attribué à tou·te·s les participant·e·s de l'enquête lorsque celle-ci aura été traitée, fin Mars."
 }

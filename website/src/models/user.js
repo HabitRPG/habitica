@@ -120,8 +120,15 @@ var UserSchema = new Schema({
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
     tour: {
-      intro: {type: Number, 'default': 0},
-      classes: {type: Number, 'default': 0}
+      // -1 indicates "uninitiated", -2 means "complete", any other number is the current tour step (0-index)
+      intro: {type: Number,       'default': -1},
+      classes: {type: Number,     'default': -1},
+      stats: {type: Number,       'default': -1},
+      tavern: {type: Number,      'default': -1},
+      party: {type: Number,       'default': -1},
+      guilds: {type: Number,      'default': -1},
+      challenges: {type: Number,  'default': -1},
+      market: {type: Number,      'default': -1}
     },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
@@ -138,7 +145,8 @@ var UserSchema = new Schema({
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {type: Number, 'default': 0},
-    communityGuidelinesAccepted: {type: Boolean, 'default': false}
+    communityGuidelinesAccepted: {type: Boolean, 'default': false},
+    cronCount: {type:Number, 'default':0}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -308,6 +316,7 @@ var UserSchema = new Schema({
     emailNotifications: {
       unsubscribeFromAll: {type: Boolean, 'default': false},
       newPM: {type: Boolean, 'default': true},
+      kickedGroup: {type: Boolean, 'default': true},
       wonChallenge: {type: Boolean, 'default': true},
       giftedGems: {type: Boolean, 'default': true},
       giftedSubscription: {type: Boolean, 'default': true},

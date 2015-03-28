@@ -42,5 +42,5 @@
     "doubleSureAbort": "Si si naozaj istý? Uisti sa, že ťa potom nebudú naveky neznášať!",
     "questWarning": "Ak sa nový hráči pridajú do družiny pred začiatkom výpravy, dostanú pozvánku aj oni. Ale ak sa už výprava začala, noví hráči sa nebudú môcť na ňu pridať.",
     "bossRageTitle": "Zúrivosť",
-    "bossRageDescription": "Keď sa naplní tento ukazovateľ, boss rozpúta špeciálny útok."
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
 }

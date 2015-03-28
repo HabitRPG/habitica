@@ -57,5 +57,9 @@
     "whyAds": "Proč reklamy?",
     "whyAdsContent1": "HabitRPG je open source projekt a je rád za každou pomoc - popřemýšlejte nad tímto darem vývojářům. Navíc získáte 20 drahokamů, které můžete použít na nákup speciálních předmětů.",
     "whyAdsContent2": "'Hej, podpořil jsem vás na Kickstarteru!' - řiď se",
-    "whyAdsContent3": "těmito instrukcemi"
+    "whyAdsContent3": "těmito instrukcemi",
+    "surveysSingle": "Pomohl HabitRPG vyplněním dotazníku. Nejsou žádné aktivní dotazníky.",
+    "surveysMultiple": "Pomohl HabitRPG růst vyplněním <%= surveys%> dotazníků. Nejsou žádné aktivní dotazníky.",
+    "currentSurvey": "Aktuální dotazník",
+    "surveyWhen": "Odznaky budou rozdány všem účastníkům poté, co budou všechny dotazníky zpracovány ke konci března."
 }

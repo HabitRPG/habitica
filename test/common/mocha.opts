@@ -4,5 +4,5 @@
 --check-leaks
 --growl
 --debug
---compilers coffee:coffee-script/register
+--compilers coffee:coffee-script
 --globals io

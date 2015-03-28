@@ -22,7 +22,7 @@
     "seasonalShopClosedTitle": "Сиена Лезли",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Волшебница<%= linkEnd %>",
     "seasonalShopClosedText": "Сезонный магазин сейчас закрыт!!! Я не знаю где сейчас Сезонная Колдунья, но она вернется к следующему большому празднику.",
-    "seasonalShopText": "Добро пожаловать в сезонную лавку! С этого момента и до 31го января мы на наших полках можно найти множество зимних сезонных товаров. Потом вы не увидете этих вещей до следующего года, так что хватайте, пока они еще тепленькие! То есть, ээ, холодненькие.",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Жулик)",
@@ -38,5 +38,9 @@
     "newYear2": "С Новым годом! Желаем вам заработать множество Идеальных дней.",
     "newYear3": "С Новым годом! Желаем вам, чтобы список задач оставался коротким и милым.",
     "newYear4": "С Новым годом! Желаем, чтобы на вас никогда не напал воинственный Гиппогриф.",
-    "holidayCard": "Получена поздравительная открытка!"
+    "holidayCard": "Получена поздравительная открытка!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

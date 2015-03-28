@@ -38,6 +38,7 @@
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
     "delete": "Radera",
     "gems": "Juveler",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Mer Info",
     "gemsWhatFor": "Köpta med riktiga pengar. Används för att köpa speciella föremål och tjänster (ägg, kläckningsdrycker, stärkningsdryck, osv.). Du måste låsa upp de funktionerna innan du kan börja använda Juveler.",
     "veteran": "Veteran",

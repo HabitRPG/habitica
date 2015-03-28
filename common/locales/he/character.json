@@ -133,5 +133,8 @@
     "critBonus": "פגיעה חמורה! בונוס:",
     "displayNameDescription1": "זה מה שמופיע בהודעות שאתה מפרסם בפאב, בגילדות ובשיחת החבורה, בנוסף למה שמופיע כבר על גבי האווטאר שלך. לך ל",
     "displayNameDescription2": "הגדרות->אתר",
-    "displayNameDescription3": "וגלול למטה לאזור ההרשמה כדי לשנות את שם המשתמש שלך."
+    "displayNameDescription3": "וגלול למטה לאזור ההרשמה כדי לשנות את שם המשתמש שלך.",
+    "unequipBattleGear": "הסר את ציוד הלחימה",
+    "unequipCostume": "הסר את התחפושת",
+    "unequipPetMountBackground": "הסר את חיית המחמד, חיית הרכיבה ותמונת הרקע"
 }

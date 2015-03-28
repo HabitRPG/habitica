@@ -42,5 +42,5 @@
     "doubleSureAbort": "Tuti biztos vagy benne? Győződj meg róla, hogy nem fognak a többiek utálni!",
     "questWarning": "Ha új játékosok csatlakoznak a csapathoz a küldetés indulása előtt, akkor ők is kapnak meghívót. Egyébként, ha a küldetés indulása után csatlakozik valaki, az nem tud részt venni benne.",
     "bossRageTitle": "Örjöngés",
-    "bossRageDescription": "Amikor ez a sáv megtelik, a főellenség speciális támadást hajt végre"
+    "bossRageDescription": "Ha ez a sáv megtelik, akkor a Főellenség egy speciális támadást szabadít ránk."
 }

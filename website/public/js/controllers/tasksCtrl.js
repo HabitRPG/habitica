@@ -203,23 +203,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Ads
-     ------------------------
-     */
-
-    /**
-     * See conversation on http://productforums.google.com/forum/#!topic/adsense/WYkC_VzKwbA,
-     * Adsense is very sensitive. It must be called once-and-only-once for every <ins>, else things break.
-     * Additionally, angular won't run javascript embedded into a script template, so we can't copy/paste
-     * the html provided by adsense - we need to run this function post-link
-     */
-    $scope.initAds = function(){
-      $.getScript('//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    }
-
-    /*
-     ------------------------
      Hiding Tasks
      ------------------------
      */

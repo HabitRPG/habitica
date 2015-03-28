@@ -133,5 +133,8 @@
     "critBonus": "Kritikus sebzés! Bónusz:",
     "displayNameDescription1": "Ez jelenik meg amikor a Fogadó, a céh vagy a party chat-et használod, ezen felül az avatárodon is ez látszik. Menj a ",
     "displayNameDescription2": "Beállítások->Oldal",
-    "displayNameDescription3": "menübe és lapozz le a Regisztrációs részhez a login neved megváltoztatásához."
+    "displayNameDescription3": "menübe és lapozz le a Regisztrációs részhez a login neved megváltoztatásához.",
+    "unequipBattleGear": "Unequip Battle Gear",
+    "unequipCostume": "Unequip Costume",
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }
