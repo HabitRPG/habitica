@@ -85,7 +85,7 @@ angular.module("habitrpg").factory("Notification",
          dropClass = 'Pet_Egg_' + item.key;
          break;
         case "HatchingPotion":
-         dropClass = 'Pet_Hatching' + item.key;
+         dropClass = 'Pet_HatchingPotion_' + item.key;
          break;
         case "Food":
          dropClass = 'Pet_Food_' + item.key;
