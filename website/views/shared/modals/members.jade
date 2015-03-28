@@ -49,8 +49,12 @@ script(type='text/ng-template', id='modals/private-message.html')
     textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',placeholder=env.t('needsTextPlaceholder'),ng-model='_message')
   .modal-footer
     //- Due to a quirk in Bootstrap UI, we need to wrap this so the tooltip can
-    //- appear when disabled.
-    div(style='display:inline-block',tooltip="{{_message ? '' : env.t('needsText')}}")
+    //- appear when the button is disabled.
+    //
+    //- Source: http://getbootstrap.com/javascript/#tooltips
+    //    "Tooltips on disabled elements require wrapper elements"
+    //
+    .disabled-tooltip-wrapper(tooltip="{{_message ? '' : env.t('needsText')}}")
       button.btn.btn-primary(ng-disabled='!_message',ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
 
