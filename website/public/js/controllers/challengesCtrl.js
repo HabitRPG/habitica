@@ -113,6 +113,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      */
     function backToChallenges(){
       $scope.popoverEl.popover('destroy');
+      $scope.cid = null;
       $state.go('options.social.challenges');
       $scope.challenges = Challenges.Challenge.query();
       User.log({});
