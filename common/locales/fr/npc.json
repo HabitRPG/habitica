@@ -34,12 +34,12 @@
     "toDo": "À faire",
     "moreClass": "Pour plus d'informations sur le système de classes, voir",
     "tourWelcome": "Bienvenue à Habitica ! Ceci est votre liste de Tâches. Cochez une tâche pour continuer !",
-    "tourExp": "Beau travail ! Valider une tâche vous rapporte de l'Expérience et de l'Or !",
-    "tourDailies": "Cette colonne est pour les tâches Quotidiennes. Pour continuer, ajoutez une tâche que vous devriez faire chaque jour ! <b>Exemple de tâches Quotidiennes</b>: <b>Faire son lit</b>, <b>Se brosser les dents</b>, <b>Vérifier les mails professionnels</b>",
+    "tourExp": "Beau travail ! Valider une tâche vous rapportera de l'Expérience et de l'Or !",
+    "tourDailies": "Cette colonne est pour les tâches Quotidiennes. Pour continuer, ajoutez une tâche que vous devriez faire chaque jour ! <b>Exemple de tâches Quotidiennes</b>: <b>Faire son lit</b>, <b>Se brosser les dents</b>, <b>Vérifier ses mails professionnels</b>",
     "tourCron": "Magnifique ! Vos Quotidiennes sont réinitialisées chaque jour.",
     "tourHP": "Prenez garde ! Si vous ne complétez pas une Quotidienne avant minuit, elle vous infligera des dégâts.",
     "tourHabits": "Cette colonne est pour les bonnes et mauvaises habitudes que vous réalisez fréquemment ! Pour continuer, cliquez sur le crayon pour changer les noms, puis cliquez sur la coche pour enregistrer.",
-    "tourStats": "Les bonnes habitudes vous donneront de l'expérience et de l'or. Les mauvaises habitude vous feront perdre de la vie.",
+    "tourStats": "Les bonnes habitudes vous donneront de l'expérience et de l'or. Les mauvaises habitudes vous feront perdre de la vie.",
     "tourGP": "Pour continuer, achetez l’Épée d'Entrainement avec l'or que vous venez de recevoir !",
     "tourAvatar": "Votre avatar a désormais l’Épée d'Entrainement. Pour continuer, cliquez sur votre avatar pour le personnaliser !",
     "tourScrollDown": "Faites attention à bien aller tout en bas de la page pour voir toutes les options ! Cliquez sur votre avatar à nouveau pour retourner à la page des tâches.",
@@ -48,6 +48,6 @@
     "tourTavernPage": "Bienvenue à la Taverne, un lieu de discussion pour tout le monde ! Vous pouvez geler votre compte en cas de maladie ou de voyage, en cliquant sur \"Se reposer à l'Auberge.\" Venez dire bonjour !",
     "tourPartyPage": "Votre équipe vous aidera à rester responsable. Invitez des amis pour déverrouiller un parchemin de quête !",
     "tourGuildsPage": "Les Guildes sont des groupes de personnes avec des centres d'intérêts communs. Recherchez les sujets qui vous plaisent ! Nous vous recommandons la guilde des nouveaux arrivants.",
-    "tourChallengesPage": "Rejoindre un défi ajoutera des tâches à votre compte. Rivaliser avec d'autres membres pour gagner des lots de gemmes !",
-    "tourMarketPage": "A partir du niveau 4, des œufs et des potions d'éclosion apparaitront au hasard comme butin lorsque vous réaliserez vos tâches. Ils apparaissent ici - utilisez les pour faire éclore des Familiers ! Vous pouvez aussi acheter des objets au Marché."
+    "tourChallengesPage": "Rejoindre un défi ajoutera des tâches à votre compte. Rivaliser avec d'autres membres pour gagner des gemmes !",
+    "tourMarketPage": "A partir du niveau 4, des œufs et des potions d'éclosion apparaitront au hasard comme butin lorsque vous réaliserez vos tâches. Ils apparaissent ici - utilisez-les pour faire éclore des Familiers ! Vous pouvez aussi acheter des objets au Marché."
 }

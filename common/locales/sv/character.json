@@ -45,7 +45,7 @@
     "classBonus": "Klassutrustningsbonus",
     "classBonusText": "Din klass (Krigare, om du inte har låst upp eller valt en annan klass) använder sin egna utrustning mer effektivt än utrustning från andra klasser. Att använda utrustning från din nuvarande klass ger en 50% höjning på egenskapsbonusen den ger.",
     "classEquipBonus": "Klassbonus",
-    "battleGear": "Stridsredskap",
+    "battleGear": "Stridsutrustning",
     "battleGearText": "Det här är utrustningen du bär till strid, vilket påverkar nummer när de interagerar med dina uppgifter.",
     "costume": "Dräkt",
     "costumeText": "Om du föredrar utseendet på annan utrustning än den du har på dig, kryssa i rutan \"Använd Dräkt\" för att visa upp din favoritdräkt medan du har på dig din stridsutrustning undertill.",
@@ -134,7 +134,7 @@
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
     "displayNameDescription2": "Inställningar->Sida",
     "displayNameDescription3": "och scrolla ner till Registrerings sektionen för att ändra ditt inloggningsnamn.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
+    "unequipBattleGear": "Ta av Stridssutrustning",
+    "unequipCostume": "Ta av Dräkt",
     "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }
