@@ -544,7 +544,7 @@ api.spells =
       notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
-          bonus = user._statsComputed.int
+          bonus = user._statsComputed.int - user.stats.buffs.int
           member.stats.buffs.int ?= 0
           member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30,200))
 
@@ -577,7 +577,7 @@ api.spells =
       target: 'self'
       notes: t('spellWarriorDefensiveStanceNotes')
       cast: (user, target) ->
-        bonus = user._statsComputed.con
+        bonus = user._statsComputed.con - user.stats.buffs.con
         user.stats.buffs.con ?= 0
         user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200))
 
@@ -589,7 +589,7 @@ api.spells =
       notes: t('spellWarriorValorousPresenceNotes')
       cast: (user, target) ->
         _.each target, (member) ->
-          bonus = user._statsComputed.str
+          bonus = user._statsComputed.str - user.stats.buffs.str
           member.stats.buffs.str ?= 0
           member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200))
 
@@ -601,7 +601,7 @@ api.spells =
       notes: t('spellWarriorIntimidateNotes')
       cast: (user, target) ->
         _.each target, (member) ->
-          bonus = user._statsComputed.con
+          bonus = user._statsComputed.con - user.stats.buffs.con
           member.stats.buffs.con ?= 0
           member.stats.buffs.con += Math.ceil(diminishingReturns(bonus,24,200))
 
@@ -636,7 +636,7 @@ api.spells =
       notes: t('spellRogueToolsOfTradeNotes')
       cast: (user, target) ->
         _.each target, (member) ->
-          bonus = user._statsComputed.per
+          bonus = user._statsComputed.per - user.stats.buffs.per
           member.stats.buffs.per ?= 0
           member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100))
 
@@ -661,6 +661,7 @@ api.spells =
       cast: (user, target) ->
         user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
+
     brightness:
       text: t('spellHealerBrightnessText')
       mana: 15
@@ -671,6 +672,7 @@ api.spells =
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
           target.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40))
+
     protectAura:
       text: t('spellHealerProtectAuraText')
       mana: 30
@@ -679,9 +681,10 @@ api.spells =
       notes: t('spellHealerProtectAuraNotes')
       cast: (user, target) ->
         _.each target, (member) ->
-          bonus = user._statsComputed.con
+          bonus = user._statsComputed.con - user.stats.buffs.con
           member.stats.buffs.con ?= 0
           member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200))
+
     heallAll:
       text: t('spellHealerHealAllText')
       mana: 25

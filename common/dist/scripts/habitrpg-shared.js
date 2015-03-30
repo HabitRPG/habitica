@@ -2684,7 +2684,7 @@ api.spells = {
       cast: function(user, target) {
         return _.each(target, function(member) {
           var bonus, _base;
-          bonus = user._statsComputed.int;
+          bonus = user._statsComputed.int - user.stats.buffs.int;
           if ((_base = member.stats.buffs).int == null) {
             _base.int = 0;
           }
@@ -2728,7 +2728,7 @@ api.spells = {
       notes: t('spellWarriorDefensiveStanceNotes'),
       cast: function(user, target) {
         var bonus, _base;
-        bonus = user._statsComputed.con;
+        bonus = user._statsComputed.con - user.stats.buffs.con;
         if ((_base = user.stats.buffs).con == null) {
           _base.con = 0;
         }
@@ -2744,7 +2744,7 @@ api.spells = {
       cast: function(user, target) {
         return _.each(target, function(member) {
           var bonus, _base;
-          bonus = user._statsComputed.str;
+          bonus = user._statsComputed.str - user.stats.buffs.str;
           if ((_base = member.stats.buffs).str == null) {
             _base.str = 0;
           }
@@ -2761,7 +2761,7 @@ api.spells = {
       cast: function(user, target) {
         return _.each(target, function(member) {
           var bonus, _base;
-          bonus = user._statsComputed.con;
+          bonus = user._statsComputed.con - user.stats.buffs.con;
           if ((_base = member.stats.buffs).con == null) {
             _base.con = 0;
           }
@@ -2806,7 +2806,7 @@ api.spells = {
       cast: function(user, target) {
         return _.each(target, function(member) {
           var bonus, _base;
-          bonus = user._statsComputed.per;
+          bonus = user._statsComputed.per - user.stats.buffs.per;
           if ((_base = member.stats.buffs).per == null) {
             _base.per = 0;
           }
@@ -2867,7 +2867,7 @@ api.spells = {
       cast: function(user, target) {
         return _.each(target, function(member) {
           var bonus, _base;
-          bonus = user._statsComputed.con;
+          bonus = user._statsComputed.con - user.stats.buffs.con;
           if ((_base = member.stats.buffs).con == null) {
             _base.con = 0;
           }
@@ -7116,7 +7116,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2;
+      var clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _base4, _progress, _ref, _ref1, _ref2, _ref3;
       if (options == null) {
         options = {};
       }
