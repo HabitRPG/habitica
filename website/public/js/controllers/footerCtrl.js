@@ -29,7 +29,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     if (window.env.NODE_ENV === 'production') {
       // Get experiments API
       $.getScript('//www.google-analytics.com/cx/api.js?experiment=OPMHlSzSTj2gVYwUS72wlQ', function(){
-        $rootScope.chosenVariation = cxApi.chooseVariation();
+        $rootScope.variant = cxApi.chooseVariation();
         $rootScope.$apply();
 
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
