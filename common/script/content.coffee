@@ -620,6 +620,9 @@ api.spells =
         user.stats.exp += bonus
         user.stats.gp += bonus
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
+        #Sync the user stats to see if we level the user
+        req = { language: user.preferences.language }
+        user.fns.updateStats( user.stats , req )
     toolsOfTrade:
       text: t('spellRogueToolsOfTradeText')
       mana: 25
