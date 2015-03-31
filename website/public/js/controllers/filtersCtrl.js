@@ -4,6 +4,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
   function($scope, $rootScope, User, Shared) {
     var user = User.user;
     $scope._editing = false;
+    $scope._newTag = {name:''};
 
     var tagsSnap; // used to compare which tags need updating
 
