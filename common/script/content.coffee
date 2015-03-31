@@ -638,7 +638,7 @@ api.spells =
         _.each target, (member) ->
           bonus = user._statsComputed.per - user.stats.buffs.per
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100))
+          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50))
 
     stealth:
       text: t('spellRogueStealthText')
