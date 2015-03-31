@@ -15,9 +15,9 @@ body {
 }
 
 section {
-  height:100vh;
+  height:100%;
   position:relative;
-  padding-top:5%;
+  padding:5% 0 5% 0;
 }
 
 section .well {
@@ -80,7 +80,6 @@ h1, h2, h3, h4, p.sectioninfo {
 
 p.sectioninfo {
   display:block;
-  width:500px;
   margin:100px auto 0 auto;
   font-size:16px;
 }
@@ -202,6 +201,14 @@ button.gamifybutton {
     max-height:450px;
     overflow:hidden;
     display:block;
+}
+
+.carousel-content .sampletasks .task-btn {
+  font-size:1.41em;
+}
+
+.carousel-content .sampletasks .task-desc {
+  font-size:1em;
 }
 
 .carousel-content img {
@@ -448,6 +455,11 @@ button.gamifybutton {
 }
 
 @media only screen and (max-width: 767px) {
+  .mobile-container {
+  max-width:100%;
+  overflow-x:hidden;
+} 
+
   #myCarousel .nav > li {
     width:30%;
     display:inline-block;
@@ -465,6 +477,24 @@ button.gamifybutton {
 
   #quote-carousel .carousel-indicators {
     padding-bottom:5rem;
+  }
+
+ #quote-carousel .carousel-indicators li {
+    width: 20px;
+    height: 20px;
+}
+#quote-carousel .carousel-indicators .active {
+    background: #333333;
+    width: 50px;
+    height: 50px;
+}
+#quote-carousel .carousel-inner {
+    min-height: 350px;
+    width::90%;
+}
+ 
+  .carousel-content .sampletasks .task-desc {
+    font-size:0.8em;
   }
 }
 
