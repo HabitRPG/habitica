@@ -12,7 +12,7 @@ describe('Filters Controller', function() {
 
   it('creates a tag', function(){
     scope._newTag = {name:'tagName'}
-    scope.createTag('tagName');
+    scope.createTag();
     expect(user.tags).to.have.length(1);
     expect(user.tags[0].name).to.eql('tagName');
     expect(user.tags[0]).to.have.property('id');
