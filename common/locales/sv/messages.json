@@ -19,6 +19,6 @@
     "messageTwoHandled": "<%= gearText %> är tvåhandad",
     "messageDropFood": "Du har hittat <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Du hittade ett <%= dropText %> Ägg! <%= dropNotes %>",
-    "messageDropPotion": "Du hittade en <%= dropText %> Kläcknings Dryck! <%= dropNotes %>",
+    "messageDropPotion": "Du hittade en <%= dropText %> kläckningsdryck! <%= dropNotes %>",
     "messageFoundQuest": "Du hittade uppdraget \"<%= questText %>\"!"
 }
