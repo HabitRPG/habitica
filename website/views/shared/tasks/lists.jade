@@ -97,7 +97,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               p.task-text {{item.text()}}
 
           // Events
-          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball || user.items.special.spookDust>0 || user.stats.buffs.spookDust)')
+          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball || user.items.special.spookDust>0 || user.stats.buffs.spookDust || user.items.special.flower>0 || user.stats.buffs.flower)')
 
             mixin specialSpell(k,canceler)
               li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
@@ -118,9 +118,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
             +specialSpell('snowball')
             +specialSpell('spookDust')
-
+            +specialSpell('flower')
             +specialSpell('salt','snowball')
             +specialSpell('opaquePotion','spookDust')
+            +specialSpell('petalFreePotion','flower')
 
           // Actual List
           ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
