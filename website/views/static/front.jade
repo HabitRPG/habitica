@@ -36,41 +36,29 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
             .navbar-header
               button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
                 span.sr-only Toggle navigation
-                |         
                 span.icon-bar
-                |         
                 span.icon-bar
-                |         
                 span.icon-bar
-              |       
               a.navbar-brand(href='#')
                 img(src='/front/images/icon175x175.png')
-                | 
                 img(src='/front/images/habitrpg_pixel.png')
             // Collect the nav links, forms, and other content for toggling
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav.navbar-right
                 li
                   a(href='/static/front') How it works
-                | 
                 li
                   a(href='/static/plans') Corporate plans
-                | 
                 li
                   a(href='http://blog.habitrpg.com/') Blog
-                | 
                 li
                   a(href='/static/press-kit') Press Kit
-                | 
                 li
                   a(href='/static/contact') Contact Us
-                | 
                 li
                   button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()') Play HabitRPG
-      | 
       #intro
         h1 Motivate yourself and your team!
-        | 
         img.center-block.img-responsive(src='/front/images/intro.jpg')
         // insert intro images
         .introcall.bg-success
@@ -78,39 +66,27 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
             | Join 200,000 players making it fun to achieve goals!
             small
               button.btn.btn-primary.btn-lg.gamifybutton(ng-click='playButtonClick()') Play for free
-        | 
         .presslogos.text-center
           | Featured in
           br
-          | 
           img(src='/front/images/presslogos/lifehacker.png')
-          | 
           img(src='/front/images/presslogos/nyt-logo.png')
-          | 
           img(src='/front/images/presslogos/makeuseof.png')
-          | 
           img(src='/front/images/presslogos/Forbes_logo.png')
-          | 
           img(src='/front/images/presslogos/Cnetlogo.png')
-          | 
           img(src='/front/images/presslogos/Fast-Company-logo.png')
-          | 
           img(src='/front/images/presslogos/kickstarter-logo.png')
-      | 
-      | 
       #intro-text
         .container-fluid
           .row
             .col-md-8.col-md-offset-2
               p.lead.text-center
                 | HabitRPG is a free habit building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, HabitRPG can help you achieve your goals to become healthy, hard-working, and happy.
-      | 
       section#testimonial-carousel.bg-info
         .container-fluid
           .row
             .col-md-3.col-md-offset-1
               h2 What people say...
-              | 
               img.img-say.img-responsive.visible-lg-block(src='/front/images/uses/publicSpaces.png')
             // Testimonials
             .col-md-8.col-sm-10.col-sx-10
@@ -119,13 +95,10 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                 ol.carousel-indicators
                   li.active(data-target='#quote-carousel', data-slide-to='0')
                     img.img-responsive(src='/front/images/testimonials/Drag0nsilver.png', alt='')
-                  |                         
                   li(data-target='#quote-carousel', data-slide-to='1')
                     img.img-responsive(src='/front/images/testimonials/frabjabulous.png', alt='')
-                  |                         
                   li(data-target='#quote-carousel', data-slide-to='2')
                     img.img-responsive(src='/front/images/testimonials/AndeeLiao.png', alt='')
-                  |                         
                   li(data-target='#quote-carousel', data-slide-to='3')
                     img.img-responsive(src='/front/images/testimonials/AlexandraSo.png', alt='')
                 // Carousel Slides / Quotes
@@ -137,7 +110,6 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                         .col-sm-8.col-sm-offset-2
                           p
                             | I can&apos;t tell you how many time and task tracking systems I&apos;ve tried over the decades... HRPG is the only thing I&apos;ve used that actually helps me get things done rather than just list them.
-                          |                                     
                           small Drag0nsilver
                   // Quote 2
                   .item
@@ -146,7 +118,6 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                         .col-sm-8.col-sm-offset-2
                           p
                             | HabitRPG is the reason I got a killer, high-paying job... and even more miraculous, I&apos;m now a daily flosser!
-                          |                                     
                           small frabjabulous
                   // Quote 3
                   .item
@@ -155,47 +126,35 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                         .col-sm-8.col-sm-offset-2
                           p
                             | Awesome product, just started a few days ago and already more conscious and productive with my time!
-                          |                                     
                           small AndeeLiao
-                  |                     
                   .item
                     blockquote
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
                             | Couldn&apos;t NOT talk about HabitRPG during my speech in Madrid. Must-have tool for freelancers who still need a boss.
-                          |                                     
                           small _AlexandraSo_
                 // Carousel Buttons Next/Prev
                 a.left.carousel-control(data-slide='prev', href='#quote-carousel')
                   i.fa.fa-chevron-left
-                |                 
                 a.right.carousel-control(data-slide='next', href='#quote-carousel')
                   i.fa.fa-chevron-right
-        | 
         button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(ng-click='playButtonClick()') Gamify your life today!
-      | 
       section#uses
         h2 Players use HabitRPG to manage...
-        | 
         .container-fluid
           #myCarousel.carousel.slide(data-interval='4000', data-ride='carousel')
             ul.nav.nav-pills.nav-justified
               li.active(data-target='#myCarousel', data-slide-to='0')
                 a(href='#') Work
-              | 
               li(data-target='#myCarousel', data-slide-to='1')
                 a(href='#') Health
-              | 
               li(data-target='#myCarousel', data-slide-to='2')
                 a(href='#') Teams
-              | 
               li(data-target='#myCarousel', data-slide-to='3')
                 a(href='#') School
-              | 
               li(data-target='#myCarousel', data-slide-to='4')
                 a(href='#') Goals
-              | 
               li(data-target='#myCarousel', data-slide-to='5')
                 a(href='#') Chores
             // Wrapper for slides
@@ -206,332 +165,254 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                   br
                   small
                     a(href='/business.html') Use HabitRPG at your business
-                |                 
                 .carousel-content.row
                   .sampletasks.col-lg-4.col-md-6.col-sm-12.col-xs-12
                     h4 Sample Habits
-                    |                 
                     div(style='width:100%; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Confirm 1 page of Inventory
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') 20 mins Filing
                     br
-                    | 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Sort and Process Inbox
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Prepare 1 Document for Client
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Call Clients/Put Off Phone Calls
-                  |             
                   img.sample-img.visible-lg-inline-block(src='/front/images/uses/coding.png')
-                  | 
-                  |             
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='frabjabulous', src='/front/images/testimonials/frabjabulous.png')
-                      |             
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | HabitRPG is the reason I got a killer, high-paying job... and even more miraculous, I&apos;m now a daily flosser
-                    |        
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='_AlexandraSo_', src='/front/images/testimonials/AlexandraSo.png')
-                      | 
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | Couldn&apos;t NOT talk about HabitRPG during my speech in Madrid. Must-have tool for freelancers who still need a boss.
               // End item
               .item.health-use
                 h3 Health
-                |                 
                 .carousel-content.row
                   .sampletasks.col-lg-4.col-md-6.col-sm-12.col-xs-12
                     h4 Sample Habits
-                    |                 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Drink Water/Soda
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Chew Gum/Smoke
                     br
-                    | 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Take Stairs/Elevator
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(255, 207, 66); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Eat Healthy/Junk Food
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Break a Sweat for 1 hr
-                  | 
                   img.sample-img.visible-lg-inline-block(src='/front/images/uses/clipart-rosemonkeyct-meditation.png')
-                  |             
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='EvaGantz', src='/front/images/testimonials/EvaGantz.png')
-                      |             
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | My very first dentist appointment where the hygienist was actually excited about my flossing habits. Thanks Habitrpg!
-                    |        
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='supermouse35', src='/front/images/testimonials/supermouse35.png')
-                      | 
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | I&apos;m exercising more and I haven&apos;t forgotten to take my meds for months! Thanks, Habit. :D
               // End Item
               .item.team-use
                 h3 Teams
-                |                 
                 .carousel-content.row
                   .sampletasks.col-lg-4.col-md-6.col-sm-12.col-xs-12
                     h4 Sample To-Dos
-                    |                 
                     div(style='width:100%; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
                         span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Outline Meeting Itinerary for Tuesday
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
                         span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Brainstorm Growth Hacking
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);')
                         span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Discuss this week&rsquo;s KPIs
                     br
-                  |              
                   img.sample-img.visible-lg-inline-block(src='/front/images/uses/publicSpaces.png')
-                  |             
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='Althaire', src='/front/images/testimonials/Althaire.png')
-                      |             
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | Having a quest constantly on really motivates me to do all my dailies and do all my to-dos. My biggest motivation is not letting my party down.
               // End Item
               .item.school-use
                 h3 School
-                |                 
                 .carousel-content.row
                   .sampletasks.col-lg-4.col-md-6.col-sm-12.col-xs-12
                     h4 Sample Habits
-                    |                 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Finish 1 Assignment
                     br
-                    | 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Study 1 hour 
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Meet with Study Group
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Notes for 1 Chapter
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(90, 98, 223); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Read 1 Chapter
-                  |             
                   img.sample-img.visible-lg-inline-block(src='/front/images/uses/reading.png')
-                  | 
-                  |             
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='InfH', src='/front/images/testimonials/InfH.png')
-                      |             
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content HabitRPG has really helped me impart structure to my life in graduate school.
-                    |        
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='Drei-M', src='/front/images/testimonials/Drei-M.png')
-                      | 
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | When I discovered HabitRPG last summer, I had just failed about half of my exams. Thanks to the Dailies&mldr; I was able to organize and discipline myself, and I actually passed all my exams with really good grades a month ago.
               // End Item
               .item.improvement-use
                 h3 Goals
-                |                 
                 .carousel-content.row
                   .sampletasks.col-lg-4.col-md-6.col-sm-12.col-xs-12
                     h4 Sample Dailies
-                    |                 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Practice Piano for 1 Hour
                     br
-                    | 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Work on article for publication
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Work on blog post
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Japanese lesson on Duolingo
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Read an Informative Article
-                  |              
                   img.sample-img.visible-lg-inline-block(src='/front/images/uses/Gaining_an_achievement_by_cosmic_caterpillar-d7uyv5z.png')
-                  | 
-                  | 
-                  |             
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='Kazui', src='/front/images/testimonials/Kazui.png')
-                      |             
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | Before HabitRPG, I was stuck with my thesis, as well as dissatisfied with my personal discipline regarding housework and things like learning vocabulary and studying Go theory.  It turns out breaking down these tasks into smaller manageable checklists is quite the thing to keep me motivated and constantly working
               // End Item
               .item.housework-use
                 h3 Chores
-                |                 
                 .carousel-content.row
                   .sampletasks.col-lg-4.col-md-6.col-sm-12.col-xs-12
                     h4 Sample Dailies
-                    |                 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Put Dirty Clothes in Hamper
                     br
-                    | 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') 20 mins of Housework
                     br
-                    | 
                     div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Wash a Load of Dishes
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Tidy One Room
                     br
-                    | 
                     div(style='width:100%; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Wash and Dry a Load of Clothes
-                  |             
                   img.sample-img.visible-lg-inline-block(src='/front/images/uses/dusting_by_leephon.png')
-                  | 
-                  |             
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='autumnesquirrel', src='/front/images/testimonials/autumnesquirrel.png')
-                      |             
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content I&apos;m procrastinating less on work and housework and pay bills on time.
-                    |        
                     .usetweet-group
                       img(data-toggle='tooltip', data-placement='top', title='irishfeet123', src='/front/images/testimonials/irishfeet123.png')
-                      | 
                       .usetweet.tweet.popover.right
                         .arrow
-                        |             
                         .popover-content
                           | I&apos;ve had horrible habits with clearing my place completely after meals and leaving cups all over the place. HabitRPG has cured that!
               // End Item
           // End Carousel
-        | 
         button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(ng-click='playButtonClick()') Gamify your life today!
-      | 
       section#rewards.bg-warning.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             h2.headline Complete a task to earn gold!
-        | 
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12.col-xs-12
             p.sectioninfo
@@ -539,40 +420,28 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               br
               br
               | Instant rewards keep you motivated!
-            | 
             .scrolltweet.hidden-xs.hidden-sm
               img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Elmi', src='/front/images/testimonials/Elmi.png')
-              |  
               .tweet.popover.right.pull-right
                 .arrow
-                | 
                 .popover-content  Every morning I&apos;m looking forward to getting up so I can earn some gold!
-          | 
           .col-lg-4.col-md-4.col-lg-offset-1.col-sm-8.well.col-xs-8.col-xs-offset-2.col-sm-offset-2.well-lg
             .avatarscroll
               h2
                 span.glyphicon.glyphicon-check
-              | 
               h2
                 span.glyphicon.glyphicon-arrow-down
-              | 
               img.img-responsive(src='/front/images/misc/shop_gold.png')
               img.img-responsive(src='/front/images/misc/shop_gold.png')
               img.img-responsive(src='/front/images/misc/shop_gold.png')
-              | 
               h2
                 span.glyphicon.glyphicon-arrow-down
-              | 
               img.img-responsive(src='/front/images/TVreward.png')
-          | 
-          | 
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
-      | 
       section#levels.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             h2.headline As you stay productive, you unlock new content!
-        | 
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             p.sectioninfo
@@ -580,293 +449,158 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               br
               br
               | Unlock new motivational tools, such as pet collecting, random rewards, spell-casting, and more!
-            | 
             .scrolltweet.hidden-xs.hidden-sm
               img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='16bitFil', src='/front/images/testimonials/16bitFil.png')
-              | 
               .tweet.popover.right.pull-right
                 .arrow
-                | 
                 .popover-content
                   | I&apos;m getting my jobs and tasks done in record time thanks to HabitRPG. I&apos;m just always so eager to reach my next level-up!
-          | 
           .col-lg-4.col-md-4.col-lg-offset-1.col-sm-8.well.col-xs-8.col-xs-offset-2.col-sm-offset-2
             .avatarscroll
               img.img-responsive(src='/front/images/avatar/avatarstatic.png')
-              | 
               h2
                 span.glyphicon.glyphicon-arrow-down
-              | 
               img.img-responsive(src='/front/images/SAMPLEadventurers.png')
-          | 
-          | 
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
-      | 
       section#health.bg-danger.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             h2.headline Miss a daily goal?
-        | 
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             h2 Lose health!
-            | 
             p.sectioninfo Break bad habits and procrastination cycles with immediate consequences.
-            | 
             .scrolltweet.hidden-xs.hidden-sm
               img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Zelah Meyer', src='/front/images/testimonials/Zelah_Meyer.png')
-              | 
               .tweet.popover.right.pull-right
                 .arrow
-                | 
                 .popover-content
                   | With HabitRPG, I can be persuaded to go to bed on time by the thought of gaining points for an early night or losing health for a late one!
-          | 
           .col-lg-4.col-md-4.col-lg-offset-1.col-sm-8.well.col-xs-8.col-xs-offset-2.col-sm-offset-2.well-lg
             h2
               span.glyphicon.glyphicon-unchecked
-            | 
             .health-progress
               .meter-label(tooltip='Health')
                 span.glyphicon.glyphicon-heart
-              | 
               .meter.health
                 .bar
                   div(style='width:100%;') &nbsp;
-            | 
             h2
               span.glyphicon.glyphicon-arrow-down
-            | 
             .health-progress
               .meter-label(tooltip='Health')
                 span.glyphicon.glyphicon-heart
-              | 
               .meter.health
                 .bar
                   div(style='width:50%;') &nbsp;
-          | 
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
-      | 
       section#quest.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             h2.headline Battle monsters with your friends!
-        | 
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
             h2 If you slack off, they all get hurt!
-            | 
             p.sectioninfo
               | Playing with your friends keeps you accountable for your tasks.
               br
               | Issue each other Challenges to complete a goal together!
-            | 
             .scrolltweet.hidden-xs.hidden-sm
               img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='skysailor', src='/front/images/testimonials/skysailor.png')
-              | 
               .tweet.popover.right.pull-right
                 .arrow
-                | 
                 .popover-content
                   | My party and our quests keep me engaged in the game, which keeps me motivated to get things done and change my life in positive ways
-          | 
           .col-lg-4.col-md-6.col-md-offset-1.col-lg-offset-1.col-sm-10.well.col-xs-10.col-xs-offset-1.col-sm-offset-1.well-lg
             img.clearfix.img-responsive.center-block(style='padding-bottom:30px;', src="/front/images/Quest_dilatory_drag'onSmall.png")
-            | 
             .row
               .col-lg-5.col-md-5.col-sm-5.col-sm-offset-0.col-xs-5.col-xs-offset-0
                 .health-progress
                   .meter-label(tooltip='Health')
                     span.glyphicon.glyphicon-heart
-                  | 
                   .meter.health
                     .bar
                       div(style='width:20%;') &nbsp;
-                | 
                 .quest-friend-img
                   img(src='/front/images/party/AnnaCosplay.png')
-              | 
               .col-md-1.col-sm-1.col-xs-1
                 h2
                   span.glyphicon.glyphicon-arrow-right
-              | 
               .col-lg-5.col-md-offset-1.col-md-5.col-sm-5.col-sm-offset-0.col-xs-5.col-xs-offset-0
                 .health-progress
                   .meter-label(tooltip='Health')
                     span.glyphicon.glyphicon-heart
-                  | 
                   .meter.health
                     .bar
                       div(style='width:0%;') &nbsp;
-                | 
                 .quest-friend-img
                   img(src='/front/images/party/GrimReaper.png')
-          | 
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
-      | 
       section#features.bg-info.container-fluid
         .row
           h2 We also feature...
-        | 
         .row
           .col-md-4.col-md-offset-2.col-sm-6
             .feature-img
               img.center-block.img-responsive(src='/front/images/Mount.png')
-            | 
             .featuretext
               h4 Pets and Mounts
-              | 
               p
                 | Eggs and items drop when you complete your tasks. Be as productive as possible to collect pets and mounts!
-          |    
           .col-md-4.col-sm-6
             .feature-img.center-block
               img(src='/front/images/achievement-triadbingo.png')
-              | 
               img(src='/front/images/achievement-perfect.png')
-            | 
             .featuretext
               h4 Achievement Badges
-              | 
               p Do something totally awesome? Get a badge and show it off!
-        | 
         .row
           .col-md-4.col-md-offset-2.col-sm-6
             .feature-img
               img.center-block.img-responsive(src='/front/images/Promo_springclasses2015.png')
-            | 
             .featuretext
               h4 Equipment and extras
-              | 
               p
                 | Buy limited edition equipment, potions, and other virtual goodies in our Market with your task rewards!
-          | 
           .col-md-4.col-sm-6
             .feature-img
               img.center-block.img-responsive(src='/front/images/Party-Header.png')
-            | 
             .featuretext
               h4 Social play
-              | 
               p
                 | Join common-interest groups with like-minded people. Create Challenges to compete against other users.
-          | 
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
-      | 
       #footercall
         .container-fluid
           .row
             .col-md-10
               h3 Join 200,000 players making it fun to achieve goals!
-          | 
           .row
             .col-md-4.col-md-offset-4
               button.btn.btn-primary.btn-lg.btn-block(ng-click='playButtonClick()') Play for free!
-      | 
       footer.footer
         .container-fluid.shoutout
           h4 HabitRPG works with
-          | 
           .row
             .col-lg-2.col-md-2.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='http://ionicframework.com/')
                 img.img-responsive(src='/front/images/presslogos/ionic-logo-horizontal-transparent.png')
-            | 
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='https://www.jetbrains.com/webstorm/')
                 img.img-responsive(src='/front/images/presslogos/logo_webstorm.png')
-            | 
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='http://github.com/')
                 img.img-responsive(src='/front/images/presslogos/GitHub_Logo.png')
-            | 
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='https://trello.com/')
                 img.img-responsive(src='/front/images/presslogos/trello-logo-blue.png')
-            | 
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='https://slack.com/')
                 img.img-responsive(src='/front/images/presslogos/landing_slack_hash_wordmark_logo.png')
-        | 
+
         .row.footer-content
-          .col-lg-2.col-lg-offset-2.col-md-2.col-md-offset-2.col-sm-3.col-sm-offset-0.col-xs-offset-3
-            h4 Mobile
-            | 
-            ul.list-unstyled
-              li
-                a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank') iOS
-              | 
-              li
-                a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank') Android
-            | 
-            h4 Language
-            | 
-            select(ng-change='changeLang()', ng-model='selectedLanguage', ng-options='language.name for language in languages')
-          | 
-          .col-lg-2.col-md-2.col-sm-3.col-sm-offset-0.col-xs-offset-3
-            h4 Company
-            | 
-            ul.list-unstyled
-              li
-                a(href='/static/features') Features
-              | 
-              li
-                a(target='_blank', href='http://blog.habitrpg.com/') Blog
-              | 
-              li
-                a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ') FAQ
-              | 
-              li
-                a(href='/static/privacy') Privacy
-              | 
-              li
-                a(href='/static/terms') Terms
-              | 
-              li
-                a(href='/static/contact') Contact Us
-          | 
-          .col-lg-2.col-md-2.col-sm-3.col-sm-offset-0.col-xs-offset-3
-            h4 Community
-            | 
-            ul.list-unstyled
-              li
-                a(target='_blank', href='https://habitrpg.com/static/api') API
-              | 
-              li
-                a(href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations', target='_blank') Add-ons &amp; Extensions
-              | 
-              li
-                a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum') Forum
-              | 
-              li
-                a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile') Kickstarter
-              | 
-              li
-                a(target='_blank', href='https://www.facebook.com/Habitrpg') Facebook
-              | 
-              li
-                a(target='_blank', href='http://www.reddit.com/r/habitrpg/') Reddit
-          | 
-          .col-lg-2.col-md-2.col-sm-3.col-sm-offset-0.col-xs-offset-3
-            h4 Social
-            | 
-            .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title='HabitRPG - Gamify Your Life')
-              table
-                tr
-                  td
-                    a.addthis_button_facebook_like(fb:like:layout='button_count')
-                | 
-                tr
-                  td
-                    a.addthis_button_tweet(tw:via='habitrpg')
-                | 
-                tr
-                  td
-                    // <iframe src="http://www.habitrpg.com/bower_components/github-buttons/github-btn.html?user=lefnire&amp;repo=habitrpg&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe>
-                | 
-                tr
-                  td
-                    a.addthis_button_google_plusone(g:plusone:size='medium')
+          include ../shared/footer
+
     // Footer scripts
     // Use carousel initialize
     script(type='text/javascript').
