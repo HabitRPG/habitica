@@ -2882,6 +2882,8 @@ api.spells = {
       cast: function(user, target) {
         var _base;
         target.stats.buffs.snowball = true;
+        target.stats.buffs.spookDust = false;
+        target.stats.buffs.shinySeed = false;
         if ((_base = target.achievements).snowball == null) {
           _base.snowball = 0;
         }
@@ -2909,7 +2911,9 @@ api.spells = {
       notes: t('spellSpecialSpookDustNotes'),
       cast: function(user, target) {
         var _base;
+        target.stats.buffs.snowball = false;
         target.stats.buffs.spookDust = true;
+        target.stats.buffs.shinySeed = false;
         if ((_base = target.achievements).spookDust == null) {
           _base.spookDust = 0;
         }
@@ -2926,6 +2930,36 @@ api.spells = {
       notes: t('spellSpecialOpaquePotionNotes'),
       cast: function(user, target) {
         user.stats.buffs.spookDust = false;
+        return user.stats.gp -= 5;
+      }
+    },
+    shinySeed: {
+      text: t('spellSpecialShinySeedText'),
+      mana: 0,
+      value: 15,
+      target: 'user',
+      notes: t('spellSpecialShinySeedNotes'),
+      cast: function(user, target) {
+        var _base;
+        target.stats.buffs.snowball = false;
+        target.stats.buffs.spookDust = false;
+        target.stats.buffs.shinySeed = true;
+        if ((_base = target.achievements).shinySeed == null) {
+          _base.shinySeed = 0;
+        }
+        target.achievements.shinySeed++;
+        return user.items.special.shinySeed--;
+      }
+    },
+    petalFreePotion: {
+      text: t('spellSpecialPetalFreePotionText'),
+      mana: 0,
+      value: 5,
+      immediateUse: true,
+      target: 'self',
+      notes: t('spellSpecialPetalFreePotionNotes'),
+      cast: function(user, target) {
+        user.stats.buffs.shinySeed = false;
         return user.stats.gp -= 5;
       }
     },
