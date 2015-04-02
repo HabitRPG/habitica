@@ -80,9 +80,9 @@ var getUserLanguage = function(req, res, next){
 
     var matches = _.intersection(acceptable, defaultLangCodes);
 
-    var iAcceptedCompleteLang = multipleVersionsLanguages.indexOf(matches[0].toLowerCase());
+    var iAcceptedCompleteLang = (matches.length > 0) ? multipleVersionsLanguages.indexOf(matches[0].toLowerCase()) : -1;
 
-    if(matches.length > 0 && iAcceptedCompleteLang !== -1){
+    if(iAcceptedCompleteLang !== -1){
       var acceptedCompleteLang = _.find(req.acceptedLanguages, function(accepted){
         return accepted.slice(0, 2) == multipleVersionsLanguages[iAcceptedCompleteLang];
       });
