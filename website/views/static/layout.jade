@@ -44,14 +44,14 @@ html(ng-app='habitrpg')
           ul.nav.navbar-nav
             li(class='#{menuItem=="features" ? "active" : ""}')
               a(href='/static/features')=env.t('companyAbout')
-            li(class='#{menuItem=="videos" ? "active" : ""}')
+            //-li(class='#{menuItem=="videos" ? "active" : ""}')
               a(href='/static/videos')=env.t('companyVideos')
-            li
-              a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
             li(class='#{menuItem=="plans" ? "active" : ""}')
               a(href='/static/plans')=env.t('groupPlans')
+            li
+              a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
             li(class='#{menuItem=="pressKit" ? "active" : ""}')
-              a(href='/static/press-kit') Press Kit
+              a(href='/static/press-kit')=env.t('presskit')
             li(class='#{menuItem=="contact" ? "active" : ""}')
               a(href='/static/contact')=env.t('contactUs')
 
