@@ -78,5 +78,13 @@
     "streakCoins": "Streak Bonus!",
     "pushTaskToTop": "Push task to top",
     "pushTaskToBottom": "Push task to bottom",
-    "emptyTask": "Enter the task's title first."
+    "emptyTask": "Enter the task's title first.",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "weeklyIcon": "W",
+    "monthly": "Monthly",
+    "monthlyIcon": "M",
+    "dailySubType": "Daily Type",
+    "dailySubTypeHelpTitle": "What are different daily types?",
+    "dailySubTypeHelpContent": "Daily type governs by what time the daily should be completed. 'Daily' is the old fashioned 'once a day' type of daily. A 'Weekly' needs to be completed once a week. And you guessed it, a 'Monthly' needs to be completed once a month!"
 }

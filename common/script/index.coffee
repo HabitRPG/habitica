@@ -55,6 +55,14 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
   o = sanitizeOptions(options)
   moment(o.now).startOf('week')
 
+api.endOfWeek = (options={}) ->
+  o = sanitizeOptions(options)
+  moment(o.now).endOf('week')
+
+api.endOfMonth = (options={}) ->
+  o = sanitizeOptions(options)
+  moment(o.now).endOf('month')
+
 api.startOfDay = (options={}) ->
   o = sanitizeOptions(options)
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
@@ -79,6 +87,27 @@ api.shouldDo = (day, repeat, options={}) ->
   o = sanitizeOptions options
   selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
   return selected
+
+###
+  Check if this day is the end of the period ie subtype of task
+###
+api.endOfPeriod = (subtype, options={}) ->
+  return true if subtype is 'daily'
+  o = sanitizeOptions options
+  return true if subtype is 'weekly' and o.day() == api.endOfWeek(o).day()
+  return true if subtype is 'monthly' and o.day() == api.endOfMonth(o).day()
+  false
+
+###
+  ------------------------------------------------------
+  Level cap
+  ------------------------------------------------------
+###
+
+api.maxLevel = 100
+
+api.capByLevel = (lvl) ->
+  if lvl > api.maxLevel then api.maxLevel else lvl
 
 ###
   ------------------------------------------------------
@@ -199,6 +228,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
+  _.defaults(task, {subtype:'daily'}) if task.type in ['daily']
   _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
@@ -476,16 +506,13 @@ api.wrap = (user, main=true) ->
 
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
-        if (user.balance < 2 && user.stats.lvl < 100)
+        if (user.balance < 2 && user.stats.lvl < api.maxLevel)
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
-        # only charge people if they are under level 100 - ryan
-        if user.stats.lvl < 100
+        # only charge people if they are under the max level - ryan
+        if user.stats.lvl < api.maxLevel
           user.balance -= 2
         # Save off user's level, for calculating achievement eligibility later
-        if user.stats.lvl < 100
-          lvl = user.stats.lvl
-        else
-          lvl = 100
+        lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -675,7 +702,7 @@ api.wrap = (user, main=true) ->
         # Generate pet display name variable
         potionText = if content.hatchingPotions[potion] then content.hatchingPotions[potion].text() else potion
         eggText = if content.eggs[egg] then content.eggs[egg].text() else egg
-        petDisplayName = i18n.t('petName', { 
+        petDisplayName = i18n.t('petName', {
           potion: potionText
           egg: eggText
         })
@@ -934,7 +961,7 @@ api.wrap = (user, main=true) ->
           else
             return cb?({code:401,message:i18n.t('notEnoughGems', req.language)}) unless user.balance >= .75
             user.balance -= .75
-          _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
+          _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
           ga?.event('purchase', 'changeClass').send()
           #'stats.points': this is handled on the server
@@ -945,7 +972,7 @@ api.wrap = (user, main=true) ->
         user.flags.classSelected = true
         user.preferences.disableClasses = true
         user.preferences.autoAllocate = true
-        user.stats.str = user.stats.lvl
+        user.stats.str = api.capByLevel(user.stats.lvl)
         user.stats.points = 0
         cb? null, _.pick(user,$w 'stats flags preferences')
 
@@ -1067,11 +1094,10 @@ api.wrap = (user, main=true) ->
             nextDelta = if not options.cron and direction is 'down' then calculateReverseDelta() else calculateDelta()
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
-              # ===== STRENGTH =====
-              # (Only for up-scoring, ignore up-onlies and rewards)
-              if direction is 'up' and !(task.type is 'habit' and !task.down)
+              if direction is 'up' # Make progress on quest based on STR
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
+                user.party.quest.progress.up += (nextDelta * (0.5 + (user._statsComputed.str / 400))) if task.type is 'habit'
               task.value += nextDelta
             delta += nextDelta
 
@@ -1112,9 +1138,17 @@ api.wrap = (user, main=true) ->
           hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
           stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
+        gainMP = (delta) ->
+          delta *= user._tmp.crit or 1
+          user.stats.mp += delta
+          user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
+          user.stats.mp = 0 if user.stats.mp < 0
+
+        # ===== starting to actually do stuff, most of above was definitions =====
         switch task.type
           when 'habit'
             changeTaskValue()
+            gainMP(_.max([0.25, (.0025 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
             # Add habit value to habit-history (if different)
             if (delta > 0) then addPoints() else subtractPoints()
 
@@ -1133,6 +1167,7 @@ api.wrap = (user, main=true) ->
               task.streak = 0 unless user.stats.buffs.streaks
             else
               changeTaskValue()
+              gainMP(_.max([1, (.01 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
               if direction is 'down'
                 delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
@@ -1159,12 +1194,7 @@ api.wrap = (user, main=true) ->
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
-              mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
-              mpDelta *= user._tmp.crit or 1
-              mpDelta *= -1 if direction is 'down'  # unticking a todo
-              user.stats.mp += mpDelta
-              user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
-              user.stats.mp = 0 if user.stats.mp < 0   # BUT DO WE WANT THIS? SEE COMMIT DESCRIPTION
+              gainMP(_.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)]) * if direction is 'down' then -1 else 1)
 
           when 'reward'
           # Don't adjust values for rewards
@@ -1221,7 +1251,9 @@ api.wrap = (user, main=true) ->
 
     crit: (stat='str', chance=.03) ->
       #console.log("Crit Chance:"+chance*(1+user._statsComputed[stat]/100))
-      if user.fns.predictableRandom() <= chance*(1+user._statsComputed[stat]/100) then 1.5 + (.02*user._statsComputed[stat])
+      s = user._statsComputed[stat]
+      if user.fns.predictableRandom() <= chance*(1 + s/100)
+        1.5 + 4*s/(s + 200)
       else 1
 
     ###
@@ -1341,7 +1373,8 @@ api.wrap = (user, main=true) ->
             _.invert(stats)[_.min stats]
           when "classbased"
             # Attributes get 3:2:1:1 per 7 levels.
-            ideal = [(user.stats.lvl / 7 * 3), (user.stats.lvl / 7 * 2), (user.stats.lvl / 7), (user.stats.lvl / 7)]
+            lvlDiv7 = user.stats.lvl / 7
+            ideal = [(lvlDiv7 * 3), (lvlDiv7 * 2), lvlDiv7, lvlDiv7]
             # Primary, secondary etc. attributes aren't explicitly defined, so hardcode them. In order as above
             preference = switch user.stats.class
               when "wizard" then ["int", "per", "con", "str"]
@@ -1377,14 +1410,16 @@ api.wrap = (user, main=true) ->
           user.stats.lvl++
           tnl = api.tnl(user.stats.lvl)
 
+          user.stats.hp = 50
+
+          continue if user.stats.lvl > api.maxLevel
+
           # Auto-allocate a point, or give them a new manual point
           if user.preferences.automaticAllocation
             user.fns.autoAllocate()
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-
-          user.stats.hp = 50
       user.stats.exp = stats.exp
 
       # Set flags when they unlock features
@@ -1412,7 +1447,7 @@ api.wrap = (user, main=true) ->
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
-      if user.stats.lvl >= 100 and !user.flags.freeRebirth
+      if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
         user.flags.freeRebirth = true
 
     ###
@@ -1486,34 +1521,53 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
+      dailyChecked = 0        # how many dailies were checked?
+      dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
         {id, type, completed, repeat} = task
 
-        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
+	# for dailies, only continue if we are at the end of the period
+        return if type is 'daily' and !api.endOfPeriod(task.subtype)
 
-
-        # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
-        unless completed
-          scheduleMisses = daysMissed
+        # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
+        EvadeTask = 0
+        scheduleMisses = daysMissed
+        if completed
+          if type is 'daily'
+            dailyChecked += 1
+        else
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
-          if (type is 'daily') and repeat
+          if type is 'daily' and task.subtype is "daily" and repeat
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
-          if scheduleMisses > 0
-            perfect = false if type is 'daily'
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
+              if api.shouldDo(thatDay, repeat, user.preferences)
+                scheduleMisses++
+                if user.stats.buffs.stealth
+                  user.stats.buffs.stealth--
+                  EvadeTask++
+          if scheduleMisses > EvadeTask
+            if type is 'daily'
+              perfect = false
+              if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
+                fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
+                dailyDueUnchecked += (1 - fractionChecked)
+                dailyChecked += fractionChecked
+              else
+               dailyDueUnchecked += 1
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
             user.party.quest.progress.down += delta if type is 'daily'
 
         switch type
           when 'daily'
+            # This occurs whether or not the task is completed
             (task.history ?= []).push({ date: +new Date, value: task.value })
             task.completed = false
-            _.each task.checklist, ((i)->i.completed=false;true)
+            if completed || (scheduleMisses > 0)
+              _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
           when 'todo'
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value
@@ -1548,15 +1602,14 @@ api.wrap = (user, main=true) ->
         if perfect
           user.achievements.perfect ?= 0
           user.achievements.perfect++
-          if user.stats.lvl < 100
-            lvlDiv2 = Math.ceil(user.stats.lvl/2)
-          else
-            lvlDiv2 = 50
+          lvlDiv2 = Math.ceil(api.capByLevel(user.stats.lvl) / 2)
           {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
         else clearBuffs
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
-      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
+      # Adjust for fraction of dailies completed
+      dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
+      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # Analytics
@@ -1636,10 +1689,7 @@ api.wrap = (user, main=true) ->
             else
               +val[stat] or 0
         , 0
-        if user.stats.lvl < 100
-          m[stat] += (user.stats.lvl - 1) / 2
-        else
-          m[stat] += 50
+        m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2)
         m
       , {}
       computed.maxMP = computed.int*2 + 30

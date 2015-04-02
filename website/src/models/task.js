@@ -51,6 +51,7 @@ var checklist = [{
 var DailySchema = new Schema(
   _.defaults({
     type: {type:String, 'default': 'daily'},
+    subtype: {type: String, 'default': 'daily'},
     history: Array,
     completed: {type: Boolean, 'default': false},
     repeat: {

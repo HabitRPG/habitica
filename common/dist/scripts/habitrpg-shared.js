@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 }
 
 },{"./script/index.coffee":4,"lodash":6,"moment":7}],2:[function(require,module,exports){
-var api, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
+var api, calculateBonus, classes, diminishingReturns, events, gear, gearTypes, i18n, moment, repeat, t, _;
 
 _ = require('lodash');
 
@@ -2632,6 +2632,16 @@ diminishingReturns = function(bonus, max, halfway) {
   return max * (bonus / (bonus + halfway));
 };
 
+calculateBonus = function(value, stat, crit, stat_scale) {
+  if (crit == null) {
+    crit = 1;
+  }
+  if (stat_scale == null) {
+    stat_scale = 0.5;
+  }
+  return (value < 0 ? 1 : value + 1) + (stat * stat_scale * crit);
+};
+
 api.spells = {
   wizard: {
     fireball: {
@@ -2641,12 +2651,14 @@ api.spells = {
       target: 'task',
       notes: t('spellWizardFireballNotes'),
       cast: function(user, target) {
-        var bonus;
+        var bonus, _base;
         bonus = user._statsComputed.int * user.fns.crit('per');
-        target.value += diminishingReturns(bonus * .02, 4);
         bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
         user.stats.exp += diminishingReturns(bonus, 75);
-        return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        if ((_base = user.party.quest.progress).up == null) {
+          _base.up = 0;
+        }
+        return user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1);
       }
     },
     mpheal: {
@@ -2658,11 +2670,8 @@ api.spells = {
       cast: function(user, target) {
         return _.each(target, function(member) {
           var bonus;
-          bonus = Math.ceil(user._statsComputed.int * .1);
-          if (bonus > 25) {
-            bonus = 25;
-          }
-          return member.stats.mp += bonus;
+          bonus = user._statsComputed.int;
+          return member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         });
       }
     },
@@ -2674,11 +2683,12 @@ api.spells = {
       notes: t('spellWizardEarthNotes'),
       cast: function(user, target) {
         return _.each(target, function(member) {
-          var _base;
+          var bonus, _base;
+          bonus = user._statsComputed.int - user.stats.buffs.int;
           if ((_base = member.stats.buffs).int == null) {
             _base.int = 0;
           }
-          return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
+          return member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30, 200));
         });
       }
     },
@@ -2701,8 +2711,13 @@ api.spells = {
       target: 'task',
       notes: t('spellWarriorSmashNotes'),
       cast: function(user, target) {
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con');
-        return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+        var bonus, _base;
+        bonus = user._statsComputed.str * user.fns.crit('con');
+        target.value += diminishingReturns(bonus, 2.5, 35);
+        if ((_base = user.party.quest.progress).up == null) {
+          _base.up = 0;
+        }
+        return user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
       }
     },
     defensiveStance: {
@@ -2712,11 +2727,12 @@ api.spells = {
       target: 'self',
       notes: t('spellWarriorDefensiveStanceNotes'),
       cast: function(user, target) {
-        var _base;
+        var bonus, _base;
+        bonus = user._statsComputed.con - user.stats.buffs.con;
         if ((_base = user.stats.buffs).con == null) {
           _base.con = 0;
         }
-        return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
+        return user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200));
       }
     },
     valorousPresence: {
@@ -2727,11 +2743,12 @@ api.spells = {
       notes: t('spellWarriorValorousPresenceNotes'),
       cast: function(user, target) {
         return _.each(target, function(member) {
-          var _base;
+          var bonus, _base;
+          bonus = user._statsComputed.str - user.stats.buffs.str;
           if ((_base = member.stats.buffs).str == null) {
             _base.str = 0;
           }
-          return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
+          return member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200));
         });
       }
     },
@@ -2743,11 +2760,12 @@ api.spells = {
       notes: t('spellWarriorIntimidateNotes'),
       cast: function(user, target) {
         return _.each(target, function(member) {
-          var _base;
+          var bonus, _base;
+          bonus = user._statsComputed.con - user.stats.buffs.con;
           if ((_base = member.stats.buffs).con == null) {
             _base.con = 0;
           }
-          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
+          return member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 24, 200));
         });
       }
     }
@@ -2761,8 +2779,8 @@ api.spells = {
       notes: t('spellRoguePickPocketNotes'),
       cast: function(user, target) {
         var bonus;
-        bonus = (target.value < 0 ? 1 : target.value + 2) + (user._statsComputed.per * 0.5);
-        return user.stats.gp += 25 * (bonus / (bonus + 75));
+        bonus = calculateBonus(target.value, user._statsComputed.per);
+        return user.stats.gp += diminishingReturns(bonus, 25, 75);
       }
     },
     backStab: {
@@ -2774,10 +2792,9 @@ api.spells = {
       cast: function(user, target) {
         var bonus, _crit;
         _crit = user.fns.crit('str', .3);
-        target.value += _crit * .03;
-        bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
-        user.stats.exp += bonus;
-        return user.stats.gp += bonus;
+        bonus = calculateBonus(target.value, user._statsComputed.str, _crit);
+        user.stats.exp += diminishingReturns(bonus, 75, 50);
+        return user.stats.gp += diminishingReturns(bonus, 18, 75);
       }
     },
     toolsOfTrade: {
@@ -2788,11 +2805,12 @@ api.spells = {
       notes: t('spellRogueToolsOfTradeNotes'),
       cast: function(user, target) {
         return _.each(target, function(member) {
-          var _base;
+          var bonus, _base;
+          bonus = user._statsComputed.per - user.stats.buffs.per;
           if ((_base = member.stats.buffs).per == null) {
             _base.per = 0;
           }
-          return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
+          return member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 400, 100));
         });
       }
     },
@@ -2807,7 +2825,7 @@ api.spells = {
         if ((_base = user.stats.buffs).stealth == null) {
           _base.stealth = 0;
         }
-        return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
+        return user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.dailys.length * 0.64, 55));
       }
     }
   },
@@ -2836,7 +2854,7 @@ api.spells = {
           if (target.type === 'reward') {
             return;
           }
-          return target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40));
+          return target.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
         });
       }
     },
@@ -2848,11 +2866,12 @@ api.spells = {
       notes: t('spellHealerProtectAuraNotes'),
       cast: function(user, target) {
         return _.each(target, function(member) {
-          var _base;
+          var bonus, _base;
+          bonus = user._statsComputed.con - user.stats.buffs.con;
           if ((_base = member.stats.buffs).con == null) {
             _base.con = 0;
           }
-          return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
+          return member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200));
         });
       }
     },
@@ -5124,6 +5143,23 @@ api.shouldDo = function(day, repeat, options) {
 
 /*
   ------------------------------------------------------
+  Level cap
+  ------------------------------------------------------
+ */
+
+api.maxLevel = 100;
+
+api.capByLevel = function(lvl) {
+  if (lvl > api.maxLevel) {
+    return api.maxLevel;
+  } else {
+    return lvl;
+  }
+};
+
+
+/*
+  ------------------------------------------------------
   Scoring
   ------------------------------------------------------
  */
@@ -5740,20 +5776,16 @@ api.wrap = function(user, main) {
       },
       rebirth: function(req, cb, ga) {
         var flags, gear, lvl, stats;
-        if (user.balance < 2 && user.stats.lvl < 100) {
+        if (user.balance < 2 && user.stats.lvl < api.maxLevel) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
-        if (user.stats.lvl < 100) {
+        if (user.stats.lvl < api.maxLevel) {
           user.balance -= 2;
         }
-        if (user.stats.lvl < 100) {
-          lvl = user.stats.lvl;
-        } else {
-          lvl = 100;
-        }
+        lvl = api.capByLevel(user.stats.lvl);
         _.each(user.tasks, function(task) {
           if (task.type !== 'reward') {
             task.value = 0;
@@ -6527,7 +6559,7 @@ api.wrap = function(user, main) {
             con: 0,
             per: 0,
             int: 0,
-            points: user.stats.lvl
+            points: api.capByLevel(user.stats.lvl)
           });
           user.flags.classSelected = false;
           if (ga != null) {
@@ -6541,7 +6573,7 @@ api.wrap = function(user, main) {
         user.flags.classSelected = true;
         user.preferences.disableClasses = true;
         user.preferences.autoAllocate = true;
-        user.stats.str = user.stats.lvl;
+        user.stats.str = api.capByLevel(user.stats.lvl);
         user.stats.points = 0;
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
       },
@@ -6594,7 +6626,7 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, 'items.special') : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
+        var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, gainMP, id, multiplier, num, options, stats, subtractPoints, task, th, _ref;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -6673,10 +6705,13 @@ api.wrap = function(user, main) {
               if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                 user.stats.training[task.attribute] += nextDelta;
               }
-              if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
+              if (direction === 'up') {
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
                   user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
+                }
+                if (task.type === 'habit') {
+                  user.party.quest.progress.up += nextDelta * (0.5 + (user._statsComputed.str / 400));
                 }
               }
               task.value += nextDelta;
@@ -6705,9 +6740,20 @@ api.wrap = function(user, main) {
           hpMod = delta * conBonus * task.priority * 2;
           return stats.hp += Math.round(hpMod * 10) / 10;
         };
+        gainMP = function(delta) {
+          delta *= user._tmp.crit || 1;
+          user.stats.mp += delta;
+          if (user.stats.mp >= user._statsComputed.maxMP) {
+            user.stats.mp = user._statsComputed.maxMP;
+          }
+          if (user.stats.mp < 0) {
+            return user.stats.mp = 0;
+          }
+        };
         switch (task.type) {
           case 'habit':
             changeTaskValue();
+            gainMP(_.max([0.25, .0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
             if (delta > 0) {
               addPoints();
             } else {
@@ -6737,6 +6783,7 @@ api.wrap = function(user, main) {
               }
             } else {
               changeTaskValue();
+              gainMP(_.max([1, .01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
               if (direction === 'down') {
                 delta = calculateDelta();
               }
@@ -6769,18 +6816,7 @@ api.wrap = function(user, main) {
                   return m + (i.completed ? 1 : 0);
                 }), 1), 1
               ]);
-              mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
-              mpDelta *= user._tmp.crit || 1;
-              if (direction === 'down') {
-                mpDelta *= -1;
-              }
-              user.stats.mp += mpDelta;
-              if (user.stats.mp >= user._statsComputed.maxMP) {
-                user.stats.mp = user._statsComputed.maxMP;
-              }
-              if (user.stats.mp < 0) {
-                user.stats.mp = 0;
-              }
+              gainMP(_.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
             }
             break;
           case 'reward':
@@ -6856,14 +6892,16 @@ api.wrap = function(user, main) {
       return x - Math.floor(x);
     },
     crit: function(stat, chance) {
+      var s;
       if (stat == null) {
         stat = 'str';
       }
       if (chance == null) {
         chance = .03;
       }
-      if (user.fns.predictableRandom() <= chance * (1 + user._statsComputed[stat] / 100)) {
-        return 1.5 + (.02 * user._statsComputed[stat]);
+      s = user._statsComputed[stat];
+      if (user.fns.predictableRandom() <= chance * (1 + s / 100)) {
+        return 1.5 + 4 * s / (s + 200);
       } else {
         return 1;
       }
@@ -6972,13 +7010,14 @@ api.wrap = function(user, main) {
      */
     autoAllocate: function() {
       return user.stats[(function() {
-        var diff, ideal, preference, stats, suggested;
+        var diff, ideal, lvlDiv7, preference, stats, suggested;
         switch (user.preferences.allocationMode) {
           case "flat":
             stats = _.pick(user.stats, $w('con str per int'));
             return _.invert(stats)[_.min(stats)];
           case "classbased":
-            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+            lvlDiv7 = user.stats.lvl / 7;
+            ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
             preference = (function() {
               switch (user.stats["class"]) {
                 case "wizard":
@@ -7030,12 +7069,15 @@ api.wrap = function(user, main) {
           stats.exp -= tnl;
           user.stats.lvl++;
           tnl = api.tnl(user.stats.lvl);
+          user.stats.hp = 50;
+          if (user.stats.lvl > api.maxLevel) {
+            continue;
+          }
           if (user.preferences.automaticAllocation) {
             user.fns.autoAllocate();
           } else {
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
           }
-          user.stats.hp = 50;
         }
       }
       user.stats.exp = stats.exp;
@@ -7089,7 +7131,7 @@ api.wrap = function(user, main) {
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
         user.flags.rebirthEnabled = true;
       }
-      if (user.stats.lvl >= 100 && !user.flags.freeRebirth) {
+      if (user.stats.lvl >= api.maxLevel && !user.flags.freeRebirth) {
         return user.flags.freeRebirth = true;
       }
     },
@@ -7108,7 +7150,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _base4, _progress, _ref, _ref1, _ref2, _ref3;
+      var clearBuffs, dailyChecked, dailyDueUnchecked, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _base4, _progress, _ref, _ref1, _ref2, _ref3;
       if (options == null) {
         options = {};
       }
@@ -7176,20 +7218,24 @@ api.wrap = function(user, main) {
         return;
       }
       todoTally = 0;
+      dailyChecked = 0;
+      dailyDueUnchecked = 0;
       if ((_base = user.party.quest.progress).down == null) {
         _base.down = 0;
       }
       user.todos.concat(user.dailys).forEach(function(task) {
-        var absVal, completed, delta, id, repeat, scheduleMisses, type;
+        var EvadeTask, absVal, completed, delta, fractionChecked, id, repeat, scheduleMisses, type, _ref1;
         if (!task) {
           return;
         }
         id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-        if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
-          return;
-        }
-        if (!completed) {
-          scheduleMisses = daysMissed;
+        EvadeTask = 0;
+        scheduleMisses = daysMissed;
+        if (completed) {
+          if (type === 'daily') {
+            dailyChecked += 1;
+          }
+        } else {
           if ((type === 'daily') && repeat) {
             scheduleMisses = 0;
             _.times(daysMissed, function(n) {
@@ -7198,13 +7244,26 @@ api.wrap = function(user, main) {
                 days: n + 1
               });
               if (api.shouldDo(thatDay, repeat, user.preferences)) {
-                return scheduleMisses++;
+                scheduleMisses++;
+                if (user.stats.buffs.stealth) {
+                  user.stats.buffs.stealth--;
+                  return EvadeTask++;
+                }
               }
             });
           }
-          if (scheduleMisses > 0) {
+          if (scheduleMisses > EvadeTask) {
             if (type === 'daily') {
               perfect = false;
+              if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+                fractionChecked = _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 0) / task.checklist.length;
+                dailyDueUnchecked += 1 - fractionChecked;
+                dailyChecked += fractionChecked;
+              } else {
+                dailyDueUnchecked += 1;
+              }
             }
             delta = user.ops.score({
               params: {
@@ -7212,7 +7271,7 @@ api.wrap = function(user, main) {
                 direction: 'down'
               },
               query: {
-                times: scheduleMisses,
+                times: scheduleMisses - EvadeTask,
                 cron: true
               }
             });
@@ -7228,10 +7287,13 @@ api.wrap = function(user, main) {
               value: task.value
             });
             task.completed = false;
-            return _.each(task.checklist, (function(i) {
-              i.completed = false;
-              return true;
-            }));
+            if (completed || (scheduleMisses > 0)) {
+              return _.each(task.checklist, (function(i) {
+                i.completed = false;
+                return true;
+              }));
+            }
+            break;
           case 'todo':
             absVal = completed ? Math.abs(task.value) : task.value;
             return todoTally += absVal;
@@ -7269,7 +7331,7 @@ api.wrap = function(user, main) {
           user.markModified('dailys');
         }
       }
-      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
+      user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(api.capByLevel(user.stats.lvl) / 2), {
         str: lvlDiv2,
         int: lvlDiv2,
         per: lvlDiv2,
@@ -7277,7 +7339,10 @@ api.wrap = function(user, main) {
         stealth: 0,
         streaks: false
       }) : clearBuffs;
-      user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
+      if (dailyDueUnchecked === 0 && dailyChecked === 0) {
+        dailyChecked = 1;
+      }
+      user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
       }
@@ -7364,11 +7429,7 @@ api.wrap = function(user, main) {
             val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] || (item != null ? item.specialClass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
           }, 0);
-          if (user.stats.lvl < 100) {
-            m[stat] += (user.stats.lvl - 1) / 2;
-          } else {
-            m[stat] += 50;
-          }
+          m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2);
           return m;
         };
       })(this), {});
