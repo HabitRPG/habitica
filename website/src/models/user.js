@@ -44,7 +44,7 @@ var UserSchema = new Schema({
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
-    flower: Number,
+    shinySeed: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -192,7 +192,7 @@ var UserSchema = new Schema({
     special:{
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
-      flower: {type: Number, 'default': 0},
+      shinySeed: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
@@ -359,7 +359,7 @@ var UserSchema = new Schema({
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false},
       spookDust: {type: Boolean, 'default': false},
-      flower: {type: Boolean, 'default': false}
+      shinySeed: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},

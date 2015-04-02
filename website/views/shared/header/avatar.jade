@@ -17,9 +17,9 @@ mixin avatar(opts)
       span.snowman
     span(ng-if='profile.stats.buffs.spookDust')
       span.spookman
-    span(ng-if='profile.stats.buffs.flower')
-      span(class='avatar_flower_{{profile.stats.class}}')
-    span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust && !profile.stats.buffs.flower')
+    span(ng-if='profile.stats.buffs.shinySeed')
+      span(class='avatar_floral_{{profile.stats.class}}')
+    span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust && !profile.stats.buffs.shinySeed')
 
       // Back Accessory
       span(class='{{profile.items.gear.equipped.back}}', ng-if='!profile.preferences.costume')

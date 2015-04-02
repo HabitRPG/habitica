@@ -55,9 +55,9 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
             span.Pet_Currency_Gem1x.inline-gems
       menu.pets-menu(label=env.t('seasonalItems'))
         div
-          button.customize-option(popover='{{::Content.spells.special.flower.notes()}}', popover-title='{{::Content.spells.special.flower.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.flower)', class='inventory_special_flower')
+          button.customize-option(popover='{{::Content.spells.special.shinySeed.notes()}}', popover-title='{{::Content.spells.special.shinySeed.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.shinySeed)', class='inventory_special_shinySeed')
           p
-            | {{::Content.spells.special.flower.value}}
+            | {{::Content.spells.special.shinySeed.value}}
             span(class='shop_gold')
         // div
           button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
@@ -148,7 +148,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     .badge.badge-info.stack-count {{user.items.special.#{k}}}
               +specialItem('snowball')
               +specialItem('spookDust')
-              +specialItem('flower')
+              +specialItem('shinySeed')
 
               div(ng-if='user.items.special.valentineReceived[0]')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='openModal("valentine")', class='inventory_special_valentine')

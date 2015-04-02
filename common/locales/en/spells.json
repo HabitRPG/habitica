@@ -57,8 +57,8 @@
   "spellSpecialOpaquePotionText": "Opaque Potion",
   "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
 
-  "spellSpecialFlowerText": "Shiny Seed",
-  "spellSpecialFlowerNotes": "Turn a friend into a joyous flower!",
+  "spellSpecialShinySeedText": "Shiny Seed",
+  "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
   "spellSpecialPetalFreePotionText": "Petal-Free Potion",
   "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 

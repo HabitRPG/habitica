@@ -694,7 +694,7 @@ api.spells =
       cast: (user, target) ->
         target.stats.buffs.snowball = true
         target.stats.buffs.spookDust = false
-        target.stats.buffs.flower = false
+        target.stats.buffs.shinySeed = false
         target.achievements.snowball ?= 0
         target.achievements.snowball++
         user.items.special.snowball--
@@ -719,7 +719,7 @@ api.spells =
       cast: (user, target) ->
         target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = true
-        target.stats.buffs.flower = false
+        target.stats.buffs.shinySeed = false
         target.achievements.spookDust ?= 0
         target.achievements.spookDust++
         user.items.special.spookDust--
@@ -735,19 +735,19 @@ api.spells =
         user.stats.buffs.spookDust = false
         user.stats.gp -= 5
 
-    flower:
-      text: t('spellSpecialFlowerText')
+    shinySeed:
+      text: t('spellSpecialShinySeedText')
       mana: 0
       value: 15
       target: 'user'
-      notes: t('spellSpecialFlowerNotes')
+      notes: t('spellSpecialShinySeedNotes')
       cast: (user, target) ->
         target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = false
-        target.stats.buffs.flower = true
-        target.achievements.flower ?= 0
-        target.achievements.flower++
-        user.items.special.flower--
+        target.stats.buffs.shinySeed = true
+        target.achievements.shinySeed ?= 0
+        target.achievements.shinySeed++
+        user.items.special.shinySeed--
 
     petalFreePotion:
       text: t('spellSpecialPetalFreePotionText')
@@ -757,7 +757,7 @@ api.spells =
       target: 'self'
       notes: t('spellSpecialPetalFreePotionNotes')
       cast: (user, target) ->
-        user.stats.buffs.flower = false
+        user.stats.buffs.shinySeed = false
         user.stats.gp -= 5
 
     nye:
