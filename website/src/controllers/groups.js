@@ -24,7 +24,7 @@ var api = module.exports;
 var partyFields = api.partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
-var guildPopulate = {path: 'members', select: nameFields, options: {limit: 2} };
+var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
 /**
  * For parties, we want a lot of member details so we can show their avatars in the header. For guilds, we want very
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
@@ -40,7 +40,6 @@ var populateQuery = function(type, q, additionalFields, user){
     if ( user ) {
      //Use Conditional Semantics to always include the user
      guildPopulate.match = {"$or" : [{"_id" : {"$gt" : 1}}, {"_id" : user._id}]};
-
     }
     q.populate(guildPopulate);
    }
