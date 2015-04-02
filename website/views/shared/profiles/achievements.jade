@@ -178,6 +178,13 @@ div(ng-if='profile.achievements.spookDust')
     =env.t('alarmingFriendsText', {spookDust: "{{profile.achievements.spookDust}}"})
   hr
 
+div(ng-if='profile.achievements.shinySeed')
+  .achievement.achievement-shinySeed
+  h5=env.t('agriculturalFriends')
+  small
+    =env.t('agriculturalFriendsText', {seeds: "{{profile.achievements.shinySeed}}"})
+  hr
+
 div(ng-if='::profile.achievements.habitBirthdays')
   .achievement.achievement-habitBirthday
   h5=env.t('habitBirthday')
