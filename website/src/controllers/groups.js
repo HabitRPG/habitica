@@ -25,7 +25,7 @@ var api = module.exports;
 var partyFields = api.partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
-var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
+var guildPopulate = {path: 'members', select: nameFields, options: {limit:15} };
 /**
  * For parties, we want a lot of member details so we can show their avatars in the header. For guilds, we want very
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
@@ -34,11 +34,16 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * @param additionalFields: if we want to populate some additional field not fetched normally
  *        pass it as a string, parties only
  */
-var populateQuery = function(type, q, additionalFields){
-  if (type == 'party')
+var populateQuery = function(type, q, additionalFields, user){
+  if (type == 'party') {
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
-  else
+  } else {
+    if ( user ) {
+     //Use Conditional Semantics to always include the user
+     guildPopulate.match = {"$or" : [{"_id" : {"$gt" : 1}}, {"_id" : user._id}]};
+    }
     q.populate(guildPopulate);
+  }
   q.populate('invites', nameFields);
   q.populate({
     path: 'challenges',
@@ -133,7 +138,7 @@ api.get = function(req, res, next) {
         {_id:gid, privacy:'public'},
         {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
       ]});
-  populateQuery(gid, q);
+  populateQuery(gid, q, null, user);
   q.exec(function(err, group){
     if (err) return next(err);
     if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
