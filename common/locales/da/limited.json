@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Blev ramt af <%= snowballs %> snebolde af gruppemedlemmer.",
     "alarmingFriends": "Foruroligende Venner",
     "alarmingFriendsText": "Blev skræmt <%= spookDust %> gange af gruppemedlemmer.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Valentinsdagskort",
     "valentineCardNotes": "Send et Valentinskort til et gruppemedlem.",
     "valentine0": "\"Roser er røde<%= lineBreak %>Mine Daglige er blå<%= lineBreak %>Jeg er glad for at jeg<%= lineBreak %>i din Gruppe være må!\"",

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Ухопив сніжку <%= snowballs %> разів від спільників гурту.",
     "alarmingFriends": "Лякаючi друзi",
     "alarmingFriendsText": "Був наляканий членами групи <%= spookDust %> разiв.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Валентинка",
     "valentineCardNotes": "Відправити Валентинку члену гурту.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",

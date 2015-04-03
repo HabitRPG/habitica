@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
     "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Kartka Walentynkowa",
     "valentineCardNotes": "Wyślij Kartkę Walentynkową do członka drużyny.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",

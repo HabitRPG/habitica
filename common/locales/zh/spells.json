@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "盐",
     "spellSpecialSaltNotes": "有人向你扔了雪球。哈哈，很好玩。现在把这些雪从我身上弄下来！",
     "spellSpecialSpookDustText": "鬼火",
-    "spellSpecialSpookDustNotes": "将你的朋友变成一张漂浮的有眼睛的毛毯!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "晦暗的药水",
-    "spellSpecialOpaquePotionNotes": "取消鬼火的效果"
+    "spellSpecialOpaquePotionNotes": "取消鬼火的效果",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

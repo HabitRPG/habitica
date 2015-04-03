@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Соль",
     "spellSpecialSaltNotes": "Кто-то кинул в вас снежок. Ха-ха, очень смешно. А теперь стряхните с меня снег!",
     "spellSpecialSpookDustText": "Зловещие искры",
-    "spellSpecialSpookDustNotes": "Превратите друзей в парящее облачко с глазами!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Эликсир непрозрачности",
-    "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр"
+    "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

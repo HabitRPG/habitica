@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
     "alarmingFriends": "Verontrustende vrienden",
     "alarmingFriendsText": "Is <%= spookDust %> keer bespookt door groepsleden.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Valentijnskaart",
     "valentineCardNotes": "Stuur een Valentijnskaart naar een groepsgenoot.",
     "valentine0": "\"Rozen zijn rood<%= lineBreak %>Taken zijn blauw<%= lineBreak %>Blij dat ik in<%= lineBreak %>Een groep zit met jou!\"",

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Lovit de <%= snowballs %> cu bulgări de zăpadă de coechipieri.",
     "alarmingFriends": "Prieteni Alarmanți",
     "alarmingFriendsText": "Speriat de <%= spookDust %> ori de colegii din echipă",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Felicitare de Sf. Valentin",
     "valentineCardNotes": "Send a Valentine's Day card to a party member.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
