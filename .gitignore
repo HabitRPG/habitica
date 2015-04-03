@@ -8,6 +8,7 @@ config.json
 npm-debug.log
 lib
 website/public/bower_components
+website/public/new-stuff.html
 website/build
 newrelic_agent.log
 .bower-tmp
