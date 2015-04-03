@@ -22,9 +22,16 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     //if lt IE 9
       script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
 
+
+    link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
+
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
     != env.getManifestFiles("tmp_static_front")
+
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap.min.js')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js')
 
   body(ng-controller='AuthCtrl')
     include ./login-modal
@@ -40,8 +47,8 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                 span.icon-bar
                 span.icon-bar
               a.navbar-brand(href='#')
-                img(src='/front/images/icon175x175.png')
-                img(src='/front/images/habitrpg_pixel.png')
+                img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/icon175x175.png')
+                img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/habitrpg_pixel.png')
             // Collect the nav links, forms, and other content for toggling
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav.navbar-right
@@ -59,7 +66,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                   button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()') Play HabitRPG
       #intro
         h1 Motivate yourself and your team!
-        img.center-block.img-responsive(src='/front/images/intro.jpg')
+        img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/intro.jpg')
         // insert intro images
         .introcall.bg-success
           h4
@@ -69,13 +76,13 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
         .presslogos.text-center
           | Featured in
           br
-          img(src='/front/images/presslogos/lifehacker.png')
-          img(src='/front/images/presslogos/nyt-logo.png')
-          img(src='/front/images/presslogos/makeuseof.png')
-          img(src='/front/images/presslogos/Forbes_logo.png')
-          img(src='/front/images/presslogos/Cnetlogo.png')
-          img(src='/front/images/presslogos/Fast-Company-logo.png')
-          img(src='/front/images/presslogos/kickstarter-logo.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/lifehacker.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/nyt-logo.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/makeuseof.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/Forbes_logo.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/Cnetlogo.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/Fast-Company-logo.png')
+          img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/kickstarter-logo.png')
       #intro-text
         .container-fluid
           .row
@@ -87,20 +94,20 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
           .row
             .col-md-3.col-md-offset-1
               h2 What people say...
-              img.img-say.img-responsive.visible-lg-block(src='/front/images/uses/publicSpaces.png')
+              img.img-say.img-responsive.visible-lg-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/publicSpaces.png')
             // Testimonials
             .col-md-8.col-sm-10.col-sx-10
               #quote-carousel.carousel.slide(data-interval='4000', data-ride='carousel')
                 // Bottom Carousel Indicators
                 ol.carousel-indicators
                   li.active(data-target='#quote-carousel', data-slide-to='0')
-                    img.img-responsive(src='/front/images/testimonials/Drag0nsilver.png', alt='')
+                    img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/Drag0nsilver.png', alt='')
                   li(data-target='#quote-carousel', data-slide-to='1')
-                    img.img-responsive(src='/front/images/testimonials/frabjabulous.png', alt='')
+                    img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/frabjabulous.png', alt='')
                   li(data-target='#quote-carousel', data-slide-to='2')
-                    img.img-responsive(src='/front/images/testimonials/AndeeLiao.png', alt='')
+                    img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/AndeeLiao.png', alt='')
                   li(data-target='#quote-carousel', data-slide-to='3')
-                    img.img-responsive(src='/front/images/testimonials/AlexandraSo.png', alt='')
+                    img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/AlexandraSo.png', alt='')
                 // Carousel Slides / Quotes
                 .carousel-inner.text-center
                   // Quote 1
@@ -192,16 +199,16 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Call Clients/Put Off Phone Calls
-                  img.sample-img.visible-lg-inline-block(src='/front/images/uses/coding.png')
+                  img.sample-img.visible-lg-inline-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/coding.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='frabjabulous', src='/front/images/testimonials/frabjabulous.png')
+                      img(data-toggle='tooltip', data-placement='top', title='frabjabulous', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/frabjabulous.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
                           | HabitRPG is the reason I got a killer, high-paying job... and even more miraculous, I&apos;m now a daily flosser
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='_AlexandraSo_', src='/front/images/testimonials/AlexandraSo.png')
+                      img(data-toggle='tooltip', data-placement='top', title='_AlexandraSo_', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/AlexandraSo.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
@@ -236,16 +243,16 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Break a Sweat for 1 hr
-                  img.sample-img.visible-lg-inline-block(src='/front/images/uses/clipart-rosemonkeyct-meditation.png')
+                  img.sample-img.visible-lg-inline-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/clipart-rosemonkeyct-meditation.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='EvaGantz', src='/front/images/testimonials/EvaGantz.png')
+                      img(data-toggle='tooltip', data-placement='top', title='EvaGantz', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/EvaGantz.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
                           | My very first dentist appointment where the hygienist was actually excited about my flossing habits. Thanks Habitrpg!
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='supermouse35', src='/front/images/testimonials/supermouse35.png')
+                      img(data-toggle='tooltip', data-placement='top', title='supermouse35', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/supermouse35.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
@@ -274,10 +281,10 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Discuss this week&rsquo;s KPIs
                     br
-                  img.sample-img.visible-lg-inline-block(src='/front/images/uses/publicSpaces.png')
+                  img.sample-img.visible-lg-inline-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/publicSpaces.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='Althaire', src='/front/images/testimonials/Althaire.png')
+                      img(data-toggle='tooltip', data-placement='top', title='Althaire', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/Althaire.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
@@ -312,15 +319,15 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(90, 98, 223); border-right: 0px none;') -
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Read 1 Chapter
-                  img.sample-img.visible-lg-inline-block(src='/front/images/uses/reading.png')
+                  img.sample-img.visible-lg-inline-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/reading.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='InfH', src='/front/images/testimonials/InfH.png')
+                      img(data-toggle='tooltip', data-placement='top', title='InfH', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/InfH.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content HabitRPG has really helped me impart structure to my life in graduate school.
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='Drei-M', src='/front/images/testimonials/Drei-M.png')
+                      img(data-toggle='tooltip', data-placement='top', title='Drei-M', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/Drei-M.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
@@ -355,10 +362,10 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Read an Informative Article
-                  img.sample-img.visible-lg-inline-block(src='/front/images/uses/Gaining_an_achievement_by_cosmic_caterpillar-d7uyv5z.png')
+                  img.sample-img.visible-lg-inline-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/gaining_an_achievement_by_cosmic_caterpillar-d7uyv5z.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='Kazui', src='/front/images/testimonials/Kazui.png')
+                      img(data-toggle='tooltip', data-placement='top', title='Kazui', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/Kazui.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
@@ -393,15 +400,15 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
                       | &nbsp;
                       .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') Wash and Dry a Load of Clothes
-                  img.sample-img.visible-lg-inline-block(src='/front/images/uses/dusting_by_leephon.png')
+                  img.sample-img.visible-lg-inline-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/dusting_by_leephon.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='autumnesquirrel', src='/front/images/testimonials/autumnesquirrel.png')
+                      img(data-toggle='tooltip', data-placement='top', title='autumnesquirrel', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/autumnesquirrel.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content I&apos;m procrastinating less on work and housework and pay bills on time.
                     .usetweet-group
-                      img(data-toggle='tooltip', data-placement='top', title='irishfeet123', src='/front/images/testimonials/irishfeet123.png')
+                      img(data-toggle='tooltip', data-placement='top', title='irishfeet123', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/irishfeet123.png')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
@@ -421,7 +428,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               br
               | Instant rewards keep you motivated!
             .scrolltweet.hidden-xs.hidden-sm
-              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Elmi', src='/front/images/testimonials/Elmi.png')
+              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Elmi', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/Elmi.png')
               .tweet.popover.right.pull-right
                 .arrow
                 .popover-content  Every morning I&apos;m looking forward to getting up so I can earn some gold!
@@ -431,12 +438,12 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                 span.glyphicon.glyphicon-check
               h2
                 span.glyphicon.glyphicon-arrow-down
-              img.img-responsive(src='/front/images/misc/shop_gold.png')
-              img.img-responsive(src='/front/images/misc/shop_gold.png')
-              img.img-responsive(src='/front/images/misc/shop_gold.png')
+              img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/misc/shop_gold.png')
+              img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/misc/shop_gold.png')
+              img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/misc/shop_gold.png')
               h2
                 span.glyphicon.glyphicon-arrow-down
-              img.img-responsive(src='/front/images/TVreward.png')
+              img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/TVreward.png')
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
       section#levels.container-fluid
         .row
@@ -450,17 +457,17 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               br
               | Unlock new motivational tools, such as pet collecting, random rewards, spell-casting, and more!
             .scrolltweet.hidden-xs.hidden-sm
-              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='16bitFil', src='/front/images/testimonials/16bitFil.png')
+              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='16bitFil', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/16bitFil.png')
               .tweet.popover.right.pull-right
                 .arrow
                 .popover-content
                   | I&apos;m getting my jobs and tasks done in record time thanks to HabitRPG. I&apos;m just always so eager to reach my next level-up!
           .col-lg-4.col-md-4.col-lg-offset-1.col-sm-8.well.col-xs-8.col-xs-offset-2.col-sm-offset-2
             .avatarscroll
-              img.img-responsive(src='/front/images/avatar/avatarstatic.png')
+              img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/avatar/avatarstatic.png')
               h2
                 span.glyphicon.glyphicon-arrow-down
-              img.img-responsive(src='/front/images/SAMPLEadventurers.png')
+              img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/SAMPLEadventurers.png')
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
       section#health.bg-danger.container-fluid
         .row
@@ -471,7 +478,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
             h2 Lose health!
             p.sectioninfo Break bad habits and procrastination cycles with immediate consequences.
             .scrolltweet.hidden-xs.hidden-sm
-              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Zelah Meyer', src='/front/images/testimonials/Zelah_Meyer.png')
+              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Zelah Meyer', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/Zelah_Meyer.png')
               .tweet.popover.right.pull-right
                 .arrow
                 .popover-content
@@ -506,13 +513,13 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               br
               | Issue each other Challenges to complete a goal together!
             .scrolltweet.hidden-xs.hidden-sm
-              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='skysailor', src='/front/images/testimonials/skysailor.png')
+              img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='skysailor', src='https://s3.amazonaws.com/habitrpg-assets/front/images/testimonials/skysailor.png')
               .tweet.popover.right.pull-right
                 .arrow
                 .popover-content
                   | My party and our quests keep me engaged in the game, which keeps me motivated to get things done and change my life in positive ways
           .col-lg-4.col-md-6.col-md-offset-1.col-lg-offset-1.col-sm-10.well.col-xs-10.col-xs-offset-1.col-sm-offset-1.well-lg
-            img.clearfix.img-responsive.center-block(style='padding-bottom:30px;', src="/front/images/Quest_dilatory_drag'onSmall.png")
+            img.clearfix.img-responsive.center-block(style='padding-bottom:30px;', src="https://s3.amazonaws.com/habitrpg-assets/front/images/Quest_dilatory_drag'onSmall.png")
             .row
               .col-lg-5.col-md-5.col-sm-5.col-sm-offset-0.col-xs-5.col-xs-offset-0
                 .health-progress
@@ -522,7 +529,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                     .bar
                       div(style='width:20%;') &nbsp;
                 .quest-friend-img
-                  img(src='/front/images/party/AnnaCosplay.png')
+                  img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/party/AnnaCosplay.png')
               .col-md-1.col-sm-1.col-xs-1
                 h2
                   span.glyphicon.glyphicon-arrow-right
@@ -534,7 +541,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                     .bar
                       div(style='width:0%;') &nbsp;
                 .quest-friend-img
-                  img(src='/front/images/party/GrimReaper.png')
+                  img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/party/GrimReaper.png')
           button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
       section#features.bg-info.container-fluid
         .row
@@ -542,29 +549,29 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
         .row
           .col-md-4.col-md-offset-2.col-sm-6
             .feature-img
-              img.center-block.img-responsive(src='/front/images/Mount.png')
+              img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/Mount.png')
             .featuretext
               h4 Pets and Mounts
               p
                 | Eggs and items drop when you complete your tasks. Be as productive as possible to collect pets and mounts!
           .col-md-4.col-sm-6
             .feature-img.center-block
-              img(src='/front/images/achievement-triadbingo.png')
-              img(src='/front/images/achievement-perfect.png')
+              img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/achievement-triadbingo.png')
+              img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/achievement-perfect.png')
             .featuretext
               h4 Achievement Badges
               p Do something totally awesome? Get a badge and show it off!
         .row
           .col-md-4.col-md-offset-2.col-sm-6
             .feature-img
-              img.center-block.img-responsive(src='/front/images/Promo_springclasses2015.png')
+              img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/Promo_springclasses2015.png')
             .featuretext
               h4 Equipment and extras
               p
                 | Buy limited edition equipment, potions, and other virtual goodies in our Market with your task rewards!
           .col-md-4.col-sm-6
             .feature-img
-              img.center-block.img-responsive(src='/front/images/Party-Header.png')
+              img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/Party-Header.png')
             .featuretext
               h4 Social play
               p
@@ -584,19 +591,19 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
           .row
             .col-lg-2.col-md-2.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='http://ionicframework.com/')
-                img.img-responsive(src='/front/images/presslogos/ionic-logo-horizontal-transparent.png')
+                img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/ionic-logo-horizontal-transparent.png')
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='https://www.jetbrains.com/webstorm/')
-                img.img-responsive(src='/front/images/presslogos/logo_webstorm.png')
+                img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/logo_webstorm.png')
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='http://github.com/')
-                img.img-responsive(src='/front/images/presslogos/GitHub_Logo.png')
+                img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/GitHub_Logo.png')
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='https://trello.com/')
-                img.img-responsive(src='/front/images/presslogos/trello-logo-blue.png')
+                img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/trello-logo-blue.png')
             .col-lg-2.col-lg-offset-0.col-md-2.col-md-offset-0.col-sm-4.col-sm-offset-1.col-xs-6.col-xs-offset-1
               a(href='https://slack.com/')
-                img.img-responsive(src='/front/images/presslogos/landing_slack_hash_wordmark_logo.png')
+                img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/landing_slack_hash_wordmark_logo.png')
 
         .row.footer-content
           include ../shared/footer
