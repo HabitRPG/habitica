@@ -112,7 +112,7 @@ api.registerUser = function(req, res, next) {
         ga.event('register', 'Local').send();
         user.save(function(err, savedUser){
           utils.txnEmail(savedUser, 'welcome');
-          cb.apply(this, arguments);
+          cb.apply(cb, arguments);
         });
       }
     }]
@@ -182,7 +182,7 @@ api.loginSocial = function(req, res, next) {
       user = new User(user);
       user.save(function(err, savedUser){
         utils.txnEmail(savedUser, 'welcome');
-        cb.apply(this, arguments);
+        cb.apply(cb, arguments);
       });
 
       ga.event('register', network).send();
