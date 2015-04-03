@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var shared = require('../../../common');
 
+// A collection used to store mailing list unsubscription for non registered email addresses
 var EmailUnsubscriptionSchema = new mongoose.Schema({
   _id: {
     type: String,

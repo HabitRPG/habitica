@@ -109,9 +109,11 @@ api.registerUser = function(req, res, next) {
         newUser.preferences = newUser.preferences || {};
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
-        utils.txnEmail(user, 'welcome');
         ga.event('register', 'Local').send();
-        user.save(cb);
+        user.save(function(err, savedUser){
+          utils.txnEmail(savedUser, 'welcome');
+          cb(err, savedUser);
+        });
       }
     }]
   }, function(err, data) {
@@ -178,9 +180,11 @@ api.loginSocial = function(req, res, next) {
       };
       user.auth[network] = prof;
       user = new User(user);
-      user.save(cb);
+      user.save(function(err, savedUser){
+        utils.txnEmail(savedUser, 'welcome');
+        cb(err, savedUser);
+      });
 
-      utils.txnEmail(user, 'welcome');
       ga.event('register', network).send();
     }]
   }, function(err, results){

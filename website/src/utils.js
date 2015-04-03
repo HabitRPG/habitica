@@ -44,6 +44,10 @@ function getUserInfo(user, fields) {
     }
   }
 
+  if(fields.indexOf('_id') != -1){
+    info._id = user._id;
+  }
+
   if(fields.indexOf('canSend') != -1){
     info.canSend = user.preferences.emailNotifications.unsubscribeFromAll !== true;
   }
@@ -62,37 +66,55 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
 
   // It's important to pass at least a user with its `preferences` as we need to check if he unsubscribed
   mailingInfoArray = mailingInfoArray.map(function(mailingInfo){
-    return mailingInfo._id ? getUserInfo(mailingInfo, ['email', 'name', 'canSend']) : mailingInfo;
+    return mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo;
   }).filter(function(mailingInfo){
     // Always send reset-password emails
     return (mailingInfo.email && (mailingInfo.canSend || emailType === 'reset-password'));
   });
 
   // Personal variables are personal to each email recipient, if they are missing
-  // we manually create a structure for them with RECIPIENT_NAME
-  // otherwise we just add RECIPIENT_NAME to the existing personal variables
+  // we manually create a structure for them with RECIPIENT_NAME and RECIPIENT_ID
+  // otherwise we just add RECIPIENT_NAME and RECIPIENT_ID to the existing personal variables
   if(!personalVariables || personalVariables.length === 0){
     personalVariables = mailingInfoArray.map(function(mailingInfo){
       return {
         rcpt: mailingInfo.email,
-        vars: [{
-          name: 'RECIPIENT_NAME',
-          content: mailingInfo.name
-        }]
+        vars: [
+          {
+            name: 'RECIPIENT_NAME',
+            content: mailingInfo.name
+          },
+          {
+            name: 'RECIPIENT_UNSUB_URL_PARAM',
+            content: module.exports.encrypt(JSON.stringify({_id: mailingInfo._id, email: mailingInfo.email}))
+          }
+        ]
       }
     });
   }else{
     var temporaryPersonalVariables = {};
 
     mailingInfoArray.forEach(function(mailingInfo){
-      temporaryPersonalVariables[mailingInfo.email] = mailingInfo.name;
+      temporaryPersonalVariables[mailingInfo.email] = {
+        name: mailingInfo.name,
+        _id: mailingInfo._id
+      }
     });
 
     personalVariables.forEach(function(singlePersonalVariables){
-      singlePersonalVariables.vars.push({
-        name: 'RECIPIENT_NAME',
-        content: temporaryPersonalVariables[singlePersonalVariables.rcpt]
-      });
+      singlePersonalVariables.vars.push(
+        {
+          name: 'RECIPIENT_NAME',
+          content: temporaryPersonalVariables[singlePersonalVariables.rcpt].name
+        },
+        {
+          name: 'RECIPIENT_UNSUB_URL_PARAM',
+          content: module.exports.encrypt(JSON.stringify({
+            _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id,
+            email: singlePersonalVariables.rcpt
+          }))
+        }
+      )
     });
   }
 
