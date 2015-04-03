@@ -85,8 +85,11 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
             content: mailingInfo.name
           },
           {
-            name: 'RECIPIENT_UNSUB_URL_PARAM',
-            content: module.exports.encrypt(JSON.stringify({_id: mailingInfo._id, email: mailingInfo.email}))
+            name: 'RECIPIENT_UNSUB_URL',
+            content: baseUrl + '/unsubscribe?code=' + module.exports.encrypt(JSON.stringify({
+              _id: mailingInfo._id,
+              email: mailingInfo.email
+            }))
           }
         ]
       }
@@ -108,9 +111,9 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
           content: temporaryPersonalVariables[singlePersonalVariables.rcpt].name
         },
         {
-          name: 'RECIPIENT_UNSUB_URL_PARAM',
-          content: module.exports.encrypt(JSON.stringify({
-            _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id,
+          name: 'RECIPIENT_UNSUB_URL',
+          content: baseUrl + '/unsubscribe?code=' + module.exports.encrypt(JSON.stringify({
+            _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id, 
             email: singlePersonalVariables.rcpt
           }))
         }
