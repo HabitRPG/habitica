@@ -228,6 +228,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
          case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
         }
         Notification.text(msg);
+        User.sync();
       });
 
     }
