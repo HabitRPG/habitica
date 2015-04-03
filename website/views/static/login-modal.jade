@@ -14,7 +14,7 @@ script(id='modals/login.html', type='text/ng-template')
     hr
     tabset(justified='true')
       tab(heading=env.t('login'))
-        form(ng-submit='auth()', method='POST')
+        form#login-tab(ng-submit='auth()', method='POST')
           .form-group
             input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username')+' or Email', name='username')
           .form-group
@@ -47,8 +47,9 @@ script(id='modals/login.html', type='text/ng-template')
                   //span.help-inline {.errors.passwordReset}
                 .form-group
                   input.btn.btn-default(type='submit', value=env.t('submit'))
+
       tab(heading=env.t('register'))
-        form(ng-submit='register()', name='registrationForm')
+        form#registrationForm(ng-submit='register()', name='registrationForm')
           .form-group
             input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
           .form-group
@@ -68,4 +69,4 @@ script(id='modals/login.html', type='text/ng-template')
               a(href='/static/privacy' target='_blank')=env.t('privacy')
               | .
           .form-group
-            input.btn.btn-primary(type='submit', value=env.t('register'))
+            input.btn.btn-primary(type='submit', ng-disabled='registrationForm.$invalid', value=env.t('register'))
