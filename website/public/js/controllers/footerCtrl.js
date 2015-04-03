@@ -28,8 +28,8 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     // Google Analytics, only in production
     if (window.env.NODE_ENV === 'production') {
       // Get experiments API
-      $.getScript('//www.google-analytics.com/cx/api.js?experiment=OPMHlSzSTj2gVYwUS72wlQ', function(){
-        $rootScope.chosenVariation = cxApi.chooseVariation();
+      $.getScript('//www.google-analytics.com/cx/api.js?experiment=wud1Ba5qT1m9qR3PP0-Mmg', function(){
+        $rootScope.variant = cxApi.chooseVariation();
         $rootScope.$apply();
 
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

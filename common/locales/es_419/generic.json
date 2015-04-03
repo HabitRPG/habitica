@@ -45,9 +45,9 @@
     "veteranText": "Ha sobrevivido a Habit The Grey (nuestro sito web pre-Angular) y se ha ganado muchas cicatrices de lucha por los errores de éste.",
     "originalUser": "¡Usuario original!",
     "originalUserText": "Uno de los <em>muy</em> primeros jugadores. ¡Eso sí es un probador Alfa!",
-    "habitBirthday": "Fiesta Cumpleaños HabitRPG",
-    "habitBirthdayText": "Celebro la fiesta de cumpleaños HabitRPG!",
-    "habitBirthdayPluralText": "Celebra tu fiesta de cumpleaños <%= number %> HabitRPG!",
+    "habitBirthday": "Fiesta de Cumpleaños de HabitRPG",
+    "habitBirthdayText": "¡Celebró la fiesta de cumpleaños HabitRPG!",
+    "habitBirthdayPluralText": "¡Celebró  <%= number %> Fiestas de cumpleaños de HabitRPG!",
     "achievementDilatory": "Salvador de dilatoria",
     "achievementDilatoryText": "¡Ayudó a vencer el Temido Drag'on de Dilatoria durante el Evento de bienvenida del verano de 2014!",
     "costumeContest": "Concurso de disfraces del 2014",
@@ -71,7 +71,7 @@
     "audioTheme": "Tema de audio",
     "audioTheme_off": "Apagar",
     "audioTheme_danielTheBard": "Daniel el Bardo",
-    "audioTheme_wattsTheme": "Tema Watts",
+    "audioTheme_wattsTheme": "Tema de Watts",
     "askQuestion": "Preguntar",
     "reportBug": "Reportar un bug",
     "contributeToHRPG": "Contribuir a HabitRPG",
@@ -90,5 +90,5 @@
     "December": "Diciembre",
     "dateFormat": "Formato de fecha",
     "achievementStressbeast": "Salvador de Stoïkalm",
-    "achievementStressbeastText": "Ayuda a vencer a la Abominable Bestia durante el Evento de 2015 de la Tierra de las Maravillas Invernal!"
+    "achievementStressbeastText": "¡Ayudó a vencer a la Abominable bestia del estrés durante el Evento Winter Wonderland 2015!"
 }

@@ -705,6 +705,8 @@ api.spells =
       notes: t('spellSpecialSnowballAuraNotes')
       cast: (user, target) ->
         target.stats.buffs.snowball = true
+        target.stats.buffs.spookDust = false
+        target.stats.buffs.shinySeed = false
         target.achievements.snowball ?= 0
         target.achievements.snowball++
         user.items.special.snowball--
@@ -727,7 +729,9 @@ api.spells =
       target: 'user'
       notes: t('spellSpecialSpookDustNotes')
       cast: (user, target) ->
+        target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = true
+        target.stats.buffs.shinySeed = false
         target.achievements.spookDust ?= 0
         target.achievements.spookDust++
         user.items.special.spookDust--
@@ -741,6 +745,31 @@ api.spells =
       notes: t('spellSpecialOpaquePotionNotes')
       cast: (user, target) ->
         user.stats.buffs.spookDust = false
+        user.stats.gp -= 5
+
+    shinySeed:
+      text: t('spellSpecialShinySeedText')
+      mana: 0
+      value: 15
+      target: 'user'
+      notes: t('spellSpecialShinySeedNotes')
+      cast: (user, target) ->
+        target.stats.buffs.snowball = false
+        target.stats.buffs.spookDust = false
+        target.stats.buffs.shinySeed = true
+        target.achievements.shinySeed ?= 0
+        target.achievements.shinySeed++
+        user.items.special.shinySeed--
+
+    petalFreePotion:
+      text: t('spellSpecialPetalFreePotionText')
+      mana: 0
+      value: 5
+      immediateUse: true
+      target: 'self'
+      notes: t('spellSpecialPetalFreePotionNotes')
+      cast: (user, target) ->
+        user.stats.buffs.shinySeed = false
         user.stats.gp -= 5
 
     nye:

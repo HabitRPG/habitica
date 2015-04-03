@@ -63,15 +63,28 @@ _.each(langCodes, function(code){
 // used in place of plain original 'en'
 var defaultLangCodes = _.without(langCodes, 'en_GB');
 
+// A list of languages that have different versions
+var multipleVersionsLanguages = ['es', 'zh'];
+
+var latinAmericanSpanishes = ['es-419', 'es-mx', 'es-gt', 'es-cr', 'es-pa', 'es-do', 'es-ve', 'es-co', 'es-pe',
+                            'es-ar', 'es-ec', 'es-cl', 'es-uy', 'es-py', 'es-bo', 'es-sv', 'es-hn',
+                            'es-ni', 'es-pr'];
+
+var chineseVersions = ['zh-tw'];
+
 var getUserLanguage = function(req, res, next){
   var getFromBrowser = function(){
     var acceptable = _(req.acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
     }).uniq().value();
+
     var matches = _.intersection(acceptable, defaultLangCodes);
-    if(matches.length > 0 && matches[0].toLowerCase() === 'es'){
+
+    var iAcceptedCompleteLang = (matches.length > 0) ? multipleVersionsLanguages.indexOf(matches[0].toLowerCase()) : -1;
+
+    if(iAcceptedCompleteLang !== -1){
       var acceptedCompleteLang = _.find(req.acceptedLanguages, function(accepted){
-        return accepted.slice(0, 2) == 'es';
+        return accepted.slice(0, 2) == multipleVersionsLanguages[iAcceptedCompleteLang];
       });
 
       if(acceptedCompleteLang){
@@ -80,11 +93,15 @@ var getUserLanguage = function(req, res, next){
         return 'en';
       }
 
-      var latinAmericanSpanishes = ['es-419', 'es-mx', 'es-gt', 'es-cr', 'es-pa', 'es-do', 'es-ve', 'es-co', 'es-pe',
-                                  'es-ar', 'es-ec', 'es-cl', 'es-uy', 'es-py', 'es-bo', 'es-sv', 'es-hn',
-                                  'es-ni', 'es-pr'];
+      if(matches[0] === 'es'){
+        return (latinAmericanSpanishes.indexOf(acceptedCompleteLang) !== -1) ? 'es_419' : 'es';
+      }else if(matches[0] === 'zh'){
+        var iChinese = chineseVersions.indexOf(acceptedCompleteLang.toLowerCase());
+        return (iChinese !== -1) ? chineseVersions[iChinese] : 'zh';
+      }else{
+        return en;
+      }
 
-      return (latinAmericanSpanishes.indexOf(acceptedCompleteLang) !== -1) ? 'es_419' : 'es';
     }else if(matches.length > 0){
       return matches[0].toLowerCase();
     }else{
