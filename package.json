@@ -100,7 +100,7 @@
     "mocha": "~1.12.1",
     "mongoskin": "~0.6.1",
     "phantomjssmith": "~0.5.4",
-    "protractor": "~0.14.0",
+    "protractor": "~2.0.0",
     "rimraf": "^2.2.8",
     "sinon": "^1.12.2",
     "superagent": "~0.15.7",
