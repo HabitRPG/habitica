@@ -36,11 +36,11 @@
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguien te ha lanzado una bola de nieve. Ja Ja, muy gracioso. ¡Ahora quítame esto de encima!",
     "spellSpecialSpookDustText": "Brillantina espeluznante",
-    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookDustNotes": "¡Convierte un amigo en una manta flotante con ojos!",
     "spellSpecialOpaquePotionText": "Poción Opaco",
     "spellSpecialOpaquePotionNotes": "Cancela los efectos de la brillantina espeluznante.",
-    "spellSpecialShinySeedText": "Shiny Seed",
-    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
-    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
-    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
+    "spellSpecialShinySeedText": "Semilla Brillante",
+    "spellSpecialShinySeedNotes": "¡Convierte un amigo en una flor alegre!",
+    "spellSpecialPetalFreePotionText": "Poción Sin Pétalos",
+    "spellSpecialPetalFreePotionNotes": "Anula los efectos de la semilla brillante"
 }
