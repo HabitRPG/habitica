@@ -25,6 +25,25 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Create
      */
     $scope.create = function() {
+
+      //If the user has one filter selected, assume that the user wants to default to that group
+      var defaultGroup;
+      //Our filters contain all groups, but we only want groups that have atleast one challenge
+      var groupsWithChallenges = _.uniq(_.pluck($scope.groupsFilter, '_id'));
+      var len = groupsWithChallenges.length;
+      var filterCount = 0;
+      
+      for ( var i = 0; i < len; i += 1 ) {
+        if ( $scope.search.group[groupsWithChallenges[i]] == true ) {
+          filterCount += 1;
+          defaultGroup = groupsWithChallenges[i];
+        }
+        if (filterCount > 1) {
+          defaultGroup = $scope.groups[0]._id
+          break;
+        }
+      }
+
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: '',
         description: '',
@@ -33,7 +52,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         todos: [],
         rewards: [],
         leader: User.user._id,
-        group: $scope.groups[0]._id,
+        group: defaultGroup,
         timestamp: +(new Date),
         members: [],
         official: false
