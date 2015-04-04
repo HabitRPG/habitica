@@ -48,7 +48,7 @@ fi
 
 # If we're only running protractor, we need to let the server spin up.
 if [ "$1" == "protractor" ]; then
-  sleep 2
+  sleep 10
 fi
 
 if [ -z "$TRAVIS" ]; then

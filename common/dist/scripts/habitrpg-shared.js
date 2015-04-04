@@ -2641,12 +2641,16 @@ api.spells = {
       target: 'task',
       notes: t('spellWizardFireballNotes'),
       cast: function(user, target) {
-        var bonus;
+        var bonus, req;
         bonus = user._statsComputed.int * user.fns.crit('per');
         target.value += diminishingReturns(bonus * .02, 4);
         bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
         user.stats.exp += diminishingReturns(bonus, 75);
-        return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+        req = {
+          language: user.preferences.language
+        };
+        return user.fns.updateStats(user.stats, req);
       }
     },
     mpheal: {
@@ -2772,12 +2776,16 @@ api.spells = {
       target: 'task',
       notes: t('spellRogueBackStabNotes'),
       cast: function(user, target) {
-        var bonus, _crit;
+        var bonus, req, _crit;
         _crit = user.fns.crit('str', .3);
         target.value += _crit * .03;
         bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
         user.stats.exp += bonus;
-        return user.stats.gp += bonus;
+        user.stats.gp += bonus;
+        req = {
+          language: user.preferences.language
+        };
+        return user.fns.updateStats(user.stats, req);
       }
     },
     toolsOfTrade: {
