@@ -63,6 +63,8 @@ api.get = function(req, res, next) {
   // 3) Limit 30 (only show the 30 users currently in the lead)
   Challenge.findById(req.params.cid)
     .populate('members', 'profile.name _id')
+    .populate('group', '_id name')
+    .populate('leader', 'profile.name')
     .exec(function(err, challenge){
       if(err) return next(err);
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
