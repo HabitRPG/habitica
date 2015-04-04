@@ -6212,7 +6212,7 @@ api.wrap = function(user, main) {
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
-          user.balance--;
+          user.balance -= 1;
           for (pet in content.pets) {
             user.items.pets[pet] = 0;
           }
@@ -6246,14 +6246,16 @@ api.wrap = function(user, main) {
       },
       releaseBoth: function(req, cb) {
         var animal, giveTriadBingo;
-        if (user.balance < 1.5) {
+        if (user.balance < 1.5 && !user.achievements.triadBingo) {
           return typeof cb === "function" ? cb({
             code: 401,
             message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         } else {
           giveTriadBingo = true;
-          user.balance -= 1.5;
+          if (!user.achievements.triadBingo) {
+            user.balance -= 1.5;
+          }
           user.items.currentMount = "";
           user.items.currentPet = "";
           for (animal in content.pets) {

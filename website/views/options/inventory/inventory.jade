@@ -244,7 +244,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     span.Pet_Currency_Gem1x.inline-gems
                 div(ng-show='petCount >= 90 || mountCount >= 90')
                   button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='openModal("pet-key", {size:"lg"})', class='pet_key')
-                  p
+                  p(ng-show='petCount < 90 || mountCount < 90 || !user.achievements.triadBingo')
                     | 4&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
                 div(ng-if='user.purchased.plan.customerId', ng-class='::{transparent:(Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought) < 1}')
