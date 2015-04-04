@@ -12,6 +12,7 @@ var shared = require('../../../common');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var EmailUnsubscription = require('./../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 
@@ -623,10 +624,16 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // TODO implement "users can only be invited once"
-          invite.canSend = true; // Requested by utils.txnEmail
-          utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+          // Check for the email address not to be unsubscribed
 
-          cb();
+          EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
+            if(err) return cb(err);
+            if(unsubscribed) return cb();
+
+            utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+
+            cb();
+          })
         });
     }else{
       cb();
