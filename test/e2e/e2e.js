@@ -25,7 +25,7 @@ describe('front page', function() {
 
   it('shows the front page', function(){
     var button = element(by.className('btn'));
-    expect(button.getText()).toEqual('Play');
+    expect(button.getText()).toEqual('Play HabitRPG');
   });
 
   it("don't login when using wrong credentials", function(){
@@ -51,7 +51,7 @@ describe('front page', function() {
     element(by.model('registerVals.email')).sendKeys('user@example.com');
     element(by.model('registerVals.password')).sendKeys('pass');
     element(by.model('registerVals.confirmPassword')).sendKeys('pass');
-    var register = element(by.css("#register-tab input[value='Register']"));
+    var register = element(by.css("#registrationForm input[value='Register']"));
     register.click();
     browser.sleep(1000);
     browser.getCurrentUrl().then(function(url){
