@@ -124,7 +124,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             +specialSpell('petalFreePotion','shinySeed')
 
           // Actual List
-          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks, ng-if='!$state.includes("options.social.challenges")')
+            include ./task
+          //Loads the non-sortable lists for challenges
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', ng-if='$state.includes("options.social.challenges")')
             include ./task
 
           // Spells
