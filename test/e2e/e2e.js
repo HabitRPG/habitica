@@ -41,7 +41,7 @@ describe('front page', function() {
     alertDialog.accept();
   });
 
-  it('registers a new user', function(){
+  xit('registers a new user', function(){
     var button = element(by.className('btn'));
     button.click();
     browser.sleep(1000);
