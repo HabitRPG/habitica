@@ -159,6 +159,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.profile = member;
       });
       $scope.sendPrivateMessage = function(uuid, message){
+        // Don't do anything if the user somehow gets here without a message.
+        if (!message) return;
+
         $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
           Notification.text(window.env.t('messageSentAlert'));
           $rootScope.User.sync();
