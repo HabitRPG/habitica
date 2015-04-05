@@ -138,16 +138,11 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.challenges.detail', {
           url: '/:cid',
           templateUrl: 'partials/options.social.challenges.detail.html',
-          controller: ['$scope', 'Challenges', '$stateParams', '$rootScope',
-            function($scope, Challenges, $stateParams, $rootScope){
+          controller: ['$scope', 'Challenges', '$stateParams',
+            function($scope, Challenges, $stateParams){
 
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
                 $scope.challenge._locked = true;
-                //If the user came from a guild page, then we want to filter challenges by the user's guild
-                if ( $rootScope.$state.previousState.url == "/:gid" ) {
-                  $scope.search.group = [];
-                  $scope.search.group[$scope.challenge.group] = true;
-                }
               });
             }]
         })
@@ -231,9 +226,3 @@ window.habitrpg = angular.module('habitrpg',
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
   }])
-.run(function ($rootScope, $state) {
-  $rootScope.$state = $state;
-  $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
-    $state.previousState = fromState;
-  });
-});
