@@ -2,3 +2,8 @@ script(id='partials/main.html', type="text/ng-template")
   include ./filters
   div(ng-controller='TasksCtrl')
     habitrpg-tasks(main='true', obj='user')
+
+script(type='text/ng-template', id='partials/main.tags.autocomplete.html')
+  ul.list-group.tag-search
+    li.list-group-item.clearfix(mentio-menu-item="tag", ng-repeat="tag in items")
+      span {{tag.name}}

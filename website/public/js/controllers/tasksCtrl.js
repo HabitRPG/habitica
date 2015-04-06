@@ -24,26 +24,128 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    function addTask(addTo, listDef, task) {
+    $scope.searchTags = function(item) {
+      console.log(item);
+    };
+
+    $scope.getTagLabel = function(item) {
+      console.log(item);
+    };
+
+    $scope.parseTask = function(listDef, task) {
+      var checkRegex = function(match, k) {
+        var key = k || 1;
+        if (match && match.length > key && typeof match[key] !== 'undefined') {
+          return match[key];
+        }
+        return;
+      };
+
+      var regexes = {
+        notes: /(?:\s+--"([^"]+)")/,
+        due: /(?:\s+\^(\d?\d\/\d?\d\/\d?\d?\d\d))/,
+        diff: /(?:\s+\!(easy|medium|hard))/,
+        tag: /(?:\s+\#([^"\s]+|"[^"]+"))/g,
+        value: /(?:\s+(\d+(?:\.\d{1,2})?|0?\.\d{1,2})?GP)/,
+        up: /(?:\s+(\+))/,
+        down: /(?:\s+(\-))/,
+        days: /(?:\s+\^((?:m|t|w|r|f|s|u)+))/
+      };
+
+      var notes = task.match(regexes.notes);
+      task = task.replace(regexes.notes, '');
+      var due = task.match(regexes.due);
+      task = task.replace(regexes.due, '');
+      var diff = task.match(regexes.diff);
+      task = task.replace(regexes.diff, '');
+      var tags = task.match(regexes.tag);
+      task = task.replace(regexes.tag, '');
+      var value = task.match(regexes.value);
+      task = task.replace(regexes.value, '');
+      var up = task.match(regexes.up);
+      task = task.replace(regexes.up, '');
+      var down = task.match(regexes.down);
+      task = task.replace(regexes.down, '');
+      var days = task.match(regexes.days);
+      task = task.replace(regexes.days, '');
+
       var newTask = {
         text: task,
-        type: listDef.type,
-        tags: _.transform(User.user.filters, function(m,v,k){
-          if (v) m[k]=v;
-        })
+        type: listDef.type
       };
-      User.user.ops.addTask({body:newTask});
-    }
+      newTask.notes = checkRegex(notes) || '';
+      if (listDef.type === 'habit') {
+        newTask.up = (checkRegex(up)) ? 1 : 0;
+        newTask.down = (checkRegex(down)) ? 1 : 0;
+        if (newTask.up === 0 && newTask.down === 0) {
+          newTask.up = 1;
+          newTask.down = 1;
+        }
+      }
+      if (listDef.type === 'daily') {
+        newTask.repeat = (function(days){
+          if (typeof days === 'undefined') {
+            return {su:1,m:1,t:1,w:1,th:1,f:1,s:1};
+          }
+          var repeat = {su:0,m:0,t:0,w:0,th:0,f:0,s:0};
+          repeat.su = (days.indexOf('u') > -1) ? 1 : 0;
+          repeat.m = (days.indexOf('m') > -1) ? 1 : 0;
+          repeat.t = (days.indexOf('t') > -1) ? 1 : 0;
+          repeat.w = (days.indexOf('w') > -1) ? 1 : 0;
+          repeat.th = (days.indexOf('r') > -1) ? 1 : 0;
+          repeat.f = (days.indexOf('f') > -1) ? 1 : 0;
+          repeat.s = (days.indexOf('s') > -1) ? 1 : 0;
+          return repeat;
+        })(checkRegex(days));
+      }
+      if (listDef.type === 'todo') {
+        newTask.date = checkRegex(due);
+      }
+      if (listDef.type === 'reward') {
+        newTask.value = parseInt(checkRegex(value)) || 10;
+      } else {
+        switch (checkRegex(diff)) {
+          case 'hard':
+            newTask.priority = 2;
+            break;
+          case 'medium':
+            newTask.priority = 1.5;
+            break;
+          case 'easy':
+          default:
+            newTask.priority = 1;
+            break;
+        }
+      }
+      if (!tags || tags.length === 0) {
+        newTask.tags = _.transform(User.user.filters, function(m,v,k){
+          if (v) m[k]=v;
+        });
+      } else {
+        tags = _.transform(tags, function(m,v){
+          m.push(v.replace(/\s+\#/, ''));
+        });
+        newTask.tags = {};
+        for (var i = 0; i < User.user.tags.length; i++) {
+          if (tags.indexOf(User.user.tags[i].name) > -1) {
+            newTask.tags[User.user.tags[i].id] = true;
+          }
+        }
+      }
+      return newTask;
+    };
 
     $scope.addTask = function(addTo, listDef) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
         _.each(tasks, function(t) {
-          addTask(addTo, listDef, t);
+          var newTask = $scope.parseTask(listDef, t);
+          User.user.ops.addTask({body:newTask});
         });
         listDef.bulk = false;
       } else {
-        addTask(addTo, listDef, listDef.newTask);
+        var newTask = $scope.parseTask(listDef, listDef.newTask);
+        User.user.ops.addTask({body:newTask});
       }
       delete listDef.newTask;
       delete listDef.focus;
@@ -166,7 +268,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           focusChecklist(task,$index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
-      } 
+      }
     }
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
@@ -186,7 +288,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items 
+     Items
      ------------------------
      */
 
