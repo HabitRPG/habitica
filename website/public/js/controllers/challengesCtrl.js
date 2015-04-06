@@ -38,6 +38,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
     $scope.score = function(){}
 
+    //This is used to ensure the user has enough gems to create a challenge
+    $scope.enoughGems = true;
+
     //------------------------------------------------------------
     // Challenge
     //------------------------------------------------------------
@@ -130,6 +133,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.save = function(challenge) {
       if (!challenge.group) return alert(window.env.t('selectGroup'));
       var isNew = !challenge._id;
+      if (!$scope.enoughGems && isNew ) return alert(window.env.t('challengeNotEnoughGems'));
       challenge.$save(function(_challenge){
         if (isNew) {
           Notification.text(window.env.t('challengeCreated'));
@@ -303,7 +307,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!gid) return;
       var group = _.find($scope.groups, {_id:gid});
       $scope.maxPrize = User.user.balance*4 + ((group && group.balance && group.leader==User.user._id) ? group.balance*4 : 0);
-      if (gid == 'habitrpg') $scope.newChallenge.prize = 1;
+      if (gid == 'habitrpg') {
+       $scope.newChallenge.prize = 1;
+       if ( $scope.maxPrize <= 0 ) $scope.enoughGems = false;
+      }
     })
 
     $scope.selectAll = function(){
