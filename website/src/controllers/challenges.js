@@ -40,7 +40,7 @@ api.list = function(req, res, next) {
         .select('name leader description group memberCount prize official')
         .select({members:{$elemMatch:{$in:[user._id]}}})
         .sort('-official -timestamp')
-        .populate('group', '_id name')
+        .populate('group', '_id name type')
         .populate('leader', 'profile.name')
         .exec(cb);
     }
@@ -63,7 +63,7 @@ api.get = function(req, res, next) {
   // 3) Limit 30 (only show the 30 users currently in the lead)
   Challenge.findById(req.params.cid)
     .populate('members', 'profile.name _id')
-    .populate('group', '_id name')
+    .populate('group', '_id name type')
     .populate('leader', 'profile.name')
     .exec(function(err, challenge){
       if(err) return next(err);

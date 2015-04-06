@@ -143,7 +143,11 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               ul.pull-right.challenge-accordion-header-specs
                 li.bg-transparent(ng-if='challenge.official')
                   span.label.label-success=env.t('officialChallenge')
-                li {{challenge.group.name}}
+                li
+                  a(ui-sref="options.social.guilds.detail({gid:challenge.group._id})" ng-if="challenge.group.type=='guild'")
+                    | {{challenge.group.name}}
+                  a(ui-sref="options.social.party" ng-if="challenge.group.type=='party'")
+                    | {{challenge.group.name}}
                 li
                   =env.t('by') + ' '
                   a(ng-click='clickMember(challenge.leader._id, true)') {{challenge.leader.profile.name}}
