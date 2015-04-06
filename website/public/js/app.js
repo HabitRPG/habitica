@@ -146,6 +146,16 @@ window.habitrpg = angular.module('habitrpg',
               });
             }]
         })
+        .state('options.social.challenges.edit', {
+          url: '/:cid/edit',
+          templateUrl: 'partials/options.social.challenges.detail.html',
+          controller: ['$scope', 'Challenges', '$stateParams',
+            function($scope, Challenges, $stateParams){
+              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
+                $scope.challenge._locked = false;
+              });
+            }]
+        })
         .state('options.social.challenges.detail.member', {
           url: '/:uid',
           templateUrl: 'partials/options.social.challenges.detail.member.html',

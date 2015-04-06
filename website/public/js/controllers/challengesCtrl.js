@@ -1,17 +1,36 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams) {
+
+    // Use presence of cid to determine whether to show a list or a single
+    // challenge
+    $scope.cid = $state.params.cid;
+
+    // Fetch single challenge if a cid is present; fetch multiple challenges
+    // otherwise
+    var getChallenges = function() {
+      if ($scope.cid) {
+        Challenges.Challenge.get({cid: $scope.cid}, function(challenge) {
+          $scope.challenges = [challenge];
+        });
+      } else {
+        Challenges.Challenge.query(function(challenges){
+          $scope.challenges = challenges;
+          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
+          $scope.search = {
+            group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
+          };
+        });
+      }
+    };
+
+    getChallenges();
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
-    Challenges.Challenge.query(function(challenges){
-      $scope.challenges = challenges;
-      $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-      $scope.search = {
-        group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
-      };
-    });
+
+
     // we should fix this, that's pretty brittle
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
@@ -20,6 +39,13 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     //------------------------------------------------------------
     // Challenge
     //------------------------------------------------------------
+
+    // Use this to force the top view to change, not just the nested view.
+    $scope.edit = function(challenge) {
+      $state.transitionTo('options.social.challenges.edit', {cid: challenge._id}, {
+        reload: true, inherit: false, notify: true
+      });
+    };
 
     /**
      * Create
@@ -76,6 +102,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
           challenge._locked = true;
+          getChallenges();
         }
       });
     };
@@ -94,6 +121,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      */
     function backToChallenges(){
       $scope.popoverEl.popover('destroy');
+      $scope.cid = null;
       $state.go('options.social.challenges');
       $scope.challenges = Challenges.Challenge.query();
       User.log({});
@@ -178,7 +206,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.join = function(challenge){
       challenge.$join(function(){
-        $scope.challenges = Challenges.Challenge.query();
+        getChallenges()
         User.log({});
       });
 
@@ -189,7 +217,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         $scope.selectedChal = undefined;
       } else {
         $scope.selectedChal.$leave({keep:keep}, function(){
-          $scope.challenges = Challenges.Challenge.query();
+          getChallenges()
           User.log({});
         });
       }
