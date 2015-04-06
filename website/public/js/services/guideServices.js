@@ -239,6 +239,7 @@ function($rootScope, User, $timeout, $state) {
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
     if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
+    if (User.user.items.gear.owned['weapon_warrior_0']) return;//If the user has the training sword, then don't show the intro tour
     goto('intro', 0); // kick off first step on first visit
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
