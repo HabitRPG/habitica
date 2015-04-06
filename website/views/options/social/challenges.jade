@@ -139,6 +139,17 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     .Pet_Currency_Gem1x
                   input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
                 a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}", popover-trigger='mouseenter', popover-placement='right')
+
+              //- what's going on here?
+              br
+              br
+              div.alert.alert-warning(ng-hide="enoughGems")
+               =env.t('challengeNotEnoughGems')
+              .form-group
+                input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{enoughGems ? maxPrize : null}}", ng-model='newChallenge.prize', placeholder=env.t('prize'), ng-show="enoughGems")
+                span.input-suffix.Pet_Currency_Gem1x.inline-gems
+                |&nbsp;
+                span.hint.vertical-20(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
                   =env.t('moreInfo')
                 .pull-right(ng-show='newChallenge.group=="habitrpg"')
                   !=env.t('publicChallenges')
