@@ -44,7 +44,6 @@
     "remaining": "Activo",
     "complete": "Hecho",
     "dated": "Fecha limite",
-    "datedNotSorted": "Pendientes con fecha limite NO están ordenados por fecha. Este modo de clasificación sera implementada en el futuro. ",
     "due": "Por hacer",
     "grey": "Gris",
     "score": "Puntuaje",

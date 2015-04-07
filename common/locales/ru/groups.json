@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Вы уверены, что хотите пожаловаться на это соощение? Вы должны сообщать ТОЛЬКО в тех случаях, когда имеет место нарушение <%= firstLinkStart %>Правил Сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условий предоставленjavascript:;ия сервиса<%= linkEnd %>. Некорректное сообщение о нарушении Правил Сообщества может привести к совершению вами нарушения. ",
     "abuseFlagModalButton": "Пожаловаться",
     "abuseReported": "Спасибо, что сообщили об этом нарушении. Модераторы уведомлены.",
-    "abuseAlreadyReported": "Вы уже сообщали об этом нарушении."
+    "abuseAlreadyReported": "Вы уже сообщали об этом нарушении.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

@@ -36,11 +36,11 @@
     "spellSpecialSaltText": "Zout",
     "spellSpecialSaltNotes": "Iemand heeft een sneeuwbal naar je gegooid. Ha ha, heel grappig. Help me nu die sneeuw van me af te krijgen!",
     "spellSpecialSpookDustText": "Spookachtige Glitters",
-    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookDustNotes": "Verander een vriend in een zwevend laken met ogen!",
     "spellSpecialOpaquePotionText": "Ondoorzichtig toverdrankje",
     "spellSpecialOpaquePotionNotes": "Verwijder het effect van Spookachtige Glitters.",
-    "spellSpecialShinySeedText": "Shiny Seed",
-    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
-    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
-    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
+    "spellSpecialShinySeedText": "Glanzend zaadje",
+    "spellSpecialShinySeedNotes": "Verander een vriend in een blij bloemetje!",
+    "spellSpecialPetalFreePotionText": "Ontbladeringsdrankje",
+    "spellSpecialPetalFreePotionNotes": "Haal het effect van een glanzend zaadje weg."
 }

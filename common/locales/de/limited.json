@@ -7,7 +7,7 @@
     "alarmingFriends": "Unheimliche Freunde",
     "alarmingFriendsText": "Wurde <%= spookDust %> mal von Gruppenmitgliedern erschreckt.",
     "agriculturalFriends": "Agricultural Friends",
-    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
+    "agriculturalFriendsText": "Wurde <%= seeds %> mal von Gruppenmitgliedern in eine Blume verwandelt.",
     "valentineCard": "Valentinstagskarte",
     "valentineCardNotes": "Einem Gruppenmitglied eine Valentinskarte schicken.",
     "valentine0": "\"Rosen sind rot<%= lineBreak %>Aufgaben sind blau<%= lineBreak %>Wir passen zusammen<%= lineBreak %>Das weiß ich genau!\"",

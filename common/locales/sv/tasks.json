@@ -44,7 +44,6 @@
     "remaining": "Aktiv",
     "complete": "Klar",
     "dated": "Daterad",
-    "datedNotSorted": "Daterade att-göra är INTE sorterade efter datum. Sortering kommer troligtvis bli implementerat i framtiden.",
     "due": "Ofärdig",
     "grey": "Grå",
     "score": "Poäng",

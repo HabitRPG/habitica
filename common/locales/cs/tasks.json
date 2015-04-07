@@ -44,7 +44,6 @@
     "remaining": "Aktivní",
     "complete": "Splněno",
     "dated": "Datovaný",
-    "datedNotSorted": "Datované Úkoly NEJSOU seřazené podle data. Řazení bude nejspíš implementováno v budoucnu.",
     "due": "Zbývající",
     "grey": "Dokončené",
     "score": "Skóre",

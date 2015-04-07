@@ -44,7 +44,6 @@
     "remaining": "Aktive",
     "complete": "Færdige",
     "dated": "Med dato",
-    "datedNotSorted": "To-Dos med datoer er IKKE sorteret efter dato. Sortering vil nok blive implementeret på et senere tidspunkt.",
     "due": "Forfalden",
     "grey": "Grå",
     "score": "Score",

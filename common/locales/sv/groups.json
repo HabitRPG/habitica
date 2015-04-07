@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
     "abuseFlagModalButton": "Rapportera",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "Du har redan anmält det här meddelandet."
+    "abuseAlreadyReported": "Du har redan anmält det här meddelandet.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

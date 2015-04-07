@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "¿Estás seguro de querer notificar este mensaje? SOLO los mensajes que violan las <%= firstLinkStart %>normas de la comunidad<%= linkEnd %> y/o  los<%= secondLinkStart %>Términos de Servicio<%= linkEnd %> deben ser notificados.\nUn reporte inapropiado de un mensaje es una violación de las normas de la comunidad y puede costarte una infracción.  ",
     "abuseFlagModalButton": "Notificar",
     "abuseReported": "Gracias por notificar esta infracción. Los moderadores han sido informados.",
-    "abuseAlreadyReported": "Ya has notificado este mensaje."
+    "abuseAlreadyReported": "Ya has notificado este mensaje.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }
