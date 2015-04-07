@@ -7,6 +7,7 @@ var utils = require('../utils');
 var nconf = require('nconf');
 var request = require('request');
 var User = require('../models/user').model;
+var EmailUnsubscription = require('../models/emailUnsubscription').model;
 var ga = require('./../utils').ga;
 var i18n = require('./../i18n');
 
@@ -111,7 +112,10 @@ api.registerUser = function(req, res, next) {
         var user = new User(newUser);
         ga.event('register', 'Local').send();
         user.save(function(err, savedUser){
-          utils.txnEmail(savedUser, 'welcome');
+          // Clean previous email preferences
+          EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
+            utils.txnEmail(savedUser, 'welcome');
+          });
           cb.apply(cb, arguments);
         });
       }
@@ -181,7 +185,12 @@ api.loginSocial = function(req, res, next) {
       user.auth[network] = prof;
       user = new User(user);
       user.save(function(err, savedUser){
-        utils.txnEmail(savedUser, 'welcome');
+        // Clean previous email preferences
+        if(savedUser.auth.facebook.emails && savedUser.auth.facebook.emails[0] && savedUser.auth.facebook.emails[0].value){
+          EmailUnsubscription.remove({email: savedUser.auth.facebook.emails[0].value}, function(){
+            utils.txnEmail(savedUser, 'welcome');
+          });
+        }
         cb.apply(cb, arguments);
       });
 
