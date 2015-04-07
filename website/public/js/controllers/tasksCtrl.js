@@ -41,7 +41,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         //Reverse the order of tasks so the tasks will appear in the order the user entered them
         tasks.reverse();
         _.each(tasks, function(t) {
-          console.log(t)
           addTask(addTo, listDef, t);
         });
         listDef.bulk = false;
