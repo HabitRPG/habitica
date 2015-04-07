@@ -73,8 +73,8 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
   });
 
   // Personal variables are personal to each email recipient, if they are missing
-  // we manually create a structure for them with RECIPIENT_NAME and RECIPIENT_ID
-  // otherwise we just add RECIPIENT_NAME and RECIPIENT_ID to the existing personal variables
+  // we manually create a structure for them with RECIPIENT_NAME and RECIPIENT_UNSUB_URL
+  // otherwise we just add RECIPIENT_NAME and RECIPIENT_UNSUB_URL to the existing personal variables
   if(!personalVariables || personalVariables.length === 0){
     personalVariables = mailingInfoArray.map(function(mailingInfo){
       return {

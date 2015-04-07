@@ -625,7 +625,6 @@ var inviteByEmails = function(invites, group, req, res, next){
 
           // TODO implement "users can only be invited once"
           // Check for the email address not to be unsubscribed
-
           EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
             if(err) return cb(err);
             if(unsubscribed) return cb();
@@ -633,7 +632,7 @@ var inviteByEmails = function(invites, group, req, res, next){
             utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
 
             cb();
-          })
+          });
         });
     }else{
       cb();
