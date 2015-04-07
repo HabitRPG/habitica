@@ -38,7 +38,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.addTask = function(addTo, listDef) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
+        //Reverse the order of tasks so the tasks will appear in the order the user entered them
+        tasks.reverse();
         _.each(tasks, function(t) {
+          console.log(t)
           addTask(addTo, listDef, t);
         });
         listDef.bulk = false;
@@ -166,7 +169,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           focusChecklist(task,$index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
-      } 
+      }
     }
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
@@ -186,7 +189,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items 
+     Items
      ------------------------
      */
 
