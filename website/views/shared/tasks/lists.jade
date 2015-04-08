@@ -66,7 +66,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               ul.task-filter
                 li(ng-class='{active: list.view == "remaining"}')
                   a(ng-click='list.view = "remaining"')=env.t('remaining')
-                li(ng-class='{active: list.view == "dated"}', tooltip=env.t('datedNotSorted'))
+                li(ng-class='{active: list.view == "dated"}')
                   a(ng-click='list.view = "dated"')=env.t('dated')
                 li(ng-class='{active: list.view == "complete"}')
                   a(ng-click='list.view = "complete"')=env.t('complete')
