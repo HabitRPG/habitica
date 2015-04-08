@@ -5924,6 +5924,12 @@ api.wrap = function(user, main) {
       addTask: function(req, cb) {
         var task;
         task = api.taskDefaults(req.body);
+        if (user.tasks[task.id] != null) {
+          return typeof cb === "function" ? cb({
+            code: 404,
+            message: i18n.t('messageDuplicateTaskID', req.language)
+          }) : void 0;
+        }
         user["" + task.type + "s"].unshift(task);
         if (user.preferences.newTaskEdit) {
           task._editing = true;
