@@ -1,6 +1,6 @@
 .shop_head_healer_3 {
   background-image: url(spritesmith4.png);
-  background-position: -492px -1786px;
+  background-position: -451px -1786px;
   width: 40px;
   height: 40px;
 }
@@ -54,25 +54,25 @@
 }
 .shop_head_special_1 {
   background-image: url(spritesmith4.png);
-  background-position: -1107px -1745px;
+  background-position: -1066px -1745px;
   width: 40px;
   height: 40px;
 }
 .shop_head_special_2 {
   background-image: url(spritesmith4.png);
-  background-position: -1148px -1745px;
+  background-position: -1107px -1745px;
   width: 40px;
   height: 40px;
 }
 .shop_head_warrior_1 {
   background-image: url(spritesmith4.png);
-  background-position: -1189px -1745px;
+  background-position: -1148px -1745px;
   width: 40px;
   height: 40px;
 }
 .shop_head_warrior_2 {
   background-image: url(spritesmith4.png);
-  background-position: -451px -1786px;
+  background-position: -1189px -1745px;
   width: 40px;
   height: 40px;
 }
@@ -750,7 +750,7 @@
 }
 .Pet_Currency_Gem {
   background-image: url(spritesmith4.png);
-  background-position: -533px -1786px;
+  background-position: -492px -1786px;
   width: 45px;
   height: 39px;
 }
@@ -1620,7 +1620,7 @@
 }
 .shop_gold {
   background-image: url(spritesmith4.png);
-  background-position: -1856px -390px;
+  background-position: -1856px -445px;
   width: 32px;
   height: 22px;
 }
@@ -1644,25 +1644,25 @@
 }
 .shop_shinySeed {
   background-image: url(spritesmith4.png);
-  background-position: -1066px -1745px;
-  width: 40px;
-  height: 40px;
+  background-position: -1856px -280px;
+  width: 32px;
+  height: 32px;
 }
 .shop_silver {
   background-image: url(spritesmith4.png);
-  background-position: -1856px -413px;
+  background-position: -1856px -468px;
   width: 32px;
   height: 22px;
 }
 .shop_snowball {
   background-image: url(spritesmith4.png);
-  background-position: -1856px -335px;
+  background-position: -1856px -390px;
   width: 32px;
   height: 32px;
 }
 .shop_spookDust {
   background-image: url(spritesmith4.png);
-  background-position: -1856px -280px;
+  background-position: -1856px -335px;
   width: 32px;
   height: 32px;
 }
