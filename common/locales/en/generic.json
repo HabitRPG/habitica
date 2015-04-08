@@ -61,7 +61,7 @@
     "errorUpCase": "ERROR:",
     "newPassSent": "New password sent.",
     "serverUnreach": "Server currently unreachable.",
-    "seeConsole": "(see Chrome console for more details).",
+    "seeConsole": "If the error persists, please report a bug at Help > Report a Bug (if you're using Google Chrome, see the console for more details).",
     "error": "Error",
     "menu": "Menu",
     "notifications": "Notifications",
