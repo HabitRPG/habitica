@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Er du sikker på, at du vil anmelde denne besked? Du skal KUN anmelde en besked, der overtræder <%= firstLinkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og/eller <%= secondLinkStart %>Betingelser og Vilkår<%= linkEnd %>.  Hvis du anmelder en besked for andre ting end disse har du selv brudt Retningslinjer for Fællesskabet og kan få en Overtrædelse.",
     "abuseFlagModalButton": "Anmeld",
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
-    "abuseAlreadyReported": "Du har allerede anmeldt denne besked."
+    "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

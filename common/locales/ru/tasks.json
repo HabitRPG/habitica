@@ -44,7 +44,7 @@
     "remaining": "Активные",
     "complete": "Завершенные",
     "dated": "С датой",
-    "datedNotSorted": "Запланированные задачи НЕ сортируются по дате. Сортировка, вероятно, будет реализована в будущем.",
+    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "Открытые",
     "grey": "Серые",
     "score": "Счет",

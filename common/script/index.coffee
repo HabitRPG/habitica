@@ -1384,6 +1384,10 @@ api.wrap = (user, main=true) ->
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            if user.stats.points < 0
+              user.stats.points = 0
+              # This happens after dropping level with Fix Character Values and perhaps from other causes.
+              # TODO: Subtract points from attributes in the same manner as on death.
 
           user.stats.hp = 50
       user.stats.exp = stats.exp

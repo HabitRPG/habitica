@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Bist Du sicher, dass Du diesen Eintrag melden willst? Du solltest AUSSCHLIEßLICH Einträge melden, die gegen die <%= firstLinkStart %>Community-Richtlinien<%= linkEnd %> und/oder die <%= secondLinkStart %>Nutzungsbedingungen<%= linkEnd %> verstoßen. Das ungerechtfertigte Melden von Einträgen ist ein Verstoß gegen die Community-Richtlinien und kann dazu führen, dass Du verwarnt wirst.",
     "abuseFlagModalButton": "Melden",
     "abuseReported": "Danke, dass Du diesen Verstoß gemeldet hast. Die Moderatoren wurden benachrichtigt.",
-    "abuseAlreadyReported": "Du hast diese Nachricht bereits gemeldet."
+    "abuseAlreadyReported": "Du hast diese Nachricht bereits gemeldet.",
+    "needsText": "Bitte gib eine Nachricht ein.",
+    "needsTextPlaceholder": "Gib Deine Nachricht hier ein."
 }

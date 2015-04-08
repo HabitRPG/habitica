@@ -44,7 +44,7 @@
     "remaining": "Attivi",
     "complete": "Completi",
     "dated": "Con scadenza",
-    "datedNotSorted": "I To-Do con scadenza NON sono in ordine di data. La possibilità di ordinarli sarà probabilmente aggiunta in futuro.",
+    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "Incomplete",
     "grey": "Grigie",
     "score": "Punti",
