@@ -110,7 +110,7 @@ api.registerUser = function(req, res, next) {
         newUser.preferences = newUser.preferences || {};
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
-        ga.event('register', 'Local').send();
+        ga.event('acquisition', 'register', 'local').send();
         user.save(function(err, savedUser){
           // Clean previous email preferences
           EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
@@ -194,7 +194,7 @@ api.loginSocial = function(req, res, next) {
         cb.apply(cb, arguments);
       });
 
-      ga.event('register', network).send();
+      ga.event('acquisition', 'register', network).send();
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
