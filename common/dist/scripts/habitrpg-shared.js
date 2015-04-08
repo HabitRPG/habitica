@@ -4817,6 +4817,20 @@ api.backgrounds = {
       text: t('backgroundRollingHillsText'),
       notes: t('backgroundRollingHillsNotes')
     }
+  },
+  backgrounds042015: {
+    cherry_trees: {
+      text: t('backgroundCherryTreesText'),
+      notes: t('backgroundCherryTreesNotes')
+    },
+    floral_meadow: {
+      text: t('backgroundFloralMeadowText'),
+      notes: t('backgroundFloralMeadowNotes')
+    },
+    gumdrop_land: {
+      text: t('backgroundGumdropLandText'),
+      notes: t('backgroundGumdropLandNotes')
+    }
   }
 };
 
