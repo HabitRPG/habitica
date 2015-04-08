@@ -69,7 +69,8 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
     return mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo;
   }).filter(function(mailingInfo){
     // Always send reset-password emails
-    return (mailingInfo.email && (mailingInfo.canSend || emailType === 'reset-password'));
+    // Don't check canSend for non registered users as already checked before
+    return (mailingInfo.email && ((!mailingInfo._id || mailingInfo.canSend) || emailType === 'reset-password'));
   });
 
   // Personal variables are personal to each email recipient, if they are missing
