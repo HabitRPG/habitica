@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sal",
     "spellSpecialSaltNotes": "Alguém jogou uma bola de neve em você. Ha ha, muito engraçado. Agora tire essa neve de mim!",
     "spellSpecialSpookDustText": "Brilhos Assustadores",
-    "spellSpecialSpookDustNotes": "Transforme seus amigos em um lençol flutuante com olhos!",
+    "spellSpecialSpookDustNotes": "Transforme um amigo em um lençol flutuante com olhos!",
     "spellSpecialOpaquePotionText": "Poção Opaca",
-    "spellSpecialOpaquePotionNotes": "Cancela os efeitos de Brilhos Assustadores."
+    "spellSpecialOpaquePotionNotes": "Cancela os efeitos de Brilhos Assustadores.",
+    "spellSpecialShinySeedText": "Semente Cintilante",
+    "spellSpecialShinySeedNotes": "Transforme um amigo numa alegre flor!",
+    "spellSpecialPetalFreePotionText": "Poção Livre-de-pétalas",
+    "spellSpecialPetalFreePotionNotes": "Cancela os efeitos de uma Semente Cintilante."
 }

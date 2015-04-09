@@ -33,12 +33,12 @@ angular.module('habitrpg')
         /*TODO highlight invalid inputs
          we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
          */
-        if ($scope.registrationForm.$invalid) {
-          return;
-        }
+        var scope = angular.element(document.getElementById('registrationForm')).scope();
+        if (scope.registrationForm.$invalid) return;
+
         var url = ApiUrl.get() + "/api/v2/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
-        $http.post(url, $scope.registerVals).success(function(data, status, headers, config) {
+        $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
         }).error(errorAlert);
       };

@@ -483,7 +483,7 @@ api.wrap = (user, main=true) ->
             task.value = 0
         user.stats.hp = 50
         cb? null, user
-        ga?.event('purchase', 'reroll').send()
+        ga?.event('behavior', 'gems', 'reroll').send()
 
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
@@ -541,7 +541,7 @@ api.wrap = (user, main=true) ->
         user.stats.buffs = {}
         # user.markModified? 'stats'
         cb? null, user
-        ga?.event('purchase', 'Rebirth').send()
+        ga?.event('behavior', 'gems', 'rebirth').send()
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -757,13 +757,13 @@ api.wrap = (user, main=true) ->
           user.items[type][key] = 0  unless user.items[type][key] > 0
           user.items[type][key]++
         cb? null, _.pick(user,$w 'items balance')
-        ga?.event('purchase', key).send()
+        ga?.event('behavior', 'gems', key).send()
 
       releasePets: (req, cb) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          user.balance--
+          user.balance -= 1
           for pet of content.pets
             user.items.pets[pet] = 0
           if not user.achievements.beastMasterCount
@@ -786,11 +786,12 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       releaseBoth: (req, cb) ->
-        if user.balance < 1.5
+        if user.balance < 1.5 and not user.achievements.triadBingo
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
           giveTriadBingo = true
-          user.balance -= 1.5
+          if not user.achievements.triadBingo
+            user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
           for animal of content.pets
@@ -905,7 +906,7 @@ api.wrap = (user, main=true) ->
         user.balance -= cost
         user.markModified? 'purchased'
         cb? null, _.pick(user,$w 'purchased preferences')
-        ga?.event('purchase', path).send()
+        ga?.event('behavior', 'gems', path).send()
 
       # ------
       # Classes
@@ -944,7 +945,7 @@ api.wrap = (user, main=true) ->
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
-          ga?.event('purchase', 'changeClass').send()
+          ga?.event('behavior', 'gems', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
 
@@ -1401,6 +1402,10 @@ api.wrap = (user, main=true) ->
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            if user.stats.points < 0
+              user.stats.points = 0
+              # This happens after dropping level with Fix Character Values and perhaps from other causes.
+              # TODO: Subtract points from attributes in the same manner as on death.
       user.stats.exp = stats.exp
 
       # Set flags when they unlock features
@@ -1593,7 +1598,7 @@ api.wrap = (user, main=true) ->
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
-      options.ga?.event('cron', user.flags.cronCount).send(); #TODO userId for cohort
+      options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress

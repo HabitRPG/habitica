@@ -397,7 +397,7 @@ gear =
       spring2015Warrior: event: events.spring2015, specialClass: 'warrior', text: t('headAccessorySpecialSpring2015WarriorText'), notes: t('headAccessorySpecialSpring2015WarriorNotes'), value: 20
       spring2015Mage:    event: events.spring2015, specialClass: 'wizard',  text: t('headAccessorySpecialSpring2015MageText'), notes: t('headAccessorySpecialSpring2015MageNotes'), value: 20
       spring2015Healer:  event: events.spring2015, specialClass: 'healer',  text: t('headAccessorySpecialSpring2015HealerText'), notes: t('headAccessorySpecialSpring2015HealerNotes'), value: 20
-      
+
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -524,6 +524,9 @@ api.spells =
         user.stats.exp += diminishingReturns(bonus,75)
         user.party.quest.progress.up ?= 0
         user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1)
+        # Sync the user stats to see if we level the user
+        req = { language: user.preferences.language }
+        user.fns.updateStats( user.stats , req )
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -627,6 +630,9 @@ api.spells =
         bonus = calculateBonus(target.value, user._statsComputed.str, _crit)
         user.stats.exp += diminishingReturns(bonus, 75, 50)
         user.stats.gp += diminishingReturns(bonus, 18, 75)
+        # Sync the user stats to see if we level the user
+        req = { language: user.preferences.language }
+        user.fns.updateStats( user.stats , req )
 
     toolsOfTrade:
       text: t('spellRogueToolsOfTradeText')
@@ -1114,7 +1120,7 @@ api.quests =
       gp: 25
       exp: 125
       unlock: t('questGryphonUnlockText')
-      
+
   hedgehog:
     text: t('questHedgehogText')
     notes: t('questHedgehogNotes')
@@ -1614,7 +1620,7 @@ api.quests =
       gp: 31
       exp: 200
       unlock: t('questRockUnlockText')
-      
+
   bunny:
     text: t('questBunnyText')
     notes: t('questBunnyNotes')
@@ -1743,6 +1749,16 @@ api.backgrounds =
     rolling_hills:
       text: t('backgroundRollingHillsText')
       notes: t('backgroundRollingHillsNotes')
+  backgrounds042015:
+    cherry_trees:
+      text: t('backgroundCherryTreesText')
+      notes: t('backgroundCherryTreesNotes')
+    floral_meadow:
+      text: t('backgroundFloralMeadowText')
+      notes: t('backgroundFloralMeadowNotes')
+    gumdrop_land:
+      text: t('backgroundGumdropLandText')
+      notes: t('backgroundGumdropLandNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

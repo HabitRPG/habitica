@@ -142,7 +142,6 @@ habitrpg.directive('hrpgSortChecklist', ['User', function(User) {
 habitrpg.directive('hrpgSortTags', ['User', function(User) {
   return function($scope, element, attrs, ngModel) {
     $(element).sortable({
-      axis: "x",
       start: function (event, ui) {
         ui.item.data('startIndex', ui.item.index());
       },
@@ -167,7 +166,7 @@ habitrpg
         templateUrl: 'template/popover/popover-html.html'
     };
   }])
-  .directive( 'popoverHtml', [ '$compile', '$timeout', '$parse', '$window', '$tooltip', 
+  .directive( 'popoverHtml', [ '$compile', '$timeout', '$parse', '$window', '$tooltip',
     function ( $compile, $timeout, $parse, $window, $tooltip ) {
       return $tooltip( 'popoverHtml', 'popover', 'click' );
     }
@@ -183,3 +182,16 @@ habitrpg
       "  </div>\n" +
       "</div>\n");
   }]);
+
+habitrpg.directive('focusMe', function($timeout, $parse) {
+ return {
+   link: function(scope, element, attrs) {
+     var model = $parse(attrs.focusMe);
+     scope.$watch(model, function(value) {
+       $timeout(function() {
+         element[0].focus();
+       });
+     });
+   }
+ };
+});

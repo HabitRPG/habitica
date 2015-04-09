@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Salz",
     "spellSpecialSaltNotes": "Jemand hat Dich mit Schnee eingeseift. Haha, sehr lustig. Jetzt ist aber Schluss!",
     "spellSpecialSpookDustText": "Spukglitzer",
-    "spellSpecialSpookDustNotes": "Verwandle Deine Freunde in schwebende Bettlaken mit Augen!",
+    "spellSpecialSpookDustNotes": "Verwandle einen Freund in ein schwebendes Bettlaken mit Augen!",
     "spellSpecialOpaquePotionText": "Trank der Entgeisterung",
-    "spellSpecialOpaquePotionNotes": "Beendet den Effekt von Spukglitter"
+    "spellSpecialOpaquePotionNotes": "Beendet den Effekt von Spukglitter",
+    "spellSpecialShinySeedText": "Schimmernde Saat",
+    "spellSpecialShinySeedNotes": "Verwandle einen Freund in eine fröhliche Blume!",
+    "spellSpecialPetalFreePotionText": "Blütenfrei Trank",
+    "spellSpecialPetalFreePotionNotes": "Beendet den Effekt der schimmernden Saat."
 }

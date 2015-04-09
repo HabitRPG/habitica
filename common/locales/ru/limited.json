@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Прилетело снежков в спину от членов команды: <%= snowballs %>.",
     "alarmingFriends": "Пугающие друзья",
     "alarmingFriendsText": "Напуган членами команды <%= spookDust %> раз.",
+    "agriculturalFriends": "Сельскохозяйственные друзья",
+    "agriculturalFriendsText": "Превращен в цветок членами команды <%= seeds %> раз.",
     "valentineCard": "Валентинка",
     "valentineCardNotes": "Отправьте валентинку члену команды.",
     "valentine0": "Розы красны <%= lineBreak %> \"Ежедневные\" сини.<%= lineBreak %>Тем, кто со мною в команде, - <%= lineBreak %>Спасибо!",

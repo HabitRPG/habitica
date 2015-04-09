@@ -86,7 +86,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
       }else{
         $scope.removeMemberData = undefined;
-      }  
+      }
     }
 
     $scope.openInviteModal = function(group){
@@ -118,7 +118,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
       });
     }
-    
+
   }])
 
   .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){
@@ -159,6 +159,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.profile = member;
       });
       $scope.sendPrivateMessage = function(uuid, message){
+        // Don't do anything if the user somehow gets here without a message.
+        if (!message) return;
+
         $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
           Notification.text(window.env.t('messageSentAlert'));
           $rootScope.User.sync();
@@ -335,6 +338,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.sync = function(group){
       group.$get();
+      //When the user clicks fetch recent messages we need to update that the user has seen the new messages
+      Groups.seenMessage(group._id);
     }
 
     // List of Ordering options for the party members list

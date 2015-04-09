@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sól",
     "spellSpecialSaltNotes": "Ktoś rzucił w ciebie kulą śnieżną. Ha ha, bardzo śmieszne. A teraz otrzepcie mnie z tego śniegu!",
     "spellSpecialSpookDustText": "Straszne iskierki",
-    "spellSpecialSpookDustNotes": "Zamień swoich przyjaciół w latający koc z oczami!",
+    "spellSpecialSpookDustNotes": "Zamień przyjaciela w latający koc z oczami!",
     "spellSpecialOpaquePotionText": "Nieprzejrzysty eliksir",
-    "spellSpecialOpaquePotionNotes": "Anuluje efekt strasznych iskierek."
+    "spellSpecialOpaquePotionNotes": "Anuluje efekt strasznych iskierek.",
+    "spellSpecialShinySeedText": "Lśniące nasiono",
+    "spellSpecialShinySeedNotes": "Zamień przyjaciela w radosny kwiat!",
+    "spellSpecialPetalFreePotionText": "Eliksir antypłatkowy",
+    "spellSpecialPetalFreePotionNotes": "Anuluj skutki lśniącego nasiona."
 }

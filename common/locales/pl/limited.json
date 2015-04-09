@@ -6,10 +6,12 @@
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
     "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
+    "agriculturalFriends": "Rolniczy Przyjaciele",
+    "agriculturalFriendsText": "Został przemieniony w kwiata <%= seeds %> razy przez członków drużyny.",
     "valentineCard": "Kartka Walentynkowa",
     "valentineCardNotes": "Wyślij Kartkę Walentynkową do członka drużyny.",
-    "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
-    "valentine1": "\"Roses are red<%= lineBreak %>Violets are nice<%= lineBreak %>Let's get together<%= lineBreak %>And fight against Vice!\"",
+    "valentine0": "\"Róże są czerwone<%= lineBreak %>Moje dzienne zadania są niebieskie<%= lineBreak %>Cieszy mnie, że<%= lineBreak %>jestem w drużynie z tobą!\"",
+    "valentine1": "\"Na górze róże<%= lineBreak %>Fiołki za progiem<%= lineBreak %>Wspólnie ruszajmy<%= lineBreak %>Na wojnę z Nałogiem!\"",
     "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
     "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Kochani przyjaciele",
@@ -39,8 +41,8 @@
     "newYear3": "Szczęśliwego Nowego Roku! Niech twoja lista zadań Do-Zrobienie pozostanie krótka.",
     "newYear4": "Szczęśliwego Nowego Roku! Obyś nie został zaatakowany przez rozwścieczonego hipogryfa.",
     "holidayCard": "Dostałeś Wakacyjną Kartkę!",
-    "mightyBunnySet": "Mighty Bunny (Warrior)",
-    "magicMouseSet": "Magic Mouse (Mage)",
-    "lovingPupSet": "Loving Pup (Healer)",
-    "stealthyKittySet": "Stealthy Kitty (Rogue)"
+    "mightyBunnySet": "Poteżny Króliczek (Wojownik)",
+    "magicMouseSet": "Magiczna myszka (Mag)",
+    "lovingPupSet": "Kochane Szczenię (Uzdrowiciel)",
+    "stealthyKittySet": "Skradająca się Kotka (Łotrzyk)"
 }
