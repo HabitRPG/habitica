@@ -65,7 +65,7 @@
     "weaponSpecial2Text": "Smocza laska Stephena Webera",
     "weaponSpecial2Notes": "Poczuj moc smoka płynącą z wnętrza! Zwiększa Siłę jak i Percepcję o <%= attrs %>.",
     "weaponSpecial3Text": "Morgensztern miażdżący kamienie milowe Mustaine'a",
-    "weaponSpecial3Notes": "Zebrania, złe stwory, zaniepokojenie – z głowy! Zmiażdżone! Zwiększa Siłę, Inteligencję i Kondycję o <%= attrs %>.",
+    "weaponSpecial3Notes": "Zebrania, potwory, zaniepokojenie – z głowy! Zmiażdżone! Zwiększa Siłę, Inteligencję i Kondycję o <%= attrs %>.",
     "weaponSpecialCriticalText": "Kryzysowy młot do miażdżenia błędów",
     "weaponSpecialCriticalNotes": "Ten czempion zgładził krytycznego wroga na Githubie tam, gdzie wielu poległo. Wykonany z jego kości, młot ten zadaje potężne krytyczne obrażenia. Zwiększa Siłę jak i Percepcję o <%= attrs %>.",
     "weaponSpecialYetiText": "Włócznia poskramiacza yeti",
@@ -479,7 +479,7 @@
     "headAccessorySpecialSpring2015MageText": "Niebieskie królicze uszy",
     "headAccessorySpecialSpring2015MageNotes": "These ears listen keenly, in case somewhere a magician is revealing secrets. Confers no benefit. Limited Edition 2015 Spring Gear.",
     "headAccessorySpecialSpring2015HealerText": "Zielone kocie uszy",
-    "headAccessorySpecialSpring2015HealerNotes": "These cute kitty ears will make others green with envy. Confers no benefit. Limited Edition 2015 Spring Gear.",
+    "headAccessorySpecialSpring2015HealerNotes": "Te słodkie kocie uszka sprawią, że wszyscy zzielenieją z zazdrości. Brak korzyści. Edycja Limitowana Wiosna 2015.",
     "headAccessoryMystery201403Text": "Poroże przemierzania lasów",
     "headAccessoryMystery201403Notes": "To poroże lśni od mchów i porostów. Brak dodatkowych korzyści. Marzec 2014. Przedmiot abonencki.",
     "headAccessoryMystery201404Text": "Czułki motyla zmierzchu",
@@ -505,5 +505,5 @@
     "eyewearMystery301404Text": "Gogle",
     "eyewearMystery301404Notes": "Żadne okulary nie są bardziej szykowne od pary gogli - no może oprócz monokla. Brak korzyści. Kwiecień 3015 Przedmiot abonencki.",
     "eyewearMystery301405Text": "Monokl",
-    "eyewearMystery301405Notes": "No eyewear could be fancier than a monocle - except, perhaps, for a pair of goggles. Confers no benefit. July 3015 Subscriber Item."
+    "eyewearMystery301405Notes": "Żadne okulary nie dorównają fantazyjnością monoklowi - poza, być może, parą gogli. Brak korzyści. Lipiec 3015 Przedmiot abonencki."
 }

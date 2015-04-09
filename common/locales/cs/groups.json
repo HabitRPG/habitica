@@ -95,6 +95,6 @@
     "abuseFlagModalButton": "Nahlásit",
     "abuseReported": "Děkujeme za nahlášení tohoto příspěvku. Moderátoři byli upozorněni.",
     "abuseAlreadyReported": "Již jsi tento příspěvek nahlásil.",
-    "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsText": "Prosím, napiš zprávu.",
+    "needsTextPlaceholder": "Napiš svou zprávu sem."
 }
