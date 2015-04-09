@@ -165,7 +165,7 @@ function($rootScope, User, $timeout, $state) {
           $state.go(step.state);
           return $timeout(function(){});
         }
-        window.ga && ga('send', 'event', 'tour', k, i+1);
+        window.ga && ga('send', 'event', 'behavior', 'tour', k, i+1);
       }
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
