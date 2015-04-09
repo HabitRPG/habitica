@@ -10,3 +10,4 @@ before_script:
   - 'npm install -g grunt-cli mocha'
   - cp config.json.example config.json
   - "until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done"
+  - "export DISPLAY=:99"

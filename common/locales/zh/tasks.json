@@ -44,6 +44,7 @@
     "remaining": "进行中",
     "complete": "已完成",
     "dated": "已过期",
+    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "待办",
     "grey": "已完成",
     "score": "成绩",

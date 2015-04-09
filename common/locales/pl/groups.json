@@ -95,6 +95,6 @@
     "abuseFlagModalButton": "Zgłoś",
     "abuseReported": "Dziękujemy za zgłoszenie. Moderatorzy zostali powiadomieni.",
     "abuseAlreadyReported": "Już zgłosiłeś tę wiadomość.",
-    "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsText": "Proszę wpisać wiadomość.",
+    "needsTextPlaceholder": "Wpisz swoją wiadomość tutaj."
 }
