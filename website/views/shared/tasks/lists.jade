@@ -31,10 +31,17 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             small.help-block.btn-link.pull-right(ng-click='toggleBulk(list)')
               span(ng-if='!list.bulk')=env.t('addmultiple')
               span(ng-if='list.bulk')=env.t('addsingle')
-          mentio-menu(mentio-for="'newhabitinput'", mentio-trigger-char="'#'", mentio-items='taskhabitTags', mentio-search="searchTags(term, 'habit')", mentio-select="getTagLabel(item, 'habit')", ng-if="list.type === 'habit'")
-          mentio-menu(mentio-for="'newdailyinput'", mentio-trigger-char="'#'", mentio-items='taskdailyTags', mentio-search="searchTags(term, 'daily')", mentio-select="getTagLabel(item, 'daily')", ng-if="list.type === 'daily'")
-          mentio-menu(mentio-for="'newtodoinput'", mentio-trigger-char="'#'", mentio-items='tasktodoTags', mentio-search="searchTags(term, 'todo')", mentio-select="getTagLabel(item, 'todo')", ng-if="list.type === 'todo'")
-          mentio-menu(mentio-for="'newrewardinput'", mentio-trigger-char="'#'", mentio-items='taskrewardTags', mentio-search="searchTags(term, 'reward')", mentio-select="getTagLabel(item, 'reward')", ng-if="list.type === 'reward'")
+          mentio-menu(mentio-for="'newhabitinput'", mentio-trigger-char="'#'", mentio-items='taskhabitTags', mentio-search="searchTags(term, 'habit')", mentio-select="getTagLabel(item, 'habit')", mentio-template-url="partials/main.tags.autocomplete.html", ng-if="list.type === 'habit'")
+          mentio-menu(mentio-for="'newhabitinput'", mentio-trigger-char="'!'", mentio-items='taskhabitDifficulties', mentio-search="searchDifficulties(term, 'habit')", mentio-select="getDifficultyLabel(item, 'habit')", ng-if="list.type === 'habit'")
+
+          mentio-menu(mentio-for="'newdailyinput'", mentio-trigger-char="'#'", mentio-items='taskdailyTags', mentio-search="searchTags(term, 'daily')", mentio-select="getTagLabel(item, 'daily')", mentio-template-url="partials/main.tags.autocomplete.html", ng-if="list.type === 'daily'")
+          //mentio-menu(mentio-for="'newdailyinput'", mentio-trigger-char="'^'", mentio-items='taskdailyDays', mentio-search="showDays()", mentio-select="toggleDay(item)", mentio-template-url="partials/main.days.autocomplete.html", ng-if="list.type === 'daily'")
+          mentio-menu(mentio-for="'newdailyinput'", mentio-trigger-char="'!'", mentio-items='taskdailyDifficulties', mentio-search="searchDifficulties(term, 'daily')", mentio-select="getDifficultyLabel(item, 'daily')", ng-if="list.type === 'daily'")
+
+          mentio-menu(mentio-for="'newtodoinput'", mentio-trigger-char="'#'", mentio-items='tasktodoTags', mentio-search="searchTags(term, 'todo')", mentio-select="getTagLabel(item, 'todo')", mentio-template-url="partials/main.tags.autocomplete.html", ng-if="list.type === 'todo'")
+          mentio-menu(mentio-for="'newtodoinput'", mentio-trigger-char="'!'", mentio-items='tasktodoDifficulties', mentio-search="searchDifficulties(term, 'todo')", mentio-select="getDifficultyLabel(item, 'todo')", ng-if="list.type === 'todo'")
+
+          mentio-menu(mentio-for="'newrewardinput'", mentio-trigger-char="'#'", mentio-items='taskrewardTags', mentio-search="searchTags(term, 'reward')", mentio-select="getTagLabel(item, 'reward')", mentio-template-url="partials/main.tags.autocomplete.html", ng-if="list.type === 'reward'")
 
           mixin taskColumnTabs(position)
             // Habits Tabs

@@ -5,6 +5,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
+    var quote = _.wrap(_.escape, function(func, text) {
+      var txt = func(text);
+      if (txt.indexOf(' ') > -1) {
+        return '"' + txt + '"';
+      }
+      return txt;
+    });
+
     $scope.score = function(task, direction) {
       switch (task.type) {
           case 'reward':
@@ -24,21 +32,70 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
-    $scope.searchTags = function(item, listType) {
+    $scope.searchDifficulties = function(item, listType) {
+      var showAll = false;
       if (item === '') {
-        return;
+        showAll = true;
+      }
+      var diffList = [];
+      var difficulties = [env.t('easy'), env.t('medium'), env.t('hard')];
+      for (var i = 0; i < 3; i++) {
+        if (showAll || difficulties[i].toLowerCase().indexOf(item) > -1) {
+          diffList.push({label: difficulties[i]});
+        }
+      }
+      $scope['task' + listType + 'Difficulties'] = diffList;
+    };
+
+    $scope.getDifficultyLabel = function(item) {
+      return '!' + quote(item.label.toLowerCase());
+    };
+
+    $scope.searchTags = function(item, listType) {
+      var showAll = false;
+      if (item === '') {
+        showAll = true;
       }
       var tagList = [];
       for (var i = 0; i < User.user.tags.length; i++) {
-        if (User.user.tags[i].name.indexOf(item) > -1) {
-          tagList.push({label: User.user.tags[i].name, id: User.user.tags[i].id});
+        if (showAll || User.user.tags[i].name.toLowerCase().indexOf(item) > -1) {
+          tagList.push(User.user.tags[i]);
         }
       }
       $scope['task' + listType + 'Tags'] = tagList;
     };
 
     $scope.getTagLabel = function(item) {
-      return '#' + item.label;
+      return '#' + quote(item.name);
+    };
+
+    $scope['taskSelectedDays'] = [];
+    $scope.showDays = function(){
+      $scope['taskSelectedDays'].length = 0;
+      var dayList = [];
+      var days = _(moment.weekdaysMin()).forEach(function(val, idx, days){days[idx] = val.toLowerCase();});
+      for (var i = 0; i < 7; i++) {
+        dayList.push({name: moment.weekdays(i), abbr: days[i]});
+        $scope['taskSelectedDays'][days[i]] = false;
+      }
+      dayList.push({name: 'Select day(s)', abbr: ''});
+      $scope['taskdailyDays'] = dayList;
+    };
+
+    $scope.toggleDay = function(item) {
+      var abbr = item.abbr;
+      if (abbr === '') {
+        var days = [];
+        _.forEach($scope['taskSelectedDays'], function(selected, day) {
+          if (selected) {days.push(day);}
+        });
+        return '^' + days.join();
+      }
+      $scope['taskSelectedDays'][abbr] = !$scope['taskSelectedDays'][abbr];
+    };
+
+    $scope.getDayLabel = function(item) {
+      return '^' + quote(item.label);
     };
 
     $scope.parseTask = function(listDef, task) {
@@ -50,36 +107,45 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         return;
       };
 
+      var easy = quote(env.t('easy'));
+      var medium = quote(env.t('medium'));
+      var hard = quote(env.t('hard'));
+
       var regexes = {
-        notes: /(?:\s+--"([^"]+)")/,
-        due: /(?:\s+\^(\d?\d\/\d?\d\/\d?\d?\d\d))/,
-        diff: /(?:\s+\!(easy|medium|hard))/,
-        tag: /(?:\s+\#([^"\s]+|"[^"]+"))/g,
-        value: /(?:\s+(\d+(?:\.\d{1,2})?|0?\.\d{1,2})?GP)/,
-        up: /(?:\s+(\+))/,
-        down: /(?:\s+(\-))/,
-        days: /(?:\s+\^((?:m|t|w|r|f|s|u)+))/
+        'notes': /(?:\s+--"([^"]+)")/,
+        'due': /(?:\s+\^(\d?\d\/\d?\d\/\d?\d?\d\d))/,
+        'diff': '(?:\s+\!('+easy+'|'+medium+'|'+hard+'))',
+        'tag': /(?:\s+#([^"\s]+|"[^"]+"))/g,
+        'value': /(?:\s+(\d+(?:\.\d{1,2})?|0?\.\d{1,2})?GP)/,
+        'up': /(?:\s+(\+))/,
+        'down': /(?:\s+(\-))/,
+        'days': /(?:\s+\^((?:m|t|w|r|f|s|u)+))/
       };
 
-      var notes = task.match(regexes.notes);
-      task = task.replace(regexes.notes, '');
-      var due = task.match(regexes.due);
-      task = task.replace(regexes.due, '');
-      var diff = task.match(regexes.diff);
-      task = task.replace(regexes.diff, '');
-      var tags = task.match(regexes.tag);
-      task = task.replace(regexes.tag, '');
-      var value = task.match(regexes.value);
-      task = task.replace(regexes.value, '');
-      var up = task.match(regexes.up);
-      task = task.replace(regexes.up, '');
-      var down = task.match(regexes.down);
-      task = task.replace(regexes.down, '');
-      var days = task.match(regexes.days);
-      task = task.replace(regexes.days, '');
+      var taskArr = task.split('::');
+      var taskText = taskArr.shift();
+      var taskMeta = taskArr.shift() || '';
+
+      // TODO: There aught to be a cleaner way to do this
+      var notes = taskMeta.match(regexes.notes);
+      taskMeta = taskMeta.replace(regexes.notes, '');
+      var due = taskMeta.match(regexes.due);
+      taskMeta = taskMeta.replace(regexes.due, '');
+      var diff = taskMeta.match(regexes.diff);
+      taskMeta = taskMeta.replace(regexes.diff, '');
+      var tags = taskMeta.match(regexes.tag);
+      taskMeta = taskMeta.replace(regexes.tag, '');
+      var value = taskMeta.match(regexes.value);
+      taskMeta = taskMeta.replace(regexes.value, '');
+      var up = taskMeta.match(regexes.up);
+      taskMeta = taskMeta.replace(regexes.up, '');
+      var down = taskMeta.match(regexes.down);
+      taskMeta = taskMeta.replace(regexes.down, '');
+      var days = taskMeta.match(regexes.days);
+      taskMeta = taskMeta.replace(regexes.days, '');
 
       var newTask = {
-        text: task,
+        text: taskText,
         type: listDef.type
       };
       newTask.notes = checkRegex(notes) || '';
@@ -111,7 +177,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         newTask.date = checkRegex(due);
       }
       if (listDef.type === 'reward') {
-        newTask.value = parseInt(checkRegex(value)) || 10;
+        newTask.value = Number(checkRegex(value)) || 10;
       } else {
         switch (checkRegex(diff)) {
           case 'hard':

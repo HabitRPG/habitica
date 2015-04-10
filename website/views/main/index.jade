@@ -7,3 +7,9 @@ script(type='text/ng-template', id='partials/main.tags.autocomplete.html')
   ul.list-group.tag-search
     li.list-group-item.clearfix(mentio-menu-item="tag", ng-repeat="tag in items")
       span {{tag.name}}
+
+script(type='text/ng-template', id='partials/main.days.autocomplete.html')
+  ul.list-group.days-search
+    li.list-group-item.clearfix(mentio-menu-item="day", ng-repeat="day in items")
+      input(type="checkbox", ng-click="toggleDay(day.abbr)", ng-checked="taskSelectedDays[day.abbr]", ng-if="$index < 7")
+      span {{day.name}}
