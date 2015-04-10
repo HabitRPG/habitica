@@ -31,7 +31,7 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
  * @param type: 'party' or otherwise
  * @param q: the Mongoose query we're building up
- * @param additionalFields: if we want to populate some additional field not fetched normally 
+ * @param additionalFields: if we want to populate some additional field not fetched normally
  *        pass it as a string, parties only
  */
 var populateQuery = function(type, q, additionalFields){
@@ -237,8 +237,8 @@ api.getChat = function(req, res, next) {
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
 api.postChat = function(req, res, next) {
-  if(typeof req.query.message === 'undefined' || req.query.message == '') {
-    return res.json(204,{err:'No content in the message.'});
+  if(!req.query.message) {
+    return res.json(400,{err:'You cannot send a blank message'});
   } else {
     var user = res.locals.user
     var group = res.locals.group;
@@ -310,7 +310,7 @@ api.flagChatMessage = function(req, res, next){
     group.save(function(err,_saved){
       if(err) return next(err);
         var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
-        
+
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
             return {email: email, canSend: true}
@@ -363,7 +363,7 @@ api.clearFlagCount = function(req, res, next){
   }else{
     return res.json(401, {err: "Only an admin can clear the flag count!"})
   }
-  
+
 }
 
 api.seenMessage = function(req,res,next){
@@ -582,7 +582,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           cb();
         });
       }
-    });    
+    });
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
@@ -648,7 +648,7 @@ var inviteByEmails = function(invites, group, req, res, next){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
     }else{
 
-      // Send only status code down the line because it doesn't need 
+      // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
       res.send(200);
     }

@@ -285,12 +285,13 @@ describe "API", ->
         describe "Chat", ->
           chat = undefined
           it "Posts a message to party chat", (done) ->
-            request.post(baseURL + "/groups/" + group._id + "/chat").send(
-              message: "Test MSG"
+            msg = "TestMsg"
+            request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
             ).end (res) ->
               expectCode res, 200
               chat = res.body.message
               expect(chat.id).to.be.ok
+              expect(chat.text).to.be.eql msg
               expect(chat.timestamp).to.be.ok
               expect(chat.likes).to.be.empty
               expect(chat.flags).to.be.empty
@@ -300,6 +301,14 @@ describe "API", ->
               expect(chat.backer).to.be.empty
               expect(chat.uuid).to.be user._id
               expect(chat.user).to.be user.profile.name
+              done()
+
+          it "Does not post an empty message", (done) ->
+            msg = ""
+            request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
+            ).end (res) ->
+              expectCode res, 400
+              expect(res.body.err).to.be.eql 'You cannot send a blank message'
               done()
 
           it "can not like own chat message", (done) ->
