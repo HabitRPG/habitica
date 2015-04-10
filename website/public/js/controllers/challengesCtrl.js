@@ -99,10 +99,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           $scope.challenges = Challenges.Challenge.query();
           User.sync();
         } else {
-          // TODO figure out a more elegant way about this
-          //challenge._editing = false;
-          challenge._locked = true;
-          getChallenges();
+          $state.go('options.social.challenges.detail', {cid: _challenge._id});
         }
       });
     };
