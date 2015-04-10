@@ -37,7 +37,7 @@
     "publicChallenges": "Minimum 1 Gem for <strong> public challenges </strong> (helps prevent spam, it really does).",
     "officialChallenge": "Official HabitRPG Challenge",
     "by": "by",
-    "participants": "Participants",
+    "participants": "<%= membercount %> Participants",
     "join": "Join",
     "exportChallengeCSV": "Export to CSV",
     "selectGroup": "Please select group",

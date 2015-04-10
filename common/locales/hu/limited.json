@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Eltaláltak <%= snowballs %> hógolyóval a csapattársaid.",
     "alarmingFriends": "Ijesztő barátok",
     "alarmingFriendsText": "A csapattagjaid <%= spookDust %>-szor kísértettek.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Valentin napi képeslap",
     "valentineCardNotes": "Küldj egy Valentin napi képeslapot az egyik csapattagodnak.",
     "valentine0": "\"A rózsák vörösek<%= lineBreak %>a Napi feladataim kékek<%= lineBreak %>örülök <%= lineBreak %>hogy veled egy csapatban lehetek.\"",
@@ -22,7 +24,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Szezonális Varázslónő<%= linkEnd %>",
     "seasonalShopClosedText": "A Szezonális Bolt jelenleg zárva van! Nem tudom, hogy hol van jelenleg a Szezonális Varázslónő, de fogadni mernék, hogy visszatér a következő <%= linkStart %>Nagy Gálára<%= linkEnd %>!",
-    "seasonalShopText": "Üdv a Szezonális Boltban! Mostantól január 31-ig rengeteg szezonális kiadású téli áru kapható itt. Ezután egy évig nem lesznek kaphatók, úgyhogy csapj le rájuk!",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Ha használtad az Újjászületés Gömbjét, újra megveheted az elvesztett felszereléseidet a Jutalom Oszlopban miután újra hozzáfértél a Tárgy Bolthoz. Eleinte csak az aktuális kasztodhoz (alapesetben ez a Harcos) tartozó tárgyak lesznek elérhetőek, de ne aggódj a többi kaszt-specifikus tárgy is elérhetővé válik ha átváltasz a megfelelő kasztra.",
     "candycaneSet": "Botcukor (Varázsló)",
     "skiSet": "Orgyilkos (Tolvaj)",
@@ -38,5 +40,9 @@
     "newYear2": "Boldog új évet! Legyen sok Tökéletes Napod.",
     "newYear3": "Boldog Új Évet! Legyen a teendőid listája ugyanolyan rövid és aranyos mint mindig.",
     "newYear4": "Boldog új évet! Ne támadjon meg téged egy dühöngő Hippogriff.",
-    "holidayCard": "Egy ünnepi üdvözlőkártyád érkezett."
+    "holidayCard": "Egy ünnepi üdvözlőkártyád érkezett.",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

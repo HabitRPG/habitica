@@ -21,87 +21,105 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return ~(memberIds.indexOf(userid));
     }
 
-      $scope.isMember = function(user, group){
-        return ~(group.members.indexOf(user._id));
+    $scope.isMember = function(user, group){
+      return ~(group.members.indexOf(user._id));
+    }
+
+    $scope.Members = Members;
+    $scope._editing = {group:false};
+
+    $scope.save = function(group){
+      if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
+      group.$save();
+      group._editing = false;
+    }
+
+    $scope.deleteAllMessages = function() {
+      if (confirm(window.env.t('confirmDeleteAllMessages'))) {
+        User.user.ops.clearPMs({});
       }
+    }
 
-      $scope.Members = Members;
-      $scope._editing = {group:false};
+    // ------ Modals ------
 
-      $scope.save = function(group){
-        if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
-        group.$save();
-        group._editing = false;
-      }
-
-      $scope.deleteAllMessages = function() {
-        if (confirm(window.env.t('confirmDeleteAllMessages'))) {
-          User.user.ops.clearPMs({});
-        }
-      }
-
-      // ------ Modals ------
-
-      $scope.clickMember = function(uid, forceShow) {
-        if (User.user._id == uid && !forceShow) {
-          if ($state.is('tasks')) {
-            $state.go('options.profile.avatar');
-          } else {
-            $state.go('tasks');
-          }
+    $scope.clickMember = function(uid, forceShow) {
+      if (User.user._id == uid && !forceShow) {
+        if ($state.is('tasks')) {
+          $state.go('options.profile.avatar');
         } else {
-          // We need the member information up top here, but then we pass it down to the modal controller
-          // down below. Better way of handling this?
-          Members.selectMember(uid, function(){
-            $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
-          });
+          $state.go('tasks');
         }
-      }
-
-      $scope.removeMember = function(group, member, isMember){
-        var yes = confirm(window.env.t('sureKick'))
-        if(yes){
-          Groups.Group.removeMember({gid: group._id, uuid: member._id }, undefined, function(){
-            if(isMember){
-              _.pull(group.members, member);
-            }else{
-              _.pull(group.invites, member);
-            }
-          });
-        }
-      }
-
-      $scope.openInviteModal = function(group){
-        $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve:
-          {injectedGroup: function(){
-            return group;
-          }}});
-      };
-
-      //var serializeQs = function(obj, prefix){
-      //  var str = [];
-      //  for(var p in obj) {
-      //    if (obj.hasOwnProperty(p)) {
-      //      var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-      //      str.push(typeof v == "object" ?
-      //        serializeQs(v, k) :
-      //        encodeURIComponent(k) + "=" + encodeURIComponent(v));
-      //    }
-      //  }
-      //  return str.join("&");
-      //}
-      //
-      //$scope.inviteLink = function(obj){
-      //  return window.env.BASE_URL + '?' + serializeQs({partyInvite: obj});
-      //}
-
-      $scope.quickReply = function(uid) {
+      } else {
+        // We need the member information up top here, but then we pass it down to the modal controller
+        // down below. Better way of handling this?
         Members.selectMember(uid, function(){
-          $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
+          $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
         });
       }
     }
-  ])
+
+
+    $scope.removeMember = function(group, member, isMember){
+      // TODO find a better way to do this (share data with remove member modal)
+      $scope.removeMemberData = {
+        group: group,
+        member: member,
+        isMember: isMember
+      };
+      $rootScope.openModal('remove-member', {scope: $scope});
+    }
+
+    $scope.confirmRemoveMember = function(confirm){
+      if(confirm){
+        Groups.Group.removeMember({
+          gid: $scope.removeMemberData.group._id,
+          uuid: $scope.removeMemberData.member._id,
+          message: $scope.removeMemberData.message,
+        }, undefined, function(){
+          if($scope.removeMemberData.isMember){
+            _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
+          }else{
+            _.pull($scope.removeMemberData.group.invites, $scope.removeMemberData.member);
+          }
+
+          $scope.removeMemberData = undefined;
+        });
+      }else{
+        $scope.removeMemberData = undefined;
+      }
+    }
+
+    $scope.openInviteModal = function(group){
+      $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve:
+        {injectedGroup: function(){
+          return group;
+        }}});
+    };
+
+    //var serializeQs = function(obj, prefix){
+    //  var str = [];
+    //  for(var p in obj) {
+    //    if (obj.hasOwnProperty(p)) {
+    //      var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+    //      str.push(typeof v == "object" ?
+    //        serializeQs(v, k) :
+    //        encodeURIComponent(k) + "=" + encodeURIComponent(v));
+    //    }
+    //  }
+    //  return str.join("&");
+    //}
+    //
+    //$scope.inviteLink = function(obj){
+    //  return window.env.BASE_URL + '?' + serializeQs({partyInvite: obj});
+    //}
+
+    $scope.quickReply = function(uid) {
+      Members.selectMember(uid, function(){
+        $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
+      });
+    }
+
+  }])
 
   .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){
     $scope.group = injectedGroup;
@@ -141,6 +159,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.profile = member;
       });
       $scope.sendPrivateMessage = function(uuid, message){
+        // Don't do anything if the user somehow gets here without a message.
+        if (!message) return;
+
         $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
           Notification.text(window.env.t('messageSentAlert'));
           $rootScope.User.sync();
@@ -317,6 +338,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.sync = function(group){
       group.$get();
+      //When the user clicks fetch recent messages we need to update that the user has seen the new messages
+      Groups.seenMessage(group._id);
     }
 
     // List of Ordering options for the party members list

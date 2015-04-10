@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Is <%= snowballs %> keer geraakt door een sneeuwbal door groepsleden.",
     "alarmingFriends": "Verontrustende vrienden",
     "alarmingFriendsText": "Is <%= spookDust %> keer bespookt door groepsleden.",
+    "agriculturalFriends": "Vrienden met groene vingers",
+    "agriculturalFriendsText": "Is <%= seeds %> keer door groepsgenoten in een bloem omgetoverd.",
     "valentineCard": "Valentijnskaart",
     "valentineCardNotes": "Stuur een Valentijnskaart naar een groepsgenoot.",
     "valentine0": "\"Rozen zijn rood<%= lineBreak %>Taken zijn blauw<%= lineBreak %>Blij dat ik in<%= lineBreak %>Een groep zit met jou!\"",
@@ -22,7 +24,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seizoenstovenares<%= linkEnd %>",
     "seasonalShopClosedText": "De Seizoenswinkel is momenteel gesloten!! Ik weet niet waar de Seizoenstovenares momenteel is, maar ik durf te wedden dat ze er tijdens het volgende <%= linkStart %>Grote Gala<%= linkEnd %> weer is!",
-    "seasonalShopText": "Welkom bij de Seizoenswinkel! Vanaf nu tot en met 31 januari hebben we veel winter-editie seizoensgoederen op voorraad. Daarna zijn ze pas weer terug over een jaar, dus grijp je kans terwijl ze nog warm zijn! Of, ehm, koud.",
+    "seasonalShopText": "Welkom in de Seizoenswinkel! We hebben op dit moment lente-editie <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>seizoensgoederen</a> op voorraad. Alles wat je hier ziet is te koop tijdens het jaarlijkse Lente-evenement, maar we zijn slechts open tot 30 april! Koop nu wat je wil hebben, want anders moet je een jaar wachten tot deze artikelen weer te krijgen zijn. ",
     "seasonalShopRebirth": "Als je een Bol der Hergeboorte gebruikt hebt, kun je deze uitrustingsstukken weer kopen als je de Markt hebt vrijgespeeld. In het begin kun je alleen de uitrustingsstukken van je huidige klasse kopen (dat is standaard Krijger), maar vrees niet, de uitrustingsstukken die bij een andere klasse horen komen weer beschikbaar als je die klasse kiest.",
     "candycaneSet": "Zuurstok (Magiër)",
     "skiSet": "Skimoordenaar (Dief)",
@@ -38,5 +40,9 @@
     "newYear2": "Gelukkig nieuwjaar! Dat je maar veel perfecte dagen zult afronden.",
     "newYear3": "Gelukkig nieuwjaar! Dat je To-do-lijst kort en bondig moge zijn.",
     "newYear4": "Gelukkig nieuwjaar! Dat je maar niet aangevallen zult worden door een woedende hippogrief.",
-    "holidayCard": "Ansichtkaart ontvangen!"
+    "holidayCard": "Ansichtkaart ontvangen!",
+    "mightyBunnySet": "Machtig konijn (Krijger)",
+    "magicMouseSet": "Magische muis (Magiër)",
+    "lovingPupSet": "Liefdevolle pup (Heler)",
+    "stealthyKittySet": "Sluikse kat (Dief)"
 }

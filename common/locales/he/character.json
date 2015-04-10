@@ -35,9 +35,11 @@
     "flower": "פרח",
     "basicSkins": "עורות בסיסיים",
     "rainbowSkins": "עורות בצבעי הקשת",
+    "pastelSkins": "עורות בצבעי פסטל",
     "spookySkins": "עורות מפחידים",
     "supernaturalSkins": "צבעי עור על-טבעיים",
     "rainbowColors": "צבעי הקשת",
+    "shimmerColors": "צבעים מנצנצים",
     "hauntedColors": "צבעים רדופי-רוחות",
     "winteryColors": "צבעים חורפיים",
     "equipment": "ציוד",
@@ -134,7 +136,7 @@
     "displayNameDescription1": "זה מה שמופיע בהודעות שאתה מפרסם בפאב, בגילדות ובשיחת החבורה, בנוסף למה שמופיע כבר על גבי האווטאר שלך. לך ל",
     "displayNameDescription2": "הגדרות->אתר",
     "displayNameDescription3": "וגלול למטה לאזור ההרשמה כדי לשנות את שם המשתמש שלך.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "הסר את ציוד הלחימה",
+    "unequipCostume": "הסר את התחפושת",
+    "unequipPetMountBackground": "הסר את חיית המחמד, חיית הרכיבה ותמונת הרקע"
 }

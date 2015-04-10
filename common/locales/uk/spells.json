@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Сіль",
     "spellSpecialSaltNotes": "Хтось жбурнув у Вас сніжкою. Ха-ха, дуже смішно. Ану ж струсіть із мене цей сніг!",
     "spellSpecialSpookDustText": "Моторошні Іскри",
-    "spellSpecialSpookDustNotes": "Перетворіть ваших друзів у літаючу ковдру з очима!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Непрозоре Зілля",
-    "spellSpecialOpaquePotionNotes": "Відмінити ефект Моторошних Іскор."
+    "spellSpecialOpaquePotionNotes": "Відмінити ефект Моторошних Іскор.",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

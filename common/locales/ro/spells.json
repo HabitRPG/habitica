@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sare",
     "spellSpecialSaltNotes": "Cineva te-a lovit cu un bulgăre de zăpadă. Ha ha, foarte amuzant. Acum dă zăpada asta jos de pe mine!",
     "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Transformă-ţi prietenii într-o pătură zburătoare cu ochi!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Poţiune opacă",
-    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
+    "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

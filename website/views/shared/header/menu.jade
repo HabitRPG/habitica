@@ -189,7 +189,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
               li(ng-repeat='guild in user.invitations.guilds')
-                a(ui-sref='options.social.guilds', ng-click='expandMenu(null)')
+                a(ui-sref='options.social.guilds.public', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
               li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
@@ -259,7 +259,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(ng-click='expandMenu(null)')=env.t('close')
     ul.toolbar-wallet
       li.toolbar-gems
-        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
           //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
           span.Pet_Currency_Gem2x.Gems
           span.gem-text {{user.balance * 4 | number:0}}
@@ -269,6 +269,11 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
       li.toolbar-currency.silver(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_silver
         span {{Shared.silver(user.stats.gp)}}
+
+    ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu}')
+      li.toolbar-bailey-container(ng-if='user.flags.tour.intro!=-2')
+        .npc_justin_head.npc_bailey_head(popover="Continue Tour", popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro, true)')
+
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
         .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})')

@@ -35,9 +35,11 @@
     "flower": "Blume",
     "basicSkins": "Normale Hautfarben",
     "rainbowSkins": "Regenbogen Hautfarben",
+    "pastelSkins": "Pastell Farben",
     "spookySkins": "Unheimliche Hautfaren",
     "supernaturalSkins": "Übernatürliche Hautfarben",
     "rainbowColors": "Regenbogen Farben",
+    "shimmerColors": "‎Schimmernde Farben",
     "hauntedColors": "Spukfarben",
     "winteryColors": "Winterfarben",
     "equipment": "Ausrüstung",
@@ -134,7 +136,7 @@
     "displayNameDescription1": "Dies hier erscheint bei Nachrichten, die Du im Gasthaus, in Gilden und im Gruppen Chat postest, sowie bei deinem Avatar. Gehe zu",
     "displayNameDescription2": "Einstellungen->Seite",
     "displayNameDescription3": "und scrolle nach unten zum Registrations-Abschnitt, um deinen Login Namen zu ändern.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "Kampfausrüstung ablegen",
+    "unequipCostume": "Kostüm ablegen",
+    "unequipPetMountBackground": "Haustier, Reittier & Hintergrund zurücksetzen "
 }

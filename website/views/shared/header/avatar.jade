@@ -17,7 +17,10 @@ mixin avatar(opts)
       span.snowman
     span(ng-if='profile.stats.buffs.spookDust')
       span.spookman
-    span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust')
+    span(ng-if='profile.stats.buffs.shinySeed')
+      span(class='avatar_floral_{{profile.stats.class}}')
+    span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust && !profile.stats.buffs.shinySeed')
+
       // Back Accessory
       span(class='{{profile.items.gear.equipped.back}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.back}}', ng-if='profile.preferences.costume')
@@ -34,8 +37,8 @@ mixin avatar(opts)
       span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.costume')
 
       //- Cape collar
-        span(class='{{profile.items.gear.equipped.back}}_collar', ng-if='!profile.preferences.costume')
-        span(class='{{profile.items.gear.costume.back}}_collar', ng-if='profile.preferences.costume')
+      span(class='{{profile.items.gear.equipped.back}}_collar', ng-if='!profile.preferences.costume')
+      span(class='{{profile.items.gear.costume.back}}_collar', ng-if='profile.preferences.costume')
 
       // Body
       span(class='{{profile.items.gear.equipped.body}}', ng-if='!profile.preferences.costume')

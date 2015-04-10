@@ -34,6 +34,8 @@ module.exports = function(config) {
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
 
+      "test/spec/translations.js",
+
       "website/public/js/env.js",
 
       "website/public/js/app.js",
@@ -96,6 +98,8 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['PhantomJS'],
 
+    // Enable mocha-style reporting, for better test visibility
+    reporters:  ['mocha'],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

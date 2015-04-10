@@ -35,9 +35,11 @@
     "flower": "Kwiatek",
     "basicSkins": "Podstawowe kolory",
     "rainbowSkins": "Tęczowe kolory",
+    "pastelSkins": "Pastelowe Skóry",
     "spookySkins": "Upiorne kolory",
     "supernaturalSkins": "Niezwykłe kolory",
     "rainbowColors": "Tęczowe Kolory",
+    "shimmerColors": "Migoczące Kolory",
     "hauntedColors": "Nawiedzone Kolory",
     "winteryColors": "Zimowe Kolory",
     "equipment": "Wyposażenie",
@@ -134,7 +136,7 @@
     "displayNameDescription1": "Ta nazwa pojawia się przy wiadomościach, które publikujesz w czatach Karczmy, gildii i drużyny, a także widoczna jest na Twoim avatarze. Idź do",
     "displayNameDescription2": "Ustawienia → Strona",
     "displayNameDescription3": "i zjedź do sekcji „Rejestracja”, by zmienić swoją nazwę użytkownika.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "Zdejmij Wyposażenie Bojowe",
+    "unequipCostume": "Zdejmij Kostium",
+    "unequipPetMountBackground": "Odeślij Chowańca, Wierzchowca, Tło"
 }

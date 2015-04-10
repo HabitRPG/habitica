@@ -30,8 +30,9 @@ angular.module('habitrpg')
       var user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
 
       var userNotifications = {
-        "party.order" : env.t("updatedParty"),
-        "party.orderAscending" : env.t("updatedParty")
+        // "party.order" : env.t("updatedParty"),
+        // "party.orderAscending" : env.t("updatedParty")
+        // party.order notifications are not currently needed because the party avatars are resorted immediately now
       }; // this is a list of notifications to send to the user when changes are made, along with the message.
 
       //first we populate user with schema

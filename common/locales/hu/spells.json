@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Só",
     "spellSpecialSaltNotes": "Valaki megdobott egy hógolyóval. Ha ha, nagyon vicces. Leszedné valaki rólam a havat?!",
     "spellSpecialSpookDustText": "Kísérteties sziporkák",
-    "spellSpecialSpookDustNotes": "Változtasd a barátaidat lebegő lepedőkké!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Opálos főzet",
-    "spellSpecialOpaquePotionNotes": "Szűntesd meg a Kísérteties sziporkák hatását."
+    "spellSpecialOpaquePotionNotes": "Szűntesd meg a Kísérteties sziporkák hatását.",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

@@ -43,6 +43,7 @@
   "questEggDeerAdjective": "elegant",
 
   "questEggEggText": "Egg",
+  "questEggEggMountText": "Egg Basket",
   "questEggEggAdjective": "colorful",
 
   "questEggRatText": "Rat",
@@ -74,6 +75,9 @@
 
   "questEggRockText": "Rock",
   "questEggRockAdjective": "lively",
+
+  "questEggBunnyText": "Bunny",
+  "questEggBunnyAdjective": "snuggly",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 

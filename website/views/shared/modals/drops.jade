@@ -1,4 +1,4 @@
-script(type='text/ng-template', id='modals/dropsEnabled.html')  
+script(type='text/ng-template', id='modals/dropsEnabled.html')
   .modal-header
     h4=env.t('dropsEnabled')
   .modal-body
@@ -16,7 +16,7 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
 
 script(type='text/ng-template', id='modals/pet-key.html')
   .modal-header
-    // Checks if user has 90 pets and 90 mounts. If so, displays "Beast Master/Mount Master". 
+    // Checks if user has 90 pets and 90 mounts. If so, displays "Beast Master/Mount Master".
     // Else if user has 90 pets, displays "Beast Master". Else, displays "Mount Master"
     - var masterTitle='{{petCount >= 90 && mountCount >= 90 ? env.t("beastMountMasterName") : petCount >= 90 ? env.t("beastMasterName") : env.t("mountMasterName")}}'
     h4=env.t('petKeyBegin', {title: masterTitle})
@@ -28,7 +28,8 @@ script(type='text/ng-template', id='modals/pet-key.html')
     br
     p=env.t('petKeyInfo2')
     br
-    p=env.t('petKeyInfo3')  
+    p(ng-if='user.achievements.triadBingo')=env.t('petKeyInfo4')
+    p(ng-if='!user.achievements.triadBingo')=env.t('petKeyInfo3')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('petKeyNeverMind')
     span(ng-if='user.balance < 1')
@@ -44,8 +45,9 @@ script(type='text/ng-template', id='modals/pet-key.html')
         =env.t('petKeyMounts')
         | : 4&nbsp;
         span.Pet_Currency_Gem1x.inline-gems
-    span(ng-if='user.balance >= 1.5 && petCount >= 90 && mountCount >= 90', ng-controller='SettingsCtrl')
+    span(ng-if='(user.balance >= 1.5 || user.achievements.triadBingo) && petCount >= 90 && mountCount >= 90', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releaseBoth()')
         =env.t('petKeyBoth')
-        | : 6&nbsp;
-        span.Pet_Currency_Gem1x.inline-gems
+        span(ng-if='!user.achievements.triadBingo')
+          | : 6&nbsp;
+          span.Pet_Currency_Gem1x.inline-gems

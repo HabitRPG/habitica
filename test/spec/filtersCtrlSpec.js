@@ -3,7 +3,6 @@
 describe('Filters Controller', function() {
   var scope, user;
 
-  beforeEach(module('habitrpg'));
   beforeEach(inject(function($rootScope, $controller, Shared) {
     user = specHelper.newUser();
     Shared.wrap(user);
@@ -12,7 +11,8 @@ describe('Filters Controller', function() {
   }));
 
   it('creates a tag', function(){
-    scope.createTag('tagName');
+    scope._newTag = {name:'tagName'}
+    scope.createTag();
     expect(user.tags).to.have.length(1);
     expect(user.tags[0].name).to.eql('tagName');
     expect(user.tags[0]).to.have.property('id');

@@ -6,7 +6,7 @@
     "rebirthAdvList1": "Ye return to full Health.",
     "rebirthAdvList2": "Ye have no Experience, Doubloons, or equipment.",
     "rebirthAdvList3": "Yer Habits, Dailies, an' To-Dos reset to yellow, an' streaks reset.",
-    "rebirthAdvList4": "Ye have th' startin' class 'o Warrior 'til ye earn a new class.",
+    "rebirthAdvList4": "Ye have the startin' class o' Mercenary 'til ye earn a new class.",
     "rebirthInherit": "Yer new character inherits a few things from their predecessor:",
     "rebirthInList1": "Tasks, history, an' settings remain.",
     "rebirthInList2": "Challenge, Alliance, and Crew memberships remain.",
@@ -24,7 +24,7 @@
     "reborn": "Reborn, max level <%= reLevel %>",
     "welcome100": "Welcome t' Level 100!",
     "intro100": "Now that ye 'ave hit level 100, ye 'ave th' option t' use th' Orb o' Rebirth fer free at any time.",
-    "followup100": "While you can continue to level up, it will no longer boost your stats and no more content will unlock, to keep Habit fun for folks of all play styles.",
+    "followup100": "Though ye can still level up, it won't boost yer stats any more 'n no more content'll unlock, keepin' HabitRPG fun fer folks of all play styles.",
     "rebirth100Info": "If ye're ready to start a new adventure, ye can Rebirth now... or spy wit' ye eye how much further ye can push yourself.",
     "rebirthWait": "I'll wait...",
     "rebirthNow": "Rebirth Now!"

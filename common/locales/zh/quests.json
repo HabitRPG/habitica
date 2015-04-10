@@ -42,5 +42,5 @@
     "doubleSureAbort": "你真的真的要这样做吗？要确保他们不会讨厌你一辈子哟！",
     "questWarning": "如果一个新的小队成员在任务开始前加入，他们会收到一个邀请。但是一旦任务开始了，新成员就无法再加入这个任务了。",
     "bossRageTitle": "愤怒值",
-    "bossRageDescription": "当这个条满的时候，boss会释放一个特殊攻击"
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
 }

@@ -1,4 +1,4 @@
-#jslint node: true 
+#jslint node: true
 
 #global describe, before, beforeEach, it
 "use strict"
@@ -41,27 +41,36 @@ describe "API", ->
   apiToken = undefined
   username = undefined
   password = undefined
+
   registerNewUser = (cb, main) ->
-    main = true  if main is `undefined`
+    main = true unless main?
     randomID = shared.uuid()
     username = password = randomID  if main
-    request.post(baseURL + "/register").set("Accept", "application/json").send(
-      username: randomID
-      password: randomID
-      confirmPassword: randomID
-      email: randomID + "@gmail.com"
-    ).end (res) ->
-      return cb(null, res.body)  unless main
-      _id = res.body._id
-      apiToken = res.body.apiToken
-      User.findOne
-        _id: _id
-        apiToken: apiToken
-      , (err, _user) ->
-        expect(err).to.not.be.ok()
-        user = _user
-        request.set("Accept", "application/json").set("X-API-User", _id).set "X-API-Key", apiToken
-        cb null, res.body
+    request
+      .post(baseURL + "/register")
+      .set("Accept", "application/json")
+      .set("X-API-User", null)
+      .set("X-API-Key", null)
+      .send
+        username: randomID
+        password: randomID
+        confirmPassword: randomID
+        email: randomID + "@gmail.com"
+      .end (res) ->
+        return cb(null, res.body)  unless main
+        _id = res.body._id
+        apiToken = res.body.apiToken
+        User.findOne
+          _id: _id
+          apiToken: apiToken
+        , (err, _user) ->
+          expect(err).to.not.be.ok()
+          user = _user
+          request
+            .set("Accept", "application/json")
+            .set("X-API-User", _id)
+            .set("X-API-Key", apiToken)
+          cb null, res.body
 
   before (done) ->
     require "../website/src/server" # start the server
@@ -160,14 +169,92 @@ describe "API", ->
               expect(_.size(res.body.todos)).to.be numTasks - 2
               done()
 
+      describe "Creating, Updating, Deleting Todos", ->
+        todo = undefined
+        updateTodo = undefined
+        describe "Creating todos", ->
+          it "Creates a todo", (done) ->
+            request.post(baseURL + "/user/tasks").send(
+                type: "todo"
+                text: "Sample Todo"
+            ).end (res) ->
+              expectCode res, 200
+              todo = res.body
+              expect(todo.text).to.be "Sample Todo"
+              expect(todo.id).to.be.ok
+              expect(todo.value).to.be 0
+              done()
+
+        describe "Updating todos", ->
+          it "Does not update id of todo", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              id: "a-new-id"
+            ).end (res) ->
+              expectCode res, 200
+              updateTodo = res.body
+              expect(updateTodo.id).to.be todo.id
+              done()
+
+          it "Does not update type of todo", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              type: "habit"
+            ).end (res) ->
+              expectCode res, 200
+              updateTodo = res.body
+              expect(updateTodo.type).to.be todo.type
+              done()
+
+          it "Does update text, attribute, priority, value, notes", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              text: "Changed Title"
+              attribute: "int"
+              priority: 1.5
+              value: 5
+              notes: "Some notes"
+            ).end (res) ->
+              expectCode res, 200
+              todo = res.body
+              expect(todo.text).to.be "Changed Title"
+              expect(todo.attribute).to.be "int"
+              expect(todo.priority).to.be 1.5
+              expect(todo.value).to.be 5
+              expect(todo.notes).to.be "Some notes"
+              done()
+
+        describe "Deleting todos", ->
+          it "Does delete todo", (done) ->
+            request.del(baseURL + "/user/tasks/" + todo.id).send(
+            ).end (res) ->
+              expectCode res, 200
+              body = res.body
+              expect(body).to.be.empty 
+              done()
+
+          it "Does not delete already deleted todo", (done) ->
+            request.del(baseURL + "/user/tasks/" + todo.id).send(
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Task not found."
+              done()
+
+          it "Does not update text, attribute, priority, value, notes if task is already deleted", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              text: "New Title"
+              attribute: "str"
+              priority: 1
+              value: 4
+              notes: "Other notes"
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Task not found."
+              done()
+
     ###*
     GROUPS
     ###
-    # @TODO: New users are being registered with original user api
-    # which results in changing the original user's name and password
-    # instead of creating a new error, so the group tests fail
-    # because no users are actually being created
-    describe.skip "Groups", ->
+    describe "Groups", ->
       group = undefined
       before (done) ->
         request.post(baseURL + "/groups").send(
@@ -179,6 +266,88 @@ describe "API", ->
           expect(group.members.length).to.be 1
           expect(group.leader).to.be user._id
           done()
+
+      describe "Party", ->
+        it "can be found by querying for party", (done) ->
+          request.get(baseURL + "/groups/").send(
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+
+            party = res.body[0]
+            expect(party._id).to.be group._id
+            expect(party.leader).to.be user._id
+            expect(party.name).to.be group.name
+            expect(party.quest).to.be.eql { progress: {} }
+            expect(party.memberCount).to.be group.memberCount
+            done()
+
+        describe "Chat", ->
+          chat = undefined
+          it "Posts a message to party chat", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat").send(
+              message: "Test MSG"
+            ).end (res) ->
+              expectCode res, 200
+              chat = res.body.message
+              expect(chat.id).to.be.ok
+              expect(chat.timestamp).to.be.ok
+              expect(chat.likes).to.be.empty
+              expect(chat.flags).to.be.empty
+              expect(chat.flagCount).to.be 0
+              expect(chat.uuid).to.be.ok
+              expect(chat.contributor).to.be.empty
+              expect(chat.backer).to.be.empty
+              expect(chat.uuid).to.be user._id
+              expect(chat.user).to.be user.profile.name
+              done()
+
+          it "can not like own chat message", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/like").send(
+            ).end (res) ->
+              expectCode res, 401
+              body = res.body
+              expect(body.err).to.be "Can't like your own message. Don't be that person."
+              done()
+
+          it "can not flag own message", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/flag").send(
+            ).end (res) ->
+              expectCode res, 401
+              body = res.body
+              expect(body.err).to.be "Can't report your own message."
+              done()
+
+          it "Gets chat messages from party chat", (done) ->
+            request.get(baseURL + "/groups/" + group._id + "/chat").send(
+            ).end (res) ->
+              expectCode res, 200
+              message = res.body[0]
+              expect(message.id).to.be chat.id
+              expect(message.timestamp).to.be chat.timestamp
+              expect(message.likes).to.be.eql chat.likes
+              expect(message.flags).to.be.eql chat.flags
+              expect(message.flagCount).to.be chat.flagCount
+              expect(message.uuid).to.be chat.uuid
+              expect(message.contributor).to.be.eql chat.contributor
+              expect(message.backer).to.be.eql chat.backer
+              expect(message.user).to.be chat.user
+              done()
+
+          it "Deletes a chat messages from party chat", (done) ->
+            request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
+            ).end (res) ->
+              expectCode res, 204
+              expect(res.body).to.be.empty
+              done()
+
+          it "Can not delete already deleted message", (done) ->
+            request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Message not found!"
+              done()
 
       describe "Challenges", ->
         challenge = undefined
@@ -333,7 +502,7 @@ describe "API", ->
               op: "score"
               params:
                 direction: "up"
-                id: user.dailys[1].id
+                id: user.dailys[0].id
             }
             {
               op: "update"
@@ -351,14 +520,6 @@ describe "API", ->
               (cb) ->
                 async.parallel [
                   (cb2) ->
-                    # @TODO: The registerNewUser function posts to /api/v2/register
-                    # since superagent-defaults has the user id and token set
-                    # Subsequent calls to registerNewUser are being called with
-                    # the uuid and token that is generated when the initial user is
-                    # made. Instead of creating new users, it updates the original user
-                    # with a new login name, email and password. That is why
-                    # all the users have the same uuid, because they're not actually
-                    # being created. The original is just being updated. 
                     registerNewUser cb2, false
                   (cb2) ->
                     registerNewUser cb2, false
@@ -368,11 +529,6 @@ describe "API", ->
 
               # Send them invitations
               (_party, cb) ->
-                 # @TODO - _party should be array of newly
-                 # registered party members, instead
-                 # _party = an array of 3 user objects
-                 # all the user objects are the main user
-                 # instead of the party members just registered
                 party = _party
                 inviteURL = baseURL + "/groups/" + group._id + "/invite"
                 async.parallel [
@@ -409,7 +565,6 @@ describe "API", ->
               (whatever, cb) ->
                 Group.findById group._id, (err, g) ->
                   group = g
-                  # @TODO Determine why members aren't being saved
                   expect(g.members.length).to.be 4
                   cb()
 
@@ -472,7 +627,7 @@ describe "API", ->
             expect(_.size(res.body.quest.members)).to.be 3
             done()
 
-        it "Hurts the boss", (done) ->
+        xit "Hurts the boss", (done) ->
           request.post(baseURL + "/user/batch-update").end (res) ->
             user = res.body
             up = user.party.quest.progress.up
@@ -485,7 +640,7 @@ describe "API", ->
                 op: "score"
                 params:
                   direction: "up"
-                  id: user.dailys[1].id
+                  id: user.dailys[0].id
               }
               {
                 op: "update"
@@ -626,7 +781,7 @@ describe "API", ->
                       ], cb
                   ], done
 
-    describe.skip "Subscriptions", ->
+    describe "Subscriptions", ->
       user = undefined
       before (done) ->
         User.findOne
@@ -642,24 +797,28 @@ describe "API", ->
           user.fns.cron()
 
         expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
+        payments.createSubscription
+          user: user
           customerId: "123"
           paymentMethod: "Stripe"
+          sub: {key: 'basic_6mo'}
 
         expect(user.purchased.plan.customerId).to.be.ok()
         shared.wrap user
         cron()
         expect(user.purchased.plan.customerId).to.be.ok()
-        payments.cancelSubscription user
+        payments.cancelSubscription user: user
         cron()
         expect(user.purchased.plan.customerId).to.be.ok()
         expect(user.purchased.plan.dateTerminated).to.be.ok()
         user.purchased.plan.dateTerminated = moment().subtract(2, "d")
         cron()
         expect(user.purchased.plan.customerId).to.not.be.ok()
-        payments.createSubscription user,
+        payments.createSubscription
+          user: user
           customerId: "123"
           paymentMethod: "Stripe"
+          sub: {key: 'basic_6mo'}
 
         expect(user.purchased.plan.dateTerminated).to.not.be.ok()
         done()

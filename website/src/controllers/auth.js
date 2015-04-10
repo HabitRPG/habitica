@@ -7,6 +7,7 @@ var utils = require('../utils');
 var nconf = require('nconf');
 var request = require('request');
 var User = require('../models/user').model;
+var EmailUnsubscription = require('../models/emailUnsubscription').model;
 var ga = require('./../utils').ga;
 var i18n = require('./../i18n');
 
@@ -109,9 +110,14 @@ api.registerUser = function(req, res, next) {
         newUser.preferences = newUser.preferences || {};
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
-        utils.txnEmail(user, 'welcome');
-        ga.event('register', 'Local').send();
-        user.save(cb);
+        ga.event('acquisition', 'register', 'local').send();
+        user.save(function(err, savedUser){
+          // Clean previous email preferences
+          EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
+            utils.txnEmail(savedUser, 'welcome');
+          });
+          cb.apply(cb, arguments);
+        });
       }
     }]
   }, function(err, data) {
@@ -178,10 +184,17 @@ api.loginSocial = function(req, res, next) {
       };
       user.auth[network] = prof;
       user = new User(user);
-      user.save(cb);
+      user.save(function(err, savedUser){
+        // Clean previous email preferences
+        if(savedUser.auth.facebook.emails && savedUser.auth.facebook.emails[0] && savedUser.auth.facebook.emails[0].value){
+          EmailUnsubscription.remove({email: savedUser.auth.facebook.emails[0].value}, function(){
+            utils.txnEmail(savedUser, 'welcome');
+          });
+        }
+        cb.apply(cb, arguments);
+      });
 
-      utils.txnEmail(user, 'welcome');
-      ga.event('register', network).send();
+      ga.event('acquisition', 'register', network).send();
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
