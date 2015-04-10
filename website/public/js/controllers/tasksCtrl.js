@@ -94,7 +94,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (!stayOpen) task._editing = false;
       if (isSaveAndClose)
         $("#task-" + task.id).parent().children('.popover').removeClass('in');
-      if (task.type == 'habit') Guide.goto('intro', 3);
+      if (task.type == 'habit') {
+       if ( User.user.items.gear.owned['weapon_warrior_0'] ) {
+        //If the user has the training sword, force a skip in the tour
+        Guide.goto('intro', 4, 1);
+       } else {
+        Guide.goto('intro', 3);
+       }
+      }
     };
 
     /**
@@ -166,7 +173,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           focusChecklist(task,$index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
-      } 
+      }
     }
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
@@ -186,7 +193,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items 
+     Items
      ------------------------
      */
 

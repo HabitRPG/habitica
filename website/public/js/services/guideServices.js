@@ -216,7 +216,8 @@ function($rootScope, User, $timeout, $state) {
   var goto = function(chapter, page, force) {
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
-    var updates = {};updates['flags.tour.'+chapter] = page;
+    var updates = {};
+    updates['flags.tour.'+chapter] = page;
     User.set(updates);
     var chap = tour[chapter], opts = chap._options;
     opts.steps = [];
@@ -238,8 +239,16 @@ function($rootScope, User, $timeout, $state) {
   var watcher = $rootScope.$watch('User.user.ops.update', function(updateFn){
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
-    if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
-    if (User.user.items.gear.owned['weapon_warrior_0']) return;//If the user has the training sword, then don't show the intro tour
+
+    if (window.env.IS_MOBILE) {
+     //We mark the tour as completed when the user uses the mobile device first. This is taken from step.onHide - if final step
+     var ups={};
+     ups['flags.tour.intro'] = -2;
+     User.set(ups);
+     // Don't show tour immediately on mobile devices
+     return;
+    }
+
     goto('intro', 0); // kick off first step on first visit
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
