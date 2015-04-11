@@ -17,6 +17,12 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
       })
     }
     $scope.heroes = Hero.query();
+
+    $scope.populateContributorInput = function(id) {
+      $scope._heroID = id;
+      window.scrollTo(0,200);
+      $scope.loadHero(id);
+    };
   }]);
 
 habitrpg.controller("HallPatronsCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'ApiUrl', '$resource',
