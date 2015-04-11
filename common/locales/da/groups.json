@@ -95,6 +95,6 @@
     "abuseFlagModalButton": "Anmeld",
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
     "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",
-    "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsText": "Indtast venligst en besked.",
+    "needsTextPlaceholder": "Skriv din besked her."
 }
