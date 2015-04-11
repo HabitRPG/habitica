@@ -256,6 +256,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 //    })
     // TODO probably better to use $watch above, to avoid this being calculated on every digest cycle
     $scope.filterChallenges = function(chal){
+
+      //Filter challenges that are owned by the user
+      if ($scope.search._isOwner == true) {
+        return (chal.leader._id == User.user.id);
+      } else if ($scope.search._isOwner == false) {
+        return (chal.leader._id != User.user.id);
+      }
+
       return (!$scope.search) ? true :
         ($scope.search.group[chal.group._id] &&
           (typeof $scope.search._isMember == 'undefined' || $scope.search._isMember == chal._isMember));
