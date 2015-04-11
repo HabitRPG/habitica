@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('Hall of Heroes Controller', function() {
+describe('Hall of Heroes Controller', function() {
   var scope, ctrl, user, $rootScope;
 
   beforeEach(function() {
