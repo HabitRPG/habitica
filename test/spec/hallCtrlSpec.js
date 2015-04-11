@@ -22,7 +22,15 @@ describe.only('Hall of Heroes Controller', function() {
   });
 
   it('populates contributor input with selected hero id', function(){
+    var loadHero = sinon.spy(scope, "loadHero");
+    var scrollTo = sinon.spy(window, "scrollTo");
+
     scope.populateContributorInput(user._id);
     expect(scope._heroID).to.eql(user._id);
+    expect(loadHero.callCount).to.eql(1);
+    expect(scrollTo.callCount).to.eql(1);
+
+    scope.loadHero.restore();
+    window.scrollTo.restore();
   });
 });

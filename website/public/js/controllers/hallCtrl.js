@@ -20,6 +20,8 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
 
     $scope.populateContributorInput = function(id) {
       $scope._heroID = id;
+      window.scrollTo(0,200);
+      $scope.loadHero(id);
     };
   }]);
 
