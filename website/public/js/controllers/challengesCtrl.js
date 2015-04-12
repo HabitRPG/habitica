@@ -309,7 +309,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.maxPrize = User.user.balance*4 + ((group && group.balance && group.leader==User.user._id) ? group.balance*4 : 0);
       if (gid == 'habitrpg') {
        $scope.newChallenge.prize = 1;
+       //If the usere does not have enough gems for the Habitrpg group, the set our enoughGems var to false
        if ( $scope.maxPrize <= 0 ) $scope.enoughGems = false;
+      } else {
+       //Reset our enoughGems variable incase the user tried to create a challenge for habitrpg and was unable to
+       $scope.enoughGems = true;
       }
     })
 
