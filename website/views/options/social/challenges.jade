@@ -94,15 +94,15 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
           h4=env.t('challengedOwnedFilterHeader')
           .radio
             label
-              input(type='radio', name='search-participation-radio', ng-click='search._isOwner = true')
+              input(type='radio', name='search-owner-radio', ng-click='search._isOwner = true')
               =env.t('challengedOwnedFilter')
           .radio
             label
-              input(type='radio', name='search-participation-radio', ng-click='search._isOwner = false')
+              input(type='radio', name='search-owner-radio', ng-click='search._isOwner = false')
               =env.t('challengedNotOwnedFilter')
           .radio
             label
-              input(type='radio', name='search-participation-radio', ng-click='search._isOwner = undefined')
+              input(type='radio', name='search-owner-radio', ng-click='search._isOwner = undefined', checked='checked')
               =env.t('challengedEitherOwnedFilter')
       .col-md-10
         a.btn.btn-info#back-to-challenges(ng-show="cid", ui-sref='options.social.challenges', ui-sref-opts='{reload: true}')
