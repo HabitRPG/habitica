@@ -90,6 +90,46 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     /**
+     * Clone
+     */
+    $scope.clone = function(challenge) {
+     //We need to clone habits, dailys, todos, and rewards. They each need a new id and entry in the database
+     var clonedTasks = {
+      habit: [],
+      daily: [],
+      todo: [],
+      reward: []
+     };
+
+     function cloneTask(element, index, array) {
+      var task = Shared.taskDefaults({text: element.text, type: element.type});
+      clonedTasks[element.type].push(task);
+     }
+
+     challenge.habits.forEach(cloneTask);
+     challenge.dailys.forEach(cloneTask);
+     challenge.todos.forEach(cloneTask);
+     challenge.rewards.forEach(cloneTask);
+
+     //Use values from inc challenge. The reasons we don't use the whole challenge object is because
+     //Values like timestamp and memebers shouldn't be copied.
+     $scope.obj = $scope.newChallenge = new Challenges.Challenge({
+       name: challenge.name,
+       shortName: challenge.shortName,
+       description: challenge.description,
+       habits: clonedTasks.habit,
+       dailys: clonedTasks.daily,
+       todos: clonedTasks.todo,
+       rewards: clonedTasks.reward,
+       leader: User.user._id,
+       group: challenge.group._id,
+       timestamp: +(new Date),
+       members: [],
+       official: false
+     });
+    };
+
+    /**
      * Save
      */
     $scope.save = function(challenge) {
