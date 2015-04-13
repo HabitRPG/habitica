@@ -37,7 +37,7 @@
     "publicChallenges": "Minimálně 1 drahokam za <strong> veřejné výzvy </strong> (opravdu to eliminuje spam).",
     "officialChallenge": "Oficiální výzva HabitRPG",
     "by": "od",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> účastníků",
     "join": "Přidat se",
     "exportChallengeCSV": "Exportovat do CSV",
     "selectGroup": "Prosím, vyber skupinu",

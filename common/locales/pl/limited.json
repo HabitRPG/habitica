@@ -12,7 +12,7 @@
     "valentineCardNotes": "Wyślij Kartkę Walentynkową do członka drużyny.",
     "valentine0": "\"Róże są czerwone<%= lineBreak %>Moje dzienne zadania są niebieskie<%= lineBreak %>Cieszy mnie, że<%= lineBreak %>jestem w drużynie z tobą!\"",
     "valentine1": "\"Róże są czerwone<%= lineBreak %>Fiołeczki są śliczne<%= lineBreak %>Dajmy wszyscy razem<%= lineBreak %>Złym Nawykom prztyczka!\"",
-    "valentine2": "\"Roses are red<%= lineBreak %>This poem style is old<%= lineBreak %>I hope that you like this<%= lineBreak %>'Cause it cost ten Gold.\"",
+    "valentine2": "\"Na górze róże<%= lineBreak %>Ten wiersz w starym stylu<%= lineBreak %>Obyś go polubił<%= lineBreak %>Boś o dziesięć złota do tyłu.\"",
     "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
     "adoringFriends": "Kochani przyjaciele",
     "adoringFriendsText": "Och, Ty i Twój przyjaciel musicie naprawdę troszczyć się o siebie! Wysłałeś lub otrzymałeś <%= cards %> walentynek.",

@@ -37,7 +37,7 @@
     "publicChallenges": "Serve un minimo di 1 Gemma per le <strong> sfide pubbliche </strong> (aiuta a prevenire lo spam, lo fa davvero).",
     "officialChallenge": "Sfida Ufficiale HabitRPG",
     "by": "di ",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> partecipanti",
     "join": "Partecipa",
     "exportChallengeCSV": "Esporta in CSV",
     "selectGroup": "Seleziona un gruppo",

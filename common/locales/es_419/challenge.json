@@ -37,7 +37,7 @@
     "publicChallenges": "Mínimo 1 Gema para <strong> desafíos públicos </strong> (ayuda a prevenir el spam, de verdad que sí).",
     "officialChallenge": "Desafío oficial de HabitRPG",
     "by": "por",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> Participantes",
     "join": "Unirse",
     "exportChallengeCSV": "Exportar a CSV",
     "selectGroup": "Por favor seleccione un grupo",

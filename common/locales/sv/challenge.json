@@ -37,7 +37,7 @@
     "publicChallenges": "Minst 1 Juvel för <strong>offentliga utmaningar</strong> (motverkar spam).",
     "officialChallenge": "Officiell HabitRPG-utmaning",
     "by": "av",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> Deltagare",
     "join": "Gå med",
     "exportChallengeCSV": "Exportera till CSV",
     "selectGroup": "Var vänlig välj grupp",

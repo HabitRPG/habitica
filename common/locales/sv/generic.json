@@ -37,7 +37,7 @@
     "notEnoughGems": "Inte tillräckligt många Juveler",
     "alreadyHave": "Whuups! Du har redan detta föremål. Ingen nödvändighet att köpa det igen.",
     "delete": "Radera",
-    "gemsPopoverTitle": "Gems",
+    "gemsPopoverTitle": "Juveler",
     "gems": "Juveler",
     "gemButton": "Du har <%= number %> juveler.",
     "moreInfo": "Mer Info",

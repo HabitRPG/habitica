@@ -37,7 +37,7 @@
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
     "officialChallenge": "Offizieller HabitRPG Wettbewerb",
     "by": "von",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> Teilnehmer",
     "join": "Teilnehmen",
     "exportChallengeCSV": "Exportieren nach CSV",
     "selectGroup": "Bitte wähle die Gruppe",

@@ -37,7 +37,7 @@
     "publicChallenges": "לכל הפחות אבן חן אחת ל<strong>אתגרים ציבוריים </strong> (זה עוזר למנוע ספאם, אל תזלזל/י)",
     "officialChallenge": "אתגר רשמי של האתר",
     "by": "פורסם ע\"י",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> משתתפים",
     "join": "הצטרף",
     "exportChallengeCSV": "ייצא לקובץ CSV",
     "selectGroup": "אנא בחר/י קבוצה",

@@ -58,8 +58,8 @@
     "whyAdsContent1": "אתר זה הוא פרוייקט קוד פתוח ויכול להיעזר בכל עזרה שתיתנו - ראו זאת כתרומה למפתחים. אתם גם מקבלים 20 אבני חן מהרכישה, איתן ניתן לקנות חפצים מיוחדים.",
     "whyAdsContent2": "'היי! תמכתי בקיקסטארטר!' - עקוב אחר",
     "whyAdsContent3": "ההוראות האלו",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
-    "currentSurvey": "Current Survey",
+    "surveysSingle": "עזר ל-HabitRPG לצמוח על-ידי מילוי <%= surveys %> שאלונים. אין שאלונים פעילים.",
+    "surveysMultiple": "עזר ל-HabitRPG לצמוח על-ידי מילוי <%= surveys %> שאלונים. אין שאלונים פעילים.",
+    "currentSurvey": "שאלון נוכחי",
     "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

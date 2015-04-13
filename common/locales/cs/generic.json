@@ -37,7 +37,7 @@
     "notEnoughGems": "Nedostatek drahokamů",
     "alreadyHave": "Oops! Tohle už máš. Nemusíš si to kupovat znovu!",
     "delete": "Odstranit",
-    "gemsPopoverTitle": "Gems",
+    "gemsPopoverTitle": "drahokamy",
     "gems": "Drahokamy",
     "gemButton": "Máš <%= number %> Drahokamy/Drahokamů",
     "moreInfo": "Více informací",
