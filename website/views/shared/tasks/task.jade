@@ -44,7 +44,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
           span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
           | &nbsp;
       // delete
-      a(ng-if='!task.challenge.id', ng-click='removeTask(task, obj[list.type+"s"])', tooltip=env.t('delete'))
+      a(ng-if='!task.challenge.id', ng-click='removeTask(task)', tooltip=env.t('delete'))
         span.glyphicon.glyphicon-trash
         | &nbsp;
 
@@ -101,7 +101,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
           p
             a(ng-click='unlink(task, "keep")')=env.t('keepIt')
             | &nbsp;&nbsp;
-            a(ng-click='removeTask(task, obj[list.type+"s"])')=env.t('removeIt')
+            a(ng-click="removeTask(task)")=env.t('removeIt')
         div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
           p
             |&nbsp;
