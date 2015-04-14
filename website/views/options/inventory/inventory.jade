@@ -187,6 +187,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.inventory-list(type='list')
             li.customize-menu
               menu.pets-menu(label=env.t('eggs'))
+                p.muted!=env.t('dropsExplanation')
                 div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
                   button.customize-option(popover='{{::egg.notes()}}', popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{::egg.key}}')
                   p
@@ -207,6 +208,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('hatchingPotions'))
+                p.muted!=env.t('dropsExplanation')
                 div(ng-repeat='pot in Content.hatchingPotions')
                   button.customize-option(popover='{{::pot.notes()}}', popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{::pot.key}}')
                   p
@@ -215,6 +217,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('food'))
+                p.muted!=env.t('dropsExplanation')
                 div(ng-repeat='food in Content.food', ng-if='food.canBuy')
                   button.customize-option(popover='{{::food.notes()}}', popover-title='{{::food.text()}}', popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("food", food)', class='Pet_Food_{{::food.key}}')
                   p
