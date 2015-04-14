@@ -74,19 +74,6 @@ habitrpg.controller('SettingsCtrl',
       }
       User.set({'preferences.dayStart': dayStart});
     }
-   
-    $scope.toggleCustomDayStartInfo = function(){
-      var infoElement = window.document.getElementById('customDayStartInfo');
-      var currentDisplay = infoElement.currentStyle ? infoElement.currentStyle.display : getComputedStyle(infoElement, null).display;
-      var linkElement = window.document.getElementById('customDayStartLink');
-      if (currentDisplay === 'none') {
-        infoElement.style.display = 'block';
-        linkElement.innerHTML = window.env.t('customDayStartInfo3');
-      } else {
-        infoElement.style.display = 'none';
-        linkElement.innerHTML = window.env.t('customDayStartInfo2');
-      }
-    }
 
     $scope.language = window.env.language;
     $scope.avalaibleLanguages = window.env.avalaibleLanguages;
