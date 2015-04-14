@@ -75,9 +75,17 @@ habitrpg.controller("InventoryCtrl",
       var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
       if (selected) {
         var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
-        user.ops.sell({params:{type:type, key: $scope[selected].key}});
+        var key = $scope[selected].key;
+        if ( selected == 'selectedFood') {
+         key = $scope[selected][0].key; //Sell the first food selected
+        }
+        user.ops.sell({params:{type:type, key: key}});
         if (user.items[type][$scope[selected].key] < 1) {
-          $scope[selected] = null;
+          if ( selected === 'selectedFood' ) {
+           $scope[selected] = [];
+          } else {
+           $scope[selected] = null;
+         }
         }
       }
     }
@@ -140,7 +148,7 @@ habitrpg.controller("InventoryCtrl",
         pet = egg + '-' + potion;
 
       // Feeding Pet
-      if ($scope.selectedFood) {
+      if ($scope.selectedFood.length > 0) {
 
         var selectedFood = $scope.selectedFood;
         var emptyFood = 0;

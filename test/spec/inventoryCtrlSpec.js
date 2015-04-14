@@ -30,7 +30,7 @@ describe('Inventory Controller', function() {
   it('starts without any item selected', function(){
     expect(scope.selectedEgg).to.eql(null);
     expect(scope.selectedPotion).to.eql(null);
-    expect(scope.selectedFood).to.eql(undefined);
+    expect(scope.selectedFood.length).to.eql(0);
   });
 
   it('chooses an egg', function(){
