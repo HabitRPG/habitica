@@ -8,6 +8,7 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
+    $scope.selectedFood = [];
     $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
     $scope.totalMounts = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
 
@@ -57,9 +58,17 @@ habitrpg.controller("InventoryCtrl",
     }
 
     $scope.chooseFood = function(food){
-      if ($scope.selectedFood && $scope.selectedFood.key == food) return $scope.selectedFood = null;
-      $scope.selectedFood = Content.food[food];
-      $scope.selectedEgg = $scope.selectedPotion = null;
+     var foodContent = Content.food[food];
+     var foodIndex = $scope.selectedFood.indexOf(foodContent);
+
+     //If we have already selected this food, then deselect it
+     if ($scope.selectedFood.length > 0 && foodIndex !== -1 ) {
+      $scope.selectedFood.splice(foodIndex, 1);
+      return;
+     }
+
+     $scope.selectedFood.push(Content.food[food]);
+     $scope.selectedEgg = $scope.selectedPotion = null;
     }
 
     $scope.sellInventory = function() {
@@ -132,22 +141,41 @@ habitrpg.controller("InventoryCtrl",
 
       // Feeding Pet
       if ($scope.selectedFood) {
-        var food = $scope.selectedFood
-        if (food.key == 'Saddle') {
-          if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
-        } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
-          return;
-        }
-        User.user.ops.feed({params:{pet: pet, food: food.key}});
-        $scope.selectedFood = null;
-        $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
 
-      // Checks if mountmaster has been reached for the first time
-      if(!User.user.achievements.mountMaster
-          && $rootScope.mountCount >= 90) {
-        User.user.achievements.mountMaster = true;
-        $rootScope.openModal('achievements/mountMaster');
-      }
+        var selectedFood = $scope.selectedFood;
+        var emptyFood = 0;
+
+        selectedFood.forEach(function(food, index, array) {
+
+         if (food.key == 'Saddle') {
+           if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
+         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
+           return;
+         }
+
+         User.user.ops.feed({params:{pet: pet, food: food.key}});
+
+         //If we run out of an item, let the user reselect. This is a good case for when the user select only one item
+         //Maybe we should do something difference for multiple items
+         if (user.items.food[food.key] == 0) {
+          emptyFood = 1;
+         }
+
+         $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
+
+         // Checks if mountmaster has been reached for the first time
+         if(!User.user.achievements.mountMaster
+             && $rootScope.mountCount >= 90) {
+           User.user.achievements.mountMaster = true;
+           $rootScope.openModal('achievements/mountMaster');
+         }
+
+        });
+
+        //Determine if we should empty the slected food
+        if ( emptyFood ) {
+         $scope.selectedFood = [];
+        }
 
       // Selecting Pet
       } else {
