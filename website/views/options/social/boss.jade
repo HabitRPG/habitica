@@ -73,7 +73,7 @@ mixin boss(tavern, mobile)
         div(ng-bind-html='::Content.quests[group.quest.key].notes()')
         unless tavern
           hr
-          h5=env.t('participants')
+          h5=env.t('questParticipants')
           table.table.table-striped
             tr(ng-repeat='(k,v) in group.members', ng-if='::group.quest.members[v._id]')
               td
