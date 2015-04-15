@@ -16,6 +16,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
 
     $scope.isMemberOfGroup = function(userid, group){
+
+      // If the group is a guild, just check for an intersection with the
+      // current user's guilds, rather than checking the members of the group.
+      if(group.type === 'guild') {
+        if (_.detect(Groups.myGuilds(), function(g) { return g._id === group._id })) {
+          return true;
+        }
+      }
+
       if (!group.members) return false;
       var memberIds = _.map(group.members, function(x){return x._id});
       return ~(memberIds.indexOf(userid));
