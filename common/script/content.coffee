@@ -866,7 +866,7 @@ api.questEggs =
   TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
   Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
   Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
-  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false, mountText: t('questEggSlimeMountText')
+  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
