@@ -12,13 +12,13 @@ path = require("path")
 moment = require("moment")
 conf = require("nconf")
 conf.argv().env().file(file: path.join(__dirname, "../config.json")).defaults()
-conf.set "port", "1337"
+conf.set "PORT", "1337"
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
 process.env.BASE_URL = conf.get("BASE_URL")
 process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
-process.env.NODE_DB_URI = "mongodb://localhost/habitrpg"
+process.env.NODE_DB_URI = "mongodb://localhost/habitrpg_test"
 User = require("../website/src/models/user").model
 Group = require("../website/src/models/group").model
 Challenge = require("../website/src/models/challenge").model
@@ -30,7 +30,7 @@ payments = require("../website/src/controllers/payments")
 model = undefined
 uuid = undefined
 taskPath = undefined
-baseURL = "http://localhost:3000/api/v2"
+baseURL = "http://localhost:" + conf.get("PORT") + "/api/v2"
 expectCode = (res, code) ->
   expect(res.body.err).to.be `undefined`  if code is 200
   expect(res.statusCode).to.be code
