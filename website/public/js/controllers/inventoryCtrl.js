@@ -40,7 +40,7 @@ habitrpg.controller("InventoryCtrl",
       } else {
         $scope.hatch(eggData, $scope.selectedPotion);
       }
-      $scope.selectedFood = null;
+      $scope.selectedFood = [];
     }
 
     $scope.choosePotion = function(potion){
@@ -54,7 +54,7 @@ habitrpg.controller("InventoryCtrl",
       } else {
         $scope.hatch($scope.selectedEgg, potionData);
       }
-      $scope.selectedFood = null;
+      $scope.selectedFood = [];
     }
 
     $scope.chooseFood = function(food){

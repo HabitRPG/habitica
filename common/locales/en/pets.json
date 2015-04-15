@@ -62,5 +62,6 @@
     "petKeyMounts": "Release My Mounts",
     "petKeyBoth": "Release Both",
     "petKeyNeverMind": "Not Yet",
-    "gemsEach": "gems each"
+    "gemsEach": "gems each",
+    "selected": "Selected"
 }

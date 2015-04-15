@@ -94,5 +94,6 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(popover-append-to-body='true', popover='{{:: Content.food[food].notes()}}', popover-title='{{:: Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                 .badge.badge-info.stack-count {{points}}
+                 span(ng-show="selectedFood.indexOf(Content.food[food]) !== -1")=env.t('selected')
               // Remove this once we have images in
               p {{:: Content.food[food].text()}}
