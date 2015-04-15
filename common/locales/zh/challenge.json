@@ -37,7 +37,7 @@
     "publicChallenges": " <strong>公共挑战</strong> 需要至少1个宝石 (为了防止垃圾信息)。",
     "officialChallenge": "HabitRPG 的官方挑战",
     "by": "发起自",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%=membercount%>參與者",
     "join": "加入",
     "exportChallengeCSV": "导出为 CSV",
     "selectGroup": "请选择小组",

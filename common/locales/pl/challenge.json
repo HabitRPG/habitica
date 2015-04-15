@@ -37,7 +37,7 @@
     "publicChallenges": "Przy <strong>publicznych wyzwaniach</strong> minimalna nagroda to 1 klejnot (metoda antyspamowa, naprawdę działa).",
     "officialChallenge": "Oficjalne wyzwanie HabitRPG",
     "by": "stworzone przez",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> uczestników",
     "join": "Dołącz",
     "exportChallengeCSV": "Eksportuj do pliku CSV",
     "selectGroup": "Wybierz grupę",

@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "El dueño de la misión ha abandonado. Puedes abandonar tú también si es necesario. También puedes permitir que siga activa y todos los demás participantes recibirán los premios de la misión cuando ésta sea completada.",
     "questOwnerNotInPendingQuestParty": "El dueño de la misión ha abandonado el grupo y por consiguiente no puede empezar la misión de nuevo. Te recomendamos que canceles la misión. El dueño de la misión se quedará con el pergamino usado.",
     "questOwnerNotInRunningQuestParty": "El dueño de la misión ha abandonado el grupo. Puedes abandonar la misión si lo consideras necesario pero también puedes permitir que siga activa y todos los demás participantes recibirán los premios de la misión cuando ésta sea completada.",
+    "questParticipants": "Participants",
     "scrolls": "Pergaminos de Misión",
     "noScrolls": "No tienes pergaminos de misión",
     "scrollsText1": "Las misiones requieren de un grupo. Si quieres ir solo a una misión,",

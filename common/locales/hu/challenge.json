@@ -37,7 +37,7 @@
     "publicChallenges": "Legalább 1 Drágakő <strong> nyílvános kihívásoknak </strong>. Segít megakadályozni a spamelést (valóban segít).",
     "officialChallenge": "Hivatalos HabitRPG kihívás",
     "by": "által",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> résztvevő",
     "join": "Csatlakozom",
     "exportChallengeCSV": "Exportálás CSV-be",
     "selectGroup": "Válassz csoportot",

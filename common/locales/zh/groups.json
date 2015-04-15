@@ -95,6 +95,6 @@
     "abuseFlagModalButton": "报告",
     "abuseReported": "感谢您报告此违反服务条款的行为。版主已经接到通知。",
     "abuseAlreadyReported": "你已经举报过此信息。",
-    "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsText": "请输入一个信息",
+    "needsTextPlaceholder": "请在这里输入一个信息"
 }

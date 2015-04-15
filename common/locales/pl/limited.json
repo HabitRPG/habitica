@@ -13,7 +13,7 @@
     "valentine0": "\"Róże są czerwone<%= lineBreak %>Moje dzienne zadania są niebieskie<%= lineBreak %>Cieszy mnie, że<%= lineBreak %>jestem w drużynie z tobą!\"",
     "valentine1": "\"Róże są czerwone<%= lineBreak %>Fiołeczki są śliczne<%= lineBreak %>Dajmy wszyscy razem<%= lineBreak %>Złym Nawykom prztyczka!\"",
     "valentine2": "\"Na górze róże<%= lineBreak %>Ten wiersz w starym stylu<%= lineBreak %>Obyś go polubił<%= lineBreak %>Boś o dziesięć złota do tyłu.\"",
-    "valentine3": "\"Roses are red<%= lineBreak %>Ice Drakes are blue<%= lineBreak %>No treasure is better<%= lineBreak %>Than time spent with you!\"",
+    "valentine3": "\"Na górze czerwone róże<%= lineBreak %>Lodowego smoka mam na oku<%= lineBreak %>Nie ma większego skarbu<%= lineBreak %>Niż czas spędzony u Twego boku!\"",
     "adoringFriends": "Kochani przyjaciele",
     "adoringFriendsText": "Och, Ty i Twój przyjaciel musicie naprawdę troszczyć się o siebie! Wysłałeś lub otrzymałeś <%= cards %> walentynek.",
     "polarBear": "Niedźwiedź polarny",

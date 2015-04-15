@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "The quest owner has left the quest. You can abort the quest if you need to. You can also allow it to keep running and all remaining participants will receive the quest rewards when the quest finishes.",
     "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",
     "questOwnerNotInRunningQuestParty": "The quest owner has left the party. You can abort the quest if you need to but you can also leave it running and all remaining participants will receive the quest rewards when the quest finishes.",
+    "questParticipants": "Participants",
     "scrolls": "Răvașe de Aventură",
     "noScrolls": "Nu ai niciun răvaș de aventură.",
     "scrollsText1": "Aventurile necesită echipe. Dacă vrei să te aventurezi singur,",
