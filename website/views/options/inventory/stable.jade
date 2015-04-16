@@ -97,3 +97,21 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
                  span(ng-show="selectedFood.indexOf(Content.food[food]) !== -1")=env.t('selected')
               // Remove this once we have images in
               p {{:: Content.food[food].text()}}
+   
+script(type='text/ng-template', id='partials/options.inventory.pets.feedpet.html')  
+  .modal-header
+    h4
+     =env.t('petFeedModalTitle')
+  .modal-body.select-class
+    div.well
+     =env.t('petFeedOverFeedNotice')
+    .container-flui
+      .row
+       form
+        div(ng-repeat='food in selectedFood')
+         div(class="Pet_Food_{{food.key}}")
+         input(type="number", name="{{food.key}}-quantity", min="1", max="{{user.items.food[food.key]}}", ng-model="amounts[food.key]", ng-value="1" )
+        
+  .modal-footer
+    button.btn.btn-sm.btn-warning(ng-click='cancel(); $close()')=env.t('cancel')
+    button.btn.btn-primary(ng-click='feedPet(); $close()')=env.t('select')
