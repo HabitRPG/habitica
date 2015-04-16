@@ -110,7 +110,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.feedpet.html
        form
         div(ng-repeat='food in selectedFood')
          div(class="Pet_Food_{{food.key}}")
-         input(type="number", name="{{food.key}}-quantity", min="1", max="{{user.items.food[food.key]}}", ng-model="amounts[food.key]", ng-value="1" )
+         input(type="number", name="{{food.key}}-quantity", min="1", max="{{user.items.food[food.key]}}", ng-model="amounts[food.key]", ng-init="amounts[food.key]='1'", ng-value="1" )
         
   .modal-footer
     button.btn.btn-sm.btn-warning(ng-click='cancel(); $close()')=env.t('cancel')
