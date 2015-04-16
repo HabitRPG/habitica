@@ -6,7 +6,7 @@
 }
 .shop_armor_special_birthday2015 {
   background-image: url(spritesmith3.png);
-  background-position: -1107px -1416px;
+  background-position: -1148px -1416px;
   width: 40px;
   height: 40px;
 }
@@ -1104,13 +1104,13 @@
 }
 .shop_shield_special_spring2015Rogue {
   background-image: url(spritesmith3.png);
-  background-position: -1325px -1274px;
+  background-position: -1107px -1416px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_special_spring2015Warrior {
   background-image: url(spritesmith3.png);
-  background-position: -1148px -1416px;
+  background-position: -1325px -1274px;
   width: 40px;
   height: 40px;
 }
@@ -2215,6 +2215,12 @@
 .shop_head_healer_2 {
   background-image: url(spritesmith3.png);
   background-position: -1457px -1312px;
+  width: 40px;
+  height: 40px;
+}
+.shop_head_healer_3 {
+  background-image: url(spritesmith3.png);
+  background-position: -1457px -1353px;
   width: 40px;
   height: 40px;
 }
