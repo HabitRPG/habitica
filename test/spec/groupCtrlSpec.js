@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('Groups Controller', function() {
+describe('Groups Controller', function() {
   var scope, ctrl, groups, user, guild, $rootScope;
 
   beforeEach(function() {
@@ -34,7 +34,7 @@ describe.only('Groups Controller', function() {
       return [guild];
     });
 
-    expect(scope.isMemberOfGroup(user._id, guild)).to.be.eql(true);
+    expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
     expect(myGuilds).to.be.called
   });
 
@@ -48,7 +48,7 @@ describe.only('Groups Controller', function() {
       return [];
     });
 
-    expect(scope.isMemberOfGroup(user._id, guild)).to.be.eql(false);
+    expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
     expect(myGuilds).to.be.called
   });
 });
