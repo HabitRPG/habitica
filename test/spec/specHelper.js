@@ -29,5 +29,21 @@ specHelper = {
       achievements: {},
     };
     return user;
+  },
+  newGroup: function(leader) {
+    var quest = { progress: { }, active: false };
+    group = {
+      "leader" : leader,
+      "quest" : quest,
+      "memberCount" : 1,
+      "chat" : [],
+      "privacy" : "public",
+      "invites" : [],
+      "members" : [
+        leader
+      ]
+    };
+    return group;
   }
 };
+
