@@ -64,6 +64,6 @@
     "petKeyNeverMind": "Not Yet",
     "gemsEach": "gems each",
     "selected": "Selected",
-    "petFeedModalTitle": "How much would you like to feed your pet?",
+    "petFeedModalTitle": "How many of each item would you like to feed your pet?",
     "petFeedOverFeedNotice": "If the amount selected is more than the pet needs, the extra food will not be fed."
 }
