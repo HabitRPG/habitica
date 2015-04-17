@@ -85,4 +85,35 @@ describe('Inventory Controller', function() {
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
   }));
+
+  it('feeds a pet a single item', inject(function(Content){
+   user.items.pets['Cactus-Base'] = 5;
+   user.items.food['Meat'] = 4
+   scope.chooseFood('Meat');
+   scope.choosePet('Cactus', 'Base');
+   scope.amounts = {};
+   scope.amounts['Meat'] = 3;
+   scope.feedPet();
+   expect(user.items.food['Meat']).to.eql(1);
+   //We can should still be active to feed more meat
+   expect(scope.selectedFood.length).to.eql(1);
+  }));
+
+  it('feeds a pet multiple items', inject(function(Content){
+   user.items.pets['Cactus-Base'] = 5;
+   user.items.food['Meat'] = 4
+   user.items.food['Chocolate'] = 3
+   scope.chooseFood('Meat');
+   scope.chooseFood('Chocolate');
+   scope.choosePet('Cactus', 'Base');
+   scope.amounts = {};
+   scope.amounts['Meat'] = 3;
+   scope.amounts['Chocolate'] = 3;
+   scope.feedPet();
+   expect(user.items.food['Meat']).to.eql(1);
+   expect(user.items.food['Chocolate']).to.eql(0);
+   //Since we are out of chocolate, we should ask the user to reselect
+   expect(scope.selectedFood.length).to.eql(0);
+  }));
+
 });
