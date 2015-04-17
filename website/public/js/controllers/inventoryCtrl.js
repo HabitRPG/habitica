@@ -153,15 +153,15 @@ habitrpg.controller("InventoryCtrl",
         if (!$window.confirm(window.env.t('useSaddle', {pet: petDisplayName}))) return;
       }
 
-      for (var foodCount = 0; foodCount < $scope.amounts[food.key]; foodCount+=1 ){
+      for (var foodCount = 0; foodCount < $scope.amounts[food.key]; foodCount += 1 ){
+       //Feed the pet
+       User.user.ops.feed({params:{pet: pet, food: food.key}});
        //If we run out of an item, let the user reselect. This is a good case for when the user select only one item
        //Maybe we should do something different for multiple items
        if (user.items.food[food.key] == 0) {
         emptyFood = 1;
         break;
        }
-       //Feed the pet
-       User.user.ops.feed({params:{pet: pet, food: food.key}});
       }
 
      });
