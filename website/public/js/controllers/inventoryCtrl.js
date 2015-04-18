@@ -3,6 +3,9 @@ habitrpg.controller("InventoryCtrl",
   function($rootScope, $scope, Shared, $window, User, Content) {
 
     var user = User.user;
+    //$scope.equipment will be the mutuable instance of $scope.gear
+    $scope.equipment = {};
+    $scope.orderByField = "class";
 
     // convenience vars since these are accessed frequently
 
@@ -20,12 +23,14 @@ habitrpg.controller("InventoryCtrl",
     $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
-      $scope.gear = {};
+      $scope.gear = [];
       _.each(gear.owned, function(v,key){
         if (v === false) return;
         var item = Content.gear.flat[key];
-        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
-        $scope.gear[item.klass].push(item);
+        $scope.gear.push(item);
+        //Default grouping is by class
+        if (!$scope.equipment[item.klass]) $scope.equipment[item.klass] = [];
+        $scope.equipment[item.klass].push(item);
       })
     }, true);
 
@@ -234,6 +239,27 @@ habitrpg.controller("InventoryCtrl",
       return filteredArray;
     };
 
+    $scope.groupEquipmentBy = function(group) {
+     if (group === "stat") {
+      $scope.equipment = _.groupBy($scope.gear, function(item){
+       if ( item.int > 0 ) {
+        return "int";
+       } else if ( item.per > 0 ) {
+        return "per";
+       } else if ( item.con > 0 ) {
+        return "con";
+       } else if ( item.str > 0 ) {
+        return "str";
+       } else {
+        return "none"
+       }
+      });
+     } else {
+      $scope.equipment = _.groupBy($scope.gear, group);
+     }
+
+    }
+
     $scope.dequip = function(itemSet){
       switch (itemSet) {
         case "battleGear":
@@ -273,5 +299,11 @@ habitrpg.controller("InventoryCtrl",
           break;
       }
     };
+
+    //Helper function to upper case string
+    $scope.capitalizeFirstLetter = function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
   }
 ]);

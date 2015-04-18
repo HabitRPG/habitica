@@ -85,4 +85,21 @@ describe('Inventory Controller', function() {
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
   }));
+
+  it('sorts gear by type', inject(function(Content){
+    scope.gear = [];
+    var specialWeapon = {text: env.t('weaponSpecial0Text'), notes:env.t('weaponSpecial0Notes', {str: 20}), str: 20, value:150, type:"sword", color:"silver", klass:"none"};
+    var rogueArmor = {text: env.t('armorRogue1Text'), notes: env.t('armorRogue1Notes', {per: 6}), per: 6, value:30, color: "brown", type:"armor", klass:"rogue"};
+    scope.gear.push(specialWeapon);
+    scope.gear.push(rogueArmor);
+    scope.groupEquipmentBy('type');
+    expect(scope.equipment).to.eql({"sword": [specialWeapon],"armor": [rogueArmor]});
+    scope.groupEquipmentBy('color');
+    expect(scope.equipment).to.eql({"silver": [specialWeapon],"brown": [rogueArmor]});
+    scope.groupEquipmentBy('stat');
+    expect(scope.equipment).to.eql({"str": [specialWeapon],"per": [rogueArmor]});
+    scope.groupEquipmentBy('klass');
+    expect(scope.equipment).to.eql({"none": [specialWeapon],"rogue": [rogueArmor]});
+  }));
+
 });
