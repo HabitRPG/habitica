@@ -37,7 +37,7 @@
     "publicChallenges": "Minim 1 Nestemată pentru <strong>provocări publice</strong> (ajută la prevenirea spamului, pe bune).",
     "officialChallenge": "Provocare oficială HabitRPG",
     "by": "de",
-    "participants": "Participanți",
+    "participants": "<%= membercount %> Participants",
     "join": "Participă",
     "exportChallengeCSV": "Exportă în CSV",
     "selectGroup": "Te rog alege un grup",

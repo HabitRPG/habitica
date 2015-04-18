@@ -185,6 +185,8 @@ function($rootScope, User, $timeout, $state) {
         var showFinish = step.final || k == 'classes';
         var showCounter = k=='intro' && !step.final;
 
+        $rootScope.variant=2; // temporarily set finish & counter on until we can get experiment working
+
         // Experiment wud1Ba5qT1m9qR3PP0-Mmg , remove this when experiment complete
         // 0=No Finish; Yes Counter 1=No Finish; No Counter 2=Yes Finish; Yes Counter 3=Yes Finish; No Counter
         showFinish = showFinish || $rootScope.variant==2 || $rootScope.variant==3;

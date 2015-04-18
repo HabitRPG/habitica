@@ -44,7 +44,7 @@
     "remaining": "Aktiv",
     "complete": "Erledigt",
     "dated": "Datiert",
-    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
+    "datedNotSorted": "Einmalige Aufgaben mit Datum werden nicht nach diesem sortiert. Diese Funktion wird vermutlich bald hinzugefügt.",
     "due": "Fällig",
     "grey": "Grau",
     "score": "Punktestand",

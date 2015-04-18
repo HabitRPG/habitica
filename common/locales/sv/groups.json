@@ -95,6 +95,6 @@
     "abuseFlagModalButton": "Rapportera",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
     "abuseAlreadyReported": "Du har redan anmält det här meddelandet.",
-    "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsText": "Var god skriv ett meddelande.",
+    "needsTextPlaceholder": "Skriv ditt meddelande här."
 }

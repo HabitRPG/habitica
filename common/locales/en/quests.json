@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "The quest owner has left the quest. You can abort the quest if you need to. You can also allow it to keep running and all remaining participants will receive the quest rewards when the quest finishes.",
     "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",
     "questOwnerNotInRunningQuestParty": "The quest owner has left the party. You can abort the quest if you need to but you can also leave it running and all remaining participants will receive the quest rewards when the quest finishes.",
+    "questParticipants": "Participants",
     "scrolls": "Quest Scrolls",
     "noScrolls": "You don't have any quest scrolls.",
     "scrollsText1": "Quests require parties. If you want to quest solo,",

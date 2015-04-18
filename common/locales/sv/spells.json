@@ -36,11 +36,11 @@
     "spellSpecialSaltText": "Salt",
     "spellSpecialSaltNotes": "Någon kastade en snöboll på dig. Ha ha, väldigt roligt. Se nu till att få bort den här snön från mig!",
     "spellSpecialSpookDustText": "Spöklik hud",
-    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
+    "spellSpecialSpookDustNotes": "Transformera en vän till en flytande filt med ögon.",
     "spellSpecialOpaquePotionText": "Ogenomskinlig Dryck",
     "spellSpecialOpaquePotionNotes": "Avbryt effekterna av spöklik hud.",
     "spellSpecialShinySeedText": "Shiny Seed",
-    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialShinySeedNotes": "Transformera en vän till en glad blomma!",
     "spellSpecialPetalFreePotionText": "Petal-Free Potion",
     "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

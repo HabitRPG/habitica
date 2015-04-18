@@ -7,7 +7,7 @@
     "alarmingFriends": "Amis Inquiétants",
     "alarmingFriendsText": "A été transformé·e en fantôme <%= spookDust %> fois par des membres de l'équipe.",
     "agriculturalFriends": "Amis Agricoles",
-    "agriculturalFriendsText": "A été transformé en fleur <%= seeds %> fois par un membre de l'équipe",
+    "agriculturalFriendsText": "A été transformé en fleur <%= seeds %> fois par un membre de son équipe.",
     "valentineCard": "Carte de St Valentin",
     "valentineCardNotes": "Envoyer une carte de St Valentin à un membre de l'équipe.",
     "valentine0": "\"Les roses sont pourpres<%= lineBreak %>Mes Quotidiennes sont bleues<%= lineBreak %>Être dans ton groupe<%= lineBreak %>Me rend chaque jour plus heureux !\"",

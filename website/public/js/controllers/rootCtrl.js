@@ -260,7 +260,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // reload the page. Perform manually.
     $rootScope.hardRedirect = function(url){
       window.location.href = url;
-      window.location.reload(false);
+      setTimeout(function() {
+        window.location.reload(false);
+      });
     }
 
     // Universal method for sending HTTP methods

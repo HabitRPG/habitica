@@ -38,6 +38,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.addTask = function(addTo, listDef) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
+        //Reverse the order of tasks so the tasks will appear in the order the user entered them
+        tasks.reverse();
         _.each(tasks, function(t) {
           addTask(addTo, listDef, t);
         });
@@ -82,9 +84,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
-    $scope.removeTask = function(task) {
+    $scope.removeTask = function(list, $index) {
       if (!confirm(window.env.t('sureDelete'))) return;
-      User.user.ops.deleteTask({params:{id:task.id}})
+      User.user.ops.deleteTask({params:{id:list[$index].id}})
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {

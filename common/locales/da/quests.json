@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Quest-lederen har forladt questen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
     "questOwnerNotInPendingQuestParty": "Quest-lederen har forladt gruppen og kan ikke længere starte questen. Det anbefales at du afbryder den nu. Quest-skriftrullen vil blive returneret til quest-lederen.",
     "questOwnerNotInRunningQuestParty": "Quest-lederen har forladt gruppen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
+    "questParticipants": "Participants",
     "scrolls": "Quest-skriftruller",
     "noScrolls": "Du har ingen quest-skriftruller.",
     "scrollsText1": "Quests kræver grupper. Hvis du vil queste alene,",

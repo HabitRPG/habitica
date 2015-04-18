@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Uppdragsägaren har lämnat uppdraget. Du kan avbryta uppdraget om du behöver, men du kan även fortsätta och alla kvarvarande deltagare kommer belönas när uppdraget är slutfört.",
     "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",
     "questOwnerNotInRunningQuestParty": "Uppdragsägaren har lämnat sällskapet. Du kan avbryta uppdraget om du behöver, men du kan även fortsätta och alla kvarvarande deltagare kommer belönas när uppdraget är slutfört.",
+    "questParticipants": "Participants",
     "scrolls": "Uppdragsskriftrulle",
     "noScrolls": "Du har inga uppdragsskriftrullar",
     "scrollsText1": "Uppdrag kräver ett sällskap. Om du vill utföra uppdraget ensam,",

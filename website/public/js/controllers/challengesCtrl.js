@@ -58,7 +58,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       var groupsWithChallenges = _.uniq(_.pluck($scope.groupsFilter, '_id'));
       var len = groupsWithChallenges.length;
       var filterCount = 0;
-
+      
       for ( var i = 0; i < len; i += 1 ) {
         if ( $scope.search.group[groupsWithChallenges[i]] == true ) {
           filterCount += 1;
@@ -186,11 +186,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       delete listDef.newTask;
     };
 
-    $scope.removeTask = function(task, list) {
+    $scope.removeTask = function(list, $index) {
       if (!confirm(window.env.t('sureDelete'))) return;
       //TODO persist
       // User.log({op: "delTask", data: task});
-      _.remove(list, task);
+      list.splice($index, 1);
     };
 
     $scope.saveTask = function(task){
