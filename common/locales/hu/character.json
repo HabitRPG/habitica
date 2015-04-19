@@ -35,11 +35,11 @@
     "flower": "Virág",
     "basicSkins": "Alap bőrszínek",
     "rainbowSkins": "Szívárvány bőrszínek",
-    "pastelSkins": "Pastel Skins",
+    "pastelSkins": "Pasztell bőrszínek ",
     "spookySkins": "Kísérteties bőrszínek",
     "supernaturalSkins": "Természetfeletti bőrszínek",
     "rainbowColors": "Szivárvány színek",
-    "shimmerColors": "Shimmer Colors",
+    "shimmerColors": "Csillámló színek",
     "hauntedColors": "Kísérteties hajszínek",
     "winteryColors": "Télies színek",
     "equipment": "Felszerelés",
@@ -136,7 +136,7 @@
     "displayNameDescription1": "Ez jelenik meg amikor a Fogadó, a céh vagy a party chat-et használod, ezen felül az avatárodon is ez látszik. Menj a ",
     "displayNameDescription2": "Beállítások->Oldal",
     "displayNameDescription3": "menübe és lapozz le a Regisztrációs részhez a login neved megváltoztatásához.",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "Összes harci felszerelés eltávolítása",
+    "unequipCostume": "Összes ruha eltávolítása",
+    "unequipPetMountBackground": "Háziállat, hátas, háttér eltávolítása"
 }

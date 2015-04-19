@@ -84,7 +84,7 @@
     "pmHeading": "Privatmeddelande till <%= name %>",
     "clearAll": "Radera alla meddelanden",
     "confirmDeleteAllMessages": "Är du säker på att du vill ta bort alla meddelanden i din inkorg? Andra användare kommer fortfarande se meddelanden som du har skickat till dem.",
-    "optOutPopover": "Gillar du inte privatmeddelanden? Klicka för att avprenumerera",
+    "optOutPopover": "Gillar du inte privatmeddelanden? Klicka för att stänga av funktionen",
     "block": "Blockera",
     "unblock": "Avblockera",
     "pm-reply": "Skicka ett svar",

@@ -28,7 +28,7 @@
     "questOwnerNotInRunningQuest": "Właściciel misji opuścił misję. Możesz ją porzucić, jeśli chcesz. Możesz ją także kontynować, a wszyscy uczestnicy, którzy zostaną, otrzymają nagrody misji po jej ukończeniu.",
     "questOwnerNotInPendingQuestParty": "Właściciel misji opuścił drużynę i nie może już rozpocząć misji. Zaleca się jej anulowanie jej. Zwój misji zostanie zwrócony właścicielowi.",
     "questOwnerNotInRunningQuestParty": "Właściciel misji opuścił drużynę. Możecie porzucić misję, jeśli musicie, ale możecie też ją kontynuować; wszyscy pozostali uczestnicy otrzymają nagrody misji po jej ukończeniu.",
-    "questParticipants": "Participants",
+    "questParticipants": "Uczestnicy",
     "scrolls": "Zwoje misji",
     "noScrolls": "Nie masz żadnych zwojów misji.",
     "scrollsText1": "Do wykonania misji potrzebna jest drużyna. Jeśli chcesz je wykonywać w pojedynkę,",

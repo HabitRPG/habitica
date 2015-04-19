@@ -54,6 +54,8 @@
     "questEggRockAdjective": "animada",
     "questEggBunnyText": "Conejo",
     "questEggBunnyAdjective": "adorable",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá un <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

@@ -54,6 +54,8 @@
     "questEggRockAdjective": "levendige",
     "questEggBunnyText": "Konijn",
     "questEggBunnyAdjective": "knuffelbaar",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
     "eggNotes": "Vind een uitbroedtoverdrank om op dit ei te gieten, en er zal een <%= eggAdjective(locale) %> <%= eggText(locale) %> uitkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",

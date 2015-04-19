@@ -62,7 +62,7 @@
     "errorUpCase": "CHYBA:",
     "newPassSent": "Nové heslo odesláno.",
     "serverUnreach": "Server je momentálně nedostupný.",
-    "seeConsole": "If the error persists, please report it at Help > Report a Bug. If you're familiar with your browser's console, please include any error messages.",
+    "seeConsole": "Pokud chyba přetrvává, prosíme, nahlaš jí přes Nápověda > Nahlásit chybu. Pokud znáš konzoli svého prohlížeče, prosíme, připoj k hlášení všechny chybové hlášky z ní,",
     "error": "Chyba",
     "menu": "Menu",
     "notifications": "Oznámení",

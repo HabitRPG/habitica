@@ -190,5 +190,11 @@
     "questBunnyBoss": "Coniglietta Assassina",
     "questBunnyCompletion": "Con un'ultimo colpo atterri la coniglietta assassina. Una nebbia luccicante si alaza dal suo corpo mentre si rimpicciolisce in una piccolissima coniglietta... Niente a che vedere con la crudele bestia che hai affrontato un attimo fa. Il suo naso si muove in modo adorabile e lei saltella via, lasciandosi alle spalle alcune uova. @Gully ride. \"Il Monte Procrastinazione ha i suoi modi per far sembrare insormontabili anche le più piccole sfide. Raccogliamo queste uova e torniamo a casa.\"",
     "questBunnyDropBunnyEgg": "Coniglietto (Uovo)",
-    "questBunnyUnlockText": "Sblocca l'cquisto delle uova di coniglietto nel Mercato"
+    "questBunnyUnlockText": "Sblocca l'cquisto delle uova di coniglietto nel Mercato",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

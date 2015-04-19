@@ -190,5 +190,11 @@
     "questBunnyBoss": "Moordlustig Konijntje",
     "questBunnyCompletion": "Na een laatste klap valt het moorddadige konijn op de grond. Een sprankelende mistwolk stijgt op van haar lijf en ze krimpt tot de grootte van een schattig klein konijntje... ze lijkt helemaal niet meer op het wrede beest dat pas geleden nog tegenover je stond. Ze wiebelt schattig met haar neusje en huppelt weg, met achterlating van enkele eieren. @Gully lacht. \"De Uitstelberg laat zelfs de kleinste moeilijkheden onoverwinnelijk lijken. Laten we deze eieren verzamelen en op huis aan gaan.\"",
     "questBunnyDropBunnyEgg": "Konijn (ei)",
-    "questBunnyUnlockText": "Maakt het kopen van konijneneieren in de markt mogelijk"
+    "questBunnyUnlockText": "Maakt het kopen van konijneneieren in de markt mogelijk",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

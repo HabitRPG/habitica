@@ -190,5 +190,11 @@
     "questBunnyBoss": "Killer Bunny",
     "questBunnyCompletion": "With one final blow the killer rabbit sinks to the ground. A sparkly mist rises from her body as she shrinks down into a tiny bunny... nothing like the cruel beast you faced a moment before. Her nose twitches adorably and she hops away, leaving some eggs behind. @Gully laughs. \"Mount Procrastination has a way of making even the smallest challenges seem insurmountable. Let's gather these eggs and head for home.\"",
     "questBunnyDropBunnyEgg": "Bunny (Egg)",
-    "questBunnyUnlockText": "Unlocks purchasable bunny eggs in the Market"
+    "questBunnyUnlockText": "Unlocks purchasable bunny eggs in the Market",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }
