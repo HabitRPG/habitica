@@ -29,11 +29,21 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         div
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
-        li.customize-menu(ng-if='user.preferences.costume')
-         menu.pets-menu
-          div(ng-repeat='item in gear')
-           button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
-
+         li.customize-menu(ng-if='user.preferences.costume')
+          ul.task-filter
+           li(ng-class='{active: orderCostumeByField == "class"}')
+            a(ng-click="orderCostumeByField='class'; groupEquipmentBy('klass', 1);")=env.t("class")
+           li(ng-class='{active: orderCostumeByField == "type"}')
+            a(ng-click="orderCostumeByField='type'; groupEquipmentBy('type', 1);")=env.t("type")
+           li(ng-class='{active: orderCostumeByField == "stat"}')
+            a(ng-click="orderCostumeByField='stat'; groupEquipmentBy('stat', 1);")=env.t("stat")
+           li(ng-class='{active: orderCostumeByField == "color"}')
+            a(ng-click="orderCostumeByField='color'; groupEquipmentBy('color', 1);")=env.t("color")
+          menu.pets-menu(ng-repeat="(key, group) in costume")
+           h3 {{capitalizeFirstLetter(key)}}
+           div(ng-repeat="item in group")
+            button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+       
 script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html')
   .container-fluid
     .stable.row

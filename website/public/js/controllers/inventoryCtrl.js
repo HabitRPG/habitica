@@ -5,6 +5,7 @@ habitrpg.controller("InventoryCtrl",
     var user = User.user;
     //$scope.equipment will be the mutuable instance of $scope.gear
     $scope.equipment = {};
+    $scope.costume = {};
     $scope.orderByField = "class";
 
     // convenience vars since these are accessed frequently
@@ -28,10 +29,9 @@ habitrpg.controller("InventoryCtrl",
         if (v === false) return;
         var item = Content.gear.flat[key];
         $scope.gear.push(item);
-        //Default grouping is by class
-        if (!$scope.equipment[item.klass]) $scope.equipment[item.klass] = [];
-        $scope.equipment[item.klass].push(item);
-      })
+      });
+      //Default grouping is by class
+      $scope.groupEquipmentBy("klass");
     }, true);
 
     $scope.chooseEgg = function(egg){
@@ -239,23 +239,58 @@ habitrpg.controller("InventoryCtrl",
       return filteredArray;
     };
 
-    $scope.groupEquipmentBy = function(group) {
+    $scope.groupEquipmentBy = function(group, costume) {
+
+     var gear = {};
+
      if (group === "stat") {
-      $scope.equipment = _.groupBy($scope.gear, function(item){
+      $scope.gear.forEach(function(item, index, array) {
+       var index = "";
        if ( item.int > 0 ) {
-        return "int";
-       } else if ( item.per > 0 ) {
-        return "per";
-       } else if ( item.con > 0 ) {
-        return "con";
-       } else if ( item.str > 0 ) {
-        return "str";
+        index = "Intelligence";
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
+       }
+       if ( item.per > 0 ) {
+        index = "Perception";
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
+       }
+       if ( item.con > 0 ) {
+        index = "Constitution";
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
+       }
+       if ( item.str > 0 ) {
+        index = "Strength";
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
+       }
+       if ( index === "" ) {
+        var index = "None";
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
+       }
+      });
+     } else if (group === "klass") {
+      $scope.gear.forEach(function(item, index, array) {
+       if (item.klass === "special") {
+        var index = item.klass + " " + item.specialClass;
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
        } else {
-        return "none"
+        if (!gear[item.klass]) gear[item.klass] = [];
+        gear[item.klass].push(item);
        }
       });
      } else {
-      $scope.equipment = _.groupBy($scope.gear, group);
+      gear = _.groupBy($scope.gear, group);
+     }
+
+     if (costume != undefined) {
+      $scope.costume = gear;
+     } else {
+      $scope.equipment = gear;
      }
 
     }
