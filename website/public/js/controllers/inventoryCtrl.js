@@ -6,7 +6,6 @@ habitrpg.controller("InventoryCtrl",
     //$scope.equipment will be the mutuable instance of $scope.gear
     $scope.equipment = {};
     $scope.costume = {};
-    $scope.orderByField = "class";
 
     // convenience vars since these are accessed frequently
 
@@ -30,8 +29,11 @@ habitrpg.controller("InventoryCtrl",
         var item = Content.gear.flat[key];
         $scope.gear.push(item);
       });
-      //Default grouping is by class
-      $scope.groupEquipmentBy("klass");
+      //If we haven't grouped yet, group by class
+      if ( _.isEmpty($scope.equipment) ) {
+       $scope.orderByField = "class";
+       $scope.groupEquipmentBy("klass");
+      }
     }, true);
 
     $scope.chooseEgg = function(egg){
@@ -267,20 +269,26 @@ habitrpg.controller("InventoryCtrl",
         gear[index].push(item);
        }
        if ( index === "" ) {
-        var index = "None";
+        var index = "Undefined";//Use undefined her to order none last
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
        }
       });
      } else if (group === "klass") {
       $scope.gear.forEach(function(item, index, array) {
+       var index = "";
        if (item.klass === "special") {
-        var index = item.klass + " " + item.specialClass;
+        if (item.specialClass) {
+         index = $scope.capitalizeFirstLetter(item.specialClass) + " " + $scope.capitalizeFirstLetter(item.klass) ;
+        } else {
+         index = "Legendary"
+        }
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
        } else {
-        if (!gear[item.klass]) gear[item.klass] = [];
-        gear[item.klass].push(item);
+        index = $scope.capitalizeFirstLetter(item.klass)
+        if (!gear[index]) gear[index] = [];
+        gear[index].push(item);
        }
       });
      } else {

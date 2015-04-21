@@ -106,7 +106,7 @@ describe('Inventory Controller', function() {
     expect(scope.equipment).to.eql({"Strength": [specialWeapon],"Perception": [rogueArmor, wizardWeaponOne], "Intelligence": [wizardWeaponOne]});
 
     scope.groupEquipmentBy('klass');
-    expect(scope.equipment).to.eql({"none": [specialWeapon],"rogue": [rogueArmor], "wizard":[wizardWeaponOne]});
+    expect(scope.equipment).to.eql({"None": [specialWeapon],"Rogue": [rogueArmor], "Wizard":[wizardWeaponOne]});
 
     //Costume Sorts
     scope.groupEquipmentBy('type', 1);
@@ -119,7 +119,7 @@ describe('Inventory Controller', function() {
     expect(scope.costume).to.eql({"Strength": [specialWeapon],"Perception": [rogueArmor, wizardWeaponOne], "Intelligence": [wizardWeaponOne]});
 
     scope.groupEquipmentBy('klass', 1);
-    expect(scope.costume).to.eql({"none": [specialWeapon],"rogue": [rogueArmor], "wizard":[wizardWeaponOne]});
+    expect(scope.costume).to.eql({"None": [specialWeapon],"Rogue": [rogueArmor], "Wizard":[wizardWeaponOne]});
   }));
 
 });
