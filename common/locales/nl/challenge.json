@@ -37,7 +37,7 @@
     "publicChallenges": "Minimaal 1 edelsteen voor <strong>openbare uitdagingen</strong> (helpt spam voorkomen, echt).",
     "officialChallenge": "Officiële HabitRPG-Uitdaging",
     "by": "door",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> deelnemers",
     "join": "Meedoen",
     "exportChallengeCSV": "Exporteren naar CSV",
     "selectGroup": "Groep selecteren",

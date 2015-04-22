@@ -12,7 +12,7 @@
     "rebirthInList2": "挑战，公会和组队关系保留下来。",
     "rebirthInList3": "宝石，赞助者级别，和贡献者级别保留下来。",
     "rebirthInList4": "通过宝石或掉落 (如宠物和坐骑) 获得的物品保留下来，但是你在解锁前不能访问他们。",
-    "rebirthInList5": "你买过的限定版装备可以重新购买，即使事件已经结束。",
+    "rebirthInList5": "你在事件结束后仍然可以再次购入购买过的限定版装备",
     "rebirthEarnAchievement": "你会因为开始一段新冒险而获得一个成就！",
     "beReborn": "重生",
     "rebirthAchievement": "你开始了一段新冒险！这是你的第<%= number %>次冒险，你曾经获得的最高级别是<%= level %>级。有这个成就加持，当你开始下一次新冒险会达到更高的水平！",

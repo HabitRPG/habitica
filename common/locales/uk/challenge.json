@@ -37,7 +37,7 @@
     "publicChallenges": "Щонайменше 1 самоцвіт для <strong> громадських випробувань </strong> (допомагає запобігти спаму, справді).",
     "officialChallenge": "Офіційне випробування HabitRPG",
     "by": "від",
-    "participants": "<%= membercount %> Participants",
+    "participants": "Учаснки",
     "join": "Приєднатися",
     "exportChallengeCSV": "Експортувати до CSV",
     "selectGroup": "Будь ласка, оберіть групу",

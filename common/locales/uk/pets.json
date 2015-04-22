@@ -51,7 +51,7 @@
     "useSaddle": "Осідлати <%= pet %>?",
     "petName": "<%= potion %> <%= egg %>",
     "mountName": "<%= potion %> <%= mount %>",
-    "petKeyName": "Key to the Kennels",
+    "petKeyName": "Ключ до розсадників",
     "petKeyPop": "Let your pets roam free, release them to start their own adventure, and give yourself the thrill of Beast Master once more!",
     "petKeyBegin": "Key to the Kennels: Experience <%= title %> Once More!",
     "petKeyInfo": "Miss the thrill of collecting pets? Now you can let them go, and have those drops be meaningful again!",

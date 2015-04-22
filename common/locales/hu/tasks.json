@@ -44,7 +44,6 @@
     "remaining": "Aktív",
     "complete": "Befejezett",
     "dated": "Határidős",
-    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "Hátralevő",
     "grey": "Szürke",
     "score": "Pontszám",
@@ -78,5 +77,5 @@
     "streakCoins": "Széria bónusz!",
     "pushTaskToTop": "Tetejére",
     "pushTaskToBottom": "Rakd a feladatot legalulra",
-    "emptyTask": "Enter the task's title first."
+    "emptyTask": "Előbb írd be a feladat címét."
 }

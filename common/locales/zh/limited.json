@@ -12,7 +12,7 @@
     "valentineCardNotes": "赠送情人节卡片给你的一个队伍成员。",
     "valentine0": "\"玫瑰红艳<%= lineBreak %>我的每日任务宝蓝<%= lineBreak %>我欢呼雀跃，因为<%= lineBreak %>能与你同在派对中!\"",
     "valentine1": "\"玫瑰红艳<%= lineBreak %>紫罗兰也开的绚烂<%= lineBreak %>让我们一起<%= lineBreak %>与邪恶抗争!\"<%= lineBreak %>PS：邪恶/恶习 紫罗兰花语：永恒的美与爱，我很喜欢你",
-    "valentine2": "\"玫瑰红艳<%= lineBreak %>这首诗却是旧的<%= lineBreak %>我希望您能喜欢<%= lineBreak %>因由它价值十金。\"",
+    "valentine2": "\"诗文虽烂<%= lineBreak %>玫瑰尚红<%= lineBreak %>望君欢颜<%= lineBreak %>便值十金。\"",
     "valentine3": "\"玫瑰红艳<%= lineBreak %>冰龙深蓝<%= lineBreak %>没有什么宝藏能比得上<%= lineBreak %>与你共度的时光。\"",
     "adoringFriends": "爱慕的朋友",
     "adoringFriendsText": "啊，你和你的朋友一定很关心彼此！发送或接受了<%= cards %>张情人节卡片。",

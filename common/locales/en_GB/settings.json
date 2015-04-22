@@ -61,7 +61,7 @@
     "deleteText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong><%= deleteWord %></strong> into the text box below.",
     "API": "API",
     "APIText": "Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.",
-    "APIToken": "API Token (this is a password - see warning above!)",
+    "APIToken": "API Token (this is a password—see warning above!)",
     "resetDo": "Do it, reset my account!",
     "fixValues": "Fix Values",
     "fixValuesText1": "If you've encountered a bug or made a mistake that unfairly changed your character (damage you shouldn't have taken, Gold you didn't really earn, etc.), you can manually correct your numbers here. Yes, this makes it possible to cheat: use this feature wisely, or you'll sabotage your own habit-building!",
@@ -104,12 +104,12 @@
     "unsubscribedSuccessfully": "Unsubscribed successfully!",
     "unsubscribedTextUsers": "You have successfully unsubscribed from all HabitRPG emails. You can enable only the emails you want to receive from <a href=\"/#/options/settings/notifications\">the settings</a> (requires login).",
     "unsubscribedTextOthers": "You won't receive any other email from HabitRPG.",
-    "unsubscribeAllEmails": "Check to Unsubscribe from Emails",
-    "unsubscribeAllEmailsText": "By checking this box, I certify that I understand that by unsubscribing from all emails, HabitRPG will never be able to notify me via email about important changes to the site or my account.",
+    "unsubscribeAllEmails": "Tick to Unsubscribe from Emails",
+    "unsubscribeAllEmailsText": "By ticking this box, I certify that I understand that by unsubscribing from all emails, HabitRPG will never be able to notify me via email about important changes to the site or my account.",
     "correctlyUnsubscribedEmailType": "Correctly unsubscribed from \"<%= emailType %>\" emails.",
     "subscriptionRateText": "Recurring $<%= price %> every <%= months %> months",
     "benefits": "Benefits",
     "coupon": "Coupon",
     "couponPlaceholder": "Enter Coupon Code",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)"
+    "couponText": "We sometimes have events and give out coupon codes for special gear (e.g., those who stop by our Wondercon booth)."
 }

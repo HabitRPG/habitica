@@ -37,7 +37,7 @@
     "notEnoughGems": "Niet genoeg edelstenen",
     "alreadyHave": "Oeps! Je hebt dit artikel al, en hoeft hem niet nog een keer te kopen!",
     "delete": "Verwijderen",
-    "gemsPopoverTitle": "Gems",
+    "gemsPopoverTitle": "Edelstenen",
     "gems": "Edelstenen",
     "gemButton": "Je hebt <%= number %> edelstenen.",
     "moreInfo": "Meer informatie",
