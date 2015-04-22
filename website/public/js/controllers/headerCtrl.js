@@ -6,6 +6,21 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
     $scope.Math = window.Math;
     $scope.user = User.user;
 
+    $scope.nextMilestone = {};
+    $scope.milestones = {
+     4:  "Pets + Mounts Unlocked",
+     10: "Class System Unlocked",
+     11: "First Skill Unlocked",
+     12: "Second Skill Unlocked",
+     13: "Third Skill Unlocked",
+     14: "Final Skill Unlocked",
+     15: "Quest Line: Attack of the Mundane",
+     30: "Quest Line: Vice the Shadow Wyrm",
+     40: "Quest Line: The Golden Knight",
+     60: "Quest Line: Recidivate the Necromancer",
+     100: "Free Orb of Rebirth"
+    };
+
     $scope.party = Groups.party(function(){
         var triggerResort = function() {
             $scope.partyMinusSelf = resortParty();
@@ -57,5 +72,20 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
 
       return result;
     }
+
+    $scope.getNextMilestone = function() {
+
+     for (var levelRequirement in $scope.milestones) {
+      if ($scope.user.stats.lvl < parseInt(levelRequirement)){
+       $scope.nextMilestone = {
+        level: levelRequirement,
+        text: $scope.milestones[levelRequirement]
+       }
+       return;
+      }
+     }
+     $scope.nextMilestone = {};
+    }
+    $scope.getNextMilestone();
   }
 ]);
