@@ -325,6 +325,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
                 span=env.t('inactivityEmails')
 
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.weeklyRecaps', ng-change='set({"preferences.emailNotifications.weeklyRecaps": user.preferences.emailNotifications.weeklyRecaps ? true: false})')
+                span=env.t('weeklyRecaps')
+
             hr
 
             .checkbox
