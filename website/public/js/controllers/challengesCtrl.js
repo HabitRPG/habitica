@@ -259,18 +259,20 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
      if (!$scope.search) return true;
 
-     //Filter challenges that are owned by the user
-     if ($scope.search._isOwner == true) {
-       return (chal.leader._id == User.user.id);
-     } else if ($scope.search._isOwner == false) {
-       return (chal.leader._id != User.user.id);
-     } else {
-        return ($scope.search.group[chal.group._id] &&
-          (typeof $scope.search._isMember == 'undefined' || $scope.search._isMember == chal._isMember));
-     }
+     //Currently, all filters are andded together
 
-     //By default we should return true to show all challenges
-     return true;
+     //First we must filter by selected groups
+     var showChallenge = $scope.search.group[chal.group._id];
+
+     //Membership filters: Show if user has selected either or has selcted Owned and is owner
+     var userIsOwner = chal.leader._id == User.user.id;
+     showChallenge = showChallenge && (typeof $scope.search._isOwner === 'undefined' || userIsOwner === $scope.search._isOwner );
+console.log($scope.search._isMember, chal._isMember)
+     //Membership filters: Show if user has selected either or has selcted Participating and is a member
+     showChallenge = showChallenge && (typeof $scope.search._isMember === 'undefined' || $scope.search._isMember === chal._isMember);
+
+     return showChallenge;
+
     }
 
     $scope.$watch('newChallenge.group', function(gid){
