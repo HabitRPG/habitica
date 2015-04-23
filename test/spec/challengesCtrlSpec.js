@@ -25,150 +25,162 @@ describe('Challenges Controller', function() {
     });
   });
 
-  it('filters challenges', function() {
+  describe('challenge filters', function() {
+   var ownMem, ownNotMem, notOwnMem, notOwnNotMem;
 
-   //There are four types of challenges
+   beforeEach(function() {
+    //There are four types of challenges
 
-   // You are the owner and a member
-   var ownMem = new challenges.Challenge({
-     name: 'test',
-     description: 'test',
-     habits: [],
-     dailys: [],
-     todos: [],
-     rewards: [],
-     leader: user._id,
-     group: "test",
-     timestamp: +(new Date),
-     members: [user],
-     official: false,
-     _isMember: true
-   });
+    // You are the owner and a member
+    ownMem = new challenges.Challenge({
+      name: 'test',
+      description: 'test',
+      habits: [],
+      dailys: [],
+      todos: [],
+      rewards: [],
+      leader: user._id,
+      group: "test",
+      timestamp: +(new Date),
+      members: [user],
+      official: false,
+      _isMember: true
+    });
 
-   // You are the owner but not a member
-   var ownNotMem = new challenges.Challenge({
-     name: 'test',
-     description: 'test',
-     habits: [],
-     dailys: [],
-     todos: [],
-     rewards: [],
-     leader: user._id,
-     group: "test",
-     timestamp: +(new Date),
-     members: [],
-     official: false,
-     _isMember: false
-   });
+    // You are the owner but not a member
+    ownNotMem = new challenges.Challenge({
+      name: 'test',
+      description: 'test',
+      habits: [],
+      dailys: [],
+      todos: [],
+      rewards: [],
+      leader: user._id,
+      group: "test",
+      timestamp: +(new Date),
+      members: [],
+      official: false,
+      _isMember: false
+    });
 
-   // You are not the owner but you are a member
-   var notOwnMem = new challenges.Challenge({
-     name: 'test',
-     description: 'test',
-     habits: [],
-     dailys: [],
-     todos: [],
-     rewards: [],
-     leader: {_id:"test"},
-     group: "test",
-     timestamp: +(new Date),
-     members: [user],
-     official: false,
-     _isMember: true
-   });
+    // You are not the owner but you are a member
+    notOwnMem = new challenges.Challenge({
+      name: 'test',
+      description: 'test',
+      habits: [],
+      dailys: [],
+      todos: [],
+      rewards: [],
+      leader: {_id:"test"},
+      group: "test",
+      timestamp: +(new Date),
+      members: [user],
+      official: false,
+      _isMember: true
+    });
 
-   // You are not the owner or a member
-   var notOwnNotMem = new challenges.Challenge({
-     name: 'test',
-     description: 'test',
-     habits: [],
-     dailys: [],
-     todos: [],
-     rewards: [],
-     leader: {_id:"test"},
-     group: "test",
-     timestamp: +(new Date),
-     members: [],
-     official: false,
-     _isMember: false
-   });
+    // You are not the owner or a member
+    notOwnNotMem = new challenges.Challenge({
+      name: 'test',
+      description: 'test',
+      habits: [],
+      dailys: [],
+      todos: [],
+      rewards: [],
+      leader: {_id:"test"},
+      group: "test",
+      timestamp: +(new Date),
+      members: [],
+      official: false,
+      _isMember: false
+    });
 
-   scope.search = {
-     group: _.transform(groups, function(m,g){m[g._id]=true;})
-   };
-
-   //Filter: Membership - either and Owner - either
-   scope.search._isMember = undefined;
-   scope.search._isOwner = undefined;
-   expect( scope.filterChallenges(ownMem) ).to.eql(true);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
-
-   //Filter: Membership - either and Owner - true
-   scope.search._isMember = undefined;
-   scope.search._isOwner = true;
-   expect( scope.filterChallenges(ownMem) ).to.eql(true);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
-
-   //Filter: Membership - either and Owner - false
-   scope.search._isMember = undefined;
-   scope.search._isOwner = false;
-   expect( scope.filterChallenges(ownMem) ).to.eql(false);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
-
-   //Filter: Membership - true and Owner - either
-   scope.search._isMember = true;
-   scope.search._isOwner = undefined;
-   expect( scope.filterChallenges(ownMem) ).to.eql(true);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
-
-   //Filter: Membership - true and Owner - true
-   scope.search._isMember = true;
-   scope.search._isOwner = true;
-   expect( scope.filterChallenges(ownMem) ).to.eql(true);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
-
-   //Filter: Membership - true and Owner - false
-   scope.search._isMember = true;
-   scope.search._isOwner = false;
-   expect( scope.filterChallenges(ownMem) ).to.eql(false);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
-
-   //Filter: Membership - false and Owner - either
-   scope.search._isMember = false;
-   scope.search._isOwner = undefined;
-   expect( scope.filterChallenges(ownMem) ).to.eql(false);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
-
-   //Filter: Membership - false and Owner - true
-   scope.search._isMember = false;
-   scope.search._isOwner = true;
-   expect( scope.filterChallenges(ownMem) ).to.eql(false);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
-
-   //Filter: Membership - false and Owner - false
-   scope.search._isMember = false;
-   scope.search._isOwner = false;
-   expect( scope.filterChallenges(ownMem) ).to.eql(false);
-   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
-   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
-
+    scope.search = {
+      group: _.transform(groups, function(m,g){m[g._id]=true;})
+    };
   });
+
+  it('displays challenges that match membership: either and owner: either', function() {
+   scope.search._isMember = undefined;
+   scope.search._isOwner = undefined;
+   expect( scope.filterChallenges(ownMem) ).to.eql(true);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
+  });
+
+  it('displays challenges that match membership: either and owner: true', function() {
+   scope.search._isMember = undefined;
+   scope.search._isOwner = true;
+   expect( scope.filterChallenges(ownMem) ).to.eql(true);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
+  });
+
+  it('displays challenges that match membership: either and owner: false', function() {
+   scope.search._isMember = undefined;
+   scope.search._isOwner = false;
+   expect( scope.filterChallenges(ownMem) ).to.eql(false);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
+  });
+
+  it('displays challenges that match membership: true and owner: either', function() {
+   scope.search._isMember = true;
+   scope.search._isOwner = undefined;
+   expect( scope.filterChallenges(ownMem) ).to.eql(true);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
+  });
+
+  it('displays challenges that match membership: true and owner: true', function() {
+   scope.search._isMember = true;
+   scope.search._isOwner = true;
+   expect( scope.filterChallenges(ownMem) ).to.eql(true);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
+  });
+
+  it('displays challenges that match membership: true and owner: false', function() {
+   scope.search._isMember = true;
+   scope.search._isOwner = false;
+   expect( scope.filterChallenges(ownMem) ).to.eql(false);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
+  });
+
+  it('displays challenges that match membership: false and owner: either', function() {
+   scope.search._isMember = false;
+   scope.search._isOwner = undefined;
+   expect( scope.filterChallenges(ownMem) ).to.eql(false);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
+  });
+
+  it('displays challenges that match membership: false and owner: true', function() {
+   scope.search._isMember = false;
+   scope.search._isOwner = true;
+   expect( scope.filterChallenges(ownMem) ).to.eql(false);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(true);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(false);
+  });
+
+  it('displays challenges that match membership: false and owner: false', function() {
+   scope.search._isMember = false;
+   scope.search._isOwner = false;
+   expect( scope.filterChallenges(ownMem) ).to.eql(false);
+   expect( scope.filterChallenges(ownNotMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnMem) ).to.eql(false);
+   expect( scope.filterChallenges(notOwnNotMem) ).to.eql(true);
+  });
+
+ });//End of Describe Challenge Filters
 
 });
