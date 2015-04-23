@@ -128,6 +128,12 @@ for $stage in $stages
   background: $color-tasks
   border: 1px solid darken($color-tasks,16.18%)
   font-family: 'Lato', sans-serif
+
+  &:after
+    clear: both;
+    display: block;
+    content: "";
+
   h2
     color: darken($color-tasks,61.8%)
 
