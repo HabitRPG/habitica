@@ -58,8 +58,8 @@
     "whyAdsContent1": "A Habit egy nyílt forráskódú projekt. Megköszönünk minden segítséget. Ha adakozol a készítőknek, akkor kapsz 20 Drágakövet, amiken spéci tárgyakat vehetsz.",
     "whyAdsContent2": "'Hé, én támogattam a Kickstarter-t!' - kövesd",
     "whyAdsContent3": "ezeket az utasításokat",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
+    "surveysSingle": "Egy kérdőív kitöltésével segítette a HabitRPG-t. Jelenleg nincs aktív kérdőív. ",
+    "surveysMultiple": "A <%= surveys %> kérdőív kitöltésével segítette a HabitRPG-t. Jelenleg nincs aktív kérdőív. ",
     "currentSurvey": "Jelenlegi kérdőív",
-    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
+    "surveyWhen": "A kitűzőt minden résztvevő megkapja, amint a kérdőívek feldolgozásra kerültek; késő márciusban."
 }
