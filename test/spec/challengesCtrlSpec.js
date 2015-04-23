@@ -27,9 +27,9 @@ describe('Challenges Controller', function() {
 
   it('filters challenges', function() {
 
-   //There are for types of challenges
+   //There are four types of challenges
 
-   //You can be the owner and a member
+   // You are the owner and a member
    var ownMem = new challenges.Challenge({
      name: 'test',
      description: 'test',
@@ -45,7 +45,7 @@ describe('Challenges Controller', function() {
      _isMember: true
    });
 
-   //You can be the owner and not a member
+   // You are the owner but not a member
    var ownNotMem = new challenges.Challenge({
      name: 'test',
      description: 'test',
@@ -61,7 +61,7 @@ describe('Challenges Controller', function() {
      _isMember: false
    });
 
-   //You not be the owner and a member
+   // You are not the owner but you are a member
    var notOwnMem = new challenges.Challenge({
      name: 'test',
      description: 'test',
@@ -77,7 +77,7 @@ describe('Challenges Controller', function() {
      _isMember: true
    });
 
-   //You not be the owner and not a member
+   // You are not the owner or a member
    var notOwnNotMem = new challenges.Challenge({
      name: 'test',
      description: 'test',

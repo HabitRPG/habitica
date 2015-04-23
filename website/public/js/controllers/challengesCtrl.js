@@ -267,7 +267,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      //Membership filters: Show if user has selected either or has selcted Owned and is owner
      var userIsOwner = chal.leader._id == User.user.id;
      showChallenge = showChallenge && (typeof $scope.search._isOwner === 'undefined' || userIsOwner === $scope.search._isOwner );
-console.log($scope.search._isMember, chal._isMember)
+
      //Membership filters: Show if user has selected either or has selcted Participating and is a member
      showChallenge = showChallenge && (typeof $scope.search._isMember === 'undefined' || $scope.search._isMember === chal._isMember);
 
