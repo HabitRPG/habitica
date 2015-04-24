@@ -144,10 +144,10 @@ div(ng-if=':: profile.achievements.originalUser')
     small!=env.t('originalUserText')
   hr
   
-div(ng-if='profile.achievements.challenges.length')
+div(ng-if='profile.achievements.challenges || user._id == profile_id')
   // This is a very strange icon to use. revisit
-  .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
-  div(ng-class='{muted: !profile.achievements.challenges}')
+  .achievement.achievement-karaoke(ng-show='profile.achievements.challenges.length')
+  div(ng-class='{muted: !profile.achievements.challenges.length}')
     h5=env.t('challengeWinner')
     table.table.table-striped
       tr(ng-repeat='chal in profile.achievements.challenges track by $index')
