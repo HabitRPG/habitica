@@ -25,7 +25,7 @@ var api = module.exports;
 var partyFields = api.partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
-var guildPopulate = {path: 'members', select: nameFields, options: {limit:15} };
+var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
 /**
  * For parties, we want a lot of member details so we can show their avatars in the header. For guilds, we want very
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
@@ -34,16 +34,11 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit:15} };
  * @param additionalFields: if we want to populate some additional field not fetched normally
  *        pass it as a string, parties only
  */
-var populateQuery = function(type, q, additionalFields, user){
-  if (type == 'party') {
+var populateQuery = function(type, q, additionalFields){
+  if (type == 'party')
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
-  } else {
-    if ( user ) {
-     //Use Conditional Semantics to always include the user
-     guildPopulate.match = {"$or" : [{"_id" : {"$gt" : 1}}, {"_id" : user._id}]};
-    }
+  else
     q.populate(guildPopulate);
-  }
   q.populate('invites', nameFields);
   q.populate({
     path: 'challenges',
@@ -138,11 +133,32 @@ api.get = function(req, res, next) {
         {_id:gid, privacy:'public'},
         {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
       ]});
-  populateQuery(gid, q, null, user);
+  populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
-    res.json(group);
+    if (!group && group != null && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
+
+    //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
+    var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
+
+    //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
+    if (group.privacy === 'private' && gid !== 'party') {
+     //If the user is not in the group query, add them
+     if (userInGroup === undefined) { group.members.push(user); }
+     res.json(group);
+    } else if ( group.privacy === "public" ) { //The group is public, we must do an extra check to see if the user is already in the group query
+
+     //We must see how to check if a user is a member of a public group, so we requery
+     var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
+     q2.exec(function(err, group2){
+       if (err) return next(err);
+       if (group2 !== null) {
+        if (userInGroup === undefined) { group.members.push(user); }
+       }
+       res.json(group);
+     });
+    }
+
     gid = null;
   });
 };
