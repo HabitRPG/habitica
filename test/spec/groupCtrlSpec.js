@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Groups Controller', function() {
-  var scope, ctrl, groups, user, guild, $rootScope;
+  var scope, ctrl, groups, user, guild, party, $rootScope;
 
   beforeEach(function() {
     module(function($provide) {
@@ -21,6 +21,19 @@ describe('Groups Controller', function() {
 
       groups = Groups;
     });
+  });
+
+  it("isMemberOfGroup returns true if group is the user's party", function() {
+    party = specHelper.newGroup("test-party");
+    party._id = "unique-party-id";
+    party.type = 'party';
+    party.members = []; // Ensure we wouldn't pass automatically.
+
+    var partyStub = sinon.stub(groups,"party", function() {
+      return party;
+    });
+
+    expect(scope.isMemberOfGroup(user._id, party)).to.be.ok;
   });
 
   it('isMemberOfGroup returns true if guild is included in myGuilds call', function(){
