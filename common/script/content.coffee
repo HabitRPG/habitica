@@ -513,6 +513,7 @@ api.spells =
 
   wizard:
     fireball:
+      # Burst of Flames
       text: t('spellWizardFireballText')
       mana: 10
       lvl: 11
@@ -529,6 +530,7 @@ api.spells =
         user.fns.updateStats( user.stats , req )
 
     mpheal:
+      # Ethereal Surge
       text: t('spellWizardMPHealText')
       mana: 30
       lvl: 12
@@ -540,6 +542,7 @@ api.spells =
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
+      # Earthquake
       text: t('spellWizardEarthText')
       mana: 35
       lvl: 13
@@ -552,6 +555,7 @@ api.spells =
           member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30,200))
 
     frost:
+      # Chilling Frost
       text: t('spellWizardFrostText'),
       mana: 40
       lvl: 14
@@ -562,6 +566,7 @@ api.spells =
 
   warrior:
     smash:
+      # Brutal Smash
       text: t('spellWarriorSmashText')
       mana: 10
       lvl: 11
@@ -574,6 +579,7 @@ api.spells =
         user.party.quest.progress.up += diminishingReturns(bonus, 55, 70)
 
     defensiveStance:
+      # Defensive Stance
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
       lvl: 12
@@ -585,6 +591,7 @@ api.spells =
         user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200))
 
     valorousPresence:
+      # Valorous Presence
       text: t('spellWarriorValorousPresenceText')
       mana: 20
       lvl: 13
@@ -597,6 +604,7 @@ api.spells =
           member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200))
 
     intimidate:
+      # Intimidating Gaze
       text: t('spellWarriorIntimidateText')
       mana: 15
       lvl: 14
@@ -610,6 +618,7 @@ api.spells =
 
   rogue:
     pickPocket:
+      # Pickpocket
       text: t('spellRoguePickPocketText')
       mana: 10
       lvl: 11
@@ -620,6 +629,7 @@ api.spells =
         user.stats.gp += diminishingReturns(bonus, 25, 75)
 
     backStab:
+      # Backstab
       text: t('spellRogueBackStabText')
       mana: 15
       lvl: 12
@@ -635,6 +645,7 @@ api.spells =
         user.fns.updateStats( user.stats , req )
 
     toolsOfTrade:
+      # Tools of the Trade
       text: t('spellRogueToolsOfTradeText')
       mana: 25
       lvl: 13
@@ -647,6 +658,7 @@ api.spells =
           member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50))
 
     stealth:
+      # Stealth
       text: t('spellRogueStealthText')
       mana: 45
       lvl: 14
@@ -659,6 +671,7 @@ api.spells =
 
   healer:
     heal:
+      # Healing Light
       text: t('spellHealerHealText')
       mana: 15
       lvl: 11
@@ -669,6 +682,7 @@ api.spells =
         user.stats.hp = 50 if user.stats.hp > 50
 
     brightness:
+      # Searing Brightness
       text: t('spellHealerBrightnessText')
       mana: 15
       lvl: 12
@@ -680,6 +694,7 @@ api.spells =
           target.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40))
 
     protectAura:
+      # Protective Aura
       text: t('spellHealerProtectAuraText')
       mana: 30
       lvl: 13
@@ -692,6 +707,7 @@ api.spells =
           member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200))
 
     heallAll:
+      # Blessing
       text: t('spellHealerHealAllText')
       mana: 25
       lvl: 14
