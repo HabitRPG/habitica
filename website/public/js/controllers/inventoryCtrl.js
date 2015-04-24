@@ -281,7 +281,11 @@ habitrpg.controller("InventoryCtrl",
         if (item.specialClass) {
          index = $scope.capitalizeFirstLetter(item.specialClass) + " " + $scope.capitalizeFirstLetter(item.klass) ;
         } else {
-         index = "Legendary"
+         index = "Legendary";
+         //if there are no stats on the item, then we have a Fanciful item
+         if ( item.str == 0 && item.int == 0 && item.per == 0 && item.con == 0 ){
+          index = "Fanciful";
+         }
         }
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
