@@ -1483,10 +1483,11 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
-      # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
+      # User is resting at the inn. On cron, buffs are cleared and each daily is unchecked without performing damage (fixes issue #5070)
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
+        user.dailys.forEach (daily) ->
+          daily.completed = false
         return
 
       # Tally each task
