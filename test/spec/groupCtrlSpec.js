@@ -67,40 +67,29 @@ describe('Groups Controller', function() {
 });
 
 describe("Autocomplete controller", function() {
-  beforeEach(module('habitrpg'));
+  var $scope, controller;
 
-  var $controller;
-
-  beforeEach(inject(function(_$controller_) {
-    $controller = _$controller_;
+  beforeEach(inject(function($controller) {
+    $scope = {query: undefined, $watch: function(task,fn) {}}; // mock watch & t function
+    controller = $controller('AutocompleteCtrl', {$scope: $scope});
   }));
 
-  describe("AutocompleteCtrl", function() {
-    var $scope, controller;
-
-    beforeEach(function() {
-      $scope = {query: undefined, $watch: function(task,fn) {}}; // mock watch function
-      controller = $controller('AutocompleteCtrl', {$scope: $scope});
-    })
-
-    it('filtering with undefined query (not loaded yet) defaults to true', function() {
+  it('filtering with undefined query (not loaded yet) defaults to true', function() {
       expect($scope.filterUser({user: "boo"})).to.be.ok
-    })
+  })
 
-    it('filtering with null query (no typing yet) defaults to true', function() {
-      $scope.query = null
-      expect($scope.filterUser({user: "boo"})).to.be.ok
-    })
+  it('filtering with null query (no typing yet) defaults to true', function() {
+    $scope.query = null
+    expect($scope.filterUser({user: "boo"})).to.be.ok
+  })
 
-    it('filtering with prefix element will return true', function() {
-      $scope.query = {text: "pre"}
-      expect($scope.filterUser({user: "prefix"})).to.be.ok
-    })
+  it('filtering with prefix element will return true', function() {
+    $scope.query = {text: "pre"}
+    expect($scope.filterUser({user: "prefix"})).to.be.ok
+  })
 
-    it('filtering with nonprefix element will return false', function() {
-      $scope.query = {text: "noprefix"}
-      expect($scope.filterUser({user: "prefix"})).to.not.be.ok
-    })
-
-  });
+  it('filtering with nonprefix element will return false', function() {
+    $scope.query = {text: "noprefix"}
+    expect($scope.filterUser({user: "prefix"})).to.not.be.ok
+  })
 });
