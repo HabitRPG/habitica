@@ -15,8 +15,8 @@ if mobile
   .item.item-divider=env.t('achievements')
 
 div(ng-if='::profile.achievements.habitSurveys || user._id == profile._id')
-  .achievement.achievement-tree(ng-show='profile.achievements.habitSurveys')
-  div(ng-class='{muted: !profile.achievements.habitSurveys}')
+  .achievement.achievement-tree(ng-if='::profile.achievements.habitSurveys')
+  div(ng-class='::{muted: !profile.achievements.habitSurveys}')
     h5=env.t('helped')
     small(ng-if='profile.achievements.habitSurveys > 1')
       =env.t('surveysMultiple', {surveys: "{{profile.achievements.habitSurveys}}"})
@@ -53,8 +53,8 @@ div(ng-if='::profile.backer.tier')
   hr
 
 div(ng-if='profile.achievements.streak || user._id == profile._id')
-  .achievement.achievement-thermometer(ng-show='profile.achievements.streak')
-  div(ng-class='{muted: !profile.achievements.streak}')
+  .achievement.achievement-thermometer(ng-if='::profile.achievements.streak')
+  div(ng-class='::{muted: !profile.achievements.streak}')
     h5(ng-show='profile.achievements.streak > 1 || !profile.achievements.streak')
 
       | {{profile.achievements.streak || 0 }}&nbsp;
@@ -66,8 +66,8 @@ div(ng-if='profile.achievements.streak || user._id == profile._id')
   hr
 
 div(ng-if='profile.achievements.perfect || user._id == profile._id')
-  .achievement.achievement-perfect(ng-show='profile.achievements.perfect')
-  div(ng-class='{muted: !profile.achievements.perfect}')
+  .achievement.achievement-perfect(ng-if='::profile.achievements.perfect')
+  div(ng-class='::{muted: !profile.achievements.perfect}')
     h5(ng-show='profile.achievements.perfect > 1 || !profile.achievements.perfect')
 
       | {{profile.achievements.perfect || 0 }}&nbsp;
@@ -93,8 +93,8 @@ div(ng-if='::user._id == profile._id')
   hr
 
 div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
-  .achievement.achievement-rat(ng-show='profile.achievements.beastMaster')
-  div(ng-class='{muted: !profile.achievements.beastMaster}')
+  .achievement.achievement-rat(ng-if='::profile.achievements.beastMaster')
+  div(ng-class='::{muted: !profile.achievements.beastMaster}')
     h5=env.t('beastMasterName')
     small=env.t('beastMasterText')
     small(ng-if='profile.achievements.beastMasterCount')
@@ -102,8 +102,8 @@ div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
   hr
 
 div(ng-if='profile.achievements.mountMaster || user._id == profile._id')
-  .achievement.achievement-wolf(ng-show='profile.achievements.mountMaster')
-  div(ng-class='{muted: !profile.achievements.mountMaster}')
+  .achievement.achievement-wolf(ng-if='::profile.achievements.mountMaster')
+  div(ng-class='::{muted: !profile.achievements.mountMaster}')
     h5=env.t('mountMasterName')
     small=env.t('mountMasterText')
     small(ng-if='profile.achievements.mountMasterCount')
@@ -111,8 +111,8 @@ div(ng-if='profile.achievements.mountMaster || user._id == profile._id')
   hr
 
 div(ng-if='profile.achievements.triadBingo || user._id == profile._id')
-  .achievement.achievement-triadbingo(ng-show='profile.achievements.triadBingo')
-  div(ng-class='{muted: !profile.achievements.triadBingo}')
+  .achievement.achievement-triadbingo(ng-if='::profile.achievements.triadBingo')
+  div(ng-class='::{muted: !profile.achievements.triadBingo}')
     h5=env.t('triadBingoName')
 
     small=env.t('triadBingoText')
@@ -130,14 +130,14 @@ div(ng-if='profile.achievements.rebirths')
     |&nbsp;{{profile.achievements.rebirthLevel}}.
   hr
 
-div(ng-if=':: profile.achievements.veteran')
+div(ng-if='::profile.achievements.veteran')
   .achievement.achievement-cake
   div(ng-if='::profile.achievements.veteran')
     h5=env.t('veteran')
     small=env.t('veteranText')
   hr
 
-div(ng-if=':: profile.achievements.originalUser')
+div(ng-if='::profile.achievements.originalUser')
   .achievement.achievement-alpha
   div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
@@ -146,8 +146,8 @@ div(ng-if=':: profile.achievements.originalUser')
   
 div(ng-if='profile.achievements.challenges || user._id == profile._id')
   // This is a very strange icon to use. revisit
-  .achievement.achievement-karaoke(ng-show='profile.achievements.challenges.length')
-  div(ng-class='{muted: !profile.achievements.challenges.length}')
+  .achievement.achievement-karaoke(ng-if='::profile.achievements.challenges.length')
+  div(ng-class='::{muted: !profile.achievements.challenges.length}')
     h5=env.t('challengeWinner')
     table.table.table-striped
       tr(ng-repeat='chal in profile.achievements.challenges track by $index')
@@ -155,8 +155,8 @@ div(ng-if='profile.achievements.challenges || user._id == profile._id')
   hr
 
 div(ng-if='profile.achievements.quests || user._id == profile._id')
-  .achievement.achievement-alien(ng-show='profile.achievements.quests')
-  div(ng-class='{muted: !profile.achievements.quests}')
+  .achievement.achievement-alien(ng-if='::profile.achievements.quests')
+  div(ng-class='::{muted: !profile.achievements.quests}')
     h5=env.t('completedQuests')
     table.table.table-striped
       tr(ng-repeat='(k,v) in profile.achievements.quests')
@@ -164,21 +164,21 @@ div(ng-if='profile.achievements.quests || user._id == profile._id')
         td x{{v}}
   hr
 
-div(ng-if='profile.achievements.snowball')
+div(ng-if='::profile.achievements.snowball')
   .achievement.achievement-snowball
   h5=env.t('annoyingFriends')
   small
     =env.t('annoyingFriendsText', {snowballs: "{{profile.achievements.snowball}}"})
   hr
 
-div(ng-if='profile.achievements.spookDust')
+div(ng-if='::profile.achievements.spookDust')
   .achievement.achievement-spookDust
   h5=env.t('alarmingFriends')
   small
     =env.t('alarmingFriendsText', {spookDust: "{{profile.achievements.spookDust}}"})
   hr
 
-div(ng-if='profile.achievements.shinySeed')
+div(ng-if='::profile.achievements.shinySeed')
   .achievement.achievement-shinySeed
   h5=env.t('agriculturalFriends')
   small
