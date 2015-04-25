@@ -67,29 +67,44 @@ describe('Groups Controller', function() {
 });
 
 describe("Autocomplete controller", function() {
-  var $scope, controller;
+  var scope, ctrl, user, $rootScope;
 
-  beforeEach(inject(function($controller) {
-    $scope = {query: undefined, $watch: function(task,fn) {}}; // mock watch & t function
-    controller = $controller('AutocompleteCtrl', {$scope: $scope});
-  }));
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
 
-  it('filtering with undefined query (not loaded yet) defaults to true', function() {
-      expect($scope.filterUser({user: "boo"})).to.be.ok
-  })
+    inject(function($rootScope, $controller){
+      user = specHelper.newUser();
+      user._id = "unique-user-id";
 
-  it('filtering with null query (no typing yet) defaults to true', function() {
-    $scope.query = null
-    expect($scope.filterUser({user: "boo"})).to.be.ok
-  })
+      scope = $rootScope.$new();
 
-  it('filtering with prefix element will return true', function() {
-    $scope.query = {text: "pre"}
-    expect($scope.filterUser({user: "prefix"})).to.be.ok
-  })
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: {user: user}});
 
-  it('filtering with nonprefix element will return false', function() {
-    $scope.query = {text: "noprefix"}
-    expect($scope.filterUser({user: "prefix"})).to.not.be.ok
-  })
+      ctrl = $controller('AutocompleteCtrl', {$scope: scope});
+    });
+  });
+
+  describe("filterUser", function() {
+    it('filters with undefined query (not loaded yet) and defaults to true', function() {
+        expect(scope.filterUser({user: "boo"})).to.be.eq(true);
+    })
+
+    it('filters with null query (no typing yet) and defaults to true', function() {
+      scope.query = null
+      expect(scope.filterUser({user: "boo"})).to.be.ok
+    })
+
+    it('filters with prefix element and returns true', function() {
+      scope.query = {text: "pre"}
+      expect(scope.filterUser({user: "prefix"})).to.be.ok
+    })
+
+    it('filters with nonprefix element and returns false', function() {
+      scope.query = {text: "noprefix"}
+      expect(scope.filterUser({user: "prefix"})).to.not.be.ok
+    })
+  });
 });
