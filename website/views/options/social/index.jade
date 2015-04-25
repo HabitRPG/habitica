@@ -113,3 +113,17 @@ script(type='text/ng-template', id='partials/options.social.html')
   .tab-content
     .tab-pane.active
       div(ui-view)
+
+script(type='text/ng-template', id='modals/copyChatToDo.html')
+  .modal-header
+    h4=env.t('copyMessageAsToDo')
+  .modal-body
+    p
+      input.form-control(type='text',ng-model='text')
+    br
+    p
+      textarea.form-control(type='text',rows='5',ng-model='notes', focus-me)
+
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+    button.btn.btn-default(ng-click='saveTodo()')=env.t('submit')
