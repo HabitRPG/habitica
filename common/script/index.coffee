@@ -1483,7 +1483,7 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. On cron, buffs are cleared and each daily is unchecked without performing damage (fixes issue #5070)
+      # User is resting at the inn. On cron, buffs are cleared and all dailies are reset without performing damage (fixes issue #5070)
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
         user.dailys.forEach (daily) ->
