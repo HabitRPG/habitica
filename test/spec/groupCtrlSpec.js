@@ -23,46 +23,48 @@ describe('Groups Controller', function() {
     });
   });
 
-  it("isMemberOfGroup returns true if group is the user's party", function() {
-    party = specHelper.newGroup("test-party");
-    party._id = "unique-party-id";
-    party.type = 'party';
-    party.members = []; // Ensure we wouldn't pass automatically.
+  describe("isMemberOfGroup", function() {
+    it("returns true if group is the user's party", function() {
+      party = specHelper.newGroup("test-party");
+      party._id = "unique-party-id";
+      party.type = 'party';
+      party.members = []; // Ensure we wouldn't pass automatically.
 
-    var partyStub = sinon.stub(groups,"party", function() {
-      return party;
+      var partyStub = sinon.stub(groups,"party", function() {
+        return party;
+      });
+
+      expect(scope.isMemberOfGroup(user._id, party)).to.be.ok;
     });
 
-    expect(scope.isMemberOfGroup(user._id, party)).to.be.ok;
-  });
+    it('returns true if guild is included in myGuilds call', function(){
 
-  it('isMemberOfGroup returns true if guild is included in myGuilds call', function(){
+      guild = specHelper.newGroup("leaders-user-id");
+      guild._id = "unique-guild-id";
+      guild.type = 'guild';
+      guild.members.push(user._id);
 
-    guild = specHelper.newGroup("leaders-user-id");
-    guild._id = "unique-guild-id";
-    guild.type = 'guild';
-    guild.members.push(user._id);
+      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+        return [guild];
+      });
 
-    var myGuilds = sinon.stub(groups,"myGuilds", function() {
-      return [guild];
+      expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
+      expect(myGuilds).to.be.called
     });
 
-    expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
-    expect(myGuilds).to.be.called
-  });
+    it('does not return true if guild is not included in myGuilds call', function(){
 
-  it('isMemberOfGroup does not return true if guild is not included in myGuilds call', function(){
+      guild = specHelper.newGroup("leaders-user-id");
+      guild._id = "unique-guild-id";
+      guild.type = 'guild';
 
-    guild = specHelper.newGroup("leaders-user-id");
-    guild._id = "unique-guild-id";
-    guild.type = 'guild';
+      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+        return [];
+      });
 
-    var myGuilds = sinon.stub(groups,"myGuilds", function() {
-      return [];
+      expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
+      expect(myGuilds).to.be.called
     });
-
-    expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-    expect(myGuilds).to.be.called
   });
 });
 
