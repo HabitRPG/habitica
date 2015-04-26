@@ -220,11 +220,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.usernames = [];
     }
 
-    $scope.filterUser = function(userItem) {
+    $scope.filterUser = function(msg) {
       if ($scope.query === undefined || $scope.query === null) {
-        return true;
+        return false;
       }
-      return userItem.user.indexOf($scope.query.text) == 0; // query should be prefix of item.user
+      return msg.user.indexOf($scope.query.text) == 0; // query should be prefix of item.user
     }
 
     $scope.addNewUser = function(user) {
