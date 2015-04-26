@@ -20,7 +20,7 @@ div(ng-if='::profile.achievements.habitSurveys || user._id == profile._id')
     h5=env.t('helped')
     small(ng-if='::profile.achievements.habitSurveys > 1')
       =env.t('surveysMultiple', {surveys: "{{::profile.achievements.habitSurveys}}"})
-    small(ng-if='!(::profile.achievements.habitSurveys > 1)')
+    small(ng-if='::!profile.achievements.habitSurveys > 1')
       =env.t('surveysSingle')
   hr
 
@@ -150,7 +150,7 @@ div(ng-if='::profile.achievements.challenges || user._id == profile._id')
   div(ng-class='::{muted: !profile.achievements.challenges.length}')
     h5=env.t('challengeWinner')
     table.table.table-striped
-      tr(ng-repeat='chal in ::profile.achievements.challenges track by $index')
+      tr(ng-repeat='::chal in profile.achievements.challenges track by $index')
         td {{::chal}}
   hr
 
@@ -159,7 +159,7 @@ div(ng-if='::profile.achievements.quests || user._id == profile._id')
   div(ng-class='::{muted: !profile.achievements.quests}')
     h5=env.t('completedQuests')
     table.table.table-striped
-      tr(ng-repeat='(k,v) in ::profile.achievements.quests')
+      tr(ng-repeat='::(k,v) in profile.achievements.quests')
         td {{::Content.quests[k].text()}}
         td x{{::v}}
   hr
