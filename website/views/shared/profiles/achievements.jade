@@ -172,60 +172,59 @@ div(ng-if='::profile.achievements.snowball')
   hr
 
 div(ng-if='::profile.achievements.spookDust')
-.achievement.achievement-spookDust
-h5=env.t('alarmingFriends')
-small
-=env.t('alarmingFriendsText', {spookDust: "{{::profile.achievements.spookDust}}"})
-hr
+  .achievement.achievement-spookDust
+  h5=env.t('alarmingFriends')
+  small
+    =env.t('alarmingFriendsText', {spookDust: "{{::profile.achievements.spookDust}}"})
+  hr
 
 div(ng-if='::profile.achievements.shinySeed')
-.achievement.achievement-shinySeed
-h5=env.t('agriculturalFriends')
-small
-=env.t('agriculturalFriendsText', {seeds: "{{::profile.achievements.shinySeed}}"})
-hr
+  .achievement.achievement-shinySeed
+  h5=env.t('agriculturalFriends')
+  small
+    =env.t('agriculturalFriendsText', {seeds: "{{::profile.achievements.shinySeed}}"})
+  hr
 
 div(ng-if='::profile.achievements.habitBirthdays')
-.achievement.achievement-habitBirthday
-h5=env.t('habitBirthday')
-small(ng-if='::profile.achievements.habitBirthdays == 1')
-
-=env.t('habitBirthdayText')
-small(ng-if='::profile.achievements.habitBirthdays > 1')
-=env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
-hr
+  .achievement.achievement-habitBirthday
+  h5=env.t('habitBirthday')
+  small(ng-if='::profile.achievements.habitBirthdays == 1')
+    =env.t('habitBirthdayText')
+  small(ng-if='::profile.achievements.habitBirthdays > 1')
+    =env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
+  hr
 
 div(ng-if='::profile.achievements.valentine')
-.achievement.achievement-valentine
-h5=env.t('adoringFriends')
-small
-=env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
-hr
+  .achievement.achievement-valentine
+  h5=env.t('adoringFriends')
+  small
+    =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
+  hr
 
 div(ng-if='::profile.achievements.quests.dilatory')
-.achievement.achievement-dilatory
-h5=env.t('achievementDilatory')
-small
-=env.t('achievementDilatoryText')
-hr
+  .achievement.achievement-dilatory
+  h5=env.t('achievementDilatory')
+  small
+    =env.t('achievementDilatoryText')
+  hr
 
 div(ng-if='::profile.achievements.costumeContest')
-.achievement.achievement-costumeContest
-h5=env.t('costumeContest')
-small
-=env.t('costumeContestText')
-hr
+  .achievement.achievement-costumeContest
+  h5=env.t('costumeContest')
+  small
+    =env.t('costumeContestText')
+  hr
 
 div(ng-if='::profile.achievements.nye')
-.achievement.achievement-nye
-h5=env.t('auldAcquaintance')
-small
-=env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
-hr
+  .achievement.achievement-nye
+  h5=env.t('auldAcquaintance')
+  small
+    =env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
+  hr
 
 div(ng-if='::profile.achievements.quests.stressbeast')
-.achievement.achievement-stoikalm
-h5=env.t('achievementStressbeast')
-small
-=env.t('achievementStressbeastText')
-hr
+  .achievement.achievement-stoikalm
+  h5=env.t('achievementStressbeast')
+  small
+    =env.t('achievementStressbeastText')
+  hr
