@@ -75,7 +75,7 @@ beforeAfter = (options={}) ->
   _.each [before,after], (obj) ->
     obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
-#TODO calculate actual poins
+#TODO calculate actual points
 
 expectLostPoints = (before, after, taskType) ->
   if taskType in ['daily','habit']
@@ -185,7 +185,26 @@ describe 'User', ->
     expect(user.stats.buffs.str).to.be 1
     expect(user.achievements.perfect).to.be 2
 
+  describe 'Inn', ->
+    it 'handles inn behavior', ->
+      user = newUser()
+      user.preferences.sleep = true
+      cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
+      cron()
+      expect(user.preferences.sleep).to.be.ok
 
+      user.dailys = []
+      _.times 3, -> user.dailys.push shared.taskDefaults({type:'daily'})
+      user.dailys[0].completed = true
+      cron()
+      expect(user).toHaveHP 50
+
+      user.dailys[0].completed = true
+      user.dailys[1].completed = false
+      user.preferences.sleep = false
+      cron()
+      expect(user.stats.hp).to.be.lessThan 50
+      
   describe 'Death', ->
     user = undefined
     it 'revives correctly', ->
