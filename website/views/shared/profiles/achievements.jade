@@ -161,7 +161,7 @@ div(ng-if='::profile.achievements.quests || user._id == profile._id')
     table.table.table-striped
       tr(ng-repeat='(k,v) in ::profile.achievements.quests')
         td {{::Content.quests[k].text()}}
-        td x{{v}}
+        td x{{::v}}
   hr
 
 div(ng-if='::profile.achievements.snowball')
