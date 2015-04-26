@@ -69,18 +69,20 @@ describe('Groups Controller', function() {
 });
 
 describe("Autocomplete controller", function() {
-  var scope, ctrl, user, $rootScope;
+  var scope, ctrl, user, $rootScope, $controller;
 
   beforeEach(function() {
     module(function($provide) {
       $provide.value('User', {});
     });
 
-    inject(function($rootScope, $controller){
+    inject(function($rootScope, _$controller_){
       user = specHelper.newUser();
       user._id = "unique-user-id";
 
       scope = $rootScope.$new();
+
+      $controller = _$controller_;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: {user: user}});
@@ -88,6 +90,51 @@ describe("Autocomplete controller", function() {
       ctrl = $controller('AutocompleteCtrl', {$scope: scope});
     });
   });
+
+  describe("chatChanged", function() {
+    it('if a new chat arrives, the new user name is extracted', function() {
+
+      expect(scope.response.length).to.be.eq(0);
+      expect(scope.usernames.length).to.be.eq(0);
+
+      scope.group = {}
+      scope.group.chat = [{msg: "new chat", user: "boo"}];
+      expect(scope.response.length).to.be.eq(0);
+      expect(scope.usernames.length).to.be.eq(0);
+    })
+  });
+
+  describe("addNewUser", function() {
+    it('a new message from a new user will modify the usernames', function() {
+      expect(scope.response.length).to.be.eq(0);
+      expect(scope.usernames.length).to.be.eq(0);
+
+      var msg = {user: "boo"};
+      scope.addNewUser(msg);
+      expect(scope.response[0]).to.be.eq(msg);
+      expect(scope.usernames[0]).to.be.eq("boo");
+    })
+  })
+
+  describe("clearUserList", function() {
+    it('calling the function clears the list of usernames and responses', function() {
+      scope.response.push("blah");
+      scope.usernames.push("blub");
+
+      scope.clearUserlist();
+      expect(scope.response.length).to.be.eq(0); // to.be.empty() doesn't work for some reason. This is the same thing
+      expect(scope.usernames.length).to.be.eq(0);
+    })
+
+    it('the function is called upon initialization of the controller', function() {
+      scope.response.push("blah");
+      scope.response.push("blub");
+      ctrl = $controller('AutocompleteCtrl', {$scope: scope});
+
+      expect(scope.response.length).to.be.eq(0); // to.be.empty() doesn't work for some reason. This is the same thing
+      expect(scope.usernames.length).to.be.eq(0);
+    })
+  })
 
   describe("filterUser", function() {
     it('filters with undefined query (not loaded yet) and defaults to true', function() {
