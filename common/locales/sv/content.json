@@ -54,6 +54,8 @@
     "questEggRockAdjective": "livlig",
     "questEggBunnyText": "Kanin",
     "questEggBunnyAdjective": "gosig",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
     "eggNotes": "Finn en kläckningsdryck att hälla på det här ägget, så kommer det att kläckas till<%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",

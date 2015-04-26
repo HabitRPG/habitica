@@ -54,6 +54,8 @@
     "questEggRockAdjective": "una vivace",
     "questEggBunnyText": "Coniglietto",
     "questEggBunnyAdjective": "un coccoloso",
+    "questEggSlimeText": "Gelatina di Marshmallow",
+    "questEggSlimeAdjective": "una dolce",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Groups Controller', function() {
-  var scope, ctrl, groups, user, guild, $rootScope;
+  var scope, ctrl, groups, user, guild, party, $rootScope;
 
   beforeEach(function() {
     module(function($provide) {
@@ -23,32 +23,90 @@ describe('Groups Controller', function() {
     });
   });
 
-  it('isMemberOfGroup returns true if guild is included in myGuilds call', function(){
+  describe("isMemberOfGroup", function() {
+    it("returns true if group is the user's party", function() {
+      party = specHelper.newGroup("test-party");
+      party._id = "unique-party-id";
+      party.type = 'party';
+      party.members = []; // Ensure we wouldn't pass automatically.
 
-    guild = specHelper.newGroup("leaders-user-id");
-    guild._id = "unique-guild-id";
-    guild.type = 'guild';
-    guild.members.push(user._id);
+      var partyStub = sinon.stub(groups,"party", function() {
+        return party;
+      });
 
-    var myGuilds = sinon.stub(groups,"myGuilds", function() {
-      return [guild];
+      expect(scope.isMemberOfGroup(user._id, party)).to.be.ok;
     });
 
-    expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
-    expect(myGuilds).to.be.called
+    it('returns true if guild is included in myGuilds call', function(){
+
+      guild = specHelper.newGroup("leaders-user-id");
+      guild._id = "unique-guild-id";
+      guild.type = 'guild';
+      guild.members.push(user._id);
+
+      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+        return [guild];
+      });
+
+      expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
+      expect(myGuilds).to.be.called
+    });
+
+    it('does not return true if guild is not included in myGuilds call', function(){
+
+      guild = specHelper.newGroup("leaders-user-id");
+      guild._id = "unique-guild-id";
+      guild.type = 'guild';
+
+      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+        return [];
+      });
+
+      expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
+      expect(myGuilds).to.be.called
+    });
+  });
+});
+
+describe("Autocomplete controller", function() {
+  var scope, ctrl, user, $rootScope;
+
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
+
+    inject(function($rootScope, $controller){
+      user = specHelper.newUser();
+      user._id = "unique-user-id";
+
+      scope = $rootScope.$new();
+
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: {user: user}});
+
+      ctrl = $controller('AutocompleteCtrl', {$scope: scope});
+    });
   });
 
-  it('isMemberOfGroup does not return true if guild is not included in myGuilds call', function(){
+  describe("filterUser", function() {
+    it('filters with undefined query (not loaded yet) and defaults to true', function() {
+        expect(scope.filterUser({user: "boo"})).to.be.eq(true);
+    })
 
-    guild = specHelper.newGroup("leaders-user-id");
-    guild._id = "unique-guild-id";
-    guild.type = 'guild';
+    it('filters with null query (no typing yet) and defaults to true', function() {
+      scope.query = null
+      expect(scope.filterUser({user: "boo"})).to.be.ok
+    })
 
-    var myGuilds = sinon.stub(groups,"myGuilds", function() {
-      return [];
-    });
+    it('filters with prefix element and returns true', function() {
+      scope.query = {text: "pre"}
+      expect(scope.filterUser({user: "prefix"})).to.be.ok
+    })
 
-    expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-    expect(myGuilds).to.be.called
+    it('filters with nonprefix element and returns false', function() {
+      scope.query = {text: "noprefix"}
+      expect(scope.filterUser({user: "prefix"})).to.not.be.ok
+    })
   });
 });

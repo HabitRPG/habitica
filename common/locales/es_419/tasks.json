@@ -44,7 +44,6 @@
     "remaining": "Activo",
     "complete": "Hecho",
     "dated": "Fecha limite",
-    "datedNotSorted": "Las Diarias y Pendientes no están ordenadas por fecha. Probablemente en el future se implementará una función para ordenarlas.",
     "due": "Por hacer",
     "grey": "Gris",
     "score": "Puntuaje",

@@ -186,9 +186,15 @@
     "questRockDropRockEgg": "Rock (Egg)",
     "questRockUnlockText": "Unlocks purchasable rock eggs in the Market",
     "questBunnyText": "杀人兔",
-    "questBunnyNotes": "After many difficult days, you reach the peak of Mount Procrastination and stand before the imposing doors of the Fortress of Neglect. You read the inscription in the stone. \"Inside resides the creature that embodies your greatest fears, the reason for your inaction. Knock and face your demon!\" You tremble, imagining the horror within and feel the urge to flee as you have done so many times before. @Draayder holds you back. \"Steady, my friend! The time has come at last. You must do this!\"<br><br>You knock and the doors swing inward. From within the gloom you hear a deafening roar, and you draw your weapon.",
+    "questBunnyNotes": "历经艰辛，你终于到达了拖延山顶峰，站在疏忽堡垒那壮观的大门之前。你读了石上铭文。“里面居住的生物是你恐惧的化身，是你无所作为的根源。敲开门，直面你心底的恶魔！”你浑身战栗，想象里面会是多么可怕。逃跑的冲动在你耳边轻语，反正之前你也退缩过多次。@Draayder 把你拉了回来。“冷静点，我的朋友！这个时机终于到来！你必须得上！”<br><br> 你敲了敲门，门就向内打开。昏暗之中，你听到整耳欲聋的吼叫，你拿起了武器。",
     "questBunnyBoss": "杀人兔",
-    "questBunnyCompletion": "With one final blow the killer rabbit sinks to the ground. A sparkly mist rises from her body as she shrinks down into a tiny bunny... nothing like the cruel beast you faced a moment before. Her nose twitches adorably and she hops away, leaving some eggs behind. @Gully laughs. \"Mount Procrastination has a way of making even the smallest challenges seem insurmountable. Let's gather these eggs and head for home.\"",
+    "questBunnyCompletion": "随着你的最后一击，杀人兔缓缓沉入地面。一阵闪闪发光的迷雾从她身上升起，她变回了一只小兔子……而非你之前看到那残暴的野兽。她的小鼻子可爱地动了动，随后就跳走了，留下了几个蛋。@Gully 大笑道：“拖延山就是会让小小的挑战都看上去高不可攀。让我们拿上这些蛋回家吧。”",
     "questBunnyDropBunnyEgg": "兔(宠物蛋)",
-    "questBunnyUnlockText": "解锁兔子蛋购买功能"
+    "questBunnyUnlockText": "解锁兔子蛋购买功能",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

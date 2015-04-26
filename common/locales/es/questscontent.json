@@ -190,5 +190,11 @@
     "questBunnyBoss": "Conejo Asesino",
     "questBunnyCompletion": "Con una última estocada, el conejo asesino cae al suelo. Una neblina centelleante emerge de su cuerpo transformándola en un pequeño conejito... nada parecido a cruel bestia a la que te encaraste hace un momento. Moviendo su nariz desaparece saltando, dejando atrás algunos huevos. @Gully se ríe. \"El Monte Procrastinación tiene su manera de hacer que los más retos pequeños se vean infranqueables. Recojamos esos huevos y marchémonos a casa.\"",
     "questBunnyDropBunnyEgg": "Conejo (Huevo)",
-    "questBunnyUnlockText": "Desbloquear la compra de huevos de conejo en el Mercado"
+    "questBunnyUnlockText": "Desbloquear la compra de huevos de conejo en el Mercado",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

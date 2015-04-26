@@ -37,7 +37,7 @@
     "publicChallenges": "Для <strong> общедоступных испытаний </strong> минимум составляет 1 самоцвет (действенная мера против спама).",
     "officialChallenge": "Официальное испытание HabitRPG",
     "by": "от",
-    "participants": "<%= membercount %> Participants",
+    "participants": "Участников: <%= membercount %>",
     "join": "Присоединиться",
     "exportChallengeCSV": "Экспорт в CSV",
     "selectGroup": "Пожалуйста, выберите группу",

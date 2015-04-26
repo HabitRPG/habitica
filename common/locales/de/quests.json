@@ -28,7 +28,7 @@
     "questOwnerNotInRunningQuest": "Der Quest-Besitzer hat die Quest verlassen. Wenn du willst, kannst du die Quest abbrechen. Du kannst sie auch weiterlaufen lassen und alle übrigen Teilnehmer werden die Questbelohnungen erhalten wenn sie die Quest geschafft haben. ",
     "questOwnerNotInPendingQuestParty": "Der Quest-Besitzer hat die Gruppe verlassen und kann die Quest nicht mehr starten. Es wird empfohlen, dass du sie jetzt abbrichst. Der Quest-Besitzer wird die Questrolle zurück bekommen.",
     "questOwnerNotInRunningQuestParty": "Der Quest-Besitzer hat die Gruppe verlassen. Wenn Du willst, kannst du die Quest abbrechen, aber du kannst sie auch weiterlaufen lassen und alle übrigen Teilnehmer werden die Questbelohnungen erhalten wenn sie die Quest geschafft haben.",
-    "questParticipants": "Participants",
+    "questParticipants": "Teilnehmer",
     "scrolls": "Quest Rollen",
     "noScrolls": "Du hast im Moment keine Quest Rollen.",
     "scrollsText1": "Quests erfordern Gruppen. Wenn Du ein Quest allein erfüllen willst, dann musst Du",

@@ -190,5 +190,11 @@
     "questBunnyBoss": "Coniglietta Assassina",
     "questBunnyCompletion": "Con un'ultimo colpo atterri la coniglietta assassina. Una nebbia luccicante si alaza dal suo corpo mentre si rimpicciolisce in una piccolissima coniglietta... Niente a che vedere con la crudele bestia che hai affrontato un attimo fa. Il suo naso si muove in modo adorabile e lei saltella via, lasciandosi alle spalle alcune uova. @Gully ride. \"Il Monte Procrastinazione ha i suoi modi per far sembrare insormontabili anche le più piccole sfide. Raccogliamo queste uova e torniamo a casa.\"",
     "questBunnyDropBunnyEgg": "Coniglietto (Uovo)",
-    "questBunnyUnlockText": "Sblocca l'cquisto delle uova di coniglietto nel Mercato"
+    "questBunnyUnlockText": "Sblocca l'cquisto delle uova di coniglietto nel Mercato",
+    "questSlimeText": "Il Regente Gelatina",
+    "questSlimeNotes": "Mentre lavori alle tue attività, noti che i tuoi movimenti si fanno sempre più lenti. \"È come camminare attraverso della melassa,\" borbotta @Leephon. \"No, è come camminare attraverso della gelatina!\" dice @starsystemic. \"Quel viscido Regente Gelatina ha spalmato la sua roba su tutta Habitica. Sta impantanando tutto. Tutti stanno rallentando.\" Ti guardi intorno. Le strade si stanno lentamente riempendo di una melma chiara e colorata, e gli abitanti di Habitica devono sforzarsi per riuscire a fare qualsiasi cosa. Mentre gli altri scappano, tu impugni uno mocio e ti prepari al combattimento!",
+    "questSlimeBoss": "Regente Gelatina",
+    "questSlimeCompletion": "Con un colpo finale, intrappoli il Regente Gelatina in una ciambella gigante, portata in fretta da @Overomega, @LordDarkly, e @Shaner, i leader dal pensiero veloce del club di pasticceria. Mentre tutti di danno pacche sulle spalle, senti che qualcuno fa scivolare qualcosa nella tua tasca. È la ricompensa per la tua dolce vittoria: tre uova di Gelatina di Marshmallow. ",
+    "questSlimeDropSlimeEgg": "Gelatina di Marshmallow (Uovo)",
+    "questSlimeUnlockText": "Sblocca l'acquisto delle uova di gelatina di marshmallow nel Mercato"
 }

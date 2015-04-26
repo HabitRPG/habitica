@@ -54,6 +54,8 @@
     "questEggRockAdjective": "lebendiger",
     "questEggBunnyText": "Hase",
     "questEggBunnyAdjective": "kuscheliger",
+    "questEggSlimeText": "Marshmallow Schleim",
+    "questEggSlimeAdjective": "süß",
     "eggNotes": "Finde einen Schlüpftrank, den Du über dieses Ei gießen kannst, damit ein  <%= eggAdjective(locale) %> <%= eggText(locale) %> schlüpfen wird.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

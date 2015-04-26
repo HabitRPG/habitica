@@ -54,6 +54,8 @@
     "questEggRockAdjective": "vivaz",
     "questEggBunnyText": "Conejito",
     "questEggBunnyAdjective": "zalamero",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
     "eggNotes": "Encuentra una poción de eclosión para verter sobre este huevo y nacerá un <%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Blanco",

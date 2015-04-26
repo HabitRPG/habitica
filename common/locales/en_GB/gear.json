@@ -391,7 +391,7 @@
     "shieldHealer2Notes": "Tapered shield with the symbol of healing. Increases Constitution by <%= con %>.",
     "shieldHealer3Text": "Protector Shield",
     "shieldHealer3Notes": "Traditional shield of the defender knights. Increases Constitution by <%= con %>.",
-    "shieldHealer4Text": "Savior Shield",
+    "shieldHealer4Text": "Saviour Shield",
     "shieldHealer4Notes": "Stops blows aimed at nearby innocents as well as those aimed at you. Increases Constitution by <%= con %>.",
     "shieldHealer5Text": "Royal Shield",
     "shieldHealer5Notes": "Bestowed upon those most dedicated to the kingdom's defence. Increases Constitution by <%= con %>.",

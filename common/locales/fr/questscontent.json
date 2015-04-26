@@ -190,5 +190,11 @@
     "questBunnyBoss": "Lapin Tueur",
     "questBunnyCompletion": "Avec votre dernier coup, le lapin tueur s'effondre au sol. Une brume lumineuse s'échappe de son corps alors qu'il rétrécit en un petit lapereau... rien d'équivalent là bête cruelle que vous avez affronté à l'instant. Son nez frissonne adorablement et il sautille plus loin, laissant quelques œufs derrière lui. @Gully rigole. \"Le Mont de la Procrastination a sa manière de faire apparaitre même le plus petit défi comme insurmontable. Rassemblons ces oeufs et rentrons à la maison.\"",
     "questBunnyDropBunnyEgg": "Lapin (Œuf)",
-    "questBunnyUnlockText": "Déverrouille l'achat d’œufs de lapin au Marché"
+    "questBunnyUnlockText": "Déverrouille l'achat d’œufs de lapin au Marché",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

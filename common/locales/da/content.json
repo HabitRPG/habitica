@@ -54,6 +54,8 @@
     "questEggRockAdjective": "livlig",
     "questEggBunnyText": "Kanin",
     "questEggBunnyAdjective": "kælen",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
     "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",

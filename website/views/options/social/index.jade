@@ -91,9 +91,9 @@ script(type='text/ng-template', id='partials/options.social.html')
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.social.inbox') }")
       a(ui-sref='options.social.inbox')
-        =env.t("inbox")
-        | &nbsp;
         span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
+        | &nbsp;
+        =env.t("inbox")
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
         =env.t('tavern')

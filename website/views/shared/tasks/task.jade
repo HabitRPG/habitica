@@ -1,4 +1,4 @@
-li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}', ng-show='shouldShow(task, list, user.preferences)')
+li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s"] | conditionalOrderBy: list.view=="dated":"date"', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}', ng-show='shouldShow(task, list, user.preferences)')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -44,7 +44,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
           span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
           | &nbsp;
       // delete
-      a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip=env.t('delete'))
+      a(ng-if='!task.challenge.id', ng-click='removeTask(task, obj[list.type+"s"])', tooltip=env.t('delete'))
         span.glyphicon.glyphicon-trash
         | &nbsp;
 
@@ -101,7 +101,7 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
           p
             a(ng-click='unlink(task, "keep")')=env.t('keepIt')
             | &nbsp;&nbsp;
-            a(ng-click="removeTask(obj[list.type+'s'], $index)")=env.t('removeIt')
+            a(ng-click="removeTask(task, obj[list.type+'s'])")=env.t('removeIt')
         div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
           p
             |&nbsp;
