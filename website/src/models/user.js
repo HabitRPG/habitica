@@ -44,6 +44,7 @@ var UserSchema = new Schema({
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
+    shinySeed: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -145,6 +146,8 @@ var UserSchema = new Schema({
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {type: Number, 'default': 0},
+    // Needed to track the tip to send inside the email
+    weeklyRecapEmailsPhase: {type: Number, 'default': 0},
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
     cronCount: {type:Number, 'default':0}
   },
@@ -191,6 +194,7 @@ var UserSchema = new Schema({
     special:{
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
+      shinySeed: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
@@ -326,7 +330,8 @@ var UserSchema = new Schema({
       invitedQuest: {type: Boolean, 'default': true},
       //remindersToLogin: {type: Boolean, 'default': true},
       // Those importantAnnouncements are in fact the recapture emails
-      importantAnnouncements: {type: Boolean, 'default': true}
+      importantAnnouncements: {type: Boolean, 'default': true},
+      weeklyRecaps: {type: Boolean, 'default': true}
     }
   },
   profile: {
@@ -356,7 +361,8 @@ var UserSchema = new Schema({
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false},
-      spookDust: {type: Boolean, 'default': false}
+      spookDust: {type: Boolean, 'default': false},
+      shinySeed: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},

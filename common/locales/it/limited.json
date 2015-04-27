@@ -6,6 +6,8 @@
     "annoyingFriendsText": "I compagni di squadra gli hanno tirato <%= snowballs %> palle di neve.",
     "alarmingFriends": "Amici Inquietanti",
     "alarmingFriendsText": "Sei stato spaventato <%= spookDust %> volte dai tuoi compagni di squadra.",
+    "agriculturalFriends": "Amici Floreali",
+    "agriculturalFriendsText": "E' stato trasformato in un fiore <%= seeds %> volte dai compagni di squadra.",
     "valentineCard": "Biglietto di San Valentino",
     "valentineCardNotes": "Manda un biglietto di San Valentino a un membro della squadra.",
     "valentine0": "\"Le rose sono rosse<%= lineBreak %>Le mie Daily sono blu<%= lineBreak %>E' bello esser in squadra<%= lineBreak %>Perchè qui ci sei anche tu!\"",

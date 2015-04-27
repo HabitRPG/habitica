@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sale",
     "spellSpecialSaltNotes": "Qualcuno ti ha tirato una palla di neve. Ah ah, divertente. Ora però toglimi questa neve di dosso!",
     "spellSpecialSpookDustText": "Luci Sinistre",
-    "spellSpecialSpookDustNotes": "Trasforma i tuoi amici in lenzuola fluttuanti con due occhi!",
+    "spellSpecialSpookDustNotes": "Trasforma un amico in un lenzuolo fluttuante con due occhi!",
     "spellSpecialOpaquePotionText": "Pozione Opaca",
-    "spellSpecialOpaquePotionNotes": "Annulla l'effetto di Luci Sinistre"
+    "spellSpecialOpaquePotionNotes": "Annulla l'effetto di Luci Sinistre",
+    "spellSpecialShinySeedText": "Seme Brillante",
+    "spellSpecialShinySeedNotes": "Trasforma un amico in un gioioso fiore!",
+    "spellSpecialPetalFreePotionText": "Pozione Senzapetali",
+    "spellSpecialPetalFreePotionNotes": "Annulla l'effetto di un Seme Brillante."
 }

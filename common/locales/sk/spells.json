@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Soľ",
     "spellSpecialSaltNotes": "Niekto do teba hodil snehovú guľu. Ha ha, veľmi vtipné. Teraz zo mňa dostaň ten sneh!",
     "spellSpecialSpookDustText": "Strašidelné iskričky",
-    "spellSpecialSpookDustNotes": "Premeň svojich priateľov na lietajúcu plachtu s očami!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Elixír nepriehľadnosti",
-    "spellSpecialOpaquePotionNotes": "Zruší účinky strašidelných iskričiek."
+    "spellSpecialOpaquePotionNotes": "Zruší účinky strašidelných iskričiek.",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

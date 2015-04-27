@@ -3,7 +3,7 @@ api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
 t = (string, vars) ->
-  func = (lang) -> 
+  func = (lang) ->
     vars ?= {a: 'a'}
     i18n.t(string, vars, lang)
   func.i18nLangFunc = true #Trick to recognize this type of function
@@ -47,6 +47,7 @@ api.mystery =
   201501: {start:'2015-01-26',end:'2015-02-02', text:'Starry Knight Set'}
   201502: {start:'2015-02-24',end:'2015-03-02', text:'Winged Enchanter Set'}
   201503: {start:'2015-03-25',end:'2015-04-02', text:'Aquamarine Set'}
+  201504: {start:'2015-04-24',end:'2015-05-02', text:'Busy Bee Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -55,7 +56,7 @@ _.each api.mystery, (v,k)->v.key = k
 gear =
   weapon:
     base:
-      0: 
+      0:
         text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
       0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:1
@@ -219,6 +220,7 @@ gear =
       201412: text: t('armorMystery201412Text'), notes: t('armorMystery201412Notes'), mystery:'201412', value: 0
       201501: text: t('armorMystery201501Text'), notes: t('armorMystery201501Notes'), mystery:'201501', value: 0
       201503: text: t('armorMystery201503Text'), notes: t('armorMystery201503Notes'), mystery:'201503', value: 0
+      201504: text: t('armorMystery201504Text'), notes: t('armorMystery201504Notes'), mystery:'201504', value: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
 
   head:
@@ -368,6 +370,7 @@ gear =
       201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:'201402', value: 0
       201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:'201404', value: 0
       201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
+      201504: text: t('backMystery201504Text'), notes: t('backMystery201504Notes'), mystery:'201504', value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
@@ -397,7 +400,7 @@ gear =
       spring2015Warrior: event: events.spring2015, specialClass: 'warrior', text: t('headAccessorySpecialSpring2015WarriorText'), notes: t('headAccessorySpecialSpring2015WarriorNotes'), value: 20
       spring2015Mage:    event: events.spring2015, specialClass: 'wizard',  text: t('headAccessorySpecialSpring2015MageText'), notes: t('headAccessorySpecialSpring2015MageNotes'), value: 20
       spring2015Healer:  event: events.spring2015, specialClass: 'healer',  text: t('headAccessorySpecialSpring2015HealerText'), notes: t('headAccessorySpecialSpring2015HealerNotes'), value: 20
-      
+
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -524,6 +527,9 @@ api.spells =
         #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
         user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30)
+        #Sync the user stats to see if we level the user
+        req = { language: user.preferences.language }
+        user.fns.updateStats( user.stats , req )
 
     mpheal:
       text: t('spellWizardMPHealText')
@@ -620,6 +626,9 @@ api.spells =
         user.stats.exp += bonus
         user.stats.gp += bonus
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
+        #Sync the user stats to see if we level the user
+        req = { language: user.preferences.language }
+        user.fns.updateStats( user.stats , req )
     toolsOfTrade:
       text: t('spellRogueToolsOfTradeText')
       mana: 25
@@ -693,6 +702,8 @@ api.spells =
       notes: t('spellSpecialSnowballAuraNotes')
       cast: (user, target) ->
         target.stats.buffs.snowball = true
+        target.stats.buffs.spookDust = false
+        target.stats.buffs.shinySeed = false
         target.achievements.snowball ?= 0
         target.achievements.snowball++
         user.items.special.snowball--
@@ -715,7 +726,9 @@ api.spells =
       target: 'user'
       notes: t('spellSpecialSpookDustNotes')
       cast: (user, target) ->
+        target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = true
+        target.stats.buffs.shinySeed = false
         target.achievements.spookDust ?= 0
         target.achievements.spookDust++
         user.items.special.spookDust--
@@ -729,6 +742,31 @@ api.spells =
       notes: t('spellSpecialOpaquePotionNotes')
       cast: (user, target) ->
         user.stats.buffs.spookDust = false
+        user.stats.gp -= 5
+
+    shinySeed:
+      text: t('spellSpecialShinySeedText')
+      mana: 0
+      value: 15
+      target: 'user'
+      notes: t('spellSpecialShinySeedNotes')
+      cast: (user, target) ->
+        target.stats.buffs.snowball = false
+        target.stats.buffs.spookDust = false
+        target.stats.buffs.shinySeed = true
+        target.achievements.shinySeed ?= 0
+        target.achievements.shinySeed++
+        user.items.special.shinySeed--
+
+    petalFreePotion:
+      text: t('spellSpecialPetalFreePotionText')
+      mana: 0
+      value: 5
+      immediateUse: true
+      target: 'self'
+      notes: t('spellSpecialPetalFreePotionNotes')
+      cast: (user, target) ->
+        user.stats.buffs.shinySeed = false
         user.stats.gp -= 5
 
     nye:
@@ -776,7 +814,7 @@ api.spells =
 
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
-        
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->
@@ -831,6 +869,7 @@ api.questEggs =
   TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
   Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
   Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
+  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1073,7 +1112,7 @@ api.quests =
       gp: 25
       exp: 125
       unlock: t('questGryphonUnlockText')
-      
+
   hedgehog:
     text: t('questHedgehogText')
     notes: t('questHedgehogNotes')
@@ -1573,7 +1612,7 @@ api.quests =
       gp: 31
       exp: 200
       unlock: t('questRockUnlockText')
-      
+
   bunny:
     text: t('questBunnyText')
     notes: t('questBunnyNotes')
@@ -1592,6 +1631,25 @@ api.quests =
       gp: 25
       exp: 125
       unlock: t('questBunnyUnlockText')
+
+  slime:
+    text: t('questSlimeText')
+    notes: t('questSlimeNotes')
+    completion: t('questSlimeCompletion')
+    value: 4
+    boss:
+      name: t('questSlimeBoss')
+      hp: 400
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Slime', text: t('questSlimeDropSlimeEgg')}
+        {type: 'eggs', key: 'Slime', text: t('questSlimeDropSlimeEgg')}
+        {type: 'eggs', key: 'Slime', text: t('questSlimeDropSlimeEgg')}
+      ]
+      gp: 31
+      exp: 200
+      unlock: t('questSlimeUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
@@ -1702,6 +1760,16 @@ api.backgrounds =
     rolling_hills:
       text: t('backgroundRollingHillsText')
       notes: t('backgroundRollingHillsNotes')
+  backgrounds042015:
+    cherry_trees:
+      text: t('backgroundCherryTreesText')
+      notes: t('backgroundCherryTreesNotes')
+    floral_meadow:
+      text: t('backgroundFloralMeadowText')
+      notes: t('backgroundFloralMeadowNotes')
+    gumdrop_land:
+      text: t('backgroundGumdropLandText')
+      notes: t('backgroundGumdropLandNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sel",
     "spellSpecialSaltNotes": "Quelqu'un vous a envoyé une boule de neige. Ha, ha, ha, très drôle. Enlevez-moi cette neige de là, maintenant !",
     "spellSpecialSpookDustText": "Poudre Poltergeist",
-    "spellSpecialSpookDustNotes": "Transformez vos amis en un drap flottant avec des yeux !",
+    "spellSpecialSpookDustNotes": "Change un ami en drap flottant avec des yeux !",
     "spellSpecialOpaquePotionText": "Potion Opaque",
-    "spellSpecialOpaquePotionNotes": "Annule les effets de la Poudre Poltergeist."
+    "spellSpecialOpaquePotionNotes": "Annule les effets de la Poudre Poltergeist.",
+    "spellSpecialShinySeedText": "Graine Brillante",
+    "spellSpecialShinySeedNotes": "Change un ami en une fleur joyeuse !",
+    "spellSpecialPetalFreePotionText": "Potion d'effeuillage",
+    "spellSpecialPetalFreePotionNotes": "Annule les effet de la Graine Brillante"
 }

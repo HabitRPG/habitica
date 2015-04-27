@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sea Salt",
     "spellSpecialSaltNotes": "Someone has snowballed ye. Ha ha, extra hardyharhar. Now get this snow off me!",
     "spellSpecialSpookDustText": "Spooky Sparkles",
-    "spellSpecialSpookDustNotes": "Turn ye buckos into a floatin' blanket wit' eyes!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Murky Potion",
-    "spellSpecialOpaquePotionNotes": "Cancel th' effects 'o Spooky Sparkles."
+    "spellSpecialOpaquePotionNotes": "Cancel th' effects 'o Spooky Sparkles.",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

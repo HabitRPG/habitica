@@ -108,7 +108,7 @@
     "questBasilistBoss": "Bazi-lístek",
     "questEggHuntText": "Sbírání Vajec",
     "questEggHuntNotes": "Přes noc se všude objevila podivná vejce: v Mattově stáji, za pokladnou v krčmě, a dokonce mezi vejci zvířat na tržišti! Jaká to nepříjemnost! \"Nikdo neví odkud pochází anebo co by se z nich mohlo vylíhnout,\" říká <strong>Megan</strong>, \"Ale nemůžeme je nechat jen tak válet kolem! Tvrdě pracuj a pořádně hledej abys pomohl shromáždit všechna tato záhadná vejce. Možná, když jich shromáždíš dostatek, zbudou nějaká i pro tebe...\"",
-    "questEggHuntCompletion": "Zvládli jste to! Z vděčnosti ti <strong>Megan</strong> dá deset vajec. \"Nemyslím si, že se z nich něco vyklube,\" řekla, \"a určitě si je nebudeš moci osedlat. Ale to neznamená, že je nemůžeš obarvit krásnými barvami!\"",
+    "questEggHuntCompletion": "Zvládli jste to! Z vděčnosti ti <strong>Megan</strong> dá deset vajec. \"Vsadím se, že je líhnoucí lektvary obarví do úžasných barviček! A jsem zvědavá, co se stane, až je vykrmíš...\"",
     "questEggHuntCollectPlainEgg": "Obyčejná vejce",
     "questEggHuntDropPlainEgg": "Obyčejné vejce",
     "questDilatoryText": "Děsivý Drag'on z Liknavosti",
@@ -190,5 +190,11 @@
     "questBunnyBoss": "Zabijácký králíček",
     "questBunnyCompletion": "Posledním úderem srážíš zabijáckého králíčka k zemi. Třpytivá mlha se zvedne z jejího těla a smrskne se na obyčejného králíčka... vůbec nevypadá jako ta obluda, se kterou ses bil před chvílí. Její nosík se zaklepe a odhopká pryč zanechávajíc za sebou vejce. @Gully  se směje. \"Hora Prokrastinace dokáže z malých výzev udělat skoro neporazitelné. Vezměme tato vejce a pojďme domů.\"",
     "questBunnyDropBunnyEgg": "Králíček (vejce)",
-    "questBunnyUnlockText": "Odemyká vejce králíčka na Trhu"
+    "questBunnyUnlockText": "Odemyká vejce králíčka na Trhu",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

@@ -108,7 +108,7 @@
     "questBasilistBoss": "The Basi-List",
     "questEggHuntText": "Egg Hunt",
     "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind th' counter at th' Pub, 'n even among th' pet eggs at th' Marketplace! What a nuisance! \"Nobody knows whar they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them layin' around! Work harrrd 'n search harrrd to help me gather up these mysterious eggs. Maybe if ye collect that be all I can take, thar gunna be some extras left over fer ye...\"",
-    "questEggHuntCompletion": "Ye did it! In gratitude, <strong>Megan</strong> gives ye ten 'o th' eggs. \"I don't think they hatch, exactly,\" she says, \"'n they certainly won't grow into mounts. But that dont mean ye can't dye them beautiful colors!\"",
+    "questEggHuntCompletion": "You did it! In gratitude, <strong>Megan</strong> gives you ten of the eggs. \"I bet the hatching potions will dye them beautiful colors! And I wonder what will happen when they turn into mounts....\"",
     "questEggHuntCollectPlainEgg": "Plain Eggs",
     "questEggHuntDropPlainEgg": "Plain Egg",
     "questDilatoryText": "Th' Dread Drag'on o' Dilatory",
@@ -190,5 +190,11 @@
     "questBunnyBoss": "Killer Bunny",
     "questBunnyCompletion": "With one final blow the killer rabbit sinks to the ground. A sparkly mist rises from her body as she shrinks down into a tiny bunny... nothing like the cruel beast you faced a moment before. Her nose twitches adorably and she hops away, leaving some eggs behind. @Gully laughs. \"Mount Procrastination has a way of making even the smallest challenges seem insurmountable. Let's gather these eggs and head for home.\"",
     "questBunnyDropBunnyEgg": "Bunny (Egg)",
-    "questBunnyUnlockText": "Unlocks purchasable bunny eggs in the Market"
+    "questBunnyUnlockText": "Unlocks purchasable bunny eggs in the Market",
+    "questSlimeText": "The Jelly Regent",
+    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
+    "questSlimeBoss": "Jelly Regent",
+    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
+    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
 }

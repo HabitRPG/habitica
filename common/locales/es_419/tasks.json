@@ -3,8 +3,8 @@
     "lotOfToDos": "Las Pendientes realizadas se archivan automáticamente después de 3 días. Puedes acceder a ellas desde Ajustes > Exportar datos.",
     "deleteToDosExplanation": "Si haces clic en el siguiente botón, todas tus Pendientes completados y Pendientes archivados serán permanentemente borradqs. Exportalas primero si quieres mantener un registro de ellas.",
     "beeminderDeleteWarning": "Usuarios de Beeminder: ¡<strong>Primero </strong> lean <a\nhref=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\"> Eliminación de las tareas pendientes completadas sin confundir Beeminder </a>!",
-    "addmultiple": "Agregar Multiples",
-    "addsingle": "Agregar Individualmente",
+    "addmultiple": "Agregar múltiple",
+    "addsingle": "Agregar uno solo",
     "habits": "Hábitos",
     "newHabit": "Nuevo hábito",
     "newHabitBulk": "Nuevos Hábitos (uno por línea)",
@@ -39,12 +39,11 @@
     "restoreStreak": "Restaurar racha",
     "todos": "Pendientes",
     "newTodo": "Nueva Pendiente",
-    "newTodoBulk": "Nuevos Pendientes (uno por línea)",
+    "newTodoBulk": "Nuevas Pendientes (una por línea)",
     "dueDate": "Fecha de vencimiento",
     "remaining": "Activo",
     "complete": "Hecho",
-    "dated": "Fecha de Vencimiento",
-    "datedNotSorted": "Fecha de vencimiento Pendientes NO están ordenados por fecha. Clasificación sera implementada en el futuro. ",
+    "dated": "Fecha limite",
     "due": "Por hacer",
     "grey": "Gris",
     "score": "Puntuaje",
@@ -78,5 +77,5 @@
     "streakCoins": "¡Bonus de racha!",
     "pushTaskToTop": "Enviar tarea al tope",
     "pushTaskToBottom": "Enviar tarea al fondo",
-    "emptyTask": "En primer lugar introduzca el título de la tarea"
+    "emptyTask": "Primero escribe el título de la tarea."
 }

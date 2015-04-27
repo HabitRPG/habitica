@@ -6,6 +6,8 @@
     "annoyingFriendsText": "חטף/ה <%= snowballs %> לפרצוף משאר החבורה.",
     "alarmingFriends": "חברים מפחידים",
     "alarmingFriendsText": "הופחד/ה <%= spookDust %> פעמים ע\"י שאר החבורה שלו/ה.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "כרטיס יום האהבה",
     "valentineCardNotes": "שליחת כרטיס יום אהבה לחבר/ת חבורה.",
     "valentine0": "\"ורדים, אדומים הם\n<%= lineBreak %>\nוכחולות הן מטלותיי\n<%= lineBreak %>\nלהיות בחבורה שלך\n<%= lineBreak %>\nזה משוש חיי!\"",

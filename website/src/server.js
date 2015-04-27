@@ -127,6 +127,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use(require('./routes/payments').middleware);
   app.use(require('./routes/auth').middleware);
   app.use(require('./routes/coupon').middleware);
+  app.use(require('./routes/unsubscription').middleware);
   var v2 = express();
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);

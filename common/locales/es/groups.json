@@ -2,7 +2,7 @@
     "tavern": "Taberna",
     "innCheckOut": "Dejar la Posada",
     "innCheckIn": "Descansar en la Posada",
-    "innText": "¿Que tal tu estancia en la Posada, <%= name %>? Para protegerte, tu lista diaria está congelada. Tus marcas de verificación no serán procesadas ​​o reiniciadas hasta mañana (el día después de salir). Ten cuidado, si tu grupo está en una misión, sus fallos te harán daño! Además, no le harás daño al enemigo. ¿Listo para salir? Verifíquete fuera.",
+    "innText": "¿Qué tal tu estancia en la Posada, <%= name %>? Para protegerte, tu lista diaria está congelada. Tus marcas de verificación no serán procesadas ​​o reiniciadas hasta mañana (el día después de salir). Ten cuidado, si tu grupo está en una misión, ¡sus fallos te harán daño! Además, no le harás daño al enemigo. ¿Listo para salir? Echa un vistazo.",
     "lfgPosts": "Post en la busqueda de Grupo (Se busca Grupo)",
     "tutorial": "Tutorial",
     "glossary": "Glosario",
@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "¿Estás seguro de querer notificar este mensaje? SOLO los mensajes que violan las <%= firstLinkStart %>normas de la comunidad<%= linkEnd %> y/o  los<%= secondLinkStart %>Términos de Servicio<%= linkEnd %> deben ser notificados.\nUn reporte inapropiado de un mensaje es una violación de las normas de la comunidad y puede costarte una infracción.  ",
     "abuseFlagModalButton": "Notificar",
     "abuseReported": "Gracias por notificar esta infracción. Los moderadores han sido informados.",
-    "abuseAlreadyReported": "Ya has notificado este mensaje."
+    "abuseAlreadyReported": "Ya has notificado este mensaje.",
+    "needsText": "Por favor, escribe un mensaje.",
+    "needsTextPlaceholder": "Escribe tu mensaje aquí."
 }

@@ -30,7 +30,7 @@
     "physical": "Fizikai",
     "mental": "Szellemi",
     "otherExamples": "Például szakmai célok, hobbik, pénzügyek, stb.",
-    "progress": "Folyamat",
+    "progress": "Haladás",
     "dailies": "Napi feladatok",
     "newDaily": "Új Napi feladat",
     "newDailyBulk": "Új napi feladatok (egy sorba csak egyet)",
@@ -44,7 +44,6 @@
     "remaining": "Aktív",
     "complete": "Befejezett",
     "dated": "Határidős",
-    "datedNotSorted": "A határidős Tennivalók nincsenek időrendi sorrendbe rendezve. Ez a funkció valószínűleg később lesz megvalósítva.",
     "due": "Hátralevő",
     "grey": "Szürke",
     "score": "Pontszám",
@@ -78,5 +77,5 @@
     "streakCoins": "Széria bónusz!",
     "pushTaskToTop": "Tetejére",
     "pushTaskToBottom": "Rakd a feladatot legalulra",
-    "emptyTask": "Enter the task's title first."
+    "emptyTask": "Előbb írd be a feladat címét."
 }

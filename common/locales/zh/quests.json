@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "任务拥有者已经离开这个任务。如果你必须退出，你可以退出这个任务。你也可以繼續執行這個任务，其余所有参与者将会在完成任务时获得任务奖励。",
     "questOwnerNotInPendingQuestParty": "任务拥有者已经离开这个队伍，无法再启动这个任务。我们建议您现在取消它。任务卷轴将会回到任务拥有者处。",
     "questOwnerNotInRunningQuestParty": "任务拥有者已经离开这个队伍。如果你必须退出，你可以退出这个任务，但你也可以继续执行任务，其余所有参与者将会在完成任务时获得任务奖励。",
+    "questParticipants": "参与者",
     "scrolls": "任务卷轴",
     "noScrolls": "你没有任何任务卷轴。",
     "scrollsText1": "任务需要团队去完成。如果你想单独做任务，",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "你真的真的要这样做吗？要确保他们不会讨厌你一辈子哟！",
     "questWarning": "如果一个新的小队成员在任务开始前加入，他们会收到一个邀请。但是一旦任务开始了，新成员就无法再加入这个任务了。",
     "bossRageTitle": "愤怒值",
-    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
+    "bossRageDescription": "当这个条满的时候，boss会释放一个特殊攻击！"
 }

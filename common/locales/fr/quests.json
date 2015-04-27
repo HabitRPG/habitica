@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Le lanceur de quête a quitté la quête. Vous pouvez abandonner la quête si vous le désirez, mais vous pouvez aussi décider de la poursuivre, et tous les participants recevront les récompenses de quête lorsque celle-ci sera terminée.",
     "questOwnerNotInPendingQuestParty": "Le lanceur de quête a quitté le groupe et ne peut plus lancer la quête. Il vous est recommandé d'abandonner celle-ci. Le lanceur de quête reprendra possession du parchemin de quête.",
     "questOwnerNotInRunningQuestParty": "Le lanceur de quête a quitté le groupe. Vous pouvez abandonner la quête si vous le désirez, mais vous pouvez aussi décider de la poursuivre, et tous les participants recevront les récompenses de quête lorsque celle-ci sera terminée.",
+    "questParticipants": "Participants",
     "scrolls": "Parchemins de quête",
     "noScrolls": "Vous n'avez pas de parchemin de quête.",
     "scrollsText1": "Pour effectuer une quête, vous avez besoin d'une équipe. Si vous voulez faire une quête en solo,",

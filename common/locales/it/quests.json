@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Il Capomissione ha abbandonato la missione. Se necessario puoi annullare la missione. Puoi anche lasciare che continui e tutti i restanti partecipanti riceveranno le ricompense della missione una volta completata.",
     "questOwnerNotInPendingQuestParty": "Il Capomissione ha lasciato la squadra e non può più cominciare la missione. Ti suggeriamo di annullarla subito. La Pergamena verrà restituita al Capomissione.",
     "questOwnerNotInRunningQuestParty": "Il Capomissione ha lasciato la squadra. Se necessario puoi annullare la missione, ma puoi anche lasciare che continui e tutti i restanti partecipanti riceveranno le ricompense della missione una volta completata.",
+    "questParticipants": "Partecipanti",
     "scrolls": "Pergamene",
     "noScrolls": "Non hai nessuna Pergamena.",
     "scrollsText1": "Per cominciare una missione hai bisogno di una squadra. Se vuoi affrontare la missione da solo,",

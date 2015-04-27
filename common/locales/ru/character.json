@@ -35,9 +35,11 @@
     "flower": "Цветок",
     "basicSkins": "Базовые цвета",
     "rainbowSkins": "Радужные цвета",
+    "pastelSkins": "Пастельные цвета",
     "spookySkins": "Зловещие цвета",
     "supernaturalSkins": "Сверхъестественные цвета",
     "rainbowColors": "Радужные цвета",
+    "shimmerColors": "Мерцающие цвета",
     "hauntedColors": "Призрачные цвета",
     "winteryColors": "Зимние цвета",
     "equipment": "Снаряжение",
@@ -135,6 +137,6 @@
     "displayNameDescription2": "Настройки->Сайт",
     "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин.",
     "unequipBattleGear": "Снять боевую экипировку",
-    "unequipCostume": "Снять одежду",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipCostume": "Снять костюм",
+    "unequipPetMountBackground": "Убрать питомца, скакуна, фон"
 }

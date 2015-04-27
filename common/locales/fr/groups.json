@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Voulez-vous vraiment signaler cette publication ? Vous ne devez signaler QUE celles qui enfreignent les <%= firstLinkStart %>Règles de la Communauté<%= linkEnd %> et/ou les<%= secondLinkStart %>Conditions Générales<%= linkEnd %>. Le signalement innaproprié d'une publication est une violation des Règles de la Communauté et peut vous affecter d'une infraction.",
     "abuseFlagModalButton": "Signaler",
     "abuseReported": "Merci d'avoir signalé cette infraction. Les modérateurs en ont été informé.",
-    "abuseAlreadyReported": "Vous avez déjà signalé ce message."
+    "abuseAlreadyReported": "Vous avez déjà signalé ce message.",
+    "needsText": "Veuillez écrire un message.",
+    "needsTextPlaceholder": "Écrivez votre message ici."
 }

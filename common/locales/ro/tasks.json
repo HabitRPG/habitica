@@ -44,7 +44,6 @@
     "remaining": "Active",
     "complete": "Done",
     "dated": "Dated",
-    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "Scadente",
     "grey": "Gri",
     "score": "Score",

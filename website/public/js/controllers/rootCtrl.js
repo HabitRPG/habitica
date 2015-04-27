@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments','$sce',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments,$sce) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -105,11 +105,29 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.set = User.set;
     $rootScope.authenticated = User.authenticated;
 
+    var forceLoadBailey = function(template, options) {
+      $http.get('/new-stuff.html')
+        .success(function(data) {
+          $rootScope.latestBaileyMessage = $sce.trustAsHtml(data);
+          $modal.open({
+            templateUrl: 'modals/' + template + '.html',
+            controller: options.controller, // optional
+            scope: options.scope, // optional
+            resolve: options.resolve, // optional
+            keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
+            backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
+            size: options.size, // optional, 'sm' or 'lg'
+            windowClass: options.windowClass // optional
+          });
+        });
+    };
+
     // Open a modal from a template expression (like ng-click,...)
     // Otherwise use the proper $modal.open
     $rootScope.openModal = function(template, options){//controller, scope, keyboard, backdrop){
       if (!options) options = {};
       if (options.track) window.ga && ga('send', 'event', 'button', 'click', options.track);
+      if(template === 'newStuff') return forceLoadBailey(template, options);
       return $modal.open({
         templateUrl: 'modals/' + template + '.html',
         controller: options.controller, // optional
@@ -228,6 +246,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
          case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
         }
         Notification.text(msg);
+        User.sync();
       });
 
     }
@@ -241,7 +260,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // reload the page. Perform manually.
     $rootScope.hardRedirect = function(url){
       window.location.href = url;
-      window.location.reload(false);
+      setTimeout(function() {
+        window.location.reload(false);
+      });
     }
 
     // Universal method for sending HTTP methods

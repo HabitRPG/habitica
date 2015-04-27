@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "האם את/ה בטוח/ה שברצונך לדווח על הפרסום הזה? עלייך לדווח אך ורק על פרסומים המפרים את <%= firstLinkStart %>חוקי הקהילה<%= linkEnd %> ו/או את <%= secondLinkStart %>תנאי השימוש<%= linkEnd %>. דיווח לא ענייני של פרסומים הוא בעצמו הפרה של חוקי הקהילה ועלול להוות עבירה מצידך.",
     "abuseFlagModalButton": "דווח",
     "abuseReported": "תודה שדיווחת על ההפרה הזו, אנו ניידע את העורכים אודות העניין.",
-    "abuseAlreadyReported": "כבר דיווחת על ההודעה הזו."
+    "abuseAlreadyReported": "כבר דיווחת על ההודעה הזו.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

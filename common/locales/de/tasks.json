@@ -44,7 +44,6 @@
     "remaining": "Aktiv",
     "complete": "Erledigt",
     "dated": "Datiert",
-    "datedNotSorted": "Datierte einmalige Aufgaben sind NICHT nach Datum sortiert. Diese Option wird vermutlich noch hinzugefügt werden.",
     "due": "Fällig",
     "grey": "Grau",
     "score": "Punktestand",
@@ -78,5 +77,5 @@
     "streakCoins": "Strähnen Bonus!",
     "pushTaskToTop": "Aufgabe nach oben verschieben",
     "pushTaskToBottom": "Aufgabe nach unten verschieben",
-    "emptyTask": "Gib zuerst den Titel der Aufgabe ein."
+    "emptyTask": "Gib der Aufgabe zunächst einen Titel."
 }

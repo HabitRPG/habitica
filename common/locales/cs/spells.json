@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Sůl",
     "spellSpecialSaltNotes": "Někdo po tobě hodil sněhovou kouli. Ha ha, strašně vtipné. A teď ze mě dostaňte ten sníh!",
     "spellSpecialSpookDustText": "Strašidelné jiskry",
-    "spellSpecialSpookDustNotes": "Změň své přátele v poletující prostěradlo s očima!",
+    "spellSpecialSpookDustNotes": "Změň kamaráda na poletující deku s očima!",
     "spellSpecialOpaquePotionText": "Neprůhledný lektvar",
-    "spellSpecialOpaquePotionNotes": "Zruš účinky strašidelných jisker."
+    "spellSpecialOpaquePotionNotes": "Zruš účinky strašidelných jisker.",
+    "spellSpecialShinySeedText": "Třpytivé semínko",
+    "spellSpecialShinySeedNotes": "Změň svého kamaráda na veselou kytičku!",
+    "spellSpecialPetalFreePotionText": "Bezlístečkový lektvar",
+    "spellSpecialPetalFreePotionNotes": "Zvrať efekt třpytivého semínka."
 }

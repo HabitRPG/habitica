@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "Земля под задачами вашей команды покрывается трещинами и ощутимо трясется, замедляя задачи и сбивая их защиту для ваших атак. Ваша команда получает прибавку к получаемому опыту.",
     "spellWizardFrostText": "Пронизывающий мороз",
     "spellWizardFrostNotes": "Лед прорывается из под земли и поглощает ваши задачи, замораживая их. Серии не обнулятся в конце дня, но незавершенные ежедневные задания все равно будут наносить вам урон!",
-    "spellWarriorSmashText": "Удар наотмашь",
+    "spellWarriorSmashText": "Мощный удар",
     "spellWarriorSmashNotes": "Вы вкладываете все силы в жесточайший удар по одному заданию. Краснота задания уменьшается, и вы наносите дополнительный урон монстру, с которым сражаетесь.",
     "spellWarriorDefensiveStanceText": "Защитная стойка",
     "spellWarriorDefensiveStanceNotes": "Вы делаете передышку, чтобы расслабиться, и встаете в защитную стойку, приготовившись к натиску задач. Уменьшается урон от ежедневных заданий в конце дня.",
@@ -16,7 +16,7 @@
     "spellWarriorIntimidateText": "Устрашающий взор",
     "spellWarriorIntimidateNotes": "Магическая аура окружает вашу команду, защищая вас от повреждений. Члены команды получают ощутимый бонус к Телосложению.",
     "spellRoguePickPocketText": "Карманная кража",
-    "spellRoguePickPocketNotes": "Ваши ловкие пальцы обшаривают карманы задачи и находят сокровища. Вы немедленно получаете бонус в виде золота от задачи. Чем 'жирнее' (синее) задача, тем больше золота вы крадете!",
+    "spellRoguePickPocketNotes": "Ваши ловкие пальцы обшаривают карманы задачи и находят сокровища. Вы немедленно получаете бонус в виде золота от задачи. Чем «жирнее» (синее) задача, тем больше золота вы крадете!",
     "spellRogueBackStabText": "Удар в спину",
     "spellRogueBackStabNotes": "Беззвучно вы возникаете за спиной задачи и наносите удар. Вы наносите повышенный урон задачи с увеличенной вероятностью критического удара.",
     "spellRogueToolsOfTradeText": "Орудия труда",
@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Соль",
     "spellSpecialSaltNotes": "Кто-то кинул в вас снежок. Ха-ха, очень смешно. А теперь стряхните с меня снег!",
     "spellSpecialSpookDustText": "Зловещие искры",
-    "spellSpecialSpookDustNotes": "Превратите друзей в парящее облачко с глазами!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "Эликсир непрозрачности",
-    "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр"
+    "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр",
+    "spellSpecialShinySeedText": "Солнечное семя",
+    "spellSpecialShinySeedNotes": "Превратите друга в радостный цветок!",
+    "spellSpecialPetalFreePotionText": "Зелье освобождения от лепестков",
+    "spellSpecialPetalFreePotionNotes": "Отменить эффект Солнечного семени."
 }

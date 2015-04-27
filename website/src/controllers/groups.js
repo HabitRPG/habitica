@@ -12,6 +12,7 @@ var shared = require('../../../common');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var EmailUnsubscription = require('./../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
@@ -31,7 +32,7 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
  * @param type: 'party' or otherwise
  * @param q: the Mongoose query we're building up
- * @param additionalFields: if we want to populate some additional field not fetched normally 
+ * @param additionalFields: if we want to populate some additional field not fetched normally
  *        pass it as a string, parties only
  */
 var populateQuery = function(type, q, additionalFields){
@@ -237,24 +238,28 @@ api.getChat = function(req, res, next) {
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
 api.postChat = function(req, res, next) {
-  var user = res.locals.user
-  var group = res.locals.group;
-  if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
-  var lastClientMsg = req.query.previousMsg;
-  var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
+  if(!req.query.message) {
+    return res.json(400,{err:'You cannot send a blank message'});
+  } else {
+    var user = res.locals.user
+    var group = res.locals.group;
+    if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
+    var lastClientMsg = req.query.previousMsg;
+    var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-  group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
+    group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
 
-  if (group.type === 'party') {
-    user.party.lastMessageSeen = group.chat[0].id;
-    user.save();
+    if (group.type === 'party') {
+      user.party.lastMessageSeen = group.chat[0].id;
+      user.save();
+    }
+
+    group.save(function(err, saved){
+      if (err) return next(err);
+      return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+      group = chatUpdated = null;
+    });
   }
-
-  group.save(function(err, saved){
-    if (err) return next(err);
-    return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
-    group = chatUpdated = null;
-  });
 }
 
 api.deleteChatMessage = function(req, res, next){
@@ -306,7 +311,7 @@ api.flagChatMessage = function(req, res, next){
     group.save(function(err,_saved){
       if(err) return next(err);
         var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
-        
+
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
             return {email: email, canSend: true}
@@ -359,7 +364,7 @@ api.clearFlagCount = function(req, res, next){
   }else{
     return res.json(401, {err: "Only an admin can clear the flag count!"})
   }
-  
+
 }
 
 api.seenMessage = function(req,res,next){
@@ -582,7 +587,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           cb();
         });
       }
-    });    
+    });
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
@@ -628,10 +633,15 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // TODO implement "users can only be invited once"
-          invite.canSend = true; // Requested by utils.txnEmail
-          utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+          // Check for the email address not to be unsubscribed
+          EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
+            if(err) return cb(err);
+            if(unsubscribed) return cb();
 
-          cb();
+            utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+
+            cb();
+          });
         });
     }else{
       cb();
@@ -643,7 +653,7 @@ var inviteByEmails = function(invites, group, req, res, next){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
     }else{
 
-      // Send only status code down the line because it doesn't need 
+      // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
       res.send(200);
     }

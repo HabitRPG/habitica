@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Sei sicuro di voler segnalare questo post? Dovresti segnalare SOLO post che violano le <%= firstLinkStart %>Linee guida della community<%= linkEnd %> e/o i <%= secondLinkStart %>Termini del Servizio<%= linkEnd %>. Segnalare inappropriatamente un post è una violazione delle linee guida della community e può essere considerata come un'infrazione da parte tua.",
     "abuseFlagModalButton": "Segnala",
     "abuseReported": "Grazie di aver segnalato questa violazione. I moderatori sono stati avvertiti.",
-    "abuseAlreadyReported": "Hai già segnalato questo messaggio."
+    "abuseAlreadyReported": "Hai già segnalato questo messaggio.",
+    "needsText": "Scrivi un messaggio.",
+    "needsTextPlaceholder": "Scrivi il tuo messaggio qui."
 }

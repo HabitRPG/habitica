@@ -16,6 +16,19 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
 
     $scope.isMemberOfGroup = function(userid, group){
+
+      // If the group is a guild, just check for an intersection with the
+      // current user's guilds, rather than checking the members of the group.
+      if(group.type === 'guild') {
+        return _.detect(Groups.myGuilds(), function(g) { return g._id === group._id });
+      }
+
+      // Similarly, if we're dealing with the user's current party, return true.
+      if(group.type === 'party') {
+        var currentParty = Groups.party();
+        if(currentParty._id && currentParty._id === group._id) return true;
+      }
+
       if (!group.members) return false;
       var memberIds = _.map(group.members, function(x){return x._id});
       return ~(memberIds.indexOf(userid));
@@ -86,7 +99,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
       }else{
         $scope.removeMemberData = undefined;
-      }  
+      }
     }
 
     $scope.openInviteModal = function(group){
@@ -118,7 +131,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
       });
     }
-    
+
   }])
 
   .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){
@@ -146,8 +159,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
   }])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', '$controller',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, $controller) {
+
+      $controller('RootCtrl', {$scope: $scope});
+
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format($rootScope.User.user.preferences.dateFormat.toUpperCase());
       }
@@ -159,6 +175,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.profile = member;
       });
       $scope.sendPrivateMessage = function(uuid, message){
+        // Don't do anything if the user somehow gets here without a message.
+        if (!message) return;
+
         $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
           Notification.text(window.env.t('messageSentAlert'));
           $rootScope.User.sync();
@@ -199,6 +218,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.clearUserlist = function() {
       $scope.response = [];
       $scope.usernames = [];
+    }
+
+    $scope.filterUser = function(msg) {
+      if ($scope.query === undefined || $scope.query === null) {
+        return false;
+      }
+      return msg.user.indexOf($scope.query.text) == 0; // query should be prefix of msg.user
     }
 
     $scope.addNewUser = function(user) {
@@ -335,6 +361,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.sync = function(group){
       group.$get();
+      //When the user clicks fetch recent messages we need to update that the user has seen the new messages
+      Groups.seenMessage(group._id);
     }
 
     // List of Ordering options for the party members list

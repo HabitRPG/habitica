@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "Salt",
     "spellSpecialSaltNotes": "Nogen har kastet en snebold på dig! Haha, skideskægt... Fjern nu bare sneen fra mig!",
     "spellSpecialSpookDustText": "Skræmmende Gnister",
-    "spellSpecialSpookDustNotes": "Gør din ven til et flyvende lagen med øjne!",
+    "spellSpecialSpookDustNotes": "Gør din ven til et svævende lagen med øjne!",
     "spellSpecialOpaquePotionText": "Uigennemsigtig Eliksir",
-    "spellSpecialOpaquePotionNotes": "Fjerner effekterne af Skræmmende Gnister."
+    "spellSpecialOpaquePotionNotes": "Fjerner effekterne af Skræmmende Gnister.",
+    "spellSpecialShinySeedText": "Skinnende Frø",
+    "spellSpecialShinySeedNotes": "Gør en ven til en glad blomst!",
+    "spellSpecialPetalFreePotionText": "Kronblads-Fri Eliksir",
+    "spellSpecialPetalFreePotionNotes": "Fjerner effekterne af et Skinnende Frø."
 }

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Byl členy družiny zkoulován <%= snowballs %> krát.",
     "alarmingFriends": "Strašliví přátelé",
     "alarmingFriendsText": "Byl <%= spookDust %>krát vyděšen členy družiny.",
+    "agriculturalFriends": "Zemědělští přátelé",
+    "agriculturalFriendsText": "Byl kamarády transformován <%= seeds %>krát na kytku.",
     "valentineCard": "Valentýnka",
     "valentineCardNotes": "Poslat Valentínku členu družiny. ",
     "valentine0": "\"Růže jsou červené<%= lineBreak %>Mé denní úkoly modré<%= lineBreak %>Být s Tebou v družině<%= lineBreak %>Je vážně dobré!\"",

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "<%= snowballs %>-krát schytal snehovou guľou od člena družiny.",
     "alarmingFriends": "Alarming Friends",
     "alarmingFriendsText": "Got spooked <%= spookDust %> times by party members.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Valentínka",
     "valentineCardNotes": "Send a Valentine's Day card to a party member.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Прилетело снежков в спину от членов команды: <%= snowballs %>.",
     "alarmingFriends": "Пугающие друзья",
     "alarmingFriendsText": "Напуган членами команды <%= spookDust %> раз.",
+    "agriculturalFriends": "Сельскохозяйственные друзья",
+    "agriculturalFriendsText": "Превращен в цветок членами команды <%= seeds %> раз.",
     "valentineCard": "Валентинка",
     "valentineCardNotes": "Отправьте валентинку члену команды.",
     "valentine0": "Розы красны <%= lineBreak %> \"Ежедневные\" сини.<%= lineBreak %>Тем, кто со мною в команде, - <%= lineBreak %>Спасибо!",
@@ -22,8 +24,8 @@
     "seasonalShopClosedTitle": "Сиена Лезли",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Волшебница<%= linkEnd %>",
     "seasonalShopClosedText": "Сезонный магазин сейчас закрыт!!! Я не знаю где сейчас Сезонная Колдунья, но она вернется к следующему большому празднику.",
-    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
-    "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
+    "seasonalShopText": "Добро пожаловать в Сезонный магазин! Сейчас мы предлагаем товары весеннего <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно на протяжении Весенней Веселухи, но мы открыты только до 30 апреля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
+    "seasonalShopRebirth": "Использовав шар возрождения, вы сможете повторно купить это снаряжение в колонке наград после того, как разблокируете лавку предметов. Изначально вы сможете купить только предметы для вашего текущего класса (класс по умолчанию - воин), но не волнуйтесь: после смены класса вам станут доступны другие классовые предметы.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Жулик)",
     "snowflakeSet": "Снежинка (Знахарь)",
@@ -39,8 +41,8 @@
     "newYear3": "С Новым годом! Желаем вам, чтобы список задач оставался коротким и милым.",
     "newYear4": "С Новым годом! Желаем, чтобы на вас никогда не напал воинственный Гиппогриф.",
     "holidayCard": "Получена поздравительная открытка!",
-    "mightyBunnySet": "Mighty Bunny (Warrior)",
-    "magicMouseSet": "Magic Mouse (Mage)",
-    "lovingPupSet": "Loving Pup (Healer)",
-    "stealthyKittySet": "Stealthy Kitty (Rogue)"
+    "mightyBunnySet": "Могучий Кролик (Воин)",
+    "magicMouseSet": "Волшебная Мышь (Маг)",
+    "lovingPupSet": "Любящий Щенок (Целитель)",
+    "stealthyKittySet": "Скрытная Киса (Разбойник)"
 }

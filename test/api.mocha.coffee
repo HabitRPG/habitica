@@ -12,13 +12,13 @@ path = require("path")
 moment = require("moment")
 conf = require("nconf")
 conf.argv().env().file(file: path.join(__dirname, "../config.json")).defaults()
-conf.set "port", "1337"
+conf.set "PORT", "1337"
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
 process.env.BASE_URL = conf.get("BASE_URL")
 process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
-process.env.NODE_DB_URI = "mongodb://localhost/habitrpg"
+process.env.NODE_DB_URI = "mongodb://localhost/habitrpg_test"
 User = require("../website/src/models/user").model
 Group = require("../website/src/models/group").model
 Challenge = require("../website/src/models/challenge").model
@@ -30,7 +30,7 @@ payments = require("../website/src/controllers/payments")
 model = undefined
 uuid = undefined
 taskPath = undefined
-baseURL = "http://localhost:3000/api/v2"
+baseURL = "http://localhost:" + conf.get("PORT") + "/api/v2"
 expectCode = (res, code) ->
   expect(res.body.err).to.be `undefined`  if code is 200
   expect(res.statusCode).to.be code
@@ -169,6 +169,88 @@ describe "API", ->
               expect(_.size(res.body.todos)).to.be numTasks - 2
               done()
 
+      describe "Creating, Updating, Deleting Todos", ->
+        todo = undefined
+        updateTodo = undefined
+        describe "Creating todos", ->
+          it "Creates a todo", (done) ->
+            request.post(baseURL + "/user/tasks").send(
+                type: "todo"
+                text: "Sample Todo"
+            ).end (res) ->
+              expectCode res, 200
+              todo = res.body
+              expect(todo.text).to.be "Sample Todo"
+              expect(todo.id).to.be.ok
+              expect(todo.value).to.be 0
+              done()
+
+        describe "Updating todos", ->
+          it "Does not update id of todo", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              id: "a-new-id"
+            ).end (res) ->
+              expectCode res, 200
+              updateTodo = res.body
+              expect(updateTodo.id).to.be todo.id
+              done()
+
+          it "Does not update type of todo", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              type: "habit"
+            ).end (res) ->
+              expectCode res, 200
+              updateTodo = res.body
+              expect(updateTodo.type).to.be todo.type
+              done()
+
+          it "Does update text, attribute, priority, value, notes", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              text: "Changed Title"
+              attribute: "int"
+              priority: 1.5
+              value: 5
+              notes: "Some notes"
+            ).end (res) ->
+              expectCode res, 200
+              todo = res.body
+              expect(todo.text).to.be "Changed Title"
+              expect(todo.attribute).to.be "int"
+              expect(todo.priority).to.be 1.5
+              expect(todo.value).to.be 5
+              expect(todo.notes).to.be "Some notes"
+              done()
+
+        describe "Deleting todos", ->
+          it "Does delete todo", (done) ->
+            request.del(baseURL + "/user/tasks/" + todo.id).send(
+            ).end (res) ->
+              expectCode res, 200
+              body = res.body
+              expect(body).to.be.empty 
+              done()
+
+          it "Does not delete already deleted todo", (done) ->
+            request.del(baseURL + "/user/tasks/" + todo.id).send(
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Task not found."
+              done()
+
+          it "Does not update text, attribute, priority, value, notes if task is already deleted", (done) ->
+            request.put(baseURL + "/user/tasks/" + todo.id).send(
+              text: "New Title"
+              attribute: "str"
+              priority: 1
+              value: 4
+              notes: "Other notes"
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Task not found."
+              done()
+
     ###*
     GROUPS
     ###
@@ -184,6 +266,97 @@ describe "API", ->
           expect(group.members.length).to.be 1
           expect(group.leader).to.be user._id
           done()
+
+      describe "Party", ->
+        it "can be found by querying for party", (done) ->
+          request.get(baseURL + "/groups/").send(
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+
+            party = res.body[0]
+            expect(party._id).to.be group._id
+            expect(party.leader).to.be user._id
+            expect(party.name).to.be group.name
+            expect(party.quest).to.be.eql { progress: {} }
+            expect(party.memberCount).to.be group.memberCount
+            done()
+
+        describe "Chat", ->
+          chat = undefined
+          it "Posts a message to party chat", (done) ->
+            msg = "TestMsg"
+            request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
+            ).end (res) ->
+              expectCode res, 200
+              chat = res.body.message
+              expect(chat.id).to.be.ok
+              expect(chat.text).to.be.eql msg
+              expect(chat.timestamp).to.be.ok
+              expect(chat.likes).to.be.empty
+              expect(chat.flags).to.be.empty
+              expect(chat.flagCount).to.be 0
+              expect(chat.uuid).to.be.ok
+              expect(chat.contributor).to.be.empty
+              expect(chat.backer).to.be.empty
+              expect(chat.uuid).to.be user._id
+              expect(chat.user).to.be user.profile.name
+              done()
+
+          it "Does not post an empty message", (done) ->
+            msg = ""
+            request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
+            ).end (res) ->
+              expectCode res, 400
+              expect(res.body.err).to.be.eql 'You cannot send a blank message'
+              done()
+
+          it "can not like own chat message", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/like").send(
+            ).end (res) ->
+              expectCode res, 401
+              body = res.body
+              expect(body.err).to.be "Can't like your own message. Don't be that person."
+              done()
+
+          it "can not flag own message", (done) ->
+            request.post(baseURL + "/groups/" + group._id + "/chat/" + chat.id + "/flag").send(
+            ).end (res) ->
+              expectCode res, 401
+              body = res.body
+              expect(body.err).to.be "Can't report your own message."
+              done()
+
+          it "Gets chat messages from party chat", (done) ->
+            request.get(baseURL + "/groups/" + group._id + "/chat").send(
+            ).end (res) ->
+              expectCode res, 200
+              message = res.body[0]
+              expect(message.id).to.be chat.id
+              expect(message.timestamp).to.be chat.timestamp
+              expect(message.likes).to.be.eql chat.likes
+              expect(message.flags).to.be.eql chat.flags
+              expect(message.flagCount).to.be chat.flagCount
+              expect(message.uuid).to.be chat.uuid
+              expect(message.contributor).to.be.eql chat.contributor
+              expect(message.backer).to.be.eql chat.backer
+              expect(message.user).to.be chat.user
+              done()
+
+          it "Deletes a chat messages from party chat", (done) ->
+            request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
+            ).end (res) ->
+              expectCode res, 204
+              expect(res.body).to.be.empty
+              done()
+
+          it "Can not delete already deleted message", (done) ->
+            request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
+            ).end (res) ->
+              expectCode res, 404
+              body = res.body
+              expect(body.err).to.be "Message not found!"
+              done()
 
       describe "Challenges", ->
         challenge = undefined

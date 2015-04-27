@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Biztos hogy jelenteni akarod ezt a bejegyzést? CSAK olyat jelents, ami megsérti a <%= firstLinkStart %>Közösségi Irányelveket<%= linkEnd %> és/vagy <%= secondLinkStart %>Felhasználási feltételeket<%= linkEnd %>. Ha nem helyénvaló a bejegyzés megszegése, az a Közösségi Irányelvek megszegését jelenti és következményekkel járhat.",
     "abuseFlagModalButton": "Jelentés",
     "abuseReported": "Köszönjük ennek a megsértésnek a jelentését, értesítettük a moderátorokat.",
-    "abuseAlreadyReported": "Már jelentetted ezt az üzenetet."
+    "abuseAlreadyReported": "Már jelentetted ezt az üzenetet.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

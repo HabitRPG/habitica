@@ -58,8 +58,8 @@
     "whyAdsContent1": "Habit是一个开源项目，所以我们需要所有能获得的帮助——就把这当作对开发人员的捐赠吧。你还可以得到20颗用来购买特殊物品的宝石。",
     "whyAdsContent2": "“嘿，我支持了Kickstarter哦！” 遵循",
     "whyAdsContent3": "这些指令",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
-    "currentSurvey": "Current Survey",
-    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
+    "surveysSingle": "为了帮助HabitRPG成长而填写了一份问卷。现在没有任何可填的问卷",
+    "surveysMultiple": "为了帮助HabitRPG成长而填写了 <%=surveys%> 份问卷。现在没有任何可填的问卷",
+    "currentSurvey": "现在的问卷",
+    "surveyWhen": "那个章将会在三约尾给所有参与过问卷的玩家"
 }

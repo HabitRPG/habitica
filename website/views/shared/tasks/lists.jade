@@ -66,7 +66,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               ul.task-filter
                 li(ng-class='{active: list.view == "remaining"}')
                   a(ng-click='list.view = "remaining"')=env.t('remaining')
-                li(ng-class='{active: list.view == "dated"}', tooltip=env.t('datedNotSorted'))
+                li(ng-class='{active: list.view == "dated"}')
                   a(ng-click='list.view = "dated"')=env.t('dated')
                 li(ng-class='{active: list.view == "complete"}')
                   a(ng-click='list.view = "complete"')=env.t('complete')
@@ -97,7 +97,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               p.task-text {{item.text()}}
 
           // Events
-          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball || user.items.special.spookDust>0 || user.stats.buffs.spookDust)')
+          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball || user.items.special.spookDust>0 || user.stats.buffs.spookDust || user.items.special.shinySeed>0 || user.stats.buffs.shinySeed)')
 
             mixin specialSpell(k,canceler)
               li.task.reward-item(ng-if='#{canceler ? "user.stats.buffs."+canceler : "user.items.special."+k+">0"}',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.#{k}.notes()}}')
@@ -118,12 +118,16 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
             +specialSpell('snowball')
             +specialSpell('spookDust')
-
+            +specialSpell('shinySeed')
             +specialSpell('salt','snowball')
             +specialSpell('opaquePotion','spookDust')
+            +specialSpell('petalFreePotion','shinySeed')
 
           // Actual List
-          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks)
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks, ng-if='!$state.includes("options.social.challenges")')
+            include ./task
+          //Loads the non-sortable lists for challenges
+          ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', ng-if='$state.includes("options.social.challenges")')
             include ./task
 
           // Spells

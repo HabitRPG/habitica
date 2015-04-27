@@ -2,7 +2,7 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        =env.t('settings')
+        =env.t('site')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
         =env.t('API')
@@ -74,17 +74,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
             div.alert.alert-warning(style='padding:2px;margin-top:7px')
-              h5.hint(popover=env.t('clockInfo'), popover-trigger='mouseenter')=env.t('customDayStart')
+              h5=env.t('customDayStart')
+              h5=env.t('customDayStartInfo1')
+                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('customDayStartInfo2') : env.t('customDayStartInfo3')}}
+              h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
               .form-group
                 .input-group
                   input.form-control(type='number', min='0', max='23', ng-model='user.preferences.dayStart', ng-blur='saveDayStart()')
                   span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
-              small
-                  =env.t('subWarning1')
-                  |&nbsp;
-                  a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
-                  |&nbsp;
-                  =env.t('subWarning3')
 
       .personal-options.col-md-6
         .panel.panel-default
@@ -327,6 +324,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
               label
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
                 span=env.t('inactivityEmails')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.weeklyRecaps', ng-change='set({"preferences.emailNotifications.weeklyRecaps": user.preferences.emailNotifications.weeklyRecaps ? true: false})')
+                span=env.t('weeklyRecaps')
 
             hr
 

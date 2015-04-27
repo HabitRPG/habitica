@@ -73,7 +73,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "./test/run_tests.sh",
+    "test": "./node_modules/coffee-script/bin/coffee ./test/runTests.coffee -n",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/grunt;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
@@ -101,8 +101,9 @@
     "mocha": "~1.12.1",
     "mongoskin": "~0.6.1",
     "phantomjssmith": "~0.5.4",
-    "protractor": "~0.14.0",
+    "protractor": "~2.0.0",
     "rimraf": "^2.2.8",
+    "shelljs": "^0.4.0",
     "sinon": "^1.12.2",
     "superagent": "~0.15.7",
     "superagent-defaults": "~0.1.5",

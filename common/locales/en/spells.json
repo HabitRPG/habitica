@@ -53,8 +53,13 @@
   "spellSpecialSaltNotes": "Someone has snowballed you. Ha ha, very funny. Now get this snow off me!",
 
   "spellSpecialSpookDustText": "Spooky Sparkles",
-  "spellSpecialSpookDustNotes": "Turn your friends into a floating blanket with eyes!",
+  "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
   "spellSpecialOpaquePotionText": "Opaque Potion",
-  "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles."
+  "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
+
+  "spellSpecialShinySeedText": "Shiny Seed",
+  "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+  "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+  "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 
 }

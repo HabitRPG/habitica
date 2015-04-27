@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Majitel výpravy výpravu opustil. Můžete výpravu ukončit, pokud chcete. Můžete však pokračovat dále a všichni zbývající účastnici si po jejím skončení rozdělí kořist.",
     "questOwnerNotInPendingQuestParty": "Majitel výpravy výpravu opustil a nemůže ji již začít. Doporučujeme ji zrušit. Majitel výpravy získá zpět svitek.",
     "questOwnerNotInRunningQuestParty": "Majitel výpravy výpravu opustil. Můžete výpravu ukončit, pokud chcete. Můžete však pokračovat dále a všichni zbývající účastnici si po jejím skončení rozdělí kořist.",
+    "questParticipants": "Účastníci",
     "scrolls": "Svitky s Výpravou",
     "noScrolls": "Nemáš žádné svitky s Výpravou.",
     "scrollsText1": "Pro účast na výpravě musíš být členem družiny. Pokud chceš na výpravu na vlastní pěst, ",

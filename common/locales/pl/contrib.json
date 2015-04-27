@@ -58,8 +58,8 @@
     "whyAdsContent1": "Habit to projekt typu \"open source\" i przyda mu się każda pomoc jaką może dostać – traktuj to jak dotację. Po jej złożeniu otrzymasz również 20 klejnotów, które możesz wykorzystać do kupienia specjalnych przedmiotów.",
     "whyAdsContent2": "\"Hej! Wspierałem projekt na Kickstarterze!\" – podążaj za",
     "whyAdsContent3": "tymi instrukcjami",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
-    "currentSurvey": "Current Survey",
-    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
+    "surveysSingle": "Pomógł rozwinąć HabitRPG poprzez wypełnienie ankiety. Brak aktywnych ankiet.",
+    "surveysMultiple": "Pomógł rozwinąć HabitRPG poprzez wypełnienie <%=surveys %> ankiet. Brak aktywnych ankiet.",
+    "currentSurvey": "Bieżąca ankieta.",
+    "surveyWhen": "Odznaki zostaną przyznane wszystkim biorącym udział, gdy zgłoszenia zostaną przetworzone pod koniec Marca."
 }

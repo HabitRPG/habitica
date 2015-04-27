@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "A küldetés tulajdonosa kilépett a küldetésből. Megszakíthatod a küldetést, ha kell. Egyébként hagyhatod, hogy menjen tovább és a maradék résztvevők megkapják a küldetés jutalmát amikor a küldetés véget ér.",
     "questOwnerNotInPendingQuestParty": "A küldetés tulajdonosa elhagyta a csapatot és már nem tudja elkezdeni a küldetést. Azt ajánljuk, hogy szakítsd meg most. A küldetés tulajdonosa megtartja a küldetés tekercset.",
     "questOwnerNotInRunningQuestParty": "A küldetés tulajdonosa elhagyta a csapatot. Abbahagyhatod a küldetést ha akarod, de akár folytathatod is és az összes megmaradt résztvevő megkapja a küldetés jutalmát, amint az befejeződött.",
+    "questParticipants": "Résztvevők",
     "scrolls": "Küldetés tekercsek",
     "noScrolls": "Nincsenek küldetés tekercseid.",
     "scrollsText1": "Küldetést csak csapatban csinálhatsz. Ha egyedül szeretnéd csinálni, akkor",

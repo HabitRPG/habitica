@@ -15,7 +15,7 @@
     "tavernTalk": "Посиденьки у таверні",
     "tavernAlert1": "Примітка: Розробники не побачать тут Вашого повідомлення про помилку. Будь ласка, ",
     "tavernAlert2": "скористайтеся Github.",
-    "moderatorIntro1": "Модератори Таверни та ґільдій:",
+    "moderatorIntro1": "Модератори Таверни та гільдій:",
     "communityGuidelines": "Правила спiльноти",
     "communityGuidelinesRead1": "Будь ласка, прочитайте",
     "communityGuidelinesRead2": "перед тим, як долучитися до чату.",
@@ -94,5 +94,7 @@
     "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
     "abuseFlagModalButton": "Report",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "You have already reported this message."
+    "abuseAlreadyReported": "You have already reported this message.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

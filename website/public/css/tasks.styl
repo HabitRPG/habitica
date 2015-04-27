@@ -128,6 +128,12 @@ for $stage in $stages
   background: $color-tasks
   border: 1px solid darken($color-tasks,16.18%)
   font-family: 'Lato', sans-serif
+
+  &:after
+    clear: both;
+    display: block;
+    content: "";
+
   h2
     color: darken($color-tasks,61.8%)
 
@@ -631,3 +637,23 @@ form
     .shop_gold + .reward-cost
       line-height: 1
       top: -0.1em
+
+// Hide interativity if task is locked (i.e. is a challenge reward)
+.locked-task
+  .action-yesno label:hover:after
+    height: 10px
+    width: 10px
+    margin: 15px auto
+    border: 1px solid #222
+    opacity: 0.2 !important
+  .action-yesno label:focus,
+  .action-yesno label:hover
+    background-color: #ffcf42 !important
+  .task-actions a,
+  .task-checker label,
+  .task-text
+    cursor: initial
+  .task-actions a:hover
+    background-color:inherit !important
+  .task-checker label:hover:after
+    content: ''

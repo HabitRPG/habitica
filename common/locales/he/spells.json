@@ -36,7 +36,11 @@
     "spellSpecialSaltText": "מלח",
     "spellSpecialSaltNotes": "מישהו/י זרק/ה עלייך כדור שלג. פפחחחחחח, זה קורע, משהו היסטרי. טוב, נו, בוא נוריד את השלג הזה ממך!",
     "spellSpecialSpookDustText": "נצנצים מלחיצים",
-    "spellSpecialSpookDustNotes": "הם יהפכו את החברים שלך לשמיכה מרחפת עם עיניים!",
+    "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
     "spellSpecialOpaquePotionText": "תרופה שקופה",
-    "spellSpecialOpaquePotionNotes": "מבטלת את השפעת הנצנצים המלחיצים."
+    "spellSpecialOpaquePotionNotes": "מבטלת את השפעת הנצנצים המלחיצים.",
+    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+    "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
 }

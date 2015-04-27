@@ -165,7 +165,7 @@ function($rootScope, User, $timeout, $state) {
           $state.go(step.state);
           return $timeout(function(){});
         }
-        window.ga && ga('send', 'event', 'tour', k, i+1);
+        window.ga && ga('send', 'event', 'behavior', 'tour', k, i+1);
       }
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
@@ -182,14 +182,24 @@ function($rootScope, User, $timeout, $state) {
       name: k,
       backdrop: true,
       template: function(i,step){
+        var showFinish = step.final || k == 'classes';
+        var showCounter = k=='intro' && !step.final;
+
+        $rootScope.variant=2; // temporarily set finish & counter on until we can get experiment working
+
+        // Experiment wud1Ba5qT1m9qR3PP0-Mmg , remove this when experiment complete
+        // 0=No Finish; Yes Counter 1=No Finish; No Counter 2=Yes Finish; Yes Counter 3=Yes Finish; No Counter
+        showFinish = showFinish || $rootScope.variant==2 || $rootScope.variant==3;
+        showCounter = showCounter && ($rootScope.variant==0 || $rootScope.variant==2);
+
         return '<div class="popover" role="tooltip">' +
           '<div class="arrow"></div>' +
           '<h3 class="popover-title"></h3>' +
           '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
             //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
-            ((step.final || k == 'classes') ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '') +
-            (k=='intro' && !step.final ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
+            (showFinish ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '') +
+            (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
             '<div class="btn-group">' +
               '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button>' +
               '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button>' +

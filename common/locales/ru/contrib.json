@@ -58,8 +58,8 @@
     "whyAdsContent1": "HabitRPG — проект с открытым исходным кодом, ему нужна любая возможная помощь. Расценивайте это как пожертвование разработчикам. При оплате вы также получаете 20 самоцветов, которые можно использовать для покупки особых игровых предметов.",
     "whyAdsContent2": "«Эй! Я поддержал проект на Kickstarter!» — следуйте",
     "whyAdsContent3": "этим инструкциям",
-    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
-    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
-    "currentSurvey": "Current Survey",
-    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
+    "surveysSingle": "Помог развитию HabitRPG, заполнив опрос. Сейчас нет опросов для заполнения.",
+    "surveysMultiple": "Помог развитию HabitPRG, заполнив опросы: <%= surveys %>. Сейчас нет опросов для заполнения.",
+    "currentSurvey": "Текущий опрос",
+    "surveyWhen": "Участники получат этот значок после обработки опросов, в конце марта."
 }

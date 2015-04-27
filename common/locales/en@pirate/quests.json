@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Th' quest owner has left th' quest. ye can abort th' quest if ye need to. ye can also allow it to keep runnin' 'n all remainin' participants gunna receive th' quest rewards when th' quest finishes.",
     "questOwnerNotInPendingQuestParty": "Th' quest owner has left th' crew 'n can no longer begin th' quest. It be recommended that ye cancel it now. th' quest scroll gunna be returned to th' quest owner.",
     "questOwnerNotInRunningQuestParty": "Th' quest owner has left th' crew. ye can abort th' quest if ye need to but ye can also leave it runnin' 'n all remainin' participants gunna receive th' quest rewards when th' quest finishes.",
+    "questParticipants": "Participants",
     "scrolls": "Adventure Scrolls",
     "noScrolls": "Ye don't 'ave any adventure scrolls.",
     "scrollsText1": "Adventures require crews. If ye want t' adventure by yer lonesome,",

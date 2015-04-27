@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Vlastník výpavy ju opustil. Môžes ju opustiť aj ty, ak potrebuješ. Ale môžeš aj ďalej pokračovať a všetci účastníci na konci dostanú odmeny za danú výpravu.",
     "questOwnerNotInPendingQuestParty": "Vlastník výpravy opustil družinu a teda ju už nemôže začať výpravu. Odporúčame aby si ju teraz ukončil. Vlastník výpravy získa zvitok naspäť.",
     "questOwnerNotInRunningQuestParty": "Vlastník výpavy opustil družinu. Môžeš odísť z výpravy, ak potrebuješ. Ale môžeš aj ďalej pokračovať a všetci účastníci na konci dostanú odmeny za danú výpravu.",
+    "questParticipants": "Participants",
     "scrolls": "Zvitky s mapami výprav",
     "noScrolls": "Nemáš žiadne zvitky s mapami výprav.",
     "scrollsText1": "Ak chceš ísť na výpravu, potrebuješ družinu. Ak chceš ísť sólo,",
