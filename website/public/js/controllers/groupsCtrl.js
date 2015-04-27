@@ -224,6 +224,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if ($scope.query === undefined || $scope.query === null) {
         return false;
       }
+      if (msg.username == undefined) {
+        return false;
+      }
       return msg.user.indexOf($scope.query.text) == 0; // query should be prefix of item.user
     }
 

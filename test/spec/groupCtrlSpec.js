@@ -101,7 +101,7 @@ describe("Autocomplete controller", function() {
       scope.clearUserlist();
       expect(scope.response).to.be.empty; // to.be.empty() doesn't work for some reason. This is the same thing
       expect(scope.usernames).to.be.empty;
-    })
+    });
 
     it('the function is called upon initialization of the controller', function() {
       scope.response.push("blah");
@@ -110,33 +110,38 @@ describe("Autocomplete controller", function() {
 
       expect(scope.response).to.be.empty; // to.be.empty() doesn't work for some reason. This is the same thing
       expect(scope.usernames).to.be.empty;
-    })
+    });
   })
 
   describe("filterUser", function() {
     it('filters with undefined query (not loaded yet) and returns false (so it will not be rendered)', function() {
         expect(scope.filterUser({user: "boo"})).to.be.eq(false);
-    })
+    });
 
     it('filters with null query (no typing yet) and returns false (so it will not be rendered)', function() {
       scope.query = null
       expect(scope.filterUser({user: "boo"})).to.be.eq(false);
-    })
+    });
 
     it('filters with empty prefix and returns true', function() {
       scope.query = {text: ""}
       expect(scope.filterUser({user: "prefix"})).to.be.eq(true);
-    })
+    });
 
     it('filters with prefix element and returns true', function() {
       scope.query = {text: "pre"}
       expect(scope.filterUser({user: "prefix"})).to.be.eq(true);
-    })
+    });
 
     it('filters with nonprefix element and returns false', function() {
       scope.query = {text: "noprefix"}
       expect(scope.filterUser({user: "prefix"})).to.be.eq(false);
-    })
+    });
+
+    it('filters out system messages (messages without username)', function() {
+      scope.query = {text: "myquery"}
+      expect(scope.filterUser({uuid: "system"})).to.be.eq(false);
+    });
   });
 
   describe("addNewUser", function() {
@@ -159,6 +164,6 @@ describe("Autocomplete controller", function() {
       scope.$digest(); // trigger watch
       scope.group.chat.push({msg: "new chat", user: "boo"});
       expect(chatChanged.callCount).to.be.eq(1);
-    })
+    });
   });  
 });
