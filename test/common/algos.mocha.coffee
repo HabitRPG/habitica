@@ -185,20 +185,30 @@ describe 'User', ->
     expect(user.stats.buffs.str).to.be 1
     expect(user.achievements.perfect).to.be 2
 
-  describe 'Inn', ->
-    it 'handles inn behavior', ->
+  describe 'Resting in the Inn', ->
+    user = null
+    cron = null
+    beforeEach ->
       user = newUser()
       user.preferences.sleep = true
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
+      user.dailys = []
+      _.times 3, -> user.dailys.push shared.taskDefaults({type:'daily'})
+    it 'resets dailies', ->
       cron()
       expect(user.preferences.sleep).to.be.ok
 
-      user.dailys = []
-      _.times 3, -> user.dailys.push shared.taskDefaults({type:'daily'})
+    it 'does not damage user for incomplete dailies', ->
       user.dailys[0].completed = true
       cron()
       expect(user).toHaveHP 50
 
+    it 'gives credit for complete dailies', ->
+      user.dailys[0].completed = true
+      cron()
+      expect(user.dailys[0].history.length).to.be.ok
+
+    it 'damages user for incomplete dailies after checkout', ->
       user.dailys[0].completed = true
       user.dailys[1].completed = false
       user.preferences.sleep = false
