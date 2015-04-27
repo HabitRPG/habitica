@@ -11,3 +11,9 @@ mixin aLink(url, label)
     a(href="", ng-click="externalLink('#{url}')")= label
   else
     a(href='#{url}', target='_blank')= label
+
+mixin previewMarkdown(text)
+  .panel.panel-warning
+    .panel-heading=env.t('msgPreviewHeading')
+    .panel-body
+      markdown(text='#{text}')

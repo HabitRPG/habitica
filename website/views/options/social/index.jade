@@ -118,12 +118,16 @@ script(type='text/ng-template', id='modals/copyChatToDo.html')
   .modal-header
     h4=env.t('copyMessageAsToDo')
   .modal-body
-    p
-      input.form-control(type='text',ng-model='text')
-    br
-    p
-      textarea.form-control(type='text',rows='5',ng-model='notes', focus-me)
+    .form-group
+      input.form-control(type='text',ng-model='text', ng-model-options="{debounce: 1000}")
+    .form-group
+      textarea.form-control(rows='5',ng-model='notes', ng-model-options="{debounce: 1000}", focus-me)
+
+    hr
+
+    div(popover-trigger='click', data-popover-html="{{notes | markdown}}", popover-placement="top")
+      +previewMarkdown('text')
 
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
-    button.btn.btn-default(ng-click='saveTodo()')=env.t('submit')
+    button.btn.btn-primary(ng-click='saveTodo()')=env.t('submit')

@@ -97,6 +97,8 @@
     "abuseAlreadyReported": "You have already reported this message.",
     "needsText": "Please type a message.",
     "needsTextPlaceholder": "Type your message here.",
-    "copyMessageAsToDo": "copy message as to-do",
-    "messageAddedAsToDo": "Message copied as to-do."
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview"
 }
