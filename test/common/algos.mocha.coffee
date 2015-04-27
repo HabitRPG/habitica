@@ -193,13 +193,19 @@ describe 'User', ->
       user.preferences.sleep = true
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
       user.dailys = []
-      _.times 3, -> user.dailys.push shared.taskDefaults({type:'daily'})
-    it 'resets dailies', ->
+      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
+    it "doesn't change on cron", ->
       cron()
       expect(user.preferences.sleep).to.be.ok
 
+    it 'resets dailies', ->
+       user.dailys[0].completed = true
+       cron()
+       expect(user.dailys[0].completed).to.not.be.ok
+
     it 'does not damage user for incomplete dailies', ->
       user.dailys[0].completed = true
+      user.dailys[1].completed = false
       cron()
       expect(user).toHaveHP 50
 
