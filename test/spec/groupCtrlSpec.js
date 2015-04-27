@@ -113,5 +113,10 @@ describe("Autocomplete controller", function() {
       scope.query = {text: "noprefix"}
       expect(scope.filterUser({user: "prefix"})).to.be.eq(false);
     })
+
+    it('filters out system messages (messages without username)', function() {
+      scope.query = {text: "myquery"}
+      expect(scope.filterUser({uuid: "system"})).to.be.eq(false);
+    });
   });
 });
