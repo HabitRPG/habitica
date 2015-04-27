@@ -90,23 +90,28 @@ describe("Autocomplete controller", function() {
   });
 
   describe("filterUser", function() {
-    it('filters with undefined query (not loaded yet) and defaults to true', function() {
-        expect(scope.filterUser({user: "boo"})).to.be.eq(true);
+    it('filters with undefined query (not loaded yet) and returns false (so it will not be rendered)', function() {
+        expect(scope.filterUser({user: "boo"})).to.be.eq(false);
     })
 
-    it('filters with null query (no typing yet) and defaults to true', function() {
+    it('filters with null query (no typing yet) and returns false (so it will not be rendered)', function() {
       scope.query = null
-      expect(scope.filterUser({user: "boo"})).to.be.ok
+      expect(scope.filterUser({user: "boo"})).to.be.eq(false);
+    })
+
+    it('filters with empty prefix and returns true', function() {
+      scope.query = {text: ""}
+      expect(scope.filterUser({user: "prefix"})).to.be.eq(true);
     })
 
     it('filters with prefix element and returns true', function() {
       scope.query = {text: "pre"}
-      expect(scope.filterUser({user: "prefix"})).to.be.ok
+      expect(scope.filterUser({user: "prefix"})).to.be.eq(true);
     })
 
     it('filters with nonprefix element and returns false', function() {
       scope.query = {text: "noprefix"}
-      expect(scope.filterUser({user: "prefix"})).to.not.be.ok
+      expect(scope.filterUser({user: "prefix"})).to.be.eq(false);
     })
   });
 });
