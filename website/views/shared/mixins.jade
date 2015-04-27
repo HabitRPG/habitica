@@ -15,5 +15,5 @@ mixin aLink(url, label)
 mixin previewMarkdown(text)
   .panel.panel-warning
     .panel-heading=env.t('msgPreviewHeading')
-    .panel-body
+    .panel-body.markdown-preview
       markdown(text='#{text}')

@@ -348,7 +348,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.copyToDo = function(message) {
       var taskNotes = env.t("messageWroteIn",  {
-        user: '[' + message.user + '](' + env.BASE_URL + '/static/front/#?memberId=' + message.uuid + ')',
+        user: message.uuid == 'system'
+            ? 'system'
+            : '[' + message.user + '](' + env.BASE_URL + '/static/front/#?memberId=' + message.uuid + ')',
         group: '[' + $scope.group.name + '](' + window.location.href + ')'
       });
 
