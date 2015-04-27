@@ -212,8 +212,9 @@ describe 'User', ->
 
     it 'gives credit for complete dailies', ->
       user.dailys[0].completed = true
+      expect(user.dailys[0].history).to.be.empty
       cron()
-      expect(user.dailys[0].history.length).to.be.ok
+      expect(user.dailys[0].history).to.not.be.empty
 
     it 'damages user for incomplete dailies after checkout', ->
       expect(user).toHaveHP 50
