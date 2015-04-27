@@ -194,7 +194,7 @@ describe 'User', ->
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
       user.dailys = []
       _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
-    it "doesn't change on cron", ->
+    it 'remains in the inn on cron', ->
       cron()
       expect(user.preferences.sleep).to.be.ok
 
@@ -204,6 +204,7 @@ describe 'User', ->
        expect(user.dailys[0].completed).to.not.be.ok
 
     it 'does not damage user for incomplete dailies', ->
+      expect(user).toHaveHP 50
       user.dailys[0].completed = true
       user.dailys[1].completed = false
       cron()
@@ -215,6 +216,7 @@ describe 'User', ->
       expect(user.dailys[0].history.length).to.be.ok
 
     it 'damages user for incomplete dailies after checkout', ->
+      expect(user).toHaveHP 50
       user.dailys[0].completed = true
       user.dailys[1].completed = false
       user.preferences.sleep = false
