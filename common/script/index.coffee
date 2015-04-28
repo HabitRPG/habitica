@@ -656,7 +656,6 @@ api.wrap = (user, main=true) ->
 
         pd.push(item) unless i != -1
 
-        user.markModified? 'pushDevices'
         cb? null, user.pushDevices
       
       # ------
