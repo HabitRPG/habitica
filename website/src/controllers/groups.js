@@ -136,13 +136,13 @@ api.get = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && group != null && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
+    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
 
     //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
     var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
 
     //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
-    if (group.privacy === 'private' && gid !== 'party') {
+    if (group.privacy === 'private' || gid === 'party') {
      //If the user is not in the group query, add them
      if (userInGroup === undefined) { group.members.push(user); }
      res.json(group);
@@ -152,7 +152,7 @@ api.get = function(req, res, next) {
      var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
      q2.exec(function(err, group2){
        if (err) return next(err);
-       if (group2 !== null) {
+       if (!group2) {
         if (userInGroup === undefined) { group.members.push(user); }
        }
        res.json(group);
