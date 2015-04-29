@@ -49,7 +49,7 @@ describe('Groups Controller', function() {
       });
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.be.ok;
-      expect(myGuilds).to.be.called
+      expect(myGuilds).to.be.called;
     });
 
     it('does not return true if guild is not included in myGuilds call', function(){
@@ -63,7 +63,7 @@ describe('Groups Controller', function() {
       });
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-      expect(myGuilds).to.be.called
+      expect(myGuilds).to.be.called;
     });
   });
 });
