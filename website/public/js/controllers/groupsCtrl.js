@@ -225,7 +225,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         return false;
       }
 
-      return msg.user.indexOf($scope.query.text) == 0;
+      // Ignore casing when checking for username
+      var user = msg.user.toLowerCase();
+      var text = $scope.query.text.toLowerCase();
+
+      return user.indexOf(text) == 0;
     }
 
     $scope.addNewUser = function(user) {
