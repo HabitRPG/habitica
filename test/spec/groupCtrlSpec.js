@@ -133,7 +133,7 @@ describe("Autocomplete controller", function() {
       expect(scope.filterUser({user: "prefix"})).to.be.eq(true);
     });
 
-    it('filters with prefix of a different case and element and returns true', function() {
+    it('filters with prefix element of a different case and returns true', function() {
       scope.query = {text: "pre"}
       expect(scope.filterUser({user: "Prefix"})).to.be.eq(true);
     });
