@@ -124,7 +124,7 @@ describe("Autocomplete controller", function() {
     });
 
     it('filters with empty prefix and returns true', function() {
-      scope.query = {text: ""}
+      scope.query = {text: ""};
       expect(scope.filterUser({user: "prefix"})).to.be.eq(true);
     });
 
@@ -165,5 +165,5 @@ describe("Autocomplete controller", function() {
       scope.group.chat.push({msg: "new chat", user: "boo"});
       expect(chatChanged.callCount).to.be.eq(1);
     });
-  });  
+  });
 });

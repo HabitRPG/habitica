@@ -2,7 +2,7 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        =env.t('settings')
+        =env.t('site')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
         =env.t('API')

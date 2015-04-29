@@ -1,5 +1,5 @@
 {
-    "statsAch": "Statistika i dostignuća",
+    "statsAch": "Karakteristike i odlikovanja",
     "profile": "Profil",
     "avatar": "Avatar",
     "other": "Ostalo",
@@ -136,7 +136,7 @@
     "displayNameDescription1": "Pojavljuje se sa Vašim avatarom u porukama koje pošaljete u Krčmi, udruženjima, i družinama. Korisničko ime možete promeniti na",
     "displayNameDescription2": "Postavke -> Sajt",
     "displayNameDescription3": "u odeljku Registracija.",
-    "unequipBattleGear": "Skini borbenu opremu",
-    "unequipCostume": "Skini kostim",
-    "unequipPetMountBackground": "Skloni ljubimca, životinju koju jašeš, pozadinu"
+    "unequipBattleGear": "Skinuti borbenu opremu",
+    "unequipCostume": "Skinuti kostim",
+    "unequipPetMountBackground": "Ukloniti zver, pozadinu"
 }
