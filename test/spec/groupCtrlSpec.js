@@ -99,7 +99,7 @@ describe("Autocomplete controller", function() {
       scope.usernames.push("blub");
 
       scope.clearUserlist();
-      expect(scope.response).to.be.empty; // to.be.empty() doesn't work for some reason. This is the same thing
+      expect(scope.response).to.be.empty;
       expect(scope.usernames).to.be.empty;
     });
 
@@ -108,7 +108,7 @@ describe("Autocomplete controller", function() {
       scope.response.push("blub");
       ctrl = $controller('AutocompleteCtrl', {$scope: scope});
 
-      expect(scope.response).to.be.empty; // to.be.empty() doesn't work for some reason. This is the same thing
+      expect(scope.response).to.be.empty;
       expect(scope.usernames).to.be.empty;
     });
   })
