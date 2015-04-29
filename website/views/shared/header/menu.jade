@@ -26,9 +26,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.social.inbox')
+                  span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}} &nbsp;
                   =env.t("inbox")
-                  | &nbsp;
-                  span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
               li
                 a(ui-sref='options.social.tavern')=env.t('tavern')
               li
@@ -95,18 +94,18 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.profile.profile')=env.t('profile') 
       li.toolbar-button-dropdown
+        a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
+          span.badge.badge-danger {{user.inbox.newMessages}}
         a(ui-sref='options.social.tavern')
           span=env.t('social')
-          span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
         a(ng-click='expandMenu("social")', ng-class='{active: _expandedMenu == "social"}')
           span &#9776;
         div(ng-if='_expandedMenu == "social"')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
               a(ui-sref='options.social.inbox')
+                span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}} &nbsp;
                 =env.t("inbox")
-                | &nbsp;
-                span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
             li
               a(ui-sref='options.social.tavern')=env.t('tavern')
             li
@@ -258,8 +257,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li.toolbar-controls-button
               a(ng-click='expandMenu(null)')=env.t('close')
     ul.toolbar-wallet
-      li.toolbar-gems
-        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+      li.toolbar-gems(popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})')
           //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
           span.Pet_Currency_Gem2x.Gems
           span.gem-text {{user.balance * 4 | number:0}}

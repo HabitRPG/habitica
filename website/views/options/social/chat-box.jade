@@ -15,8 +15,8 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
     textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == 'habitrpg' ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}")
     span.user-list(ng-show='!isAtListHidden')
       ul.list-at-user
-        li(ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
-          span.username.label.label-default(ng-class=':: userLevelStyle(user)') {{::user.user}}
+        li(ng-repeat='msg in response | filter:filterUser | limitTo: 5', ng-click='autoComplete(msg)')
+          span.username.label.label-default(ng-class=':: userLevelStyle(msg)') {{::msg.user}}
   .chat-controls
     .chat-formatting
       include ../../shared/formatting-help
