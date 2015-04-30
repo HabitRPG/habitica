@@ -314,6 +314,7 @@ var UserSchema = new Schema({
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
+    displayInviteToPartyWhenPartyIs1: { type:Boolean, 'default':true},
     webhooks: {type: Schema.Types.Mixed, 'default': {}},
     // For this fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null

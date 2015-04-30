@@ -32,5 +32,6 @@
 
     // party
     span(ng-controller='PartyCtrl')
+      button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)", ng-if="(party.members.length === 1) && user.preferences.displayInviteToPartyWhenPartyIs1")=env.t("inviteFriends")
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         +herobox()

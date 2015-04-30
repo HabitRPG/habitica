@@ -66,6 +66,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               label
                 input(type='checkbox', ng-model='user.preferences.dailyDueDefaultView', ng-change='set({"preferences.dailyDueDefaultView": user.preferences.dailyDueDefaultView?true: false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('dailyDueDefaultViewPop'))=env.t('dailyDueDefaultView')
+            .checkbox
+              label
+                input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('displayInviteToPartyWhenPartyIs1'))=env.t('displayInviteToPartyWhenPartyIs1')
             // button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
