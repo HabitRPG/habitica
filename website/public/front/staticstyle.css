@@ -17,7 +17,7 @@ body {
 section {
   height:100%;
   position:relative;
-  padding:5% 0 5% 0;
+  padding:2% 0;
 }
 
 section .well {
@@ -41,7 +41,7 @@ section .well {
   border-top:1px solid #ccc;
 }
 
-h1, h2, h3, h4, p.sectioninfo {
+h1, h2, h3, h4 {
   text-align: center;
 }
 
@@ -80,8 +80,9 @@ h1, h2, h3, h4, p.sectioninfo {
 
 p.sectioninfo {
   display:block;
-  margin:100px auto 0 auto;
+  margin:30px auto 0 auto;
   font-size:16px;
+  text-align: center;
 }
 
 #uses .btn-toolbar {
@@ -131,14 +132,15 @@ button.gamifybutton {
   margin: 20px;
 }
 
-#rewards {
-  margin-top:200px;
-}
-
 .tweet.popover {
   position:relative;
   display:block;
-  max-width:76%!important;
+  width:100%!important;
+  float:left;
+}
+
+.usetweet-group .tweet.popover {
+  width:100%!important;
 }
 
 .scrolltweet {
@@ -161,10 +163,15 @@ button.gamifybutton {
 
 .avatarscroll img {
   display:inline-block;
-  margin-top:20px;
 }
 
+.avatarscroll .glyphicon {
+  color:#999;
+}
 
+.avatarscroll .glyphicon.glyphicon-check {
+  color:#000;
+}
 
 #myCarousel {
   margin-top:2rem;
@@ -194,11 +201,8 @@ button.gamifybutton {
 
 .carousel-content {
     width:100%;
-    height:450px;
     min-width:100%;
-    min-height:450px;
     max-width:100%;
-    max-height:450px;
     overflow:hidden;
     display:block;
 }
@@ -268,8 +272,7 @@ button.gamifybutton {
 }
 
 .carousel-content .usetweet {
-  float:right;
-  max-width:300px;
+  min-width:75%;
 }
 
 #footercall {
@@ -293,7 +296,7 @@ button.gamifybutton {
 
 #quote-carousel {
     padding-bottom:30px;
-    margin-top: 15rem;
+    margin-top: 5rem;
     /* Control buttons  */
     /* Previous button  */
     /* Next button  */
@@ -309,11 +312,11 @@ button.gamifybutton {
 }
 
 #quote-carousel .carousel-indicators {
-    right: 50%;
+    left:35%;
     top: auto;
     bottom: 0px;
-    margin-right: -19px;
 }
+
 #quote-carousel .carousel-indicators li {
     width: 50px;
     height: 50px;
@@ -410,9 +413,7 @@ button.gamifybutton {
 
 /*Fixed CTA*/
 .fixedcta {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
+    position:relative;
     cursor: pointer;
     z-index: 300;
 }
@@ -432,12 +433,13 @@ button.gamifybutton {
 
   section .well {
     margin-top:2rem;
+    margin-left:20%;
     clear:both;
   }
 
   button.gamifybutton {
     margin: 40px auto 20px auto;
-    width:80%;
+    width:100%;
     position: static;
     display:block;
     cursor: pointer;
@@ -471,32 +473,30 @@ button.gamifybutton {
   }
 
   #quote-carousel {
-    padding-bottom:1rem;
+    padding-bottom:0rem;
     margin-top: 5rem;
   }
 
   #quote-carousel .carousel-indicators {
-    padding-bottom:5rem;
+    padding-bottom:0rem;
+    left:50%;
   }
 
  #quote-carousel .carousel-indicators li {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 #quote-carousel .carousel-indicators .active {
     background: #333333;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
 }
 #quote-carousel .carousel-inner {
-    min-height: 350px;
-    width::90%;
+    min-height: 250px;
+    width::95%;
 }
  
-  .carousel-content .sampletasks .task-desc {
+.carousel-content .sampletasks .task-desc {
     font-size:0.8em;
   }
 }
-
-
-
