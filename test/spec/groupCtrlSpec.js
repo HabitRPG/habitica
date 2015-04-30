@@ -68,6 +68,70 @@ describe('Groups Controller', function() {
   });
 });
 
+describe("Chat Controller", function() {
+  var scope, ctrl, user, $rootScope, $controller;
+
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
+
+    inject(function(_$rootScope_, _$controller_){
+      user = specHelper.newUser();
+      user._id = "unique-user-id";
+      $rootScope = _$rootScope_;
+
+      scope = _$rootScope_.$new();
+
+      $controller = _$controller_;
+
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: {user: user}});
+
+      ctrl = $controller('ChatCtrl', {$scope: scope});
+    });
+  });
+
+  describe('copyToDo', function() {
+    it('when copying a user message it opens modal with information from message', function() {
+      scope.group = {
+        name: "Princess Bride"
+      };
+
+      var modalSpy = sinon.spy($rootScope, "openModal");
+      var message = {
+        uuid: 'the-dread-pirate-roberts',
+        user: 'Wesley',
+        text: 'As you wish'
+      };
+
+      scope.copyToDo(message);
+
+      modalSpy.should.have.been.calledOnce;
+      // @TODO, should probably check the modal options that get passed in as well
+      modalSpy.should.have.been.calledWith('copyChatToDo');
+    });
+
+    it('when copying a system message it opens modal with information from message', function() {
+      scope.group = {
+        name: "Princess Bride"
+      };
+
+      var modalSpy = sinon.spy($rootScope, "openModal");
+      var message = {
+        uuid: 'system',
+        text: 'Wesley attacked the ROUS in the Fire Swamp'
+      };
+
+      scope.copyToDo(message);
+
+      modalSpy.should.have.been.calledOnce;
+      // @TODO, should probably check the modal options that get passed in as well
+      modalSpy.should.have.been.calledWith('copyChatToDo');
+    });
+  });
+});
+
 describe("Autocomplete controller", function() {
   var scope, ctrl, user, $rootScope, $controller;
 
@@ -169,6 +233,60 @@ describe("Autocomplete controller", function() {
       scope.$digest(); // trigger watch
       scope.group.chat.push({msg: "new chat", user: "boo"});
       expect(chatChanged.callCount).to.be.eq(1);
+    });
+  });
+});
+
+describe("CopyMessageModal controller", function() {
+  var scope, ctrl, user, Notification, $rootScope, $controller;
+
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
+
+    inject(function($rootScope, _$controller_, _Notification_){
+      user = specHelper.newUser();
+      user._id = "unique-user-id";
+      user.ops = {
+        addTask: sinon.spy()
+      };
+
+      scope = $rootScope.$new();
+      scope.$close = sinon.spy();
+
+      $controller = _$controller_;
+
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: {user: user}});
+
+      ctrl = $controller('CopyMessageModalCtrl', {$scope: scope, User: {user: user}});
+
+      Notification = _Notification_;
+      Notification.text = sinon.spy();
+    });
+  });
+
+  describe("saveTodo", function() {
+    it('saves todo', function() {
+
+      scope.text = "A Tavern msg";
+      scope.notes = "Some notes";
+      var payload = {
+        body: {
+          text: scope.text,
+          type: 'todo',
+          notes: scope.notes
+        }
+      };
+
+      scope.saveTodo();
+
+      user.ops.addTask.should.have.been.calledOnce;
+      user.ops.addTask.should.have.been.calledWith(payload);
+      Notification.text.should.have.been.calledOnce;
+      Notification.text.should.have.been.calledWith(window.env.t('messageAddedAsToDo'));
+      scope.$close.should.have.been.calledOnce;
     });
   });
 });
