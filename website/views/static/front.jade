@@ -63,18 +63,17 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                 li
                   a(href='/static/contact')=env.t('contactUs')
                 li
-                  button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()') Play HabitRPG
+                  button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')= env.t('playButtonFull')
       #intro
-        h1 Motivate yourself and your team!
+        h1= env.t('motivate')
         img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/intro.png')
         // insert intro images
         .introcall.bg-success
-          h4
-            | Join 200,000 players making it fun to achieve goals!
+          h4= env.t('joinOthers')
             small
-              button#play-btn.btn.btn-primary.btn-lg.gamifybutton(ng-click='playButtonClick()') Play for free
+              button#play-btn.btn.btn-primary.btn-lg.gamifybutton(ng-click='playButtonClick()')= env.t('free')
         .presslogos.text-center
-          | Featured in
+          = env.t('featuredIn')
           br
           img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/lifehacker.png')
           img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/presslogos/nyt-logo.png')
@@ -88,12 +87,12 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
           .row
             .col-md-8.col-md-offset-2
               p.lead.text-center
-                | HabitRPG is a free habit building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, HabitRPG can help you achieve your goals to become healthy, hard-working, and happy.
+                = env.t('leadText')
       section#testimonial-carousel.bg-info
         .container-fluid
           .row
             .col-md-3.col-md-offset-1
-              h2 What people say...
+              h2= env.t('testimonialHeading')
               img.img-say.img-responsive.visible-lg-block(src='https://s3.amazonaws.com/habitrpg-assets/front/images/uses/publicSpaces.png')
             // Testimonials
             .col-md-8.col-sm-10.col-sx-10
@@ -116,7 +115,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
-                            | I can&apos;t tell you how many time and task tracking systems I&apos;ve tried over the decades... HRPG is the only thing I&apos;ve used that actually helps me get things done rather than just list them.
+                          = env.t('dragonsilverQuote')
                           small Drag0nsilver
                   // Quote 2
                   .item
@@ -124,7 +123,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
-                            | HabitRPG is the reason I got a killer, high-paying job... and even more miraculous, I&apos;m now a daily flosser!
+                          = env.t('frabjabulousQuote')
                           small frabjabulous
                   // Quote 3
                   .item
@@ -132,21 +131,21 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
-                            | Awesome product, just started a few days ago and already more conscious and productive with my time!
+                          = env.t('andeeliaoQuote') 
                           small AndeeLiao
                   .item
                     blockquote
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
-                            | Couldn&apos;t NOT talk about HabitRPG during my speech in Madrid. Must-have tool for freelancers who still need a boss.
+                          = env.t('alexandraQuote') 
                           small _AlexandraSo_
                 // Carousel Buttons Next/Prev
                 a.left.carousel-control(data-slide='prev', href='#quote-carousel')
                   i.fa.fa-chevron-left
                 a.right.carousel-control(data-slide='next', href='#quote-carousel')
                   i.fa.fa-chevron-right
-        button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(ng-click='playButtonClick()') Gamify your life today!
+        button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(ng-click='playButtonClick()')= env.t('gamifyButton')
       section#uses
         h2 Players use HabitRPG to manage...
         .container-fluid
@@ -415,7 +414,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                           | I&apos;ve had horrible habits with clearing my place completely after meals and leaving cups all over the place. HabitRPG has cured that!
               // End Item
           // End Carousel
-        button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(ng-click='playButtonClick()') Gamify your life today!
+        button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(ng-click='playButtonClick()')= env.t('gamifyButton')
       section#rewards.bg-warning.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
@@ -444,7 +443,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               h2
                 span.glyphicon.glyphicon-arrow-down
               img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/TVreward.png')
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
+          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()')= env.t('gamifyButton')
       section#levels.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
@@ -468,7 +467,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               h2
                 span.glyphicon.glyphicon-arrow-down
               img.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/SAMPLEadventurers.png')
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
+          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()')= env.t('gamifyButton')
       section#health.bg-danger.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
@@ -500,7 +499,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               .meter.health
                 .bar
                   div(style='width:50%;') &nbsp;
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
+          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()')= env.t('gamifyButton')
       section#quest.container-fluid
         .row
           .col-lg-5.col-lg-offset-1.col-md-5.col-sm-12
@@ -542,7 +541,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       div(style='width:0%;') &nbsp;
                 .quest-friend-img
                   img(src='https://s3.amazonaws.com/habitrpg-assets/front/images/party/GrimReaper.png')
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
+          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()')= env.t('gamifyButton')
       section#features.bg-info.container-fluid
         .row
           h2 We also feature...
@@ -576,7 +575,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
               h4 Social play
               p
                 | Join common-interest groups with like-minded people. Create Challenges to compete against other users.
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()') Gamify your life today!
+          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(ng-click='playButtonClick()')= env.t('gamifyButton')
       #footercall
         .container-fluid
           .row
