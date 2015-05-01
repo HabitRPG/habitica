@@ -108,8 +108,11 @@ describe("Chat Controller", function() {
       scope.copyToDo(message);
 
       modalSpy.should.have.been.calledOnce;
-      // @TODO, should probably check the modal options that get passed in as well
-      modalSpy.should.have.been.calledWith('copyChatToDo');
+
+      modalSpy.should.have.been.calledWith('copyChatToDo', sinon.match(function(callArgToMatch){
+        return callArgToMatch.controller == 'CopyMessageModalCtrl'
+            && callArgToMatch.scope.text == message.text
+      }));
     });
 
     it('when copying a system message it opens modal with information from message', function() {
@@ -126,8 +129,11 @@ describe("Chat Controller", function() {
       scope.copyToDo(message);
 
       modalSpy.should.have.been.calledOnce;
-      // @TODO, should probably check the modal options that get passed in as well
-      modalSpy.should.have.been.calledWith('copyChatToDo');
+
+      modalSpy.should.have.been.calledWith('copyChatToDo', sinon.match(function(callArgToMatch){
+        return callArgToMatch.controller == 'CopyMessageModalCtrl'
+            && callArgToMatch.scope.text == message.text
+      }));
     });
   });
 });
