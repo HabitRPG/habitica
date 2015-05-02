@@ -1,5 +1,5 @@
 <a name="">My app - Changelog</a>
-#  (2015-05-01)
+#  (2015-05-02)
 
 
 ## Bug Fixes
