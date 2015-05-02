@@ -106,7 +106,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
       .col-md-6
         h2=env.t('inventory')
         p.well=env.t('inventoryText')
-        menu.inventory-list(type='list')
+        menu.inventory-list(type='list', ui-keyup="{27:'cancelItem()'}")
 
           li.customize-menu
             menu.pets-menu(label=(env.t('eggs') + ' ({{eggCount}})'))

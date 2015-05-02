@@ -62,6 +62,12 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedEgg = $scope.selectedPotion = null;
     }
 
+    $scope.cancelItem = function() {
+      if ($scope.selectedFood) return $scope.selectedFood = null;
+      if ($scope.selectedPotion) return $scope.selectedPotion = null;
+      if ($scope.selectedEgg) return $scope.selectedEgg = null;
+    }
+
     $scope.sellInventory = function() {
       var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
       if (selected) {
