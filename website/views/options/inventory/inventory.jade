@@ -32,7 +32,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title!=env.t('seasonalShopClosedTitle')
+          h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
             p!=env.t('seasonalShopClosedText', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Grand_Galas' target='_blank'>", linkEnd: "</a>"})
     // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
