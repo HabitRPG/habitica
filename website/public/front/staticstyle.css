@@ -418,6 +418,13 @@ button.gamifybutton {
     z-index: 300;
 }
 
+.fixedcta:after {
+   content: ".";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
 
 
 @media only screen and (max-width: 992px) {
@@ -458,9 +465,9 @@ button.gamifybutton {
 
 @media only screen and (max-width: 767px) {
   .mobile-container {
-  max-width:100%;
-  overflow-x:hidden;
-} 
+    max-width:100%;
+    overflow-x:hidden;
+  }
 
   #myCarousel .nav > li {
     width:30%;
@@ -482,21 +489,22 @@ button.gamifybutton {
     left:50%;
   }
 
- #quote-carousel .carousel-indicators li {
+  #quote-carousel .carousel-indicators li {
     width: 30px;
     height: 30px;
-}
-#quote-carousel .carousel-indicators .active {
+  }
+
+  #quote-carousel .carousel-indicators .active {
     background: #333333;
     width: 60px;
     height: 60px;
-}
-#quote-carousel .carousel-inner {
+  }
+  #quote-carousel .carousel-inner {
     min-height: 250px;
     width::95%;
-}
- 
-.carousel-content .sampletasks .task-desc {
+  }
+
+  .carousel-content .sampletasks .task-desc {
     font-size:0.8em;
   }
 }
