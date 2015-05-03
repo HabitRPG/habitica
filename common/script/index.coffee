@@ -1502,9 +1502,10 @@ api.wrap = (user, main=true) ->
       # User is resting at the inn. On cron, buffs are cleared and all dailies are reset without performing damage (fixes issue #5070)
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
-        user.dailys.forEach (daily) ->
-          daily.completed = false
-          _.each daily.checklist, ((i)->i.completed=false;true)
+        # @TODO: uncomment when new dailies behavior goes live, per https://github.com/HabitRPG/habitrpg/pull/5073#issuecomment-98436542
+        # user.dailys.forEach (daily) ->
+        #   daily.completed = false
+        #   _.each daily.checklist, ((i)->i.completed=false;true)
         return
 
       # Tally each task

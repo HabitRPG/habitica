@@ -175,14 +175,14 @@ describe 'User', ->
     expect(user.achievements.perfect).to.be 1
 
     # Handle greyed-out dailys
-    yesterday = moment().subtract(1,'days');
+    yesterday = moment().subtract(1,'days')
     user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
     _.each user.dailys[1..], (d)->d.completed = true
     cron()
     expect(user.stats.buffs.str).to.be 1
     expect(user.achievements.perfect).to.be 2
 
-  describe 'Resting in the Inn', ->
+  describe.skip 'Resting in the Inn', ->
     user = null
     cron = null
     beforeEach ->
@@ -553,7 +553,7 @@ describe 'Cron', ->
 
   describe 'preening', ->
     beforeEach ->
-      @clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date");
+      @clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date")
 
     afterEach ->
       @clock.restore()
