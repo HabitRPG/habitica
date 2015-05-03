@@ -1,9 +1,11 @@
 <a name="">My app - Changelog</a>
-#  (2015-05-02)
+#  (2015-05-04)
 
 
 ## Bug Fixes
 
+- **Spring:** WHO IS LESLIE
+  ([6685e935](watch/commits/6685e93554a1274dedb55dae054e787fb80eb440))
 - **invite-friends:** text should be valid for both parties and guilds
   ([54e82a14](watch/commits/54e82a14a252c3b9923449a7ef7cee6033a5d160))
 - **mystery:** It's 2015 now, Sabe
@@ -16,6 +18,8 @@
 
 ## Features
 
+- **Spring:** Flung
+  ([d50d4ad8](watch/commits/d50d4ad8bb0f89e39ceb6562e0f8f392f94b5444))
 - **emails:** add support for weekly recap emails
   ([37f7db3c](watch/commits/37f7db3c4e3859d03fd55a44e63819e273a06442))
 - **i18n:** upload japanese, serbian and chinese (taiwan)

@@ -300,14 +300,21 @@ function closeChal(cid, broken, cb) {
 api['delete'] = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
+  var chal
   async.waterfall([
     function(cb){
       Challenge.findById(cid, cb);
     },
-    function(chal, cb){
+    function(_chal, cb){
+      chal = _chal;
       if (!chal) return cb('Challenge ' + cid + ' not found');
       if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
-      closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
+      User.findById(user._id, cb) //Refunds to challenge leader
+    },
+    function(leader, cb){
+      leader.balance += chal.prize/4;
+      leader.save(cb);
+      closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb); //Not descriptive enough
     }
   ], function(err){
     if (err) return next(err);
