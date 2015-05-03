@@ -162,7 +162,7 @@ script(type='text/ng-template', id='partials/options.settings.coupon.html')
         h2= env.t('coupon')
         form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
           input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('couponPlaceholder'))
-          button.btn.btn-primary(type='submit') Submit
+          button.btn.btn-primary(type='submit')= env.t('submit')
         div
           small= env.t('couponText')
         div(ng-if='user.contributor.sudo')
@@ -379,12 +379,12 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
           .form-inline
             .form-group
-              input.form-control(type='text', ng-model='_subscription.coupon', placeholder='Promo Code')
+              input.form-control(type='text', ng-model='_subscription.coupon', placeholder= env.t('couponPlaceholder'))
             .form-group
-              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)') Apply
+              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
-          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)') Resubscribe
-          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key') Card
+          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
+          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
           a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
