@@ -232,6 +232,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return user.indexOf(text) == 0;
     }
 
+    $scope.performCompletion = function(msg) {
+      $scope.autoComplete(msg);
+      $scope.query = null;
+    }
+
     $scope.addNewUser = function(user) {
       if($.inArray(user.user,$scope.usernames) == -1) {
         user.username = user.user;

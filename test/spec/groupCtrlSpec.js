@@ -149,6 +149,20 @@ describe("Autocomplete controller", function() {
     });
   });
 
+  describe("performCompletion", function() {
+    it('auto complete triggers', function() {
+      scope.autoComplete = function(v) {}; // this function normally will be filled in by the auto-complete directive
+      var autoCompleteTriggered = sinon.spy(scope, 'autoComplete');
+      scope.query = {text: "b"};
+
+      scope.performCompletion({user: "boo"});
+
+      expect(scope.query).to.be.eq(null);
+      expect(autoCompleteTriggered.callCount).to.be.eq(1);
+    });
+
+  });
+
   describe("addNewUser", function() {
     it('a new message from a new user will modify the usernames', function() {
       expect(scope.response).to.be.empty;
