@@ -125,8 +125,20 @@ script(type='text/ng-template', id='modals/copyChatToDo.html')
 
     hr
 
-    div(popover-trigger='click', data-popover-html="{{notes | markdown}}", popover-placement="top")
-      +previewMarkdown('text')
+    div.task-column.preview
+      div(ng-init='popoverOpen = false', class='task todo uncompleted color-neutral', popover-trigger='mouseenter', data-popover-html="{{popoverOpen ? '' : notes | markdown}}", popover-placement="top")
+        // right-hand side control buttons
+        .task-meta-controls
+          // Icons only available if you own the tasks (aka, hidden from challenge stats)
+          span(ng-if='!obj._locked')
+            // notes
+            span.task-notes(ng-show='notes', ng-click='popoverOpen = !popoverOpen', popover-trigger='click', data-popover-html="{{notes | markdown}}", popover-placement="top")
+              span.glyphicon.glyphicon-comment
+              | &nbsp;
+
+        // main content
+        div.task-text
+          markdown(text='text',target='_blank')
 
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
