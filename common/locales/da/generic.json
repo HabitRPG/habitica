@@ -37,7 +37,7 @@
     "notEnoughGems": "Ikke nok Ædelsten",
     "alreadyHave": "Ups! Du har allerede denne ting. Ingen grund til at købe den igen!",
     "delete": "Slet",
-    "gemsPopoverTitle": "Gems",
+    "gemsPopoverTitle": "Ædelsten",
     "gems": "Ædelsten",
     "gemButton": "Du har <%= number %> Ædelsten.",
     "moreInfo": "Mere Information",

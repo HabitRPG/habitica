@@ -106,8 +106,8 @@
     "questBasilistNotes": "市集裡有騷動——那種會讓人拔腿就跑的那種騷動。但作為一位勇敢的冒險家，你反而衝入其中，結果發現是一隻「清單巨蟒」：由一堆未完成的代辦事項連接而成！附近的 Habiticans 因為受到清單巨蟒的長度驚嚇，震懾到無法工作。你聽到 @Arcosine 在附近高喊說：「快！在有人找到剪刀之前，完成你的待辦事項和每日任務來拔去它的毒牙！」 快攻擊牠吧，冒險家，並仔細查核——但小心！如果你遺漏了每日任務沒有完成，清單巨蟒將會狠狠咬你和你的隊友一口。",
     "questBasilistCompletion": "清單巨蟒散落成滿地的廢紙，發出彩虹般的光芒。「呼！」@Arcosine說道：「還好你們在這兒！」你從滿地紙堆中拾起一些掉落的黃金，覺得自己又更上一層樓了。",
     "questBasilistBoss": "清單巨蟒",
-    "questEggHuntText": "狩獵雞蛋",
-    "questEggHuntNotes": "一夜之間，奇怪的普通蛋出現在各個角落：馬特的馬厩裡，酒館的櫃檯後，甚至混雜在市場的寵物蛋之中！真是一片混亂！\"沒人知道它們哪兒來的，也沒人知道它們到底會孵出啥，\" <strong>梅根</strong>說，\"但我們不能就任由它們放在那兒！努力工作，努力尋找，來幫助我一起收集這些神秘的蛋。假如你收集的夠多，也許你能為你自己留下幾個……\"",
+    "questEggHuntText": "狩獵蛋",
+    "questEggHuntNotes": "一夜之間，奇怪的普通蛋出現在各個角落：Matt's 的馬厩裡，酒館的櫃檯後，甚至混雜在市場的寵物蛋之中！真是一片混亂！\"沒人知道它們哪兒來的，也沒人知道它們到底會孵出啥，\" <strong> Megan </strong>說，\"但我們不能就任由它們放在那兒！努力工作，努力尋找，來幫助我一起收集這些神秘的蛋。假如你收集的夠多，也許你能為你自己留下幾個……\"",
     "questEggHuntCompletion": "你做到了！為了感謝你，<strong>Megan</strong>給了你十顆蛋，「我相信孵化藥劑能讓他們長的頭好壯壯，好期待看到他們成為座騎時的樣子啊……」",
     "questEggHuntCollectPlainEgg": "普通蛋",
     "questEggHuntDropPlainEgg": "普通蛋",
@@ -191,10 +191,10 @@
     "questBunnyCompletion": "隨著你的最後一擊，殺手兔緩緩沉入地面。一陣閃閃發光的迷霧從她身上升起，她變回了一隻小兔子…而非你之前看到那殘暴的野獸。她的小鼻子可愛地動了動，隨後就跳走了，留下了幾個蛋。@Gully 大笑道：\"拖延山就是會讓小小的挑戰都看起來高不可攀。讓我們拿上這些蛋回家吧。\"",
     "questBunnyDropBunnyEgg": "兔子(蛋)",
     "questBunnyUnlockText": "解鎖-可在市集中購買兔子蛋",
-    "questSlimeText": "The Jelly Regent",
-    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
-    "questSlimeBoss": "Jelly Regent",
-    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
-    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
-    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
+    "questSlimeText": "果凍攝政王",
+    "questSlimeNotes": "當你在執行任務的過程中，你注意到你移動得越來越慢。\"像在糖漿中移動一樣。\"@Leephon 抱怨著。\" 這粘糊糊的果凍攝政王將全Habitica塗滿他的黏液。它黏在所有的任務上。每個人的速度都下降了。\"你看了四周。街道上慢慢地滲出清晰、彩色的軟泥，Habit公民都在苦苦掙扎的完成任何事情。正當其他人逃離該地區時，你抓住拖把準備戰鬥！",
+    "questSlimeBoss": "果凍攝政王",
+    "questSlimeCompletion": "最後一戳，你的用超大型甜甜圈捕獲果凍攝政王，靠著才思敏捷糕點俱樂部的領導者@Overomega、@LordDarkly和@Shaner。當每個人都拍你的背時，你覺得有人把東西滑進你的口袋裡。這是獎勵你甜美的成功：三顆棉花糖史萊姆蛋。",
+    "questSlimeDropSlimeEgg": "棉花糖史萊姆(蛋)",
+    "questSlimeUnlockText": "解鎖-可在市集中購買史萊姆蛋"
 }

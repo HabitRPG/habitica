@@ -62,7 +62,7 @@ mixin customizeProfile(mobile)
               each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
-          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors')
+          +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
           +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
 
@@ -134,7 +134,7 @@ mixin customizeProfile(mobile)
 
           // Rainbow Skin
           +buyPref('skin', ['eb052b','f69922','f5d70f','0ff591','2b43f6','d7a9f7','800ed0','rainbow'], 'rainbowSkins')
-          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins')
+          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
 
           // Special Events
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')

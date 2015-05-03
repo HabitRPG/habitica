@@ -1,6 +1,3 @@
-### Install: npm install --dev ###
-### Run: npm test ###
-
 _ = require 'lodash'
 expect = require 'expect.js'
 sinon = require 'sinon'
@@ -75,7 +72,7 @@ beforeAfter = (options={}) ->
   _.each [before,after], (obj) ->
     obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
-#TODO calculate actual poins
+#TODO calculate actual points
 
 expectLostPoints = (before, after, taskType) ->
   if taskType in ['daily','habit']
@@ -178,14 +175,97 @@ describe 'User', ->
     expect(user.achievements.perfect).to.be 1
 
     # Handle greyed-out dailys
-    yesterday = moment().subtract(1,'days');
+    yesterday = moment().subtract(1,'days')
     user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
     _.each user.dailys[1..], (d)->d.completed = true
     cron()
     expect(user.stats.buffs.str).to.be 1
     expect(user.achievements.perfect).to.be 2
 
+  describe.skip 'Resting in the Inn', ->
+    user = null
+    cron = null
+    beforeEach ->
+      user = newUser()
+      user.preferences.sleep = true
+      cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
+      user.dailys = []
+      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
+    it 'remains in the inn on cron', ->
+      cron()
+      expect(user.preferences.sleep).to.be.ok
 
+    it 'resets dailies', ->
+       user.dailys[0].completed = true
+       cron()
+       expect(user.dailys[0].completed).to.not.be.ok
+
+    it 'resets checklist on incomplete dailies', ->
+       user.dailys[0].checklist = [
+         {
+           "text" : "1",
+           "id" : "checklist-one",
+           "completed" : true
+         },
+         {
+           "text" : "2",
+           "id" : "checklist-two",
+           "completed" : true
+         },
+         {
+           "text" : "3",
+           "id" : "checklist-three",
+           "completed" : false
+         }
+       ]
+       cron()
+       _.each user.dailys[0].checklist, (box)->
+        expect(box.completed).to.not.be.ok
+
+    it 'resets checklist on complete dailies', ->
+       user.dailys[0].checklist = [
+         {
+           "text" : "1",
+           "id" : "checklist-one",
+           "completed" : true
+         },
+         {
+           "text" : "2",
+           "id" : "checklist-two",
+           "completed" : true
+         },
+         {
+           "text" : "3",
+           "id" : "checklist-three",
+           "completed" : false
+         }
+       ]
+       user.dailys[0].completed = true
+       cron()
+       _.each user.dailys[0].checklist, (box)->
+         expect(box.completed).to.not.be.ok
+
+    it 'does not damage user for incomplete dailies', ->
+      expect(user).toHaveHP 50
+      user.dailys[0].completed = true
+      user.dailys[1].completed = false
+      cron()
+      expect(user).toHaveHP 50
+
+    it 'gives credit for complete dailies', ->
+      user.dailys[0].completed = true
+      expect(user.dailys[0].history).to.be.empty
+      cron()
+      expect(user.dailys[0].history).to.not.be.empty
+
+    it 'damages user for incomplete dailies after checkout', ->
+      expect(user).toHaveHP 50
+      user.dailys[0].completed = true
+      user.dailys[1].completed = false
+      user.preferences.sleep = false
+      cron()
+      expect(user.stats.hp).to.be.lessThan 50
+      
   describe 'Death', ->
     user = undefined
     it 'revives correctly', ->
@@ -473,7 +553,7 @@ describe 'Cron', ->
 
   describe 'preening', ->
     beforeEach ->
-      @clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date");
+      @clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date")
 
     afterEach ->
       @clock.restore()

@@ -131,7 +131,7 @@
     "invalidTarget": "Nedozvoljena meta.",
     "youCast": "Bacili ste <%= spell %>.",
     "youCastTarget": "Bacili ste <%= spell %> na <%= target %>.",
-    "youCastParty": "Bacili ste <%= spell %> svojoj dužini.",
+    "youCastParty": "Bacili ste <%= spell %> na svoju družinu.",
     "critBonus": "Kritični udarac! Bonus:",
     "displayNameDescription1": "Pojavljuje se sa Vašim avatarom u porukama koje pošaljete u Krčmi, udruženjima, i družinama. Korisničko ime možete promeniti na",
     "displayNameDescription2": "Postavke -> Sajt",
