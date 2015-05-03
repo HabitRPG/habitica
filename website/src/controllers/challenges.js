@@ -309,12 +309,16 @@ api['delete'] = function(req, res, next){
       chal = _chal;
       if (!chal) return cb('Challenge ' + cid + ' not found');
       if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
-      User.findById(user._id, cb) //Refunds to challenge leader
+      //Refunds to challenge leader
+      User.findById(user._id, cb) 
     },
     function(leader, cb){
       leader.balance += chal.prize/4;
       leader.save(cb);
-      closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb); //Not descriptive enough
+    },
+    function(save, num, cb){
+      //Add prizeRefundedTo: save.profile.name?
+      closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){
     if (err) return next(err);
