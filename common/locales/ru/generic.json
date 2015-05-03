@@ -37,7 +37,7 @@
     "notEnoughGems": "Недостаточно самоцветов",
     "alreadyHave": "Упс! У вас уже есть эта вещь. Нет нужды покупать ее снова!",
     "delete": "Удалить",
-    "gemsPopoverTitle": "Gems",
+    "gemsPopoverTitle": "Самоцветы",
     "gems": "самоцв.",
     "gemButton": "У вас <%= number %> самоцветов.",
     "moreInfo": "Узнать больше",

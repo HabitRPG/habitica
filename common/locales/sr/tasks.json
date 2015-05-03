@@ -19,7 +19,7 @@
     "text": "Tekst",
     "extraNotes": "Objašnjenje",
     "direction/Actions": "Koje mogućnosti želite da prikažete? (+/-/oba)",
-    "advancedOptions": "Napredne Opcije",
+    "advancedOptions": "Napredna podešavanja",
     "difficulty": "Težina",
     "difficultyHelpTitle": "Koliko je težak ovaj zadatak?",
     "difficultyHelpContent": "Ove opcije umnožavaju vrednost nagrade. Uglavnom nije potrebno da ih koristite, jer HabitRPG ima algoritme koji proračunavaju težinu zadatka. Koristite ove opcije kod zadataka koji su mnogo vredniji od ostalih (npr. „Napisati diplomski rad“ mnogo je teži zadatak nego „oprati zube“).",
