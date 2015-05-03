@@ -62,7 +62,7 @@
     "errorUpCase": "FOUT: ",
     "newPassSent": "Nieuw wachtwoord verstuurd.",
     "serverUnreach": "Server momenteel niet bereikbaar.",
-    "seeConsole": "If the error persists, please report it at Help > Report a Bug. If you're familiar with your browser's console, please include any error messages.",
+    "seeConsole": "Gelieve de terugkerende fout te rapporteren via Help > Rapporteer een fout. Gelieve foutcodes te vermelden indien je familiair bent met de console van je browser.",
     "error": "Fout",
     "menu": "Menu",
     "notifications": "Meldingen",

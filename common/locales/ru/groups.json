@@ -95,6 +95,6 @@
     "abuseFlagModalButton": "Пожаловаться",
     "abuseReported": "Спасибо, что сообщили об этом нарушении. Модераторы уведомлены.",
     "abuseAlreadyReported": "Вы уже сообщали об этом нарушении.",
-    "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsText": "Пожалуйста введите сообщение.",
+    "needsTextPlaceholder": "Напечатайте сообщение здесь."
 }
