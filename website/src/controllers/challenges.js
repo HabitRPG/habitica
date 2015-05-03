@@ -317,7 +317,7 @@ api['delete'] = function(req, res, next){
       leader.save(cb);
     },
     function(save, num, cb){
-      //Add prizeRefundedTo: save.profile.name?
+      //Deletes challenge and adds broken link (same as before) add prizeRefundedTo: save.profile.name?
       closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){
