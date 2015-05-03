@@ -1488,6 +1488,7 @@ api.wrap = (user, main=true) ->
         user.stats.buffs = clearBuffs
         user.dailys.forEach (daily) ->
           daily.completed = false
+          _.each daily.checklist, ((i)->i.completed=false;true)
         return
 
       # Tally each task

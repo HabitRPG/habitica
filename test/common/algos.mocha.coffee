@@ -1,6 +1,3 @@
-### Install: npm install --dev ###
-### Run: npm test ###
-
 _ = require 'lodash'
 expect = require 'expect.js'
 sinon = require 'sinon'
@@ -202,6 +199,51 @@ describe 'User', ->
        user.dailys[0].completed = true
        cron()
        expect(user.dailys[0].completed).to.not.be.ok
+
+    it 'resets checklist on incomplete dailies', ->
+       user.dailys[0].checklist = [
+         {
+           "text" : "1",
+           "id" : "checklist-one",
+           "completed" : true
+         },
+         {
+           "text" : "2",
+           "id" : "checklist-two",
+           "completed" : true
+         },
+         {
+           "text" : "3",
+           "id" : "checklist-three",
+           "completed" : false
+         }
+       ]
+       cron()
+       _.each user.dailys[0].checklist, (box)->
+        expect(box.completed).to.not.be.ok
+
+    it 'resets checklist on complete dailies', ->
+       user.dailys[0].checklist = [
+         {
+           "text" : "1",
+           "id" : "checklist-one",
+           "completed" : true
+         },
+         {
+           "text" : "2",
+           "id" : "checklist-two",
+           "completed" : true
+         },
+         {
+           "text" : "3",
+           "id" : "checklist-three",
+           "completed" : false
+         }
+       ]
+       user.dailys[0].completed = true
+       cron()
+       _.each user.dailys[0].checklist, (box)->
+         expect(box.completed).to.not.be.ok
 
     it 'does not damage user for incomplete dailies', ->
       expect(user).toHaveHP 50
