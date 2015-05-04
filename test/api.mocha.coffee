@@ -479,13 +479,13 @@ describe "API", ->
                   cb()
             ], done
 
-        it "Creates a challenge with prize", (done) ->
+        it "User creates a challenge with prize", (done) ->
           User.findByIdAndUpdate _id,
             $set:
               "balance": 8
           , (err, _user) ->
             expect(err).to.not.be.ok()
-            async.parallel [
+            async.waterfall [
               (cb) ->
                 request.post(baseURL + "/challenges").send(
                   group: group._id
