@@ -479,6 +479,32 @@ describe "API", ->
                   cb()
             ], done
 
+        it "Creates a challenge with prize", (done) ->
+          (cb) -> 
+            User.findByIdAndUpdate _id,
+              $set:
+                "balance": 8
+            , cb
+          request.post(baseURL + "/challenges").send(
+            group: group._id
+            prize: 10
+            official: true
+          ).end (res) ->
+            expectCode res, 200
+            async.parallel [
+              (cb) ->
+                User.findById _id, cb
+              (cb) ->
+                Challenge.findById res.body._id, cb
+            ], (err, results) ->
+              _user = results[0]
+              challenge = results[1]
+              expect(_user.balance).to.be 5.5
+              done()
+
+    ###*
+    QUESTS
+    ###
       describe "Quests", ->
         party = undefined
         participating = []
