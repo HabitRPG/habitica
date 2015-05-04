@@ -485,26 +485,24 @@ describe "API", ->
               "balance": 8
           , (err, user) ->
             expect(err).to.not.be.ok()
-            (cb) ->
-              request.post(baseURL + "/challenges").send(
-                group: group._id
-                dailys: []
-                todos: []
-                rewards: []
-                habits: []
-                prize: 10
-              ).end (res) ->
-                expect(res.body.prize).to.be 10
-                async.parallel [
-                  (cb) ->
-                    User.findById _id, cb
-                  (cb) ->
-                    Challenge.findById res.body._id, cb
-                ], (err, results) ->
-                  _user = results[0]
-                  challenge = results[1]
-                  expect(_user.balance).to.be 5.5
-                cb()
+            request.post(baseURL + "/challenges").send(
+              group: group._id
+              dailys: []
+              todos: []
+              rewards: []
+              habits: []
+              prize: 10
+            ).end (res) ->
+              expect(res.body.prize).to.be 10
+              async.parallel [
+                (cb) ->
+                  User.findById _id, cb
+                (cb) ->
+                  Challenge.findById res.body._id, cb
+              ], (err, results) ->
+                _user = results[0]
+                challenge = results[1]
+                expect(_user.balance).to.be 5.5
             done()
 
         it "User deletes a challenge with prize and gets refund", (done) ->
