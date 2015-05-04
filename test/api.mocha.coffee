@@ -503,13 +503,13 @@ describe "API", ->
                 ], (err, results) ->
                   _user = results[0]
                   challenge = results[1]
+                  expect(_user.balance).to.be 5.5
                 cb()
-            expect(_user.balance).to.be 5.5
             done()
 
         it "User deletes a challenge with prize and gets refund", (done) ->
           request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
-            User.findById _user._id, (err, user) ->
+            User.findById _id, (err, user) ->
               expect(user.balance).to.be 8
               done()
 
