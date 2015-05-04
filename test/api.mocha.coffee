@@ -483,31 +483,29 @@ describe "API", ->
           User.findByIdAndUpdate _id,
             $set:
               "balance": 8
-          , (err, _user) ->
+          , (err, user) ->
             expect(err).to.not.be.ok()
-            async.waterfall [
-              (cb) ->
-                request.post(baseURL + "/challenges").send(
-                  group: group._id
-                  dailys: []
-                  todos: []
-                  rewards: []
-                  habits: []
-                  prize: 10
-                ).end (res) ->
-                  expect(res.body.prize).to.be 10
-                  cb()
-              async.parallel [
-                (cb) ->
-                  User.findById _id, cb
-                (cb) ->
-                  Challenge.findById res.body._id, cb
-              ], (err, results) ->
-                _user = results[0]
-                challenge = results[1]
-            ], (err, result) ->
-              expect(_user.balance).to.be 5.5
-              done()
+            (cb) ->
+              request.post(baseURL + "/challenges").send(
+                group: group._id
+                dailys: []
+                todos: []
+                rewards: []
+                habits: []
+                prize: 10
+              ).end (res) ->
+                expect(res.body.prize).to.be 10
+                async.parallel [
+                  (cb) ->
+                    User.findById _id, cb
+                  (cb) ->
+                    Challenge.findById res.body._id, cb
+                ], (err, results) ->
+                  _user = results[0]
+                  challenge = results[1]
+                cb()
+            expect(_user.balance).to.be 5.5
+            done()
 
         it "User deletes a challenge with prize and gets refund", (done) ->
           request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
