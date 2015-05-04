@@ -500,7 +500,7 @@ describe "API", ->
               (cb) ->
                 Challenge.findById group._id, cb
             ], (err, result) ->
-              challenge = results[1]
+              challenge = result
               expect(_user.balance).to.be 5.5
               done()
 
