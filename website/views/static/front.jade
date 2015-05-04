@@ -65,7 +65,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                 li
                   button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')= env.t('playButtonFull')
       #intro
-        h1= env.t('motivate')
+        h1(ng-cloak) {{ variant==0 ? "#{env.t('motivate')}" : (variant==1 ? "#{env.t('motivate1')}" : "#{env.t('motivate2')}") }}
         img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/intro.png')
         // insert intro images
         .introcall.bg-success
