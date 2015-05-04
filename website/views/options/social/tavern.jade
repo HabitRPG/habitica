@@ -14,14 +14,14 @@
               h3.popover-title
                 a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
               .popover-content
-               =env.t('danielText')
+                span(ng-hide='user.preferences.sleep')=env.t('danielText')
+                span(ng-show='user.preferences.sleep')=env.t('innText',{name:"{{user.profile.name}}"})
                 div
                   button.btn.btn-lg.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
                     span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
                     span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
-                =env.t('danielText2')
-      .alert.alert-info(ng-show='user.preferences.sleep')
-        =env.t('innText',{name:"{{user.profile.name}}"})
+                span(ng-hide='user.preferences.sleep')=env.t('danielText2')
+
 
       // Resources
       .panel.panel-default
