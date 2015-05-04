@@ -479,7 +479,7 @@ describe "API", ->
                   cb()
             ], done
 
-        it "User creates a challenge with prize", (done) ->
+        it "User creates a challenge with prize, deletes it, gets refund", (done) ->
           User.findByIdAndUpdate _id,
             $set:
               "balance": 8
@@ -503,14 +503,10 @@ describe "API", ->
                 _user = results[0]
                 challenge = results[1]
                 expect(_user.balance).to.be 5.5
+                request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+                  User.findById _id, (err, user) ->
+                    expect(user.balance).to.be 8
             done()
-
-        it "User deletes a challenge with prize and gets refund", (done) ->
-          itThis = this
-          request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
-            User.findById _id, (err, user) ->
-              expect(user.balance).to.be 8
-              done()
 
       ###*
       QUESTS
