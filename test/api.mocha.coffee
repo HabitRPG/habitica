@@ -480,24 +480,26 @@ describe "API", ->
             ], done
 
         it "Creates a challenge with prize", (done) ->
-          (cb) -> 
-            User.findByIdAndUpdate _id,
-              $set:
-                "balance": 8
-            , cb
-          request.post(baseURL + "/challenges").send(
-            group: group._id
-            prize: 10
-            official: true
-          ).end (res) ->
-            expectCode res, 200
+          User.findByIdAndUpdate _id,
+            $set:
+              "balance": 8
+          , (err, _user) ->
+            expect(err).to.not.be.ok()
             async.parallel [
               (cb) ->
-                User.findById _id, cb
+                request.post(baseURL + "/challenges").send(
+                  group: group._id
+                  dailys: []
+                  todos: []
+                  rewards: []
+                  habits: []
+                  prize: 10
+                ).end (res) ->
+                  expect(res.body.prize).to.be 10
+                  cb()
               (cb) ->
-                Challenge.findById res.body._id, cb
-            ], (err, results) ->
-              _user = results[0]
+                Challenge.findById group._id, cb
+            ], (err, result) ->
               challenge = results[1]
               expect(_user.balance).to.be 5.5
               done()
