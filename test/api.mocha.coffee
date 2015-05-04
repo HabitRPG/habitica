@@ -506,6 +506,7 @@ describe "API", ->
             done()
 
         it "User deletes a challenge with prize and gets refund", (done) ->
+          itThis = this
           request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
             User.findById _id, (err, user) ->
               expect(user.balance).to.be 8
