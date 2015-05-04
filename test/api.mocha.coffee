@@ -504,9 +504,9 @@ describe "API", ->
               expect(_user.balance).to.be 5.5
               done()
 
-    ###*
-    QUESTS
-    ###
+      ###*
+      QUESTS
+      ###
       describe "Quests", ->
         party = undefined
         participating = []
