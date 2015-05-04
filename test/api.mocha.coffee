@@ -506,11 +506,8 @@ describe "API", ->
                 request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
                   User.findById _id, (err, user) ->
                     expect(user.balance).to.be 8
-          done()
+                    done()
 
-      ###*
-      QUESTS
-      ###
       describe "Quests", ->
         party = undefined
         participating = []
