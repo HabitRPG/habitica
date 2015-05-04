@@ -497,15 +497,21 @@ describe "API", ->
                 ).end (res) ->
                   expect(res.body.prize).to.be 10
                   cb()
-              (cb) ->
-                User.findById _id, cb
-            ], (err, user) ->
-              expect(user.balance).to.be 5.5
+              async.parallel [
+                (cb) ->
+                  User.findById _id, cb
+                (cb) ->
+                  Challenge.findById res.body._id, cb
+              ], (err, results) ->
+                _user = results[0]
+                challenge = results[1]
+            ], (err, result) ->
+              expect(_user.balance).to.be 5.5
               done()
 
         it "User deletes a challenge with prize and gets refund", (done) ->
-          request.del(baseURL + "/challenges/" + body._id).end (res) ->
-            User.findById user._id, (err, user) ->
+          request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+            User.findById _user._id, (err, user) ->
               expect(user.balance).to.be 8
               done()
 
