@@ -45,9 +45,8 @@ script(type='text/ng-template', id='modals/pet-key.html')
         =env.t('petKeyMounts')
         | : 4&nbsp;
         span.Pet_Currency_Gem1x.inline-gems
-    span(ng-if='(user.balance >= 1.5 || user.achievements.triadBingo) && petCount >= 90 && mountCount >= 90', ng-controller='SettingsCtrl')
+    // Free, but only accessible to those who achieve triad bingo
+    span(ng-if='user.achievements.triadBingo', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); releaseBoth()')
         =env.t('petKeyBoth')
-        span(ng-if='!user.achievements.triadBingo')
-          | : 6&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
