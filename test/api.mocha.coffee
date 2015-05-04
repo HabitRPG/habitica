@@ -499,8 +499,14 @@ describe "API", ->
                   cb()
               (cb) ->
                 User.findById _id, cb
-            ], (err, result) ->
-              expect(result.balance).to.be 5.5
+            ], (err, user) ->
+              expect(user.balance).to.be 5.5
+              done()
+
+        it "User deletes a challenge with prize and gets refund", (done) ->
+          request.del(baseURL + "/challenges/" + body._id).end (res) ->
+            User.findById user._id, (err, user) ->
+              expect(user.balance).to.be 8
               done()
 
       ###*
