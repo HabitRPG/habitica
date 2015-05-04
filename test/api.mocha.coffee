@@ -498,10 +498,9 @@ describe "API", ->
                   expect(res.body.prize).to.be 10
                   cb()
               (cb) ->
-                Challenge.findById group._id, cb
+                User.findById _id, cb
             ], (err, result) ->
-              challenge = result
-              expect(_user.balance).to.be 5.5
+              expect(result.balance).to.be 5.5
               done()
 
       ###*
