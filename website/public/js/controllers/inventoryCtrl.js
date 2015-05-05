@@ -249,22 +249,22 @@ habitrpg.controller("InventoryCtrl",
       $scope.gear.forEach(function(item, index, array) {
        var index = "";
        if ( item.int > 0 ) {
-        index = "Intelligence";
+        index = env.t("intelligence");
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
        }
        if ( item.per > 0 ) {
-        index = "Perception";
+        index = env.t("perception");
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
        }
        if ( item.con > 0 ) {
-        index = "Constitution";
+        index = env.t("constitution");
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
        }
        if ( item.str > 0 ) {
-        index = "Strength";
+        index = env.t("strength");
         if (!gear[index]) gear[index] = [];
         gear[index].push(item);
        }
@@ -281,10 +281,10 @@ habitrpg.controller("InventoryCtrl",
         if (item.specialClass) {
          index = $scope.capitalizeFirstLetter(item.specialClass) + " " + $scope.capitalizeFirstLetter(item.klass) ;
         } else {
-         index = "Legendary";
+         index = env.t("legendary");
          //if there are no stats on the item, then we have a Fanciful item
          if ( item.str == 0 && item.int == 0 && item.per == 0 && item.con == 0 ){
-          index = "Fanciful";
+          index = env.t("fanciful");
          }
         }
         if (!gear[index]) gear[index] = [];
@@ -299,7 +299,7 @@ habitrpg.controller("InventoryCtrl",
       gear = _.groupBy($scope.gear, group);
      }
 
-     if (costume != undefined) {
+     if (costume) {
       $scope.costume = gear;
      } else {
       $scope.equipment = gear;

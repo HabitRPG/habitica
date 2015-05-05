@@ -585,5 +585,7 @@
   "klass": "Class",
   "type": "Type",
   "stat": "Stat",
-  "color": "Color"
+  "color": "Color",
+  "legendary": "Legendary",
+  "fanciful": "Fanciful"
 }
