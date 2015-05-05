@@ -72,6 +72,14 @@ describe "API", ->
             .set("X-API-Key", apiToken)
           cb null, res.body
 
+  registerManyUsers = (number, callback) ->
+   async.times number, (n, next) ->
+     registerNewUser (err, user) ->
+       next(err, user)
+     , false
+   , (err, users) ->
+     callback(err, users)
+
   before (done) ->
     require "../website/src/server" # start the server
     # then wait for it to do it's thing. TODO make a cb-compatible export of server
@@ -290,38 +298,7 @@ describe "API", ->
            #Add members to guild
            async.waterfall [
             (cb) ->
-              async.parallel [
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-              ], cb
+              registerManyUsers 15, cb
 
             (_members, cb) ->
               members = _members
@@ -358,38 +335,7 @@ describe "API", ->
            #Add members to guild
            async.waterfall [
             (cb) ->
-              async.parallel [
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-              ], cb
+              registerManyUsers 15, cb
 
             (_members, cb) ->
               members = _members
@@ -435,38 +381,7 @@ describe "API", ->
 
             # Register new users
             (cb) ->
-              async.parallel [
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-                (cb2) ->
-                  registerNewUser cb2, false
-              ], cb
+              registerManyUsers 15, cb
 
             # Send them invitations
             (_party, cb) ->
@@ -761,14 +676,7 @@ describe "API", ->
 
               # Register new users
               (cb) ->
-                async.parallel [
-                  (cb2) ->
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
-                ], cb
+                registerManyUsers 3, cb
 
               # Send them invitations
               (_party, cb) ->
