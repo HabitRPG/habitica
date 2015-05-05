@@ -281,7 +281,7 @@
     "headWizard3Text": "Astrologer Hat",
     "headWizard3Notes": "Adorned with the rings of Saturn. Increases Perception by <%= per %>.",
     "headWizard4Text": "Archmage Hat",
-    "headWizard4Notes": "Focuses the mind for intensive spellcasting. Increases perception by <%= per %>.",
+    "headWizard4Notes": "Focuses the mind for intensive spellcasting. Increases Perception by <%= per %>.",
     "headWizard5Text": "Royal Magus Hat",
     "headWizard5Notes": "Shows authority over fortune, weather, and lesser mages. Increases Perception by <%= per %>.",
     "headHealer1Text": "Quartz Circlet",
