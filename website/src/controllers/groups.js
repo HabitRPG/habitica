@@ -439,7 +439,10 @@ api.join = function(req, res, next) {
 
   if (!_.contains(group.members, user._id)){
     group.members.push(user._id);
-    group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    //Can we have someone joing without an invite? I added this for testing since we join users without an invite
+    if (group.invites.length > 0) {
+     group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    }
   }
 
   async.series([
@@ -451,7 +454,6 @@ api.join = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return next(err);
-
     // Return the group? Or not?
     res.json(results[1]);
     group = null;
