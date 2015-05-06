@@ -69,4 +69,4 @@ script(id='modals/login.html', type='text/ng-template')
               a(href='/static/privacy' target='_blank')=env.t('privacy')
               | .
           .form-group
-            input.btn.btn-primary(type='submit', ng-disabled='registrationForm.$invalid', value=env.t('register'))
+            input.btn.btn-primary(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('register'))
