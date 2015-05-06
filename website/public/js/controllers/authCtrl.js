@@ -15,7 +15,7 @@ angular.module('habitrpg')
 
       var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
-          $scope.registrationInProgress = false;
+          if(!err) $scope.registrationInProgress = false;
           $window.location.href = ('/' + window.location.hash);
         });
       };
