@@ -37,7 +37,9 @@
     "notEnoughGems": "Not enough Gems",
     "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
     "delete": "Delete",
+    "gemsPopoverTitle": "Gems",
     "gems": "Gems",
+    "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "More Info",
     "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
     "veteran": "Veteran",
@@ -60,7 +62,7 @@
     "errorUpCase": "ERROR:",
     "newPassSent": "New password sent.",
     "serverUnreach": "Server currently unreachable.",
-    "seeConsole": "(see Chrome console for more details).",
+    "seeConsole": "If the error persists, please report it at Help > Report a Bug. If you're familiar with your browser's console, please include any error messages.",
     "error": "Error",
     "menu": "Menu",
     "notifications": "Notifications",
@@ -88,6 +90,6 @@
     "November": "November",
     "December": "December",
     "dateFormat": "Date Format",
-    "achievementStressbeast": "Savior of Stoïkalm",
+    "achievementStressbeast": "Saviour of Stoïkalm",
     "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
 }

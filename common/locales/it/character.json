@@ -35,9 +35,11 @@
     "flower": "Fiore",
     "basicSkins": "Skin base",
     "rainbowSkins": "Skin arcobaleno",
+    "pastelSkins": "Skin pastello",
     "spookySkins": "Skin spettrale",
     "supernaturalSkins": "Skin Sovrannaturali",
     "rainbowColors": "Colori arcobaleno",
+    "shimmerColors": "Colori luccicanti",
     "hauntedColors": "Colori Spettrali",
     "winteryColors": "Colori invernali",
     "equipment": "Equipaggiamento",
@@ -133,5 +135,8 @@
     "critBonus": "Colpo critico! Bonus:",
     "displayNameDescription1": "Questo è ciò che appare nei messaggi che scrivi nella Taverna, nelle gilde e nella chat di squadra, insieme al tuo avatar. Vai in",
     "displayNameDescription2": "Impostazioni->Sito",
-    "displayNameDescription3": "nella sezione Registrazione per modificare il nome con cui accedi al sito.."
+    "displayNameDescription3": "nella sezione Registrazione per modificare il nome con cui accedi al sito..",
+    "unequipBattleGear": "Rimuovi equipaggiamento di battaglia",
+    "unequipCostume": "Rimuovi costume",
+    "unequipPetMountBackground": "Rimuovi animale, cavalcatura, sfondo"
 }

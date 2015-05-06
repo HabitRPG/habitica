@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Właściciel misji opuścił misję. Możesz ją porzucić, jeśli chcesz. Możesz ją także kontynować, a wszyscy uczestnicy, którzy zostaną, otrzymają nagrody misji po jej ukończeniu.",
     "questOwnerNotInPendingQuestParty": "Właściciel misji opuścił drużynę i nie może już rozpocząć misji. Zaleca się jej anulowanie jej. Zwój misji zostanie zwrócony właścicielowi.",
     "questOwnerNotInRunningQuestParty": "Właściciel misji opuścił drużynę. Możecie porzucić misję, jeśli musicie, ale możecie też ją kontynuować; wszyscy pozostali uczestnicy otrzymają nagrody misji po jej ukończeniu.",
+    "questParticipants": "Uczestnicy",
     "scrolls": "Zwoje misji",
     "noScrolls": "Nie masz żadnych zwojów misji.",
     "scrollsText1": "Do wykonania misji potrzebna jest drużyna. Jeśli chcesz je wykonywać w pojedynkę,",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "Czy jesteś pewien? Drużyna się na Ciebie nie obrazi?",
     "questWarning": "Jeśli nowi gracze dołączą do drużyny zanim rozpocznie się misja, również dostaną zaproszenie do niej. Jednakże kiedy już misja się zacznie, żadni nowi członkowie drużyny nie będą mogli  dołączyć do misji.",
     "bossRageTitle": "Furia",
-    "bossRageDescription": "Kiedy wypełni się ten pasek, boss wykona specjalny atak."
+    "bossRageDescription": "Gdy pasek się zapełni, boss wykona atak specjalny!"
 }

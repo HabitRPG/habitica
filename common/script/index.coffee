@@ -6,7 +6,7 @@ api = module.exports = {}
 
 api.i18n = i18n
 
-# little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
+# little helper for large arrays of strings. %w"this that another" equivalent from Ruby, I really miss that function
 $w = api.$w = (s)->s.split(' ')
 
 api.dotSet = (obj,path,val)->
@@ -79,6 +79,17 @@ api.shouldDo = (day, repeat, options={}) ->
   o = sanitizeOptions options
   selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
   return selected
+
+###
+  ------------------------------------------------------
+  Level cap
+  ------------------------------------------------------
+###
+
+api.maxLevel = 100
+
+api.capByLevel = (lvl) ->
+  if lvl > api.maxLevel then api.maxLevel else lvl
 
 ###
   ------------------------------------------------------
@@ -472,20 +483,17 @@ api.wrap = (user, main=true) ->
             task.value = 0
         user.stats.hp = 50
         cb? null, user
-        ga?.event('purchase', 'reroll').send()
+        ga?.event('behavior', 'gems', 'reroll').send()
 
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
-        if (user.balance < 2 && user.stats.lvl < 100)
+        if (user.balance < 2 && user.stats.lvl < api.maxLevel)
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
-        # only charge people if they are under level 100 - ryan
-        if user.stats.lvl < 100
+        # only charge people if they are under the max level - ryan
+        if user.stats.lvl < api.maxLevel
           user.balance -= 2
         # Save off user's level, for calculating achievement eligibility later
-        if user.stats.lvl < 100
-          lvl = user.stats.lvl
-        else
-          lvl = 100
+        lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -533,7 +541,7 @@ api.wrap = (user, main=true) ->
         user.stats.buffs = {}
         # user.markModified? 'stats'
         cb? null, user
-        ga?.event('purchase', 'Rebirth').send()
+        ga?.event('behavior', 'gems', 'rebirth').send()
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -672,9 +680,17 @@ api.wrap = (user, main=true) ->
         [egg, potion] = pet.split('-')
         userPets = user.items.pets
 
+        # Generate pet display name variable
+        potionText = if content.hatchingPotions[potion] then content.hatchingPotions[potion].text() else potion
+        eggText = if content.eggs[egg] then content.eggs[egg].text() else egg
+        petDisplayName = i18n.t('petName', {
+          potion: potionText
+          egg: eggText
+        })
+
         return cb?({code:404, message:i18n.t('messagePetNotFound', req.language)}) unless userPets[pet]
         return cb?({code:404, message:i18n.t('messageFoodNotFound', req.language)}) unless user.items.food?[food.key]
-        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet] or (egg is "Egg")
+        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet]
         return cb?({code:401, message:i18n.t('messageAlreadyMount', req.language)}) if user.items.mounts[pet]
 
         message = ''
@@ -683,17 +699,17 @@ api.wrap = (user, main=true) ->
           # changed to -1 to mark "owned" pets
           user.items.mounts[pet] = true
           user.items.currentPet = "" if pet is user.items.currentPet
-          message = i18n.t('messageEvolve', {egg: egg}, req.language)
+          message = i18n.t('messageEvolve', {egg: petDisplayName}, req.language)
 
         if food.key is 'Saddle'
           evolve()
         else
           if food.target is potion
             userPets[pet] += 5
-            message = i18n.t('messageLikesFood', {egg: egg, foodText: food.text(req.language)}, req.language)
+            message = i18n.t('messageLikesFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           else
             userPets[pet] += 2
-            message = i18n.t('messageDontEnjoyFood', {egg: egg, foodText: food.text(req.language)}, req.language)
+            message = i18n.t('messageDontEnjoyFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
@@ -741,13 +757,13 @@ api.wrap = (user, main=true) ->
           user.items[type][key] = 0  unless user.items[type][key] > 0
           user.items[type][key]++
         cb? null, _.pick(user,$w 'items balance')
-        ga?.event('purchase', key).send()
+        ga?.event('behavior', 'gems', key).send()
 
       releasePets: (req, cb) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
-          user.balance--
+          user.balance -= 1
           for pet of content.pets
             user.items.pets[pet] = 0
           if not user.achievements.beastMasterCount
@@ -770,11 +786,12 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       releaseBoth: (req, cb) ->
-        if user.balance < 1.5
+        if user.balance < 1.5 and not user.achievements.triadBingo
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
           giveTriadBingo = true
-          user.balance -= 1.5
+          if not user.achievements.triadBingo
+            user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
           for animal of content.pets
@@ -889,7 +906,7 @@ api.wrap = (user, main=true) ->
         user.balance -= cost
         user.markModified? 'purchased'
         cb? null, _.pick(user,$w 'purchased preferences')
-        ga?.event('purchase', path).send()
+        ga?.event('behavior', 'gems', path).send()
 
       # ------
       # Classes
@@ -926,9 +943,9 @@ api.wrap = (user, main=true) ->
           else
             return cb?({code:401,message:i18n.t('notEnoughGems', req.language)}) unless user.balance >= .75
             user.balance -= .75
-          _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
+          _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
-          ga?.event('purchase', 'changeClass').send()
+          ga?.event('behavior', 'gems', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
 
@@ -937,7 +954,7 @@ api.wrap = (user, main=true) ->
         user.flags.classSelected = true
         user.preferences.disableClasses = true
         user.preferences.autoAllocate = true
-        user.stats.str = user.stats.lvl
+        user.stats.str = api.capByLevel(user.stats.lvl)
         user.stats.points = 0
         cb? null, _.pick(user,$w 'stats flags preferences')
 
@@ -1059,12 +1076,10 @@ api.wrap = (user, main=true) ->
             nextDelta = if not options.cron and direction is 'down' then calculateReverseDelta() else calculateDelta()
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
-              # ===== STRENGTH =====
-              # (Only for up-scoring, ignore up-onlies and rewards)
-              # Note, we create a new val (adjustAmt) to add to task.value, since delta will be used in Exp & GP calculations - we don't want STR to bonus that
-              if direction is 'up' and !(task.type is 'habit' and !task.down)
+              if direction is 'up' # Make progress on quest based on STR
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
+                user.party.quest.progress.up += (nextDelta * (0.5 + (user._statsComputed.str / 400))) if task.type is 'habit'
               task.value += nextDelta
             delta += nextDelta
 
@@ -1105,9 +1120,17 @@ api.wrap = (user, main=true) ->
           hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
           stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
+        gainMP = (delta) ->
+          delta *= user._tmp.crit or 1
+          user.stats.mp += delta
+          user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
+          user.stats.mp = 0 if user.stats.mp < 0
+
+        # ===== starting to actually do stuff, most of above was definitions =====
         switch task.type
           when 'habit'
             changeTaskValue()
+            gainMP(_.max([0.25, (.0025 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
             # Add habit value to habit-history (if different)
             if (delta > 0) then addPoints() else subtractPoints()
 
@@ -1126,6 +1149,7 @@ api.wrap = (user, main=true) ->
               task.streak = 0 unless user.stats.buffs.streaks
             else
               changeTaskValue()
+              gainMP(_.max([1, (.01 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
               if direction is 'down'
                 delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
@@ -1152,12 +1176,7 @@ api.wrap = (user, main=true) ->
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
-              mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
-              mpDelta *= user._tmp.crit or 1
-              mpDelta *= -1 if direction is 'down'  # unticking a todo
-              user.stats.mp += mpDelta
-              user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
-              user.stats.mp = 0 if user.stats.mp < 0   # BUT DO WE WANT THIS? SEE COMMIT DESCRIPTION
+              gainMP(_.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)]) * if direction is 'down' then -1 else 1)
 
           when 'reward'
           # Don't adjust values for rewards
@@ -1214,7 +1233,9 @@ api.wrap = (user, main=true) ->
 
     crit: (stat='str', chance=.03) ->
       #console.log("Crit Chance:"+chance*(1+user._statsComputed[stat]/100))
-      if user.fns.predictableRandom() <= chance*(1+user._statsComputed[stat]/100) then 1.5 + (.02*user._statsComputed[stat])
+      s = user._statsComputed[stat]
+      if user.fns.predictableRandom() <= chance*(1 + s/100)
+        1.5 + 4*s/(s + 200)
       else 1
 
     ###
@@ -1334,7 +1355,8 @@ api.wrap = (user, main=true) ->
             _.invert(stats)[_.min stats]
           when "classbased"
             # Attributes get 3:2:1:1 per 7 levels.
-            ideal = [(user.stats.lvl / 7 * 3), (user.stats.lvl / 7 * 2), (user.stats.lvl / 7), (user.stats.lvl / 7)]
+            lvlDiv7 = user.stats.lvl / 7
+            ideal = [(lvlDiv7 * 3), (lvlDiv7 * 2), lvlDiv7, lvlDiv7]
             # Primary, secondary etc. attributes aren't explicitly defined, so hardcode them. In order as above
             preference = switch user.stats.class
               when "wizard" then ["int", "per", "con", "str"]
@@ -1370,14 +1392,20 @@ api.wrap = (user, main=true) ->
           user.stats.lvl++
           tnl = api.tnl(user.stats.lvl)
 
+          user.stats.hp = 50
+
+          continue if user.stats.lvl > api.maxLevel
+
           # Auto-allocate a point, or give them a new manual point
           if user.preferences.automaticAllocation
             user.fns.autoAllocate()
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
             user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-
-          user.stats.hp = 50
+            if user.stats.points < 0
+              user.stats.points = 0
+              # This happens after dropping level with Fix Character Values and perhaps from other causes.
+              # TODO: Subtract points from attributes in the same manner as on death.
       user.stats.exp = stats.exp
 
       # Set flags when they unlock features
@@ -1405,7 +1433,7 @@ api.wrap = (user, main=true) ->
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
-      if user.stats.lvl >= 100 and !user.flags.freeRebirth
+      if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
         user.flags.freeRebirth = true
 
     ###
@@ -1471,42 +1499,61 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
-      # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
+      # User is resting at the inn. On cron, buffs are cleared and all dailies are reset without performing damage (fixes issue #5070)
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
+        # @TODO: uncomment when new dailies behavior goes live, per https://github.com/HabitRPG/habitrpg/pull/5073#issuecomment-98436542
+        # user.dailys.forEach (daily) ->
+        #   daily.completed = false
+        #   _.each daily.checklist, ((i)->i.completed=false;true)
         return
 
       # Tally each task
       todoTally = 0
+      dailyChecked = 0        # how many dailies were checked?
+      dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
         {id, type, completed, repeat} = task
 
-        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
-
-
-        # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
-        unless completed
-          scheduleMisses = daysMissed
+        # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
+        EvadeTask = 0
+        scheduleMisses = daysMissed
+        if completed
+          if type is 'daily'
+            dailyChecked += 1
+        else
           # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
           if (type is 'daily') and repeat
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
-          if scheduleMisses > 0
-            perfect = false if type is 'daily'
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
+              if api.shouldDo(thatDay, repeat, user.preferences)
+                scheduleMisses++
+                if user.stats.buffs.stealth
+                  user.stats.buffs.stealth--
+                  EvadeTask++
+          if scheduleMisses > EvadeTask
+            if type is 'daily'
+              perfect = false
+              if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
+                fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
+                dailyDueUnchecked += (1 - fractionChecked)
+                dailyChecked += fractionChecked
+              else
+               dailyDueUnchecked += 1
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
             user.party.quest.progress.down += delta if type is 'daily'
 
         switch type
           when 'daily'
+            # This occurs whether or not the task is completed
             (task.history ?= []).push({ date: +new Date, value: task.value })
             task.completed = false
-            _.each task.checklist, ((i)->i.completed=false;true)
+            if completed || (scheduleMisses > 0)
+              _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
           when 'todo'
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value
@@ -1541,16 +1588,20 @@ api.wrap = (user, main=true) ->
         if perfect
           user.achievements.perfect ?= 0
           user.achievements.perfect++
-          if user.stats.lvl < 100
-            lvlDiv2 = Math.ceil(user.stats.lvl/2)
-          else
-            lvlDiv2 = 50
+          lvlDiv2 = Math.ceil(api.capByLevel(user.stats.lvl) / 2)
           {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
         else clearBuffs
 
       # Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
-      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
+      # Adjust for fraction of dailies completed
+      dailyChecked=1 if dailyDueUnchecked is 0 and dailyChecked is 0
+      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
+
+      # Analytics
+      user.flags.cronCount?=0
+      user.flags.cronCount++
+      options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
@@ -1624,10 +1675,7 @@ api.wrap = (user, main=true) ->
             else
               +val[stat] or 0
         , 0
-        if user.stats.lvl < 100
-          m[stat] += (user.stats.lvl - 1) / 2
-        else
-          m[stat] += 50
+        m[stat] += Math.floor(api.capByLevel(user.stats.lvl) / 2)
         m
       , {}
       computed.maxMP = computed.int*2 + 30

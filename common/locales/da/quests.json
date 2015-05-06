@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Quest-lederen har forladt questen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
     "questOwnerNotInPendingQuestParty": "Quest-lederen har forladt gruppen og kan ikke længere starte questen. Det anbefales at du afbryder den nu. Quest-skriftrullen vil blive returneret til quest-lederen.",
     "questOwnerNotInRunningQuestParty": "Quest-lederen har forladt gruppen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
+    "questParticipants": "Deltagere",
     "scrolls": "Quest-skriftruller",
     "noScrolls": "Du har ingen quest-skriftruller.",
     "scrollsText1": "Quests kræver grupper. Hvis du vil queste alene,",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "Er du helt sikker? Tjek lige at de ikke vil hade dig for evigt!",
     "questWarning": "Hvis nye spillere melder sig ind i gruppen før questen begynder vil de også modtage en invitation. Dog kan nye medlemmer ikke deltage i questen hvis den allerede er startet.",
     "bossRageTitle": "Vrede",
-    "bossRageDescription": "Når denne bar bliver fyldt vil bossen udføre et specielt angreb"
+    "bossRageDescription": "Når denne bar bliver fyldt vil bossen udføre et specielt angreb!"
 }

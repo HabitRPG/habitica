@@ -30,6 +30,7 @@
     "questEggDeerText": "Deer",
     "questEggDeerAdjective": "elegant",
     "questEggEggText": "Egg",
+    "questEggEggMountText": "Egg Basket",
     "questEggEggAdjective": "colourful",
     "questEggRatText": "Rat",
     "questEggRatAdjective": "dirty",
@@ -49,6 +50,12 @@
     "questEggPenguinAdjective": "perspicacious",
     "questEggTRexText": "Tyrannosaur",
     "questEggTRexAdjective": "tiny-armed",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
+    "questEggBunnyText": "Bunny",
+    "questEggBunnyAdjective": "snuggly",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
     "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "White",
@@ -92,6 +99,6 @@
     "foodCandyDesert": "Sand Candy",
     "foodCandyRed": "Cinnamon Candy",
     "foodSaddleText": "Saddle",
-    "foodSaddleNotes": "Instantly raises one 'o ye pets into a mount.",
-    "foodNotes": "Feed 'tis to a pet 'n it may grow into a sturdy steed."
+    "foodSaddleNotes": "Instantly turns one 'o yer pets into a mount.",
+    "foodNotes": "Feed this to a pet 'n mayhaps it'll grow inter a sturdy steed."
 }

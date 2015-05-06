@@ -35,9 +35,11 @@
     "flower": "Цветок",
     "basicSkins": "Базовые цвета",
     "rainbowSkins": "Радужные цвета",
+    "pastelSkins": "Пастельные цвета",
     "spookySkins": "Зловещие цвета",
     "supernaturalSkins": "Сверхъестественные цвета",
     "rainbowColors": "Радужные цвета",
+    "shimmerColors": "Мерцающие цвета",
     "hauntedColors": "Призрачные цвета",
     "winteryColors": "Зимние цвета",
     "equipment": "Снаряжение",
@@ -133,5 +135,8 @@
     "critBonus": "Критический удар! Бонус:",
     "displayNameDescription1": "Отображается в сообщениях, которые вы пишете в Таверне, гильдиях и командных чатах вместе с вашим аватаром. Перейдите в",
     "displayNameDescription2": "Настройки->Сайт",
-    "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин."
+    "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин.",
+    "unequipBattleGear": "Снять боевую экипировку",
+    "unequipCostume": "Снять костюм",
+    "unequipPetMountBackground": "Убрать питомца, скакуна, фон"
 }

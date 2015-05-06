@@ -35,9 +35,11 @@
     "flower": "Квітка",
     "basicSkins": "Прості кольори",
     "rainbowSkins": "Кольори веселки",
+    "pastelSkins": "Pastel Skins",
     "spookySkins": "Моторошні кольори",
     "supernaturalSkins": "Надзвичайні шкірні покриття",
     "rainbowColors": "Кольори веселки",
+    "shimmerColors": "Shimmer Colors",
     "hauntedColors": "Примарні кольори",
     "winteryColors": "Wintery Colors",
     "equipment": "Спорядження",
@@ -133,5 +135,8 @@
     "critBonus": "Критичний удар! Бонус:",
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
     "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name."
+    "displayNameDescription3": "and scroll down to the Registration section to change your login name.",
+    "unequipBattleGear": "Unequip Battle Gear",
+    "unequipCostume": "Unequip Costume",
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
 }

@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "A küldetés tulajdonosa kilépett a küldetésből. Megszakíthatod a küldetést, ha kell. Egyébként hagyhatod, hogy menjen tovább és a maradék résztvevők megkapják a küldetés jutalmát amikor a küldetés véget ér.",
     "questOwnerNotInPendingQuestParty": "A küldetés tulajdonosa elhagyta a csapatot és már nem tudja elkezdeni a küldetést. Azt ajánljuk, hogy szakítsd meg most. A küldetés tulajdonosa megtartja a küldetés tekercset.",
     "questOwnerNotInRunningQuestParty": "A küldetés tulajdonosa elhagyta a csapatot. Abbahagyhatod a küldetést ha akarod, de akár folytathatod is és az összes megmaradt résztvevő megkapja a küldetés jutalmát, amint az befejeződött.",
+    "questParticipants": "Résztvevők",
     "scrolls": "Küldetés tekercsek",
     "noScrolls": "Nincsenek küldetés tekercseid.",
     "scrollsText1": "Küldetést csak csapatban csinálhatsz. Ha egyedül szeretnéd csinálni, akkor",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "Tuti biztos vagy benne? Győződj meg róla, hogy nem fognak a többiek utálni!",
     "questWarning": "Ha új játékosok csatlakoznak a csapathoz a küldetés indulása előtt, akkor ők is kapnak meghívót. Egyébként, ha a küldetés indulása után csatlakozik valaki, az nem tud részt venni benne.",
     "bossRageTitle": "Örjöngés",
-    "bossRageDescription": "Amikor ez a sáv megtelik, a főellenség speciális támadást hajt végre"
+    "bossRageDescription": "Ha ez a sáv megtelik, akkor a Főellenség egy speciális támadást szabadít ránk."
 }

@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "Majitel výpravy výpravu opustil. Můžete výpravu ukončit, pokud chcete. Můžete však pokračovat dále a všichni zbývající účastnici si po jejím skončení rozdělí kořist.",
     "questOwnerNotInPendingQuestParty": "Majitel výpravy výpravu opustil a nemůže ji již začít. Doporučujeme ji zrušit. Majitel výpravy získá zpět svitek.",
     "questOwnerNotInRunningQuestParty": "Majitel výpravy výpravu opustil. Můžete výpravu ukončit, pokud chcete. Můžete však pokračovat dále a všichni zbývající účastnici si po jejím skončení rozdělí kořist.",
+    "questParticipants": "Účastníci",
     "scrolls": "Svitky s Výpravou",
     "noScrolls": "Nemáš žádné svitky s Výpravou.",
     "scrollsText1": "Pro účast na výpravě musíš být členem družiny. Pokud chceš na výpravu na vlastní pěst, ",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "Jsi si určitě jistý? Ujisti se, že tě pak ostatní nebudou do smrti nenávidět!",
     "questWarning": "Pokud se před začátkem výpravy do družiny připojí noví hráči, dostanou také pozvánku. Jakmile však výprava začne, žádní noví členové družiny se nemohou k výpravě připojit.",
     "bossRageTitle": "Zuřivost",
-    "bossRageDescription": "Když se tato lišta naplní, boss předvede speciální útok."
+    "bossRageDescription": "Když se tato lišta naplní, boss předvede speciální útok!"
 }

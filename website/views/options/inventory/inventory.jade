@@ -3,6 +3,8 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
     .row
       .col-md-6.border-right
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', popover=env.t('battleGearText'))=env.t('battleGear')
+        div
+          button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
         li.customize-menu.inventory-gear
           menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
@@ -14,6 +16,9 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
             input(type="checkbox", ng-model="user.preferences.costume", ng-change='set({"preferences.costume":user.preferences.costume ? true : false})')
             |&nbsp;
             =env.t('useCostume')
+        div
+          button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
+          button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
@@ -30,17 +35,16 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
           h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
             p!=env.t('seasonalShopClosedText', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Grand_Galas' target='_blank'>", linkEnd: "</a>"})
-  // br
-    .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
-    li.customize-menu.inventory-gear
-      menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{candycane:env.t("candycaneSet"), ski:env.t("skiSet"), snowflake:env.t("snowflakeSet"), yeti:env.t("yetiSet")}')
+    // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
+    // li.customize-menu.inventory-gear
+      menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{springWarrior:env.t("mightyBunnySet"), springMage:env.t("magicMouseSet"), springHealer:env.t("lovingPupSet"), springRogue:env.t("stealthyKittySet")}')
         // The `if true || false` conditional for applying the transparent class is necessary because
-        // when a user activates the orb of rebirth, the seasonal items are still in their inventory, but 
+        // when a user activates the orb of rebirth, the seasonal items are still in their inventory, but
         // they have each have a value of false. The item can be purchased for gold in the rewards column,
         // not the seasonal shop. This makes that more clear.
         div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key] === true ||user.items.gear.owned[item.key] === false}")
           button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
-          .text-center
+          .text-left
             | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
             span.Pet_Currency_Gem1x.inline-gems
       menu.pets-menu(label=env.t('quests'))
@@ -51,6 +55,11 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
             span.Pet_Currency_Gem1x.inline-gems
       menu.pets-menu(label=env.t('seasonalItems'))
         div
+          button.customize-option(popover='{{::Content.spells.special.shinySeed.notes()}}', popover-title='{{::Content.spells.special.shinySeed.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.shinySeed)', class='inventory_special_shinySeed')
+          p
+            | {{::Content.spells.special.shinySeed.value}}
+            span(class='shop_gold')
+        // div
           button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
           p
             | {{::Content.spells.special.snowball.value}}
@@ -139,6 +148,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     .badge.badge-info.stack-count {{user.items.special.#{k}}}
               +specialItem('snowball')
               +specialItem('spookDust')
+              +specialItem('shinySeed')
 
               div(ng-if='user.items.special.valentineReceived[0]')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='openModal("valentine")', class='inventory_special_valentine')
@@ -177,19 +187,20 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.inventory-list(type='list')
             li.customize-menu
               menu.pets-menu(label=env.t('eggs'))
+                p.muted!=env.t('dropsExplanation')
                 div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
                   button.customize-option(popover='{{::egg.notes()}}', popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{::egg.key}}')
                   p
                     |  {{::egg.value}}&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
                 //- buyable quest eggs
-                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock'}
-                  div(ng-show='user.achievements.quests.#{quest} > 1')
+                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime'}
+                  div(ng-show='user.achievements.quests.#{quest} > 0')
                     button.customize-option(popover='{{::Content.eggs.#{egg}.notes()}}', popover-title!=env.t("egg", {eggType: "{{::Content.eggs.#{egg}.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("eggs", Content.eggs.#{egg})', class='Pet_Egg_#{egg}')
                     p
                       |  {{::Content.eggs.#{egg}.value}}&nbsp;
                       span.Pet_Currency_Gem1x.inline-gems
-                div(ng-show='(user.achievements.quests.trex + user.achievements.quests.trex_undead) > 1')
+                div(ng-show='(user.achievements.quests.trex + user.achievements.quests.trex_undead) > 0')
                   button.customize-option(popover='{{::Content.eggs.TRex.notes()}}', popover-title!=env.t("egg", {eggType: "{{Content.eggs.TRex.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("eggs", Content.eggs.TRex)', class='Pet_Egg_TRex')
                   p
                     | {{::Content.eggs.TRex.value}}&nbsp;
@@ -197,6 +208,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('hatchingPotions'))
+                p.muted!=env.t('dropsExplanation')
                 div(ng-repeat='pot in Content.hatchingPotions')
                   button.customize-option(popover='{{::pot.notes()}}', popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{::pot.key}}')
                   p
@@ -205,6 +217,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('food'))
+                p.muted!=env.t('dropsExplanation')
                 div(ng-repeat='food in Content.food', ng-if='food.canBuy')
                   button.customize-option(popover='{{::food.notes()}}', popover-title='{{::food.text()}}', popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("food", food)', class='Pet_Food_{{::food.key}}')
                   p
@@ -234,7 +247,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     span.Pet_Currency_Gem1x.inline-gems
                 div(ng-show='petCount >= 90 || mountCount >= 90')
                   button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='openModal("pet-key", {size:"lg"})', class='pet_key')
-                  p
+                  p(ng-show='petCount < 90 || mountCount < 90 || !user.achievements.triadBingo')
                     | 4&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
                 div(ng-if='user.purchased.plan.customerId', ng-class='::{transparent:(Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought) < 1}')

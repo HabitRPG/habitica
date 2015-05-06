@@ -1,11 +1,11 @@
-li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward")}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}', ng-show='shouldShow(task, list, user.preferences)')
+li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s"] | conditionalOrderBy: list.view=="dated":"date"', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}', popover-trigger='mouseenter', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}', ng-show='shouldShow(task, list, user.preferences)')
   // right-hand side control buttons
   .task-meta-controls
 
     // Due Date
     span(ng-if='task.type=="todo" && task.date')
       span(ng-class='{"label label-danger":(moment(task.date).isBefore(_today, "days") && !task.completed)}') {{task.date | date:(user.preferences.dateFormat.indexOf('yyyy') == 0 ? user.preferences.dateFormat.substr(5) : user.preferences.dateFormat.substr(0,5))}}
-      
+
     // Streak
     | &nbsp;
     span(ng-show='task.streak') {{task.streak}}&nbsp;
@@ -44,18 +44,18 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
           | &nbsp;
       // delete
-      a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip=env.t('delete'))
+      a(ng-if='!task.challenge.id', ng-click='removeTask(task, obj[list.type+"s"])', tooltip=env.t('delete'))
         span.glyphicon.glyphicon-trash
         | &nbsp;
 
-    // chart
-    a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
-      span.glyphicon.glyphicon-signal
-      | &nbsp;
-    // notes
-    span.task-notes(ng-show='task.notes && !task._editing')
-      span.glyphicon.glyphicon-comment
-      | &nbsp;
+      // chart
+      a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
+        span.glyphicon.glyphicon-signal
+        | &nbsp;
+      // notes
+      span.task-notes(ng-show='task.notes && !task._editing')
+        span.glyphicon.glyphicon-comment
+        | &nbsp;
 
   // left-hand side checkbox
   .task-controls.task-primary(ng-if='!task._editing')
@@ -101,7 +101,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           p
             a(ng-click='unlink(task, "keep")')=env.t('keepIt')
             | &nbsp;&nbsp;
-            a(ng-click="removeTask(obj[list.type+'s'], $index)")=env.t('removeIt')
+            a(ng-click="removeTask(task, obj[list.type+'s'])")=env.t('removeIt')
         div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
           p
             |&nbsp;
@@ -136,11 +136,11 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             legend.option-title
               span.hint(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')=env.t('checklist')
             ul(hrpg-sort-checklist)
-              li(ng-repeat='item in task.checklist') 
+              li(ng-repeat='item in task.checklist')
                 //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
                 //-,ng-blur='saveTask(task,true)')
                 span.checklist-icon.glyphicon.glyphicon-resize-vertical()
-                input(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
+                input(type='text',ng-model='item.text', ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
                 a(ng-click='removeChecklistItem(task,$event,$index,true)')
                   span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
 
@@ -207,7 +207,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           p.option-title.mega(ng-click='task._advanced = !task._advanced', tooltip=env.t('expandCollapse'))=env.t('advancedOptions')
           fieldset.option-group.advanced-option(ng-class="{visuallyhidden: task._advanced}")
             legend.option-title
-              a.hint.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
+              a.hint.priority-multiplier-help(href='http://habitrpg.wikia.com/wiki/Difficulty', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
             ul.priority-multiplier
               li
                 button(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)')=env.t('easy')

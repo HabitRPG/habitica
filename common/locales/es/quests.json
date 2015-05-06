@@ -14,12 +14,12 @@
     "questStart": "Una vez todos los miembros hayan aceptado o rechazado, la misión comenzará. Solo aquellos que hicieron click en \"aceptar\" podrán participar en la misión y recibir los premios. Si algún miembro queda pendiente durante mucho tiempo (¿inactivo?), el dueño de la misión puede empezar ésta sin que éstos hayan hecho click en \"Empezar\". El dueño de la misión también puede cancelar ésta y volver a obtener el pergamino de la misión haciendo click en \"Cancelar\".",
     "begin": "Comenzar",
     "bossHP": "Salud del Jefe",
-    "bossStrength": "Vida del Jefe",
+    "bossStrength": "Fuerza del Jefe",
     "collect": "Recoger",
     "collected": "Recogido",
-    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
+    "bossDmg1": "Para dañar a un jefe, completa tus tareas Diarias y tareas Pendientes. Un mayor daño en una tarea significa un mayor daño al jefe (completar tareas rojas, hechizos de Mago, ataques de Guerrero, etc.) El jefe va a ejercer daño a todos los participantes de la misión por cada tarea Diaria que no hayas completado (multiplicado por la Fuerza del jefe) además de su daño normal, así que ¡mantén tu grupo sano completando tus tareas Diarias!\n<strong>Todo el daño de y para el jefe se anota a un cronómetro (cuando reinicie tu día).</strong>",
     "bossDmg2": "Solo los participantes pelearan contra el jefe y compartiran el botín de la misión.",
-    "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
+    "tavernBossInfo": "Para dañar a un jefe de mundo, completa tus tareas Diarias y tareas Pendientes. Un mayor daño en una tarea significa un mayor daño al jefe (completar tareas rojas, hechizos de Mago, ataques de Guerrero, etc.) Por cada tarea Diaria que no hayas completado (multiplicado por la Fuerza del jefe), la Ira del jefe aumentará. Una vez su Ira alcance el máximo, algo malo va a pasar - ¡así que completa tus tareas Diarias! <strong>Todo el daño de y para el jefe se anota a un cronómetro (cuando reinicie tu día).</strong>",
     "bossColl1": "Para conseguir objetos de misión, haz tus tareas. Los objetos de misión aparecen como los demás; sin embargo, no los verás hasta el día siguiente, en ese momento todo lo que hayais encontrado se pondrá en común.",
     "bossColl2": "Solo los participantes pueden coger objetos y su parte del botín de la misión.",
     "abort": "Abandonar",
@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "El dueño de la misión ha abandonado. Puedes abandonar tú también si es necesario. También puedes permitir que siga activa y todos los demás participantes recibirán los premios de la misión cuando ésta sea completada.",
     "questOwnerNotInPendingQuestParty": "El dueño de la misión ha abandonado el grupo y por consiguiente no puede empezar la misión de nuevo. Te recomendamos que canceles la misión. El dueño de la misión se quedará con el pergamino usado.",
     "questOwnerNotInRunningQuestParty": "El dueño de la misión ha abandonado el grupo. Puedes abandonar la misión si lo consideras necesario pero también puedes permitir que siga activa y todos los demás participantes recibirán los premios de la misión cuando ésta sea completada.",
+    "questParticipants": "Participants",
     "scrolls": "Pergaminos de Misión",
     "noScrolls": "No tienes pergaminos de misión",
     "scrollsText1": "Las misiones requieren de un grupo. Si quieres ir solo a una misión,",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "¿Estás totalmente seguro? ¡Asegurate de que no te vayan a odiar para siempre!",
     "questWarning": "Si nuevos miembros se unen al equipo antes de que comience la misión, también recibirán una invitación. Sin embargo, una vez que la misión ha comenzado, nuevos miembros no se pueden unir a la misión.",
     "bossRageTitle": "Ira",
-    "bossRageDescription": "Cuando se llena esta barra, el jefe va a desatar un ataque especial"
+    "bossRageDescription": "¡Cuando esta barra se llene, el jefe desatará un ataque especial!"
 }

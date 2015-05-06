@@ -7,7 +7,7 @@ angular.module("habitrpg").factory("Notification",
   function notify(html, type, icon) {
     var notice = $.pnotify({
       type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
-    text: html,
+      text: html,
       opacity: 1,
       addclass: 'alert-' + type,
       delay: 7000,
@@ -77,8 +77,24 @@ angular.module("habitrpg").factory("Notification",
     streak: function(val) {
       notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
     },
-    drop: function(val) {
-      notify(val, 'drop', 'glyphicon glyphicon-gift');
+    drop: function(val, item) {
+      var dropClass = "";
+      if ( item !== undefined ) {
+       switch ( item.type ) {
+        case "Egg":
+         dropClass = 'Pet_Egg_' + item.key;
+         break;
+        case "HatchingPotion":
+         dropClass = 'Pet_HatchingPotion_' + item.key;
+         break;
+        case "Food":
+         dropClass = 'Pet_Food_' + item.key;
+         break;
+        default:
+         dropClass = 'glyphicon glyphicon-gift';
+       }
+      }
+      notify(val, 'drop', dropClass);
     }
   };
 }]);

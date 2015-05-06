@@ -1,11 +1,10 @@
 mixin gemButton(isGemsModal)
-  a.pull-right.gem-wallet(ng-click=( isGemsModal ? '' : 'openModal("buyGems",{track:"Gems > Wallet"})'), popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom')
+  a.pull-right.gem-wallet(ng-click=( isGemsModal ? '' : 'openModal("buyGems",{track:"Gems > Wallet"})'), popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom')
     if !isGemsModal
       span.task-action-btn.tile.flush.bright.add-gems-btn ＋
     span.task-action-btn.tile.flush.neutral
       .Pet_Currency_Gem2x.Gems
-      | {{user.balance * 4 | number:0}} 
-      =env.t('gems')
+      =env.t('gemButton', {number: '{{user.balance * 4 | number:0}}'})
 
 mixin aLink(url, label)
   if mobile

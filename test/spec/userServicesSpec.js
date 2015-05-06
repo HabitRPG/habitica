@@ -4,7 +4,6 @@ describe('userServices', function() {
   var $httpBackend, $window, user, STORAGE_USER_ID, STORAGE_SETTINGS_ID;
 
   beforeEach(module('habitrpg'));
-  beforeEach(module('notificationServices'));
 
   beforeEach(function(){
     module(function($provide){

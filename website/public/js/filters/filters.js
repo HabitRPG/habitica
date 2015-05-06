@@ -21,3 +21,11 @@ angular.module('habitrpg')
         (gp > 999) ? (gp / Math.pow(10, 3)).toFixed(1) + "k" : gp;
     }
   })
+  .filter('conditionalOrderBy', ['$filter', function($filter) {
+    return function (array, predicate, sortPredicate, reverseOrder) {
+      if (predicate) {
+        return $filter('orderBy')(array, sortPredicate, reverseOrder);
+      }
+      return array;
+    };
+  }]);

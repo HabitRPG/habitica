@@ -22,6 +22,13 @@
     background-color: $bad
     text-decoration: none
 
+//Hide interativity if reward is locked (i.e. is a challenge reward)
+.locked-task
+  .btn-buy
+    &:hover
+        background-color: $better
+        cursor:initial
+
 .rewards
   margin-bottom: 1.5em
   padding-bottom: 1.5em

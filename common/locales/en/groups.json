@@ -21,6 +21,7 @@
     "communityGuidelinesRead2": "before chatting.",
     "party": "Party",
     "createAParty": "Create A Party",
+    "updatedParty": "Party settings updated.",
     "noPartyText": "You are either not in a party or your party is taking a while to load. You can either create one and invite friends, or if you want to join an existing party, have them enter your Unique User ID below and then come back here to look for the invitation:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "create": "Create",
@@ -58,6 +59,8 @@
     "guild": "Guild",
     "guilds": "Guilds",
     "sureKick": "Do you really want to remove this member from the party/guild?",
+    "optionalMessage": "Optional message",
+    "yesRemove": "Yes, remove them",
     "foreverAlone": "Can't like your own message. Don't be that person.",
     "sortLevel": "Sort by level",
     "sortRandom": "Sort randomly",
@@ -79,8 +82,8 @@
     "send": "Send",
     "messageSentAlert": "Message sent",
     "pmHeading": "Private message to <%= name %>",
-    "clearAll": "Clear All",
-    "clearAllPopover": "Delete all messages",
+    "clearAll": "Delete All Messages",
+    "confirmDeleteAllMessages": "Are you sure you want to delete all messages in your inbox? Other users will still see messages you have sent to them.",
     "optOutPopover": "Don't like private messages? Click to completely opt out",
     "block": "Block",
     "unblock": "Un-block",
@@ -91,5 +94,7 @@
     "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
     "abuseFlagModalButton": "Report",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
-    "abuseAlreadyReported": "You have already reported this message."
+    "abuseAlreadyReported": "You have already reported this message.",
+    "needsText": "Please type a message.",
+    "needsTextPlaceholder": "Type your message here."
 }

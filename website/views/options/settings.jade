@@ -2,7 +2,7 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        =env.t('settings')
+        =env.t('site')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
         =env.t('API')
@@ -66,25 +66,21 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               label
                 input(type='checkbox', ng-model='user.preferences.dailyDueDefaultView', ng-change='set({"preferences.dailyDueDefaultView": user.preferences.dailyDueDefaultView?true: false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('dailyDueDefaultViewPop'))=env.t('dailyDueDefaultView')
-            button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
+            // button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-            button.btn.btn-default(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})") Invite Friends
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
             button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
             div.alert.alert-warning(style='padding:2px;margin-top:7px')
-              h5.hint(popover=env.t('clockInfo'), popover-trigger='mouseenter')=env.t('customDayStart')
+              h5=env.t('customDayStart')
+              h5=env.t('customDayStartInfo1')
+                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('customDayStartInfo2') : env.t('customDayStartInfo3')}}
+              h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
               .form-group
                 .input-group
                   input.form-control(type='number', min='0', max='23', ng-model='user.preferences.dayStart', ng-blur='saveDayStart()')
                   span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
-              small
-                  =env.t('subWarning1')
-                  |&nbsp;
-                  a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
-                  |&nbsp;
-                  =env.t('subWarning3')
 
       .personal-options.col-md-6
         .panel.panel-default
@@ -240,9 +236,6 @@ mixin subPerks()
   table.table.table-striped
     tr
       td
-        span.hint(popover=env.t('disableAdsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('disableAds')
-    tr
-      td
         span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
         span.badge.badge-success(ng-show='_subscription.key!="basic_earned"') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(Content.subscriptionBlocks[_subscription.key].months/3*5), 50]  | min }}
     tr
@@ -307,6 +300,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
 
             .checkbox
               label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.kickedGroup', ng-change='set({"preferences.emailNotifications.kickedGroup": user.preferences.emailNotifications.kickedGroup ? true: false})')
+                span=env.t('kickedGroup')
+
+            .checkbox
+              label
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.questStarted', ng-change='set({"preferences.emailNotifications.questStarted": user.preferences.emailNotifications.questStarted ? true: false})')
                 span=env.t('questStarted')
 
@@ -325,6 +323,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
               label
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
                 span=env.t('inactivityEmails')
+
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.weeklyRecaps', ng-change='set({"preferences.emailNotifications.weeklyRecaps": user.preferences.emailNotifications.weeklyRecaps ? true: false})')
+                span=env.t('weeklyRecaps')
 
             hr
 

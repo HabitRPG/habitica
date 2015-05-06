@@ -4,9 +4,20 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
   function($scope, Groups, User) {
 
     $scope.Math = window.Math;
+    $scope.user = User.user;
 
     $scope.party = Groups.party(function(){
-      $scope.partyMinusSelf = _.sortBy(
+        var triggerResort = function() {
+            $scope.partyMinusSelf = resortParty();
+        };
+
+        triggerResort();
+        $scope.$watch('user.party.order', triggerResort);
+        $scope.$watch('user.party.orderAscending', triggerResort);
+    });
+
+    function resortParty() {
+      var result = _.sortBy(
         _.filter($scope.party.members, function(member){
           return member._id !== User.user._id;
         }),
@@ -41,8 +52,10 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
         }
       )
       if (User.user.party.orderAscending == "descending") {
-      	$scope.partyMinusSelf = $scope.partyMinusSelf.reverse()
+      	result = result.reverse()
       }
-    });
+
+      return result;
+    }
   }
 ]);

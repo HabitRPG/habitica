@@ -26,7 +26,7 @@
     "kickstartName": "Kickstarter Träger - Level $<%= tier %>",
     "kickstartText": "Hat das Kickstarter Project mitfinanziert",
     "helped": "Hat HabitRPG geholfen zu wachsen",
-    "helpedText1": "Hat HabitRPG geholfen zu wachsen indem er teilgenommen hat an",
+    "helpedText1": "Hat HabitRPG geholfen zu wachsen durch Teilnahme an",
     "helpedText2": "dieser Befragung.",
     "hall": "Halle",
     "contribTitle": "Mitwirkender Titel (z.B., \"Schmied\")",
@@ -57,5 +57,9 @@
     "whyAds": "Warum Werbung?",
     "whyAdsContent1": "HabitRPG ist ein \"open source Project\" und kann jede Hilfe brauchen, die es bekommen kann - Betrachte es als Spende an die Mitwirkenden. Du erhältst zudem 20 Edelsteine für den Kauf, die Du verwenden kannst um tolle Gegenstände zu kaufen.",
     "whyAdsContent2": "'Hey, ich habe die Kickstarter-Kampagne mitgetragen!' - Folge",
-    "whyAdsContent3": "dieser Anleitung"
+    "whyAdsContent3": "dieser Anleitung",
+    "surveysSingle": "Hat HabitRPG durch die Teilnahme an einer Umfrage geholfen zu wachsen. Es gibt keine aktuellen Umfragen. ",
+    "surveysMultiple": "Hat HabitRPG durch Teilnahme an <%= surveys %> Umfragen geholfen zu wachsen. Es gibt keine aktiven Umfragen.",
+    "currentSurvey": "Aktuelle Umfrage",
+    "surveyWhen": "Das Abzeichen wird gegen Ende März verliehen, wenn alle Umfragen bearbeitet wurden."
 }

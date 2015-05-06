@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 //    totalDims.width += dims.width;
 //    totalDims.height += dims.height;
 //  })
-  var COUNT = 6;//Math.ceil( (totalDims.width * totalDims.height) / (1024*1024*3) );
+  var COUNT = 7;//Math.ceil( (totalDims.width * totalDims.height) / (1024*1024*3) );
   //console.log({totalDims:totalDims,COUNT:COUNT});
 
   var sprite = {};
@@ -154,8 +154,8 @@ module.exports = function(grunt) {
           fileNameFormat: '${name}-${hash}.${ext}'
         },
         src: [
-          'website/build/*.js', 
-          'website/build/*.css', 
+          'website/build/*.js',
+          'website/build/*.css',
           'website/build/favicon.ico',
           'website/build/common/dist/sprites/*.png',
           'website/build/common/img/sprites/backer-only/*.gif',
@@ -166,7 +166,7 @@ module.exports = function(grunt) {
       }
     },
 
-    nodemon: { 
+    nodemon: {
       dev: {
         script: '<%= pkg.main %>'
       }
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
 
       _.each(files[key].js, function(val){
         var path = "./";
-        if( val.indexOf('common/') == -1) 
+        if( val.indexOf('common/') == -1)
           path = './website/public/';
         js.push(path + val);
       });
@@ -213,7 +213,7 @@ module.exports = function(grunt) {
         var path = "./";
         if( val.indexOf('common/') == -1) {
           path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/public/';
-        } 
+        }
         css.push(path + val)
       });
 
@@ -229,10 +229,29 @@ module.exports = function(grunt) {
 
   // Register tasks.
   grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'cssmin']);
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['browserify', 'stylus']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres','prepare:staticNewStuff']);
+  grunt.registerTask('build:dev', ['browserify', 'stylus', 'prepare:staticNewStuff']);
+  grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
+
+  grunt.registerTask('test:prepare:translations', function() {
+    require('coffee-script');
+    var i18n  = require('./website/src/i18n'),
+        fs    = require('fs');
+    fs.writeFileSync('test/spec/translations.js',
+      "if(!window.env) window.env = {};\n" +
+      "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
+  });
+
+  grunt.registerTask('prepare:staticNewStuff', function() {
+    var jade  = require('jade'),
+        fs    = require('fs');
+    fs.writeFileSync(
+      './website/public/new-stuff.html',
+      jade.compileFile('./website/views/shared/new-stuff.jade')()
+    );
+  });
 
   if(process.env.NODE_ENV == 'production')
     grunt.registerTask('default', ['build:prod']);

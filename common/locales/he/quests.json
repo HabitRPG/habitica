@@ -14,8 +14,8 @@
     "questStart": "ברגע שכל החברים הסכימו או דחו, המשימה מתחילה. רק אלו שלחצו \"הסכם\" יוכלו להשתתף במשימה ולקבל את הפרסים. אם חברייך משתהים יתר על המידה (לא פעילים?), ניתן להתחיל בלעדיהם על ידי לחיצה על \"התחל\". יוזם/ת המשימה יכול/ה גם לבטל אותה ולקחת את המגילה בחזרה ע\"י לחיצה על \"ביטול\".",
     "begin": "התחל",
     "bossHP": "בריאות האויב",
-    "bossStrength": "עוצמת הבוס",
-    "collect": "לפדות",
+    "bossStrength": "עוצמת האויב",
+    "collect": "לאסוף",
     "collected": "נאסף",
     "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "רק משתתפים שנלחמים בבוס חולקים בביזת המשימה.",
@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "בעל/ת המשימה עזבה את המשימה. את/ה יכול/ה לבטל אותה אם זהו רצונך, או להמשיך אותה ולקבל את הפרסים בסופה, יחד עם כל שאר המשתתפים.",
     "questOwnerNotInPendingQuestParty": "בעל/ת המשימה עזב/ה את המשימה וכבר לא יכולה להתחיל אותה. מומלץ שגם את/ה תבטל/י אותה כעת. בעל/ת המשימה ת/ישמור על בעלות המגילה.",
     "questOwnerNotInRunningQuestParty": "בעל/ת המשימה עזבה את החבורה. את/ה יכול/ה לבטל אותה אם זהו רצונך, או להמשיך אותה ולקבל את הפרסים בסופה, יחד עם כל שאר המשתתפים..",
+    "questParticipants": "Participants",
     "scrolls": "מגילות משימה",
     "noScrolls": "אין לך אף מגילת משימה.",
     "scrollsText1": "משימות דורשות חבורות. אם ברצונך לצאת למשימה לבד,",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "האם את/ה באמת באמת בטוח/ה? כל החבורה שלך עלולה לשנוא אותך לנצח!",
     "questWarning": "אם שחקנים חדשים מצטרפים לחבורה לפני תחילת המשימה, גם הם יקבלו הזמנה. לעומת זאת, ברגע שהמשימה תתחיל, אף אחד מהחבורה לא יוכל להצטרף אליה.",
     "bossRageTitle": "זעם",
-    "bossRageDescription": "כאשר המד הזה יתמלא, האויב ישחרר מתקפה מיוחדת"
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
 }

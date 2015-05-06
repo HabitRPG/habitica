@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "O dono da missão deixou a missão. Você pode abortar a missão se precisar. Você também pode permitir que a missão continue e todos os participantes remanescentes receberão as recompensas quando a missão terminar.",
     "questOwnerNotInPendingQuestParty": "O dono da missão deixou a equipe e não pode mais iniciar a missão. Recomenda-se que você a cancele agora. O pergaminho de missão retornará para o dono da missão.",
     "questOwnerNotInRunningQuestParty": "O dono da missão deixou a equipe. Você pode abortar a missão se precisar, mas também pode permitir que a missão continue e todos os participantes remanescentes receberão as recompensas quando a missão terminar.",
+    "questParticipants": "Participantes",
     "scrolls": "Pergaminhos de Missão",
     "noScrolls": "Você não possui pergaminhos de missão.",
     "scrollsText1": "Missões requerem equipes. Se quiser fazer a missão sozinho,",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "Tem certeza mesmo? Certifique-se de que eles não o detestarão para sempre!",
     "questWarning": "Se novos jogadores se juntarem à equipe antes do início da missão, eles também receberão um convite. Contudo, uma vez que a missão comece, nenhum membro novo da equipe poderá entrar nela.",
     "bossRageTitle": "Ira",
-    "bossRageDescription": "Quando essa barra encher, o chefão irá soltar um ataque especial"
+    "bossRageDescription": "Quando essa barra encher, o chefão irá soltar um ataque especial!"
 }

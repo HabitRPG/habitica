@@ -12,14 +12,14 @@
     "rejected": "Rechazado ",
     "pending": "Pendiente",
     "questStart": "La misión comienza cuando todos los participantes la hayan aceptado o rechazado. Sólo aquellos que hayan hecho clic en \"aceptar\" podrán participar en la misión y recibir el botín. Si los participantes tardan demasiado (o están inactivos) el organizador de la misión puede comenzarla sin ellos haciendo clic en \"Iniciar\". El organizador también puede cancelar la misión y recuperar el pergamino de misión haciendo clic en \"Cancelar\".",
-    "begin": "Comenzar",
+    "begin": "Iniciar",
     "bossHP": "Vida del Jefe",
     "bossStrength": "Fuerza del Jefe",
     "collect": "Recolectar",
     "collected": "Recogido",
-    "bossDmg1": "Para hacerle daño a un jefe, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando los rojos, hechizos de los Magos, ataques de los Guerreros, etc). El jefe le hará daño a cada participante en la misión por cada Diaria que no completas (multiplicado por la Fuerza del jefe) además del daño regular, ¡así que mantén tu equipo saludable completando tus diarias! <strong>Todo el daño que ocasionen tú y el jefe es calculado durante el cron (al reinicio de tu día).</strong>",
+    "bossDmg1": "Para hacerle daño a un jefe, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando las rojas, hechizos de los Magos, ataques de los Guerreros, etc). El jefe le hará daño a cada participante en la misión por cada Diaria que no completas (multiplicado por la Fuerza del jefe) además del daño regular, ¡así que mantén tu equipo saludable completando tus diarias! <strong>Todo el daño que ocasionen tú y el jefe es calculado durante el cron (al reinicio de tu día).</strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot.",
-    "tavernBossInfo": "Para hacerle daño a un jefe del mundo, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando los rojos, hechizos de los Magos, ataques de los Guerreros, etc). Por cada Diaria que no completes (multiplicado por la Fuerza del jefe) aumentará la ira del jefe. Una vez que su ira llegue al máximo, algo malo pasará - ¡así que completa tus diarias! <strong>Todo el daño que ocasionen tu y el jefe es calculado durante el cron (al reinicio de tu día).</strong>",
+    "tavernBossInfo": "Para hacerle daño a un jefe mundial, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando las rojas, hechizos de los Magos, ataques de los Guerreros, etc). Por cada Diaria que no completes (multiplicado por la Fuerza del jefe) aumentará la ira del jefe. Una vez que su ira llegue al máximo, algo malo pasará - ¡así que completa tus diarias! <strong>Todo el daño que ocasionen tu y el jefe es calculado durante el cron (al reinicio de tu día).</strong>",
     "bossColl1": "Para coleccionar artículos, haga tus tareas positivas. Objetos de misiones se ganan como objetos normales; sin embargo, no verá estos artículos hasta el próximo día cuando todo que encontró estará sumado y contribuido al total.",
     "bossColl2": "Solo los participantes pueden coleccionar artículos y compartir del botín de la misión.",
     "abort": "Abortar",
@@ -28,6 +28,7 @@
     "questOwnerNotInRunningQuest": "El organizador de la misión ha abandonado la misión. Si necesitas abortar la misión, puedes hacerlo. También puedes dejarla activa y los participantes restantes recibirán las recompensas al concluir la misión.",
     "questOwnerNotInPendingQuestParty": "El organizador de la misión ha dejado el equipo y no puede comenzar la misión. Se recomienda cancelarla ahora. El pergamino de misión será regresado al organizador.",
     "questOwnerNotInRunningQuestParty": "El organizador de la misión ha dejado el equipo. Si necesitas abortar la misión, puedes hacerlo. También puedes dejarla activa y los participantes restantes recibirán las recompensas al concluir la misión.",
+    "questParticipants": "Participantes",
     "scrolls": "Pergaminos de misión",
     "noScrolls": "No tienes ningún pergamino de misión",
     "scrollsText1": "Las misiones requieren de un equipo. Si quieres ir solo a una misión,",
@@ -42,5 +43,5 @@
     "doubleSureAbort": "¿Verdaderamente estas seguro? ¡Asegúrate que no te oidarán eternamente! ",
     "questWarning": "Si nuevos miembros se unen al equipo antes de que comience la misión, también recibirán una invitación. Sin embargo, una vez que la misión ha comenzado, nuevos miembros no se pueden unir a la misión.",
     "bossRageTitle": "Ira",
-    "bossRageDescription": "Cuando esta barra se llena, el jefe va a soltar un ataque especial"
+    "bossRageDescription": "Cuando esta barra se llene, el jefe desencadenará un ataque especial!"
 }

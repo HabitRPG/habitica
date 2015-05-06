@@ -35,9 +35,11 @@
     "flower": "Květina",
     "basicSkins": "Základní barvy kůže",
     "rainbowSkins": "Duhové kůže",
+    "pastelSkins": "Pastelové kůže",
     "spookySkins": "Strašidelné kůže",
     "supernaturalSkins": "Nadpřirozené kůže",
     "rainbowColors": "Duhové barvy",
+    "shimmerColors": "Třpytivé barvy",
     "hauntedColors": "Strašidelné barvy",
     "winteryColors": "Zimní barvy",
     "equipment": "Vybavení",
@@ -57,7 +59,7 @@
     "levelUp": "Další úroveň!",
     "mana": "Mana",
     "hp": "Zdraví",
-    "mp": "Mana",
+    "mp": "MP",
     "xp": "Zkušenost",
     "health": "Zdraví",
     "allocateStr": "Body přiřazené k síle:",
@@ -133,5 +135,8 @@
     "critBonus": "Kritický zásah! Bonus:",
     "displayNameDescription1": "Toto se zobrazí ve zprávách, které uveřejníš v Krčmě, ceších, a chatu v družině, spolu s tvým avatarem. Jdi na",
     "displayNameDescription2": "Nastavení -> Stránka",
-    "displayNameDescription3": "a sjeď dolů na sekci registrace, aby sis změnil své přihlašovací jméno."
+    "displayNameDescription3": "a sjeď dolů na sekci registrace, aby sis změnil své přihlašovací jméno.",
+    "unequipBattleGear": "Odebrat válečnou zbroj",
+    "unequipCostume": "Odebrat kostým",
+    "unequipPetMountBackground": "Odebrat mazlíčka, jízdní zvíře, pozadí"
 }

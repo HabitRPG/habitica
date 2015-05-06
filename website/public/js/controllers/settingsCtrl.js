@@ -15,6 +15,27 @@ habitrpg.controller('SettingsCtrl',
 //        });
 //    }
 
+    // A simple object to map the key stored in the db (user.preferences.emailNotification[key])
+    // to its string but ONLY when the preferences' key and the string key don't match
+    var mapPrefToEmailString = {
+      'importantAnnouncements': 'inactivityEmails'
+    };
+    
+    // If ?unsubFrom param is passed with valid email type,
+    // automatically unsubscribe users from that email and
+    // show an alert
+    $timeout(function(){
+      var unsubFrom = $location.search().unsubFrom;
+      if(unsubFrom){
+        var emailPrefKey = 'preferences.emailNotifications.' + unsubFrom;
+        var emailTypeString = env.t(mapPrefToEmailString[unsubFrom] || unsubFrom);
+        User.set({emailPrefKey: false});
+        User.user.preferences.emailNotifications[unsubFrom] = false;
+        Notification.text(env.t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
+        $location.search({});
+      }
+    }, 1000);
+
     $scope.hideHeader = function(){
       User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
       if (User.user.preferences.hideHeader && User.user.preferences.stickyHeader){
@@ -34,12 +55,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.showTour = function(){
       User.set({'flags.showTour':true});
-      $location.path('/tasks');
-      $timeout(Guide.initTour);
+      Guide.goto('intro', 0, true);
     }
 
     $scope.showClassesTour = function(){
-      Guide.classesTour();
+      Guide.goto('classes', 0, true);
     }
 
     $scope.showBailey = function(){

@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -15,6 +15,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               break;
           case 'todo':
               $rootScope.playSound('ToDo');
+              Guide.goto('intro', 1);
               break;
           default:
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
@@ -37,6 +38,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.addTask = function(addTo, listDef) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
+        //Reverse the order of tasks so the tasks will appear in the order the user entered them
+        tasks.reverse();
         _.each(tasks, function(t) {
           addTask(addTo, listDef, t);
         });
@@ -46,6 +49,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
       delete listDef.newTask;
       delete listDef.focus;
+      if (listDef.type=='daily') Guide.goto('intro', 2);
     };
 
     $scope.toggleBulk = function(list) {
@@ -80,9 +84,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
-    $scope.removeTask = function(list, $index) {
+    $scope.removeTask = function(task) {
       if (!confirm(window.env.t('sureDelete'))) return;
-      User.user.ops.deleteTask({params:{id:list[$index].id}})
+      User.user.ops.deleteTask({params:{id:task.id}})
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -92,6 +96,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (!stayOpen) task._editing = false;
       if (isSaveAndClose)
         $("#task-" + task.id).parent().children('.popover').removeClass('in');
+      if (task.type == 'habit') Guide.goto('intro', 3);
     };
 
     /**
@@ -163,7 +168,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           focusChecklist(task,$index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
-      } 
+      }
     }
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
@@ -183,7 +188,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items 
+     Items
      ------------------------
      */
 
@@ -194,25 +199,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
       $rootScope.playSound('Reward');
+      Guide.goto('intro', 4);
     };
 
-
-    /*
-     ------------------------
-     Ads
-     ------------------------
-     */
-
-    /**
-     * See conversation on http://productforums.google.com/forum/#!topic/adsense/WYkC_VzKwbA,
-     * Adsense is very sensitive. It must be called once-and-only-once for every <ins>, else things break.
-     * Additionally, angular won't run javascript embedded into a script template, so we can't copy/paste
-     * the html provided by adsense - we need to run this function post-link
-     */
-    $scope.initAds = function(){
-      $.getScript('//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    }
 
     /*
      ------------------------

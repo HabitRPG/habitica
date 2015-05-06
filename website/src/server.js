@@ -7,11 +7,11 @@ utils.setupConfig();
 var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
-var cores = +nconf.get("CORES");
+var cores = +nconf.get("WEB_CONCURRENCY") || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
-  _.times(cores || require('os').cpus().length-1, cluster.fork);
+  _.times(cores, cluster.fork);
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
@@ -127,6 +127,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use(require('./routes/payments').middleware);
   app.use(require('./routes/auth').middleware);
   app.use(require('./routes/coupon').middleware);
+  app.use(require('./routes/unsubscription').middleware);
   var v2 = express();
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);

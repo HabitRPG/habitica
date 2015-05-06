@@ -26,7 +26,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         input.form-control(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
       .form-group
         label=env.t('contribLevel')
-        input.form-control(type='number', step="any", ng-model='hero.contributor.level')        
+        input.form-control(type='number', ng-model='hero.contributor.level')        
         small=env.t('contribHallText')
         |&nbsp;
         a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
@@ -41,11 +41,6 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         label=env.t('balance')
         input.form-control(type='number', step="any", ng-model='hero.balance')
         small!= '`user.balance`' + env.t('notGems')
-      .form-group
-        .checkbox
-          label
-            input(type='checkbox', ng-model='hero.purchased.ads')
-            =env.t('hideAds')
       accordion
         accordion-group(heading='Items')
           h4 Update Item
@@ -89,7 +84,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
               span(ng-class='userAdminGlyphiconStyle(hero)')
           span(ng-if='!hero.contributor.admin')
             a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
-        td(ng-if='user.contributor.admin') {{hero._id}}
+        td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id)').btn-link {{hero._id}}
         td {{hero.contributor.level}}
         td {{hero.contributor.text}}
         td

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Lovit de <%= snowballs %> cu bulgări de zăpadă de coechipieri.",
     "alarmingFriends": "Prieteni Alarmanți",
     "alarmingFriendsText": "Speriat de <%= spookDust %> ori de colegii din echipă",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "Felicitare de Sf. Valentin",
     "valentineCardNotes": "Send a Valentine's Day card to a party member.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",
@@ -22,7 +24,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <%= linkStart %>Grand Gala<%= linkEnd %>!",
-    "seasonalShopText": "Welcome to the Seasonal Shop! From now until January 31st, we're stocking lots of seasonal edition winter goodies. After that, these items won't be back for another year, so get them while they're hot!! Or, er, cold.",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "If you've used the Orb of Rebirth, you can repurchase this equipment in the Rewards Column after you unlock the Item Shop. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Rogue)",
@@ -38,5 +40,9 @@
     "newYear2": "Happy New Year! May you earn many a Perfect Day.",
     "newYear3": "Happy New Year! May your To-Do list stay short and sweet.",
     "newYear4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "Received a holiday card!"
+    "holidayCard": "Received a holiday card!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

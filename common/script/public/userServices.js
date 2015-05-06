@@ -5,12 +5,12 @@ angular.module('habitrpg')
     this.setApiUrl = function(newUrl){
       currentApiUrl = newUrl;
     };
-    
+
     this.get = function(){
       return currentApiUrl;
     };
   }])
-  
+
 /**
  * Services that persists and retrieves user from localStorage.
  */
@@ -28,6 +28,12 @@ angular.module('habitrpg')
       };
       var settings = {}; //habit mobile settings (like auth etc.) to be stored here
       var user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
+
+      var userNotifications = {
+        // "party.order" : env.t("updatedParty"),
+        // "party.orderAscending" : env.t("updatedParty")
+        // party.order notifications are not currently needed because the party avatars are resorted immediately now
+      }; // this is a list of notifications to send to the user when changes are made, along with the message.
 
       //first we populate user with schema
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
@@ -93,13 +99,17 @@ angular.module('habitrpg')
                 _.each(user.ops, function(op,k){
                   user.ops[k] = function(req,cb){
                     if (cb) return op(req,cb);
-                    op(req,function(err,response){
+                    op(req,function(err,response) {
+                      for(var updatedItem in req.body) {
+                        var itemUpdateResponse = userNotifications[updatedItem];
+                        if(itemUpdateResponse) Notification.text(itemUpdateResponse);
+                      }
                       if (err) {
                         var message = err.code ? err.message : err;
                         console.log(message);
                         if (MOBILE_APP) Notification.push({type:'text',text:message});
                         else Notification.text(message);
-                        // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
+                        // In the case of 200s, they're friendly alert messages like "Your pet has hatched!" - still send the op
                         if ((err.code && err.code >= 400) || !err.code) return;
                       }
                       userServices.log({op:k, params: req.params, query:req.query, body:req.body});
@@ -149,6 +159,7 @@ angular.module('habitrpg')
         set: function(updates) {
           user.ops.update({body:updates});
         },
+
         online: function (status) {
           if (status===true) {
             settings.online = true;

@@ -46,7 +46,7 @@ script(type='text/ng-template', id='modals/restore.html')
         label.control-label=env.t('fix21Streaks')
     //- This is causing too many problems for users
       h3=env.t('other')
-      a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
+      a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay(1)')=env.t('triggerDay')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('discardChanges')
     button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')

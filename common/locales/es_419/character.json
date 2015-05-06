@@ -35,9 +35,11 @@
     "flower": "Flor",
     "basicSkins": "Pieles básicas",
     "rainbowSkins": "Pieles de arco iris",
+    "pastelSkins": "Pieles pastel",
     "spookySkins": "Pieles tenebrosas",
     "supernaturalSkins": "Pieles sobrenaturales",
     "rainbowColors": "Colores de arco iris",
+    "shimmerColors": "Colores brillosos",
     "hauntedColors": "Colores embrujados",
     "winteryColors": "Colores invernales",
     "equipment": "Equipamiento",
@@ -133,5 +135,8 @@
     "critBonus": "¡Golpe Crítico! Bono:",
     "displayNameDescription1": "Éste es el que aparecerá en los mensajes que publiques en la Taverna, Gremios o Chats de Grupo, junto con lo que se muestre en tu avatar. Ve a ",
     "displayNameDescription2": "Ajustes -> Sitio",
-    "displayNameDescription3": "y desplázate hacia abajo a la sección de Registro para cambiar tu nombre de usuario."
+    "displayNameDescription3": "y desplázate hacia abajo a la sección de Registro para cambiar tu nombre de usuario.",
+    "unequipBattleGear": "Quitar equipo de batalla",
+    "unequipCostume": "Quitar disfraz",
+    "unequipPetMountBackground": "Quitar Mascota, Montura y Fondo"
 }

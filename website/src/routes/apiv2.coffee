@@ -35,13 +35,13 @@ module.exports = (swagger, v2) ->
 
     '/status':
       spec:
-        description: "Returns the status of the server (up or down)"
+        description: "Returns the status of the server (up or down). Does not require authentication."
       action: (req, res) ->
         res.json status: "up"
 
     '/content':
       spec:
-        description: "Get all available content objects. This is essential, since Habit often depends on item keys (eg, when purchasing a weapon)."
+        description: "Get all available content objects. This is essential, since Habit often depends on item keys (eg, when purchasing a weapon). Does not require authentication."
         parameters: [
           query("language","Optional language to use for content's strings. Default is english.","string")
         ]
@@ -49,7 +49,7 @@ module.exports = (swagger, v2) ->
 
     '/content/paths':
       spec:
-        description: "Show user model tree"
+        description: "Show user model tree. Does not require authentication."
       action: user.getModelPaths
 
     "/export/history":
@@ -68,7 +68,7 @@ module.exports = (swagger, v2) ->
     "/user/tasks/{id}/{direction}":
       spec:
         #notes: "Simple scoring of a task."
-        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you. When random events occur, the <b>user._tmp</b> variable will be filled. Critical hits can be accessed through <b>user._tmp.crit</b>. The Streakbonus can be accessed through <b>user._tmp.streakBonus</b>. Both will contain the multiplier value. When random drops occur, the following values are available: <b>user._tmp.drop = {text,type,dialog,value,key,notes}</b>"
+        description: "Simple scoring of a task (Habit, Daily, To-Do, or Reward). This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you. When random events occur, the <b>user._tmp</b> variable will be filled. Critical hits can be accessed through <b>user._tmp.crit</b>. The Streakbonus can be accessed through <b>user._tmp.streakBonus</b>. Both will contain the multiplier value. When random drops occur, the following values are available: <b>user._tmp.drop = {text,type,dialog,value,key,notes}</b>"
         parameters: [
           path("id", "ID of the task to score. If this task doesn't exist, a task will be created automatically", "string")
           path("direction", "Either 'up' or 'down'", "string")
@@ -688,6 +688,7 @@ module.exports = (swagger, v2) ->
         path: '/challenges/{cid}'
         description: 'Get a challenge'
         parameters: [path('cid','Challenge id','string')]
+      middleware: [auth.auth, i18n.getUserLanguage]
       action: challenges.get
 
     "/challenges/{cid}/csv":

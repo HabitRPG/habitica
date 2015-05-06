@@ -35,9 +35,11 @@
     "flower": "Blomst",
     "basicSkins": "Basishuder",
     "rainbowSkins": "Regnbuehuder",
+    "pastelSkins": "Pastelhuder",
     "spookySkins": "Uhyggelige huder",
     "supernaturalSkins": "Overnaturlige huder",
     "rainbowColors": "Regnbuefarver",
+    "shimmerColors": "Glimmerfarver",
     "hauntedColors": "Hjemsøgte farver",
     "winteryColors": "Vinterfarver",
     "equipment": "Udstyr",
@@ -133,5 +135,8 @@
     "critBonus": "Fuldtræffer! Bonus: ",
     "displayNameDescription1": "Dette er, hvad der ses i beskeder, du skriver i Værtshuset, klaner og gruppechat, og også hvad der er vist på din avatar. Gå til",
     "displayNameDescription2": "Indstillinger->Side",
-    "displayNameDescription3": "og gå ned til Registreringssektionen for at ændre dig loginnavn."
+    "displayNameDescription3": "og gå ned til Registreringssektionen for at ændre dig loginnavn.",
+    "unequipBattleGear": "Fjern Kamprustning",
+    "unequipCostume": "Fjern Kostume",
+    "unequipPetMountBackground": "Fjern Kæledyr, Ridedyr, Baggrund"
 }

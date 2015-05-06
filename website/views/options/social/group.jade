@@ -17,6 +17,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-heading(bindonce='group')
           h3.panel-title
             | {{group.name}}
+            span.group-leave-join(ng-if='group')
+              a.btn.btn-sm.btn-danger.pull-right(ng-if=":: isMemberOfGroup(User.user._id, group)", ng-click='clickLeave(group, $event)')
+                span.glyphicon.glyphicon-ban-circle
+                =env.t('leave')
+              a.btn.btn-success.pull-right(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
             span(ng-if='group.leader == user.id')
               button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
               button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
@@ -100,7 +105,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
 
-      a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
+      div(ng-if="group")
+        a.btn.btn-danger(ng-if=':: isMemberOfGroup(User.user._id, group)', data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
+        a.btn.btn-success(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
 
     .col-md-8
       div()

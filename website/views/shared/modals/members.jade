@@ -46,9 +46,16 @@ script(type='text/ng-template', id='modals/private-message.html')
   .modal-header
     h4=env.t('pmHeading', {name: "{{profile.profile.name}}"})
   .modal-body
-    textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',ng-model='_message')
+    textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',placeholder=env.t('needsTextPlaceholder'),ng-model='_message', focus-me)
   .modal-footer
-    button.btn.btn-primary(ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
+    //- Due to a quirk in Bootstrap UI, we need to wrap this so the tooltip can
+    //- appear when the button is disabled.
+    //
+    //- Source: http://getbootstrap.com/javascript/#tooltips
+    //    "Tooltips on disabled elements require wrapper elements"
+    //
+    .disabled-tooltip-wrapper(tooltip="{{_message ? '' : env.t('needsText')}}")
+      button.btn.btn-primary(ng-disabled='!_message',ng-click='sendPrivateMessage(profile._id, _message)')=env.t("send")
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
 
 script(type='text/ng-template', id='modals/send-gift.html')
@@ -101,3 +108,12 @@ script(type='text/ng-template', id='modals/abuse-flag.html')
       | Reset Flag Count
     button.btn.btn-primary(ng-click='$close()')=env.t('cancel')
     button.btn.btn-default(ng-click='reportAbuse(user, abuseObject, groupId)')=env.t("abuseFlagModalButton")
+
+script(type='text/ng-template', id='modals/remove-member.html')
+  .modal-header
+    h4=env.t('sureKick')
+  .modal-body
+    textarea.form-control(type='text',rows='5',placeholder=env.t('optionalMessage'),ng-model='removeMemberData.message')
+  .modal-footer
+    button.pull-left.btn.btn-danger(ng-click='confirmRemoveMember(true); $close()')=env.t('yesRemove')
+    button.btn.btn-default(ng-click='confirmRemoveMember(false); $close()')=env.t('cancel')

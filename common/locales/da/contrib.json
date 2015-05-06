@@ -57,5 +57,9 @@
     "whyAds": "Hvorfor reklamer?",
     "whyAdsContent1": "HabitRPG er et open source-projekt, og kan bruge al det hjælp det kan få - betragt dette som en gave til bidragsyderne. Du får desuden 20 Ædelsten ved købet, som du kan bruge til at købe specielle varer med.",
     "whyAdsContent2": "\"Hej, jeg støttede Kickstarteren!\" - følg",
-    "whyAdsContent3": "disse instruktioner"
+    "whyAdsContent3": "disse instruktioner",
+    "surveysSingle": "Hjalp HabitRPG med at vokse ved at udfylde et spørgeskema. Der er ingen aktive spørgeskemaer.",
+    "surveysMultiple": "Hjalp HabitRPG med at vokse ved at udfylde <%= surveys %> spørgeskemaer. Der er ingen aktive spørgeskemaer.",
+    "currentSurvey": "Nuværende Spørgeskema",
+    "surveyWhen": "Emblemet gives til alle medvirkende, når spørgeskemaerne er blevet gennemgået ultimo marts."
 }

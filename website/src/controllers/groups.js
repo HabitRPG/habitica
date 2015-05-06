@@ -12,6 +12,7 @@ var shared = require('../../../common');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var EmailUnsubscription = require('./../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 
@@ -30,7 +31,7 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
  * @param type: 'party' or otherwise
  * @param q: the Mongoose query we're building up
- * @param additionalFields: if we want to populate some additional field not fetched normally 
+ * @param additionalFields: if we want to populate some additional field not fetched normally
  *        pass it as a string, parties only
  */
 var populateQuery = function(type, q, additionalFields){
@@ -81,6 +82,7 @@ api.list = function(req, res, next) {
       Group.find({privacy: 'public'})
         .select(groupFields + ' members')
         .sort(sort)
+        .lean()
         .exec(function(err, groups){
           if (err) return cb(err);
           _.each(groups, function(g){
@@ -235,24 +237,28 @@ api.getChat = function(req, res, next) {
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
 api.postChat = function(req, res, next) {
-  var user = res.locals.user
-  var group = res.locals.group;
-  if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
-  var lastClientMsg = req.query.previousMsg;
-  var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
+  if(!req.query.message) {
+    return res.json(400,{err:'You cannot send a blank message'});
+  } else {
+    var user = res.locals.user
+    var group = res.locals.group;
+    if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
+    var lastClientMsg = req.query.previousMsg;
+    var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-  group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
+    group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
 
-  if (group.type === 'party') {
-    user.party.lastMessageSeen = group.chat[0].id;
-    user.save();
+    if (group.type === 'party') {
+      user.party.lastMessageSeen = group.chat[0].id;
+      user.save();
+    }
+
+    group.save(function(err, saved){
+      if (err) return next(err);
+      return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+      group = chatUpdated = null;
+    });
   }
-
-  group.save(function(err, saved){
-    if (err) return next(err);
-    return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
-    group = chatUpdated = null;
-  });
 }
 
 api.deleteChatMessage = function(req, res, next){
@@ -304,7 +310,7 @@ api.flagChatMessage = function(req, res, next){
     group.save(function(err,_saved){
       if(err) return next(err);
         var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
-        
+
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
             return {email: email, canSend: true}
@@ -357,7 +363,7 @@ api.clearFlagCount = function(req, res, next){
   }else{
     return res.json(401, {err: "Only an admin can clear the flag count!"})
   }
-  
+
 }
 
 api.seenMessage = function(req,res,next){
@@ -576,7 +582,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           cb();
         });
       }
-    });    
+    });
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
@@ -622,10 +628,15 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // TODO implement "users can only be invited once"
-          invite.canSend = true; // Requested by utils.txnEmail
-          utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+          // Check for the email address not to be unsubscribed
+          EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
+            if(err) return cb(err);
+            if(unsubscribed) return cb();
 
-          cb();
+            utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+
+            cb();
+          });
         });
     }else{
       cb();
@@ -637,7 +648,7 @@ var inviteByEmails = function(invites, group, req, res, next){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
     }else{
 
-      // Send only status code down the line because it doesn't need 
+      // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
       res.send(200);
     }
@@ -659,7 +670,20 @@ api.invite = function(req, res, next){
 api.removeMember = function(req, res, next){
   var group = res.locals.group;
   var uuid = req.query.uuid;
+  var message = req.query.message;
   var user = res.locals.user;
+
+  // Send an email to the removed user with an optional message from the leader
+  var sendMessage = function(removedUser){
+    if(removedUser.preferences.emailNotifications.kickedGroup !== false){
+      utils.txnEmail(removedUser, ('kicked-from-' + group.type), [
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'MESSAGE', content: message},
+        {name: 'GUILDS_LINK', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'},
+        {name: 'PARTY_WANTED_GUILD', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
+      ]);
+    }
+  }
 
   if(group.leader !== user._id){
     return res.json(401, {err: "Only group leader can remove a member!"});
@@ -677,12 +701,21 @@ api.removeMember = function(req, res, next){
     Group.update({_id:group._id},update, function(err, saved){
       if (err) return next(err);
 
-      // Sending an empty 204 because Group.update doesn't return the group
-      // see http://mongoosejs.com/docs/api.html#model_Model.update
-      return res.send(204);
+      User.findById(uuid, function(err, removedUser){
+        if(err) return next(err);
+
+        sendMessage(removedUser);
+
+        // Sending an empty 204 because Group.update doesn't return the group
+        // see http://mongoosejs.com/docs/api.html#model_Model.update
+        group = uuid = null;
+        return res.send(204);
+      });
     });
   }else if(_.contains(group.invites, uuid)){
     User.findById(uuid, function(err,invited){
+      if(err) return next(err);
+
       var invitations = invited.invitations;
       if(group.type === 'guild'){
         invitations.guilds.splice(_.indexOf(invitations.guilds, group._id), 1);
@@ -702,8 +735,9 @@ api.removeMember = function(req, res, next){
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
-        return res.send(204);
+        sendMessage(invited);
         group = uuid = null;
+        return res.send(204);
       });
 
     });
@@ -786,19 +820,22 @@ questStart = function(req, res, next) {
 
     groupClone.members = results[lastIndex].members;
 
-    // Send quest started email and remove auth information
+    // Send quest started email
+    var usersToEmail = groupClone.members.filter(function(user){
+      return (
+        user.preferences.emailNotifications.questStarted !== false &&
+        user._id !== res.locals.user._id &&
+        group.quest.members[user._id] == true
+      )
+    });
+
+    utils.txnEmail(usersToEmail, 'quest-started', [
+      {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+    ]);
+
     _.each(groupClone.members, function(user){
-
-      if(user.preferences.emailNotifications.questStarted !== false &&
-         user._id !== res.locals.user._id &&
-         group.quest.members[user._id] == true
-         ){
-        utils.txnEmail(user, 'quest-started', [
-          {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-        ]);
-      }
-
       // Remove sensitive data from what is sent to the public
+      // but after having sent emails as they are needed
       user.auth.facebook = undefined;
       user.auth.local = undefined;
     });
@@ -845,16 +882,16 @@ api.questAccept = function(req, res, next) {
 
       var inviterVars = utils.getUserInfo(user, ['name', 'email']);
 
-      _.each(members, function(member){
-        if(member.preferences.emailNotifications.invitedQuest !== false){
-          utils.txnEmail(member, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
-            {name: 'QUEST_NAME', content: quest.text()},
-            {name: 'INVITER', content: inviterVars.name},
-            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
-            {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-          ]);
-        }
+      var membersToEmail = members.filter(function(member){
+        return member.preferences.emailNotifications.invitedQuest !== false;
       });
+
+      utils.txnEmail(membersToEmail, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
+        {name: 'QUEST_NAME', content: quest.text()},
+        {name: 'INVITER', content: inviterVars.name},
+        {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
+        {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+      ]);
 
       questStart(req,res,next);
     });

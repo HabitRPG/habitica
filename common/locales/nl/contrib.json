@@ -57,5 +57,9 @@
     "whyAds": "Waarom advertenties?",
     "whyAdsContent1": "Habit is een open-sourceproject, en kan alle hulp gebruiken die het kan krijgen - beschouw dit als een gift aan degenen die bijgedragen hebben. Je krijgt ook 20 edelstenen voor de aankoop, en die kun je gebruiken om speciale voorwerpen te kopen.",
     "whyAdsContent2": "'Hé, ik heb aan het Kickstarterproject bijgedragen!' - volg",
-    "whyAdsContent3": "deze instructies"
+    "whyAdsContent3": "deze instructies",
+    "surveysSingle": "Heeft HabitRPG geholpen te groeien door een enquête in te vullen. Er zijn op dit moment geen enquêtes.",
+    "surveysMultiple": "Heeft HabitRPG geholpen te groeien door <%= surveys %> enquête(s) in te vullen. Er zijn op dit moment geen enquêtes.",
+    "currentSurvey": "Huidige enquête",
+    "surveyWhen": "De badge zal eind maart worden uitgereikt, wanneer de enquêtes van alle deelnemers zijn verwerkt."
 }

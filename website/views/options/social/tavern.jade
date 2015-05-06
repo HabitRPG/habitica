@@ -14,14 +14,11 @@
               h3.popover-title
                 a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
               .popover-content
-               =env.t('danielText')
-                div
-                  button.btn.btn-lg.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
-                    span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
-                    span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
-                =env.t('danielText2')
-      .alert.alert-info(ng-show='user.preferences.sleep')
-        =env.t('innText',{name:"{{user.profile.name}}"})
+                | {{user.preferences.sleep ? env.t('innText',{name: user.profile.name}) : env.t('danielText')}}
+                button.btn-block.btn.btn-lg.btn-success(ng-click='User.user.ops.sleep({})')
+                  | {{user.preferences.sleep ? env.t('innCheckOut') : env.t('innCheckIn')}}
+                span(ng-if='!user.preferences.sleep')=env.t('danielText2')
+
 
       // Resources
       .panel.panel-default
@@ -116,7 +113,7 @@
                 a.label.label-contributor-6(ng-click='toggleUserTier($event)')=env.t('tier') + ' 6 (' + env.t('champion') + ')'
                 div
                   p
-                    div(class='Pet-Dragon-Hydra pull-left')
+                    span.shop-sprite.item-img(class='Pet-Dragon-Hydra')
                     !=env.t('championSixth')
             tr
               td
