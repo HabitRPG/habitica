@@ -243,67 +243,73 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.groupEquipmentBy = function(group, costume) {
 
-     var gear = {};
+      var gear = {};
 
-     if (group === "stat") {
-      $scope.gear.forEach(function(item, index, array) {
-       var index = "";
-       if ( item.int > 0 ) {
-        index = env.t("intelligence");
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       }
-       if ( item.per > 0 ) {
-        index = env.t("perception");
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       }
-       if ( item.con > 0 ) {
-        index = env.t("constitution");
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       }
-       if ( item.str > 0 ) {
-        index = env.t("strength");
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       }
-       if ( index === "" ) {
-        var index = "Undefined";//Use undefined her to order none last
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       }
-      });
-     } else if (group === "klass") {
-      $scope.gear.forEach(function(item, index, array) {
-       var index = "";
-       if (item.klass === "special") {
-        if (item.specialClass) {
-         index = $scope.capitalizeFirstLetter(item.specialClass) + " " + $scope.capitalizeFirstLetter(item.klass) ;
-        } else {
-         index = env.t("legendary");
-         //if there are no stats on the item, then we have a Fanciful item
-         if ( item.str == 0 && item.int == 0 && item.per == 0 && item.con == 0 ){
-          index = env.t("fanciful");
-         }
-        }
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       } else {
-        index = $scope.capitalizeFirstLetter(item.klass)
-        if (!gear[index]) gear[index] = [];
-        gear[index].push(item);
-       }
-      });
-     } else {
-      gear = _.groupBy($scope.gear, group);
-     }
+      if (group === "stat") {
 
-     if (costume) {
-      $scope.costume = gear;
-     } else {
-      $scope.equipment = gear;
-     }
+        $scope.gear.forEach(function(item, gearIndex, gearArray) {
+          var index = "";
+          var stats = ['int', 'per', 'con', 'str'];
+          var statStrings = [env.t("intelligence"), env.t("perception"), env.t("constitution"), env.t("strength")];
+          stats.forEach(function(stat, statIndex, statArray) {
+            if ( item[stat] > 0 ) {
+              index = statStrings[statIndex];
+              if (!gear[index]) gear[index] = [];
+              gear[index].push(item);
+            }
+          });
+
+          if ( index === "" ) {
+            var index = "Undefined";//Use undefined her to order none last
+            if (!gear[index]) gear[index] = [];
+            gear[index].push(item);
+          }
+        });
+
+      } else if (group === "klass") {
+        $scope.gear.forEach(function(item, index, array) {
+          var index = "";
+          if (item.klass === "special") {
+            if (item.specialClass) {
+              index = env.t(item.specialClass) + " " + env.t(item.klass) ;
+            } else {
+              index = env.t("legendary");
+              //if there are no stats on the item, then we have a Fanciful item
+              if ( item.str == 0 && item.int == 0 && item.per == 0 && item.con == 0 ){
+                index = env.t("fanciful");
+              }
+            }
+            if (!gear[index]) gear[index] = [];
+            gear[index].push(item);
+          } else {
+            index = env.t(item.klass)
+            if (!gear[index]) gear[index] = [];
+            gear[index].push(item);
+          }
+        });
+      } else if (group === "type") {
+        $scope.gear.forEach(function(item, index, array) {
+          //We use the capitalize function here because the strings are not proper cased in the locals
+          var index = "";
+          if (item.type === "shield") {
+            index = $scope.capitalizeFirstLetter(env.t("offhand"));
+          } else if (item.type === "head") {
+            index = $scope.capitalizeFirstLetter(env.t("headgear"));
+          } else {
+            index = $scope.capitalizeFirstLetter(env.t(item.type));
+          }
+          if (!gear[index]) gear[index] = [];
+          gear[index].push(item);
+        });
+      } else {
+        gear = _.groupBy($scope.gear, group);
+      }
+
+      if (costume) {
+        $scope.costume = gear;
+      } else {
+        $scope.equipment = gear;
+      }
 
     }
 

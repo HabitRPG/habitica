@@ -14,7 +14,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
           li(ng-class='{active: orderByField == "stat"}')
            a(ng-click="orderByField='stat'; groupEquipmentBy('stat');")=env.t("stat")
          menu.pets-menu(ng-repeat="(key, group) in equipment")
-          h3 {{(key === "Undefined" ) ? "None" : capitalizeFirstLetter(key)}}
+          h3 {{(key === "Undefined" ) ? "None" : key}}
           div(ng-repeat="item in group")
            button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')  
       .col-md-6
@@ -36,7 +36,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
            li(ng-class='{active: orderCostumeByField == "stat"}')
             a(ng-click="orderCostumeByField='stat'; groupEquipmentBy('stat', 1);")=env.t("stat")
           menu.pets-menu(ng-repeat="(key, group) in costume")
-           h3 {{(key === "Undefined" ) ? "None" : capitalizeFirstLetter(key)}}
+           h3 {{(key === "Undefined" ) ? "None" : key}}
            div(ng-repeat="item in group")
             button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
        
