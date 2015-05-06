@@ -278,85 +278,85 @@ describe "API", ->
       describe "Guilds", ->
 
         before (done) ->
-         User.findByIdAndUpdate user._id,
-           $set:
-             "balance": 4
-         , (err, _user) ->
-          done()
+          User.findByIdAndUpdate user._id,
+            $set:
+              "balance": 4
+            , (err, _user) ->
+              done()
 
         it "includes user in private group member list when user is a member", (done) ->
-         guild = undefined
-         request.post(baseURL + "/groups").send(
-           name: "TestPrivateGroup"
-           type: "guild"
-           privacy: "private"
-         ).end (res) ->
-           expectCode res, 200
-           guild = res.body
-           expect(guild.members.length).to.be 1
-           expect(guild.leader).to.be user._id
-           #Add members to guild
-           async.waterfall [
-            (cb) ->
-              registerManyUsers 15, cb
+          guild = undefined
+          request.post(baseURL + "/groups").send(
+            name: "TestPrivateGroup"
+            type: "guild"
+            privacy: "private"
+          ).end (res) ->
+            expectCode res, 200
+            guild = res.body
+            expect(guild.members.length).to.be 1
+            expect(guild.leader).to.be user._id
+            #Add members to guild
+            async.waterfall [
+              (cb) ->
+                registerManyUsers 15, cb
 
-            (_members, cb) ->
-              members = _members
+              (_members, cb) ->
+                members = _members
 
-              joinGuild = (member, callback) ->
-               request.post(baseURL + "/groups/" + guild._id + "/join")
-                .set("X-API-User", member._id)
-                .set("X-API-Key", member.apiToken)
-                .end ->
-                  callback(null, null)
+                joinGuild = (member, callback) ->
+                  request.post(baseURL + "/groups/" + guild._id + "/join")
+                    .set("X-API-User", member._id)
+                    .set("X-API-Key", member.apiToken)
+                    .end ->
+                      callback(null, null)
 
-              async.map members, joinGuild, (err, results) -> cb()
+                async.map members, joinGuild, (err, results) -> cb()
 
-            (cb) ->
-              #Verfiy that when a user query's for a group they are in the group if they are a member
-              Group.findById guild._id, (err, g) ->
-                expect(g.members.length).to.be 16
-                userInGroup = _.find group.members, (member) -> return member._id == user._id
-                expect(userInGroup).to.not.be undefined
-                cb()
-           ], done
+              (cb) ->
+                #Verfiy that when a user query's for a group they are in the group if they are a member
+                Group.findById guild._id, (err, g) ->
+                  expect(g.members.length).to.be 16
+                  userInGroup = _.find group.members, (member) -> return member._id == user._id
+                  expect(userInGroup).to.not.be undefined
+                  cb()
+            ], done
 
         it "includes user in public group member list when user is a member", (done) ->
-         guild = undefined
-         request.post(baseURL + "/groups").send(
-           name: "TestPublicGroup"
-           type: "guild"
-           privacy: "public"
-         ).end (res) ->
-           expectCode res, 200
-           guild = res.body
-           expect(guild.members.length).to.be 1
-           expect(guild.leader).to.be user._id
-           #Add members to guild
-           async.waterfall [
-            (cb) ->
-              registerManyUsers 15, cb
+          guild = undefined
+          request.post(baseURL + "/groups").send(
+            name: "TestPublicGroup"
+            type: "guild"
+            privacy: "public"
+          ).end (res) ->
+            expectCode res, 200
+            guild = res.body
+            expect(guild.members.length).to.be 1
+            expect(guild.leader).to.be user._id
+            #Add members to guild
+            async.waterfall [
+              (cb) ->
+                registerManyUsers 15, cb
 
-            (_members, cb) ->
-              members = _members
+              (_members, cb) ->
+                members = _members
 
-              joinGuild = (member, callback) ->
-               request.post(baseURL + "/groups/" + guild._id + "/join")
-                .set("X-API-User", member._id)
-                .set("X-API-Key", member.apiToken)
-                .end ->
-                  callback(null, null)
+                joinGuild = (member, callback) ->
+                  request.post(baseURL + "/groups/" + guild._id + "/join")
+                    .set("X-API-User", member._id)
+                    .set("X-API-Key", member.apiToken)
+                    .end ->
+                      callback(null, null)
 
-              async.map members, joinGuild, (err, results) -> cb()
+                async.map members, joinGuild, (err, results) -> cb()
 
-            (cb) ->
-              #Verfiy that when a user query's for a group they are in the group if they are a member
-              Group.findById guild._id, (err, g) ->
-                expect(g.members.length).to.be 16
-                userInGroup = _.find group.members, (member) -> return member._id == user._id
-                expect(userInGroup).to.not.be undefined
-                cb()
-           ], done
+              (cb) ->
+                #Verfiy that when a user query's for a group they are in the group if they are a member
+                Group.findById guild._id, (err, g) ->
+                  expect(g.members.length).to.be 16
+                  userInGroup = _.find group.members, (member) -> return member._id == user._id
+                  expect(userInGroup).to.not.be undefined
+                  cb()
+            ], done
 
       describe "Party", ->
         it "can be found by querying for party", (done) ->
@@ -388,11 +388,11 @@ describe "API", ->
               party = _party
 
               joinParty = (member, callback) ->
-               request.post(baseURL + "/groups/" + group._id + "/join")
-                .set("X-API-User", member._id)
-                .set("X-API-Key", member.apiToken)
-                .end ->
-                  callback(null, null)
+                request.post(baseURL + "/groups/" + group._id + "/join")
+                  .set("X-API-User", member._id)
+                  .set("X-API-Key", member.apiToken)
+                  .end ->
+                    callback(null, null)
 
               async.map party, joinParty, (err, results) -> cb()
 
@@ -402,10 +402,10 @@ describe "API", ->
               series = _.reduce(party, (m, v, i) ->
                 m.push (cb2) ->
                   request.post(baseURL + "/groups/" + group._id + "/join")
-                   .set("X-API-User", party[i]._id)
-                   .set("X-API-Key", party[i].apiToken)
-                   .end ->
-                    cb2()
+                    .set("X-API-User", party[i]._id)
+                    .set("X-API-Key", party[i].apiToken)
+                    .end ->
+                      cb2()
                 m
               , [])
               async.series series, cb
@@ -421,11 +421,11 @@ describe "API", ->
             (cb) ->
 
               joinParty = (member, callback) ->
-               request.post(baseURL + "/groups/" + group._id + "/leave")
-                .set("X-API-User", member._id)
-                .set("X-API-Key", member.apiToken)
-                .end ->
-                  callback(null, null)
+                request.post(baseURL + "/groups/" + group._id + "/leave")
+                  .set("X-API-User", member._id)
+                  .set("X-API-Key", member.apiToken)
+                  .end ->
+                    callback(null, null)
 
               async.map party, joinParty, (err, results) -> cb()
 
