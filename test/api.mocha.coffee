@@ -1,5 +1,5 @@
 #jslint node: true
-
+# @TODO: refactor tests
 #global describe, before, beforeEach, it
 "use strict"
 _ = require("lodash")
