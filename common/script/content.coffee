@@ -1798,6 +1798,16 @@ api.backgrounds =
     gumdrop_land:
       text: t('backgroundGumdropLandText')
       notes: t('backgroundGumdropLandNotes')
+  backgrounds052015:
+    marble_temple:
+      text: t('backgroundMarbleTempleText')
+      notes: t('backgroundMarbleTempleNotes')
+    mountain_lake:
+      text: t('backgroundMountainLakeText')
+      notes: t('backgroundMountainLakeNotes')
+    pagodas:
+      text: t('backgroundPagodasText')
+      notes: t('backgroundPagodasNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
