@@ -414,6 +414,7 @@ api.join = function(req, res, next) {
   } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
     if (~i){
+      isUserInvited = true;
       user.invitations.guilds.splice(i,1);
       user.save();
     }else{
