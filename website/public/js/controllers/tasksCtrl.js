@@ -4,6 +4,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
   function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
+    // HACK: flagDict is for storing whether the datePicker popup is open or not. This should just be a boolean flag,
+    // but apparently due to angular bug need to put the bool in intermediate dict...
+    $scope.flagDict = {};
 
     $scope.score = function(task, direction) {
       switch (task.type) {
@@ -129,6 +132,24 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
+     Dailies
+     ------------------------
+     */
+    $scope.updateTaskStartDate = function(task) {
+      // TODO: Weirdness here...startDate should be a Date and _dateString
+      // should be a string, but the datePicker input fields sets _dateString
+      // to a Date even though input type="text"...
+      task.startDate = task._dateString;
+    };
+
+    $scope.open = function($event) {
+      $event.stopPropagation();
+      $scope.flagDict['opened'] = !$scope.flagDict['opened'];
+    }
+
+
+    /*
+     ------------------------
      Checklists
      ------------------------
      */
@@ -212,7 +233,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.shouldShow = function(task, list, prefs){
       if (task._editing) // never hide a task while being edited
         return true;
-      var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task.repeat, prefs) : true;
+      var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task, prefs) : true;
       switch (list.view) {
         case "yellowred":  // Habits
           return task.value < 1;

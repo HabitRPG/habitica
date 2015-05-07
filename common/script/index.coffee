@@ -72,13 +72,51 @@ api.daysSince = (yesterday, options = {}) ->
   Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(api.startOfDay(_.defaults {now:o.now}, o), 'days')
 
 ###
-  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
-api.shouldDo = (day, repeat, options={}) ->
-  return false unless repeat
+api.shouldDo = (day, dailyTask, options = {}) ->
+  return false unless dailyTask.type == 'daily' && dailyTask.repeat
+  # MIGRATION HACK, FIXME
+  if dailyTask.startDate == null
+    console.log("null!!!!!")
+    dailyTask.startDate = moment().toDate();
+  if dailyTask.startDate instanceof String
+    console.log("startDate is a string: " + dailyTask.startDate + ". Converting to date");
+    dailyTask.startDate = moment(dailyTask.startDate).toDate();
   o = sanitizeOptions options
-  selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
-  return selected
+  dayOfWeek = api.startOfDay(_.defaults {now:day}, o).day()
+
+  # check if event is in the future
+  hasStartedCheck = moment(day).isAfter(dailyTask.startDate) || moment(day).isSame(dailyTask.startDate)
+
+  if dailyTask.frequency == 'daily'
+    daysSinceTaskStart = api.numDaysApart(day, dailyTask.startDate, o)
+    everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
+    return everyXCheck && hasStartedCheck
+  else if dailyTask.frequency == 'weekly'
+    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeek]];
+    weeksSinceTaskStartWeek = api.numWeeksApart(day, dailyTask.startDate, o)
+    everyXCheck = (weeksSinceTaskStartWeek % dailyTask.everyX == 0)
+    return dayOfWeekCheck && everyXCheck && hasStartedCheck
+  else
+    # unexpected frequency string
+    return true
+
+api.numDaysApart = (day1, day2, o) ->
+  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
+  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
+  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
+  return numDays
+
+# weeks between the two days, counting Monday as the start of each week
+api.numWeeksApart = (day1, day2, o) ->
+  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
+  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
+  startWeekOfDay1 = startOfDay1.startOf('week')
+  startWeekOfDay2 = startOfDay2.startOf('week')
+  numWeeks = Math.abs(startWeekOfDay1.diff(startWeekOfDay2, 'weeks'))
+  return numWeeks
+
 
 ###
   ------------------------------------------------------
@@ -280,7 +318,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
 
   # show as completed if completed (naturally) or not required for today
   if type in ['todo', 'daily']
-    if completed or (type is 'daily' and !api.shouldDo(+new Date, task.repeat, {dayStart}))
+    if completed or (type is 'daily' and !api.shouldDo(+new Date, task, {dayStart}))
       classes += " completed"
     else
       classes += " uncompleted"
@@ -1537,7 +1575,7 @@ api.wrap = (user, main=true) ->
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay, repeat, user.preferences)
+              if api.shouldDo(thatDay, task, user.preferences)
                 scheduleMisses++
                 if user.stats.buffs.stealth
                   user.stats.buffs.stealth--

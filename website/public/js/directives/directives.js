@@ -45,6 +45,7 @@ habitrpg
           task._editing = !task._editing;
           task._tags = User.user.preferences.tagsCollapsed;
           task._advanced = User.user.preferences.advancedCollapsed;
+          task._dateString = moment(task.startDate).format('YYYY-MM-DD');
           if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
         };
       }],
