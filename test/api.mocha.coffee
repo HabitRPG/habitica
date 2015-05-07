@@ -73,12 +73,12 @@ describe "API", ->
           cb null, res.body
 
   registerManyUsers = (number, callback) ->
-   async.times number, (n, next) ->
-     registerNewUser (err, user) ->
-       next(err, user)
-     , false
-   , (err, users) ->
-     callback(err, users)
+    async.times number, (n, next) ->
+      registerNewUser (err, user) ->
+        next(err, user)
+      , false
+    , (err, users) ->
+      callback(err, users)
 
   before (done) ->
     require "../website/src/server" # start the server
@@ -316,9 +316,8 @@ describe "API", ->
               ], done
 
           it "includes user in private group member list when user is a member", (done) ->
-            #Verfiy that when a user query's for a group they are in the group if they are a member
+
             request.get(baseURL + "/groups/" + guild._id)
-            .send()
             .end (res) ->
               g = res.body
               userInGroup = _.find g.members, (member) -> return member._id == user._id
@@ -326,14 +325,13 @@ describe "API", ->
               done()
 
           it "excludes user from viewing private group member list when user is not a member", (done) ->
-            #Remove user from group
-            request.post(baseURL + "/groups/" + guild._id + "/leave").send(
-            ).end (res) ->
-              request.get(baseURL + "/groups/" + guild._id)
-              .send()
+
+            request.post(baseURL + "/groups/" + guild._id + "/leave")
               .end (res) ->
-                expect res, 404
-                done()
+                request.get(baseURL + "/groups/" + guild._id)
+                .end (res) ->
+                  expect res, 404
+                  done()
 
         describe "Public Guilds", ->
           guild = undefined
@@ -366,28 +364,28 @@ describe "API", ->
               ], done
 
           it "includes user in public group member list when user is a member", (done) ->
-            #Verfiy that when a user query's for a group they are in the group if they are a member
-            request.get(baseURL + "/groups/" + guild._id).send(
-            ).end (res) ->
-              g = res.body;
-              expect(g.members.length).to.be 15
-              userInGroup = _.find g.members, (member) -> return member._id == user._id
-              expect(userInGroup).to.not.be undefined
-              done()
+
+            request.get(baseURL + "/groups/" + guild._id)
+              .end (res) ->
+                g = res.body
+                expect(g.members.length).to.be 15
+                userInGroup = _.find g.members, (member) -> return member._id == user._id
+                expect(userInGroup).to.not.be undefined
+                done()
 
 
           it "excludes user in public group member list when user is not a member", (done) ->
             #Remove user from group
-            request.post(baseURL + "/groups/" + guild._id + "/leave").send(
-            ).end (res) ->
-              #Verfiy that when a user query's for a group they are in the group if they are a member
-              request.get(baseURL + "/groups/" + guild._id).send(
-              ).end (res) ->
-                g = res.body
-                expect(g.members.length).to.be 15
-                userInGroup = _.find g.members, (member) -> return member._id == user._id
-                expect(userInGroup).to.be undefined
-                done()
+            request.post(baseURL + "/groups/" + guild._id + "/leave")
+              .end (res) ->
+                #Verfiy that when a user query's for a group they are in the group if they are a member
+                request.get(baseURL + "/groups/" + guild._id)
+                  .end (res) ->
+                    g = res.body
+                    expect(g.members.length).to.be 15
+                    userInGroup = _.find g.members, (member) -> return member._id == user._id
+                    expect(userInGroup).to.be undefined
+                    done()
 
       describe "Party", ->
         it "can be found by querying for party", (done) ->
@@ -853,7 +851,7 @@ describe "API", ->
             party[0] = res.body
             request.post(baseURL + "/user/class/cast/snowball?targetType=user&targetId=" + party[0]._id).end (res) ->
 
-              #expect(res.body.stats.mp).to.be.below(mp);
+              #expect(res.body.stats.mp).to.be.below(mp)
               request.get(baseURL + "/members/" + party[0]._id).end (res) ->
                 member = res.body
                 expect(member.achievements.snowball).to.be 1
@@ -988,8 +986,8 @@ describe "API", ->
                       cummGp = shared.content.quests.vice3.drop.gp + shared.content.quests.dilatory.drop.gp
 
                       #//FIXME check that user got exp, but user is leveling up making the exp check difficult
-                      #                      expect(user.stats.exp).to.be.above(cummExp);
-                      #                      expect(user.stats.gp).to.be.above(cummGp);
+                      #                      expect(user.stats.exp).to.be.above(cummExp)
+                      #                      expect(user.stats.gp).to.be.above(cummGp)
                       async.parallel [
 
                         # Tavern Boss
