@@ -113,3 +113,33 @@ script(type='text/ng-template', id='partials/options.social.html')
   .tab-content
     .tab-pane.active
       div(ui-view)
+
+script(type='text/ng-template', id='modals/copyChatToDo.html')
+  .modal-header
+    h4=env.t('copyMessageAsToDo')
+  .modal-body
+    .form-group
+      input.form-control(type='text',ng-model='text', ng-model-options="{debounce: 1000}")
+    .form-group
+      textarea.form-control(rows='5',ng-model='notes', ng-model-options="{debounce: 1000}", focus-me)
+
+    hr
+
+    div.task-column.preview
+      div(ng-init='popoverOpen = false', class='task todo uncompleted color-neutral', popover-trigger='mouseenter', data-popover-html="{{popoverOpen ? '' : notes | markdown}}", popover-placement="top")
+        // right-hand side control buttons
+        .task-meta-controls
+          // Icons only available if you own the tasks (aka, hidden from challenge stats)
+          span(ng-if='!obj._locked')
+            // notes
+            span.task-notes(ng-show='notes', ng-click='popoverOpen = !popoverOpen', popover-trigger='click', data-popover-html="{{notes | markdown}}", popover-placement="top")
+              span.glyphicon.glyphicon-comment
+              | &nbsp;
+
+        // main content
+        div.task-text
+          markdown(text='text',target='_blank')
+
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+    button.btn.btn-primary(ng-click='saveTodo()')=env.t('submit')

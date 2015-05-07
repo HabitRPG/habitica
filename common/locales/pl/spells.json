@@ -12,7 +12,7 @@
     "spellWarriorDefensiveStanceText": "Pozycja obronna",
     "spellWarriorDefensiveStanceNotes": "Przygotowujesz się do ataku na swoje zadania. Zyskujesz wzmocnienie do Kondycji! (Bazuje na: Niewzmocnionej KON)",
     "spellWarriorValorousPresenceText": "Bohaterska obecność",
-    "spellWarriorValorousPresenceNotes": "Twoja obecność ośmiela twoją drużynę. Cała drużyna zyskuje wzmocnienie Siły! (Bazuje na: SIŁ)",
+    "spellWarriorValorousPresenceNotes": "Twoja obecność ośmiela twoją drużynę. Cała drużyna zyskuje wzmocnienie do Siły! (Bazuje na: SIŁ)",
     "spellWarriorIntimidateText": "Zastraszające spojrzenie",
     "spellWarriorIntimidateNotes": "Twoje spojrzenie wywołuje strach u twoich wrogów. Cała twoja drużyna zyskuje wzmocnienie do Kondycji! (Bazuje na: Niewzmocnionej KON)",
     "spellRoguePickPocketText": "Kieszonkostwo",

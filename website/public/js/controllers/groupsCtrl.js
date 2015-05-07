@@ -362,7 +362,25 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           });
         });
       }
-    }
+    };
+
+    $scope.copyToDo = function(message) {
+      var taskNotes = env.t("messageWroteIn",  {
+        user: message.uuid == 'system'
+            ? 'system'
+            : '[' + message.user + '](' + env.BASE_URL + '/static/front/#?memberId=' + message.uuid + ')',
+        group: '[' + $scope.group.name + '](' + window.location.href + ')'
+      });
+
+      var newScope = $scope.$new();
+      newScope.text = message.text;
+      newScope.notes = taskNotes;
+
+      $rootScope.openModal('copyChatToDo',{
+        controller:'CopyMessageModalCtrl',
+        scope: newScope
+      });
+    };
 
     $scope.sync = function(group){
       group.$get();
@@ -567,3 +585,20 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
     }
   ])
+
+  .controller("CopyMessageModalCtrl", ['$scope', 'User', 'Notification',
+    function($scope, User, Notification){
+      $scope.saveTodo = function() {
+        var newTask = {
+          text: $scope.text,
+          type: 'todo',
+          notes: $scope.notes
+        };
+
+        User.user.ops.addTask({body:newTask});
+        Notification.text(window.env.t('messageAddedAsToDo'));
+
+        $scope.$close();
+      }
+    }
+  ]);

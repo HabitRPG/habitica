@@ -414,7 +414,8 @@ api.likeChatMessage = function(req, res, next) {
 
 api.join = function(req, res, next) {
   var user = res.locals.user,
-    group = res.locals.group;
+    group = res.locals.group,
+    isUserInvited = false;
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
@@ -425,12 +426,19 @@ api.join = function(req, res, next) {
       group.quest.members[user._id] = undefined;
       group.markModified('quest.members');
     }
-  }
-  else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+    isUserInvited = true;
+  } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
-    if (~i) user.invitations.guilds.splice(i,1);
-    user.save();
+    if (~i){
+      isUserInvited = true;
+      user.invitations.guilds.splice(i,1);
+      user.save();
+    }else{
+      isUserInvited = group.privacy === 'private' ? false : true;
+    }
   }
+
+  if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
     group.members.push(user._id);
