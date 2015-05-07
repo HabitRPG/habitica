@@ -1,16 +1,8 @@
 'use strict'
-#jslint node: true
-
-#global describe, before, beforeEach, it
 
 app = require("../../website/src/server")
 
-describe "API", ->
-
-  before (done) ->
-    require "../../website/src/server" # start the server
-    # then wait for it to do it's thing. TODO make a cb-compatible export of server
-    setTimeout done, 2000
+describe "Site Status", ->
 
   describe "Without token or user id", ->
 
@@ -32,6 +24,7 @@ describe "API", ->
           done()
 
   describe "With token or user id", ->
+
     before (done) ->
       registerNewUser(done, true)
 

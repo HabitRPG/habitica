@@ -1,5 +1,4 @@
-User = require("../../website/src/models/user").model
-Group = require("../../website/src/models/group").model
+global.User = require("../../website/src/models/user").model
 ##############################
 # Global modules
 ##############################
@@ -54,7 +53,7 @@ global.registerNewUser = (cb, main) ->
       return cb(null, res.body)  unless main
       _id = res.body._id
       apiToken = res.body.apiToken
-      User.findOne
+      global.User.findOne
         _id: _id
         apiToken: apiToken
       , (err, _user) ->
