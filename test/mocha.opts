@@ -6,4 +6,4 @@
 --debug
 --compilers coffee:coffee-script
 --globals io
---require test/api/mocha-helper
+--require test/api/api-helper
