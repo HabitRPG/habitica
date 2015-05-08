@@ -64,3 +64,11 @@ global.registerNewUser = (cb, main) ->
           .set("X-API-User", _id)
           .set("X-API-Key", apiToken)
         cb null, res.body
+
+global.registerManyUsers = (number, callback) ->
+  global.async.times number, (n, next) ->
+    global.registerNewUser (err, user) ->
+      next(err, user)
+    , false
+  , (err, users) ->
+    callback(err, users)
