@@ -1,13 +1,17 @@
 <a name="">My app - Changelog</a>
-#  (2015-05-02)
+#  (2015-05-08)
 
 
 ## Bug Fixes
 
+- **Spring:** WHO IS LESLIE
+  ([6685e935](watch/commits/6685e93554a1274dedb55dae054e787fb80eb440))
 - **invite-friends:** text should be valid for both parties and guilds
   ([54e82a14](watch/commits/54e82a14a252c3b9923449a7ef7cee6033a5d160))
 - **mystery:** It's 2015 now, Sabe
   ([00252f20](watch/commits/00252f200481f06de9bccd1e55275d5366b03919))
+- **registration:** do not re-enable registrations if the first one is successfull
+  ([7d083587](watch/commits/7d08358791f0eb5a71fa1349e9d03f9397ae936c))
 - **scoring:** move gainMP into score
   ([2fc0cb8f](watch/commits/2fc0cb8fa1b3b5975c16653cb110be2f03b5427e))
 - **slimes:** Tweaks and missing sprite
@@ -16,6 +20,15 @@
 
 ## Features
 
+- **Spring:** Flung
+  ([d50d4ad8](watch/commits/d50d4ad8bb0f89e39ceb6562e0f8f392f94b5444))
+- **analytics:** "motivate yourself" 3 variants @lemoness
+  ([a090fed1](watch/commits/a090fed10bd171e9ff9a9b15c8084f29b99520e8))
+- **backgrounds:**
+  - prettify news
+  ([2a375a12](watch/commits/2a375a120c28babef71eb58073f6fc4f8598862f))
+  - May BGs
+  ([00db42b6](watch/commits/00db42b6c09c03a407974b59c7bee6e2230cecae))
 - **emails:** add support for weekly recap emails
   ([37f7db3c](watch/commits/37f7db3c4e3859d03fd55a44e63819e273a06442))
 - **i18n:** upload japanese, serbian and chinese (taiwan)

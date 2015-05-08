@@ -97,7 +97,9 @@ api.score = function(req, res, next) {
       id: id,
       type: req.body && req.body.type,
       text: req.body && req.body.text,
-      notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+      notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task.",
+      up: req.body.up,
+      down: req.body.down
     };
     task = user.ops.addTask({body:task});
     if (task.type === 'daily' || task.type === 'todo')
