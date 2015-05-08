@@ -1,8 +1,9 @@
 # API Tests
 
-Our API tests are written in [coffeescript](http://coffeescript.org/) using the [Mocha testing framework](http://mochajs.org/). 
+Our API tests are written in [coffeescript](http://coffeescript.org/) using the [Mocha testing framework](http://mochajs.org/). You can run a file individually by running `mocha test/api/name_of_test.coffee`, all the api tests by running `mocha test/api`, or run them as part of the whole test suite with `npm test`.
 
 ### Modules
+
 Some modules are declared in the [api-helper.coffee](api-helper.coffee) file for use in any of the api tests:
 
 * `moment` - time manipulation
@@ -12,7 +13,7 @@ Some modules are declared in the [api-helper.coffee](api-helper.coffee) file for
 * `expect` - making assertions
 * `User` - look up a User in the db
 
-## Helper Methods
+### Helper Methods
 
 There are helper methods declared in the [api-helper.coffee](api-helper.coffee) file. Some useful methods contained there:
 
