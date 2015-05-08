@@ -137,7 +137,23 @@ api.get = function(req, res, next) {
   q.exec(function(err, group){
     if (err) return next(err);
     if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
-    res.json(group);
+    //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
+    var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
+    //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
+    if (group.privacy === 'private' || gid === 'party') {
+      //If the user is not in the group query, add them
+      if (!userInGroup) { group.members.push(user); }
+      res.json(group);
+    } else if ( group.privacy === "public" ) { //The group is public, we must do an extra check to see if the user is already in the group query
+      //We must see how to check if a user is a member of a public group, so we requery
+      var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
+      q2.exec(function(err, group2){
+        if (err) return next(err);
+        if (group2 && !userInGroup) { group.members.push(user); }
+        res.json(group);
+      });
+    }
+
     gid = null;
   });
 };
@@ -398,7 +414,8 @@ api.likeChatMessage = function(req, res, next) {
 
 api.join = function(req, res, next) {
   var user = res.locals.user,
-    group = res.locals.group;
+    group = res.locals.group,
+    isUserInvited = false;
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
@@ -409,16 +426,25 @@ api.join = function(req, res, next) {
       group.quest.members[user._id] = undefined;
       group.markModified('quest.members');
     }
-  }
-  else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+    isUserInvited = true;
+  } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
-    if (~i) user.invitations.guilds.splice(i,1);
-    user.save();
+    if (~i){
+      isUserInvited = true;
+      user.invitations.guilds.splice(i,1);
+      user.save();
+    }else{
+      isUserInvited = group.privacy === 'private' ? false : true;
+    }
   }
+
+  if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
     group.members.push(user._id);
-    group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    if (group.invites.length > 0) {
+     group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    }
   }
 
   async.series([
@@ -430,7 +456,6 @@ api.join = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return next(err);
-
     // Return the group? Or not?
     res.json(results[1]);
     group = null;
