@@ -223,12 +223,24 @@ api.getUserAnonymized = function(req, res, next) {
   user.stats.toNextLevel = shared.tnl(user.stats.lvl);
   user.stats.maxHealth = 50;
   user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+
   delete user.apiToken;
+
   if (user.auth) {
-    delete user.auth;
+    delete user.auth.local;
+    delete user.auth.facebook;
   }
 
+  delete user.profile;
+  delete user.purchased.plan;
+  delete user.contributor;
+  delete user.invitations;
+
+  delete user.items.special.nyeReceived;
+  delete user.items.special.valentineReceived;
+
   delete user.webhooks;
+  delete user.achievements.challenges;
 
   _.forEach(user.inbox.messages, function(msg){
     msg.text = "inbox message text";
