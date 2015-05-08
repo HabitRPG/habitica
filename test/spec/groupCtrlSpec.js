@@ -150,17 +150,17 @@ describe("Autocomplete controller", function() {
   });
 
   describe("performCompletion", function() {
-    it('auto complete triggers', function() {
-      scope.autoComplete = function(v) {}; // this function normally will be filled in by the auto-complete directive
-      var autoCompleteTriggered = sinon.spy(scope, 'autoComplete');
-      scope.query = {text: "b"};
+    it('triggers autoComplete', function() {
+      scope.autoComplete = sinon.spy();
 
-      scope.performCompletion({user: "boo"});
+      var msg = {user: "boo"}; // scope.autoComplete only cares about user
+      scope.query = {text: "b"};
+      scope.performCompletion(msg);
 
       expect(scope.query).to.be.eq(null);
-      expect(autoCompleteTriggered.callCount).to.be.eq(1);
+      expect(scope.autoComplete.callCount).to.be.eq(1);
+      expect(scope.autoComplete).to.have.been.calledWith(msg);
     });
-
   });
 
   describe("addNewUser", function() {
