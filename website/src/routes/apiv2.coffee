@@ -227,6 +227,11 @@ module.exports = (swagger, v2) ->
         description: "Get the full user object"
       action: user.getUser
 
+    "/user/anonymized":
+      spec:
+        description: "Get the user object without any personal data"
+      action: user.getUserAnonymized
+
     "/user:PUT":
       spec:
         path: '/user'

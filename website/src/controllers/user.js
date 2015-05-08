@@ -215,6 +215,64 @@ api.getUser = function(req, res, next) {
   return res.json(200, user);
 };
 
+/**
+ * Get anonymized User
+ */
+api.getUserAnonymized = function(req, res, next) {
+  var user = res.locals.user.toJSON();
+  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+  user.stats.maxHealth = 50;
+  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+  delete user.apiToken;
+  if (user.auth) {
+    delete user.auth;
+  }
+
+  delete user.webhooks;
+
+  _.forEach(user.inbox.messages, function(msg){
+    msg.text = "inbox message text";
+  });
+
+  _.forEach(user.tags, function(tag){
+    tag.name = "tag";
+    tag.challenge = "challenge";
+  });
+
+  function cleanChecklist(task){
+    var checklistIndex = 0;
+
+    _.forEach(task.checklist, function(c){
+      c.text = "item" + checklistIndex++;
+    });
+  }
+
+  _.forEach(user.habits, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+  });
+
+  _.forEach(user.rewards, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+  });
+
+  _.forEach(user.dailys, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+
+    cleanChecklist(task);
+  });
+
+  _.forEach(user.todos, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+
+    cleanChecklist(task);
+  });
+
+  return res.json(200, user);
+};
 
 /**
  * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).

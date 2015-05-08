@@ -259,6 +259,12 @@ describe "API", ->
               expect(body.err).to.be "Task not found."
               done()
 
+    describe "Anonymized User", ->
+      it "/api/v2/user/anonymized", (done) ->
+        request.get(baseURL + "/user/anonymized").set("Accept", "application/json").end (res) ->
+          expect(res.statusCode).to.be 200
+          done()
+
     ###*
     GROUPS
     ###
