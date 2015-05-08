@@ -1,6 +1,17 @@
 # API Tests
 
-Our API tests are written in [coffeescript](http://coffeescript.org/) using the [Mocha testing framework](http://mochajs.org/). You can run a file individually by running `mocha test/api/name_of_test.coffee`, all the api tests by running `mocha test/api`, or run them as part of the whole test suite with `npm test`.
+Our API tests are written in [coffeescript](http://coffeescript.org/) using the [Mocha testing framework](http://mochajs.org/). 
+
+There's a variety of ways to run the tests:
+
+```bash
+# Individually
+mocha test/api/name_of_test.coffee
+# The entire collection of api tests
+mocha test/api
+# As part of the whole test suite
+npm test
+```
 
 ### Modules
 
