@@ -510,28 +510,30 @@ api.gearTypes = gearTypes
 #
 diminishingReturns = (bonus, max, halfway=max/2) -> max*(bonus/(bonus+halfway))
 
+calculateBonus = (value, stat, crit=1, stat_scale=0.5) -> (if value < 0 then 1 else value+1) + (stat * stat_scale * crit)
+
 api.spells =
 
   wizard:
     fireball:
+      # Burst of Flames
       text: t('spellWizardFireballText')
       mana: 10
       lvl: 11
       target: 'task'
       notes: t('spellWizardFireballNotes')
       cast: (user, target) ->
-        # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
-        target.value += diminishingReturns(bonus*.02, 4)
         bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
-        #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
         user.stats.exp += diminishingReturns(bonus,75)
-        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30)
-        #Sync the user stats to see if we level the user
+        user.party.quest.progress.up ?= 0
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.int * .1)
+        # Sync the user stats to see if we level the user
         req = { language: user.preferences.language }
         user.fns.updateStats( user.stats , req )
 
     mpheal:
+      # Ethereal Surge
       text: t('spellWizardMPHealText')
       mana: 30
       lvl: 12
@@ -539,11 +541,11 @@ api.spells =
       notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = Math.ceil(user._statsComputed.int * .1)
-          bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
-          member.stats.mp += bonus
+          bonus = user._statsComputed.int
+          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
+      # Earthquake
       text: t('spellWizardEarthText')
       mana: 35
       lvl: 13
@@ -551,10 +553,12 @@ api.spells =
       notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.int - user.stats.buffs.int
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
+          member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30,200))
 
     frost:
+      # Chilling Frost
       text: t('spellWizardFrostText'),
       mana: 40
       lvl: 14
@@ -565,24 +569,32 @@ api.spells =
 
   warrior:
     smash:
+      # Brutal Smash
       text: t('spellWarriorSmashText')
       mana: 10
       lvl: 11
       target: 'task'
       notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
-        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
-        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2)
+        bonus = user._statsComputed.str * user.fns.crit('con')
+        target.value += diminishingReturns(bonus, 2.5, 35)
+        user.party.quest.progress.up ?= 0
+        user.party.quest.progress.up += diminishingReturns(bonus, 55, 70)
+
     defensiveStance:
+      # Defensive Stance
       text: t('spellWarriorDefensiveStanceText')
       mana: 25
       lvl: 12
       target: 'self'
       notes: t('spellWarriorDefensiveStanceNotes')
       cast: (user, target) ->
+        bonus = user._statsComputed.con - user.stats.buffs.con
         user.stats.buffs.con ?= 0
-        user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
+        user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200))
+
     valorousPresence:
+      # Valorous Presence
       text: t('spellWarriorValorousPresenceText')
       mana: 20
       lvl: 13
@@ -590,9 +602,12 @@ api.spells =
       notes: t('spellWarriorValorousPresenceNotes')
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.str - user.stats.buffs.str
           member.stats.buffs.str ?= 0
-          member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
+          member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200))
+
     intimidate:
+      # Intimidating Gaze
       text: t('spellWarriorIntimidateText')
       mana: 15
       lvl: 14
@@ -600,20 +615,24 @@ api.spells =
       notes: t('spellWarriorIntimidateNotes')
       cast: (user, target) ->
         _.each target, (member) ->
+          bonus = user._statsComputed.con - user.stats.buffs.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con *  .03)
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus,24,200))
 
   rogue:
     pickPocket:
+      # Pickpocket
       text: t('spellRoguePickPocketText')
       mana: 10
       lvl: 11
       target: 'task'
       notes: t('spellRoguePickPocketNotes')
       cast: (user, target) ->
-        bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
-        user.stats.gp += 25 * (bonus / (bonus + 75))
+        bonus = calculateBonus(target.value, user._statsComputed.per)
+        user.stats.gp += diminishingReturns(bonus, 25, 75)
+
     backStab:
+      # Backstab
       text: t('spellRogueBackStabText')
       mana: 15
       lvl: 12
@@ -621,26 +640,28 @@ api.spells =
       notes: t('spellRogueBackStabNotes')
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
-        target.value += _crit * .03
-        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
-        user.stats.exp += bonus
-        user.stats.gp += bonus
-        # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
-        #Sync the user stats to see if we level the user
+        bonus = calculateBonus(target.value, user._statsComputed.str, _crit)
+        user.stats.exp += diminishingReturns(bonus, 75, 50)
+        user.stats.gp += diminishingReturns(bonus, 18, 75)
+        # Sync the user stats to see if we level the user
         req = { language: user.preferences.language }
         user.fns.updateStats( user.stats , req )
+
     toolsOfTrade:
+      # Tools of the Trade
       text: t('spellRogueToolsOfTradeText')
       mana: 25
       lvl: 13
       target: 'party'
       notes: t('spellRogueToolsOfTradeNotes')
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.per - user.stats.buffs.per
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
+          member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50))
+
     stealth:
+      # Stealth
       text: t('spellRogueStealthText')
       mana: 45
       lvl: 14
@@ -648,11 +669,12 @@ api.spells =
       notes: t('spellRogueStealthNotes')
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
-        ## scales to user's # of dailies; maxes out at 100% at 100 per ##
-        user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100)
+        ## scales to user's # of dailies; Diminishing Returns, maxes out at 64%, halfway point at 55 PER##
+        user.stats.buffs.stealth += Math.ceil( diminishingReturns(user._statsComputed.per, user.dailys.length*0.64,55))
 
   healer:
     heal:
+      # Healing Light
       text: t('spellHealerHealText')
       mana: 15
       lvl: 11
@@ -661,7 +683,9 @@ api.spells =
       cast: (user, target) ->
         user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
+
     brightness:
+      # Searing Brightness
       text: t('spellHealerBrightnessText')
       mana: 15
       lvl: 12
@@ -670,19 +694,23 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
+          target.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40))
+
     protectAura:
+      # Protective Aura
       text: t('spellHealerProtectAuraText')
       mana: 30
       lvl: 13
       target: 'party'
       notes: t('spellHealerProtectAuraNotes')
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
+          bonus = user._statsComputed.con - user.stats.buffs.con
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
+          member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200))
+
     heallAll:
+      # Blessing
       text: t('spellHealerHealAllText')
       mana: 25
       lvl: 14
@@ -893,11 +921,11 @@ api.specialPets =
   'Mammoth-Base':       'mammoth'
 
 api.specialMounts =
-  'BearCub-Polar':	'polarBear'
-  'LionCub-Ethereal':	'etherealLion'
-  'MantisShrimp-Base':	'mantisShrimp'
-  'Turkey-Base': 'turkey'
-  'Mammoth-Base': 'mammoth'
+  'BearCub-Polar':      'polarBear'
+  'LionCub-Ethereal':   'etherealLion'
+  'MantisShrimp-Base':  'mantisShrimp'
+  'Turkey-Base':        'turkey'
+  'Mammoth-Base':       'mammoth'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1770,6 +1798,16 @@ api.backgrounds =
     gumdrop_land:
       text: t('backgroundGumdropLandText')
       notes: t('backgroundGumdropLandNotes')
+  backgrounds052015:
+    marble_temple:
+      text: t('backgroundMarbleTempleText')
+      notes: t('backgroundMarbleTempleNotes')
+    mountain_lake:
+      text: t('backgroundMountainLakeText')
+      notes: t('backgroundMountainLakeNotes')
+    pagodas:
+      text: t('backgroundPagodasText')
+      notes: t('backgroundPagodasNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

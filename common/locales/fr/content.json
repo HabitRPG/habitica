@@ -54,7 +54,7 @@
     "questEggRockAdjective": "animé",
     "questEggBunnyText": "Lapin",
     "questEggBunnyAdjective": "câlin",
-    "questEggSlimeText": "Glaire de gimauve",
+    "questEggSlimeText": "Glaire de Guimauve",
     "questEggSlimeAdjective": "bonbon",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un·e <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "de Base",
