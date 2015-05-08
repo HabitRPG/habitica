@@ -1,4 +1,3 @@
-global.User = require("../../website/src/models/user").model
 ##############################
 # Global modules
 ##############################
@@ -10,6 +9,7 @@ global.async = require("async")
 global._ = require("lodash")
 global.expect = require("expect.js")
 global.shared = require("../../common")
+global.User = require("../../website/src/models/user").model
 
 ##############################
 # Nconf config
@@ -33,7 +33,6 @@ global.user = undefined
 global.expectCode = (res, code) ->
   global.expect(res.body.err).to.be `undefined`  if code is 200
   global.expect(res.statusCode).to.be code
-
 
 global.registerNewUser = (cb, main) ->
   main = true unless main?
