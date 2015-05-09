@@ -30,7 +30,7 @@
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
       p.well.milestone(ng-if='nextMilestone', tooltip='Next Milestone')
-        span=env.t("milestoneMessage", {milestone: '{{user.stats.lvl}}: {{nextMilestone.text}}'} )
+        span=env.t("milestoneMessage", {milestone: '{{nextMilestone.level}}: {{nextMilestone.text}}'} )
 
     // party
     span(ng-controller='PartyCtrl')

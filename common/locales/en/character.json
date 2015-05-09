@@ -142,6 +142,7 @@
     "unequipPetMountBackground": "Unequip Pet, Mount, Background",
     "animalSkins": "Animal Skins",
     "milestoneMessage": "Next milestone at level: <%= milestone %>",
+    "milestoneMessage": "Next milestone at level <%= milestone %>",
     "petsMountMilestone": "Pets + Mounts Unlocked",
     "classSystemMilestone": "Class System Unlocked",
     "firstSkillMilestone": "First Skill Unlocked",
