@@ -1,6 +1,6 @@
 {
   "spellWizardFireballText": "Burst of Flames",
-  "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! (Based on: INT)",
+  "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
 
   "spellWizardMPHealText": "Ethereal Surge",
   "spellWizardMPHealNotes": "You sacrifice mana to help your friends. The rest of your party gains MP! (Based on: INT)",
@@ -12,7 +12,7 @@
   "spellWizardFrostNotes": "Ice covers your tasks. None of your streaks will reset to zero tomorrow! (One cast affects all streaks.)",
 
   "spellWarriorSmashText": "Brutal Smash",
-  "spellWarriorSmashNotes": "You hit a task with all of your might. It gets more blue/less red, and you deal extra damage to Bosses! (Based on: STR)",
+  "spellWarriorSmashNotes": "You hit a task with all of your might. It gets more blue/less red, and you deal extra damage to Bosses! Click on a task to cast. (Based on: STR)",
 
   "spellWarriorDefensiveStanceText": "Defensive Stance",
   "spellWarriorDefensiveStanceNotes": "You prepare yourself for the onslaught of your tasks. You gain a buff to Constitution! (Based on: Unbuffed CON)",
@@ -24,10 +24,10 @@
   "spellWarriorIntimidateNotes": "Your gaze strikes fear into your enemies. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
 
   "spellRoguePickPocketText": "Pickpocket",
-  "spellRoguePickPocketNotes": "You rob a nearby task. You gain gold! (Based on: PER)",
+  "spellRoguePickPocketNotes": "You rob a nearby task. You gain gold! Click on a task to cast. (Based on: PER)",
 
   "spellRogueBackStabText": "Backstab",
-  "spellRogueBackStabNotes": "You betray a foolish task. You gain gold and XP! (Based on: STR)",
+  "spellRogueBackStabNotes": "You betray a foolish task. You gain gold and XP! Click on a task to cast. (Based on: STR)",
 
   "spellRogueToolsOfTradeText": "Tools of the Trade",
   "spellRogueToolsOfTradeNotes": "You share your talents with friends. Your whole party gains a buff to Perception! (Based on: Unbuffed PER)",
