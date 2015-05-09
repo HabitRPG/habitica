@@ -29,14 +29,8 @@
         span.meter-text.value
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
-      .meter-label(tooltip='Milstones', ng-if="nextMilestone")
-        span.glyphicon.glyphicon-certificate
-      .meter.milestone(ng-if='nextMilestone', tooltip='Next Milestone')
-        .bar(ng-style='{"width": (user.stats.lvl / nextMilestone.level * 100) + "%"}')
-        span.meter-text.value
-          span
-          | {{nextMilestone.text}} : {{user.stats.lvl}} / {{nextMilestone.level}}
-        
+      p.well.milestone(ng-if='nextMilestone', tooltip='Next Milestone')
+        span=env.t("milestoneMessage", {milestone: '{{user.stats.lvl}}: {{nextMilestone.text}}'} )
 
     // party
     span(ng-controller='PartyCtrl')

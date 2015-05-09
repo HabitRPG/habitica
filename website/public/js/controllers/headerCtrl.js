@@ -8,17 +8,17 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
 
     $scope.nextMilestone = {};
     $scope.milestones = {
-     4:  "Pets + Mounts Unlocked",
-     10: "Class System Unlocked",
-     11: "First Skill Unlocked",
-     12: "Second Skill Unlocked",
-     13: "Third Skill Unlocked",
-     14: "Final Skill Unlocked",
-     15: "Quest Line: Attack of the Mundane",
-     30: "Quest Line: Vice the Shadow Wyrm",
-     40: "Quest Line: The Golden Knight",
-     60: "Quest Line: Recidivate the Necromancer",
-     100: "Free Orb of Rebirth"
+     4:  env.t("petsMountMilestone"),
+     10: env.t("classSystemMilestone"),
+     11: env.t("firstSkillMilestone"),
+     12: env.t("secondSkillMilestone"),
+     13: env.t("thirdSkillMilestone"),
+     14: env.t("finalSkillMilestone"),
+     15: env.t("mundaneMilestone"),
+     30: env.t("viceMilestone"),
+     40: env.t("goldenKnightMilestone"),
+     60: env.t("recidivateMilestone"),
+     100: env.t("freeOrbRebirthMilestone")
     };
 
     $scope.party = Groups.party(function(){
