@@ -116,5 +116,6 @@
     "apply": "Apply",
     "resubscribe": "Resubscribe",
     "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
     "promoPlaceholder": "Enter Promotion Code"
 }
