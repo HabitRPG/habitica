@@ -82,7 +82,7 @@ Suite =
 
   runApiSpecs: ->
     announce "Running API Specs (Mocha)"
-    sh.exec("NODE_ENV=testing ./node_modules/mocha/bin/mocha test/api.mocha.coffee").code
+    sh.exec("NODE_ENV=testing ./node_modules/mocha/bin/mocha test/api").code
 
   runCommonSpecs: ->
     announce "Running Common Specs (Mocha)"

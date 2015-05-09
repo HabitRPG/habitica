@@ -217,7 +217,7 @@ function($rootScope, User, $timeout, $state) {
   });
 
   var goto = function(chapter, page, force) {
-    return; // TODO temporarily remove old tutorial system while experimenting with leslie's new gettup
+    //return; // TODO temporarily remove old tutorial system while experimenting with leslie's new gettup
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
     var updates = {};updates['flags.tour.'+chapter] = page;
