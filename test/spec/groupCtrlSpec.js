@@ -219,6 +219,20 @@ describe("Autocomplete controller", function() {
     });
   });
 
+  describe("performCompletion", function() {
+    it('triggers autoComplete', function() {
+      scope.autoComplete = sinon.spy();
+
+      var msg = {user: "boo"}; // scope.autoComplete only cares about user
+      scope.query = {text: "b"};
+      scope.performCompletion(msg);
+
+      expect(scope.query).to.be.eq(null);
+      expect(scope.autoComplete.callCount).to.be.eq(1);
+      expect(scope.autoComplete).to.have.been.calledWith(msg);
+    });
+  });
+
   describe("addNewUser", function() {
     it('a new message from a new user will modify the usernames', function() {
       expect(scope.response).to.be.empty;
