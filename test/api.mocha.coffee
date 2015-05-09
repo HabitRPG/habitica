@@ -1,5 +1,5 @@
 #jslint node: true
-
+# @TODO: refactor tests
 #global describe, before, beforeEach, it
 "use strict"
 _ = require("lodash")
@@ -71,6 +71,14 @@ describe "API", ->
             .set("X-API-User", _id)
             .set("X-API-Key", apiToken)
           cb null, res.body
+
+  registerManyUsers = (number, callback) ->
+    async.times number, (n, next) ->
+      registerNewUser (err, user) ->
+        next(err, user)
+      , false
+    , (err, users) ->
+      callback(err, users)
 
   before (done) ->
     require "../website/src/server" # start the server
@@ -227,7 +235,7 @@ describe "API", ->
             ).end (res) ->
               expectCode res, 200
               body = res.body
-              expect(body).to.be.empty 
+              expect(body).to.be.empty
               done()
 
           it "Does not delete already deleted todo", (done) ->
@@ -257,15 +265,127 @@ describe "API", ->
     describe "Groups", ->
       group = undefined
       before (done) ->
-        request.post(baseURL + "/groups").send(
-          name: "TestGroup"
-          type: "party"
-        ).end (res) ->
-          expectCode res, 200
-          group = res.body
-          expect(group.members.length).to.be 1
-          expect(group.leader).to.be user._id
-          done()
+       request.post(baseURL + "/groups").send(
+         name: "TestGroup"
+         type: "party"
+       ).end (res) ->
+         expectCode res, 200
+         group = res.body
+         expect(group.members.length).to.be 1
+         expect(group.leader).to.be user._id
+         done()
+
+      describe "Guilds", ->
+
+        before (done) ->
+          User.findByIdAndUpdate user._id,
+            $set:
+              "balance": 4
+            , (err, _user) ->
+              done()
+
+        describe "Private Guilds", ->
+          guild = undefined
+          before (done) ->
+            request.post(baseURL + "/groups").send(
+              name: "TestPrivateGroup"
+              type: "guild"
+              privacy: "private"
+            ).end (res) ->
+              expectCode res, 200
+              guild = res.body
+              expect(guild.members.length).to.be 1
+              expect(guild.leader).to.be user._id
+              #Add members to guild
+              async.waterfall [
+                (cb) ->
+                  registerManyUsers 15, cb
+
+                (_members, cb) ->
+                  members = _members
+
+                  joinGuild = (member, callback) ->
+                    request.post(baseURL + "/groups/" + guild._id + "/join")
+                      .set("X-API-User", member._id)
+                      .set("X-API-Key", member.apiToken)
+                      .end ->
+                        callback(null, null)
+
+                  async.map members, joinGuild, (err, results) -> cb()
+
+              ], done
+
+          it "includes user in private group member list when user is a member", (done) ->
+
+            request.get(baseURL + "/groups/" + guild._id)
+            .end (res) ->
+              g = res.body
+              userInGroup = _.find g.members, (member) -> return member._id == user._id
+              expect(userInGroup).to.not.be undefined
+              done()
+
+          it "excludes user from viewing private group member list when user is not a member", (done) ->
+
+            request.post(baseURL + "/groups/" + guild._id + "/leave")
+              .end (res) ->
+                request.get(baseURL + "/groups/" + guild._id)
+                .end (res) ->
+                  expect res, 404
+                  done()
+
+        describe "Public Guilds", ->
+          guild = undefined
+          before (done) ->
+            request.post(baseURL + "/groups").send(
+              name: "TestPublicGroup"
+              type: "guild"
+              privacy: "public"
+            ).end (res) ->
+              expectCode res, 200
+              guild = res.body
+              expect(guild.members.length).to.be 1
+              expect(guild.leader).to.be user._id
+              #Add members to guild
+              async.waterfall [
+                (cb) ->
+                  registerManyUsers 15, cb
+
+                (_members, cb) ->
+                  members = _members
+
+                  joinGuild = (member, callback) ->
+                    request.post(baseURL + "/groups/" + guild._id + "/join")
+                      .set("X-API-User", member._id)
+                      .set("X-API-Key", member.apiToken)
+                      .end ->
+                        callback(null, null)
+
+                  async.map members, joinGuild, (err, results) -> cb()
+              ], done
+
+          it "includes user in public group member list when user is a member", (done) ->
+
+            request.get(baseURL + "/groups/" + guild._id)
+              .end (res) ->
+                g = res.body
+                expect(g.members.length).to.be 15
+                userInGroup = _.find g.members, (member) -> return member._id == user._id
+                expect(userInGroup).to.not.be undefined
+                done()
+
+
+          it "excludes user in public group member list when user is not a member", (done) ->
+            #Remove user from group
+            request.post(baseURL + "/groups/" + guild._id + "/leave")
+              .end (res) ->
+                #Verfiy that when a user query's for a group they are in the group if they are a member
+                request.get(baseURL + "/groups/" + guild._id)
+                  .end (res) ->
+                    g = res.body
+                    expect(g.members.length).to.be 15
+                    userInGroup = _.find g.members, (member) -> return member._id == user._id
+                    expect(userInGroup).to.be undefined
+                    done()
 
       describe "Party", ->
         it "can be found by querying for party", (done) ->
@@ -273,7 +393,6 @@ describe "API", ->
             type: "party"
           ).end (res) ->
             expectCode res, 200
-
             party = res.body[0]
             expect(party._id).to.be group._id
             expect(party.leader).to.be user._id
@@ -281,6 +400,133 @@ describe "API", ->
             expect(party.quest).to.be.eql { progress: {} }
             expect(party.memberCount).to.be group.memberCount
             done()
+
+        it "includes user in a party member list when user is a member", (done) ->
+          party = []
+
+          #Invite some members
+          async.waterfall [
+
+            # Register new users
+            (cb) ->
+              registerManyUsers 15, cb
+
+            # Send them invitations
+            (_party, cb) ->
+              party = _party
+
+              joinParty = (member, callback) ->
+                request.post(baseURL + "/groups/" + group._id + "/join")
+                  .set("X-API-User", member._id)
+                  .set("X-API-Key", member.apiToken)
+                  .end ->
+                    callback(null, null)
+
+              async.map party, joinParty, (err, results) -> cb()
+
+            # Accept / Reject
+            (cb) ->
+              # series since they'll be modifying the same group record
+              series = _.reduce(party, (m, v, i) ->
+                m.push (cb2) ->
+                  request.post(baseURL + "/groups/" + group._id + "/join")
+                    .set("X-API-User", party[i]._id)
+                    .set("X-API-Key", party[i].apiToken)
+                    .end ->
+                      cb2()
+                m
+              , [])
+              async.series series, cb
+
+            # Make sure the invites stuck
+            (result, cb) ->
+              request.get(baseURL + "/groups/" + group._id)
+              .send()
+              .end (res) ->
+                g = res.body
+                userInGroup = _.find g.members, (member) -> return member._id == user._id
+                expect(userInGroup).to.not.be undefined
+                cb()
+
+            # Remove all previous members
+            (cb) ->
+
+              joinParty = (member, callback) ->
+                request.post(baseURL + "/groups/" + group._id + "/leave")
+                  .set("X-API-User", member._id)
+                  .set("X-API-Key", member.apiToken)
+                  .end ->
+                    callback(null, null)
+
+              async.map party, joinParty, (err, results) -> cb()
+
+          ], done
+
+        it "excludes user in a party member list when user is not a member", (done) ->
+          party = []
+
+          #Invite some members
+          async.waterfall [
+
+            # Register new users
+            (cb) ->
+              registerManyUsers 15, cb
+
+            # Send them invitations
+            (_party, cb) ->
+              party = _party
+
+              joinParty = (member, callback) ->
+                request.post(baseURL + "/groups/" + group._id + "/join")
+                  .set("X-API-User", member._id)
+                  .set("X-API-Key", member.apiToken)
+                  .end ->
+                    callback(null, null)
+
+              async.map party, joinParty, (err, results) -> cb()
+
+            # Accept / Reject
+            (cb) ->
+              # series since they'll be modifying the same group record
+              series = _.reduce(party, (m, v, i) ->
+                m.push (cb2) ->
+                  request.post(baseURL + "/groups/" + group._id + "/join")
+                    .set("X-API-User", party[i]._id)
+                    .set("X-API-Key", party[i].apiToken)
+                    .end ->
+                      cb2()
+                m
+              , [])
+              async.series series, cb
+
+            (result, cb) ->
+              #Remove a user from group
+              request.post(baseURL + "/groups/" + group._id + "/leave")
+              .set("X-API-User", party[0]._id)
+              .set("X-API-Key", party[0].apiToken)
+              .send()
+              .end (res) ->
+                request.get(baseURL + "/groups/" + group._id)
+                .set("X-API-User", party[0]._id)
+                .set("X-API-Key", party[0].apiToken)
+                .send()
+                .end (res) ->
+                  expect res, 404
+                  cb()
+
+            # Remove all previous members
+            (cb) ->
+
+              joinParty = (member, callback) ->
+                request.post(baseURL + "/groups/" + group._id + "/leave")
+                  .set("X-API-User", member._id)
+                  .set("X-API-Key", member.apiToken)
+                  .end ->
+                    callback(null, null)
+
+              async.map party, joinParty, (err, results) -> cb()
+
+          ], done
 
         describe "Chat", ->
           chat = undefined
@@ -527,14 +773,7 @@ describe "API", ->
 
               # Register new users
               (cb) ->
-                async.parallel [
-                  (cb2) ->
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
-                  (cb2) ->
-                    registerNewUser cb2, false
-                ], cb
+                registerManyUsers 3, cb
 
               # Send them invitations
               (_party, cb) ->
@@ -612,7 +851,7 @@ describe "API", ->
             party[0] = res.body
             request.post(baseURL + "/user/class/cast/snowball?targetType=user&targetId=" + party[0]._id).end (res) ->
 
-              #expect(res.body.stats.mp).to.be.below(mp);
+              #expect(res.body.stats.mp).to.be.below(mp)
               request.get(baseURL + "/members/" + party[0]._id).end (res) ->
                 member = res.body
                 expect(member.achievements.snowball).to.be 1
@@ -747,8 +986,8 @@ describe "API", ->
                       cummGp = shared.content.quests.vice3.drop.gp + shared.content.quests.dilatory.drop.gp
 
                       #//FIXME check that user got exp, but user is leveling up making the exp check difficult
-                      #                      expect(user.stats.exp).to.be.above(cummExp);
-                      #                      expect(user.stats.gp).to.be.above(cummGp);
+                      #                      expect(user.stats.exp).to.be.above(cummExp)
+                      #                      expect(user.stats.gp).to.be.above(cummGp)
                       async.parallel [
 
                         # Tavern Boss

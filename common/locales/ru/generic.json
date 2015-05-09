@@ -62,7 +62,7 @@
     "errorUpCase": "ОШИБКА: ",
     "newPassSent": "Новый пароль отправлен.",
     "serverUnreach": "Сервер сейчас недоступен.",
-    "seeConsole": "If the error persists, please report it at Help > Report a Bug. If you're familiar with your browser's console, please include any error messages.",
+    "seeConsole": "Если ошибка появляется вновь, пожалуйста, сообщите о ней в меню Помощь > Сообщить о проблеме. Если вы знакомы с консолью браузера, пожалуйста, включите в отчет возможные сообщения об ошибках.",
     "error": "Ошибка",
     "menu": "Меню",
     "notifications": "Уведомления",

@@ -185,12 +185,13 @@ function($rootScope, User, $timeout, $state) {
         var showFinish = step.final || k == 'classes';
         var showCounter = k=='intro' && !step.final;
 
-        $rootScope.variant=2; // temporarily set finish & counter on until we can get experiment working
-
         // Experiment wud1Ba5qT1m9qR3PP0-Mmg , remove this when experiment complete
         // 0=No Finish; Yes Counter 1=No Finish; No Counter 2=Yes Finish; Yes Counter 3=Yes Finish; No Counter
         showFinish = showFinish || $rootScope.variant==2 || $rootScope.variant==3;
         showCounter = showCounter && ($rootScope.variant==0 || $rootScope.variant==2);
+
+        // FIXME temporarily set finish & counter on until we can get experiment working
+        showFinish=true;showCounter=true;
 
         return '<div class="popover" role="tooltip">' +
           '<div class="arrow"></div>' +
@@ -216,6 +217,7 @@ function($rootScope, User, $timeout, $state) {
   });
 
   var goto = function(chapter, page, force) {
+    //return; // TODO temporarily remove old tutorial system while experimenting with leslie's new gettup
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
     var updates = {};updates['flags.tour.'+chapter] = page;
