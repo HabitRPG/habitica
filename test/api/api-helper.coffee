@@ -4,6 +4,7 @@
 superagentDefaults = require("superagent-defaults")
 global.request = superagentDefaults()
 
+global.mongoose = require("mongoose")
 global.moment = require("moment")
 global.async = require("async")
 global._ = require("lodash")
