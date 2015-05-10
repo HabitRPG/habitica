@@ -231,6 +231,8 @@ api.getUserAnonymized = function(req, res, next) {
     delete user.auth.facebook;
   }
 
+  delete user.newMessages;
+
   delete user.profile;
   delete user.purchased.plan;
   delete user.contributor;
