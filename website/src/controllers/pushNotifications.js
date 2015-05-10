@@ -7,50 +7,46 @@ var pushNotify = require('push-notify');
 var gcmApiKey = nconf.get("PUSH_CONFIGS:GCM_SERVER_API_KEY");
 
 var gcm = gcmApiKey ? pushNotify.gcm({
-    apiKey: gcmApiKey,
-    retries: 3
+  apiKey: gcmApiKey,
+  retries: 3
 }) : undefined;
 
 if(gcm){
-    gcm.on('transmitted', function (result, message, registrationId) {
-        console.info("transmitted", result, message, registrationId);
-    });
+  gcm.on('transmitted', function (result, message, registrationId) {
+    console.info("transmitted", result, message, registrationId);
+  });
 
-    gcm.on('transmissionError', function (error, message, registrationId) {
-        console.info("transmissionError", error, message, registrationId);
-    });
-    gcm.on('updated', function (result, registrationId) {
-        console.info("updated", result, registrationId);
-    });
+  gcm.on('transmissionError', function (error, message, registrationId) {
+    console.info("transmissionError", error, message, registrationId);
+  });
+  gcm.on('updated', function (result, registrationId) {
+    console.info("updated", result, registrationId);
+  });
 }
 
 api.sendNotify = function(user, title, msg, timeToLive){
-    timeToLive = timeToLive || 15;
+  timeToLive = timeToLive || 15;
 
-    _.forEach(user.pushDevices, function(pushDevice){
-       switch(pushDevice.type){
-           case "android":
-               if(gcm){
-                   console.info("sending", title, msg);
-                   console.info(pushDevice);
+  _.forEach(user.pushDevices, function(pushDevice){
+    switch(pushDevice.type){
+      case "android":
+        if(gcm){
+          gcm.send({
+            registrationId: pushDevice.regId,
+            //collapseKey: 'COLLAPSE_KEY',
+            delayWhileIdle: true,
+            timeToLive: timeToLive,
+            data: {
+              title: title,
+              message: msg
+            }
+        });
+      }
 
+      break;
 
-                   gcm.send({
-                       registrationId: pushDevice.regId,
-                       //collapseKey: 'COLLAPSE_KEY',
-                       delayWhileIdle: true,
-                       timeToLive: timeToLive,
-                       data: {
-                           title: title,
-                           message: msg
-                       }
-                   });
-               }
-
-               break;
-
-           case "ios":
-               break;
-       }
-    });
+      case "ios":
+        break;
+    }
+  });
 };
