@@ -1130,9 +1130,9 @@ api.wrap = (user, main=true) ->
         switch task.type
           when 'habit'
             changeTaskValue()
-            gainMP(_.max([0.25, (.0025 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
             # Add habit value to habit-history (if different)
             if (delta > 0) then addPoints() else subtractPoints()
+            gainMP(_.max([0.25, (.0025 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
 
             # History
             th = (task.history ?= [])
@@ -1149,10 +1149,10 @@ api.wrap = (user, main=true) ->
               task.streak = 0 unless user.stats.buffs.streaks
             else
               changeTaskValue()
-              gainMP(_.max([1, (.01 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
               if direction is 'down'
                 delta = calculateDelta() # recalculate delta for unchecking so the gp and exp come out correctly
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+              gainMP(_.max([1, (.01 * user._statsComputed.maxMP)]) * if direction is 'down' then -1 else 1)
               if direction is 'up'
                 task.streak = if task.streak then task.streak + 1 else 1
                 # Give a streak achievement when the streak is a multiple of 21
