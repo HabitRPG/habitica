@@ -20,3 +20,25 @@ describe "Push-Notifications", ->
           expect(_user.pushDevices[0].regId).to.be "123123"
 
           done()
+
+  describe "Events that send push notifications", ->
+
+    context "Challenges", ->
+
+      it "sends a push notification when you win a challenge"
+
+      it "does not send a push notification when you lose a challenge"
+
+    context "Groups", ->
+
+      it "sends a push notification when invited to a guild"
+
+      it "sends a push notification when invited to a party"
+
+      it "sends a push notification when invited to a quest"
+
+    context "Gifts", ->
+
+      it "sends a push notification when gifted gems"
+
+      it "sends a push notification when gifted a subscription"
