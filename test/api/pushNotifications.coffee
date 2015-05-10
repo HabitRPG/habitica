@@ -2,18 +2,21 @@
 
 app = require("../../website/src/server")
 
-
 describe "Push-Notifications", ->
-  it "Register DeviceID", (done) ->
-    request.post(baseURL + "/user/pushDevice").send(
-      { regId: "123123", type: "android"}
-    ).end (res) ->
-      expectCode res, 200
+  before (done) ->
+    registerNewUser(done, true)
 
-      User.findOne
-        _id: global.user._id
-      , (err, _user) ->
-        expect(_user.pushDevices.length).to.be 1
-        expect(_user.pushDevices[0].regId).to.be "123123"
+  describe "POST /user/pushDevice", ->
+    it "Registers a DeviceID", (done) ->
+      request.post(baseURL + "/user/pushDevice").send(
+        { regId: "123123", type: "android"}
+      ).end (res) ->
+        expectCode res, 200
 
-        done()
+        User.findOne
+          _id: global.user._id
+        , (err, _user) ->
+          expect(_user.pushDevices.length).to.be 1
+          expect(_user.pushDevices[0].regId).to.be "123123"
+
+          done()
