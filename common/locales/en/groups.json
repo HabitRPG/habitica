@@ -101,5 +101,5 @@
     "messageAddedAsToDo": "Message copied as To-Do.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
     "msgPreviewHeading": "Message Preview",
-    "LeaderOnlyChallenges": "Only group leader can create challenges (local test for Alys)"
+    "LeaderOnlyChallenges": "Only group leader can create challenges"
 }
