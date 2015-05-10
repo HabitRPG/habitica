@@ -216,9 +216,9 @@ window.habitrpg = angular.module('habitrpg',
           url: "/export",
           templateUrl: "partials/options.settings.export.html"
         })
-        .state('options.settings.coupon', {
-          url: "/coupon",
-          templateUrl: "partials/options.settings.coupon.html"
+        .state('options.settings.promo', {
+          url: "/promo",
+          templateUrl: "partials/options.settings.promo.html"
         })
         .state('options.settings.subscription', {
           url: "/subscription",
