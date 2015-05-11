@@ -111,7 +111,7 @@ describe "Groups", ->
               async.map members, joinGuild, (err, results) -> cb()
           ], done
 
-      it "includes user in public group member list when user is a member", (done) ->
+      it.skip "includes user in public group member list when user is a member", (done) ->
 
         request.get(baseURL + "/groups/" + guild._id)
           .end (res) ->
