@@ -18,8 +18,8 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 200
           group = res.body
-          expect(group.members.length).to.be 1
-          expect(group.leader).to.be user._id
+          expect(group.members.length).to.equal 1
+          expect(group.leader).to.equal user._id
           done()
       ]
 
@@ -42,8 +42,8 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 200
           guild = res.body
-          expect(guild.members.length).to.be 1
-          expect(guild.leader).to.be user._id
+          expect(guild.members.length).to.equal 1
+          expect(guild.leader).to.equal user._id
           #Add members to guild
           async.waterfall [
             (cb) ->
@@ -69,7 +69,7 @@ describe "Groups", ->
         .end (res) ->
           g = res.body
           userInGroup = _.find g.members, (member) -> return member._id == user._id
-          expect(userInGroup).to.not.be undefined
+          expect(userInGroup).to.exist
           done()
 
       it "excludes user from viewing private group member list when user is not a member", (done) ->
@@ -91,8 +91,8 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 200
           guild = res.body
-          expect(guild.members.length).to.be 1
-          expect(guild.leader).to.be user._id
+          expect(guild.members.length).to.equal 1
+          expect(guild.leader).to.equal user._id
           #Add members to guild
           async.waterfall [
             (cb) ->
@@ -116,9 +116,9 @@ describe "Groups", ->
         request.get(baseURL + "/groups/" + guild._id)
           .end (res) ->
             g = res.body
-            expect(g.members.length).to.be 15
+            expect(g.members.length).to.equal 15
             userInGroup = _.find g.members, (member) -> return member._id == user._id
-            expect(userInGroup).to.not.be undefined
+            expect(userInGroup).to.exist
             done()
 
 
@@ -130,9 +130,9 @@ describe "Groups", ->
             request.get(baseURL + "/groups/" + guild._id)
               .end (res) ->
                 g = res.body
-                expect(g.members.length).to.be 15
+                expect(g.members.length).to.equal 15
                 userInGroup = _.find g.members, (member) -> return member._id == user._id
-                expect(userInGroup).to.be undefined
+                expect(userInGroup).to.not.exist
                 done()
   describe "Party", ->
     it "can be found by querying for party", (done) ->
@@ -142,11 +142,13 @@ describe "Groups", ->
         expectCode res, 200
 
         party = res.body[0]
-        expect(party._id).to.be group._id
-        expect(party.leader).to.be user._id
-        expect(party.name).to.be group.name
-        expect(party.quest).to.be.eql { progress: {} }
-        expect(party.memberCount).to.be group.memberCount
+        console.log("*******")
+        console.log(party.quest)
+        expect(party._id).to.equal group._id
+        expect(party.leader).to.equal user._id
+        expect(party.name).to.equal group.name
+        expect(party.quest).to.deep.equal { progress: {} }
+        expect(party.memberCount).to.equal group.memberCount
         done()
 
     describe "Chat", ->
@@ -158,16 +160,16 @@ describe "Groups", ->
           expectCode res, 200
           chat = res.body.message
           expect(chat.id).to.be.ok
-          expect(chat.text).to.be.eql msg
+          expect(chat.text).to.equal msg
           expect(chat.timestamp).to.be.ok
           expect(chat.likes).to.be.empty
           expect(chat.flags).to.be.empty
-          expect(chat.flagCount).to.be 0
+          expect(chat.flagCount).to.equal 0
           expect(chat.uuid).to.be.ok
           expect(chat.contributor).to.be.empty
           expect(chat.backer).to.be.empty
-          expect(chat.uuid).to.be user._id
-          expect(chat.user).to.be user.profile.name
+          expect(chat.uuid).to.equal user._id
+          expect(chat.user).to.equal user.profile.name
           done()
 
       it "Does not post an empty message", (done) ->
@@ -175,7 +177,7 @@ describe "Groups", ->
         request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
         ).end (res) ->
           expectCode res, 400
-          expect(res.body.err).to.be.eql 'You cannot send a blank message'
+          expect(res.body.err).to.equal 'You cannot send a blank message'
           done()
 
       it "can not like own chat message", (done) ->
@@ -183,7 +185,7 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 401
           body = res.body
-          expect(body.err).to.be "Can't like your own message. Don't be that person."
+          expect(body.err).to.equal "Can't like your own message. Don't be that person."
           done()
 
       it "can not flag own message", (done) ->
@@ -191,7 +193,7 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 401
           body = res.body
-          expect(body.err).to.be "Can't report your own message."
+          expect(body.err).to.equal "Can't report your own message."
           done()
 
       it "Gets chat messages from party chat", (done) ->
@@ -199,15 +201,16 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 200
           message = res.body[0]
-          expect(message.id).to.be chat.id
-          expect(message.timestamp).to.be chat.timestamp
-          expect(message.likes).to.be.eql chat.likes
-          expect(message.flags).to.be.eql chat.flags
-          expect(message.flagCount).to.be chat.flagCount
-          expect(message.uuid).to.be chat.uuid
-          expect(message.contributor).to.be.eql chat.contributor
-          expect(message.backer).to.be.eql chat.backer
-          expect(message.user).to.be chat.user
+          console.log(message)
+          expect(message.id).to.equal chat.id
+          expect(message.timestamp).to.equal chat.timestamp
+          expect(message.likes).to.deep.equal chat.likes
+          expect(message.flags).to.deep.equal chat.flags
+          expect(message.flagCount).to.equal chat.flagCount
+          expect(message.uuid).to.equal chat.uuid
+          expect(message.contributor).to.deep.equal chat.contributor
+          expect(message.backer).to.deep.equal chat.backer
+          expect(message.user).to.equal chat.user
           done()
 
       it "Deletes a chat messages from party chat", (done) ->
@@ -222,7 +225,7 @@ describe "Groups", ->
         ).end (res) ->
           expectCode res, 404
           body = res.body
-          expect(body.err).to.be "Message not found!"
+          expect(body.err).to.equal "Message not found!"
           done()
 
   describe "Quests", ->
@@ -333,7 +336,7 @@ describe "Groups", ->
               (whatever, cb) ->
                 Group.findById group._id, (err, g) ->
                   group = g
-                  expect(g.members.length).to.be 4
+                  expect(g.members.length).to.equal 4
                   cb()
 
             ], ->
@@ -354,13 +357,13 @@ describe "Groups", ->
                     Group.findById group._id, cb
 
                 (_group, cb) ->
-                  expect(_group.quest.key).to.be "vice3"
-                  expect(_group.quest.active).to.be false
+                  expect(_group.quest.key).to.equal "vice3"
+                  expect(_group.quest.active).to.equal false
                   request.post(baseURL + "/groups/" + group._id + "/questAccept").set("X-API-User", party[0]._id).set("X-API-Key", party[0].apiToken).end ->
                     request.post(baseURL + "/groups/" + group._id + "/questAccept").set("X-API-User", party[1]._id).set("X-API-Key", party[1].apiToken).end (res) ->
                       request.post(baseURL + "/groups/" + group._id + "/questReject").set("X-API-User", party[2]._id).set("X-API-Key", party[2].apiToken).end (res) ->
                         group = res.body
-                        expect(group.quest.active).to.be true
+                        expect(group.quest.active).to.equal true
                         cb()
 
               ], done
@@ -375,10 +378,10 @@ describe "Groups", ->
           #expect(res.body.stats.mp).to.be.below(mp);
           request.get(baseURL + "/members/" + party[0]._id).end (res) ->
             member = res.body
-            expect(member.achievements.snowball).to.be 1
-            expect(member.stats.buffs.snowball).to.be true
+            expect(member.achievements.snowball).to.equal 1
+            expect(member.stats.buffs.snowball).to.exist
             difference = diff(member, party[0])
-            expect(_.size(difference)).to.be 2
+            expect(_.size(difference)).to.equal 2
 
             # level up user so str is > 0
             request.put(baseURL + "/user").send("stats.lvl": 5).end (res) ->
@@ -388,12 +391,12 @@ describe "Groups", ->
                 request.post(baseURL + "/user/class/cast/valorousPresence?targetType=party").end (res) ->
                   request.get(baseURL + "/members/" + member._id).end (res) ->
                     expect(res.body.stats.buffs.str).to.be.above 0
-                    expect(diff(res.body, member).length).to.be 1
+                    expect(diff(res.body, member).length).to.equal 1
                     done()
 
     it "Doesn't include people who aren't participating", (done) ->
       request.get(baseURL + "/groups/" + group._id).end (res) ->
-        expect(_.size(res.body.quest.members)).to.be 3
+        expect(_.size(res.body.quest.members)).to.equal 3
         done()
 
     xit "Hurts the boss", (done) ->
@@ -516,31 +519,31 @@ describe "Groups", ->
                       Group.findById "habitrpg", (err, tavern) ->
 
                         #use an explicit get because mongoose wraps the null in an object
-                        expect(_.isEmpty(tavern.get("quest"))).to.be true
-                        expect(user.items.pets["MantisShrimp-Base"]).to.be 5
-                        expect(user.items.mounts["MantisShrimp-Base"]).to.be true
-                        expect(user.items.eggs.Dragon).to.be 2
-                        expect(user.items.hatchingPotions.Shade).to.be 2
+                        expect(_.isEmpty(tavern.get("quest"))).to.equal true
+                        expect(user.items.pets["MantisShrimp-Base"]).to.equal 5
+                        expect(user.items.mounts["MantisShrimp-Base"]).to.equal true
+                        expect(user.items.eggs.Dragon).to.equal 2
+                        expect(user.items.hatchingPotions.Shade).to.equal 2
                         cb2()
 
                     # Party Boss
                     (cb2) ->
 
                       #use an explicit get because mongoose wraps the null in an object
-                      expect(_.isEmpty(_group.get("quest"))).to.be true
-                      expect(user.items.gear.owned.weapon_special_2).to.be true
-                      expect(user.items.eggs.Dragon).to.be 2
-                      expect(user.items.hatchingPotions.Shade).to.be 2
+                      expect(_.isEmpty(_group.get("quest"))).to.equal true
+                      expect(user.items.gear.owned.weapon_special_2).to.equal true
+                      expect(user.items.eggs.Dragon).to.equal 2
+                      expect(user.items.hatchingPotions.Shade).to.equal 2
 
                       # need to fetch users to get updated data
                       async.parallel [
                         (cb3) ->
                           User.findById party[0].id, (err, mbr) ->
-                            expect(mbr.items.gear.owned.weapon_special_2).to.be true
+                            expect(mbr.items.gear.owned.weapon_special_2).to.equal true
                             cb3()
                         (cb3) ->
                           User.findById party[1].id, (err, mbr) ->
-                            expect(mbr.items.gear.owned.weapon_special_2).to.be true
+                            expect(mbr.items.gear.owned.weapon_special_2).to.equal true
                             cb3()
                         (cb3) ->
                           User.findById party[2].id, (err, mbr) ->

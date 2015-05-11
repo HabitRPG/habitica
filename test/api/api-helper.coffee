@@ -8,18 +8,19 @@ global.mongoose = require("mongoose")
 global.moment = require("moment")
 global.async = require("async")
 global._ = require("lodash")
-global.expect = require("expect.js")
 global.shared = require("../../common")
 global.User = require("../../website/src/models/user").model
+
+global.chai = require("chai")
+global.expect = require("chai").expect
 
 ##############################
 # Nconf config
 ##############################
 path = require("path")
-conf = require("nconf")
+global.conf = require("nconf")
 conf.argv().env().file(file: path.join(__dirname, "../config.json")).defaults()
 conf.set "PORT", "1337"
-global.conf = conf
 
 ##############################
 # Node ENV and global variables
@@ -32,8 +33,8 @@ global.user = undefined
 # Helper Methods
 ##############################
 global.expectCode = (res, code) ->
-  global.expect(res.body.err).to.be `undefined`  if code is 200
-  global.expect(res.statusCode).to.be code
+  expect(res.body.err).to.not.exist if code is 200
+  expect(res.statusCode).to.equal code
 
 global.registerNewUser = (cb, main) ->
   main = true unless main?
@@ -53,11 +54,11 @@ global.registerNewUser = (cb, main) ->
       return cb(null, res.body)  unless main
       _id = res.body._id
       apiToken = res.body.apiToken
-      global.User.findOne
+      User.findOne
         _id: _id
         apiToken: apiToken
       , (err, _user) ->
-        expect(err).to.not.be.ok()
+        expect(err).to.not.be.ok
         global.user = _user
         request
           .set("Accept", "application/json")
@@ -66,8 +67,8 @@ global.registerNewUser = (cb, main) ->
         cb null, res.body
 
 global.registerManyUsers = (number, callback) ->
-  global.async.times number, (n, next) ->
-    global.registerNewUser (err, user) ->
+  async.times number, (n, next) ->
+    registerNewUser (err, user) ->
       next(err, user)
     , false
   , (err, users) ->

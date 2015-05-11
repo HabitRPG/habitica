@@ -79,6 +79,7 @@
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {
+    "chai": "^2.3.0",
     "coffee-coverage": "~0.4.2",
     "csv": "~0.3.6",
     "deep-diff": "~0.1.4",

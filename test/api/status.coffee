@@ -8,8 +8,8 @@ describe "Site Status", ->
 
     it "/api/v2/status", (done) ->
       request.get(baseURL + "/status").set("Accept", "application/json").end (res) ->
-        expect(res.statusCode).to.be 200
-        expect(res.body.status).to.be "up"
+        expect(res.statusCode).to.equal 200
+        expect(res.body.status).to.equal "up"
         done()
 
     it "/api/v2/user", (done) ->
@@ -19,8 +19,8 @@ describe "Site Status", ->
         .set("X-API-User", '')
         .set("X-API-Key", '')
         .end (res) ->
-          expect(res.statusCode).to.be 401
-          expect(res.body.err).to.be "You must include a token and uid (user id) in your request"
+          expect(res.statusCode).to.equal 401
+          expect(res.body.err).to.equal "You must include a token and uid (user id) in your request"
           done()
 
   describe "With token or user id", ->
@@ -30,12 +30,12 @@ describe "Site Status", ->
 
     it "/api/v2/status", (done) ->
       request.get(baseURL + "/status").set("Accept", "application/json").end (res) ->
-        expect(res.statusCode).to.be 200
-        expect(res.body.status).to.be "up"
+        expect(res.statusCode).to.equal 200
+        expect(res.body.status).to.equal "up"
         done()
 
     it "/api/v2/user", (done) ->
       request.get(baseURL + "/user").set("Accept", "application/json").end (res) ->
-        expect(res.statusCode).to.be 200
-        expect(res.body._id).to.be user._id
+        expect(res.statusCode).to.equal 200
+        expect(res.body._id).to.equal user._id
         done()

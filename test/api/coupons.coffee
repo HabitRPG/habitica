@@ -38,9 +38,9 @@ describe "Coupons", ->
             expectCode res, 200
             Coupon.find { event: 'wondercon' }, (err, _coupons) ->
               coupons = _coupons
-              expect(coupons.length).to.be.eql 10
+              expect(coupons.length).to.equal 10
               _(coupons).each (c)->
-                expect(c.event).to.be.eql 'wondercon'
+                expect(c.event).to.equal 'wondercon'
               done()
 
     context "while regular user", ->
@@ -54,7 +54,7 @@ describe "Coupons", ->
           .post(baseURL + '/coupons/generate/wondercon' + queries)
           .end (res) ->
             expectCode res, 401
-            expect(res.body.err).to.be.eql 'You don\'t have admin access'
+            expect(res.body.err).to.equal 'You don\'t have admin access'
             done()
 
   describe "GET /api/v2/coupons", ->
@@ -123,7 +123,7 @@ describe "Coupons", ->
           .get(baseURL + '/coupons' + queries)
           .end (res) ->
             expectCode res, 401
-            expect(res.body.err).to.be.eql 'You don\'t have admin access'
+            expect(res.body.err).to.equal 'You don\'t have admin access'
             done()
 
   describe "POST /api/v2/user/coupon/:code", ->
@@ -131,7 +131,7 @@ describe "Coupons", ->
       items = ['body_special_wondercon_gold'
               'body_special_wondercon_black'
               'body_special_wondercon_red'
-              'back_special_wondercon_gold'
+              'back_special_wondercon_red'
               'back_special_wondercon_black'
               'back_special_wondercon_red'
               'eyewear_special_wondercon_black'
@@ -139,9 +139,9 @@ describe "Coupons", ->
 
       _(items).each (i) ->
         if(has)
-          expect(gear[i]).to.be.ok
+          expect(gear[i]).to.exist
         else
-          expect(gear[i]).to.not.be.ok
+          expect(gear[i]).to.not.exist
 
     beforeEach (done) ->
       registerNewUser ->
@@ -170,7 +170,7 @@ describe "Coupons", ->
           .post(baseURL + '/user/coupon/' + code)
           .end (res) ->
             expectCode res, 400
-            expect(res.body.err).to.be.eql "Coupon already used"
+            expect(res.body.err).to.equal "Coupon already used"
             User.findById user._id, (err, _user) ->
               gear = _user.items.gear.owned
               specialGear(gear, false)
@@ -184,7 +184,7 @@ describe "Coupons", ->
           .post(baseURL + '/user/coupon/' + code)
           .end (res) ->
             expectCode res, 400
-            expect(res.body.err).to.be.eql "Invalid coupon code"
+            expect(res.body.err).to.equal "Invalid coupon code"
             User.findById user._id, (err, _user) ->
               gear = _user.items.gear.owned
               specialGear(gear, false)
