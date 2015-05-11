@@ -1,6 +1,8 @@
 'use strict'
 
 app = require("../../website/src/server")
+rewire = require('rewire')
+sinon = require('sinon')
 
 describe "Push-Notifications", ->
   before (done) ->
@@ -23,6 +25,8 @@ describe "Push-Notifications", ->
 
   describe "Events that send push notifications", ->
 
+    pushSpy = sinon.spy()
+
     context "Challenges", ->
 
       it "sends a push notification when you win a challenge"
@@ -38,7 +42,34 @@ describe "Push-Notifications", ->
       it "sends a push notification when invited to a quest"
 
     context "Gifts", ->
+      recipient = null
+      members = rewire("../../website/src/controllers/members")
+      members.__set__('pushNotify', pushSpy)
+      members.sendMessage = -> true
 
-      it "sends a push notification when gifted gems"
+      before (done) ->
+        registerNewUser (err, _user) ->
+          recipient = _user
+          user.balance = 4
+          members.__set__ 'fetchMember', (id) -> return (cb) -> cb(null, recipient)
+          done()
+        , false
+
+
+      it "sends a push notification when gifted gems", (done) ->
+        req = { 
+          params: { uuid: "uuid" },
+          body: { 
+            type: 'gems',
+            gems: { amount: 1 }
+          } 
+        }
+        res = { locals: { user: user } }
+
+        members.sendGift req, res
+
+        expect(pushSpy.calledOnce).to.be.ok
+
+        done()
 
       it "sends a push notification when gifted a subscription"

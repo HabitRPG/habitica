@@ -102,6 +102,7 @@
     "mongoskin": "~0.6.1",
     "phantomjssmith": "~0.5.4",
     "protractor": "~2.0.0",
+    "rewire": "^2.3.3",
     "rimraf": "^2.2.8",
     "shelljs": "^0.4.0",
     "sinon": "^1.12.2",
