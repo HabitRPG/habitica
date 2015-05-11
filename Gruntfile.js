@@ -43,6 +43,27 @@ module.exports = function(grunt) {
         }
         if (~sprite.name.indexOf('shirt'))
           sprite.custom.px.offset_y = "-" + (sprite.y + 30) + "px"; // even more for shirts
+        if (sprite.name.match(/Mount_Head/)) {
+          var define_offset = function(width, margin) {
+            sprite.mount = {
+              width: "" + width + "px",
+              margin: "" + margin + "px"
+            }
+          }
+          if (sprite.name.match(/Mount_Head_Wolf/)) {
+            define_offset(53,26)
+          } else if(sprite.name.match(/Mount_Head_TigerCub/)) {
+            define_offset(85,10)
+          } else if(sprite.name.match(/Mount_Head_PandaCub/)) {
+            define_offset(101,2)
+          } else if(sprite.name.match(/Mount_Head_LionCub/)) {
+            define_offset(75,15)
+          } else if(sprite.name.match(/Mount_Head_Fox/)) {
+            define_offset(55,25)
+          } else {
+            define_offset(105,0)
+          }
+        }
       }
       /*,cssOpts: {
        cssClass: function (item) {
