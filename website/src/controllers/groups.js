@@ -325,7 +325,7 @@ api.flagChatMessage = function(req, res, next){
     group.markModified('chat');
     group.save(function(err,_saved){
       if(err) return next(err);
-        var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
+        var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
 
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
@@ -342,17 +342,17 @@ api.flagChatMessage = function(req, res, next){
           {name: "REPORTER_USERNAME", content: user.profile.name},
           {name: "REPORTER_UUID", content: user._id},
           {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
-          {name: "REPORTER_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + user._id},
+          {name: "REPORTER_MODAL_URL", content: "/static/front/#?memberId=" + user._id},
 
           {name: "AUTHOR_USERNAME", content: message.user},
           {name: "AUTHOR_UUID", content: message.uuid},
           {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
-          {name: "AUTHOR_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + message.uuid},
+          {name: "AUTHOR_MODAL_URL", content: "/static/front/#?memberId=" + message.uuid},
 
           {name: "GROUP_NAME", content: group.name},
           {name: "GROUP_TYPE", content: group.type},
           {name: "GROUP_ID", content: group._id},
-          {name: "GROUP_URL", content: group._id == 'habitrpg' ? (nconf.get('BASE_URL') + '/#/options/groups/tavern') : (group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party')},
+          {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
         ]);
 
       return res.send(204);
@@ -592,12 +592,12 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
             if(group.type == 'guild'){
               emailVars.push(
                 {name: 'GUILD_NAME', content: group.name},
-                {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'}
+                {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
               );
             }else{
               emailVars.push(
                 {name: 'PARTY_NAME', content: group.name},
-                {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+                {name: 'PARTY_URL', content: '/#/options/groups/party'}
               )
             }
 
@@ -639,7 +639,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
-          var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
+          var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
           var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
           var variables = [
@@ -704,8 +704,8 @@ api.removeMember = function(req, res, next){
       utils.txnEmail(removedUser, ('kicked-from-' + group.type), [
         {name: 'GROUP_NAME', content: group.name},
         {name: 'MESSAGE', content: message},
-        {name: 'GUILDS_LINK', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'},
-        {name: 'PARTY_WANTED_GUILD', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
+        {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
+        {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
       ]);
     }
   }
@@ -855,7 +855,7 @@ questStart = function(req, res, next) {
     });
 
     utils.txnEmail(usersToEmail, 'quest-started', [
-      {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+      {name: 'PARTY_URL', content: '/#/options/groups/party'}
     ]);
 
     _.each(groupClone.members, function(user){
@@ -915,7 +915,7 @@ api.questAccept = function(req, res, next) {
         {name: 'QUEST_NAME', content: quest.text()},
         {name: 'INVITER', content: inviterVars.name},
         {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
-        {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+        {name: 'PARTY_URL', content: '/#/options/groups/party'}
       ]);
 
       questStart(req,res,next);
