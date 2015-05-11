@@ -5,7 +5,7 @@ diff = require("deep-diff")
 Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
-describe "Groups", ->
+describe.skip "Groups", ->
   group = undefined
   before (done) ->
     async.waterfall [
