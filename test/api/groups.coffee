@@ -5,8 +5,7 @@ diff = require("deep-diff")
 Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
-# @TODO: Re-enable when problems with https://github.com/HabitRPG/habitrpg/pull/4961 are sorted out
-describe.skip "Groups", ->
+describe "Groups", ->
   group = undefined
   before (done) ->
     async.waterfall [
