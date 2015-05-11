@@ -8,9 +8,11 @@ global.mongoose = require("mongoose")
 global.moment = require("moment")
 global.async = require("async")
 global._ = require("lodash")
-global.expect = require("expect.js")
 global.shared = require("../../common")
 global.User = require("../../website/src/models/user").model
+
+global.chai = require("chai")
+global.expect = require("chai").expect
 
 ##############################
 # Nconf config
@@ -32,8 +34,8 @@ global.user = undefined
 # Helper Methods
 ##############################
 global.expectCode = (res, code) ->
-  global.expect(res.body.err).to.be `undefined`  if code is 200
-  global.expect(res.statusCode).to.be code
+  global.expect(res.body.err).to.not.exist if code is 200
+  global.expect(res.statusCode).to.equal code
 
 global.registerNewUser = (cb, main) ->
   main = true unless main?
@@ -57,7 +59,7 @@ global.registerNewUser = (cb, main) ->
         _id: _id
         apiToken: apiToken
       , (err, _user) ->
-        expect(err).to.not.be.ok()
+        expect(err).to.not.be.ok
         global.user = _user
         request
           .set("Accept", "application/json")

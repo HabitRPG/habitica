@@ -34,7 +34,7 @@ describe "Todos", ->
     ]).end (res) ->
       expectCode res, 200
       # Expect number of todos to be 3 greater than the number the user started with
-      expect(_.size(res.body.todos)).to.be numTasks + 3
+      expect(_.size(res.body.todos)).to.equal numTasks + 3
       # Assign new number to numTasks variable
       numTasks += 3
       request.post(baseURL + "/user/batch-update?_v=998").send([
@@ -58,7 +58,7 @@ describe "Todos", ->
         }
       ]).end (res) ->
         expectCode res, 200
-        expect(_.size(res.body.todos)).to.be numTasks
+        expect(_.size(res.body.todos)).to.equal numTasks
         request.post(baseURL + "/user/batch-update?_v=997").send([
           {
             op: "updateTask"
@@ -78,7 +78,7 @@ describe "Todos", ->
           }
         ]).end (res) ->
           # Expect todos to be 2 less than the total count
-          expect(_.size(res.body.todos)).to.be numTasks - 2
+          expect(_.size(res.body.todos)).to.equal numTasks - 2
           done()
 
   describe "Creating, Updating, Deleting Todos", ->
@@ -92,9 +92,9 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 200
           todo = res.body
-          expect(todo.text).to.be "Sample Todo"
+          expect(todo.text).to.equal "Sample Todo"
           expect(todo.id).to.be.ok
-          expect(todo.value).to.be 0
+          expect(todo.value).to.equal 0
           done()
 
     describe "Updating todos", ->
@@ -104,7 +104,7 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 200
           updateTodo = res.body
-          expect(updateTodo.id).to.be todo.id
+          expect(updateTodo.id).to.equal todo.id
           done()
 
       it "Does not update type of todo", (done) ->
@@ -113,7 +113,7 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 200
           updateTodo = res.body
-          expect(updateTodo.type).to.be todo.type
+          expect(updateTodo.type).to.equal todo.type
           done()
 
       it "Does update text, attribute, priority, value, notes", (done) ->
@@ -126,11 +126,11 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 200
           todo = res.body
-          expect(todo.text).to.be "Changed Title"
-          expect(todo.attribute).to.be "int"
-          expect(todo.priority).to.be 1.5
-          expect(todo.value).to.be 5
-          expect(todo.notes).to.be "Some notes"
+          expect(todo.text).to.equal "Changed Title"
+          expect(todo.attribute).to.equal "int"
+          expect(todo.priority).to.equal 1.5
+          expect(todo.value).to.equal 5
+          expect(todo.notes).to.equal "Some notes"
           done()
 
     describe "Deleting todos", ->
@@ -147,7 +147,7 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 404
           body = res.body
-          expect(body.err).to.be "Task not found."
+          expect(body.err).to.equal "Task not found."
           done()
 
       it "Does not update text, attribute, priority, value, notes if task is already deleted", (done) ->
@@ -160,6 +160,6 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 404
           body = res.body
-          expect(body.err).to.be "Task not found."
+          expect(body.err).to.equal "Task not found."
           done()
 
