@@ -136,7 +136,13 @@ api.get = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
+    if(!group){
+      if(gid !== 'party') return res.json(404,{err: "Group not found or you don't have access."});
+
+      // Don't send a 404 when querying for a party even if it doesn't exist
+      // so that users with no party don't get a 404 on every access to the site
+      return res.json(group);
+    }
     //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
     var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
     //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
