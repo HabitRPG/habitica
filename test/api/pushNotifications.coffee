@@ -18,8 +18,8 @@ describe "Push-Notifications", ->
         User.findOne
           _id: global.user._id
         , (err, _user) ->
-          expect(_user.pushDevices.length).to.be 1
-          expect(_user.pushDevices[0].regId).to.be "123123"
+          expect(_user.pushDevices.length).to.equal 1
+          expect(_user.pushDevices[0].regId).to.equal "123123"
 
           done()
 
