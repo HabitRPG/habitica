@@ -61,7 +61,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
   var mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
 
   var variables = [
-    {name: 'BASE_URL', content: 'https://habitrpg.com'}
+    {name: 'BASE_URL', content: baseUrl}
   ].concat(variables || []);
 
   // It's important to pass at least a user with its `preferences` as we need to check if he unsubscribed

@@ -148,7 +148,6 @@ var UserSchema = new Schema({
     recaptureEmailsPhase: {type: Number, 'default': 0},
     // Needed to track the tip to send inside the email
     weeklyRecapEmailsPhase: {type: Number, 'default': 0},
-    lastWeeklyRecap: {type: Date, 'default': Date.now},
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
     cronCount: {type:Number, 'default':0}
   },
