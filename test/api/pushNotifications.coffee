@@ -68,7 +68,16 @@ describe "Push-Notifications", ->
         res = { locals: { user: user } }
 
         members.sendGift req, res
-        # @TODO Expectations
-        done()
+
+        setTimeout ->
+          # Allow sendGift to finish
+          expect(pushSpy.sendNotify).to.have.been.calledOnce
+          expect(pushSpy.sendNotify).to.have.been.calledWith(
+            recipient,
+            'Gifted Gems',
+            '1 Gems - by ' + user.profile.name
+          )
+          done()
+        , 100
 
       it "sends a push notification when gifted a subscription"
