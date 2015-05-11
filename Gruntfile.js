@@ -60,6 +60,8 @@ module.exports = function(grunt) {
             define_offset(75,15)
           } else if(sprite.name.match(/Mount_Head_Fox/)) {
             define_offset(55,25)
+          } else if(sprite.name.match(/Mount_Head_TRex/)) {
+            define_offset(65,20)
           } else {
             define_offset(105,0)
           }
