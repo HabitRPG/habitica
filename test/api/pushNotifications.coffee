@@ -74,6 +74,7 @@ describe "Push-Notifications", ->
           members.sendGift req, res
 
           setTimeout ->
+            # Allow sendGift to finish
             expect(pushSpy.sendNotify).to.have.been.calledOnce
             expect(pushSpy.sendNotify).to.have.been.calledWith(
               recipient,
@@ -103,7 +104,7 @@ describe "Push-Notifications", ->
           payments.buyGems data
 
           setTimeout ->
-            # Allow sendGift to finish
+            # Allow buyGems to finish
             expect(pushSpy.sendNotify).to.have.been.calledOnce
             expect(pushSpy.sendNotify).to.have.been.calledWith(
               recipient,
