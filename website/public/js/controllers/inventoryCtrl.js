@@ -3,6 +3,9 @@ habitrpg.controller("InventoryCtrl",
   function($rootScope, $scope, Shared, $window, User, Content) {
 
     var user = User.user;
+    //$scope.equipment will be the mutuable instance of $scope.gear
+    $scope.equipment = {};
+    $scope.costume = {};
 
     // convenience vars since these are accessed frequently
 
@@ -20,13 +23,17 @@ habitrpg.controller("InventoryCtrl",
     $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
-      $scope.gear = {};
+      $scope.gear = [];
       _.each(gear.owned, function(v,key){
         if (v === false) return;
         var item = Content.gear.flat[key];
-        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
-        $scope.gear[item.klass].push(item);
-      })
+        $scope.gear.push(item);
+      });
+      //If we haven't grouped yet, group by class
+      if ( _.isEmpty($scope.equipment) ) {
+       $scope.orderByField = "class";
+       $scope.groupEquipmentBy("klass");
+      }
     }, true);
 
     $scope.chooseEgg = function(egg){
@@ -234,6 +241,78 @@ habitrpg.controller("InventoryCtrl",
       return filteredArray;
     };
 
+    $scope.groupEquipmentBy = function(group, costume) {
+
+      var gear = {};
+
+      if (group === "stat") {
+
+        $scope.gear.forEach(function(item, gearIndex, gearArray) {
+          var index = "";
+          var stats = ['int', 'per', 'con', 'str'];
+          var statStrings = [env.t("intelligence"), env.t("perception"), env.t("constitution"), env.t("strength")];
+          stats.forEach(function(stat, statIndex, statArray) {
+            if ( item[stat] > 0 ) {
+              index = statStrings[statIndex];
+              if (!gear[index]) gear[index] = [];
+              gear[index].push(item);
+            }
+          });
+
+          if ( index === "" ) {
+            var index = "Undefined";//Use undefined her to order none last
+            if (!gear[index]) gear[index] = [];
+            gear[index].push(item);
+          }
+        });
+
+      } else if (group === "klass") {
+        $scope.gear.forEach(function(item, index, array) {
+          var index = "";
+          if (item.klass === "special") {
+            if (item.specialClass) {
+              index = env.t(item.specialClass) + " " + env.t(item.klass) ;
+            } else {
+              index = env.t("legendary");
+              //if there are no stats on the item, then we have a Fanciful item
+              if ( item.str == 0 && item.int == 0 && item.per == 0 && item.con == 0 ){
+                index = env.t("fanciful");
+              }
+            }
+            if (!gear[index]) gear[index] = [];
+            gear[index].push(item);
+          } else {
+            index = env.t(item.klass)
+            if (!gear[index]) gear[index] = [];
+            gear[index].push(item);
+          }
+        });
+      } else if (group === "type") {
+        $scope.gear.forEach(function(item, index, array) {
+          //We use the capitalize function here because the strings are not proper cased in the locals
+          var index = "";
+          if (item.type === "shield") {
+            index = $scope.capitalizeFirstLetter(env.t("offhand"));
+          } else if (item.type === "head") {
+            index = $scope.capitalizeFirstLetter(env.t("headgear"));
+          } else {
+            index = $scope.capitalizeFirstLetter(env.t(item.type));
+          }
+          if (!gear[index]) gear[index] = [];
+          gear[index].push(item);
+        });
+      } else {
+        gear = _.groupBy($scope.gear, group);
+      }
+
+      if (costume) {
+        $scope.costume = gear;
+      } else {
+        $scope.equipment = gear;
+      }
+
+    }
+
     $scope.dequip = function(itemSet){
       switch (itemSet) {
         case "battleGear":
@@ -273,5 +352,11 @@ habitrpg.controller("InventoryCtrl",
           break;
       }
     };
+
+    //Helper function to upper case string
+    $scope.capitalizeFirstLetter = function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
   }
 ]);

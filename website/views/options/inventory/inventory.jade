@@ -6,9 +6,17 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         div
           button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
         li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
-            div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+         ul.task-filter
+          li(ng-class='{active: orderByField == "class"}')
+           a(ng-click="orderByField='class'; groupEquipmentBy('klass');")=env.t("class")
+          li(ng-class='{active: orderByField == "type"}')
+           a(ng-click="orderByField='type'; groupEquipmentBy('type');")=env.t("type")
+          li(ng-class='{active: orderByField == "stat"}')
+           a(ng-click="orderByField='stat'; groupEquipmentBy('stat');")=env.t("stat")
+         menu.pets-menu(ng-repeat="(key, group) in equipment")
+          h3 {{(key === "Undefined" ) ? "None" : key}}
+          div(ng-repeat="item in group")
+           button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')  
       .col-md-6
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', popover=env.t('costumeText'))=env.t('costume')
         .checkbox.equipment-title
@@ -19,11 +27,19 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         div
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
-        li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
-            div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
-
+         li.customize-menu(ng-if='user.preferences.costume')
+          ul.task-filter
+           li(ng-class='{active: orderCostumeByField == "class"}')
+            a(ng-click="orderCostumeByField='class'; groupEquipmentBy('klass', 1);")=env.t("class")
+           li(ng-class='{active: orderCostumeByField == "type"}')
+            a(ng-click="orderCostumeByField='type'; groupEquipmentBy('type', 1);")=env.t("type")
+           li(ng-class='{active: orderCostumeByField == "stat"}')
+            a(ng-click="orderCostumeByField='stat'; groupEquipmentBy('stat', 1);")=env.t("stat")
+          menu.pets-menu(ng-repeat="(key, group) in costume")
+           h3 {{(key === "Undefined" ) ? "None" : key}}
+           div(ng-repeat="item in group")
+            button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+       
 script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html')
   .container-fluid
     .stable.row

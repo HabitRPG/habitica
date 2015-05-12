@@ -85,4 +85,67 @@ describe('Inventory Controller', function() {
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
   }));
+
+  describe('gear sorting', function() {
+    var specialWeapon, rogueArmor, wizardWeaponOne;
+
+    beforeEach(function() {
+
+      inject(function(){
+        scope.gear = [];
+        //We should some how grab from the actual data instead of creating fake data. This doesn't test that are data structures are stable
+        specialWeapon = {text: env.t('weaponSpecial0Text'), notes:env.t('weaponSpecial0Notes', {str: 20}), str: 20, value:150, type:"weapon", color:"silver", klass:"none"};
+        rogueArmor = {text: env.t('armorRogue1Text'), notes: env.t('armorRogue1Notes', {per: 6}), per: 6, value:30, color: "brown", type:"armor", klass:"rogue"};
+        wizardWeaponOne = {twoHanded: true, text: env.t('weaponWizard1Text'), notes: env.t('weaponWizard1Notes', {int: 3, per: 1}), int: 3, per: 1, value:30, type:"weapon", klass:"mage", color:"green"};
+        scope.gear.push(specialWeapon);
+        scope.gear.push(rogueArmor);
+        scope.gear.push(wizardWeaponOne);
+      });
+    });
+
+    it('sorts equipment by type', inject(function(){
+      //Equipment Sort
+      scope.groupEquipmentBy('type');
+      expect(scope.equipment).to.eql({"Armor": [rogueArmor], "Weapon": [specialWeapon, wizardWeaponOne]});
+    }));
+
+    it('sorts equipment by color', inject(function(){
+
+      scope.groupEquipmentBy('color');
+      expect(scope.equipment).to.eql({"silver": [specialWeapon],"brown": [rogueArmor], "green": [wizardWeaponOne]});
+     }));
+
+     it('sorts equipment by stat', inject(function(){
+      scope.groupEquipmentBy('stat');
+      expect(scope.equipment).to.eql({"Strength": [specialWeapon],"Perception": [rogueArmor, wizardWeaponOne], "Intelligence": [wizardWeaponOne]});
+     }));
+
+     it('sorts equipment by klass', inject(function(){
+      scope.groupEquipmentBy('klass');
+      expect(scope.equipment).to.eql({"None": [specialWeapon],"Rogue": [rogueArmor], "Mage":[wizardWeaponOne]});
+     }));
+
+     it('sorts costume by type', inject(function(){
+      //Costume Sorts
+      scope.groupEquipmentBy('type', 1);
+      expect(scope.costume).to.eql({Armor: [rogueArmor], "Weapon": [specialWeapon, wizardWeaponOne]});
+     }));
+
+     it('sorts costume by color', inject(function(){
+      scope.groupEquipmentBy('color', 1);
+      expect(scope.costume).to.eql({"silver": [specialWeapon],"brown": [rogueArmor], "green": [wizardWeaponOne]});
+     }));
+
+     it('sorts costume by stat', inject(function(){
+      scope.groupEquipmentBy('stat', 1);
+      expect(scope.costume).to.eql({"Strength": [specialWeapon],"Perception": [rogueArmor, wizardWeaponOne], "Intelligence": [wizardWeaponOne]});
+     }));
+
+     it('sorts costume by klass', inject(function(){
+      scope.groupEquipmentBy('klass', 1);
+      expect(scope.costume).to.eql({"None": [specialWeapon],"Rogue": [rogueArmor], "Mage":[wizardWeaponOne]});
+    }));
+
+   });//End of describe gear sorting
+
 });
