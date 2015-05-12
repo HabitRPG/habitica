@@ -41,7 +41,7 @@ describe "Push-Notifications", ->
 
       it "sends a push notification when invited to a quest"
 
-    context "Gifts", ->
+    context "sending gems from balance", ->
       recipient = null
       members = rewire("../../website/src/controllers/members")
       members.sendMessage = -> true
@@ -57,7 +57,7 @@ describe "Push-Notifications", ->
           done()
         , false
 
-      it "sends a push notification when gifted gems", (done) ->
+      it "sends a push notification", (done) ->
         req = {
           params: { uuid: "uuid" },
           body: {
@@ -80,4 +80,10 @@ describe "Push-Notifications", ->
           done()
         , 100
 
-      it "sends a push notification when gifted a subscription"
+    context "sending gems as a purchased gift", ->
+
+      it "sends a push notification"
+
+    context "sending a subscription as a purchased gift", ->
+
+      it "sends a push notification"
