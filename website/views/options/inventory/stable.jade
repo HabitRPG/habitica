@@ -6,7 +6,7 @@ mixin petList(source)
           each potion in env.Content.hatchingPotions
             - pet = egg.key+"-"+potion.key
             div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
-              button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+              button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && (selectedFood.length > 0) && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                 .progress(ng-show='!user.items.mounts["#{pet}"]')
                   .progress-bar.progress-bar-success(style='width:{{user.items.pets["#{pet}"]/.5}}%')
               button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
@@ -94,5 +94,24 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(popover-append-to-body='true', popover='{{:: Content.food[food].notes()}}', popover-title='{{:: Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                 .badge.badge-info.stack-count {{points}}
+                 span(ng-show="selectedFood.indexOf(Content.food[food]) !== -1")=env.t('selected')
               // Remove this once we have images in
               p {{:: Content.food[food].text()}}
+   
+script(type='text/ng-template', id='partials/options.inventory.pets.feedpet.html')  
+  .modal-header
+    h4
+     =env.t('petFeedModalTitle')
+  .modal-body.select-class
+    div.well
+     =env.t('petFeedOverFeedNotice')
+    .container-flui
+      .row
+       form
+        div(ng-repeat='food in selectedFood')
+         div(class="Pet_Food_{{food.key}}")
+         input(type="number", name="{{food.key}}-quantity", min="1", max="{{user.items.food[food.key]}}", ng-model="amounts[food.key]", ng-init="amounts[food.key]='1'", ng-value="1" )
+        
+  .modal-footer
+    button.btn.btn-sm.btn-warning(ng-click='cancel(); $close()')=env.t('cancel')
+    button.btn.btn-primary(ng-click='feedPet(); $close()')=env.t('petFeedConfirm')
