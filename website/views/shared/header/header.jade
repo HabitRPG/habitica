@@ -32,6 +32,9 @@
 
     // party
     span(ng-controller='PartyCtrl')
-      button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)", ng-if="(party.members.length === 1) && user.preferences.displayInviteToPartyWhenPartyIs1")=env.t("inviteFriends")
+      button.party-invite.pull-right.btn.btn-primary(ng-click="inviteOrStartParty(group)", ng-if="(!party.members) && user.preferences.displayInviteToPartyWhenPartyIs1", popover=env.t("startAParty"), popover-placement="top", popover-trigger="mouseenter")
+        span.glyphicon.glyphicon-plus
+      button.party-invite.pull-right.btn.btn-primary(ng-click="inviteOrStartParty(group)", ng-if="(party.members.length === 1) && user.preferences.displayInviteToPartyWhenPartyIs1", popover=env.t("addToParty"), popover-placement="top", popover-trigger="mouseenter")
+        span.glyphicon.glyphicon-plus
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         +herobox()
