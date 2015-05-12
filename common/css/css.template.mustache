@@ -5,6 +5,16 @@
   width: {{px.width}};
   height: {{px.height}};
 }
+{{#mount}}
+.{{name}}-centered {
+  background-image: url({{{escaped_image}}});
+  background-position: {{px.offset_x}} {{px.offset_y}};
+  width: {{mount.width}};
+  height: {{px.height}};
+  margin-left: {{mount.margin}};
+  margin-right: {{mount.margin}};
+}
+{{/mount}}
 {{#custom}}
 .customize-option.{{name}} {
   background-image: url({{{escaped_image}}});
