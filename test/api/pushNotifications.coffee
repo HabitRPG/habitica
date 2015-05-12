@@ -81,7 +81,7 @@ describe "Push-Notifications", ->
               '1 Gems - by ' + user.profile.name
             )
             done()
-          , 2000
+          , 100
 
       context "sending gems as a purchased gift", ->
         membersMock = { sendMessage: -> true }
