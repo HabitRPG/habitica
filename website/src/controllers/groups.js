@@ -147,15 +147,15 @@ api.get = function(req, res, next) {
     var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
     //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
     if (group.privacy === 'private' || gid === 'party') {
-      //If the user is not in the group query, add them
-      if (!userInGroup) { group.members.push(user); }
+      //If the user is not in the group query, remove a user and add the current user
+      if (!userInGroup) { group.members.pop().push(user); }
       res.json(group);
     } else if ( group.privacy === "public" ) { //The group is public, we must do an extra check to see if the user is already in the group query
       //We must see how to check if a user is a member of a public group, so we requery
       var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
       q2.exec(function(err, group2){
         if (err) return next(err);
-        if (group2 && !userInGroup) { group.members.push(user); }
+        if (group2 && !userInGroup) { group.members.pop().push(user); }
         res.json(group);
       });
     }
