@@ -4,6 +4,8 @@ app = require("../../website/src/server")
 rewire = require('rewire')
 sinon = require('sinon')
 
+pushSpy = null
+
 describe "Push-Notifications", ->
   before (done) ->
     registerNewUser(done, true)
@@ -41,11 +43,11 @@ describe "Push-Notifications", ->
 
       it "sends a push notification when invited to a quest"
 
-    context "sending gems from balance", ->
-      recipient = null
+    describe "Gifts", ->
       members = rewire("../../website/src/controllers/members")
       members.sendMessage = -> true
-      members.__set__('pushNotify', pushSpy)
+
+      recipient = null
 
       before (done) ->
         registerNewUser (err, _user) ->
@@ -53,37 +55,69 @@ describe "Push-Notifications", ->
           user.balance = 4
           user.save = -> return true
           recipient.save = -> return true
-          members.__set__ 'fetchMember', (id) -> return (cb) -> cb(null, recipient)
+          members.__set__ 'fetchMember', (id) ->
+            return (cb) -> cb(null, recipient)
           done()
         , false
 
-      it "sends a push notification", (done) ->
-        req = {
-          params: { uuid: "uuid" },
-          body: {
-            type: 'gems',
-            gems: { amount: 1 }
+      context "sending gems from balance", ->
+        pushSpy = { sendNotify: sinon.spy() }
+        members.__set__('pushNotify', pushSpy)
+
+        it "sends a push notification", (done) ->
+          req = {
+            params: { uuid: "uuid" },
+            body: {
+              type: 'gems',
+              gems: { amount: 1 }
+            }
           }
-        }
-        res = { locals: { user: user } }
+          res = { locals: { user: user } }
 
-        members.sendGift req, res
+          members.sendGift req, res
 
-        setTimeout ->
-          # Allow sendGift to finish
-          expect(pushSpy.sendNotify).to.have.been.calledOnce
-          expect(pushSpy.sendNotify).to.have.been.calledWith(
-            recipient,
-            'Gifted Gems',
-            '1 Gems - by ' + user.profile.name
-          )
-          done()
-        , 100
+          setTimeout ->
+            # Allow sendGift to finish
+            expect(pushSpy.sendNotify).to.have.been.calledOnce
+            expect(pushSpy.sendNotify).to.have.been.calledWith(
+              recipient,
+              'Gifted Gems',
+              '1 Gems - by ' + user.profile.name
+            )
+            done()
+          , 100
 
-    context "sending gems as a purchased gift", ->
+      context "sending gems as a purchased gift", ->
+        pushSpy = { sendNotify: sinon.spy() }
 
-      it "sends a push notification"
+        payments = rewire("../../website/src/controllers/payments")
+        payments.__set__('pushNotify', pushSpy)
+        payments.__set__('members', members)
 
-    context "sending a subscription as a purchased gift", ->
+        it "sends a push notification", (done) ->
+          data = {
+            user: user,
+            gift: {
+              member: recipient,
+              gems: { amount: 1 }
+            }
+          }
 
-      it "sends a push notification"
+          payments.buyGems data, (d) ->
+            d()
+
+            setTimeout ->
+              # Allow sendGift to finish
+              expect(pushSpy.sendNotify).to.have.been.calledOnce
+              expect(pushSpy.sendNotify).to.have.been.calledWith(
+                recipient,
+                'Gifted Gems',
+                '1 Gems - by ' + user.profile.name
+              )
+
+              done()
+            , 100
+
+      context "sending a subscription as a purchased gift", ->
+
+        it "sends a push notification"
