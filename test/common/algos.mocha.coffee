@@ -396,7 +396,7 @@ describe 'User', ->
       user = newUser()
       user.ops.purchase {params: {type: 'eggs', key: 'Cactus'}}
       user.ops.purchase {params: {type: 'gear', key: 'headAccessory_special_foxEars'}}
-      user.ops.unlock {params: {path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars'}}
+      user.ops.unlock {query: {path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars'}}
       expect(user.items.eggs).to.eql {}
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: true }
 
@@ -417,7 +417,7 @@ describe 'User', ->
     it 'unlocks all the animal ears at once', ->
       user = newUser()
       user.balance = 2
-      user.ops.unlock {params: {path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars'}}
+      user.ops.unlock {query: {path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars'}}
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, headAccessory_special_bearEars: true, headAccessory_special_cactusEars: true, headAccessory_special_foxEars: true, headAccessory_special_lionEars: true, headAccessory_special_pandaEars: true, headAccessory_special_pigEars: true, headAccessory_special_tigerEars: true, headAccessory_special_wolfEars: true}
       expect(user.balance).to.eql 0.75
 
