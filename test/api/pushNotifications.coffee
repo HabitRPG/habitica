@@ -24,6 +24,11 @@ describe "Push-Notifications", ->
           done()
 
   describe "Events that send push notifications", ->
+    pushSpy = { sendNotify: sinon.spy() }
+
+    afterEach (done) ->
+      pushSpy.sendNotify.reset()
+      done()
 
     context "Challenges", ->
 
@@ -73,8 +78,7 @@ describe "Push-Notifications", ->
 
           members.sendGift req, res
 
-          setTimeout ->
-            # Allow sendGift to finish
+          setTimeout -> # Allow sendGift to finish
             expect(pushSpy.sendNotify).to.have.been.calledOnce
             expect(pushSpy.sendNotify).to.have.been.calledWith(
               recipient,
@@ -84,37 +88,55 @@ describe "Push-Notifications", ->
             done()
           , 100
 
-      context "sending gems as a purchased gift", ->
-        membersMock = { sendMessage: -> true }
-        pushSpy = { sendNotify: sinon.spy() }
+      describe "Purchases", ->
 
         payments = rewire("../../website/src/controllers/payments")
+
         payments.__set__('pushNotify', pushSpy)
+        membersMock = { sendMessage: -> true }
         payments.__set__('members', membersMock)
 
-        it "sends a push notification", (done) ->
-          data = {
-            user: user,
-            gift: {
-              member: recipient,
-              gems: { amount: 1 }
+        context "buying gems as a purchased gift", ->
+
+          it "sends a push notification", (done) ->
+            data = {
+              user: user,
+              gift: {
+                member: recipient,
+                gems: { amount: 1 }
+              }
             }
-          }
 
-          payments.buyGems data
+            payments.buyGems data
 
-          setTimeout ->
-            # Allow buyGems to finish
-            expect(pushSpy.sendNotify).to.have.been.calledOnce
-            expect(pushSpy.sendNotify).to.have.been.calledWith(
-              recipient,
-              'Gifted Gems',
-              '1 Gems - by ' + user.profile.name
-            )
+            setTimeout -> # Allow buyGems to finish
+              expect(pushSpy.sendNotify).to.have.been.calledOnce
+              expect(pushSpy.sendNotify).to.have.been.calledWith(
+                recipient,
+                'Gifted Gems',
+                '1 Gems - by ' + user.profile.name
+              )
 
-            done()
-          , 100
+              done()
+            , 100
 
-      context "sending a subscription as a purchased gift", ->
+          it "does not send a push notification if buying gems for self", (done) ->
+            data = {
+              user: user,
+              gift: {
+                member: user
+                gems: { amount: 1 }
+              }
+            }
 
-        it "sends a push notification"
+            payments.buyGems data
+
+            setTimeout -> # Allow buyGems to finish
+              expect(pushSpy.sendNotify).to.not.have.been.called
+
+              done()
+            , 100
+
+        context "sending a subscription as a purchased gift", ->
+
+          it "sends a push notification"
