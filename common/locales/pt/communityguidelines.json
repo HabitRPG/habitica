@@ -87,7 +87,7 @@
     "commGuidePara018": "Os Administradores da Wiki Aposentados são",
     "commGuideHeadingInfractionsEtc": "Infrações, Consequências e Restauração",
     "commGuideHeadingInfractions": "Infrações",
-    "commGuidePara050": "Em sua imensa maioria, Habiticanos auxiliam uns aos outros, são respeitosos, e trabalham para manter toda a comunidade divertida e amigável. Contudo, de vez em quando, algo que um Habiticano faz viola uma das diretrizes acima. Quando isso ocorre, os Mods tomarão as medidas que considerarem necessária para manter Habitica segura e confortável para todos.",
+    "commGuidePara050": "Em sua imensa maioria, Habiticanos auxiliam uns aos outros, são respeitosos, e trabalham para manter toda a comunidade divertida e amigável. Contudo, de vez em quando, algo que um Habiticano faz pode violar uma das diretrizes acima. Quando isso ocorre, os Mods tomarão as medidas que considerarem necessárias para manter Habitica segura e confortável para todos.",
     "commGuidePara051": "<strong>Há uma variedade de infrações, e elas são tratadas de acordo com sua severidade. </strong> Estas listas não são conclusivas e Mods possuem certa discrição. Os Mods levarão contexto em consideração ao avaliar infrações.",
     "commGuideHeadingSevereInfractions": "Infrações Severas",
     "commGuidePara052": "Infrações Severas causam grande dano à segurança da comunidade de Habitica e seus usuários e, portanto, tem consequências severas.",
@@ -96,7 +96,7 @@
     "commGuideList05B": "Discurso de Ódio/Imagens, Assédio/Perseguição, Cyber-Bullying, Discussões Inflamadas, e \"Trolling\"",
     "commGuideList05C": "Violação da Condicional",
     "commGuideList05D": "Se passar por Equipe ou Moderadores",
-    "commGuideList05E": "Infrações Moderadas repetidas",
+    "commGuideList05E": "Repetidas Infrações Moderadas",
     "commGuideList05F": "Criar uma segunda conta para evitar as consequências (por exemplo, fazer uma nova conta para entrar no chat depois de ter seu privilégio de entrar no chat revogado)",
     "commGuideHeadingModerateInfractions": "Infrações Moderadas",
     "commGuidePara054": "Infrações moderadas não tornam nossa comunidade perigosa, mas a tornam desagradável. Essas infrações terão consequências moderadas. Quando em conjunto com múltiplas infrações, as consequências podem ter sua severidade aumentada.",
@@ -173,5 +173,6 @@
     "commGuideLink07": "O Trello de Artes",
     "commGuideLink07description": "para enviar arte pixelada.",
     "commGuideLink08": "O Trello de Missões",
-    "commGuideLink08description": "para enviar roteiros de missões."
+    "commGuideLink08description": "para enviar roteiros de missões.",
+    "lastUpdated": "Last updated"
 }

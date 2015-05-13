@@ -96,5 +96,10 @@
     "abuseReported": "Děkujeme za nahlášení tohoto příspěvku. Moderátoři byli upozorněni.",
     "abuseAlreadyReported": "Již jsi tento příspěvek nahlásil.",
     "needsText": "Prosím, napiš zprávu.",
-    "needsTextPlaceholder": "Napiš svou zprávu sem."
+    "needsTextPlaceholder": "Napiš svou zprávu sem.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

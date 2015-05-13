@@ -97,7 +97,7 @@
     "invitedParty": "パーティへ招待されました",
     "invitedGuild": "ギルドへ招待されました",
     "inactivityEmails": "あなたのアカウントは非アクティブです",
-    "weeklyRecaps": "ここ一週間のあなたのアカウントの活動の概要",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "あなたのクエストが始まりました",
     "invitedQuest": "クエストへ招待されました",
     "kickedGroup": "グループから追い出されました",
@@ -112,5 +112,10 @@
     "benefits": "便益",
     "coupon": "クーポン",
     "couponPlaceholder": "クーポンコードを入力してください",
-    "couponText": "我々は時々イベントを開催し、特殊装備(たとえばWonderconブースでとめられるような)のクーコンコードを配布します。"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

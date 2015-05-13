@@ -30,7 +30,7 @@
     "spellHealerProtectAuraText": "Ochranná aura",
     "spellHealerProtectAuraNotes": "Chráníš svou družinu před újmou. Celá tvá družina získá bonus k Obraně! (vypočteno na základě: OBR před bonusem)",
     "spellHealerHealAllText": "Požehnání",
-    "spellHealerHealAllNotes": "Obklopuje tě ukliďnující aura. Celá tvá družina obnovuje své zdraví! (vypočteno na základě: OBR a INT)",
+    "spellHealerHealAllNotes": "Obklopuje tě uklidňující aura. Celé tvé družině se obnoví zdraví! (vypočteno na základě: OBR a INT)",
     "spellSpecialSnowballAuraText": "Sněhová koule",
     "spellSpecialSnowballAuraNotes": "Hoď sněhovou koulí po členu družiny, co by se tak mohlo stát? Vydrží mu až do druhého dne.",
     "spellSpecialSaltText": "Sůl",

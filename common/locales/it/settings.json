@@ -41,7 +41,7 @@
     "json": "(JSON)",
     "customDayStart": "Data di inizio giorno personalizzata",
     "24HrClock": "orologio 24h",
-    "customDayStartInfo1": "HabitRPG è impostato automaticamente per resettare le tue Daily a mezzanotte nel tuo fuso orario ogni giorno. Ti consigliamo di leggere le seguenti informazioni prima di apportare modifiche:",
+    "customDayStartInfo1": "HabitRPG è impostato automaticamente per resettare le tue Daily a mezzanotte nel tuo fuso orario ogni giorno. Ti consigliamo di leggere le seguenti informazioni prima di apportare modifiche: ",
     "customDayStartInfo2": "(mostra di più)",
     "customDayStartInfo3": "(mostra di meno)",
     "customDayStartInfo4": "<strong>Completa tutte le tue Daily prima di modificare il tuo Inizio del Giorno Personalizzato</strong> o <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Riposa alla Locanda</a> per quel giorno. Cambiare il tuo Inizio del Giorno Personalizzato può causare l'avvento immediato del <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a>, ma dopo il primo giorno funziona come previsto.<br><br><strong>Ci possono volere circa due ore perchè il cambiamento diventi effettivo.</strong> Ad esempio, se è impostato a 0 (mezzanotte) al momento, cambialo prima delle 22; se vuoi impostarlo alle 21, cambialo prima delle 19.<br><br>Inserisci un orario da 0 a 23 (viene utilizzato l'orologio a 24 ore). Digitare è più efficace di premere le frecce. Una volta impostato, ricarica la pagina per assicurarti che il nuovo valore venga visualizzato.",
@@ -97,7 +97,7 @@
     "invitedParty": "Invitato in una squadra",
     "invitedGuild": "Invitato in una Gilda",
     "inactivityEmails": "Il tuo account è inattivo",
-    "weeklyRecaps": "Sommario dell'attività del tuo accaunt nell'ultima settimana",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "La tua missione è cominciata",
     "invitedQuest": "Invito ad unirti ad una missione",
     "kickedGroup": "Espulsione da un gruppo",
@@ -112,5 +112,10 @@
     "benefits": "Vantaggi",
     "coupon": "Coupon",
     "couponPlaceholder": "Inserisci codice coupon",
-    "couponText": "A volte organizziamo degli eventi e distribuiamo dei codici coupon per degli oggetti speciali. (per esempio a chi passa a trovarci al Wondercon)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

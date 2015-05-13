@@ -96,5 +96,10 @@
     "abuseReported": "違反報告ありがとうございます。モデレータに通知されます。",
     "abuseAlreadyReported": "このメッセージは報告済みです。",
     "needsText": "メッセージを入力してください。",
-    "needsTextPlaceholder": "ここにメッセージを入力してください。"
+    "needsTextPlaceholder": "ここにメッセージを入力してください。",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

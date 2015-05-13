@@ -96,5 +96,10 @@
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
     "abuseAlreadyReported": "Du har redan anmält det här meddelandet.",
     "needsText": "Var god skriv ett meddelande.",
-    "needsTextPlaceholder": "Skriv ditt meddelande här."
+    "needsTextPlaceholder": "Skriv ditt meddelande här.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

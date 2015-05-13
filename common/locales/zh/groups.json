@@ -96,5 +96,10 @@
     "abuseReported": "感谢您报告此违反服务条款的行为。版主已经接到通知。",
     "abuseAlreadyReported": "你已经举报过此信息。",
     "needsText": "请输入一个信息",
-    "needsTextPlaceholder": "请在这里输入一个信息"
+    "needsTextPlaceholder": "请在这里输入一个信息",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

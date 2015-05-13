@@ -112,5 +112,10 @@
     "benefits": "Benefits",
     "coupon": "Coupon",
     "couponPlaceholder": "Enter Coupon Code",
-    "couponText": "We sometimes have events and give out coupon codes for special gear (e.g., those who stop by our Wondercon booth)."
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

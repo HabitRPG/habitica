@@ -4,7 +4,7 @@
     "subDescription": "Disattiva le pubblicità, compra le gemme con l'oro, un oggetto misterioso ogni mese, cronologia completa delle attività, limite drop giornaliero di oggetti raddoppiato, supporta gli sviluppatori. Clicca per avere maggiori informazioni.",
     "disableAds": "Disattiva pubblicità",
     "disableAdsText": "Le pubblicità non compariranno solo mentre avrai un abbonamento attivo (gli utenti originali che le hanno già disattivate sono esclusi)",
-    "buyGemsGold": "Acquista Gemme con usando l'oro",
+    "buyGemsGold": "Acquista Gemme usando l'oro",
     "buyGemsGoldText": "(1 Gemma costa <%= gemCost %> Oro) Pone fine alle preoccupazioni causate dal concetto \"pay to win\", poichè ogni cosa ora è ottenibile attraverso il duro lavoro. C'è un limite di <%= gemLimit %> Gemme convertibili mensilmente, per prevenire il cosiddetto \"farming\".",
     "retainHistory": "Conserva tutte le voci della cronologia",
     "retainHistoryText": "Rende la cronologia completa delle tue attività disponibile in grafici e per l'esportazione. La cronologia dei non-abbonati viene consolidata per ottimizzare il database.",

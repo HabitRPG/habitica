@@ -96,5 +96,10 @@
     "abuseReported": "Спасибо, что сообщили об этом нарушении. Модераторы уведомлены.",
     "abuseAlreadyReported": "Вы уже сообщали об этом нарушении.",
     "needsText": "Пожалуйста введите сообщение.",
-    "needsTextPlaceholder": "Напечатайте сообщение здесь."
+    "needsTextPlaceholder": "Напечатайте сообщение здесь.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

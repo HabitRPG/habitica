@@ -96,5 +96,10 @@
     "abuseReported": "Dank je voor het melden van deze overtreding. De beheerders zijn op de hoogte gesteld.",
     "abuseAlreadyReported": "Je hebt dit bericht al gemeld.",
     "needsText": "Typ een bericht.",
-    "needsTextPlaceholder": "Typ hier je bericht."
+    "needsTextPlaceholder": "Typ hier je bericht.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

@@ -1,6 +1,6 @@
 {
     "tavern": "פונדק",
-    "innCheckOut": "צא/י מהפונדק",
+    "innCheckOut": "צא מהפונדק",
     "innCheckIn": "נוח/י בפונדק",
     "innText": "איך הולכת השהייה בפונדק, <%= name %>? כדי להגן עלייך, רשימת המטלות היומיות שלך הוקפאה, כל הסימונים שלך לא יעובדו עד מחר (היום אחרי שתצא/י מהפונדק). אבל זהירות! אם החבורה שלך נלחמת במפלצת, הפספוסים שלהם יפגעו גם בך! בנוסף, מן הסתם, לא ייגרם נזק לבוס מהמטלות שלך. היה לך מספיק? ניתן לעזוב מתי שרוצים.",
     "lfgPosts": "מודעות מחפשי קבוצה",
@@ -96,5 +96,10 @@
     "abuseReported": "תודה שדיווחת על ההפרה הזו, אנו ניידע את העורכים אודות העניין.",
     "abuseAlreadyReported": "כבר דיווחת על ההודעה הזו.",
     "needsText": "Please type a message.",
-    "needsTextPlaceholder": "Type your message here."
+    "needsTextPlaceholder": "Type your message here.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

@@ -96,5 +96,10 @@
     "abuseReported": "感謝您舉報這起違規事件。管理員將會被告知。",
     "abuseAlreadyReported": "您已經舉報過此留言訊息。",
     "needsText": "請輸入訊息",
-    "needsTextPlaceholder": "在這裡輸入你的訊息"
+    "needsTextPlaceholder": "在這裡輸入你的訊息",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

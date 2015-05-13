@@ -97,7 +97,7 @@
     "invitedParty": "队伍邀请",
     "invitedGuild": "公会邀请",
     "inactivityEmails": "你的账号处于失效状态",
-    "weeklyRecaps": "Summaries of your acccount activity in the past week",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "你的任务已经开始",
     "invitedQuest": "任务邀请",
     "kickedGroup": "从小组踢出",
@@ -112,5 +112,10 @@
     "benefits": "好处",
     "coupon": "优惠券",
     "couponPlaceholder": "输入优惠券代码",
-    "couponText": "我们会不定期举行活动，对特定的装备提供优惠券代码。(例如那些停留在我们wondercon大会摊位上的人)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

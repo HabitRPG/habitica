@@ -54,7 +54,7 @@
     "questEggRockAdjective": "živý",
     "questEggBunnyText": "Králíček",
     "questEggBunnyAdjective": "přítulný",
-    "questEggSlimeText": "Marshmallow sliz",
+    "questEggSlimeText": "Marshmallow želé",
     "questEggSlimeAdjective": "sladký",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a to se vylíhne v  <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základní",

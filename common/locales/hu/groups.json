@@ -96,5 +96,10 @@
     "abuseReported": "Köszönjük ennek a megsértésnek a jelentését, értesítettük a moderátorokat.",
     "abuseAlreadyReported": "Már jelentetted ezt az üzenetet.",
     "needsText": "Kérlek, írj egy üzenetet.",
-    "needsTextPlaceholder": "Ide írd az üzeneted."
+    "needsTextPlaceholder": "Ide írd az üzeneted.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }
