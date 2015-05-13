@@ -4,6 +4,7 @@ mixin gemCost(cost)
     = ' ' + env.t('locked')
     block
 
+-var gearGroup = function(grouping) { return env._(env.Content.gear.flat).where({gearSet:grouping}).pluck('key') }
 -var showPath = function(path, items, joiner) { return path+'["'+items.join('"] '+joiner+' '+path+'["')+'"]'; }
 -var unlockPath = function(path, items) { return 'unlock("'+path+'.'+items.join(','+path+'.')+'")'; }
 
@@ -45,6 +46,15 @@ mixin customizeProfile(mobile)
             each shirt in specialShirts
               button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
 
+      h3(class=mobile?'item item-divider':'')=env.t('accessories')
+
+      menu(type='list')
+        li.customize-menu
+          menu(label=env.t('animalEars'))
+          span(ng-hide='#{showPath("user.items.gear.owned", gearGroup("animal"), "&&")}')
+            +gemCost(2)
+              button.btn.btn-xs(ng-click='#{unlockPath("items.gear.owned", gearGroup("animal"))}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.customize-option(ng-repeat='item in ::getGearArray("animal")' ng-class="{locked: user.items.gear.owned[item.key] == undefined}", popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
 
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
@@ -132,11 +142,12 @@ mixin customizeProfile(mobile)
               each color in ['ddc994','f5a76e','ea8349','c06534','98461a','915533','c3e1dc','6bd049']
                 button.customize-option(type='button', class='skin_#{color}', ng-click='set({"preferences.skin":"#{color}"})')
 
-          // Rainbow Skin
+          // Always-available premium skins
           +buyPref('skin', ['eb052b','f69922','f5d70f','0ff591','2b43f6','d7a9f7','800ed0','rainbow'], 'rainbowSkins')
-          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
+          +buyPref('skin', ['bear','cactus','fox','lion','panda','pig','tiger','wolf'], 'animalSkins')
 
-          // Special Events
+          // Seasonal event skins. Note that Spooky Skins are a legacy set and should always be disabled for purchase
+          +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
 

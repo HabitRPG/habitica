@@ -745,12 +745,12 @@ api.wrap = (user, main=true) ->
         if type is 'gear'
           item = content.gear.flat[key]
           return cb?({code:401, message: i18n.t('alreadyHave', req.language)}) if user.items.gear.owned[key]
-          price = (if item.twoHanded then 2 else 1) / 4
+          price = (if item.twoHanded or item.gearSet is 'animal' then 2 else 1) / 4
         else
           item = content[type][key]
           price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < price
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
         user.balance -= price
         if type is 'gear' then user.items.gear.owned[key] = true
         else
@@ -892,9 +892,12 @@ api.wrap = (user, main=true) ->
           else
             if fullSet then 1.25 else 0.5
         alreadyOwns = !fullSet and user.fns.dotGet("purchased." + path) is true
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < cost and !alreadyOwns
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < cost or !user.balance) and !alreadyOwns
         if fullSet
           _.each path.split(","), (p) ->
+            if ~path.indexOf('gear.')
+              user.fns.dotSet("#{p}", true);true
+            else
             user.fns.dotSet("purchased.#{p}", true);true
         else
           if alreadyOwns
@@ -904,8 +907,8 @@ api.wrap = (user, main=true) ->
             return cb? null, req
           user.fns.dotSet "purchased." + path, true
         user.balance -= cost
-        user.markModified? 'purchased'
-        cb? null, _.pick(user,$w 'purchased preferences')
+        if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
+        cb? null, _.pick(user,$w 'purchased preferences items')
         ga?.event('behavior', 'gems', path).send()
 
       # ------
@@ -1499,13 +1502,17 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. On cron, buffs are cleared and all dailies are reset without performing damage (fixes issue #5070)
+      # User is resting at the inn. 
+      # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
-        # @TODO: uncomment when new dailies behavior goes live, per https://github.com/HabitRPG/habitrpg/pull/5073#issuecomment-98436542
-        # user.dailys.forEach (daily) ->
-        #   daily.completed = false
-        #   _.each daily.checklist, ((i)->i.completed=false;true)
+        user.dailys.forEach (daily) ->
+          {completed, repeat} = daily
+          thatDay = moment(now).subtract({days: 1})
+
+          if api.shouldDo(thatDay, repeat, user.preferences) || completed
+            _.each daily.checklist, ((box)->box.completed=false;true)
+          daily.completed = false
         return
 
       # Tally each task

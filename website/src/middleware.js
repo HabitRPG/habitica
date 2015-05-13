@@ -198,7 +198,8 @@ module.exports.locals = function(req, res, next) {
     Content: shared.content,
     mods: require('./models/user').mods,
     tavern: tavern, // for world boss
-    worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {}
+    worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
+    _: _
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)
