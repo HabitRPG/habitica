@@ -70,7 +70,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               span(ng-if='!list.bulk')=env.t('addmultiple')
               span(ng-if='list.bulk')=env.t('addsingle')
 
-          div.dailiesRestingInInn(ng-if='::list.type == "daily" && user.preferences.sleep')=env.t('dailiesRestingInInn')
+          alert.alert-warning.dailiesRestingInInn(ng-if='::list.type == "daily" && user.preferences.sleep')
+            i.glyphicon.glyphicon-warning-sign &nbsp;
+            =env.t('dailiesRestingInInn')
 
           mixin taskColumnTabs(position)
             // Habits Tabs
