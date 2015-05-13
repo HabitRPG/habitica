@@ -57,25 +57,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    git_changelog: {
-        minimal: {
-            options: {
-                repo_url: 'https://github.com/habitrpg/habitrpg',
-                appName : 'HabitRPG',
-                branch_name: 'develop'
-            }
-        },
-        extended: {
-            options: {
-                file: 'EXTENDEDCHANGELOG.md',
-                repo_url: 'https://github.com/habitrpg/habitrpg',
-                appName : 'HabitRPG',
-                branch_name: 'develop',
-                grep_commits: '^perf|^style|^fix|^feat|^docs|^refactor|^chore|BREAKING'
-            }
-        }
-    },
-
     karma: {
       unit: {
         configFile: 'karma.conf.js'
@@ -271,6 +252,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('git-changelog');
 
 };

@@ -1,7 +1,7 @@
 {
     "clearCompleted": "נקה מטלות שבוצעו",
-    "lotOfToDos": "משימות שהושלמו נשלחות לארכיון באופן אוטומטי בתום 3 ימים. ניתן למצוא אותן בהגדרות > ייצוא נתונים.",
-    "deleteToDosExplanation": "לחיצה על הכפתור למטה תמחק לצמיתות את כל המטרות הגמורות והמטרות הגנוזות שלך. חשוב לייצא אותן קודם אם היית רוצה לשמור תיעוד שלהם",
+    "lotOfToDos": "מטרות שהושלמו נשלחות לארכיון באופן אוטומטי בתום 3 ימים. ניתן למצוא אותן בהגדרות > ייצוא נתונים.",
+    "deleteToDosExplanation": "לחיצה על הכפתור למטה תמחק לצמיתות את כל המטרות הגנוזות שלך שהושלמו. ייצא אותן קודם לכן, אם היית רוצה לשמור תיעוד שלהן.",
     "beeminderDeleteWarning": "למשתמשי בימיינדר, <strong>ראשית</strong> קראו <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">איך למחוק משימות שהושלמו בלי לבלבל את בימיינדר</a>!",
     "addmultiple": "הוסף כמה",
     "addsingle": "הוסף יחיד",
@@ -33,13 +33,13 @@
     "progress": "התקדמות",
     "dailies": "מטלות",
     "newDaily": "מטלה חדשה",
-    "newDailyBulk": "מטלות יומיות חדשים (אחת לשורה)",
+    "newDailyBulk": "מטלות יומיות חדשות (אחת לשורה)",
     "streakCounter": "מד התמדה",
     "repeat": "חזור שנית",
     "restoreStreak": "שחזר רצף",
     "todos": "מטרות",
     "newTodo": "משימה חדשה",
-    "newTodoBulk": "מטלות חדשות (אחת לשורה)",
+    "newTodoBulk": "מטרות חדשות (אחת לשורה)",
     "dueDate": "תאריך השלמה",
     "remaining": "פעיל",
     "complete": "הושלם",
@@ -50,7 +50,7 @@
     "rewards": "פרסים",
     "ingamerewards": "ציוד ומיומנויות",
     "gold": "זהב",
-    "silver": "כסף (100 כסף = זהב 1)",
+    "silver": "כסף (100 כסף = 1 זהב)",
     "newReward": "פרס חדש",
     "newRewardBulk": "פרסים חדשים (אחד לשורה)",
     "price": "מחיר",
@@ -77,5 +77,5 @@
     "streakCoins": "בונוס התמדה!",
     "pushTaskToTop": "דחיפת המשימה למעלה",
     "pushTaskToBottom": "דחיפת המשימה לתחתית",
-    "emptyTask": "ראשית הקלד את שם המטלה."
+    "emptyTask": "התחל בהקלדת שם המטלה."
 }

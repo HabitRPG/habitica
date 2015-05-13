@@ -28,7 +28,7 @@
     "questOwnerNotInRunningQuest": "El organizador de la misión ha abandonado la misión. Si necesitas abortar la misión, puedes hacerlo. También puedes dejarla activa y los participantes restantes recibirán las recompensas al concluir la misión.",
     "questOwnerNotInPendingQuestParty": "El organizador de la misión ha dejado el equipo y no puede comenzar la misión. Se recomienda cancelarla ahora. El pergamino de misión será regresado al organizador.",
     "questOwnerNotInRunningQuestParty": "El organizador de la misión ha dejado el equipo. Si necesitas abortar la misión, puedes hacerlo. También puedes dejarla activa y los participantes restantes recibirán las recompensas al concluir la misión.",
-    "questParticipants": "Participants",
+    "questParticipants": "Participantes",
     "scrolls": "Pergaminos de misión",
     "noScrolls": "No tienes ningún pergamino de misión",
     "scrollsText1": "Las misiones requieren de un equipo. Si quieres ir solo a una misión,",
