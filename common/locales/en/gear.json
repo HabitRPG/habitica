@@ -529,6 +529,8 @@
   "bodySpecialSummerHealerNotes": "A stylish collar of live coral! Confers no benefit. Limited Edition 2014 Summer Gear.",
 
   "headAccessory": "head accessory",
+  "accessories": "Accessories",
+  "animalEars": "Animal Ears",
 
   "headAccessoryBase0Text": "No Head Accessory",
   "headAccessoryBase0Notes": "No Head Accessory.",
@@ -550,7 +552,24 @@
   "headAccessorySpecialSpring2015MageNotes": "These ears listen keenly, in case somewhere a magician is revealing secrets. Confers no benefit. Limited Edition 2015 Spring Gear.",
   "headAccessorySpecialSpring2015HealerText": "Green Kitty Ears",
   "headAccessorySpecialSpring2015HealerNotes": "These cute kitty ears will make others green with envy. Confers no benefit. Limited Edition 2015 Spring Gear.",
-  
+
+  "headAccessoryBearEarsText": "Bear Ears",
+  "headAccessoryBearEarsNotes": "These ears make you look like a cuddly bear! Confers no benefit.",
+  "headAccessoryCactusEarsText": "Cactus Ears",
+  "headAccessoryCactusEarsNotes": "These ears make you look like a prickly cactus! Confers no benefit.",
+  "headAccessoryFoxEarsText": "Fox Ears",
+  "headAccessoryFoxEarsNotes": "These ears make you look like a wily fox! Confers no benefit.",
+  "headAccessoryLionEarsText": "Lion Ears",
+  "headAccessoryLionEarsNotes": "These ears make you look like a regal lion! Confers no benefit.",
+  "headAccessoryPandaEarsText": "Panda Ears",
+  "headAccessoryPandaEarsNotes": "These ears make you look like a gentle panda! Confers no benefit.",
+  "headAccessoryPigEarsText": "Pig Ears",
+  "headAccessoryPigEarsNotes": "These ears make you look like a whimsical pig! Confers no benefit.",
+  "headAccessoryTigerEarsText": "Tiger Ears",
+  "headAccessoryTigerEarsNotes": "These ears make you look like a fierce tiger! Confers no benefit.",
+  "headAccessoryWolfEarsText": "Wolf Ears",
+  "headAccessoryWolfEarsNotes": "These ears make you look like a loyal wolf! Confers no benefit.",
+
   "headAccessoryMystery201403Text": "Forest Walker Antlers",
   "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen. Confers no benefit. March 2014 Subscriber Item.",
   "headAccessoryMystery201404Text": "Twilight Butterfly Antennae",

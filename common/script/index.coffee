@@ -745,7 +745,7 @@ api.wrap = (user, main=true) ->
         if type is 'gear'
           item = content.gear.flat[key]
           return cb?({code:401, message: i18n.t('alreadyHave', req.language)}) if user.items.gear.owned[key]
-          price = (if item.twoHanded then 2 else 1) / 4
+          price = (if item.twoHanded or item.gearSet is 'animal' then 2 else 1) / 4
         else
           item = content[type][key]
           price = item.value / 4
@@ -895,6 +895,9 @@ api.wrap = (user, main=true) ->
         return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < cost and !alreadyOwns
         if fullSet
           _.each path.split(","), (p) ->
+            if ~path.indexOf('gear.')
+              user.fns.dotSet("#{p}", true);true
+            else
             user.fns.dotSet("purchased.#{p}", true);true
         else
           if alreadyOwns
@@ -904,8 +907,8 @@ api.wrap = (user, main=true) ->
             return cb? null, req
           user.fns.dotSet "purchased." + path, true
         user.balance -= cost
-        user.markModified? 'purchased'
-        cb? null, _.pick(user,$w 'purchased preferences')
+        if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
+        cb? null, _.pick(user,$w 'purchased preferences items')
         ga?.event('behavior', 'gems', path).send()
 
       # ------
