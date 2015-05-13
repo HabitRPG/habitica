@@ -13,10 +13,56 @@ describe "Groups", ->
       registerNewUser ->
         User.findByIdAndUpdate user._id,
           $set:
-            "balance": 4
+            "balance": 10
           , (err, _user) ->
             done()
       , true
+
+    it "can create a public guild", (done) ->
+      request.post(baseURL + "/groups").send(
+        name: "TestGroup"
+        type: "guild",
+        privacy: "public"
+      ).end (res) ->
+        expectCode res, 200
+        guild = res.body
+        expect(guild.members.length).to.equal 1
+        expect(guild.leader).to.equal user._id
+        done()
+
+    it "can create a private guild", (done) ->
+      request.post(baseURL + "/groups").send(
+        name: "TestGroup"
+        type: "guild",
+        privacy: "private"
+      ).end (res) ->
+        expectCode res, 200
+        guild = res.body
+        expect(guild.members.length).to.equal 1
+        expect(guild.leader).to.equal user._id
+        done()
+
+    it "can find a guild", (done) ->
+      guild = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGroup2"
+        type: "guild"
+      ).end (res) ->
+        guild = res.body
+        request.get(baseURL + "/groups/" + guild._id)
+        .send()
+        .end (res) ->
+          expectCode res, 200
+          expect(guild._id).to.equal res.body._id
+          done()
+
+    it "can list guilds", (done) ->
+      request.get(baseURL + "/groups").send()
+      .end (res) ->
+        expectCode res, 200
+        guild = res.body[0]
+        expect(guild).to.not.equal(null)
+        done()
 
     describe "Private Guilds", ->
       guild = undefined
