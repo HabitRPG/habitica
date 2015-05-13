@@ -338,6 +338,7 @@ api.flagChatMessage = function(req, res, next){
     group.save(function(err,_saved){
       if(err) return next(err);
         var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+        addressesToSendTo = (typeof addressesToSendTo == 'string') ? JSON.parse(addressesToSendTo) : addressesToSendTo;
 
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
