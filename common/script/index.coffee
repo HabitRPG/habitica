@@ -892,7 +892,7 @@ api.wrap = (user, main=true) ->
           else
             if fullSet then 1.25 else 0.5
         alreadyOwns = !fullSet and user.fns.dotGet("purchased." + path) is true
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if user.balance < cost and !alreadyOwns
+        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < cost or !user.balance) and !alreadyOwns
         if fullSet
           _.each path.split(","), (p) ->
             if ~path.indexOf('gear.')
