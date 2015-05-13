@@ -56,7 +56,7 @@
     "questEggBunnyAdjective": "mekani",
     "questEggSlimeText": "Beli slez",
     "questEggSlimeAdjective": "slatki",
-    "eggNotes": "Nađite inkubatorni napitak, pospite ga po ovom jajetu, i iz njega će se izleći <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+    "eggNotes": "Nađite napitak, pospite ga po ovom jajetu, i iz njega će se izleći <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Običan",
     "hatchingPotionWhite": "Beli",
     "hatchingPotionDesert": "Pustinjski",

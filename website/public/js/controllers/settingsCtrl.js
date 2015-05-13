@@ -20,7 +20,7 @@ habitrpg.controller('SettingsCtrl',
     var mapPrefToEmailString = {
       'importantAnnouncements': 'inactivityEmails'
     };
-    
+
     // If ?unsubFrom param is passed with valid email type,
     // automatically unsubscribe users from that email and
     // show an alert
@@ -42,7 +42,7 @@ habitrpg.controller('SettingsCtrl',
         User.set({"preferences.stickyHeader":false});
         $rootScope.$on('userSynced', function(){
           window.location.reload();
-        });           
+        });
       }
     }
 
@@ -144,7 +144,7 @@ habitrpg.controller('SettingsCtrl',
       $http.post(ApiUrl.get() + '/api/v2/user/coupon/' + code).success(function(res,code){
         if (code!==200) return;
         User.sync();
-        Notification.text('Coupon applied! Check your inventory');
+        Notification.text(env.t('promoCodeApplied'));
       });
     }
     $scope.generateCodes = function(codes){

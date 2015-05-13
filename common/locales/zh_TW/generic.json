@@ -71,8 +71,8 @@
     "endTour": "結束教學",
     "audioTheme": "聲音主題",
     "audioTheme_off": "關閉",
-    "audioTheme_danielTheBard": "吟遊詩人丹尼爾",
-    "audioTheme_wattsTheme": "瓦特的主旋律",
+    "audioTheme_danielTheBard": "吟遊詩人Daniel",
+    "audioTheme_wattsTheme": "Watts的旋律",
     "askQuestion": "問問題",
     "reportBug": "回報問題",
     "contributeToHRPG": "為HabitRPG作出貢獻",
@@ -91,5 +91,5 @@
     "December": "十二月",
     "dateFormat": "日期格式",
     "achievementStressbeast": "Stoïkalm 的救世主",
-    "achievementStressbeastText": "在2015年冬季夢幻地事件中幫忙打敗Abominable Stressbeast。"
+    "achievementStressbeastText": "在2015年冬季夢幻之地事件中幫忙打敗惡劣壓力雪怪。"
 }
