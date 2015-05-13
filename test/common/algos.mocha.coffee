@@ -391,6 +391,36 @@ describe 'User', ->
       expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
 
+  describe 'Gem purchases', ->
+    it 'does not purchase items without enough Gems', ->
+      user = newUser()
+      user.ops.purchase {params: {type: 'eggs', key: 'Cactus'}}
+      user.ops.purchase {params: {type: 'gear', key: 'headAccessory_special_foxEars'}}
+      user.ops.unlock {params: {path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars'}}
+      expect(user.items.eggs).to.eql {}
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: true }
+
+    it 'purchases an egg', ->
+      user = newUser()
+      user.balance = 1
+      user.ops.purchase {params: {type: 'eggs', key: 'Cactus'}}
+      expect(user.items.eggs).to.eql { Cactus: 1}
+      expect(user.balance).to.eql 0.25
+
+    it 'purchases fox ears', ->
+      user = newUser()
+      user.balance = 1
+      user.ops.purchase {params: {type: 'gear', key: 'headAccessory_special_foxEars'}}
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, headAccessory_special_foxEars: true }
+      expect(user.balance).to.eql 0.5
+
+    it 'unlocks all the animal ears at once', ->
+      user = newUser()
+      user.balance = 2
+      user.ops.unlock {params: {path: 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars'}}
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: true, headAccessory_special_bearEars: true, headAccessory_special_cactusEars: true, headAccessory_special_foxEars: true, headAccessory_special_lionEars: true, headAccessory_special_pandaEars: true, headAccessory_special_pigEars: true, headAccessory_special_tigerEars: true, headAccessory_special_wolfEars: true}
+      expect(user.balance).to.eql 0.75
+
   describe 'spells', ->
     _.each shared.content.spells, (spellClass)->
       _.each spellClass, (spell)->
