@@ -1499,13 +1499,17 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. On cron, buffs are cleared and all dailies are reset without performing damage (fixes issue #5070)
+      # User is resting at the inn. 
+      # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
-        # @TODO: uncomment when new dailies behavior goes live, per https://github.com/HabitRPG/habitrpg/pull/5073#issuecomment-98436542
-        # user.dailys.forEach (daily) ->
-        #   daily.completed = false
-        #   _.each daily.checklist, ((i)->i.completed=false;true)
+        user.dailys.forEach (daily) ->
+          {completed, repeat} = daily
+          thatDay = moment(now).subtract({days: 1})
+
+          if api.shouldDo(thatDay, repeat, user.preferences) || completed
+            _.each daily.checklist, ((box)->box.completed=false;true)
+          daily.completed = false
         return
 
       # Tally each task

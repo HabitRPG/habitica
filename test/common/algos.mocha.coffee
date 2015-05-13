@@ -195,12 +195,12 @@ describe 'User', ->
 
     it 'remains in the inn on cron', ->
       cron()
-      expect(user.preferences.sleep).to.be.ok()
+      expect(user.preferences.sleep).to.be true
 
     it 'resets dailies', ->
        user.dailys[0].completed = true
        cron()
-       expect(user.dailys[0].completed).to.not.be.ok
+       expect(user.dailys[0].completed).to.be false
 
     it 'resets checklist on incomplete dailies', ->
        user.dailys[0].checklist = [
@@ -222,7 +222,7 @@ describe 'User', ->
        ]
        cron()
        _.each user.dailys[0].checklist, (box)->
-        expect(box.completed).to.not.be.ok
+         expect(box.completed).to.be false
 
     it 'resets checklist on complete dailies', ->
        user.dailys[0].checklist = [
@@ -245,7 +245,58 @@ describe 'User', ->
        user.dailys[0].completed = true
        cron()
        _.each user.dailys[0].checklist, (box)->
-         expect(box.completed).to.not.be.ok
+         expect(box.completed).to.be false
+
+    it 'does not reset checklist on grey incomplete dailies', ->
+      yesterday = moment().subtract(1,'days')
+      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
+      user.dailys[0].checklist = [
+        {
+          "text" : "1",
+          "id" : "checklist-one",
+          "completed" : true
+        },
+        {
+          "text" : "2",
+          "id" : "checklist-two",
+          "completed" : true
+        },
+        {
+          "text" : "3",
+          "id" : "checklist-three",
+          "completed" : true
+        }
+      ]
+
+      cron()
+      _.each user.dailys[0].checklist, (box)->
+        expect(box.completed).to.be true
+
+    it 'resets checklist on complete grey complete dailies', ->
+      yesterday = moment().subtract(1,'days')
+      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
+      user.dailys[0].checklist = [
+        {
+          "text" : "1",
+          "id" : "checklist-one",
+          "completed" : true
+        },
+        {
+          "text" : "2",
+          "id" : "checklist-two",
+          "completed" : true
+        },
+        {
+          "text" : "3",
+          "id" : "checklist-three",
+          "completed" : true
+        }
+      ]
+      user.dailys[0].completed = true
+
+      cron()
+      _.each user.dailys[0].checklist, (box)->
+        expect(box.completed).to.be false
 
     it 'does not damage user for incomplete dailies', ->
       expect(user).toHaveHP 50
