@@ -31,10 +31,47 @@ describe "Push-Notifications", ->
       done()
 
     context "Challenges", ->
+      challenges = rewire("../../website/src/controllers/challenges")
+      challenges.__set__('pushNotify', pushSpy)
+      challengeMock = {
+        findById: (arg, cb) ->
+          cb(null, {leader: user._id, name: 'challenge-name'})
+      }
+      userMock = {
+        findById: (arg, cb) ->
+          cb(null, user)
+      }
 
-      it "sends a push notification when you win a challenge"
+      challenges.__set__('Challenge', challengeMock)
+      challenges.__set__('User', userMock)
+      challenges.__set__('closeChal', -> true)
 
-      it "does not send a push notification when you lose a challenge"
+      beforeEach (done) ->
+        registerNewUser ->
+          user.preferences.emailNotifications.wonChallenge = false
+          user.save = (cb) -> cb(null, user)
+          done()
+        , true
+
+      it "sends a push notification when you win a challenge", (done) ->
+        req = {
+          params: { cid: 'challenge-id' }
+          query: {uid: 'user-id'}
+        }
+        res = {
+          locals: { user: user }
+        }
+        challenges.selectWinner req, res
+
+        setTimeout -> # Allow selectWinner to finish
+          expect(pushSpy.sendNotify).to.have.been.calledOnce
+          expect(pushSpy.sendNotify).to.have.been.calledWith(
+            user,
+            'You Won a Challenge',
+            'challenge-name'
+          )
+          done()
+        , 100
 
     context "Groups", ->
 
