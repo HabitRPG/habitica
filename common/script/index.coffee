@@ -76,12 +76,11 @@ api.daysSince = (yesterday, options = {}) ->
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
   return false unless dailyTask.type == 'daily' && dailyTask.repeat
-  # MIGRATION HACK, FIXME
-  if dailyTask.startDate == null
-    console.log("null!!!!!")
+  if !dailyTask.startDate
+    # TODO: Unexpected code path reached. Log a warning.
     dailyTask.startDate = moment().toDate();
   if dailyTask.startDate instanceof String
-    console.log("startDate is a string: " + dailyTask.startDate + ". Converting to date");
+    #TODO: Unexpected code path reached. Log a warning.
     dailyTask.startDate = moment(dailyTask.startDate).toDate();
   o = sanitizeOptions options
   dayOfWeek = api.startOfDay(_.defaults {now:day}, o).day()
@@ -100,7 +99,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
     return dayOfWeekCheck && everyXCheck && hasStartedCheck
   else
     # unexpected frequency string
-    return true
+    return false;
 
 api.numDaysApart = (day1, day2, o) ->
   startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
