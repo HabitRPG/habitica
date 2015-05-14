@@ -61,7 +61,7 @@ describe "Push-Notifications", ->
       context "sending gems from balance", ->
         members = rewire("../../website/src/controllers/members")
         members.sendMessage = -> true
-        pushSpy = { sendNotify: sinon.spy() }
+
         members.__set__('pushNotify', pushSpy)
         members.__set__ 'fetchMember', (id) ->
           return (cb) -> cb(null, recipient)
