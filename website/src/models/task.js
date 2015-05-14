@@ -52,12 +52,12 @@ var DailySchema = new Schema(
   _.defaults({
     type: {type: String, 'default': 'daily'},
     //TODO: Cleaner to store interval as enum instead of str?
-    frequency: {type: String, 'default': 'daily'}, // 'daily', 'weekly'
+    frequency: {type: String, 'default': 'weekly'}, // 'daily', 'weekly'
     everyX: {type: Number, 'default': 1}, // e.g. once every X weeks
     startDate: {type: Date},
     history: Array,
     completed: {type: Boolean, 'default': false},
-    repeat: { // used only for 'weekly' frequency, TODO: Rename to daysOfWeek or something with 'week'
+    repeat: { // used only for 'weekly' frequency,
       m:  {type: Boolean, 'default': true},
       t:  {type: Boolean, 'default': true},
       w:  {type: Boolean, 'default': true},
