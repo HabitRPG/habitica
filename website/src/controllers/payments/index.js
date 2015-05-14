@@ -86,7 +86,9 @@ exports.createSubscription = function(data, cb) {
       ]);
     }
 
-    pushNotify.sendNotify(data.gift.member, shared.i18n.t('gifted-subscription'), months + " months - by "+ byUserName);
+    if (data.gift.member._id != data.user._id) { // Only send push notifications if sending to a user other than yourself
+      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), months + " months - by "+ byUserName);
+    }
   }
   async.parallel([
     function(cb2){data.user.save(cb2)},

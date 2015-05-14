@@ -139,4 +139,41 @@ describe "Push-Notifications", ->
 
         context "sending a subscription as a purchased gift", ->
 
-          it "sends a push notification"
+          it "sends a push notification", (done) ->
+            data = {
+              user: user,
+              gift: {
+                member: recipient
+                subscription: { key: 'basic_6mo' }
+              }
+            }
+
+            payments.createSubscription data
+
+            setTimeout -> # Allow createSubscription to finish
+              expect(pushSpy.sendNotify).to.have.been.calledOnce
+              expect(pushSpy.sendNotify).to.have.been.calledWith(
+                recipient,
+                'Gifted Subscription',
+                '6 months - by ' + user.profile.name
+              )
+
+              done()
+            , 100
+
+          it "does not send a push notification if buying subscription for self", (done) ->
+            data = {
+              user: user,
+              gift: {
+                member: user
+                subscription: { key: 'basic_6mo' }
+              }
+            }
+
+            payments.createSubscription data
+
+            setTimeout -> # Allow buyGems to finish
+              expect(pushSpy.sendNotify).to.not.have.been.called
+
+              done()
+            , 100
