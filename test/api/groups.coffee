@@ -42,6 +42,19 @@ describe "Groups", ->
         expect(guild.leader).to.equal user._id
         done()
 
+    it "prevents user from creating a guild when the user has 0 gems", (done) ->
+      registerNewUser (err, user) ->
+        request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "guild",
+        )
+        .set("X-API-User", user._id)
+        .set("X-API-Key", user.apiToken)
+        .end (res) ->
+          expectCode res, 401
+          done()
+      , false
+
     it "can find a guild", (done) ->
       guild = undefined
       request.post(baseURL + "/groups").send(
@@ -207,6 +220,14 @@ describe "Groups", ->
         expect(party.name).to.equal group.name
         expect(party.quest).to.deep.equal { progress: {} }
         expect(party.memberCount).to.equal group.memberCount
+        done()
+
+    it "prevents user from joining or creating a second party", (done) ->
+      request.post(baseURL + "/groups").send(
+        name: "TestGroup"
+        type: "party"
+      ).end (res) ->
+        expectCode res, 400
         done()
 
     describe "Chat", ->
