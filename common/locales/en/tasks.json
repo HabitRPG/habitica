@@ -60,6 +60,7 @@
     "clearTags": "Clear",
     "hideTags": "Hide",
     "showTags": "Show",
+    "startDate": "Start Date",
     "streakName": "Streak Achievements",
     "streakText": "Has performed <%= streaks %> 21-day streaks on Dailies",
     "streakSingular": "Streaker",

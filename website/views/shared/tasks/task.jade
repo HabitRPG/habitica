@@ -164,57 +164,56 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
             label(for='{{obj._id}}_{{task.id}}-option-minus')
 
         // if Daily, calendar
-        fieldset(ng-if='::task.type=="daily"', class="option-group")
-          legend.option-title=env.t('repeat')
+        fieldset.option-group.calendar(ng-if='::task.type=="daily"', class="option-group")
+          .dailies
+            legend.option-title=env.t('repeat')
 
-          // Choose the frequency
-          ul.priority-multiplier
-            li
-              button(ng-class='{active: task.frequency=="daily"}', type='button', ng-click='task.frequency="daily"')='Daily'
-            li
-              button(ng-class='{active: task.frequency=="weekly"}', type='button', ng-click='task.frequency="weekly"')='Weekly'
+            // Choose the frequency
+            ul.repeat-frequency
+              li
+                button(ng-class='{active: task.frequency=="daily"}', type='button', ng-click='task.frequency="daily"')='Daily'
+              li
+                button(ng-class='{active: task.frequency=="weekly"}', type='button', ng-click='task.frequency="weekly"')='Weekly'
 
-          // If frequency is daily
-          fieldset(ng-show='task.frequency=="daily"')
-            | Once every&nbsp;&nbsp;
-            select(ng-model='task.everyX')
-              option(ng-repeat='x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]') {{x}}
-            |   days<br><br>
-            | Start date:&nbsp;
+            // If frequency is daily
+            div.repeat-frequency(ng-show='task.frequency=="daily"')
+              div.repeat-daily
+                | Once every&nbsp;&nbsp;
+                select(ng-model='task.everyX')
+                  option(ng-repeat='x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]') {{x}}
+                |   days
+
+            // If frequency is weekly
+            div.repeat-frequency(ng-show='task.frequency=="weekly"')
+              div.repeat-weekly
+                | Once every&nbsp;
+                select(ng-model='task.everyX')
+                  option(ng-repeat='x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]') {{x}}
+                |  weeks on these days:
+
+              ul.repeat-days(bindonce)
+                // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
+                li
+                  button(ng-class='{active: task.repeat.su}', type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') {{::moment.weekdaysMin(0)}}
+                li
+                  button(ng-class='{active: task.repeat.m}', type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)') {{::moment.weekdaysMin(1)}}
+                li
+                  button(ng-class='{active: task.repeat.t}', type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)') {{::moment.weekdaysMin(2)}}
+                li
+                  button(ng-class='{active: task.repeat.w}', type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)') {{::moment.weekdaysMin(3)}}
+                li
+                  button(ng-class='{active: task.repeat.th}', type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)') {{::moment.weekdaysMin(4)}}
+                li
+                  button(ng-class='{active: task.repeat.f}', type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)') {{::moment.weekdaysMin(5)}}
+                li
+                  button(ng-class='{active: task.repeat.s}', type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') {{::moment.weekdaysMin(6)}}
+
+            label.option-title=env.t('startDate')
             p(class='input-group')
-              input(type='text' class='form-control' datepicker-popup ng-model='task._dateString' ng-change='updateTaskStartDate(task)' is-open='flagDict.opened')
+              input(type='text' class='form-control' datepicker-popup ng-model='task._tempDateForPicker' ng-change='updateTaskStartDate(task)' is-open='task._isDatePickerOpen')
               span(class='input-group-btn')
-                button(type="button" ng-click="open($event)")
+                button(type="button" ng-click="openDatePicker($event, task)")
                   span.input-group-addon.glyphicon.glyphicon-calendar
-          // If frequency is weekly
-          fieldset(ng-show='task.frequency=="weekly"')
-            | Once every&nbsp;
-            select(ng-model='task.everyX')
-              option(ng-repeat='x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]') {{x}}
-            |  weeks on these days: <br><br>
-            ul.repeat-days(bindonce)
-              // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
-              li
-                button(ng-class='{active: task.repeat.su}', type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') {{::moment.weekdaysMin(0)}}
-              li
-                button(ng-class='{active: task.repeat.m}', type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)') {{::moment.weekdaysMin(1)}}
-              li
-                button(ng-class='{active: task.repeat.t}', type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)') {{::moment.weekdaysMin(2)}}
-              li
-                button(ng-class='{active: task.repeat.w}', type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)') {{::moment.weekdaysMin(3)}}
-              li
-                button(ng-class='{active: task.repeat.th}', type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)') {{::moment.weekdaysMin(4)}}
-              li
-                button(ng-class='{active: task.repeat.f}', type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)') {{::moment.weekdaysMin(5)}}
-              li
-                button(ng-class='{active: task.repeat.s}', type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') {{::moment.weekdaysMin(6)}}
-              | <br><br>
-              | Start date:&nbsp;
-              p(class='input-group')
-                input(type='text' class='form-control' datepicker-popup ng-model='task._dateString' ng-change='updateTaskStartDate(task)' is-open='flagDict.opened')
-                span(class='input-group-btn')
-                  button(type="button" ng-click="open($event)")
-                    span.input-group-addon.glyphicon.glyphicon-calendar
 
 
         // if Reward, pricing
