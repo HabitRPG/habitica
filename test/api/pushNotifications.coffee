@@ -75,9 +75,72 @@ describe "Push-Notifications", ->
 
     context "Groups", ->
 
-      it "sends a push notification when invited to a guild"
+      recipient = null
 
-      it "sends a push notification when invited to a party"
+      groups = rewire("../../website/src/controllers/groups")
+      groups.__set__('pushNotify', pushSpy)
+
+      before (done) ->
+        registerNewUser (err,_user)->
+          recipient = _user
+          recipient.invitations.guilds = []
+          recipient.save = (cb) -> cb(null, recipient)
+          recipient.preferences.emailNotifications.invitedGuild = false
+          recipient.preferences.emailNotifications.invitedParty = false
+          userMock = {
+            findById: (arg, cb) ->
+              cb(null, recipient)
+          }
+          groups.__set__('User', userMock)
+          done()
+
+        , false
+
+      it "sends a push notification when invited to a guild", (done) ->
+        group = { _id: 'guild-id', name: 'guild-name', type: 'guild', members: [user._id], invites: [] }
+        group.save = (cb) -> cb(null, group)
+        req = {
+          body: { uuids: [recipient._id] }
+        }
+        res = {
+          locals: { group: group, user: user }
+          json: -> return true
+        }
+
+        groups.invite req, res
+
+        setTimeout -> # Allow invite to finish
+          expect(pushSpy.sendNotify).to.have.been.calledOnce
+          expect(pushSpy.sendNotify).to.have.been.calledWith(
+            recipient,
+            'Invited To Guild',
+            group.name
+          )
+          done()
+        , 100
+
+      it "sends a push notification when invited to a party", (done) ->
+        group = { _id: 'party-id', name: 'party-name', type: 'party', members: [user._id], invites: [] }
+        group.save = (cb) -> cb(null, group)
+        req = {
+          body: { uuids: [recipient._id] }
+        }
+        res = {
+          locals: { group: group, user: user }
+          json: -> return true
+        }
+
+        groups.invite req, res
+
+        setTimeout -> # Allow invite to finish
+          expect(pushSpy.sendNotify).to.have.been.calledOnce
+          expect(pushSpy.sendNotify).to.have.been.calledWith(
+            recipient,
+            'Invited To Party',
+            group.name
+          )
+          done()
+        , 100
 
       it "sends a push notification when invited to a quest"
 
