@@ -165,7 +165,7 @@ describe "Push-Notifications", ->
           expect(pushSpy.sendNotify).to.have.been.calledOnce
           expect(pushSpy.sendNotify).to.have.been.calledWith(
             recipient,
-            'HabitRPG',
+            'Quest Invitation',
             'Invitation for the Quest The Hedgebeast'
           )
           done()
