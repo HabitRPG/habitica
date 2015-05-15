@@ -42,7 +42,7 @@
     "groupDescr": "Opis koji se pojavljuje u spisku udruženja (podržava Markdown)",
     "logoUrl": "Logo URL",
     "assignLeader": "Vođa grupe",
-    "members": "Članovi",
+    "members": "članova",
     "partyList": "Uputstva za članove družine (osvežite stranicu kad promenite uputstva)",
     "banTip": "Izbaciti člana",
     "moreMembers": "još članova",
@@ -96,5 +96,10 @@
     "abuseReported": "Hvala što ste prijavili ovaj prekršaj. Moderatorima je poslato obaveštenje.",
     "abuseAlreadyReported": "Već ste prijavili ovu poruku.",
     "needsText": "Molimo Vas da napišete poruku.",
-    "needsTextPlaceholder": "Otkucajte poruku ovde."
+    "needsTextPlaceholder": "Otkucajte poruku ovde.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

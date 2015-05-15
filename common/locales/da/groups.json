@@ -96,5 +96,10 @@
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
     "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",
     "needsText": "Indtast venligst en besked.",
-    "needsTextPlaceholder": "Skriv din besked her."
+    "needsTextPlaceholder": "Skriv din besked her.",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

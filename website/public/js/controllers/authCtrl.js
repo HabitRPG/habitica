@@ -15,11 +15,13 @@ angular.module('habitrpg')
 
       var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
+          if(!err) $scope.registrationInProgress = false;
           $window.location.href = ('/' + window.location.hash);
         });
       };
 
       function errorAlert(data, status, headers, config) {
+        $scope.registrationInProgress = false;
         if (status === 0) {
           $window.alert(window.env.t('noReachServer'));
         } else if (!!data && !!data.err) {
@@ -29,12 +31,16 @@ angular.module('habitrpg')
         }
       };
 
+      $scope.registrationInProgress = false;
+
       $scope.register = function() {
         /*TODO highlight invalid inputs
          we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
          */
         var scope = angular.element(document.getElementById('registrationForm')).scope();
         if (scope.registrationForm.$invalid) return;
+
+        $scope.registrationInProgress = true;
 
         var url = ApiUrl.get() + "/api/v2/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;

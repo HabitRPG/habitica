@@ -41,7 +41,7 @@
     "gems": "אבני חן",
     "gemButton": "יש לך <%= number %> פנינים",
     "moreInfo": "מידע נוסף",
-    "gemsWhatFor": "נרכשים בכסף אמתי. משמשים עבור קניית חפצים ושירותים מיוחדים (ביצים, שיקויי בקיעה, חיזוק וכו'). תצטרך לשחרר גימיקים אלו לפני שתוכל להשתמש באבני חן.",
+    "gemsWhatFor": "נרכשים בכסף אמיתי. משמשים עבור קניית חפצים ושירותים מיוחדים (ביצים, שיקויי בקיעה, חיזוק וכו'). תצטרך לשחרר גימיקים אלו לפני שתוכל להשתמש באבני חן.",
     "veteran": "ותיק/ה",
     "veteranText": "סבל את ההאביט האפור (האתר הישן שלנו), וצבר אינספור צלקות קרב מהבאגים שלו",
     "originalUser": "משתמש מקורי!",
@@ -72,7 +72,7 @@
     "audioTheme": "ערכת מנגינות",
     "audioTheme_off": "כבויה",
     "audioTheme_danielTheBard": "דניאל הפייטן",
-    "audioTheme_wattsTheme": "Watts' Theme",
+    "audioTheme_wattsTheme": "התמה של וואט",
     "askQuestion": "שאל/י שאלה",
     "reportBug": "דיווח על תקלה",
     "contributeToHRPG": "תרומה לאתר",
@@ -90,6 +90,6 @@
     "November": "נובמבר",
     "December": "דצמבר",
     "dateFormat": "פורמט תאריך",
-    "achievementStressbeast": "Savior of Stoïkalm",
-    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
+    "achievementStressbeast": "המושיע של סטויקאלם",
+    "achievementStressbeastText": "סייע/ה להביס את המפלחץ המתועב באירוע חורף הפלאות של 2015!"
 }

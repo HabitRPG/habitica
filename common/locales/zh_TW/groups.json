@@ -25,7 +25,7 @@
     "noPartyText": "你不在一個個隊伍中，或是你的隊伍需要一點時間來載入。你可以建立一個隊伍並邀請朋友，或是加入一個既存的隊伍中，讓他們輸入你的UUID，再回來看邀請訊息：",
     "LFG": "為了宣傳新的隊伍並找到一個人加入，請到<％= linkStart％>Party Wanted(尋找隊伍)<％= LINKEND％>公會。",
     "create": "建立",
-    "userId": "玩家 ID",
+    "userId": "UUID",
     "invite": "邀請",
     "leave": "離開",
     "invitedTo": "已給<%= name %>發送邀請",
@@ -42,10 +42,10 @@
     "groupDescr": "公會公開列表中顯示的描述(支持標記語言)",
     "logoUrl": "標識的網址",
     "assignLeader": "指定隊長",
-    "members": "隊員",
+    "members": "成員",
     "partyList": "給隊伍成員的置頂訊息(更改訊息後請重新載入瀏覽器)",
     "banTip": "引導成員",
-    "moreMembers": "更多隊員",
+    "moreMembers": "更多成員",
     "invited": "已邀請",
     "leaderMsg": "公會會長的訊息 (支持標記語言)",
     "name": "名稱",
@@ -96,5 +96,10 @@
     "abuseReported": "感謝您舉報這起違規事件。管理員將會被告知。",
     "abuseAlreadyReported": "您已經舉報過此留言訊息。",
     "needsText": "請輸入訊息",
-    "needsTextPlaceholder": "在這裡輸入你的訊息"
+    "needsTextPlaceholder": "在這裡輸入你的訊息",
+    "copyMessageAsToDo": "Copy message as To-Do",
+    "messageAddedAsToDo": "Message copied as To-Do.",
+    "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "msgPreviewHeading": "Message Preview",
+    "leaderOnlyChallenges": "Only group leader can create challenges"
 }

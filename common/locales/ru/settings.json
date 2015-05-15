@@ -97,7 +97,7 @@
     "invitedParty": "Приглашен в команду",
     "invitedGuild": "Приглашен в гильдию",
     "inactivityEmails": "Ваш аккаунт не активен",
-    "weeklyRecaps": "Обзоры действий с вашего аккаунта за последние недели",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "Ваш Квест начался",
     "invitedQuest": "Приглашен в Квест",
     "kickedGroup": "Исключен из группы",
@@ -112,5 +112,10 @@
     "benefits": "Преимущества",
     "coupon": "Промо",
     "couponPlaceholder": "Введите Промо Код",
-    "couponText": "Время от времени мы проводим особые мероприятия и раздаем коды куопонов на специальную экипировку. (например, тем, кто останавливался на нашем стенде на Wondercon)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

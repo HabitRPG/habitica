@@ -97,7 +97,7 @@
     "invitedParty": "Poziv u družinu",
     "invitedGuild": "Poziv u udruženje",
     "inactivityEmails": "Vaš nalog je neaktivan",
-    "weeklyRecaps": "Pregled aktivnosti Vašeg naloga u proteklih sedam dana",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "Vaša misija je počela",
     "invitedQuest": "Pozvati u misiju",
     "kickedGroup": "Izbačen iz grupe",
@@ -112,5 +112,10 @@
     "benefits": "Prednosti",
     "coupon": "Kupon",
     "couponPlaceholder": "Unesite kod sa kupona",
-    "couponText": "Na skupovima ponekad delimo kupone sa kodovima za specijalnu opremu. (npr. na Wondercon-u)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

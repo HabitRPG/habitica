@@ -97,7 +97,7 @@
     "invitedParty": "邀請至隊伍",
     "invitedGuild": "受邀至公會",
     "inactivityEmails": "您的帳戶尚未啟用",
-    "weeklyRecaps": "您的帳戶在過去一周活動的總結",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "你的任務開始了",
     "invitedQuest": "受邀參與任務",
     "kickedGroup": "從群組中剔除",
@@ -112,5 +112,10 @@
     "benefits": "好處",
     "coupon": "優惠券",
     "couponPlaceholder": "輸入優惠券代碼",
-    "couponText": "我們有時會活動，並給與特殊裝備的優惠券代碼。(例如:在我們的 Wondercon 展覽攤位中)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

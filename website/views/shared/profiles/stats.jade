@@ -43,13 +43,13 @@ table.table.table-striped
         ul.list-unstyled(ng-init='g=Content.gear.flat;e=profile.items.gear.equipped')
           li(ng-show='profile.stats.lvl > 1')
             span.hint(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))=env.t('level')
-            |: {{(Math.min(profile.stats.lvl - 1, 100)) / 2}}&nbsp;
+            |: {{Math.ceil((Math.min(profile.stats.lvl - 1, 100)) / 2)}}&nbsp;
           li(ng-show='g[e.weapon].#{k} + g[e.armor].#{k} + g[e.head].#{k} + g[e.shield].#{k} > 0')
             span.hint(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))=env.t('equipment')
             |: {{g[e.weapon].#{k} + g[e.armor].#{k} + g[e.head].#{k} + g[e.shield].#{k} || 0}}&nbsp;
-          li(ng-show='profile._statsComputed.#{k} - profile.stats.buffs.#{k} - ((Math.min(profile.stats.lvl - 1, 100)) / 2) - g[e.weapon].#{k} - g[e.armor].#{k} - g[e.head].#{k} - g[e.shield].#{k} - profile.stats.#{k} > 0')
+          li(ng-show='profile._statsComputed.#{k} - profile.stats.buffs.#{k} - Math.ceil((Math.min(profile.stats.lvl - 1, 100)) / 2) - g[e.weapon].#{k} - g[e.armor].#{k} - g[e.head].#{k} - g[e.shield].#{k} - profile.stats.#{k} > 0')
             span.hint(popover-title=env.t('classBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('classBonusText'))=env.t('classEquipBonus')
-            |: {{profile._statsComputed.#{k} - profile.stats.buffs.#{k} - ((Math.min(profile.stats.lvl - 1,100)) / 2) - g[e.weapon].#{k} - g[e.armor].#{k} - g[e.head].#{k} - g[e.shield].#{k} - profile.stats.#{k}}}&nbsp;
+            |: {{profile._statsComputed.#{k} - profile.stats.buffs.#{k} - Math.ceil((Math.min(profile.stats.lvl - 1,100)) / 2) - g[e.weapon].#{k} - g[e.armor].#{k} - g[e.head].#{k} - g[e.shield].#{k} - profile.stats.#{k}}}&nbsp;
           li(ng-show='profile.stats.#{k} > 0')
             span.hint(popover-title=env.t('allocatedPoints'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('allocatedPointsText'))=env.t('allocated')
             |: {{profile.stats.#{k} || 0}}&nbsp;

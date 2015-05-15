@@ -62,7 +62,7 @@ api.authWithUrl = function(req, res, next) {
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
     res.locals.user = user;
     next();
-  })
+  });
 }
 
 api.registerUser = function(req, res, next) {

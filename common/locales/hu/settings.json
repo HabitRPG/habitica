@@ -97,7 +97,7 @@
     "invitedParty": "Meghívva egy csapatba",
     "invitedGuild": "Meghívva egy céhbe",
     "inactivityEmails": "A fiókod inaktiv",
-    "weeklyRecaps": "Summaries of your acccount activity in the past week",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "A küldetésed elkezdődött",
     "invitedQuest": "Meghívva egy küldetésre",
     "kickedGroup": "Kirúgtak a csoportból",
@@ -112,5 +112,10 @@
     "benefits": "Előnyök",
     "coupon": "Kupon",
     "couponPlaceholder": "Írd be a Kupon kódodat",
-    "couponText": "Időnként speciális eseményeket és kupon kódokat osztogatunk speciális felszerelésekhez. ( pl: azoknak akik meglátogatnak minket a Wondercon-os standunknál)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

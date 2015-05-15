@@ -136,8 +136,36 @@ api.get = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
-    res.json(group);
+    if(!group){
+      if(gid !== 'party') return res.json(404,{err: "Group not found or you don't have access."});
+
+      // Don't send a 404 when querying for a party even if it doesn't exist
+      // so that users with no party don't get a 404 on every access to the site
+      return res.json(group);
+    }
+    //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
+    var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
+    //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
+    if (group.privacy === 'private' || gid === 'party') {
+      //If the user is not in the group query, remove a user and add the current user
+      if (!userInGroup) {
+        group.members.splice(0,1);
+        group.members.push(user);
+      }
+      res.json(group);
+    } else if ( group.privacy === "public" ) { //The group is public, we must do an extra check to see if the user is already in the group query
+      //We must see how to check if a user is a member of a public group, so we requery
+      var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
+      q2.exec(function(err, group2){
+        if (err) return next(err);
+        if (group2 && !userInGroup) {
+          group.members.splice(0,1);
+          group.members.push(user);
+        }
+        res.json(group);
+      });
+    }
+
     gid = null;
   });
 };
@@ -309,7 +337,8 @@ api.flagChatMessage = function(req, res, next){
     group.markModified('chat');
     group.save(function(err,_saved){
       if(err) return next(err);
-        var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
+        var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+        addressesToSendTo = (typeof addressesToSendTo == 'string') ? JSON.parse(addressesToSendTo) : addressesToSendTo;
 
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
@@ -326,17 +355,17 @@ api.flagChatMessage = function(req, res, next){
           {name: "REPORTER_USERNAME", content: user.profile.name},
           {name: "REPORTER_UUID", content: user._id},
           {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
-          {name: "REPORTER_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + user._id},
+          {name: "REPORTER_MODAL_URL", content: "/static/front/#?memberId=" + user._id},
 
           {name: "AUTHOR_USERNAME", content: message.user},
           {name: "AUTHOR_UUID", content: message.uuid},
           {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
-          {name: "AUTHOR_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + message.uuid},
+          {name: "AUTHOR_MODAL_URL", content: "/static/front/#?memberId=" + message.uuid},
 
           {name: "GROUP_NAME", content: group.name},
           {name: "GROUP_TYPE", content: group.type},
           {name: "GROUP_ID", content: group._id},
-          {name: "GROUP_URL", content: group._id == 'habitrpg' ? (nconf.get('BASE_URL') + '/#/options/groups/tavern') : (group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party')},
+          {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
         ]);
 
       return res.send(204);
@@ -398,7 +427,8 @@ api.likeChatMessage = function(req, res, next) {
 
 api.join = function(req, res, next) {
   var user = res.locals.user,
-    group = res.locals.group;
+    group = res.locals.group,
+    isUserInvited = false;
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
@@ -409,16 +439,25 @@ api.join = function(req, res, next) {
       group.quest.members[user._id] = undefined;
       group.markModified('quest.members');
     }
-  }
-  else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+    isUserInvited = true;
+  } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
-    if (~i) user.invitations.guilds.splice(i,1);
-    user.save();
+    if (~i){
+      isUserInvited = true;
+      user.invitations.guilds.splice(i,1);
+      user.save();
+    }else{
+      isUserInvited = group.privacy === 'private' ? false : true;
+    }
   }
+
+  if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
     group.members.push(user._id);
-    group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    if (group.invites.length > 0) {
+     group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    }
   }
 
   async.series([
@@ -430,7 +469,6 @@ api.join = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return next(err);
-
     // Return the group? Or not?
     res.json(results[1]);
     group = null;
@@ -567,12 +605,12 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
             if(group.type == 'guild'){
               emailVars.push(
                 {name: 'GUILD_NAME', content: group.name},
-                {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'}
+                {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
               );
             }else{
               emailVars.push(
                 {name: 'PARTY_NAME', content: group.name},
-                {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+                {name: 'PARTY_URL', content: '/#/options/groups/party'}
               )
             }
 
@@ -614,7 +652,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
-          var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
+          var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
           var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
           var variables = [
@@ -679,8 +717,8 @@ api.removeMember = function(req, res, next){
       utils.txnEmail(removedUser, ('kicked-from-' + group.type), [
         {name: 'GROUP_NAME', content: group.name},
         {name: 'MESSAGE', content: message},
-        {name: 'GUILDS_LINK', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'},
-        {name: 'PARTY_WANTED_GUILD', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
+        {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
+        {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
       ]);
     }
   }
@@ -830,7 +868,7 @@ questStart = function(req, res, next) {
     });
 
     utils.txnEmail(usersToEmail, 'quest-started', [
-      {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+      {name: 'PARTY_URL', content: '/#/options/groups/party'}
     ]);
 
     _.each(groupClone.members, function(user){
@@ -890,7 +928,7 @@ api.questAccept = function(req, res, next) {
         {name: 'QUEST_NAME', content: quest.text()},
         {name: 'INVITER', content: inviterVars.name},
         {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
-        {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+        {name: 'PARTY_URL', content: '/#/options/groups/party'}
       ]);
 
       questStart(req,res,next);
