@@ -5,7 +5,7 @@ mixin boss(tavern, mobile)
       h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{::Content.quests[group.quest.key].text()}}'
       h3.panel-title(ng-if='group.quest.active==true') {{::Content.quests[group.quest.key].text()}}
     .panel-body.modal-fixed-height
-      div(ng-if='group.quest.active==false' ng-init="selectedTab = 1")
+      div(ng-if='group.quest.active==false' ng-init="selectedTab = 2")
         ul.nav.nav-pills
           li(ng-class="{active:selectedTab === 1}")
             a(ng-click="selectedTab = 1")
