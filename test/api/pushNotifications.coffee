@@ -78,6 +78,7 @@ describe "Push-Notifications", ->
       recipient = null
 
       groups = rewire("../../website/src/controllers/groups")
+      groups.__set__('questStart', -> true)
       groups.__set__('pushNotify', pushSpy)
 
       before (done) ->
@@ -87,9 +88,12 @@ describe "Push-Notifications", ->
           recipient.save = (cb) -> cb(null, recipient)
           recipient.preferences.emailNotifications.invitedGuild = false
           recipient.preferences.emailNotifications.invitedParty = false
+          recipient.preferences.emailNotifications.invitedQuest = false
           userMock = {
             findById: (arg, cb) ->
               cb(null, recipient)
+            find: (arg, arg2, cb) ->
+              cb(null, [recipient])
           }
           groups.__set__('User', userMock)
           done()
@@ -142,7 +146,30 @@ describe "Push-Notifications", ->
           done()
         , 100
 
-      it "sends a push notification when invited to a quest"
+      it "sends a push notification when invited to a quest", (done) ->
+        group = { _id: 'party-id', name: 'party-name', type: 'party', members: [user._id, recipient._id], invites: [], quest: {}}
+        user.items.quests.hedgehog = 5
+        group.save = (cb) -> cb(null, group)
+        req = {
+          body: { uuids: [recipient._id] }
+          query: { key: 'hedgehog' }
+        }
+        res = {
+          locals: { group: group, user: user }
+          json: -> return true
+        }
+
+        groups.questAccept req, res
+
+        setTimeout -> # Allow questAccept to finish
+          expect(pushSpy.sendNotify).to.have.been.calledOnce
+          expect(pushSpy.sendNotify).to.have.been.calledWith(
+            recipient,
+            'HabitRPG',
+            'Invitation for the Quest The Hedgebeast'
+          )
+          done()
+        , 100
 
     describe "Gifts", ->
 
