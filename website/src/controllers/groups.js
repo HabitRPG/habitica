@@ -914,7 +914,7 @@ api.questAccept = function(req, res, next) {
         group.quest.members[m] = undefined;
 
         User.findById(m, function(err,groupMember){
-          pushNotify.sendNotify(groupMember, "HabitRPG", "Invitation for the Quest "+quest.text());
+          pushNotify.sendNotify(groupMember, shared.i18n.t('questInvitationTitle'), shared.i18n.t('questInvitationInfo', { quest: quest.text() }));
         });
       }
     });
