@@ -18,64 +18,104 @@ describe "Groups", ->
             done()
       , true
 
-    it "can create a public guild", (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup"
-        type: "guild",
-        privacy: "public"
-      ).end (res) ->
-        expectCode res, 200
-        guild = res.body
-        expect(guild.members.length).to.equal 1
-        expect(guild.leader).to.equal user._id
-        done()
+    context "creating groups", ->
 
-    it "can create a private guild", (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup"
-        type: "guild",
-        privacy: "private"
-      ).end (res) ->
-        expectCode res, 200
-        guild = res.body
-        expect(guild.members.length).to.equal 1
-        expect(guild.leader).to.equal user._id
-        done()
-
-    it "prevents user from creating a guild when the user has 0 gems", (done) ->
-      registerNewUser (err, user) ->
+      it "can create a public guild", (done) ->
         request.post(baseURL + "/groups").send(
-            name: "TestGroup"
-            type: "guild",
-        )
-        .set("X-API-User", user._id)
-        .set("X-API-Key", user.apiToken)
-        .end (res) ->
-          expectCode res, 401
+          name: "TestGroup"
+          type: "guild",
+          privacy: "public"
+        ).end (res) ->
+          expectCode res, 200
+          guild = res.body
+          expect(guild.members.length).to.equal 1
+          expect(guild.leader).to.equal user._id
           done()
-      , false
 
-    it "can find a guild", (done) ->
-      guild = undefined
-      request.post(baseURL + "/groups").send(
-        name: "TestGroup2"
-        type: "guild"
-      ).end (res) ->
-        guild = res.body
-        request.get(baseURL + "/groups/" + guild._id)
-        .send()
+      it "can create a private guild", (done) ->
+        request.post(baseURL + "/groups").send(
+          name: "TestGroup"
+          type: "guild",
+          privacy: "private"
+        ).end (res) ->
+          expectCode res, 200
+          guild = res.body
+          expect(guild.members.length).to.equal 1
+          expect(guild.leader).to.equal user._id
+          done()
+
+      it "prevents user from creating a guild when the user has 0 gems", (done) ->
+        registerNewUser (err, user) ->
+          request.post(baseURL + "/groups").send(
+              name: "TestGroup"
+              type: "guild",
+          )
+          .set("X-API-User", user._id)
+          .set("X-API-Key", user.apiToken)
+          .end (res) ->
+            expectCode res, 401
+            done()
+        , false
+
+    context "finding groups", ->
+      it "can find a guild", (done) ->
+        guild = undefined
+        request.post(baseURL + "/groups").send(
+          name: "TestGroup2"
+          type: "guild"
+        ).end (res) ->
+          guild = res.body
+          request.get(baseURL + "/groups/" + guild._id)
+          .send()
+          .end (res) ->
+            expectCode res, 200
+            expect(guild._id).to.equal res.body._id
+            done()
+
+      it "can list guilds", (done) ->
+        request.get(baseURL + "/groups").send()
         .end (res) ->
           expectCode res, 200
-          expect(guild._id).to.equal res.body._id
+          guild = res.body[0]
+          expect(guild).to.exist
           done()
 
-    it "can list guilds", (done) ->
-      request.get(baseURL + "/groups").send()
-      .end (res) ->
-        expectCode res, 200
-        guild = res.body[0]
-        expect(guild).to.exist
-        done()
+    context "updating groups", ->
+      groupToUpdate = undefined
+      before (done) ->
+        request.post(baseURL + "/groups").send(
+          name: "TestGroup"
+          type: "guild"
+          description: "notUpdatedDesc"
+        ).end (res) ->
+          groupToUpdate = res.body
+          done()
+
+      it "prevents user from updating a party when they aren't the leader", (done) ->
+        registerNewUser (err, tmpUser) ->
+          request.post(baseURL + "/groups/" + groupToUpdate._id).send(
+              name: "TestGroupName"
+              description: "updatedDesc"
+          )
+          .set("X-API-User", tmpUser._id)
+          .set("X-API-Key", tmpUser.apiToken)
+          .end (res) ->
+            expectCode res, 401
+            expect(res.body.err).to.equal "Only the group leader can update the group!"
+            done()
+        , false
+
+      it "allows user to update a group", (done) ->
+        request.post(baseURL + "/groups/" + groupToUpdate._id).send(
+            description: "updatedDesc"
+        )
+        .end (res) ->
+          expectCode res, 204
+          request.get(baseURL + "/groups/" + groupToUpdate._id).send()
+          .end (res) ->
+            updatedGroup = res.body
+            expect(updatedGroup.description).to.equal "updatedDesc"
+            done()
 
     describe "Private Guilds", ->
       guild = undefined
