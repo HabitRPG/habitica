@@ -74,7 +74,7 @@ describe "Groups", ->
       .end (res) ->
         expectCode res, 200
         guild = res.body[0]
-        expect(guild).to.not.equal(null)
+        expect(guild).to.exist
         done()
 
     describe "Private Guilds", ->
@@ -228,7 +228,43 @@ describe "Groups", ->
         type: "party"
       ).end (res) ->
         expectCode res, 400
+        expect(res.body.err).to.equal "Already in a party, try refreshing."
         done()
+
+    context "joining a party", ->
+
+      it "prevents user from joining a party when they haven't been invited", (done) ->
+        registerNewUser (err, user) ->
+          request.post(baseURL + "/groups/" + group._id + "/join").send(
+              name: "TestGroup"
+              type: "guild",
+          )
+          .set("X-API-User", user._id)
+          .set("X-API-Key", user.apiToken)
+          .end (res) ->
+            expectCode res, 401
+            done()
+        , false
+
+      it "allows users to join a party when they have been invited", (done) ->
+        tmpUser = undefined
+        registerNewUser (err, user) ->
+          tmpUser = user
+          inviteURL = baseURL + "/groups/" + group._id + "/invite"
+          request.post(inviteURL).send(
+            uuids: tmpUser._id
+          )
+          .set("X-API-User", tmpUser._id)
+          .set("X-API-Key", tmpUser.apiToken)
+          .end ->
+            request.post(baseURL + "/groups/" + group._id + "/join")
+            .set("X-API-User", tmpUser._id)
+            .set("X-API-Key", tmpUser.apiToken)
+            .end (res) ->
+              expectCode res, 401
+              expect(res.body.err).to.equal "Can't join a group you're not invited to."
+              done()
+        , false
 
     describe "Chat", ->
       chat = undefined
