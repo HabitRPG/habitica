@@ -247,7 +247,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(0), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
