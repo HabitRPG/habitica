@@ -161,6 +161,7 @@ mixin profileStats
           table.table.table-striped
             tr
               td
+                p(ng-if='user.stats.lvl >= 100')!=env.t('noMoreAllocate')
                 strong.inline
                   |{{user.stats.points}}&nbsp;
                 strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))=env.t('unallocated')
