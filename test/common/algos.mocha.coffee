@@ -793,7 +793,7 @@ describe 'Cron', ->
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
           if options.shouldDo
-            expect(shared.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
+            expect(shared.shouldDo(now.toDate(), options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
           after.fns.cron {now}
           before.stats.mp=after.stats.mp #FIXME
           switch options.expect

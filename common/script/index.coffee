@@ -86,7 +86,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   dayOfWeek = api.startOfDay(_.defaults {now:day}, o).day()
 
   # check if event is in the future
-  hasStartedCheck = moment(day).isAfter(dailyTask.startDate) || moment(day).isSame(dailyTask.startDate)
+  hasStartedCheck = day >= dailyTask.startDate
 
   if dailyTask.frequency == 'daily'
     daysSinceTaskStart = api.numDaysApart(day, dailyTask.startDate, o)
@@ -1547,7 +1547,7 @@ api.wrap = (user, main=true) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
 
-          if api.shouldDo(thatDay, repeat, user.preferences) || completed
+          if api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed
             _.each daily.checklist, ((box)->box.completed=false;true)
           daily.completed = false
         return
@@ -1574,7 +1574,7 @@ api.wrap = (user, main=true) ->
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay, task, user.preferences)
+              if api.shouldDo(thatDay.toDate(), task, user.preferences)
                 scheduleMisses++
                 if user.stats.buffs.stealth
                   user.stats.buffs.stealth--
