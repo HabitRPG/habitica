@@ -35,6 +35,9 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
 
   body(ng-controller='AuthCtrl')
     include ./login-modal
+    include ../shared/header/avatar
+    include ../shared/mixins
+    include ../shared/modals/members
     .mobile-container
       header#header
         nav.navbar.navbar-default.navbar-static-top
@@ -131,14 +134,14 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
-                          = env.t('andeeliaoQuote') 
+                          = env.t('andeeliaoQuote')
                           small AndeeLiao
                   .item
                     blockquote
                       .row
                         .col-sm-8.col-sm-offset-2
                           p
-                          = env.t('alexandraQuote') 
+                          = env.t('alexandraQuote')
                           small _AlexandraSo_
                 // Carousel Buttons Next/Prev
                 a.left.carousel-control(data-slide='prev', href='#quote-carousel')
@@ -330,7 +333,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
-                          = env.t('dreimQuote') 
+                          = env.t('dreimQuote')
               // End Item
               .item.improvement-use
                 h3= env.t('goals')
@@ -368,7 +371,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
-                          = env.t('kazuiQuote') 
+                          = env.t('kazuiQuote')
               // End Item
               .item.housework-use
                 h3= env.t('chores')
@@ -642,3 +645,4 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
       }]).directive('carousel', [function () {
         return {}
       }]);
+

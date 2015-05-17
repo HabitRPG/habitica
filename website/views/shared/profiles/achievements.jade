@@ -144,7 +144,7 @@ div(ng-if='::profile.achievements.originalUser')
     small!=env.t('originalUserText')
   hr
   
-div(ng-if='::profile.achievements.challenges || user._id == profile._id')
+div(ng-if='::profile.achievements.challenges.length || user._id == profile._id')
   // This is a very strange icon to use. revisit
   .achievement.achievement-karaoke(ng-if='::profile.achievements.challenges.length')
   div(ng-class='::{muted: !profile.achievements.challenges.length}')
