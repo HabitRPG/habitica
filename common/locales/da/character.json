@@ -70,6 +70,7 @@
     "allocatePerPop": "Tilføj et point til Opfattelse",
     "allocateInt": "Point tilføjet til Intelligens:",
     "allocateIntPop": "Tilføj et point til Intelligens",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
     "stats": "Statistikker",
     "strength": "Styrke",
     "strengthText": "Styrke øger chancen for vilkårlige \"fuldtræffere\" og Guld-, Erfarings- og dropchance-boost fra dem. Det hjælper også med at skade Boss-monstre.",
@@ -138,5 +139,6 @@
     "displayNameDescription3": "og gå ned til Registreringssektionen for at ændre dig loginnavn.",
     "unequipBattleGear": "Fjern Kamprustning",
     "unequipCostume": "Fjern Kostume",
-    "unequipPetMountBackground": "Fjern Kæledyr, Ridedyr, Baggrund"
+    "unequipPetMountBackground": "Fjern Kæledyr, Ridedyr, Baggrund",
+    "animalSkins": "Animal Skins"
 }

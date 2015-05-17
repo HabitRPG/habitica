@@ -97,7 +97,7 @@
     "invitedParty": "Pozván do Družiny",
     "invitedGuild": "Pozván do Cechu",
     "inactivityEmails": "Tvůj účet není aktivní",
-    "weeklyRecaps": "Summaries of your account activity in the past week",
+    "weeklyRecaps": "Shrnutí aktivity tvého účtu za poslední týden",
     "questStarted": "Tvá výprava započla",
     "invitedQuest": "Pozván na Výpravu",
     "kickedGroup": "Vykopnut z družiny",
@@ -112,10 +112,10 @@
     "benefits": "Benefity",
     "coupon": "Kupón",
     "couponPlaceholder": "Zadej kód z kupónu",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
-    "apply": "Apply",
-    "resubscribe": "Resubscribe",
-    "promoCode": "Promo Code",
-    "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Enter Promotion Code"
+    "couponText": "Někdy pořádáme události a rozdáváme promo kódy na speciální výbavu. (např. těm, kdo se zastaví u našeho stánku na Wonderconu)",
+    "apply": "Zadat",
+    "resubscribe": "Znovu se přihlásit k odběru",
+    "promoCode": "Promo kód",
+    "promoCodeApplied": "Promo kód zadán! Koukni do Inventáře",
+    "promoPlaceholder": "Vlož promo kód"
 }

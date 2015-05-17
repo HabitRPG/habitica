@@ -2,7 +2,7 @@
     "tavern": "Taverna",
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
-    "innText": "Come ti trovi nella Locanda, <%= name %>? Per proteggerti, la tua lista delle Daily è congelata. Non verrà controllata e non subirà alcuna modifica fino a domani (il giorno successivo a quello in cui lasci la locanda). Fai attenzione però, se la tua squadra è impegnata in uno scontro con un Boss, le mancanze dei tuoi compagni causeranno danni anche a te! Inoltre, tu non causerai danni al Boss. Pronto per ripartire? Lascia la Locanda.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Hai già segnalato questo messaggio.",
     "needsText": "Scrivi un messaggio.",
     "needsTextPlaceholder": "Scrivi il tuo messaggio qui.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Copia messaggio come To-Do",
+    "messageAddedAsToDo": "Messaggio copiato come To-Do.",
+    "messageWroteIn": "<%= user %> ha scritto in <%= group %>",
+    "msgPreviewHeading": "Anteprima messaggio",
+    "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide"
 }

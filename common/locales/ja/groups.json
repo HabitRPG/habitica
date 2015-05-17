@@ -2,7 +2,7 @@
     "tavern": "酒場",
     "innCheckOut": "宿屋をチェックアウト",
     "innCheckIn": "宿屋に泊まる",
-    "innText": "宿屋での滞在はどうですか? <%= name %>あなたを保護するために、あなたのdailyリストは凍結されました。あなたのチェックマークは、明日 (あなたがチェックアウトした後の日) まで処理またはクリアされません。もし、ボスとの戦闘でパーティメンバーを失えば、あなたにとって大きな損失となるので、注意してください! また、ボスを倒せられないでしょう。離れる準備はできましたか? チェックアウトします。",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "グループポスト(メンバー募集)を探してください",
     "tutorial": "チュートリアル",
     "glossary": "小辞典",

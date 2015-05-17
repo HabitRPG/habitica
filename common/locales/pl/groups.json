@@ -2,7 +2,7 @@
     "tavern": "Karczma",
     "innCheckOut": "Wymelduj się z karczmy",
     "innCheckIn": "Odpoczywaj w karczmie",
-    "innText": "Jak mija pobyt w Karczmie, <%= name %>? Aby cię chronić, lista codziennych jest zamrożona. Twoje odhaczenia nie zostaną przetworzone ani wyczyszczone do jutra (czyli dnia po tym, kiedy się wymeldujesz). Ale uważaj, jeśli Twoja drużyna walczy z bossem, ich nietrafienia nadal będą cię ranić! Również Ty nie zadasz obrażeń bossowi. Jesteś gotowy do podróży? Wymelduj się.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Sekcja dla poszukujących drużyny",
     "tutorial": "Samouczek",
     "glossary": "Słownik",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Już zgłosiłeś tę wiadomość.",
     "needsText": "Proszę wpisać wiadomość.",
     "needsTextPlaceholder": "Wpisz swoją wiadomość tutaj.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Kopiuj wiadomość jako Do-Zrobienia",
+    "messageAddedAsToDo": "Wiadomość skopiowana jako Do-Zrobienia",
+    "messageWroteIn": "<%= user %> napisał w <%= group %>",
+    "msgPreviewHeading": "Podgląd wiadomości",
+    "leaderOnlyChallenges": "Tylko lider grupy może tworzyć wyzwania"
 }

@@ -2,7 +2,7 @@
     "tavern": "酒館",
     "innCheckOut": "離開旅館",
     "innCheckIn": "在旅館休息",
-    "innText": "在旅館時<%= name %>你會怎麼樣呢？為了保護你，你的每日任務會被凍結。您對清單所做的勾選不會被處理或清除，直到明天(離開旅館的後一天)。要小心，如果你的公會是在Boss戰，他們的未完的任務也會傷害你！此外，您不會傷害到Boss。準備離開？離開旅館。",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "尋找隊伍( 隊伍徵人 ) 貼文",
     "tutorial": "教學",
     "glossary": "常用詞彙",

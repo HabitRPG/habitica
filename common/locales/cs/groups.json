@@ -2,7 +2,7 @@
     "tavern": "Krčma",
     "innCheckOut": "Odhlásit se z hostince",
     "innCheckIn": "Odpočívat v hostinci",
-    "innText": "Jak se ti líbí v Hostinci, <%= name %>? Abychom tě ochránili, tvé denní úkoly jsou zmrazeny. To, co máš odškrtnuté nebude zpracováno nebo smazáno až do zítřka (den po tvém odhlášení). Buď opatrný, pokud je tvá družina na výpravě, to, co prošvihnou, zraní i tebe! A ty nemůžeš nijak pomoci. Jsi připraven odejít? Odhlaš se.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Hledá se skupina (družina)",
     "tutorial": "Průvodce",
     "glossary": "Slovník",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Již jsi tento příspěvek nahlásil.",
     "needsText": "Prosím, napiš zprávu.",
     "needsTextPlaceholder": "Napiš svou zprávu sem.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Zkopírovat zprávu jako Úkol",
+    "messageAddedAsToDo": "Zpráva zkopírována jako Úkol",
+    "messageWroteIn": "<%= user %> napsal v <%= group %>",
+    "msgPreviewHeading": "Náhled zprávy",
+    "leaderOnlyChallenges": "Pouze velitel družiny může vytvářet Výzvy"
 }

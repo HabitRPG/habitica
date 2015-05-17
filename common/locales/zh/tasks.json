@@ -77,5 +77,6 @@
     "streakCoins": "连击奖励！",
     "pushTaskToTop": "将任务置于顶部",
     "pushTaskToBottom": "将任务置于底部",
-    "emptyTask": "请先输入任务标题"
+    "emptyTask": "请先输入任务标题",
+    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
 }
