@@ -71,13 +71,13 @@ mixin customizeProfile(mobile)
 
             // Bangs
             menu(label=env.t('hairBangs'))
-              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})')
+              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})', ng-class='{selectableInventory: user.preferences.hair.bangs == 0}')
               each num in [1,2,3]
                 button(class='hair_bangs_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":#{num}})', ng-class='{selectableInventory: user.preferences.hair.bangs == "#{num}"}')
 
             // Base hairstyles (free)
             menu(label=env.t('hairBase'))
-              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})')
+              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})', ng-class='{selectableInventory: user.preferences.hair.base == 0}')
               each num in [1,3]
                 button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{num}})', ng-class='{selectableInventory: user.preferences.hair.base == "#{num}"}')
 
