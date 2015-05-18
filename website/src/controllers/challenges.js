@@ -11,7 +11,7 @@ var logging = require('./../logging');
 var csv = require('express-csv');
 var utils = require('../utils');
 var api = module.exports;
-
+var pushNotify = require('./pushNotifications');
 
 /*
   ------------------------------------------------------------------------
@@ -347,6 +347,9 @@ api.selectWinner = function(req, res, next) {
           {name: 'CHALLENGE_NAME', content: chal.name}
         ]);
       }
+
+      pushNotify.sendNotify(saved, shared.i18n.t('wonChallenge'), chal.name);
+
       closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){

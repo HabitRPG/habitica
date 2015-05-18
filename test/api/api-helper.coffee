@@ -12,7 +12,8 @@ global.shared = require("../../common")
 global.User = require("../../website/src/models/user").model
 
 global.chai = require("chai")
-global.expect = require("chai").expect
+chai.use(require("sinon-chai"))
+global.expect = chai.expect
 
 ##############################
 # Nconf config

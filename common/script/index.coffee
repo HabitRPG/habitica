@@ -654,6 +654,19 @@ api.wrap = (user, main=true) ->
         cb? null, user.preferences.webhooks
 
       # ------
+      # Push Notifications
+      # ------
+      addPushDevice: (req, cb) ->
+        user.pushDevices = [] unless user.pushDevices
+        pd = user.pushDevices
+        item = {regId:req.body.regId, type:req.body.type};
+        i = _.findIndex pd, {regId: item.regId}
+
+        pd.push(item) unless i != -1
+
+        cb? null, user.pushDevices
+      
+      # ------
       # Inbox
       # ------
       clearPMs: (req, cb) ->
