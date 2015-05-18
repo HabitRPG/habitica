@@ -128,7 +128,7 @@ mixin boss(tavern, mobile)
           div(ng-bind-html='::Content.quests[group.quest.key].notes()')
           unless tavern
             quest-rewards(key='{{::group.quest.key}}')
-
+        hr
         div(ng-if='::Content.quests[group.quest.key].boss')
           .npc_ian.pull-left
           if tavern
