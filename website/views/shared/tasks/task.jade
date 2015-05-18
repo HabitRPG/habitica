@@ -209,11 +209,11 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
                   button(ng-class='{active: task.repeat.s}', type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') {{::moment.weekdaysMin(6)}}
 
             label.option-title=env.t('startDate')
-            p(class='input-group')
+            p.input-group
               input(type='text' class='form-control' datepicker-popup ng-model='task._tempDateForPicker' ng-change='updateTaskStartDate(task)' is-open='task._isDatePickerOpen')
-              span(class='input-group-btn')
-                button(type="button" ng-click="openDatePicker($event, task)")
-                  span.input-group-addon.glyphicon.glyphicon-calendar
+              span.input-group-btn
+                button.btn.btn-default(type='button' ng-click='openDatePicker($event, task)')
+                  .glyphicon.glyphicon-calendar
 
 
         // if Reward, pricing

@@ -76,30 +76,31 @@ api.daysSince = (yesterday, options = {}) ->
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
   return false unless dailyTask.type == 'daily' && dailyTask.repeat
+  day = moment(day).startOf('day')
   if !dailyTask.startDate
     # TODO: Unexpected code path reached. Log a warning.
-    dailyTask.startDate = moment().toDate();
+    dailyTask.startDate = moment().toDate()
   if dailyTask.startDate instanceof String
     #TODO: Unexpected code path reached. Log a warning.
-    dailyTask.startDate = moment(dailyTask.startDate).toDate();
+    dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
   dayOfWeek = api.startOfDay(_.defaults {now:day}, o).day()
 
-  # check if event is in the future
-  hasStartedCheck = day >= dailyTask.startDate
+  # check if event is today or in the future
+  hasStartedCheck = day >= moment(dailyTask.startDate).startOf('day')
 
   if dailyTask.frequency == 'daily'
     daysSinceTaskStart = api.numDaysApart(day, dailyTask.startDate, o)
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck && hasStartedCheck
   else if dailyTask.frequency == 'weekly'
-    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeek]];
+    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeek]]
     weeksSinceTaskStartWeek = api.numWeeksApart(day, dailyTask.startDate, o)
     everyXCheck = (weeksSinceTaskStartWeek % dailyTask.everyX == 0)
     return dayOfWeekCheck && everyXCheck && hasStartedCheck
   else
     # unexpected frequency string
-    return false;
+    return false
 
 api.numDaysApart = (day1, day2, o) ->
   startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
@@ -247,7 +248,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(0), everyX: 1, frequency: 'weekly') if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this

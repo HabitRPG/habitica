@@ -157,7 +157,7 @@ describe 'User', ->
   it 'handles perfect days', ->
     user = newUser()
     user.dailys = []
-    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
+    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
     cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
 
     cron()
@@ -191,7 +191,7 @@ describe 'User', ->
       user.preferences.sleep = true
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
       user.dailys = []
-      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
+      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
 
     it 'remains in the inn on cron', ->
       cron()

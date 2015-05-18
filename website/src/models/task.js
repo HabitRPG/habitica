@@ -51,8 +51,7 @@ var checklist = [{
 var DailySchema = new Schema(
   _.defaults({
     type: {type: String, 'default': 'daily'},
-    //TODO: Cleaner to store interval as enum instead of str?
-    frequency: {type: String, 'default': 'weekly'}, // 'daily', 'weekly'
+    frequency: {type: String, 'default': 'weekly', enum: ['daily', 'weekly']},
     everyX: {type: Number, 'default': 1}, // e.g. once every X weeks
     startDate: {type: Date},
     history: Array,
