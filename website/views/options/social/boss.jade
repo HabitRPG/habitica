@@ -9,7 +9,7 @@ mixin boss(tavern, mobile)
         ul.nav.nav-pills
           li(ng-class="{active:selectedTab === 1}")
             a(ng-click="selectedTab = 1")
-                =env.t('invites')
+                =env.t('invitations')
           li(ng-class="{active:selectedTab === 2}")
             a(ng-click="selectedTab = 2")
               =env.t('questDetails')

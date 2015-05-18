@@ -2,7 +2,7 @@
     "quests": "Quests",
     "quest": "quest",
     "questDetails": "Quest Details",
-    "invites": "Invites",
+    "invitations": "Invitations",
     "completed": "Completed!",
     "youReceived": "You've Received",
     "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Options > Social > Party.",
