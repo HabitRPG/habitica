@@ -96,7 +96,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (!stayOpen) task._editing = false;
       if (isSaveAndClose)
         $("#task-" + task.id).parent().children('.popover').removeClass('in');
-      if (task.type == 'habit') Guide.goto('intro', 3);
+      if (task.type == 'habit') {
+       if ( User.user.items.gear.owned['weapon_warrior_0'] ) {
+        //If the user has the training sword, force a skip in the tour
+        Guide.goto('intro', 4, 1);
+       } else {
+        Guide.goto('intro', 3);
+       }
+      }
     };
 
     /**
