@@ -34,7 +34,8 @@ mixin boss(tavern, mobile)
         // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
           // =env.t('questOwnerNotInPendingQuestParty')
         div(ng-show="selectedTab === 2")
-          br
+          unless tavern
+            br
           div(class="quest_{{::group.quest.key}}")
           div(ng-if='::Content.quests[group.quest.key].boss')
             h4 {{::Content.quests[group.quest.key].boss.name()}}
