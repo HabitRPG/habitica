@@ -62,14 +62,14 @@ mixin boss(tavern, mobile)
         button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
 
       div(ng-if='group.quest.active==true' ng-init='selectedTab=2')
-        ul.nav.nav-pills
-          li(ng-class="{active:selectedTab === 1}")
-            a(ng-click="selectedTab = 1")
-                =env.t('questParticipants')
-          li(ng-class="{active:selectedTab === 2}")
-            a(ng-click="selectedTab = 2")
-              =env.t('questDetails')
         unless tavern
+          ul.nav.nav-pills
+            li(ng-class="{active:selectedTab === 1}")
+              a(ng-click="selectedTab = 1")
+                  =env.t('questParticipants')
+            li(ng-class="{active:selectedTab === 2}")
+              a(ng-click="selectedTab = 2")
+                =env.t('questDetails')
           div(ng-show="selectedTab === 1")
             br
             table.table.table-striped(bindonce='group')
