@@ -7,8 +7,7 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
     div
       button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
     .chat-buttons
-      button(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
-        span.glyphicon.glyphicon-refresh
+      button(type="button", ng-click='sync(group)')=env.t('toolTipMsg')
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
