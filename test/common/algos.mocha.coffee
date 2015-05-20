@@ -92,7 +92,7 @@ expectGainedPoints = (before, after, taskType) ->
   # daily & todo histories handled on cron
 
 expectNoChange = (before,after) ->
-  _.each $w('stats items gear dailys todos rewards flags preferences'), (attr)->
+  _.each $w('stats items gear dailys todos rewards preferences'), (attr)->
     expect(after[attr]).to.eql before[attr]
 
 expectClosePoints = (before, after, taskType) ->
@@ -777,7 +777,7 @@ describe 'Cron', ->
 
   describe 'dailies', ->
 
-    describe.skip 'new day', ->
+    describe 'new day', ->
 
       ###
       This section runs through a "cron matrix" of all permutations (that I can easily account for). It sets
