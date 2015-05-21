@@ -27,6 +27,11 @@ if(gcm){
 api.sendNotify = function(user, title, msg, timeToLive){
   timeToLive = timeToLive || 15;
 
+  // need investigation:
+  // https://github.com/HabitRPG/habitrpg/issues/5252
+  if(!user)
+    return;
+
   _.forEach(user.pushDevices, function(pushDevice){
     switch(pushDevice.type){
       case "android":
