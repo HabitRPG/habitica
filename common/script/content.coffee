@@ -906,6 +906,7 @@ api.questEggs =
   Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
   Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
   Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
+  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1686,6 +1687,25 @@ api.quests =
       gp: 31
       exp: 200
       unlock: t('questSlimeUnlockText')
+
+  sheep:
+    text: t('questSheepText')
+    notes: t('questSheepNotes')
+    completion: t('questSheepCompletion')
+    value: 4
+    boss:
+      name: t('questSheepBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Sheep', text: t('questSheepDropSheepEgg')}
+        {type: 'eggs', key: 'Sheep', text: t('questSheepDropSheepEgg')}
+        {type: 'eggs', key: 'Sheep', text: t('questSheepDropSheepEgg')}
+      ]
+      gp: 25
+      exp: 125
+      unlock: t('questSheepUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
