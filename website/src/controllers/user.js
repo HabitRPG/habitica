@@ -9,6 +9,7 @@ var shared = require('../../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
 var ga = utils.ga;
+var groups = require("../controllers/groups");
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
@@ -374,10 +375,26 @@ api['delete'] = function(req, res, next) {
   var plan = res.locals.user.purchased.plan;
   if (plan && plan.customerId && !plan.dateTerminated)
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
-  res.locals.user.remove(function(err){
+
+  function callback() {
+    res.locals.user.remove(function(err){
+      if (err) return next(err);
+      res.send(200);
+    })
+  }
+  //Check if user is in groups and remove the user from them
+  var q = Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}})
+
+  q.exec(function(err, group){
     if (err) return next(err);
-    res.send(200);
-  })
+    if(group){
+      Group.removeUserFromChallenges(res.locals.user, group, "remove-all", callback);
+    } else {
+      callback()
+    }
+  });
+
+
 }
 
 /*

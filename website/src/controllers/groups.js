@@ -137,6 +137,7 @@ api.get = function(req, res, next) {
         {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
       ]});
   populateQuery(gid, q);
+
   q.exec(function(err, group){
     if (err) return next(err);
     if(!group){
@@ -484,78 +485,15 @@ api.join = function(req, res, next) {
 api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
+
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
-  async.parallel([
-    // Remove active quest from user if they're leaving the party
-    function(cb){
-      if (group.type != 'party') return cb(null,{},1);
-      user.party.quest = Group.cleanQuestProgress();
-      user.save(cb);
-    },
-    // Remove user from group challenges
-    function(cb){
-      async.waterfall([
-        // Find relevant challenges
-        function(cb2) {
-          Challenge.find({
-            _id: {$in: user.challenges}, // Challenges I am in
-            group: group._id // that belong to the group I am leaving
-          }, cb2);
-        },
-        // Update each challenge
-        function(challenges, cb2) {
-          Challenge.update(
-            {_id:{$in: _.pluck(challenges, '_id')}},
-            {$pull:{members:user._id}},
-            {multi: true},
-            function(err) {
-             cb2(err, challenges); // pass `challenges` above to cb
-            }
-          );
-        },
-        // Unlink the challenge tasks from user
-        function(challenges, cb2) {
-          async.waterfall(challenges.map(function(chal) {
-            return function(cb3) {
-              var i = user.challenges.indexOf(chal._id)
-              if (~i) user.challenges.splice(i,1);
-              user.unlink({cid:chal._id, keep:keep}, cb3);
-            }
-          }), cb2);
-        }
-      ], cb);
-    },
-    // Update the group
-    function(cb){
-      var update = {$pull:{members:user._id}};
-      if (group.type == 'party' && group.quest.key){
-        update['$unset'] = {};
-        update['$unset']['quest.members.' + user._id] = 1;
-      }
-      // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
-      if (group.members.length > 1) {
-        var seniorMember = _.find(group.members, function (m) {return m != user._id});
-        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-        var leader = group.leader;
-        if (leader == user._id || !~group.members.indexOf(leader)) {
-          update['$set'] = update['$set'] || {};
-          update['$set'].leader = seniorMember;
-        }
-        leader = group.quest && group.quest.leader;
-        if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
-          update['$set'] = update['$set'] || {};
-          update['$set']['quest.leader'] = seniorMember;
-        }
-      }
-      update['$inc'] = {memberCount: -1};
-      Group.update({_id:group._id},update,cb);
-    }
-  ],function(err){
+  function callback(err) {
     if (err) return next(err);
     user = group = keep = null;
     return res.send(204);
-  })
+  }
+  Group.removeUserFromChallenges(user, group, keep, callback);
 }
 
 var inviteByUUIDs = function(uuids, group, req, res, next){
