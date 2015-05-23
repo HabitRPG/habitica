@@ -550,7 +550,8 @@ api.spells =
       cast: (user, target)->
         _.each target, (member) ->
           bonus = user._statsComputed.int
-          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
+          if user._id != member._id
+            member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
       # Earthquake
