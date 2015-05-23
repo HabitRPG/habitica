@@ -20,5 +20,5 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
     .chat-formatting
       include ../../shared/formatting-help
     .chat-buttons
-      input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}', class='btn')
-      button(type="button", ng-click='sync(group)', ng-class='{disabled: _sending == true}', class='btn')=env.t('toolTipMsg')
+      input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending')
+      button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending')=env.t('toolTipMsg')
