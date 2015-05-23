@@ -1,6 +1,6 @@
 var _id = '';
 var update = {
-  $push: {
+  $addToSet: {
     'purchased.plan.mysteryItems':{
       $each:['armor_mystery_201504','back_mystery_201504']
     }

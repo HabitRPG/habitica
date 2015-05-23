@@ -2,7 +2,7 @@
     "tavern": "Taverna",
     "innCheckOut": "Sair da Pousada",
     "innCheckIn": "Descansar na Pousada",
-    "innText": "Como está sua estadia na Taverna, <%= name %>? Para te proteger, sua lista de Tarefas Diárias está congelada. Suas marcações não serão processadas ou renovadas até amanhã (o dia após sua saída). Tenha cuidado, se sua equipe está numa batalha com um chefão, as perdas deles te atingirão! Além disso, você também não causará dano ao chefão. Pronto para sair? Termine sua estadia.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Mensagens de Procura de Grupo (Equipe Desejada)",
     "tutorial": "Tutorial",
     "glossary": "Glossário",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Você já reportou essa mensagem.",
     "needsText": "Por favor digite uma mensagem.",
     "needsTextPlaceholder": "Digite sua mensagem aqui.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Copiar mensagem como Afazer",
+    "messageAddedAsToDo": "Mensagem copiada como Afazer",
+    "messageWroteIn": "<%= user %> escreveu em <%= group %>",
+    "msgPreviewHeading": "Prévia da Mensagem",
+    "leaderOnlyChallenges": "Só o líder do grupo pode criar desafios"
 }

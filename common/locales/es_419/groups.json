@@ -2,7 +2,7 @@
     "tavern": "Taberna",
     "innCheckOut": "Dejar la posada",
     "innCheckIn": "Descansar en la posada",
-    "innText": "¿Cómo lo estás pasando en la Posada, <%= name %>? Para protegerte, tu lista de diarias está congelada. Tus marcas de verificación no serán procesadas o despejadas hasta mañana (el día después de que sales de la Posada). ¡Ten cuidado, si tu equipo está en medio de una Batalla contra un Jefe, sus fracasos te harán daño! Además, tú no lastimarás al jefe. ¿Listo para irte? Deja la Posada.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Publicaciones en la búsqueda de un grupo (Se busca Equipo)",
     "tutorial": "Tutorial",
     "glossary": "Glosario",

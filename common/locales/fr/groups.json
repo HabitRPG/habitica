@@ -2,7 +2,7 @@
     "tavern": "Taverne",
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
-    "innText": "Comment se passe votre séjour à l'Auberge, <%= name %> ? Pour vous protéger, votre liste de Quotidiennes est gelée. Celles validées ne seront pas prises en compte ou réinitialisées avant demain (le jour suivant votre sortie). Prenez garde, si votre groupe affronte un Boss, leurs oublis vous blesseront tout de même ! Par contre, vous ne blesserez pas le Boss. Prêt à partir ? Quittez simplement l'Auberge.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Vous avez déjà signalé ce message.",
     "needsText": "Veuillez écrire un message.",
     "needsTextPlaceholder": "Écrivez votre message ici.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Copier le message comme A Faire",
+    "messageAddedAsToDo": "Message copié comme A Faire.",
+    "messageWroteIn": "<%= user %> a écrit dans <%= group %>",
+    "msgPreviewHeading": "Aperçu du message",
+    "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis"
 }

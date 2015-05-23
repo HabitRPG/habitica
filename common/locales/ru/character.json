@@ -70,6 +70,7 @@
     "allocatePerPop": "Добавить очко к восприятию",
     "allocateInt": "Очки, распределенные на интеллект:",
     "allocateIntPop": "Добавить очко к интеллекту",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
     "stats": "Характеристики",
     "strength": "Сила",
     "strengthText": "Сила увеличивает шанс случайных «критических ударов» и количество золота, опыта и вещей, которые вы за них получите. Она также помогает наносить больший урон монстрам-боссам.",
@@ -138,5 +139,6 @@
     "displayNameDescription3": "и прокрутите вниз до раздела  «Регистрация», чтобы изменить ваш логин.",
     "unequipBattleGear": "Снять боевую экипировку",
     "unequipCostume": "Снять костюм",
-    "unequipPetMountBackground": "Убрать питомца, скакуна, фон"
+    "unequipPetMountBackground": "Убрать питомца, скакуна, фон",
+    "animalSkins": "Animal Skins"
 }

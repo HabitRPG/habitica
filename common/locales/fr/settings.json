@@ -97,7 +97,7 @@
     "invitedParty": "Invitation dans une Équipe",
     "invitedGuild": "Invitation dans une Guilde",
     "inactivityEmails": "Votre compte est inactif",
-    "weeklyRecaps": "Summaries of your account activity in the past week",
+    "weeklyRecaps": "Résumé de l'activité de votre compte ces dernières semaines",
     "questStarted": "Votre Quête a Commencé",
     "invitedQuest": "Invitation à une Quête",
     "kickedGroup": "Éjecté·e du groupe",
@@ -112,10 +112,10 @@
     "benefits": "Avantages",
     "coupon": "Promo",
     "couponPlaceholder": "Entrer le Code Promotionnel",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
-    "apply": "Apply",
-    "resubscribe": "Resubscribe",
-    "promoCode": "Promo Code",
-    "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Enter Promotion Code"
+    "couponText": "Nous participons parfois à des évènements et donnons des codes promotionnels pour de l'équipement spécial. (Par exemple, pour celles et ceux qui viennent nous voir à la Wondercon)",
+    "apply": "Appliquer",
+    "resubscribe": "Se réinscrire",
+    "promoCode": "Code promotionnel",
+    "promoCodeApplied": "Code promotionnel validé ! Vérifiez votre inventaire",
+    "promoPlaceholder": "Entrez le Code promotionnel"
 }

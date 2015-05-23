@@ -70,6 +70,7 @@
     "allocatePerPop": "Adaugă un punct la Percepţie",
     "allocateInt": "Puncte atribuite la INT:",
     "allocateIntPop": "Adaugă un punct la Inteligenţă",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
     "stats": "Atribute",
     "strength": "Forţă",
     "strengthText": "Forţa creşte şansele unor \"lovituri critice\" şi le îmbunătăţește şansele de câştig în Obiecte, Aur și Experienţă. De asemenea ajută la rănirea monştrilor speciali.",
@@ -138,5 +139,6 @@
     "displayNameDescription3": "and scroll down to the Registration section to change your login name.",
     "unequipBattleGear": "Unequip Battle Gear",
     "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background",
+    "animalSkins": "Animal Skins"
 }

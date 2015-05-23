@@ -125,7 +125,9 @@
         ],
         "css": [
             "bower_components/css-social-buttons/css/zocial.css",
-            "front/staticstyle.css"
+            "front/staticstyle.css",
+            "common/dist/sprites/habitrpg-shared.css",
+            "app.css"
         ]
     }
 }

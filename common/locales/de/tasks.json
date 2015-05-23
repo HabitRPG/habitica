@@ -77,5 +77,6 @@
     "streakCoins": "Strähnen Bonus!",
     "pushTaskToTop": "Aufgabe nach oben verschieben",
     "pushTaskToBottom": "Aufgabe nach unten verschieben",
-    "emptyTask": "Gib der Aufgabe zunächst einen Titel."
+    "emptyTask": "Gib der Aufgabe zunächst einen Titel.",
+    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
 }

@@ -2,7 +2,7 @@
     "tavern": "Værtshus",
     "innCheckOut": "Forlad Kroen",
     "innCheckIn": "Slap af på Kroen",
-    "innText": "Hvordan er dit ophold på Kroen, <%= name %>? For at beskytte dig er din liste af Daglige frossen. Dine færdiggjorte opgaver vil ikke blive behandlet eller ryddet før i morgen (dagen efter du forlader kroen). Vær forsigtig hvis din gruppe er i en Boss-kamp, da deres forpassede opgaver stadig vil skade dig! Derudover vil du ikke skade bossen mens du er her. Klar til at smutte? Forlad kroen.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Leder efter Gruppe (Gruppe Søges) Poster",
     "tutorial": "Vejledning",
     "glossary": "Ordliste",

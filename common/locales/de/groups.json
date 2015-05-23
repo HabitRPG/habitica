@@ -2,7 +2,7 @@
     "tavern": "Gasthaus",
     "innCheckOut": "Das Gasthaus verlassen",
     "innCheckIn": "Im Gasthaus erholen",
-    "innText": "Wie gefällt es Dir im Gasthaus,  <%= name %>? Damit Du geschützt bist, ist die Liste Deiner täglichen Aufgaben eingefroren, solange du hier bist. Ob Aufgaben abgehakt wurden, wird bis morgen (den Tag nachdem du ausgecheckt hast) nicht verarbeitet oder zurückgesetzt. Aber Achtung, wenn sich Deine Gruppe gerade in einem Kampf gegen einen Boss befindet, erhältst Du weiterhin Schaden für die Fehler der Gruppe! Außerdem fügst Du dem Boss keinen Schaden zu. Bereit, wieder aufzubrechen? Klicke auf \"Das Gasthaus verlassen\".",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Nach Gruppeneinträgen suchen",
     "tutorial": "Anleitung",
     "glossary": "Nomenklatur",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Du hast diese Nachricht bereits gemeldet.",
     "needsText": "Bitte gib eine Nachricht ein.",
     "needsTextPlaceholder": "Gib Deine Nachricht hier ein.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Nachricht als To-Do übernehmen",
+    "messageAddedAsToDo": "Nachricht als To-Do übernommen.",
+    "messageWroteIn": "<%= user %> schrieb in <%= group %>",
+    "msgPreviewHeading": "Nachrichtenvorschau",
+    "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen"
 }

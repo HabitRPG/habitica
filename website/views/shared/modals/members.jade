@@ -2,7 +2,7 @@ script(type='text/ng-template', id='modals/member.html')
   .modal-header
     h4
       span {{::profile.profile.name}}
-      span(ng-if='profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
+      span(ng-if='::contribText && profile.contributor.level')  - {{::contribText(profile.contributor, profile.backer)}}
   .modal-body
     .container-fluid
       .row
@@ -22,6 +22,7 @@ script(type='text/ng-template', id='modals/member.html')
               |&nbsp;
               | {{::profile.auth.timestamps.loggedin | date:user.preferences.dateFormat}} -
           h3=env.t('stats')
+          // @TODO: Figure out why this isn't showing up in front page
           .label.label-info {{:: {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
           include ../profiles/stats
         .col-md-6
@@ -38,7 +39,7 @@ script(type='text/ng-template', id='modals/member.html')
         span.glyphicon.glyphicon-ban-circle
       button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
         span.glyphicon.glyphicon-envelope
-      button.btn.btn-md.btn-default(tooltip="Send Gift", ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+      button.btn.btn-md.btn-default(tooltip=env.t('sendGift'), ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
         span.glyphicon.glyphicon-gift
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 

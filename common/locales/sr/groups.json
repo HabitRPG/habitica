@@ -2,7 +2,7 @@
     "tavern": "Krčma",
     "innCheckOut": "Napustiti Gostionicu",
     "innCheckIn": "Odmorite se u Gostionici",
-    "innText": "Prija li Vam boravak u Gostionici, <%= name %>? Vaš spisak zadataka je zamrznut. Stanje zadataka neće se menjati do sutra (dan pošto se odjavite). Budite oprezni: ako se vaša družina bori protiv bosa, njihove greške uticaće i na Vas! Takođe, Vi nećete moći da se borite s njima. Jeste li spremni da se vratite u igru? Odjavite se iz gostionice.",
+    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
     "lfgPosts": "Tražim družinu",
     "tutorial": "Obuka",
     "glossary": "Glosar",
@@ -97,9 +97,9 @@
     "abuseAlreadyReported": "Već ste prijavili ovu poruku.",
     "needsText": "Molimo Vas da napišete poruku.",
     "needsTextPlaceholder": "Otkucajte poruku ovde.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
-    "messageWroteIn": "<%= user %> wrote in <%= group %>",
-    "msgPreviewHeading": "Message Preview",
-    "leaderOnlyChallenges": "Only group leader can create challenges"
+    "copyMessageAsToDo": "Kopirati poruku kao Jednokratni zadatak",
+    "messageAddedAsToDo": "Poruka je kopirana kao jednokratni zadatak.",
+    "messageWroteIn": "<%= user %> je napisao u <%= group %>",
+    "msgPreviewHeading": "Pregled poruke",
+    "leaderOnlyChallenges": "Samo vođa grupe može da napravi izazov"
 }
