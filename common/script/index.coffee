@@ -78,10 +78,8 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   return false unless dailyTask.type == 'daily' && dailyTask.repeat
   day = moment(day).startOf('day')
   if !dailyTask.startDate
-    # TODO: Unexpected code path reached. Log a warning.
     dailyTask.startDate = moment().toDate()
   if dailyTask.startDate instanceof String
-    #TODO: Unexpected code path reached. Log a warning.
     dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
   dayOfWeek = api.startOfDay(_.defaults {now:day}, o).day()
