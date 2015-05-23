@@ -792,6 +792,7 @@ describe 'Cron', ->
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
+          before.dailys[0].startDate = after.dailys[0].startDate = moment().subtract(30, 'days')
           if options.shouldDo
             expect(shared.shouldDo(now.toDate(), after.dailys[0], {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
           after.fns.cron {now}
