@@ -39,7 +39,7 @@ script(type='text/ng-template', id='modals/member.html')
         span.glyphicon.glyphicon-ban-circle
       button.btn.btn-md.btn-default(tooltip=env.t('sendPM'), ng-click="openModal('private-message',{controller:'MemberModalCtrl'})", tooltip-placement='right')
         span.glyphicon.glyphicon-envelope
-      button.btn.btn-md.btn-default(tooltip="Send Gift", ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
+      button.btn.btn-md.btn-default(tooltip=env.t('sendGift'), ng-click="openModal('send-gift',{controller:'MemberModalCtrl'})", tooltip-placement='right')
         span.glyphicon.glyphicon-gift
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 
