@@ -42,7 +42,6 @@ describe "Users", ->
           .end (res) ->
             expectCode res, 200
             group = res.body
-            console.log(user._id)
             #Add members to guild
             async.waterfall [
               (cb) ->
