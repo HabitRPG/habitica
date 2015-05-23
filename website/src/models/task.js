@@ -53,7 +53,7 @@ var DailySchema = new Schema(
     type: {type: String, 'default': 'daily'},
     frequency: {type: String, 'default': 'weekly', enum: ['daily', 'weekly']},
     everyX: {type: Number, 'default': 1}, // e.g. once every X weeks
-    startDate: {type: Date},
+    startDate: {type: Date, 'default': new Date()},
     history: Array,
     completed: {type: Boolean, 'default': false},
     repeat: { // used only for 'weekly' frequency,
