@@ -76,23 +76,23 @@ api.daysSince = (yesterday, options = {}) ->
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
   return false unless dailyTask.type == 'daily' && dailyTask.repeat
-  day = moment(day).startOf('day')
   if !dailyTask.startDate
     dailyTask.startDate = moment().toDate()
   if dailyTask.startDate instanceof String
     dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
-  dayOfWeek = api.startOfDay(_.defaults {now:day}, o).day()
+  day = api.startOfDay(_.defaults {now:day}, o)
+  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
 
   # check if event is today or in the future
-  hasStartedCheck = day >= moment(dailyTask.startDate).startOf('day')
+  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
 
   if dailyTask.frequency == 'daily'
     daysSinceTaskStart = api.numDaysApart(day, dailyTask.startDate, o)
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck && hasStartedCheck
   else if dailyTask.frequency == 'weekly'
-    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeek]]
+    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
     weeksSinceTaskStartWeek = api.numWeeksApart(day, dailyTask.startDate, o)
     everyXCheck = (weeksSinceTaskStartWeek % dailyTask.everyX == 0)
     return dayOfWeekCheck && everyXCheck && hasStartedCheck
