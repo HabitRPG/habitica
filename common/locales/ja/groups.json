@@ -2,7 +2,7 @@
     "tavern": "酒場",
     "innCheckOut": "宿屋をチェックアウト",
     "innCheckIn": "宿屋に泊まる",
-    "innText": "宿屋での滞在はどうですか? <%= name %>あなたを保護するために、あなたのdailyリストは凍結されました。あなたのチェックマークは、明日 (あなたがチェックアウトした後の日) まで処理またはクリアされません。もし、ボスとの戦闘でパーティメンバーを失えば、あなたにとって大きな損失となるので、注意してください! また、ボスを倒せられないでしょう。離れる準備はできましたか? チェックアウトします。",
+    "innText": "あなたは宿屋に泊まっています！チェックインしている間、一日の終わりに日課が未実施でもダメージを受けません、ですが日課は毎日リフレッシュされます。注意してください、もしあなたがボスクエストに参加しているなら、あなたのパーティの仲間が日課をし損ねたとき、その仲間も宿屋に泊まっていない限り、あなたはダメージを受けるでしょう！また、あなたのボスへのダメージ(または収集したアイテム)は宿屋をチェックアウトするまで適用されないでしょう。",
     "lfgPosts": "グループポスト(メンバー募集)を探してください",
     "tutorial": "チュートリアル",
     "glossary": "小辞典",
@@ -96,5 +96,18 @@
     "abuseReported": "違反報告ありがとうございます。モデレータに通知されます。",
     "abuseAlreadyReported": "このメッセージは報告済みです。",
     "needsText": "メッセージを入力してください。",
-    "needsTextPlaceholder": "ここにメッセージを入力してください。"
+    "needsTextPlaceholder": "ここにメッセージを入力してください。",
+    "copyMessageAsToDo": "メッセージをコピーして やるべきことタスクに追加",
+    "messageAddedAsToDo": "メッセージをコピーして やるべきことタスクに追加されました",
+    "messageWroteIn": "<%= user %> が <%= group %>に書きました",
+    "msgPreviewHeading": "メッセージプレビュー",
+    "leaderOnlyChallenges": "グループリーダーだけがチャレンジを作成できます",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

@@ -23,7 +23,7 @@
     "backgroundVolcanoNotes": "在熔岩中泡一泡。",
     "backgrounds092014": "第四组：2014年9月推出",
     "backgroundThunderstormText": "雷暴",
-    "backgroundThunderstormNotes": "在暴风骤雨中导电。",
+    "backgroundThunderstormNotes": "在暴风骤雨中被雷劈。",
     "backgroundAutumnForestText": "秋季森林",
     "backgroundAutumnForestNotes": "在秋季的森林漫步。",
     "backgroundHarvestFieldsText": "田地",
@@ -76,5 +76,12 @@
     "backgroundFloralMeadowText": "花田牧场",
     "backgroundFloralMeadowNotes": "在开满花的牧场野餐",
     "backgroundGumdropLandText": "棒棒糖大陆",
-    "backgroundGumdropLandNotes": "舔一舔甜甜的棒棒糖"
+    "backgroundGumdropLandNotes": "舔一舔甜甜的棒棒糖",
+    "backgrounds052015": "第12组：2015年5月推出",
+    "backgroundMarbleTempleText": "大理石寺",
+    "backgroundMarbleTempleNotes": "在大理石寺前摆个姿势吧！",
+    "backgroundMountainLakeText": "高山湖泊",
+    "backgroundMountainLakeNotes": "用脚趾沾沾冰凉的湖水",
+    "backgroundPagodasText": "宝塔",
+    "backgroundPagodasNotes": "欲穷千里目，更上一层楼"
 }

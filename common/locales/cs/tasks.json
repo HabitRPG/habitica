@@ -77,5 +77,6 @@
     "streakCoins": "Bonus za šňůru!",
     "pushTaskToTop": "Přesunout úkol na vrchol",
     "pushTaskToBottom": "Posunout úkol na spodek",
-    "emptyTask": "Nejdřív zadej název úkolu."
+    "emptyTask": "Nejdřív zadej název úkolu.",
+    "dailiesRestingInInn": "Odpočíváš v Hostinci! Tvé Denní úkoly ti dnes NEUBLÍŽÍ, ale BUDOU se resetovat každý den. Pokud jsi na Výpravě, neuštědříš žádný úder/nebudeš sbírat předměty dokud se z Hostince neodhlásíš, ale stále ti může ublížit Boss, pokud tví přátelé v Družině nebudou plnit své Denní úkoly."
 }

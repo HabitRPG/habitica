@@ -393,7 +393,12 @@ var UserSchema = new Schema({
   todos:    {type:[TaskSchemas.TodoSchema]},
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
-  extra: Schema.Types.Mixed
+  extra: Schema.Types.Mixed,
+ 
+  pushDevices: {type: [{
+    regId: {type: String},
+    type: {type: String}
+  }],'default': []}
 
 }, {
   strict: true,

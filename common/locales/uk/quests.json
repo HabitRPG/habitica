@@ -6,6 +6,8 @@
     "questSend": "Клацнувши „Запросити“, усі гравці гурту отримають запрошення. Коли всі запрошення прийнято або відхилено, розпочнеться квест. Перегляньте його стан за Різне > Громада > Гурт.",
     "inviteParty": "Зібрати гурт",
     "questInvitation": "Запрошення до квесту:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "На потім",
     "buyQuest": "Придбати квест",
     "accepted": "Прийнято",

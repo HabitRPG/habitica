@@ -6,6 +6,8 @@
     "questSend": "Dacă apeși \"Invită\", o invitație va fi trimisă membrilor echipei tale. Când toți membrii au acceptat sau refuzat, aventura va începe. Verifică starea în Opțiuni > Social > Echipă.",
     "inviteParty": "Invită Echipa",
     "questInvitation": "Invitație la Aventuri:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Întreabă-mă mai târziu",
     "buyQuest": "Cumpără Aventură",
     "accepted": "Acceptat",

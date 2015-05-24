@@ -18,6 +18,8 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
         });
       })
     }
+
+    $scope.Math = window.Math;
   }])
 
 .controller("PlansCtrl", ['$rootScope',

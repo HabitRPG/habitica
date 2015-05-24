@@ -93,6 +93,7 @@
     "wonChallenge": "Savladali ste izazov",
     "newPM": "Primljena privatna poruka",
     "giftedGems": "Poklonjeni dragulji",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Poklonjena pretplata",
     "invitedParty": "Poziv u družinu",
     "invitedGuild": "Poziv u udruženje",
@@ -112,5 +113,10 @@
     "benefits": "Prednosti",
     "coupon": "Kupon",
     "couponPlaceholder": "Unesite kod sa kupona",
-    "couponText": "Na skupovima ponekad delimo kupone sa kodovima za specijalnu opremu. (npr. na Wondercon-u)"
+    "couponText": "Na skupovima ponekad delimo kupone sa kodovima za specijalnu opremu. (npr. na Wondercon-u)",
+    "apply": "Primeniti",
+    "resubscribe": "Obnoviti pretplatu",
+    "promoCode": "Kupon",
+    "promoCodeApplied": "Kupon je aktiviran! Pogledajte u svoj inventar",
+    "promoPlaceholder": "Unesite kod sa kupona"
 }

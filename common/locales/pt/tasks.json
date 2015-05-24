@@ -77,5 +77,6 @@
     "streakCoins": "Bônus de Combo!",
     "pushTaskToTop": "Enviar tarefa para o topo",
     "pushTaskToBottom": "Enviar tarefa para o fundo",
-    "emptyTask": "Insira o título da tarefa primeiro."
+    "emptyTask": "Insira o título da tarefa primeiro.",
+    "dailiesRestingInInn": "Você está descansando na Pousada! Suas Tarefas Diárias NÃO vão lhe causar dano esta noite, mas elas VÃO atualizar normalmente todos os dias. Se você está em uma missão, você não causará dano ou coletará itens até que saia da Pousada, mas ainda pode receber dano de um Chefão se os membros de sua Equipe não completarem Tarefas Diárias."
 }

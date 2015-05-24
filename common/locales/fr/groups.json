@@ -2,7 +2,7 @@
     "tavern": "Taverne",
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
-    "innText": "Comment se passe votre séjour à l'Auberge, <%= name %> ? Pour vous protéger, votre liste de Quotidiennes est gelée. Celles validées ne seront pas prises en compte ou réinitialisées avant demain (le jour suivant votre sortie). Prenez garde, si votre groupe affronte un Boss, leurs oublis vous blesseront tout de même ! Par contre, vous ne blesserez pas le Boss. Prêt à partir ? Quittez simplement l'Auberge.",
+    "innText": "Vous êtes installé à l'Auberge! Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours. Attention: si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Equipe, sauf s'ils séjournent aussi à l'Auberge! Et vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge. ",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",
@@ -96,5 +96,18 @@
     "abuseReported": "Merci d'avoir signalé cette infraction. Les modérateurs en ont été informé.",
     "abuseAlreadyReported": "Vous avez déjà signalé ce message.",
     "needsText": "Veuillez écrire un message.",
-    "needsTextPlaceholder": "Écrivez votre message ici."
+    "needsTextPlaceholder": "Écrivez votre message ici.",
+    "copyMessageAsToDo": "Copier le message comme A Faire",
+    "messageAddedAsToDo": "Message copié comme A Faire.",
+    "messageWroteIn": "<%= user %> a écrit dans <%= group %>",
+    "msgPreviewHeading": "Aperçu du message",
+    "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

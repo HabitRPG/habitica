@@ -6,6 +6,8 @@
     "questSend": "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an Deine Gruppenmitglieder. Wenn alle Mitglieder angenommen oder abgelehnt haben beginnt das Quest. Statusabfrage unter Optionen > Soziales > Gruppe.",
     "inviteParty": "Gruppe einladen",
     "questInvitation": "Quest Einladung:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Später fragen",
     "buyQuest": "Quest kaufen",
     "accepted": "Angenommen",

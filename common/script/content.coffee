@@ -400,7 +400,15 @@ gear =
       spring2015Warrior: event: events.spring2015, specialClass: 'warrior', text: t('headAccessorySpecialSpring2015WarriorText'), notes: t('headAccessorySpecialSpring2015WarriorNotes'), value: 20
       spring2015Mage:    event: events.spring2015, specialClass: 'wizard',  text: t('headAccessorySpecialSpring2015MageText'), notes: t('headAccessorySpecialSpring2015MageNotes'), value: 20
       spring2015Healer:  event: events.spring2015, specialClass: 'healer',  text: t('headAccessorySpecialSpring2015HealerText'), notes: t('headAccessorySpecialSpring2015HealerNotes'), value: 20
-
+      # Animal ears
+      bearEars: gearSet: 'animal', text: t('headAccessoryBearEarsText'), notes: t('headAccessoryBearEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_bearEars?)
+      cactusEars: gearSet: 'animal', text: t('headAccessoryCactusEarsText'), notes: t('headAccessoryCactusEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_cactusEars?)
+      foxEars: gearSet: 'animal', text: t('headAccessoryFoxEarsText'), notes: t('headAccessoryFoxEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_foxEars?)
+      lionEars: gearSet: 'animal', text: t('headAccessoryLionEarsText'), notes: t('headAccessoryLionEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_lionEars?)
+      pandaEars: gearSet: 'animal', text: t('headAccessoryPandaEarsText'), notes: t('headAccessoryPandaEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_pandaEars?)
+      pigEars: gearSet: 'animal', text: t('headAccessoryPigEarsText'), notes: t('headAccessoryPigEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_pigEars?)
+      tigerEars: gearSet: 'animal', text: t('headAccessoryTigerEarsText'), notes: t('headAccessoryTigerEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_tigerEars?)
+      wolfEars: gearSet: 'animal', text: t('headAccessoryWolfEarsText'), notes: t('headAccessoryWolfEarsNotes'), value: 20, canOwn: ((u)-> u.items.gear.owned.headAccessory_special_wolfEars?)
     mystery:
       201403: text: t('headAccessoryMystery201403Text'), notes: t('headAccessoryMystery201403Notes'), mystery:'201403', value: 0
       201404: text: t('headAccessoryMystery201404Text'), notes: t('headAccessoryMystery201404Notes'), mystery:'201404', value: 0
@@ -542,7 +550,8 @@ api.spells =
       cast: (user, target)->
         _.each target, (member) ->
           bonus = user._statsComputed.int
-          member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
+          if user._id != member._id
+            member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125)) # maxes out at 25
 
     earth:
       # Earthquake
@@ -898,6 +907,7 @@ api.questEggs =
   Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
   Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
   Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
+  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1679,6 +1689,25 @@ api.quests =
       exp: 200
       unlock: t('questSlimeUnlockText')
 
+  sheep:
+    text: t('questSheepText')
+    notes: t('questSheepNotes')
+    completion: t('questSheepCompletion')
+    value: 4
+    boss:
+      name: t('questSheepBoss')
+      hp: 300
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Sheep', text: t('questSheepDropSheepEgg')}
+        {type: 'eggs', key: 'Sheep', text: t('questSheepDropSheepEgg')}
+        {type: 'eggs', key: 'Sheep', text: t('questSheepDropSheepEgg')}
+      ]
+      gp: 25
+      exp: 125
+      unlock: t('questSheepUnlockText')
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss
@@ -1798,6 +1827,16 @@ api.backgrounds =
     gumdrop_land:
       text: t('backgroundGumdropLandText')
       notes: t('backgroundGumdropLandNotes')
+  backgrounds052015:
+    marble_temple:
+      text: t('backgroundMarbleTempleText')
+      notes: t('backgroundMarbleTempleNotes')
+    mountain_lake:
+      text: t('backgroundMountainLakeText')
+      notes: t('backgroundMountainLakeNotes')
+    pagodas:
+      text: t('backgroundPagodasText')
+      notes: t('backgroundPagodasNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

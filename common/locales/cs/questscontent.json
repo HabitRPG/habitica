@@ -191,10 +191,16 @@
     "questBunnyCompletion": "Posledním úderem srážíš zabijáckého králíčka k zemi. Třpytivá mlha se zvedne z jejího těla a smrskne se na obyčejného králíčka... vůbec nevypadá jako ta obluda, se kterou ses bil před chvílí. Její nosík se zaklepe a odhopká pryč zanechávajíc za sebou vejce. @Gully  se směje. \"Hora Prokrastinace dokáže z malých výzev udělat skoro neporazitelné. Vezměme tato vejce a pojďme domů.\"",
     "questBunnyDropBunnyEgg": "Králíček (vejce)",
     "questBunnyUnlockText": "Odemyká vejce králíčka na Trhu",
-    "questSlimeText": "Vládce slizu",
-    "questSlimeNotes": "Během práce na svých úkolech si všimneš že se pohybuješ pomaleji a pomaleji. \"Je to jako prodírat se melasou\", bručí @Leephon. \"Ne, jako prodírat se slizem!\", říká @starsystemic. \"Ten slizký Vládce slizu napatlal ten svůj sliz po celé Habitice. Lepí se to na práci. Všichni se zpomalují.\" Rozhlížíš se. Ulice se pomalu plní průhledným, barevným slizem a Habiťané zápasí se svými úkoly. Zatímco ostatní prchají z oblasti, ty si bereš mop a připravuješ se k bitvě!",
-    "questSlimeBoss": "Vládce slizu",
-    "questSlimeCompletion": "S posledním bodnutím chytáš Vládce slizu do přerostlé koblihy, kterou rychle donesli @Overomega, @LordDarkly a @Shaner, bystří vedoucí pekařského klubu. Jak tě každý poplácává po zádech, ucítíš jak ti někdo vložil něco do kapes. Je to odměna za tvůj sladký úspěch: tři vejce Marshmallow slizu.",
-    "questSlimeDropSlimeEgg": "Marshmallow sliz (vejce)",
-    "questSlimeUnlockText": "Odemyká vejce slizu na Trhu"
+    "questSlimeText": "Želésprávce",
+    "questSlimeNotes": "Během práce na svých úkolech si všimneš, že se pohybuješ pomaleji a pomaleji. \"Je to jako prodírat se melasou\", bručí @Leephon. \"Ne, jako prodírat se želé!\", říká @starsystemic. \"Ten slizký Želésprávce napatlal to své želé po celé Habitice. Lepí se to na práci. Všichni se zpomalují.\" Rozhlížíš se. Ulice se pomalu plní průhledným, barevným želé a Habiťané zápasí se svými úkoly. Zatímco ostatní prchají z oblasti, ty si bereš mop a připravuješ se k bitvě!",
+    "questSlimeBoss": "Želésprávce",
+    "questSlimeCompletion": "S posledním bodnutím chytáš Želésprávce do přerostlé koblihy, kterou rychle donesli @Overomega, @LordDarkly a @Shaner, bystří vedoucí pekařského klubu. Jak tě každý poplácává po zádech, ucítíš jak ti někdo vložil něco do kapes. Je to odměna za tvůj sladký úspěch: tři vejce Marshmallow želé.",
+    "questSlimeDropSlimeEgg": "Marshmallow želé (vejce)",
+    "questSlimeUnlockText": "Odemyká vejce želé na Trhu",
+    "questSheepText": "The Thunder Ram",
+    "questSheepNotes": "As you wander the rural Taskan countryside with friends, taking a \"quick break\" from your obligations, you find a cozy yarn shop. You are so absorbed in your procrastination that you hardly notice the ominous clouds creep over the horizon. \"I've got a ba-a-a-ad feeling about this weather,\" mutters @Misceo, and you look up. The stormy clouds are swirling together, and they look a lot like a... \"We don't have time for cloud-gazing!\" @starsystemic shouts. \"It's attacking!\" The Thunder Ram hurtles forward, slinging bolts of lightning right at you!",
+    "questSheepBoss": "Thunder Ram",
+    "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
+    "questSheepDropSheepEgg": "Sheep (Egg)",
+    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
 }

@@ -70,6 +70,7 @@
     "allocatePerPop": "Add a point to Perception",
     "allocateInt": "Points allocated to Intelligence:",
     "allocateIntPop": "Add a point to Intelligence",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Stats",
     "strength": "Strength",
     "strengthText": "Strength increases th' chance 'o random \"critical hits\" 'n th' Doubloon, Experience, 'n loot chance boost from them. It also helps deal damage to boss monsters.",
@@ -135,8 +136,9 @@
     "critBonus": "Critical Hit! Bonus:",
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. Go to",
     "displayNameDescription2": "Settings->Site",
-    "displayNameDescription3": "and scroll down to the Registration section to change your login name.",
+    "displayNameDescription3": "and scroll down to the Registration section to change yer login name.",
     "unequipBattleGear": "Unequip Battle Gear",
     "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipPetMountBackground": "Unequip Pet, Mount, Background",
+    "animalSkins": "Animal Skins"
 }

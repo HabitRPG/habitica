@@ -93,11 +93,12 @@
     "wonChallenge": "Você ganhou um Desafio",
     "newPM": "Recebeu Mensagem Privada",
     "giftedGems": "Gemas Presenteadas",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Assinaturas Presenteadas",
     "invitedParty": "Convidado para Equipe",
     "invitedGuild": "Convidado para Guilda",
     "inactivityEmails": "Sua conta está inativa",
-    "weeklyRecaps": "Resumo das atividades em sua conta de suário na última semana",
+    "weeklyRecaps": "Resumo das atividades em sua conta na última semana",
     "questStarted": "Sua Missão começou",
     "invitedQuest": "Convidado para Missão",
     "kickedGroup": "Expulso do grupo ",
@@ -112,5 +113,10 @@
     "benefits": "Benefícios",
     "coupon": "Cupom",
     "couponPlaceholder": "Inserir Código de Cupom",
-    "couponText": "As vezes nós temos eventos e distribuímos códigos de cupom para equipamentos especiais (exemplo, para aqueles que param nas nossas barracas da Wondercon)"
+    "couponText": "Às vezes nós temos eventos e distribuímos códigos promocionais para equipamentos especiais. (exemplo, para aqueles que passam nos nossos estandes da Wondercon)",
+    "apply": "Aplicar",
+    "resubscribe": "Reinscrever",
+    "promoCode": "Código Promocional",
+    "promoCodeApplied": "Código Promocional Aplicado! Verifique seu inventário",
+    "promoPlaceholder": "Insira um Código Promocional"
 }

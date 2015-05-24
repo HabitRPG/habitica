@@ -35,11 +35,11 @@
     "flower": "Kvet",
     "basicSkins": "Základné pokožky",
     "rainbowSkins": "Dúhové pokožky",
-    "pastelSkins": "Pastel Skins",
+    "pastelSkins": "Pastelové pokožky",
     "spookySkins": "Strašidelné pokožky",
     "supernaturalSkins": "Nadprirodzené pokožky",
     "rainbowColors": "Dúhové farby",
-    "shimmerColors": "Shimmer Colors",
+    "shimmerColors": "Trblietavé farby",
     "hauntedColors": "Strašidelné farby",
     "winteryColors": "Zimné Farby",
     "equipment": "Výstroj",
@@ -70,6 +70,7 @@
     "allocatePerPop": "Pridať bod do postrehu",
     "allocateInt": "Body pridelené do Inteligencie:",
     "allocateIntPop": "Pridať bod do inteligencie",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Štatistiky",
     "strength": "Sila",
     "strengthText": "Sila zvyšuje šancu náhodných \"kritických zásahov\" a tým aj možnosť získať z nich viac zlata, skúseností a predmetov. Taktiež pomáha zasadiť silnejšiu ranu boss monštrám.",
@@ -136,7 +137,8 @@
     "displayNameDescription1": "Toto sa objaví v správach, ktoré zverejníte v hostinci, cechu alebo družine, spolu s tým, čo je zobrazené na tvojom avatarovi. Choď na",
     "displayNameDescription2": "Nastavenia->Stránka",
     "displayNameDescription3": "a na zmenu prihlasovacieho mena sa presuňte sa nadol k sekcii Registrácia",
-    "unequipBattleGear": "Unequip Battle Gear",
-    "unequipCostume": "Unequip Costume",
-    "unequipPetMountBackground": "Unequip Pet, Mount, Background"
+    "unequipBattleGear": "Odlož Bojovú Výstroj",
+    "unequipCostume": "Odlož Kostým",
+    "unequipPetMountBackground": "Odlož Zvieratko, Tátoša, Pozadie",
+    "animalSkins": "Zvieracie pokožky"
 }

@@ -2,7 +2,7 @@
     "tavern": "Taverna",
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
-    "innText": "Come ti trovi nella Locanda, <%= name %>? Per proteggerti, la tua lista delle Daily è congelata. Non verrà controllata e non subirà alcuna modifica fino a domani (il giorno successivo a quello in cui lasci la locanda). Fai attenzione però, se la tua squadra è impegnata in uno scontro con un Boss, le mancanze dei tuoi compagni causeranno danni anche a te! Inoltre, tu non causerai danni al Boss. Pronto per ripartire? Lascia la Locanda.",
+    "innText": "Stai riposando nella Locanda! Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno. Fai attenzione: se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra a meno che non stiano riposando anche loro nella Locanda! Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finchè non lasci la Locanda.",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -96,5 +96,18 @@
     "abuseReported": "Grazie di aver segnalato questa violazione. I moderatori sono stati avvertiti.",
     "abuseAlreadyReported": "Hai già segnalato questo messaggio.",
     "needsText": "Scrivi un messaggio.",
-    "needsTextPlaceholder": "Scrivi il tuo messaggio qui."
+    "needsTextPlaceholder": "Scrivi il tuo messaggio qui.",
+    "copyMessageAsToDo": "Copia messaggio come To-Do",
+    "messageAddedAsToDo": "Messaggio copiato come To-Do.",
+    "messageWroteIn": "<%= user %> ha scritto in <%= group %>",
+    "msgPreviewHeading": "Anteprima messaggio",
+    "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

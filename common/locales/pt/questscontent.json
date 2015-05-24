@@ -196,5 +196,11 @@
     "questSlimeBoss": "Regente Geléia",
     "questSlimeCompletion": "Com um soco final, você tranca o Regente Geléia em uma rosquinha gigante, auxiliado por @Overomega, @LordDarkly e @Shaner, os espertos lideres do clube da confeitaria. Enquanto todos estão lhe parabenizando, você sente algo escorregar para dentro de seu bolso. É a recompensa por seu doce sucesso: três ovos de Gosma Marshmallow. ",
     "questSlimeDropSlimeEgg": "Gosma Marshmallow (Ovo)",
-    "questSlimeUnlockText": "Destranca ovos de gosma para compra no Mercado"
+    "questSlimeUnlockText": "Destranca ovos de gosma para compra no Mercado",
+    "questSheepText": "The Thunder Ram",
+    "questSheepNotes": "As you wander the rural Taskan countryside with friends, taking a \"quick break\" from your obligations, you find a cozy yarn shop. You are so absorbed in your procrastination that you hardly notice the ominous clouds creep over the horizon. \"I've got a ba-a-a-ad feeling about this weather,\" mutters @Misceo, and you look up. The stormy clouds are swirling together, and they look a lot like a... \"We don't have time for cloud-gazing!\" @starsystemic shouts. \"It's attacking!\" The Thunder Ram hurtles forward, slinging bolts of lightning right at you!",
+    "questSheepBoss": "Thunder Ram",
+    "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
+    "questSheepDropSheepEgg": "Sheep (Egg)",
+    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
 }

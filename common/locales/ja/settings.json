@@ -93,6 +93,7 @@
     "wonChallenge": "チャレンジに勝ちました",
     "newPM": "プライベートメッセージが届きました",
     "giftedGems": "貰ったジェム",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "貰った購読",
     "invitedParty": "パーティへ招待されました",
     "invitedGuild": "ギルドへ招待されました",
@@ -112,5 +113,10 @@
     "benefits": "便益",
     "coupon": "クーポン",
     "couponPlaceholder": "クーポンコードを入力してください",
-    "couponText": "我々は時々イベントを開催し、特殊装備(たとえばWonderconブースでとめられるような)のクーコンコードを配布します。"
+    "couponText": "我々は時々イベントを開催し、特殊装備(たとえばWonderconブースでとめられるような)のプロモコードを配布します。",
+    "apply": "適用",
+    "resubscribe": "再購読",
+    "promoCode": "プロモコード",
+    "promoCodeApplied": "プロモコードが適用されました！所持品を確認してください",
+    "promoPlaceholder": "プロモコードを入力してください"
 }

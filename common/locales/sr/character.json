@@ -70,6 +70,7 @@
     "allocatePerPop": "Dodaj poen Opažanju",
     "allocateInt": "Poeni dodeljeni Inteligenciji:",
     "allocateIntPop": "Dodaj poen Inteligenciji",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Karakteristike",
     "strength": "Snaga",
     "strengthText": "Snaga povećava šansu da zadate kritični udarac, kao i Zlato, Iskustvo i predmete koje od takvih udaraca dobijate. Takođe pomaže u borbi protiv bosova.",
@@ -138,5 +139,6 @@
     "displayNameDescription3": "u odeljku Registracija.",
     "unequipBattleGear": "Skinuti borbenu opremu",
     "unequipCostume": "Skinuti kostim",
-    "unequipPetMountBackground": "Ukloniti zver, pozadinu"
+    "unequipPetMountBackground": "Ukloniti zver, pozadinu",
+    "animalSkins": "Životinjske kože"
 }

@@ -70,6 +70,7 @@
     "allocatePerPop": "Voeg punt toe aan Perceptie",
     "allocateInt": "Punten toegewezen aan Intelligentie:",
     "allocateIntPop": "Voeg punt toe aan Intelligentie",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Statistieken",
     "strength": "Kracht",
     "strengthText": "Kracht verhoogt de kans op willekeurige \"voltreffers\" en de extra goud, ervaringspunten, en vondstkans van deze voltreffers. Het helpt ook schade toe te brengen aan eindbazen.",
@@ -138,5 +139,6 @@
     "displayNameDescription3": "en scroll naar beneden naar Registratie om je inlognaam te veranderen.",
     "unequipBattleGear": "Gevechtsuitrusting uittrekken",
     "unequipCostume": "Kostuum uittrekken",
-    "unequipPetMountBackground": "Huisdier, rijdier en achtergrond uitschakelen"
+    "unequipPetMountBackground": "Huisdier, rijdier en achtergrond uitschakelen",
+    "animalSkins": "Animal Skins"
 }

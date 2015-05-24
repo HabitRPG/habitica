@@ -37,7 +37,7 @@
     "publicChallenges": "Minimum 1 Gem fer <strong> public challenges </strong> (helps prevent spam, it really does).",
     "officialChallenge": "Official HabitRPG Challenge",
     "by": "by",
-    "participants": "<%= membercount %> Participants",
+    "participants": "<%= membercount %> Scalliwags",
     "join": "Join",
     "exportChallengeCSV": "Export to CSV",
     "selectGroup": "Please select group",

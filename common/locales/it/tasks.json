@@ -77,5 +77,6 @@
     "streakCoins": "Bonus serie!",
     "pushTaskToTop": "Metti in cima alla lista",
     "pushTaskToBottom": "Metti in fondo alla lista",
-    "emptyTask": "Inserisci prima il titolo dell'attività."
+    "emptyTask": "Inserisci prima il titolo dell'attività.",
+    "dailiesRestingInInn": "Stai riposando nella Locanda! Le tue Daily NON ti danneggeranno stanotte, PERÒ si resetteranno comunque ogni giorno. Se stai partecipando ad una missione, non infliggerai danni/raccoglierai oggetti finchè non lasci la Locanda, ma puoi comunque essere danneggiato dal Boss se i tuoi compagni di squadra non completano le proprie Daily."
 }

@@ -1,8 +1,8 @@
 {
     "tavern": "Karczma",
-    "innCheckOut": "Wymelduj się z karczmy",
-    "innCheckIn": "Odpoczywaj w karczmie",
-    "innText": "Jak mija pobyt w Karczmie, <%= name %>? Aby cię chronić, lista codziennych jest zamrożona. Twoje odhaczenia nie zostaną przetworzone ani wyczyszczone do jutra (czyli dnia po tym, kiedy się wymeldujesz). Ale uważaj, jeśli Twoja drużyna walczy z bossem, ich nietrafienia nadal będą cię ranić! Również Ty nie zadasz obrażeń bossowi. Jesteś gotowy do podróży? Wymelduj się.",
+    "innCheckOut": "Wymelduj się z Gospody",
+    "innCheckIn": "Odpoczywaj w Gospodzie",
+    "innText": "Odpoczywasz w Gospodzie! Dopóki jesteś zameldowany, twoje Codzienne nie zadadzą ci obrażeń na koniec dnia, jednak w dalszym ciągu codziennie będą się odświeżać. Uważaj: Jeśli uczestniczysz w misji z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej drużyny ominą Codzienne, chyba że również odpoczywają w Gospodzie! Również twoje obrażenia zadane bossowi (lub zebrane przedmioty) nie zostaną uwzględnione, dopóki nie wymeldujesz się z Gospody.",
     "lfgPosts": "Sekcja dla poszukujących drużyny",
     "tutorial": "Samouczek",
     "glossary": "Słownik",
@@ -95,6 +95,19 @@
     "abuseFlagModalButton": "Zgłoś",
     "abuseReported": "Dziękujemy za zgłoszenie. Moderatorzy zostali powiadomieni.",
     "abuseAlreadyReported": "Już zgłosiłeś tę wiadomość.",
-    "needsText": "Proszę wpisać wiadomość.",
-    "needsTextPlaceholder": "Wpisz swoją wiadomość tutaj."
+    "needsText": "Proszę wpisz wiadomość.",
+    "needsTextPlaceholder": "Wpisz swoją wiadomość tutaj.",
+    "copyMessageAsToDo": "Kopiuj wiadomość jako Do-Zrobienia",
+    "messageAddedAsToDo": "Wiadomość skopiowana jako Do-Zrobienia.",
+    "messageWroteIn": "<%= user %> napisał w <%= group %>",
+    "msgPreviewHeading": "Podgląd wiadomości",
+    "leaderOnlyChallenges": "Tylko przywódca grupy może tworzyć wyzwania",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

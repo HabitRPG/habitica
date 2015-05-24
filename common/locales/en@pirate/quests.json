@@ -6,6 +6,8 @@
     "questSend": "Clickin' \"Invite\" gunna send an invitation to ye crew members. When all members have accepted or denied, th' quest begins. See status under Options > Social > Crew",
     "inviteParty": "Invite Crew",
     "questInvitation": "Quest Invitation:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Ask Later",
     "buyQuest": "Buy Adventure Scroll",
     "accepted": "Accepted",

@@ -70,6 +70,7 @@
     "allocatePerPop": "Füge einen Punkt zu Warnehmung hinzu",
     "allocateInt": "Intelligenzpunkte:",
     "allocateIntPop": "Füge einen Punkt zu Intelligenz hinzu",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Werte",
     "strength": "Stärke",
     "strengthText": "Stärke erhöht die Wahrscheinlichkeit zufälliger kritischer Treffer und die Rate mit der durch sie Gold, Beute und Erfahrung gewonnen wird. Weiterhin erhöht sich der Schaden an Bossen.",
@@ -138,5 +139,6 @@
     "displayNameDescription3": "und scrolle nach unten zum Registrations-Abschnitt, um deinen Login Namen zu ändern.",
     "unequipBattleGear": "Kampfausrüstung ablegen",
     "unequipCostume": "Kostüm ablegen",
-    "unequipPetMountBackground": "Haustier, Reittier & Hintergrund zurücksetzen "
+    "unequipPetMountBackground": "Haustier, Reittier & Hintergrund zurücksetzen ",
+    "animalSkins": "Animal Skins"
 }

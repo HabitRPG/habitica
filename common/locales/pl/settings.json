@@ -93,11 +93,12 @@
     "wonChallenge": "Wygrałeś wyzwanie",
     "newPM": "Otrzymane wiadomości prywatne",
     "giftedGems": "Podarowane klejnoty",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Podarowane abonamenty",
     "invitedParty": "Zaproszony do Drużyny",
     "invitedGuild": "Zaproszony do Gildii",
     "inactivityEmails": "Twoje konto jest nieaktywne",
-    "weeklyRecaps": "Podsumowanie twojej aktywności w poprzednim tygodniu",
+    "weeklyRecaps": "Podsumowanie aktywności na koncie w ostatnim tygodniu",
     "questStarted": "Twoje zadanie rozpoczęło się",
     "invitedQuest": "Zostałeś zaproszony do zadania",
     "kickedGroup": "Wyrzucono z grupy",
@@ -112,5 +113,10 @@
     "benefits": "Korzyści",
     "coupon": "Kupon",
     "couponPlaceholder": "Podaj kod z kuponu",
-    "couponText": "Czasami mamy specjalne wydarzenia i rozdajemy kody na unikatowy ekwipunek. (np. dla tych, którzy zatrzymali się na naszym stoisku na Wondercon)"
+    "couponText": "Czasami bierzemy udział w wydarzeniach i rozdajemy kody promocyjne na specjalne wyposażenie (np. dla zatrzymujących się przy naszym stoisku na Wondercon)",
+    "apply": "Zastosuj",
+    "resubscribe": "Subskrybuj ponownie",
+    "promoCode": "Kod promocyjny",
+    "promoCodeApplied": "Zastosowano kod promocyjny! Sprawdź swój ekwipunek",
+    "promoPlaceholder": "Wpisz kod promocyjny"
 }

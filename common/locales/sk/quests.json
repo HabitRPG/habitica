@@ -6,6 +6,8 @@
     "questSend": "Kliknutím na \"Pozvať\" sa odošle pozvánka všetkým členom družiny. Keď všetci členovia prijmú alebo odmietnu, výprava začne. Stav výpravy nájdeš v menu Nastavenia > Spoločnosť > Družina",
     "inviteParty": "Pozvať družinu",
     "questInvitation": "Pozvánka na výpravu:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Spýtať sa neškôr",
     "buyQuest": "Kúpiť výpravu",
     "accepted": "Prijatá",
