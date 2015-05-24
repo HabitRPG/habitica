@@ -196,5 +196,11 @@
     "questSlimeBoss": "果凍攝政王",
     "questSlimeCompletion": "最後一戳，你的用超大型甜甜圈捕獲果凍攝政王，靠著才思敏捷糕點俱樂部的領導者@Overomega、@LordDarkly和@Shaner。當每個人都拍你的背時，你覺得有人把東西滑進你的口袋裡。這是獎勵你甜美的成功：三顆棉花糖史萊姆蛋。",
     "questSlimeDropSlimeEgg": "棉花糖史萊姆(蛋)",
-    "questSlimeUnlockText": "解鎖-可在市集中購買史萊姆蛋"
+    "questSlimeUnlockText": "解鎖-可在市集中購買史萊姆蛋",
+    "questSheepText": "The Thunder Ram",
+    "questSheepNotes": "As you wander the rural Taskan countryside with friends, taking a \"quick break\" from your obligations, you find a cozy yarn shop. You are so absorbed in your procrastination that you hardly notice the ominous clouds creep over the horizon. \"I've got a ba-a-a-ad feeling about this weather,\" mutters @Misceo, and you look up. The stormy clouds are swirling together, and they look a lot like a... \"We don't have time for cloud-gazing!\" @starsystemic shouts. \"It's attacking!\" The Thunder Ram hurtles forward, slinging bolts of lightning right at you!",
+    "questSheepBoss": "Thunder Ram",
+    "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
+    "questSheepDropSheepEgg": "Sheep (Egg)",
+    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
 }

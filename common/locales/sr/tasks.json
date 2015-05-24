@@ -78,5 +78,5 @@
     "pushTaskToTop": "Premesti zadatak na vrh",
     "pushTaskToBottom": "Premesti zadatak na dno",
     "emptyTask": "Prvo ukucajte naziv zadatka.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "Odmarate se u Gostionici! Svakodnevni zadaci će na početku dana biti obeleženi kao neurađeni, ali nećete trpeti štetu zbog neurađenih zadataka na kraju dana. Ako učestvujete u misiji, nećete nanositi štetu bosu, ni dobijati predmete, dok se ne odjavite iz Gostionice. Ako članovi družine budu imali neurađene svakodnevne zadatke, bos će povrediti i Vas."
 }

@@ -6,6 +6,8 @@
     "questSend": "Haciendo clic en ”Invite” mandará una invitación a los miembros de tu grupo. Cuando todos los miembros lo hayan aceptado o rechazado, comienza la misión. El estatus se puede ver en Opciones > Social > Equipo.",
     "inviteParty": "Invitar equipo",
     "questInvitation": "Invitación a una misión:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Preguntar más tarde",
     "buyQuest": "Comprar misión",
     "accepted": "Aceptado",

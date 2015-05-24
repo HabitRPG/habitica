@@ -56,6 +56,8 @@
     "questEggBunnyAdjective": "knuffelbaar",
     "questEggSlimeText": "Marshmallowslijm",
     "questEggSlimeAdjective": "zoete",
+    "questEggSheepText": "Sheep",
+    "questEggSheepAdjective": "woolly",
     "eggNotes": "Vind een uitbroedtoverdrank om op dit ei te gieten, en er zal een <%= eggAdjective(locale) %> <%= eggText(locale) %> uitkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",

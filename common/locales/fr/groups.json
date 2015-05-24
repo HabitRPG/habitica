@@ -2,7 +2,7 @@
     "tavern": "Taverne",
     "innCheckOut": "Quitter l'Auberge",
     "innCheckIn": "Se reposer à l'Auberge",
-    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
+    "innText": "Vous êtes installé à l'Auberge! Tant que vous y séjournez, vous n'êtes pas affecté par vos Quotidiennes à la fin de la journée, mais elles vont tout de même se remettre à zéro tous les jours. Attention: si vous êtes en pleine Quête contre un Boss, il pourra toujours vous blesser pour les Quotidiennes manquées par les potes de votre Equipe, sauf s'ils séjournent aussi à l'Auberge! Et vous ne pourrez vous-même blesser le Boss (ou récolter des objets) que lorsque vous quitterez l'Auberge. ",
     "lfgPosts": "Sujets de recherche de Groupe (Recherche d'Équipe)",
     "tutorial": "Tutoriel",
     "glossary": "Glossaire",
@@ -101,5 +101,13 @@
     "messageAddedAsToDo": "Message copié comme A Faire.",
     "messageWroteIn": "<%= user %> a écrit dans <%= group %>",
     "msgPreviewHeading": "Aperçu du message",
-    "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis"
+    "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

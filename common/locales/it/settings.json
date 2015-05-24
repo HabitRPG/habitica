@@ -93,6 +93,7 @@
     "wonChallenge": "Hai vinto una sfida",
     "newPM": "Hai ricevuto un messaggio privato",
     "giftedGems": "Ti vengono regalate delle Gemme",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Ti viene regalato un abbonamento",
     "invitedParty": "Invitato in una squadra",
     "invitedGuild": "Invitato in una Gilda",

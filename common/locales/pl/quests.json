@@ -6,6 +6,8 @@
     "questSend": "Naciśnięcie \"Zaproś\" wyśle zaproszenie do członków twojej drużyny. Gdy już wszyscy członkowie zaakceptują lub odrzucą zaproszenie, misja zostanie rozpoczęta. Możesz zobaczyć jej status pod Opcje > Społeczne > Drużyna.",
     "inviteParty": "Zaproś drużynę",
     "questInvitation": "Zaproszenie do misji:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Zapytaj później",
     "buyQuest": "Kup misję",
     "accepted": "Zaakceptowano",

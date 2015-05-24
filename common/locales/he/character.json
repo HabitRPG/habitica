@@ -70,7 +70,7 @@
     "allocatePerPop": "הוסף נקודה לתפיסה שלך",
     "allocateInt": "נקודות שהוקצו לתבונה",
     "allocateIntPop": "הוסף נקודה לתבונה שלך",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "תכונות",
     "strength": "כוח",
     "strengthText": "כוח מגביר את הסיכוי ל\"פגיעות חמורות\" ואת הסיכוי לקבלת מהם זהב, ניסיון, וחפצי ערך. הוא גם מסייע לגרום נזק למפלצות האויב.",
@@ -140,5 +140,5 @@
     "unequipBattleGear": "הסר את ציוד הלחימה",
     "unequipCostume": "הסר את התחפושת",
     "unequipPetMountBackground": "הסר את חיית המחמד, חיית הרכיבה ותמונת הרקע",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "עורות דמוי בע״ח"
 }

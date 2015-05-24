@@ -6,6 +6,8 @@
     "questSend": "點擊「邀請」會向你的隊友發送邀請。當所有成員接受或拒絕後任務開始。在選項> 社交> 組隊裡查看任務狀態。",
     "inviteParty": "邀請隊伍",
     "questInvitation": "任務邀請：",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "稍後再問",
     "buyQuest": "購買任務",
     "accepted": "接受",

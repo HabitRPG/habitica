@@ -70,7 +70,7 @@
     "allocatePerPop": "Додати очко сприйняття",
     "allocateInt": "Призначено очок інтелекту:",
     "allocateIntPop": "Додати очко інтелекту",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Характеристики",
     "strength": "Сила",
     "strengthText": "Сила зменшує ступінь небезпеки завдань (почервоніння), збільшує приріст від випадкових \"критичних ударів\" та допомагає завдавати ушкодження монстрам-босам.",
@@ -140,5 +140,5 @@
     "unequipBattleGear": "Зняти бойову екіпіровку",
     "unequipCostume": "Зняти костюм",
     "unequipPetMountBackground": "Заховати олюбленця, скакуна, фон",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "Шкіра тварин"
 }

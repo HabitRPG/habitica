@@ -2,7 +2,7 @@
     "tavern": "Taverna",
     "innCheckOut": "Esci dalla Locanda",
     "innCheckIn": "Riposa nella Locanda",
-    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
+    "innText": "Stai riposando nella Locanda! Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno. Fai attenzione: se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily mancate dei tuoi compagni di squadra a meno che non stiano riposando anche loro nella Locanda! Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finchè non lasci la Locanda.",
     "lfgPosts": "Sei in cerca di una squadra? Guarda qui! (in inglese)",
     "tutorial": "Tutorial",
     "glossary": "Glossario",
@@ -101,5 +101,13 @@
     "messageAddedAsToDo": "Messaggio copiato come To-Do.",
     "messageWroteIn": "<%= user %> ha scritto in <%= group %>",
     "msgPreviewHeading": "Anteprima messaggio",
-    "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide"
+    "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

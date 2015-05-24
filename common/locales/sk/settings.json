@@ -93,6 +93,7 @@
     "wonChallenge": "You Won a Challenge",
     "newPM": "Received Private Message",
     "giftedGems": "Gifted Gems",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Gifted Subscription",
     "invitedParty": "Pozvaný do družiny",
     "invitedGuild": "Invited To Guild",

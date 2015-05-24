@@ -2,7 +2,7 @@
     "tavern": "Krčma",
     "innCheckOut": "Napustiti Gostionicu",
     "innCheckIn": "Odmorite se u Gostionici",
-    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
+    "innText": "Odmarate se u Gostionici! Dok ste prijavljeni, nećete trpeti štetu od neurađenih svakodnevnih zadataka na kraju dana, ali će ti zadaci biti obeleženi kao neurađeni kad novi dan počne. Upozorenje: Ako se Vaša družina bori protiv bosa, njihovi propušteni zadaci će uticati i na Vas, osim ako su i oni u Gostionici! Takođe, šteta koju nanesete bosu (i predmeti koje nađete) neće se videti dok se ne odjavite iz Gostionice.",
     "lfgPosts": "Tražim družinu",
     "tutorial": "Obuka",
     "glossary": "Glosar",
@@ -101,5 +101,13 @@
     "messageAddedAsToDo": "Poruka je kopirana kao jednokratni zadatak.",
     "messageWroteIn": "<%= user %> je napisao u <%= group %>",
     "msgPreviewHeading": "Pregled poruke",
-    "leaderOnlyChallenges": "Samo vođa grupe može da napravi izazov"
+    "leaderOnlyChallenges": "Samo vođa grupe može da napravi izazov",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

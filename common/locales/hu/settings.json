@@ -93,6 +93,7 @@
     "wonChallenge": "Megnyertél egy Kihívást",
     "newPM": "Kaptál egy Privát üzenetet",
     "giftedGems": "Ajándékoztál Drágaköveket",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Ajándékoztál Előfizetést",
     "invitedParty": "Meghívva egy csapatba",
     "invitedGuild": "Meghívva egy céhbe",

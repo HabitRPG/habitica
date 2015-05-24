@@ -6,6 +6,8 @@
     "questSend": "Send invitation til dine gruppemedlemmer ved at klikke \"Invitér\". Når alle medlemmer har accepteret eller afvist vil questen begynde. Se status under Valgmuligheder > Social > Gruppe.",
     "inviteParty": "Invitér Gruppe",
     "questInvitation": "Quest-invitation:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Spørg Senere",
     "buyQuest": "Køb Quest",
     "accepted": "Accepteret",

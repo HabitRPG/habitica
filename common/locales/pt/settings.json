@@ -93,6 +93,7 @@
     "wonChallenge": "Você ganhou um Desafio",
     "newPM": "Recebeu Mensagem Privada",
     "giftedGems": "Gemas Presenteadas",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Assinaturas Presenteadas",
     "invitedParty": "Convidado para Equipe",
     "invitedGuild": "Convidado para Guilda",
@@ -114,7 +115,7 @@
     "couponPlaceholder": "Inserir Código de Cupom",
     "couponText": "Às vezes nós temos eventos e distribuímos códigos promocionais para equipamentos especiais. (exemplo, para aqueles que passam nos nossos estandes da Wondercon)",
     "apply": "Aplicar",
-    "resubscribe": "Reaplicar",
+    "resubscribe": "Reinscrever",
     "promoCode": "Código Promocional",
     "promoCodeApplied": "Código Promocional Aplicado! Verifique seu inventário",
     "promoPlaceholder": "Insira um Código Promocional"

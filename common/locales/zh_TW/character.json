@@ -70,7 +70,7 @@
     "allocatePerPop": "增加一點感知",
     "allocateInt": "分配給智力的屬性點：",
     "allocateIntPop": "增加一點智力",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "屬性",
     "strength": "力量",
     "strengthText": "力量會增加「會心一擊」的機率，而會心一擊時會提升金幣、經驗和物品掉落的機率。力量還能幫助你傷害 BOSS。",

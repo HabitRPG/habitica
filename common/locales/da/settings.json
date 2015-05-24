@@ -93,6 +93,7 @@
     "wonChallenge": "Du vandt en Udfordring",
     "newPM": "Modtaget Privatbesked",
     "giftedGems": "Ædelstensgave",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Abonnementsgave",
     "invitedParty": "Gruppeinvitation",
     "invitedGuild": "Klaninvitation",

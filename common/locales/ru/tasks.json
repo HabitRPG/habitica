@@ -78,5 +78,5 @@
     "pushTaskToTop": "Переместить задание наверх",
     "pushTaskToBottom": "Переместить задание вниз",
     "emptyTask": "Сначала введите название задания.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "Вы отдыхаете в Гостинице! Пропущенные Ежедневные задания НЕ причинят вам вреда в конце сегодняшнего дня, но отметки об их выполнении БУДУТ сбрасываться каждый день. Если ваша Команда участвует к квесте, вы не будете наносить урон / находить предметы, пока не покинете Гостиницу. В то же время Босс все же будет наносить урон вам за Ежедневные задания, пропущенные вашими товарищами по Команде."
 }

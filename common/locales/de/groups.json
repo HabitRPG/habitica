@@ -101,5 +101,13 @@
     "messageAddedAsToDo": "Nachricht als To-Do übernommen.",
     "messageWroteIn": "<%= user %> schrieb in <%= group %>",
     "msgPreviewHeading": "Nachrichtenvorschau",
-    "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen"
+    "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen",
+    "sendGift": "Send Gift",
+    "inviteFriends": "Invite Friends",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteExistUser": "Invite Existing User",
+    "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
+    "byColon": "By:",
+    "inviteNewUsers": "Invite New User(s)",
+    "inviteAlertInfo2": "Or share this link (copy/paste):"
 }

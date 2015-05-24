@@ -6,6 +6,8 @@
     "questSend": "Wanneer je \"Uitnodigen\" aanklikt wordt er een uitnodiging verstuurd naar de leden van jouw groep. Wanneer alle leden geaccepteerd of geweigerd hebben zal de queeste beginnen. Zie de status hier: Opties > Sociaal > Groep.",
     "inviteParty": "Groep uitnodigen",
     "questInvitation": "Uitnodiging voor queeste:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Later vragen",
     "buyQuest": "Queeste kopen",
     "accepted": "Geaccepteerd",

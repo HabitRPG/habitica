@@ -6,6 +6,8 @@
     "questSend": "לחיצה על \"הזמן\" תשלח הזמנה לחברי החבורה שלך. כאשר כל המשתתפים קיבלו או דחו, הקווסט מתחיל. ניתן לראות את מצבו תחת אפשרויות > חברתי > חבורה.",
     "inviteParty": "הזמן חבורה",
     "questInvitation": "הזמנה למשימה:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "שאל אחר כך",
     "buyQuest": "קנה משימה",
     "accepted": "הסכימ/ה",

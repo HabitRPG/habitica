@@ -93,6 +93,7 @@
     "wonChallenge": "你贏得挑戰",
     "newPM": "收到的私密訊息",
     "giftedGems": "禮物用寶石",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "禮物用訂閱",
     "invitedParty": "邀請至隊伍",
     "invitedGuild": "受邀至公會",

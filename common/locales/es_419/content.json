@@ -56,6 +56,8 @@
     "questEggBunnyAdjective": "zalamero",
     "questEggSlimeText": "Marshmallow Slime",
     "questEggSlimeAdjective": "dulce",
+    "questEggSheepText": "Sheep",
+    "questEggSheepAdjective": "woolly",
     "eggNotes": "Encuentra una poción de eclosión para verter sobre este huevo y nacerá un <%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Blanco",

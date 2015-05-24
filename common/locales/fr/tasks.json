@@ -78,5 +78,5 @@
     "pushTaskToTop": "Déplacer la tâche en tête de liste",
     "pushTaskToBottom": "Déplacer la tâche en fin de liste",
     "emptyTask": "Indiquez d'abord le titre de la tâche.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "Vous vous reposez à l'Auberge ! Vos Quotidiennes ne vous infligeront AUCUN dégâts cette nuit, mais SERONT réinitialisées chaque jour. Si vous participez à une quête, vous n'infligerez aucun dégât / ne récolterez aucun item jusqu'à ce que vous quittiez l'Auberge, mais vous pouvez quand même être blessé par un boss si un de vos équipiers oublie une de ses Quotidiennes."
 }

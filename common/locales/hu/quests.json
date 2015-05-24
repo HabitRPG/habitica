@@ -6,6 +6,8 @@
     "questSend": "A \"Meghívás\" gombra kattintva hívhatod meg a csapatod tagjait. Amikor minden tag elfogadta vagy elutasította a meghívást, elkezdődik a küldetés. Az aktuális állapotot a Beállítások > Közösség > Csapat alatt ellenőrizheted.",
     "inviteParty": "Csapat meghívása",
     "questInvitation": "Küldetés meghívás:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Kérdezd később",
     "buyQuest": "Küldetés megvásárlása",
     "accepted": "Elfogadva",

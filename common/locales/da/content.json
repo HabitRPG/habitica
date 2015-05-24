@@ -56,6 +56,8 @@
     "questEggBunnyAdjective": "kælen",
     "questEggSlimeText": "Skumfidus-Slim",
     "questEggSlimeAdjective": "sødt",
+    "questEggSheepText": "Sheep",
+    "questEggSheepAdjective": "woolly",
     "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",

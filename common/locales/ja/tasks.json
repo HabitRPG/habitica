@@ -78,5 +78,5 @@
     "pushTaskToTop": "タスクを一番上に上げる",
     "pushTaskToBottom": "タスクを一番下に下げる",
     "emptyTask": "タスクのタイトルをまず入力してください。",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "あなたは宿に泊まっています！日課が未実施でも今晩あなたはダメージを受けません。ですが日課は毎日リフレッシュされます。もしクエスト中であれば、宿をチェックアウトするまでダメージをうけたりアイテムを集めたりできません、ですがあなたのパーティの仲間が日課をスキップしたら、あなたはダメージを受けます。"
 }

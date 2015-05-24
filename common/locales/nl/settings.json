@@ -93,6 +93,7 @@
     "wonChallenge": "Je hebt een uitdaging gewonnen!",
     "newPM": "Privébericht ontvangen",
     "giftedGems": "Geschonken edelstenen",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Geschonken abonnement",
     "invitedParty": "Uitgenodigd voor groep",
     "invitedGuild": "Uitgenodigd voor gilde",

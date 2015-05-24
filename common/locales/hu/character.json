@@ -70,7 +70,7 @@
     "allocatePerPop": "Egy pont hozzáadása az Észleléshez",
     "allocateInt": "Intelligenciára költött pontok: ",
     "allocateIntPop": "Egy pont hozzáadása az Intelligenciához: ",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Karakterlap",
     "strength": "Erő",
     "strengthText": "Az erő növeli a \"kritikus csapások\" esélyét, növeli az arany és a tapasztalat szerzést, valamint a zsákmányok szerzésének esélyét. Továbbá segít a főellenségek sebzésében.",
@@ -140,5 +140,5 @@
     "unequipBattleGear": "Összes harci felszerelés eltávolítása",
     "unequipCostume": "Összes ruha eltávolítása",
     "unequipPetMountBackground": "Háziállat, hátas, háttér eltávolítása",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "Állat bőr"
 }
