@@ -17,9 +17,8 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
       ul.list-at-user(ng-show="query")
         li(ng-repeat='msg in response | filter:filterUser | limitTo: 5', ng-click='performCompletion(msg)')
           span.username.label.label-default(ng-class=':: userLevelStyle(msg)') {{::msg.user}}
-  .chat-controls
-    .chat-formatting
-      include ../../shared/formatting-help
+  .chat-controls.clearfix
     .chat-buttons
       input(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
       button(type="button", ng-click='sync(group)')=env.t('toolTipMsg')
+    include ../../shared/formatting-help

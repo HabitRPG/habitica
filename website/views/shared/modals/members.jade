@@ -90,6 +90,7 @@ script(type='text/ng-template', id='modals/send-gift.html')
               | {{block.months}} Month(s): ${{block.price}}
 
     textarea.form-control(rows='3', ng-model='gift.message', placeholder='Personal message (optional)')
+    include ../formatting-help
 
   .modal-footer
     - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
