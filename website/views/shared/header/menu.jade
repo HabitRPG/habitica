@@ -58,7 +58,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+                a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
               li
                 a(target="_blank" href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
               li
@@ -68,7 +68,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+                a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
           ul.toolbar-controls
             li.toolbar-subscribe-button
               button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
@@ -154,7 +154,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
         div(ng-if='_expandedMenu == "help"')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+              a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
             li
               a(target="_blank" href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
             li
@@ -164,7 +164,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+              a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
             //-li(ng-controller='SettingsCtrl')
               a(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
