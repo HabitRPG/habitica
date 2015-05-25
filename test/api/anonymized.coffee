@@ -9,12 +9,15 @@ describe "GET /api/v2/user/anonymized", ->
   before (done) ->
     # TODO: Seed user with messages, rewards, dailys, checklists, webhooks, etc
     registerNewUser ->
-      request.get(baseURL + "/user/anonymized").set("Accept", "application/json").end (res) ->
-        expect(res.statusCode).to.be 200
-        anon = res.body
-        expect(anon._id).to.equal user._id
-        done()
+      request.get(baseURL + "/user/anonymized")
+        .end (res) ->
+          anon = res.body
+          done()
     , true
+
+  it 'retains user id', (done) ->
+    expect(anon._id).to.equal user._id
+    done()
 
   it 'removes credentials and financial information', (done) ->
     expect(anon.apiToken).to.not.exist
