@@ -1852,9 +1852,9 @@ _.each api.subscriptionBlocks, (b,k)->b.key = k
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
-    {type: 'habit', text: t('defaultHabit1Text'), notes: t('defaultHabit1Notes'), value: 0, up: true, down: false, attribute: 'str' }
-    {type: 'habit', text: t('defaultHabit2Text'), notes: t('defaultHabit2Notes'), value: 0, up: false, down: true, attribute: 'str'}
-    {type: 'habit', text: t('defaultHabit3Text'), notes: t('defaultHabit3Notes'), value: 0, up: true, down: true, attribute: 'str'}
+    {type: 'habit', text: t('defaultHabit1Text'), notes: t('defaultTaskNotes'), value: 0, up: true, down: false, attribute: 'per' }
+    {type: 'habit', text: t('defaultHabit2Text'), notes: t('defaultTaskNotes'), value: 0, up: false, down: true, attribute: 'str'}
+    {type: 'habit', text: t('defaultHabit3Text'), notes: t('defaultTaskNotes'), value: 0, up: true, down: true, attribute: 'str'}
   ]
 
   dailys: [
@@ -1873,7 +1873,7 @@ api.userDefaults =
   ]
 
   rewards: [
-#    {type: 'reward', text: t('defaultReward1Text'), notes: t('defaultReward1Notes'), value: 20 }
+    {type: 'reward', text: t('defaultReward1Text'), notes: t('defaultTaskNotes'), value: 10 }
 #    {type: 'reward', text: t('defaultReward2Text'), notes: t('defaultReward2Notes'), value: 10 }
   ]
 

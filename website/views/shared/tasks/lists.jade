@@ -25,35 +25,32 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           div(ng-if='list.help', ng-switch='::list.type')
             div(ng-switch-when='habit')
               ul
-                li Good Habits are things that you do often. They award gold and experience every time you click the <code>+</code>.
-                li Bad Habits are things you want to avoid doing. They remove health every time you click the <code>-</code>.
-                li For inspiration, check out these <a href='http://habitrpg.wikia.com/wiki/Sample_Habits#Business' target='_blank'>sample Habits</a>
-                li More questions? Ask in <a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>the Newbies Guild!</a>
+                li!=env.t('habitHelp1', {plusIcon:"<span class='glyphicon glyphicon-plus'></span>"})
+                li!=env.t('habitHelp2', {minusIcon:"<span class='glyphicon glyphicon-minus'></span>"})
+                li!=env.t('habitHelp3')
+                li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='daily')
               ul
-                li Dailies repeat <strong>every day</strong> that they are active. Click the pencil icon to change the days a Daily is active.
-                li If you don’t complete active Dailies, they will hurt your avatar when your day rolls over.
-                li Dailies turn <strong>redder</strong> when you miss them, and <strong>bluer</strong> when you complete them. The redder the Daily, the more it will reward you... and hurt you.
-                li To change when your day rolls over, go to Settings > Site > Custom Day Start.
-                li For inspiration, check out these <a href='http://habitrpg.wikia.com/wiki/Sample_Dailies#Business' target='_blank'>sample Dailies</a>!
-                li More questions? Ask in <a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>the Newbies Guild!</a>
-
+                li!=env.t('dailyHelp1', {emphasisStart:"<strong>", emphasisEnd:"</strong>", pencilIcon:"<span class='glyphicon glyphicon-pencil'></span>"})
+                li!=env.t('dailyHelp2')
+                li!=env.t('dailyHelp3', {emphasisStart:"<strong>", emphasisEnd:"</strong>"})
+                li!=env.t('dailyHelp4', {linkStart:"<a href='/#/options/settings/settings' target='_blank'>", linkEnd:"</a>"})
+                li!=env.t('dailyHelp5')
+                li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='todo')
               ul
-                li To-Dos start yellow, and get redder (more valuable) the longer it takes to complete them.
-                li To-Dos never hurt you! They only award gold and experience.
-                li Breaking a To-Do down into a small checklist will make it less scary, and will increase your points!
-                li For inspiration, check out these <a href='http://habitrpg.wikia.com/wiki/Sample_To-Dos#Finances' target='_blank'>sample To-Dos</a>!
-                li More questions? Ask in <a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>the Newbies Guild!</a>
-
+                li!=env.t('toDoHelp1')
+                li!=env.t('toDoHelp2')
+                li!=env.t('toDoHelp3')
+                li!=env.t('toDoHelp4')
+                li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='reward')
               ul
-                li The Equipment you buy for your avatar is stored in Inventory > Equipment.
-                li Equipment affects your stats (Avatar > Stats).
-                li There will be special equipment here during World Events.
-                li Don't be afraid to set custom rewards! Check out some samples <a href='http://habitrpg.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>here</a>
-                li More questions? Ask in <a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>the Newbies Guild!</a>
-
+                li!=env.t('rewardHelp1', {linkStart:"<a href='/#/options/inventory/equipment' target='_blank'>", linkEnd: "</a>"})
+                li!=env.t('rewardHelp2', {linkStart:"<a href='/#/options/profile/stats' target='_blank'>", linkEnd: "</a>"})
+                li!=env.t('rewardHelp3')
+                li!=env.t('rewardHelp4')
+                li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
 
           // Todo Chart
           .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')

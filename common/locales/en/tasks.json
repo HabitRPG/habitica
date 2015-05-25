@@ -78,5 +78,22 @@
     "pushTaskToTop": "Push task to top",
     "pushTaskToBottom": "Push task to bottom",
     "emptyTask": "Enter the task's title first.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies.",
+    "habitHelp1": "Good Habits are things that you do often. They award Gold and Experience every time you click the <%= plusIcon %>.",
+    "habitHelp2": "Bad Habits are things you want to avoid doing. They remove Health every time you click the <%= minusIcon %>.",
+    "habitHelp3": "For inspiration, check out <%= linkStart %>these sample Habits<%= linkEnd %>.",
+    "newbieGuild": "More questions? Ask in the <%= linkStart %>Newbies Guild<%= linkEnd %>!",
+    "dailyHelp1": "Dailies repeat <%= emphasisStart %>every day<%= emphasisEnd %> that they are active. Click the <%= pencilIcon %> to change the days a Daily is active.",
+    "dailyHelp2": "If you don't complete active Dailies, you lose Health when your day rolls over.",
+    "dailyHelp3": "Dailies turn <%= emphasisStart %>redder<%= emphasisEnd %> when you miss them, and <%= emphasisStart %>bluer<%= emphasisEnd %> when you complete them. The redder the Daily, the more it will reward you... or hurt you.",
+    "dailyHelp4": "To change when your day rolls over, go to <%= linkStart %> Settings > Site<%= linkEnd %> > Custom Day Start.",
+    "dailyHelp5": "For inspiration, check out these <%= linkStart %>sample Dailies<%= linkEnd %>!",
+    "toDoHelp1": "To-Dos start yellow, and get redder (more valuable) the longer it takes to complete them.",
+    "toDoHelp2": "To-Dos never hurt you! They only award Gold and Experience.",
+    "toDoHelp3": "Breaking a To-Do down into a checklist of smaller items will make it less scary, and will increase your points!",
+    "toDoHelp4": "For inspiration, check out these <%= linkStart %>sample To-Dos<%= linkEnd %>!",
+    "rewardHelp1": "The Equipment you buy for your avatar is stored in <%= linkStart %>Inventory > Equipment<%= linkEnd %>.",
+    "rewardHelp2": "Equipment affects your stats (<%= linkStart %>Avatar > Stats<%= linkEnd %>).",
+    "rewardHelp3": "Special equipment will appear here during World Events.",
+    "rewardHelp4": "Don't be afraid to set custom Rewards! Check out some samples <%= linkStart %>here<%= linkEnd %>."
 }

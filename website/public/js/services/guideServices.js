@@ -10,73 +10,57 @@ function($rootScope, User, $timeout, $state) {
 
   var chapters = {
     intro: [
-      [ //0
+      [
+        {
+          state: 'tasks',
+          element: ".main-herobox",
+          content: window.env.t('tourAvatar1'),
+          placement: "right",
+          proceed: window.env.t('tourAvatar1Proceed')
+        },
+        {
+          state: 'options.profile.avatar',
+          element: '.tab-content.ng-scope',
+          content: window.env.t('tourAvatar2'),
+          placement: "top",
+          proceed: window.env.t('tourOkay'),
+          backdrop: false,
+          orphan: true
+        },
         {
           state: 'tasks',
           element: ".task-column.todos",
-          content: window.env.t('tourWelcome'),
-          placement: "top"
-        }
-      ], [ //1
+          content: window.env.t('tourToDosBrief'),
+          placement: "top",
+          proceed: window.env.t('tourOkay')
+        },
         {
-          state: 'tasks',
-          element: '.sticky-wrapper',
-          content: window.env.t('tourExp'),
-          placement: 'bottom'
-        }, {
           state: 'tasks',
           element: ".task-column.dailys",
-          content: window.env.t('tourDailies'),
-          placement: "top"
-        }
-      ], [ //2
+          content: window.env.t('tourDailiesBrief'),
+          placement: "top",
+          proceed: window.env.t('tourDailiesProceed')
+        },
         {
-          orphan: true,
-          content: window.env.t('tourCron'),
-          placement: 'bottom'
-        }, {
-          state: 'tasks',
-          element: '.meter.health',
-          content: window.env.t('tourHP'),
-          placement: 'bottom'
-        }, {
           state: 'tasks',
           element: ".task-column.habits",
-          content: window.env.t('tourHabits'),
-          placement: "right"
-        }
-      ], [ //3
+          content: window.env.t('tourHabitsBrief'),
+          placement: "right",
+          proceed: window.env.t('tourHabitsProceed')
+        },
         {
-          state: 'tasks',
-          element: ".hero-stats",
-          content: window.env.t('tourStats')
-        }, {
           state: 'tasks',
           element: ".task-column.rewards",
-          content: window.env.t('tourGP'),
-          placement: 'left'
-        }
-      ], [ //4
+          content: window.env.t('tourRewardsBrief'),
+          placement: "left",
+          proceed: window.env.t('tourRewardsProceed')
+        },
         {
           state: 'tasks',
-          element: '.main-herobox',
-          content: window.env.t('tourAvatar'),
-          placement: 'bottom'
-        }
-      ], [ //5
-        {
-          state: 'options.profile.avatar',
+          content: window.env.t('tourQuestions'),
+          proceed: window.env.t('tourQuestionsProceed'),
           orphan: true,
-          content: window.env.t('tourScrollDown')
-        }, {
-          element: "ul.toolbar-nav",
-          backdrop:false,
-          content: window.env.t('tourMuchMore'),
-          placement: "bottom",
-          final: true,
-          //onHidden: function(){
-          //  $rootScope.$watch('user.flags.customizationsNotification', _.partial(goto, 'intro', 4));
-          //}
+          final: true
         }
       ]
     ],
@@ -114,42 +98,80 @@ function($rootScope, User, $timeout, $state) {
       {
         orphan: true,
         content: window.env.t('tourStatsPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay')
       }
     ]],
     tavern: [[
       {
         orphan: true,
         content: window.env.t('tourTavernPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay')
       }
     ]],
     party: [[
       {
         orphan: true,
         content: window.env.t('tourPartyPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay')
       }
     ]],
     guilds: [[
       {
         orphan: true,
         content: window.env.t('tourGuildsPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay')
       }
     ]],
     challenges: [[
       {
         orphan: true,
         content: window.env.t('tourChallengesPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay')
       }
     ]],
     market: [[
       {
         orphan: true,
         content: window.env.t('tourMarketPage'),
-        final: true
+        final: true,
+        proceed: window.env.t('tourOkay')
+      }
+    ]],
+    hall: [[
+      {
+        orphan: true,
+        content: window.env.t('tourHallPage'),
+        final: true,
+        proceed: window.env.t('tourOkay')
+      }
+    ]],
+    pets: [[
+      {
+        orphan: true,
+        content: window.env.t('tourPetsPage'),
+        final: true,
+        proceed: window.env.t('tourOkay')
+      }
+    ]],
+    mounts: [[
+      {
+        orphan: true,
+        content: window.env.t('tourMountsPage'),
+        final: true,
+        proceed: window.env.t('tourOkay')
+      }
+    ]],
+    equipment: [[
+      {
+        orphan: true,
+        content: window.env.t('tourEquipmentPage'),
+        final: true,
+        proceed: window.env.t('tourOkay')
       }
     ]]
   }
@@ -185,31 +207,23 @@ function($rootScope, User, $timeout, $state) {
         var showFinish = step.final || k == 'classes';
         var showCounter = k=='intro' && !step.final;
 
-        // Experiment wud1Ba5qT1m9qR3PP0-Mmg , remove this when experiment complete
-        // 0=No Finish; Yes Counter 1=No Finish; No Counter 2=Yes Finish; Yes Counter 3=Yes Finish; No Counter
-        showFinish = showFinish || $rootScope.variant==2 || $rootScope.variant==3;
-        showCounter = showCounter && ($rootScope.variant==0 || $rootScope.variant==2);
-
-        // FIXME temporarily set finish & counter on until we can get experiment working
-        showFinish=true;showCounter=true;
-
         return '<div class="popover" role="tooltip">' +
           '<div class="arrow"></div>' +
           '<h3 class="popover-title"></h3>' +
           '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
             //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
-            (showFinish ? '<button class="btn btn-sm btn-default" data-role="end" style="float:none;">Finish Tour</button>' : '') +
             (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
             '<div class="btn-group">' +
-              '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Prev</button>' +
-              '<button class="btn btn-sm btn-default" data-role="next">Next &raquo;</button>' +
+              '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>' +
+              (showFinish ? ('<button class="btn btn-sm btn-primary" data-role="end" style="float:none;">' + (step.proceed ? step.proceed : "Finish Tour") + '</button>') :
+                ('<button class="btn btn-sm btn-primary" data-role="next">' + (step.proceed ? step.proceed : "Next") + ' &raquo;</button>')) +
               '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button>' +
             '</div>' +
           '</div>' +
           '</div>';
       },
-      storage: false,
+      storage: false
       //onEnd: function(){
       //  User.set({'flags.showTour': false});
       //}
@@ -218,6 +232,7 @@ function($rootScope, User, $timeout, $state) {
 
   var goto = function(chapter, page, force) {
     //return; // TODO temporarily remove old tutorial system while experimenting with leslie's new gettup
+    if (chapter == 'intro') User.set({'flags.welcomed': true});
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
     var updates = {};updates['flags.tour.'+chapter] = page;
@@ -243,21 +258,27 @@ function($rootScope, User, $timeout, $state) {
     if (!updateFn) return; // only run after user has been wrapped
     watcher(); // deregister watcher
     if (window.env.IS_MOBILE) return; // Don't show tour immediately on mobile devices
-    goto('intro', 0); // kick off first step on first visit
+    if (User.user.flags.welcomed == false) {
+      $rootScope.openModal('welcome', {size: 'lg', backdrop: 'static', keyboard: false});
+    }
 
     var alreadyShown = function(before, after) { return !(!before && after === true) };
     //$rootScope.$watch('user.flags.dropsEnabled', _.flow(alreadyShown, function(already) { //FIXME requires lodash@~3.2.0
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
       switch (toState.name) {
-        case 'options.profile.avatar':   return goto('intro', 5);
-        case 'options.profile.stats':    return goto('stats', 0);
-        case 'options.social.tavern':    return goto('tavern', 0);
-        case 'options.social.party':     return goto('party', 0);
-        case 'options.social.guilds':    return goto('guilds', 0);
-        case 'options.social.challenges':return goto('challenges', 0);
-        case 'options.inventory.drops':  return goto('market', 0);
+        // case 'options.profile.avatar':   return goto('intro', 5);
+        case 'options.profile.stats':        return goto('stats', 0);
+        case 'options.social.tavern':        return goto('tavern', 0);
+        case 'options.social.party':         return goto('party', 0);
+        case 'options.social.guilds.public': return goto('guilds', 0);
+        case 'options.social.challenges':    return goto('challenges', 0);
+        case 'options.social.hall.heroes':   return goto('hall', 0);
+        case 'options.inventory.drops':      return goto('market', 0);
+        case 'options.inventory.pets':       return goto('pets', 0);
+        case 'options.inventory.mounts':     return goto('mounts', 0);
+        case 'options.inventory.equipment':  return goto('equipment', 0);
       }
-    })
+    });
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before,after)) return;
       var eggs = User.user.items.eggs || {};

@@ -129,7 +129,11 @@ var UserSchema = new Schema({
       party: {type: Number,       'default': -1},
       guilds: {type: Number,      'default': -1},
       challenges: {type: Number,  'default': -1},
-      market: {type: Number,      'default': -1}
+      market: {type: Number,      'default': -1},
+      pets: {type: Number,        'default': -1},
+      mounts: {type: Number,      'default': -1},
+      hall: {type: Number,        'default': -1},
+      equipment: {type: Number,   'default': -1}
     },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
@@ -149,7 +153,8 @@ var UserSchema = new Schema({
     // Needed to track the tip to send inside the email
     weeklyRecapEmailsPhase: {type: Number, 'default': 0},
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
-    cronCount: {type:Number, 'default':0}
+    cronCount: {type:Number, 'default':0},
+    welcomed: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

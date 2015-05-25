@@ -50,8 +50,34 @@
     "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
     "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can freeze your account in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
     "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",
-    "tourGuildsPage": "Guilds are social groups with common themes. Search for the subjects that interest you! We recommend the Newbies Guild.",
-    "tourChallengesPage": "Joining a Challenge will add tasks to your account. Compete against other users to win gem prizes!",
-    "tourMarketPage": "Starting at Level 4, eggs and hatching potions drop randomly when you complete tasks. They appear here - use them to hatch pets! You can also buy items from the Market."
+    "tourGuildsPage": "Guilds are common-interest chat groups created by the players, for the players. Browse through the list and join the Guilds that interest you. Be sure to check out the popular Newbies Guild, where anyone can ask questions about HabitRPG!",
+    "tourChallengesPage": "Joining a Challenge will add tasks to your account. Compete against other users to win Gem prizes!",
+    "tourMarketPage": "Starting at Level 4, eggs and hatching potions drop randomly when you complete tasks. They appear here - use them to hatch pets! You can also buy items from the Market.",
+    "tourHallPage": "Welcome to the Hall of Heroes, where open-source contributors to HabitRPG are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned Gems, exclusive equipment, and prestigious titles. You can contribute to HabitRPG, too!",
+    "tourPetsPage": "This is the Stable! After level 4, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 4, and they'll grow into powerful mounts.",
+    "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. (Pets, mounts, and food are available after level 4.) Click a mount to saddle up!",
+    "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your stats. If you want to show different Equipment on your avatar without changing your stats, click \"Enable Costume.\"",
 
+    "tourOkay": "Okay!",
+
+    "tourAvatar1": "<strong>Your Avatar</strong><ul><li>Your avatar lives at the top of the task dashboard.</li><li>Click on your avatar at any time to customize it!</li></ul>",
+    "tourAvatar1Proceed": "Take me there!",
+    "tourAvatar2": "<strong>Customize Avatar</strong><ul><li>This is the page for basic avatar customization.</li><li>You can buy Equipment for your avatar later, once you've earned Gold.</li></ul>",
+    "tourToDosBrief": "<strong>To-Do List</strong><ul><li>Check off To-Dos for Gold & Experience!</li><li>To-Dos never make your avatar lose Health</li></ul>",
+    "tourDailiesBrief": "<strong>Daily Tasks</strong><ul><li>Dailies repeat every day</li><li>You lose Health if you skip Dailies</li></ul>",
+    "tourDailiesProceed": "I'll be careful!",
+    "tourHabitsBrief": "<strong>Good & Bad Habits</strong><ul><li>Good Habits award Gold & Experience</li><li>Bad Habits make you lose Health</li></ul>",
+    "tourHabitsProceed": "Makes sense!",
+    "tourRewardsBrief": "<strong>Reward List</strong><ul><li>Spend your Gold here</li><li>Purchase Equipment for your avatar, or set custom Rewards</li></ul>",
+    "tourRewardsProceed": "Can't wait!",
+    "tourQuestions": "<strong>More Questions?</strong><ul><li>If you get confused, click the <span class='glyphicon glyphicon-question-sign'></span> next to the headers.</li><li>Explore the tabs in the header to discover more features!</li></ul>",
+    "tourQuestionsProceed": "I will!",
+
+    "welcomeToHabit": "Welcome to HabitRPG, a game to improve your life!",
+    "welcome1": "Create and customize an in-game avatar to represent you.",
+    "welcome2": "Your real-life tasks affect your avatar's Health (HP), Experience (XP), and Gold!",
+    "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
+    "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
+    "welcome5": "Now Justin the Guide will teach you how to use your task dashboard...",
+    "imReady": "I'm Ready!"
 }
