@@ -376,21 +376,28 @@ api['delete'] = function(req, res, next) {
   if (plan && plan.customerId && !plan.dateTerminated)
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
 
-  function callback() {
+  function removeUser() {
     res.locals.user.remove(function(err){
       if (err) return next(err);
       res.send(200);
     })
   }
   //Check if user is in groups and remove the user from them
-  var q = Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}})
+  var q = Group.find({members: {'$in': [res.locals.user._id]}})
 
-  q.exec(function(err, group){
+  q.exec(function(err, groups){
     if (err) return next(err);
-    if(group){
-      Group.removeUserFromChallenges(res.locals.user, group, "remove-all", callback);
+
+    if(groups){
+      var groupFunctions = [];
+      for (var groupIndex in groups) {
+        groupFunctions[groupIndex] = function(cb) {
+          Group.removeUserFromAll(res.locals.user, groups[groupIndex], "remove-all", cb);
+        }
+      }
+      async.waterfall(groupFunctions, removeUser);
     } else {
-      callback()
+      removeUser()
     }
   });
 
