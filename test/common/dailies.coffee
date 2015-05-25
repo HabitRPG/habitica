@@ -348,7 +348,7 @@ describe 'weekly that repeats on M,W,F every x days', ->
       _.times 100, (day) ->
         valid_days = { Mon: true, Wed: true, Fri: true }
         day_to_test = start_date.add(day, 'days')
-        day_of_week = moment(day_to_test).format('ddd')
+        day_of_week = shared.startOfDay({now:day_to_test}).format('ddd')
         
         isDue = shared.shouldDo day_to_test, weekly
         is_correct_week = shared.numWeeksApart(day_to_test, start_date) % due == 0
