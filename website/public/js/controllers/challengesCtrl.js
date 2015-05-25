@@ -126,19 +126,27 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.challenges = Challenges.Challenge.query();
       User.log({});
     }
-    $scope.cancelClosing = function() {
+    $scope.cancelClosing = function(challenge) {
       $scope.popoverEl.popover('destroy');
       $scope.popoverEl = undefined;
       $scope.closingChal = undefined;
+      challenge.winner = undefined;
     }
     $scope["delete"] = function(challenge) {
-      if (!confirm(window.env.t('sureDelCha'))) return;
+      var warningMsg;
+      if(challenge.group._id == 'habitrpg') {
+        warningMsg = window.env.t('sureDelChaTavern');
+      } else {
+        warningMsg = window.env.t('sureDelCha');
+      }
+      if (!confirm(warningMsg)) return;
       challenge.$delete(function(){
         $scope.popoverEl.popover('destroy');
         backToChallenges();
       });
     };
     $scope.selectWinner = function(challenge) {
+      if (!challenge.winner) return;
       if (!confirm(window.env.t('youSure'))) return;
       challenge.$close({uid:challenge.winner}, function(){
         $scope.popoverEl.popover('destroy');

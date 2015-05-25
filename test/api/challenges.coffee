@@ -146,3 +146,61 @@ describe "Challenges", ->
             expect(res.body.official).to.equal true
             cb()
       ], done
+
+  it "User creates a non-tavern challenge with prize, deletes it, gets refund", (done) ->
+    User.findByIdAndUpdate user._id,
+      $set:
+        "balance": 8
+    , (err, user) ->
+      expect(err).to.not.be.ok
+      request.post(baseURL + "/challenges").send(
+        group: group._id
+        dailys: []
+        todos: []
+        rewards: []
+        habits: []
+        prize: 10
+      ).end (res) ->
+        expect(res.body.prize).to.equal 10
+        async.parallel [
+          (cb) ->
+            User.findById user._id, cb
+          (cb) ->
+            Challenge.findById res.body._id, cb
+        ], (err, results) ->
+          user = results[0]
+          challenge = results[1]
+          expect(user.balance).to.equal 5.5
+          request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+            User.findById user._id, (err, _user) ->
+              expect(_user.balance).to.equal 8
+              done()
+
+  it "User creates a tavern challenge with prize, deletes it, and does not get refund", (done) ->
+    User.findByIdAndUpdate user._id,
+      $set:
+        "balance": 8
+    , (err, user) ->
+      expect(err).to.not.be.ok
+      request.post(baseURL + "/challenges").send(
+        group: 'habitrpg'
+        dailys: []
+        todos: []
+        rewards: []
+        habits: []
+        prize: 10
+      ).end (res) ->
+        expect(res.body.prize).to.equal 10
+        async.parallel [
+          (cb) ->
+            User.findById user._id, cb
+          (cb) ->
+            Challenge.findById res.body._id, cb
+        ], (err, results) ->
+          user = results[0]
+          challenge = results[1]
+          expect(user.balance).to.equal 5.5
+          request.del(baseURL + "/challenges/" + challenge._id).end (res) ->
+            User.findById user._id, (err, _user) ->
+              expect(_user.balance).to.equal 5.5
+              done()
