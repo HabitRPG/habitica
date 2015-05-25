@@ -62,7 +62,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
               span.glyphicon.glyphicon-ok
               =env.t('join')
         h4 {{::group.name}}
-        p {{::group.description}}
+        markdown(text="group.description")
 
 script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
   include ./group
