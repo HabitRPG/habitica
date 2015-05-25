@@ -4,8 +4,8 @@ small.btn-link(ng-init='showHelp = false', ng-click='showHelp = !showHelp')
 .formatting-help(ng-if='showHelp')
   table.table.table-striped
     tr.info
-      td #[b=env.t('youType')]
-      td #[b=env.t('youSee')]
+      td.col-xs-6 #[b=env.t('youType')]
+      td.col-xs-6 #[b=env.t('youSee')]
     tr
       td=env.t('italics')
       td #[markdown(text="env.t('italics')")]
@@ -19,11 +19,11 @@ small.btn-link(ng-init='showHelp = false', ng-click='showHelp = !showHelp')
       td=env.t('emojiExample')
       td #[markdown(text="env.t('emojiExample')")]
     tr
-      td=env.t('habitrpgIsGreat')
-      td #[markdown(text="env.t('habitrpgIsGreat')")]
-    //tr
-      td=env.t('markdownImageExample')
-      td #[markdown(text="env.t('markdownImageCode')")]
+      td=env.t('markdownLinkEx')
+      td #[markdown(text="env.t('markdownLinkEx')")]
+    tr
+      td=env.t('markdownImageEx')
+      td #[markdown(text="env.t('markdownImageEx')")]
     tr
       td!=env.t('unorderedListHTML')
       td #[markdown(text="env.t('unorderedListMarkdown')")]
