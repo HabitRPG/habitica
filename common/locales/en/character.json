@@ -140,5 +140,6 @@
     "unequipBattleGear": "Unequip Battle Gear",
     "unequipCostume": "Unequip Costume",
     "unequipPetMountBackground": "Unequip Pet, Mount, Background",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "Animal Skins",
+    "displayBlurbPlaceholder": "Blurb"
 }
