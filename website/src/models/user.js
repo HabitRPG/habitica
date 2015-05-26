@@ -34,7 +34,8 @@ var UserSchema = new Schema({
     originalUser: Boolean,
     helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
     habitSurveys: Number,
-    ultimateGear: Boolean,
+    ultimateGear: Boolean, //TODO: Deprecate this. Superseded by ultimateGearSets
+    ultimateGearSets: Schema.Types.Mixed,
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,
@@ -156,7 +157,9 @@ var UserSchema = new Schema({
     lastWeeklyRecap: {type: Date, 'default': Date.now},
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
     cronCount: {type:Number, 'default':0},
-    welcomed: {type: Boolean, 'default': false}
+    welcomed: {type: Boolean, 'default': false},
+    armoireEnabled: {type: Boolean, 'default': false},
+    armoireOpened: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

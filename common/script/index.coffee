@@ -166,6 +166,7 @@ api.updateStore = (user) ->
   changes = changes.concat _.filter content.gear.flat, (v) ->
     v.klass in ['special','mystery'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
   changes.push content.potion
+  if user.flags.armoireEnabled then changes.push content.armoire
   # Return sorted store (array)
   _.sortBy changes, (c)->sortOrder[c.type]
 
@@ -835,23 +836,40 @@ api.wrap = (user, main=true) ->
       buy: (req, cb) ->
         {key} = req.params
 
-        item = if key is 'potion' then content.potion else content.gear.flat[key]
+        item = if key is 'potion' then content.potion
+        else if key is 'armoire' then content.armoire
+        else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
-        return cb?({code:401, message: "You can't own this item"}) if item.canOwn? and !item.canOwn(user)
+        return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
+        else if item.key is 'armoire'
+          armoireResult = user.fns.predictableRandom()
+          eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
+          if !_.isEmpty(eligibleEquipment) and (armoireResult < .7 or !user.flags.armoireOpened)
+            drop = user.fns.randomVal(eligibleEquipment)
+            user.items.gear.owned[drop.key] = true
+            user.flags.armoireOpened = true
+            message = i18n.t('armoireEquipment', {dropText: drop.text(req.language)}, req.language)
+          else if (!_.isEmpty(eligibleEquipment) and armoireResult < .85) or armoireResult < .6
+            drop = user.fns.randomVal _.where(content.food, {canDrop:true})
+            user.items.food[drop.key] ?= 0
+            user.items.food[drop.key] += 1
+            message = i18n.t('armoireFood', {dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
+          else
+            user.stats.exp += Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
+            message = i18n.t('armoireExp', req.language)
         else
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item, null, req)
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
-          if not user.achievements.ultimateGear and item.last
-            user.fns.ultimateGear()
+          if item.last then user.fns.ultimateGear()
         user.stats.gp -= item.value
         mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
-        cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
+        cb? {code:200, message}, _.pick(user,$w 'items achievements stats flags')
 
       buyMysterySet: (req, cb)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
@@ -1660,32 +1678,19 @@ api.wrap = (user, main=true) ->
     # ----------------------------------------------------------------------
     # Achievements
     # ----------------------------------------------------------------------
-    ultimateGear: () ->
-      # on the server this is a LoDash transform, on the client its an object
-      gear = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
-      ownedLastGear = _.chain(content.gear.flat)
-        .pick(_.keys gear)
-        .values()
-        .filter (gear) -> gear.last
-
-      lastGearClassTypeMatrix = {}
-      _.each content.classes, (klass) ->
-        lastGearClassTypeMatrix[klass] = {}
-        #_.each content.gearTypes, (type) ->
-        _.each ['armor', 'weapon', 'shield', 'head'], (type) ->
-          lastGearClassTypeMatrix[klass][type] = false
-          return true # false exits the each loop early
-
-      ownedLastGear.each (gear) ->
-        lastGearClassTypeMatrix[gear.klass]["shield"] = true if gear.twoHanded
-        lastGearClassTypeMatrix[gear.klass][gear.type] = true
-
-      shouldGrant = _(lastGearClassTypeMatrix)
-        .values()
-        .reduce(((ans, klass) -> ans or _(klass).values().reduce(((ans, gearType) -> ans and gearType), true)), false)
-        .valueOf()
-
-      user.achievements.ultimateGear = shouldGrant
+    ultimateGear: ->
+      # on the server this is a Lodash transform, on the client its an object
+      owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
+      user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
+      content.classes.forEach (klass) ->
+        user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
+          found = _.find content.gear.tree[type][klass], {last:true}
+          soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
+        , true # start with true, else `and` will fail right away
+      user.markModified? 'achievements.ultimateGearSets'
+      if _.contains(user.achievements.ultimateGearSets, true) and user.flags.armoireEnabled != true
+        user.flags.armoireEnabled = true
+        user.markModified? 'flags'
 
     nullify: ->
       user.ops = null
