@@ -271,7 +271,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
           input.form-control(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageUrl'))
         .form-group
           label=env.t('displayBlurb')
-          textarea.form-control(rows=5, placeholder=env.t('displayBlurb'), ng-model='editingProfile.blurb')
+          textarea.form-control(rows=5, placeholder=env.t('displayBlurbPlaceholder'), ng-model='editingProfile.blurb')
           include ../shared/formatting-help
 
 mixin backgrounds(mobile)
