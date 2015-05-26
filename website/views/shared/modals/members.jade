@@ -62,12 +62,12 @@ script(type='text/ng-template', id='modals/private-message.html')
 
 script(type='text/ng-template', id='modals/send-gift.html')
   .modal-header
-    h4=env.t('sendGiftHeading', {name: "{{profile.profile.name}}"})
+    h4=env.t('sendGiftHeading', {name: "{{::profile.profile.name}}"})
   .modal-body
     .panel.panel-default(class="{{gift.type=='gems' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="gems"')
       .panel-heading
         .pull-right
-          span(ng-show='gift.gems.fromBalance')=env.t('sendGiftGemsBalance', {number: "{{user.balance*4}}"})
+          span(ng-show='gift.gems.fromBalance')=env.t('sendGiftGemsBalance', {number: "{{::user.balance*4}}"})
           span(ng-hide='gift.gems.fromBalance')=env.t('sendGiftCost', {cost: "{{gift.gems.amount/4}}"})
         =env.t('gemsPopoverTitle')
       .panel-body
@@ -87,7 +87,7 @@ script(type='text/ng-template', id='modals/send-gift.html')
           .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"')
             label
               input(type="radio", name="subRadio", ng-value="block.key", ng-model='gift.subscription.key')
-              =env.t('sendGiftSubscription', {price: '{{::block.price}}', months: '{{block.months}}'})
+              =env.t('sendGiftSubscription', {price: '{{::block.price}}', months: '{{::block.months}}'})
 
     textarea.form-control(rows='3', ng-model='gift.message', placeholder=env.t('sendGiftMessagePlaceholder'))
     include ../formatting-help
