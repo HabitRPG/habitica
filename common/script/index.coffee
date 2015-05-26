@@ -93,9 +93,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
     return everyXCheck && hasStartedCheck
   else if dailyTask.frequency == 'weekly'
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
-    weeksSinceTaskStartWeek = api.numWeeksApart(day, dailyTask.startDate, o)
-    everyXCheck = (weeksSinceTaskStartWeek % dailyTask.everyX == 0)
-    return dayOfWeekCheck && everyXCheck && hasStartedCheck
+    return dayOfWeekCheck && hasStartedCheck
   else
     # unexpected frequency string
     return false
@@ -105,16 +103,6 @@ api.numDaysApart = (day1, day2, o) ->
   startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
   numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
   return numDays
-
-# weeks between the two days, counting Monday as the start of each week
-api.numWeeksApart = (day1, day2, o) ->
-  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
-  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
-  startWeekOfDay1 = startOfDay1.startOf('week')
-  startWeekOfDay2 = startOfDay2.startOf('week')
-  numWeeks = Math.abs(startWeekOfDay1.diff(startWeekOfDay2, 'weeks'))
-  return numWeeks
-
 
 ###
   ------------------------------------------------------

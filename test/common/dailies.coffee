@@ -319,41 +319,12 @@ describe 'daily that repeats every x days', ->
     user.dailys = [ shared.taskDefaults({type:'daily', startDate: moment(), frequency: 'daily'}) ]
     daily = user.dailys[0]
 
-  _.times 10, (n) ->
-    due = n + 1
+  _.times 11, (due) ->
 
     it 'where x equals ' + due, ->
       daily.everyX = due
 
-      _.times 100, (day) ->
+      _.times 30, (day) ->
         isDue = shared.shouldDo moment().add(day, 'days'), daily
         expect(isDue).to.be true if day % due == 0
         expect(isDue).to.be false if day % due != 0
-
-describe 'weekly that repeats on M,W,F every x days', ->
-  user = null
-  weekly = null
-  start_date = moment()
-
-  beforeEach ->
-    user = newUser()
-    user.dailys = [ shared.taskDefaults({type:'daily', startDate: start_date, frequency: 'weekly', repeat: {su:false,m:1,t:false,w:1,th:false,f:1,s:false}}) ]
-    weekly = user.dailys[0]
-
-  _.times 10, (n) ->
-    due = n + 1
-
-    it 'where x equals ' + due, ->
-      weekly.everyX = due
-      _.times 100, (day) ->
-        valid_days = { Mon: true, Wed: true, Fri: true }
-        day_to_test = start_date.add(day, 'days')
-        day_of_week = shared.startOfDay({now:day_to_test}).format('ddd')
-        
-        isDue = shared.shouldDo day_to_test, weekly
-        is_correct_week = shared.numWeeksApart(day_to_test, start_date) % due == 0
-
-        if valid_days[day_of_week] && is_correct_week
-          expect(isDue).to.be true
-        else
-          expect(isDue).to.be false
