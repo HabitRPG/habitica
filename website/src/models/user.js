@@ -281,7 +281,7 @@ var UserSchema = new Schema({
         collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
       },
       completed: String, // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
-      invited: {type: Boolean, 'default': false} // Set to true when invite is pending, set to false when quest invite is accepted or rejected
+      RSVPNeeded: {type: Boolean, 'default': false} // Set to true when invite is pending, set to false when quest invite is accepted or rejected, quest starts, or quest is cancelled
     }
   },
   preferences: {
