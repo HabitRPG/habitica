@@ -31,7 +31,7 @@ module.exports = function(grunt) {
         // For hair, skins, beards, etc. we want to output a '.customize-options.WHATEVER' class, which works as a
         // 60x60 image pointing at the proper part of the 90x90 sprite.
         // We set up the custom info here, and the template makes use of it.
-        if (sprite.name.match(/hair|skin|beard|mustach|shirt|flower|\bheadAccessory_special_\w+Ears\b/) || sprite.name=='head_0') {
+        if (sprite.name.match(/hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears/) || sprite.name=='head_0') {
           sprite.custom = {
             px: {
               offset_x: "-" + (sprite.x + 25) + "px",
