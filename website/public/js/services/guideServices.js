@@ -166,11 +166,13 @@ function($rootScope, User, $timeout, $state) {
           return $timeout(function(){});
         }
         window.ga && ga('send', 'event', 'behavior', 'tour', k, i+1);
+        mixpanel.track('Tutorial',{'tour':k+'-web','step':i+1,'complete':false});
       }
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
           var ups={};ups['flags.tour.'+k] = -2;
           User.set(ups);
+          mixpanel.track('Tutorial',{'tour':k+'-web','step':i+1,'complete':true});
         }
       }
     })
