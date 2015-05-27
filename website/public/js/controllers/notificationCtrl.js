@@ -148,8 +148,9 @@ habitrpg.controller('NotificationCtrl',
     });
 
     // Quest invitation modal
-    $rootScope.$watch('party.quest.key && !party.quest.active && party.quest.members[user._id] == undefined', function(after, before){
-      if (after == before || after != true) return;
+    $rootScope.$watch('user.party.quest.invited == true', function(after, before){
+      if (after != true) return;
+      $rootScope.party.$get();
       $rootScope.openModal('questInvitation');
     });
 

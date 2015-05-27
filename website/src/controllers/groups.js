@@ -912,6 +912,7 @@ api.questAccept = function(req, res, next) {
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
+        User.update({_id:m},{$set: {'party.quest.invited': true}}).exec();
         group.quest.members[m] = undefined;
 
         User.findById(m, function(err,groupMember){
@@ -947,6 +948,7 @@ api.questAccept = function(req, res, next) {
   } else {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
     group.quest.members[user._id] = true;
+    User.update({_id:user._id}, {$set: {'party.quest.invited': false}}).exec();
     questStart(req,res,next);
   }
 }
@@ -957,6 +959,7 @@ api.questReject = function(req, res, next) {
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
   group.quest.members[user._id] = false;
+  User.update({_id:user._id}, {$set: {'party.quest.invited': false}}).exec();
   questStart(req,res,next);
 }
 
@@ -974,6 +977,9 @@ api.questCancel = function(req, res, next){
         group.quest = {key:null,progress:{},leader:null};
         group.markModified('quest');
         group.save(cb);
+        _.each(group.members, function(m){
+          User.update({_id:m}, {$set: {'party.quest.invited': false}}).exec();
+        });
       }
     }
   ], function(err){

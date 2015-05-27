@@ -141,7 +141,8 @@ var cleanQuestProgress = function(merge){
       down: 0,
       collect: {}
     },
-    completed: null
+    completed: null,
+    invited: false
   };
   merge = merge || {progress:{}};
   _.merge(clean, _.omit(merge,'progress'));
