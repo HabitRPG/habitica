@@ -117,6 +117,69 @@ describe "Groups", ->
             expect(updatedGroup.description).to.equal "updatedDesc"
             done()
 
+    context "leaving groups", ->
+      it "can leave a guild", (done) ->
+        guildToLeave = undefined
+        request.post(baseURL + "/groups").send(
+          name: "TestGroupToLeave"
+          type: "guild"
+        ).end (res) ->
+          guildToLeave = res.body
+          request.post(baseURL + "/groups/" + guildToLeave._id + "/leave")
+          .send()
+          .end (res) ->
+            expectCode res, 204
+            done()
+
+    context "removing users groups", ->
+      it "allows guild leaders to remove a member", (done) ->
+        guildToRemoveMember = undefined
+        members = undefined
+        userToRemove = undefined
+        request.post(baseURL + "/groups").send(
+          name: "TestGuildToRemoveMember"
+          type: "guild"
+        ).end (res) ->
+          guildToRemoveMember = res.body
+          #Add members to guild
+          async.waterfall [
+            (cb) ->
+              registerManyUsers 1, cb
+
+            (_members, cb) ->
+              userToRemove = _members[0]
+              members = _members
+              inviteURL = baseURL + "/groups/" + guildToRemoveMember._id + "/invite"
+              request.post(inviteURL).send(
+                uuids: [userToRemove._id]
+              )
+              .end ->
+                cb()
+
+            (cb) ->
+              request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/join")
+                .set("X-API-User", userToRemove._id)
+                .set("X-API-Key", userToRemove.apiToken)
+                .end (res) ->
+                  cb()
+
+            (cb) ->
+              request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + userToRemove._id)
+              .send().end (res) ->
+                expectCode res, 204
+                cb()
+
+            (cb) ->
+              request.get(baseURL + "/groups/" + guildToRemoveMember._id)
+              .send()
+              .end (res) ->
+                g = res.body
+                userInGroup = _.find g.members, (member) -> return member._id == userToRemove._id
+                expect(userInGroup).to.not.exist
+                cb()
+
+          ], done
+
     describe "Private Guilds", ->
       guild = undefined
       before (done) ->
@@ -236,7 +299,8 @@ describe "Groups", ->
       async.waterfall [
         (cb) ->
           registerNewUser(cb, true)
-        , (user, cb) ->
+
+        (user, cb) ->
           request.post(baseURL + "/groups").send(
             name: "TestGroup"
             type: "party"
@@ -245,8 +309,9 @@ describe "Groups", ->
             group = res.body
             expect(group.members.length).to.equal 1
             expect(group.leader).to.equal user._id
-            done()
-        ]
+            cb()
+
+      ], done
 
     it "can be found by querying for party", (done) ->
       request.get(baseURL + "/groups/").send(
@@ -259,10 +324,10 @@ describe "Groups", ->
         expect(party.leader).to.equal user._id
         expect(party.name).to.equal group.name
         expect(party.quest).to.deep.equal { progress: {} }
-        expect(party.memberCount).to.equal group.memberCount
+        #expect(party.memberCount).to.equal group.memberCount
         done()
 
-    it "prevents user from joining or creating a second party", (done) ->
+    it "prevents user from creating a second party", (done) ->
       request.post(baseURL + "/groups").send(
         name: "TestGroup"
         type: "party"
@@ -275,14 +340,12 @@ describe "Groups", ->
 
       it "prevents user from joining a party when they haven't been invited", (done) ->
         registerNewUser (err, user) ->
-          request.post(baseURL + "/groups/" + group._id + "/join").send(
-              name: "TestGroup"
-              type: "guild",
-          )
+          request.post(baseURL + "/groups/" + group._id + "/join").send()
           .set("X-API-User", user._id)
           .set("X-API-Key", user.apiToken)
           .end (res) ->
             expectCode res, 401
+            expect(res.body.err).to.equal "Can't join a group you're not invited to."
             done()
         , false
 
@@ -292,17 +355,14 @@ describe "Groups", ->
           tmpUser = user
           inviteURL = baseURL + "/groups/" + group._id + "/invite"
           request.post(inviteURL).send(
-            uuids: tmpUser._id
+            uuids: [tmpUser._id]
           )
-          .set("X-API-User", tmpUser._id)
-          .set("X-API-Key", tmpUser.apiToken)
           .end ->
             request.post(baseURL + "/groups/" + group._id + "/join")
             .set("X-API-User", tmpUser._id)
             .set("X-API-Key", tmpUser.apiToken)
             .end (res) ->
-              expectCode res, 401
-              expect(res.body.err).to.equal "Can't join a group you're not invited to."
+              expectCode res, 200
               done()
         , false
 
