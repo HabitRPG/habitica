@@ -92,7 +92,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.profile.stats')=env.t('stats')
             li
-              a(ui-sref='options.profile.profile')=env.t('profile') 
+              a(ui-sref='options.profile.profile')=env.t('profile')
       li.toolbar-button-dropdown
         a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
           span.badge.badge-danger {{user.inbox.newMessages}}
@@ -146,8 +146,9 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
-      li.toolbar-button-dropdown
+      li.toolbar-button-dropdown.help-button
         a(target="_blank" href='http://habitrpg.wikia.com/wiki/')
+          span.glyphicon.glyphicon-question-sign
           span=env.t('help')
         a(ng-click='expandMenu("help")', ng-class='{active: _expandedMenu == "help"}')
           span  &#9776;
@@ -170,7 +171,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
-    ul.toolbar-options  
+    ul.toolbar-options
       li.toolbar-notifs
         a(ng-click='expandMenu("notifs")')
           span.glyphicon(ng-class='iconClasses()')
