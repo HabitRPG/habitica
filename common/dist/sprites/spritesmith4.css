@@ -28,11 +28,23 @@
   width: 90px;
   height: 90px;
 }
+.customize-option.headAccessory_special_bearEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -15px;
+  width: 60px;
+  height: 60px;
+}
 .headAccessory_special_cactusEars {
   background-image: url(spritesmith4.png);
   background-position: -1625px -455px;
   width: 90px;
   height: 90px;
+}
+.customize-option.headAccessory_special_cactusEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -470px;
+  width: 60px;
+  height: 60px;
 }
 .headAccessory_special_foxEars {
   background-image: url(spritesmith4.png);
@@ -40,11 +52,23 @@
   width: 90px;
   height: 90px;
 }
+.customize-option.headAccessory_special_foxEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -561px;
+  width: 60px;
+  height: 60px;
+}
 .headAccessory_special_lionEars {
   background-image: url(spritesmith4.png);
   background-position: -1625px -637px;
   width: 90px;
   height: 90px;
+}
+.customize-option.headAccessory_special_lionEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -652px;
+  width: 60px;
+  height: 60px;
 }
 .headAccessory_special_pandaEars {
   background-image: url(spritesmith4.png);
@@ -52,11 +76,23 @@
   width: 90px;
   height: 90px;
 }
+.customize-option.headAccessory_special_pandaEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -743px;
+  width: 60px;
+  height: 60px;
+}
 .headAccessory_special_pigEars {
   background-image: url(spritesmith4.png);
   background-position: -1625px -819px;
   width: 90px;
   height: 90px;
+}
+.customize-option.headAccessory_special_pigEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -834px;
+  width: 60px;
+  height: 60px;
 }
 .headAccessory_special_tigerEars {
   background-image: url(spritesmith4.png);
@@ -64,11 +100,23 @@
   width: 90px;
   height: 90px;
 }
+.customize-option.headAccessory_special_tigerEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -925px;
+  width: 60px;
+  height: 60px;
+}
 .headAccessory_special_wolfEars {
   background-image: url(spritesmith4.png);
   background-position: -1625px -1001px;
   width: 90px;
   height: 90px;
+}
+.customize-option.headAccessory_special_wolfEars {
+  background-image: url(spritesmith4.png);
+  background-position: -1650px -1016px;
+  width: 60px;
+  height: 60px;
 }
 .shop_headAccessory_special_bearEars {
   background-image: url(spritesmith4.png);
