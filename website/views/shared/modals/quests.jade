@@ -84,7 +84,7 @@ script(type='text/ng-template', id='modals/questInvitation.html')
           strong=env.t('collect') + ': '
           | {{::Content.quests[party.quest.key].collect[k].count}} {{::Content.quests[party.quest.key].collect[k].text()}} 
     div(ng-bind-html='::Content.quests[party.quest.key].notes()')
-    quest-rewards(key='{{::party.quest.key}}', header=env.t('rewards'))
+    quest-rewards(key='{{::user.party.quest.key}}', header=env.t('rewards'))
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
     button.btn.btn-default(ng-click='party.$questReject(); $close()')=env.t('reject')

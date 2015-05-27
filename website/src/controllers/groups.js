@@ -912,7 +912,7 @@ api.questAccept = function(req, res, next) {
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
-        User.update({_id:m},{$set: {'party.quest.RSVPNeeded': true}}).exec();
+        User.update({_id:m},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
         group.quest.members[m] = undefined;
 
         User.findById(m, function(err,groupMember){
