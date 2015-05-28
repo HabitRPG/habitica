@@ -501,6 +501,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
   .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', 'Challenges', '$state', '$compile',
     function($rootScope,$scope, Groups, User, Challenges, $state, $compile) {
+
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
@@ -579,6 +580,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $rootScope.party.$questAbort();
       }
 
+      $scope.questAccept = function(party){
+        party.$questAccept()
+          .then(function(res) {
+            User.sync();
+          }, function(err) {
+            console.log(err);
+        });
+      }
+
+      $scope.questReject = function(party){
+        party.$questReject()
+          .then(function(res) {
+            User.sync();
+          }, function(err) {
+            console.log(err);
+        });
+      }
     }
   ])
 
