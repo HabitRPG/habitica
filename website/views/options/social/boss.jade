@@ -30,9 +30,9 @@ mixin boss(tavern, mobile)
         button.btn.btn-sm.btn-warning(ng-if=':: group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)', ng-click='party.$questAccept({"force":true})')=env.t('begin')
         // // only the quest owner sees the cancel button UNLESS the quest owner is no longer in the quest/party and then everyone sees it:
         // This is commented-out until we have time to work out why it fails intermittently on the website and always on the mobile app (https://github.com/HabitRPG/habitrpg/issues/4074):
-        // button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)) || (! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group) || ! isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
+        // button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)) || (! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group) || ! isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel(party)')=env.t('cancel')
         // only the quest owner sees the cancel button:
-        button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
+        button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel(party)')=env.t('cancel')
 
       div(ng-if='group.quest.active==true')
         div(ng-if='::Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
@@ -109,6 +109,6 @@ mixin boss(tavern, mobile)
         unless tavern
           // // only the quest owner sees the abort button UNLESS the quest owner is no longer in the quest/party and then everyone sees it:
           // This is commented-out until we have time to work out why it fails intermittently on the website and always on the mobile app (https://github.com/HabitRPG/habitrpg/issues/4074):
-          // button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)) || ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group) || ! isMemberOfRunningQuest(group.quest.leader,group)', ng-click='questAbort()')=env.t('abort')
+          // button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)) || ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group) || ! isMemberOfRunningQuest(group.quest.leader,group)', ng-click='questAbort(party)')=env.t('abort')
           // only the quest owner sees the abort button:
-          button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group))', ng-click='questAbort()')=env.t('abort')
+          button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group))', ng-click='questAbort(party)')=env.t('abort')

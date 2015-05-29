@@ -94,6 +94,8 @@ describe "Push-Notifications", ->
               cb(null, recipient)
             find: (arg, arg2, cb) ->
               cb(null, [recipient])
+            update: (arg, arg2) ->
+              { exec: -> true}
           }
           groups.__set__('User', userMock)
           done()
