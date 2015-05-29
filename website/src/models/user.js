@@ -331,8 +331,10 @@ var UserSchema = new Schema({
       //remindersToLogin: {type: Boolean, 'default': true},
       // Those importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, 'default': true},
-      weeklyRecaps: {type: Boolean, 'default': true}
-    }
+      weeklyRecaps: {type: Boolean, 'default': true},
+      importantAnnouncements: {type: Boolean, 'default': true}
+    },
+    hideMilestoneMessage: {type:Boolean, 'default': true},
   },
   profile: {
     blurb: String,
@@ -394,7 +396,7 @@ var UserSchema = new Schema({
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
   extra: Schema.Types.Mixed,
- 
+
   pushDevices: {type: [{
     regId: {type: String},
     type: {type: String}

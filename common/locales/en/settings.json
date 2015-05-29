@@ -118,5 +118,9 @@
     "resubscribe": "Resubscribe",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Enter Promotion Code"
+    "promoPlaceholder": "Enter Promotion Code",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "showMilestoneTitle": "Show milestones",
+    "showMilestoneMessage": "Show upcoming milestones",
+    "hideMessage": "Hide this"
 }

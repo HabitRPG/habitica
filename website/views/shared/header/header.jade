@@ -29,8 +29,10 @@
         span.meter-text.value
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
-      p.well.milestone(ng-if='nextMilestone', tooltip='Next Milestone')
+      p.well.milestone(ng-if='nextMilestone && user.preferences.hideMilestoneMessage', tooltip='Next Milestone')
         span=env.t("milestoneMessage", {milestone: '{{nextMilestone.level}}: {{nextMilestone.text}}'} )
+        span 
+          a(ng-model='user.preferences.hideMilestoneMessage', ng-click='set({"preferences.hideMilestoneMessage": user.preferences.hideMilestoneMessage ? false : true })')=env.t('hideMessage')
 
     // party
     span(ng-controller='PartyCtrl')
