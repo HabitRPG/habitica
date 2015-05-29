@@ -40,6 +40,13 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
   // Defer loading everything until they're requested
   var data = {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined};
 
+  var syncUser = function(res) {
+    User.sync();
+  }
+  var logError = function(err) {
+    console.log(err);
+  }
+
   return {
     party: function(cb){
       if (!data.party) return (data.party = Group.get({gid: 'party'}, cb));
@@ -63,6 +70,26 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
     seenMessage: function(gid){
       $http.post(ApiUrl.get() + '/api/v2/groups/'+gid+'/chat/seen');
       if (User.user.newMessages) delete User.user.newMessages[gid];
+    },
+
+    questAccept: function(party){
+      party.$questAccept()
+        .then(syncUser, logError);
+    },
+
+    questReject: function(party){
+      party.$questReject()
+        .then(syncUser, logError);
+    },
+
+    questCancel: function(party){
+      party.$questCancel()
+        .then(syncUser, logError);
+    },
+
+    questAbort: function(party){
+      party.$questAbort()
+        .then(syncUser, logError);
     },
 
     // Pass reference to party, myGuilds, publicGuilds, tavern; inside data in order to
