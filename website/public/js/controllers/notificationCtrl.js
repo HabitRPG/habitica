@@ -148,7 +148,7 @@ habitrpg.controller('NotificationCtrl',
     });
 
     // Quest invitation modal
-    $rootScope.$watch('user.party.quest.RSVPNeeded', function(after, before){
+    $rootScope.$watch('user.party.quest.RSVPNeeded && (user.party.quest.completed == "" || user.party.quest.completed == undefined)', function(after, before){
       if (after != true) return;
       $rootScope.openModal('questInvitation', {controller:'PartyCtrl'});
     });
