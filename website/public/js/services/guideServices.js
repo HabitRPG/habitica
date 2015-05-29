@@ -12,18 +12,11 @@ function($rootScope, User, $timeout, $state) {
     intro: [
       [
         {
-          state: 'tasks',
-          element: ".main-herobox",
-          content: window.env.t('tourAvatar1'),
-          placement: "right",
-          proceed: window.env.t('tourAvatar1Proceed')
-        },
-        {
           state: 'options.profile.avatar',
           element: '.tab-content.ng-scope',
-          content: window.env.t('tourAvatar2'),
+          content: window.env.t('tourAvatar'),
           placement: "top",
-          proceed: window.env.t('tourOkay'),
+          proceed: window.env.t('tourAvatarProceed'),
           backdrop: false,
           orphan: true
         },
@@ -52,14 +45,8 @@ function($rootScope, User, $timeout, $state) {
           state: 'tasks',
           element: ".task-column.rewards",
           content: window.env.t('tourRewardsBrief'),
-          placement: "left",
-          proceed: window.env.t('tourRewardsProceed')
-        },
-        {
-          state: 'tasks',
-          content: window.env.t('tourQuestions'),
-          proceed: window.env.t('tourQuestionsProceed'),
-          orphan: true,
+          placement: "top",
+          proceed: window.env.t('tourRewardsProceed'),
           final: true
         }
       ]
@@ -99,7 +86,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourStatsPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourOkay'),
+        hideNavigation: true
       }
     ]],
     tavern: [[
@@ -107,7 +95,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourTavernPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourAwesome'),
+        hideNavigation: true
       }
     ]],
     party: [[
@@ -115,7 +104,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourPartyPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourSplendid'),
+        hideNavigation: true
       }
     ]],
     guilds: [[
@@ -123,7 +113,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourGuildsPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourNifty'),
+        hideNavigation: true
       }
     ]],
     challenges: [[
@@ -131,7 +122,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourChallengesPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourOkay'),
+        hideNavigation: true
       }
     ]],
     market: [[
@@ -139,7 +131,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourMarketPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourAwesome'),
+        hideNavigation: true
       }
     ]],
     hall: [[
@@ -147,7 +140,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourHallPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourSplendid'),
+        hideNavigation: true
       }
     ]],
     pets: [[
@@ -155,7 +149,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourPetsPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourNifty'),
+        hideNavigation: true
       }
     ]],
     mounts: [[
@@ -163,7 +158,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourMountsPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourOkay'),
+        hideNavigation: true
       }
     ]],
     equipment: [[
@@ -171,7 +167,8 @@ function($rootScope, User, $timeout, $state) {
         orphan: true,
         content: window.env.t('tourEquipmentPage'),
         final: true,
-        proceed: window.env.t('tourOkay')
+        proceed: window.env.t('tourAwesome'),
+        hideNavigation: true
       }
     ]]
   }
@@ -215,9 +212,9 @@ function($rootScope, User, $timeout, $state) {
             //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
             (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
             '<div class="btn-group">' +
-              '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>' +
+              (step.hideNavigation ? '' : '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>') +
               (showFinish ? ('<button class="btn btn-sm btn-primary" data-role="end" style="float:none;">' + (step.proceed ? step.proceed : "Finish Tour") + '</button>') :
-                ('<button class="btn btn-sm btn-primary" data-role="next">' + (step.proceed ? step.proceed : "Next") + ' &raquo;</button>')) +
+                (step.hideNavigation ? '' : ('<button class="btn btn-sm btn-primary" data-role="next">' + (step.proceed ? step.proceed : "Next") + ' &raquo;</button>'))) +
               '<button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button>' +
             '</div>' +
           '</div>' +
