@@ -21,6 +21,10 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$modal',
      100: env.t("freeOrbRebirthMilestone")
     };
 
+    $scope.keys = function(obj){
+      return obj? Object.keys(obj) : [];
+    }
+
     $scope.party = Groups.party(function(){
         var triggerResort = function() {
             $scope.partyMinusSelf = resortParty();

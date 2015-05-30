@@ -79,7 +79,7 @@ script(type='text/ng-template', id='modals/milestones.html')
   .modal-header
     h4=env.t("milestoneHeader")
   .modal-body
-    p(ng-repeat="(key, value) in milestones")
-      Level {{key}}: {{value}}
+    p(ng-repeat="key in keys(milestones)")
+      Level {{key}}: {{milestones[key]}}
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t("ok")
