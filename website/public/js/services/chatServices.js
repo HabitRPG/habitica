@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg').factory('Chat',
-['$resource', '$q', '$http', 'ApiUrl', 'User',
-function($resource, $q, $http, ApiUrl, User) {
+['$resource', '$http', 'ApiUrl', 'User',
+function($resource, $http, ApiUrl, User) {
   var utils = $resource(ApiUrl.get() + '/api/v2/groups/:gid',
     {gid:'@_id', messageId: '@_messageId'},
     {
