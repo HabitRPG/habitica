@@ -422,6 +422,9 @@ api.likeChatMessage = function(req, res, next) {
   group.markModified('chat');
   group.save(function(err,_saved){
     if (err) return next(err);
+    // @TODO: We're sending back the entire array of chats back
+    // Should we just send back the object of the single chat message?
+    // If not, should we update the group chat when a chat is liked?
     return res.send(_saved.chat);
   })
 }

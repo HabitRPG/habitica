@@ -43,6 +43,7 @@
             "common/script/public/userServices.js",
             "common/script/public/directives.js",
             "js/services/groupServices.js",
+            "js/services/chatServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
             "js/services/challengeServices.js",

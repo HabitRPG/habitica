@@ -120,11 +120,11 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.guilds.detail', {
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
-          controller: ['$scope', 'Groups', '$stateParams',
-          function($scope, Groups, $stateParams){
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams',
+          function($scope, Groups, Chat, $stateParams){
             Groups.Group.get({gid:$stateParams.gid}, function(group){
               $scope.group = group;
-              Groups.seenMessage(group._id);
+              Chat.seenMessage(group._id);
             });
           }]
         })
