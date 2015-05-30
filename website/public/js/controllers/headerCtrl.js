@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
-  function($scope, Groups, User) {
+habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$modal',
+  function($scope, Groups, User, $modal) {
 
     $scope.Math = window.Math;
     $scope.user = User.user;
@@ -85,7 +85,17 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
       }
      }
      $scope.nextMilestone = {};
+
     }
+
     $scope.getNextMilestone();
+
+    $scope.showMilestones = function() {
+      $modal.open({
+        templateUrl: 'modals/milestones.html',
+        scope: $scope
+      });
+    }
+
   }
 ]);

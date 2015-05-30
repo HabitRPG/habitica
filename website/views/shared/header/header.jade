@@ -33,6 +33,8 @@
         span=env.t("milestoneMessage", {milestone: '{{nextMilestone.level}}: {{nextMilestone.text}}'} )
         span 
           a(ng-model='user.preferences.hideMilestoneMessage', ng-click='set({"preferences.hideMilestoneMessage": user.preferences.hideMilestoneMessage ? false : true })')=env.t('hideMessage')
+        span
+          a(ng-click='showMilestones()')=env.t("viewMilestones")
 
     // party
     span(ng-controller='PartyCtrl')

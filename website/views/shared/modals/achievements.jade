@@ -74,3 +74,12 @@ script(id='modals/achievements/rebirth.html', type='text/ng-template')
     =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('ok')
+    
+script(type='text/ng-template', id='modals/milestones.html')  
+  .modal-header
+    h4=env.t("milestoneHeader")
+  .modal-body
+    p(ng-repeat="(key, value) in milestones")
+      Level {{key}}: {{value}}
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t("ok")
