@@ -21,7 +21,7 @@
     "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
-    "FLAG_REPORT_EMAIL": "email@mod.com",
+    "FLAG_REPORT_EMAIL": ["email@mod.com"],
     "EMAIL_SERVER": {
         "url": "http://example.com",
         "authUser": "user",
