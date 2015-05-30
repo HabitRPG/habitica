@@ -17,7 +17,7 @@ describe('Chat Service', function() {
   });
 
   describe('utils', function() {
-    it('calls chat post endpoint', function() {
+    it('calls post chat endpoint', function() {
       var payload = {
         gid: 'habitrpg',
         message: 'Chat',
@@ -29,7 +29,7 @@ describe('Chat Service', function() {
       $httpBackend.flush();
     });
 
-    it('calls chat like endpoint', function() {
+    it('calls like chat endpoint', function() {
       var payload = {
         gid: 'habitrpg',
         messageId: 'msg-id'
