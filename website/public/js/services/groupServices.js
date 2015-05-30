@@ -23,10 +23,6 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
         }
       },
 
-      postChat: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat'},
-      deleteChatMessage: {method: "DELETE", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId'},
-      flagChatMessage: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/flag'},
-      clearFlagCount: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/clearflags'},
       join: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/join'},
       leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
       invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
@@ -66,12 +62,6 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
       return data.tavern;
     },
 
-    // On enter, set chat message to "seen"
-    seenMessage: function(gid){
-      $http.post(ApiUrl.get() + '/api/v2/groups/'+gid+'/chat/seen');
-      if (User.user.newMessages) delete User.user.newMessages[gid];
-    },
-
     questAccept: function(party){
       party.$questAccept()
         .then(syncUser, logError);
@@ -99,19 +89,3 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
     Group: Group
   }
 }])
-/**
- * TODO Get this working. Make ChatService it's own ngResource, so we can update chat without having to sync the whole
- * group object (expensive). Also so we can add chat-specific routes
- */
-//    .factory('Chat', ['API_URL', '$resource',
-//      function(API_URL, $resource) {
-//        var Chat = $resource(API_URL + '/api/v2/groups/:gid/chat/:mid',
-//          //{gid:'@_id', mid: '@_messageId'},
-//          {
-//            like: {method: 'POST', url: API_URL + '/api/v2/groups/:gid/chat/:mid'}
-//            //postChat: {method: "POST", url: API_URL + '/api/v2/groups/:gid/chat'},
-//            //deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v2/groups/:gid/chat/:messageId'},
-//          });
-//        return {Chat:Chat};
-//      }
-//    ]);
