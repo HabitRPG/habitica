@@ -1,11 +1,12 @@
 {
-  "defaultHabit1Text": "Good Habit",
+  "defaultTaskNotes": " ",
+  "defaultHabit1Text": "Productive Work (Click the pencil to edit)",
   "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable +15 minutes productive work",
 
-  "defaultHabit2Text": "Bad Habit",
+  "defaultHabit2Text": "Eat Junk Food (Click the pencil to edit)",
   "defaultHabit2Notes": "Sample Bad Habits: - Smoke - Procrastinate",
 
-  "defaultHabit3Text": "Good or Bad Habit",
+  "defaultHabit3Text": "Take the Stairs/Elevator (Click the pencil to edit)",
   "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
 
   "defaultDaily1Text": "1h Personal Project",
@@ -44,7 +45,7 @@
 
   "defaultTodo5Text": "Start a Party (private group) with your friends (Social > Party)",
 
-  "defaultReward1Text": "1 Episode of Game of Thrones",
+  "defaultReward1Text": "15 minute break",
   "defaultReward1Notes": "Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.",
 
   "defaultReward2Text": "Cake",

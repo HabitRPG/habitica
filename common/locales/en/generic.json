@@ -54,7 +54,7 @@
     "gems": "Gems",
     "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "More Info",
-    "gemsWhatFor": "Purchased using real money. Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+    "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veteran",
     "veteranText": "Has weathered Habit The Grey (our pre Angular website), and has gained many battle-scars from its bugs.",
     "originalUser": "Original User!",

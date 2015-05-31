@@ -15,7 +15,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               break;
           case 'todo':
               $rootScope.playSound('ToDo');
-              Guide.goto('intro', 1);
               break;
           default:
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
