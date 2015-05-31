@@ -146,8 +146,9 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
-      li.toolbar-button-dropdown
+      li.toolbar-button-dropdown.highlight
         a(target="_blank" href='http://habitrpg.wikia.com/wiki/')
+          span.glyphicon.glyphicon-question-sign
           span=env.t('help')
         a(ng-click='expandMenu("help")', ng-class='{active: _expandedMenu == "help"}')
           span  &#9776;
