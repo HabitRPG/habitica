@@ -5,22 +5,22 @@ mixin boss(tavern, mobile)
       h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{::Content.quests[group.quest.key].text()}}'
       h3.panel-title(ng-if='group.quest.active==true') {{::Content.quests[group.quest.key].text()}}
     .panel-body.modal-fixed-height
-      div(ng-if='group.quest.active==false' ng-init="selectedTab = 1")
+      div(ng-if='group.quest.active==false' ng-init="questBoxTab = 'invitesTab'")
         ul.nav.nav-pills
-          li(ng-class="{active:selectedTab === 1}")
-            a(ng-click="selectedTab = 1")
+          li(ng-class="{active:questBoxTab === 'invitesTab'}")
+            a(ng-click="questBoxTab = 'invitesTab'")
                 =env.t('invitations')
-          li(ng-class="{active:selectedTab === 2}")
-            a(ng-click="selectedTab = 2")
+          li(ng-class="{active:questBoxTab === 'detailsTab'}")
+            a(ng-click="questBoxTab = 'detailsTab'")
               =env.t('questDetails')
-        div(ng-show="selectedTab === 1")
+        div(ng-show="questBoxTab === 'invitesTab'")
           br
           table.table.table-striped(bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')
-              td.media
+              td
                 span(ng-if=':: group.quest.leader && group.quest.leader==member._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)') 
                   |*&nbsp;
-                a.media-body
+                a
                   span(ng-click='clickMember(member._id, true)')
                     |{{::member.profile.name}}
               td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
@@ -33,7 +33,7 @@ mixin boss(tavern, mobile)
           // =env.t('questOwnerNotInPendingQuest')
         // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
           // =env.t('questOwnerNotInPendingQuestParty')
-        div(ng-show="selectedTab === 2")
+        div(ng-show="questBoxTab === 'detailsTab'")
           br
           div(class="quest_{{::group.quest.key}}")
           div(ng-if='::Content.quests[group.quest.key].boss')
@@ -61,23 +61,23 @@ mixin boss(tavern, mobile)
         // only the quest owner sees the cancel button:
         button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
 
-      div(ng-if='group.quest.active==true' ng-init='selectedTab=2')
+      div(ng-if='group.quest.active==true' ng-init="questBoxTab='detailsTab'")
         unless tavern
           ul.nav.nav-pills
-            li(ng-class="{active:selectedTab === 1}")
-              a(ng-click="selectedTab = 1")
+            li(ng-class="{active:questBoxTab === 'participantsTab'}")
+              a(ng-click="questBoxTab = 'participantsTab'")
                   =env.t('questParticipants')
-            li(ng-class="{active:selectedTab === 2}")
-              a(ng-click="selectedTab = 2")
+            li(ng-class="{active:questBoxTab === 'detailsTab'}")
+              a(ng-click="questBoxTab = 'detailsTab'")
                 =env.t('questDetails')
-          div(ng-show="selectedTab === 1")
+          div(ng-show="questBoxTab === 'participantsTab'")
             br
             table.table.table-striped(bindonce='group')
               tr(ng-repeat='(k,v) in group.members track by v._id', ng-if='::group.quest.members[v._id]')
-                td.media
+                td
                   span(ng-if=':: group.quest.leader && group.quest.leader==v._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
                     |*&nbsp;
-                  a.media-body
+                  a
                     span(ng-click='clickMember(v._id, true)')
                       |{{::v.profile.name}}
             span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
@@ -88,7 +88,7 @@ mixin boss(tavern, mobile)
               // =env.t('questOwnerNotInRunningQuest')
             // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
               // =env.t('questOwnerNotInRunningQuestParty')
-        div(ng-show="selectedTab === 2")
+        div(ng-show="questBoxTab === 'detailsTab'")
           br
           div(ng-if='::Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
             if tavern
