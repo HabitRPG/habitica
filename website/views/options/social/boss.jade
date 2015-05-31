@@ -89,7 +89,8 @@ mixin boss(tavern, mobile)
             // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
               // =env.t('questOwnerNotInRunningQuestParty')
         div(ng-show="questBoxTab === 'detailsTab'")
-          br
+          unless tavern
+            br
           div(ng-if='::Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
             if tavern
               div(class="quest_{{group.quest.key}} quest_{{group.quest.key}}_#{env.worldDmg.recent}")
