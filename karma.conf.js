@@ -67,8 +67,7 @@ module.exports = function(config) {
       "website/public/js/controllers/footerCtrl.js",
       "website/public/js/controllers/challengesCtrl.js",
       "website/public/js/controllers/hallCtrl.js",
-      // @TODO where did this directory go?
-      //'test/mock/**/*.js',
+      'test/spec/mock/**/*.js',
       'test/spec/specHelper.js',
       'test/spec/*.js'
     ],

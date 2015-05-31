@@ -449,6 +449,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
+        mixpanel?.track('Death',{'lostItem':lostItem})
         cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
@@ -483,6 +484,7 @@ api.wrap = (user, main=true) ->
             task.value = 0
         user.stats.hp = 50
         cb? null, user
+        mixpanel?.track("Acquire Item",{'itemName':'Fortify','acquireMethod':'Gems','gemCost':4})
         ga?.event('behavior', 'gems', 'reroll').send()
 
       rebirth: (req, cb, ga) ->
@@ -492,6 +494,8 @@ api.wrap = (user, main=true) ->
         # only charge people if they are under the max level - ryan
         if user.stats.lvl < api.maxLevel
           user.balance -= 2
+          mixpanel?.track("Acquire Item",{'itemName':'Rebirth','acquireMethod':'Gems','gemCost':8})
+          ga?.event('behavior', 'gems', 'rebirth').send()
         # Save off user's level, for calculating achievement eligibility later
         lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
@@ -541,7 +545,6 @@ api.wrap = (user, main=true) ->
         user.stats.buffs = {}
         # user.markModified? 'stats'
         cb? null, user
-        ga?.event('behavior', 'gems', 'rebirth').send()
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -752,7 +755,8 @@ api.wrap = (user, main=true) ->
           user.balance += .25
           user.purchased.plan.gemsBought++
           user.stats.gp -= convRate
-          return cb? {code:200,message:"+1 Gems"}, _.pick(user,$w 'stats balance')
+          mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':convRate})
+          return cb? {code:200,message:"+1 Gem"}, _.pick(user,$w 'stats balance')
 
         return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
         if type is 'gear'
@@ -769,6 +773,7 @@ api.wrap = (user, main=true) ->
         else
           user.items[type][key] = 0  unless user.items[type][key] > 0
           user.items[type][key]++
+        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gems','gemCost':item.value})
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('behavior', 'gems', key).send()
 
@@ -784,6 +789,7 @@ api.wrap = (user, main=true) ->
           user.achievements.beastMasterCount++
           user.items.currentPet = ""
         cb? null, user
+        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
       releaseMounts: (req, cb) ->
         if user.balance < 1
@@ -797,6 +803,7 @@ api.wrap = (user, main=true) ->
             user.achievements.mountMasterCount = 0
           user.achievements.mountMasterCount++
         cb? null, user
+        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
       releaseBoth: (req, cb) ->
         if user.balance < 1.5 and not user.achievements.triadBingo
@@ -804,6 +811,7 @@ api.wrap = (user, main=true) ->
         else
           giveTriadBingo = true
           if not user.achievements.triadBingo
+            mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':6})
             user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
@@ -842,6 +850,7 @@ api.wrap = (user, main=true) ->
           if not user.achievements.ultimateGear and item.last
             user.fns.ultimateGear()
         user.stats.gp -= item.value
+        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
 
       buyMysterySet: (req, cb)->
@@ -850,7 +859,9 @@ api.wrap = (user, main=true) ->
         if window?.confirm?
           return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
-        _.each mysterySet.items, (i)->user.items.gear.owned[i.key]=true
+        _.each mysterySet.items, (i)->
+          user.items.gear.owned[i.key]=true
+          mixpanel?.track("Acquire Item",{'itemName':i.key,'acquireMethod':'Hourglass'})
         user.purchased.plan.consecutive.trinkets--
         cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
@@ -922,6 +933,7 @@ api.wrap = (user, main=true) ->
         user.balance -= cost
         if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
         cb? null, _.pick(user,$w 'purchased preferences items')
+        mixpanel?.track("Acquire Item",{'itemName':'Customizations','acquireMethod':'Gems','gemCost':(cost / .25)})
         ga?.event('behavior', 'gems', path).send()
 
       # ------
@@ -961,6 +973,7 @@ api.wrap = (user, main=true) ->
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
+          mixpanel?.track("Acquire Item",{'itemName':klass,'acquireMethod':'Gems','gemCost':3})
           ga?.event('behavior', 'gems', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
@@ -1444,6 +1457,7 @@ api.wrap = (user, main=true) ->
           user.items.quests[k]++
           (user.flags.levelDrops ?= {})[k] = true
           user.markModified? 'flags.levelDrops'
+          mixpanel?.track("Acquire Item",{'itemName':k,'acquireMethod':'Drop'})
           user._tmp.drop = _.defaults content.quests[k],
             type: 'Quest'
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
@@ -1621,6 +1635,7 @@ api.wrap = (user, main=true) ->
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
+      options.mixpanel?.track('Cron',{'distinct_id':user._id,'resting':user.preferences.sleep})
       options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
