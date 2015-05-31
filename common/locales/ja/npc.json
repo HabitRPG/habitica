@@ -2,8 +2,8 @@
     "npc": "ＮＰＣ",
     "npcText": "最大のレベルで Kickstarterプロジェクトを後援する!",
     "mattBoch": "マット・バック",
-    "mattShall": "<%= name %>さん、私があなたの馬をつれてきましょうか? 鞍を置く馬をクリックしてください。",
-    "mattBochText1": "厩舎へようこそ! 私はマット、獣のマスターだよ。ここであなたの側で冒険するペットを選択してください。えさを与えれば、彼らは強力な軍馬に成長するだろう。",
+    "mattShall": "Shall I bring you your steed, <%= name %>? Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
+    "mattBochText1": "Welcome to the Stable! I'm Matt, the beast master. After level 4, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 4, and they'll grow into powerful mounts.",
     "daniel": "ダニエル",
     "danielText": "酒場へようこそ！しばらく滞在して、地元の人と会いましょう。あなたに休息が必要な場合 (休暇? 病気?)、私が宿であなたを元気にします。チェックインしている間、あなたの日課は未実施でも一日の終わりにあなたを傷つけませんが、印を付けて実施済みにできます。",
     "danielText2": "注意してください: あなたがボスの冒険に参加している場合は、あなたのパーティーの仲間が日課を逃したことで、ボスはまだあなたを傷つけます！ また、あなたがボスに与えるダメージ(もしくは集めたアイテム)は宿をチェックアウトするまでt適用されません。",
@@ -45,9 +45,9 @@
     "tourScrollDown": "必ず一番下までスクロールして全てのオプションを見よう！アバターをもう一度クリックしてタスクページに戻ろう。",
     "tourMuchMore": "タスクを実行したら、友達とパーティーを組んだり、共通の趣味のギルドでチャットしたり、チャレンジに参加できたり、他にもできます！",
     "tourStatsPage": "これはあなたのステータスページです！タスクを完了して実績を受け取りましょう。",
-    "tourTavernPage": "全年齢大正のチャットルームである酒場へようこそ！病気や旅行の場合には「宿で休む」をクリックすることでアカウントを凍結できます。挨拶してみてください！",
+    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
     "tourPartyPage": "パーティーはあなたが責任を果たす事を助けてくれるでしょう。友達を招待してクエストスクロールをアンロックしましょう！",
     "tourGuildsPage": "ギルドは共通のテーマを持つ社会的グループです。興味のある件名で検索しましょう！我々は初心者ギルドをおすすめします。",
-    "tourChallengesPage": "チャレンジへ参加するとあなたのアカウントにタスクが追加されます。他のユーザと競争して賞品のジェムを勝ち取りましょう！",
+    "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win gem prizes!",
     "tourMarketPage": "レベル4の始めから、タスクを完了するとたまごと孵化ポーションがランダムにドロップします。それらはここに表示され、ペットを孵化するのに使いましょう！市場でアイテムを買う事もできます。"
 }
