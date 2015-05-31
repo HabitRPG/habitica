@@ -88,7 +88,7 @@
     "questMoonstone3DropRottenMeat": "Carne Estragada (Comida)",
     "questMoonstone3DropZombiePotion": "Poção de Eclosão Zumbi",
     "questGoldenknight1Text": "Uma conversa séria",
-    "questGoldenknight1Notes": "<p> A Cavaleira Dourada tem pego no pé dos pobres Habiticanos. Não fez todas as suas tarefas diárias? Checou um hábito negativo? Ela irá usar isso como motivo para atormentá-lo sobre como você deveria seguir seu exemplo. Ela é o exemplo ilustre de um perfeito Habiticano e você, não é nada mais que um fracassado. Hora, isso não é nada gentil! Todo mundo comete erros. Eles não deveriam ter de lidar com tamanha negatividade por causa disso. Talvez seja hora de acumular alguns depoimentos de Habiticanos abatidos e dar à Cavaleira Dourada a bronca que ela merece!</p> ",
+    "questGoldenknight1Notes": "<p> A Amazona Dourada tem pego no pé dos pobres Habiticanos. Não fez todas as suas tarefas diárias? Checou um hábito negativo? Ela irá usar isso como motivo para atormentá-lo sobre como você deveria seguir seu exemplo. Ela é o exemplo ilustre de um perfeito Habiticano, e você não é nada mais que um fracassado. Bem, isso não é nada gentil! Todo mundo comete erros. Eles não deveriam ter de lidar com tamanha negatividade por causa disso. Talvez seja hora de reunir alguns depoimentos de Habiticanos atingidos e dar à Amazona Dourada a bronca que ela merece!</p> ",
     "questGoldenknight1CollectTestimony": "Testemunhos",
     "questGoldenknight1DropGoldenknight2Quest": "Arco da Cavaleira Dourada, Parte 2: Ouro Deslustrado (Pergaminho)",
     "questGoldenknight2Text": "Cavaleira Dourada",
@@ -197,10 +197,10 @@
     "questSlimeCompletion": "Com um soco final, você tranca o Regente Geléia em uma rosquinha gigante, auxiliado por @Overomega, @LordDarkly e @Shaner, os espertos lideres do clube da confeitaria. Enquanto todos estão lhe parabenizando, você sente algo escorregar para dentro de seu bolso. É a recompensa por seu doce sucesso: três ovos de Gosma Marshmallow. ",
     "questSlimeDropSlimeEgg": "Gosma Marshmallow (Ovo)",
     "questSlimeUnlockText": "Destranca ovos de gosma para compra no Mercado",
-    "questSheepText": "The Thunder Ram",
-    "questSheepNotes": "As you wander the rural Taskan countryside with friends, taking a \"quick break\" from your obligations, you find a cozy yarn shop. You are so absorbed in your procrastination that you hardly notice the ominous clouds creep over the horizon. \"I've got a ba-a-a-ad feeling about this weather,\" mutters @Misceo, and you look up. The stormy clouds are swirling together, and they look a lot like a... \"We don't have time for cloud-gazing!\" @starsystemic shouts. \"It's attacking!\" The Thunder Ram hurtles forward, slinging bolts of lightning right at you!",
-    "questSheepBoss": "Thunder Ram",
-    "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
-    "questSheepDropSheepEgg": "Sheep (Egg)",
-    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
+    "questSheepText": "O Carneiro do Trovão",
+    "questSheepNotes": "Enquanto perambula pela zona rural Tarefana com seus amigos, dando uma \"pausa rápida\" em suas obrigações, você encontra uma loja aconchegante de linhas para costura. Você está tão absorvido em sua procrastinação que mal percebe as nuvens sinistras que se arrastam sobre o horizonte. \"Eu tenho um ma-a-a-al pressentimento sobre este tempo,\" murmura @Misceo, e você olha para cima. As nuvens tempestuosas se unem e giram em um turbilhão, e elas se parecem muito com um... \"Nós não temos tempo para contemplar nuvens!\" @starsystemic grita. \"Está atacando!\" O Carneiro do Trovão se move, correndo rapidamente e violentamente, lançando raios bem na sua direção!",
+    "questSheepBoss": "Carneiro do Trovão",
+    "questSheepCompletion": "Impressionado pela sua diligência, o Carneiro do Trovão deixa a raiva ir embora. Ele atira três enormes pedras de granizo na sua direção; e então, lentamente, desaparece, emitindo um estrondo grave. Ao olhar mais atentamente, você descobre que as pedras de granizo eram, na verdade, três ovos macios e peludos. Você os recolhe, e depois caminha calmamente de volta para casa sob um céu azul.",
+    "questSheepDropSheepEgg": "Ovelha (Ovo)",
+    "questSheepUnlockText": "Desbloqueia ovos de ovelha para comprar no Mercado"
 }

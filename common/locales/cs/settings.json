@@ -93,7 +93,7 @@
     "wonChallenge": "Vyhrál jsi Výzvu",
     "newPM": "Obdržena soukromá zpráva",
     "giftedGems": "Darované drahokamy",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= amount %> Drahokamů - od <%= name %>",
     "giftedSubscription": "Darované předplatné",
     "invitedParty": "Pozván do Družiny",
     "invitedGuild": "Pozván do Cechu",

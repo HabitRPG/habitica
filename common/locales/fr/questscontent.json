@@ -197,10 +197,10 @@
     "questSlimeCompletion": "Avec un dernier coup, vous piégez le Régent de Gelée dans un énorme donut, hâté par @Overomega, @LordDarkly, et @Shaner, les meneurs vifs d'esprit du club de pâtisserie. Alors que tout le monde vous félicite, vous sentez quelqu'un glisser quelque chose dans votre poche. C'est la récompense pour votre prompt succès : trois œufs de Boule de Guimauve. ",
     "questSlimeDropSlimeEgg": "Boule de Guimauve (Œuf)",
     "questSlimeUnlockText": "Débloque l'achat des Boules de Guimauve au marché",
-    "questSheepText": "The Thunder Ram",
-    "questSheepNotes": "As you wander the rural Taskan countryside with friends, taking a \"quick break\" from your obligations, you find a cozy yarn shop. You are so absorbed in your procrastination that you hardly notice the ominous clouds creep over the horizon. \"I've got a ba-a-a-ad feeling about this weather,\" mutters @Misceo, and you look up. The stormy clouds are swirling together, and they look a lot like a... \"We don't have time for cloud-gazing!\" @starsystemic shouts. \"It's attacking!\" The Thunder Ram hurtles forward, slinging bolts of lightning right at you!",
-    "questSheepBoss": "Thunder Ram",
-    "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
-    "questSheepDropSheepEgg": "Sheep (Egg)",
-    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
+    "questSheepText": "Le Bélier du Tonnerre",
+    "questSheepNotes": "Alors que vous vous promenez dans le paysage campagnard Tâcherain avec des amis, prenant une \"petite pause\" au milieu de vos obligations, vous tombez sur un adorable magasin de laine. Vous êtes si concentré dans votre procrastination que vous remarquez à peine les nuages menaçants qui se rapprochent en douce depuis l'horizon. \"C'est bê-ê-ê-ête que le temps se couvre. Ça ne présage rien de bon\", grommelle @Misceo, et vous regardez alors en l'air. Les nuages orageux tourbillonnent en volutes qui ressemblent fortement à.un... \"Nous n'avons pas le temps d'observer les nuages!\" crie @starsystemic. \"Il attaque!\" Le Bélier du Tonnerre arrive à toute allure, lançant des éclairs sur vous! ",
+    "questSheepBoss": "Bélier du Tonnerre",
+    "questSheepCompletion": "Impressionné par votre assiduité, le Bélier du Tonnerre voit sa fureur se calmer peu à peu. Il lance trois énormes grêlons dans votre direction et disparaît dans un grondement sourd. En allant voir les grêlons de plus près, vous vous apercevez que ce sont en fait trois œufs doux et floconneux. Vous les ramassez et rentrez chez vous en flânant sous un ciel sans tache.",
+    "questSheepDropSheepEgg": "Mouton (Œuf)",
+    "questSheepUnlockText": "Déverrouille l'achat d’œufs de mouton au Marché"
 }

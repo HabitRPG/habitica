@@ -19,7 +19,7 @@
     "bossStrength": "Boss的力量",
     "collect": "收集",
     "collected": "已收集",
-    "bossDmg1": "想要攻擊魔王，你必須完成你的每日任務和待辦事項。任務傷害越高，你對魔王的傷害也越大(達成紅色事項、法師的法術、戰士的攻擊等等)。如果你未能完成每日任務，除了本來就會遭受的傷害，魔王會針對你遺漏的事項(乘上魔王的力量)額外再傷害你和你的隊友。所以想要保持隊伍健康，就去完成你的每日任務！<strong> 所有從魔王和你攻擊的傷害將在跨日(一天結束)時結算。 </strong>",
+    "bossDmg1": "Each completed Daily and To-Do and each positive Habit hurts the boss. Hurt it more with redder tasks or Brutal Smash and Burst of Flames. The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "只有參與者會跟魔王戰鬥，並共享任務獎勵。",
     "tavernBossInfo": "想要攻擊世界Boss，你必須完成你的每日任務和待辦事項。任務傷害越高，你對魔王的傷害也越大(達成紅色事項、法師的法術、戰士的攻擊等等)。如果你未能完成每日任務，除了本來就會遭受的傷害，魔王會針對你遺漏的事項(乘上魔王的力量)累積憤怒值。一旦憤怒值達到上限，將會發生相當糟糕的事情─所以好好完成你的每日任務！<strong> 所有從魔王和你攻擊的傷害將在跨日(一天結束)時結算。 </strong>",
     "bossColl1": "要撿到物品，你必須完成你的「正向」任務。任務獎勵品會像普通物品一樣掉落；但要在隔天才看到。你撿到的物品會被計算並累積到戰利品堆當中。",
