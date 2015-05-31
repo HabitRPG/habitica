@@ -2,8 +2,8 @@
     "npc": "NPC",
     "npcText": "Ha contribuito al progetto Kickstarter al massimo livello!",
     "mattBoch": "Matt Boch",
-    "mattShall": "Devo portarti il tuo destriero, <%= name %>? Clicca su una cavalcatura per montarvi in groppa.",
-    "mattBochText1": "Benvenuto alla Scuderia! Sono Matt, il domatore. Scegli un animale che vuoi come compagno nella tua impresa. Dagli da mangiare e crescerà diventando un possente destriero!",
+    "mattShall": "Shall I bring you your steed, <%= name %>? Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
+    "mattBochText1": "Welcome to the Stable! I'm Matt, the beast master. After level 4, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 4, and they'll grow into powerful mounts.",
     "daniel": "Daniel",
     "danielText": "Benvenuto nella Taverna! Resta per un po' e incontra la gente del posto. Se hai bisogno di riposare (vacanza? malattia?), ti sistemerò nella Locanda. Mentre riposi, le tue Daily non ti danneggeranno alla fine del giorno, ma potrai comunque spuntarle.",
     "danielText2": "Fai attenzione: se stai partecipando ad una missione Boss, il boss ti danneggerà comunque per le Daily non completate dei tuoi compagni di squadra! Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finchè non lasci la Locanda.",
@@ -45,9 +45,9 @@
     "tourScrollDown": "Assicurati di scorrere la pagina fino alla fine per vedere tutte le opzioni! Fai di nuovo click sul tuo avatar per tornare alla pagina delle attività.",
     "tourMuchMore": "Quando hai finito con le attività, puoi creare una Squadra insieme ai tuoi amici, chattare nelle Gilde di interessi comuni, partecipare alle Sfide, e tanto altro ancora!",
     "tourStatsPage": "Questa è la pagina delle tue Statistiche! Guadagna delle medaglie compiendo le azioni elencate.",
-    "tourTavernPage": "Benvenuto alla Taverna, una chat pubblica per tutte le età! Puoi \"congelare\" il tuo account in caso di malattia o viaggio facendo click su \"Riposa nella Locanda\". Vieni a farci un saluto!",
+    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
     "tourPartyPage": "La tua Squadra ti aiuterà a restare in riga. Invita degli amici per sbloccare una Pergamena!",
     "tourGuildsPage": "Le Gilde sono gruppi con interessi comuni. Cerca gli argomenti che più ti piacciono! Se conosci l'inglese, ti raccomandiamo la gilda \"The Newbies\".",
-    "tourChallengesPage": "Partecipare ad una Sfida aggiungerà delle attività al tuo account. Competi con gli altri utenti per vincere un premio in gemme!",
+    "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win gem prizes!",
     "tourMarketPage": "A partire dal livello 4, potrai ricevere dei \"drop\" casuali di uova e pozioni di schiusura quando completi le tue attività. Appariranno qui - usale per far nascere degli animali! Puoi anche comprare degli oggetti nel Mercato."
 }

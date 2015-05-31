@@ -70,7 +70,7 @@
     "allocatePerPop": "Ajouter un point en Perception",
     "allocateInt": "Points alloués en Intelligence : ",
     "allocateIntPop": "Ajouter un point en Intelligence",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
+    "noMoreAllocate": "Maintenant que vous avez atteint le niveau 100, vous ne gagnerez plus de Points d'Attribut. Vous pouvez continuer à passer des niveaux ou commencer une nouvelle aventure depuis le niveau 1 en utilisant l'<a href='http://fr.habitrpg.wikia.com/wiki/Orbe_de_Renaissance'>Orbe de Renaissance</a>, disponible gratuitement au Marché dès maintenant.",
     "stats": "Caractéristiques",
     "strength": "Force",
     "strengthText": "La Force augmente les chances de \"coups critiques\" aléatoires et donc les bonus d'or, d'expérience et de gain de butin qui en découlent. Elle aide aussi à infliger des dommages aux boss.",
