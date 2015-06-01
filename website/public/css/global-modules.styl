@@ -69,6 +69,9 @@ hrpg-button-color-mixin($hrpg-button-color)
       color: #fff !important;
       span
         color: #fff !important;
+  &.highlight
+    border-color: darken($hrpg-button-color, 16.18%) !important
+    background-color: $hrpg-button-color !important
 $hrpg-button-master
   list-style: none
   > a, > button, > input, label::after
