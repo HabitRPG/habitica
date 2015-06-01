@@ -8,11 +8,9 @@ mixin boss(tavern, mobile)
       div(ng-if='group.quest.active==false' ng-init="questBoxTab = 'invitesTab'")
         ul.nav.nav-pills
           li(ng-class="{active:questBoxTab === 'invitesTab'}")
-            a(ng-click="questBoxTab = 'invitesTab'")
-                =env.t('invitations')
+            a(ng-click="questBoxTab = 'invitesTab'")=env.t('invitations')
           li(ng-class="{active:questBoxTab === 'detailsTab'}")
-            a(ng-click="questBoxTab = 'detailsTab'")
-              =env.t('questDetails')
+            a(ng-click="questBoxTab = 'detailsTab'")=env.t('questDetails')
         div(ng-show="questBoxTab === 'invitesTab'")
           br
           table.table.table-striped(bindonce='group')
@@ -65,11 +63,9 @@ mixin boss(tavern, mobile)
         unless tavern
           ul.nav.nav-pills
             li(ng-class="{active:questBoxTab === 'participantsTab'}")
-              a(ng-click="questBoxTab = 'participantsTab'")
-                  =env.t('questParticipants')
+              a(ng-click="questBoxTab = 'participantsTab'")=env.t('questParticipants')
             li(ng-class="{active:questBoxTab === 'detailsTab'}")
-              a(ng-click="questBoxTab = 'detailsTab'")
-                =env.t('questDetails')
+              a(ng-click="questBoxTab = 'detailsTab'")=env.t('questDetails')
           div(ng-show="questBoxTab === 'participantsTab'")
             br
             table.table.table-striped(bindonce='group')
