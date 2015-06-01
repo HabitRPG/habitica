@@ -2,7 +2,7 @@
  Set up "+1 Exp", "Level Up", etc notifications
  */
 angular.module("habitrpg").factory("Notification",
-[function() {
+['$filter', function($filter) {
   var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
   function notify(html, type, icon) {
     var notice = $.pnotify({
@@ -60,6 +60,12 @@ angular.module("habitrpg").factory("Notification",
     text: function(val){
       if (val) {
         notify(val, 'info');
+      }
+    },
+    markdown: function(val){
+      if (val) {
+        var parsed_markdown = $filter("markdown")(val);
+        notify(parsed_markdown, 'info');
       }
     },
     lvl: function(){
