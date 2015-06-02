@@ -6,6 +6,12 @@ describe('Root Controller', function() {
   beforeEach(function () {
     module(function($provide) {
       $provide.value('User', {});
+      $provide.service('$templateCache', function () {
+        return {
+          get: function () {},
+          put: function () {}
+        }
+      });
     });
 
     inject(function($rootScope, $controller, _$httpBackend_, Notification) {
@@ -24,6 +30,8 @@ describe('Root Controller', function() {
       User = {user: user};
       User.save = sinon.spy();
       User.sync = sinon.spy();
+
+      $httpBackend.whenGET(/partials/).respond();
 
       ctrl = $controller('RootCtrl', {$scope: scope, User: User});
     });
@@ -53,7 +61,7 @@ describe('Root Controller', function() {
     });
   });
 
-  describe('castEnd', function(){
+  describe.only('castEnd', function(){
     var task_target, type;
 
     beforeEach(function(){
@@ -104,7 +112,12 @@ describe('Root Controller', function() {
         expect(spellWasCast).to.eql(true);
       });
 
-      it('calls cast endpoint');
+      it('calls cast endpoint', function () {
+        $httpBackend.expectPOST(/cast/).respond(201);
+        scope.castEnd(task_target, type);
+
+        $httpBackend.flush();
+      });
 
       it('sends notification that spell was cast');
     });
