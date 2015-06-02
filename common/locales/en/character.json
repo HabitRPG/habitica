@@ -140,5 +140,19 @@
     "unequipBattleGear": "Unequip Battle Gear",
     "unequipCostume": "Unequip Costume",
     "unequipPetMountBackground": "Unequip Pet, Mount, Background",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "Animal Skins",
+    "milestoneMessage": "Next milestone: <%= milestoneMessage %> unlocked at level: <%= milestoneLevel %> ",
+    "milestoneHeader": "Milestones",
+    "viewMilestones": "View All",
+    "petsMountMilestone": "Pets + Mounts Unlocked",
+    "classSystemMilestone": "Class System Unlocked",
+    "firstSkillMilestone": "First Skill Unlocked",
+    "secondSkillMilestone": "Second Skill Unlocked",
+    "thirdSkillMilestone": "Third Skill Unlocked",
+    "finalSkillMilestone": "Final Skill Unlocked",
+    "mundaneMilestone": "Quest Line: Attack of the Mundane",
+    "viceMilestone": "Quest Line: Vice the Shadow Wyrm",
+    "goldenKnightMilestone": "Quest Line: The Golden Knight",
+    "recidivateMilestone": "Quest Line: Recidivate the Necromancer",
+    "freeOrbRebirthMilestone": "Free Orb of Rebirth"
 }

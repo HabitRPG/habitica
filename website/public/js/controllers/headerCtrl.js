@@ -1,10 +1,29 @@
 "use strict";
 
-habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
-  function($scope, Groups, User) {
+habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$modal',
+  function($scope, Groups, User, $modal) {
 
     $scope.Math = window.Math;
     $scope.user = User.user;
+
+    $scope.nextMilestone = {};
+    $scope.milestones = {
+     4:  env.t("petsMountMilestone"),
+     10: env.t("classSystemMilestone"),
+     11: env.t("firstSkillMilestone"),
+     12: env.t("secondSkillMilestone"),
+     13: env.t("thirdSkillMilestone"),
+     14: env.t("finalSkillMilestone"),
+     15: env.t("mundaneMilestone"),
+     30: env.t("viceMilestone"),
+     40: env.t("goldenKnightMilestone"),
+     60: env.t("recidivateMilestone"),
+     100: env.t("freeOrbRebirthMilestone")
+    };
+
+    $scope.keys = function(obj){
+      return obj? Object.keys(obj) : [];
+    }
 
     $scope.party = Groups.party(function(){
         var triggerResort = function() {
@@ -57,5 +76,30 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
 
       return result;
     }
+
+    $scope.getNextMilestone = function() {
+
+     for (var levelRequirement in $scope.milestones) {
+      if ($scope.user.stats.lvl < parseInt(levelRequirement)){
+       $scope.nextMilestone = {
+        level: levelRequirement,
+        text: $scope.milestones[levelRequirement]
+       }
+       return;
+      }
+     }
+     $scope.nextMilestone = {};
+
+    }
+
+    $scope.getNextMilestone();
+
+    $scope.showMilestones = function() {
+      $modal.open({
+        templateUrl: 'modals/milestones.html',
+        scope: $scope
+      });
+    }
+
   }
 ]);
