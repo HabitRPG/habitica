@@ -132,13 +132,13 @@
 }
 .Mount_Body_FlyingPig-CottonCandyPink {
   background-image: url(spritesmith5.png);
-  background-position: -424px -1940px;
+  background-position: -106px -1940px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_FlyingPig-Desert {
   background-image: url(spritesmith5.png);
-  background-position: -318px -544px;
+  background-position: -424px -1940px;
   width: 105px;
   height: 105px;
 }
@@ -409,24 +409,24 @@
 .Mount_Body_LionCub-Skeleton {
   background-image: url(spritesmith5.png);
   background-position: -636px -880px;
-  width: 105px;
+  width: 111px;
   height: 105px;
 }
 .Mount_Body_LionCub-White {
   background-image: url(spritesmith5.png);
-  background-position: -742px -880px;
+  background-position: -748px -880px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_LionCub-Zombie {
   background-image: url(spritesmith5.png);
-  background-position: -848px -880px;
+  background-position: -854px -880px;
   width: 105px;
   height: 105px;
 }
 .Mount_Body_Mammoth-Base {
   background-image: url(spritesmith5.png);
-  background-position: -106px -544px;
+  background-position: 0px -544px;
   width: 105px;
   height: 123px;
 }
@@ -1146,7 +1146,7 @@
 }
 .Mount_Body_Spider-White {
   background-image: url(spritesmith5.png);
-  background-position: -212px -544px;
+  background-position: -318px -544px;
   width: 105px;
   height: 105px;
 }
@@ -1212,7 +1212,7 @@
 }
 .Mount_Body_TRex-Zombie {
   background-image: url(spritesmith5.png);
-  background-position: -136px 0px;
+  background-position: 0px 0px;
   width: 135px;
   height: 135px;
 }
@@ -1284,7 +1284,7 @@
 }
 .Mount_Body_Wolf-Base {
   background-image: url(spritesmith5.png);
-  background-position: 0px 0px;
+  background-position: -136px 0px;
   width: 135px;
   height: 135px;
 }
@@ -1998,9 +1998,9 @@
 }
 .Mount_Head_LionCub-Skeleton {
   background-image: url(spritesmith5.png);
-  background-position: -106px -1940px;
+  background-position: -212px -544px;
   width: 105px;
-  height: 105px;
+  height: 110px;
 }
 .Mount_Head_LionCub-White {
   background-image: url(spritesmith5.png);
@@ -2016,7 +2016,7 @@
 }
 .Mount_Head_Mammoth-Base {
   background-image: url(spritesmith5.png);
-  background-position: 0px -544px;
+  background-position: -106px -544px;
   width: 105px;
   height: 123px;
 }
