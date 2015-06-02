@@ -6,6 +6,12 @@ describe('Root Controller', function() {
   beforeEach(function () {
     module(function($provide) {
       $provide.value('User', {});
+      $provide.service('$templateCache', function () {
+        return {
+          get: function () {},
+          put: function () {}
+        }
+      });
     });
 
     inject(function($rootScope, $controller, _$httpBackend_, Notification) {
@@ -19,11 +25,14 @@ describe('Root Controller', function() {
 
       notification = Notification;
       sinon.stub(notification, 'text');
+      sinon.stub(notification, 'markdown');
 
       user = specHelper.newUser();
       User = {user: user};
       User.save = sinon.spy();
       User.sync = sinon.spy();
+
+      $httpBackend.whenGET(/partials/).respond();
 
       ctrl = $controller('RootCtrl', {$scope: scope, User: User});
     });
@@ -31,6 +40,7 @@ describe('Root Controller', function() {
 
   afterEach(function() {
     notification.text.reset();
+    notification.markdown.reset();
     User.save.reset();
     User.sync.reset();
   });
@@ -57,13 +67,16 @@ describe('Root Controller', function() {
     var task_target, type;
 
     beforeEach(function(){
-      task_target = { id: 'task-id' };
+      task_target = {
+        id: 'task-id',
+        text: 'task'
+      };
       type = 'task';
       scope.spell = {
         target: 'task',
         key: 'fireball',
         mana: 10,
-        text: env.t('spellWizardFireballText'),
+        text: function() { return env.t('spellWizardFireballText') },
         cast: function(){}
       };
       rootscope.applyingAction = true;
@@ -104,9 +117,78 @@ describe('Root Controller', function() {
         expect(spellWasCast).to.eql(true);
       });
 
-      it('calls cast endpoint');
+      it('calls cast endpoint', function() {
+        $httpBackend.expectPOST(/cast/).respond(201);
+        scope.castEnd(task_target, type);
 
-      it('sends notification that spell was cast');
+        $httpBackend.flush();
+      });
+
+      it('sends notification that spell was cast on task', function() {
+        $httpBackend.expectPOST(/cast/).respond(201);
+        scope.castEnd(task_target, type);
+        $httpBackend.flush();
+
+        expect(notification.markdown).to.be.calledOnce;
+        expect(notification.markdown).to.be.calledWith('You cast Burst of Flames on task.');
+        expect(User.sync).to.be.calledOnce;
+      });
+
+      it('sends notification that spell was cast on user', function() {
+        var user_target = {
+          profile: { name: 'Lefnire' }
+        };
+        scope.spell = {
+          target: 'user',
+          key: 'snowball',
+          mana: 0,
+          text: function() { return env.t('spellSpecialSnowballAuraText') },
+          cast: function(){}
+        };
+        $httpBackend.expectPOST(/cast/).respond(201);
+        scope.castEnd(user_target, 'user');
+        $httpBackend.flush();
+
+        expect(notification.markdown).to.be.calledOnce;
+        expect(notification.markdown).to.be.calledWith('You cast Snowball on Lefnire.');
+        expect(User.sync).to.be.calledOnce;
+      });
+
+      it('sends notification that spell was cast on party', function() {
+        var party_target = {};
+        scope.spell = {
+          target: 'party',
+          key: 'healAll',
+          mana: 25,
+          text: function() { return env.t('spellHealerHealAllText') },
+          cast: function(){}
+        };
+        $httpBackend.expectPOST(/cast/).respond(201);
+        scope.castEnd(party_target, 'party');
+        $httpBackend.flush();
+
+        expect(notification.markdown).to.be.calledOnce;
+        expect(notification.markdown).to.be.calledWith('You cast Blessing for the party.');
+        expect(User.sync).to.be.calledOnce;
+      });
+
+      it('sends notification that spell was cast on self', function() {
+        var self_target = {};
+        scope.spell = {
+          target: 'self',
+          key: 'stealth',
+          mana: 45,
+          text: function() { return env.t('spellRogueStealthText') },
+          cast: function(){}
+        };
+        $httpBackend.expectPOST(/cast/).respond(201);
+        scope.castEnd(self_target, 'self');
+        $httpBackend.flush();
+
+        expect(notification.markdown).to.be.calledOnce;
+        expect(notification.markdown).to.be.calledWith('You cast Stealth.');
+        expect(User.sync).to.be.calledOnce;
+      });
     });
   });
 });
