@@ -831,15 +831,16 @@ questStart = function(req, res, next) {
       updates['$set']['party.quest.progress.collect'] = collected;
       updates['$set']['party.quest.completed'] = null;
       questMembers[m] = true;
+
+      User.findOne({_id: m}, {pushDevices: 1}, function(err, user){
+        pushNotify.sendNotify(user, "HabitRPG", shared.i18n.t('questStarted') + ": "+ quest.text() );
+      });
     } else {
       updates['$set']['party.quest'] = Group.cleanQuestProgress();
     }
+
     parallel.push(function(cb2){
       User.update({_id:m},updates,cb2);
-    });
-
-    User.findOne({_id: m}, {pushDevices: 1}, function(err, user){
-      pushNotify.sendNotify(user, "HabitRPG", shared.i18n.t('questStarted') + ": "+ quest.text() );
     });
   });
 
