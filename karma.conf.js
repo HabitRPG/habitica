@@ -12,6 +12,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'website/public/bower_components/jquery/dist/jquery.js',
+      'website/public/bower_components/pnotify/jquery.pnotify.js',
       'website/public/bower_components/angular/angular.js',
       'website/public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'website/public/bower_components/angular-resource/angular-resource.min.js',
