@@ -5,23 +5,6 @@
 angular.module("habitrpg").factory("Notification",
 ['$filter', function($filter) {
 
-  var notificationService = {
-    coins: coins,
-    crit: crit,
-    drop: drop,
-    exp: exp,
-    error: error,
-    gp: gp,
-    hp: hp,
-    lvl: lvl,
-    markdown: markdown,
-    mp: mp,
-    streak: streak,
-    text: text
-  };
-
-  return notificationService;
-
   /**
    Show "+ 5 {gold_coin} 3 {silver_coin}"
    */
@@ -135,4 +118,19 @@ angular.module("habitrpg").factory("Notification",
       icon: icon || false
     }).click(function() { notice.pnotify_remove() });
   }
+
+  return {
+    coins: coins,
+    crit: crit,
+    drop: drop,
+    exp: exp,
+    error: error,
+    gp: gp,
+    hp: hp,
+    lvl: lvl,
+    markdown: markdown,
+    mp: mp,
+    streak: streak,
+    text: text
+  };
 }]);
