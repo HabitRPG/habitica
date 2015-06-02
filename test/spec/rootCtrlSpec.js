@@ -18,7 +18,7 @@ describe('Root Controller', function() {
       $httpBackend = _$httpBackend_;
 
       notification = Notification;
-      sinon.stub(notification, 'text')
+      sinon.stub(notification, 'text');
 
       user = specHelper.newUser();
       User = {user: user};
@@ -78,7 +78,7 @@ describe('Root Controller', function() {
       it('sends notification if target is invalid', function(){
         scope.spell.target = 'not_the_same_target';
 
-        scope.castEnd(task_target, type)
+        scope.castEnd(task_target, type);
 
         notification.text.should.have.been.calledWith(window.env.t('invalidTarget'));
       });
@@ -87,7 +87,7 @@ describe('Root Controller', function() {
     context('succeeds', function(){
       it('sets scope.spell and rootScope.applyingAction to falsy values', function(){
 
-        scope.castEnd(task_target, type)
+        scope.castEnd(task_target, type);
 
         expect(rootscope.applyingAction).to.eql(false);
         expect(scope.spell).to.eql(null);
@@ -99,7 +99,7 @@ describe('Root Controller', function() {
         var spellWasCast = false;
         scope.spell.cast = function(){ spellWasCast = true };
 
-        scope.castEnd(task_target, type)
+        scope.castEnd(task_target, type);
 
         expect(spellWasCast).to.eql(true);
       });

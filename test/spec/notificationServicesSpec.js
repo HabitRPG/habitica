@@ -36,7 +36,7 @@ describe('notificationServices', function() {
 
   it('sends crit notification', function() {
     notification.crit(5);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('crit');
@@ -46,7 +46,7 @@ describe('notificationServices', function() {
 
   it('sends drop notification for unspecified item', function() {
     notification.drop('msg');
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('drop');
@@ -57,7 +57,7 @@ describe('notificationServices', function() {
   it('sends drop notification for Egg', function() {
     var item = { type: 'Egg', key: 'wolf' };
     notification.drop('msg', item);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('drop');
@@ -68,7 +68,7 @@ describe('notificationServices', function() {
   it('sends drop notification for Hatching Potion', function() {
     var item = { type: 'HatchingPotion', key: 'red' };
     notification.drop('msg', item);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('drop');
@@ -79,7 +79,7 @@ describe('notificationServices', function() {
   it('sends drop notification for Food', function() {
     var item = { type: 'Food', key: 'meat' };
     notification.drop('msg', item);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('drop');
@@ -92,11 +92,11 @@ describe('notificationServices', function() {
     expect($.pnotify).to.not.have.been.called;
   });
 
-  it('send exp notification if val >= -50', function() {
+  it('sends exp notification if val >= -50', function() {
     notification.exp(50);
     notification.exp(0);
     notification.exp(-50);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledThrice;
     expect(arg.type).to.eql('xp');
@@ -104,9 +104,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-star');
   });
 
-  it('send exp notification with rounded value', function() {
+  it('sends exp notification with rounded value', function() {
     notification.exp(50.23333);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('xp');
@@ -114,9 +114,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-star');
   });
 
-  it('send error notification', function() {
+  it('sends error notification', function() {
     notification.error('there was an error');
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('danger');
@@ -124,9 +124,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-exclamation-sign');
   });
 
-  it('send gp gained notification', function() {
+  it('sends gp gained notification', function() {
     notification.gp(50, 4);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('gp');
@@ -134,9 +134,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql(false);
   });
 
-  it('send hp notification', function() {
+  it('sends hp notification', function() {
     notification.hp(10);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('hp');
@@ -144,9 +144,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-heart');
   });
 
-  it('send level up notification', function() {
+  it('sends level up notification', function() {
     notification.lvl(10);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('lvl');
@@ -154,9 +154,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-chevron-up');
   });
 
-  it('send markdown parsed notification', function() {
+  it('sends markdown parsed notification', function() {
     notification.markdown(":smile: - task name");
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('info');
@@ -170,9 +170,9 @@ describe('notificationServices', function() {
     expect($.pnotify).to.not.have.been.called;
   });
 
-  it('send mp notification', function() {
+  it('sends mp notification', function() {
     notification.mp(10);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('mp');
@@ -180,9 +180,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-fire');
   });
 
-  it('send streak notification', function() {
+  it('sends streak notification', function() {
     notification.streak(10);
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('streak');
@@ -190,9 +190,9 @@ describe('notificationServices', function() {
     expect(arg.icon).to.eql('glyphicon glyphicon-repeat');
   });
 
-  it('send text notification', function() {
+  it('sends text notification', function() {
     notification.text('task name');
-    var arg = $.pnotify.args[0][0]
+    var arg = $.pnotify.args[0][0];
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('info');
