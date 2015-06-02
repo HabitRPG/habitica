@@ -51,7 +51,12 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             img.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
             markdown(text='group.description')
           hr
-          small.muted Group ID: {{group._id}}
+          p=env.t('groupLeader')
+            a(class='badge badge-info', ng-click='clickMember(group.leader, true)')
+              | {{group.leader}}
+          .formatting-help
+            small.muted=env.t('groupID')
+              | {{group._id}}
 
       include ./challenge-box
 
@@ -78,14 +83,14 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               ng-change='set({"party.orderAscending": user.party.orderAscending})'
               )
           table.table.table-striped(bindonce='group')
-            tr(ng-repeat='member in group.members track by member._id')
+            tr(ng-repeat='member in group.members track by member._id' ng-if='member._id != group.leader')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader == user.id && user.id!=member._id')
+                div.pull-left(ng-show='group.leader == user.id')
                   a.media-object(ng-click='removeMember(group, member, true)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
-                  span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                  span(ng-click='clickMember(member._id, true)')
                     | {{member.profile.name}}
             tr(ng-if='group.memberCount > group.members.length')
               td
