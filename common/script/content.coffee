@@ -494,7 +494,7 @@ api.timeTravelerStore = (owned) ->
 ###
 
 api.potion = type: 'potion', text: t('potionText'), notes: t('potionNotes'), value: 25, key: 'potion'
-api.armoire = type: 'armoire', text: t('armoireText'), notes: t('armoireNotesFull'), value: 100, key: 'armoire', canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
+api.armoire = type: 'armoire', text: t('armoireText'), notes: t('armoireNotesEmpty'), value: 100, key: 'armoire', canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
 
 ###
    ---------------------------------------------------------------

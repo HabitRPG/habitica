@@ -362,6 +362,10 @@ api.countTriad = (pets) ->
       if pets[egg + "-" + potion] > 0 then count3++
   count3
 
+api.countArmoire = (gear) ->
+  count4 = _.size(_.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !gear[i.key])))
+  count4
+
 ###
 ------------------------------------------------------
 User (prototype wrapper to give it ops, helper funcs, and virtuals
@@ -852,7 +856,7 @@ api.wrap = (user, main=true) ->
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
-            message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
+            message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language), count: api.countArmoire(user.items.gear.owned)}, req.language)
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .85) or armoireResult < .6
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0

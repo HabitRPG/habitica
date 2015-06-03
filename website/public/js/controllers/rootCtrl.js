@@ -34,6 +34,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Groups = Groups;
     $rootScope.toJson = angular.toJson;
     $rootScope.Payments = Payments;
+    $rootScope.armoireCount = Shared.countArmoire(User.user.items.gear.owned);
 
     // Angular UI Router
     $rootScope.$state = $state;
