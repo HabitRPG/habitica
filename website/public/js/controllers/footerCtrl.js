@@ -22,6 +22,13 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
   */
   $scope.deferredScripts = function(){
 
+    // Amazon Payments
+    $.getScript('https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js?sellerId=' + window.env.AMAZON_PAYMENTS.SELLER_ID, function(){
+      window.onAmazonLoginReady = function() {
+        amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
+      };
+    });
+
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 

@@ -200,7 +200,11 @@ module.exports.locals = function(req, res, next) {
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
     _: _,
-    MP_ID: nconf.get('MP_ID')
+    MP_ID: nconf.get('MP_ID'),
+    AMAZON_PAYMENTS: {
+      SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
+      CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID')
+    }
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)
