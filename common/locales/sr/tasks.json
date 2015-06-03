@@ -14,7 +14,7 @@
     "save": "Sačuvati",
     "addChecklist": "Dodati spisak",
     "checklist": "Spisak",
-    "checklistText": "Izgubićete manje zdravlja ako uradite deo svakodnevnog zadatka, nego ako ne uradite ništa. Npr. ako sa spiska od 4 stavke uradite 3, šteta koju ćete pretrpeti biće smanjena na 25%. Kod jednokratnih zadataka, svaka završena stavka uvećava koeficijent s kojim se množi nagrada, tako da se kod spiska sa 3 izvršene stavke koeficijent uvećava za 3 (posle čega iznosi 4).",
+    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
     "expandCollapse": "Otvoriti/Zatvoriti",
     "text": "Tekst",
     "extraNotes": "Objašnjenje",
@@ -22,7 +22,7 @@
     "advancedOptions": "Napredna podešavanja",
     "difficulty": "Težina",
     "difficultyHelpTitle": "Koliko je težak ovaj zadatak?",
-    "difficultyHelpContent": "Ove opcije umnožavaju vrednost nagrade. Uglavnom nije potrebno da ih koristite, jer HabitRPG ima algoritme koji proračunavaju težinu zadatka. Koristite ove opcije kod zadataka koji su mnogo vredniji od ostalih (npr. „Napisati diplomski rad“ mnogo je teži zadatak nego „oprati zube“).",
+    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
     "easy": "Lako",
     "medium": "Normalno",
     "hard": "Teško",
@@ -78,5 +78,5 @@
     "pushTaskToTop": "Premesti zadatak na vrh",
     "pushTaskToBottom": "Premesti zadatak na dno",
     "emptyTask": "Prvo ukucajte naziv zadatka.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "Odmarate se u Gostionici! Svakodnevni zadaci će na početku dana biti obeleženi kao neurađeni, ali nećete trpeti štetu zbog neurađenih zadataka na kraju dana. Ako učestvujete u misiji, nećete nanositi štetu bosu, ni dobijati predmete, dok se ne odjavite iz Gostionice. Ako članovi družine budu imali neurađene svakodnevne zadatke, bos će povrediti i Vas."
 }

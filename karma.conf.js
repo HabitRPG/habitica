@@ -12,6 +12,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'website/public/bower_components/jquery/dist/jquery.js',
+      'website/public/bower_components/pnotify/jquery.pnotify.js',
       'website/public/bower_components/angular/angular.js',
       'website/public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'website/public/bower_components/angular-resource/angular-resource.min.js',
@@ -67,8 +68,7 @@ module.exports = function(config) {
       "website/public/js/controllers/footerCtrl.js",
       "website/public/js/controllers/challengesCtrl.js",
       "website/public/js/controllers/hallCtrl.js",
-      // @TODO where did this directory go?
-      //'test/mock/**/*.js',
+      'test/spec/mock/**/*.js',
       'test/spec/specHelper.js',
       'test/spec/*.js'
     ],

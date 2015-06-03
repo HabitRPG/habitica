@@ -196,5 +196,11 @@
     "questSlimeBoss": "Régent de Gelée",
     "questSlimeCompletion": "Avec un dernier coup, vous piégez le Régent de Gelée dans un énorme donut, hâté par @Overomega, @LordDarkly, et @Shaner, les meneurs vifs d'esprit du club de pâtisserie. Alors que tout le monde vous félicite, vous sentez quelqu'un glisser quelque chose dans votre poche. C'est la récompense pour votre prompt succès : trois œufs de Boule de Guimauve. ",
     "questSlimeDropSlimeEgg": "Boule de Guimauve (Œuf)",
-    "questSlimeUnlockText": "Débloque l'achat des Boules de Guimauve au marché"
+    "questSlimeUnlockText": "Débloque l'achat des Boules de Guimauve au marché",
+    "questSheepText": "Le Bélier du Tonnerre",
+    "questSheepNotes": "Alors que vous vous promenez dans le paysage campagnard Tâcherain avec des amis, prenant une \"petite pause\" au milieu de vos obligations, vous tombez sur un adorable magasin de laine. Vous êtes si concentré dans votre procrastination que vous remarquez à peine les nuages menaçants qui se rapprochent en douce depuis l'horizon. \"C'est bê-ê-ê-ête que le temps se couvre. Ça ne présage rien de bon\", grommelle @Misceo, et vous regardez alors en l'air. Les nuages orageux tourbillonnent en volutes qui ressemblent fortement à.un... \"Nous n'avons pas le temps d'observer les nuages!\" crie @starsystemic. \"Il attaque!\" Le Bélier du Tonnerre arrive à toute allure, lançant des éclairs sur vous! ",
+    "questSheepBoss": "Bélier du Tonnerre",
+    "questSheepCompletion": "Impressionné par votre assiduité, le Bélier du Tonnerre voit sa fureur se calmer peu à peu. Il lance trois énormes grêlons dans votre direction et disparaît dans un grondement sourd. En allant voir les grêlons de plus près, vous vous apercevez que ce sont en fait trois œufs doux et floconneux. Vous les ramassez et rentrez chez vous en flânant sous un ciel sans tache.",
+    "questSheepDropSheepEgg": "Mouton (Œuf)",
+    "questSheepUnlockText": "Déverrouille l'achat d’œufs de mouton au Marché"
 }

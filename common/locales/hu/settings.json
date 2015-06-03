@@ -93,6 +93,7 @@
     "wonChallenge": "Megnyertél egy Kihívást",
     "newPM": "Kaptál egy Privát üzenetet",
     "giftedGems": "Ajándékoztál Drágaköveket",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Ajándékoztál Előfizetést",
     "invitedParty": "Meghívva egy csapatba",
     "invitedGuild": "Meghívva egy céhbe",
@@ -113,9 +114,9 @@
     "coupon": "Kupon",
     "couponPlaceholder": "Írd be a Kupon kódodat",
     "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
-    "apply": "Apply",
+    "apply": "Alkalmaz",
     "resubscribe": "Resubscribe",
-    "promoCode": "Promo Code",
-    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoCode": "Promóciós kód",
+    "promoCodeApplied": "Promóciós kód elfogadva! Ellenőrizd le a tárgylistád",
     "promoPlaceholder": "Enter Promotion Code"
 }

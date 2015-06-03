@@ -93,6 +93,7 @@
     "wonChallenge": "Savladali ste izazov",
     "newPM": "Primljena privatna poruka",
     "giftedGems": "Poklonjeni dragulji",
+    "giftedGemsInfo": "<%= amount %> Dragulja - od <%= name %>",
     "giftedSubscription": "Poklonjena pretplata",
     "invitedParty": "Poziv u družinu",
     "invitedGuild": "Poziv u udruženje",

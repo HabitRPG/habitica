@@ -56,6 +56,8 @@
     "questEggBunnyAdjective": "cuki",
     "questEggSlimeText": "Pillecukor ragacs",
     "questEggSlimeAdjective": "édes",
+    "questEggSheepText": "Bárány",
+    "questEggSheepAdjective": "gyapjas",
     "eggNotes": "Keress egy keltetőfőzetet ehhez a tojáshoz, és egy <%= eggAdjective(locale) %> <%= eggText(locale) %> kel majd ki belőle.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",

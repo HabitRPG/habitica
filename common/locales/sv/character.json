@@ -70,7 +70,7 @@
     "allocatePerPop": "Lägg till ett poäng till Uppmärksamhet",
     "allocateInt": "Poäng tilldelade till Intelligens:",
     "allocateIntPop": "Lägg till ett poäng till Intelligens",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "Statistik",
     "strength": "Styrka",
     "strengthText": "Styrka ökar chansen för slumpmässiga \"kritiska träffar\" och guld-, erfarenhet-, och fyndchansen boostas. Det hjälper även till att skada bossmonster.",

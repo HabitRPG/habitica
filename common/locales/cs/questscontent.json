@@ -196,5 +196,11 @@
     "questSlimeBoss": "Želésprávce",
     "questSlimeCompletion": "S posledním bodnutím chytáš Želésprávce do přerostlé koblihy, kterou rychle donesli @Overomega, @LordDarkly a @Shaner, bystří vedoucí pekařského klubu. Jak tě každý poplácává po zádech, ucítíš jak ti někdo vložil něco do kapes. Je to odměna za tvůj sladký úspěch: tři vejce Marshmallow želé.",
     "questSlimeDropSlimeEgg": "Marshmallow želé (vejce)",
-    "questSlimeUnlockText": "Odemyká vejce želé na Trhu"
+    "questSlimeUnlockText": "Odemyká vejce želé na Trhu",
+    "questSheepText": "Hromový beran",
+    "questSheepNotes": "Při toulkách Taskanským venkovem si s přáteli dáš rychlou pauzičku od povinností a najdete útulnou stodolu. Jste tak zabraní do flákání se, že si ani nevšimnete zlověstných mraku plížících se z horizontu. \"Tohle počasí se mi ne-e-e-elíbí,\" zamumlá @Misceo a všichni se podíváte na nebe. Bouřkové mraky se zlověstně víří a tak trochu to vypadá... \"Nemůžeme koukat na mraky!\" křičí @starsystemic. \"Útočí na nás!\" Hromový beran se na vás řítí a vrhá po vás blesky!",
+    "questSheepBoss": "Hromový beran",
+    "questSheepCompletion": "Všechna zloba opouští Hromového berana ohromeného vaší vytrvalostí. Hodí vám k nohám tři velké kroupy a poté za hlasitého zvuku hromu zmizí. Při bližší zkoumání zjistíte, že ty kroupy jsou vlastně tři nadýchaná vejce. Posbíráte je a vydáte se domů pod modrým nebem.",
+    "questSheepDropSheepEgg": "Beran (vejce)",
+    "questSheepUnlockText": "Odemyká vejce berana na Trhu"
 }

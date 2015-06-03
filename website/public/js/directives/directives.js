@@ -184,7 +184,7 @@ habitrpg
       "</div>\n");
   }]);
 
-habitrpg.directive('focusMe', function($timeout, $parse) {
+habitrpg.directive('focusMe', ['$timeout', '$parse', function($timeout, $parse) {
  return {
    link: function(scope, element, attrs) {
      var model = $parse(attrs.focusMe);
@@ -195,4 +195,4 @@ habitrpg.directive('focusMe', function($timeout, $parse) {
      });
    }
  };
-});
+}]);

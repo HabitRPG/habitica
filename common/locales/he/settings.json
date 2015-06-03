@@ -93,6 +93,7 @@
     "wonChallenge": "זכית באתגר",
     "newPM": "קיבלת הודעה פרטית חדשה",
     "giftedGems": "אבני חן שזכית בהן",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Gifted Subscription",
     "invitedParty": "הוזמנת לחבורה",
     "invitedGuild": "Invited To Guild",

@@ -300,6 +300,7 @@ function closeChal(cid, broken, cb) {
 api['delete'] = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
+
   async.waterfall([
     function(cb){
       Challenge.findById(cid, cb);
@@ -307,6 +308,10 @@ api['delete'] = function(req, res, next){
     function(chal, cb){
       if (!chal) return cb('Challenge ' + cid + ' not found');
       if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
+      if (chal.group != 'habitrpg') user.balance += chal.prize/4; // Refund gems to user if a non-tavern challenge
+      user.save(cb);
+    },
+    function(save, num, cb){
       closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){

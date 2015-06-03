@@ -14,7 +14,7 @@
     "save": "Salvar",
     "addChecklist": "Adicionar Lista",
     "checklist": "Lista",
-    "checklistText": "Para Tarefas Diárias, listas parcialmente completas reduzirão o dano. Por exemplo, uma lista de 4 itens com 3 completos reduzirá o dano daquela Tarefa Diária para 25%. Itens completos numa lista de Afazeres adiciona um multiplicador: 3 completos significa +3x (total 4x) Experiência, Ouro e Mana.",
+    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
     "expandCollapse": "Expandir/Fechar",
     "text": "Texto",
     "extraNotes": "Notas Extras",
@@ -22,7 +22,7 @@
     "advancedOptions": "Opções Avançadas",
     "difficulty": "Dificuldade",
     "difficultyHelpTitle": "Quão difícil é essa tarefa?",
-    "difficultyHelpContent": "Isso multiplica o valor de pontos. Use com moderação, conte com nosso algoritmo orgânico de ajuste de valor. Mas algumas tarefas são grosseiramente mais valiosas (Escrever Tese vs. Escovar Dentes). Clique para mais informações.",
+    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
     "easy": "Fácil",
     "medium": "Médio",
     "hard": "Difícil",
@@ -78,5 +78,5 @@
     "pushTaskToTop": "Enviar tarefa para o topo",
     "pushTaskToBottom": "Enviar tarefa para o fundo",
     "emptyTask": "Insira o título da tarefa primeiro.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "Você está descansando na Pousada! Suas Tarefas Diárias NÃO vão lhe causar dano esta noite, mas elas ainda IRÃO atualizar normalmente todos os dias. Se você está em uma missão, você não causará dano ou coletará itens até que saia da Pousada, mas ainda poderá receber dano de um Chefão se os membros de sua Equipe não completarem as suas Tarefas Diárias."
 }

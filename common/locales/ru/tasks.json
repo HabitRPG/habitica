@@ -14,7 +14,7 @@
     "save": "Сохранить",
     "addChecklist": "Добавить список",
     "checklist": "Список",
-    "checklistText": "В ежедневных заданиях для частично выполненных заданий уменьшается урон (напр., со списком из 4 дел, 3 из которых окончены, ежедневное задание нанесет вам 25% урона). При выполнении обычной задачи, ваши очки будут умножены на количество дел в списке (напр., при списке из 4 дел вы получите в 4 раза больше опыта и золота).",
+    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
     "expandCollapse": "Развернуть/свернуть",
     "text": "Текст",
     "extraNotes": "Дополнительные заметки",
@@ -22,7 +22,7 @@
     "advancedOptions": "Дополнительные параметры",
     "difficulty": "Сложность",
     "difficultyHelpTitle": "Насколько трудно это задание?",
-    "difficultyHelpContent": "Это увеличивает ценность задачи. Используйте в меру, лучше положитесь на штатные алгоритмы регулировки важности задач. Но всё же некоторые задачи гораздо ценнее других (сравните: написать дипломную и почистить зубы). Щелкните, чтобы узнать подробности.",
+    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
     "easy": "Легко",
     "medium": "Нормально",
     "hard": "Сложно",
@@ -78,5 +78,5 @@
     "pushTaskToTop": "Переместить задание наверх",
     "pushTaskToBottom": "Переместить задание вниз",
     "emptyTask": "Сначала введите название задания.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "Вы отдыхаете в Гостинице! Пропущенные Ежедневные задания НЕ причинят вам вреда в конце сегодняшнего дня, но отметки об их выполнении БУДУТ сбрасываться каждый день. Если ваша Команда участвует к квесте, вы не будете наносить урон / находить предметы, пока не покинете Гостиницу. В то же время Босс все же будет наносить урон вам за Ежедневные задания, пропущенные вашими товарищами по Команде."
 }

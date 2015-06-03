@@ -93,6 +93,7 @@
     "wonChallenge": "你赢得了挑战",
     "newPM": "收到悄悄话",
     "giftedGems": "自然宝石",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "捐助有礼",
     "invitedParty": "队伍邀请",
     "invitedGuild": "公会邀请",
@@ -115,7 +116,7 @@
     "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Apply",
     "resubscribe": "Resubscribe",
-    "promoCode": "Promo Code",
-    "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Enter Promotion Code"
+    "promoCode": "优惠码",
+    "promoCodeApplied": "优惠码已生效！请查看物品栏",
+    "promoPlaceholder": "输入优惠码"
 }

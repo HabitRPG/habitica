@@ -7,8 +7,8 @@
     "andeeliaoQuote": "Produto incrível, comecei há poucos dias atrás e já estou mais consciente e produtivo com meu tempo!",
     "autumnesquirrelQuote": "Estou procrastinando menos nas tarefas e pagando minhas contas em dia.",
     "businessSample1": "Confirme 1 página de Inventário",
-    "businessSample2": "Preenchimento de 20 minutos",
-    "businessSample3": "Sortear e Processar Caixa de Entrada",
+    "businessSample2": "20 minutos de Arquivamento",
+    "businessSample3": "Classificar e processar Caixa de Entrada",
     "businessSample4": "Prepare 1 documento para cliente",
     "businessSample5": "Ligue para clientes/Adie telefonemas",
     "businessText": "Use HabitRPG no seu trabalho",
@@ -172,5 +172,11 @@
     "username": "Usuário",
     "watchVideos": "Veja Vídeos",
     "work": "Trabalhe",
-    "zelahQuote": "Com o HabitRPG eu sou persuadido a ir para a cama na hora pelos pontos que ganho por dormir cedo ou pela vida que perco dormindo tarde!"
+    "zelahQuote": "Com o HabitRPG eu sou persuadido a ir para a cama na hora pelos pontos que ganho por dormir cedo ou pela vida que perco dormindo tarde!",
+    "reportAccountProblems": "Report Account Problems",
+    "reportCommunityIssues": "Report Community Issues",
+    "generalQuestionsSite": "General Questions about the Site",
+    "businessInquiries": "Business Inquiries",
+    "merchandiseInquiries": "Merchandise Inquiries",
+    "marketingInquiries": "Marketing/Social Media Inquiries"
 }

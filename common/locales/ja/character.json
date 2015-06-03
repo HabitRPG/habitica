@@ -70,7 +70,7 @@
     "allocatePerPop": "知覚にポイントを加える",
     "allocateInt": "知能のポイント：",
     "allocateIntPop": "知能にポイントを加える",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "あなたは今やレベル100に到達し、これ以上能力値を獲得できません。レベルアップを続けることもできますし、もしくは市場で無料で手に入る<a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>転生のオーブ</a>を使ってレベル1から新しい冒険を始めることもできます。",
     "stats": "ステータス",
     "strength": "力",
     "strengthText": "力はクリティカルヒットの確率を上昇させ、またゴールド、経験、ドロップ率にも影響します。またボスモンスターへのダメージも増加します。",
@@ -140,5 +140,5 @@
     "unequipBattleGear": "バトルギアを脱ぐ",
     "unequipCostume": "衣装を脱ぎます",
     "unequipPetMountBackground": "ペットとマウントと背景をはずす",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "動物スキン"
 }

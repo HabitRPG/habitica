@@ -93,6 +93,7 @@
     "wonChallenge": "Du vann en utmaning",
     "newPM": "Mottagit privatmeddelande",
     "giftedGems": "Skänkta juveler",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Skänkt prenumeration",
     "invitedParty": "Inbjuden till sällskap",
     "invitedGuild": "Inbjuden till gille",

@@ -28,7 +28,7 @@
     "hairBangs": "Grzywka",
     "hairBase": "Spód",
     "hairSet1": "Zestaw fryzur 1",
-    "hairSet2": "Drugi zestaw fryzur",
+    "hairSet2": "Zestaw fryzur 2",
     "bodyFacialHair": "Zarost",
     "beard": "Broda",
     "mustache": "Wąsy",
@@ -70,7 +70,7 @@
     "allocatePerPop": "Dodaj punkt do Percepcji",
     "allocateInt": "Punkty przydzielone do Inteligencji:",
     "allocateIntPop": "Dodaj punkt do Inteligencji",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, available for free in the Market.",
+    "noMoreAllocate": "Teraz gdy osiągniesz poziom 100, nie będziesz już zyskiwać punktów atrybutów. Możesz dalej podnosić poziom lub zacząć przygodę nową od poziomu 1 używając <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>, dostępnej teraz za darmo na Targu.",
     "stats": "Statystyki",
     "strength": "Siła",
     "strengthText": "Siła zwiększa szansę na losowe \"trafienia krytyczne\", a także wpływa na ilość otrzymanego za nie Złota, Doświadczenia i prawdopodobieństwa łupów. Pomaga także zadawać obrażenia bossom.",
@@ -137,8 +137,8 @@
     "displayNameDescription1": "Ta nazwa pojawia się przy wiadomościach, które publikujesz w czatach Karczmy, gildii i drużyny, a także widoczna jest na Twoim avatarze. Idź do",
     "displayNameDescription2": "Ustawienia → Strona",
     "displayNameDescription3": "i zjedź do sekcji „Rejestracja”, by zmienić swoją nazwę użytkownika.",
-    "unequipBattleGear": "Zdejmij Wyposażenie Bojowe",
-    "unequipCostume": "Zdejmij Kostium",
+    "unequipBattleGear": "Zdejmij wyposażenie bojowe",
+    "unequipCostume": "Zdejmij kostium",
     "unequipPetMountBackground": "Odeślij Chowańca, Wierzchowca, Tło",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "Zwierzęce kolory"
 }

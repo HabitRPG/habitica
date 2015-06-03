@@ -196,5 +196,11 @@
     "questSlimeBoss": "Regente Gelatina",
     "questSlimeCompletion": "Con un colpo finale, intrappoli il Regente Gelatina in una ciambella gigante, portata in fretta da @Overomega, @LordDarkly, e @Shaner, i leader dal pensiero veloce del club di pasticceria. Mentre tutti di danno pacche sulle spalle, senti che qualcuno fa scivolare qualcosa nella tua tasca. È la ricompensa per la tua dolce vittoria: tre uova di Gelatina di Marshmallow. ",
     "questSlimeDropSlimeEgg": "Gelatina di Marshmallow (Uovo)",
-    "questSlimeUnlockText": "Sblocca l'acquisto delle uova di gelatina di marshmallow nel Mercato"
+    "questSlimeUnlockText": "Sblocca l'acquisto delle uova di gelatina di marshmallow nel Mercato",
+    "questSheepText": "L'Ariete Tuonante",
+    "questSheepNotes": "Mentre vai in giro per le campagne di Taskan con degli amici, prendendoti una \"pausa veloce\" dai tuoi doveri, trovi un accogliente negozio di filati. Sei così assorbito dalla tua procrastinazione che ti accorgi a malapena delle nuvole minacciose che si alzano dall'orizzonte. \"Non ho per niente un be-e-e-el presentimento riguardo questo tempo,\" mormora @Misceo, e tu alzi gli occhi. Le nuvole di tempesta si intrecciano tra loro, e assomigliano molto a... \"Non c'è tempo per stare a guardare le nuvole!\" urla @starsystemic. \"Sta attaccando!\" L'Ariete Tuonante carica verso di voi, scagliandovi addosso fulmini e saette!",
+    "questSheepBoss": "Ariete Tuonante",
+    "questSheepCompletion": "Colpita dalla tua diligenza, l'Ariete Tuonante è prosciugata della sua furia. Lancia tre enormi chicchi di grandine nella tua direzione, e poi scompare con un cupo rombo. Guardandoli meglio, scopri che i chicchi di grandine sono in realtà tre uova morbide e pelose. Le raccogli, e ti incammini verso casa sotto un cielo azzurro.",
+    "questSheepDropSheepEgg": "Pecorella (Uovo)",
+    "questSheepUnlockText": "Sblocca l'acquisto delle uova di pecorella nel Mercato"
 }

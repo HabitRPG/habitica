@@ -172,5 +172,11 @@
     "username": "Имя",
     "watchVideos": "Смотреть видео",
     "work": "Работа",
-    "zelahQuote": "С HabitRPG пойти спать вовремя меня может убедить мысль получить очки за то, что лег рано, или потерять здоровье за то, что лег поздно."
+    "zelahQuote": "С HabitRPG пойти спать вовремя меня может убедить мысль получить очки за то, что лег рано, или потерять здоровье за то, что лег поздно.",
+    "reportAccountProblems": "Report Account Problems",
+    "reportCommunityIssues": "Report Community Issues",
+    "generalQuestionsSite": "General Questions about the Site",
+    "businessInquiries": "Business Inquiries",
+    "merchandiseInquiries": "Merchandise Inquiries",
+    "marketingInquiries": "Marketing/Social Media Inquiries"
 }
