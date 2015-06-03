@@ -141,8 +141,8 @@ gear =
       201505: text: t('weaponMystery201505Text'), notes: t('weaponMystery201505Notes'), mystery:'201505', value: 0
       301404: text: t('weaponMystery301404Text'), notes: t('weaponMystery301404Notes'), mystery:'301404', value: 0
     armoire:
-      basicCrossbow:  text: t('weaponArmoireBasicCrossbowText'), notes: t('weaponArmoireBasicCrossbowNotes', {str: 5, per: 5, con: 5}), value: 100, str: 5, per: 5, con: 5
-      lunarSceptre:   text: t('weaponArmoireLunarSceptreText'), notes: t('weaponArmoireLunarSceptreNotes', {con: 7, int: 7}), value: 100, con: 7, int: 7, set: 'soothing'
+      basicCrossbow:  text: t('weaponArmoireBasicCrossbowText'), notes: t('weaponArmoireBasicCrossbowNotes', {str: 5, per: 5, con: 5}), value: 100, str: 5, per: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_basicCrossbow?)
+      lunarSceptre:   text: t('weaponArmoireLunarSceptreText'), notes: t('weaponArmoireLunarSceptreNotes', {con: 7, int: 7}), value: 100, con: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_lunarSceptre?)
 
   armor:
     base:
@@ -228,8 +228,8 @@ gear =
       201504: text: t('armorMystery201504Text'), notes: t('armorMystery201504Notes'), mystery:'201504', value: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
     armoire:
-      lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing'
-      gladiatorArmor: text: t('armorArmoireGladiatorArmorText'), notes: t('armorArmoireGladiatorArmorNotes', {str: 7, per: 7}), value: 100, str: 7, per: 7, set: 'gladiator'
+      lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.armor_armoire_lunarArmor?)
+      gladiatorArmor: text: t('armorArmoireGladiatorArmorText'), notes: t('armorArmoireGladiatorArmorNotes', {str: 7, per: 7}), value: 100, str: 7, per: 7, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.armor_armoire_gladiatorArmor?)
 
   head:
     base:
@@ -313,11 +313,11 @@ gear =
       301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
     armoire:
-      lunarCrown: text: t('headArmoireLunarCrownText'), notes: t('headArmoireLunarCrownNotes', {con: 7, per: 7}), value: 100, con: 7, per: 7, set: 'soothing'
-      redHairbow: text: t('headArmoireRedHairbowText'), notes: t('headArmoireRedHairbowNotes', {str: 5, int: 5, con: 5}), value: 100, str: 5, int: 5, con: 5
-      violetFloppyHat: text: t('headArmoireVioletFloppyHatText'), notes: t('headArmoireVioletFloppyHatNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5
-      gladiatorHelm: text: t('headArmoireGladiatorHelmText'), notes: t('headArmoireGladiatorHelmNotes', {per: 7, int: 7}), value: 100, per: 7, int: 7, set: 'gladiator'
-      rancherHat: text: t('headArmoireRancherHatText'), notes: t('headArmoireRancherHatNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5
+      lunarCrown: text: t('headArmoireLunarCrownText'), notes: t('headArmoireLunarCrownNotes', {con: 7, per: 7}), value: 100, con: 7, per: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.head_armoire_lunarCrown?)
+      redHairbow: text: t('headArmoireRedHairbowText'), notes: t('headArmoireRedHairbowNotes', {str: 5, int: 5, con: 5}), value: 100, str: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_redHairbow?)
+      violetFloppyHat: text: t('headArmoireVioletFloppyHatText'), notes: t('headArmoireVioletFloppyHatNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_violetFloppyHat?)
+      gladiatorHelm: text: t('headArmoireGladiatorHelmText'), notes: t('headArmoireGladiatorHelmNotes', {per: 7, int: 7}), value: 100, per: 7, int: 7, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.head_armoire_gladiatorHelm?)
+      rancherHat: text: t('headArmoireRancherHatText'), notes: t('headArmoireRancherHatNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_rancherHat?)
 
   shield:
     base:
@@ -378,7 +378,7 @@ gear =
     mystery:
       301405: text: t('shieldMystery301405Text'), notes: t('shieldMystery301405Notes'), mystery:'301405', value: 0
     armoire:
-      gladiatorShield: text: t('shieldArmoireGladiatorShieldText'), notes: t('shieldArmoireGladiatorShieldNotes', {con: 5, str: 5}), value: 100, con: 5, str: 5, set: 'gladiator'
+      gladiatorShield: text: t('shieldArmoireGladiatorShieldText'), notes: t('shieldArmoireGladiatorShieldNotes', {con: 5, str: 5}), value: 100, con: 5, str: 5, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.shield_armoire_gladiatorShield?)
 
   back:
     base:

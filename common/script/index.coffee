@@ -164,7 +164,7 @@ api.updateStore = (user) ->
     true
   # Add special items (contrib gear, backer gear, etc)
   changes = changes.concat _.filter content.gear.flat, (v) ->
-    v.klass in ['special','mystery'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
+    v.klass in ['special','mystery','armoire'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
   changes.push content.potion
   if user.flags.armoireEnabled then changes.push content.armoire
   # Return sorted store (array)
@@ -442,7 +442,7 @@ api.wrap = (user, main=true) ->
           if v
             itm = content.gear.flat[''+k]
             if itm
-              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
+              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) || itm.klass == 'armoire' )
                 losableItems[''+k]=''+k
         lostItem = user.fns.randomVal losableItems
         if item = content.gear.flat[lostItem]
@@ -852,12 +852,12 @@ api.wrap = (user, main=true) ->
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
-            message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+'">', dropText: drop.text(req.language)}, req.language)
+            message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .85) or armoireResult < .6
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
             user.items.food[drop.key] += 1
-            message = i18n.t('armoireFood', {image: '<span class="Pet_Food_'+drop.key+'">', dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
+            message = i18n.t('armoireFood', {image: '<span class="Pet_Food_'+drop.key+' pull-left"></span>', dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
           else
             user.stats.exp += Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
             message = i18n.t('armoireExp', req.language)
