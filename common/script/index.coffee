@@ -852,12 +852,12 @@ api.wrap = (user, main=true) ->
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
-            message = i18n.t('armoireEquipment', {dropText: drop.text(req.language)}, req.language)
+            message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+'">', dropText: drop.text(req.language)}, req.language)
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .85) or armoireResult < .6
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
             user.items.food[drop.key] += 1
-            message = i18n.t('armoireFood', {dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
+            message = i18n.t('armoireFood', {image: '<span class="Pet_Food_'+drop.key+'">', dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
           else
             user.stats.exp += Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
             message = i18n.t('armoireExp', req.language)

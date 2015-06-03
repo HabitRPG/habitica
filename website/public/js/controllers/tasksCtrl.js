@@ -193,7 +193,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.$watch('user.items.gear.equipped', function(){
+    $scope.$watchGroup(['user.items.gear.owned', 'user.flags.armoireEnabled'], function(){
       $scope.itemStore = Shared.updateStore(User.user);
     },true);
 
