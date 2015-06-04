@@ -4,6 +4,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
   function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
+    $scope.armoireCount = function(gear) {
+      return Shared.countArmoire(gear);
+    };
 
     $scope.score = function(task, direction) {
       switch (task.type) {

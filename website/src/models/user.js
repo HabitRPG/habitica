@@ -159,7 +159,8 @@ var UserSchema = new Schema({
     cronCount: {type:Number, 'default':0},
     welcomed: {type: Boolean, 'default': false},
     armoireEnabled: {type: Boolean, 'default': false},
-    armoireOpened: {type: Boolean, 'default': false}
+    armoireOpened: {type: Boolean, 'default': false},
+    armoireEmpty: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

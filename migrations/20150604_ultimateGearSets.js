@@ -17,48 +17,36 @@ var _ = require('lodash');
 
 var dbUsers = mongo.db(dbserver + '/habitrpg?auto_reconnect').collection('users');
 
-var query = {
-  'items.gear.owned.weapon_wizard_6':true,
-  'items.gear.owned.armor_wizard_5':true,
-  'items.gear.owned.head_wizard_5':true
+var fields = {
+  'achievements.ultimateGearSets':1
 };
 
-var fields = {
-  'achievements.ultimateGearSets.wizard':true
+var query = {
+  'items.gear.owned.weapon_wizard_6': {$exists: true},
+  'items.gear.owned.armor_wizard_5': {$exists: true},
+  'items.gear.owned.head_wizard_5': {$exists: true}
 };
 
 /* var query = {
-  'items.gear.owned.weapon_warrior_6':true,
-  'items.gear.owned.armor_warrior_5':true,
-  'items.gear.owned.head_warrior_5':true,
-  'items.gear.owned.shield_warrior_5':true
-};
-
-var fields = {
-  'achievements.ultimateGearSets.warrior':true
+  'items.gear.owned.weapon_warrior_6': {$exists: true},
+  'items.gear.owned.armor_warrior_5': {$exists: true},
+  'items.gear.owned.head_warrior_5': {$exists: true},
+  'items.gear.owned.shield_warrior_5': {$exists: true}
 }; */
 
 /* var query = {
- 'items.gear.owned.weapon_healer_6':true,
- 'items.gear.owned.armor_healer_5':true,
- 'items.gear.owned.head_healer_5':true,
- 'items.gear.owned.shield_healer_5':true
- };
-
- var fields = {
- 'achievements.ultimateGearSets.healer':true
- }; */
+ 'items.gear.owned.weapon_healer_6': {$exists: true},
+ 'items.gear.owned.armor_healer_5': {$exists: true},
+ 'items.gear.owned.head_healer_5': {$exists: true},
+ 'items.gear.owned.shield_healer_5': {$exists: true}
+}; */
 
 /* var query = {
- 'items.gear.owned.weapon_rogue_6':true,
- 'items.gear.owned.armor_rogue_5':true,
- 'items.gear.owned.head_rogue_5':true,
- 'items.gear.owned.shield_rogue_6':true
- };
-
- var fields = {
- 'achievements.ultimateGearSets.rogue':true
- }; */
+ 'items.gear.owned.weapon_rogue_6': {$exists: true},
+ 'items.gear.owned.armor_rogue_5': {$exists: true},
+ 'items.gear.owned.head_rogue_5': {$exists: true},
+ 'items.gear.owned.shield_rogue_6': {$exists: true}
+}; */
 
 console.warn('Updating users...');
 var progressCount = 1000;
@@ -71,7 +59,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   }
   count++;
 
-  var set = {'migration':migrationName, 'achievements.ultimateGearSets':{'wizard':true} }; // Change per class
+  var set = {'migration':migrationName, 'achievements.ultimateGearSets.wizard':true}; // Change per class
   dbUsers.update({_id:user._id}, {$set:set});
 
   if (count%progressCount == 0) console.warn(count + ' ' + user._id);
