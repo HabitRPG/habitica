@@ -219,7 +219,9 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
 
         // Advanced Options
         span(ng-if='::task.type!="reward"')
-          p.option-title.mega(ng-click='task._advanced = !task._advanced', tooltip=env.t('expandCollapse'))=env.t('advancedOptions')
+          button.advanced-options-toggle.option-title.mega(type='button',
+            ng-click='task._advanced = !task._advanced', tooltip=env.t('expandCollapse'))
+            =env.t('advancedOptions')
 
           div(ng-show='task._advanced')
             div(ng-if='task.type == "daily"')
