@@ -52,11 +52,12 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             markdown(text='group.description')
           hr
           p=env.t('groupLeader')
+            |: 
             a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
               | {{group.leader.profile.name}}
-          .formatting-help
+          .slight-vertical-padding
             small.muted=env.t('groupID')
-              | {{group._id}}
+              |: {{group._id}}
 
       include ./challenge-box
 
