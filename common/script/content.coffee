@@ -1855,6 +1855,16 @@ api.backgrounds =
     pagodas:
       text: t('backgroundPagodasText')
       notes: t('backgroundPagodasNotes')
+  backgrounds062015:
+    drifting_raft:
+      text: t('backgroundDriftingRaftText')
+      notes: t('backgroundDriftingRaftNotes')
+    shimmery_bubbles:
+      text: t('backgroundShimmeryBubblesText')
+      notes: t('backgroundShimmeryBubblesNotes')
+    island_waterfalls:
+      text: t('backgroundIslandWaterfallsText')
+      notes: t('backgroundIslandWaterfallsNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
