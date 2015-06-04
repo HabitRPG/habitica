@@ -116,5 +116,8 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "inviteFriends": "Invite Friends",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }
