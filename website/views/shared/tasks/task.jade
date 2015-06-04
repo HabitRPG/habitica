@@ -1,10 +1,11 @@
 mixin repeatOptions
+  legend.option-title=env.t('repeatEvery')
+
   // If frequency is daily
   .form-group(ng-if='task.frequency=="daily"')
     .input-group
-      span.input-group-addon Once every&nbsp;&nbsp;
       input.form-control(type='number', ng-model='task.everyX', min='1')
-      span.input-group-addon day{{task.everyX == 1 ? '' : 's'}}
+      span.input-group-addon {{task.everyX == 1 ? env.t('day') : env.t('days')}}
 
   // If frequency is weekly
   .form-group(ng-show='task.frequency=="weekly"')
@@ -194,8 +195,6 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
         // if Daily, calendar
         fieldset.option-group.calendar(ng-if='::task.type=="daily"', class="option-group")
           .dailies
-            legend.option-title=env.t('repeat')
-
             +repeatOptions
 
 
@@ -235,10 +234,10 @@ li(bindonce='list', id='task-{{::task.id}}', ng-repeat='task in obj[list.type+"s
               hr
 
               .form-group
-                legend.option-title Repeat Frequency
+                legend.option-title=env.t('repeat')
                 select.form-control(ng-model='task.frequency')
-                  option(value='weekly') Repeat on certain days of the week
-                  option(value='daily') Repeat every X days
+                  option(value='weekly')=env.t('repeatWeek')
+                  option(value='daily')=env.t('repeatDays')
 
               +repeatOptions
 
