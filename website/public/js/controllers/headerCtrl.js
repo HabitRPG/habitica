@@ -18,10 +18,12 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$ro
 
     $scope.inviteOrStartParty = function(group) {
       if (group.type === "party") {
-        $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve:
-          {injectedGroup: function(){
-            return group;
-        }}});
+        $rootScope.openModal('invite-friends', {
+          controller:'InviteToGroupCtrl',
+          resolve: {
+            injectedGroup: function(){ return group; }
+          }
+        });
       } else {
         $location.path("/options/groups/party");
       }
