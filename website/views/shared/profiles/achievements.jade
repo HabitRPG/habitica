@@ -78,18 +78,25 @@ div(ng-if='::profile.achievements.perfect || user._id == profile._id')
     small(ng-if='::profile.achievements.perfect == 1')=env.t('perfectSingularText')
   hr
 
-//-div(ng-if='::profile.achievements.ultimateGear || user._id == profile._id')
-  .achievement.achievement-armor(ng-if='::profile.achievements.ultimateGear')
-  div(ng-class='::{muted: !profile.achievements.ultimateGear}')
+div(ng-if='::profile.achievements.ultimateGearSets || user._id == profile._id')
+  .achievement.achievement-armor(ng-if='::profile.achievements.ultimateGearSets')
+  div(ng-class='::{muted: !profile.achievements.ultimateGearSets}')
     h5=env.t('ultimGearName')
     small=env.t('ultimGearText')
-  hr
-// Remove the following when ultimate gear is fixed (https://github.com/HabitRPG/habitrpg/issues/2232):
-div(ng-if='::user._id == profile._id')
-  div.muted
-    h5=env.t('ultimGearName')
-    small 
-      +aLink('https://github.com/HabitRPG/habitrpg/issues/2232', 'Returning soon')
+    table.multi-achievement
+      tr
+        td(ng-if='::profile.achievements.ultimateGearSets.healer').multi-achievement
+          .achievement-ultimate-healer.multi-achievement
+          =env.t('healer')
+        td(ng-if='::profile.achievements.ultimateGearSets.wizard').multi-achievement
+          .achievement-ultimate-mage.multi-achievement
+          =env.t('mage')
+        td(ng-if='::profile.achievements.ultimateGearSets.rogue').multi-achievement
+          .achievement-ultimate-rogue.multi-achievement
+          =env.t('rogue')
+        td(ng-if='::profile.achievements.ultimateGearSets.warrior').multi-achievement
+          .achievement-ultimate-warrior.multi-achievement
+          =env.t('warrior')
   hr
 
 div(ng-if='::profile.achievements.beastMaster || user._id == profile._id')

@@ -126,7 +126,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           // Static Rewards
           ul.items.rewards(ng-if='main && list.type=="reward"')
-            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes()}}')
+            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.key == "armoire" && !user.flags.armoireEmpty ? env.t("armoireNotesFull") + armoireCount(user.items.gear.owned) : item.notes()}}')
               // right-hand side control buttons
               .task-meta-controls
                 span.task-notes

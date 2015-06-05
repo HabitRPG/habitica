@@ -4,6 +4,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
   function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
+
+    $scope.armoireCount = function(gear) {
+      return Shared.countArmoire(gear);
+    };
+
     $scope.score = function(task, direction) {
       switch (task.type) {
           case 'reward':
@@ -213,7 +218,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.$watch('user.items.gear.equipped', function(){
+    $scope.$watchGroup(['user.items.gear.owned', 'user.flags.armoireEnabled'], function(){
       $scope.itemStore = Shared.updateStore(User.user);
     },true);
 
