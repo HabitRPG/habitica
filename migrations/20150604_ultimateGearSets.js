@@ -19,28 +19,29 @@ var _ = require('lodash');
 var dbUsers = mongo.db(dbserver + '/' + dbname + '?auto_reconnect').collection('users');
 
 var fields = {
-  'achievements.ultimateGearSets':1
+  'achievements.ultimateGearSets':1,
   'items.gear.owned':1
 };
 
 var query = {
-	$or: [
-	'items.gear.owned.weapon_wizard_6': {$exists: true},
-	'items.gear.owned.armor_wizard_5': {$exists: true},
-	'items.gear.owned.head_wizard_5': {$exists: true}
-	'items.gear.owned.weapon_warrior_6': {$exists: true},
-	'items.gear.owned.armor_warrior_5': {$exists: true},
-	'items.gear.owned.head_warrior_5': {$exists: true},
-	'items.gear.owned.shield_warrior_5': {$exists: true}
-	'items.gear.owned.weapon_healer_6': {$exists: true},
-	'items.gear.owned.armor_healer_5': {$exists: true},
-	'items.gear.owned.head_healer_5': {$exists: true},
-	'items.gear.owned.shield_healer_5': {$exists: true}
-	'items.gear.owned.weapon_rogue_6': {$exists: true},
-	'items.gear.owned.armor_rogue_5': {$exists: true},
-	'items.gear.owned.head_rogue_5': {$exists: true},
-	'items.gear.owned.shield_rogue_6': {$exists: true}
-	]
+  // 'auth.timestamps.loggedin':{$lte:new Date('2015-05-22')},
+  $or: [
+    {'items.gear.owned.weapon_wizard_6': {$exists: true}},
+    {'items.gear.owned.armor_wizard_5': {$exists: true}},
+    {'items.gear.owned.head_wizard_5': {$exists: true}},
+    {'items.gear.owned.weapon_warrior_6': {$exists: true}},
+    {'items.gear.owned.armor_warrior_5': {$exists: true}},
+    {'items.gear.owned.head_warrior_5': {$exists: true}},
+    {'items.gear.owned.shield_warrior_5': {$exists: true}},
+    {'items.gear.owned.weapon_healer_6': {$exists: true}},
+    {'items.gear.owned.armor_healer_5': {$exists: true}},
+    {'items.gear.owned.head_healer_5': {$exists: true}},
+    {'items.gear.owned.shield_healer_5': {$exists: true}},
+    {'items.gear.owned.weapon_rogue_6': {$exists: true}},
+    {'items.gear.owned.armor_rogue_5': {$exists: true}},
+    {'items.gear.owned.head_rogue_5': {$exists: true}},
+    {'items.gear.owned.shield_rogue_6': {$exists: true}}
+  ]
 };
 
 console.warn('Updating users...');
@@ -54,13 +55,13 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   }
   count++;
 
-  var achievementArray = [];
+  var achievements = {};
   var changeUser = false;
   if (   (typeof user.items.gear.owned.weapon_wizard_6 !== 'undefined')
       && (typeof user.items.gear.owned.armor_wizard_5 !== 'undefined')
       && (typeof user.items.gear.owned.head_wizard_5 !== 'undefined')
   ) {
-    achievementArray.push({'wizard':true});
+    achievements['wizard'] = true;
     changeUser = true;
   }
   if (   (typeof user.items.gear.owned.weapon_warrior_6 !== 'undefined')
@@ -68,7 +69,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
       && (typeof user.items.gear.owned.head_warrior_5 !== 'undefined')
       && (typeof user.items.gear.owned.shield_warrior_5 !== 'undefined')
   ) {
-    achievementArray.push({'warrior':true});
+    achievements['warrior'] = true;
     changeUser = true;
   }
   if (   (typeof user.items.gear.owned.weapon_healer_6 !== 'undefined')
@@ -76,7 +77,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
       && (typeof user.items.gear.owned.head_healer_5 !== 'undefined')
       && (typeof user.items.gear.owned.shield_healer_5 !== 'undefined')
   ) {
-    achievementArray.push({'healer':true});
+    achievements['healer'] = true;
     changeUser = true;
   }
   if (   (typeof user.items.gear.owned.weapon_rogue_6 !== 'undefined')
@@ -84,12 +85,12 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
       && (typeof user.items.gear.owned.head_rogue_5 !== 'undefined')
       && (typeof user.items.gear.owned.shield_rogue_6 !== 'undefined')
   ) {
-    achievementArray.push({'rogue':true});
+    achievements['rogue'] = true;
     changeUser = true;
   }
 
   if (changeUser) {
-    var set = {'migration':migrationName, 'achievements.ultimateGearSets':achievementArray, 'flags.armoireEnabled':true};
+    var set = {'migration':migrationName, 'achievements.ultimateGearSets':achievements, 'flags.armoireEnabled':true};
     dbUsers.update({_id:user._id}, {$set:set});
   }
 
