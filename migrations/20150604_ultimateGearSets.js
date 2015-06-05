@@ -20,34 +20,28 @@ var dbUsers = mongo.db(dbserver + '/' + dbname + '?auto_reconnect').collection('
 
 var fields = {
   'achievements.ultimateGearSets':1
+  'items.gear.owned':1
 };
 
 var query = {
-  'items.gear.owned.weapon_wizard_6': {$exists: true},
-  'items.gear.owned.armor_wizard_5': {$exists: true},
-  'items.gear.owned.head_wizard_5': {$exists: true}
+	$or: [
+	'items.gear.owned.weapon_wizard_6': {$exists: true},
+	'items.gear.owned.armor_wizard_5': {$exists: true},
+	'items.gear.owned.head_wizard_5': {$exists: true}
+	'items.gear.owned.weapon_warrior_6': {$exists: true},
+	'items.gear.owned.armor_warrior_5': {$exists: true},
+	'items.gear.owned.head_warrior_5': {$exists: true},
+	'items.gear.owned.shield_warrior_5': {$exists: true}
+	'items.gear.owned.weapon_healer_6': {$exists: true},
+	'items.gear.owned.armor_healer_5': {$exists: true},
+	'items.gear.owned.head_healer_5': {$exists: true},
+	'items.gear.owned.shield_healer_5': {$exists: true}
+	'items.gear.owned.weapon_rogue_6': {$exists: true},
+	'items.gear.owned.armor_rogue_5': {$exists: true},
+	'items.gear.owned.head_rogue_5': {$exists: true},
+	'items.gear.owned.shield_rogue_6': {$exists: true}
+	]
 };
-
-/* var query = {
-  'items.gear.owned.weapon_warrior_6': {$exists: true},
-  'items.gear.owned.armor_warrior_5': {$exists: true},
-  'items.gear.owned.head_warrior_5': {$exists: true},
-  'items.gear.owned.shield_warrior_5': {$exists: true}
-}; */
-
-/* var query = {
- 'items.gear.owned.weapon_healer_6': {$exists: true},
- 'items.gear.owned.armor_healer_5': {$exists: true},
- 'items.gear.owned.head_healer_5': {$exists: true},
- 'items.gear.owned.shield_healer_5': {$exists: true}
-}; */
-
-/* var query = {
- 'items.gear.owned.weapon_rogue_6': {$exists: true},
- 'items.gear.owned.armor_rogue_5': {$exists: true},
- 'items.gear.owned.head_rogue_5': {$exists: true},
- 'items.gear.owned.shield_rogue_6': {$exists: true}
-}; */
 
 console.warn('Updating users...');
 var progressCount = 1000;
@@ -60,8 +54,44 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   }
   count++;
 
-  var set = {'migration':migrationName, 'achievements.ultimateGearSets.wizard':true}; // Change per class
-  dbUsers.update({_id:user._id}, {$set:set});
+  var achievementArray = [];
+  var changeUser = false;
+  if (   (typeof user.items.gear.owned.weapon_wizard_6 !== 'undefined')
+      && (typeof user.items.gear.owned.armor_wizard_5 !== 'undefined')
+      && (typeof user.items.gear.owned.head_wizard_5 !== 'undefined')
+  ) {
+    achievementArray.push({'wizard':true});
+    changeUser = true;
+  }
+  if (   (typeof user.items.gear.owned.weapon_warrior_6 !== 'undefined')
+      && (typeof user.items.gear.owned.armor_warrior_5 !== 'undefined')
+      && (typeof user.items.gear.owned.head_warrior_5 !== 'undefined')
+      && (typeof user.items.gear.owned.shield_warrior_5 !== 'undefined')
+  ) {
+    achievementArray.push({'warrior':true});
+    changeUser = true;
+  }
+  if (   (typeof user.items.gear.owned.weapon_healer_6 !== 'undefined')
+      && (typeof user.items.gear.owned.armor_healer_5 !== 'undefined')
+      && (typeof user.items.gear.owned.head_healer_5 !== 'undefined')
+      && (typeof user.items.gear.owned.shield_healer_5 !== 'undefined')
+  ) {
+    achievementArray.push({'healer':true});
+    changeUser = true;
+  }
+  if (   (typeof user.items.gear.owned.weapon_rogue_6 !== 'undefined')
+      && (typeof user.items.gear.owned.armor_rogue_5 !== 'undefined')
+      && (typeof user.items.gear.owned.head_rogue_5 !== 'undefined')
+      && (typeof user.items.gear.owned.shield_rogue_6 !== 'undefined')
+  ) {
+    achievementArray.push({'rogue':true});
+    changeUser = true;
+  }
+
+  if (changeUser) {
+    var set = {'migration':migrationName, 'achievements.ultimateGearSets':achievementArray, 'flags.armoireEnabled':true};
+    dbUsers.update({_id:user._id}, {$set:set});
+  }
 
   if (count%progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
