@@ -3,19 +3,20 @@
  */
 
 var migrationName = '20150604_ultimateGearSets';
-var authorName = 'Sabe'; // in case script author needs to know when their ...
-var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
+var authorName = process.env.AUTHOR_NAME || 'Sabe'; // in case script author needs to know when their ...
+var authorUuid = process.env.AUTHOR_UUID || '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
  * grant the new ultimateGearSets achievement for existing users' collected equipment
  */
 
-var dbserver = 'localhost:27017'; // CHANGE THIS FOR PRODUCTION DATABASE
+var dbserver = process.env.DB_SERVER || 'localhost:27017'; // CHANGE THIS FOR PRODUCTION DATABASE
+var dbname = process.env.DB_NAME || 'habitrpg';
 
 var mongo = require('mongoskin');
 var _ = require('lodash');
 
-var dbUsers = mongo.db(dbserver + '/habitrpg?auto_reconnect').collection('users');
+var dbUsers = mongo.db(dbserver + '/' + dbname + '?auto_reconnect').collection('users');
 
 var fields = {
   'achievements.ultimateGearSets':1
