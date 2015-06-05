@@ -534,7 +534,7 @@ describe 'User', ->
       expect(user.stats.gp).to.eql 300
 
     it 'gives food', ->
-      sinon.stub(user.fns, 'predictableRandom', cycle [.8,.5])
+      sinon.stub(user.fns, 'predictableRandom', cycle [.7,.5])
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
       expect(user.items.food).to.eql {'Honey': 1}
@@ -542,7 +542,7 @@ describe 'User', ->
       expect(user.stats.gp).to.eql 200
 
     it 'gives more equipment', ->
-      sinon.stub(user.fns, 'predictableRandom', cycle [.6,.5])
+      sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true,'head_armoire_rancherHat':true}
       expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 3)
@@ -551,7 +551,7 @@ describe 'User', ->
       expect(user.stats.gp).to.eql 100
 
     it 'does not give equipment if all equipment has been found', ->
-      sinon.stub(user.fns, 'predictableRandom', cycle [.6,.5])
+      sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.items.gear.owned = fullArmoire
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql fullArmoire
