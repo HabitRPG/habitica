@@ -10,8 +10,9 @@ var authorUuid = process.env.AUTHOR_UUID || '7f14ed62-5408-4e1b-be83-ada62d50493
  * grant the new ultimateGearSets achievement for existing users' collected equipment
  */
 
-var dbserver = process.env.DB_SERVER || 'localhost:27017'; // CHANGE THIS FOR PRODUCTION DATABASE
-var dbname = process.env.DB_NAME || 'habitrpg';
+var dbserver = 'localhost:27017' // FOR TEST DATABASE
+// var dbserver = 'username:password@ds031379-a0.mongolab.com:31379' // FOR PRODUCTION DATABASE
+var dbname = 'habitrpg';
 
 var mongo = require('mongoskin');
 var _ = require('lodash');
