@@ -852,13 +852,13 @@ api.wrap = (user, main=true) ->
         else if item.key is 'armoire'
           armoireResult = user.fns.predictableRandom()
           eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
-          if !_.isEmpty(eligibleEquipment) and (armoireResult < .7 or !user.flags.armoireOpened)
+          if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
             message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
             if api.countArmoire(user.items.gear.owned) is 0 then user.flags.armoireEmpty = true
-          else if (!_.isEmpty(eligibleEquipment) and armoireResult < .85) or armoireResult < .6
+          else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
             user.items.food[drop.key] += 1
