@@ -101,9 +101,14 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
-    $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
-      if (after === before || after !== true) return;
+    $rootScope.$watch('user.achievements.ultimateGearSets', function(after, before){
+      if (_.isEqual(after,before) || !_.contains(User.user.achievements.ultimateGearSets, true)) return;
       $rootScope.openModal('achievements/ultimateGear');
+    }, true);
+
+    $rootScope.$watch('user.flags.armoireEmpty', function(after,before){
+      if (before == undefined || after == before || after == false) return;
+      $rootScope.openModal('armoireEmpty');
     });
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
