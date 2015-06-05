@@ -44,7 +44,7 @@ div(ng-if='::task.type!="reward"')
           ng-click='task.challenge.id || (task.priority=2)')
           =env.t('hard')
 
-    //span(ng-if='task.type=="daily" && !task.challenge.id')
+    span(ng-if='task.type=="daily"')
       legend.option-title.pull-left=env.t('restoreStreak')
       input.option-content(type='number', ng-model='task.streak')
 
