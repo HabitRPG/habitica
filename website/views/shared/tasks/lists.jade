@@ -27,7 +27,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               ul
                 li!=env.t('habitHelp1', {plusIcon:"<span class='glyphicon glyphicon-plus'></span>"})
                 li!=env.t('habitHelp2', {minusIcon:"<span class='glyphicon glyphicon-minus'></span>"})
-                li!=env.t('habitHelp3')
+                li!=env.t('habitHelp3', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Sample_Habits' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='daily')
               ul
@@ -35,21 +35,21 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 li!=env.t('dailyHelp2')
                 li!=env.t('dailyHelp3', {emphasisStart:"<strong>", emphasisEnd:"</strong>"})
                 li!=env.t('dailyHelp4', {linkStart:"<a href='/#/options/settings/settings' target='_blank'>", linkEnd:"</a>"})
-                li!=env.t('dailyHelp5')
+                li!=env.t('dailyHelp5', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Sample_Dailies' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='todo')
               ul
                 li!=env.t('toDoHelp1')
                 li!=env.t('toDoHelp2')
                 li!=env.t('toDoHelp3')
-                li!=env.t('toDoHelp4')
+                li!=env.t('toDoHelp4', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Sample_To-Dos' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='reward')
               ul
                 li!=env.t('rewardHelp1', {linkStart:"<a href='/#/options/inventory/equipment' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('rewardHelp2', {linkStart:"<a href='/#/options/profile/stats' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('rewardHelp3')
-                li!=env.t('rewardHelp4')
+                li!=env.t('rewardHelp4', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
 
           // Todo Chart

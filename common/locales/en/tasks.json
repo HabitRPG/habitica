@@ -95,5 +95,5 @@
     "rewardHelp1": "The Equipment you buy for your avatar is stored in <%= linkStart %>Inventory > Equipment<%= linkEnd %>.",
     "rewardHelp2": "Equipment affects your stats (<%= linkStart %>Avatar > Stats<%= linkEnd %>).",
     "rewardHelp3": "Special equipment will appear here during World Events.",
-    "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <a href='http://habitrpg.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>some samples here</a>."
+    "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <%= linkStart %>some samples here<%= linkEnd %>."
 }
