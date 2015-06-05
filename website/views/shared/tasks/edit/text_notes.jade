@@ -1,0 +1,6 @@
+fieldset.option-group
+  label.option-title=env.t('text')
+  input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
+
+  label.option-title=env.t('extraNotes')
+  textarea.option-content(rows='3', ng-model='task.notes', ng-model-options="{debounce: 1000}")

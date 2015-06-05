@@ -1,0 +1,27 @@
+legend.option-title=env.t('repeatEvery')
+
+// If frequency is daily
+.form-group(ng-if='task.frequency=="daily"')
+  .input-group
+    input.form-control(type='number', ng-model='task.everyX', min='1')
+    span.input-group-addon {{task.everyX == 1 ? env.t('day') : env.t('days')}}
+
+// If frequency is weekly
+.form-group(ng-show='task.frequency=="weekly"')
+
+  ul.repeat-days(bindonce)
+    // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
+    li
+      button(ng-class='{active: task.repeat.su}', type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') {{::moment.weekdaysMin(0)}}
+    li
+      button(ng-class='{active: task.repeat.m}', type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)') {{::moment.weekdaysMin(1)}}
+    li
+      button(ng-class='{active: task.repeat.t}', type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)') {{::moment.weekdaysMin(2)}}
+    li
+      button(ng-class='{active: task.repeat.w}', type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)') {{::moment.weekdaysMin(3)}}
+    li
+      button(ng-class='{active: task.repeat.th}', type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)') {{::moment.weekdaysMin(4)}}
+    li
+      button(ng-class='{active: task.repeat.f}', type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)') {{::moment.weekdaysMin(5)}}
+    li
+      button(ng-class='{active: task.repeat.s}', type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') {{::moment.weekdaysMin(6)}}
