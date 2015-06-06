@@ -1,15 +1,14 @@
 legend.option-title=env.t('repeatEvery')
 
 // If frequency is daily
-.form-group(ng-if='task.frequency=="daily"')
+ng-form.form-group(name='everyX' ng-if='task.frequency=="daily"')
   .input-group
-    input.form-control(type='number', ng-model='task.everyX', min='1')
+    input.form-control(type='number', ng-model='task.everyX', min='0', required)
     span.input-group-addon {{task.everyX == 1 ? env.t('day') : env.t('days')}}
 
 // If frequency is weekly
-.form-group(ng-show='task.frequency=="weekly"')
-
-  ul.repeat-days(bindonce)
+.form-group(ng-if='task.frequency=="weekly"')
+  ul.repeat-days
     // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
     li
       button(ng-class='{active: task.repeat.su}', type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') {{::moment.weekdaysMin(0)}}
