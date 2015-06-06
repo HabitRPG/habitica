@@ -318,13 +318,12 @@ describe "Groups", ->
         type: "party"
       ).end (res) ->
         expectCode res, 200
-
-        party = res.body[0]
+        party = _.find res.body, (g) -> return g._id == group._id
         expect(party._id).to.equal group._id
         expect(party.leader).to.equal user._id
         expect(party.name).to.equal group.name
         expect(party.quest).to.deep.equal { progress: {} }
-        #expect(party.memberCount).to.equal group.memberCount
+        expect(party.memberCount).to.equal group.memberCount
         done()
 
     it "prevents user from creating a second party", (done) ->
@@ -351,20 +350,35 @@ describe "Groups", ->
 
       it "allows users to join a party when they have been invited", (done) ->
         tmpUser = undefined
-        registerNewUser (err, user) ->
-          tmpUser = user
-          inviteURL = baseURL + "/groups/" + group._id + "/invite"
-          request.post(inviteURL).send(
-            uuids: [tmpUser._id]
-          )
-          .end ->
+        async.waterfall [
+          (cb) ->
+            registerNewUser(cb, false)
+
+          (user, cb) ->
+            tmpUser = user
+            inviteURL = baseURL + "/groups/" + group._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [tmpUser._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
             request.post(baseURL + "/groups/" + group._id + "/join")
             .set("X-API-User", tmpUser._id)
             .set("X-API-Key", tmpUser.apiToken)
             .end (res) ->
               expectCode res, 200
-              done()
-        , false
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + group._id + "/leave")
+            .set("X-API-User", tmpUser._id)
+            .set("X-API-Key", tmpUser.apiToken)
+            .end (res) ->
+              expectCode res, 204
+              cb()
+        ], done
 
     describe "Chat", ->
       chat = undefined
