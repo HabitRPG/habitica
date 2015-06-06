@@ -1,5 +1,7 @@
 import { pipe, awaitPort, kill }  from './taskHelper';
+import { server as karma }        from 'karma';
 import { exec }                   from 'child_process';
+import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
 import Q                          from 'q';
 
@@ -47,7 +49,7 @@ gulp.task('test:api', ['test:prepare'], (cb) => {
 
 gulp.task('test:karma', ['test:prepare'], (cb) => {
   let runner = exec(
-    testBin('grunt karma:continuous'), cb
+    testBin('karma start --single-run'), cb
   );
   pipe(runner);
 });
