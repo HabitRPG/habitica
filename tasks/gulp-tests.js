@@ -1,5 +1,6 @@
 import { pipe, awaitPort, kill }  from './taskHelper';
 import { server as karma }        from 'karma';
+import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
@@ -15,7 +16,11 @@ let testBin = (string) => {
 };
 
 gulp.task('test:prepare:mongo', (cb) => {
-  exec(`mongo "${TEST_DB}" --eval "db.dropDatabase()"`, cb);
+  mongoose.connect(TEST_DB_URI, () => {
+    mongoose.connection.db.dropDatabase();
+    mongoose.connection.close();
+    cb();
+  });
 });
 
 gulp.task('test:prepare:build', (cb) => {
@@ -65,10 +70,14 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
     awaitPort(3001),
     awaitPort(4444)
   ]).then(() => {
-    exec('DISPLAY=:99 NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js', () => {
-      support.forEach(kill);
-      cb();
-    })
+    let runner = exec(
+      'DISPLAY=:99 NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js',
+      () => {
+        support.forEach(kill);
+        cb();
+      }
+    );
+    pipe(runner);
   });
 });
 
