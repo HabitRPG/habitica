@@ -137,21 +137,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      Dailies
      ------------------------
      */
-    $scope.updateTaskStartDate = function(task) {
-      /*
-       Keep startDate and _tempDateForPicker in sync. The reason for having both instead
-       of having startDate be the ngmodel for datePicker is that datePicker initializes with
-       an incorrect format when given a Date for an ngmodel; instead we initialize _tempDate
-       to be a string that datePicker then converts to a Date, which lets us control the format.
-       */
-      task.startDate = task._tempDateForPicker;
-    };
 
     $scope.openDatePicker = function($event, task) {
+      $event.preventDefault();
       $event.stopPropagation();
+
       task._isDatePickerOpen = !task._isDatePickerOpen;
     }
-
 
     /*
      ------------------------

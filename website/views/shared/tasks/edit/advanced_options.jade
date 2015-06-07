@@ -8,12 +8,12 @@ div(ng-if='::task.type!="reward"')
       .form-group
         legend.option-title=env.t('startDate')
         .input-group
-          input.form-control(type='date', ng-model='task._tempDateForPicker',
-            ng-change='updateTaskStartDate(task)',
-            is-open='task._isDatePickerOpen', datepicker-popup, required)
+          input.form-control(type='text', ng-model='task.startDate',
+            datepicker-popup='M/dd/yyyy', is-open='task._isDatePickerOpen',
+            ng-required='true', close-text='Close')
           span.input-group-btn
             button.btn.btn-default(type='button' ng-click='openDatePicker($event, task)')
-              .glyphicon.glyphicon-calendar
+              i.glyphicon.glyphicon-calendar
 
       hr
 
