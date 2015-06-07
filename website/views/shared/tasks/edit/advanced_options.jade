@@ -6,7 +6,10 @@ div(ng-if='::task.type!="reward"')
   div(ng-show='task._advanced')
     div(ng-if='::task.type == "daily"')
       .form-group
-        legend.option-title=env.t('startDate')
+        legend.option-title
+          span.hint(popover-title=env.t('startDateHelpTitle'), popover=env.t("startDateHelp"), popover-trigger='mouseenter')
+            =env.t('startDate')
+
         input.form-control(type='text', ng-model='task.startDate',
           datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',
           ng-click='datepickerOpened = true')
