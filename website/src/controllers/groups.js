@@ -529,6 +529,12 @@ api.leave = function(req, res, next) {
         update['$unset']['quest.members.' + user._id] = 1;
       }
       // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
+	  if(group.type === 'party' && group.members.length == 1 || group.type === 'guild' && group.privacy === 'private'&& group.members.length == 1 ) {
+          Group.findByIdAndRemove(group._id, function(err) { 
+              if (err) throw err;
+          });
+      }
+	  
       if (group.members.length > 1) {
         var seniorMember = _.find(group.members, function (m) {return m != user._id});
         // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
