@@ -6,6 +6,7 @@
   "dependencies": {
     "async": "~0.9.0",
     "aws-sdk": "^2.0.25",
+    "babel": "^5.5.4",
     "bower": "~1.3.12",
     "browserify": "~3.30.2",
     "coffee-script": "1.6.x",
@@ -30,6 +31,7 @@
     "grunt-karma": "~0.6.2",
     "grunt-nodemon": "~0.3.0",
     "grunt-spritesmith": "~3.5.0",
+    "gulp": "^3.9.0",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
     "image-size": "~0.3.2",
     "in-app-purchase": "^0.2.0",
@@ -52,7 +54,9 @@
     "paypal-ipn": "2.1.0",
     "paypal-rest-sdk": "^1.2.1",
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
+    "ps-tree": "^1.0.0",
     "push-notify": "^1.1.1",
+    "q": "^1.4.1",
     "qs": "^2.3.2",
     "request": "~2.44.0",
     "s3-upload-stream": "^1.0.6",
@@ -74,7 +78,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "./node_modules/coffee-script/bin/coffee ./test/runTests.coffee -n",
+    "test": "./node_modules/.bin/gulp test",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/grunt;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
