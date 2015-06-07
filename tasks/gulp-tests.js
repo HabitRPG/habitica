@@ -37,7 +37,7 @@ gulp.task('test:prepare', [
   'test:prepare:webdriver'
 ]);
 
-gulp.task('test:common', ['test:prepare'], (cb) => {
+gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('mocha test/common'), cb
   );
@@ -45,14 +45,14 @@ gulp.task('test:common', ['test:prepare'], (cb) => {
 });
 
 
-gulp.task('test:api', ['test:prepare'], (cb) => {
+gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
     testBin('mocha test/api'), cb
   );
   pipe(runner);
 });
 
-gulp.task('test:karma', ['test:prepare'], (cb) => {
+gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('karma start --single-run'), cb
   );

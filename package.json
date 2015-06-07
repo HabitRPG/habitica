@@ -78,7 +78,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "./node_modules/.bin/gulp",
+    "test": "./node_modules/.bin/gulp test",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/grunt;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
