@@ -22,24 +22,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
                 small.muted=env.t('paymentMethods')
               .btn.btn-primary(ng-click='Payments.showStripe({})')=env.t('card')
               a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
-              div#AmazonPayButton
-              script(type='text/javascript').
-                var authRequest;
-                OffAmazonPayments.Button('AmazonPayButton', window.env.AMAZON_PAYMENTS.SELLER_ID, {
-                  type:  'PwA',
-                  color: 'Gold',
-                  size:  'small',
-
-                  authorization: function() {
-                    loginOptions =
-                      {scope: 'payments:widget', popup: true};
-                    authRequest = amazon.Login.authorize (loginOptions,
-                      'https://habitrpg.com');
-                  },
-                  onError: function(error) {
-                    console.error('amazon payments error ', error)
-                  }
-                });
+              div#AmazonPayButtonDonation(ng-init="Payments.initAmazonDonation()")
 
       div(ng-include="'partials/options.settings.subscription.html'")
 

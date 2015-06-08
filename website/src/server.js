@@ -95,6 +95,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
+  app.set("view cache", true);
   app.use(express.favicon(publicDir + '/favicon.ico'));
   app.use(middleware.cors);
   app.use(middleware.forceSSL);

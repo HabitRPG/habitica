@@ -4,6 +4,12 @@ angular.module('habitrpg').factory('Payments',
 ['$rootScope', 'User', '$http', 'Content',
 function($rootScope, User, $http, Content) {
   var Payments = {};
+  var isAmazonReady = false;
+
+  window.onAmazonLoginReady = function(){
+    isAmazonReady = true;
+    amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
+  };
 
   Payments.showStripe = function(data) {
     var sub =
@@ -53,6 +59,42 @@ function($rootScope, User, $http, Content) {
         });
       }
     });
+  }
+
+  // Needs to be called everytime the modal/router is accessed
+  Payments.initAmazonDonation = function(){
+    if(!isAmazonReady) return;
+
+    OffAmazonPayments.Button('AmazonPayButtonDonation', window.env.AMAZON_PAYMENTS.SELLER_ID, {
+      type:  'PwA',
+      color: 'Gold',
+      size:  'small',
+
+      authorization: function(){
+        amazon.Login.authorize({
+          scope: 'payments:widget',
+          popup: true
+        }, function(response){
+          if(response.error) return alert(response.error);
+
+          var url = '/amazon/verifyAccessToken'
+          $http.post(url, response).success(function(){
+            console.log(arguments);
+          }).error(function(res){
+            alert(res.err);
+          });
+        });
+      },
+
+      onError: function(error) {
+        console.error('amazon error ', error)
+      }
+    });
+  }
+
+  // Needs to be called everytime the modal/router is accessed
+  Payments.initAmazonSubscription = function(){
+
   }
 
   Payments.cancelSubscription = function(){

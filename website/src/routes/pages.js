@@ -12,6 +12,8 @@ router.get('/', i18n.getUserLanguage, middleware.locals, function(req, res) {
   if (!req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
     return res.redirect('/static/front')
 
+  console.log('Starting to render');
+
   return res.render('index', {
     title: 'HabitRPG | Your Life, The Role Playing Game',
     env: res.locals.habitrpg
