@@ -8,7 +8,7 @@ describe('focusMe Directive', function() {
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
 
-    element = "<input focus-me='model'></input>";
+    element = "<input focus-me></input>";
 
     element = $compile(element)(scope);
     scope.$digest();
