@@ -5,21 +5,40 @@ angular
   .directive('fromNow', fromNow);
 
 fromNow.$inject = [
-  '$interval'
+  '$interval',
+  '$timeout'
 ];
 
-function fromNow($interval) {
+function fromNow($interval, $timeout) {
   return function(scope, element, attr){
+    var interval, timeout;
+
     var updateText = function(){
-      element.text(moment(scope.message.timestamp).fromNow())
+      element.text(moment(scope.message.timestamp).fromNow());
     };
+
+    var setupInterval = function() {
+      if(interval) $interval.cancel(interval);
+      if(timeout)  $timeout.cancel(timeout);
+
+      var diff = moment().diff(scope.message.timestamp, 'minute');
+
+      if(diff < 60) {
+        // Update every minute
+        interval = $interval(updateText, 60000, false);
+        timeout = $timeout(setupInterval, diff * 60000);
+      } else {
+        // Update every hour
+        interval = $interval(updateText, 3600000, false);
+      }
+    };
+
     updateText();
-    // Update the counter every 60secs if was sent less than one hour ago otherwise every hour
-    // OPTIMIZATION, every time the interval is run, update the interval time
-    var intervalTime = moment().diff(scope.message.timestamp, 'minute') < 60 ? 60000 : 3600000;
-    var interval = $interval(function(){ updateText() }, intervalTime, false);
+    setupInterval();
+
     scope.$on('$destroy', function() {
-      $interval.cancel(interval);
+      if(interval) $interval.cancel(interval);
+      if(timeout)  $timeout.cancel(timeout);
     });
   }
 }
