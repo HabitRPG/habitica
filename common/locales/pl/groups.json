@@ -110,11 +110,11 @@
     "byColon": "Przez:",
     "inviteNewUsers": "Zaproś nowych użytkowników",
     "inviteAlertInfo2": "Lub podziel się tym odnośnikiem (kopiuj/wklej):",
-    "sendGiftHeading": "Send Gift to <%= name %>",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
-    "sendGiftCost": "Total: $<%= cost %> USD",
-    "sendGiftFromBalance": "From Balance",
-    "sendGiftPurchase": "Purchase",
-    "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftHeading": "Wyślij prezent dla <%= name %> ",
+    "sendGiftGemsBalance": "Posiadanych Klejnotów: <%= number %>",
+    "sendGiftCost": "Suma: <%= cost %> $",
+    "sendGiftFromBalance": "Z posiadanych",
+    "sendGiftPurchase": "Kup nowe",
+    "sendGiftMessagePlaceholder": "Osobista wiadomość (opcjonalnie)",
+    "sendGiftSubscription": "<%= months %> miesięcy: <%= price %> $"
 }

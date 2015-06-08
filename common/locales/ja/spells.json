@@ -26,7 +26,7 @@
     "spellHealerHealText": "ヒール",
     "spellHealerHealNotes": "Light covers your body, healing your wounds. You regain health! (Based on: CON and INT)",
     "spellHealerBrightnessText": "焼けるように輝度",
-    "spellHealerBrightnessNotes": "A burst of light dazzles your tasks. They become more blue and less red! (Based on: INT)",
+    "spellHealerBrightnessNotes": "あなたはすべてのタスクを隠す光のバーストを投げかけます。あなたのタスクの赤みが軽減されます。(知性に基づく)",
     "spellHealerProtectAuraText": "防護のオーラ",
     "spellHealerProtectAuraNotes": "You shield your party from damage. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
     "spellHealerHealAllText": "恵み",

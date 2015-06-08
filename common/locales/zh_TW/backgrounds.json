@@ -81,7 +81,14 @@
     "backgroundMarbleTempleText": "大理石神廟",
     "backgroundMarbleTempleNotes": "展現在大理石神廟之前",
     "backgroundMountainLakeText": "山脈之湖",
-    "backgroundMountainLakeNotes": "把你的腳指浸在山脈之湖裹面",
+    "backgroundMountainLakeNotes": "把你的腳指浸在山脈之湖裡面",
     "backgroundPagodasText": "佛塔",
-    "backgroundPagodasNotes": "爬到佛塔的頂端"
+    "backgroundPagodasNotes": "爬到佛塔的頂端",
+    "backgrounds062015": "SET 13: Released June 2015",
+    "backgroundDriftingRaftText": "Drifting Raft",
+    "backgroundDriftingRaftNotes": "Paddle a Drifting Raft.",
+    "backgroundShimmeryBubblesText": "Shimmery Bubbles",
+    "backgroundShimmeryBubblesNotes": "Float through a sea of Shimmery Bubbles.",
+    "backgroundIslandWaterfallsText": "Island Waterfalls",
+    "backgroundIslandWaterfallsNotes": "Picnic near Island Waterfalls."
 }

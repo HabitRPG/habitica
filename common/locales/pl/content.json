@@ -1,6 +1,10 @@
 {
     "potionText": "Eliksir uzdrawiający",
     "potionNotes": "Odnawia 15 punktów zdrowia (działa natychmiastowo)",
+    "armoireText": "Enchanted Armoire",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+    "armoireNotesEmpty": "The Armoire will have new Equipment every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "wilk",
     "dropEggWolfAdjective": "lojalnego",
     "dropEggTigerCubText": "tygrysiątko",
