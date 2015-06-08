@@ -529,8 +529,11 @@ api.leave = function(req, res, next) {
         update['$unset']['quest.members.' + user._id] = 1;
       }
       // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
-	  if(group.type === 'party' && group.members.length == 1 || group.type === 'guild' && group.privacy === 'private'&& group.members.length == 1 ) {
-          Group.findByIdAndRemove(group._id, function(err) { 
+	  //The following addition deletes party or private guild in case the user leaving the party is the last one
+	  if(group.type === 'party' && group.members.length == 1 || group.type === 'guild' && group.privacy === 'private' && group.members.length == 1 ) {
+		  update['$inc'] = {memberCount: -1};
+          Group.update({_id:group._id},update,cb);
+	      Group.findByIdAndRemove(group._id, function(err) { 
               if (err) throw err;
           });
       }
@@ -548,9 +551,10 @@ api.leave = function(req, res, next) {
           update['$set'] = update['$set'] || {};
           update['$set']['quest.leader'] = seniorMember;
         }
+	     update['$inc'] = {memberCount: -1};
+         Group.update({_id:group._id},update,cb);	
       }
-      update['$inc'] = {memberCount: -1};
-      Group.update({_id:group._id},update,cb);
+	  
     }
   ],function(err){
     if (err) return next(err);
