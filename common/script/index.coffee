@@ -850,7 +850,11 @@ api.wrap = (user, main=true) ->
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
         else if item.key is 'armoire'
-          armoireResult = user.fns.predictableRandom()
+          armoireResult = user.fns.predictableRandom(user.stats.gp)
+          # We use a different seed to choose the Armoire action than we use
+          # to choose the sub-action, otherwise only some of the foods can
+          # be given. E.g., if a seed gives armoireResult < .5 (food) then
+          # the same seed would give one of the first five foods only.
           eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
           if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
             drop = user.fns.randomVal(eligibleEquipment)
