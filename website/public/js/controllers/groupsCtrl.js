@@ -308,6 +308,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return message.highlight;
     }
 
+    $scope.hideSpellMessage = function(message) {
+      var regex = new RegExp('`.+ casts .+ for the party\.`$', 'gi')
+      return $scope.hideSpells && regex.test(message.text);
+    }
+
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
