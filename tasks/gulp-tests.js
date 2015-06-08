@@ -11,6 +11,13 @@ const TEST_DB           = 'habitrpg_test'
 
 const TEST_DB_URI       = `mongodb://localhost/${TEST_DB}`
 
+/* Helper methods for reporting test summary */
+let testResults = [];
+let testCount = (stdout, regexp) => {
+  let match = stdout.match(regexp);
+  return parseInt(match && match[1] || 0);
+}
+
 let testBin = (string) => {
   return `NODE_ENV=testing ./node_modules/.bin/${string}`;
 };
@@ -39,7 +46,16 @@ gulp.task('test:prepare', [
 
 gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/common'), cb
+    testBin('mocha test/common'),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'Common Specs\t',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
   );
   pipe(runner);
 });
@@ -47,14 +63,32 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin('mocha test/api'), cb
+    testBin('mocha test/api'),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'API Specs\t',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
   );
   pipe(runner);
 });
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('karma start --single-run'), cb
+    testBin('karma start --single-run'),
+    (err, stdout) => {
+      testResults.push({
+        suite: 'Karma Specs\t',
+        pass: testCount(stdout, /(\d+) tests completed/),
+        fail: testCount(stdout, /(\d+) tests failed/),
+        pend: testCount(stdout, /(\d+) tests skipped/)
+      });
+      cb();
+    }
   );
   pipe(runner);
 });
@@ -72,7 +106,17 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
   ]).then(() => {
     let runner = exec(
       'DISPLAY=:99 NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js',
-      () => {
+      (err, stdout, stderr) => {
+        /*
+         * Note: As it stands, protractor wont report pending specs
+         */
+        let match = stdout.match(/(\d+) tests?.*(\d) failures?/);
+        testResults.push({
+          suite: 'End-to-End Specs',
+          pass: parseInt(match[1]) - parseInt(match[2]),
+          fail: parseInt(match[2]),
+          pend: 0
+        });
         support.forEach(kill);
         cb();
       }
@@ -82,9 +126,32 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
 });
 
 gulp.task('test', [
-  'test:prepare',
   'test:common',
   'test:karma',
   'test:api',
   'test:e2e'
-]);
+], () => {
+  let totals = [0,0,0];
+
+  console.log('\n\x1b[36m\x1b[4mHabitica Test Summary\x1b[0m\n');
+  testResults.forEach((s) => {
+    totals[0] = totals[0] + s.pass;
+    totals[1] = totals[1] + s.fail;
+    totals[2] = totals[2] + s.pend;
+    console.log(
+      `\x1b[33m\x1b[4m${s.suite}\x1b[0m\t`,
+      `\x1b[32mPassing: ${s.pass},\t`,
+      `\x1b[31mFailed: ${s.fail},\t`,
+      `\x1b[36mPending: ${s.pend}\t`
+    );
+  });
+
+  console.log(
+    '\n\x1b[33m\x1b[4mTotal:\x1b[0m\t\t\t',
+    `\x1b[32mPassing: ${totals[0]},\t`,
+    `\x1b[31mFailed: ${totals[1]},\t`,
+    `\x1b[36mPending: ${totals[2]}\t`
+  );
+
+  console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
+});
