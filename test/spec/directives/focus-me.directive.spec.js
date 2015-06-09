@@ -14,13 +14,15 @@ describe('focusMe Directive', function() {
     scope.$digest();
   }));
 
-  it('focuses the element when appended to the DOM', function(done) {
+  it('focuses the element when appended to the DOM', function() {
     inject(function($timeout) {
-      element.appendTo(document.body);
+      var focusSpy = sinon.spy();
 
-      element.on('focus', function() { done() });
+      element.appendTo(document.body);
+      element.on('focus', focusSpy);
 
       $timeout.flush();
+      expect(focusSpy).to.have.been.called;
     });
   });
 });
