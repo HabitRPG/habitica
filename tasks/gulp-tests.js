@@ -54,7 +54,7 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
-      cb();
+      cb(err);
     }
   );
   pipe(runner);
@@ -71,7 +71,7 @@ gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
-      cb();
+      cb(err);
     }
   );
   pipe(runner);
@@ -87,7 +87,7 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
         fail: testCount(stdout, /(\d+) tests failed/),
         pend: testCount(stdout, /(\d+) tests skipped/)
       });
-      cb();
+      cb(err);
     }
   );
   pipe(runner);
@@ -118,7 +118,7 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
           pend: 0
         });
         support.forEach(kill);
-        cb();
+        cb(err);
       }
     );
     pipe(runner);

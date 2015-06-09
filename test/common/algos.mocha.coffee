@@ -992,7 +992,7 @@ describe 'Helper', ->
   it 'counts mounts', ->
     mounts = {}
     expect(shared.countMounts(null, mounts)).to.eql 0
-    expect(shared.countMounts(1, mounts)).to.eql 1
+    expect(shared.countMounts(1, mounts)).to.eql 5
 
     mounts = { "Dragon-Red": true, "Wolf-Base": true }
     expect(shared.countMounts(null, mounts)).to.eql 2
