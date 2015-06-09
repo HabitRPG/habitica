@@ -121,9 +121,6 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               .popover-content
                 markdown(text='group.leaderMessage')
       div(ng-controller='ChatCtrl')
-        label
-          input(type='checkbox', ng-model='hideSystemMessages')
-          | &nbsp;Hide Spells
         h3=env.t('chat')
         include ./chat-box
 
