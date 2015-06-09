@@ -26,26 +26,25 @@ describe "Chat", ->
     ], done
 
   chat = undefined
-  it "Posts a message to party chat", (done) ->
+  it "posts a message to party chat", (done) ->
     msg = "TestMsg"
-    request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
-    ).end (res) ->
+    request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).end (res) ->
       expectCode res, 200
       chat = res.body.message
       expect(chat.id).to.be.ok
       expect(chat.text).to.equal msg
-      expect(chat.timestamp).to.be.ok
+      expect(chat.timestamp).to.be.exist
       expect(chat.likes).to.be.empty
       expect(chat.flags).to.be.empty
       expect(chat.flagCount).to.equal 0
-      expect(chat.uuid).to.be.ok
+      expect(chat.uuid).to.be.exist
       expect(chat.contributor).to.be.empty
       expect(chat.backer).to.be.empty
       expect(chat.uuid).to.equal user._id
       expect(chat.user).to.equal user.profile.name
       done()
 
-  it "Does not post an empty message", (done) ->
+  it "does not post an empty message", (done) ->
     msg = ""
     request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg).send(
     ).end (res) ->
@@ -69,7 +68,7 @@ describe "Chat", ->
       expect(body.err).to.equal "Can't report your own message."
       done()
 
-  it "Gets chat messages from party chat", (done) ->
+  it "gets chat messages from party chat", (done) ->
     request.get(baseURL + "/groups/" + group._id + "/chat").send(
     ).end (res) ->
       expectCode res, 200
@@ -85,14 +84,14 @@ describe "Chat", ->
       expect(message.user).to.equal chat.user
       done()
 
-  it "Deletes a chat messages from party chat", (done) ->
+  it "deletes a chat messages from party chat", (done) ->
     request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
     ).end (res) ->
       expectCode res, 204
       expect(res.body).to.be.empty
       done()
 
-  it "Can not delete already deleted message", (done) ->
+  it "can not delete already deleted message", (done) ->
     request.del(baseURL + "/groups/" + group._id + "/chat/" + chat.id).send(
     ).end (res) ->
       expectCode res, 404
