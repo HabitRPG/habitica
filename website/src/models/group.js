@@ -128,6 +128,13 @@ GroupSchema.methods.sendChat = function(message, user){
     // TODO For Tavern, only notify them if their name was mentioned
     // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
     // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
+  } else if (group._id == '426c2c1a-eed0-4997-9b73-d30fc1397688') { // Back Corner guild
+    // We do not send notifications for the Back Corner guild because
+    // conversations there can get out of hand. They'll be less troublesome
+    // if the only people who post are those who care enough to manually
+    // check for new messages. But we do send notifications to staff (tier 9)
+    // and moderators (tier 8) if they are members.
+    mongoose.model('User').update({_id:{$in:group.members}, 'contributor.level':{$gte:8}},lastSeenUpdate,{multi:true}).exec();
   } else {
     mongoose.model('User').update({_id:{$in:group.members, $ne: user ? user._id : ''}},lastSeenUpdate,{multi:true}).exec();
   }
