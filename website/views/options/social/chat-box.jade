@@ -11,14 +11,14 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
-    textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == 'habitrpg' ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
+    textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == 'habitrpg' ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true', tabindex='1')
     span.user-list
       ul.list-at-user(ng-show="query")
         li(ng-repeat='msg in response | filter:filterUser | limitTo: 5', ng-click='performCompletion(msg)')
           span.username.label.label-default(ng-class=':: userLevelStyle(msg)') {{::msg.user}}
   .chat-controls.clearfix
     .chat-buttons
-      button.btn(type='button', ng-click='togglehidingSystemMessages()', ng-if='group.type == "party"')=env.t('hideSystemMsgs')
-      button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending')=env.t('toolTipMsg')
-      input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending')
+      button.btn(type='button', ng-click='togglehidingSystemMessages()', ng-if='group.type == "party"', tabindex='4')=env.t('hideSystemMsgs')
+      button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending', tabindex='3')=env.t('toolTipMsg')
+      input.btn-primary(type='submit', value=env.t('sendChat'), ng-disabled='_sending', tabindex='2')
     include ../../shared/formatting-help
