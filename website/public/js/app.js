@@ -1,7 +1,7 @@
 "use strict";
 
-/* Refresh page if idle > 60m */
-var REFRESH_FREQUENCY = 3600000;
+/* Refresh page if idle > 6h */
+var REFRESH_FREQUENCY = 21600000;
 var refresh;
 var refresher = function() {
   window.location.reload(true);
@@ -14,7 +14,7 @@ var awaitIdle = function() {
 
 awaitIdle();
 $(document).on('mousemove keydown mousedown touchstart', awaitIdle);
-/* Refresh page if idle > 60m */
+/* Refresh page if idle > 6h */
 
 window.habitrpg = angular.module('habitrpg',
     ['ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'infinite-scroll', 'ui.select2', 'angular.filter', 'ngResource', 'ngSanitize'])
