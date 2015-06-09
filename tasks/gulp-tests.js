@@ -63,7 +63,7 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin('mocha test/api'),
+    testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'API Specs\t',

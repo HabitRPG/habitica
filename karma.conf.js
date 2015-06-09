@@ -98,8 +98,17 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['PhantomJS'],
 
+    preprocessors: {
+      'website/public/js/**/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+      type: 'lcov',
+      dir:  'coverage/karma'
+    },
+
     // Enable mocha-style reporting, for better test visibility
-    reporters:  ['mocha'],
+    reporters:  ['mocha', 'coverage'],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
