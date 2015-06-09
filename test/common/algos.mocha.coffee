@@ -597,11 +597,10 @@ describe 'User', ->
         user.ops.buy {params:'#{type}_#{klass}_6'}
       xit 'gets ultimateGear ' + klass, ->
         expect(user.achievements.ultimateGearSets[klass]).to.be.ok()
-
-    it 'does not remove existing Ultimate Gear achievements', ->
-      user.items.gear.owned.shield_warrior_5 = false
-      user.fns.ultimateGear()
-      expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
+      it 'does not remove existing Ultimate Gear achievements', ->
+        user.items.gear.owned.shield_warrior_5 = false
+        user.fns.ultimateGear()
+        expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
 
     it 'does not get beastMaster if user has less than 90 drop pets', ->
       user = newUser()
