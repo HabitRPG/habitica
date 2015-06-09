@@ -93,7 +93,7 @@
     "wonChallenge": "チャレンジに勝ちました",
     "newPM": "プライベートメッセージが届きました",
     "giftedGems": "貰ったジェム",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= name %>から<%= amount %>ジェム",
     "giftedSubscription": "貰った購読",
     "invitedParty": "パーティへ招待されました",
     "invitedGuild": "ギルドへ招待されました",

@@ -127,7 +127,7 @@ var getUserLanguage = function(req, res, next){
   }else if(req.locals && req.locals.user){
     getFromUser(req.locals.user);
   }else if(req.session && req.session.userId){
-    User.findOne({_id: req.session.userId}, function(err, user){
+    User.findOne({_id: req.session.userId}, 'preferences.language', function(err, user){
       if(err) return next(err);
       getFromUser(user);
     });

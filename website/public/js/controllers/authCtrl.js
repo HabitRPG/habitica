@@ -46,6 +46,16 @@ angular.module('habitrpg')
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
+          if (status == 200) {
+            mixpanel.alias(data._id);
+            if (data.auth.facebook) {
+              mixpanel.register({'authType':'facebook','email':data.auth.facebook._json.email})
+            } else {
+              mixpanel.register({'authType':'email','email':data.auth.local.email})
+            }
+            mixpanel.register({'UUID':data._id,'language':data.preferences.language});
+            mixpanel.track('Registration');
+          }
         }).error(errorAlert);
       };
 
@@ -57,6 +67,11 @@ angular.module('habitrpg')
         $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
+            if (status == 200) {
+              mixpanel.identify(data.id);
+              mixpanel.register({'UUID':data._id});
+              mixpanel.track('Login');
+            }
           }).error(errorAlert);
       };
 
@@ -121,13 +136,18 @@ angular.module('habitrpg')
       // ------ Social ----------
 
       hello.init({
-        facebook : window.env.FACEBOOK_KEY,
+        facebook : window.env.FACEBOOK_KEY
       });
 
       $scope.socialLogin = function(network){
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
+              if (status == 200) {
+                mixpanel.identify(data.id);
+                mixpanel.register({'UUID':data._id});
+                mixpanel.track('Login');
+              }
               runAuth(data.id, data.token);
             }).error(errorAlert);
         }, function( e ){

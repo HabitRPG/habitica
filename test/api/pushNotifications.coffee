@@ -1,4 +1,7 @@
 'use strict'
+#@TODO: Have to mock most things to get to the parts that
+#call pushNotify. Consider refactoring group controller
+#so things are easier to test
 
 app = require("../../website/src/server")
 rewire = require('rewire')
@@ -78,7 +81,6 @@ describe "Push-Notifications", ->
       recipient = null
 
       groups = rewire("../../website/src/controllers/groups")
-      groups.__set__('questStart', -> true)
       groups.__set__('pushNotify', pushSpy)
 
       before (done) ->
@@ -150,6 +152,7 @@ describe "Push-Notifications", ->
         group = { _id: 'party-id', name: 'party-name', type: 'party', members: [user._id, recipient._id], invites: [], quest: {}}
         user.items.quests.hedgehog = 5
         group.save = (cb) -> cb(null, group)
+        group.markModified = -> true
         req = {
           body: { uuids: [recipient._id] }
           query: { key: 'hedgehog' }
@@ -167,6 +170,51 @@ describe "Push-Notifications", ->
             recipient,
             'Quest Invitation',
             'Invitation for the Quest The Hedgebeast'
+          )
+          done()
+        , 100
+
+      it "sends a push notification to participating members when quest starts", (done) ->
+        group = { _id: 'party-id', name: 'party-name', type: 'party', members: [user._id, recipient._id], invites: []}
+        group.quest = {
+          key: 'hedgehog'
+          progress: { hp: 100 }
+          members: {}
+        }
+        group.quest.members[recipient._id] = true
+        group.save = (cb) -> cb(null, group)
+        group.markModified = -> true
+        req = {
+          body: { uuids: [recipient._id] }
+          query: { }
+          # force: true
+        }
+        res = {
+          locals: { group: group, user: user }
+          json: -> return true
+        }
+        userMock = {
+          findOne: (arg, arg2, cb) ->
+            cb(null, recipient)
+          update: (arg, arg2, cb) ->
+            cb(null, user)
+        }
+        groups.__set__('User', userMock)
+        groups.__set__('populateQuery', 
+          (arg, arg2, arg3) -> 
+            return {
+              exec: -> group.members
+            }
+        )
+
+        groups.questAccept req, res
+
+        setTimeout -> # Allow questAccept to finish
+          expect(pushSpy.sendNotify).to.have.been.calledTwice
+          expect(pushSpy.sendNotify).to.have.been.calledWith(
+            recipient,
+            'HabitRPG', 
+            'Your Quest has Begun: The Hedgebeast'
           )
           done()
         , 100

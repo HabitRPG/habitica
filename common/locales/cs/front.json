@@ -172,5 +172,11 @@
     "username": "Uživatelské jméno",
     "watchVideos": "Podívej se na videa",
     "work": "Práce",
-    "zelahQuote": "HabitRPG mi pomáhá rozhodnout se, jestli jít do postele a získat za to body, nebo zůstat vzhůru a přijít o zdraví!"
+    "zelahQuote": "HabitRPG mi pomáhá rozhodnout se, jestli jít do postele a získat za to body, nebo zůstat vzhůru a přijít o zdraví!",
+    "reportAccountProblems": "Nahlásit problémy z účtem",
+    "reportCommunityIssues": "Nahlásit problém v komunitě",
+    "generalQuestionsSite": "Obecné otázky o stránce",
+    "businessInquiries": "Obchodní poptávka",
+    "merchandiseInquiries": "Poptávka po zboží",
+    "marketingInquiries": "Poptávka marketing/sociální média"
 }

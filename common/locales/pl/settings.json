@@ -93,7 +93,7 @@
     "wonChallenge": "Wygrałeś wyzwanie",
     "newPM": "Otrzymane wiadomości prywatne",
     "giftedGems": "Podarowane klejnoty",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= amount %> klejnotów - przez <%= name %>",
     "giftedSubscription": "Podarowane abonamenty",
     "invitedParty": "Zaproszony do Drużyny",
     "invitedGuild": "Zaproszony do Gildii",

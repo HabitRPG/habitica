@@ -4,6 +4,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
   function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
+    $scope.armoireCount = function(gear) {
+      return Shared.countArmoire(gear);
+    };
 
     $scope.score = function(task, direction) {
       switch (task.type) {
@@ -15,13 +18,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               break;
           case 'todo':
               $rootScope.playSound('ToDo');
-              Guide.goto('intro', 1);
               break;
           default:
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.user.ops.score({params:{id: task.id, direction:direction}})
+      User.user.ops.score({params:{id: task.id, direction:direction}});
+      mixpanel.register({'Gold':Math.floor(User.user.stats.gp),'Health':Math.ceil(User.user.stats.hp),'Experience':Math.floor(User.user.stats.exp),'Level':User.user.stats.lvl,'Mana':Math.floor(User.user.stats.mp),'Class':User.user.stats.class,'subscription':User.user.purchased.plan.planId,'contributorLevel':User.user.contributor.level,'UUID':User.user._id});
+      mixpanel.track('Score Task',{'taskType':task.type,'direction':direction});
     };
 
     function addTask(addTo, listDef, task) {
@@ -192,7 +196,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.$watch('user.items.gear.equipped', function(){
+    $scope.$watchGroup(['user.items.gear.owned', 'user.flags.armoireEnabled'], function(){
       $scope.itemStore = Shared.updateStore(User.user);
     },true);
 
