@@ -50,7 +50,16 @@
 
             "js/filters/filters.js",
 
-            "js/directives/directives.js",
+            "js/directives/focus-me.directive.js",
+            "js/directives/from-now.directive.js",
+            "js/directives/habitrpg-tasks.directive.js",
+            "js/directives/hrpg-sort-checklist.directive.js",
+            "js/directives/hrpg-sort-tags.directive.js",
+            "js/directives/hrpg-sort-tasks.directive.js",
+            "js/directives/popover-html-popup.directive.js",
+            "js/directives/popover-html.directive.js",
+            "js/directives/task-focus.directive.js",
+            "js/directives/when-scrolled.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/notificationCtrl.js",
