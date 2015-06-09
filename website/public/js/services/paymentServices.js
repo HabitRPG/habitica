@@ -79,7 +79,8 @@ function($rootScope, User, $http, Content) {
 
           var url = '/amazon/verifyAccessToken'
           $http.post(url, response).success(function(){
-            console.log(arguments);
+            Payments.amazonDonationLoggedIn = true;
+            Payments.amazonDonationInitWidgets();
           }).error(function(res){
             alert(res.err);
           });
@@ -87,8 +88,41 @@ function($rootScope, User, $http, Content) {
       },
 
       onError: function(error) {
-        console.error('amazon error ', error)
+        console.error('amazon error ', error);
       }
+    });
+  }
+
+  Payments.amazonDonationLoggedIn = false;
+  Payments.amazonDonationPaymentSelected = false;
+  Payments.amazonDonationOrderReferenceId;
+
+  Payments.amazonDonationInitWidgets = function(){
+    new OffAmazonPayments.Widgets.Wallet({
+      sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
+      onOrderReferenceCreate: function(orderReference) {
+        Payments.amazonDonationOrderReferenceId = orderReference.getAmazonOrderReferenceId();
+      },
+      onPaymentSelect: function(orderReference) {
+        $rootScope.$apply(function(){
+          Payments.amazonDonationPaymentSelected = true;
+        });        
+      },
+      design: {
+        designMode: 'responsive'
+      },
+      onError: function(error) {
+        console.error('amazon error ', error.getErrorMessage());
+      }
+    }).bind('AmazonPayWalletDonation');
+  }
+
+  Payments.amazonDonationCheckout = function(){
+    var url = '/amazon/checkout'
+    $http.post(url, {orderReferenceId: Payments.amazonDonationOrderReferenceId}).success(function(){
+      console.log(arguments);
+    }).error(function(res){
+      alert(res.err);
     });
   }
 

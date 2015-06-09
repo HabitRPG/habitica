@@ -23,7 +23,9 @@ script(id='modals/buyGems.html', type='text/ng-template')
               .btn.btn-primary(ng-click='Payments.showStripe({})')=env.t('card')
               a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
               div#AmazonPayButtonDonation(ng-init="Payments.initAmazonDonation()")
-
+              div#AmazonPayWalletDonation(ng-show="Payments.amazonDonationLoggedIn", style="width: 400px; height: 228px;")
+              a.btn.btn-warning(ng-show="Payments.amazonDonationPaymentSelected", ng-click="Payments.amazonDonationCheckout()") Checkout
+      
       div(ng-include="'partials/options.settings.subscription.html'")
 
   .modal-footer

@@ -26,7 +26,9 @@
     "AMAZON_PAYMENTS_CLIENT_ID": "AMAZON_PAYMENTS_CLIENT_ID",
     "AMAZON_PAYMENTS": {
         "SELLER_ID": "SELLER_ID",
-        "CLIENT_ID": "CLIENT_ID"
+        "CLIENT_ID": "CLIENT_ID",
+        "MWS_KEY": "",
+        "MWS_SECRET": ""
     },
     "FLAG_REPORT_EMAIL": ["email@mod.com"],
     "EMAIL_SERVER": {
