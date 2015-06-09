@@ -1692,10 +1692,11 @@ api.wrap = (user, main=true) ->
       owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
       user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
       content.classes.forEach (klass) ->
-        user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
-          found = _.find content.gear.tree[type][klass], {last:true}
-          soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
-        , true # start with true, else `and` will fail right away
+        if user.achievements.ultimateGearSets[klass] is not true
+          user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
+            found = _.find content.gear.tree[type][klass], {last:true}
+            soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
+          , true # start with true, else `and` will fail right away
       user.markModified? 'achievements.ultimateGearSets'
       if _.contains(user.achievements.ultimateGearSets, true) and user.flags.armoireEnabled != true
         user.flags.armoireEnabled = true
