@@ -77,8 +77,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               ng-options='k as v for (k , v) in partyOrderAscendingChoices',
               ng-change='set({"party.orderAscending": user.party.orderAscending})'
               )
+          div.container-fluid(style='margin-bottom: 1.5em')
+           input.form-control(type='text',ng-model='memberSearch', placeholder=env.t('search'))
           table.table.table-striped(bindonce='group')
-            tr(ng-repeat='member in group.members track by member._id')
+            tr(ng-repeat='member in group.members | filter:memberSearch track by member._id')
               td.media
                 // allow leaders to ban members
                 div.pull-left(ng-show='group.leader == user.id && user.id!=member._id')
