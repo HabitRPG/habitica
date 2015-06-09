@@ -1151,7 +1151,9 @@ api.wrap = (user, main=true) ->
           # TODO Increases Experience gain by .2% per point.
           intBonus = 1 + (user._statsComputed.int * .025)
           stats.exp += Math.round (delta * intBonus * task.priority * _crit * 6)
-
+          #Prevent negative experience
+          if stats.exp < 0 then stats.exp = 0
+          
           # GP modifier
           # ===== PERCEPTION =====
           # TODO Increases Gold gained from tasks by .3% per point.
