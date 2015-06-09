@@ -10,8 +10,12 @@ describe('Inventory Controller', function() {
 
     inject(function($rootScope, $controller, Shared){
       user = specHelper.newUser();
-      user.balance = 4,
-      user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}, mounts: {}};
+      user.balance = 4;
+      user.items.eggs = {Cactus: 1};
+      user.items.hatchingPotions = {Base: 1};
+      user.items.food = {Meat: 1};
+      user.items.pets = {}
+      user.items.mounts = {};
       Shared.wrap(user);
       var mockWindow = {
         confirm: function(msg){

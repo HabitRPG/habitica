@@ -5,7 +5,7 @@
     "alexandraQuote": "No pude NO hablar sobre HabitRPG durante mi conferencia en Madrid. Es una herramienta imprescindible para freelancers que aun necesitan un jefe.",
     "althaireQuote": "Estar siempre en una misión realmente me motiva a hacer todas mis tareas diarias y pendientes. Mi mayor motivación es no decepcionar a mi grupo.",
     "andeeliaoQuote": "Awesome product, just started a few days ago and already more conscious and productive with my time!",
-    "autumnesquirrelQuote": "I'm procrastinating less on work and housework and pay bills on time.",
+    "autumnesquirrelQuote": "Estoy postergando menos en el trabajo en las tareas domésticas y pago las cuentas a tiempo.",
     "businessSample1": "Confirm 1 page of Inventory",
     "businessSample2": "20 mins Filing",
     "businessSample3": "Sort and Process Inbox",
@@ -41,8 +41,8 @@
     "evagantzQuote": "My very first dentist appointment where the hygienist was actually excited about my flossing habits. Thanks Habitrpg!",
     "examplesHeading": "Players use HabitRPG to manage...",
     "featureAchievementByline": "Do something totally awesome? Get a badge and show it off!",
-    "featureAchievementHeading": "Achievement Badges",
-    "featureEquipByline": "Buy limited edition equipment, potions, and other virtual goodies in our Market with your task rewards!",
+    "featureAchievementHeading": "Insignias Logró",
+    "featureEquipByline": "¡Compre equipo de edición limitada, pociones, y otras golosinas virtuales en nuestro mercado con sus premios de tareas!",
     "featureEquipHeading": "Equipamiento y extras",
     "featurePetByline": "Eggs and items drop when you complete your tasks. Be as productive as possible to collect pets and mounts!",
     "featurePetHeading": "Mascotas y Monturas",
@@ -172,5 +172,11 @@
     "username": "Nombre de Usuario",
     "watchVideos": "Ver Vídeos",
     "work": "Trabajar",
-    "zelahQuote": "With HabitRPG, I can be persuaded to go to bed on time by the thought of gaining points for an early night or losing health for a late one!"
+    "zelahQuote": "With HabitRPG, I can be persuaded to go to bed on time by the thought of gaining points for an early night or losing health for a late one!",
+    "reportAccountProblems": "Report Account Problems",
+    "reportCommunityIssues": "Report Community Issues",
+    "generalQuestionsSite": "General Questions about the Site",
+    "businessInquiries": "Business Inquiries",
+    "merchandiseInquiries": "Merchandise Inquiries",
+    "marketingInquiries": "Marketing/Social Media Inquiries"
 }

@@ -1,7 +1,7 @@
 {
     "settings": "Налаштування",
     "language": "Мова",
-    "americanEnglishGovern": "У разі невідповідності в перекладі, американська англійська версія головна.",
+    "americanEnglishGovern": "У разі невідповідності в перекладі, американська англійська версія є головною.",
     "helpWithTranslation": "Хочете допомогти у перекладі HabitRPG? Чудово! Перейдіть до <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">цієї</a> картки в Trello.",
     "showHeaderPop": "Показувати Ваш аватар, здоров'я/досвід і гурт.",
     "stickyHeader": "Закріпити заголовок",

@@ -1,6 +1,10 @@
 {
     "potionText": "Pócima de Salud",
     "potionNotes": "Recuperar 15 de Salud (uso instantáneo)",
+    "armoireText": "Enchanted Armoire",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+    "armoireNotesEmpty": "The Armoire will have new Equipment every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "Lobo",
     "dropEggWolfAdjective": "leal",
     "dropEggTigerCubText": "Cachorro de tigre",

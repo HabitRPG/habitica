@@ -109,5 +109,12 @@
     "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
     "byColon": "By:",
     "inviteNewUsers": "Invite New User(s)",
-    "inviteAlertInfo2": "Or share this link (copy/paste):"
+    "inviteAlertInfo2": "Or share this link (copy/paste):",
+    "sendGiftHeading": "Send Gift to <%= name %>",
+    "sendGiftGemsBalance": "From <%= number %> Gems",
+    "sendGiftCost": "Total: $<%= cost %> USD",
+    "sendGiftFromBalance": "From Balance",
+    "sendGiftPurchase": "Purchase",
+    "sendGiftMessagePlaceholder": "Personal message (optional)",
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
 }

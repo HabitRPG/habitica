@@ -259,7 +259,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $scope.castEnd = function(target, type, $event){
-      if (!$rootScope.applyingAction) return;
+      if (!$rootScope.applyingAction) return 'No applying action';
       $event && ($event.stopPropagation(),$event.preventDefault());
       if ($scope.spell.target != type) return Notification.text(window.env.t('invalidTarget'));
       $scope.spell.cast(User.user, target);
@@ -271,17 +271,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.applyingAction = false;
 
       $http.post(ApiUrl.get() + '/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
-      .success(function(){
-        var msg = window.env.t('youCast', {spell: spell.text()});
-        switch (type) {
-         case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
-         case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
-         case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
-        }
-        Notification.text(msg);
-        User.sync();
-      });
-
+        .success(function(){
+          var msg = window.env.t('youCast', {spell: spell.text()});
+          switch (type) {
+           case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
+           case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
+           case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
+          }
+          Notification.markdown(msg);
+          User.sync();
+        });
     }
 
     $rootScope.castCancel = function(){

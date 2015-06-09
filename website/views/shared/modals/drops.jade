@@ -51,3 +51,14 @@ script(type='text/ng-template', id='modals/pet-key.html')
         span(ng-if='!user.achievements.triadBingo')
           | : 6&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
+
+script(type='text/ng-template', id='modals/armoireEmpty.html')
+  .modal-header
+    .shop_armoire.pull-right
+    h4=env.t('armoireText')
+  .modal-body
+    p=env.t('armoireLastItem')
+    br
+    p=env.t('armoireNotesEmpty')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')

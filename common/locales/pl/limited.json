@@ -6,7 +6,7 @@
     "annoyingFriendsText": "Dostał <%= snowballs %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
     "alarmingFriendsText": "Przestraszony <%= spookDust %> razy przez członków drużyny.",
-    "agriculturalFriends": "Rolniczy Przyjaciele",
+    "agriculturalFriends": "Rolniczy przyjaciele",
     "agriculturalFriendsText": "Został przemieniony w kwiata <%= seeds %> razy przez członków drużyny.",
     "valentineCard": "Kartka Walentynkowa",
     "valentineCardNotes": "Wyślij Kartkę Walentynkową do członka drużyny.",
@@ -20,7 +20,7 @@
     "turkey": "Indor",
     "polarBearPup": "Niedźwiadek polarny",
     "jackolantern": "Jack-O-Lantern",
-    "seasonalShop": "Sklepik Sezonowy",
+    "seasonalShop": "Sklepik sezonowy",
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezonowe Czary<%= linkEnd %>",
     "seasonalShopClosedText": "Sklepik sezonowy jest zamknięty! Nie wiemy gdzie obecnie znajduje się Sezonowa Wróżka, ale na pewno zjawi się na kolejną <%= linkStart %>Wielką Galę<%= linkEnd %>!",
@@ -38,11 +38,11 @@
     "newYear0": "Szczęśliwego Nowego Roku!  Obyś zgładził wiele złych Nawyków.",
     "newYear1": "Szczęśliwego Nowego Roku! Obyś zebrał wiele Nagród.",
     "newYear2": "Szczęśliwego Nowego Roku! Obyś zdobył wiele Doskonałych Dni.",
-    "newYear3": "Szczęśliwego Nowego Roku! Niech twoja lista zadań Do-Zrobienie pozostanie krótka.",
+    "newYear3": "Szczęśliwego Nowego Roku! Niech twoja lista zadań Do-Zrobienia pozostanie krótka.",
     "newYear4": "Szczęśliwego Nowego Roku! Obyś nie został zaatakowany przez rozwścieczonego hipogryfa.",
     "holidayCard": "Dostałeś Wakacyjną Kartkę!",
-    "mightyBunnySet": "Poteżny Króliczek (Wojownik)",
+    "mightyBunnySet": "Poteżny króliczek (Wojownik)",
     "magicMouseSet": "Magiczna myszka (Mag)",
-    "lovingPupSet": "Kochane Szczenię (Uzdrowiciel)",
-    "stealthyKittySet": "Skradająca się Kotka (Łotrzyk)"
+    "lovingPupSet": "Kochane szczenię (Uzdrowiciel)",
+    "stealthyKittySet": "Skradający się kotek (Łotrzyk)"
 }
