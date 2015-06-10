@@ -86,7 +86,6 @@
     @extend $hrpg-modal-dropdown-right
     hrpg-button-color-mixin($color-toolbar)
     &.highlight
-      hrpg-button-color-mixin($color-button-style-one)
       > a span.glyphicon
         margin-right: 0.382em !important
   .toolbar-button
@@ -167,7 +166,7 @@
     @extend $hrpg-button
     hrpg-button-color-mixin(lighten($color-toolbar,32.8%))
 .toolbar-subscribe-button, .toolbar-controls .toolbar-subscribe-button
-  @extend $hrpg-button-call-to-action
+  @extend $hrpg-button
 @media screen and (max-width:768px)
   .toolbar-toggle
     display: none

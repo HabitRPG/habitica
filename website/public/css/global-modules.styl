@@ -69,9 +69,11 @@ hrpg-button-color-mixin($hrpg-button-color)
       color: #fff !important;
       span
         color: #fff !important;
-  &.highlight
-    border-color: darken($hrpg-button-color, 16.18%) !important
-    background-color: $hrpg-button-color !important
+hrpg-button-highlight-color-mixin()
+  border-color: darken($color-button-style-highlight, 16.18%) !important
+  background-color: $color-button-style-highlight !important
+  &:hover
+    background-color: darken($color-button-style-highlight, 2.36%) !important
 $hrpg-button-master
   list-style: none
   > a, > button, > input, label::after
@@ -92,9 +94,8 @@ $hrpg-button
   > a, > button, > input, label::after
     border: 1px solid #ccc !important
     border-radius: 0.382em !important
-$hrpg-button-call-to-action
-  @extend $hrpg-button
-  hrpg-button-color-mixin($color-button-style-one)
+    &.highlight
+      hrpg-button-highlight-color-mixin()
 $hrpg-button-toggle
   @extend $hrpg-button-master
   border: 1px solid #ccc !important
@@ -103,6 +104,9 @@ $hrpg-button-toggle
     border-radius: 0.382em 0em 0em 0.382em !important
   > a:last-of-type
     border-radius: 0em 0.382em 0.382em 0em !important
+  &.highlight
+    hrpg-button-highlight-color-mixin($color-button-style-highlight)
+    hrpg-button-color-mixin($color-button-style-highlight)
 // Input + Button
 $hrpg-button-with-input
   @extend $hrpg-button-master
