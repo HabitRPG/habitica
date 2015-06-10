@@ -2,8 +2,8 @@
     "npc": "NPC",
     "npcText": "Wsparł projekt Kickstarter na maksymalnym poziomie!",
     "mattBoch": "Matt Boch",
-    "mattShall": "Shall I bring you your steed, <%= name %>? Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
-    "mattBochText1": "Welcome to the Stable! I'm Matt, the beast master. After level 4, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 4, and they'll grow into powerful mounts.",
+    "mattShall": "Czy przyprowadzić wierzchowca, <%= name %>? Gdy nakarmisz chowańca wystarczającą ilością jedzenia, by zamienił się w wierzchowca, to pojawi się tutaj. Kliknij wybranego wierzchowca, by go osiodłać.",
+    "mattBochText1": "Witaj w stajni! Mam na imię Matt i jestem władcą chowańców. Od poziomu 4 możesz za pomocą jaj i eliksirów wykluwać chowańce. Gdy na Targu wyklujesz chowańca, to pojawi się on tutaj! Kliknij na obrazek jednego z nich, by pojawił się na twoim awatarze. Karm chowańce jedzeniem znajdowanym od poziomu 4, by wyrosły z nich potężne wierzchowce.",
     "daniel": "Daniel",
     "danielText": "Witaj w Karczmie! Zostań na chwilę i porozmawiaj z mieszkańcami. Jeśli potrzebujesz odpoczynku (wakacje? choroba?), znajdę dla Ciebie pokój w Gospodzie. Kiedy odpoczywasz, twoje Codzienne nie skrzywdzą ciebie na koniec dnia, jednak nadal możesz je odhaczać.",
     "danielText2": "Uważaj: Jeśli uczestniczysz w walce z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej drużyny ominą Codzienne! Również twoje obrażenia dla bossa (lub zebrane przedmioty) nie zostaną zaaplikowane, dopóki nie zakończysz odpoczynku w Gospodzie.",
@@ -45,9 +45,9 @@
     "tourScrollDown": "Zobacz całą stronę aby upewnić się, że widziałeś wszystkie opcje! Kliknij ponownie na swój awatar aby wrócić do strony zadań.",
     "tourMuchMore": "Gdy zakończysz zadania, możesz wraz z przyjaciółmi stworzyć Drużynę, czatować o wspólnych zainteresowaniach w Gildiach, dołączyć do Wyzwań i więcej!",
     "tourStatsPage": "To jest twoja strona Statystyki! Zdobądź osiągnięcia wykonując wymienione zadania.",
-    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
+    "tourTavernPage": "Witaj w Karczmie, wielowiekowym czacie! W przypadku choroby lub podróży możesz tutaj powstrzymać swoje Codzienne od zadawania ci obrażeń klikając \"Odpoczywaj w Gospodzie\". Przywitaj się!",
     "tourPartyPage": "Twoja drużyna pomoże Ci zostać odpowiedzialnym. Zaproś przyjaciół aby odblokować zwój misji!",
     "tourGuildsPage": "Gildie to grupy społeczne ze wspólnym motywem. Szukaj tematu, który Cię interesuje! Polecamy Gildię Świeżaków.",
-    "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win gem prizes!",
+    "tourChallengesPage": "Wyzwania są to tematyczne listy zadań stworzone przez użytkowników! Dołączenie do wyzwania doda je do listy zadań na twoim koncie. Rywalizuj z innymi użytkownikami, by wygrywać nagrody w postaci klejnotów!",
     "tourMarketPage": "Od poziomu 4, jaja i eliksiry wyklucia zdobywasz losowo po ukończeniu zadań. Pojawiają się one tutaj - użyj ich, a wyklują się chowańce! Możesz także kupować przedmioty na Targu."
 }

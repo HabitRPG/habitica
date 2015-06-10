@@ -110,11 +110,11 @@
     "byColon": "Od:",
     "inviteNewUsers": "Pozvat nové uživatele",
     "inviteAlertInfo2": "Nebo sdílej tento link (kopírovat/vložit):",
-    "sendGiftHeading": "Send Gift to <%= name %>",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
-    "sendGiftCost": "Total: $<%= cost %> USD",
-    "sendGiftFromBalance": "From Balance",
-    "sendGiftPurchase": "Purchase",
-    "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftHeading": "Poslat dárek <%= name %>",
+    "sendGiftGemsBalance": "Z <%= number %> Drahokamů",
+    "sendGiftCost": "Celkem: $<%= cost %> USD",
+    "sendGiftFromBalance": "Z bilance",
+    "sendGiftPurchase": "Koupit",
+    "sendGiftMessagePlaceholder": "Osobní zpráva (volitelné)",
+    "sendGiftSubscription": "<%= months %> měsíc(e/ů): $<%= price %>"
 }

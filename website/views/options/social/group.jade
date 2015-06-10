@@ -66,7 +66,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-heading
           h3.panel-title
             =env.t('members')
-            button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t('inviteFriends')
+            button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
         .panel-body.modal-fixed-height
           div.form-group(ng-if='::group.type=="party"')
             p=env.t('partyList')

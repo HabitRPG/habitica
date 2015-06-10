@@ -13,7 +13,7 @@ specHelper = {
         food: {},
         pets: {},
         mounts: {},
-        gear: {equipped: {}, costume: {}},
+        gear: {equipped: {}, costume: {}, owned: {}},
       },
       party: {
         quest: {

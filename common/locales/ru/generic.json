@@ -67,7 +67,7 @@
     "costumeContest": "Конкурс костюмов 2014",
     "costumeContestText": "Участвовал в Костюмированном Фестивале на Хэллоуине 2014. Вы можете увидеть некоторые из записей в blog.habitrpg.com/tagged/cosplay!",
     "memberSince": " - Участник с ",
-    "lastLoggedIn": " - Последний вход",
+    "lastLoggedIn": "- Последний вход",
     "notPorted": "Эта функция еще не перенесена со старого сайта.",
     "buyThis": "Купить <%= text %> за <%= price %> из ваших <%= gems %> самоцветов?",
     "untilNoFace": "Пока мы не добавим Facebook, используйте ваш UUID и API Token для входа (смотрите https://habitrpg.com > Опции > Настройки).",

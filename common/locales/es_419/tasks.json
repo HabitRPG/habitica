@@ -14,7 +14,7 @@
     "save": "Guardar",
     "addChecklist": "Añadir lista de control",
     "checklist": "Lista de control",
-    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
+    "checklistText": "¡Distribuye una tarea en partes! Las listas de control incrementan la Experiencia y el Oro ganados por completar Pendientes, y reducen el daño causado por una Diaria.",
     "expandCollapse": "Expandir/Contraer",
     "text": "Texto",
     "extraNotes": "Notas adicionales",
@@ -22,7 +22,7 @@
     "advancedOptions": "Opciones avanzadas",
     "difficulty": "Dificultad",
     "difficultyHelpTitle": "¿Qué dificultad tiene esta tarea?",
-    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
+    "difficultyHelpContent": "Entre más difícil sea la tarea, recibirás mayor cantidad de Experiencia y Oro cuando la elimines de la lista... ¡pero hará más daño si es parte de una Diaria o un Mal Hábito!",
     "easy": "Fácil",
     "medium": "Intermedio",
     "hard": "Difícil",
@@ -78,5 +78,5 @@
     "pushTaskToTop": "Enviar tarea al tope",
     "pushTaskToBottom": "Enviar tarea al fondo",
     "emptyTask": "Primero escribe el título de la tarea.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "dailiesRestingInInn": "¡Estás descansando en la Posada! Tus Diarias no te harán daño esta noche, pero continuarán reiniciándose cada día. Si te encuentras una misión, no harás daño/coleccionarás objetos hasta que hayas salido de la Posada, pero sí recibirás daño de un Jefe si tus compañeros no completan sus Diarias."
 }

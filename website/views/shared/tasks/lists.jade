@@ -32,23 +32,23 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             div(ng-switch-when='daily')
               ul
                 li!=env.t('dailyHelp1', {emphasisStart:"<strong>", emphasisEnd:"</strong>", pencilIcon:"<span class='glyphicon glyphicon-pencil'></span>"})
-                li!=env.t('dailyHelp2')
+                li=env.t('dailyHelp2')
                 li!=env.t('dailyHelp3', {emphasisStart:"<strong>", emphasisEnd:"</strong>"})
                 li!=env.t('dailyHelp4', {linkStart:"<a href='/#/options/settings/settings' target='_blank'>", linkEnd:"</a>"})
                 li!=env.t('dailyHelp5')
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='todo')
               ul
-                li!=env.t('toDoHelp1')
-                li!=env.t('toDoHelp2')
-                li!=env.t('toDoHelp3')
+                li=env.t('toDoHelp1')
+                li=env.t('toDoHelp2')
+                li=env.t('toDoHelp3')
                 li!=env.t('toDoHelp4')
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
             div(ng-switch-when='reward')
               ul
                 li!=env.t('rewardHelp1', {linkStart:"<a href='/#/options/inventory/equipment' target='_blank'>", linkEnd: "</a>"})
                 li!=env.t('rewardHelp2', {linkStart:"<a href='/#/options/profile/stats' target='_blank'>", linkEnd: "</a>"})
-                li!=env.t('rewardHelp3')
+                li=env.t('rewardHelp3')
                 li!=env.t('rewardHelp4')
                 li!=env.t('newbieGuild', {linkStart:"<a href='https://habitrpg.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank'>", linkEnd: "</a>"})
 
@@ -56,7 +56,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')
 
           // Add New
-          form.task-add(name='new{{list.type}}form', ng-hide='obj._locked', ng-submit='addTask(obj[list.type+"s"],list)')
+          form.task-add(name='new{{list.type}}form', ng-hide='obj._locked', ng-submit='addTask(obj[list.type+"s"],list)' novalidate)
             textarea(rows='6', task-focus='list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolderBulk}}', ng-if='list.bulk', ui-keydown='{"meta-enter ctrl-enter":"addTask(obj[list.type+\'s\'],list)"}', required)
             input(type='text', task-focus='!list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolder}}', ng-if='!list.bulk', required)
             button(type='submit', ng-disabled='new{{list.type}}form.$invalid')
@@ -126,7 +126,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           // Static Rewards
           ul.items.rewards(ng-if='main && list.type=="reward"')
-            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes()}}')
+            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.key == "armoire" && !user.flags.armoireEmpty ? env.t("armoireNotesFull") + armoireCount(user.items.gear.owned) : item.notes()}}')
               // right-hand side control buttons
               .task-meta-controls
                 span.task-notes
