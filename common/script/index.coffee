@@ -620,6 +620,7 @@ api.wrap = (user, main=true) ->
 
       addTask: (req, cb) ->
         task = api.taskDefaults(req.body)
+        return cb?({code:409,message:i18n.t('messageDuplicateTaskID', req.language)}) if user.tasks[task.id]?
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
@@ -874,7 +875,11 @@ api.wrap = (user, main=true) ->
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
         else if item.key is 'armoire'
-          armoireResult = user.fns.predictableRandom()
+          armoireResult = user.fns.predictableRandom(user.stats.gp)
+          # We use a different seed to choose the Armoire action than we use
+          # to choose the sub-action, otherwise only some of the foods can
+          # be given. E.g., if a seed gives armoireResult < .5 (food) then
+          # the same seed would give one of the first five foods only.
           eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
           if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
             drop = user.fns.randomVal(eligibleEquipment)
@@ -1712,10 +1717,11 @@ api.wrap = (user, main=true) ->
       owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
       user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
       content.classes.forEach (klass) ->
-        user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
-          found = _.find content.gear.tree[type][klass], {last:true}
-          soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
-        , true # start with true, else `and` will fail right away
+        if user.achievements.ultimateGearSets[klass] is not true
+          user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
+            found = _.find content.gear.tree[type][klass], {last:true}
+            soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
+          , true # start with true, else `and` will fail right away
       user.markModified? 'achievements.ultimateGearSets'
       if _.contains(user.achievements.ultimateGearSets, true) and user.flags.armoireEnabled != true
         user.flags.armoireEnabled = true

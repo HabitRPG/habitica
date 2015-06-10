@@ -1,6 +1,10 @@
 {
     "potionText": "治疗药水",
     "potionNotes": "回复15点生命值 （立即生效）",
+    "armoireText": "Enchanted Armoire",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+    "armoireNotesEmpty": "The Armoire will have new Equipment every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "狼",
     "dropEggWolfAdjective": "忠诚的",
     "dropEggTigerCubText": "老虎幼崽",

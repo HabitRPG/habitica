@@ -110,11 +110,11 @@
     "byColon": "Invité par: ",
     "inviteNewUsers": "Inviter un/plusieurs nouveau(x) utilisateur(s)",
     "inviteAlertInfo2": "Ou partagez ce lien (copier/coller):",
-    "sendGiftHeading": "Send Gift to <%= name %>",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
-    "sendGiftCost": "Total: $<%= cost %> USD",
-    "sendGiftFromBalance": "From Balance",
-    "sendGiftPurchase": "Purchase",
-    "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftHeading": "Envoyer un cadeau à <%= name %>",
+    "sendGiftGemsBalance": "De vos <%= number %> Gemmes",
+    "sendGiftCost": "Total: <%= cost %>$ (USD)",
+    "sendGiftFromBalance": "Offrir vos propres Gemmes",
+    "sendGiftPurchase": "Acheter les Gemmes",
+    "sendGiftMessagePlaceholder": "Message personnel (facultatif)",
+    "sendGiftSubscription": "<%= months %> mois: <%= price %>$ (USD)"
 }

@@ -94,15 +94,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       challenge.$save(function(_challenge){
         if (isNew) {
           Notification.text(window.env.t('challengeCreated'));
-          $state.go('options.social.challenges.detail', {cid: _challenge._id});
-          $scope.discard();
-          $scope.challenges = Challenges.Challenge.query();
+          $state.transitionTo('options.social.challenges.detail', {cid: challenge._id}, {
+            reload: true, inherit: false, notify: true
+          });
           User.sync();
         } else {
-          // TODO figure out a more elegant way about this
-          //challenge._editing = false;
-          challenge._locked = true;
-          getChallenges();
+          $state.transitionTo('options.social.challenges.detail', {cid: challenge._id}, {
+            reload: true, inherit: false, notify: true
+          });
         }
       });
     };

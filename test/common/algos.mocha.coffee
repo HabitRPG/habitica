@@ -24,6 +24,7 @@ newUser = (addTasks=true)->
       gear:
         equipped: {}
         costume: {}
+        owned: {}
     party:
       quest:
         progress:
@@ -597,6 +598,14 @@ describe 'User', ->
         user.ops.buy {params:'#{type}_#{klass}_6'}
       xit 'gets ultimateGear ' + klass, ->
         expect(user.achievements.ultimateGearSets[klass]).to.be.ok()
+
+    it 'does not remove existing Ultimate Gear achievements', ->
+      user = newUser()
+      user.achievements.ultimateGearSets = {'healer':true,'wizard':true,'rogue':true,'warrior':true}
+      user.items.gear.owned.shield_warrior_5 = false
+      user.items.gear.owned.weapon_rogue_6 = false
+      user.ops.buy {params:'shield_warrior_5'}
+      expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
 
     it 'does not get beastMaster if user has less than 90 drop pets', ->
       user = newUser()
