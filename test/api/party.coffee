@@ -6,49 +6,83 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe "Party", ->
+  context "creating a party", ->
+    it "creates a party", (done) ->
+      async.waterfall [
+        (cb) ->
+          registerNewUser(cb, true)
 
-  group = undefined
-  before (done) ->
-    async.waterfall [
-      (cb) ->
-        registerNewUser(cb, true)
+        (user, cb) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+            group = res.body
+            expect(group.members.length).to.equal 1
+            expect(group.leader).to.equal user._id
+            cb()
+      ], done
 
-      (user, cb) ->
-        request.post(baseURL + "/groups").send(
-          name: "TestGroup"
-          type: "party"
-        ).end (res) ->
-          expectCode res, 200
-          group = res.body
-          expect(group.members.length).to.equal 1
-          expect(group.leader).to.equal user._id
-          cb()
+    it "prevents user from creating a second party", (done) ->
+      request.post(baseURL + "/groups").send(
+        name: "TestGroup"
+        type: "party"
+      ).end (res) ->
+        expectCode res, 400
+        expect(res.body.err).to.equal "Already in a party, try refreshing."
+        done()
 
-    ], done
+  context "Searching for a party", ->
+    group = undefined
+    beforeEach (done) ->
+      async.waterfall [
+        (cb) ->
+          registerNewUser(cb, true)
 
-  it "can be found by querying for party", (done) ->
-    request.get(baseURL + "/groups/").send(
-      type: "party"
-    ).end (res) ->
-      expectCode res, 200
-      party = _.find res.body, (g) -> return g._id == group._id
-      expect(party._id).to.equal group._id
-      expect(party.leader).to.equal user._id
-      expect(party.name).to.equal group.name
-      expect(party.quest).to.deep.equal { progress: {} }
-      expect(party.memberCount).to.equal group.memberCount
-      done()
+        (user, cb) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+            group = res.body
+            expect(group.members.length).to.equal 1
+            expect(group.leader).to.equal user._id
+            cb()
+      ], done
 
-  it "prevents user from creating a second party", (done) ->
-    request.post(baseURL + "/groups").send(
-      name: "TestGroup"
-      type: "party"
-    ).end (res) ->
-      expectCode res, 400
-      expect(res.body.err).to.equal "Already in a party, try refreshing."
-      done()
+    it "can be found by querying for group type party", (done) ->
+      request.get(baseURL + "/groups/").send(
+        type: "party"
+      ).end (res) ->
+        expectCode res, 200
+        party = _.find res.body, (g) -> return g._id == group._id
+        expect(party._id).to.equal group._id
+        expect(party.leader).to.equal user._id
+        expect(party.name).to.equal group.name
+        expect(party.quest).to.deep.equal { progress: {} }
+        expect(party.memberCount).to.equal group.memberCount
+        done()
 
   context "joining a party", ->
+    group = undefined
+    beforeEach (done) ->
+      async.waterfall [
+        (cb) ->
+          registerNewUser(cb, true)
+
+        (user, cb) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+            group = res.body
+            expect(group.members.length).to.equal 1
+            expect(group.leader).to.equal user._id
+            cb()
+      ], done
 
     it "prevents user from joining a party when they haven't been invited", (done) ->
       registerNewUser (err, user) ->
@@ -85,16 +119,14 @@ describe "Party", ->
             cb()
 
         (cb) ->
-          request.post(baseURL + "/groups/" + group._id + "/leave")
-          .set("X-API-User", tmpUser._id)
-          .set("X-API-Key", tmpUser.apiToken)
-          .end (res) ->
-            expectCode res, 204
+          Group.findById group._id, (err, grp) ->
+            expect(grp.members).to.include(tmpUser._id)
             cb()
       ], done
 
-  describe "Quests", ->
+  context "Quests", ->
     party = undefined
+    group = undefined
     participating = []
     notParticipating = []
     before (done) ->
@@ -114,6 +146,20 @@ describe "Party", ->
       # Tally some progress for later. Later we want to test that progress made before the quest began gets
       # counted after the quest starts
       async.waterfall [
+        (cb) ->
+          registerNewUser(cb, true)
+
+        (user, cb) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestGroup"
+            type: "party"
+          ).end (res) ->
+            expectCode res, 200
+            group = res.body
+            expect(group.members.length).to.equal 1
+            expect(group.leader).to.equal user._id
+            cb()
+
         (cb) ->
           request.post(baseURL + '/user/tasks').send({
             type: 'daily'
