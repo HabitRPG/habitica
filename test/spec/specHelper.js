@@ -1,3 +1,5 @@
+beforeEach(module('habitrpg'));
+
 specHelper = {
   newUser: function(){
     var buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false};
@@ -10,7 +12,8 @@ specHelper = {
         eggs: {},
         food: {},
         pets: {},
-        gear: {equipped: {}, costume: {}},
+        mounts: {},
+        gear: {equipped: {}, costume: {}, owned: {}},
       },
       party: {
         quest: {
@@ -26,5 +29,21 @@ specHelper = {
       achievements: {},
     };
     return user;
+  },
+  newGroup: function(leader) {
+    var quest = { progress: { }, active: false };
+    group = {
+      "leader" : leader,
+      "quest" : quest,
+      "memberCount" : 1,
+      "chat" : [],
+      "privacy" : "public",
+      "invites" : [],
+      "members" : [
+        leader
+      ]
+    };
+    return group;
   }
 };
+

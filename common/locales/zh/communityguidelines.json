@@ -1,9 +1,9 @@
 {
     "iAcceptCommunityGuidelines": "我愿意遵守社区准则",
-    "tavernCommunityGuidelinesPlaceholder": "友情提示：这里的讨论适合所有年龄层，所以请保持适当的内容和言语！如果你有问题，请查阅以下社区指南。",
+    "tavernCommunityGuidelinesPlaceholder": "友情提示：这里的讨论对所有年龄层开放，所以请注意维持适当的内容和措辞！如果你有任何问题，请查阅下面的社区指南。",
     "commGuideHeadingWelcome": "欢迎来到Habitica！",
-    "commGuidePara001": "Hi，冒险者！欢迎来到Habitica，这里系一个高效健康，偶尔还能遇见暴走的史诗巨兽的地方。我们有个令人愉快的社群，那里充满了自强不息又乐于助人，并互相支持的人们。",
-    "commGuidePara002": "为了确保社区里的每个人都平安、快乐、效率满满，我们小心地制定了有善易懂的指导准则,请你花些时间阅读一下。",
+    "commGuidePara001": "Hi，冒险者！欢迎来到Habitica，这里是一个倡导高效工作，健康生活的地方，在这里你偶尔还能遇见暴走的史诗巨兽。我们还有一个令人愉快的社区：人们乐于助人，互相支持，一起进步。",
+    "commGuidePara002": "为了确保社区里的每个人都平安、快乐、而且效率满满，我们小心地制定了友善而且易懂的指导准则,请你在发言前阅读。",
     "commGuidePara003": "这些规定适用于我们使用到的所有社区空间，包括(但不限于)Trello、Github、Transifex还有Wikia(也就是我们的维基)。偶尔，会有一些意想不到的事情发生，例如一个新的冲突事端的出现或者是一个恶意捣乱的人.当这些发生的时候,管理员们可能会适当的修改这些准则以确保社区的安全。别担心，假如指导准则有所更动，Bailey 会发布公告来通知你。",
     "commGuidePara004": "现在准备你的羽毛笔和卷轴做好笔记，让我们开始吧！",
     "commGuideHeadingBeing": "作为一个Habitican",
@@ -31,10 +31,10 @@
     "commGuideHeadingPublicSpaces": "Habitica中的公共空间",
     "commGuidePara015": "Habitica有两种社交区域:公开的和私人的。公开的空间包括酒馆，公开公会，GitHub，Trello还有Wiki。私人的空间包括私人公会，队伍私聊，以及私信。",
     "commGuidePara016": "当参与Habitica的公共区域时，为了保证所有人的安全和愉快，有一些事项需要遵守。这些对于你这样的冒险者来说简直太容易了！",
-    "commGuidePara017": "<strong> 彼此尊重</strong> 成为一位彬彬有礼、善良且乐于助人的人。请记得 Habiticans 来自四面八方并拥有各种经历背景，才让HabitRPG非常酷！建立社区以为着我们要同样尊重与赞赏我们的不同点和相同点。以下是一些简单的尊重彼此的方式：",
+    "commGuidePara017": "<strong> 彼此尊重</strong> 成为一位彬彬有礼、善良且乐于助人的人。请记得 Habiticans 来自五湖四海，拥有各种各样的经历和背景。HabitRPG正因如此才如此多姿多彩！建立社区意味着我们要尊重与赞赏我们之间的相似与不同。以下是一些简单的尊重彼此的方式：",
     "commGuideList02A": "<strong>遵守所有的条款和条件。</strong>",
-    "commGuideList02B": "<strong>不要发布包含有暴力、恐吓, 或含有明显性内容/暗示性内容, 或者提倡歧视、偏执、 种族种族歧视,带有恶意、骚扰、或伤害某人或某队伍的文字或者图片。</strong> 甚至于开玩笑亦不合宜。 这包括诋毁和措辞表达。 不是每一个人都有同样的幽默感, 所以某些您认为是玩笑的话可能对他人会造成伤害。 要攻击您的每日任务, 而不是别人。",
-    "commGuideList02C": "<strong>保持讨论这当于全年龄。</strong> 我们有很多年轻的Habiticans在这个网站。 让我们不要影响这份纯真天真无邪, 或阻碍任何Habiticans完成他们的目标。",
+    "commGuideList02B": "<strong>不要发布任何包有暴力、恐吓，或明显/隐晦的有关性的内容；禁止发布任何提倡歧视、偏见、种族歧视的信息，或者任何恶意的、骚扰性的、或伤害某人或某队伍的文字或者图片。</strong> 这包括辱骂及类似的言语表达。这些内容即使是玩笑也不合适。不是每一个人都有同样的幽默感，所以某些您认为是玩笑的话可能对他人会造成伤害。请攻击您的每日任务, 而不是攻击别人。",
+    "commGuideList02C": "<strong>注意！讨论对全年龄开放。</strong> 有很多年轻的Habiticans在使用这个网站。让我们注意不要影响这份纯真，不要阻碍任何Habiticans完成他们的目标。",
     "commGuideList02D": "<strong>避免亵渎的语言。</strong>这也包括那些别的网站可能能够接受的那些轻微的，宗教的秽语-这里的人们有着多种多样的宗教和文化背景，我们需要保证他们能在公开的区域感觉到自在。另外，侮辱别人将会受到严重的处罚，因为这种行为也同时违反了服务条款。",
     "commGuideList02E": "<strong>避免在除了The Back Corner之外的地方扩大有争议性的主题的讨论。</strong>如果你觉得某人说了让你觉得粗鲁或者受伤的话的话，不要跟他/她正面冲突。一个简单的，礼貌的表达就足够了，例如\"我觉得玩笑开得有点儿过了。\"但是,如果你用粗鲁和不友善的态度来回应粗鲁和不友善言论，会使情绪更加紧张，也会让HabitRPG变成一个更消极的地方。善良和礼貌能向别人展现真实的自我。",
     "commGuideList02F": "<strong>第一时间遵从管理员的要求</strong>来平息争论或者将他转移到The Back Corner。如果管理员允许的话，所有与本次讨论相关的话，都将被(礼貌地)转移到你The Back Corner的\"桌子\"上。",
@@ -152,7 +152,7 @@
     "commGuideList13A": "<strong>等级是酌情赋予的。</strong>等级由管理员基于多种因素酌情分配，这些因素包括我们对你工作的看法及其在社区中的价值。我们保留酌情改变特定等级，称号和奖励的权利。",
     "commGuideList13B": "<strong>等级随着你的进度越来越难获得。</strong>如你创造了一个怪物，或者修复了一个小错误，这可能足够让你达到第1个贡献者等级，但是不够让你到下一级。就像其他优秀的角色扮演游戏，等级越高升级越难。",
     "commGuideList13C": "<strong>等级不会在每个领域“重新开始”。</strong>当我们标定难度时，我们会查看你的所有贡献，以便使那些做了一个小的美工、然后修复一个小的bug、然后一点点涉足wiki的人不会比那些独立完成单个任务的人升级更快。这样有助于维护公平！",
-    "commGuideList13D": "<strong>试用级别的用户不会升到下一个等级。</strong>管理员有权冻结违规玩家的进程。如果出现这个情况，该玩家将一直会处于该决定的通知之下，和如何改正它。作为违规或试用的后果，等级也有可能被移除。",
+    "commGuideList13D": "<strong>试用级别的用户不会升到下一个等级。</strong>管理员有权冻结违规玩家的进程。如果出现这个情况，该玩家被告知相关决定与如何改正的方法。等级有可能作为惩罚被移除。",
     "commGuideHeadingFinal": "最后一节",
     "commGuidePara067": "勇敢的Habitican，这就是你拥有的——社区准则！擦干额头上的汗水，给你自己一些经验值作为读完所有准则的奖励。如果你有任何关于社区准则的问题，请发电子邮件到 Lemoness (<a href=\"mailto:leslie@habitrpg.com\">leslie@habitrpg.com</a>)，她会乐意帮你解答。",
     "commGuidePara068": "现在向前进发吧，勇敢的冒险家，完成你的每日任务吧！",
@@ -173,5 +173,6 @@
     "commGuideLink07": "Trello艺术",
     "commGuideLink07description": "提交像素艺术。",
     "commGuideLink08": "Trello剧情任务",
-    "commGuideLink08description": "提交任务稿件。"
+    "commGuideLink08description": "提交任务稿件。",
+    "lastUpdated": "Last updated"
 }

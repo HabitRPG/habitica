@@ -1,12 +1,36 @@
 "use strict";
 
-habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
-  function($scope, Groups, User) {
+habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$rootScope',
+  function($scope, Groups, User, $location, $rootScope) {
 
     $scope.Math = window.Math;
+    $scope.user = User.user;
 
     $scope.party = Groups.party(function(){
-      $scope.partyMinusSelf = _.sortBy(
+        var triggerResort = function() {
+            $scope.partyMinusSelf = resortParty();
+        };
+
+        triggerResort();
+        $scope.$watch('user.party.order', triggerResort);
+        $scope.$watch('user.party.orderAscending', triggerResort);
+    });
+
+    $scope.inviteOrStartParty = function(group) {
+      if (group.type === "party") {
+        $rootScope.openModal('invite-friends', {
+          controller:'InviteToGroupCtrl',
+          resolve: {
+            injectedGroup: function(){ return group; }
+          }
+        });
+      } else {
+        $location.path("/options/groups/party");
+      }
+    }
+
+    function resortParty() {
+      var result = _.sortBy(
         _.filter($scope.party.members, function(member){
           return member._id !== User.user._id;
         }),
@@ -41,8 +65,10 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
         }
       )
       if (User.user.party.orderAscending == "descending") {
-      	$scope.partyMinusSelf = $scope.partyMinusSelf.reverse()
+      	result = result.reverse()
       }
-    });
+
+      return result;
+    }
   }
 ]);

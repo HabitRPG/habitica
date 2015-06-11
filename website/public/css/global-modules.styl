@@ -7,7 +7,7 @@ $clearfix
 // Text shadow mixin
 hrpg-text-shadow-mixin($hrpg-text-shadow-base-color)
     text-shadow:
-     -1px -1px 1px darken($hrpg-text-shadow-base-color,70%),  
+     -1px -1px 1px darken($hrpg-text-shadow-base-color,70%),
       1px -1px 1px darken($hrpg-text-shadow-base-color,70%),
       -1px 1px 1px darken($hrpg-text-shadow-base-color,70%),
        1px 1px 1px darken($hrpg-text-shadow-base-color,70%);
@@ -21,8 +21,8 @@ hrpg-button-color-mixin($hrpg-button-color)
     @media screen and (min-width:768px)
       &:hover
         background-color: darken($hrpg-button-color, 2.36%) !important
-  > a, > button, > input, textarea  
-    color: darken($hrpg-button-color, 70%) !important 
+  > a, > button, > input, textarea
+    color: darken($hrpg-button-color, 70%) !important
     border-color: darken($hrpg-button-color, 16.18%) !important
   > input, textarea
     &:hover
@@ -43,7 +43,7 @@ hrpg-button-color-mixin($hrpg-button-color)
     @media screen and (min-width:768px)
       border:1px solid darken($hrpg-button-color, 16.18%)
     h4
-      color: darken($hrpg-button-color, 61.8%) 
+      color: darken($hrpg-button-color, 61.8%)
       background-color: $hrpg-button-color
       border-color: darken($hrpg-button-color, 16.18%)
     > ul:first-child:before, > div:first-child:before
@@ -81,7 +81,7 @@ $hrpg-button-master
     .glyphicon
       position: relative
       top: 0.132em
- > a, > button   
+ > a, > button
     &:active
       background-color: #aaa !important
 $hrpg-button
@@ -98,7 +98,7 @@ $hrpg-button-toggle
   border-radius: 0.382em !important
   > a:first-of-type
     border-radius: 0.382em 0em 0em 0.382em !important
-  > a:nth-of-type(2)
+  > a:last-of-type
     border-radius: 0em 0.382em 0.382em 0em !important
 // Input + Button
 $hrpg-button-with-input
@@ -113,7 +113,7 @@ $hrpg-button-with-input
     height: auto
   input, textarea
     border: 1px solid #ccc
-    border-radius: 0.382em 0em 0em 0.382em !important 
+    border-radius: 0.382em 0em 0em 0.382em !important
     padding-left: 0.618em
     background-color: #fff !important
     -webkit-appearance: none
@@ -186,7 +186,7 @@ $hrpg-label
   > a
     color: #fff
   text-shadow:
-   -1px -1px 1px #333,  
+   -1px -1px 1px #333,
     1px -1px 1px #333,
     -1px 1px 1px #333,
      1px 1px 1px #333;
@@ -197,7 +197,7 @@ $hrpg-modal-dropdown
   @extend $hrpg-modal
   > div
     position: absolute
-    top: 3em
+    top: 2.9em
     min-width:110px
     border-radius:4px
     background-color:#fff
@@ -250,9 +250,9 @@ $hrpg-modal-dropdown
       z-index:2
       width:16px
       height:16px
-      border-top-width: 1px 
+      border-top-width: 1px
       border-top-style: solid
-      border-left-width: 1px 
+      border-left-width: 1px
       border-left-style: solid
       transform: rotate(45deg)
 $hrpg-modal-dropdown-left
@@ -261,7 +261,7 @@ $hrpg-modal-dropdown-left
     div
       right: 0px
       > ul:first-child:before, > div:first-child:before, h4:before
-        right: 1em
+        right: .5em
 $hrpg-modal-dropdown-right
   @extend $hrpg-modal-dropdown
   @media screen and (min-width:768px)
@@ -270,7 +270,7 @@ $hrpg-modal-dropdown-right
       > ul:first-child:before, > div:first-child:before, h4:before
         left: 1em
 $hrpg-modal-controls
-  text-align: right 
+  text-align: right
   border-radius:0px 0px 0.382em 0.382em
   background-color: #fff
   li
@@ -317,6 +317,9 @@ hrpg-tag-color-mixin($hrpg-tag-color)
       background-color: darken($hrpg-tag-color,32.8%)
     &.active:hover > a:before
       border-right-color: darken($hrpg-tag-color,32.8%)
+// Tooltips wrapper for disabled elements
+.disabled-tooltip-wrapper
+    display: inline-block
 
 $hrpg-tag-master
   display: inline-block
@@ -348,7 +351,7 @@ $hrpg-tag-master
       position: absolute
       top: 0
       left: -1.5em
-    &:before  
+    &:before
       width: 0;
       height: 0;
       border-top: 1em solid transparent

@@ -1,8 +1,8 @@
 var _id = '';
 var update = {
-  $push: {
+  $addToSet: {
     'purchased.plan.mysteryItems':{
-      $each:['weapon_mystery_201502','headAccessory_mystery_201502']
+      $each:['weapon_mystery_201505','head_mystery_201505']
     }
   }
 };

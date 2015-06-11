@@ -42,7 +42,7 @@
     "moreDetails2": "więcej szczegółów (8-9)",
     "contributions": "Wkład",
     "admin": "Admin",
-    "notGems": "w dolarach amerykańskich, a <em>nie</em> w klejnotach. Tzn. cyfra 1 oznacza 4 klejnoty. Korzystaj z tej opcji tylko jeśli chcesz ręcznie przydzielić graczom klejnoty. Nie stosuj jej przy przyznawaniu rang pomocnika – rangi pomocnika przydzielają klejnoty automatycznie.",
+    "notGems": "w dolarach amerykańskich, a <em>nie</em> w Klejnotach. Tzn. cyfra 1 oznacza 4 klejnoty. Korzystaj z tej opcji tylko jeśli chcesz ręcznie przydzielić graczom klejnoty. Nie stosuj jej przy przyznawaniu rang pomocnika – klejnoty zostaną przydzielone automatycznie wraz z rangą.",
     "hideAds": "Ukryj reklamy",
     "gamemaster": "Mistrz Gry (pracownik/moderator)",
     "backerTier": "Ranga wspieracza",
@@ -57,5 +57,9 @@
     "whyAds": "Po co są reklamy?",
     "whyAdsContent1": "Habit to projekt typu \"open source\" i przyda mu się każda pomoc jaką może dostać – traktuj to jak dotację. Po jej złożeniu otrzymasz również 20 klejnotów, które możesz wykorzystać do kupienia specjalnych przedmiotów.",
     "whyAdsContent2": "\"Hej! Wspierałem projekt na Kickstarterze!\" – podążaj za",
-    "whyAdsContent3": "tymi instrukcjami"
+    "whyAdsContent3": "tymi instrukcjami",
+    "surveysSingle": "Pomógł rozwinąć HabitRPG poprzez wypełnienie ankiety. Brak aktywnych ankiet.",
+    "surveysMultiple": "Pomógł rozwinąć HabitRPG poprzez wypełnienie <%=surveys %> ankiet. Brak aktywnych ankiet.",
+    "currentSurvey": "Bieżąca ankieta.",
+    "surveyWhen": "Odznaki zostaną przyznane wszystkim biorącym udział, gdy zgłoszenia zostaną przetworzone pod koniec marca."
 }

@@ -6,6 +6,8 @@
     "annoyingFriendsText": "חטף/ה <%= snowballs %> לפרצוף משאר החבורה.",
     "alarmingFriends": "חברים מפחידים",
     "alarmingFriendsText": "הופחד/ה <%= spookDust %> פעמים ע\"י שאר החבורה שלו/ה.",
+    "agriculturalFriends": "Agricultural Friends",
+    "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
     "valentineCard": "כרטיס יום האהבה",
     "valentineCardNotes": "שליחת כרטיס יום אהבה לחבר/ת חבורה.",
     "valentine0": "\"ורדים, אדומים הם\n<%= lineBreak %>\nוכחולות הן מטלותיי\n<%= lineBreak %>\nלהיות בחבורה שלך\n<%= lineBreak %>\nזה משוש חיי!\"",
@@ -22,7 +24,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>סיינה לזלי<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>מכשפה עונתית<%= linkEnd %>",
     "seasonalShopClosedText": "החנות העונתית סגורה כרגע! אין לי מושג היכן המכשפה העונתית נמצאת כרגע, אך היא תשוב ב<%= linkStart %>נשף הרשף<%= linkEnd %> הבא!",
-    "seasonalShopText": "ברוכים הבאים לחנות העונתית! מעתה ועד ה21 בינואר, אנו אוגרים מצבור ענק של מנעמי חורף. לאחר מכן, החפצים הללו לא יחזרו במשך שנה, אז תפסו אותם חמים מהמפעל!!! כלומר, אע, קרים מהמפעל.",
+    "seasonalShopText": "Welcome to the Seasonal Shop!! We're stocking springtime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Spring Fling event each year, but we're only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "אם השתמשת בכדור הלידה מחדש, תוכל/י לרכוש את הציוד הזה מחדש בעמודת הפרסים אחרי שתקבל/י גישה לחנות החפצים. בתחילה תוכל/י לקנות רק את חפצי המקצוע שלך (לוחם, בתור התחלה) אך אל חשש! החפצים המתאימים לכל מקצוע יהיו זמינים כשתעבור/י למקצוע הזה.",
     "candycaneSet": "סוכרייה על מקל הליכה (מכשף)",
     "skiSet": "מתנקש-סקי (נוכל)",
@@ -38,5 +40,9 @@
     "newYear2": "שנה טובה! שתדע/י ימים מושלמים ומתוקים כדבש.",
     "newYear3": "שנה טובה! שתהיה/י לראש רשימת המטלות שלך, ולא לזנב.",
     "newYear4": "שנה טובה! מי ייתן ולא תותקף/י על ידי היפוגריף זועם.",
-    "holidayCard": "קיבל/ה כרטיס לחגים!"
+    "holidayCard": "קיבל/ה כרטיס לחגים!",
+    "mightyBunnySet": "Mighty Bunny (Warrior)",
+    "magicMouseSet": "Magic Mouse (Mage)",
+    "lovingPupSet": "Loving Pup (Healer)",
+    "stealthyKittySet": "Stealthy Kitty (Rogue)"
 }

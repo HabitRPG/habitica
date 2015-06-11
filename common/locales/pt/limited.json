@@ -6,6 +6,8 @@
     "annoyingFriendsText": "Membros da equipe jogaram bolas de neve em você <%= snowballs %> vezes.",
     "alarmingFriends": "Amigos Alarmantes",
     "alarmingFriendsText": "Membros da equipe te assustaram <%= spookDust %> vezes.",
+    "agriculturalFriends": "Amigos Agrícolas",
+    "agriculturalFriendsText": "Membros da equipe te transformaram em flor <%= seeds %> vezes.",
     "valentineCard": "Cartão do Dia dos Namorados",
     "valentineCardNotes": "Envie um cartão de Dia dos Namorados para um membro de sua equipe.",
     "valentine0": "\"Rosas são vermelhas<%= lineBreak %>Minhas atividades diárias são azuis<%= lineBreak %>Estou feliz que estou<%= lineBreak %>Em equipe com você!\"",
@@ -22,7 +24,7 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Feiticeira Sazonal<%= linkEnd %>",
     "seasonalShopClosedText": "A Loja Sazonal está fechada atualmente! Eu não sei onde a Feiticeira Sazonal está agora, mas eu aposto que ela estará de volta durante o próximo <%= linkStart %>Grande Gala<%= linkEnd %>!",
-    "seasonalShopText": "Bem-vindo à Loja Sazonal! De agora até 31 de janeiro, estaremos estocando vários itens de edição sazonal de inverno. Depois disso, esses itens não estarão de volta por outro ano, então consiga-os enquanto estão quentinhos! Ou, er, frios.",
+    "seasonalShopText": "Bem vindo a Loja Sazonal!! Nós estamos vendendo mercadorias <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Edição Sazonal</a> de primavera no momento. Tudo aqui estará disponível para compra durante o Festival de Primavera todos os  anos, mas nós só estaremos abertos até 30 de abril, então certifique-se de estocar agora ou você vai ter que esperar um ano para comprar esses items de novo!",
     "seasonalShopRebirth": "Se você usou o Orb do Renascimento, você pode comprar novamente este equipamento na Coluna de Recompensas depois de desbloqueá-lo na Loja de Itens.\nInicialmente, só estará disponível a compra de itens da sua atual classe (Guerreiro por padrão), mas não tema, os outros itens específicos de classe se tornarão disponíveis caso você mude para aquela classe.",
     "candycaneSet": "Bastão Doce (Mago)",
     "skiSet": "Assa-ski-no (Ladino)",
@@ -38,5 +40,9 @@
     "newYear2": "Feliz Ano Novo! Que você conquiste vários Dias Perfeitos.",
     "newYear3": "Feliz Ano Novo! Que a sua lista de Tarefas Diárias seja curta e objetiva.",
     "newYear4": "Feliz Ano Novo! Que você não seja atacado por um Hipogrifo enraivecido.",
-    "holidayCard": "Recebeu um cartão de feriado comemorativo!"
+    "holidayCard": "Recebeu um cartão de feriado comemorativo!",
+    "mightyBunnySet": "Coelhinho Poderoso (Guerreiro)",
+    "magicMouseSet": "Ratinho Encantado (Mago)",
+    "lovingPupSet": "Cãozinho Afetuoso (Curandeiro)",
+    "stealthyKittySet": "Gatinho Furtivo (Ladino)"
 }

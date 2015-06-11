@@ -57,7 +57,7 @@ for $stage in $stages
         &:focus
           border-color: darken($stage[1], 61.8%) !important
           outline: none;
-      
+
 // completed has to be outside the loop to override the color class
 .completed
   color: darken($completed,30%)
@@ -105,18 +105,18 @@ for $stage in $stages
 
 .reward, .reward-item
   background-color: white
-  border: 1px solid $completed !important  
+  border: 1px solid $completed !important
 
 // 2. Columns & Tasks
 // ===================
 
 .tasks-lists
-  
+
   .row
     margin-left: -5px
     margin-right: -5px
 
-    .col-md-3 
+    .col-md-3
       padding-left: 10px // Override Bootstrap 15px padding
       padding-right: 10px // Override Bootstrap 15px padding
       margin-bottom: 15px
@@ -128,6 +128,12 @@ for $stage in $stages
   background: $color-tasks
   border: 1px solid darken($color-tasks,16.18%)
   font-family: 'Lato', sans-serif
+
+  &:after
+    clear: both;
+    display: block;
+    content: "";
+
   h2
     color: darken($color-tasks,61.8%)
 
@@ -136,8 +142,16 @@ for $stage in $stages
     padding: 0
     font-weight: 300
 
+.task-column.preview
+  padding: 0
+  background: transparent
+  border: 0;
+
+  .task:hover
+    cursor: auto
+
 // 50% width columns with scrollbars for tablets
-@media (min-width: 768px) and (max-width: 970px) 
+@media (min-width: 768px) and (max-width: 970px)
   .task-column
     max-height: 18.6em
     overflow-y: scroll
@@ -171,6 +185,13 @@ for $stage in $stages
     border: 0
     float: right
     font-size: 0.85em
+  .empty-task-notification
+    height: 100%;
+
+// message in Dailies column when Resting in Inn
+// ------------------------
+.dailiesRestingInInn
+  clear: both
 
 // an individual task entry
 // ------------------------
@@ -189,7 +210,7 @@ for $stage in $stages
 
   label
     font-weight: 400
-  
+
   input[type="text"], input[type="number"], textarea.option-content
     border: 1px solid #aaa
     border-radius: 0.382em
@@ -351,7 +372,7 @@ for $stage in $stages
 
   a
     text-decoration: none
-    
+
   // improve alignment of task icons
   .glyphicon-signal
     margin-left: 0.25em
@@ -483,7 +504,7 @@ form
 .task-options
   .task-action-btn.tile
     margin: 3px
-      
+
   form
     padding-bottom: 1em
   .priority-multiplier, .task-attributes, .repeat-days
@@ -498,24 +519,24 @@ form
   .repeat-days
     li
       button
-        min-width: 2.5em      
+        min-width: 2.5em
   .save-close
     text-align: center
     @extend $hrpg-button
-          
+
 // Habits – task button styles (+ -)
 .habits
   .task-actions
     width: 3em
     height: 100%
-    
+
     a
       display: block
       width: 100%
       height: 100%
       position: relative
       font-size: 0.8em
-      
+
       span
         position: absolute
         margin: auto
@@ -526,7 +547,7 @@ form
         left: 0
         bottom: 0
         right: 0
-        
+
       &:hover, &:focus
         color: #222
         text-decoration: none
@@ -577,14 +598,14 @@ form
       line-height: 1.5
       float: left
       padding: 0.25em 0.5em
-      
+
     li
       margin-bottom: 1em
       &:hover .checklist-icon
         opacity:1
 
 // Task filters
-// --------    
+// --------
 .task-filter
   margin: 1.5em 0 1em 0
   hrpg-button-bar-mixin($color-tasks)
@@ -595,7 +616,7 @@ form
     hrpg-button-color-mixin($color-tasks)
     width: 33.333%
     text-align: center
-    &:nth-child(3n + 1):nth-last-child(2), 
+    &:nth-child(3n + 1):nth-last-child(2),
     &:nth-child(3n + 1):nth-last-child(2) + li
       width: 50%;
     a
@@ -606,7 +627,7 @@ form
     min-height: 3.07em  // Temp fix for slight misalignment of btn-buy
   .task-filter
     li:nth-child(3n + 1):nth-last-child(2)
-      width: 33.333% 
+      width: 33.333%
     li:nth-child(3n + 1):nth-last-child(2) + li
       width: 66.666%
   .btn-buy
@@ -620,7 +641,7 @@ form
       &:only-child
         position: static
         padding-left: 0.75em
-    
+
     &.highValue  // If reward value exceeds three digits, drop the number below the coin icon
       padding: 0.3em
       text-align: center
@@ -629,4 +650,24 @@ form
         margin: auto
     .shop_gold + .reward-cost
       line-height: 1
-      top: -0.1em  
+      top: -0.1em
+
+// Hide interativity if task is locked (i.e. is a challenge reward)
+.locked-task
+  .action-yesno label:hover:after
+    height: 10px
+    width: 10px
+    margin: 15px auto
+    border: 1px solid #222
+    opacity: 0.2 !important
+  .action-yesno label:focus,
+  .action-yesno label:hover
+    background-color: #ffcf42 !important
+  .task-actions a,
+  .task-checker label,
+  .task-text
+    cursor: initial
+  .task-actions a:hover
+    background-color:inherit !important
+  .task-checker label:hover:after
+    content: ''

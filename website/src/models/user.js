@@ -32,8 +32,10 @@ var UserSchema = new Schema({
   _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
-    helpedHabit: Boolean,
-    ultimateGear: Boolean,
+    helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
+    habitSurveys: Number,
+    ultimateGear: Boolean, //TODO: Deprecate this. Superseded by ultimateGearSets
+    ultimateGearSets: Schema.Types.Mixed,
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,
@@ -43,6 +45,7 @@ var UserSchema = new Schema({
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
+    shinySeed: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -118,6 +121,21 @@ var UserSchema = new Schema({
   flags: {
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
+    tour: {
+      // -1 indicates "uninitiated", -2 means "complete", any other number is the current tour step (0-index)
+      intro: {type: Number,       'default': -1},
+      classes: {type: Number,     'default': -1},
+      stats: {type: Number,       'default': -1},
+      tavern: {type: Number,      'default': -1},
+      party: {type: Number,       'default': -1},
+      guilds: {type: Number,      'default': -1},
+      challenges: {type: Number,  'default': -1},
+      market: {type: Number,      'default': -1},
+      pets: {type: Number,        'default': -1},
+      mounts: {type: Number,      'default': -1},
+      hall: {type: Number,        'default': -1},
+      equipment: {type: Number,   'default': -1}
+    },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
@@ -133,7 +151,16 @@ var UserSchema = new Schema({
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {type: Number, 'default': 0},
-    communityGuidelinesAccepted: {type: Boolean, 'default': false}
+    // Needed to track the tip to send inside the email
+    weeklyRecapEmailsPhase: {type: Number, 'default': 0},
+    // Used to track when the next weekly recap should be sent
+    lastWeeklyRecap: {type: Date, 'default': Date.now},
+    communityGuidelinesAccepted: {type: Boolean, 'default': false},
+    cronCount: {type:Number, 'default':0},
+    welcomed: {type: Boolean, 'default': false},
+    armoireEnabled: {type: Boolean, 'default': false},
+    armoireOpened: {type: Boolean, 'default': false},
+    armoireEmpty: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -149,12 +176,12 @@ var UserSchema = new Schema({
     gear: {
       owned: _.transform(shared.content.gear.flat, function(m,v,k){
         m[v.key] = {type: Boolean};
-        if (v.key.match(/[weapon|armor|head|shield]_warrior_0/))
+        if (v.key.match(/[armor|head|shield]_warrior_0/))
           m[v.key]['default'] = true;
       }),
 
       equipped: {
-        weapon: {type: String, 'default': 'weapon_warrior_0'},
+        weapon: String,
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
@@ -164,7 +191,7 @@ var UserSchema = new Schema({
         body: String
       },
       costume: {
-        weapon: {type: String, 'default': 'weapon_base_0'},
+        weapon: String,
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'},
@@ -172,12 +199,13 @@ var UserSchema = new Schema({
         headAccessory: String,
         eyewear: String,
         body: String
-      },
+      }
     },
 
     special:{
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
+      shinySeed: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
@@ -297,12 +325,14 @@ var UserSchema = new Schema({
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
+    displayInviteToPartyWhenPartyIs1: { type:Boolean, 'default':true},
     webhooks: {type: Schema.Types.Mixed, 'default': {}},
     // For this fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
     emailNotifications: {
       unsubscribeFromAll: {type: Boolean, 'default': false},
       newPM: {type: Boolean, 'default': true},
+      kickedGroup: {type: Boolean, 'default': true},
       wonChallenge: {type: Boolean, 'default': true},
       giftedGems: {type: Boolean, 'default': true},
       giftedSubscription: {type: Boolean, 'default': true},
@@ -312,7 +342,8 @@ var UserSchema = new Schema({
       invitedQuest: {type: Boolean, 'default': true},
       //remindersToLogin: {type: Boolean, 'default': true},
       // Those importantAnnouncements are in fact the recapture emails
-      importantAnnouncements: {type: Boolean, 'default': true}
+      importantAnnouncements: {type: Boolean, 'default': true},
+      weeklyRecaps: {type: Boolean, 'default': true}
     }
   },
   profile: {
@@ -342,7 +373,8 @@ var UserSchema = new Schema({
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false},
-      spookDust: {type: Boolean, 'default': false}
+      spookDust: {type: Boolean, 'default': false},
+      shinySeed: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},
@@ -373,7 +405,12 @@ var UserSchema = new Schema({
   todos:    {type:[TaskSchemas.TodoSchema]},
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
-  extra: Schema.Types.Mixed
+  extra: Schema.Types.Mixed,
+
+  pushDevices: {type: [{
+    regId: {type: String},
+    type: {type: String}
+  }],'default': []}
 
 }, {
   strict: true,
@@ -422,7 +459,9 @@ UserSchema.pre('save', function(next) {
           newTask.name = newTask.name(self.preferences.language);
         }else{
           newTask.text = newTask.text(self.preferences.language);
-          newTask.notes = newTask.notes(self.preferences.language);
+          if(newTask.notes) {
+            newTask.notes = newTask.notes(self.preferences.language);
+          }
 
           if(newTask.checklist){
             newTask.checklist = _.map(newTask.checklist, function(checklistItem){

@@ -1,5 +1,21 @@
 "use strict";
 
+/* Refresh page if idle > 6h */
+var REFRESH_FREQUENCY = 21600000;
+var refresh;
+var refresher = function() {
+  window.location.reload(true);
+};
+
+var awaitIdle = function() {
+  if(refresh) clearTimeout(refresh);
+  refresh = setTimeout(refresher, REFRESH_FREQUENCY);
+};
+
+awaitIdle();
+$(document).on('mousemove keydown mousedown touchstart', awaitIdle);
+/* Refresh page if idle > 6h */
+
 window.habitrpg = angular.module('habitrpg',
     ['ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'infinite-scroll', 'ui.select2', 'angular.filter', 'ngResource', 'ngSanitize'])
 
@@ -140,8 +156,19 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: 'partials/options.social.challenges.detail.html',
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
+
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
                 $scope.challenge._locked = true;
+              });
+            }]
+        })
+        .state('options.social.challenges.edit', {
+          url: '/:cid/edit',
+          templateUrl: 'partials/options.social.challenges.detail.html',
+          controller: ['$scope', 'Challenges', '$stateParams',
+            function($scope, Challenges, $stateParams){
+              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
+                $scope.challenge._locked = false;
               });
             }]
         })
@@ -205,9 +232,9 @@ window.habitrpg = angular.module('habitrpg',
           url: "/export",
           templateUrl: "partials/options.settings.export.html"
         })
-        .state('options.settings.coupon', {
-          url: "/coupon",
-          templateUrl: "partials/options.settings.coupon.html"
+        .state('options.settings.promo', {
+          url: "/promo",
+          templateUrl: "partials/options.settings.promo.html"
         })
         .state('options.settings.subscription', {
           url: "/subscription",

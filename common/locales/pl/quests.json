@@ -6,6 +6,8 @@
     "questSend": "Naciśnięcie \"Zaproś\" wyśle zaproszenie do członków twojej drużyny. Gdy już wszyscy członkowie zaakceptują lub odrzucą zaproszenie, misja zostanie rozpoczęta. Możesz zobaczyć jej status pod Opcje > Społeczne > Drużyna.",
     "inviteParty": "Zaproś drużynę",
     "questInvitation": "Zaproszenie do misji:",
+    "questInvitationTitle": "Zaproszenie do misji",
+    "questInvitationInfo": "Zaproszenie do misji <%= quest %>",
     "askLater": "Zapytaj później",
     "buyQuest": "Kup misję",
     "accepted": "Zaakceptowano",
@@ -17,7 +19,7 @@
     "bossStrength": "Siła bossa",
     "collect": "Zebrano",
     "collected": "Zebrano",
-    "bossDmg1": "Aby zranić bossa, wykonuj swoje Codzienne oraz Do-Zrobienia. Wyższe obrażenia zadań oznaczają wyższe obrażenia wobec bossa (wypełnianie czerwonych zadań, zaklęcia Maga, ataki Wojownika itd). Boss zada obrażenia każdemu, kto bierze udział w misji, za każde Codzienne, które pominiesz (pomnożone przez siłę bossa), więc utrzymuj swoją drużynę w zdrowiu przez wypełnianie swoich Codziennych! <strong>Wszystkie obrażenia zadane bossowi i przez niego, będą podsumowane przy cronie (zmianie Twojego dnia).</strong>",
+    "bossDmg1": "Każde zakończone Codzienne i Do-Zrobienia oraz każdy pozytywny Nawyk rani bossa. Zrań go bardziej czerwieńszymi zadaniami lub Brutalnym uderzeniem i Eksplozją płomieni. Boss zada obrażenia każdemu uczestnikowi misji za każde pominięte Codzienne (pomnożone przez siłę bossa) jako dodatek do standardowych obrażeń, więc utrzymuj swoją drużynę w zdrowiu przez wypełnianie swoich Codziennych! <strong>Wszystkie obrażenia zadane bossowi i przez niego będą podsumowane przez crona (twoje przejście do następnego dnia).</strong>",
     "bossDmg2": "Tylko uczestnicy będą mogli walczyć z bossem i brać udział w podziale łupów.",
     "tavernBossInfo": "Aby zranić światowego bossa, wykonuj swoje Codzienne oraz Do-Zrobienia. Wyższe obrażenia od zadań oznaczają wyższe obrażenia zadane bossowi (wypełnianie czerwonych zadań, zaklęcia Czarodzieja, ataki Wojownika, itd). Za każdy Codzienny obowiązek, który pominiesz (pomnożony przez Siłę bossa), jego Furia wzrośnie. Kiedy Furia osiągnie maksimum, stanie się coś złego ­– więc wypełniaj swoje Codzienne! <strong>Wszystkie obrażenia zadane bossowi i przez niego, będą podsumowane przy cronie (podczas zmiany twojego dnia).</strong>",
     "bossColl1": "Aby zbierać przedmioty, wykonuj pozytywne zadania. Przedmioty misyjne znajdujesz tak samo jak zwykłe, jednakże nie zobaczysz łupów aż do końca dnia – wtedy to wszystkie przedmioty zostaną wyszczególnione i dodane do sterty.",
@@ -28,6 +30,7 @@
     "questOwnerNotInRunningQuest": "Właściciel misji opuścił misję. Możesz ją porzucić, jeśli chcesz. Możesz ją także kontynować, a wszyscy uczestnicy, którzy zostaną, otrzymają nagrody misji po jej ukończeniu.",
     "questOwnerNotInPendingQuestParty": "Właściciel misji opuścił drużynę i nie może już rozpocząć misji. Zaleca się jej anulowanie jej. Zwój misji zostanie zwrócony właścicielowi.",
     "questOwnerNotInRunningQuestParty": "Właściciel misji opuścił drużynę. Możecie porzucić misję, jeśli musicie, ale możecie też ją kontynuować; wszyscy pozostali uczestnicy otrzymają nagrody misji po jej ukończeniu.",
+    "questParticipants": "Uczestnicy",
     "scrolls": "Zwoje misji",
     "noScrolls": "Nie masz żadnych zwojów misji.",
     "scrollsText1": "Do wykonania misji potrzebna jest drużyna. Jeśli chcesz je wykonywać w pojedynkę,",
@@ -42,5 +45,5 @@
     "doubleSureAbort": "Czy jesteś pewien? Drużyna się na Ciebie nie obrazi?",
     "questWarning": "Jeśli nowi gracze dołączą do drużyny zanim rozpocznie się misja, również dostaną zaproszenie do niej. Jednakże kiedy już misja się zacznie, żadni nowi członkowie drużyny nie będą mogli  dołączyć do misji.",
     "bossRageTitle": "Furia",
-    "bossRageDescription": "Kiedy wypełni się ten pasek, boss wykona specjalny atak."
+    "bossRageDescription": "Gdy pasek się zapełni, boss wykona atak specjalny!"
 }

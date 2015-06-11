@@ -1,17 +1,36 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams) {
+
+    // Use presence of cid to determine whether to show a list or a single
+    // challenge
+    $scope.cid = $state.params.cid;
+
+    // Fetch single challenge if a cid is present; fetch multiple challenges
+    // otherwise
+    var getChallenges = function() {
+      if ($scope.cid) {
+        Challenges.Challenge.get({cid: $scope.cid}, function(challenge) {
+          $scope.challenges = [challenge];
+        });
+      } else {
+        Challenges.Challenge.query(function(challenges){
+          $scope.challenges = challenges;
+          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
+          $scope.search = {
+            group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
+          };
+        });
+      }
+    };
+
+    getChallenges();
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
-    Challenges.Challenge.query(function(challenges){
-      $scope.challenges = challenges;
-      $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-      $scope.search = {
-        group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
-      };
-    });
+
+
     // we should fix this, that's pretty brittle
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
@@ -21,10 +40,36 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // Challenge
     //------------------------------------------------------------
 
+    // Use this to force the top view to change, not just the nested view.
+    $scope.edit = function(challenge) {
+      $state.transitionTo('options.social.challenges.edit', {cid: challenge._id}, {
+        reload: true, inherit: false, notify: true
+      });
+    };
+
     /**
      * Create
      */
     $scope.create = function() {
+
+      //If the user has one filter selected, assume that the user wants to default to that group
+      var defaultGroup;
+      //Our filters contain all groups, but we only want groups that have atleast one challenge
+      var groupsWithChallenges = _.uniq(_.pluck($scope.groupsFilter, '_id'));
+      var len = groupsWithChallenges.length;
+      var filterCount = 0;
+
+      for ( var i = 0; i < len; i += 1 ) {
+        if ( $scope.search.group[groupsWithChallenges[i]] == true ) {
+          filterCount += 1;
+          defaultGroup = groupsWithChallenges[i];
+        }
+        if (filterCount > 1) {
+          defaultGroup = $scope.groups[0]._id
+          break;
+        }
+      }
+
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: '',
         description: '',
@@ -33,7 +78,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         todos: [],
         rewards: [],
         leader: User.user._id,
-        group: $scope.groups[0]._id,
+        group: defaultGroup,
         timestamp: +(new Date),
         members: [],
         official: false
@@ -49,14 +94,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       challenge.$save(function(_challenge){
         if (isNew) {
           Notification.text(window.env.t('challengeCreated'));
-          $state.go('options.social.challenges.detail', {cid: _challenge._id});
-          $scope.discard();
-          $scope.challenges = Challenges.Challenge.query();
+          $state.transitionTo('options.social.challenges.detail', {cid: challenge._id}, {
+            reload: true, inherit: false, notify: true
+          });
           User.sync();
         } else {
-          // TODO figure out a more elegant way about this
-          //challenge._editing = false;
-          challenge._locked = true;
+          $state.transitionTo('options.social.challenges.detail', {cid: challenge._id}, {
+            reload: true, inherit: false, notify: true
+          });
         }
       });
     };
@@ -75,23 +120,32 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      */
     function backToChallenges(){
       $scope.popoverEl.popover('destroy');
+      $scope.cid = null;
       $state.go('options.social.challenges');
       $scope.challenges = Challenges.Challenge.query();
       User.log({});
     }
-    $scope.cancelClosing = function() {
+    $scope.cancelClosing = function(challenge) {
       $scope.popoverEl.popover('destroy');
       $scope.popoverEl = undefined;
       $scope.closingChal = undefined;
+      challenge.winner = undefined;
     }
     $scope["delete"] = function(challenge) {
-      if (!confirm(window.env.t('sureDelCha'))) return;
+      var warningMsg;
+      if(challenge.group._id == 'habitrpg') {
+        warningMsg = window.env.t('sureDelChaTavern');
+      } else {
+        warningMsg = window.env.t('sureDelCha');
+      }
+      if (!confirm(warningMsg)) return;
       challenge.$delete(function(){
         $scope.popoverEl.popover('destroy');
         backToChallenges();
       });
     };
     $scope.selectWinner = function(challenge) {
+      if (!challenge.winner) return;
       if (!confirm(window.env.t('youSure'))) return;
       challenge.$close({uid:challenge.winner}, function(){
         $scope.popoverEl.popover('destroy');
@@ -139,11 +193,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       delete listDef.newTask;
     };
 
-    $scope.removeTask = function(list, $index) {
+    $scope.removeTask = function(task, list) {
       if (!confirm(window.env.t('sureDelete'))) return;
       //TODO persist
       // User.log({op: "delTask", data: task});
-      list.splice($index, 1);
+      _.remove(list, task);
     };
 
     $scope.saveTask = function(task){
@@ -159,7 +213,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.join = function(challenge){
       challenge.$join(function(){
-        $scope.challenges = Challenges.Challenge.query();
+        getChallenges()
         User.log({});
       });
 
@@ -170,7 +224,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         $scope.selectedChal = undefined;
       } else {
         $scope.selectedChal.$leave({keep:keep}, function(){
-          $scope.challenges = Challenges.Challenge.query();
+          getChallenges()
           User.log({});
         });
       }

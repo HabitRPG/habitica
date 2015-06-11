@@ -12,14 +12,17 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'website/public/bower_components/jquery/dist/jquery.js',
+      'website/public/bower_components/pnotify/jquery.pnotify.js',
       'website/public/bower_components/angular/angular.js',
       'website/public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'website/public/bower_components/angular-resource/angular-resource.min.js',
+      'website/public/bower_components/hello/dist/hello.all.min.js',
       'website/public/bower_components/angular-sanitize/angular-sanitize.js',
       'website/public/bower_components/bootstrap/dist/js/bootstrap.js',
       'website/public/bower_components/angular-bootstrap/ui-bootstrap.js',
       'website/public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'website/public/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'website/public/bower_components/angular-filter/dist/angular-filter.js',
       'website/public/bower_components/angular-ui/build/angular-ui.js',
       'website/public/bower_components/angular-ui-utils/ui-utils.min.js',
       'website/public/bower_components/Angular-At-Directive/src/at.js',
@@ -31,12 +34,51 @@ module.exports = function(config) {
       'website/public/bower_components/marked/lib/marked.js',
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
-      'common/script/public/userServices.js',
-      'website/public/js/*.js',
-      'website/public/js/**/*.js',
-      // @TODO where did this directory go?
-      //'test/mock/**/*.js',
-      'test/spec/*.js',
+
+      "test/spec/translations.js",
+
+      "website/public/js/env.js",
+
+      "website/public/js/app.js",
+      "common/script/public/config.js",
+      "website/public/js/services/sharedServices.js",
+      "website/public/js/services/notificationServices.js",
+      "common/script/public/userServices.js",
+      "common/script/public/directives.js",
+      "website/public/js/services/groupServices.js",
+      "website/public/js/services/memberServices.js",
+      "website/public/js/services/guideServices.js",
+      "website/public/js/services/challengeServices.js",
+      "website/public/js/services/paymentServices.js",
+
+      "website/public/js/filters/filters.js",
+
+      "website/public/js/directives/focus-me.directive.js",
+      "website/public/js/directives/from-now.directive.js",
+      "website/public/js/directives/habitrpg-tasks.directive.js",
+      "website/public/js/directives/hrpg-sort-checklist.directive.js",
+      "website/public/js/directives/hrpg-sort-tags.directive.js",
+      "website/public/js/directives/hrpg-sort-tasks.directive.js",
+      "website/public/js/directives/popover-html-popup.directive.js",
+      "website/public/js/directives/popover-html.directive.js",
+      "website/public/js/directives/task-focus.directive.js",
+      "website/public/js/directives/when-scrolled.directive.js",
+
+      "website/public/js/controllers/authCtrl.js",
+      "website/public/js/controllers/notificationCtrl.js",
+      "website/public/js/controllers/rootCtrl.js",
+      "website/public/js/controllers/settingsCtrl.js",
+      "website/public/js/controllers/headerCtrl.js",
+      "website/public/js/controllers/tasksCtrl.js",
+      "website/public/js/controllers/filtersCtrl.js",
+      "website/public/js/controllers/userCtrl.js",
+      "website/public/js/controllers/groupsCtrl.js",
+      "website/public/js/controllers/inventoryCtrl.js",
+      "website/public/js/controllers/footerCtrl.js",
+      "website/public/js/controllers/challengesCtrl.js",
+      "website/public/js/controllers/hallCtrl.js",
+      'test/spec/mock/**/*.js',
+      'test/spec/specHelper.js',
       'test/spec/**/*.js'
     ],
 
@@ -63,8 +105,19 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Firefox'],
+    browsers: ['PhantomJS'],
 
+    preprocessors: {
+      'website/public/js/**/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+      type: 'lcov',
+      dir:  'coverage/karma'
+    },
+
+    // Enable mocha-style reporting, for better test visibility
+    reporters:  ['mocha', 'coverage'],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

@@ -7,7 +7,7 @@ mixin petList(source)
             - pet = egg.key+"-"+potion.key
             div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
               button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
-                .progress(ng-show='!user.items.mounts["#{pet}"] && "#{egg.key}"!="Egg"')
+                .progress(ng-show='!user.items.mounts["#{pet}"]')
                   .progress-bar.progress-bar-success(style='width:{{user.items.pets["#{pet}"]/.5}}%')
               button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
                 .PixelPaw
@@ -24,7 +24,7 @@ mixin mountList(source)
               div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
                 button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
                   //div(class='Mount_Head_{{mount}}')
-                button(class="pet-button pet-not-owned", ng-hide='user.items.mounts["#{mount}"]')
+                button(class="pet-button mount-not-owned", ng-hide='user.items.mounts["#{mount}"]')
                   .PixelPaw
       -}
 

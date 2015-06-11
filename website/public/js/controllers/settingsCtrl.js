@@ -20,7 +20,7 @@ habitrpg.controller('SettingsCtrl',
     var mapPrefToEmailString = {
       'importantAnnouncements': 'inactivityEmails'
     };
-    
+
     // If ?unsubFrom param is passed with valid email type,
     // automatically unsubscribe users from that email and
     // show an alert
@@ -34,7 +34,7 @@ habitrpg.controller('SettingsCtrl',
         Notification.text(env.t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
         $location.search({});
       }
-    }, 500);
+    }, 1000);
 
     $scope.hideHeader = function(){
       User.set({"preferences.hideHeader":!User.user.preferences.hideHeader})
@@ -42,7 +42,7 @@ habitrpg.controller('SettingsCtrl',
         User.set({"preferences.stickyHeader":false});
         $rootScope.$on('userSynced', function(){
           window.location.reload();
-        });           
+        });
       }
     }
 
@@ -55,12 +55,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.showTour = function(){
       User.set({'flags.showTour':true});
-      $location.path('/tasks');
-      $timeout(Guide.initTour);
+      Guide.goto('intro', 0, true);
     }
 
     $scope.showClassesTour = function(){
-      Guide.classesTour();
+      Guide.goto('classes', 0, true);
     }
 
     $scope.showBailey = function(){
@@ -145,7 +144,7 @@ habitrpg.controller('SettingsCtrl',
       $http.post(ApiUrl.get() + '/api/v2/user/coupon/' + code).success(function(res,code){
         if (code!==200) return;
         User.sync();
-        Notification.text('Coupon applied! Check your inventory');
+        Notification.text(env.t('promoCodeApplied'));
       });
     }
     $scope.generateCodes = function(codes){

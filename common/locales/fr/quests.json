@@ -6,6 +6,8 @@
     "questSend": "Cliquer sur \"Inviter\" enverra une invitation aux membres de votre équipe. Quand tous les membres auront accepté ou refusé, la quête commencera. Voir l'avancement dans Options > Social > Équipe.",
     "inviteParty": "Inviter l'équipe",
     "questInvitation": "Invitation à une Quête :",
+    "questInvitationTitle": "Invitation à une Quête",
+    "questInvitationInfo": "Invitation à la Quête <%= quest %>",
     "askLater": "Redemander plus tard",
     "buyQuest": "Acheter une quête",
     "accepted": "Acceptée",
@@ -17,7 +19,7 @@
     "bossStrength": "Force du Boss",
     "collect": "Collecter",
     "collected": "Récolté",
-    "bossDmg1": "Pour blesser un boss, complétez vos tâches Quotidiennes et À faire. Plus la tâche aura un niveau élevé, plus elle blessera le boss (compléter les tâches rouges, lancer des sorts de Mage, des attaques de Guerrier, etc). Le boss causera des dommages à chacun des participants de la quête pour chaque Quotidienne que vous aurez manquée (multiplié par la Force du boss) en plus des dommages normaux, alors, protégez vos amis en complétant vos Quotidiennes ! <strong>Tous les dommages causés par vous et par le boss sont pris en compte au cron (à la réinitialisation de votre journée).</strong>",
+    "bossDmg1": "Chaque tâche Quotidienne ou À Faire et chaque Habitude  positive inflige des dommages au boss. Frappez plus fort avec des tâches plus rouges ou avec les sorts Frappe Brutale et Eplosion de Flammes. Le boss infligera des dommages à chacun des participants de la quête pour chaque Quotidienne que vous aurez manquée (multipliés par la Force du boss) en plus des dommages normaux. Alors protégez votre équipe en effectuant vos Quotidiennes! <strong>Tout dommage causé par vous et par le boss est pris en compte au cron (la réinitialisation de votre journée).</strong>",
     "bossDmg2": "Seuls les participants pourront combattre le boss et partager le butin de la quête.",
     "tavernBossInfo": "Pour blesser un boss mondial, complétez vos tâches Quotidiennes et À faire. Plus vous infligez de dommages à une tâche, plus vous en infligerez au boss en conséquence (tâches rouges, sorts de Mage, attaques de Guerrier, etc). Pour chaque Quotidienne que vous avez manqué (multiplié par la Force du boss), la barre de Rage du boss augmentera. Lorsque sa Rage atteindra son maximum, quelque chose de terrible arrivera, donc complétez vos Quotidiennes ! <strong>Tous les dommages infligés au boss et par lui seront pris en compte au cron (le passage d'une journée à l'autre).</strong>",
     "bossColl1": "Pour obtenir des objets, accomplissez vos tâches positives. Vous trouvez les objets de quêtes de la même façon que vous trouvez les objets normaux mais vous ne les verrez que le jour suivant. À ce moment, tous les objets de quêtes que vous aurez trouvés seront comptabilisés et s'ajouteront à la pile.",
@@ -28,6 +30,7 @@
     "questOwnerNotInRunningQuest": "Le lanceur de quête a quitté la quête. Vous pouvez abandonner la quête si vous le désirez, mais vous pouvez aussi décider de la poursuivre, et tous les participants recevront les récompenses de quête lorsque celle-ci sera terminée.",
     "questOwnerNotInPendingQuestParty": "Le lanceur de quête a quitté le groupe et ne peut plus lancer la quête. Il vous est recommandé d'abandonner celle-ci. Le lanceur de quête reprendra possession du parchemin de quête.",
     "questOwnerNotInRunningQuestParty": "Le lanceur de quête a quitté le groupe. Vous pouvez abandonner la quête si vous le désirez, mais vous pouvez aussi décider de la poursuivre, et tous les participants recevront les récompenses de quête lorsque celle-ci sera terminée.",
+    "questParticipants": "Participants",
     "scrolls": "Parchemins de quête",
     "noScrolls": "Vous n'avez pas de parchemin de quête.",
     "scrollsText1": "Pour effectuer une quête, vous avez besoin d'une équipe. Si vous voulez faire une quête en solo,",
@@ -42,5 +45,5 @@
     "doubleSureAbort": "Êtes-vous sûr(e) et certain(e) ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",
     "questWarning": "Si de nouveaux joueurs rejoignent le groupe avant que la quête ne soit lancée, il recevront également une invitation. Cependant, une fois la quête débutée aucun nouveau membre du groupe ne pourra rejoindre celle-ci.",
     "bossRageTitle": "Rage",
-    "bossRageDescription": "Une fois cette jauge pleine, le boss lancera une attaque spéciale"
+    "bossRageDescription": "Quand cette jauge sera remplie, le boss réalisera une attaque spéciale !"
 }

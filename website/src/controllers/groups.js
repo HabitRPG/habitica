@@ -12,8 +12,10 @@ var shared = require('../../../common');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var EmailUnsubscription = require('./../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
+var pushNotify = require('./pushNotifications');
 
 /*
   ------------------------------------------------------------------------
@@ -30,7 +32,7 @@ var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} }
  * limited fields - and only a sampling of the members, beacuse they can be in the thousands
  * @param type: 'party' or otherwise
  * @param q: the Mongoose query we're building up
- * @param additionalFields: if we want to populate some additional field not fetched normally 
+ * @param additionalFields: if we want to populate some additional field not fetched normally
  *        pass it as a string, parties only
  */
 var populateQuery = function(type, q, additionalFields){
@@ -38,6 +40,7 @@ var populateQuery = function(type, q, additionalFields){
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
   else
     q.populate(guildPopulate);
+  q.populate('leader', nameFields);
   q.populate('invites', nameFields);
   q.populate({
     path: 'challenges',
@@ -135,8 +138,36 @@ api.get = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
-    res.json(group);
+    if(!group){
+      if(gid !== 'party') return res.json(404,{err: "Group not found or you don't have access."});
+
+      // Don't send a 404 when querying for a party even if it doesn't exist
+      // so that users with no party don't get a 404 on every access to the site
+      return res.json(group);
+    }
+    //Since we have a limit on how many members are populate to the group, we want to make sure the user is always in the group
+    var userInGroup = _.find(group.members, function(member){ return member._id == user._id; });
+    //If the group is private or the group is a party, then the user must be a member of the group based on access restrictions above
+    if (group.privacy === 'private' || gid === 'party') {
+      //If the user is not in the group query, remove a user and add the current user
+      if (!userInGroup) {
+        group.members.splice(0,1);
+        group.members.push(user);
+      }
+      res.json(group);
+    } else if ( group.privacy === "public" ) { //The group is public, we must do an extra check to see if the user is already in the group query
+      //We must see how to check if a user is a member of a public group, so we requery
+      var q2 = Group.findOne({ _id: group._id, privacy:'public', members: {$in:[user._id]} });
+      q2.exec(function(err, group2){
+        if (err) return next(err);
+        if (group2 && !userInGroup) {
+          group.members.splice(0,1);
+          group.members.push(user);
+        }
+        res.json(group);
+      });
+    }
+
     gid = null;
   });
 };
@@ -236,24 +267,28 @@ api.getChat = function(req, res, next) {
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
 api.postChat = function(req, res, next) {
-  var user = res.locals.user
-  var group = res.locals.group;
-  if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
-  var lastClientMsg = req.query.previousMsg;
-  var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
+  if(!req.query.message) {
+    return res.json(400,{err:'You cannot send a blank message'});
+  } else {
+    var user = res.locals.user
+    var group = res.locals.group;
+    if (group.type!='party' && user.flags.chatRevoked) return res.json(401,{err:'Your chat privileges have been revoked.'});
+    var lastClientMsg = req.query.previousMsg;
+    var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-  group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
+    group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
 
-  if (group.type === 'party') {
-    user.party.lastMessageSeen = group.chat[0].id;
-    user.save();
+    if (group.type === 'party') {
+      user.party.lastMessageSeen = group.chat[0].id;
+      user.save();
+    }
+
+    group.save(function(err, saved){
+      if (err) return next(err);
+      return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+      group = chatUpdated = null;
+    });
   }
-
-  group.save(function(err, saved){
-    if (err) return next(err);
-    return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
-    group = chatUpdated = null;
-  });
 }
 
 api.deleteChatMessage = function(req, res, next){
@@ -304,8 +339,9 @@ api.flagChatMessage = function(req, res, next){
     group.markModified('chat');
     group.save(function(err,_saved){
       if(err) return next(err);
-        var addressesToSendTo = JSON.parse(nconf.get('FLAG_REPORT_EMAIL'));
-        
+        var addressesToSendTo = nconf.get('FLAG_REPORT_EMAIL');
+        addressesToSendTo = (typeof addressesToSendTo == 'string') ? JSON.parse(addressesToSendTo) : addressesToSendTo;
+
         if(Array.isArray(addressesToSendTo)){
           addressesToSendTo = addressesToSendTo.map(function(email){
             return {email: email, canSend: true}
@@ -321,17 +357,17 @@ api.flagChatMessage = function(req, res, next){
           {name: "REPORTER_USERNAME", content: user.profile.name},
           {name: "REPORTER_UUID", content: user._id},
           {name: "REPORTER_EMAIL", content: user.auth.local ? user.auth.local.email : ((user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0]) ? user.auth.facebook.emails[0].value : null)},
-          {name: "REPORTER_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + user._id},
+          {name: "REPORTER_MODAL_URL", content: "/static/front/#?memberId=" + user._id},
 
           {name: "AUTHOR_USERNAME", content: message.user},
           {name: "AUTHOR_UUID", content: message.uuid},
           {name: "AUTHOR_EMAIL", content: author.auth.local ? author.auth.local.email : ((author.auth.facebook && author.auth.facebook.emails && author.auth.facebook.emails[0]) ? author.auth.facebook.emails[0].value : null)},
-          {name: "AUTHOR_MODAL_URL", content: "https://habitrpg.com/static/front/#?memberId=" + message.uuid},
+          {name: "AUTHOR_MODAL_URL", content: "/static/front/#?memberId=" + message.uuid},
 
           {name: "GROUP_NAME", content: group.name},
           {name: "GROUP_TYPE", content: group.type},
           {name: "GROUP_ID", content: group._id},
-          {name: "GROUP_URL", content: group._id == 'habitrpg' ? (nconf.get('BASE_URL') + '/#/options/groups/tavern') : (group.type === 'guild' ? (nconf.get('BASE_URL')+ '/#/options/groups/guilds/' + group._id) : 'party')},
+          {name: "GROUP_URL", content: group._id == 'habitrpg' ? '/#/options/groups/tavern' : (group.type === 'guild' ? ('/#/options/groups/guilds/' + group._id) : 'party')},
         ]);
 
       return res.send(204);
@@ -358,7 +394,7 @@ api.clearFlagCount = function(req, res, next){
   }else{
     return res.json(401, {err: "Only an admin can clear the flag count!"})
   }
-  
+
 }
 
 api.seenMessage = function(req,res,next){
@@ -393,7 +429,8 @@ api.likeChatMessage = function(req, res, next) {
 
 api.join = function(req, res, next) {
   var user = res.locals.user,
-    group = res.locals.group;
+    group = res.locals.group,
+    isUserInvited = false;
 
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     User.update({_id:user.invitations.party.inviter}, {$inc:{'items.quests.basilist':1}}).exec(); // Reward inviter
@@ -404,16 +441,25 @@ api.join = function(req, res, next) {
       group.quest.members[user._id] = undefined;
       group.markModified('quest.members');
     }
-  }
-  else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+    isUserInvited = true;
+  } else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
-    if (~i) user.invitations.guilds.splice(i,1);
-    user.save();
+    if (~i){
+      isUserInvited = true;
+      user.invitations.guilds.splice(i,1);
+      user.save();
+    }else{
+      isUserInvited = group.privacy === 'private' ? false : true;
+    }
   }
+
+  if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
     group.members.push(user._id);
-    group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    if (group.invites.length > 0) {
+     group.invites.splice(_.indexOf(group.invites, user._id), 1);
+    }
   }
 
   async.series([
@@ -425,7 +471,6 @@ api.join = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return next(err);
-
     // Return the group? Or not?
     res.json(results[1]);
     group = null;
@@ -535,9 +580,13 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
       function sendInvite (){
         if(group.type === 'guild'){
           invite.invitations.guilds.push({id: group._id, name: group.name, inviter:res.locals.user._id});
+
+          pushNotify.sendNotify(invite, shared.i18n.t('invitedGuild'), group.name);
         }else{
           //req.body.type in 'guild', 'party'
           invite.invitations.party = {id: group._id, name: group.name, inviter:res.locals.user._id};
+
+          pushNotify.sendNotify(invite, shared.i18n.t('invitedParty'), group.name);
         }
 
         group.invites.push(invite._id);
@@ -562,12 +611,12 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
             if(group.type == 'guild'){
               emailVars.push(
                 {name: 'GUILD_NAME', content: group.name},
-                {name: 'GUILD_URL', content: nconf.get('BASE_URL') + '/#/options/groups/guilds/public'}
+                {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
               );
             }else{
               emailVars.push(
                 {name: 'PARTY_NAME', content: group.name},
-                {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
+                {name: 'PARTY_URL', content: '/#/options/groups/party'}
               )
             }
 
@@ -577,7 +626,7 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           cb();
         });
       }
-    });    
+    });
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
@@ -609,7 +658,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
-          var link = nconf.get('BASE_URL')+'?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
+          var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
           var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
           var variables = [
@@ -623,10 +672,15 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // TODO implement "users can only be invited once"
-          invite.canSend = true; // Requested by utils.txnEmail
-          utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+          // Check for the email address not to be unsubscribed
+          EmailUnsubscription.findOne({email: invite.email}, function(err, unsubscribed){
+            if(err) return cb(err);
+            if(unsubscribed) return cb();
 
-          cb();
+            utils.txnEmail(invite, ('invite-friend' + (group.type == 'guild' ? '-guild' : '')), variables);
+
+            cb();
+          });
         });
     }else{
       cb();
@@ -638,7 +692,7 @@ var inviteByEmails = function(invites, group, req, res, next){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
     }else{
 
-      // Send only status code down the line because it doesn't need 
+      // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
       res.send(200);
     }
@@ -660,7 +714,20 @@ api.invite = function(req, res, next){
 api.removeMember = function(req, res, next){
   var group = res.locals.group;
   var uuid = req.query.uuid;
+  var message = req.query.message;
   var user = res.locals.user;
+
+  // Send an email to the removed user with an optional message from the leader
+  var sendMessage = function(removedUser){
+    if(removedUser.preferences.emailNotifications.kickedGroup !== false){
+      utils.txnEmail(removedUser, ('kicked-from-' + group.type), [
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'MESSAGE', content: message},
+        {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
+        {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'}
+      ]);
+    }
+  }
 
   if(group.leader !== user._id){
     return res.json(401, {err: "Only group leader can remove a member!"});
@@ -678,12 +745,21 @@ api.removeMember = function(req, res, next){
     Group.update({_id:group._id},update, function(err, saved){
       if (err) return next(err);
 
-      // Sending an empty 204 because Group.update doesn't return the group
-      // see http://mongoosejs.com/docs/api.html#model_Model.update
-      return res.send(204);
+      User.findById(uuid, function(err, removedUser){
+        if(err) return next(err);
+
+        sendMessage(removedUser);
+
+        // Sending an empty 204 because Group.update doesn't return the group
+        // see http://mongoosejs.com/docs/api.html#model_Model.update
+        group = uuid = null;
+        return res.send(204);
+      });
     });
   }else if(_.contains(group.invites, uuid)){
     User.findById(uuid, function(err,invited){
+      if(err) return next(err);
+
       var invitations = invited.invitations;
       if(group.type === 'guild'){
         invitations.guilds.splice(_.indexOf(invitations.guilds, group._id), 1);
@@ -703,8 +779,9 @@ api.removeMember = function(req, res, next){
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
-        return res.send(204);
+        sendMessage(invited);
         group = uuid = null;
+        return res.send(204);
       });
 
     });
@@ -755,13 +832,18 @@ questStart = function(req, res, next) {
       updates['$set']['party.quest.progress.collect'] = collected;
       updates['$set']['party.quest.completed'] = null;
       questMembers[m] = true;
+
+      User.findOne({_id: m}, {pushDevices: 1}, function(err, user){
+        pushNotify.sendNotify(user, "HabitRPG", shared.i18n.t('questStarted') + ": "+ quest.text() );
+      });
     } else {
       updates['$set']['party.quest'] = Group.cleanQuestProgress();
     }
+
     parallel.push(function(cb2){
       User.update({_id:m},updates,cb2);
     });
-  })
+  });
 
   group.quest.active = true;
   if (quest.boss) {
@@ -787,19 +869,22 @@ questStart = function(req, res, next) {
 
     groupClone.members = results[lastIndex].members;
 
-    // Send quest started email and remove auth information
+    // Send quest started email
+    var usersToEmail = groupClone.members.filter(function(user){
+      return (
+        user.preferences.emailNotifications.questStarted !== false &&
+        user._id !== res.locals.user._id &&
+        group.quest.members[user._id] == true
+      )
+    });
+
+    utils.txnEmail(usersToEmail, 'quest-started', [
+      {name: 'PARTY_URL', content: '/#/options/groups/party'}
+    ]);
+
     _.each(groupClone.members, function(user){
-
-      if(user.preferences.emailNotifications.questStarted !== false &&
-         user._id !== res.locals.user._id &&
-         group.quest.members[user._id] == true
-         ){
-        utils.txnEmail(user, 'quest-started', [
-          {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-        ]);
-      }
-
       // Remove sensitive data from what is sent to the public
+      // but after having sent emails as they are needed
       user.auth.facebook = undefined;
       user.auth.local = undefined;
     });
@@ -841,20 +926,24 @@ api.questAccept = function(req, res, next) {
       _id: {
         $in: _.without(group.members, user._id)
       }
-    }, {auth: 1, preferences: 1, profile: 1}, function(err, members){
+    }, {auth: 1, preferences: 1, profile: 1, pushDevices: 1}, function(err, members){
       if(err) return next(err);
 
       var inviterVars = utils.getUserInfo(user, ['name', 'email']);
 
-      _.each(members, function(member){
-        if(member.preferences.emailNotifications.invitedQuest !== false){
-          utils.txnEmail(member, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
-            {name: 'QUEST_NAME', content: quest.text()},
-            {name: 'INVITER', content: inviterVars.name},
-            {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
-            {name: 'PARTY_URL', content: nconf.get('BASE_URL') + '/#/options/groups/party'}
-          ]);
-        }
+      var membersToEmail = members.filter(function(member){
+        return member.preferences.emailNotifications.invitedQuest !== false;
+      });
+
+      utils.txnEmail(membersToEmail, ('invite-' + (quest.boss ? 'boss' : 'collection') + '-quest'), [
+        {name: 'QUEST_NAME', content: quest.text()},
+        {name: 'INVITER', content: inviterVars.name},
+        {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
+        {name: 'PARTY_URL', content: '/#/options/groups/party'}
+      ]);
+
+      _.each(members, function(groupMember){
+        pushNotify.sendNotify(groupMember, shared.i18n.t('questInvitationTitle'), shared.i18n.t('questInvitationInfo', { quest: quest.text() }));
       });
 
       questStart(req,res,next);

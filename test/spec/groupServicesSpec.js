@@ -1,24 +1,27 @@
 'use strict';
 
 describe('groupServices', function() {
-  var $httpBackend, groups;
+  var $httpBackend, $http, groups;
 
-  beforeEach(module('groupServices'));
-  beforeEach(module('habitrpg'));
-  
-  beforeEach(inject(function(_$httpBackend_, Groups) {
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
+
+    inject(function(_$httpBackend_, Groups, User) {
       $httpBackend = _$httpBackend_;
       groups = Groups;
-  }));
+    });
+  });
 
   it('calls party endpoint', function() {
-    $httpBackend.expectGET('/api/v2/groups/party?').respond({});
+    $httpBackend.expectGET('/api/v2/groups/party').respond({});
     groups.party();
     $httpBackend.flush();
   });
 
   it('calls tavern endpoint', function() {
-    $httpBackend.expectGET('/api/v2/groups/habitrpg?').respond({});
+    $httpBackend.expectGET('/api/v2/groups/habitrpg').respond({});
     groups.tavern();
     $httpBackend.flush();
   });

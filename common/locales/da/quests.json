@@ -6,6 +6,8 @@
     "questSend": "Send invitation til dine gruppemedlemmer ved at klikke \"Invitér\". Når alle medlemmer har accepteret eller afvist vil questen begynde. Se status under Valgmuligheder > Social > Gruppe.",
     "inviteParty": "Invitér Gruppe",
     "questInvitation": "Quest-invitation:",
+    "questInvitationTitle": "Quest Invitation",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "askLater": "Spørg Senere",
     "buyQuest": "Køb Quest",
     "accepted": "Accepteret",
@@ -17,7 +19,7 @@
     "bossStrength": "Boss-styrke",
     "collect": "Saml",
     "collected": "Indsamlet",
-    "bossDmg1": "For at skade en boss skal du færdiggøre dine Daglige og Gøremål. Jo mere skade du gør på opgaver, des mere skade tager Bossen (færdiggørelse af røde opgaver, Magikeres fortryllelser, Krigeres angreb osv.). Bossen vil give skade til alle quest-deltagere for hver Daglig du springer over (ganget med bossens Styrke) oveni din sædvanlige skade, så hold din gruppe i live ved at færdiggøre dine Daglige! <strong>Al skade på og fra bossen bliver opgjort ved cron (når din dag skifter).</strong>",
+    "bossDmg1": "Each completed Daily and To-Do and each positive Habit hurts the boss. Hurt it more with redder tasks or Brutal Smash and Burst of Flames. The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Kun deltagere vil kæmpe mod bossen og få del i quest-byttet.",
     "tavernBossInfo": "For at skade en verdens-boss skal du færdiggøre dine Daglige og Gøremål. Jo mere skade du gør på opgaver, des mere skade tager Bossen (færdiggørelse af røde opgaver, Magikeres fortryllelser, Krigeres angreb osv.). Bossens Vrede stiger for hver Daglig du springer over (ganget med bossens Styrke). Når hans Vrede når maksimum vil der ske slemme ting - så færdiggør dine Daglige! <strong>Al skade på og fra bossen bliver opgjort ved cron (når din dag skifter).</strong>",
     "bossColl1": "Udfør dine positive opgaver for at samle ting. Quest-ting dropper som normale ting, men du vil ikke se drops før næste dag, hvor alt hvad du har fundet vil blive opgjort og lagt i bunken.",
@@ -28,6 +30,7 @@
     "questOwnerNotInRunningQuest": "Quest-lederen har forladt questen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
     "questOwnerNotInPendingQuestParty": "Quest-lederen har forladt gruppen og kan ikke længere starte questen. Det anbefales at du afbryder den nu. Quest-skriftrullen vil blive returneret til quest-lederen.",
     "questOwnerNotInRunningQuestParty": "Quest-lederen har forladt gruppen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
+    "questParticipants": "Deltagere",
     "scrolls": "Quest-skriftruller",
     "noScrolls": "Du har ingen quest-skriftruller.",
     "scrollsText1": "Quests kræver grupper. Hvis du vil queste alene,",
@@ -42,5 +45,5 @@
     "doubleSureAbort": "Er du helt sikker? Tjek lige at de ikke vil hade dig for evigt!",
     "questWarning": "Hvis nye spillere melder sig ind i gruppen før questen begynder vil de også modtage en invitation. Dog kan nye medlemmer ikke deltage i questen hvis den allerede er startet.",
     "bossRageTitle": "Vrede",
-    "bossRageDescription": "Når denne bar bliver fyldt vil bossen udføre et specielt angreb"
+    "bossRageDescription": "Når denne bar bliver fyldt vil bossen udføre et specielt angreb!"
 }

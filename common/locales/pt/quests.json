@@ -6,6 +6,8 @@
     "questSend": "Clicar em \"Convidar\" enviará um convite para os membros da sua equipe. Quando todos membros aceitarem ou rejeitarem, a missão começará. Veja o estado da missão em Opções > Social > Equipe.",
     "inviteParty": "Convidar Equipe",
     "questInvitation": "Convite de Missão:",
+    "questInvitationTitle": "Convite para Missão",
+    "questInvitationInfo": "Convite para a Missão <%= quest %>",
     "askLater": "Perguntar Depois",
     "buyQuest": "Comprar Missão",
     "accepted": "Aceito",
@@ -17,7 +19,7 @@
     "bossStrength": "Força do Chefão",
     "collect": "Coletar",
     "collected": "Coletado",
-    "bossDmg1": "Para machucar um Chefão, complete suas tarefas diárias e afazeres. Maior dano de tarefas significa maior dano ao Chefão (completar tarefas vermelhas, feitiços de Mago, ataques de Guerreiro, etc). O Chefão causará dano para cada participante da missão por cada tarefa diária que você perdeu (multiplicado pela força do Chefão) somado com seu dano normal, então mantenha a saúde de sua equipe completando suas tarefas diárias! <strong>Todo dano causado ou recebido de um Chefão é calculado no cron (sua virada do dia).</strong>",
+    "bossDmg1": "Todos os Afazeres e Tarefas Diárias completadas e cada Hábito positivo causa dando no Chefão. Cause mais dano com tarefas mais vermelhas, com Destruição Brutal ou com Explosão de Chamas. O Chefão causará dano em todos os participantes da missão por cada Tarefa Diária perdida (multiplicada pela Força do Chefão) em adição ao seu dano normal, então mantenha a saúde da sua equipe completando suas Tarefas Diárias. <strong>Todo o dano recebido ou inflingido ao Chefão é computado no seu Cron (virada do dia).</strong>",
     "bossDmg2": "Apenas participantes lutarão contra o chefão e dividirão as recompensas da missão.",
     "tavernBossInfo": "Para ferir um chefão de mundo, complete suas Tarefas Diárias e Afazeres. Dano alto de tarefa significa maior dano ao chefão (completar tarefas vermelhas, feitiços de Magos, ataques de Guerreiros, etc). Para cada Tarefa Diária que você perder (multiplicada pela Força do chefão), a Ira do chefão irá aumentar. Uma vez que sua Ira chegar ao máximo, alguma coisa ruim irá acontecer - então, complete suas Tarefas Diárias! <strong>Todo dano causado para e pelo chefão é registrado no cron (na sua virada do dia).</strong>",
     "bossColl1": "Para coletar itens, complete suas tarefas positivas. Itens de missão aparecem assim como itens normais; entretanto, você não verá a coleta até o dia seguinte, então tudo que você encontrou será registrado e contribuído à pilha.",
@@ -28,6 +30,7 @@
     "questOwnerNotInRunningQuest": "O dono da missão deixou a missão. Você pode abortar a missão se precisar. Você também pode permitir que a missão continue e todos os participantes remanescentes receberão as recompensas quando a missão terminar.",
     "questOwnerNotInPendingQuestParty": "O dono da missão deixou a equipe e não pode mais iniciar a missão. Recomenda-se que você a cancele agora. O pergaminho de missão retornará para o dono da missão.",
     "questOwnerNotInRunningQuestParty": "O dono da missão deixou a equipe. Você pode abortar a missão se precisar, mas também pode permitir que a missão continue e todos os participantes remanescentes receberão as recompensas quando a missão terminar.",
+    "questParticipants": "Participantes",
     "scrolls": "Pergaminhos de Missão",
     "noScrolls": "Você não possui pergaminhos de missão.",
     "scrollsText1": "Missões requerem equipes. Se quiser fazer a missão sozinho,",
@@ -42,5 +45,5 @@
     "doubleSureAbort": "Tem certeza mesmo? Certifique-se de que eles não o detestarão para sempre!",
     "questWarning": "Se novos jogadores se juntarem à equipe antes do início da missão, eles também receberão um convite. Contudo, uma vez que a missão comece, nenhum membro novo da equipe poderá entrar nela.",
     "bossRageTitle": "Ira",
-    "bossRageDescription": "Quando essa barra encher, o chefão irá soltar um ataque especial"
+    "bossRageDescription": "Quando essa barra encher, o chefão irá soltar um ataque especial!"
 }

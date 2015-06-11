@@ -57,5 +57,9 @@
     "whyAds": "Why Ads?",
     "whyAdsContent1": "Habit be an open source project, 'n can use all th' help it can get - consider 'tis a donation to th' contributors. ye also get 20 Gems from th' purchase, which ye can use to buy special items.",
     "whyAdsContent2": "\"Ahoy! I backed th' Kickstarter!\" - follow",
-    "whyAdsContent3": "these instructions"
+    "whyAdsContent3": "these instructions",
+    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
+    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
+    "currentSurvey": "Current Survey",
+    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

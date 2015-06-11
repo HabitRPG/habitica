@@ -11,7 +11,7 @@ var logging = require('./../logging');
 var csv = require('express-csv');
 var utils = require('../utils');
 var api = module.exports;
-
+var pushNotify = require('./pushNotifications');
 
 /*
   ------------------------------------------------------------------------
@@ -40,7 +40,7 @@ api.list = function(req, res, next) {
         .select('name leader description group memberCount prize official')
         .select({members:{$elemMatch:{$in:[user._id]}}})
         .sort('-official -timestamp')
-        .populate('group', '_id name')
+        .populate('group', '_id name type')
         .populate('leader', 'profile.name')
         .exec(cb);
     }
@@ -56,17 +56,23 @@ api.list = function(req, res, next) {
 
 // GET
 api.get = function(req, res, next) {
+  var user = res.locals.user;
   // TODO use mapReduce() or aggregate() here to
   // 1) Find the sum of users.tasks.values within the challnege (eg, {'profile.name':'tyler', 'sum': 100})
   // 2) Sort by the sum
   // 3) Limit 30 (only show the 30 users currently in the lead)
   Challenge.findById(req.params.cid)
     .populate('members', 'profile.name _id')
+    .populate('group', '_id name type')
+    .populate('leader', 'profile.name')
     .exec(function(err, challenge){
       if(err) return next(err);
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
+      challenge._isMember = !!(_.find(challenge.members, function(member) {
+        return member._id === user._id;
+      }));
       res.json(challenge);
-    })
+    });
 }
 
 api.csv = function(req, res, next) {
@@ -294,6 +300,7 @@ function closeChal(cid, broken, cb) {
 api['delete'] = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
+
   async.waterfall([
     function(cb){
       Challenge.findById(cid, cb);
@@ -301,6 +308,10 @@ api['delete'] = function(req, res, next){
     function(chal, cb){
       if (!chal) return cb('Challenge ' + cid + ' not found');
       if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
+      if (chal.group != 'habitrpg') user.balance += chal.prize/4; // Refund gems to user if a non-tavern challenge
+      user.save(cb);
+    },
+    function(save, num, cb){
       closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){
@@ -341,6 +352,9 @@ api.selectWinner = function(req, res, next) {
           {name: 'CHALLENGE_NAME', content: chal.name}
         ]);
       }
+
+      pushNotify.sendNotify(saved, shared.i18n.t('wonChallenge'), chal.name);
+
       closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){

@@ -27,13 +27,19 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
 
     // Google Analytics, only in production
     if (window.env.NODE_ENV === 'production') {
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', window.env.GA_ID, {userId:User.user._id});
-      ga('require', 'displayfeatures');
-      ga('send', 'pageview');
+      // Get experiments API
+      $.getScript('//www.google-analytics.com/cx/api.js?experiment=t-AFggRWQnuJ6Teck_x1-Q', function(){
+        $rootScope.variant = cxApi.chooseVariation();
+        $rootScope.$apply();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', window.env.GA_ID, {userId:User.user._id});
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+      })
     }
 
     // Scripts only for desktop
@@ -71,11 +77,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
         'stats.hp': 1
       });
     }
-    $scope.addMissedDay = function(){
-      if (!confirm("Are you sure you want to reset the day?")) return;
-      var dayBefore = moment(User.user.lastCron).subtract(1, 'days').toDate();
+    $scope.addMissedDay = function(numberOfDays){
+      if (!confirm("Are you sure you want to reset the day by " + numberOfDays + " day(s)?")) return;
+      var dayBefore = moment(User.user.lastCron).subtract(numberOfDays, 'days').toDate();
       User.set({'lastCron': dayBefore});
-      Notification.text('-1 day, remember to refresh');
+      Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
     }
     $scope.addTenGems = function(){
       $http.post(ApiUrl.get() + '/api/v2/user/addTenGems').success(function(){
@@ -85,6 +91,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     $scope.addGold = function(){
       User.set({
         'stats.gp': User.user.stats.gp + 500,
+      });
+    }
+    $scope.addMana = function(){
+      User.set({
+        'stats.mp': User.user.stats.mp + 500,
       });
     }
     $scope.addLevelsAndGold = function(){

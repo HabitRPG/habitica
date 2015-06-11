@@ -5,6 +5,7 @@
 
 	"browser": true,
 	"node": true,
+  "mocha": true,
 
 	"asi": true,
 	"boss": true,

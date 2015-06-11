@@ -12,6 +12,7 @@ var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');
 var cc = require('coupon-code');
+var pushNotify = require('./../pushNotifications');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -69,18 +70,26 @@ exports.createSubscription = function(data, cb) {
   revealMysteryItems(recipient);
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'subscription-begins');
-    utils.ga.event('subscribe', data.paymentMethod).send();
+    utils.ga.event('commerce', 'subscribe', data.paymentMethod, block.price).send();
     utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
+    utils.mixpanel.track('purchase',{'distinct_id':data.user._id,'itemPurchased':block.key,'purchaseValue':block.price})
   }
   data.user.purchased.txnCount++;
   if (data.gift){
     members.sendMessage(data.user, data.gift.member, data.gift);
+
+    var byUserName = utils.getUserInfo(data.user, ['name']).name;
+
     if(data.gift.member.preferences.emailNotifications.giftedSubscription !== false){
       utils.txnEmail(data.gift.member, 'gifted-subscription', [
-        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
+        {name: 'GIFTER', content: byUserName},
         {name: 'X_MONTHS_SUBSCRIPTION', content: months}
       ]);
-    }    
+    }
+
+    if (data.gift.member._id != data.user._id) { // Only send push notifications if sending to a user other than yourself
+      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), months + " months - by "+ byUserName);
+    }
   }
   async.parallel([
     function(cb2){data.user.save(cb2)},
@@ -105,7 +114,7 @@ exports.cancelSubscription = function(data, cb) {
 
   data.user.save(cb);
   utils.txnEmail(data.user, 'cancel-subscription');
-  utils.ga.event('unsubscribe', data.paymentMethod).send();
+  utils.ga.event('commerce', 'unsubscribe', data.paymentMethod).send();
 }
 
 exports.buyGems = function(data, cb) {
@@ -114,17 +123,25 @@ exports.buyGems = function(data, cb) {
   data.user.purchased.txnCount++;
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'donation');
-    utils.ga.event('checkout', data.paymentMethod).send();
+    utils.ga.event('commerce', 'checkout', data.paymentMethod, amt).send();
+    utils.mixpanel.track('purchase',{'distinct_id':data.user._id,'itemPurchased':'Gems','purchaseValue':amt})
     //TODO ga.transaction to reflect whether this is gift or self-purchase
     utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
   }
   if (data.gift){
+    var byUsername = utils.getUserInfo(data.user, ['name']).name;
+    var gemAmount = data.gift.gems.amount || 20;
+
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
       utils.txnEmail(data.gift.member, 'gifted-gems', [
-        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
-        {name: 'X_GEMS_GIFTED', content: data.gift.gems.amount || 20}
+        {name: 'GIFTER', content: byUsername},
+        {name: 'X_GEMS_GIFTED', content: gemAmount}
       ]);
+    }
+
+    if (data.gift.member._id != data.user._id) { // Only send push notifications if sending to a user other than yourself
+      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), gemAmount + ' Gems - by '+byUsername);
     }
   }
   async.parallel([

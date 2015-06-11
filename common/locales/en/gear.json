@@ -119,13 +119,29 @@
   "weaponSpecialWinter2015MageNotes": "The light of this crystal staff fills hearts with cheer. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2014-2015 Winter Gear.",
   "weaponSpecialWinter2015HealerText": "Soothing Scepter",
   "weaponSpecialWinter2015HealerNotes": "This scepter warms sore muscles and soothes away stress. Increases Intelligence by <%= int %>. Limited Edition 2014-2015 Winter Gear.",
+
+  "weaponSpecialSpring2015RogueText": "Exploding Squeak",
+  "weaponSpecialSpring2015RogueNotes": "Don't let the sound fool you - these explosives pack a punch. Increases Strength by <%= str %>. Limited Edition 2015 Spring Gear.",
+  "weaponSpecialSpring2015WarriorText": "Bone Club",
+  "weaponSpecialSpring2015WarriorNotes": "It is a real bone club for real fierce doggies and is definitely not a chew toy that the Seasonal Sorceress gave you because who's a good doggy? Whoooo's a good doggy?? It's you!!! You're a good doggy!!! Increases Strength by <%= str %>. Limited Edition 2015 Spring Gear.",
+  "weaponSpecialSpring2015MageText": "Magician's Wand",
+  "weaponSpecialSpring2015MageNotes": "Conjure yourself up a carrot with this fancy wand. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
+  "weaponSpecialSpring2015HealerText": "Cat Rattle",
+  "weaponSpecialSpring2015HealerNotes": "When you wave it, it makes a fascinating clickety noise that would keep ANYONE entertained for hours. Increases Intelligence by <%= int %>. Limited Edition 2015 Spring Gear.",
   
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
   "weaponMystery201502Notes": "For WINGS! For LOVE! For ALSO TRUTH! Confers no benefit. February 2015 Subscriber Item.",
+  "weaponMystery201505Text": "Green Knight Lance",
+  "weaponMystery201505Notes": "This green and silver lance has unseated many opponents from their mounts. Confers no benefit. May 2015 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
+
+  "weaponArmoireBasicCrossbowText": "Basic Crossbow",
+  "weaponArmoireBasicCrossbowNotes": "This crossbow can pierce a task's armor from very far away! Increases Strength by <%= str %>, Perception by <%= per %>, and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireLunarSceptreText": "Soothing Lunar Sceptre",
+  "weaponArmoireLunarSceptreNotes": "The healing power of this wand waxes and wanes. Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Soothing Lunar Set (Item 3 of 3).",
 
   "armor": "armor",
 
@@ -234,6 +250,15 @@
   "armorSpecialWinter2015MageNotes": "You can see the glimmering lights of the north in this robe. Increases Intelligence by <%= int %>. Limited Edition 2014-2015 Winter Gear.",
   "armorSpecialWinter2015HealerText": "Skating Outfit",
   "armorSpecialWinter2015HealerNotes": "Ice-skating is very relaxing, but you shouldn't try it without this protective gear in case you get attacked by the icicle drakes. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
+
+  "armorSpecialSpring2015RogueText": "Squeaker Robes",
+  "armorSpecialSpring2015RogueNotes": "Furry, soft, and definitely not flammable. Increases Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
+  "armorSpecialSpring2015WarriorText": "Beware Armor",
+  "armorSpecialSpring2015WarriorNotes": "Only the fiercest doggy is allowed to be this fluffy. Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
+  "armorSpecialSpring2015MageText": "Magician's Bunny Suit",
+  "armorSpecialSpring2015MageNotes": "Your coattails match your cottontail! Increases Intelligence by <%= int %>. Limited Edition 2015 Spring Gear.",
+  "armorSpecialSpring2015HealerText": "Comforting Catsuit",
+  "armorSpecialSpring2015HealerNotes": "This soft catsuit is comfortable, and as comforting as mint tea. Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
   
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -255,8 +280,17 @@
   "armorMystery201412Notes": "You're a penguin! Confers no benefit. December 2014 Subscriber Item.",
   "armorMystery201501Text": "Starry Armor",
   "armorMystery201501Notes": "Galaxies shimmer in the metal of this armor, strengthening the wearer's resolve. Confers no benefit. January 2015 Subscriber Item.",
+  "armorMystery201503Text": "Aquamarine Armor",
+  "armorMystery201503Notes": "This blue mineral symbolizes good luck, happiness, and eternal productivity. Confers no benefit. March 2015 Subscriber Item.",
+  "armorMystery201504Text": "Busy Bee Robe",
+  "armorMystery201504Notes": "You'll be productive as a busy bee in this fetching robe! Confers no benefit. April 2015 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
+
+  "armorArmoireLunarArmorText": "Soothing Lunar Armor",
+  "armorArmoireLunarArmorNotes": "The light of the moon will make you strong and savvy. Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Soothing Lunar Set (Item 2 of 3).",
+  "armorArmoireGladiatorArmorText": "Gladiator Armor",
+  "armorArmoireGladiatorArmorNotes": "To be a gladiator you must be not only cunning... but strong. Increases Perception by <%= per %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 2 of 3).",
 
   "headgear": "headgear",
 
@@ -362,7 +396,16 @@
   "headSpecialWinter2015MageNotes": "The fabric of this hat shifts and glows when the wearer studies. Increases Perception by <%= per %>. Limited Edition 2014-2015 Winter Gear.",
   "headSpecialWinter2015HealerText": "Snuggly Earmuffs",
   "headSpecialWinter2015HealerNotes": "These warm earmuffs keep out chills and distracting noises. Increases Intelligence by <%= int %>. Limited Edition 2014-2015 Winter Gear.",
-  
+
+  "headSpecialSpring2015RogueText": "Fireproof Helm",
+  "headSpecialSpring2015RogueNotes": "Fire? HAH! You squeak fiercely in the face of fire! Increases Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
+  "headSpecialSpring2015WarriorText": "Beware Helm",
+  "headSpecialSpring2015WarriorNotes": "Beware the Helm! Only a fierce doggy can wear it. Stop laughing. Increases Strength by <%= str %>. Limited Edition 2015 Spring Gear.",
+  "headSpecialSpring2015MageText": "Stage Mage Hat",
+  "headSpecialSpring2015MageNotes": "Which came first, the bunny or the hat? Increases Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
+  "headSpecialSpring2015HealerText": "Comforting Crown",
+  "headSpecialSpring2015HealerNotes": "The pearl at the center of this crown calms and comforts those around it. Increases Intelligence by <%= int %>. Limited Edition 2015 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of pride season and GaymerX, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGBTQ and gaming and is open to everyone. It takes place at the InterContinental in downtown San Francisco on July 11-13! Confers no benefit.",
 
@@ -382,10 +425,23 @@
   "headMystery201412Notes": "Who's a penguin? Confers no benefit. December 2014 Subscriber Item.",
   "headMystery201501Text": "Starry Helm",
   "headMystery201501Notes": "The constellations flicker and swirl in this helm, guiding the wearer's thoughts towards focus. Confers no benefit. January 2015 Subscriber Item.",
+  "headMystery201505Text": "Green Knight Helm",
+  "headMystery201505Notes": "The green plume on this iron helm waves proudly. Confers no benefit. May 2015 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
   "headMystery301405Notes": "A basic top hat, just begging to be paired with some fancy head accessories. Confers no benefit. May 3015 Subscriber Item.",
+
+  "headArmoireLunarCrownText": "Soothing Lunar Crown",
+  "headArmoireLunarCrownNotes": "This crown strengthens health and sharpens senses, especially when the moon is full. Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: Soothing Lunar Set (Item 1 of 3).",
+  "headArmoireRedHairbowText": "Red Hairbow",
+  "headArmoireRedHairbowNotes": "Become strong, tough and smart while wearing this beautiful Red Hairbow! Increases Strength by <%= str %>, Constitution by <%= con %>, and Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+  "headArmoireVioletFloppyHatText": "Violet Floppy Hat",
+  "headArmoireVioletFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a pleasing purple color. Increases Perception by <%= per %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "headArmoireGladiatorHelmText": "Gladiator Helm",
+  "headArmoireGladiatorHelmNotes": "To be a gladiator you must be not only strong.... but cunning. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Gladiator Set (Item 1 of 3).",
+  "headArmoireRancherHatText": "Rancher Hat",
+  "headArmoireRancherHatNotes": "Round up your pets and wrangle your mounts while wearing this magical Rancher Hat! Increases Strength by <%= str %>, Perception by <%= per %>, and Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
 
   "offhand": "shield-hand item",
 
@@ -454,9 +510,19 @@
   "shieldSpecialWinter2015WarriorNotes": "This seemingly-sugary shield is actually made of nutritious, gelatinous vegetables. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
   "shieldSpecialWinter2015HealerText": "Soothing Shield",
   "shieldSpecialWinter2015HealerNotes": "This shield deflects the freezing wind. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
+
+  "shieldSpecialSpring2015RogueText": "Exploding Squeak",
+  "shieldSpecialSpring2015RogueNotes": "Don't let the sound fool you - these explosives pack a punch. Increases Strength <%= str %>. Limited Edition 2015 Spring Gear.",
+  "shieldSpecialSpring2015WarriorText": "Dish Discus",
+  "shieldSpecialSpring2015WarriorNotes": "Hurl it at your enemies.... or just hold it, because it will fill up with yummy kibble at dinnertime. Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
+  "shieldSpecialSpring2015HealerText": "Patterned Pillow",
+  "shieldSpecialSpring2015HealerNotes": "You can rest your head on this soft pillow, or you can wrestle it with your fearsome claws. Rawr! Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
   
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
+
+  "shieldArmoireGladiatorShieldText": "Gladiator Shield",
+  "shieldArmoireGladiatorShieldNotes": "To be a gladiator you must.... eh, whatever, just bash them with your shield. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 3 of 3).",
 
   "backBase0Text": "No Back Accessory",
   "backBase0Notes": "No Back Accessory.",
@@ -467,6 +533,8 @@
   "backMystery201404Notes": "Be a butterfly and flutter by! Confers no benefit. April 2014 Subscriber Item.",
   "backMystery201410Text": "Goblin Wings",
   "backMystery201410Notes": "Swoop through the night on these strong wings. Confers no benefit. October 2014 Subscriber Item.",
+  "backMystery201504Text": "Busy Bee Wings",
+  "backMystery201504Notes": "Buzz buzz buzz! Flit from task to task. Confers no benefit. April 2015 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -488,6 +556,10 @@
   "bodySpecialSummerHealerText": "Coral Collar",
   "bodySpecialSummerHealerNotes": "A stylish collar of live coral! Confers no benefit. Limited Edition 2014 Summer Gear.",
 
+  "headAccessory": "head accessory",
+  "accessories": "Accessories",
+  "animalEars": "Animal Ears",
+
   "headAccessoryBase0Text": "No Head Accessory",
   "headAccessoryBase0Notes": "No Head Accessory.",
 
@@ -500,10 +572,35 @@
   "headAccessorySpecialSpringHealerText": "Yellow Dog Ears",
   "headAccessorySpecialSpringHealerNotes": "Floppy but cute. Wanna play? Confers no benefit. Limited Edition 2014 Spring Gear.",
 
+  "headAccessorySpecialSpring2015RogueText": "Yellow Mouse Ears",
+  "headAccessorySpecialSpring2015RogueNotes": "These ears steel themselves against the sound of explosions. Confers no benefit. Limited Edition 2015 Spring Gear.",
+  "headAccessorySpecialSpring2015WarriorText": "Purple Dog Ears",
+  "headAccessorySpecialSpring2015WarriorNotes": "They are purple. They are dog ears. Do not waste your time with further foolishness. Confers no benefit. Limited Edition 2015 Spring Gear.",
+  "headAccessorySpecialSpring2015MageText": "Blue Bunny Ears",
+  "headAccessorySpecialSpring2015MageNotes": "These ears listen keenly, in case somewhere a magician is revealing secrets. Confers no benefit. Limited Edition 2015 Spring Gear.",
+  "headAccessorySpecialSpring2015HealerText": "Green Kitty Ears",
+  "headAccessorySpecialSpring2015HealerNotes": "These cute kitty ears will make others green with envy. Confers no benefit. Limited Edition 2015 Spring Gear.",
+
+  "headAccessoryBearEarsText": "Bear Ears",
+  "headAccessoryBearEarsNotes": "These ears make you look like a cuddly bear! Confers no benefit.",
+  "headAccessoryCactusEarsText": "Cactus Ears",
+  "headAccessoryCactusEarsNotes": "These ears make you look like a prickly cactus! Confers no benefit.",
+  "headAccessoryFoxEarsText": "Fox Ears",
+  "headAccessoryFoxEarsNotes": "These ears make you look like a wily fox! Confers no benefit.",
+  "headAccessoryLionEarsText": "Lion Ears",
+  "headAccessoryLionEarsNotes": "These ears make you look like a regal lion! Confers no benefit.",
+  "headAccessoryPandaEarsText": "Panda Ears",
+  "headAccessoryPandaEarsNotes": "These ears make you look like a gentle panda! Confers no benefit.",
+  "headAccessoryPigEarsText": "Pig Ears",
+  "headAccessoryPigEarsNotes": "These ears make you look like a whimsical pig! Confers no benefit.",
+  "headAccessoryTigerEarsText": "Tiger Ears",
+  "headAccessoryTigerEarsNotes": "These ears make you look like a fierce tiger! Confers no benefit.",
+  "headAccessoryWolfEarsText": "Wolf Ears",
+  "headAccessoryWolfEarsNotes": "These ears make you look like a loyal wolf! Confers no benefit.",
+
   "headAccessoryMystery201403Text": "Forest Walker Antlers",
   "headAccessoryMystery201403Notes": "These antlers shimmer with moss and lichen. Confers no benefit. March 2014 Subscriber Item.",
   "headAccessoryMystery201404Text": "Twilight Butterfly Antennae",
-  "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions!",
   "headAccessoryMystery201404Notes": "These antennae help the wearer sense dangerous distractions! Confers no benefit. April 2014 Subscriber Item.",
   "headAccessoryMystery201409Text": "Autumn Antlers",
   "headAccessoryMystery201409Notes": "These powerful antlers change colors with the leaves. Confers no benefit. September 2014 Subscriber Item.",
@@ -525,6 +622,8 @@
   "eyewearSpecialWonderconBlackText": "Sneaky Mask",
   "eyewearSpecialWonderconBlackNotes": "Your motives are definitely legitimate. Confers no benefit. Special Edition Convention Item.",
 
+  "eyewearMystery201503Text": "Aquamarine Eyewear",
+  "eyewearMystery201503Notes": "Don't get poked in the eye by these shimmering gems! Confers no benefit. March 2015 Subscriber Item.",
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",

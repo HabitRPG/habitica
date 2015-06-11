@@ -22,7 +22,7 @@
     "contribLink": "che premi hai guadagnato grazie al tuo contributo!",
     "contribName": "Contribuente",
     "contribText": "Ha contribuito ad HabitRPG (codice, design, pixel art, consigli legali, documentazione, ecc). Desideri questa onoreficenza?",
-    "readMore": "Leggere di più",
+    "readMore": "Più informazioni",
     "kickstartName": "Sostenitore Kickstarter - grado $<%= tier %>",
     "kickstartText": "Ha sostenuto il progetto Kickstarter",
     "helped": "Ha aiutato Habit a crescere",
@@ -57,5 +57,9 @@
     "whyAds": "Perché le pubblicità?",
     "whyAdsContent1": "Habit è un progetto open source, e può usare tutto l'aiuto che riesce ad ottenere - considerala come una donazione ai sostenitori. Dopo l'acquisto riceverai anche 20 Gemme, con le quali potrai comprare oggetti speciali.",
     "whyAdsContent2": "'Ehi, ho sostenuto il progetto Kickstarter!' - segui",
-    "whyAdsContent3": "queste istruzioni"
+    "whyAdsContent3": "queste istruzioni",
+    "surveysSingle": "Ha aiutato HabitRPG a crescere, compilando un questionario. Al momento non ci sono questionari attivi.",
+    "surveysMultiple": "Ha aiutato HabitRPG a crescere, compilando <%= surveys %> questionari. Al momento non ci sono questionari attivi.",
+    "currentSurvey": "Questionario in corso",
+    "surveyWhen": "Questa onoreficenza verrà conferita a tutti i partecipanti, non appena i risultati dei questionari saranno elaborati, verso fine marzo."
 }

@@ -24,12 +24,12 @@ describe('front page', function() {
   });
 
   it('shows the front page', function(){
-    var button = element(by.className('btn'));
-    expect(button.getText()).toEqual('Play');
+    var button = element(by.id('play-btn'));
+    expect(button.getText()).toEqual('Play for free');
   });
 
   it("don't login when using wrong credentials", function(){
-    var button = element(by.className('btn'));
+    var button = element(by.id('play-btn'));
     button.click();
     browser.sleep(1000);
     element(by.model('loginUsername')).sendKeys('username');
@@ -37,12 +37,12 @@ describe('front page', function() {
     var login = element(by.css("#login-tab input[value='Login']"));
     login.click();
     var alertDialog = browser.switchTo().alert();
-    expect(alertDialog.getText()).toMatch(/Username 'username' not found/);
+    expect(alertDialog.getText()).toMatch("Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\".");
     alertDialog.accept();
   });
 
-  it('registers a new user', function(){
-    var button = element(by.className('btn'));
+  xit('registers a new user', function(){
+    var button = element(by.id('play-btn'));
     button.click();
     browser.sleep(1000);
     var registerTab = element(by.linkText('Register'));
@@ -51,7 +51,7 @@ describe('front page', function() {
     element(by.model('registerVals.email')).sendKeys('user@example.com');
     element(by.model('registerVals.password')).sendKeys('pass');
     element(by.model('registerVals.confirmPassword')).sendKeys('pass');
-    var register = element(by.css("#register-tab input[value='Register']"));
+    var register = element(by.css("#registrationForm input[value='Register']"));
     register.click();
     browser.sleep(1000);
     browser.getCurrentUrl().then(function(url){

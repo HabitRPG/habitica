@@ -3,20 +3,33 @@
 describe('Inventory Controller', function() {
   var scope, ctrl, user, $rootScope;
 
-  beforeEach(module('habitrpg'));
-  beforeEach(inject(function($rootScope, $controller, Shared){
-    user = specHelper.newUser();
-    user.balance = 4,
-    user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}};
-    Shared.wrap(user);
-    var mockWindow = {
-      confirm: function(msg){
-        return true;
-      }
-    };
-    scope = $rootScope.$new();
-    ctrl = $controller('InventoryCtrl', {$scope: scope, User: {user: user}, $window: mockWindow});
-  }));
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('User', {});
+    });
+
+    inject(function($rootScope, $controller, Shared){
+      user = specHelper.newUser();
+      user.balance = 4;
+      user.items.eggs = {Cactus: 1};
+      user.items.hatchingPotions = {Base: 1};
+      user.items.food = {Meat: 1};
+      user.items.pets = {}
+      user.items.mounts = {};
+      Shared.wrap(user);
+      var mockWindow = {
+        confirm: function(msg){
+          return true;
+        }
+      };
+      scope = $rootScope.$new();
+
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: {user: user}, $window: mockWindow});
+
+      ctrl = $controller('InventoryCtrl', {$scope: scope, User: {user: user}, $window: mockWindow});
+    });
+  });
 
   it('starts without any item selected', function(){
     expect(scope.selectedEgg).to.eql(null);

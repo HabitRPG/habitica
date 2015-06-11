@@ -1,6 +1,10 @@
 {
     "potionText": "Health Potion",
     "potionNotes": "Recover 15 Health (Instant Use)",
+    "armoireText": "Enchanted Armoire",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+    "armoireNotesEmpty": "The Armoire will have new Equipment every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "Wolf",
     "dropEggWolfAdjective": "loyal",
     "dropEggTigerCubText": "Tiger Cub",
@@ -30,6 +34,7 @@
     "questEggDeerText": "Deer",
     "questEggDeerAdjective": "elegant",
     "questEggEggText": "Egg",
+    "questEggEggMountText": "Egg Basket",
     "questEggEggAdjective": "colourful",
     "questEggRatText": "Rat",
     "questEggRatAdjective": "dirty",
@@ -49,6 +54,14 @@
     "questEggPenguinAdjective": "perspicacious",
     "questEggTRexText": "Tyrannosaur",
     "questEggTRexAdjective": "tiny-armed",
+    "questEggRockText": "Rock",
+    "questEggRockAdjective": "lively",
+    "questEggBunnyText": "Bunny",
+    "questEggBunnyAdjective": "snuggly",
+    "questEggSlimeText": "Marshmallow Slime",
+    "questEggSlimeAdjective": "sweet",
+    "questEggSheepText": "Sheep",
+    "questEggSheepAdjective": "woolly",
     "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "White",
@@ -92,6 +105,6 @@
     "foodCandyDesert": "Sand Candy",
     "foodCandyRed": "Cinnamon Candy",
     "foodSaddleText": "Saddle",
-    "foodSaddleNotes": "Instantly raises one 'o ye pets into a mount.",
-    "foodNotes": "Feed 'tis to a pet 'n it may grow into a sturdy steed."
+    "foodSaddleNotes": "Instantly turns one 'o yer pets into a mount.",
+    "foodNotes": "Feed this to a pet 'n mayhaps it'll grow inter a sturdy steed."
 }

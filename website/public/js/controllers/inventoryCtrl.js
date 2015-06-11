@@ -1,4 +1,4 @@
-habitrpg.controller("InventoryCtrl", 
+habitrpg.controller("InventoryCtrl",
   ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content',
   function($rootScope, $scope, Shared, $window, User, Content) {
 
@@ -88,7 +88,7 @@ habitrpg.controller("InventoryCtrl",
       $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
 
       // Checks if beastmaster has been reached for the first time
-      if(!User.user.achievements.beastMaster 
+      if(!User.user.achievements.beastMaster
           && $rootScope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
         $rootScope.openModal('achievements/beastMaster');
@@ -101,26 +101,6 @@ habitrpg.controller("InventoryCtrl",
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
-    }
-
-    $scope.purchase = function(type, item){
-      if (type == 'special') return User.user.ops.buySpecialSpell({params:{key:item.key}});
-
-      var gems = User.user.balance * 4;
-
-      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // this is ugly but temporary, once the purchase modal is done this will be removed
-      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield') {
-        if (gems < ((item.specialClass == "wizard") && (item.type == "weapon")) + 1) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: string, price: ((item.specialClass == "wizard") && (item.type == "weapon")) + 1, gems: gems})
-        if($window.confirm(message))
-          User.user.ops.purchase({params:{type:"gear",key:item.key}});
-      } else {
-        if(gems < item.value) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
-        if($window.confirm(message))
-          User.user.ops.purchase({params:{type:type,key:item.key}});
-      }
-
     }
 
     $scope.choosePet = function(egg, potion){
@@ -143,7 +123,7 @@ habitrpg.controller("InventoryCtrl",
         $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
 
       // Checks if mountmaster has been reached for the first time
-      if(!User.user.achievements.mountMaster 
+      if(!User.user.achievements.mountMaster
           && $rootScope.mountCount >= 90) {
         User.user.achievements.mountMaster = true;
         $rootScope.openModal('achievements/mountMaster');
@@ -200,6 +180,7 @@ habitrpg.controller("InventoryCtrl",
       $rootScope.selectedQuest = undefined;
     }
     $scope.questInit = function(){
+      mixpanel.track("Quest",{"owner":true,"response":"accept","questName":$scope.selectedQuest.key});
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
         $rootScope.party.$get();
       });
@@ -215,23 +196,63 @@ habitrpg.controller("InventoryCtrl",
       $rootScope.selectedQuest = item;
       $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
     }
-    
+
     $scope.getSeasonalShopArray = function(set){
       var flatGearArray = _.toArray(Content.gear.flat);
-      
+
       var filteredArray = _.where(flatGearArray, {index: set});
 
       return filteredArray;
     };
-    
+
     $scope.getSeasonalShopQuests = function(set){
       var questArray = _.toArray(Content.quests);
-      
+
       var filteredArray = _.filter(questArray, function(q){
-        return q.key == "evilsanta" || q.key == "evilsanta2";
+        return q.key == "egg";
       });
 
       return filteredArray;
+    };
+
+    $scope.dequip = function(itemSet){
+      switch (itemSet) {
+        case "battleGear":
+          for (item in user.items.gear.equipped){
+            var itemKey = user.items.gear.equipped[item];
+            if (user.items.gear.owned[itemKey]) {
+              user.ops.equip({params: {key: itemKey}});
+            }
+          }
+          break;
+
+        case "costume":
+          for (item in user.items.gear.costume){
+            var itemKey = user.items.gear.costume[item];
+            if (user.items.gear.owned[itemKey]) {
+              user.ops.equip({params: {type:"costume", key: itemKey}});
+            }
+          }
+          break;
+
+        case "petMountBackground":
+          var pet = user.items.currentPet;
+          if (pet) {
+            user.ops.equip({params:{type: 'pet', key: pet}});
+          }
+
+          var mount = user.items.currentMount;
+          if (mount) {
+            user.ops.equip({params:{type: 'mount', key: mount}});
+          }
+
+          var background = user.preferences.background;
+          if (background) {
+            User.user.ops.unlock({query:{path:"background."+background}});
+          }
+
+          break;
+      }
     };
   }
 ]);

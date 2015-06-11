@@ -9,13 +9,13 @@
     "championFifth": "Коли <strong>п'ятий</strong> цикл вашої роботи буде запроваджено, <strong>Кристалічний Щит</strong> стане доступний для придбання у магазині Винагород. В якості винагороди за вашу роботу, ви також отримаєте <strong>4 Самоцвіти</strong>.",
     "championSixth": "Коли <strong>шостий</strong> цикл вашої роботи буде запроваджено, ви отримаєте <strong>улюбленця Гідру</strong>. Також отримаєте <strong>4 Самоцвіти</strong>.",
     "legendary": "Легенда",
-    "legSeventh": "When your <strong>seventh</strong> set of submissions is deployed, you will receive <strong>4 Gems</strong> and become a member of the honored Contributor's Guild and be privy to the behind-the-scenes details of HabitRPG! Further contributions do not increase your tier, but you may continue to earn Gem bounties and titles.",
+    "legSeventh": "Коли <strong>сьомий</strong> цикл вашої роботи буде запроваджено, ви отримаєте <strong>4 Самоцвіти</strong> і станете членом поважної Гільдії Співавторів, і зможете побачити всі приховані деталі HabitRPG! Додаткові внески не збільшать ваш рівень, але ви зможете отримувати Самоцвіти і звання.",
     "moderator": "Модератор",
     "guardian": "Вартовий",
-    "guardianText": "Moderators were selected carefully from high tier contributors, so please give them your respect and listen to their suggestions.",
+    "guardianText": "Модератори були уважно відібрані з числа тих, хто досяг максимального рівня внеску, тож, будь ласка, поважайте їх і прислухайтесь до їхніх пропозицій.",
     "staff": "Персонал",
     "heroic": "Герой",
-    "heroicText": "The Heroic tier contains HabitRPG staff and staff-level contributors. If you have this title, you were appointed to it (or hired!).",
+    "heroicText": "Рівень Героя мають розробники HabitRPG та найпалкіші співавтори. Якщо Ви здобули цей титул, отже Ви гідні цього (або ж Вас найняли на роботу!).",
     "npcText": "НІПи найбільше підтримали HabitRPG на Kickstarter. Ви можете знайти їхні аватари на нашому сайті!",
     "modalContribAchievement": "Досягнення вкладника!",
     "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping HabitRPG. See",
@@ -57,5 +57,9 @@
     "whyAds": "Навіщо реклама?",
     "whyAdsContent1": "Habit — це відкритий проєкт, тож усяка допомога потрібна. Уважайте це оплатою праці вкладників. За купівлю Ви також отримаєте 20 самоцвітів, за які можна придбати особливі предмети.",
     "whyAdsContent2": "„Агов, я дав Вам гроші на Kickstarter!“ — слідуйте",
-    "whyAdsContent3": "поданим указівкам"
+    "whyAdsContent3": "поданим указівкам",
+    "surveysSingle": "Helped HabitRPG grow by filling out a survey. There are no active surveys.",
+    "surveysMultiple": "Helped HabitRPG grow by filling out <%= surveys %> surveys. There are no active surveys.",
+    "currentSurvey": "Current Survey",
+    "surveyWhen": "The badge will be awarded to all participants when surveys have been processed, in late March."
 }

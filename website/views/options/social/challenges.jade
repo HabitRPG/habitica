@@ -1,12 +1,12 @@
 script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
   a.btn.btn-sm.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
   h5= '- ' + env.t('or') + ' -'
-  select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', )
+  select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', style='display:block')
     option(value='')
     option(ng-repeat='u in closingChal.members', value='{{u._id}}') {{u.profile.name}}
 
-  small.pull-right
-    a(ng-click='cancelClosing(closingChal)')=env.t('cancel')
+  .text-right
+    small.btn-link(ng-click='cancelClosing(closingChal)')=env.t('cancel')
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
   .modal.bs-modal-lg(style='display: block')
@@ -22,9 +22,9 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
-  div(bindonce='challenge', ng-if='challenge.leader==user._id')
+  div(bindonce='challenge', ng-if='challenge.leader._id==user._id')
     div(ng-hide='challenge._locked==false')
-      button.btn.btn-sm.btn-default(ng-click='challenge._locked = false')=env.t('edit')
+      button.btn.btn-sm.btn-default(ng-click='edit(challenge)')=env.t('edit')
       button.btn.btn-sm.btn-warning(ng-click='close(challenge, $event)', tooltip=env.t('deleteOrSelect'))=env.t('endChallenge')
 
     form(ng-show='challenge._locked==false')
@@ -67,7 +67,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
   .container-fluid
     .row
       .col-md-2
-        .well#challenges-filters
+        .well#challenges-filters(ng-hide="cid")
           h3=env.t('filter') + ':'
           h4=env.t('groups')
           ul.list-unstyled
@@ -92,13 +92,14 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
               =env.t('either')
       .col-md-10
+        a.btn.btn-info#back-to-challenges(ng-show="cid", ui-sref='options.social.challenges', ui-sref-opts='{reload: true}')
+          | Back to all challenges
         // Creation form
         button.btn.btn-success#create-challenge-btn(ng-click='create()', ng-hide='newChallenge')=env.t('createChallenge')
         .create-challenge-from.well(ng-if='newChallenge')
           form(ng-submit='save(newChallenge)')
             div
               input.btn.btn-success(type='submit', value=env.t('save'))
-              input.btn.btn-default(type='button', ng-click='openModal()', value='Invite to challenge')
               input.btn.btn-danger(type='button', ng-click='discard()', value=env.t('discard'))
               select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
             .challenge-options
@@ -114,17 +115,14 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               .form-group
                 textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
 
-              //- what's going on here?
-              br
-              br
-
               .form-group
-                input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
-                span.input-suffix.Pet_Currency_Gem1x.inline-gems
-                |&nbsp;
-                span.hint.vertical-20(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
+                .input-group
+                  span.input-group-addon
+                    .Pet_Currency_Gem1x
+                  input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
+                a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}", popover-trigger='mouseenter', popover-placement='right')
                   =env.t('moreInfo')
-                span(ng-show='newChallenge.group=="habitrpg"')
+                .pull-right(ng-show='newChallenge.group=="habitrpg"')
                   !=env.t('publicChallenges')
 
               .form-group(ng-if='user.contributor.admin')
@@ -142,13 +140,16 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               ul.pull-right.challenge-accordion-header-specs
                 li.bg-transparent(ng-if='challenge.official')
                   span.label.label-success=env.t('officialChallenge')
-                li {{challenge.group.name}}
+                li
+                  a(ui-sref="options.social.guilds.detail({gid:challenge.group._id})" ng-if="challenge.group.type=='guild'")
+                    | {{challenge.group.name}}
+                  a(ui-sref="options.social.party" ng-if="challenge.group.type=='party'")
+                    | {{challenge.group.name}}
                 li
                   =env.t('by') + ' '
-                  strong {{challenge.leader.profile.name}}
+                  a(ng-click='clickMember(challenge.leader._id, true)') {{challenge.leader.profile.name}}
                 li
-                  | {{challenge.memberCount}}
-                  = ' ' + env.t('participants')
+                  =env.t('participants', {membercount: "{{challenge.memberCount}}"})
                 li(ng-show='challenge.prize')
                   p
                     // prize
@@ -164,7 +165,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
-              a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
+              a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)') {{challenge.name}}
             .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
               .accordion-inner(ng-if='$stateParams.cid == challenge._id')
                 div(ui-view)
