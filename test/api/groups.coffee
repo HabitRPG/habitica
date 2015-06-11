@@ -6,16 +6,16 @@ Group = require("../../website/src/models/group").model
 app = require("../../website/src/server")
 
 describe "Guilds", ->
-  before (done) ->
-    registerNewUser ->
-      User.findByIdAndUpdate user._id,
-        $set:
-          "balance": 10
-        , (err, _user) ->
-          done()
-    , true
-
   context "creating groups", ->
+    before (done) ->
+      registerNewUser ->
+        User.findByIdAndUpdate user._id,
+          $set:
+            "balance": 10
+          , (err, _user) ->
+            done()
+      , true
+
     it "can create a public guild", (done) ->
       request.post(baseURL + "/groups").send(
         name: "TestGroup"
@@ -53,19 +53,42 @@ describe "Guilds", ->
           done()
       , false
 
-  context "finding groups", ->
-    it "can find a guild", (done) ->
-      guild = undefined
+  context "get guilds", ->
+    guild = undefined
+
+    beforeEach (done)->
       request.post(baseURL + "/groups").send(
         name: "TestGroup2"
         type: "guild"
       ).end (res) ->
         guild = res.body
-        request.get(baseURL + "/groups/" + guild._id)
-        .send()
+        done()
+
+    it "can find a guild", (done) ->
+      request.get(baseURL + "/groups/" + guild._id)
         .end (res) ->
           expectCode res, 200
-          expect(guild._id).to.equal res.body._id
+          expect(res.body._id).to.equal res.body._id
+          done()
+
+    it "transforms members array to an arrray of user objects", (done) ->
+      request.get(baseURL + "/groups/" + guild._id)
+        .end (res) ->
+          expectCode res, 200
+          members = res.body.members
+          # @TODO: would be more instructive if it had more members in guild :(
+          _(members).each (member) ->
+            expect(member).to.be.an 'object'
+            expect(member.profile.name).to.exist
+          done()
+
+    it "transforms leader id to a user object", (done) ->
+      request.get(baseURL + "/groups/" + guild._id)
+        .end (res) ->
+          expectCode res, 200
+          leader = res.body.leader
+          expect(leader).to.be.an 'object'
+          expect(leader.profile.name).to.exist
           done()
 
     it "can list guilds", (done) ->
@@ -228,38 +251,46 @@ describe "Guilds", ->
   describe "Public Guilds", ->
     guild = undefined
     before (done) ->
-      request.post(baseURL + "/groups").send(
-        name: "TestPublicGroup"
-        type: "guild"
-        privacy: "public"
-      ).end (res) ->
-        expectCode res, 200
-        guild = res.body
-        expect(guild.members.length).to.equal 1
-        expect(guild.leader).to.equal user._id
-        #Add members to guild
-        async.waterfall [
-          (cb) ->
-            registerManyUsers 15, cb
+      async.waterfall [
+        (cb) ->
+          registerNewUser ->
+            User.findByIdAndUpdate user._id, {$set: { "balance": 10 } }, (err, _user) ->
+              cb()
+          , true
+        (cb) ->
+          request.post(baseURL + "/groups").send(
+            name: "TestPublicGroup"
+            type: "guild"
+            privacy: "public"
+          ).end (res) ->
+            guild = res.body
+            expect(guild.members.length).to.equal 1
+            expect(guild.leader).to.equal user._id
+            #Add members to guild
+            cb()
 
-          (_members, cb) ->
-            members = _members
+        (cb) ->
+          registerManyUsers 15, cb
 
-            joinGuild = (member, callback) ->
-              request.post(baseURL + "/groups/" + guild._id + "/join")
-                .set("X-API-User", member._id)
-                .set("X-API-Key", member.apiToken)
-                .end ->
-                  callback(null, null)
+        (_members, cb) ->
+          members = _members
 
-            async.map members, joinGuild, (err, results) -> cb()
-        ], done
+          joinGuild = (member, callback) ->
+            request.post(baseURL + "/groups/" + guild._id + "/join")
+              .set("X-API-User", member._id)
+              .set("X-API-Key", member.apiToken)
+              .end ->
+                callback(null, null)
+
+          async.map members, joinGuild, (err, results) -> cb()
+
+      ], done
 
     context "is a member", ->
       before (done) ->
         registerNewUser ->
           request.post(baseURL + "/groups/" + guild._id + "/join")
-            .end ->
+            .end (res)->
               done()
         , true
 
