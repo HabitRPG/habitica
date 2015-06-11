@@ -1,7 +1,7 @@
 .container-fluid
   .row
     .filters(ng-controller='FiltersCtrl')
-      .input-group.input-group-sm.filters-search
+      .input-group.input-group-sm.filters-search.pull-right
           input(type='text', class='form-control', placeholder=env.t('search'), ng-model='filterQuery')
           .input-group-addon
             .glyphicon.glyphicon-search
