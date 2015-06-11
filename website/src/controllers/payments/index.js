@@ -171,6 +171,7 @@ exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
 
 exports.amazonVerifyAccessToken = amazon.verifyAccessToken;
+exports.amazonCheckout = amazon.checkout;
 
 exports.iapAndroidVerify = iap.androidVerify;
 exports.iapIosVerify = iap.iosVerify;
