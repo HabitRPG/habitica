@@ -1,6 +1,7 @@
 .container-fluid
   .row
     .filters(ng-controller='FiltersCtrl')
+      input.filters-search(type='text', placeholder=env.t('search'), ng-model='filterQuery')
       ul.filters-controls
         li=env.t('tags')
         //- Edit button

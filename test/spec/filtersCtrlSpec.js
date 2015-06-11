@@ -24,5 +24,14 @@ describe('Filters Controller', function() {
     expect(user.filters[tag.id]).to.eql(true);
     scope.toggleFilter(tag);
     expect(user.filters[tag.id]).to.eql(false);
-  }))
+  }));
+
+  it('updates user\'s filter query when filterQuery is changed', function () {
+      scope.$apply();
+
+      scope.filterQuery = 'foo';
+      scope.$apply();
+
+      expect(user.filterQuery).to.eql('foo');
+  });
 });
