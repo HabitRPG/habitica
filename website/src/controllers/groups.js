@@ -40,6 +40,7 @@ var populateQuery = function(type, q, additionalFields){
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
   else
     q.populate(guildPopulate);
+  q.populate('leader', nameFields);
   q.populate('invites', nameFields);
   q.populate({
     path: 'challenges',

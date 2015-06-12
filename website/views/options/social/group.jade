@@ -22,7 +22,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 span.glyphicon.glyphicon-ban-circle
                 =env.t('leave')
               a.btn.btn-success.pull-right(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
-            span(ng-if='group.leader == user.id')
+            span(ng-if='group.leader._id == user.id')
               button.btn.btn-sm.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
               button.btn.btn-sm.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
 
@@ -51,7 +51,13 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             img.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
             markdown(text='group.description')
           hr
-          small.muted Group ID: {{group._id}}
+          p=env.t('groupLeader')
+            |: 
+            a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
+              | {{group.leader.profile.name}}
+          .slight-vertical-padding
+            small.muted=env.t('groupID')
+              |: {{group._id}}
 
       include ./challenge-box
 
@@ -78,14 +84,14 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               ng-change='set({"party.orderAscending": user.party.orderAscending})'
               )
           table.table.table-striped(bindonce='group')
-            tr(ng-repeat='member in group.members track by member._id')
+            tr(ng-repeat='member in group.members track by member._id' ng-if='member._id != group.leader._id')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader == user.id && user.id!=member._id')
+                div.pull-left(ng-show='group.leader._id == user.id')
                   a.media-object(ng-click='removeMember(group, member, true)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
-                  span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                  span(ng-click='clickMember(member._id, true)')
                     | {{member.profile.name}}
             tr(ng-if='group.memberCount > group.members.length')
               td
@@ -98,7 +104,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             tr(ng-repeat='invite in group.invites')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader == user.id')
+                div.pull-left(ng-show='group.leader._id == user.id')
                   a.media-object(ng-click='removeMember(group, invite, false)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
@@ -117,7 +123,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           td
             .popover.static-popover.fade.right.in.wide-popover
               .arrow
-              h3.popover-title {{Members.members[group.leader].profile.name}}
+              h3.popover-title {{group.leader.profile.name}}
               .popover-content
                 markdown(text='group.leaderMessage')
       div(ng-controller='ChatCtrl')
