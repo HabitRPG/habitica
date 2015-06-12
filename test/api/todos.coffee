@@ -184,6 +184,43 @@ describe "Todos", ->
           expect(todo.notes).to.equal "Some notes"
           done()
 
+      it "It completes a todo when using up url", (done) ->
+        unCompletedTodo = undefined
+        request.post(baseURL + "/user/tasks").send(
+            type: "todo"
+            text: "Sample Todo"
+        ).end (res) ->
+          expectCode res, 200
+          unCompletedTodo = res.body
+          expect(unCompletedTodo.completed).to.equal false
+          request.post(baseURL + "/user/tasks/"+unCompletedTodo._id+"/up").send(
+          ).end (res) ->
+            expectCode res, 200
+            request.get(baseURL + "/user/tasks/"+unCompletedTodo._id)
+            .send().end (res) ->
+              unCompletedTodo = res.body
+              expect(unCompletedTodo.completed).to.equal true
+              done()
+
+      it "It uncompletes a todo when using down url", (done) ->
+        completedTodo = undefined
+        request.post(baseURL + "/user/tasks").send(
+            type: "todo"
+            text: "Sample Todo"
+            completed: true
+        ).end (res) ->
+          expectCode res, 200
+          completedTodo = res.body
+          expect(completedTodo.completed).to.equal true
+          request.post(baseURL + "/user/tasks/"+completedTodo._id+"/down").send(
+          ).end (res) ->
+            expectCode res, 200
+            request.get(baseURL + "/user/tasks/"+completedTodo._id)
+            .send().end (res) ->
+              completedTodo = res.body
+              expect(completedTodo.completed).to.equal false
+              done()
+
     describe "Deleting todos", ->
       it "Does delete todo", (done) ->
         request.del(baseURL + "/user/tasks/" + todo.id).send(
