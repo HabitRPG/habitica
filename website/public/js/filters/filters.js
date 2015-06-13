@@ -28,4 +28,25 @@ angular.module('habitrpg')
       }
       return array;
     };
+  }])
+  .filter('filterByTextAndNotes', ['$filter', function($filter) {
+    return function (input, term) {
+      if (!input) return;
+
+      if (!angular.isString(term) || term.legth === 0) {
+          return input;
+      }
+
+      term = new RegExp(term, 'i');
+
+      var result = [], i;
+
+      for (i = 0; i < input.length; i++) {
+        if (term.test(input[i].text) || term.test(input[i].notes)) {
+            result.push(input[i]);
+        }
+      }
+
+      return result;
+    };
   }]);

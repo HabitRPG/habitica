@@ -5,6 +5,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     var user = User.user;
     $scope._editing = false;
     $scope._newTag = {name:''};
+    $scope.filterQuery = '';
 
     var tagsSnap; // used to compare which tags need updating
 
@@ -28,6 +29,10 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
       // no longer persisting this, it was causing a lot of confusion - users thought they'd permanently lost tasks
       // Note: if we want to persist for just this computer, easy method is:
       // User.save();
+    };
+
+    $scope.updateTaskFilter = function(){
+      user.filterQuery = $scope.filterQuery;
     };
 
     $scope.createTag = function() {
