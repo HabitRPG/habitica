@@ -35,7 +35,7 @@ module.exports = function(config) {
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
 
-      "test/spec/translations.js",
+      "test/spec/mocks/translations.js",
 
       "website/public/js/env.js",
 
@@ -51,7 +51,9 @@ module.exports = function(config) {
       "website/public/js/services/challengeServices.js",
       "website/public/js/services/paymentServices.js",
 
-      "website/public/js/filters/filters.js",
+      "website/public/js/filters/money.js",
+      "website/public/js/filters/roundLargeNumbers.js",
+      "website/public/js/filters/taskOrdering.js",
 
       "website/public/js/directives/focus-me.directive.js",
       "website/public/js/directives/from-now.directive.js",
@@ -77,7 +79,7 @@ module.exports = function(config) {
       "website/public/js/controllers/footerCtrl.js",
       "website/public/js/controllers/challengesCtrl.js",
       "website/public/js/controllers/hallCtrl.js",
-      'test/spec/mock/**/*.js',
+      'test/spec/mocks/**/*.js',
       'test/spec/specHelper.js',
       'test/spec/**/*.js'
     ],

@@ -264,7 +264,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
           span.gem-text {{user.balance * 4 | number:0}}
       li.toolbar-currency.gold(popover=env.t('gold') + ' ({{Shared.gold(user.stats.gp)}})', popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_gold
-        span {{Shared.gold(user.stats.gp) | goldRoundThousandsToK}}
+        span {{Shared.gold(user.stats.gp) | roundLargeNumbers}}
       li.toolbar-currency.silver(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_silver
         span {{Shared.silver(user.stats.gp)}}
