@@ -34,6 +34,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     $scope.updateTaskFilter = function(){
       user.filterQuery = $scope.filterQuery;
     };
+    $scope.updateTaskFilter();
 
     $scope.createTag = function() {
       User.user.ops.addTag({body:{name:$scope._newTag.name, id:Shared.uuid()}});
