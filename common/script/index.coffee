@@ -558,7 +558,7 @@ api.wrap = (user, main=true) ->
         user.preferences.costume = false
         # Remove unlocked features
         flags = user.flags
-        if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        if not user.achievements.beastMaster
           flags.rebirthEnabled = false
         flags.itemsEnabled = false
         flags.dropsEnabled = false
@@ -1513,7 +1513,7 @@ api.wrap = (user, main=true) ->
           user._tmp.drop = _.defaults content.quests[k],
             type: 'Quest'
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
-      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
+      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
       if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
         user.flags.freeRebirth = true
