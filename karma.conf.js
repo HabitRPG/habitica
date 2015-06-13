@@ -51,7 +51,9 @@ module.exports = function(config) {
       "website/public/js/services/challengeServices.js",
       "website/public/js/services/paymentServices.js",
 
-      "website/public/js/filters/filters.js",
+      "website/public/js/filters/money.js",
+      "website/public/js/filters/roundLargeNumbers.js",
+      "website/public/js/filters/taskOrdering.js",
 
       "website/public/js/directives/focus-me.directive.js",
       "website/public/js/directives/from-now.directive.js",
