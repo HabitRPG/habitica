@@ -8,6 +8,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shared = require('../../../common');
 var _ = require('lodash');
+var moment = require('moment');
 
 // Task Schema
 // -----------
@@ -50,10 +51,13 @@ var checklist = [{
 
 var DailySchema = new Schema(
   _.defaults({
-    type: {type:String, 'default': 'daily'},
+    type: {type: String, 'default': 'daily'},
+    frequency: {type: String, 'default': 'weekly', enum: ['daily', 'weekly']},
+    everyX: {type: Number, 'default': 1}, // e.g. once every X weeks
+    startDate: {type: Date, 'default': moment().startOf('day').toDate()},
     history: Array,
     completed: {type: Boolean, 'default': false},
-    repeat: {
+    repeat: { // used only for 'weekly' frequency,
       m:  {type: Boolean, 'default': true},
       t:  {type: Boolean, 'default': true},
       w:  {type: Boolean, 'default': true},

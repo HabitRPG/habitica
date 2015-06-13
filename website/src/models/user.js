@@ -406,7 +406,7 @@ var UserSchema = new Schema({
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
   extra: Schema.Types.Mixed,
- 
+
   pushDevices: {type: [{
     regId: {type: String},
     type: {type: String}
@@ -459,7 +459,9 @@ UserSchema.pre('save', function(next) {
           newTask.name = newTask.name(self.preferences.language);
         }else{
           newTask.text = newTask.text(self.preferences.language);
-          newTask.notes = newTask.notes(self.preferences.language);
+          if(newTask.notes) {
+            newTask.notes = newTask.notes(self.preferences.language);
+          }
 
           if(newTask.checklist){
             newTask.checklist = _.map(newTask.checklist, function(checklistItem){
