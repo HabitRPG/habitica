@@ -20,7 +20,7 @@
     "unlockSet": "Sblocca set - <%= cost %>",
     "locked": "bloccato",
     "shirts": "Maglie",
-    "specialShirts": "Maglie Speciali",
+    "specialShirts": "Maglie speciali",
     "bodyHead": "Acconciature e colore dei capelli",
     "bodySkin": "Pelle",
     "color": "Colore",
@@ -52,9 +52,11 @@
     "costume": "Costume",
     "costumeText": "Se preferisci il look di oggetti diversi da quelli equipaggiati, metti una spunta su \"Usa costume\" per visualizzare un costume anzichè l'equipaggiamento da battaglia (nonostante il cambio di aspetto, rimangono tutti i bonus delle armi e delle armature).",
     "useCostume": "Usa costume ",
-    "gearAchievement": "Hai ottenuto il Trofeo \"Armato Fino Ai Denti\" per aver potenziato al massimo livello il tuo equipaggiamento!",
+    "gearAchievement": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class! You have attained the following complete sets:",
+    "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/#/options/profile/stats' target='_blank'>your stats page</a> and buy up your new class's gear!",
+    "armoireUnlocked": "You've also unlocked the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "Armato Fino Ai Denti",
-    "ultimGearText": "Ha potenziato al massimo l'arma e il set dell'armatura",
+    "ultimGearText": "Has upgraded to the maximum weapon and armor set for the following classes:",
     "level": "Livello",
     "levelUp": "Livello aumentato!",
     "mana": "Mana",
@@ -70,6 +72,7 @@
     "allocatePerPop": "Aggiungi un punto a Percezione (PER)",
     "allocateInt": "Punti assegnati a Intelligenza:",
     "allocateIntPop": "Aggiungi un punto a Intelligenza (INT)",
+    "noMoreAllocate": "Ora che hai raggiunto il livello 100, non guadagnerai altri Punti Attributo. Puoi continuare a salire di livello, o iniziare una nuova avventura dal livello 1 usando la <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>, ora disponibile gratuitamente nel Mercato.",
     "stats": "Statistiche",
     "strength": "Forza",
     "strengthText": "L'attributo Forza aumenta la probabilità di sferrare \"colpi critici\", aumentando l'oro, l'esperienza e la probabilità di drop che potrai guadagnare grazie ad essi. In più, permette di arrecare maggiori danni ai boss delle missioni.",
@@ -138,5 +141,6 @@
     "displayNameDescription3": "nella sezione Registrazione per modificare il nome con cui accedi al sito..",
     "unequipBattleGear": "Rimuovi equipaggiamento di battaglia",
     "unequipCostume": "Rimuovi costume",
-    "unequipPetMountBackground": "Rimuovi animale, cavalcatura, sfondo"
+    "unequipPetMountBackground": "Rimuovi animale, cavalcatura, sfondo",
+    "animalSkins": "Skin animalesche"
 }

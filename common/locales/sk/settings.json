@@ -93,10 +93,12 @@
     "wonChallenge": "You Won a Challenge",
     "newPM": "Received Private Message",
     "giftedGems": "Gifted Gems",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Gifted Subscription",
     "invitedParty": "Pozvaný do družiny",
     "invitedGuild": "Invited To Guild",
     "inactivityEmails": "Your account is inactive",
+    "weeklyRecaps": "Summaries of your account activity in the past week",
     "questStarted": "Your Quest has Begun",
     "invitedQuest": "Invited to Quest",
     "kickedGroup": "Kicked from group",
@@ -111,5 +113,10 @@
     "benefits": "Výhody",
     "coupon": "Coupon",
     "couponPlaceholder": "Enter Coupon Code",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)"
+    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "apply": "Apply",
+    "resubscribe": "Resubscribe",
+    "promoCode": "Promo Code",
+    "promoCodeApplied": "Promo Code Applied! Check your inventory",
+    "promoPlaceholder": "Enter Promotion Code"
 }

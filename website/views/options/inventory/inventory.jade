@@ -2,11 +2,11 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
   .container-fluid
     .row
       .col-md-6.border-right
-        h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', popover=env.t('battleGearText'))=env.t('battleGear')
+        h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', popover=env.t('battleGearText'))=env.t('battleGear')
         div
           button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
         li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
       .col-md-6
@@ -20,7 +20,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
         li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
@@ -28,15 +28,15 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
   .container-fluid
     .stable.row
       .col-md-2
-        .seasonalshop_spring2015
+        .seasonalshop_closed
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+          h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
-            p!=env.t('seasonalShopText')
-    .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
-    li.customize-menu.inventory-gear
+            p!=env.t('seasonalShopClosedText', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Grand_Galas' target='_blank'>", linkEnd: "</a>"})
+    // .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
+    // li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{springWarrior:env.t("mightyBunnySet"), springMage:env.t("magicMouseSet"), springHealer:env.t("lovingPupSet"), springRogue:env.t("stealthyKittySet")}')
         // The `if true || false` conditional for applying the transparent class is necessary because
         // when a user activates the orb of rebirth, the seasonal items are still in their inventory, but
@@ -155,7 +155,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
               div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
-                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
+                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', class='inventory_present inventory_present_{{moment().format("MM")}}', ng-click="user.ops.openMysteryItem({})")
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
               div(ng-if='user.purchased.plan.consecutive.trinkets')
@@ -193,8 +193,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     |  {{::egg.value}}&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
-                //- buyable quest eggs
-                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime'}
+                //- buyable quest eggs. TODO: Get this from a collection so we don't have to maintain this ridiculous comma-delimited list
+                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime',sheep:'Sheep'}
                   div(ng-show='user.achievements.quests.#{quest} > 0')
                     button.customize-option(popover='{{::Content.eggs.#{egg}.notes()}}', popover-title!=env.t("egg", {eggType: "{{::Content.eggs.#{egg}.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("eggs", Content.eggs.#{egg})', class='Pet_Egg_#{egg}')
                     p

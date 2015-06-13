@@ -17,7 +17,7 @@
     "messageHatched": "Tvé vejce se vylíhlo! Navštiv svou stáj, abys svého mazlíčka mohl vybavit.",
     "messageNotEnoughGold": "Nedostatek zlaťáků",
     "messageTwoHandled": "<%= gearText %> je dvouruční.",
-    "messageDropFood": "Našel jsi <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
+    "messageDropFood": "Copak to je? A hele, <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!"

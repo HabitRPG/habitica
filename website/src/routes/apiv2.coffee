@@ -227,6 +227,11 @@ module.exports = (swagger, v2) ->
         description: "Get the full user object"
       action: user.getUser
 
+    "/user/anonymized":
+      spec:
+        description: "Get the user object without any personal data"
+      action: user.getUserAnonymized
+
     "/user:PUT":
       spec:
         path: '/user'
@@ -395,6 +400,16 @@ module.exports = (swagger, v2) ->
           path 'id','Id of webhook to delete','string'
         ]
       action: user.deleteWebhook
+
+    # Push Notifications
+    "/user/pushDevice":
+      spec:
+        method: 'POST'
+        description: 'Add a new push devices registration ID'
+        parameters: [
+          body '','New push registration { regId: "123123", type: "android"}','object'
+        ]
+      action: user.addPushDevice
 
     # ---------------------------------
     # Groups

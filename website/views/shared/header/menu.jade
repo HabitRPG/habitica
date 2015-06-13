@@ -26,9 +26,8 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.social.inbox')
+                  span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}} &nbsp;
                   =env.t("inbox")
-                  | &nbsp;
-                  span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
               li
                 a(ui-sref='options.social.tavern')=env.t('tavern')
               li
@@ -59,7 +58,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+                a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
               li
                 a(target="_blank" href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
               li
@@ -69,7 +68,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+                a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
           ul.toolbar-controls
             li.toolbar-subscribe-button
               button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
@@ -95,18 +94,18 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.profile.profile')=env.t('profile') 
       li.toolbar-button-dropdown
+        a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
+          span.badge.badge-danger {{user.inbox.newMessages}}
         a(ui-sref='options.social.tavern')
           span=env.t('social')
-          span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
         a(ng-click='expandMenu("social")', ng-class='{active: _expandedMenu == "social"}')
           span &#9776;
         div(ng-if='_expandedMenu == "social"')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
               a(ui-sref='options.social.inbox')
+                span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}} &nbsp;
                 =env.t("inbox")
-                | &nbsp;
-                span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}}
             li
               a(ui-sref='options.social.tavern')=env.t('tavern')
             li
@@ -155,7 +154,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
         div(ng-if='_expandedMenu == "help"')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+              a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
             li
               a(target="_blank" href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
             li
@@ -165,7 +164,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+              a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
             //-li(ng-controller='SettingsCtrl')
               a(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
@@ -244,7 +243,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.settings.export')=env.t('export')
               li
-                a(ui-sref='options.settings.coupon') Coupon
+                a(ui-sref='options.settings.promo')=env.t('promoCode')
               li
                 a(ui-sref='options.settings.subscription')=env.t('subscription')
               li
@@ -258,14 +257,14 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li.toolbar-controls-button
               a(ng-click='expandMenu(null)')=env.t('close')
     ul.toolbar-wallet
-      li.toolbar-gems
-        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+      li.toolbar-gems(popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+        a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})')
           //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
           span.Pet_Currency_Gem2x.Gems
           span.gem-text {{user.balance * 4 | number:0}}
       li.toolbar-currency.gold(popover=env.t('gold') + ' ({{Shared.gold(user.stats.gp)}})', popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_gold
-        span {{Shared.gold(user.stats.gp) | goldRoundThousandsToK}}
+        span {{Shared.gold(user.stats.gp) | roundLargeNumbers}}
       li.toolbar-currency.silver(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_silver
         span {{Shared.silver(user.stats.gp)}}

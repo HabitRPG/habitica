@@ -50,7 +50,7 @@
     "feedPet": "Myslíš, že <%= name %> si pochutná na něčem takovém jako je <%= article %><%= text %> ?",
     "useSaddle": "Koho osedláme? Bude to <%= pet %>?",
     "petName": "<%= potion %> <%= egg %>",
-    "mountName": "<%= potion %> <%= zkrocené zvíře %>",
+    "mountName": "<%= potion %> <%= mount %>",
     "petKeyName": "Klíč ke kotcům",
     "petKeyPop": "Nech své mazlíčky pobíhat na svobodě, vypusť je aby mohli začít své vlastní dobrodružství a zažij znovu vzrušení a staň se znovu pánem šelem!",
     "petKeyBegin": "Klíč ke kotcům: Zažij znovu vzrušení z titulu <%= title %>!",

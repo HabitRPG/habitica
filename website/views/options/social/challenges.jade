@@ -1,12 +1,12 @@
 script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
   a.btn.btn-sm.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
   h5= '- ' + env.t('or') + ' -'
-  select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', )
+  select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', style='display:block')
     option(value='')
     option(ng-repeat='u in closingChal.members', value='{{u._id}}') {{u.profile.name}}
 
-  small.pull-right
-    a(ng-click='cancelClosing(closingChal)')=env.t('cancel')
+  .text-right
+    small.btn-link(ng-click='cancelClosing(closingChal)')=env.t('cancel')
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
   .modal.bs-modal-lg(style='display: block')
@@ -128,17 +128,14 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               .form-group
                 textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
 
-              //- what's going on here?
-              br
-              br
-
               .form-group
-                input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
-                span.input-suffix.Pet_Currency_Gem1x.inline-gems
-                |&nbsp;
-                span.hint.vertical-20(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
+                .input-group
+                  span.input-group-addon
+                    .Pet_Currency_Gem1x
+                  input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
+                a.hint(popover="{{newChallenge.group=='habitrpg' ? env.t('prizePopTavern') : env.t('prizePop')}}", popover-trigger='mouseenter', popover-placement='right')
                   =env.t('moreInfo')
-                span(ng-show='newChallenge.group=="habitrpg"')
+                .pull-right(ng-show='newChallenge.group=="habitrpg"')
                   !=env.t('publicChallenges')
 
               .form-group(ng-if='user.contributor.admin')

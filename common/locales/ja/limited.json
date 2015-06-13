@@ -10,7 +10,7 @@
     "agriculturalFriendsText": "パーティメンバーによって<%= seeds %>回花に変化させられました。",
     "valentineCard": "バレンタインカード",
     "valentineCardNotes": "パーティメンバーにバレンタインカードを送ろう",
-    "valentine0": "「バラは赤い<%= lineBreak %> 私の毎日のタスクは青い<%= lineBreak %> 私はあなたと同じ<%= lineBreak %>パーティで嬉しい！」",
+    "valentine0": "「バラは赤い<%= lineBreak %> 私の日課は青い<%= lineBreak %> 私はあなたと同じ<%= lineBreak %>パーティで嬉しい！」",
     "valentine1": "「バラは赤い<%= lineBreak %> スミレは可愛い<%= lineBreak %>さあ一緒に<%= lineBreak %>バイスと戦おう！」",
     "valentine2": "「バラは赤い<%= lineBreak %> この詩の形式は古い<%= lineBreak %>あなたがこれを気に入ってくれると嬉しいけれど<%= lineBreak %>だって10ゴールドかかるから」",
     "valentine3": "「バラは赤い<%= lineBreak %> アイスドレイクは青い<%= lineBreak %>あなたと過ごす時間以上の<%= lineBreak %>素敵な宝はない」",

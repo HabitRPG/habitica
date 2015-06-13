@@ -12,6 +12,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'website/public/bower_components/jquery/dist/jquery.js',
+      'website/public/bower_components/pnotify/jquery.pnotify.js',
       'website/public/bower_components/angular/angular.js',
       'website/public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'website/public/bower_components/angular-resource/angular-resource.min.js',
@@ -34,7 +35,7 @@ module.exports = function(config) {
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
 
-      "test/spec/translations.js",
+      "test/spec/mocks/translations.js",
 
       "website/public/js/env.js",
 
@@ -50,9 +51,20 @@ module.exports = function(config) {
       "website/public/js/services/challengeServices.js",
       "website/public/js/services/paymentServices.js",
 
-      "website/public/js/filters/filters.js",
+      "website/public/js/filters/money.js",
+      "website/public/js/filters/roundLargeNumbers.js",
+      "website/public/js/filters/taskOrdering.js",
 
-      "website/public/js/directives/directives.js",
+      "website/public/js/directives/focus-me.directive.js",
+      "website/public/js/directives/from-now.directive.js",
+      "website/public/js/directives/habitrpg-tasks.directive.js",
+      "website/public/js/directives/hrpg-sort-checklist.directive.js",
+      "website/public/js/directives/hrpg-sort-tags.directive.js",
+      "website/public/js/directives/hrpg-sort-tasks.directive.js",
+      "website/public/js/directives/popover-html-popup.directive.js",
+      "website/public/js/directives/popover-html.directive.js",
+      "website/public/js/directives/task-focus.directive.js",
+      "website/public/js/directives/when-scrolled.directive.js",
 
       "website/public/js/controllers/authCtrl.js",
       "website/public/js/controllers/notificationCtrl.js",
@@ -67,10 +79,9 @@ module.exports = function(config) {
       "website/public/js/controllers/footerCtrl.js",
       "website/public/js/controllers/challengesCtrl.js",
       "website/public/js/controllers/hallCtrl.js",
-      // @TODO where did this directory go?
-      //'test/mock/**/*.js',
+      'test/spec/mocks/**/*.js',
       'test/spec/specHelper.js',
-      'test/spec/*.js'
+      'test/spec/**/*.js'
     ],
 
     // list of files / patterns to exclude
@@ -98,8 +109,17 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['PhantomJS'],
 
+    preprocessors: {
+      'website/public/js/**/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+      type: 'lcov',
+      dir:  'coverage/karma'
+    },
+
     // Enable mocha-style reporting, for better test visibility
-    reporters:  ['mocha'],
+    reporters:  ['mocha', 'coverage'],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

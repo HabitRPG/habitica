@@ -215,6 +215,78 @@ api.getUser = function(req, res, next) {
   return res.json(200, user);
 };
 
+/**
+ * Get anonymized User
+ */
+api.getUserAnonymized = function(req, res, next) {
+  var user = res.locals.user.toJSON();
+  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+  user.stats.maxHealth = 50;
+  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+
+  delete user.apiToken;
+
+  if (user.auth) {
+    delete user.auth.local;
+    delete user.auth.facebook;
+  }
+
+  delete user.newMessages;
+
+  delete user.profile;
+  delete user.purchased.plan;
+  delete user.contributor;
+  delete user.invitations;
+
+  delete user.items.special.nyeReceived;
+  delete user.items.special.valentineReceived;
+
+  delete user.webhooks;
+  delete user.achievements.challenges;
+
+  _.forEach(user.inbox.messages, function(msg){
+    msg.text = "inbox message text";
+  });
+
+  _.forEach(user.tags, function(tag){
+    tag.name = "tag";
+    tag.challenge = "challenge";
+  });
+
+  function cleanChecklist(task){
+    var checklistIndex = 0;
+
+    _.forEach(task.checklist, function(c){
+      c.text = "item" + checklistIndex++;
+    });
+  }
+
+  _.forEach(user.habits, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+  });
+
+  _.forEach(user.rewards, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+  });
+
+  _.forEach(user.dailys, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+
+    cleanChecklist(task);
+  });
+
+  _.forEach(user.todos, function(task){
+    task.text = "task text";
+    task.notes = "task notes";
+
+    cleanChecklist(task);
+  });
+
+  return res.json(200, user);
+};
 
 /**
  * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).
@@ -262,7 +334,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron({ga:ga}),
+    progress = user.fns.cron({ga:ga, mixpanel:utils.mixpanel}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 

@@ -15,7 +15,7 @@
     "guardianText": "Moderatoren werden sorgfältig aus den höheren Mitwirkenden Rängen ausgesucht, also bitte zeige ihnen gegenüber Respekt und höre auf ihre Vorschläge.",
     "staff": "Mitarbeiter",
     "heroic": "Heroisch",
-    "heroicText": "Den Helden Rang tragen HabitRPG-Mitarbeitere und Mitwirkende auf Mitarbeiter-Level. Hast Du diesen Titel errungen, dann wurdest Du dazu berufen (oder von uns angestellt!).",
+    "heroicText": "Den Helden Rang tragen HabitRPG-Mitarbeiter und Mitwirkende auf Mitarbeiter-Level. Hast Du diesen Titel errungen, dann wurdest Du dazu berufen (oder von uns angestellt!).",
     "npcText": "NPCs haben HabitRPG über Kickstarter mitfinanziert. Du kannst ihre Avatare sehen, wie sie über die Features des Spiels wachen.",
     "modalContribAchievement": "Erfolg als Mitwirkender!",
     "contribModal": "<%= name %>, Du bist fantastisch! Du hast den Rang <%= level %> Mitwirkender errungen, weil Du bei HabitRPG  mithilfst. Sieh",

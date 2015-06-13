@@ -2,16 +2,16 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.options-menu
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        =env.t('settings')
+        =env.t('site')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
         =env.t('API')
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
         =env.t('dataExport')
-    li(ng-class="{ active: $state.includes('options.settings.coupon') }")
-      a(ui-sref='options.settings.coupon')
-        =env.t('coupon')
+    li(ng-class="{ active: $state.includes('options.settings.promo') }")
+      a(ui-sref='options.settings.promo')
+        =env.t('promoCode')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
       a(ui-sref='options.settings.subscription')=env.t('subscription')
     li(ng-class="{ active: $state.includes('options.settings.notifications') }")
@@ -66,10 +66,13 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               label
                 input(type='checkbox', ng-model='user.preferences.dailyDueDefaultView', ng-change='set({"preferences.dailyDueDefaultView": user.preferences.dailyDueDefaultView?true: false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('dailyDueDefaultViewPop'))=env.t('dailyDueDefaultView')
+            .checkbox(ng-if='party.memberCount === 1')
+              label
+                input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
+                span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('displayInviteToPartyWhenPartyIs1'))=env.t('displayInviteToPartyWhenPartyIs1')
             // button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-            button.btn.btn-default(ng-click="openModal('invite-friends', {controller:'GroupsCtrl'})") Invite Friends
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
             button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
@@ -155,14 +158,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
             a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
-script(type='text/ng-template', id='partials/options.settings.coupon.html')
+script(type='text/ng-template', id='partials/options.settings.promo.html')
   .container-fluid
     .row
       .col-md-6
-        h2= env.t('coupon')
+        h2=env.t('promoCode')
         form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
-          input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('couponPlaceholder'))
-          button.btn.btn-primary(type='submit') Submit
+          input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('promoPlaceholder'))
+          button.btn.btn-primary(type='submit')= env.t('submit')
         div
           small= env.t('couponText')
         div(ng-if='user.contributor.sudo')
@@ -325,6 +328,11 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
                 input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
                 span=env.t('inactivityEmails')
 
+            .checkbox
+              label
+                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.weeklyRecaps', ng-change='set({"preferences.emailNotifications.weeklyRecaps": user.preferences.emailNotifications.weeklyRecaps ? true: false})')
+                span=env.t('weeklyRecaps')
+
             hr
 
             .checkbox
@@ -374,12 +382,12 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
           .form-inline
             .form-group
-              input.form-control(type='text', ng-model='_subscription.coupon', placeholder='Promo Code')
+              input.form-control(type='text', ng-model='_subscription.coupon', placeholder= env.t('couponPlaceholder'))
             .form-group
-              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)') Apply
+              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
-          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)') Resubscribe
-          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key') Card
+          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
+          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
           a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')

@@ -14,7 +14,7 @@
     "save": "Salva",
     "addChecklist": "Aggiungi Checklist",
     "checklist": "Checklist",
-    "checklistText": "Riguardo le Dailies, le checklist parzialmente completate ridurranno il danno causato dalle Daily incomplete. Per esempio, una checklist con 3 elementi completati su 4 ti infliggerà il 25% del danno totale. Riguardo i To-Do invece, l'oro e l'esperienza guadagnati con il completamento verranno moltiplicati per il numero di elementi della checklist (3 elementi completati = guadagno x3).",
+    "checklistText": "Dividi un'attività in parti più piccole! Le checklist aumentano la quantità di Esperienza e Oro guadagnati da una To-Do, e riducono il danno causato da una Daily.",
     "expandCollapse": "Espandi/Comprimi",
     "text": "Testo",
     "extraNotes": "Note",
@@ -22,7 +22,7 @@
     "advancedOptions": "Avanzate",
     "difficulty": "Difficoltà",
     "difficultyHelpTitle": "Quanto è difficile questa attività?",
-    "difficultyHelpContent": "La difficoltà moltiplica il suo valore in punti, ma usa questa funzione con parsimonia, a questo pensano già i nostri efficienti algoritmi di gestione dei punteggi. Tuttavia, alcune attività sono decisamente più impegnative di altre (\"Scrivi la tesi\" contro \"Lavati i denti\"). Clicca per avere maggiori informazioni.",
+    "difficultyHelpContent": "Più è difficile un'attività, più Esperienza e Oro ti darà quando la completi... Ma ti danneggerà di più se è una Daily o un Habit Negativo!",
     "easy": "Facile",
     "medium": "Medio",
     "hard": "Difficile",
@@ -44,7 +44,6 @@
     "remaining": "Attivi",
     "complete": "Completi",
     "dated": "Con scadenza",
-    "datedNotSorted": "Dated To-Dos are NOT sorted by date. Sorting will probably be implemented in future.",
     "due": "Incomplete",
     "grey": "Grigie",
     "score": "Punti",
@@ -78,5 +77,6 @@
     "streakCoins": "Bonus serie!",
     "pushTaskToTop": "Metti in cima alla lista",
     "pushTaskToBottom": "Metti in fondo alla lista",
-    "emptyTask": "Inserisci prima il titolo dell'attività."
+    "emptyTask": "Inserisci prima il titolo dell'attività.",
+    "dailiesRestingInInn": "Stai riposando nella Locanda! Le tue Daily NON ti danneggeranno stanotte, PERÒ si resetteranno comunque ogni giorno. Se stai partecipando ad una missione, non infliggerai danni/raccoglierai oggetti finchè non lasci la Locanda, ma puoi comunque essere danneggiato dal Boss se i tuoi compagni di squadra non completano le proprie Daily."
 }

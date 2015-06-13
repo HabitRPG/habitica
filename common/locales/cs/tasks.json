@@ -14,7 +14,7 @@
     "save": "Uložit",
     "addChecklist": "Přidat seznam",
     "checklist": "Seznam",
-    "checklistText": "V rámci Denních úkolů, částečně splněné seznamy snižují újmu. Například čtyř-položkový seznam se 3 splněnými úkoly snižuje zranění tohoto nesplněného Denního úkolu o 25%. Splněné položky seznamu v Úkolníčku se násobí: 3 zaškrtnutí znamenají +3x (celkem 4x) více zkušeností, zlaťáků a many.  ",
+    "checklistText": "Rozděl si úkoly na menší části! Seznamy úkolů zvyšují Zkušenost a zlaťáky, které za splnění úkolu získáš, a zmírňují újmu, kterou bys dostal, za zmeškání Denního úkolu.",
     "expandCollapse": "Rozbalit/Sbalit",
     "text": "Text",
     "extraNotes": "Další poznámky",
@@ -22,7 +22,7 @@
     "advancedOptions": "Pokročilé možnosti",
     "difficulty": "Obtížnost",
     "difficultyHelpTitle": "Jak obtížný je tento úkol?",
-    "difficultyHelpContent": "Toto násobí hodnotu bodů. Používej zřídka, raději spoléhej na naše organické algoritmy úprav bodů. Některé úkoly jsou však celkově mnohem cennější (Napiš diplomku vs Péče o zuby). Klikni pro více informací.",
+    "difficultyHelpContent": "Čím těžší úkol, tím více Zkušenosti a Zlaťáků dostaneš až ho odškrtneš... ale také ti víc ublíží, pokud to je Denní úkol nebo Zlozvyk!",
     "easy": "Jednoduché",
     "medium": "Středně těžké",
     "hard": "Těžké",
@@ -44,7 +44,6 @@
     "remaining": "Aktivní",
     "complete": "Splněno",
     "dated": "Datovaný",
-    "datedNotSorted": "Datované Úkoly NEJSOU seřazené podle data. Řazení bude nejspíš implementováno v budoucnu.",
     "due": "Zbývající",
     "grey": "Dokončené",
     "score": "Skóre",
@@ -78,5 +77,6 @@
     "streakCoins": "Bonus za šňůru!",
     "pushTaskToTop": "Přesunout úkol na vrchol",
     "pushTaskToBottom": "Posunout úkol na spodek",
-    "emptyTask": "Nejdřív zadej název úkolu."
+    "emptyTask": "Nejdřív zadej název úkolu.",
+    "dailiesRestingInInn": "Odpočíváš v Hostinci! Tvé Denní úkoly ti dnes NEUBLÍŽÍ, ale BUDOU se resetovat každý den. Pokud jsi na Výpravě, neuštědříš žádný úder/nebudeš sbírat předměty dokud se z Hostince neodhlásíš, ale stále ti může ublížit Boss, pokud tví přátelé v Družině nebudou plnit své Denní úkoly."
 }

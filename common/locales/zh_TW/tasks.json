@@ -14,7 +14,7 @@
     "save": "儲存",
     "addChecklist": "增加清單",
     "checklist": "清單",
-    "checklistText": "將每日任務分成數個小事項後，完成部分小事項可以降低每日任務未完成的懲罰傷害。例如，一個 4 事項任務，完成其中3個的話，傷害會減低到 25%。\n至於待辦事項，小事項可以帶來增幅，例如，3 個小事項代表額外的 3 份（總共 4 份）的經驗值、金幣和魔力。",
+    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
     "expandCollapse": "展開 / 縮合",
     "text": " 標題",
     "extraNotes": "說明",
@@ -22,7 +22,7 @@
     "advancedOptions": "進階選項",
     "difficulty": "難度",
     "difficultyHelpTitle": "此項任務有多難？",
-    "difficultyHelpContent": "這將獲得加成的經驗值。建議儘量少用，你大可放心地相信我們對任務難度報酬的計算。不過有些任務的確更有價值 ( 寫論文 vs. 剔牙縫 )。 點擊此處以了解更多資訊。",
+    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
     "easy": "簡單",
     "medium": "中等",
     "hard": "困難",
@@ -44,7 +44,6 @@
     "remaining": "待辦",
     "complete": "完成",
     "dated": "過期",
-    "datedNotSorted": "限期的待辦事項並沒有按照日期排序。未來可能會加入這項功能。",
     "due": "待辦",
     "grey": "已完成",
     "score": "分數",
@@ -78,5 +77,6 @@
     "streakCoins": "連擊獎勵",
     "pushTaskToTop": "置頂",
     "pushTaskToBottom": "置底",
-    "emptyTask": "請先輸入任務的標題"
+    "emptyTask": "請先輸入任務的標題",
+    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
 }
