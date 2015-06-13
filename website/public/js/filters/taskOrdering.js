@@ -12,16 +12,16 @@ angular.module('habitrpg')
       if (!input) return;
 
       if (!angular.isString(term) || term.legth === 0) {
-          return input;
+        return input;
       }
 
       term = new RegExp(term, 'i');
 
-      var result = [], i;
+      var result = [];
 
-      for (i = 0; i < input.length; i++) {
+      for (var i = 0; i < input.length; i++) {
         if (term.test(input[i].text) || term.test(input[i].notes)) {
-            result.push(input[i]);
+          result.push(input[i]);
         }
       }
 
