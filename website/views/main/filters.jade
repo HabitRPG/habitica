@@ -1,6 +1,10 @@
 .container-fluid
   .row
     .filters(ng-controller='FiltersCtrl')
+      .input-group.input-group-sm.filters-search.pull-right
+        input.form-control(type='text', placeholder=env.t('search'), ng-model='filterQuery', ng-change='updateTaskFilter()', ng-model-options='{ debounce: 250 }')
+        .input-group-addon
+          .glyphicon.glyphicon-search
       ul.filters-controls
         li=env.t('tags')
         //- Edit button

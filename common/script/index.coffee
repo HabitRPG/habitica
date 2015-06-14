@@ -72,13 +72,37 @@ api.daysSince = (yesterday, options = {}) ->
   Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(api.startOfDay(_.defaults {now:o.now}, o), 'days')
 
 ###
-  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
-api.shouldDo = (day, repeat, options={}) ->
-  return false unless repeat
+api.shouldDo = (day, dailyTask, options = {}) ->
+  return false unless dailyTask.type == 'daily' && dailyTask.repeat
+  if !dailyTask.startDate
+    dailyTask.startDate = moment().toDate()
+  if dailyTask.startDate instanceof String
+    dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
-  selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
-  return selected
+  day = api.startOfDay(_.defaults {now:day}, o)
+  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
+
+  # check if event is today or in the future
+  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+
+  if dailyTask.frequency == 'daily'
+    daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
+    everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
+    return everyXCheck && hasStartedCheck
+  else if dailyTask.frequency == 'weekly'
+    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
+    return dayOfWeekCheck && hasStartedCheck
+  else
+    # unexpected frequency string
+    return false
+
+api.numDaysApart = (day1, day2, o) ->
+  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
+  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
+  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
+  return numDays
 
 ###
   ------------------------------------------------------
@@ -211,7 +235,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
@@ -281,7 +305,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
 
   # show as completed if completed (naturally) or not required for today
   if type in ['todo', 'daily']
-    if completed or (type is 'daily' and !api.shouldDo(+new Date, task.repeat, {dayStart}))
+    if completed or (type is 'daily' and !api.shouldDo(+new Date, task, {dayStart}))
       classes += " completed"
     else
       classes += " uncompleted"
@@ -534,7 +558,7 @@ api.wrap = (user, main=true) ->
         user.preferences.costume = false
         # Remove unlocked features
         flags = user.flags
-        if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        if not user.achievements.beastMaster
           flags.rebirthEnabled = false
         flags.itemsEnabled = false
         flags.dropsEnabled = false
@@ -1489,7 +1513,7 @@ api.wrap = (user, main=true) ->
           user._tmp.drop = _.defaults content.quests[k],
             type: 'Quest'
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
-      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
+      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
       if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
         user.flags.freeRebirth = true
@@ -1565,7 +1589,7 @@ api.wrap = (user, main=true) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
 
-          if api.shouldDo(thatDay, repeat, user.preferences) || completed
+          if api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed
             _.each daily.checklist, ((box)->box.completed=false;true)
           daily.completed = false
         return
@@ -1592,7 +1616,7 @@ api.wrap = (user, main=true) ->
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay, repeat, user.preferences)
+              if api.shouldDo(thatDay.toDate(), task, user.preferences)
                 scheduleMisses++
                 if user.stats.buffs.stealth
                   user.stats.buffs.stealth--

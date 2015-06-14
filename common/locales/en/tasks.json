@@ -36,6 +36,11 @@
     "newDailyBulk": "New Dailies (one per line)",
     "streakCounter": "Streak Counter",
     "repeat": "Repeat",
+    "repeatEvery": "Repeat Every",
+    "repeatDays": "Every X Days",
+    "repeatWeek": "On Certain Days of the Week",
+    "day": "Day",
+    "days": "Days",
     "restoreStreak": "Restore Streak",
     "todos": "To-Dos",
     "newTodo": "New To-Do",
@@ -60,6 +65,9 @@
     "clearTags": "Clear",
     "hideTags": "Hide",
     "showTags": "Show",
+    "startDate": "Start Date",
+    "startDateHelpTitle": "When should this task start?",
+    "startDateHelp": "Set the date for which this task takes effect. Will not be due on earlier days.",
     "streakName": "Streak Achievements",
     "streakText": "Has performed <%= streaks %> 21-day streaks on Dailies",
     "streakSingular": "Streaker",
@@ -95,5 +103,6 @@
     "rewardHelp1": "The Equipment you buy for your avatar is stored in <%= linkStart %>Inventory > Equipment<%= linkEnd %>.",
     "rewardHelp2": "Equipment affects your stats (<%= linkStart %>Avatar > Stats<%= linkEnd %>).",
     "rewardHelp3": "Special equipment will appear here during World Events.",
-    "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <a href='http://habitrpg.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>some samples here</a>."
+    "rewardHelp4": "Don't be afraid to set custom Rewards! Check out <a href='http://habitrpg.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>some samples here</a>.",
+    "clickForHelp": "Click for help"
 }
