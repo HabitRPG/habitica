@@ -84,10 +84,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               ng-change='set({"party.orderAscending": user.party.orderAscending})'
               )
           table.table.table-striped(bindonce='group')
-            tr(ng-repeat='member in group.members track by member._id' ng-if='member._id != group.leader._id')
+            tr(ng-repeat='member in group.members track by member._id')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader._id == user.id')
+                div.pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
                   a.media-object(ng-click='removeMember(group, member, true)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
