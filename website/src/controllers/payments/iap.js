@@ -6,7 +6,7 @@ var nconf = require('nconf');
 var inAppPurchase = require('in-app-purchase');
 inAppPurchase.config({
   // this is the path to the directory containing iap-sanbox/iap-live files
-  googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR") 
+  googlePublicKeyPath: nconf.get("IAP_GOOGLE_KEYDIR")
 });
 
 // Validation ERROR Codes
@@ -24,15 +24,14 @@ exports.androidVerify = function(req, res, next) {
         ok: false,
         data: 'IAP Error'
       };
-    
+
       console.error('IAP Setup ERROR');
       console.error(error);
-        
-      res.json(resObj);
-        
-      return;
+
+      return res.json(resObj);
+
     }
-    
+
     /*
       google receipt must be provided as an object
       {
@@ -44,7 +43,7 @@ exports.androidVerify = function(req, res, next) {
       data: iapBody.transaction.receipt,
       signature: iapBody.transaction.signature
     };
-    
+
     // iap is ready
     iap.validate(iap.GOOGLE, testObj, function (err, googleRes) {
       if (err) {
@@ -56,9 +55,7 @@ exports.androidVerify = function(req, res, next) {
           }
         };
 
-        res.json(resObj);
-        console.error(err);
-        return;
+        return res.json(resObj);
       }
 
       if (iap.isValidated(googleRes)) {
@@ -78,7 +75,7 @@ exports.androidVerify = function(req, res, next) {
 
 exports.iosVerify = function(req, res, next) {
   console.info(req.body);
-  
+
   var iapBody = req.body;
   var user = res.locals.user;
 
@@ -92,11 +89,10 @@ exports.iosVerify = function(req, res, next) {
       console.error('IAP Setup ERROR');
       console.error(error);
 
-      res.json(resObj);
+      return res.json(resObj);
 
-      return;
     }
-    
+
     // iap is ready
     iap.validate(iap.APPLE, iapBody.transaction.receipt, function (err, appleRes) {
       if (err) {
@@ -108,9 +104,7 @@ exports.iosVerify = function(req, res, next) {
           }
         };
 
-        res.json(resObj);
-        console.error(err);
-        return;
+        return res.json(resObj);
       }
 
       if (iap.isValidated(appleRes)) {
@@ -123,8 +117,7 @@ exports.iosVerify = function(req, res, next) {
               data: appleRes
             };
             // yay good!
-            res.json(resObj);
-            return;
+            return res.json(resObj);
           }
         }
         var resObj = {
@@ -135,8 +128,7 @@ exports.iosVerify = function(req, res, next) {
           }
         };
 
-        res.json(resObj);
-        return;
+        return res.json(resObj);
       }
     });
   });
