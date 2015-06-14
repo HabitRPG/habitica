@@ -698,7 +698,7 @@ api.wrap = (user, main=true) ->
         pd.push(item) unless i != -1
 
         cb? null, user.pushDevices
-      
+
       # ------
       # Inbox
       # ------
@@ -871,6 +871,7 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
+        armoireResp = undefined
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
@@ -887,14 +888,18 @@ api.wrap = (user, main=true) ->
             user.flags.armoireOpened = true
             message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
             if api.countArmoire(user.items.gear.owned) is 0 then user.flags.armoireEmpty = true
+            armoireResp = {"type": "gear", "key": drop.key}
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
             user.items.food[drop.key] += 1
             message = i18n.t('armoireFood', {image: '<span class="Pet_Food_'+drop.key+' pull-left"></span>', dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
+            armoireResp = {"type": "food", "key": drop.key}
           else
-            user.stats.exp += Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
+            armoireExp = Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
+            user.stats.exp += armoireExp
             message = i18n.t('armoireExp', req.language)
+            armoireResp = {"type": "experience", "value": armoireExp}
         else
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
@@ -902,8 +907,10 @@ api.wrap = (user, main=true) ->
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
           if item.last then user.fns.ultimateGear()
         user.stats.gp -= item.value
+        buyResp = _.pick(user,$w 'items achievements stats flags')
+        buyResp["armoire"] = armoireResp if armoireResp
         mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
-        cb? {code:200, message}, _.pick(user,$w 'items achievements stats flags')
+        cb? {code:200, message}, buyResp
 
       buyMysterySet: (req, cb)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
@@ -1581,7 +1588,7 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. 
+      # User is resting at the inn.
       # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
