@@ -38,6 +38,7 @@
 
             "js/app.js",
             "common/script/public/config.js",
+
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
             "common/script/public/userServices.js",
@@ -48,7 +49,9 @@
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
 
-            "js/filters/filters.js",
+            "js/filters/money.js",
+            "js/filters/roundLargeNumbers.js",
+            "js/filters/taskOrdering.js",
 
             "js/directives/focus-me.directive.js",
             "js/directives/from-now.directive.js",

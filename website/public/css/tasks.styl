@@ -215,7 +215,6 @@ for $stage in $stages
     border: 1px solid #aaa
     border-radius: 0.382em
     padding-left: 0.618em
-    background-color: #fff !important
     -webkit-appearance: none
     -moz-appearance: none
     appearance: none
@@ -409,6 +408,7 @@ form
     //border-bottom: 1px solid rgba(0,0,0,0.1)
     padding: 0 0 1em
     margin-bottom: 1em
+    margin-top: 1em
 
   button.advanced-options-toggle
     display: block;
@@ -416,8 +416,8 @@ form
     background: none;
   .option-title
     font-size: 1em
-    margin: 0 0 0.5em
-    line-height: 2.5
+    margin: 0.5em 0 0.5em
+    line-height: 1.0
     border: 0
     padding: 0
     //color: #333
@@ -587,9 +587,10 @@ form
     li
       @extend $hrpg-button
       button
+        margin-top: 0.5em
         span
           margin-right: 0.5em
-  > form
+  > .checklist-form
     li
       @extend $hrpg-button-with-input
       @extend $clearfix

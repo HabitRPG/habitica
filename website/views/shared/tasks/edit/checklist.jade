@@ -1,14 +1,15 @@
-.task-checklist-edit(ng-if='!$state.includes("options.social.challenges")')
+.task-checklist-edit(ng-if='::!$state.includes("options.social.challenges") && (task.type=="daily" || task.type=="todo")')
   ul
     li
-      button(type='button', ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',
+      button(type='button', ng-if='!task.checklist[0]'
+        popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom',
         ng-click='addChecklist(task)')
         span.glyphicon.glyphicon-tasks
         span=env.t('addChecklist')
 
-  form.checklist-form(ng-if='task.checklist')
+  .checklist-form(ng-if='task.checklist')
     fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
-      legend.option-title
+      legend.option-title(ng-if='task.checklist[0]')
         span.hint(popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom')
           =env.t('checklist')
       ul(hrpg-sort-checklist)

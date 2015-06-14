@@ -12,13 +12,13 @@ div(ng-if='::task.type!="reward"')
 
         input.form-control(type='text', ng-model='task.startDate',
           datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',
-          ng-click='datepickerOpened = true')
+          ng-click='datepickerOpened = true', ng-disabled='task.challenge.id')
 
       hr
 
       .form-group
         legend.option-title=env.t('repeat')
-        select.form-control(ng-model='task.frequency')
+        select.form-control(ng-model='task.frequency', ng-disabled='task.challenge.id')
           option(value='weekly')=env.t('repeatWeek')
           option(value='daily')=env.t('repeatDays')
 
