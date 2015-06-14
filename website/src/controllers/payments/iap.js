@@ -25,9 +25,6 @@ exports.androidVerify = function(req, res, next) {
         data: 'IAP Error'
       };
 
-      console.error('IAP Setup ERROR');
-      console.error(error);
-
       return res.json(resObj);
 
     }
@@ -74,8 +71,6 @@ exports.androidVerify = function(req, res, next) {
 };
 
 exports.iosVerify = function(req, res, next) {
-  console.info(req.body);
-
   var iapBody = req.body;
   var user = res.locals.user;
 
@@ -85,9 +80,6 @@ exports.iosVerify = function(req, res, next) {
         ok: false,
         data: 'IAP Error'
       };
-
-      console.error('IAP Setup ERROR');
-      console.error(error);
 
       return res.json(resObj);
 
