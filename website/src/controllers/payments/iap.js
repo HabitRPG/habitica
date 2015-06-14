@@ -114,15 +114,29 @@ exports.iosVerify = function(req, res, next) {
       }
 
       if (iap.isValidated(appleRes)) {
+        var purchaseDataList = iap.getPurchaseData(appleRes);
+        if (purchaseDataList.length > 0) {
+          if (purchaseDataList[0].productId === "com.habitrpg.ios.Habitica.20gems") {
+            payments.buyGems({user:user, paymentMethod:'IAP AppleStore'});
+            var resObj = {
+              ok: true,
+              data: appleRes
+            };
+            // yay good!
+            res.json(resObj);
+            return;
+          }
+        }
         var resObj = {
-          ok: true,
-          data: appleRes
+          ok: false,
+          data: {
+            code: INVALID_PAYLOAD,
+            message: "Incorrect receipt"
+          }
         };
 
-        payments.buyGems({user:user, paymentMethod:'IAP AppleStore'});
-            
-        // yay good!
         res.json(resObj);
+        return;
       }
     });
   });
