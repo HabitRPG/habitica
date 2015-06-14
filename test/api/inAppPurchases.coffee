@@ -103,6 +103,11 @@ describe 'In-App Purchases', ->
 
         expect(res.json).to.not.be.called
 
+      it 'does not calls payments.buyGems function', ->
+        inApp.iosVerify(req, res, next)
+
+        expect(paymentSpy).to.not.be.called
+
     context 'iap is valid but has no purchaseDataList', ->
       before ->
         iapMock.setup = (cb)-> return cb(null)
