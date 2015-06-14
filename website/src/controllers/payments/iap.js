@@ -63,8 +63,7 @@ exports.androidVerify = function(req, res, next) {
 
         payments.buyGems({user:user, paymentMethod:'IAP GooglePlay'});
 
-        // yay good!
-        res.json(resObj);
+        return res.json(resObj);
       }
     });
   });
