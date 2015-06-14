@@ -191,10 +191,16 @@
     "questBunnyCompletion": "Con un'ultimo colpo atterri la coniglietta assassina. Una nebbia luccicante si alaza dal suo corpo mentre si rimpicciolisce in una piccolissima coniglietta... Niente a che vedere con la crudele bestia che hai affrontato un attimo fa. Il suo naso si muove in modo adorabile e lei saltella via, lasciandosi alle spalle alcune uova. @Gully ride. \"Il Monte Procrastinazione ha i suoi modi per far sembrare insormontabili anche le più piccole sfide. Raccogliamo queste uova e torniamo a casa.\"",
     "questBunnyDropBunnyEgg": "Coniglietto (Uovo)",
     "questBunnyUnlockText": "Sblocca l'cquisto delle uova di coniglietto nel Mercato",
-    "questSlimeText": "The Jelly Regent",
-    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
-    "questSlimeBoss": "Jelly Regent",
-    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
-    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
-    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
+    "questSlimeText": "Il Regente Gelatina",
+    "questSlimeNotes": "Mentre lavori alle tue attività, noti che i tuoi movimenti si fanno sempre più lenti. \"È come camminare attraverso della melassa,\" borbotta @Leephon. \"No, è come camminare attraverso della gelatina!\" dice @starsystemic. \"Quel viscido Regente Gelatina ha spalmato la sua roba su tutta Habitica. Sta impantanando tutto. Tutti stanno rallentando.\" Ti guardi intorno. Le strade si stanno lentamente riempendo di una melma chiara e colorata, e gli abitanti di Habitica devono sforzarsi per riuscire a fare qualsiasi cosa. Mentre gli altri scappano, tu impugni uno mocio e ti prepari al combattimento!",
+    "questSlimeBoss": "Regente Gelatina",
+    "questSlimeCompletion": "Con un colpo finale, intrappoli il Regente Gelatina in una ciambella gigante, portata in fretta da @Overomega, @LordDarkly, e @Shaner, i leader dal pensiero veloce del club di pasticceria. Mentre tutti di danno pacche sulle spalle, senti che qualcuno fa scivolare qualcosa nella tua tasca. È la ricompensa per la tua dolce vittoria: tre uova di Gelatina di Marshmallow. ",
+    "questSlimeDropSlimeEgg": "Gelatina di Marshmallow (Uovo)",
+    "questSlimeUnlockText": "Sblocca l'acquisto delle uova di gelatina di marshmallow nel Mercato",
+    "questSheepText": "L'Ariete Tuonante",
+    "questSheepNotes": "Mentre vai in giro per le campagne di Taskan con degli amici, prendendoti una \"pausa veloce\" dai tuoi doveri, trovi un accogliente negozio di filati. Sei così assorbito dalla tua procrastinazione che ti accorgi a malapena delle nuvole minacciose che si alzano dall'orizzonte. \"Non ho per niente un be-e-e-el presentimento riguardo questo tempo,\" mormora @Misceo, e tu alzi gli occhi. Le nuvole di tempesta si intrecciano tra loro, e assomigliano molto a... \"Non c'è tempo per stare a guardare le nuvole!\" urla @starsystemic. \"Sta attaccando!\" L'Ariete Tuonante carica verso di voi, scagliandovi addosso fulmini e saette!",
+    "questSheepBoss": "Ariete Tuonante",
+    "questSheepCompletion": "Colpita dalla tua diligenza, l'Ariete Tuonante è prosciugata della sua furia. Lancia tre enormi chicchi di grandine nella tua direzione, e poi scompare con un cupo rombo. Guardandoli meglio, scopri che i chicchi di grandine sono in realtà tre uova morbide e pelose. Le raccogli, e ti incammini verso casa sotto un cielo azzurro.",
+    "questSheepDropSheepEgg": "Pecorella (Uovo)",
+    "questSheepUnlockText": "Sblocca l'acquisto delle uova di pecorella nel Mercato"
 }

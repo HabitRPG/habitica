@@ -8,7 +8,7 @@
     "messageAlreadyMount": "כבר השגת את חיית הרכיבה הזו. נסה להאכיל חיה אחרת.",
     "messageEvolve": "הצלחת לאלף <%= egg %>, בוא נצא לרכיבה!",
     "messageLikesFood": "<%= egg %> נהנה לאכול <%= foodText %>!",
-    "messageDontEnjoyFood": "<%= egg %> אוכל את ה<%= foodText %> אבל לא נראה שהוא נהנה במיוחד.",
+    "messageDontEnjoyFood": "<%= egg %> אכל את ה<%= foodText %> אך לא נראה שהוא נהנה במיוחד.",
     "messageBought": "קנית <%= itemText %>",
     "messageEquipped": "הצטיידת ב<%= itemText %>",
     "messageUnEquipped": "הפסקת להשתמש ב<%= itemText %>",

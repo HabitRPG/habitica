@@ -1,0 +1,14 @@
+ul.items.rewards(ng-if='main && list.type=="reward"')
+  li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.key == "armoire" && !user.flags.armoireEmpty ? env.t("armoireNotesFull") + armoireCount(user.items.gear.owned) : item.notes()}}')
+    // right-hand side control buttons
+    .task-meta-controls
+      span.task-notes
+        span.glyphicon.glyphicon-comment
+    //left-hand size commands
+    .task-controls.task-primary
+      a.money.btn-buy.item-btn(ng-class='{highValue: item.value >= 1000}', ng-click='buy(item)')
+        span.shop_gold
+        span.reward-cost {{item.value}}
+    // main content
+    span(ng-class='::{"shop_{{item.key}} shop-sprite item-img": true}').reward-img
+    p.task-text {{item.text()}}

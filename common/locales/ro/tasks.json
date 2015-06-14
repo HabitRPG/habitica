@@ -14,7 +14,7 @@
     "save": "Salvează",
     "addChecklist": "Adaugă listă bife",
     "checklist": "Listă bife",
-    "checklistText": "Pentru Cotidiene, listele bifate parțial reduc vătămarea. De exemplu, o listă de 4 bife cu 3 bifate reduce vătămarea pentru acea Cotidiană neterminată cu 25%. Părţile bifate din lista unei Sarcini adaugă un multiplicator: 3 bife înseamnă +3x (4x în total) de Experiență, Aur și Mana.",
+    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
     "expandCollapse": "Desfășoară/Restrânge",
     "text": "Text",
     "extraNotes": "Alte note",
@@ -22,7 +22,7 @@
     "advancedOptions": "Opțiuni avansate",
     "difficulty": "Dificultate",
     "difficultyHelpTitle": "Cât de dificil e acest țel?",
-    "difficultyHelpContent": "Multiplică valoarea în puncte. Folosește cu grijă, contează în schimb pe algoritmii noștri organici de ajustare a valorii. Totuși, unele țeluri sunt vădit mai valoroase (scrisul unei dizertații vs. spălatul pe dinți). Click pentru mai multe informații.",
+    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
     "easy": "Ușor",
     "medium": "Mediu",
     "hard": "Greu",
@@ -77,5 +77,6 @@
     "streakCoins": "Bonus de realizare în șir!",
     "pushTaskToTop": "Urcă sarcina în vârf",
     "pushTaskToBottom": "Trimite sarcina la coadă.",
-    "emptyTask": "Enter the task's title first."
+    "emptyTask": "Enter the task's title first.",
+    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
 }

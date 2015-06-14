@@ -14,7 +14,7 @@
     "save": "Guardar",
     "addChecklist": "Añadir lista de control",
     "checklist": "Lista de control",
-    "checklistText": "En las Diarias, las listas completadas parcialmente reducen el daño. Por ejemplo, una lista de 4 partes con 3 completadas reduce el daño por esa tarea incompleta al 25%. Los elementos completados en la lista de una tarea Pendiente añaden un multiplicador: 3 hechos significan +3x (un total de 4x) la Experiencia, Oro y Maná.",
+    "checklistText": "¡Distribuye una tarea en partes! Las listas de control incrementan la Experiencia y el Oro ganados por completar Pendientes, y reducen el daño causado por una Diaria.",
     "expandCollapse": "Expandir/Contraer",
     "text": "Texto",
     "extraNotes": "Notas adicionales",
@@ -22,7 +22,7 @@
     "advancedOptions": "Opciones avanzadas",
     "difficulty": "Dificultad",
     "difficultyHelpTitle": "¿Qué dificultad tiene esta tarea?",
-    "difficultyHelpContent": "Esto multiplica su valor de puntos. No usar a menudo, confía en nuestro algoritmo de ajuste orgánico. Aún así, algunas tareas son mucho más valiosas que otras (Escribir tesis vs Lavarse los dientes). Haz clic para más información.",
+    "difficultyHelpContent": "Entre más difícil sea la tarea, recibirás mayor cantidad de Experiencia y Oro cuando la elimines de la lista... ¡pero hará más daño si es parte de una Diaria o un Mal Hábito!",
     "easy": "Fácil",
     "medium": "Intermedio",
     "hard": "Difícil",
@@ -77,5 +77,6 @@
     "streakCoins": "¡Bonus de racha!",
     "pushTaskToTop": "Enviar tarea al tope",
     "pushTaskToBottom": "Enviar tarea al fondo",
-    "emptyTask": "Primero escribe el título de la tarea."
+    "emptyTask": "Primero escribe el título de la tarea.",
+    "dailiesRestingInInn": "¡Estás descansando en la Posada! Tus Diarias no te harán daño esta noche, pero continuarán reiniciándose cada día. Si te encuentras una misión, no harás daño/coleccionarás objetos hasta que hayas salido de la Posada, pero sí recibirás daño de un Jefe si tus compañeros no completan sus Diarias."
 }

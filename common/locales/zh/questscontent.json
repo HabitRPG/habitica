@@ -6,7 +6,7 @@
     "questEvilSantaDropBearCubPolarMount": "北极熊 (坐骑)",
     "questEvilSanta2Text": "找熊崽",
     "questEvilSanta2Notes": "母熊的幼崽在母熊被抓住的时候跑进了冰原。在树林的边缘，她深嗅着空气。你听到树枝咔嚓作响，雪地嘎吱嘎吱的声音回荡在整个树林。爪印！你们开始追寻雪地上的踪迹。找到所有的爪印和破损的树枝，找回她的宝宝！",
-    "questEvilSanta2Completion": "你找到了熊崽！母熊和她的宝宝对你感激不尽。作为回报，他们决定守护你并陪伴着你到永远。",
+    "questEvilSanta2Completion": "你找到了熊崽！母熊和她的宝宝对你感激不尽。作为回报，他们决定守护你并永远陪伴着你。",
     "questEvilSanta2CollectTracks": "线索",
     "questEvilSanta2CollectBranches": "折断的细枝",
     "questEvilSanta2DropBearCubPolarPet": "北极熊 (宠物)",
@@ -17,7 +17,7 @@
     "questGryphonDropGryphonEgg": "狮鹫 (宠物蛋)",
     "questGryphonUnlockText": "解锁狮鹫蛋购买功能",
     "questHedgehogText": "巨型刺猬",
-    "questHedgehogNotes": "刺猬是一群好玩的动物。他们是Habit世界居民可以拥有的令人喜爱的宠物。但是有谣言称，如果你在午夜喂它们牛奶，他们会变得越来越暴躁。并且变大50倍。并且<strong>Inventrix</strong>刚刚这么做了。糟了。",
+    "questHedgehogNotes": "刺猬是一种有趣的生物。他们是Habit世界居民可以拥有的最可爱的宠物之一。但是有谣言称，如果你在午夜零点后喂它们牛奶，他们就会变得越来越暴躁，并且变大50倍。啊哦，<strong>Inventrix</strong>刚刚就这么做了。",
     "questHedgehogCompletion": "你的队伍成功地让巨型刺猬平静了下来！缩回她原来的大小后，她蹒跚着爬向她的蛋。她边吱吱叫边把她的一些蛋推向你的队伍。但愿这些刺猬更喜欢牛奶！",
     "questHedgehogBoss": "巨型刺猬",
     "questHedgehogDropHedgehogEgg": "刺猬 (宠物蛋)",
@@ -196,5 +196,11 @@
     "questSlimeBoss": "Jelly Regent",
     "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
     "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
-    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
+    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market",
+    "questSheepText": "The Thunder Ram",
+    "questSheepNotes": "As you wander the rural Taskan countryside with friends, taking a \"quick break\" from your obligations, you find a cozy yarn shop. You are so absorbed in your procrastination that you hardly notice the ominous clouds creep over the horizon. \"I've got a ba-a-a-ad feeling about this weather,\" mutters @Misceo, and you look up. The stormy clouds are swirling together, and they look a lot like a... \"We don't have time for cloud-gazing!\" @starsystemic shouts. \"It's attacking!\" The Thunder Ram hurtles forward, slinging bolts of lightning right at you!",
+    "questSheepBoss": "Thunder Ram",
+    "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
+    "questSheepDropSheepEgg": "Sheep (Egg)",
+    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
 }

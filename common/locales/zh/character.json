@@ -52,9 +52,11 @@
     "costume": "服装",
     "costumeText": "如果你更喜欢其它装备的样子，勾选\"显示服装\"的按钮，在装备战斗装备的情况下换一个造型。",
     "useCostume": "显示服装",
-    "gearAchievement": "因为你已升级到最高等级的装备，你获得了”终极装备“这个成就！",
+    "gearAchievement": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class! You have attained the following complete sets:",
+    "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/#/options/profile/stats' target='_blank'>your stats page</a> and buy up your new class's gear!",
+    "armoireUnlocked": "You've also unlocked the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "终极装备",
-    "ultimGearText": "已升级到最高级的武器和装甲",
+    "ultimGearText": "Has upgraded to the maximum weapon and armor set for the following classes:",
     "level": "级",
     "levelUp": "升级了！",
     "mana": "魔法值",
@@ -70,6 +72,7 @@
     "allocatePerPop": "增加一点感知",
     "allocateInt": "分配到智力的点数",
     "allocateIntPop": "增加一点智力",
+    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
     "stats": "属性",
     "strength": "力量",
     "strengthText": "力量增加“暴击”的几率。暴击时，金币、经验值、和物品掉落的机会都会有所增长。它也能帮助你伤害boss。",
@@ -138,5 +141,6 @@
     "displayNameDescription3": "然后滚动至“注册”部分来改变你的登录名。",
     "unequipBattleGear": "卸除战斗装备",
     "unequipCostume": "卸除戏服",
-    "unequipPetMountBackground": "卸除宠物、坐骑、背景"
+    "unequipPetMountBackground": "卸除宠物、坐骑、背景",
+    "animalSkins": "Animal Skins"
 }

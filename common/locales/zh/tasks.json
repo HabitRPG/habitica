@@ -14,7 +14,7 @@
     "save": "保存",
     "addChecklist": "新增清单",
     "checklist": "清单",
-    "checklistText": "对于每日任务，部分完成任务清单会降低受到的伤害。例如，一个包含4项的任务清单，如果完成了其中的3项，那么未完成这个每日任务只收到25%的伤害。完成待办事项的任务清单会加倍收益：3个完成项意味着+3倍 (算上任务本身总共4倍) 的经验，金币和魔法。",
+    "checklistText": "Break a task into smaller pieces! Checklists increase the Experience and Gold gained from a To-Do, and reduce the damage caused by a Daily.",
     "expandCollapse": "展开 / 折叠",
     "text": "文字",
     "extraNotes": "额外注解",
@@ -22,7 +22,7 @@
     "advancedOptions": "高级选项",
     "difficulty": "难度",
     "difficultyHelpTitle": "这任务有多难？",
-    "difficultyHelpContent": "难易度会按比例改变点数。尽量少用它，用我们的任务值调整算法来代替。但是有些任务本身更有价值 (例如写论文跟清理牙齿相比)。点这里获得更多信息。",
+    "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
     "easy": "简单",
     "medium": "中等",
     "hard": "困难",
@@ -77,5 +77,6 @@
     "streakCoins": "连击奖励！",
     "pushTaskToTop": "将任务置于顶部",
     "pushTaskToBottom": "将任务置于底部",
-    "emptyTask": "请先输入任务标题"
+    "emptyTask": "请先输入任务标题",
+    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
 }

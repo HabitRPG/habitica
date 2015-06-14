@@ -14,7 +14,7 @@
     "save": "Salvar",
     "addChecklist": "Adicionar Lista",
     "checklist": "Lista",
-    "checklistText": "Para Tarefas Diárias, listas parcialmente completas reduzirão o dano. Por exemplo, uma lista de 4 itens com 3 completos reduzirá o dano daquela Tarefa Diária para 25%. Itens completos numa lista de Afazeres adiciona um multiplicador: 3 completos significa +3x (total 4x) Experiência, Ouro e Mana.",
+    "checklistText": "Divida uma tarefa em partes menores! Listas aumentam a Experiência e Ouro recebidos de um Afazer e reduzem o dano causado por uma Tarefa Diária.",
     "expandCollapse": "Expandir/Fechar",
     "text": "Texto",
     "extraNotes": "Notas Extras",
@@ -22,7 +22,7 @@
     "advancedOptions": "Opções Avançadas",
     "difficulty": "Dificuldade",
     "difficultyHelpTitle": "Quão difícil é essa tarefa?",
-    "difficultyHelpContent": "Isso multiplica o valor de pontos. Use com moderação, conte com nosso algoritmo orgânico de ajuste de valor. Mas algumas tarefas são grosseiramente mais valiosas (Escrever Tese vs. Escovar Dentes). Clique para mais informações.",
+    "difficultyHelpContent": "Quanto mais difícil é uma tarefa, mais Experiência e Ouro dará quando você a completa... mas lhe causará mais dano se for uma Tarefa Diária ou Hábito Ruim.",
     "easy": "Fácil",
     "medium": "Médio",
     "hard": "Difícil",
@@ -77,5 +77,6 @@
     "streakCoins": "Bônus de Combo!",
     "pushTaskToTop": "Enviar tarefa para o topo",
     "pushTaskToBottom": "Enviar tarefa para o fundo",
-    "emptyTask": "Insira o título da tarefa primeiro."
+    "emptyTask": "Insira o título da tarefa primeiro.",
+    "dailiesRestingInInn": "Você está descansando na Pousada! Suas Tarefas Diárias NÃO vão lhe causar dano esta noite, mas elas ainda IRÃO atualizar normalmente todos os dias. Se você está em uma missão, você não causará dano ou coletará itens até que saia da Pousada, mas ainda poderá receber dano de um Chefão se os membros de sua Equipe não completarem as suas Tarefas Diárias."
 }

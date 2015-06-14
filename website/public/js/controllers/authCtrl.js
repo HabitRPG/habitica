@@ -15,11 +15,13 @@ angular.module('habitrpg')
 
       var runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
+          if(!err) $scope.registrationInProgress = false;
           $window.location.href = ('/' + window.location.hash);
         });
       };
 
       function errorAlert(data, status, headers, config) {
+        $scope.registrationInProgress = false;
         if (status === 0) {
           $window.alert(window.env.t('noReachServer'));
         } else if (!!data && !!data.err) {
@@ -29,6 +31,8 @@ angular.module('habitrpg')
         }
       };
 
+      $scope.registrationInProgress = false;
+
       $scope.register = function() {
         /*TODO highlight invalid inputs
          we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
@@ -36,10 +40,22 @@ angular.module('habitrpg')
         var scope = angular.element(document.getElementById('registrationForm')).scope();
         if (scope.registrationForm.$invalid) return;
 
+        $scope.registrationInProgress = true;
+
         var url = ApiUrl.get() + "/api/v2/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
+          if (status == 200) {
+            mixpanel.alias(data._id);
+            if (data.auth.facebook) {
+              mixpanel.register({'authType':'facebook','email':data.auth.facebook._json.email})
+            } else {
+              mixpanel.register({'authType':'email','email':data.auth.local.email})
+            }
+            mixpanel.register({'UUID':data._id,'language':data.preferences.language});
+            mixpanel.track('Registration');
+          }
         }).error(errorAlert);
       };
 
@@ -51,6 +67,11 @@ angular.module('habitrpg')
         $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
+            if (status == 200) {
+              mixpanel.identify(data.id);
+              mixpanel.register({'UUID':data._id});
+              mixpanel.track('Login');
+            }
           }).error(errorAlert);
       };
 
@@ -115,13 +136,18 @@ angular.module('habitrpg')
       // ------ Social ----------
 
       hello.init({
-        facebook : window.env.FACEBOOK_KEY,
+        facebook : window.env.FACEBOOK_KEY
       });
 
       $scope.socialLogin = function(network){
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
+              if (status == 200) {
+                mixpanel.identify(data.id);
+                mixpanel.register({'UUID':data._id});
+                mixpanel.track('Login');
+              }
               runAuth(data.id, data.token);
             }).error(errorAlert);
         }, function( e ){

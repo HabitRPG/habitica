@@ -191,10 +191,16 @@
     "questBunnyCompletion": "Posledním úderem srážíš zabijáckého králíčka k zemi. Třpytivá mlha se zvedne z jejího těla a smrskne se na obyčejného králíčka... vůbec nevypadá jako ta obluda, se kterou ses bil před chvílí. Její nosík se zaklepe a odhopká pryč zanechávajíc za sebou vejce. @Gully  se směje. \"Hora Prokrastinace dokáže z malých výzev udělat skoro neporazitelné. Vezměme tato vejce a pojďme domů.\"",
     "questBunnyDropBunnyEgg": "Králíček (vejce)",
     "questBunnyUnlockText": "Odemyká vejce králíčka na Trhu",
-    "questSlimeText": "The Jelly Regent",
-    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
-    "questSlimeBoss": "Jelly Regent",
-    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
-    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
-    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
+    "questSlimeText": "Želésprávce",
+    "questSlimeNotes": "Během práce na svých úkolech si všimneš, že se pohybuješ pomaleji a pomaleji. \"Je to jako prodírat se melasou\", bručí @Leephon. \"Ne, jako prodírat se želé!\", říká @starsystemic. \"Ten slizký Želésprávce napatlal to své želé po celé Habitice. Lepí se to na práci. Všichni se zpomalují.\" Rozhlížíš se. Ulice se pomalu plní průhledným, barevným želé a Habiťané zápasí se svými úkoly. Zatímco ostatní prchají z oblasti, ty si bereš mop a připravuješ se k bitvě!",
+    "questSlimeBoss": "Želésprávce",
+    "questSlimeCompletion": "S posledním bodnutím chytáš Želésprávce do přerostlé koblihy, kterou rychle donesli @Overomega, @LordDarkly a @Shaner, bystří vedoucí pekařského klubu. Jak tě každý poplácává po zádech, ucítíš jak ti někdo vložil něco do kapes. Je to odměna za tvůj sladký úspěch: tři vejce Marshmallow želé.",
+    "questSlimeDropSlimeEgg": "Marshmallow želé (vejce)",
+    "questSlimeUnlockText": "Odemyká vejce želé na Trhu",
+    "questSheepText": "Hromový beran",
+    "questSheepNotes": "Při toulkách Taskanským venkovem si s přáteli dáš rychlou pauzičku od povinností a najdete útulnou stodolu. Jste tak zabraní do flákání se, že si ani nevšimnete zlověstných mraku plížících se z horizontu. \"Tohle počasí se mi ne-e-e-elíbí,\" zamumlá @Misceo a všichni se podíváte na nebe. Bouřkové mraky se zlověstně víří a tak trochu to vypadá... \"Nemůžeme koukat na mraky!\" křičí @starsystemic. \"Útočí na nás!\" Hromový beran se na vás řítí a vrhá po vás blesky!",
+    "questSheepBoss": "Hromový beran",
+    "questSheepCompletion": "Všechna zloba opouští Hromového berana ohromeného vaší vytrvalostí. Hodí vám k nohám tři velké kroupy a poté za hlasitého zvuku hromu zmizí. Při bližší zkoumání zjistíte, že ty kroupy jsou vlastně tři nadýchaná vejce. Posbíráte je a vydáte se domů pod modrým nebem.",
+    "questSheepDropSheepEgg": "Beran (vejce)",
+    "questSheepUnlockText": "Odemyká vejce berana na Trhu"
 }

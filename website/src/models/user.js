@@ -34,7 +34,8 @@ var UserSchema = new Schema({
     originalUser: Boolean,
     helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
     habitSurveys: Number,
-    ultimateGear: Boolean,
+    ultimateGear: Boolean, //TODO: Deprecate this. Superseded by ultimateGearSets
+    ultimateGearSets: Schema.Types.Mixed,
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,
@@ -129,7 +130,11 @@ var UserSchema = new Schema({
       party: {type: Number,       'default': -1},
       guilds: {type: Number,      'default': -1},
       challenges: {type: Number,  'default': -1},
-      market: {type: Number,      'default': -1}
+      market: {type: Number,      'default': -1},
+      pets: {type: Number,        'default': -1},
+      mounts: {type: Number,      'default': -1},
+      hall: {type: Number,        'default': -1},
+      equipment: {type: Number,   'default': -1}
     },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
@@ -148,8 +153,14 @@ var UserSchema = new Schema({
     recaptureEmailsPhase: {type: Number, 'default': 0},
     // Needed to track the tip to send inside the email
     weeklyRecapEmailsPhase: {type: Number, 'default': 0},
+    // Used to track when the next weekly recap should be sent
+    lastWeeklyRecap: {type: Date, 'default': Date.now},
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
-    cronCount: {type:Number, 'default':0}
+    cronCount: {type:Number, 'default':0},
+    welcomed: {type: Boolean, 'default': false},
+    armoireEnabled: {type: Boolean, 'default': false},
+    armoireOpened: {type: Boolean, 'default': false},
+    armoireEmpty: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -314,6 +325,7 @@ var UserSchema = new Schema({
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
+    displayInviteToPartyWhenPartyIs1: { type:Boolean, 'default':true},
     webhooks: {type: Schema.Types.Mixed, 'default': {}},
     // For this fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
@@ -393,7 +405,12 @@ var UserSchema = new Schema({
   todos:    {type:[TaskSchemas.TodoSchema]},
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
-  extra: Schema.Types.Mixed
+  extra: Schema.Types.Mixed,
+
+  pushDevices: {type: [{
+    regId: {type: String},
+    type: {type: String}
+  }],'default': []}
 
 }, {
   strict: true,
@@ -442,7 +459,9 @@ UserSchema.pre('save', function(next) {
           newTask.name = newTask.name(self.preferences.language);
         }else{
           newTask.text = newTask.text(self.preferences.language);
-          newTask.notes = newTask.notes(self.preferences.language);
+          if(newTask.notes) {
+            newTask.notes = newTask.notes(self.preferences.language);
+          }
 
           if(newTask.checklist){
             newTask.checklist = _.map(newTask.checklist, function(checklistItem){

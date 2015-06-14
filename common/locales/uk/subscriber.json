@@ -5,7 +5,7 @@
     "disableAds": "Прибрати рекламу",
     "disableAdsText": "Реклами не буде, доки у Вас активована підписка (користувачі, в яких уже була вимкнена реклама, зберігають це право за собою).",
     "buyGemsGold": "Придбати самоцвіти за золото",
-    "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %> Gem monthly conversion cap to prevent farming.",
+    "buyGemsGoldText": "(1 Самоцвіт коштує <%= gemCost %> золота).  Таким чином усе можна досягти старанною працею. Але, щоб не було зловживань, існує ліміт на конвертацію <%= gemLimit %> Самоцвітів на місяць.",
     "retainHistory": "Зберегти всю історію",
     "retainHistoryText": "Уся історія доступна для експортування та перегляду у вигляді ґрафіків. Історія користувачів, що не оформили підписку, консолідується для оптимізації бази даних.",
     "doubleDrops": "Щоденне випадання предметів подвоїлося",

@@ -4,9 +4,9 @@
     "commGuideHeadingWelcome": "歡迎來到 Habitica!",
     "commGuidePara001": "嗨，冒險者！歡迎來到 Habitica，在這片大地上，生產力源源不絕、健康生活觸手可及，偶爾還能遇見暴跳的史詩巨獸。這裡的人們快樂地相互支持，激勵彼此成為更好的人。",
     "commGuidePara002": "為了確保社群裡的每個人都平安、快樂、效率滿滿，我們小心地制定了有善易懂的指導原則要請你閱讀。",
-    "commGuidePara003": "這些規則適用在屬於我們的所有社群空間（但也不只限於此），包括 Trello, Github, Transifex 以及 Wikia （也就是我們的百科）。\n有時候會出現一些前所未見的新狀況，像是新的衝突事端或是邪惡的亡靈法師，當這些情況發生，管理員們可能會修改這些指導原則以確保整個社群不受威脅、平安喜樂。別擔心，假如指導原則有所更動，Bailey 會發布公告來通知你。",
+    "commGuidePara003": "這些規則適用在屬於我們的所有社群空間(但也不只限於此)，包括 Trello, Github, Transifex 以及 Wikia (也就是我們的維基百科)。\n有時候會出現一些前所未見的新狀況，像是新的衝突事端或是邪惡的亡靈法師，當這些情況發生，管理員們可能會修改這些指導原則以確保整個社群不受威脅、平安。別擔心，假如指導原則有所更動，Bailey 會發布公告來通知你。",
     "commGuidePara004": "拿起你的羽毛筆跟羊皮卷軸，準備開始做筆記吧！",
-    "commGuideHeadingBeing": "成為一個 Habitican",
+    "commGuideHeadingBeing": "成為一個Habit公民",
     "commGuidePara005": "HabitRPG 是最早、最一流的自我提升網站，這讓我們幸運地在網路上凝聚了最溫暖、大方、謙遜，也最相挺的社群。一個 Habitican 有許多特徵，其中最常見也最顯眼的是：",
     "commGuideList01A": "<strong> 樂於助人的心。</strong>許多人費時費力幫助社群新人、給予指導。例如，新手公會，就是一種專門回答人們各式疑惑的協會，如果你覺得你能幫上忙，無須害羞！",
     "commGuideList01B": "<strong> 勤勉的態度。</strong>Habitican 在努力改善自己的生活同時，也是在不斷地為這個網站添磚加瓦。這是一個開源項目，我們每個人都持續地在讓這個地方變得好上加好。",
@@ -173,5 +173,6 @@
     "commGuideLink07": "Art Trello",
     "commGuideLink07description": "用於提交像素畫。",
     "commGuideLink08": "Quest Trello",
-    "commGuideLink08description": "提交任務作品。"
+    "commGuideLink08description": "提交任務作品。",
+    "lastUpdated": "最後更新"
 }

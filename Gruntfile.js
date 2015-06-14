@@ -31,7 +31,7 @@ module.exports = function(grunt) {
         // For hair, skins, beards, etc. we want to output a '.customize-options.WHATEVER' class, which works as a
         // 60x60 image pointing at the proper part of the 90x90 sprite.
         // We set up the custom info here, and the template makes use of it.
-        if (sprite.name.match(/hair|skin|beard|mustach|shirt|flower/) || sprite.name=='head_0') {
+        if (sprite.name.match(/hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears/) || sprite.name=='head_0') {
           sprite.custom = {
             px: {
               offset_x: "-" + (sprite.x + 25) + "px",
@@ -56,25 +56,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
-    git_changelog: {
-        minimal: {
-            options: {
-                repo_url: 'https://github.com/habitrpg/habitrpg',
-                appName : 'HabitRPG',
-                branch_name: 'develop'
-            }
-        },
-        extended: {
-            options: {
-                file: 'EXTENDEDCHANGELOG.md',
-                repo_url: 'https://github.com/habitrpg/habitrpg',
-                appName : 'HabitRPG',
-                branch_name: 'develop',
-                grep_commits: '^perf|^style|^fix|^feat|^docs|^refactor|^chore|BREAKING'
-            }
-        }
-    },
 
     karma: {
       unit: {
@@ -174,7 +155,7 @@ module.exports = function(grunt) {
 
     watch: {
       dev: {
-        files: ['website/public/**/*.styl'], // 'public/**/*.js' Not needed because not in production
+        files: ['website/public/**/*.styl', 'common/script/**/*.coffee'], // 'public/**/*.js' Not needed because not in production
         tasks:  [ 'build:dev' ],
         options: {
           nospawn: true
@@ -239,7 +220,7 @@ module.exports = function(grunt) {
     require('coffee-script');
     var i18n  = require('./website/src/i18n'),
         fs    = require('fs');
-    fs.writeFileSync('test/spec/translations.js',
+    fs.writeFileSync('test/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +
       "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
   });
@@ -271,6 +252,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('git-changelog');
 
 };

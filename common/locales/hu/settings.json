@@ -93,10 +93,12 @@
     "wonChallenge": "Megnyertél egy Kihívást",
     "newPM": "Kaptál egy Privát üzenetet",
     "giftedGems": "Ajándékoztál Drágaköveket",
+    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
     "giftedSubscription": "Ajándékoztál Előfizetést",
     "invitedParty": "Meghívva egy csapatba",
     "invitedGuild": "Meghívva egy céhbe",
     "inactivityEmails": "A fiókod inaktiv",
+    "weeklyRecaps": "Összefoglaló az elmúlt heti fiók aktivitásodról",
     "questStarted": "A küldetésed elkezdődött",
     "invitedQuest": "Meghívva egy küldetésre",
     "kickedGroup": "Kirúgtak a csoportból",
@@ -111,5 +113,10 @@
     "benefits": "Előnyök",
     "coupon": "Kupon",
     "couponPlaceholder": "Írd be a Kupon kódodat",
-    "couponText": "Időnként speciális eseményeket és kupon kódokat osztogatunk speciális felszerelésekhez. ( pl: azoknak akik meglátogatnak minket a Wondercon-os standunknál)"
+    "couponText": "Néha eseményeket tartunk és promóciós kódokat adunk különleges felszerelésekért (például azoknak, akik megállnak a standunknál a Wondercon-on)",
+    "apply": "Alkalmaz",
+    "resubscribe": "Újra feliratkozás",
+    "promoCode": "Promóciós kód",
+    "promoCodeApplied": "Promóciós kód elfogadva! Ellenőrizd le a tárgylistád",
+    "promoPlaceholder": "Írd be a Promóciós kódodat"
 }

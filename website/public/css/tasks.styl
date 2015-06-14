@@ -12,7 +12,7 @@ for $stage in $stages
     .color-{$stage[0]}:not(.completed)
       background-color: $stage[1]
       border: 1px solid shade($stage[1],10%)
-      .priority-multiplier, .task-attributes, .repeat-days
+      .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
         li
           hrpg-button-color-mixin($stage[1])
           button
@@ -63,7 +63,7 @@ for $stage in $stages
   color: darken($completed,30%)
   background-color: $completed
   border: 1px solid shade($completed,10%)
-  .priority-multiplier, .task-attributes, .repeat-days
+  .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
     li
       hrpg-button-color-mixin($completed)
       button
@@ -128,6 +128,12 @@ for $stage in $stages
   background: $color-tasks
   border: 1px solid darken($color-tasks,16.18%)
   font-family: 'Lato', sans-serif
+
+  &:after
+    clear: both;
+    display: block;
+    content: "";
+
   h2
     color: darken($color-tasks,61.8%)
 
@@ -135,6 +141,14 @@ for $stage in $stages
     margin: 0 0 0.5em
     padding: 0
     font-weight: 300
+
+.task-column.preview
+  padding: 0
+  background: transparent
+  border: 0;
+
+  .task:hover
+    cursor: auto
 
 // 50% width columns with scrollbars for tablets
 @media (min-width: 768px) and (max-width: 970px)
@@ -174,6 +188,11 @@ for $stage in $stages
   .empty-task-notification
     height: 100%;
 
+// message in Dailies column when Resting in Inn
+// ------------------------
+.dailiesRestingInInn
+  clear: both
+
 // an individual task entry
 // ------------------------
 .task
@@ -196,7 +215,6 @@ for $stage in $stages
     border: 1px solid #aaa
     border-radius: 0.382em
     padding-left: 0.618em
-    background-color: #fff !important
     -webkit-appearance: none
     -moz-appearance: none
     appearance: none
@@ -390,11 +408,16 @@ form
     //border-bottom: 1px solid rgba(0,0,0,0.1)
     padding: 0 0 1em
     margin-bottom: 1em
+    margin-top: 1em
 
+  button.advanced-options-toggle
+    display: block;
+    width: 100%;
+    background: none;
   .option-title
     font-size: 1em
-    margin: 0 0 0.5em
-    line-height: 2.5
+    margin: 0.5em 0 0.5em
+    line-height: 1.0
     border: 0
     padding: 0
     //color: #333
@@ -488,7 +511,7 @@ form
 
   form
     padding-bottom: 1em
-  .priority-multiplier, .task-attributes, .repeat-days
+  .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
     text-align: center
     li
       @extend $hrpg-button
@@ -498,12 +521,18 @@ form
       &:last-of-type
         margin-right: 0
   .repeat-days
+    padding-bottom: 1em
     li
       button
         min-width: 2.5em
   .save-close
     text-align: center
     @extend $hrpg-button
+
+// Dailies
+.dailies
+  .repeat-weekly
+    padding-bottom: 1em
 
 // Habits – task button styles (+ -)
 .habits
@@ -558,9 +587,10 @@ form
     li
       @extend $hrpg-button
       button
+        margin-top: 0.5em
         span
           margin-right: 0.5em
-  > form
+  > .checklist-form
     li
       @extend $hrpg-button-with-input
       @extend $clearfix

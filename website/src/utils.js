@@ -87,7 +87,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
           },
           {
             name: 'RECIPIENT_UNSUB_URL',
-            content: baseUrl + '/unsubscribe?code=' + module.exports.encrypt(JSON.stringify({
+            content: '/unsubscribe?code=' + module.exports.encrypt(JSON.stringify({
               _id: mailingInfo._id,
               email: mailingInfo.email
             }))
@@ -113,7 +113,7 @@ module.exports.txnEmail = function(mailingInfoArray, emailType, variables, perso
         },
         {
           name: 'RECIPIENT_UNSUB_URL',
-          content: baseUrl + '/unsubscribe?code=' + module.exports.encrypt(JSON.stringify({
+          content: '/unsubscribe?code=' + module.exports.encrypt(JSON.stringify({
             _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id,
             email: singlePersonalVariables.rcpt
           }))
@@ -179,6 +179,11 @@ module.exports.setupConfig = function(){
   baseUrl = nconf.get('BASE_URL');
 
   module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
+
+  var mixpanel = isProd && require('mixpanel');
+  module.exports.mixpanel = mixpanel
+    ? mixpanel.init(nconf.get('MP_ID'))
+    : { track: function() {} };
 };
 
 var algorithm = 'aes-256-ctr';

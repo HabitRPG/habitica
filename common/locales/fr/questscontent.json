@@ -191,10 +191,16 @@
     "questBunnyCompletion": "Avec votre dernier coup, le lapin tueur s'effondre au sol. Une brume lumineuse s'échappe de son corps alors qu'il rétrécit en un petit lapereau... rien d'équivalent là bête cruelle que vous avez affronté à l'instant. Son nez frissonne adorablement et il sautille plus loin, laissant quelques œufs derrière lui. @Gully rigole. \"Le Mont de la Procrastination a sa manière de faire apparaitre même le plus petit défi comme insurmontable. Rassemblons ces oeufs et rentrons à la maison.\"",
     "questBunnyDropBunnyEgg": "Lapin (Œuf)",
     "questBunnyUnlockText": "Déverrouille l'achat d’œufs de lapin au Marché",
-    "questSlimeText": "The Jelly Regent",
-    "questSlimeNotes": "As you work on your tasks, you notice you are moving slower and slower. \"It's like walking through molasses,\" @Leephon grumbles. \"No, like walking through jelly!\" @starsystemic says. \"That slimy Jelly Regent has slathered his stuff all over Habitica. It's gumming up the works. Everybody is slowing down.\" You look around. The streets are slowly filling with clear, colorful ooze, and Habiticans are struggling to get anything done. As others flee the area, you grab a mop and prepare for battle!",
-    "questSlimeBoss": "Jelly Regent",
-    "questSlimeCompletion": "With a final jab, you trap the Jelly Regent in an over-sized donut, rushed in by @Overomega, @LordDarkly, and @Shaner, the quick-thinking leaders of the pastry club. As everyone is patting you on the back, you feel someone slip something into your pocket. It’s the reward for your sweet success: three Marshmallow Slime eggs.",
-    "questSlimeDropSlimeEgg": "Marshmallow Slime (Egg)",
-    "questSlimeUnlockText": "Unlocks purchasable slime eggs in the Market"
+    "questSlimeText": "Le Régent de Gelée",
+    "questSlimeNotes": "Alors que vous travaillez vos tâches, vous remarquez que vous vous déplacer de plus en plus lentement. \"C'est comme marcher dans la mélasse,\" grogne @Leephon. \"Non, c'est comme marcher dans de la gelée !\" dit @starsystemic. \"Ce Régent de Gelée baveux a badigeonné sa substance partout sur Habitica. Ça bousille tout notre travail. Tout le monde ralentit.\" Vous regardez alentour. Les rues se remplissent doucement d'une vase claire et colorée, et les Habiticien·ne·s peinent à réaliser quoi que ce soit. Alors que les autres fuient les lieux, vous attrapez un balai et vous préparez au combat !",
+    "questSlimeBoss": "Régent de Gelée",
+    "questSlimeCompletion": "Avec un dernier coup, vous piégez le Régent de Gelée dans un énorme donut, hâté par @Overomega, @LordDarkly, et @Shaner, les meneurs vifs d'esprit du club de pâtisserie. Alors que tout le monde vous félicite, vous sentez quelqu'un glisser quelque chose dans votre poche. C'est la récompense pour votre prompt succès : trois œufs de Boule de Guimauve. ",
+    "questSlimeDropSlimeEgg": "Boule de Guimauve (Œuf)",
+    "questSlimeUnlockText": "Débloque l'achat des Boules de Guimauve au marché",
+    "questSheepText": "Le Bélier du Tonnerre",
+    "questSheepNotes": "Alors que vous vous promenez dans le paysage campagnard Tâcherain avec des amis, prenant une \"petite pause\" au milieu de vos obligations, vous tombez sur un adorable magasin de laine. Vous êtes si concentré dans votre procrastination que vous remarquez à peine les nuages menaçants qui se rapprochent en douce depuis l'horizon. \"C'est bê-ê-ê-ête que le temps se couvre. Ça ne présage rien de bon\", grommelle @Misceo, et vous regardez alors en l'air. Les nuages orageux tourbillonnent en volutes qui ressemblent fortement à.un... \"Nous n'avons pas le temps d'observer les nuages!\" crie @starsystemic. \"Il attaque!\" Le Bélier du Tonnerre arrive à toute allure, lançant des éclairs sur vous! ",
+    "questSheepBoss": "Bélier du Tonnerre",
+    "questSheepCompletion": "Impressionné par votre assiduité, le Bélier du Tonnerre voit sa fureur se calmer peu à peu. Il lance trois énormes grêlons dans votre direction et disparaît dans un grondement sourd. En allant voir les grêlons de plus près, vous vous apercevez que ce sont en fait trois œufs doux et floconneux. Vous les ramassez et rentrez chez vous en flânant sous un ciel sans tache.",
+    "questSheepDropSheepEgg": "Mouton (Œuf)",
+    "questSheepUnlockText": "Déverrouille l'achat d’œufs de mouton au Marché"
 }

@@ -196,5 +196,11 @@
     "questSlimeBoss": "Galaretkowy Regent",
     "questSlimeCompletion": "Ostatecznym dziabnięciem, więzisz Galaretkowego Regenta w przerośniętym pączku, zrobionego naprędce przez @Overomega, @LordDarkly i @Shaner, błyskotliwych liderów klubu cukierniczego. Gdy wszyscy klepią ciebie po plecach, czujesz że ktoś wsuwa coś do twojej kieszeni. To nagroda za twój słodki sukces: trzy jaja Piankowego Śluzu.",
     "questSlimeDropSlimeEgg": "Piankowy Śluz (jajo)",
-    "questSlimeUnlockText": "Odblokowuje dostęp do kupna śluzowych jaj na Targu"
+    "questSlimeUnlockText": "Odblokowuje dostęp do kupna śluzowych jaj na Targu",
+    "questSheepText": "Burzowy Baran",
+    "questSheepNotes": "Podczas wędrówki z przyjaciółmi przez wiejskie tereny Taskani, robiąc sobie \"krótką przerwę\" od swoich obowiązków, znajdujesz przytulną pasmanterię. Jesteś tak pochłonięty swoją prokrastynacją, że prawie nie zauważasz złowrogich chmur skradających się nad horyzontem. \"Mam złe-e-e-e przeczucie co do tej pogody,\" mruczy @Misceo, a ty spoglądasz w górę. Chmury burzowe kłębią się i wyglądają prawie jak... \"Nie mamy czasu na wpatrywanie się w chmury!\" krzyczy @starsystemic. \"To atakuje!\" Burzowy Baran gna przed siebie, ciskając pioruny i błyskawice prosto w ciebie!",
+    "questSheepBoss": "Burzowy Baran",
+    "questSheepCompletion": "Będąc pod wrażeniem twej pracowitości, Burzowy Baran osycha ze swej furii. Wypuszcza trzy ogromne kule gradowe w twoim kierunku, a potem znika z cichym dudnieniem. Po bliższym przyjrzeniu się odkrywasz, że kule gradowe to właściwie trzy puchate jaja. Zabierasz je, a następnie udajesz się na spacer do domu pod błękitnym niebem.",
+    "questSheepDropSheepEgg": "Owca (jajo)",
+    "questSheepUnlockText": "Odblokowuje dostęp do kupna owczych jaj na Targu"
 }

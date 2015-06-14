@@ -38,6 +38,7 @@
 
             "js/app.js",
             "common/script/public/config.js",
+
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
             "common/script/public/userServices.js",
@@ -48,9 +49,20 @@
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
 
-            "js/filters/filters.js",
+            "js/filters/money.js",
+            "js/filters/roundLargeNumbers.js",
+            "js/filters/taskOrdering.js",
 
-            "js/directives/directives.js",
+            "js/directives/focus-me.directive.js",
+            "js/directives/from-now.directive.js",
+            "js/directives/habitrpg-tasks.directive.js",
+            "js/directives/hrpg-sort-checklist.directive.js",
+            "js/directives/hrpg-sort-tags.directive.js",
+            "js/directives/hrpg-sort-tasks.directive.js",
+            "js/directives/popover-html-popup.directive.js",
+            "js/directives/popover-html.directive.js",
+            "js/directives/task-focus.directive.js",
+            "js/directives/when-scrolled.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/notificationCtrl.js",
@@ -125,7 +137,9 @@
         ],
         "css": [
             "bower_components/css-social-buttons/css/zocial.css",
-            "front/staticstyle.css"
+            "front/staticstyle.css",
+            "common/dist/sprites/habitrpg-shared.css",
+            "app.css"
         ]
     }
 }
