@@ -52,9 +52,11 @@
     "costume": "服裝",
     "costumeText": "如果你喜歡其他裝備的外觀更勝於你現在的裝備，勾選\"使用服裝\"框穿上想被看到的服裝，而你的戰鬥裝備會穿在裡面。",
     "useCostume": "使用服裝",
-    "gearAchievement": "你已達成「終極裝備」成就：升級到最高裝備！",
+    "gearAchievement": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class! You have attained the following complete sets:",
+    "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/#/options/profile/stats' target='_blank'>your stats page</a> and buy up your new class's gear!",
+    "armoireUnlocked": "You've also unlocked the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "終極裝備",
-    "ultimGearText": "已升級到最高武器和盔甲",
+    "ultimGearText": "Has upgraded to the maximum weapon and armor set for the following classes:",
     "level": "等級",
     "levelUp": " 升級了！",
     "mana": "魔力",
@@ -70,7 +72,7 @@
     "allocatePerPop": "增加一點感知",
     "allocateInt": "分配給智力的屬性點：",
     "allocateIntPop": "增加一點智力",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
+    "noMoreAllocate": "恭喜您！您的角色已經達到了最高的等級 100，所以往後的等級提升您將不會再獲得屬性點。您可以使用這個角色續續升級，又或者透過巿集取得免費的<a href='http://habitrpg.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>重生之球</a>，從等級 1 開始一場嶄新的冒險。",
     "stats": "屬性",
     "strength": "力量",
     "strengthText": "力量會增加「會心一擊」的機率，而會心一擊時會提升金幣、經驗和物品掉落的機率。力量還能幫助你傷害 BOSS。",
@@ -140,5 +142,5 @@
     "unequipBattleGear": "卸下戰鬥裝備",
     "unequipCostume": "卸下服裝",
     "unequipPetMountBackground": "卸下寵物、座騎、背景",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "動物膚色"
 }

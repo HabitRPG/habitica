@@ -1,0 +1,18 @@
+// Created by sabrecat on 5/18/15.
+
+script(type='text/ng-template', id='modals/welcome.html')
+   .modal-header
+      h4=env.t('welcomeToHabit')
+   .modal-body.text-center
+      h4=env.t('welcome1')
+      .welcome_to_Habit_1.center-block
+      h4=env.t('welcome2')
+      .welcome_to_Habit_2.center-block
+      h4=env.t('welcome3')
+      .welcome_to_Habit_3.center-block
+      h4=env.t('welcome4')
+      .welcome_to_Habit_4.center-block
+   .modal-footer
+      span.h4=env.t('welcome5')
+      |&nbsp;
+      span.button.btn.btn-primary(ng-click='$close(); Guide.goto("intro",0)')=env.t('imReady')

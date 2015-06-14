@@ -49,18 +49,25 @@ mixin customizeProfile(mobile)
       h3(class=mobile?'item item-divider':'')=env.t('accessories')
 
       menu(type='list')
+        // Flower
+        li.customize-menu
+          menu(label=env.t('flower'))
+            button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.flower":0})', ng-class='{selectableInventory: user.preferences.hair.flower == 0}')
+            each num in [1,2,3,4,5,6]
+              button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})', ng-class='{selectableInventory: user.preferences.hair.flower == "#{num}"}')
+
+        // Animal Ears
         li.customize-menu
           menu(label=env.t('animalEars'))
           span(ng-hide='#{showPath("user.items.gear.owned", gearGroup("animal"), "&&")}')
             +gemCost(2)
               button.btn.btn-xs(ng-click='#{unlockPath("items.gear.owned", gearGroup("animal"))}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-          button.customize-option(ng-repeat='item in ::getGearArray("animal")' ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}", popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
+          button.customize-option(ng-repeat='item in ::getGearArray("animal")' ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}", popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='{{::item.key}}')
 
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
         menu(type='list')
           // For special events code, see commit dfa27b3
-
 
           // Color
           li.customize-menu
@@ -106,14 +113,6 @@ mixin customizeProfile(mobile)
                   button.btn.btn-xs(ng-click='#{unlockPath("hair.base", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
               each num in styles
                 button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base["#{num}"], selectableInventory: user.preferences.hair.base == "#{num}"}', ng-click='unlock("hair.base.#{num}")')
-
-
-          // Flower
-          li.customize-menu
-            menu(label=env.t('flower'))
-              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.flower":0})', ng-class='{selectableInventory: user.preferences.hair.flower == 0}')
-              each num in [1,2,3,4,5,6]
-                button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})', ng-class='{selectableInventory: user.preferences.hair.flower == "#{num}"}')
 
           li.customize-menu
             menu(label=env.t('bodyFacialHair'))
@@ -271,7 +270,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
           input.form-control(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageUrl'))
         .form-group
           label=env.t('displayBlurb')
-          textarea.form-control(rows=5, placeholder=env.t('displayBlurb'), ng-model='editingProfile.blurb')
+          textarea.form-control(rows=5, placeholder=env.t('displayBlurbPlaceholder'), ng-model='editingProfile.blurb')
           include ../shared/formatting-help
 
 mixin backgrounds(mobile)

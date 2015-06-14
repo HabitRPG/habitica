@@ -180,6 +180,7 @@ habitrpg.controller("InventoryCtrl",
       $rootScope.selectedQuest = undefined;
     }
     $scope.questInit = function(){
+      mixpanel.track("Quest",{"owner":true,"response":"accept","questName":$scope.selectedQuest.key});
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
         $rootScope.party.$get();
       });

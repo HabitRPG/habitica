@@ -52,9 +52,11 @@
     "costume": "Kostuum",
     "costumeText": "Als een andere uitrusting mooier vindt dan de uitrusting die je gebruikt, vink dan \"Kostuum gebruiken\" aan om een andere uitrusting zichtbaar te maken terwijl je je strijduitrusting eronder draagt.",
     "useCostume": "Kostuum gebruiken",
-    "gearAchievement": "Je hebt de pretatie \"Hoogst haalbare uitrusting\" behaald door de hoogst haalbare uitrusting aan te schaffen!",
+    "gearAchievement": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class! You have attained the following complete sets:",
+    "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/#/options/profile/stats' target='_blank'>your stats page</a> and buy up your new class's gear!",
+    "armoireUnlocked": "You've also unlocked the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "Hoogst haalbare uitrusting",
-    "ultimGearText": "Heeft de hoogst haalbare uitrustings- en wapenset aangeschaft",
+    "ultimGearText": "Has upgraded to the maximum weapon and armor set for the following classes:",
     "level": "Niveau",
     "levelUp": "Niveau erbij!",
     "mana": "Mana",
@@ -140,5 +142,5 @@
     "unequipBattleGear": "Gevechtsuitrusting uittrekken",
     "unequipCostume": "Kostuum uittrekken",
     "unequipPetMountBackground": "Huisdier, rijdier en achtergrond uitschakelen",
-    "animalSkins": "Animal Skins"
+    "animalSkins": "Dierenhuiden"
 }

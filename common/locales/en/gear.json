@@ -138,6 +138,11 @@
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
+  "weaponArmoireBasicCrossbowText": "Basic Crossbow",
+  "weaponArmoireBasicCrossbowNotes": "This crossbow can pierce a task's armor from very far away! Increases Strength by <%= str %>, Perception by <%= per %>, and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireLunarSceptreText": "Soothing Lunar Sceptre",
+  "weaponArmoireLunarSceptreNotes": "The healing power of this wand waxes and wanes. Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Soothing Lunar Set (Item 3 of 3).",
+
   "armor": "armor",
 
   "armorBase0Text": "Plain Clothing",
@@ -282,6 +287,11 @@
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
 
+  "armorArmoireLunarArmorText": "Soothing Lunar Armor",
+  "armorArmoireLunarArmorNotes": "The light of the moon will make you strong and savvy. Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Soothing Lunar Set (Item 2 of 3).",
+  "armorArmoireGladiatorArmorText": "Gladiator Armor",
+  "armorArmoireGladiatorArmorNotes": "To be a gladiator you must be not only cunning... but strong. Increases Perception by <%= per %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 2 of 3).",
+
   "headgear": "headgear",
 
   "headBase0Text": "No Helm",
@@ -422,6 +432,17 @@
   "headMystery301405Text": "Basic Top Hat",
   "headMystery301405Notes": "A basic top hat, just begging to be paired with some fancy head accessories. Confers no benefit. May 3015 Subscriber Item.",
 
+  "headArmoireLunarCrownText": "Soothing Lunar Crown",
+  "headArmoireLunarCrownNotes": "This crown strengthens health and sharpens senses, especially when the moon is full. Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: Soothing Lunar Set (Item 1 of 3).",
+  "headArmoireRedHairbowText": "Red Hairbow",
+  "headArmoireRedHairbowNotes": "Become strong, tough and smart while wearing this beautiful Red Hairbow! Increases Strength by <%= str %>, Constitution by <%= con %>, and Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+  "headArmoireVioletFloppyHatText": "Violet Floppy Hat",
+  "headArmoireVioletFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a pleasing purple color. Increases Perception by <%= per %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "headArmoireGladiatorHelmText": "Gladiator Helm",
+  "headArmoireGladiatorHelmNotes": "To be a gladiator you must be not only strong.... but cunning. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Gladiator Set (Item 1 of 3).",
+  "headArmoireRancherHatText": "Rancher Hat",
+  "headArmoireRancherHatNotes": "Round up your pets and wrangle your mounts while wearing this magical Rancher Hat! Increases Strength by <%= str %>, Perception by <%= per %>, and Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+
   "offhand": "shield-hand item",
 
   "shieldBase0Text": "No Shield-Hand Equipment",
@@ -499,6 +520,9 @@
   
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
+
+  "shieldArmoireGladiatorShieldText": "Gladiator Shield",
+  "shieldArmoireGladiatorShieldNotes": "To be a gladiator you must.... eh, whatever, just bash them with your shield. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 3 of 3).",
 
   "backBase0Text": "No Back Accessory",
   "backBase0Notes": "No Back Accessory.",

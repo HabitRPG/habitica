@@ -72,6 +72,7 @@ exports.createSubscription = function(data, cb) {
     if (!data.gift) utils.txnEmail(data.user, 'subscription-begins');
     utils.ga.event('commerce', 'subscribe', data.paymentMethod, block.price).send();
     utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
+    utils.mixpanel.track('purchase',{'distinct_id':data.user._id,'itemPurchased':block.key,'purchaseValue':block.price})
   }
   data.user.purchased.txnCount++;
   if (data.gift){
@@ -123,6 +124,7 @@ exports.buyGems = function(data, cb) {
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'donation');
     utils.ga.event('commerce', 'checkout', data.paymentMethod, amt).send();
+    utils.mixpanel.track('purchase',{'distinct_id':data.user._id,'itemPurchased':'Gems','purchaseValue':amt})
     //TODO ga.transaction to reflect whether this is gift or self-purchase
     utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
   }

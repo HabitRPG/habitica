@@ -37,6 +37,12 @@
   margin-right: 10px;
 }
 
+.multi-achievement {
+  margin: auto;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
 [class*="Mount_Head_"], [class*="Mount_Body_"]{
   margin-top:18px; /* Sprite accommodates 105x123 box */
 }

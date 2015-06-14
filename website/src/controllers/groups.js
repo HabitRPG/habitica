@@ -40,6 +40,7 @@ var populateQuery = function(type, q, additionalFields){
     q.populate('members', partyFields + (additionalFields ? (' ' + additionalFields) : ''));
   else
     q.populate(guildPopulate);
+  q.populate('leader', nameFields);
   q.populate('invites', nameFields);
   q.populate({
     path: 'challenges',
@@ -834,13 +835,18 @@ questStart = function(req, res, next) {
       updates['$set']['party.quest.progress.collect'] = collected;
       updates['$set']['party.quest.completed'] = null;
       questMembers[m] = true;
+
+      User.findOne({_id: m}, {pushDevices: 1}, function(err, user){
+        pushNotify.sendNotify(user, "HabitRPG", shared.i18n.t('questStarted') + ": "+ quest.text() );
+      });
     } else {
       updates['$set']['party.quest'] = Group.cleanQuestProgress();
     }
+
     parallel.push(function(cb2){
       User.update({_id:m},updates,cb2);
     });
-  })
+  });
 
   group.quest.active = true;
   if (quest.boss) {
@@ -917,10 +923,6 @@ api.questAccept = function(req, res, next) {
       } else {
         User.update({_id:m},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
         group.quest.members[m] = undefined;
-
-        User.findById(m, function(err,groupMember){
-          pushNotify.sendNotify(groupMember, shared.i18n.t('questInvitationTitle'), shared.i18n.t('questInvitationInfo', { quest: quest.text() }));
-        });
       }
     });
 
@@ -928,7 +930,7 @@ api.questAccept = function(req, res, next) {
       _id: {
         $in: _.without(group.members, user._id)
       }
-    }, {auth: 1, preferences: 1, profile: 1}, function(err, members){
+    }, {auth: 1, preferences: 1, profile: 1, pushDevices: 1}, function(err, members){
       if(err) return next(err);
 
       var inviterVars = utils.getUserInfo(user, ['name', 'email']);
@@ -943,6 +945,10 @@ api.questAccept = function(req, res, next) {
         {name: 'REPLY_TO_ADDRESS', content: inviterVars.email},
         {name: 'PARTY_URL', content: '/#/options/groups/party'}
       ]);
+
+      _.each(members, function(groupMember){
+        pushNotify.sendNotify(groupMember, shared.i18n.t('questInvitationTitle'), shared.i18n.t('questInvitationInfo', { quest: quest.text() }));
+      });
 
       questStart(req,res,next);
     });
