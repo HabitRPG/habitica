@@ -29,7 +29,7 @@ module.exports =
       try
         _.template(string, (clonedVars))
       catch e
-        'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.'
+        'Error processing the string. Please see Help > Report a Bug.'
     else
       if module.exports.strings
         stringNotFound = module.exports.strings.stringNotFound
@@ -41,4 +41,4 @@ module.exports =
       try
         _.template(stringNotFound, {string: stringName})
       catch e
-        'Error processing string. Please report to http://github.com/HabitRPG/habitrpg.'
+        'Error processing the string. Please see Help > Report a Bug.'
