@@ -1,4 +1,9 @@
 div(ng-if='group.quest.active==false')
+  span(ng-if='user.party.quest.RSVPNeeded')
+    // Buttons manually set RSVPNeeded to avoid synchronization errors
+    button.btn.btn-success(ng-click='party.$questAccept(); set({"party.quest.RSVPNeeded":false})')=env.t('accept')
+    button.btn.btn-danger(ng-click='party.$questReject(); set({"party.quest.RSVPNeeded":false})')=env.t('reject')
+    hr
   tabset
     tab(heading=env.t('invitations'))
       +participants(false)
