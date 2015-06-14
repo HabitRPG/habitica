@@ -19,7 +19,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           $scope.challenges = challenges;
           $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
           $scope.search = {
-            group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
+            group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
+            _isMember: "either",
+            _isOwner: "either"
           };
         });
       }
@@ -254,32 +256,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // Filtering
     //------------------------------------------------------------
 
-//    $scope.$watch('search', function(search){
-//      if (!search) $scope.filteredChallenges = $scope.challenges;
-//      $scope.filteredChallenges = $filter('filter')($scope.challenges, function(chal) {
-//        return (search.group[chal.group._id] &&
-//          (typeof search._isMember == 'undefined' || search._isMember == chal._isMember));
-//      })
-//    })
-    // TODO probably better to use $watch above, to avoid this being calculated on every digest cycle
     $scope.filterChallenges = function(chal){
+      if (!$scope.search) return true;
 
-     if (!$scope.search) return true;
-
-     //Currently, all filters are andded together
-
-     //First we must filter by selected groups
-     var showChallenge = $scope.search.group[chal.group._id];
-
-     //Membership filters: Show if user has selected either or has selcted Owned and is owner
-     var userIsOwner = chal.leader._id == User.user.id;
-     showChallenge = showChallenge && (typeof $scope.search._isOwner === 'undefined' || userIsOwner === $scope.search._isOwner );
-
-     //Membership filters: Show if user has selected either or has selcted Participating and is a member
-     showChallenge = showChallenge && (typeof $scope.search._isMember === 'undefined' || $scope.search._isMember === chal._isMember);
-
-     return showChallenge;
-
+      return _shouldShowChallenge(chal);
     }
 
     $scope.$watch('newChallenge.group', function(gid){
@@ -300,4 +280,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
    $scope.shouldShow = function(task, list, prefs){
      return true;
    };
+
+  function _shouldShowChallenge(chal) {
+    var userIsOwner = chal.leader._id == User.user.id;
+
+    var groupSelected = $scope.search.group[chal.group._id];
+    var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
+    var checkMember = $scope.search._isMember === 'either' || (chal._isMember === $scope.search._isMember);
+
+    return groupSelected && checkOwner && checkMember;
+  }
 }]);
