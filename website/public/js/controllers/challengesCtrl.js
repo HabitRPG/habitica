@@ -282,7 +282,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
    };
 
   function _shouldShowChallenge(chal) {
-    var userIsOwner = chal.leader._id == User.user.id;
+    // Have to check that the leader object exists first in the
+    // case where a challenge's leader deletes their account
+    var userIsOwner = (chal.leader && chal.leader._id) == User.user.id;
 
     var groupSelected = $scope.search.group[chal.group._id];
     var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
