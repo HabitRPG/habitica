@@ -1,3 +1,5 @@
+include ./participants
+
 mixin boss(tavern, mobile)
   //-.panel.panel-default(bindonce='group', ng-if='group.type==="party" && group.quest.key')
   div(class=mobile ? '' : 'panel panel-default' ng-if='group.quest.key')
@@ -5,27 +7,11 @@ mixin boss(tavern, mobile)
       h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{::Content.quests[group.quest.key].text()}}'
       h3.panel-title(ng-if='group.quest.active==true') {{::Content.quests[group.quest.key].text()}}
     .panel-body.modal-fixed-height
-      div(ng-if='group.quest.active==false' ng-init="questBoxTab = 'invitesTab'")
+      div(ng-if='group.quest.active==false')
         tabset
           tab(heading=env.t('invitations'))
-            table.table.table-striped(bindonce='group')
-              tr(ng-repeat='member in group.members track by member._id')
-                td
-                  span(ng-if=':: group.quest.leader && group.quest.leader==member._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)') 
-                    |*&nbsp;
-                  a
-                    span(ng-click='clickMember(member._id, true)')
-                      |{{::member.profile.name}}
-                td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
+            +participants(false)
 
-            span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
-              |*&nbsp;
-              =env.t('questOwner')
-          // This is commented-out until we have time to work out why it fails intermittently on the website and always on the mobile app (https://github.com/HabitRPG/habitrpg/issues/4074):
-          // span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && ! isMemberOfPendingQuest(group.quest.leader,group)')
-            // =env.t('questOwnerNotInPendingQuest')
-          // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
-            // =env.t('questOwnerNotInPendingQuestParty')
           tab(heading=env.t('questDetails'))
             div(class="quest_{{::group.quest.key}}")
             div(ng-if='::Content.quests[group.quest.key].boss')
@@ -55,7 +41,7 @@ mixin boss(tavern, mobile)
         // only the quest owner sees the cancel button:
         button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
 
-      div(ng-if='group.quest.active==true' ng-init="questBoxTab='detailsTab'")
+      div(ng-if='group.quest.active==true')
         unless tavern
           tabset
             tab(heading=env.t('questDetails'))
@@ -99,22 +85,7 @@ mixin boss(tavern, mobile)
                 quest-rewards(key='{{::group.quest.key}}')
 
             tab(heading=env.t('questParticipants'))
-              table.table.table-striped(bindonce='group')
-                tr(ng-repeat='(k,v) in group.members track by v._id', ng-if='::group.quest.members[v._id]')
-                  td
-                    span(ng-if=':: group.quest.leader && group.quest.leader==v._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
-                      |*&nbsp;
-                    a
-                      span(ng-click='clickMember(v._id, true)')
-                        |{{::v.profile.name}}
-              span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group)')
-                |*&nbsp;
-                =env.t('questOwner')
-              // This is commented-out until we have time to work out why it fails intermittently on the website and always on the mobile app (https://github.com/HabitRPG/habitrpg/issues/4074):
-              // span(ng-if=':: group.quest.leader && isMemberOfGroup(group.quest.leader,group) && ! isMemberOfRunningQuest(group.quest.leader,group)')
-                // =env.t('questOwnerNotInRunningQuest')
-              // span(ng-if=':: ! group.quest.leader || ! isMemberOfGroup(group.quest.leader,group)')
-                // =env.t('questOwnerNotInRunningQuestParty')
+              +participants(true)
 
         hr
 
