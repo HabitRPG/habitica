@@ -199,7 +199,12 @@ describe "Push-Notifications", ->
           findOne: (arg, arg2, cb) ->
             cb(null, recipient)
           update: (arg, arg2, cb) ->
-            cb(null, user)
+            if (cb)
+              return cb(null, user)
+            else
+              return {
+                exec: -> true 
+              }
         }
         groups.__set__('User', userMock)
         groups.__set__('populateQuery', 
