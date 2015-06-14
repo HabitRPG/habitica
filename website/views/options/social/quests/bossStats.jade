@@ -7,7 +7,7 @@ else
   .meter-label(tooltip=env.t('bossHP'))
     span.glyphicon.glyphicon-heart
   .meter.health
-    .bar(ng-style='width: {{Shared.percent(progress.hp, boss.hp)}}%;')
+    .bar(ng-style='{width: Shared.percent(progress.hp, boss.hp) + "%"}')
     span.meter-text.value
       | {{Math.ceil(progress.hp) | roundLargeNumbers}} 
       | &nbsp;/ {{::boss.hp | roundLargeNumbers}}
@@ -17,7 +17,7 @@ else
     .meter.mana(popover="{{::boss.rage.description()}}",
       popover-title="{{::boss.rage.title()}}",
       popover-trigger='mouseenter', popover-placement='right')
-      .bar(ng-style='width: {{Shared.percent(progress.rage, boss.rage.value)}}%;')
+      .bar(ng-style='{width: Shared.percent(progress.rage, boss.rage.value) + "%"}')
       span.meter-text.value
         | {{Math.ceil(progress.rage)  | roundLargeNumbers}} 
         | &nbsp;/ {{::boss.rage.value | roundLargeNumbers}}
