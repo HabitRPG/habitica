@@ -6,7 +6,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         div
           button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
         li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
       .col-md-6
@@ -20,7 +20,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
         li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
@@ -155,7 +155,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
               div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
-                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
+                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', class='inventory_present inventory_present_{{moment().format("MM")}}', ng-click="user.ops.openMysteryItem({})")
                   .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
               div(ng-if='user.purchased.plan.consecutive.trinkets')

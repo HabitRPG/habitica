@@ -1,7 +1,7 @@
 small.btn-link(ng-init='showHelp = false', ng-click='showHelp = !showHelp') 
   | {{showHelp ? env.t('hideFormattingHelp') : env.t('showFormattingHelp')}}
 
-.formatting-help(ng-if='showHelp')
+.slight-vertical-padding(ng-if='showHelp')
   table.table.table-striped
     tr.info
       td.col-xs-6 #[b=env.t('youType')]

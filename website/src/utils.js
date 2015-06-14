@@ -179,6 +179,11 @@ module.exports.setupConfig = function(){
   baseUrl = nconf.get('BASE_URL');
 
   module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
+
+  var mixpanel = isProd && require('mixpanel');
+  module.exports.mixpanel = mixpanel
+    ? mixpanel.init(nconf.get('MP_ID'))
+    : { track: function() {} };
 };
 
 var algorithm = 'aes-256-ctr';

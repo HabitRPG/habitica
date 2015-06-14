@@ -24,6 +24,7 @@ newUser = (addTasks=true)->
       gear:
         equipped: {}
         costume: {}
+        owned: {}
     party:
       quest:
         progress:
@@ -33,7 +34,8 @@ newUser = (addTasks=true)->
     todos: []
     rewards: []
     flags: {}
-    achievements: {}
+    achievements:
+      ultimateGearSets: {}
     contributor:
       level: 2
 
@@ -157,7 +159,7 @@ describe 'User', ->
   it 'handles perfect days', ->
     user = newUser()
     user.dailys = []
-    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
+    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
     cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
 
     cron()
@@ -191,7 +193,7 @@ describe 'User', ->
       user.preferences.sleep = true
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
       user.dailys = []
-      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
+      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
 
     it 'remains in the inn on cron', ->
       cron()
@@ -432,7 +434,6 @@ describe 'User', ->
             expect(spell.lvl).to.be.above(0)
           expect(spell.cast).to.be.a('function')
 
-
   describe 'drop system', ->
     user = null
 
@@ -481,6 +482,88 @@ describe 'User', ->
       user.fns.randomVal.restore()
       user.fns.predictableRandom.restore()
 
+  describe 'Enchanted Armoire', ->
+    user = newUser()
+    fullArmoire = {'weapon_warrior_0': true, 'armor_armoire_gladiatorArmor':true,'armor_armoire_lunarArmor':true,'head_armoire_gladiatorHelm':true,'head_armoire_lunarCrown':true,'head_armoire_rancherHat':true,'head_armoire_redHairbow':true,'head_armoire_violetFloppyHat':true,'shield_armoire_gladiatorShield':true,'weapon_armoire_basicCrossbow':true,'weapon_armoire_lunarSceptre':true}
+
+    beforeEach ->
+      # too many predictableRandom calls to stub, let's return the last element
+      sinon.stub(user.fns, 'randomVal', (obj)->
+        result = undefined
+        for key, val of obj
+          result = val
+        result
+      )
+
+    it 'counts all available equipment before any are claimed', ->
+      sinon.stub(user.fns, 'predictableRandom').returns 0
+      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 1)
+
+    it 'does not open without paying', ->
+      sinon.stub(user.fns, 'predictableRandom').returns 0
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true}
+      expect(user.items.food).to.eql {}
+      expect(user.stats.exp).to.eql 0
+
+    it 'does not open without Ultimate Gear achievement', ->
+      sinon.stub(user.fns, 'predictableRandom').returns 0
+      user.stats.gp = 500
+      user.ops.buy({params: {key: 'armoire'}})
+      user.achievements.ultimateGearSets = {'healer':false,'wizard':false,'rogue':false,'warrior':false}
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true}
+      expect(user.items.food).to.eql {}
+      expect(user.stats.exp).to.eql 0
+
+    it 'always drops equipment the first time', ->
+      sinon.stub(user.fns, 'predictableRandom', cycle [.9,.5])
+      user.achievements.ultimateGearSets = {'healer':false,'wizard':false,'rogue':true,'warrior':false}
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
+      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 2)
+      expect(user.items.food).to.eql {}
+      expect(user.stats.exp).to.eql 0
+      expect(user.stats.gp).to.eql 400
+
+    it 'gives Experience', ->
+      sinon.stub(user.fns, 'predictableRandom', cycle [.9,.5])
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
+      expect(user.items.food).to.eql {}
+      expect(user.stats.exp).to.eql 30
+      expect(user.stats.gp).to.eql 300
+
+    it 'gives food', ->
+      sinon.stub(user.fns, 'predictableRandom', cycle [.7,.5])
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
+      expect(user.items.food).to.eql {'Honey': 1}
+      expect(user.stats.exp).to.eql 30
+      expect(user.stats.gp).to.eql 200
+
+    it 'gives more equipment', ->
+      sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true,'head_armoire_rancherHat':true}
+      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 3)
+      expect(user.items.food).to.eql {'Honey': 1}
+      expect(user.stats.exp).to.eql 30
+      expect(user.stats.gp).to.eql 100
+
+    it 'does not give equipment if all equipment has been found', ->
+      sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
+      user.items.gear.owned = fullArmoire
+      user.ops.buy({params: {key: 'armoire'}})
+      expect(user.items.gear.owned).to.eql fullArmoire
+      expect(shared.countArmoire(user.items.gear.owned)).to.eql 0
+      expect(user.items.food).to.eql {'Honey': 1}
+      expect(user.stats.exp).to.eql 60
+      expect(user.stats.gp).to.eql 0
+
+    afterEach ->
+      user.fns.randomVal.restore()
+      user.fns.predictableRandom.restore()
 
   describe 'Quests', ->
     _.each shared.content.quests, (quest)->
@@ -510,11 +593,19 @@ describe 'User', ->
         _.each [1..5], (i) ->
           user.ops.buy {params:'#{type}_#{klass}_#{i}'}
       it 'does not get ultimateGear ' + klass, ->
-        expect(user.achievements.ultimateGear).to.not.be.ok()
+        expect(user.achievements.ultimateGearSets[klass]).to.not.be.ok()
       _.each shared.content.gearTypes, (type) ->
         user.ops.buy {params:'#{type}_#{klass}_6'}
       xit 'gets ultimateGear ' + klass, ->
-        expect(user.achievements.ultimateGear).to.be.ok()
+        expect(user.achievements.ultimateGearSets[klass]).to.be.ok()
+
+    it 'does not remove existing Ultimate Gear achievements', ->
+      user = newUser()
+      user.achievements.ultimateGearSets = {'healer':true,'wizard':true,'rogue':true,'warrior':true}
+      user.items.gear.owned.shield_warrior_5 = false
+      user.items.gear.owned.weapon_rogue_6 = false
+      user.ops.buy {params:'shield_warrior_5'}
+      expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
 
     it 'does not get beastMaster if user has less than 90 drop pets', ->
       user = newUser()
@@ -792,8 +883,9 @@ describe 'Cron', ->
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
+          before.dailys[0].startDate = after.dailys[0].startDate = moment().subtract(30, 'days')
           if options.shouldDo
-            expect(shared.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
+            expect(shared.shouldDo(now.toDate(), after.dailys[0], {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
           after.fns.cron {now}
           before.stats.mp=after.stats.mp #FIXME
           switch options.expect

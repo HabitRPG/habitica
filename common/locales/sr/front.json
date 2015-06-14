@@ -172,5 +172,11 @@
     "username": "Korisničko ime",
     "watchVideos": "Video prezentacija",
     "work": "Posao",
-    "zelahQuote": "Pomisao da ću dobiti poene ako na vreme završim dan, ili izgubiti zdravlje ako ostanem budan do u kasne sate, pomaže mi da na vreme odem na spavanje."
+    "zelahQuote": "Pomisao da ću dobiti poene ako na vreme završim dan, ili izgubiti zdravlje ako ostanem budan do u kasne sate, pomaže mi da na vreme odem na spavanje.",
+    "reportAccountProblems": "Report Account Problems",
+    "reportCommunityIssues": "Report Community Issues",
+    "generalQuestionsSite": "General Questions about the Site",
+    "businessInquiries": "Business Inquiries",
+    "merchandiseInquiries": "Merchandise Inquiries",
+    "marketingInquiries": "Marketing/Social Media Inquiries"
 }

@@ -72,13 +72,37 @@ api.daysSince = (yesterday, options = {}) ->
   Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(api.startOfDay(_.defaults {now:o.now}, o), 'days')
 
 ###
-  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
-api.shouldDo = (day, repeat, options={}) ->
-  return false unless repeat
+api.shouldDo = (day, dailyTask, options = {}) ->
+  return false unless dailyTask.type == 'daily' && dailyTask.repeat
+  if !dailyTask.startDate
+    dailyTask.startDate = moment().toDate()
+  if dailyTask.startDate instanceof String
+    dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
-  selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
-  return selected
+  day = api.startOfDay(_.defaults {now:day}, o)
+  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
+
+  # check if event is today or in the future
+  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+
+  if dailyTask.frequency == 'daily'
+    daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
+    everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
+    return everyXCheck && hasStartedCheck
+  else if dailyTask.frequency == 'weekly'
+    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
+    return dayOfWeekCheck && hasStartedCheck
+  else
+    # unexpected frequency string
+    return false
+
+api.numDaysApart = (day1, day2, o) ->
+  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
+  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
+  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
+  return numDays
 
 ###
   ------------------------------------------------------
@@ -164,8 +188,9 @@ api.updateStore = (user) ->
     true
   # Add special items (contrib gear, backer gear, etc)
   changes = changes.concat _.filter content.gear.flat, (v) ->
-    v.klass in ['special','mystery'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
+    v.klass in ['special','mystery','armoire'] and !user.items.gear.owned[v.key] and v.canOwn?(user)
   changes.push content.potion
+  if user.flags.armoireEnabled then changes.push content.armoire
   # Return sorted store (array)
   _.sortBy changes, (c)->sortOrder[c.type]
 
@@ -210,7 +235,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
@@ -280,7 +305,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
 
   # show as completed if completed (naturally) or not required for today
   if type in ['todo', 'daily']
-    if completed or (type is 'daily' and !api.shouldDo(+new Date, task.repeat, {dayStart}))
+    if completed or (type is 'daily' and !api.shouldDo(+new Date, task, {dayStart}))
       classes += " completed"
     else
       classes += " uncompleted"
@@ -360,6 +385,10 @@ api.countTriad = (pets) ->
     for potion of content.hatchingPotions
       if pets[egg + "-" + potion] > 0 then count3++
   count3
+
+api.countArmoire = (gear) ->
+  count = _.size(_.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !gear[i.key])))
+  count
 
 ###
 ------------------------------------------------------
@@ -441,7 +470,7 @@ api.wrap = (user, main=true) ->
           if v
             itm = content.gear.flat[''+k]
             if itm
-              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) )
+              if (itm.value > 0 || k == 'weapon_warrior_0') && ( itm.klass == cl || ( itm.klass == 'special' && (! itm.specialClass || itm.specialClass == cl) ) || itm.klass == 'armoire' )
                 losableItems[''+k]=''+k
         lostItem = user.fns.randomVal losableItems
         if item = content.gear.flat[lostItem]
@@ -449,6 +478,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
+        mixpanel?.track('Death',{'lostItem':lostItem})
         cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
@@ -483,6 +513,7 @@ api.wrap = (user, main=true) ->
             task.value = 0
         user.stats.hp = 50
         cb? null, user
+        mixpanel?.track("Acquire Item",{'itemName':'Fortify','acquireMethod':'Gems','gemCost':4})
         ga?.event('behavior', 'gems', 'reroll').send()
 
       rebirth: (req, cb, ga) ->
@@ -492,6 +523,8 @@ api.wrap = (user, main=true) ->
         # only charge people if they are under the max level - ryan
         if user.stats.lvl < api.maxLevel
           user.balance -= 2
+          mixpanel?.track("Acquire Item",{'itemName':'Rebirth','acquireMethod':'Gems','gemCost':8})
+          ga?.event('behavior', 'gems', 'rebirth').send()
         # Save off user's level, for calculating achievement eligibility later
         lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
@@ -525,7 +558,7 @@ api.wrap = (user, main=true) ->
         user.preferences.costume = false
         # Remove unlocked features
         flags = user.flags
-        if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        if not user.achievements.beastMaster
           flags.rebirthEnabled = false
         flags.itemsEnabled = false
         flags.dropsEnabled = false
@@ -541,7 +574,6 @@ api.wrap = (user, main=true) ->
         user.stats.buffs = {}
         # user.markModified? 'stats'
         cb? null, user
-        ga?.event('behavior', 'gems', 'rebirth').send()
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -588,6 +620,7 @@ api.wrap = (user, main=true) ->
 
       addTask: (req, cb) ->
         task = api.taskDefaults(req.body)
+        return cb?({code:409,message:i18n.t('messageDuplicateTaskID', req.language)}) if user.tasks[task.id]?
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
@@ -752,7 +785,8 @@ api.wrap = (user, main=true) ->
           user.balance += .25
           user.purchased.plan.gemsBought++
           user.stats.gp -= convRate
-          return cb? {code:200,message:"+1 Gems"}, _.pick(user,$w 'stats balance')
+          mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':convRate})
+          return cb? {code:200,message:"+1 Gem"}, _.pick(user,$w 'stats balance')
 
         return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
         if type is 'gear'
@@ -769,6 +803,7 @@ api.wrap = (user, main=true) ->
         else
           user.items[type][key] = 0  unless user.items[type][key] > 0
           user.items[type][key]++
+        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gems','gemCost':item.value})
         cb? null, _.pick(user,$w 'items balance')
         ga?.event('behavior', 'gems', key).send()
 
@@ -784,6 +819,7 @@ api.wrap = (user, main=true) ->
           user.achievements.beastMasterCount++
           user.items.currentPet = ""
         cb? null, user
+        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
       releaseMounts: (req, cb) ->
         if user.balance < 1
@@ -797,6 +833,7 @@ api.wrap = (user, main=true) ->
             user.achievements.mountMasterCount = 0
           user.achievements.mountMasterCount++
         cb? null, user
+        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
       releaseBoth: (req, cb) ->
         if user.balance < 1.5 and not user.achievements.triadBingo
@@ -804,6 +841,7 @@ api.wrap = (user, main=true) ->
         else
           giveTriadBingo = true
           if not user.achievements.triadBingo
+            mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':6})
             user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
@@ -827,22 +865,45 @@ api.wrap = (user, main=true) ->
       buy: (req, cb) ->
         {key} = req.params
 
-        item = if key is 'potion' then content.potion else content.gear.flat[key]
+        item = if key is 'potion' then content.potion
+        else if key is 'armoire' then content.armoire
+        else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
-        return cb?({code:401, message: "You can't own this item"}) if item.canOwn? and !item.canOwn(user)
+        return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
+        else if item.key is 'armoire'
+          armoireResult = user.fns.predictableRandom(user.stats.gp)
+          # We use a different seed to choose the Armoire action than we use
+          # to choose the sub-action, otherwise only some of the foods can
+          # be given. E.g., if a seed gives armoireResult < .5 (food) then
+          # the same seed would give one of the first five foods only.
+          eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
+          if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
+            drop = user.fns.randomVal(eligibleEquipment)
+            user.items.gear.owned[drop.key] = true
+            user.flags.armoireOpened = true
+            message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
+            if api.countArmoire(user.items.gear.owned) is 0 then user.flags.armoireEmpty = true
+          else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
+            drop = user.fns.randomVal _.where(content.food, {canDrop:true})
+            user.items.food[drop.key] ?= 0
+            user.items.food[drop.key] += 1
+            message = i18n.t('armoireFood', {image: '<span class="Pet_Food_'+drop.key+' pull-left"></span>', dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
+          else
+            user.stats.exp += Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
+            message = i18n.t('armoireExp', req.language)
         else
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item, null, req)
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
-          if not user.achievements.ultimateGear and item.last
-            user.fns.ultimateGear()
+          if item.last then user.fns.ultimateGear()
         user.stats.gp -= item.value
-        cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
+        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
+        cb? {code:200, message}, _.pick(user,$w 'items achievements stats flags')
 
       buyMysterySet: (req, cb)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
@@ -850,7 +911,9 @@ api.wrap = (user, main=true) ->
         if window?.confirm?
           return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
-        _.each mysterySet.items, (i)->user.items.gear.owned[i.key]=true
+        _.each mysterySet.items, (i)->
+          user.items.gear.owned[i.key]=true
+          mixpanel?.track("Acquire Item",{'itemName':i.key,'acquireMethod':'Hourglass'})
         user.purchased.plan.consecutive.trinkets--
         cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
@@ -922,6 +985,7 @@ api.wrap = (user, main=true) ->
         user.balance -= cost
         if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
         cb? null, _.pick(user,$w 'purchased preferences items')
+        mixpanel?.track("Acquire Item",{'itemName':'Customizations','acquireMethod':'Gems','gemCost':(cost / .25)})
         ga?.event('behavior', 'gems', path).send()
 
       # ------
@@ -961,6 +1025,7 @@ api.wrap = (user, main=true) ->
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
+          mixpanel?.track("Acquire Item",{'itemName':klass,'acquireMethod':'Gems','gemCost':3})
           ga?.event('behavior', 'gems', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
@@ -1444,10 +1509,11 @@ api.wrap = (user, main=true) ->
           user.items.quests[k]++
           (user.flags.levelDrops ?= {})[k] = true
           user.markModified? 'flags.levelDrops'
+          mixpanel?.track("Acquire Item",{'itemName':k,'acquireMethod':'Drop'})
           user._tmp.drop = _.defaults content.quests[k],
             type: 'Quest'
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
-      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
+      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
       if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
         user.flags.freeRebirth = true
@@ -1523,7 +1589,7 @@ api.wrap = (user, main=true) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
 
-          if api.shouldDo(thatDay, repeat, user.preferences) || completed
+          if api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed
             _.each daily.checklist, ((box)->box.completed=false;true)
           daily.completed = false
         return
@@ -1550,7 +1616,7 @@ api.wrap = (user, main=true) ->
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay, repeat, user.preferences)
+              if api.shouldDo(thatDay.toDate(), task, user.preferences)
                 scheduleMisses++
                 if user.stats.buffs.stealth
                   user.stats.buffs.stealth--
@@ -1621,6 +1687,7 @@ api.wrap = (user, main=true) ->
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
+      options.mixpanel?.track('Cron',{'distinct_id':user._id,'resting':user.preferences.sleep})
       options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
@@ -1645,32 +1712,20 @@ api.wrap = (user, main=true) ->
     # ----------------------------------------------------------------------
     # Achievements
     # ----------------------------------------------------------------------
-    ultimateGear: () ->
-      # on the server this is a LoDash transform, on the client its an object
-      gear = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
-      ownedLastGear = _.chain(content.gear.flat)
-        .pick(_.keys gear)
-        .values()
-        .filter (gear) -> gear.last
-
-      lastGearClassTypeMatrix = {}
-      _.each content.classes, (klass) ->
-        lastGearClassTypeMatrix[klass] = {}
-        #_.each content.gearTypes, (type) ->
-        _.each ['armor', 'weapon', 'shield', 'head'], (type) ->
-          lastGearClassTypeMatrix[klass][type] = false
-          return true # false exits the each loop early
-
-      ownedLastGear.each (gear) ->
-        lastGearClassTypeMatrix[gear.klass]["shield"] = true if gear.twoHanded
-        lastGearClassTypeMatrix[gear.klass][gear.type] = true
-
-      shouldGrant = _(lastGearClassTypeMatrix)
-        .values()
-        .reduce(((ans, klass) -> ans or _(klass).values().reduce(((ans, gearType) -> ans and gearType), true)), false)
-        .valueOf()
-
-      user.achievements.ultimateGear = shouldGrant
+    ultimateGear: ->
+      # on the server this is a Lodash transform, on the client its an object
+      owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
+      user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
+      content.classes.forEach (klass) ->
+        if user.achievements.ultimateGearSets[klass] is not true
+          user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
+            found = _.find content.gear.tree[type][klass], {last:true}
+            soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
+          , true # start with true, else `and` will fail right away
+      user.markModified? 'achievements.ultimateGearSets'
+      if _.contains(user.achievements.ultimateGearSets, true) and user.flags.armoireEnabled != true
+        user.flags.armoireEnabled = true
+        user.markModified? 'flags'
 
     nullify: ->
       user.ops = null

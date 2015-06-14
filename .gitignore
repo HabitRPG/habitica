@@ -23,7 +23,8 @@ test/*.js
 test/*.map
 website/public/docs
 *.sublime-workspace
+coverage
 coverage.html
 common/dist/scripts/habitrpg-shared.js
 
-test/spec/translations.js
+test/spec/mocks/translations.js
