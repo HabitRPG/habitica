@@ -391,8 +391,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.sync = function(group){
-      group.$get();
-      //When the user clicks fetch recent messages we need to update that the user has seen the new messages
+      if(group.type == 'party') {
+        group.$syncParty(); // Syncs the whole party, not just 15 members
+      } else {
+        group.$get();
+      }
+      // When the user clicks fetch recent messages we need to update
+      // that the user has seen the new messages
       Chat.seenMessage(group._id);
     }
 
@@ -516,7 +521,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.newGroup = new Groups.Group({type:'party'});
 
       if ($state.is('options.social.party')) {
-        $scope.group.$get(); // Sync party automatically when navigating to party page
+        $scope.group.$syncParty(); // Sync party automatically when navigating to party page
       }
 
       Chat.seenMessage($scope.group._id);

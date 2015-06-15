@@ -23,6 +23,7 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
         }
       },
 
+      syncParty: {method: "GET", url: '/api/v2/groups/party'},
       join: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/join'},
       leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
       invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
