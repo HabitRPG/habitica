@@ -44,9 +44,13 @@
     "selectGroup": "Prosím, vyber skupinu",
     "challengeCreated": "Výzva bola úspešne vytvorená",
     "sureDelCha": "Zmazať výzvu. Si si istý?",
-    "sureDelChaTavern": "Delete challenge, are you sure? Your gems will not be refunded.",
+    "sureDelChaTavern": "Zmazať výzvu. Si si istý? Drahokamy nebudú vrátené",
     "removeTasks": "Odstrániť úlohy",
     "keepTasks": "Ponechať úlohy",
     "closeCha": "Uzavrieť výzvu a...",
-    "leaveCha": "Opustiť výzvu a..."
+    "leaveCha": "Opustiť výzvu a...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

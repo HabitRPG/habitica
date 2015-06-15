@@ -48,5 +48,9 @@
     "removeTasks": "タスクを消す",
     "keepTasks": "タスクを残す",
     "closeCha": "チャレンジを終了して・・・",
-    "leaveCha": "チャレンジを出て・・・"
+    "leaveCha": "チャレンジを出て・・・",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

@@ -20,5 +20,5 @@
     "messageDropFood": "Du fandt <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Du fandt et <%= dropText %> Æg! <%= dropNotes %>",
     "messageDropPotion": "Du fandt en <%= dropText %> Udrugningseliksir! <%= dropNotes %>",
-    "messageFoundQuest": "Du fandt questen\"<%= questText %>\"!"
+    "messageFoundQuest": "Du fandt questen \"<%= questText %>\"!"
 }
