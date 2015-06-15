@@ -209,8 +209,15 @@ describe 'In-App Purchases', ->
 
       it 'does not call res.json', ->
         inApp.iosVerify(req, res, next)
-
-        expect(res.json).to.not.be.called
+        expectedResObj = {
+          ok: false
+          data: {
+            code: 6778001
+            message: 'Invalid receipt'
+          }
+        }
+        expect(res.json).to.be.calledOnce
+        expect(res.json).to.be.calledWith(expectedResObj)
 
       it 'does not calls payments.buyGems function', ->
         inApp.iosVerify(req, res, next)
@@ -231,7 +238,7 @@ describe 'In-App Purchases', ->
           ok: false
           data: {
             code: 6778001
-            message: 'Incorrect receipt'
+            message: 'Incorrect receipt content'
           }
         }
 
@@ -259,7 +266,7 @@ describe 'In-App Purchases', ->
           ok: false
           data: {
             code: 6778001
-            message: 'Incorrect receipt'
+            message: 'Incorrect receipt content'
           }
         }
 

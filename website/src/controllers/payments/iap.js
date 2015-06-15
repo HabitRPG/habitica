@@ -84,7 +84,7 @@ exports.iosVerify = function(req, res, next) {
 
     }
 
-    // iap is ready
+    //iap is ready
     iap.validate(iap.APPLE, iapBody.transaction.receipt, function (err, appleRes) {
       if (err) {
         var resObj = {
@@ -102,6 +102,7 @@ exports.iosVerify = function(req, res, next) {
         var purchaseDataList = iap.getPurchaseData(appleRes);
         if (purchaseDataList.length > 0) {
           if (purchaseDataList[0].productId === "com.habitrpg.ios.Habitica.20gems") {
+            //Correct receipt
             payments.buyGems({user:user, paymentMethod:'IAP AppleStore'});
             var resObj = {
               ok: true,
@@ -111,16 +112,26 @@ exports.iosVerify = function(req, res, next) {
             return res.json(resObj);
           }
         }
+        //wrong receipt content
         var resObj = {
           ok: false,
           data: {
             code: INVALID_PAYLOAD,
-            message: "Incorrect receipt"
+            message: "Incorrect receipt content"
           }
         };
-
         return res.json(resObj);
       }
+      //invalid receipt
+      var resObj = {
+        ok: false,
+        data: {
+          code: INVALID_PAYLOAD,
+          message: "Invalid receipt"
+        }
+      };
+
+      return res.json(resObj);
     });
   });
 };
