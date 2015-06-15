@@ -509,10 +509,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
   .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'Chat', 'User', 'Challenges', '$state', '$compile',
     function($rootScope,$scope, Groups, Chat, User, Challenges, $state, $compile) {
 
+
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
+
+      if ($state.is('options.social.party')) {
+        $scope.group.$get(); // Sync party automatically when navigating to party page
+      }
 
       Chat.seenMessage($scope.group._id);
 
