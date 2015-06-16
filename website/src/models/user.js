@@ -517,7 +517,7 @@ UserSchema.pre('save', function(next) {
   }
 
   // Enable weekly recap emails for old users who sign in
-  if(!this.flags.lastWeeklyRecap){
+  if(this.flags.lastWeeklyRecapDiscriminator === true){
     this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
   }
 
