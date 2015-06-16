@@ -79,5 +79,7 @@
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
     "welcome5": "Now you'll customize your avatar and set up your tasks...",
-    "imReady": "I'm Ready!"
+    "imReady": "I'm Ready!",
+    "sellEggForGold": "Sell <%= itemType %> Egg for <%= gold %> Gold",
+    "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold"
 }
