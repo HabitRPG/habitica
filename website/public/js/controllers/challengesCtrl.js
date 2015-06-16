@@ -104,7 +104,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       function cloneTask(taskToClone, index, array) {
         var tmpTask = {};
         for( var property in taskToClone ) {
-          if ( property !== "_id" && property !== "id" ) {
+          if ( property !== "_id" && property !== "id" && property !== "dateCreated" ) {
             tmpTask[property] = taskToClone[property];
           }
         }

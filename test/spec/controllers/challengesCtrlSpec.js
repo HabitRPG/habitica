@@ -216,13 +216,12 @@ describe('Challenges Controller', function() {
           value: 0,
         }
       ];
-      scope.clone(copyChallenge)
+      scope.clone(copyChallenge);
 
       expect( scope.newChallenge.name ).to.eql( copyChallenge.name );
       expect( scope.newChallenge.description ).to.eql( copyChallenge.description );
-      
       for( var property in copyChallenge.habits[0] ) {
-        if ( property == "_id" || property == "id" ) {
+        if ( property == "_id" || property == "id" || property == "dateCreated" ) {
           expect( scope.newChallenge.habits[0][property] ).to.not.eql( copyChallenge.habits[0][property] );
         } else {
           expect( scope.newChallenge.habits[0][property] ).to.eql( copyChallenge.habits[0][property] );
