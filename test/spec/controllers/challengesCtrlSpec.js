@@ -183,31 +183,61 @@ describe('Challenges Controller', function() {
     });
   });
 
-  it('Clones a challenge', function() {
-    var copyChallenge = new challenges.Challenge({
-      name: 'copyChallenge',
-      description: 'copyChallenge',
-      habits: [],
-      dailys: [],
-      todos: [],
-      rewards: [],
-      leader: user._id,
-      group: "copyGroup",
-      timestamp: +(new Date),
-      members: [user],
-      official: false,
-      _isMember: true
-    });
-    scope.clone(copyChallenge)
+  describe('clone', function() {
+    it('Clones a challenge', function() {
 
-    expect( scope.obj.name ).to.eql(copyChallenge.name );
-    expect( scope.obj.description ).to.eql(copyChallenge.description );
-    expect( scope.obj.habits ).to.eql(copyChallenge.habits );
-    expect( scope.obj.dailys ).to.eql(copyChallenge.dailys );
-    expect( scope.obj.todos ).to.eql(copyChallenge.todos );
-    expect( scope.obj.rewards ).to.eql(copyChallenge.rewards );
-    expect( scope.obj.leader ).to.eql(copyChallenge.leader );
-    expect( scope.obj.official ).to.eql(copyChallenge.official );
+      var copyChallenge = new challenges.Challenge({
+        name: 'copyChallenge',
+        description: 'copyChallenge',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        group: "copyGroup",
+        timestamp: +(new Date),
+        members: [user],
+        official: true,
+        _isMember: true,
+        prize: 1
+      });
+
+      copyChallenge.habits = [
+        {
+          _id: "ae2aa6fd-fae4-44bc-940f-11976ee202f3",
+          id: "ae2aa6fd-fae4-44bc-940f-11976ee202f3",
+          dateCreated: "2015-06-15T00:18:59.440Z",
+          down: true,
+          notes: "",
+          priority: 1,
+          text: "test",
+          type: "habit",
+          up: true,
+          value: 0,
+        }
+      ];
+      scope.clone(copyChallenge)
+
+      expect( scope.newChallenge.name ).to.eql( copyChallenge.name );
+      expect( scope.newChallenge.description ).to.eql( copyChallenge.description );
+      
+      for( var property in copyChallenge.habits[0] ) {
+        if ( property == "_id" || property == "id" ) {
+          expect( scope.newChallenge.habits[0][property] ).to.not.eql( copyChallenge.habits[0][property] );
+        } else {
+          expect( scope.newChallenge.habits[0][property] ).to.eql( copyChallenge.habits[0][property] );
+        }
+      }
+      expect( scope.newChallenge.dailys ).to.eql( copyChallenge.dailys );
+      expect( scope.newChallenge.todos ).to.eql( copyChallenge.todos );
+      expect( scope.newChallenge.rewards ).to.eql( copyChallenge.rewards );
+      expect( scope.newChallenge.leader ).to.eql( copyChallenge.leader );
+      expect( scope.newChallenge.timestamp ).to.not.eql( copyChallenge.timestamp );
+      expect( scope.newChallenge.members ).to.eql( [] );
+      expect( scope.newChallenge.official ).to.eql( copyChallenge.official );
+      expect( scope.newChallenge.prize ).to.eql( copyChallenge.prize );
+
+    });
 
   });
 

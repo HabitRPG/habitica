@@ -101,9 +101,15 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         reward: []
       };
 
-      function cloneTask(element, index, array) {
-        var task = Shared.taskDefaults(element);
-        clonedTasks[element.type].push(task);
+      function cloneTask(taskToClone, index, array) {
+        var tmpTask = {};
+        for( var property in taskToClone ) {
+          if ( property !== "_id" && property !== "id" ) {
+            tmpTask[property] = taskToClone[property];
+          }
+        }
+        var task = Shared.taskDefaults(tmpTask);
+        clonedTasks[taskToClone.type].push(task);
       }
 
       challenge.habits.forEach(cloneTask);
@@ -111,8 +117,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       challenge.todos.forEach(cloneTask);
       challenge.rewards.forEach(cloneTask);
 
-      //Use values from inc challenge. The reasons we don't use the whole challenge object is because
-      //Values like timestamp and memebers shouldn't be copied.
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: challenge.name,
         shortName: challenge.shortName,
@@ -125,7 +129,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         group: challenge.group._id,
         timestamp: +(new Date),
         members: [],
-        official: false,
+        official: challenge.official,
         prize: challenge.prize
       });
     };
