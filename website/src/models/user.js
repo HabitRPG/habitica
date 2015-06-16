@@ -154,6 +154,8 @@ var UserSchema = new Schema({
     weeklyRecapEmailsPhase: {type: Number, 'default': 0},
     // Used to track when the next weekly recap should be sent
     lastWeeklyRecap: {type: Date, 'default': Date.now},
+    // Used to enable weekly recap emails as users login
+    lastWeeklyRecapDiscriminator: Boolean,
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
     cronCount: {type:Number, 'default':0},
     welcomed: {type: Boolean, 'default': false},
@@ -517,8 +519,11 @@ UserSchema.pre('save', function(next) {
   }
 
   // Enable weekly recap emails for old users who sign in
-  if(this.flags.lastWeeklyRecapDiscriminator === true){
+  if(this.flags.lastWeeklyRecapDiscriminator){
+    // Enable weekly recap emails in 24 hours
     this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
+    // Unset the field so this is run only once
+    this.flags.lastWeeklyRecapDiscriminator = undefined;
   }
 
   // EXAMPLE CODE for allowing all existing and new players to be
