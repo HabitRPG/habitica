@@ -516,6 +516,11 @@ UserSchema.pre('save', function(next) {
     this.achievements.triadBingo = true;
   }
 
+  // Enable weekly recap emails for old users who sign in
+  if(!this.flags.lastWeeklyRecap){
+    this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
+  }
+
   // EXAMPLE CODE for allowing all existing and new players to be
   // automatically granted an item during a certain time period:
   // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
