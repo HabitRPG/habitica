@@ -1,14 +1,14 @@
 script(id='partials/options.social.party.quest-rewards.html', type='text/ng-template')
   hr
-  h5 {{header}}
+  h5 {{::header}}
   table.table.table-striped
     tr(ng-repeat='drop in quest.drop.items')
-      td {{drop.text()}}
-    tr
-      td {{quest.drop.exp}} 
+      td {{::drop.text()}}
+    tr(ng-if='::quest.drop.exp > 0')
+      td {{::quest.drop.exp}} 
         =env.t('experience')
-    tr
-      td {{quest.drop.gp}} 
+    tr(ng-if='::quest.drop.gp > 0')
+      td {{::quest.drop.gp}} 
         =env.t('gold')
-    tr
-      td {{quest.drop.unlock()}}
+    tr(ng-if='::quest.drop.unlock()')
+      td {{::quest.drop.unlock()}}
