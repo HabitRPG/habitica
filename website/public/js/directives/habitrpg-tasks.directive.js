@@ -18,14 +18,6 @@ function habitrpgTasks($rootScope, User) {
     //  main: '@', // true if it's the user's main list
     //  obj: '='
     //},
-    controller: ['$scope', '$rootScope', function($scope, $rootScope){
-      $scope.editTask = function(task){
-        task._editing = !task._editing;
-        task._tags = User.user.preferences.tagsCollapsed;
-        task._advanced = !User.user.preferences.advancedCollapsed;
-        if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
-      };
-    }],
     link: function(scope, element, attrs) {
       // $scope.obj needs to come from controllers, so we can pass by ref
       scope.main = attrs.main;

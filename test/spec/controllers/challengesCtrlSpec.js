@@ -174,4 +174,20 @@ describe('Challenges Controller', function() {
       expect(scope.filterChallenges(notOwnNotMem)).to.eql(true);
     });
   });
+
+  describe('editTask', function() {
+    it('calls Tasks.editTask', function() {
+      inject(function(Tasks) {
+        sinon.stub(Tasks, 'editTask');
+        var task = {
+          id: 'task-id',
+          type: 'todo'
+        };
+
+        scope.editTask(task);
+        expect(Tasks.editTask).to.be.calledOnce;
+        expect(Tasks.editTask).to.be.calledWith(task);
+      });
+    });
+  });
 });
