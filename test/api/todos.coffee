@@ -253,32 +253,34 @@ describe "Todos", ->
 
 describe "habits", ->
 
-  it "Creates a completed a habit when using up url", (done) ->
+  it "Creates and scores up a habit when using up url", (done) ->
     upHabit = undefined
-    request.post(baseURL + "/user/tasks/withUp/up").send(
+    request.post(baseURL + "/user/tasks/habitWithUp/up").send(
         type: "habit"
         text: "testTitle"
         complete: true
         description: "testDesc"
     ).end (res) ->
       expectCode res, 200
-      request.get(baseURL + "/user/tasks/withUp")
+      request.get(baseURL + "/user/tasks/habitWithUp")
       .send().end (res) ->
         upHabit = res.body
-        expect(upHabit.completed).to.equal true
+        expect(upHabit.value).to.be.at.least(1);
+        expect(upHabit.type).to.equal("habit");
         done()
 
-  it "Creates an uncompleted todo when using down url", (done) ->
+  it "Creates and scores down a habit when using down url", (done) ->
     downHabit = undefined
-    request.post(baseURL + "/user/tasks/withDown/down").send(
+    request.post(baseURL + "/user/tasks/habitWithDown/down").send(
         type: "habit"
         text: "testTitle"
         complete: true
         description: "testDesc"
     ).end (res) ->
       expectCode res, 200
-      request.get(baseURL + "/user/tasks/withDown")
+      request.get(baseURL + "/user/tasks/habitWithDown")
       .send().end (res) ->
         downHabit = res.body
-        expect(downHabit.completed).to.equal false
+        expect(downHabit.value).to.have.at.most(-1);
+        expect(downHabit.type).to.equal("habit");
         done()
