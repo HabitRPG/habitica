@@ -25,47 +25,34 @@ describe('Tasks Service', function() {
       task = { id: 'task-id' }; // @TODO: replace with task factory
     });
 
-    it('opens the edit menu if it is not already open', function() {
+    it('toggles the _editing property', function() {
       tasks.editTask(task);
-
       expect(task._editing).to.eql(true);
-    });
-
-    it('closes the edit menu if it is not already open', function() {
-      task._editing = true;
       tasks.editTask(task);
-
       expect(task._editing).to.eql(false);
     });
 
-    it('shows tags by default', function() {
+    it('sets _tags to true by default', function() {
       tasks.editTask(task);
 
       expect(task._tags).to.eql(true);
     });
 
-    it('does not show tags if tagsCollapsed preference is enabled', function() {
+    it('sets _tags to false if preference for collapsed tags is turned on', function() {
       user.preferences.tagsCollapsed = true;
       tasks.editTask(task);
 
       expect(task._tags).to.eql(false);
     });
 
-    it('closes the edit menu if it is not already open', function() {
-      task._editing = true;
-      tasks.editTask(task);
-
-      expect(task._editing).to.eql(false);
-    });
-
-    it('does not open open advanced options automatically if user preference is set to collapsed', function(){
+    it('sets _advanced to true by default', function(){
       user.preferences.advancedCollapsed = true;
       tasks.editTask(task);
 
       expect(task._advanced).to.eql(false);
     });
 
-    it('does open open advanced options automatically if user preference is set to not collapsed', function(){
+    it('sets _advanced to false if preference for collapsed advance menu is turned on', function() {
       user.preferences.advancedCollapsed = false;
       tasks.editTask(task);
 
