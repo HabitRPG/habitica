@@ -14,6 +14,7 @@ div(ng-if='group.quest.active==false')
           strong=env.t('collect') + ': '
           | {{::Content.quests[group.quest.key].collect[k].count}} {{::Content.quests[group.quest.key].collect[k].text()}}
       div(ng-bind-html='::Content.quests[group.quest.key].notes()')
+      quest-rewards(key='{{::group.quest.key}}')
 
   hr
 
