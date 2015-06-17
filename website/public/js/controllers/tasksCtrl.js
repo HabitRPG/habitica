@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide', 'Tasks',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide, Tasks) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -63,6 +63,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
       list.bulk = !list.bulk;
       list.focus = true;
+    };
+
+    $scope.editTask = function(task) {
+      Tasks.editTask(task);
     };
 
     /**
