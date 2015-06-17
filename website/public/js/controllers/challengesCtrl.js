@@ -49,9 +49,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
     };
 
-    $scope.editTask = function(task) {
-      Tasks.editTask(task);
-    };
+    $scope.editTask = Tasks.editTask;
 
     /**
      * Create

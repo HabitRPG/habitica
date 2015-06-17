@@ -22,17 +22,9 @@ describe('Tasks Controller', function() {
   });
 
   describe('editTask', function() {
-    it('calls Tasks.editTask', function() {
+    it('is Tasks.editTask', function() {
       inject(function(Tasks) {
-        sinon.stub(Tasks, 'editTask');
-        var task = {
-          id: 'task-id',
-          type: 'todo'
-        };
-
-        scope.editTask(task);
-        expect(Tasks.editTask).to.be.calledOnce;
-        expect(Tasks.editTask).to.be.calledWith(task);
+        expect(scope.editTask).to.eql(Tasks.editTask);
       });
     });
   });

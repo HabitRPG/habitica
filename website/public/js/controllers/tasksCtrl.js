@@ -65,9 +65,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       list.focus = true;
     };
 
-    $scope.editTask = function(task) {
-      Tasks.editTask(task);
-    };
+    $scope.editTask = Tasks.editTask;
 
     /**
      * Add the new task to the actions log
