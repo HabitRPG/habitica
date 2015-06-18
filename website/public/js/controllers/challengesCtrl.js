@@ -49,6 +49,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
     };
 
+    $scope.editTask = Tasks.editTask;
+    
     /**
      * Create
      */
@@ -98,7 +100,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         todo: [],
         reward: []
       };
-      
+
       Tasks.cloneTasks(challenge.habits, clonedTasks);
       Tasks.cloneTasks(challenge.dailys, clonedTasks);
       Tasks.cloneTasks(challenge.todos, clonedTasks);
