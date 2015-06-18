@@ -49,8 +49,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
     };
 
-    $scope.editTask = Tasks.editTask;
-
     /**
      * Create
      */
@@ -100,22 +98,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         todo: [],
         reward: []
       };
-
-      function cloneTask(taskToClone, index, array) {
-        var tmpTask = {};
-        for( var property in taskToClone ) {
-          if ( property !== "_id" && property !== "id" && property !== "dateCreated" ) {
-            tmpTask[property] = taskToClone[property];
-          }
-        }
-        var task = Shared.taskDefaults(tmpTask);
-        clonedTasks[taskToClone.type].push(task);
-      }
-
-      challenge.habits.forEach(cloneTask);
-      challenge.dailys.forEach(cloneTask);
-      challenge.todos.forEach(cloneTask);
-      challenge.rewards.forEach(cloneTask);
+      
+      Tasks.cloneTasks(challenge.habits, clonedTasks);
+      Tasks.cloneTasks(challenge.dailys, clonedTasks);
+      Tasks.cloneTasks(challenge.todos, clonedTasks);
+      Tasks.cloneTasks(challenge.rewards, clonedTasks);
 
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: challenge.name,
