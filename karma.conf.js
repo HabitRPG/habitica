@@ -45,6 +45,7 @@ module.exports = function(config) {
       "website/public/js/services/notificationServices.js",
       "common/script/public/userServices.js",
       "common/script/public/directives.js",
+      "website/public/js/services/analyticsServices.js",
       "website/public/js/services/groupServices.js",
       "website/public/js/services/memberServices.js",
       "website/public/js/services/guideServices.js",
