@@ -10,6 +10,8 @@
     "alexander": "Alexander the Merchant",
     "welcomeMarket": "Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.",
     "sellForGold": "Sell <%= item %> for <%= gold %> Gold",
+    "sellEggForGold": "Sell <%= itemType %> Egg for <%= gold %> Gold",
+    "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
     "buyGems": "Buy Gems",
     "justin": "Justin",
     "USD": "USD",
