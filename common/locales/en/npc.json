@@ -10,6 +10,8 @@
     "alexander": "Alexander the Merchant",
     "welcomeMarket": "Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.",
     "sellForGold": "Sell <%= item %> for <%= gold %> Gold",
+    "sellEggForGold": "Sell <%= itemType %> Egg for <%= gold %> Gold",
+    "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
     "buyGems": "Buy Gems",
     "justin": "Justin",
     "USD": "USD",
@@ -79,7 +81,5 @@
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
     "welcome5": "Now you'll customize your avatar and set up your tasks...",
-    "imReady": "I'm Ready!",
-    "sellEggForGold": "Sell <%= itemType %> Egg for <%= gold %> Gold",
-    "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold"
+    "imReady": "I'm Ready!"
 }
