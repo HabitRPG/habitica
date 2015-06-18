@@ -23,12 +23,19 @@ table.table.table-striped
 
 // FIXME get translations working before can use this
 unless mobile
-  h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
+  h4(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('battleGear')
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
     tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
       td
         strong {{piece.text()}}:&nbsp;
         span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
+
+unless mobile
+  h4(class=mobile?'item item-divider':'',ng-show='profile.preferences.costume && user._id != profile._id')=env.t('costume')
+  table.table.table-striped(ng-show='profile.preferences.costume && user._id != profile._id')
+    tr(ng-repeat='(k,v) in profile.items.gear.costume', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+      td
+        strong {{piece.text()}}
 
 h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped
