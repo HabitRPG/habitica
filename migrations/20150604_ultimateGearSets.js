@@ -1,13 +1,22 @@
-/**
- * Created by Sabe on 6/3/2015.
- */
+// var migrationName = '20150604_ultimateGearSets';
+// var authorName = 'Sabe'; // in case script author needs to know when their ...
+// var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
-var migrationName = '20150604_ultimateGearSets';
-var authorName = process.env.AUTHOR_NAME || 'Sabe'; // in case script author needs to know when their ...
-var authorUuid = process.env.AUTHOR_UUID || '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
+var migrationName = '20150620_ultimateGearSets';
+var authorName = 'Alys'; // in case script author needs to know when their ...
+var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
 
 /*
  * grant the new ultimateGearSets achievement for existing users' collected equipment
+ *
+ *
+ * Changed by Alys on 20150620 to assign false values to
+ * 'achievements.ultimateGearSets' when true values are not appropriate,
+ * because of https://github.com/HabitRPG/habitrpg/issues/5427
+ *
+ * Minimal changes were made so the code isn't as efficient or clean
+ * as it could be, but it's (hopefully) one-use-only and minimal changes
+ * means minimal new testing.
  */
 
 var dbserver = 'localhost:27017' // FOR TEST DATABASE
@@ -24,25 +33,10 @@ var fields = {
   'items.gear.owned':1
 };
 
+
+// Changes 20150620: All users have to be processed now (non-achievers need
+// false values).
 var query = {
-  // 'auth.timestamps.loggedin':{$lte:new Date('2015-05-22')},
-  $or: [
-    {'items.gear.owned.weapon_wizard_6': {$exists: true}},
-    {'items.gear.owned.armor_wizard_5': {$exists: true}},
-    {'items.gear.owned.head_wizard_5': {$exists: true}},
-    {'items.gear.owned.weapon_warrior_6': {$exists: true}},
-    {'items.gear.owned.armor_warrior_5': {$exists: true}},
-    {'items.gear.owned.head_warrior_5': {$exists: true}},
-    {'items.gear.owned.shield_warrior_5': {$exists: true}},
-    {'items.gear.owned.weapon_healer_6': {$exists: true}},
-    {'items.gear.owned.armor_healer_5': {$exists: true}},
-    {'items.gear.owned.head_healer_5': {$exists: true}},
-    {'items.gear.owned.shield_healer_5': {$exists: true}},
-    {'items.gear.owned.weapon_rogue_6': {$exists: true}},
-    {'items.gear.owned.armor_rogue_5': {$exists: true}},
-    {'items.gear.owned.head_rogue_5': {$exists: true}},
-    {'items.gear.owned.shield_rogue_6': {$exists: true}}
-  ]
 };
 
 console.warn('Updating users...');
@@ -58,6 +52,8 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
 
   var achievements = {};
   var changeUser = false;
+  // Changes 20150620: 'changeUser' now indicates that the user must have the
+  // Enchanted Armoire unlocked.
   if (   (typeof user.items.gear.owned.weapon_wizard_6 !== 'undefined')
       && (typeof user.items.gear.owned.armor_wizard_5 !== 'undefined')
       && (typeof user.items.gear.owned.head_wizard_5 !== 'undefined')
@@ -65,6 +61,11 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     achievements['wizard'] = true;
     changeUser = true;
   }
+  else {
+    // Changes 20150620: false added for all classes (here and below)
+    achievements['wizard'] = false;
+  }
+
   if (   (typeof user.items.gear.owned.weapon_warrior_6 !== 'undefined')
       && (typeof user.items.gear.owned.armor_warrior_5 !== 'undefined')
       && (typeof user.items.gear.owned.head_warrior_5 !== 'undefined')
@@ -73,6 +74,10 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     achievements['warrior'] = true;
     changeUser = true;
   }
+  else {
+    achievements['warrior'] = false;
+  }
+
   if (   (typeof user.items.gear.owned.weapon_healer_6 !== 'undefined')
       && (typeof user.items.gear.owned.armor_healer_5 !== 'undefined')
       && (typeof user.items.gear.owned.head_healer_5 !== 'undefined')
@@ -81,6 +86,10 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     achievements['healer'] = true;
     changeUser = true;
   }
+  else {
+    achievements['healer'] = false;
+  }
+
   if (   (typeof user.items.gear.owned.weapon_rogue_6 !== 'undefined')
       && (typeof user.items.gear.owned.armor_rogue_5 !== 'undefined')
       && (typeof user.items.gear.owned.head_rogue_5 !== 'undefined')
@@ -89,11 +98,16 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     achievements['rogue'] = true;
     changeUser = true;
   }
-
-  if (changeUser) {
-    var set = {'migration':migrationName, 'achievements.ultimateGearSets':achievements, 'flags.armoireEnabled':true};
-    dbUsers.update({_id:user._id}, {$set:set});
+  else {
+    achievements['rogue'] = false;
   }
+
+  // Changes 20150620: $set is now run for all users.
+  var set = {'migration':migrationName, 'achievements.ultimateGearSets':achievements};
+  if (changeUser) { // user has at least one Ultimate Gear achievement
+    set['flags.armoireEnabled'] = true;
+  }
+  dbUsers.update({_id:user._id}, {$set:set});
 
   if (count%progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
