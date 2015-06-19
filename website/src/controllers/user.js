@@ -117,12 +117,23 @@ api.score = function(req, res, next) {
     }, saved.toJSON().stats));
 
     // Webhooks
+    var userData = _.pick(user.toJSON(), ['_id', '_tmp', 'stats', 'profile']); // raaaage
+    userData.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    userData.stats.maxHealth = 50;
+    userData.stats.maxMP = user._statsComputed.maxMP;
+    console.log(user._statsComputed);
     _.each(user.preferences.webhooks, function(h){
       if (!h.enabled || !validator.isURL(h.url)) return;
       request.post({
         url: h.url,
         //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
-        body: {direction:direction, task: task, delta: delta, user: _.pick(user, ['_id', 'stats', '_tmp'])}, json:true
+        body: {
+          direction:direction,
+          task: task,
+          delta: delta,
+          user: userData
+        },
+        json:true
       });
     });
 
