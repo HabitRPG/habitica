@@ -101,8 +101,7 @@ describe "Todos", ->
         upTodo = undefined
         request.post(baseURL + "/user/tasks/withUp/up").send(
             type: "todo"
-            text: "testTitle"
-            complete: true
+            text: "withUp"
             description: "testDesc"
         ).end (res) ->
           expectCode res, 200
@@ -116,12 +115,41 @@ describe "Todos", ->
         downTodo = undefined
         request.post(baseURL + "/user/tasks/withDown/down").send(
             type: "todo"
-            text: "testTitle"
-            complete: true
+            text: "withDown"
             description: "testDesc"
         ).end (res) ->
           expectCode res, 200
           request.get(baseURL + "/user/tasks/withDown")
+          .send().end (res) ->
+            downTodo = res.body
+            expect(downTodo.completed).to.equal false
+            done()
+
+      it "Creates a completed a todo overriding the complete parameter when using up url", (done) ->
+        upTodo = undefined
+        request.post(baseURL + "/user/tasks/withUpWithComplete/up").send(
+            type: "todo"
+            text: "withUpWithComplete"
+            complete: false
+            description: "testDesc"
+        ).end (res) ->
+          expectCode res, 200
+          request.get(baseURL + "/user/tasks/withUpWithComplete")
+          .send().end (res) ->
+            upTodo = res.body
+            expect(upTodo.completed).to.equal true
+            done()
+
+      it "Creates an uncompleted todo verriding the complete when using down url", (done) ->
+        downTodo = undefined
+        request.post(baseURL + "/user/tasks/withDownWithUncomplete/down").send(
+            type: "todo"
+            text: "withDownWithUncomplete"
+            complete: true
+            description: "testDesc"
+        ).end (res) ->
+          expectCode res, 200
+          request.get(baseURL + "/user/tasks/withDownWithUncomplete")
           .send().end (res) ->
             downTodo = res.body
             expect(downTodo.completed).to.equal false
