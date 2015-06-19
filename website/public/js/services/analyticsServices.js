@@ -31,7 +31,7 @@ function analyticsFactory(User) {
     }, window['ga'].l = 1 * new Date();
   ga('create', window.env.GA_ID, 'auto');
 
-  // Mixpanel
+  /* Mixpanel - BROKEN
   (function(b) {
     if (!b.__SV) {
       var i, g;
@@ -64,7 +64,7 @@ function analyticsFactory(User) {
       b.__SV = 1.2;
     }
   })(window.mixpanel || []);
-  mixpanel.init(window.env.MIXPANEL_TOKEN);
+  mixpanel.init(window.env.MIXPANEL_TOKEN); */
 
   function loadScripts() {
     // Amplitude
@@ -82,25 +82,25 @@ function analyticsFactory(User) {
     a.src = '//www.google-analytics.com/analytics.js';
     m.parentNode.insertBefore(a, m);
 
-    // Mixpanel
+    /* Mixpanel
     var g = document.createElement("script");
     var e = document.getElementsByTagName("script")[0];
     g.type = "text/javascript";
     g.async = !0;
     g.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";
-    e.parentNode.insertBefore(g, e);
+    e.parentNode.insertBefore(g, e); */
   }
 
   function register() {
     amplitude.setUserId(user._id);
     ga('set', {'userId':user._id});
-    mixpanel.alias(user._id);
+    // mixpanel.alias(user._id);
   }
 
   function login() {
     amplitude.setUserId(user._id);
     ga('set', {'userId':user._id});
-    mixpanel.identify(user._id);
+    // mixpanel.identify(user._id);
   }
 
   function track(properties) {
@@ -114,7 +114,7 @@ function analyticsFactory(User) {
     }
 
     amplitude.logEvent(properties.eventAction,properties);
-    mixpanel.track(properties.eventAction,properties);
+    // mixpanel.track(properties.eventAction,properties);
     ga('send',properties);
   }
 
@@ -133,7 +133,7 @@ function analyticsFactory(User) {
 
     amplitude.setUserProperties(properties);
     ga('set',properties);
-    mixpanel.register(properties);
+    // mixpanel.register(properties);
   }
 
   return {

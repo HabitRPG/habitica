@@ -137,7 +137,7 @@ describe('Analytics Service', function () {
     });
   });
 
-  context('Mixpanel', function() {
+  context.skip('Mixpanel', function() { // Mixpanel not currently in use
 
     before(function() {
       sinon.stub(mixpanel, 'alias');
