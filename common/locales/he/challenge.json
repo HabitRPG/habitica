@@ -48,5 +48,9 @@
     "removeTasks": "הסר משימות",
     "keepTasks": "שמור משימות",
     "closeCha": "סגור את המשימות וגם...",
-    "leaveCha": "עזוב את האתגר וגם..."
+    "leaveCha": "עזוב את האתגר וגם...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

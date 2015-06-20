@@ -926,6 +926,7 @@ api.questEggs =
   Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
   Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
   Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
+  Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1726,6 +1727,25 @@ api.quests =
       exp: 125
       unlock: t('questSheepUnlockText')
 
+  kraken:
+    text: t('questKrakenText')
+    notes: t('questKrakenNotes')
+    completion: t('questKrakenCompletion')
+    value: 4
+    boss:
+      name: t('questKrakenBoss')
+      hp: 800
+      str: 2
+    drop:
+      items: [
+        {type: 'eggs', key: 'Cuttlefish', text: t('questKrakenDropCuttlefishEgg')}
+        {type: 'eggs', key: 'Cuttlefish', text: t('questKrakenDropCuttlefishEgg')}
+        {type: 'eggs', key: 'Cuttlefish', text: t('questKrakenDropCuttlefishEgg')}
+      ]
+      gp: 55
+      exp: 500
+      unlock: t('questKrakenUnlockText')
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss
@@ -1877,9 +1897,9 @@ _.each api.subscriptionBlocks, (b,k)->b.key = k
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
-    {type: 'habit', text: t('defaultHabit1Text'), notes: t('defaultTaskNotes'), value: 0, up: true, down: false, attribute: 'per' }
-    {type: 'habit', text: t('defaultHabit2Text'), notes: t('defaultTaskNotes'), value: 0, up: false, down: true, attribute: 'str'}
-    {type: 'habit', text: t('defaultHabit3Text'), notes: t('defaultTaskNotes'), value: 0, up: true, down: true, attribute: 'str'}
+    {type: 'habit', text: t('defaultHabit1Text'), value: 0, up: true, down: false, attribute: 'per' }
+    {type: 'habit', text: t('defaultHabit2Text'), value: 0, up: false, down: true, attribute: 'str'}
+    {type: 'habit', text: t('defaultHabit3Text'), value: 0, up: true, down: true, attribute: 'str'}
   ]
 
   dailys: [
@@ -1898,7 +1918,7 @@ api.userDefaults =
   ]
 
   rewards: [
-    {type: 'reward', text: t('defaultReward1Text'), notes: t('defaultTaskNotes'), value: 10 }
+    {type: 'reward', text: t('defaultReward1Text'), value: 10 }
 #    {type: 'reward', text: t('defaultReward2Text'), notes: t('defaultReward2Notes'), value: 10 }
   ]
 

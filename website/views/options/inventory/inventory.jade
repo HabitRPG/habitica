@@ -181,8 +181,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .popover-content
                     p=env.t('welcomeMarket')
                     p
-                      button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
-                      button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
+                      button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
+                      button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
                       button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
           menu.inventory-list(type='list')
             li.customize-menu
@@ -194,7 +194,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     |  {{::egg.value}}&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
                 //- buyable quest eggs. TODO: Get this from a collection so we don't have to maintain this ridiculous comma-delimited list
-                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime',sheep:'Sheep'}
+                each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime',sheep:'Sheep',kraken:'Cuttlefish'}
                   div(ng-show='user.achievements.quests.#{quest} > 0')
                     button.customize-option(popover='{{::Content.eggs.#{egg}.notes()}}', popover-title!=env.t("egg", {eggType: "{{::Content.eggs.#{egg}.text()}}"}), popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("eggs", Content.eggs.#{egg})', class='Pet_Egg_#{egg}')
                     p

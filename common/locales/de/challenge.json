@@ -16,7 +16,7 @@
     "selectWinner": "Wähle einen Gewinner und beende den Wettbewerb.",
     "deleteOrSelect": "Löschen oder Gewinner wählen",
     "endChallenge": "Wettbewerb beenden",
-    "challengeDiscription": "These are the Challenge's tasks that will be added to your task dashboard when you join this Challenge. The sample Challenge tasks below will change color and gain graphs to show you the overall progress of the group.",
+    "challengeDiscription": "Dies sind die Aufgaben des Wettbewerbs, die deiner Aufgabenseite hinzugefügt werden, wenn du dem Wettbewerb beitrittst. Die untenstehenden Beispielaufgaben ändern ihre Farben und erhalten Graphen, die dir den Gesamtfortschritt der Gruppe zeigen.",
     "hows": "Wie läuft es bei Euch allen?",
     "filter": "Filter",
     "groups": "Gruppen",
@@ -33,8 +33,8 @@
     "challengeTagPop": "Wettbewerbe erscheinen als Tag-Liste und Aufgabenbeschreibungen. Also ist es einerseits sinnvoll, oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine \"Kurzfassung\". Dazu kannst Du zum Beispiel \"Verliere 5 Kilo in 3 Monaten\" mit \"-5kg\" abkürzen. (Klicke auf das '?' für mehr Informationen).",
     "challengeDescr": "Beschreibung",
     "prize": "Preis",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, dem Gewinner einen Edelstein-Preis zusprechen. Maximal #Edelsteine in deinem Inventar (+guild.gems, wenn du die dazugehörige Gilde gegründet hast). Beachte: Diese Preise können später nicht mehr geändert werden.",
+    "prizePopTavern": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, dem Gewinner einen Edelstein-Preis zusprechen. Maximal #Edelsteine in deinem Inventar (+guild.gems, wenn du die dazugehörige Gilde gegründet hast). Beachte: Diese Preise können später nicht mehr geändert werden und werden nicht ersetzt, wenn der Wettbewerb abgebrochen wird.",
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
     "officialChallenge": "Offizieller HabitRPG Wettbewerb",
     "by": "von",
@@ -48,5 +48,9 @@
     "removeTasks": "Aufgabe entfernen",
     "keepTasks": "Aufgabe behalten",
     "closeCha": "Wettbewerb auswählen und...",
-    "leaveCha": "Wettbewerb verlassen und..."
+    "leaveCha": "Wettbewerb verlassen und...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

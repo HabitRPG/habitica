@@ -78,9 +78,10 @@ div(ng-if='::profile.achievements.perfect || user._id == profile._id')
     small(ng-if='::profile.achievements.perfect == 1')=env.t('perfectSingularText')
   hr
 
-div(ng-if='::profile.achievements.ultimateGearSets || user._id == profile._id')
-  .achievement.achievement-armor(ng-if='::profile.achievements.ultimateGearSets')
-  div(ng-class='::{muted: !profile.achievements.ultimateGearSets}')
+- var ultimateGearCheck = 'profile.achievements.ultimateGearSets.healer || profile.achievements.ultimateGearSets.wizard || profile.achievements.ultimateGearSets.rogue || profile.achievements.ultimateGearSets.warrior'
+div(ng-if='(user._id == profile._id) || #{ultimateGearCheck}')
+  .achievement.achievement-armor(ng-if='#{ultimateGearCheck}')
+  div(ng-class='::{muted: !(#{ultimateGearCheck})}')
     h5=env.t('ultimGearName')
     small=env.t('ultimGearText')
     table.multi-achievement

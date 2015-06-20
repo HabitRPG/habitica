@@ -48,5 +48,9 @@
     "removeTasks": "Удалить задания",
     "keepTasks": "Оставить задания",
     "closeCha": "Закрыть испытание и...",
-    "leaveCha": "Покинуть испытание и..."
+    "leaveCha": "Покинуть испытание и...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

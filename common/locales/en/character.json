@@ -49,7 +49,7 @@
     "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "Class Bonus",
     "battleGear": "Battle Gear",
-    "battleGearText": "This is the gear you wear into battle, it affects numbers when interacting with your tasks.",
+    "battleGearText": "This is the gear you wear into battle; it affects numbers when interacting with your tasks.",
     "costume": "Costume",
     "costumeText": "If you prefer the look of other gear to what you have equipped, check the \"Use Costume\" box to visually don a costume while wearing your battle gear underneath.",
     "useCostume": "Use Costume",

@@ -3,8 +3,8 @@
     "lotOfToDos": "Completed To-Dos be automatically archived after 3 days. ye can access them from Settin's > Export.",
     "deleteToDosExplanation": "If ye click th' button below, all 'o ye completed To-Dos 'n archived To-Dos gunna be permanently deleted. Export them first if ye want to keep a record 'o them.",
     "beeminderDeleteWarning": "Beeminder users: <strong>First</strong> read <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Deleting Completed To-Dos Without Confusing Beeminder</a>!",
-    "addmultiple": "Add Multiple",
-    "addsingle": "Add Single",
+    "addmultiple": "Ard' Multiple",
+    "addsingle": "Ard' Single",
     "habits": "Habits",
     "newHabit": "New Habit",
     "newHabitBulk": "New Habits (one per line)",
@@ -52,7 +52,7 @@
     "gold": "Doubloons",
     "silver": "Silver (100 silver = 1 doubloon)",
     "newReward": "New loot",
-    "newRewardBulk": "New Rewards (one per line)",
+    "newRewardBulk": "New booty (one per line)",
     "price": "Price",
     "tags": "Tags",
     "editTags": "Edit",
@@ -77,6 +77,6 @@
     "streakCoins": "Streak Bonus!",
     "pushTaskToTop": "Push task to top",
     "pushTaskToBottom": "Push task to bottom",
-    "emptyTask": "Enter the task's title first.",
-    "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies."
+    "emptyTask": "Enter t' task's title first.",
+    "dailiesRestingInInn": "Yo'rg Restin' in t' Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If yo'rge in a quest, you won't deal damage/collect items until you check out o' t' Inn, but you can still be injured by a Boss if your Party lads skip their own Dailies."
 }

@@ -159,7 +159,7 @@ describe 'User', ->
   it 'handles perfect days', ->
     user = newUser()
     user.dailys = []
-    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
+    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
     cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
 
     cron()
@@ -193,7 +193,7 @@ describe 'User', ->
       user.preferences.sleep = true
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
       user.dailys = []
-      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
+      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
 
     it 'remains in the inn on cron', ->
       cron()
@@ -703,9 +703,6 @@ describe 'Cron', ->
 
     user.lastCron = +moment().subtract(1,'days')
 
-    # this is hacky but should fix things for the moment
-    user.flags.freeRebirth = true
-
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.be.greaterThan 0
 
@@ -883,8 +880,9 @@ describe 'Cron', ->
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
+          before.dailys[0].startDate = after.dailys[0].startDate = moment().subtract(30, 'days')
           if options.shouldDo
-            expect(shared.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
+            expect(shared.shouldDo(now.toDate(), after.dailys[0], {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
           after.fns.cron {now}
           before.stats.mp=after.stats.mp #FIXME
           switch options.expect

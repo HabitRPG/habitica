@@ -146,8 +146,9 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
-      li.toolbar-button-dropdown
+      li.toolbar-button-dropdown.highlight
         a(target="_blank" href='http://habitrpg.wikia.com/wiki/')
+          span.glyphicon.glyphicon-question-sign
           span=env.t('help')
         a(ng-click='expandMenu("help")', ng-class='{active: _expandedMenu == "help"}')
           span  &#9776;
@@ -169,7 +170,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
               a(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
-        button(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
+        button.highlight(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
     ul.toolbar-options  
       li.toolbar-notifs
         a(ng-click='expandMenu("notifs")')
@@ -219,7 +220,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
           div
             ul.toolbar-submenu(ng-click='expandMenu(null)')
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off','danielTheBard', 'wattsTheme']
+              for theme in ['off','danielTheBard', 'wattsTheme', 'gokulTheme']
                 li
                   a(ng-class="{'bg-primary':user.preferences.sound=='#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
 
@@ -264,7 +265,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
           span.gem-text {{user.balance * 4 | number:0}}
       li.toolbar-currency.gold(popover=env.t('gold') + ' ({{Shared.gold(user.stats.gp)}})', popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_gold
-        span {{Shared.gold(user.stats.gp) | goldRoundThousandsToK}}
+        span {{Shared.gold(user.stats.gp) | roundLargeNumbers}}
       li.toolbar-currency.silver(popover=env.t('silver'), popover-placement='bottom',popover-trigger='mouseenter')
         span.shop_silver
         span {{Shared.silver(user.stats.gp)}}
