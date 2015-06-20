@@ -14,15 +14,11 @@ describe('Analytics Service', function () {
 
   context('error handling', function() {
 
-    before(function() {
+    beforeEach(function() {
       sinon.stub(console, 'log');
     });
 
     afterEach(function() {
-      console.log.reset();
-    });
-
-    after(function() {
       console.log.restore();
     });
 
@@ -45,19 +41,13 @@ describe('Analytics Service', function () {
 
   context('Amplitude', function() {
 
-    before(function() {
+    beforeEach(function() {
       sinon.stub(amplitude, 'setUserId');
       sinon.stub(amplitude, 'logEvent');
       sinon.stub(amplitude, 'setUserProperties');
     });
 
     afterEach(function() {
-      amplitude.setUserId.reset();
-      amplitude.logEvent.reset();
-      amplitude.setUserProperties.reset();
-    });
-
-    after(function() {
       amplitude.setUserId.restore();
       amplitude.logEvent.restore();
       amplitude.setUserProperties.restore();
@@ -94,16 +84,12 @@ describe('Analytics Service', function () {
 
   context('Google Analytics', function() {
 
-    before(function() {
-      sinon.stub(ga);
+    beforeEach(function() {
+      sinon.stub(window, 'ga');
     });
 
     afterEach(function() {
-      ga.reset();
-    });
-
-    after(function() {
-      ga.restore();
+      window.ga.restore();
     });
 
     it('sets up tracking when user registers', function() {
@@ -139,7 +125,7 @@ describe('Analytics Service', function () {
 
   context.skip('Mixpanel', function() { // Mixpanel not currently in use
 
-    before(function() {
+    beforeEach(function() {
       sinon.stub(mixpanel, 'alias');
       sinon.stub(mixpanel, 'identify');
       sinon.stub(mixpanel, 'track');
@@ -147,13 +133,6 @@ describe('Analytics Service', function () {
     });
 
     afterEach(function() {
-      mixpanel.alias.reset();
-      mixpanel.identify.reset();
-      mixpanel.track.reset();
-      mixpanel.register.reset();
-    });
-
-    after(function() {
       mixpanel.alias.restore();
       mixpanel.identify.restore();
       mixpanel.track.restore();
