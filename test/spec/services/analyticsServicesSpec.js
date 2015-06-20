@@ -4,9 +4,17 @@
 'use strict';
 
 describe('Analytics Service', function () {
-  var analytics;
+  var analytics, user;
 
   beforeEach(function() {
+    user = specHelper.newUser();
+    user.contributor = { level: 1 };
+    user.purchased = { plan: true };
+
+    module(function($provide) {
+      $provide.value('User', {user: user});
+    });
+
     inject(function(Analytics) {
       analytics = Analytics;
     });
@@ -15,11 +23,7 @@ describe('Analytics Service', function () {
   context('error handling', function() {
 
     beforeEach(function() {
-      sinon.stub(console, 'log');
-    });
-
-    afterEach(function() {
-      console.log.restore();
+      sandbox.stub(console, 'log');
     });
 
     it('does not accept tracking events without required properties', function() {
@@ -42,15 +46,9 @@ describe('Analytics Service', function () {
   context('Amplitude', function() {
 
     beforeEach(function() {
-      sinon.stub(amplitude, 'setUserId');
-      sinon.stub(amplitude, 'logEvent');
-      sinon.stub(amplitude, 'setUserProperties');
-    });
-
-    afterEach(function() {
-      amplitude.setUserId.restore();
-      amplitude.logEvent.restore();
-      amplitude.setUserProperties.restore();
+      sandbox.stub(amplitude, 'setUserId');
+      sandbox.stub(amplitude, 'logEvent');
+      sandbox.stub(amplitude, 'setUserProperties');
     });
 
     it('sets up tracking when user registers', function() {
@@ -85,11 +83,7 @@ describe('Analytics Service', function () {
   context('Google Analytics', function() {
 
     beforeEach(function() {
-      sinon.stub(window, 'ga');
-    });
-
-    afterEach(function() {
-      window.ga.restore();
+      sandbox.stub(window, 'ga');
     });
 
     it('sets up tracking when user registers', function() {
@@ -126,17 +120,10 @@ describe('Analytics Service', function () {
   context.skip('Mixpanel', function() { // Mixpanel not currently in use
 
     beforeEach(function() {
-      sinon.stub(mixpanel, 'alias');
-      sinon.stub(mixpanel, 'identify');
-      sinon.stub(mixpanel, 'track');
-      sinon.stub(mixpanel, 'register');
-    });
-
-    afterEach(function() {
-      mixpanel.alias.restore();
-      mixpanel.identify.restore();
-      mixpanel.track.restore();
-      mixpanel.register.restore();
+      sandbox.stub(mixpanel, 'alias');
+      sandbox.stub(mixpanel, 'identify');
+      sandbox.stub(mixpanel, 'track');
+      sandbox.stub(mixpanel, 'register');
     });
 
     it('sets up tracking when user registers', function() {
