@@ -4,9 +4,17 @@
 'use strict';
 
 describe('Analytics Service', function () {
-  var analytics;
+  var analytics, user;
 
   beforeEach(function() {
+    user = specHelper.newUser();
+    user.contributor = { level: 1 };
+    user.purchased = { plan: true };
+
+    module(function($provide) {
+      $provide.value('User', {user: user});
+    });
+
     inject(function(Analytics) {
       analytics = Analytics;
     });
