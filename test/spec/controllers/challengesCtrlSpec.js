@@ -174,4 +174,12 @@ describe('Challenges Controller', function() {
       expect(scope.filterChallenges(notOwnNotMem)).to.eql(true);
     });
   });
+
+  describe('editTask', function() {
+    it('is Tasks.editTask', function() {
+      inject(function(Tasks) {
+        expect(scope.editTask).to.eql(Tasks.editTask);
+      });
+    });
+  });
 });

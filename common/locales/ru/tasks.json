@@ -2,7 +2,7 @@
     "clearCompleted": "Удалить завершенные",
     "lotOfToDos": "Завершенные задачи автоматически архивируются через 3 дня. Вы можете найти их в меню Настройки > Экспорт данных.",
     "deleteToDosExplanation": "Если вы нажмете кнопку ниже, все завершенные и находящиеся архиве задачи будут удалены навсегда. Если вы хотите сохранить их, экспортируйте их. ",
-    "beeminderDeleteWarning": "Забывчивые пользователи: <strong>В первую очередь</strong> прочитайте <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Удаление завершенных заданий без досадных оплошностей</a>!",
+    "beeminderDeleteWarning": "Пользователям Beeminder: <strong>В первую очередь</strong> прочитайте <a href=\"http://habitrpg.wikia.com/wiki/Beeminder#Deleting_Completed_To-Dos_Without_Confusing_Beeminder\">Как избежать проблем с Beeminder при удалении завершённых задач</a>!",
     "addmultiple": "Добавить несколько",
     "addsingle": "Добавить одно",
     "habits": "Привычки",

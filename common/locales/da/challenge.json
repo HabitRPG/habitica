@@ -25,7 +25,7 @@
     "membership": "Medlemskab",
     "participating": "Deltager",
     "notParticipating": "Deltager ikke",
-    "either": "Hver",
+    "either": "Begge",
     "createChallenge": "Opret udfordring",
     "discard": "Kassér",
     "challengeTitle": "Udfordringens navn",
@@ -48,5 +48,9 @@
     "removeTasks": "Slet opgaver",
     "keepTasks": "Behold opgaver",
     "closeCha": "Luk udfordringen og...",
-    "leaveCha": "Forlad udfordringen og..."
+    "leaveCha": "Forlad udfordringen og...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

@@ -1,10 +1,11 @@
 'use strict';
 
 describe('Task Ordering Filters', function() {
-  var filter
-    , orderBySpy = sinon.spy();
+  var filter, orderBySpy;
 
   beforeEach(function() {
+    orderBySpy = sandbox.spy();
+
     module(function($provide) {
       $provide.value('orderByFilter', orderBySpy);
     });

@@ -33,8 +33,8 @@
     "challengeTagPop": "Uitdagingen zijn te zien op labellijsten en op taakomschrijvingen. Dus hoewel je een omschrijvende titel wil voor hierboven, heb je ook een 'korte naam' nodig. '5 kilo afvallen in drie maanden' kan bijvoorbeeld worden afgekort to '-5kg' (Klik voor meer informatie).",
     "challengeDescr": "Beschrijving",
     "prize": "Prijs",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "Als jouw uitdaging een 'winnaar' kan hebben, kun je eventueel edelstenen beschikbaar stellen als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden.",
+    "prizePopTavern": "Als jouw uitdaging een 'winnaar' kan hebben, kun je eventueel edelstenen beschikbaar stellen als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden en herberg uitdagingen zullen niet teruggestort worden als de uitdaging geannuleerd wordt.",
     "publicChallenges": "Minimaal 1 edelsteen voor <strong>openbare uitdagingen</strong> (helpt spam voorkomen, echt).",
     "officialChallenge": "Officiële HabitRPG-Uitdaging",
     "by": "door",
@@ -44,9 +44,13 @@
     "selectGroup": "Groep selecteren",
     "challengeCreated": "Uitdaging aangemaakt",
     "sureDelCha": "Uitdaging verwijderen; weet je het zeker?",
-    "sureDelChaTavern": "Delete challenge, are you sure? Your gems will not be refunded.",
+    "sureDelChaTavern": "Verwijder uitdaging, weet je het zeker? Je edelstenen zullen niet worden terugbetaald.",
     "removeTasks": "Taken verwijderen",
     "keepTasks": "Taken behouden",
     "closeCha": "Uitdaging afsluiten en...",
-    "leaveCha": "Uitdaging verlaten en..."
+    "leaveCha": "Uitdaging verlaten en...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

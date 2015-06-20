@@ -160,7 +160,7 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 200
           body = res.body
-          expect(body).to.be.empty 
+          expect(body).to.be.empty
           done()
 
       it "Does not delete already deleted todo", (done) ->
@@ -183,4 +183,3 @@ describe "Todos", ->
           body = res.body
           expect(body.err).to.equal "Task not found."
           done()
-

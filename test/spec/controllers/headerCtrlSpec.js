@@ -26,13 +26,8 @@ describe('Header Controller', function() {
 
   context('inviteOrStartParty', function(){
     beforeEach(function(){
-      sinon.stub($location, 'path');
-      sinon.stub($rootScope, 'openModal');
-    });
-
-    afterEach(function(){
-      $location.path.restore();
-      $rootScope.openModal.restore();
+      sandbox.stub($location, 'path');
+      sandbox.stub($rootScope, 'openModal');
     });
 
     it('redirects to party page if user does not have a party', function(){

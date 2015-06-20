@@ -50,6 +50,7 @@ module.exports = function(config) {
       "website/public/js/services/memberServices.js",
       "website/public/js/services/guideServices.js",
       "website/public/js/services/challengeServices.js",
+      "website/public/js/services/taskServices.js",
       "website/public/js/services/paymentServices.js",
 
       "website/public/js/filters/money.js",
