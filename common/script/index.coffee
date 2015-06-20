@@ -698,7 +698,7 @@ api.wrap = (user, main=true) ->
         pd.push(item) unless i != -1
 
         cb? null, user.pushDevices
-      
+
       # ------
       # Inbox
       # ------
@@ -1579,7 +1579,7 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. 
+      # User is resting at the inn.
       # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
@@ -1715,7 +1715,7 @@ api.wrap = (user, main=true) ->
       owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
       user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
       content.classes.forEach (klass) ->
-        if user.achievements.ultimateGearSets[klass] is not true
+        if user.achievements.ultimateGearSets[klass] isnt true
           user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
             found = _.find content.gear.tree[type][klass], {last:true}
             soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
