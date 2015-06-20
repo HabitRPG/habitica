@@ -11,7 +11,7 @@ describe('fromNow Directive', function() {
     scope = $rootScope.$new();
     scope.message = {};
 
-    sinon.stub(window, 'moment').returns({
+    sandbox.stub(window, 'moment').returns({
       fromNow: function() { return fromNow },
       diff:    function() { return diff    }
     });
