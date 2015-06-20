@@ -882,6 +882,7 @@ api.wrap = (user, main=true) ->
           # the same seed would give one of the first five foods only.
           eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
           if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
+            eligibleEquipment.sort()  # https://github.com/HabitRPG/habitrpg/issues/5376#issuecomment-111799217
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
