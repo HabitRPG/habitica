@@ -296,7 +296,6 @@ var UserSchema = new Schema({
     }
   },
   preferences: {
-    armorSet: String,
     dayStart: {type:Number, 'default': 0, min: 0, max: 23},
     size: {type:String, enum: ['broad','slim'], 'default': 'slim'},
     hair: {
