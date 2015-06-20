@@ -56,6 +56,13 @@ habitrpg.controller('NotificationCtrl',
        Notification.crit(amount);
     });
 
+    $rootScope.$watch('user.party.quest.progress.up', function (after,before) {
+      if (after <= before || !after || !User.user.party.quest.key) return;
+      if (typeof(Content.quests[User.user.party.quest.key].boss) === 'undefined') return;
+      var amount = after - before;
+      Notification.hitBoss(amount);
+    });
+
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (after == before || !after) return;
