@@ -97,64 +97,6 @@ describe "Todos", ->
           expect(todo.value).to.equal 0
           done()
 
-      it "Creates a completed a todo when using up url", (done) ->
-        upTodo = undefined
-        request.post(baseURL + "/user/tasks/withUp/up").send(
-            type: "todo"
-            text: "withUp"
-            description: "testDesc"
-        ).end (res) ->
-          expectCode res, 200
-          request.get(baseURL + "/user/tasks/withUp")
-          .send().end (res) ->
-            upTodo = res.body
-            expect(upTodo.completed).to.equal true
-            done()
-
-      it "Creates an uncompleted todo when using down url", (done) ->
-        downTodo = undefined
-        request.post(baseURL + "/user/tasks/withDown/down").send(
-            type: "todo"
-            text: "withDown"
-            description: "testDesc"
-        ).end (res) ->
-          expectCode res, 200
-          request.get(baseURL + "/user/tasks/withDown")
-          .send().end (res) ->
-            downTodo = res.body
-            expect(downTodo.completed).to.equal false
-            done()
-
-      it "Creates a completed a todo overriding the complete parameter when using up url", (done) ->
-        upTodo = undefined
-        request.post(baseURL + "/user/tasks/withUpWithComplete/up").send(
-            type: "todo"
-            text: "withUpWithComplete"
-            complete: false
-            description: "testDesc"
-        ).end (res) ->
-          expectCode res, 200
-          request.get(baseURL + "/user/tasks/withUpWithComplete")
-          .send().end (res) ->
-            upTodo = res.body
-            expect(upTodo.completed).to.equal true
-            done()
-
-      it "Creates an uncompleted todo verriding the complete when using down url", (done) ->
-        downTodo = undefined
-        request.post(baseURL + "/user/tasks/withDownWithUncomplete/down").send(
-            type: "todo"
-            text: "withDownWithUncomplete"
-            complete: true
-            description: "testDesc"
-        ).end (res) ->
-          expectCode res, 200
-          request.get(baseURL + "/user/tasks/withDownWithUncomplete")
-          .send().end (res) ->
-            downTodo = res.body
-            expect(downTodo.completed).to.equal false
-            done()
-
       it "Does not create a todo with an id that already exists", (done) ->
         original_todo = {
           type: "todo"
@@ -212,43 +154,6 @@ describe "Todos", ->
           expect(todo.notes).to.equal "Some notes"
           done()
 
-      it "It completes a todo when using up url", (done) ->
-        unCompletedTodo = undefined
-        request.post(baseURL + "/user/tasks").send(
-            type: "todo"
-            text: "Sample Todo"
-        ).end (res) ->
-          expectCode res, 200
-          unCompletedTodo = res.body
-          expect(unCompletedTodo.completed).to.equal false
-          request.post(baseURL + "/user/tasks/"+unCompletedTodo._id+"/up").send(
-          ).end (res) ->
-            expectCode res, 200
-            request.get(baseURL + "/user/tasks/"+unCompletedTodo._id)
-            .send().end (res) ->
-              unCompletedTodo = res.body
-              expect(unCompletedTodo.completed).to.equal true
-              done()
-
-      it "It uncompletes a todo when using down url", (done) ->
-        completedTodo = undefined
-        request.post(baseURL + "/user/tasks").send(
-            type: "todo"
-            text: "Sample Todo"
-            completed: true
-        ).end (res) ->
-          expectCode res, 200
-          completedTodo = res.body
-          expect(completedTodo.completed).to.equal true
-          request.post(baseURL + "/user/tasks/"+completedTodo._id+"/down").send(
-          ).end (res) ->
-            expectCode res, 200
-            request.get(baseURL + "/user/tasks/"+completedTodo._id)
-            .send().end (res) ->
-              completedTodo = res.body
-              expect(completedTodo.completed).to.equal false
-              done()
-
     describe "Deleting todos", ->
       it "Does delete todo", (done) ->
         request.del(baseURL + "/user/tasks/" + todo.id).send(
@@ -278,37 +183,3 @@ describe "Todos", ->
           body = res.body
           expect(body.err).to.equal "Task not found."
           done()
-
-describe "habits", ->
-
-  it "Creates and scores up a habit when using up url", (done) ->
-    upHabit = undefined
-    request.post(baseURL + "/user/tasks/habitWithUp/up").send(
-        type: "habit"
-        text: "testTitle"
-        complete: true
-        description: "testDesc"
-    ).end (res) ->
-      expectCode res, 200
-      request.get(baseURL + "/user/tasks/habitWithUp")
-      .send().end (res) ->
-        upHabit = res.body
-        expect(upHabit.value).to.be.at.least(1);
-        expect(upHabit.type).to.equal("habit");
-        done()
-
-  it "Creates and scores down a habit when using down url", (done) ->
-    downHabit = undefined
-    request.post(baseURL + "/user/tasks/habitWithDown/down").send(
-        type: "habit"
-        text: "testTitle"
-        complete: true
-        description: "testDesc"
-    ).end (res) ->
-      expectCode res, 200
-      request.get(baseURL + "/user/tasks/habitWithDown")
-      .send().end (res) ->
-        downHabit = res.body
-        expect(downHabit.value).to.have.at.most(-1);
-        expect(downHabit.type).to.equal("habit");
-        done()
