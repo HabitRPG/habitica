@@ -50,7 +50,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.editTask = Tasks.editTask;
-    
+
     /**
      * Create
      */
@@ -93,7 +93,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Clone
      */
     $scope.clone = function(challenge) {
-      //We need to clone habits, dailys, todos, and rewards. They each need a new id and entry in the database
       var clonedTasks = {
         habit: [],
         daily: [],
@@ -101,10 +100,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         reward: []
       };
 
-      Tasks.cloneTasks(challenge.habits, clonedTasks);
-      Tasks.cloneTasks(challenge.dailys, clonedTasks);
-      Tasks.cloneTasks(challenge.todos, clonedTasks);
-      Tasks.cloneTasks(challenge.rewards, clonedTasks);
+      _(clonedTasks).each(function(val, type) {
+        challenge[type + 's'].forEach(_cloneTaskAndPush);
+      });
 
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: challenge.name,
@@ -116,11 +114,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         rewards: clonedTasks.reward,
         leader: User.user._id,
         group: challenge.group._id,
-        timestamp: +(new Date),
-        members: [],
         official: challenge.official,
         prize: challenge.prize
       });
+
+      function _cloneTaskAndPush(taskToClone) {
+        var task = Tasks.cloneTask(taskToClone);
+        clonedTasks[task.type].push(task);
+      }
     };
 
     /**

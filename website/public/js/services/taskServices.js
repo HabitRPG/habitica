@@ -6,11 +6,11 @@ angular
 
 tasksFactory.$inject = [
   '$rootScope',
-  'User',
-  'Shared'
+  'Shared',
+  'User'
 ];
 
-function tasksFactory($rootScope, User, Shared) {
+function tasksFactory($rootScope, Shared, User) {
 
   function editTask(task) {
     task._editing = !task._editing;
@@ -19,23 +19,32 @@ function tasksFactory($rootScope, User, Shared) {
     if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
   }
 
-  function cloneTasks(tasksToClone, arrayWithClonedTasks) {
-    var len = tasksToClone.length;
-    for (var i = 0; i < len; i+=1) {
-      var tmpTask = {};
-      var task = tasksToClone[i];
-      for( var property in task ) {
-        if ( property !== "_id" && property !== "id" && property !== "dateCreated" ) {
-          tmpTask[property] = task[property];
-        }
-      }
-      var newTask = Shared.taskDefaults(tmpTask);
-      arrayWithClonedTasks[newTask.type].push(newTask);
+  function cloneTask(task) {
+    var clonedTask = _.cloneDeep(task);
+    clonedTask = _cleanUpTask(clonedTask);
+
+    return Shared.taskDefaults(clonedTask);
+  }
+
+  function _cleanUpTask(task) {
+    var keysToRemove = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak'];
+    var cleansedTask = _.omit(task, keysToRemove);
+
+    // Copy checklists but reset to uncomplete and assign new id
+    _(cleansedTask.checklist).forEach(function(item) {
+      item.completed = false;
+      item.id = Shared.uuid();
+    });
+
+    if (cleansedTask.type !== 'reward') {
+      delete cleansedTask.value;
     }
+
+    return cleansedTask;
   }
 
   return {
     editTask: editTask,
-    cloneTasks: cloneTasks,
+    cloneTask: cloneTask
   };
 }
