@@ -4,13 +4,8 @@ describe('AppJS', function() {
   describe('Automatic page refresh', function(){
     var clock;
     beforeEach(function () {
-      clock = sinon.useFakeTimers();
-      sinon.stub(window, "refresher", function(){return true});
-    });
-
-    afterEach(function () {
-      clock.restore();
-      window.refresher.restore();
+      clock = sandbox.useFakeTimers();
+      sandbox.stub(window, "refresher", function(){return true});
     });
 
     it('should not call refresher if idle time is less than 6 hours', function() {
