@@ -8,8 +8,8 @@ describe('Analytics Service', function () {
 
   beforeEach(function() {
     user = specHelper.newUser();
-    user.contributor = { level: 1 };
-    user.purchased = { plan: true };
+    user.contributor = {};
+    user.purchased = { plan: {} };
 
     module(function($provide) {
       $provide.value('User', {user: user});

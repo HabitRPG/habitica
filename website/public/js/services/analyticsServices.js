@@ -119,17 +119,19 @@ function analyticsFactory(User) {
   }
 
   function updateUser(properties) {
-    if (typeof properties === 'undefined') properties = {};
+    if (!properties) {
+      properties = {};
 
-    if (typeof user._id !== 'undefined') properties.UUID = user._id;
-    if (typeof user.stats.class !== 'undefined') properties.Class = user.stats.class;
-    if (typeof user.stats.exp !== 'undefined') properties.Experience = Math.floor(user.stats.exp);
-    if (typeof user.stats.gp !== 'undefined') properties.Gold = Math.floor(user.stats.gp);
-    if (typeof user.stats.hp !== 'undefined') properties.Health = Math.ceil(user.stats.hp);
-    if (typeof user.stats.lvl !== 'undefined') properties.Level = user.stats.lvl;
-    if (typeof user.stats.mp !== 'undefined') properties.Mana = Math.floor(user.stats.mp);
-    if (typeof user.contributor.level !== 'undefined') properties.contributorLevel = user.contributor.level;
-    if (typeof user.purchased.plan.planId !== 'undefined') properties.subscription = user.purchased.plan.planId;
+      if (user._id) properties.UUID = user._id;
+      if (user.stats.class) properties.Class = user.stats.class;
+      if (user.stats.exp) properties.Experience = Math.floor(user.stats.exp);
+      if (user.stats.gp) properties.Gold = Math.floor(user.stats.gp);
+      if (user.stats.hp) properties.Health = Math.ceil(user.stats.hp);
+      if (user.stats.lvl) properties.Level = user.stats.lvl;
+      if (user.stats.mp) properties.Mana = Math.floor(user.stats.mp);
+      if (user.contributor.level) properties.contributorLevel = user.contributor.level;
+      if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
+    }
 
     amplitude.setUserProperties(properties);
     ga('set',properties);
