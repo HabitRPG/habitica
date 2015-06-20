@@ -51,32 +51,66 @@ describe('Analytics Service', function () {
       sandbox.stub(amplitude, 'setUserProperties');
     });
 
-    it('sets up tracking when user registers', function() {
-      analytics.register();
-      expect(amplitude.setUserId).to.have.been.calledOnce;
+    describe('register', function() {
+      it('sets up tracking when user registers', function() {
+        analytics.register();
+        expect(amplitude.setUserId).to.have.been.calledOnce;
+      });
     });
 
-    it('sets up tracking when user logs in', function() {
-      analytics.login();
-      expect(amplitude.setUserId).to.have.been.calledOnce;
+    describe('login', function() {
+      it('sets up tracking when user logs in', function() {
+        analytics.login();
+        expect(amplitude.setUserId).to.have.been.calledOnce;
+      });
     });
 
-    it('tracks a simple user action', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-      expect(amplitude.logEvent).to.have.been.calledOnce;
-      expect(amplitude.logEvent).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
+    describe('track', function() {
+      it('tracks a simple user action', function() {
+        analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
+        expect(amplitude.logEvent).to.have.been.calledOnce;
+        expect(amplitude.logEvent).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
+      });
+
+      it('tracks a user action with additional properties', function() {
+        analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
+        expect(amplitude.logEvent).to.have.been.calledOnce;
+        expect(amplitude.logEvent).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
+      });
     });
 
-    it('tracks a user action with additional properties', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-      expect(amplitude.logEvent).to.have.been.calledOnce;
-      expect(amplitude.logEvent).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-    });
+    describe('updateUser', function() {
+      it('updates user-level properties with values provided in properties', function() {
+        analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+        expect(amplitude.setUserProperties).to.have.been.calledOnce;
+        expect(amplitude.setUserProperties).to.have.been.calledWith({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+      });
 
-    it('updates user-level properties', function() {
-      analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-      expect(amplitude.setUserProperties).to.have.been.calledOnce;
-      expect(amplitude.setUserProperties).to.have.been.calledWith({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+      it('updates user-level properties with certain user values when no properties are provided', function() {
+        user._id = 'unique-user-id';
+        user.stats.class = 'wizard';
+        user.stats.exp = 35.7;
+        user.stats.gp = 43.2;
+        user.stats.hp = 47.8;
+        user.stats.lvl = 24;
+        user.stats.mp = 41;
+        user.contributor.level = 1;
+        user.purchased.plan.planId = 'unique-plan-id';
+
+        analytics.updateUser();
+        expect(amplitude.setUserProperties).to.have.been.calledOnce;
+        expect(amplitude.setUserProperties).to.have.been.calledWith({
+          UUID: 'unique-user-id',
+          Class: 'wizard',
+          Experience: 35,
+          Gold: 43,
+          Health: 48,
+          Level: 24,
+          Mana: 41,
+          contributorLevel: 1,
+          subscription: 'unique-plan-id'
+        });
+      });
     });
   });
 
@@ -86,34 +120,68 @@ describe('Analytics Service', function () {
       sandbox.stub(window, 'ga');
     });
 
-    it('sets up tracking when user registers', function() {
-      analytics.register();
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('set');
+    describe('register', function() {
+      it('sets up tracking when user registers', function() {
+        analytics.register();
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set');
+      });
     });
 
-    it('sets up tracking when user logs in', function() {
-      analytics.login();
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('set');
+    describe('login', function() {
+      it('sets up tracking when user logs in', function() {
+        analytics.login();
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set');
+      });
     });
 
-    it('tracks a simple user action', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('send',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
+    describe('track', function() {
+      it('tracks a simple user action', function() {
+        analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('send',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
+      });
+
+      it('tracks a user action with additional properties', function() {
+        analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('send',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
+      });
     });
 
-    it('tracks a user action with additional properties', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('send',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-    });
+    describe('updateUser', function() {
+      it('updates user-level properties with values provided in properties', function() {
+        analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set', {'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+      });
 
-    it('updates user-level properties', function() {
-      analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('set',{'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+      it('updates user-level properties', function() {
+        user._id = 'unique-user-id';
+        user.stats.class = 'wizard';
+        user.stats.exp = 35.7;
+        user.stats.gp = 43.2;
+        user.stats.hp = 47.8;
+        user.stats.lvl = 24;
+        user.stats.mp = 41;
+        user.contributor.level = 1;
+        user.purchased.plan.planId = 'unique-plan-id';
+
+        analytics.updateUser();
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set',{
+          UUID: 'unique-user-id',
+          Class: 'wizard',
+          Experience: 35,
+          Gold: 43,
+          Health: 48,
+          Level: 24,
+          Mana: 41,
+          contributorLevel: 1,
+          subscription: 'unique-plan-id'
+        });
+      });
     });
   });
 
