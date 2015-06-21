@@ -28,13 +28,13 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
   .container-fluid
     .stable.row
       .col-md-2
-        .seasonalshop_closed
+        .seasonalshop_summer2015
       .col-md-10
         .popover.static-popover.fade.right.in
           .arrow
-          h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+          h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
           .popover-content
-            p!=env.t('seasonalShopClosedText', {linkStart:"<a href='http://habitrpg.wikia.com/wiki/Grand_Galas' target='_blank'>", linkEnd: "</a>"})
+            p!=env.t('seasonalShopSummerText')
     .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{summerWarrior:env.t("daringSwashbucklerSet"), summerMage:env.t("emeraldMermageSet"), summerHealer:env.t("reefSeahealerSet"), summerRogue:env.t("roguishPirateSet")}')
