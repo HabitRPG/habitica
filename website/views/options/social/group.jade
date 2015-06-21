@@ -1,4 +1,4 @@
-a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left')
+a.pull-right.gem-wallet(ng-if='group.type!="party" && group.balance', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left')
   // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
   span.task-action-btn.tile.flush.neutral
     .Pet_Currency_Gem2x.Gems
