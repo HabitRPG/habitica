@@ -1,3 +1,4 @@
+'use strict';
 // @see ../routes for routing
 
 function clone(a) {
@@ -195,7 +196,7 @@ api.create = function(req, res, next) {
       group = user = null;
     });
 
-  }else{
+  } else{
     async.waterfall([
       function(cb){
         Group.findOne({type:'party',members:{$in:[user._id]}},cb);
@@ -210,8 +211,8 @@ api.create = function(req, res, next) {
     ], function(err, populated){
       if (err == 'Already in a party, try refreshing.') return res.json(400,{err:err});
       if (err) return next(err);
-      return res.json(populated);
       group = user = null;
+      return res.json(populated);
     })
   }
 }
@@ -285,7 +286,7 @@ api.postChat = function(req, res, next) {
 
     group.save(function(err, saved){
       if (err) return next(err);
-      return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+      chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
       group = chatUpdated = null;
     });
   }
@@ -549,8 +550,8 @@ api.leave = function(req, res, next) {
     }
   ],function(err){
     if (err) return next(err);
-    return res.send(204);
     user = group = keep = null;
+    return res.send(204);
   })
 }
 
@@ -786,8 +787,8 @@ api.removeMember = function(req, res, next){
 
     });
   }else{
-    return res.json(400, {err: "User not found among group's members!"});
     group = uuid = null;
+    return res.json(400, {err: "User not found among group's members!"});
   }
 }
 
@@ -795,7 +796,7 @@ api.removeMember = function(req, res, next){
 // Quests
 // ------------------------------------
 
-questStart = function(req, res, next) {
+function questStart(req, res, next) {
   var group = res.locals.group;
   var force = req.query.force;
 
