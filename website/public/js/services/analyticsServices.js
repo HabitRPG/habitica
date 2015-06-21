@@ -56,38 +56,20 @@ function analyticsFactory(User) {
   }
 
   function track(properties) {
-    var REQUIRED_FIELDS = ['hitType','eventCategory','eventAction'];
-    var ALLOWED_HIT_TYPES = ['pageview','screenview','event','transaction','item','social','exception','timing'];
-    if (!_.isEqual(_.keys(_.pick(properties, REQUIRED_FIELDS)), REQUIRED_FIELDS)) {
-      return console.log('Analytics tracking calls must include the following properties: ' + JSON.stringify(REQUIRED_FIELDS));
-    }
-    if (!_.contains(ALLOWED_HIT_TYPES, properties.hitType)) {
-      return console.log('Hit type of Analytics event must be one of the following: ' + JSON.stringify(ALLOWED_HIT_TYPES));
-    }
+    if(_doesNotHaveRequiredFields(properties)) { return false; }
+    if(_doesNotHaveAllowedHitType(properties)) { return false; }
 
     amplitude.logEvent(properties.eventAction,properties);
     ga('send',properties);
   }
 
   function updateUser(properties) {
-    if (!properties) properties = {};
+    properties = properties || {};
 
     _gatherUserStats(user, properties);
 
     amplitude.setUserProperties(properties);
     ga('set',properties);
-  }
-
-  function _gatherUserStats(user, properties) {
-    if (user._id) properties.UUID = user._id;
-    if (user.stats.class) properties.Class = user.stats.class;
-    if (user.stats.exp) properties.Experience = Math.floor(user.stats.exp);
-    if (user.stats.gp) properties.Gold = Math.floor(user.stats.gp);
-    if (user.stats.hp) properties.Health = Math.ceil(user.stats.hp);
-    if (user.stats.lvl) properties.Level = user.stats.lvl;
-    if (user.stats.mp) properties.Mana = Math.floor(user.stats.mp);
-    if (user.contributor.level) properties.contributorLevel = user.contributor.level;
-    if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
   }
 
   return {
@@ -98,3 +80,34 @@ function analyticsFactory(User) {
     updateUser: updateUser
   };
 }
+
+function _gatherUserStats(user, properties) {
+  if (user._id) properties.UUID = user._id;
+  if (user.stats.class) properties.Class = user.stats.class;
+  if (user.stats.exp) properties.Experience = Math.floor(user.stats.exp);
+  if (user.stats.gp) properties.Gold = Math.floor(user.stats.gp);
+  if (user.stats.hp) properties.Health = Math.ceil(user.stats.hp);
+  if (user.stats.lvl) properties.Level = user.stats.lvl;
+  if (user.stats.mp) properties.Mana = Math.floor(user.stats.mp);
+  if (user.contributor.level) properties.contributorLevel = user.contributor.level;
+  if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
+}
+
+function _doesNotHaveRequiredFields(properties) {
+  var REQUIRED_FIELDS = ['hitType','eventCategory','eventAction'];
+
+  if (!_.isEqual(_.keys(_.pick(properties, REQUIRED_FIELDS)), REQUIRED_FIELDS)) {
+    console.log('Analytics tracking calls must include the following properties: ' + JSON.stringify(REQUIRED_FIELDS));
+    return true;
+  }
+}
+
+function _doesNotHaveAllowedHitType(properties) {
+  var ALLOWED_HIT_TYPES = ['pageview','screenview','event','transaction','item','social','exception','timing'];
+
+  if (!_.contains(ALLOWED_HIT_TYPES, properties.hitType)) {
+    console.log('Hit type of Analytics event must be one of the following: ' + JSON.stringify(ALLOWED_HIT_TYPES));
+    return true;
+  }
+}
+
