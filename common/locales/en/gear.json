@@ -558,6 +558,7 @@
   "shieldArmoireGladiatorShieldText": "Gladiator Shield",
   "shieldArmoireGladiatorShieldNotes": "To be a gladiator you must.... eh, whatever, just bash them with your shield. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 3 of 3).",
 
+  "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
   "backBase0Notes": "No Back Accessory.",
 
@@ -653,6 +654,7 @@
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 
+  "eyewear": "Eyewear",
   "eyewearBase0Text": "No Eyewear",
   "eyewearBase0Notes": "No Eyewear.",
 
