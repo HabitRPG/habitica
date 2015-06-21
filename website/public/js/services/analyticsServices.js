@@ -28,41 +28,6 @@ function analyticsFactory(User) {
     }, window['ga'].l = 1 * new Date();
   ga('create', window.env.GA_ID, 'auto');
 
-  /* Mixpanel - BROKEN
-  (function(b) {
-    if (!b.__SV) {
-      var i, g;
-      window.mixpanel = b;
-      b._i = [];
-      b.init = function(a, e, d) {
-        function f(b, h) {
-          var a = h.split(".");
-          2 == a.length && (b = b[a[0]], h = a[1]);
-          b[h] = function() {
-            b.push([h].concat(Array.prototype.slice.call(arguments, 0)))
-          }
-        }
-        var c = b;
-        "undefined" !== typeof d ? c = b[d] = [] : d = "mixpanel";
-        c.people = c.people || [];
-        c.toString = function(b) {
-          var a = "mixpanel";
-          "mixpanel" !== d && (a += "." + d);
-          b || (a += " (stub)");
-          return a
-        };
-        c.people.toString = function() {
-          return c.toString(1) + ".people (stub)"
-        };
-        i = "disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-        for (g = 0; g < i.length; g++) f(c, i[g]);
-        b._i.push([a, e, d])
-      };
-      b.__SV = 1.2;
-    }
-  })(window.mixpanel || []);
-  mixpanel.init(window.env.MIXPANEL_TOKEN); */
-
   function loadScripts() {
     // Amplitude
     var n = document.createElement("script");
@@ -78,26 +43,16 @@ function analyticsFactory(User) {
     a.async = 1;
     a.src = '//www.google-analytics.com/analytics.js';
     m.parentNode.insertBefore(a, m);
-
-    /* Mixpanel
-    var g = document.createElement("script");
-    var e = document.getElementsByTagName("script")[0];
-    g.type = "text/javascript";
-    g.async = !0;
-    g.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";
-    e.parentNode.insertBefore(g, e); */
   }
 
   function register() {
     amplitude.setUserId(user._id);
     ga('set', {'userId':user._id});
-    // mixpanel.alias(user._id);
   }
 
   function login() {
     amplitude.setUserId(user._id);
     ga('set', {'userId':user._id});
-    // mixpanel.identify(user._id);
   }
 
   function track(properties) {
@@ -111,7 +66,6 @@ function analyticsFactory(User) {
     }
 
     amplitude.logEvent(properties.eventAction,properties);
-    // mixpanel.track(properties.eventAction,properties);
     ga('send',properties);
   }
 
@@ -122,7 +76,6 @@ function analyticsFactory(User) {
 
     amplitude.setUserProperties(properties);
     ga('set',properties);
-    // mixpanel.register(properties);
   }
 
   function _gatherUserStats(user, properties) {
