@@ -22,7 +22,7 @@ describe('Tasks Service', function() {
     var task;
 
     beforeEach(function(){
-      task = newTask();
+      task = specHelper.newTask();
     });
 
     it('toggles the _editing property', function() {
@@ -71,7 +71,7 @@ describe('Tasks Service', function() {
 
     context('generic tasks', function() {
       it('clones the data from a task', function() {
-        var task = newTask();
+        var task = specHelper.newTask();
         var clonedTask = tasks.cloneTask(task);
 
         expect(clonedTask.text).to.eql(task.text);
@@ -83,7 +83,7 @@ describe('Tasks Service', function() {
       });
 
       it('does not clone original task\'s id or _id', function() {
-        var task = newTask();
+        var task = specHelper.newTask();
         var clonedTask = tasks.cloneTask(task);
 
         expect(clonedTask.id).to.exist;
@@ -93,7 +93,7 @@ describe('Tasks Service', function() {
       });
 
       it('does not clone original task\'s dateCreated attribute', function() {
-        var task = newTask({
+        var task = specHelper.newTask({
           dateCreated: new Date(2014, 5, 1, 1, 1, 1, 1),
         });
         var clonedTask = tasks.cloneTask(task);
@@ -103,7 +103,7 @@ describe('Tasks Service', function() {
       });
 
       it('does not clone original task\'s value', function() {
-        var task = newTask({
+        var task = specHelper.newTask({
           value: 130
         });
         var clonedTask = tasks.cloneTask(task);
@@ -116,7 +116,7 @@ describe('Tasks Service', function() {
     context('Habits', function() {
 
       it('clones a habit', function() {
-        var habit = newHabit({
+        var habit = specHelper.newHabit({
           up: true,
           down: false
         });
@@ -131,7 +131,7 @@ describe('Tasks Service', function() {
     context('Dailys', function() {
 
       it('clones a daily', function() {
-        var daily = newDaily({
+        var daily = specHelper.newDaily({
           frequency: 'daily',
           everyX: 3,
           startDate: new Date(2014, 5, 1, 1, 1, 1, 1),
@@ -146,7 +146,7 @@ describe('Tasks Service', function() {
       });
 
       it('does not clone streak', function() {
-        var daily = newDaily({
+        var daily = specHelper.newDaily({
           streak: 11
         });
 
@@ -159,14 +159,14 @@ describe('Tasks Service', function() {
     context('Todos', function() {
 
       it('clones a todo', function() {
-        var todo = newTodo();
+        var todo = specHelper.newTodo();
         var clonedTodo = tasks.cloneTask(todo);
 
         expect(clonedTodo.type).to.eql('todo');
       });
 
       it('does not clone due date', function() {
-        var todo = newTodo({
+        var todo = specHelper.newTodo({
           date: '2015-06-20'
         });
 
@@ -176,7 +176,7 @@ describe('Tasks Service', function() {
       });
 
       it('does not clone date completed', function() {
-        var todo = newTodo({
+        var todo = specHelper.newTodo({
           dateCompleted: new Date()
         });
 
@@ -189,14 +189,14 @@ describe('Tasks Service', function() {
     context('Rewards', function() {
 
       it('clones a reward', function() {
-        var reward = newReward();
+        var reward = specHelper.newReward();
         var clonedReward = tasks.cloneTask(reward);
 
         expect(clonedReward.type).to.eql('reward');
       });
 
-      it('does clone a reward\'s value', function() {
-        var reward = newReward({
+      it('does clone a reward\'s vaue', function() {
+        var reward = specHelper.newReward({
           value: 20
         });
         var clonedReward = tasks.cloneTask(reward);
@@ -207,7 +207,7 @@ describe('Tasks Service', function() {
 
     context('complete', function() {
       it('does not clone completed status', function() {
-        var todo = newTodo({
+        var todo = specHelper.newTodo({
           completed: true
         });
 
@@ -220,7 +220,7 @@ describe('Tasks Service', function() {
     context('history', function() {
 
       it('does not clone history', function() {
-        var habit = newHabit({
+        var habit = specHelper.newHabit({
           history: [
             { date: Date.now, value: 3.1 },
             { date: Date.now, value: 2.7 }
@@ -236,7 +236,7 @@ describe('Tasks Service', function() {
     context('checklists', function() {
 
       it('clones checklist text', function() {
-        var todo = newTodo({
+        var todo = specHelper.newTodo({
           checklist: [{
               completed: true,
               text: 'checklist 1',
@@ -255,7 +255,7 @@ describe('Tasks Service', function() {
       });
 
       it('does not clone complete or id attribute of checklist', function() {
-        var todo = newTodo({
+        var todo = specHelper.newTodo({
           checklist: [{
               completed: true,
               text: 'checklist 1',

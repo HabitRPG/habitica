@@ -3,13 +3,11 @@
 describe('notificationServices', function() {
   var notification;
 
-  before(function(){
-    sinon.stub($, 'pnotify', function(){
+  beforeEach(function() {
+    sandbox.stub($, 'pnotify', function(){
       return { click: function(){}}
     });
-  });
 
-  beforeEach(function() {
     module(function($provide){
       $provide.value('User', {});
     });
@@ -17,10 +15,6 @@ describe('notificationServices', function() {
     inject(function(Notification) {
       notification = Notification;
     });
-  });
-
-  afterEach(function() {
-    $.pnotify.reset();
   });
 
   it('notifies coins amount', function() {
