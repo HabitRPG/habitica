@@ -39,7 +39,7 @@ describe('Notification Controller', function() {
 
     it('does not open quest invitation modal if RSVPNeeded is not true', function() {
       user.party.quest.RSVPNeeded = false;
-      user.party.quest.completed = false;
+      user.party.quest.completed = "hedgebeast";
       scope.$digest();
 
       expect(rootScope.openModal).to.not.be.called;
@@ -47,7 +47,7 @@ describe('Notification Controller', function() {
 
     it('does not open quest invitation modal if quest completed is set to false', function() {
       user.party.quest.RSVPNeeded = true;
-      user.party.quest.completed = false;
+      user.party.quest.completed = "hedgebeast";
       scope.$digest();
 
       expect(rootScope.openModal).to.not.be.called;
@@ -55,7 +55,7 @@ describe('Notification Controller', function() {
 
     it('does not open quest invitation modal if quest completed is set to true', function() {
       user.party.quest.RSVPNeeded = true;
-      user.party.quest.completed = true;
+      user.party.quest.completed = "hedgebeast";
       scope.$digest();
 
       expect(rootScope.openModal).to.not.be.called;
