@@ -1,6 +1,3 @@
-/**
- * Created by Sabe on 6/11/2015.
- */
 'use strict';
 
 describe('Analytics Service', function () {
@@ -8,8 +5,8 @@ describe('Analytics Service', function () {
 
   beforeEach(function() {
     user = specHelper.newUser();
-    user.contributor = { level: 1 };
-    user.purchased = { plan: true };
+    user.contributor = {};
+    user.purchased = { plan: {} };
 
     module(function($provide) {
       $provide.value('User', {user: user});
@@ -20,138 +17,220 @@ describe('Analytics Service', function () {
     });
   });
 
-  context('error handling', function() {
+  context('functions', function() {
 
-    beforeEach(function() {
-      sandbox.stub(console, 'log');
+    describe('register', function() {
+
+      beforeEach(function() {
+        sandbox.stub(amplitude, 'setUserId');
+        sandbox.stub(window, 'ga');
+      });
+
+      it('sets up user with amplitude', function() {
+        analytics.register();
+        expect(amplitude.setUserId).to.have.been.calledOnce;
+        expect(amplitude.setUserId).to.have.been.calledWith(user._id);
+      });
+
+      it('sets up user with google analytics', function() {
+        analytics.register();
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set', {userId: user._id});
+      });
     });
 
-    it('does not accept tracking events without required properties', function() {
-      analytics.track('action');
-      analytics.track({'hitType':'pageview','eventCategory':'green'});
-      analytics.track({'hitType':'pageview','eventAction':'eat'});
-      analytics.track({'eventCategory':'green','eventAction':'eat'});
-      analytics.track({'hitType':'pageview'});
-      analytics.track({'eventCategory':'green'});
-      analytics.track({'eventAction':'eat'});
-      expect(console.log.callCount).to.eql(7);
+    describe('login', function() {
+
+      beforeEach(function() {
+        sandbox.stub(amplitude, 'setUserId');
+        sandbox.stub(window, 'ga');
+      });
+
+      it('sets up tracking for amplitude', function() {
+        analytics.login();
+
+        expect(amplitude.setUserId).to.have.been.calledOnce;
+        expect(amplitude.setUserId).to.have.been.calledWith(user._id);
+      });
+
+      it('sets up tracking for google analytics', function() {
+        analytics.login();
+
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set', {userId: user._id});
+      });
     });
 
-    it('does not accept tracking events with incorrect hit type', function () {
-      analytics.track({'hitType':'moogly','eventCategory':'green','eventAction':'eat'});
-      expect(console.log).to.have.been.calledOnce;
-    });
-  });
+    describe('track', function() {
 
-  context('Amplitude', function() {
+      beforeEach(function() {
+        sandbox.stub(amplitude, 'logEvent');
+        sandbox.stub(window, 'ga');
+      });
 
-    beforeEach(function() {
-      sandbox.stub(amplitude, 'setUserId');
-      sandbox.stub(amplitude, 'logEvent');
-      sandbox.stub(amplitude, 'setUserProperties');
-    });
+      context('succeful tracking', function() {
 
-    it('sets up tracking when user registers', function() {
-      analytics.register();
-      expect(amplitude.setUserId).to.have.been.calledOnce;
-    });
+        it('tracks a simple user action with amplitude', function() {
+          var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron'};
+          analytics.track(properties);
 
-    it('sets up tracking when user logs in', function() {
-      analytics.login();
-      expect(amplitude.setUserId).to.have.been.calledOnce;
-    });
+          expect(amplitude.logEvent).to.have.been.calledOnce;
+          expect(amplitude.logEvent).to.have.been.calledWith('cron', properties);
+        });
 
-    it('tracks a simple user action', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-      expect(amplitude.logEvent).to.have.been.calledOnce;
-      expect(amplitude.logEvent).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-    });
+        it('tracks a simple user action with google analytics', function() {
+          var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron'};
+          analytics.track(properties);
 
-    it('tracks a user action with additional properties', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-      expect(amplitude.logEvent).to.have.been.calledOnce;
-      expect(amplitude.logEvent).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-    });
+          expect(ga).to.have.been.calledOnce;
+          expect(ga).to.have.been.calledWith('send', properties);
+        });
 
-    it('updates user-level properties', function() {
-      analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-      expect(amplitude.setUserProperties).to.have.been.calledOnce;
-      expect(amplitude.setUserProperties).to.have.been.calledWith({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-    });
-  });
+        it('tracks a user action with additional properties in amplitude', function() {
+          var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'};
+          analytics.track(properties);
 
-  context('Google Analytics', function() {
+          expect(amplitude.logEvent).to.have.been.calledOnce;
+          expect(amplitude.logEvent).to.have.been.calledWith('cron', properties);
+        });
 
-    beforeEach(function() {
-      sandbox.stub(window, 'ga');
-    });
+        it('tracks a user action with additional properties in google analytics', function() {
+          var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'};
+          analytics.track(properties);
 
-    it('sets up tracking when user registers', function() {
-      analytics.register();
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('set');
-    });
+          expect(ga).to.have.been.calledOnce;
+          expect(ga).to.have.been.calledWith('send', properties);
+        });
+      });
 
-    it('sets up tracking when user logs in', function() {
-      analytics.login();
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('set');
-    });
+      context('unsuccesful tracking', function() {
 
-    it('tracks a simple user action', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('send',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-    });
+        beforeEach(function() {
+          sandbox.stub(console, 'log');
+        });
 
-    it('tracks a user action with additional properties', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('send',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-    });
+        context('events without requird properties', function() {
+          beforeEach(function(){
+            analytics.track('action');
+            analytics.track({'hitType':'pageview','eventCategory':'green'});
+            analytics.track({'hitType':'pageview','eventAction':'eat'});
+            analytics.track({'eventCategory':'green','eventAction':'eat'});
+            analytics.track({'hitType':'pageview'});
+            analytics.track({'eventCategory':'green'});
+            analytics.track({'eventAction':'eat'});
+          });
 
-    it('updates user-level properties', function() {
-      analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-      expect(ga).to.have.been.calledOnce;
-      expect(ga).to.have.been.calledWith('set',{'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-    });
-  });
+          it('logs errors to console', function() {
+            expect(console.log.callCount).to.eql(7);
+          });
 
-  context.skip('Mixpanel', function() { // Mixpanel not currently in use
+          it('does not call out to amplitude', function() {
+            expect(amplitude.logEvent).to.not.be.called;
+          });
 
-    beforeEach(function() {
-      sandbox.stub(mixpanel, 'alias');
-      sandbox.stub(mixpanel, 'identify');
-      sandbox.stub(mixpanel, 'track');
-      sandbox.stub(mixpanel, 'register');
-    });
+          it('does not call out to google analytics', function() {
+            expect(ga).to.not.be.called;
+          });
+        });
 
-    it('sets up tracking when user registers', function() {
-      analytics.register();
-      expect(mixpanel.alias).to.have.been.calledOnce;
+        context('incorrect hit type', function() {
+          beforeEach(function() {
+            analytics.track({'hitType':'moogly','eventCategory':'green','eventAction':'eat'});
+          });
+
+          it('logs error to console', function () {
+            expect(console.log).to.have.been.calledOnce;
+          });
+
+          it('does not call out to amplitude', function() {
+            expect(amplitude.logEvent).to.not.be.called;
+          });
+
+          it('does not call out to google analytics', function() {
+            expect(ga).to.not.be.called;
+          });
+        });
+      });
     });
 
-    it('sets up tracking when user logs in', function() {
-      analytics.login();
-      expect(mixpanel.identify).to.have.been.calledOnce;
-    });
+    describe('updateUser', function() {
 
-    it('tracks a simple user action', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-      expect(mixpanel.track).to.have.been.calledOnce;
-      expect(mixpanel.track).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron'});
-    });
+      beforeEach(function() {
+        sandbox.stub(amplitude, 'setUserProperties');
+        sandbox.stub(window, 'ga');
+      });
 
-    it('tracks a user action with additional properties', function() {
-      analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-      expect(mixpanel.track).to.have.been.calledOnce;
-      expect(mixpanel.track).to.have.been.calledWith('cron',{'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'});
-    });
+      context('properties argument provided', function(){
+        var properties = {'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'};
+        var expectedProperties = _.cloneDeep(properties);
+        expectedProperties.UUID = 'unique-user-id';
+        expectedProperties.Class = 'wizard';
+        expectedProperties.Experience = 35;
+        expectedProperties.Gold = 43;
+        expectedProperties.Health = 48;
+        expectedProperties.Level = 24;
+        expectedProperties.Mana = 41;
 
-    it('updates user-level properties', function() {
-      analytics.updateUser({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
-      expect(mixpanel.register).to.have.been.calledOnce;
-      expect(mixpanel.register).to.have.been.calledWith({'userBoolean': false, 'userNumber': -8, 'userString': 'Enlightened'});
+        beforeEach(function() {
+          user._id = 'unique-user-id';
+          user.stats.class = 'wizard';
+          user.stats.exp = 35.7;
+          user.stats.gp = 43.2;
+          user.stats.hp = 47.8;
+          user.stats.lvl = 24;
+          user.stats.mp = 41;
+
+          analytics.updateUser(properties);
+        });
+
+        it('calls amplitude with provided properties and select user info', function() {
+          expect(amplitude.setUserProperties).to.have.been.calledOnce;
+          expect(amplitude.setUserProperties).to.have.been.calledWith(expectedProperties);
+        });
+
+        it('calls google analytics with provided properties and select user info', function() {
+          expect(ga).to.have.been.calledOnce;
+          expect(ga).to.have.been.calledWith('set', expectedProperties);
+        });
+      });
+
+      context('no properties argument provided', function() {
+        var expectedProperties = {
+          UUID: 'unique-user-id',
+          Class: 'wizard',
+          Experience: 35,
+          Gold: 43,
+          Health: 48,
+          Level: 24,
+          Mana: 41,
+          contributorLevel: 1,
+          subscription: 'unique-plan-id'
+        };
+
+        beforeEach(function() {
+          user._id = 'unique-user-id';
+          user.stats.class = 'wizard';
+          user.stats.exp = 35.7;
+          user.stats.gp = 43.2;
+          user.stats.hp = 47.8;
+          user.stats.lvl = 24;
+          user.stats.mp = 41;
+          user.contributor.level = 1;
+          user.purchased.plan.planId = 'unique-plan-id';
+
+          analytics.updateUser();
+        });
+
+        it('calls amplitude with select user info', function() {
+          expect(amplitude.setUserProperties).to.have.been.calledOnce;
+          expect(amplitude.setUserProperties).to.have.been.calledWith(expectedProperties);
+        });
+
+        it('calls google analytics with select user info', function() {
+          expect(ga).to.have.been.calledOnce;
+          expect(ga).to.have.been.calledWith('set', expectedProperties);
+        });
+      });
     });
   });
 });
