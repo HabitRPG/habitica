@@ -1,6 +1,3 @@
-/**
- * Created by Sabe on 6/15/2015.
- */
 'use strict';
 
 angular
@@ -119,23 +116,25 @@ function analyticsFactory(User) {
   }
 
   function updateUser(properties) {
-    if (!properties) {
-      properties = {};
+    if (!properties) properties = {};
 
-      if (user._id) properties.UUID = user._id;
-      if (user.stats.class) properties.Class = user.stats.class;
-      if (user.stats.exp) properties.Experience = Math.floor(user.stats.exp);
-      if (user.stats.gp) properties.Gold = Math.floor(user.stats.gp);
-      if (user.stats.hp) properties.Health = Math.ceil(user.stats.hp);
-      if (user.stats.lvl) properties.Level = user.stats.lvl;
-      if (user.stats.mp) properties.Mana = Math.floor(user.stats.mp);
-      if (user.contributor.level) properties.contributorLevel = user.contributor.level;
-      if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
-    }
+    _gatherUserStats(user, properties);
 
     amplitude.setUserProperties(properties);
     ga('set',properties);
     // mixpanel.register(properties);
+  }
+
+  function _gatherUserStats(user, properties) {
+    if (user._id) properties.UUID = user._id;
+    if (user.stats.class) properties.Class = user.stats.class;
+    if (user.stats.exp) properties.Experience = Math.floor(user.stats.exp);
+    if (user.stats.gp) properties.Gold = Math.floor(user.stats.gp);
+    if (user.stats.hp) properties.Health = Math.ceil(user.stats.hp);
+    if (user.stats.lvl) properties.Level = user.stats.lvl;
+    if (user.stats.mp) properties.Mana = Math.floor(user.stats.mp);
+    if (user.contributor.level) properties.contributorLevel = user.contributor.level;
+    if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
   }
 
   return {
