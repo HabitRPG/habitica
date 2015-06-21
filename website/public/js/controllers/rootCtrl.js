@@ -214,9 +214,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       var gems = User.user.balance * 4;
 
-      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'headAccessory') ? window.env.t('headAccessory') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // FIXME this is ugly but temporary, once the purchase modal is done this will be removed
+      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'body') ? window.env.t('body') : (type == 'headAccessory') ? window.env.t('headAccessory') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // FIXME this is ugly but temporary, once the purchase modal is done this will be removed
+
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
-      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield' || type == 'headAccessory') {
+      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield' || type == 'headAccessory' || type == 'body') {
         if (User.user.items.gear.owned[item.key]) {
           if (User.user.preferences.costume) return User.user.ops.equip({params:{type: 'costume', key: item.key}});
           else {
