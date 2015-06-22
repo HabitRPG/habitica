@@ -1,50 +1,53 @@
 'use strict';
 
-angular
-  .module('habitrpg')
-  .factory('Tasks', tasksFactory);
+(function(){
+  var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak'];
 
-tasksFactory.$inject = [
-  '$rootScope',
-  'Shared',
-  'User'
-];
+  angular
+    .module('habitrpg')
+    .factory('Tasks', tasksFactory);
 
-function tasksFactory($rootScope, Shared, User) {
+  tasksFactory.$inject = [
+    '$rootScope',
+    'Shared',
+    'User'
+  ];
 
-  function editTask(task) {
-    task._editing = !task._editing;
-    task._tags = !User.user.preferences.tagsCollapsed;
-    task._advanced = !User.user.preferences.advancedCollapsed;
-    if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
-  }
+  function tasksFactory($rootScope, Shared, User) {
 
-  function cloneTask(task) {
-    var clonedTask = _.cloneDeep(task);
-    clonedTask = _cleanUpTask(clonedTask);
-
-    return Shared.taskDefaults(clonedTask);
-  }
-
-  function _cleanUpTask(task) {
-    var keysToRemove = ['_id', 'completed', 'date', 'dateCompleted', 'dateCreated', 'history', 'id', 'streak'];
-    var cleansedTask = _.omit(task, keysToRemove);
-
-    // Copy checklists but reset to uncomplete and assign new id
-    _(cleansedTask.checklist).forEach(function(item) {
-      item.completed = false;
-      item.id = Shared.uuid();
-    });
-
-    if (cleansedTask.type !== 'reward') {
-      delete cleansedTask.value;
+    function editTask(task) {
+      task._editing = !task._editing;
+      task._tags = !User.user.preferences.tagsCollapsed;
+      task._advanced = !User.user.preferences.advancedCollapsed;
+      if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
     }
 
-    return cleansedTask;
-  }
+    function cloneTask(task) {
+      var clonedTask = _.cloneDeep(task);
+      clonedTask = _cleanUpTask(clonedTask);
 
-  return {
-    editTask: editTask,
-    cloneTask: cloneTask
-  };
-}
+      return Shared.taskDefaults(clonedTask);
+    }
+
+    function _cleanUpTask(task) {
+      var cleansedTask = _.omit(task, TASK_KEYS_TO_REMOVE);
+
+      // Copy checklists but reset to uncomplete and assign new id
+      _(cleansedTask.checklist).forEach(function(item) {
+        item.completed = false;
+        item.id = Shared.uuid();
+      });
+
+      if (cleansedTask.type !== 'reward') {
+        delete cleansedTask.value;
+      }
+
+      return cleansedTask;
+    }
+
+    return {
+      editTask: editTask,
+      cloneTask: cloneTask
+    };
+  }
+})();
