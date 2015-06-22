@@ -1,6 +1,10 @@
 {
     "potionText": "Potion de Santé",
     "potionNotes": "Rend 15 points de Santé (effet immédiat)",
+    "armoireText": "Armoire Enchantée",
+    "armoireNotesFull": "Ouvrez l'Armoire pour recevoir au hasard de l'Équipement spécial, de l'Expérience ou de la nourriture! Pièces d'Équipement restantes: ",
+    "armoireLastItem": "Vous avez trouvé la dernière pièce d'Équipement rare dans l'Armoire Enchantée.",
+    "armoireNotesEmpty": "L'Armoire contiendra de nouvelles pièces d'Équipement chaque mois. D'ici là, continuez à cliquer pour obtenir de l'Expérience et de la Nourriture!",
     "dropEggWolfText": "Loup",
     "dropEggWolfAdjective": "loyal",
     "dropEggTigerCubText": "Tigreau",

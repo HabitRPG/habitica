@@ -1,6 +1,10 @@
 {
     "potionText": "שיקוי ריפוי",
     "potionNotes": "מרפא 15 נק\"פ (שימוש מיידי)",
+    "armoireText": "Enchanted Armoire",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+    "armoireNotesEmpty": "The Armoire will have new Equipment every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "זאב",
     "dropEggWolfAdjective": "נאמן",
     "dropEggTigerCubText": "גור נמרים",

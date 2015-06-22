@@ -1,6 +1,6 @@
 {
     "friend": "Amico",
-    "friendFirst": "Quando il tuo <strong>primo</strong> set di contributi verrà approvato, riceverai il Trofeo Sostenitore di HabitRPG. Inoltre, il tuo nome nella chat della Taverna cambierà colore mostrando orgogliosamente che hai contribuito! Come ricompensa per il tuo lavoro, riceverai anche <strong>3 Gemme</strong>.",
+    "friendFirst": "Quando il tuo <strong>primo</strong> set di contributi verrà approvato, riceverai la Medaglia Sostenitore di HabitRPG. Inoltre, il tuo nome nella chat della Taverna cambierà colore mostrando orgogliosamente che hai contribuito! Come ricompensa per il tuo lavoro, riceverai anche <strong>3 Gemme</strong>.",
     "friendSecond": "Quando il tuo <strong>secondo</strong> set di contributi verrà approvato, l'<strong>Armatura di Cristallo</strong> sarà resa disponibile nel negozio delle Ricompense. Come premio per il tuo impegno, riceverai anche <strong>3 Gemme</strong>.",
     "elite": "Elite",
     "eliteThird": "Quando il tuo <strong>terzo</strong> set di contributi verrà approvato, l'<strong>Elmo di Cristallo</strong> sarà reso disponibile nel negozio delle Ricompense. Come premio per il tuo impegno, riceverai anche <strong>3 Gemme</strong>.",
@@ -17,7 +17,7 @@
     "heroic": "Eroico",
     "heroicText": "Al grado Eroico appartengono lo staff di HabitRPG e sostenitori al livello dello staff. Se hai questo titolo sei stato scelto per averlo (o assunto!).",
     "npcText": "Gli NPC hanno sostenuto il progetto Kickstarter di HabitRPG al più alto livello. Puoi trovare i loro avatar guardando tra le funzionalità del sito!",
-    "modalContribAchievement": "Trofeo Contribuente!",
+    "modalContribAchievement": "Medaglia sostenitore!",
     "contribModal": "<%= name %>, sei una persona fantastica! Ora sei un sostenitore di grado <%= level %> per aver aiutato HabitRPG. Scopri",
     "contribLink": "che premi hai guadagnato grazie al tuo contributo!",
     "contribName": "Contribuente",

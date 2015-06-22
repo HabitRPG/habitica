@@ -48,5 +48,9 @@
     "removeTasks": "Ta bort uppgifter",
     "keepTasks": "Ha kvar uppgifter",
     "closeCha": "Avsluta utmaning och...",
-    "leaveCha": "Lämna utmaning och..."
+    "leaveCha": "Lämna utmaning och...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

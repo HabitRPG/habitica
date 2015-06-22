@@ -72,13 +72,37 @@ api.daysSince = (yesterday, options = {}) ->
   Math.abs api.startOfDay(_.defaults {now:yesterday}, o).diff(api.startOfDay(_.defaults {now:o.now}, o), 'days')
 
 ###
-  Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
-api.shouldDo = (day, repeat, options={}) ->
-  return false unless repeat
+api.shouldDo = (day, dailyTask, options = {}) ->
+  return false unless dailyTask.type == 'daily' && dailyTask.repeat
+  if !dailyTask.startDate
+    dailyTask.startDate = moment().toDate()
+  if dailyTask.startDate instanceof String
+    dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
-  selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
-  return selected
+  day = api.startOfDay(_.defaults {now:day}, o)
+  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
+
+  # check if event is today or in the future
+  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+
+  if dailyTask.frequency == 'daily'
+    daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
+    everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
+    return everyXCheck && hasStartedCheck
+  else if dailyTask.frequency == 'weekly'
+    dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
+    return dayOfWeekCheck && hasStartedCheck
+  else
+    # unexpected frequency string
+    return false
+
+api.numDaysApart = (day1, day2, o) ->
+  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
+  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
+  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
+  return numDays
 
 ###
   ------------------------------------------------------
@@ -211,7 +235,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
@@ -281,7 +305,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
 
   # show as completed if completed (naturally) or not required for today
   if type in ['todo', 'daily']
-    if completed or (type is 'daily' and !api.shouldDo(+new Date, task.repeat, {dayStart}))
+    if completed or (type is 'daily' and !api.shouldDo(+new Date, task, {dayStart}))
       classes += " completed"
     else
       classes += " uncompleted"
@@ -534,7 +558,7 @@ api.wrap = (user, main=true) ->
         user.preferences.costume = false
         # Remove unlocked features
         flags = user.flags
-        if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        if not user.achievements.beastMaster
           flags.rebirthEnabled = false
         flags.itemsEnabled = false
         flags.dropsEnabled = false
@@ -596,6 +620,7 @@ api.wrap = (user, main=true) ->
 
       addTask: (req, cb) ->
         task = api.taskDefaults(req.body)
+        return cb?({code:409,message:i18n.t('messageDuplicateTaskID', req.language)}) if user.tasks[task.id]?
         user["#{task.type}s"].unshift(task)
         if user.preferences.newTaskEdit then task._editing = true
         if user.preferences.tagsCollapsed then task._tags = true
@@ -673,7 +698,7 @@ api.wrap = (user, main=true) ->
         pd.push(item) unless i != -1
 
         cb? null, user.pushDevices
-      
+
       # ------
       # Inbox
       # ------
@@ -850,9 +875,14 @@ api.wrap = (user, main=true) ->
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
         else if item.key is 'armoire'
-          armoireResult = user.fns.predictableRandom()
+          armoireResult = user.fns.predictableRandom(user.stats.gp)
+          # We use a different seed to choose the Armoire action than we use
+          # to choose the sub-action, otherwise only some of the foods can
+          # be given. E.g., if a seed gives armoireResult < .5 (food) then
+          # the same seed would give one of the first five foods only.
           eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
           if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
+            eligibleEquipment.sort()  # https://github.com/HabitRPG/habitrpg/issues/5376#issuecomment-111799217
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
@@ -1484,10 +1514,8 @@ api.wrap = (user, main=true) ->
           user._tmp.drop = _.defaults content.quests[k],
             type: 'Quest'
             dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
-      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
+      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
-      if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
-        user.flags.freeRebirth = true
 
     ###
       ------------------------------------------------------
@@ -1552,7 +1580,7 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. 
+      # User is resting at the inn.
       # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
@@ -1560,7 +1588,7 @@ api.wrap = (user, main=true) ->
           {completed, repeat} = daily
           thatDay = moment(now).subtract({days: 1})
 
-          if api.shouldDo(thatDay, repeat, user.preferences) || completed
+          if api.shouldDo(thatDay.toDate(), daily, user.preferences) || completed
             _.each daily.checklist, ((box)->box.completed=false;true)
           daily.completed = false
         return
@@ -1587,7 +1615,7 @@ api.wrap = (user, main=true) ->
             scheduleMisses = 0
             _.times daysMissed, (n) ->
               thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay, repeat, user.preferences)
+              if api.shouldDo(thatDay.toDate(), task, user.preferences)
                 scheduleMisses++
                 if user.stats.buffs.stealth
                   user.stats.buffs.stealth--
@@ -1688,10 +1716,11 @@ api.wrap = (user, main=true) ->
       owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
       user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
       content.classes.forEach (klass) ->
-        user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
-          found = _.find content.gear.tree[type][klass], {last:true}
-          soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
-        , true # start with true, else `and` will fail right away
+        if user.achievements.ultimateGearSets[klass] isnt true
+          user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
+            found = _.find content.gear.tree[type][klass], {last:true}
+            soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)
+          , true # start with true, else `and` will fail right away
       user.markModified? 'achievements.ultimateGearSets'
       if _.contains(user.achievements.ultimateGearSets, true) and user.flags.armoireEnabled != true
         user.flags.armoireEnabled = true

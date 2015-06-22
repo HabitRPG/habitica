@@ -1,0 +1,14 @@
+.npc_ian.pull-left
+
+div(ng-if='::Content.quests[group.quest.key].boss')
+  if tavern
+    p!=env.t('tavernBossInfo')
+  else
+    p!=env.t('bossDmg1')
+    br
+    p=env.t('bossDmg2')
+
+div(ng-if='::Content.quests[group.quest.key].collect')
+  p=env.t('bossColl1')
+  br
+  p=env.t('bossColl2')

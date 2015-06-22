@@ -108,13 +108,13 @@
     "inviteExistUser": "Convidar Utilizador Existente",
     "inviteByEmail": "Convidar amigos por email. Se eles se juntarem através do seu email, então serão automaticamente convidados para este grupo.",
     "byColon": "Por:",
-    "inviteNewUsers": "Convidar Novo Utilizador(es)",
+    "inviteNewUsers": "Convidar Novo(s) Utilizador(es)",
     "inviteAlertInfo2": "Ou partilhe este link (copiar/colar):",
-    "sendGiftHeading": "Send Gift to <%= name %>",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
+    "sendGiftHeading": "Enviar Presente para <%= name %>",
+    "sendGiftGemsBalance": "De <%= number %> Gemas",
     "sendGiftCost": "Total: $<%= cost %> USD",
-    "sendGiftFromBalance": "From Balance",
-    "sendGiftPurchase": "Purchase",
-    "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftFromBalance": "Do Saldo",
+    "sendGiftPurchase": "Compra",
+    "sendGiftMessagePlaceholder": "Mensagem Pessoal (opcional)",
+    "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %>"
 }

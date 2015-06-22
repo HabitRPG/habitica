@@ -24,6 +24,7 @@ newUser = (addTasks=true)->
       gear:
         equipped: {}
         costume: {}
+        owned: {}
     party:
       quest:
         progress:
@@ -158,7 +159,7 @@ describe 'User', ->
   it 'handles perfect days', ->
     user = newUser()
     user.dailys = []
-    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
+    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
     cron = -> user.lastCron = moment().subtract(1,'days');user.fns.cron()
 
     cron()
@@ -192,7 +193,7 @@ describe 'User', ->
       user.preferences.sleep = true
       cron = -> user.lastCron = moment().subtract(1, 'days');user.fns.cron()
       user.dailys = []
-      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily'})
+      _.times 2, -> user.dailys.push shared.taskDefaults({type:'daily', startDate: moment().subtract(7, 'days')})
 
     it 'remains in the inn on cron', ->
       cron()
@@ -598,6 +599,14 @@ describe 'User', ->
       xit 'gets ultimateGear ' + klass, ->
         expect(user.achievements.ultimateGearSets[klass]).to.be.ok()
 
+    it 'does not remove existing Ultimate Gear achievements', ->
+      user = newUser()
+      user.achievements.ultimateGearSets = {'healer':true,'wizard':true,'rogue':true,'warrior':true}
+      user.items.gear.owned.shield_warrior_5 = false
+      user.items.gear.owned.weapon_rogue_6 = false
+      user.ops.buy {params:'shield_warrior_5'}
+      expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
+
     it 'does not get beastMaster if user has less than 90 drop pets', ->
       user = newUser()
       user.items.pets = {'Wolf-White': 1, 'Wolf-Desert': 1, 'Wolf-Red': 1, 'Wolf-Shade': 1, 'Wolf-Skeleton': 1, 'Wolf-Zombie': 1, 'Wolf-CottonCandyPink': 1, 'Wolf-CottonCandyBlue': 1, 'Wolf-Golden': 1, 'TigerCub-Base': 1, 'TigerCub-White': 1, 'TigerCub-Desert': 1, 'TigerCub-Red': 1, 'TigerCub-Shade': 1, 'TigerCub-Skeleton': 1, 'TigerCub-Zombie': 1, 'TigerCub-CottonCandyPink': 1, 'TigerCub-CottonCandyBlue': 1, 'TigerCub-Golden': 1, 'PandaCub-Base': 1, 'PandaCub-White': 1, 'PandaCub-Desert': 1, 'PandaCub-Red': 1, 'PandaCub-Shade': 1, 'PandaCub-Skeleton': 1, 'PandaCub-Zombie': 1, 'PandaCub-CottonCandyPink': 1, 'PandaCub-CottonCandyBlue': 1, 'PandaCub-Golden': 1, 'LionCub-Base': 1, 'LionCub-White': 1, 'LionCub-Desert': 1, 'LionCub-Red': 1, 'LionCub-Shade': 1, 'LionCub-Skeleton': 1, 'LionCub-Zombie': 1, 'LionCub-CottonCandyPink': 1, 'LionCub-CottonCandyBlue': 1, 'LionCub-Golden': 1, 'Fox-Base': 1, 'Fox-White': 1, 'Fox-Desert': 1, 'Fox-Red': 1, 'Fox-Shade': 1, 'Fox-Skeleton': 1, 'Fox-Zombie': 1, 'Fox-CottonCandyPink': 1, 'Fox-CottonCandyBlue': 1, 'Fox-Golden': 1, 'FlyingPig-Base': 1, 'FlyingPig-White': 1, 'FlyingPig-Desert': 1, 'FlyingPig-Red': 1, 'FlyingPig-Shade': 1, 'FlyingPig-Skeleton': 1, 'FlyingPig-Zombie': 1, 'FlyingPig-CottonCandyPink': 1, 'FlyingPig-CottonCandyBlue': 1, 'FlyingPig-Golden': 1, 'Dragon-Base': 1, 'Dragon-White': 1, 'Dragon-Desert': 1, 'Dragon-Red': 1, 'Dragon-Shade': 1, 'Dragon-Skeleton': 1, 'Dragon-Zombie': 1, 'Dragon-CottonCandyPink': 1, 'Dragon-CottonCandyBlue': 1, 'Dragon-Golden': 1, 'Cactus-Base': 1, 'Cactus-White': 1, 'Cactus-Desert': 1, 'Cactus-Red': 1, 'Cactus-Shade': 1, 'Cactus-Skeleton': 1, 'Cactus-Zombie': 1, 'Cactus-CottonCandyPink': 1, 'Cactus-CottonCandyBlue': 1, 'Cactus-Golden': 1, 'BearCub-Base': 1, 'BearCub-White': 1, 'BearCub-Desert': 1, 'BearCub-Red': 1, 'BearCub-Shade': 1, 'BearCub-Skeleton': 1, 'BearCub-Zombie': 1, 'BearCub-CottonCandyPink': 1, 'BearCub-CottonCandyBlue': 1, 'BearCub-Golden': 1 }
@@ -693,9 +702,6 @@ describe 'Cron', ->
     expect(user.lastCron).to.not.be.ok # it setup the cron property now
 
     user.lastCron = +moment().subtract(1,'days')
-
-    # this is hacky but should fix things for the moment
-    user.flags.freeRebirth = true
 
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.be.greaterThan 0
@@ -874,8 +880,9 @@ describe 'Cron', ->
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
+          before.dailys[0].startDate = after.dailys[0].startDate = moment().subtract(30, 'days')
           if options.shouldDo
-            expect(shared.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
+            expect(shared.shouldDo(now.toDate(), after.dailys[0], {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
           after.fns.cron {now}
           before.stats.mp=after.stats.mp #FIXME
           switch options.expect

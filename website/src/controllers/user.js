@@ -99,9 +99,11 @@ api.score = function(req, res, next) {
       text: req.body && req.body.text,
       notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
     };
-    task = user.ops.addTask({body:task});
+
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
+      
+    task = user.ops.addTask({body:task});
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 

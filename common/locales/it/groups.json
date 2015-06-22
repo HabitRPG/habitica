@@ -110,11 +110,11 @@
     "byColon": "Da:",
     "inviteNewUsers": "Invita nuovi utenti",
     "inviteAlertInfo2": "Oppure condividi questo link (copia/incolla):",
-    "sendGiftHeading": "Send Gift to <%= name %>",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
-    "sendGiftCost": "Total: $<%= cost %> USD",
-    "sendGiftFromBalance": "From Balance",
-    "sendGiftPurchase": "Purchase",
-    "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftHeading": "Invia regalo a <%= name %>",
+    "sendGiftGemsBalance": "Da <%= number %> Gemme",
+    "sendGiftCost": "Totale: $<%= cost %> USD",
+    "sendGiftFromBalance": "Dal Bilancio",
+    "sendGiftPurchase": "Acquisto",
+    "sendGiftMessagePlaceholder": "Messaggio personale (facoltativo)",
+    "sendGiftSubscription": "<%= months %> Mese(/i): <%= price %>$"
 }

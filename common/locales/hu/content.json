@@ -1,6 +1,10 @@
 {
     "potionText": "Gyógyital",
     "potionNotes": "Helyreállít 15 életerő pontot (azonnali használat)",
+    "armoireText": "Elvarázsolt láda",
+    "armoireNotesFull": "Nyisd ki a ládat, hogy véletlenszerűen speciális felszerelést, tapasztalati pontot, vagy kaját kapjál! Felszerelés darabok maradtak még:",
+    "armoireLastItem": "Megtaláltad a ritka felszerelés utolsó darabját az elvarázsolt ládában.",
+    "armoireNotesEmpty": "A ládában minden hónapban új felszerelés lesz elérhető. Addig, kattintgass tovább tapasztalati pontért vagy kajáért.",
     "dropEggWolfText": "Farkas",
     "dropEggWolfAdjective": "hűséges",
     "dropEggTigerCubText": "Tigriskölyök",

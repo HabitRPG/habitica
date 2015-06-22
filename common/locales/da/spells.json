@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Flammeudbrud",
-    "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
+    "spellWizardFireballNotes": "Flammer springer frem fra dine hænder. Du får Erfaring og giver ekstra skade til Bosser! Klik på en opgave for at kaste. (Baseret på: INT)",
     "spellWizardMPHealText": "Æterisk Bølge",
     "spellWizardMPHealNotes": "You sacrifice mana to help your friends. The rest of your party gains MP! (Based on: INT)",
     "spellWizardEarthText": "Jordskælv",
@@ -16,7 +16,7 @@
     "spellWarriorIntimidateText": "Intimiderende Blik",
     "spellWarriorIntimidateNotes": "Your gaze strikes fear into your enemies. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
     "spellRoguePickPocketText": "Lommetyveri",
-    "spellRoguePickPocketNotes": "You rob a nearby task. You gain gold! Click on a task to cast. (Based on: PER)",
+    "spellRoguePickPocketNotes": "Du røver en opgave. Du finder guld! Klik på en opgave for at kaste. (Baseret på: OPF)",
     "spellRogueBackStabText": "Snigløb",
     "spellRogueBackStabNotes": "You betray a foolish task. You gain gold and XP! Click on a task to cast. (Based on: STR)",
     "spellRogueToolsOfTradeText": "Fagredskaber",

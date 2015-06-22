@@ -48,5 +48,9 @@
     "removeTasks": "Șterge Țelurile",
     "keepTasks": "Păstrează Țelurile",
     "closeCha": "Închide provocarea și...",
-    "leaveCha": "Părăsește provocarea și..."
+    "leaveCha": "Părăsește provocarea și...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

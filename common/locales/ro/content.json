@@ -1,6 +1,10 @@
 {
     "potionText": "Poțiune de sănătate",
     "potionNotes": "Vindecă 15 puncte de sănătate (instantaneu)",
+    "armoireText": "Enchanted Armoire",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+    "armoireNotesEmpty": "The Armoire will have new Equipment every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "Lup",
     "dropEggWolfAdjective": "loial",
     "dropEggTigerCubText": "Pui de tigru",

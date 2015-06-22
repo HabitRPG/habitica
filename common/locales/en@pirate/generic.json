@@ -5,16 +5,16 @@
     "habitica": "Habitica",
     "expandToolbar": "Expand Toolbar",
     "collapseToolbar": "Collapse Toolbar",
-    "markdownBlurb": "HabitRPG uses markdown for message formatting. See the <a href='http://habitrpg.wikia.com/wiki/Markdown_Cheat_Sheet' target='_blank'>Markdown Cheat Sheet</a> for more info.",
+    "markdownBlurb": "HabitRPG uses markdown for message formatting. See thi' <a href='http://habitrpg.wikia.com/wiki/Markdown_Cheat_Sheet' target='_blank'>Markdown Cheat Sheet</a> for morrre info.",
     "showFormattingHelp": "Show formatting help",
-    "hideFormattingHelp": "Hide formatting help",
+    "hideFormattingHelp": "Show formatting help",
     "youType": "You type:",
     "youSee": "You see:",
     "italics": "*Italics*",
     "bold": "**Bold**",
     "strikethrough": "~~Strikethrough~~",
     "emojiExample": ":smile:",
-    "markdownLinkEx": "[HabitRPG is great!](https://habitrpg.com)",
+    "markdownLinkEx": "[Arrrg!](https://habitrpg.com)",
     "markdownImageEx": "![mandatory alt text](https://habitrpg.com/cake.png \"optional mouseover title\")",
     "unorderedListHTML": "+ First item<br>+ Second item<br>+ Third item",
     "unorderedListMarkdown": "+ First item\n+ Second item\n+ Third item",
@@ -104,5 +104,5 @@
     "December": "Decemberrr",
     "dateFormat": "Date Format",
     "achievementStressbeast": "Savior o' Stoïkalm",
-    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
+    "achievementStressbeastText": "Help'd d'feat th' Abominable Stressbeast durin' th' 2015 Winter Wonderland Event!"
 }

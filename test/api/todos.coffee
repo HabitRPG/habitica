@@ -97,6 +97,27 @@ describe "Todos", ->
           expect(todo.value).to.equal 0
           done()
 
+      it "Does not create a todo with an id that already exists", (done) ->
+        original_todo = {
+          type: "todo"
+          text: "original todo"
+          id: "custom-id"
+        }
+        duplicate_id_todo = {
+          type: "todo"
+          text: "not original todo"
+          id: "custom-id"
+        }
+        request.post(baseURL + "/user/tasks").send(
+          original_todo
+        ).end (res) ->
+          request.post(baseURL + "/user/tasks").send(
+            duplicate_id_todo
+          ).end (res) ->
+            expectCode res, 409
+            expect(res.body.err).to.eql('A task with that ID already exists.')
+            done()
+
     describe "Updating todos", ->
       it "Does not update id of todo", (done) ->
         request.put(baseURL + "/user/tasks/" + todo.id).send(
@@ -139,7 +160,7 @@ describe "Todos", ->
         ).end (res) ->
           expectCode res, 200
           body = res.body
-          expect(body).to.be.empty 
+          expect(body).to.be.empty
           done()
 
       it "Does not delete already deleted todo", (done) ->
@@ -162,4 +183,3 @@ describe "Todos", ->
           body = res.body
           expect(body.err).to.equal "Task not found."
           done()
-
