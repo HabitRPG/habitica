@@ -36,6 +36,7 @@ module.exports = function(config) {
       'common/dist/scripts/habitrpg-shared.js',
 
       "test/spec/mocks/translations.js",
+      "test/spec/mocks/sandbox.js",
 
       "website/public/js/env.js",
 
