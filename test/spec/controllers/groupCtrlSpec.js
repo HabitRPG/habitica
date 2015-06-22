@@ -30,7 +30,7 @@ describe('Groups Controller', function() {
       party.type = 'party';
       party.members = []; // Ensure we wouldn't pass automatically.
 
-      var partyStub = sinon.stub(groups,"party", function() {
+      var partyStub = sandbox.stub(groups,"party", function() {
         return party;
       });
 
@@ -44,7 +44,7 @@ describe('Groups Controller', function() {
       guild.type = 'guild';
       guild.members.push(user._id);
 
-      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
         return [guild];
       });
 
@@ -58,7 +58,7 @@ describe('Groups Controller', function() {
       guild._id = "unique-guild-id";
       guild.type = 'guild';
 
-      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
         return [];
       });
 
@@ -98,7 +98,7 @@ describe("Chat Controller", function() {
         name: "Princess Bride"
       };
 
-      var modalSpy = sinon.spy($rootScope, "openModal");
+      var modalSpy = sandbox.spy($rootScope, "openModal");
       var message = {
         uuid: 'the-dread-pirate-roberts',
         user: 'Wesley',
@@ -120,7 +120,7 @@ describe("Chat Controller", function() {
         name: "Princess Bride"
       };
 
-      var modalSpy = sinon.spy($rootScope, "openModal");
+      var modalSpy = sandbox.spy($rootScope, "openModal");
       var message = {
         uuid: 'system',
         text: 'Wesley attacked the ROUS in the Fire Swamp'
@@ -221,7 +221,7 @@ describe("Autocomplete controller", function() {
 
   describe("performCompletion", function() {
     it('triggers autoComplete', function() {
-      scope.autoComplete = sinon.spy();
+      scope.autoComplete = sandbox.spy();
 
       var msg = {user: "boo"}; // scope.autoComplete only cares about user
       scope.query = {text: "b"};
@@ -247,7 +247,7 @@ describe("Autocomplete controller", function() {
 
   describe("chatChanged", function() {
     it('if a new chat arrives, the new user name is extracted', function() {
-      var chatChanged = sinon.spy(scope, 'chatChanged');
+      var chatChanged = sandbox.spy(scope, 'chatChanged');
       scope.$watch('group.chat',scope.chatChanged); // reinstantiate watch so spy works
 
       scope.$digest(); // trigger watch
@@ -269,11 +269,11 @@ describe("CopyMessageModal controller", function() {
       user = specHelper.newUser();
       user._id = "unique-user-id";
       user.ops = {
-        addTask: sinon.spy()
+        addTask: sandbox.spy()
       };
 
       scope = $rootScope.$new();
-      scope.$close = sinon.spy();
+      scope.$close = sandbox.spy();
 
       $controller = _$controller_;
 
@@ -283,7 +283,7 @@ describe("CopyMessageModal controller", function() {
       ctrl = $controller('CopyMessageModalCtrl', {$scope: scope, User: {user: user}});
 
       Notification = _Notification_;
-      Notification.text = sinon.spy();
+      Notification.text = sandbox.spy();
     });
   });
 

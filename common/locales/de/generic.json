@@ -15,7 +15,7 @@
     "strikethrough": "~~Durchgestrichen~~",
     "emojiExample": ":smile:",
     "markdownLinkEx": "[HabitRPG ist toll!](https://habitrpg.com)",
-    "markdownImageEx": "![mandatory alt text](https://habitrpg.com/cake.png \"optional mouseover title\")",
+    "markdownImageEx": "![verpflichtender Alternativtext](https://habitrpg.com/cake.png \"optionaler Titel zum Drüberfahren mit der Maus\")",
     "unorderedListHTML": "+ Erster Gegenstand<br>+ Zweiter Gegenstand<br>+ Dritter Gegenstand",
     "unorderedListMarkdown": "+ Erster Gegenstand\n+ Zweiter Gegenstand\n+ Dritter Gegenstand",
     "code": "`Code`",

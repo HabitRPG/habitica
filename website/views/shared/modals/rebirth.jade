@@ -50,14 +50,3 @@ script(type='text/ng-template', id='modals/rebirth.html')
       span.gem-cost(ng-if='user.stats.lvl < 100')
         | 8&nbsp;
         =env.t('gems')
-script(type='text/ng-template', id='modals/freeRebirth.html')
-  .modal-header
-    h4=env.t('welcome100')
-    figure
-      .rebirth_orb
-    p=env.t('intro100')
-    p=env.t('followup100')
-    p=env.t('rebirth100Info')
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('rebirthWait')
-    a.btn.btn-danger(ng-click='$close(); rebirth()')=env.t('rebirthNow')

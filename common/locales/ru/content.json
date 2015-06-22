@@ -60,7 +60,7 @@
     "questEggBunnyAdjective": "прилипчивый",
     "questEggSlimeText": "Зефирный слизень",
     "questEggSlimeAdjective": "милый",
-    "questEggSheepText": "Овца",
+    "questEggSheepText": "Барашек",
     "questEggSheepAdjective": "Шерстистая",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить им яйцо и из него вылупится <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Обыкновенный",

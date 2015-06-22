@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Tasks',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Tasks) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -48,6 +48,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         reload: true, inherit: false, notify: true
       });
     };
+
+    $scope.editTask = Tasks.editTask;
 
     /**
      * Create

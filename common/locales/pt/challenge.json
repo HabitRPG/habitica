@@ -48,5 +48,9 @@
     "removeTasks": "Remover Tarefas",
     "keepTasks": "Manter Tarefas",
     "closeCha": "Terminar desafio e...",
-    "leaveCha": "Sair do desafio e..."
+    "leaveCha": "Sair do desafio e...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

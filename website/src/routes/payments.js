@@ -18,7 +18,7 @@ router.post("/stripe/subscribe/edit", auth.auth, i18n.getUserLanguage, payments.
 router.get("/stripe/subscribe/cancel", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribeCancel);
 
 router.post("/iap/android/verify", auth.authWithUrl, /*i18n.getUserLanguage, */payments.iapAndroidVerify);
-router.post("/iap/ios/verify", /*auth.authWithUrl, i18n.getUserLanguage, */ payments.iapIosVerify);
+router.post("/iap/ios/verify", auth.auth, /*i18n.getUserLanguage, */ payments.iapIosVerify);
 
 router.get("/api/v2/coupons/valid-discount/:code", /*auth.authWithUrl, i18n.getUserLanguage, */ payments.validCoupon);
 

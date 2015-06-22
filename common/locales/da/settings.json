@@ -93,7 +93,7 @@
     "wonChallenge": "Du vandt en Udfordring",
     "newPM": "Modtaget Privatbesked",
     "giftedGems": "Ædelstensgave",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= amount %> Ædelsten - af <%= name %>",
     "giftedSubscription": "Abonnementsgave",
     "invitedParty": "Gruppeinvitation",
     "invitedGuild": "Klaninvitation",
@@ -114,9 +114,9 @@
     "coupon": "Kupon",
     "couponPlaceholder": "Indtast Kuponkode",
     "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
-    "apply": "Apply",
-    "resubscribe": "Resubscribe",
-    "promoCode": "Promo Code",
+    "apply": "Udfør",
+    "resubscribe": "Genabonnér",
+    "promoCode": "Promo-kode",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
     "promoPlaceholder": "Enter Promotion Code"
 }

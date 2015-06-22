@@ -703,9 +703,6 @@ describe 'Cron', ->
 
     user.lastCron = +moment().subtract(1,'days')
 
-    # this is hacky but should fix things for the moment
-    user.flags.freeRebirth = true
-
     paths = {};user.fns.cron {paths}
     expect(user.lastCron).to.be.greaterThan 0
 

@@ -48,5 +48,9 @@
     "removeTasks": "移除任务",
     "keepTasks": "保留任务",
     "closeCha": "关闭挑战并且……",
-    "leaveCha": "离开挑战并且……"
+    "leaveCha": "离开挑战并且……",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

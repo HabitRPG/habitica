@@ -48,5 +48,9 @@
     "removeTasks": "Вилучити завдання",
     "keepTasks": "Залишити завдання",
     "closeCha": "Закрити випробування та...",
-    "leaveCha": "Полишити випробування та..."
+    "leaveCha": "Полишити випробування та...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

@@ -48,5 +48,9 @@
     "removeTasks": "Odstranit úkoly",
     "keepTasks": "Ponechat úkoly",
     "closeCha": "Zavřít výzvu a...",
-    "leaveCha": "Opustit výzvu a ..."
+    "leaveCha": "Opustit výzvu a ...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

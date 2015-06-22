@@ -145,7 +145,6 @@ var UserSchema = new Schema({
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, 'default': false},
-    freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
     chatRevoked: Boolean,
     // Used to track the status of recapture emails sent to each user,
@@ -155,6 +154,8 @@ var UserSchema = new Schema({
     weeklyRecapEmailsPhase: {type: Number, 'default': 0},
     // Used to track when the next weekly recap should be sent
     lastWeeklyRecap: {type: Date, 'default': Date.now},
+    // Used to enable weekly recap emails as users login
+    lastWeeklyRecapDiscriminator: Boolean,
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
     cronCount: {type:Number, 'default':0},
     welcomed: {type: Boolean, 'default': false},
@@ -296,7 +297,6 @@ var UserSchema = new Schema({
     }
   },
   preferences: {
-    armorSet: String,
     dayStart: {type:Number, 'default': 0, min: 0, max: 23},
     size: {type:String, enum: ['broad','slim'], 'default': 'slim'},
     hair: {
@@ -311,7 +311,7 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
-    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme']},
+    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme', 'gokulTheme']},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
@@ -516,6 +516,14 @@ UserSchema.pre('save', function(next) {
 
   if ((mountCount >= 90 && triadCount >= 90) || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
+  }
+
+  // Enable weekly recap emails for old users who sign in
+  if(this.flags.lastWeeklyRecapDiscriminator){
+    // Enable weekly recap emails in 24 hours
+    this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
+    // Unset the field so this is run only once
+    this.flags.lastWeeklyRecapDiscriminator = undefined;
   }
 
   // EXAMPLE CODE for allowing all existing and new players to be

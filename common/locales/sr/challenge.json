@@ -48,5 +48,9 @@
     "removeTasks": "Obriši zadatak",
     "keepTasks": "Zadrži zadatak",
     "closeCha": "Zatvori izazov i...",
-    "leaveCha": "Napusti izazov i..."
+    "leaveCha": "Napusti izazov i...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either"
 }

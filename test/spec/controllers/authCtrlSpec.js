@@ -10,8 +10,8 @@ describe('Auth Controller', function() {
       scope = $rootScope.$new();
       scope.loginUsername = 'user';
       scope.loginPassword = 'pass';
-      $window = { location: { href: ""}, alert: sinon.spy() };
-      user = { user: {}, authenticate: sinon.spy() };
+      $window = { location: { href: ""}, alert: sandbox.spy() };
+      user = { user: {}, authenticate: sandbox.spy() };
 
       ctrl = $controller('AuthCtrl', {$scope: scope, $window: $window, User: user});
     }));
@@ -20,16 +20,16 @@ describe('Auth Controller', function() {
       $httpBackend.expectPOST('/api/v2/user/auth/local').respond({id: 'abc', token: 'abc'});
       scope.auth();
       $httpBackend.flush();
-      sinon.assert.calledOnce(user.authenticate);
-      sinon.assert.notCalled($window.alert);
+      expect(user.authenticate).to.be.calledOnce;
+      expect($window.alert).to.not.be.called;
     });
 
     it('should not log in users with incorrect uname / pass', function() {
       $httpBackend.expectPOST('/api/v2/user/auth/local').respond(404, '');
       scope.auth();
       $httpBackend.flush();
-      sinon.assert.notCalled(user.authenticate);
-      sinon.assert.calledOnce($window.alert);
+      expect(user.authenticate).to.not.be.called;
+      expect($window.alert).to.be.calledOnce;
     });
   });
 
