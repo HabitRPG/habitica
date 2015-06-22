@@ -251,8 +251,4 @@ window.habitrpg = angular.module('habitrpg',
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
-  }])
-
-  .run(['Analytics', function(Analytics) {
-    if (window.env.NODE_ENV === 'production') Analytics.loadScripts();
   }]);

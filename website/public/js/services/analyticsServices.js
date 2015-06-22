@@ -76,6 +76,8 @@
       ga('set',properties);
     }
 
+    if (window.env.NODE_ENV === 'production') loadScripts();
+
     return {
       loadScripts: loadScripts,
       register: register,
@@ -110,5 +112,5 @@
       return true;
     }
   }
-}())
+}());
 
