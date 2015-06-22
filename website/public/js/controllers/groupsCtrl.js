@@ -286,8 +286,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     });
   }])
 
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics',
-    function($scope, Groups, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrl, Notification, Members, $rootScope){
     $scope.message = {content:''};
     $scope._sending = false;
 
@@ -322,9 +321,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.message.content = '';
         $scope._sending = false;
         if (group.privacy == 'public'){
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name,'message':message});
+          mixpanel.track('Group Chat',{'groupType':group.type,'privacy':group.privacy,'groupName':group.name,'message':message})
         } else {
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy});
+          mixpanel.track('Group Chat',{'groupType':group.type,'privacy':group.privacy})
         }
       }, function(err){
         $scope._sending = false;
@@ -418,8 +417,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics',
-    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile) {
       $scope.groups = {
         guilds: Groups.myGuilds(),
         "public": Groups.publicGuilds()
@@ -437,8 +436,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
         if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){
-            if (saved.privacy == 'public') {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'guild','privacy':saved.privacy,'groupName':saved.name})}
-            else {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'guild','privacy':saved.privacy})}
+            if (saved.privacy == 'public') {mixpanel.track('Join Group',{'owner':true,'groupType':'guild','privacy':saved.privacy,'groupName':saved.name})}
+            else {mixpanel.track('Join Group',{'owner':true,'groupType':'guild','privacy':saved.privacy})}
             $rootScope.hardRedirect('/#/options/groups/guilds/' + saved._id);
           });
         }
@@ -453,8 +452,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
 
         group.$join(function(joined){
-          if (joined.privacy == 'public') {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'guild','privacy':joined.privacy,'groupName':joined.name})}
-          else {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'guild','privacy':joined.privacy})}
+          if (joined.privacy == 'public') {mixpanel.track('Join Group',{'owner':false,'groupType':'guild','privacy':joined.privacy,'groupName':joined.name})}
+          else {mixpanel.track('Join Group',{'owner':false,'groupType':'guild','privacy':joined.privacy})}
           $rootScope.hardRedirect('/#/options/groups/guilds/' + joined._id);
         })
       }
@@ -509,8 +508,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', 'Challenges', '$state', '$compile', 'Analytics',
-    function($rootScope,$scope, Groups, User, Challenges, $state, $compile, Analytics) {
+  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', 'Challenges', '$state', '$compile',
+    function($rootScope,$scope, Groups, User, Challenges, $state, $compile) {
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
@@ -520,7 +519,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       $scope.create = function(group){
         group.$save(function(){
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'party','privacy':'private'});
+          mixpanel.track('Join Group',{'owner':true,'groupType':'party','privacy':'private'});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
       }
@@ -528,7 +527,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         group.$join(function(){
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
+          mixpanel.track('Join Group',{'owner':false,'groupType':'party','privacy':'private'});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
       }

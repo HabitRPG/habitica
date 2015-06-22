@@ -22,10 +22,10 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
     $scope.Math = window.Math;
   }])
 
-.controller("PlansCtrl", ['$rootScope','Analytics',
-  function($rootScope,Analytics) {
+.controller("PlansCtrl", ['$rootScope',
+  function($rootScope) {
     $rootScope.clickContact = function(){
-      Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Contact Us (Plans)'})
+      window.ga && ga('send', 'event', 'button', 'click', 'Contact Us (Plans)');
     }
   }
 ])

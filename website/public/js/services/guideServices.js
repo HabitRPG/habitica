@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg').factory('Guide',
-['$rootScope', 'User', '$timeout', '$state', 'Analytics',
-function($rootScope, User, $timeout, $state, Analytics) {
+['$rootScope', 'User', '$timeout', '$state',
+function($rootScope, User, $timeout, $state) {
 
   var chapters = {
     intro: [
@@ -184,13 +184,14 @@ function($rootScope, User, $timeout, $state, Analytics) {
           $state.go(step.state);
           return $timeout(function(){});
         }
-        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':false})
+        window.ga && ga('send', 'event', 'behavior', 'tour', k, i+1);
+        mixpanel.track('Tutorial',{'tour':k+'-web','step':i+1,'complete':false});
       }
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
           var ups={};ups['flags.tour.'+k] = -2;
           User.set(ups);
-          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
+          mixpanel.track('Tutorial',{'tour':k+'-web','step':i+1,'complete':true});
         }
       }
     })
