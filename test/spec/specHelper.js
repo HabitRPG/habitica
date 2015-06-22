@@ -1,15 +1,5 @@
 beforeEach(module('habitrpg'));
 
-var sandbox;
-
-beforeEach(function() {
-  sandbox = sinon.sandbox.create();
-});
-
-afterEach(function() {
-  sandbox.restore();
-});
-
 specHelper = {
   newUser: function(){
     var buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false};
