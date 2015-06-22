@@ -29,6 +29,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.settings = User.settings;
     $rootScope.Shared = Shared;
     $rootScope.Content = Content;
+    $rootScope.Analytics = Analytics;
     $rootScope.env = window.env;
     $rootScope.Math = Math;
     $rootScope.Groups = Groups;
