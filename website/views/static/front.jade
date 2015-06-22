@@ -33,9 +33,6 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap.min.js')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js')
 
-    script(type='text/javascript').
-      Analytics.track({'hitType':'pageview','eventCategory':'page','eventAction':'landing page','page':'/static/front'});
-
   body(ng-controller='AuthCtrl')
     include ./login-modal
     include ../shared/header/avatar

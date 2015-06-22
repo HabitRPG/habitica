@@ -8,6 +8,8 @@ angular.module('habitrpg')
   .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
     function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
 
+      Analytics.track({'hitType':'pageview','eventCategory':'page','eventAction':'landing page','page':'/static/front'});
+
       $scope.logout = function() {
         localStorage.clear();
         window.location.href = '/logout';
