@@ -6,7 +6,7 @@
     "mattBochText1": "Welkom in de Stal! Ik ben Matt, de Dierenmeester. Na level 4 kun je huisdieren laten uitkomen door middel van eieren en toverdranken. Als je een dier laat uitkomen in de markt, zal het hier verschijnen! Klik op een huisdier's afbeelding om het aan je avatar toe te voegen. Geef je huisdieren te eten met het voedsel dat je vindt na level 4, zodat ze uitgroeien tot krachtige rijdieren!",
     "daniel": "Daniël",
     "danielText": "Welkom in de herberg! Blijf en tijdje en ontmoet de stamgasten. Als je wat rust nodig hebt (vakantie? ziekte?), zal ik je onderbrengen in de herberg. Terwijl je ingecheckt bent, zullen je Dagelijkse Taken je geen pijn doen aan het einde van de dag, maar je kunt ze nog steeds afkruisen.",
-    "danielText2": "Be warned: If you are participating in a boss quest, the boss will still damage you for your party mates' missed Dailies! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
+    "danielText2": "Wees gewaarschuwd: Als je meedoet aan een queeste met een eindbaas, zal de eindbaas je nog steeds pijn doen voor de gemiste dagelijkse taken van je groepsgenoten, tenzij ze ook in de herberg verblijven! Je zult zelf ook geen schade toebrengen aan de eindbaas (of voorwerpen krijgen) totdat je de Herberg verlaat.",
     "alexander": "Alexander de Koopman",
     "welcomeMarket": "Welkom op de markt! Koop zeldzame eieren en drankjes! Verkoop je overschot! Gebruik nuttige diensten! Kom langs en bekijk zelf wat we voor je hebben.",
     "sellForGold": "Verkoop <%= item %> voor <%= gold %> goud",
@@ -45,9 +45,9 @@
     "tourScrollDown": "Zorg ervoor dat je helemaal naar beneden scrolt om alle opties te zien! Klik op je avatar om weer terug te gaan naar de pagina met de taken.",
     "tourMuchMore": "Als je klaar bent met je taken kun je een groep vormen met vrienden, in gildes praten met mensen met dezelfde interesses, meedoen aan uitdagingen en meer!",
     "tourStatsPage": "Dit is jouw statistiekenpagina! Je kunt prestaties verdienen door deze taken te volbrengen.",
-    "tourTavernPage": "Welcome to the Tavern, an all-ages chatroom! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
+    "tourTavernPage": "Welkom in de Herberg, een chatruimte voor alle leeftijden! Je kunt ervoor zorgen dat je dagelijkse taken je geen schade toedoen als je ziek bent of als je op reis bent door op 'Rusten in de herberg' te klikken. Kom eens gedag zeggen!",
     "tourPartyPage": "Jouw groep helpt je verantwoordelijk te blijven. Nodig je vrienden uit en speel een queeste-perkamentrol vrij!",
     "tourGuildsPage": "Gildes zijn sociale groepen met gemeenschappelijke thema's. Zoek de onderwerpen uit die je interesseren! We raden het newbiesgilde aan.",
-    "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win gem prizes!",
+    "tourChallengesPage": "Uitdagingen zijn gethematiseerde takenlijsten gecreeerd door gebruikers. Meedoen met een uitdaging voegt haar taken toe aan je account. Streef tegen andere gebruikers om edelstenen te winnen!",
     "tourMarketPage": "Vanaf niveau 4 kun je eieren en uitbroedtoverdranken vinden als je een taak afvinkt. Ze verschijnen hier - gebruik ze om huisdieren te maken! Je kunt ook artikelen kopen in de markt."
 }

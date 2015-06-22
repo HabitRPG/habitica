@@ -50,7 +50,9 @@
     "closeCha": "关闭挑战并且……",
     "leaveCha": "离开挑战并且……",
     "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilter": "已拥有的",
+    "challengedNotOwnedFilter": "尚未拥有的",
+    "challengedEitherOwnedFilter": "显示全部",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

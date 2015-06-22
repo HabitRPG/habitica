@@ -16,7 +16,7 @@
     "selectWinner": "Kies een winnaar en sluit de uitdaging af:",
     "deleteOrSelect": "Verwijder of kies een winnaar",
     "endChallenge": "Uitdaging beëindigen",
-    "challengeDiscription": "These are the Challenge's tasks that will be added to your task dashboard when you join this Challenge. The sample Challenge tasks below will change color and gain graphs to show you the overall progress of the group.",
+    "challengeDiscription": "Dit zijn de uitdagingstaken die zullen worden toegevoegd aan je taken wanneer je deze uitdaging aangaat. De voorbeeld uitdagingstaken hieronder zullen veranderen van kleur en grafieken krijgen om je de algemene voortgang van de groep te laten zien.",
     "hows": "Hoe gaat het met iedereen?",
     "filter": "Filter",
     "groups": "Groepen",
@@ -49,8 +49,10 @@
     "keepTasks": "Taken behouden",
     "closeCha": "Uitdaging afsluiten en...",
     "leaveCha": "Uitdaging verlaten en...",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilterHeader": "Eigenaarschap",
+    "challengedOwnedFilter": "In je bezit",
+    "challengedNotOwnedFilter": "Niet in je bezit",
+    "challengedEitherOwnedFilter": "Beide",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

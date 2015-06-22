@@ -18,7 +18,7 @@
     "heroicText": "英雄级包含 HabitRPG 员工和员工级别贡献者。如果你有这个称号，你将被任命(甚至被雇用！)。",
     "npcText": "NPC们对HabitRPG的Kickstarter计划作出了最高层级的支持。你可以在网站各处看到他们的角色形象！",
     "modalContribAchievement": "贡献成就！",
-    "contribModal": "<%= name %>，你是个了不起的人！你现在是帮助 HabitRPG的 <%= level %>级的贡献者。见",
+    "contribModal": "<%= name %>，你是个了不起的人！你现在是帮助 HabitRPG的 <%= level %>级的贡献者。详情见",
     "contribLink": "你拿到了什么奖品！",
     "contribName": "贡献者",
     "contribText": "为HabitRPG做出了贡献(代码，设计，像素艺术，法律咨询等)。想要这个徽章？",

@@ -13,7 +13,7 @@
     "italics": "*Italics*",
     "bold": "**Bold**",
     "strikethrough": "~~Strikethrough~~",
-    "emojiExample": ":smile:",
+    "emojiExample": ":笑:",
     "markdownLinkEx": "[HabitRPG is great!](https://habitrpg.com)",
     "markdownImageEx": "![mandatory alt text](https://habitrpg.com/cake.png \"optional mouseover title\")",
     "unorderedListHTML": "+ First item<br>+ Second item<br>+ Third item",

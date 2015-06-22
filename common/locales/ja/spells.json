@@ -8,7 +8,7 @@
     "spellWizardFrostText": "酷寒の霜",
     "spellWizardFrostNotes": "氷があなたのタスクを覆う。あなたの連続実行のいずれも明日ゼロにリセットされません! (一度唱えると全ての連続実行に影響します)",
     "spellWarriorSmashText": "ブルータルスマッシュ",
-    "spellWarriorSmashNotes": "全力でタスクを攻撃します。タスクはより青く、もしくは赤が薄くなり、ボスに追加ダメージを与えます!  唱える対象のタスクをクリックして下さい(力に基づく)",
+    "spellWarriorSmashNotes": "全力でタスクを攻撃します。タスクはより青く、もしくは赤が薄くなり、ボスに追加ダメージを与えます!  唱える対象のタスクをクリックして下さい。(力に基づく)",
     "spellWarriorDefensiveStanceText": "守勢の体勢",
     "spellWarriorDefensiveStanceNotes": "You prepare yourself for the onslaught of your tasks. You gain a buff to Constitution! (Based on: Unbuffed CON)",
     "spellWarriorValorousPresenceText": "勇烈な貫禄",
@@ -41,6 +41,6 @@
     "spellSpecialOpaquePotionNotes": "不気味なきらめきのエフェクトを取り消します。",
     "spellSpecialShinySeedText": "輝く種",
     "spellSpecialShinySeedNotes": "友達を楽しい花に変えよう！",
-    "spellSpecialPetalFreePotionText": "花びら無しポーション",
+    "spellSpecialPetalFreePotionText": "花びら消しポーション",
     "spellSpecialPetalFreePotionNotes": "輝く種の効果を取り消す。"
 }

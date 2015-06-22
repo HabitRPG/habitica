@@ -49,8 +49,10 @@
     "keepTasks": "Ponechat úkoly",
     "closeCha": "Zavřít výzvu a...",
     "leaveCha": "Opustit výzvu a ...",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilterHeader": "Vlastnictví",
+    "challengedOwnedFilter": "Vlastníš",
+    "challengedNotOwnedFilter": "Nevlastníš",
+    "challengedEitherOwnedFilter": "Obojí",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

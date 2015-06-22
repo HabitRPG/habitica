@@ -49,8 +49,10 @@
     "keepTasks": "Manter Tarefas",
     "closeCha": "Terminar desafio e...",
     "leaveCha": "Sair do desafio e...",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilterHeader": "Propriedade",
+    "challengedOwnedFilter": "Adquirido",
+    "challengedNotOwnedFilter": "Não adquirido",
+    "challengedEitherOwnedFilter": "Ambos",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

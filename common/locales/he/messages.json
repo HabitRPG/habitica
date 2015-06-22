@@ -14,7 +14,7 @@
     "messageUnEquipped": "הפסקת להשתמש ב<%= itemText %>",
     "messageMissingEggPotion": "חסרה לך הביצה או התרופה הזו",
     "messageAlreadyPet": "כבר השגת חיית מחמד זו. נסה/י שילוב אחר!",
-    "messageHatched": "הביצה שלך בקעה! בקר/י באורווה כדי לראות את חיית המחמד החדשה שלך.",
+    "messageHatched": "הביצה שלך בקעה! בקר באורווה כדי לראות את חיית המחמד החדשה שלך.",
     "messageNotEnoughGold": "אין מספיק זהב",
     "messageTwoHandled": "<%= gearText %> הוא דו ידני",
     "messageDropFood": "מצאת <%= dropText %>! <%= dropNotes %>",

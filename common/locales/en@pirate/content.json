@@ -62,6 +62,8 @@
     "questEggSlimeAdjective": "sweet",
     "questEggSheepText": "hairy meat",
     "questEggSheepAdjective": "hairy",
+    "questEggCuttlefishText": "Cuttlefish",
+    "questEggCuttlefishAdjective": "cuddly",
     "eggNotes": "Find yi hatchin' potion to' pourrr on 'tis egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "White",
