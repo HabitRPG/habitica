@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments','$sce','$window',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments','$sce','$window','Analytics',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window, Analytics) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -15,7 +15,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
-        if (!!fromState.name) window.ga && ga('send', 'pageview', {page: '/#/'+toState.name});
+        if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
         // clear inbox when entering or exiting inbox tab
         if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
           User.user.ops.update && User.set({'inbox.newMessages':0});
@@ -126,7 +126,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // Otherwise use the proper $modal.open
     $rootScope.openModal = function(template, options){//controller, scope, keyboard, backdrop){
       if (!options) options = {};
-      if (options.track) window.ga && ga('send', 'event', 'button', 'click', options.track);
+      if (options.track) Analytics.track(_.merge(options.track,{'hitType':'event','eventCategory':'button','eventAction':'click'}));
       if(template === 'newStuff') return forceLoadBailey(template, options);
       return $modal.open({
         templateUrl: 'modals/' + template + '.html',

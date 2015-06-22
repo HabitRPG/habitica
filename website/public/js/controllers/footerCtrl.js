@@ -25,20 +25,11 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
-    // Google Analytics, only in production
+    // Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
-      // Get experiments API
       $.getScript('//www.google-analytics.com/cx/api.js?experiment=t-AFggRWQnuJ6Teck_x1-Q', function(){
         $rootScope.variant = cxApi.chooseVariation();
         $rootScope.$apply();
-
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', window.env.GA_ID, {userId:User.user._id});
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
       })
     }
 

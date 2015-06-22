@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -47,14 +47,14 @@ angular.module('habitrpg')
         $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
           if (status == 200) {
-            mixpanel.alias(data._id);
+            Analytics.register();
             if (data.auth.facebook) {
-              mixpanel.register({'authType':'facebook','email':data.auth.facebook._json.email})
+              Analytics.updateUser({'email':data.auth.facebook._json.email,'language':data.preferences.language});
+              Analytics.track({'hitType':'event','eventCategory':'acquisition','eventAction':'register','authType':'facebook'});
             } else {
-              mixpanel.register({'authType':'email','email':data.auth.local.email})
+              Analytics.updateUser({'email':data.auth.local.email,'language':data.preferences.language});
+              Analytics.track({'hitType':'event','eventCategory':'acquisition','eventAction':'register','authType':'email'});
             }
-            mixpanel.register({'UUID':data._id,'language':data.preferences.language});
-            mixpanel.track('Registration');
           }
         }).error(errorAlert);
       };
@@ -68,15 +68,15 @@ angular.module('habitrpg')
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
             if (status == 200) {
-              mixpanel.identify(data.id);
-              mixpanel.register({'UUID':data._id});
-              mixpanel.track('Login');
+              Analytics.login();
+              Analytics.updateUser();
+              Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
             }
           }).error(errorAlert);
       };
 
       $scope.playButtonClick = function(){
-        window.ga && ga('send', 'event', 'button', 'click', 'Play');
+        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Play'})
         if (User.authenticated()) {
           window.location.href = ('/' + window.location.hash);
         } else {
@@ -144,9 +144,9 @@ angular.module('habitrpg')
           $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
               if (status == 200) {
-                mixpanel.identify(data.id);
-                mixpanel.register({'UUID':data._id});
-                mixpanel.track('Login');
+                Analytics.login();
+                Analytics.updateUser();
+                Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
               }
               runAuth(data.id, data.token);
             }).error(errorAlert);

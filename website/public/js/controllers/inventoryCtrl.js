@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content',
-  function($rootScope, $scope, Shared, $window, User, Content) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics) {
 
     var user = User.user;
 
@@ -180,7 +180,7 @@ habitrpg.controller("InventoryCtrl",
       $rootScope.selectedQuest = undefined;
     }
     $scope.questInit = function(){
-      mixpanel.track("Quest",{"owner":true,"response":"accept","questName":$scope.selectedQuest.key});
+      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$scope.selectedQuest.key});
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
         $rootScope.party.$get();
       });
