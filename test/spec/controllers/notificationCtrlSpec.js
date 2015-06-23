@@ -54,16 +54,6 @@ describe('Notification Controller', function() {
       expect(rootScope.openModal).to.be.calledOnce;
       expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
     });
-
-    it('does not open quest invitation modal if quest.completed contains a quest key', function() {
-      user.party.quest.RSVPNeeded = true;
-      user.party.quest.completed = "hedgebeast";
-      scope.$digest();
-
-      // Completion modal should open, but should be the only modal that opens
-      expect(rootScope.openModal).to.be.calledOnce;
-      expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
-    });
   });
   describe('Quest Completion modal watch', function() {
     beforeEach(function() {
