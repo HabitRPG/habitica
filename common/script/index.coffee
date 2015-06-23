@@ -84,16 +84,16 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   day = api.startOfDay(_.defaults {now:day}, o)
   dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
 
-  # check if event is today or in the future
-  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+  if day < api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+    return false # Daily starts in the future
 
   if dailyTask.frequency == 'daily'
     daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
-    return everyXCheck && hasStartedCheck
+    return everyXCheck
   else if dailyTask.frequency == 'weekly'
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
-    return dayOfWeekCheck && hasStartedCheck
+    return dayOfWeekCheck
   else
     # unexpected frequency string
     return false
