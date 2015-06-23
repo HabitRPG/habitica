@@ -50,9 +50,7 @@ describe('Notification Controller', function() {
       user.party.quest.completed = "hedgebeast";
       scope.$digest();
 
-      // Completion modal should open, but should be the only modal that opens
-      expect(rootScope.openModal).to.be.calledOnce;
-      expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
+      expect(rootScope.openModal).to.not.be.calledWith('questInvitation', {controller:'PartyCtrl'});
     });
   });
 
@@ -62,6 +60,15 @@ describe('Notification Controller', function() {
     });
 
     it('opens quest completion modal', function() {
+      user.party.quest.completed = "hedgebeast";
+      scope.$digest();
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
+    });
+
+    it('opens quest completion modal if RSVPNeeded is true', function() {
+      user.party.quest.RSVPNeeded = true;
       user.party.quest.completed = "hedgebeast";
       scope.$digest();
 
