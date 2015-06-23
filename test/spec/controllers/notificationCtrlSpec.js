@@ -39,12 +39,10 @@ describe('Notification Controller', function() {
 
     it('does not open quest invitation modal if RSVPNeeded is not true', function() {
       user.party.quest.RSVPNeeded = false;
-      user.party.quest.completed = "hedgebeast";
+      delete user.party.quest.completed;
       scope.$digest();
 
-      // Completion modal should open, but should be the only modal that opens
-      expect(rootScope.openModal).to.be.calledOnce;
-      expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
+      expect(rootScope.openModal).to.not.be.called;
     });
 
     it('does not open quest invitation modal if quest.completed contains a quest key', function() {
