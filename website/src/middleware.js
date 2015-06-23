@@ -180,7 +180,7 @@ module.exports.locals = function(req, res, next) {
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
   var tavern = require('./models/group').tavern;
-  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY'.split(' '));
+  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY'.split(' '));
   res.locals.habitrpg = _.merge(envVars, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     getManifestFiles: getManifestFiles,
