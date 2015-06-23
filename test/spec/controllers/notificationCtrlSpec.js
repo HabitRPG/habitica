@@ -67,4 +67,24 @@ describe('Notification Controller', function() {
       expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
     });
   });
+  describe('Quest Completion modal watch', function() {
+    beforeEach(function() {
+      sandbox.stub(rootScope, 'openModal');
+    });
+
+    it('opens quest completion modal', function() {
+      user.party.quest.completed = "hedgebeast";
+      scope.$digest();
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
+    });
+
+    it('does not open quest completion modal if quest.completed is null', function() {
+      user.party.quest.completed = null;
+      scope.$digest();
+
+      expect(rootScope.openModal).to.not.be.called;
+    });
+  });
 });
