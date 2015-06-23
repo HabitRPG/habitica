@@ -55,6 +55,7 @@ describe('Notification Controller', function() {
       expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
     });
   });
+
   describe('Quest Completion modal watch', function() {
     beforeEach(function() {
       sandbox.stub(rootScope, 'openModal');
