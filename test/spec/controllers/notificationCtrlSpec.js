@@ -67,6 +67,7 @@ describe('Notification Controller', function() {
       expect(rootScope.openModal).to.be.calledWith('questCompleted', {controller:'InventoryCtrl'});
     });
 
+    // Ensures that the completion modal opens before the invitation modal
     it('opens quest completion modal if RSVPNeeded is true', function() {
       user.party.quest.RSVPNeeded = true;
       user.party.quest.completed = "hedgebeast";
