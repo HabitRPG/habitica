@@ -1,9 +1,11 @@
 {
     "quests": "Queesten",
     "quest": "queeste",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "voltooid!",
     "youReceived": "Je hebt ontvangen",
-    "questSend": "Wanneer je \"Uitnodigen\" aanklikt wordt er een uitnodiging verstuurd naar de leden van jouw groep. Wanneer alle leden geaccepteerd of geweigerd hebben zal de queeste beginnen. Zie de status hier: Opties > Sociaal > Groep.",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "Groep uitnodigen",
     "questInvitation": "Uitnodiging voor queeste:",
     "questInvitationTitle": "Uitnodiging voor queeste",

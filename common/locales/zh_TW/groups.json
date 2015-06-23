@@ -39,6 +39,8 @@
     "editGroup": "編輯隊伍",
     "newGroupName": "<%= groupType %> 名稱",
     "groupName": "隊伍名稱",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "公會公開列表中顯示的描述(支持標記語言)",
     "logoUrl": "標識的網址",
     "assignLeader": "指定隊長",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "結餘",
     "sendGiftPurchase": "購買",
     "sendGiftMessagePlaceholder": "私信 (可選)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

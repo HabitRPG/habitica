@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Predmet <%= itemText %> se slomio.",
     "messageTaskNotFound": "Zadatak nije pronađen.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Tag nije pronađen.",
     "messagePetNotFound": ":pet not found in user.items.pets",
     "messageFoodNotFound": ":food not found in user.items.food",
@@ -20,5 +21,8 @@
     "messageDropFood": "Našli ste <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našli ste <%= dropText %> Jaje! <%= dropNotes %>",
     "messageDropPotion": "Našli ste <%= dropText %> Napitak! <%= dropNotes %>",
-    "messageFoundQuest": "Našli ste misiju „<%= questText %>”!"
+    "messageFoundQuest": "Našli ste misiju „<%= questText %>”!",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

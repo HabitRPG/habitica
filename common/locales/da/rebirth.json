@@ -21,11 +21,5 @@
     "rebirthOrb": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau",
     "rebirthPop": "Begynd en ny karakter på Niveau 1 mens du beholder præstationer, samlerobjekter, og opgaver med historik. ",
     "rebirthName": "Genfødselskugle",
-    "reborn": "Genfødt, højeste Niveau <%= reLevel %>",
-    "welcome100": "Velkommen til Niveau 100!",
-    "intro100": "Nu, hvor du har nået Niveau 100, har du mulighed for at bruge en Genfødselskugle gratis på et hvilket som helst tidspunkt. ",
-    "followup100": "Du kan fortsætte med at øge dit niveau, men det vil ikke længere øge dine statistikker, og der vil ikke blive mere tilgængeligt indhold. Dette er for at holde HabitRPG sjovt for folk med alle spillestile.",
-    "rebirth100Info": "Hvis du er klar til at starte et nyt eventyr kan du Genfødes nu... eller se hvor meget længere du kan drive dig selv frem. ",
-    "rebirthWait": "Jeg vil vente...",
-    "rebirthNow": "Genfødsel nu!"
+    "reborn": "Genfødt, højeste Niveau <%= reLevel %>"
 }

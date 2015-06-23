@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Dein <%= itemText %> ist kaputt gegangen.",
     "messageTaskNotFound": "Aufgabe nicht gefunden.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Tag nicht gefunden.",
     "messagePetNotFound": ":pet in user.items.pets nicht gefunden",
     "messageFoodNotFound": ":food in user.items.food nicht gefunden",
@@ -20,5 +21,8 @@
     "messageDropFood": "<%= dropArticle %><%= dropText %> gefunden! <%= dropNotes %>",
     "messageDropEgg": "Du hast ein <%= dropText %> Ei gefunden! <%= dropNotes %>",
     "messageDropPotion": "Du hast einen <%= dropText %>  Schlüpftrank gefunden! <%= dropNotes %>",
-    "messageFoundQuest": "Du hast das Quest \"<%= questText %>\" gefunden!"
+    "messageFoundQuest": "Du hast das Quest \"<%= questText %>\" gefunden!",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

@@ -202,5 +202,11 @@
     "questSheepBoss": "Carnero del trueno",
     "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
     "questSheepDropSheepEgg": "Sheep (Egg)",
-    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
+    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market",
+    "questKrakenText": "The Kraken of Inkomplete",
+    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
+    "questKrakenBoss": "The Kraken of Inkomplete",
+    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
+    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
 }

@@ -39,6 +39,8 @@
     "editGroup": "Редактировать группу",
     "newGroupName": "Название (<%= groupType %>)",
     "groupName": "Название группы",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Описание, которое отображается в списке открытых гильдий (можно использовать Markdown)",
     "logoUrl": "Ссылка на логотип",
     "assignLeader": "Назначить лидера группы",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

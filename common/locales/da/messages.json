@@ -1,6 +1,7 @@
 {
     "messageLostItem": "<%= itemText %> gik i stykker.",
     "messageTaskNotFound": "Opgave ikke fundet.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Tag ikke fundet",
     "messagePetNotFound": ":pet ikke fundet i user.items.pets",
     "messageFoodNotFound": ":food ikke fundet i user.items.food",
@@ -20,5 +21,8 @@
     "messageDropFood": "Du fandt <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Du fandt et <%= dropText %> Æg! <%= dropNotes %>",
     "messageDropPotion": "Du fandt en <%= dropText %> Udrugningseliksir! <%= dropNotes %>",
-    "messageFoundQuest": "Du fandt questen \"<%= questText %>\"!"
+    "messageFoundQuest": "Du fandt questen \"<%= questText %>\"!",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

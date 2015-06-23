@@ -113,10 +113,11 @@
     "benefits": "Преимущества",
     "coupon": "Промо",
     "couponPlaceholder": "Введите Промо Код",
-    "couponText": "Иногда мы проводим мероприятия и дарим промокоды на особую экипировку (например, тем, кто заглянет на наш стенд на Wondercon)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Применить",
     "resubscribe": "Повторить подписку",
     "promoCode": "Промокод",
     "promoCodeApplied": "Промокод принят! Проверьте инвентарь",
-    "promoPlaceholder": "Введите Промокод"
+    "promoPlaceholder": "Введите Промокод",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

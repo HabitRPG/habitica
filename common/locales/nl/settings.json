@@ -113,10 +113,11 @@
     "benefits": "Voordelen",
     "coupon": "Kadobon",
     "couponPlaceholder": "Kadocode invoeren",
-    "couponText": "We hebben soms evenementen waarbij we promotiecodes uitdelen voor speciale uitrustingstukken. (Bijvoorbeeld aan mensen die langskomen bij onze Wonderconkraam)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Toepassen",
     "resubscribe": "Opnieuw abonneren",
     "promoCode": "Promotiecode",
     "promoCodeApplied": "Promotiecode toegepast! Kijk in je boedel",
-    "promoPlaceholder": "Voer Promotiecode in"
+    "promoPlaceholder": "Voer Promotiecode in",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

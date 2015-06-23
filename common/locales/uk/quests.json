@@ -1,9 +1,11 @@
 {
     "quests": "Квести",
     "quest": "квест",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "Доконано!",
     "youReceived": "Ви отримали",
-    "questSend": "Клацнувши „Запросити“, усі гравці гурту отримають запрошення. Коли всі запрошення прийнято або відхилено, розпочнеться квест. Перегляньте його стан за Різне > Громада > Гурт.",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "Зібрати гурт",
     "questInvitation": "Запрошення до квесту:",
     "questInvitationTitle": "Запрошення до квесту",

@@ -113,10 +113,11 @@
     "benefits": "Fordele",
     "coupon": "Kupon",
     "couponPlaceholder": "Indtast Kuponkode",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Udfør",
     "resubscribe": "Genabonnér",
     "promoCode": "Promo-kode",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Indtast Promo-kode"
+    "promoPlaceholder": "Indtast Promo-kode",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

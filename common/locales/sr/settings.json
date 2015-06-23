@@ -113,10 +113,11 @@
     "benefits": "Prednosti",
     "coupon": "Kupon",
     "couponPlaceholder": "Unesite kod sa kupona",
-    "couponText": "Na skupovima ponekad delimo kupone sa kodovima za specijalnu opremu. (npr. na Wondercon-u)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Primeniti",
     "resubscribe": "Obnoviti pretplatu",
     "promoCode": "Kupon",
     "promoCodeApplied": "Kupon je aktiviran! Pogledajte u svoj inventar",
-    "promoPlaceholder": "Unesite kod sa kupona"
+    "promoPlaceholder": "Unesite kod sa kupona",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

@@ -113,10 +113,11 @@
     "benefits": "Benefity",
     "coupon": "Kupón",
     "couponPlaceholder": "Zadej kód z kupónu",
-    "couponText": "Někdy pořádáme události a rozdáváme promo kódy na speciální výbavu. (např. těm, kdo se zastaví u našeho stánku na Wonderconu)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Zadat",
     "resubscribe": "Znovu se přihlásit k odběru",
     "promoCode": "Promo kód",
     "promoCodeApplied": "Promo kód zadán! Koukni do Inventáře",
-    "promoPlaceholder": "Vlož promo kód"
+    "promoPlaceholder": "Vlož promo kód",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

@@ -1,9 +1,11 @@
 {
     "quests": "משימות",
     "quest": "משימה",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "הושלם!",
     "youReceived": "קיבלת",
-    "questSend": "לחיצה על \"הזמן\" תשלח הזמנה לחברי החבורה שלך. כאשר כל המשתתפים קיבלו או דחו, הקווסט מתחיל. ניתן לראות את מצבו תחת אפשרויות > חברתי > חבורה.",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "הזמן חבורה",
     "questInvitation": "הזמנה למשימה:",
     "questInvitationTitle": "Quest Invitation",

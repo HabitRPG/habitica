@@ -113,10 +113,11 @@
     "benefits": "Beneficios",
     "coupon": "Cupón",
     "couponPlaceholder": "Introduce Código de Cupón",
-    "couponText": "A veces organizamos eventos y regalamos códigos promocionales para equipo especial (p.ej., los que se pasan por nuestro stand en Wondercon)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Aplicar",
     "resubscribe": "Resuscribirse",
     "promoCode": "Código Promocional",
     "promoCodeApplied": "¡Código Promocional Aplicado! Mira tu inventario",
-    "promoPlaceholder": "Introducir Código Promocional"
+    "promoPlaceholder": "Introducir Código Promocional",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

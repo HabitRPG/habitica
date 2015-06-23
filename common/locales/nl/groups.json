@@ -39,6 +39,8 @@
     "editGroup": "Groep bewerken",
     "newGroupName": "Naam van <%= groupType %>",
     "groupName": "Naam van groep",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Beschrijving voor de openbare gildelijst (Markdown mogelijk)",
     "logoUrl": "URL logo",
     "assignLeader": "Groepsleider aanwijzen",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "Van balans",
     "sendGiftPurchase": "Aanschaf",
     "sendGiftMessagePlaceholder": "Persoonlijk bericht (optioneel)",
-    "sendGiftSubscription": "<%= months %> maand(en): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> maand(en): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

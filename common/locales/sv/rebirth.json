@@ -21,11 +21,5 @@
     "rebirthOrb": "Använde en Pånyttfödelsesfär för att börja om efter att ha nått Level",
     "rebirthPop": "Starta en ny karaktär från Level 1 medan du behåller bedrifter, samlarobjekt och uppgifter med dess historik.",
     "rebirthName": "Pånyttfödelsesfär",
-    "reborn": "Pånyttfödd, max level <%= reLevel %>",
-    "welcome100": "Välkommen till Nivå 100!",
-    "intro100": "Nu när du är nivå 100 har du valet att när som helst använda Återfödelse Sfären gratis.",
-    "followup100": "Medan du fortfarande kan öka i nivå, kommer det inte längre öka din statistik och inget mer kommer att låsas upp, detta för att hålla Habit kul för personer av alla spelstilar.",
-    "rebirth100Info": "Om du är redo att starta ett nytt äventyr kan du Återfödas nu... eller så kan du fortsätta testa dig själv.",
-    "rebirthWait": "Jag väntar...",
-    "rebirthNow": "Återföds Nu!"
+    "reborn": "Pånyttfödd, max level <%= reLevel %>"
 }

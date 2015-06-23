@@ -1,9 +1,11 @@
 {
     "quests": "Adventures",
     "quest": "quest",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "Completed!",
     "youReceived": "Ye 'ave Receiv'd",
-    "questSend": "Clickin' \"Invite\" gunna send an invitation to ye crew members. When all members have accepted or denied, th' quest begins. See status under Options > Social > Crew",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "Invite Crew",
     "questInvitation": "Quest Invitation:",
     "questInvitationTitle": "Adventure Invitation",

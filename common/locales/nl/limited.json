@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %>Seizoenstovenares<%= linkEnd %>",
     "seasonalShopClosedText": "De Seizoenswinkel is momenteel gesloten!! Ik weet niet waar de Seizoenstovenares momenteel is, maar ik durf te wedden dat ze er tijdens het volgende <%= linkStart %>Grote Gala<%= linkEnd %> weer is!",
     "seasonalShopText": "Welkom in de Seizoenswinkel! We hebben op dit moment lente-editie <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>seizoensgoederen</a> op voorraad. Alles wat je hier ziet is te koop tijdens het jaarlijkse Lente-evenement, maar we zijn slechts open tot 30 april! Koop nu wat je wil hebben, want anders moet je een jaar wachten tot deze artikelen weer te krijgen zijn. ",
+    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Als je een Bol der Hergeboorte gebruikt hebt, kun je deze uitrustingsstukken weer kopen als je de Markt hebt vrijgespeeld. In het begin kun je alleen de uitrustingsstukken van je huidige klasse kopen (dat is standaard Krijger), maar vrees niet, de uitrustingsstukken die bij een andere klasse horen komen weer beschikbaar als je die klasse kiest.",
     "candycaneSet": "Zuurstok (Magiër)",
     "skiSet": "Skimoordenaar (Dief)",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "Machtig konijn (Krijger)",
     "magicMouseSet": "Magische muis (Magiër)",
     "lovingPupSet": "Liefdevolle pup (Heler)",
-    "stealthyKittySet": "Sluikse kat (Dief)"
+    "stealthyKittySet": "Sluikse kat (Dief)",
+    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
+    "emeraldMermageSet": "Emerald Mermage (Mage)",
+    "reefSeahealerSet": "Reef Seahealer (Healer)",
+    "roguishPirateSet": "Roguish Pirate (Rogue)"
 }

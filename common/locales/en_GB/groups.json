@@ -39,6 +39,8 @@
     "editGroup": "Edit Group",
     "newGroupName": "<%= groupType %> Name",
     "groupName": "Group Name",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Description shown in public Guilds list (Markdown OK)",
     "logoUrl": "Logo URL",
     "assignLeader": "Assign Group Leader",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

@@ -1,9 +1,11 @@
 {
     "quests": "Missioni",
     "quest": "missione",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "Completata!",
     "youReceived": "Hai ricevuto",
-    "questSend": "Cliccando \"Invita\" manderai un invito ai membri della tua squadra. Quando tutti i membri avranno accettato o rifiutato, la missione inizierà. Vedi lo stato sotto Opzioni > Social > Squadra.",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "Invita squadra",
     "questInvitation": "Invito alla missione:",
     "questInvitationTitle": "Invito alla missione",

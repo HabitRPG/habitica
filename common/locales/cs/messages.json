@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Něco se rozbilo. Asi <%= itemText %>.",
     "messageTaskNotFound": "Úkol nenalezen.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Štítek nenalezen.",
     "messagePetNotFound": ":pet nebyl nalezen v user.items.pets",
     "messageFoodNotFound": ":food nebylo nalezeno v user.items.food",
@@ -20,5 +21,8 @@
     "messageDropFood": "Copak to je? A hele, <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
-    "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!"
+    "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

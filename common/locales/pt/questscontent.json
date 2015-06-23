@@ -202,5 +202,11 @@
     "questSheepBoss": "Carneiro do Trovão",
     "questSheepCompletion": "Impressionado pela sua diligência, o Carneiro do Trovão deixa a raiva ir embora. Ele atira três enormes pedras de granizo na sua direção; e então, lentamente, desaparece, emitindo um estrondo grave. Ao olhar mais atentamente, você descobre que as pedras de granizo eram, na verdade, três ovos macios e peludos. Você os recolhe, e depois caminha calmamente de volta para casa sob um céu azul.",
     "questSheepDropSheepEgg": "Ovelha (Ovo)",
-    "questSheepUnlockText": "Desbloqueia ovos de ovelha para comprar no Mercado"
+    "questSheepUnlockText": "Desbloqueia ovos de ovelha para comprar no Mercado",
+    "questKrakenText": "The Kraken of Inkomplete",
+    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
+    "questKrakenBoss": "The Kraken of Inkomplete",
+    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
+    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
 }

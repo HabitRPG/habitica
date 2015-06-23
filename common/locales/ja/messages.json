@@ -1,6 +1,7 @@
 {
     "messageLostItem": "<%= itemText %> は壊れてしまいました",
     "messageTaskNotFound": "タスクが見つかりません",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "タグが見つかりません",
     "messagePetNotFound": ":pet が user.items.pets 上に見つかりません",
     "messageFoodNotFound": ":food が user.items.food 上に見つかりません",
@@ -20,5 +21,8 @@
     "messageDropFood": "<%= dropArticle %><%= dropText %> を見つけました! <%= dropNotes %>",
     "messageDropEgg": "<%= dropText %>のたまごを見つけました! <%= dropNotes %>",
     "messageDropPotion": "<%= dropText %>孵化ポーションを見つけました! <%= dropNotes %>",
-    "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!"
+    "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

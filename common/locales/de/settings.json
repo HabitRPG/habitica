@@ -113,10 +113,11 @@
     "benefits": "Vorteile",
     "coupon": "Gutschein",
     "couponPlaceholder": "Gib Deinen Gutschein Code ein",
-    "couponText": "Wir halten manchmal Events und geben Promo Codes für besondere Ausrüstungsgegenstände heraus. (z.B. wenn du bei unserem Wondercon Stand vorbeigeschaut hast)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Anwenden",
     "resubscribe": "Wieder abonnieren",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code aktiviert! Überprüfe dein Inventar",
-    "promoPlaceholder": "Promo Code eingeben"
+    "promoPlaceholder": "Promo Code eingeben",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }
