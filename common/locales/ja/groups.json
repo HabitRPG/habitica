@@ -112,9 +112,9 @@
     "inviteAlertInfo2": "もしくはこのリンクを共有する(コピー/ペースト):",
     "sendGiftHeading": "<%= name %>に贈り物を送る",
     "sendGiftGemsBalance": "From <%= number %> Gems",
-    "sendGiftCost": "Total: $<%= cost %> USD",
-    "sendGiftFromBalance": "From Balance",
-    "sendGiftPurchase": "Purchase",
-    "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftCost": "会計： $<%= cost %> USD",
+    "sendGiftFromBalance": "残高から",
+    "sendGiftPurchase": "購入する",
+    "sendGiftMessagePlaceholder": "個人メッセージ(任意)",
+    "sendGiftSubscription": "<%= months %>ヶ月: $<%= price %>"
 }

@@ -53,6 +53,6 @@
     "challengedOwnedFilter": "Ejet",
     "challengedNotOwnedFilter": "Ikke ejet",
     "challengedEitherOwnedFilter": "Begge",
-    "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "backToChallenges": "Tilbage til Udfordringer",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Præmie"
 }

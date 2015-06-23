@@ -93,7 +93,7 @@
     "wonChallenge": "Вы выиграли испытание",
     "newPM": "Получено личное сообщение",
     "giftedGems": "Подаренные самоцветы",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= amount %> самоцветов от <%= name %>",
     "giftedSubscription": "Подписка в подарок",
     "invitedParty": "Приглашен в команду",
     "invitedGuild": "Приглашен в гильдию",
