@@ -26,13 +26,13 @@ describe('Analytics Service', function () {
         sandbox.stub(window, 'ga');
       });
 
-      it('sets up user with amplitude', function() {
+      it('sets up user with Amplitude', function() {
         analytics.register();
         expect(amplitude.setUserId).to.have.been.calledOnce;
         expect(amplitude.setUserId).to.have.been.calledWith(user._id);
       });
 
-      it('sets up user with google analytics', function() {
+      it('sets up user with Google Analytics', function() {
         analytics.register();
         expect(ga).to.have.been.calledOnce;
         expect(ga).to.have.been.calledWith('set', {userId: user._id});
@@ -68,9 +68,9 @@ describe('Analytics Service', function () {
         sandbox.stub(window, 'ga');
       });
 
-      context('succeful tracking', function() {
+      context('successful tracking', function() {
 
-        it('tracks a simple user action with amplitude', function() {
+        it('tracks a simple user action with Amplitude', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron'};
           analytics.track(properties);
 
@@ -78,7 +78,7 @@ describe('Analytics Service', function () {
           expect(amplitude.logEvent).to.have.been.calledWith('cron', properties);
         });
 
-        it('tracks a simple user action with google analytics', function() {
+        it('tracks a simple user action with Google Analytics', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron'};
           analytics.track(properties);
 
@@ -86,7 +86,7 @@ describe('Analytics Service', function () {
           expect(ga).to.have.been.calledWith('send', properties);
         });
 
-        it('tracks a user action with additional properties in amplitude', function() {
+        it('tracks a user action with additional properties in Amplitude', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'};
           analytics.track(properties);
 
@@ -103,13 +103,13 @@ describe('Analytics Service', function () {
         });
       });
 
-      context('unsuccesful tracking', function() {
+      context('unsuccessful tracking', function() {
 
         beforeEach(function() {
           sandbox.stub(console, 'log');
         });
 
-        context('events without requird properties', function() {
+        context('events without required properties', function() {
           beforeEach(function(){
             analytics.track('action');
             analytics.track({'hitType':'pageview','eventCategory':'green'});
@@ -124,11 +124,11 @@ describe('Analytics Service', function () {
             expect(console.log.callCount).to.eql(7);
           });
 
-          it('does not call out to amplitude', function() {
+          it('does not call out to Amplitude', function() {
             expect(amplitude.logEvent).to.not.be.called;
           });
 
-          it('does not call out to google analytics', function() {
+          it('does not call out to Google Analytics', function() {
             expect(ga).to.not.be.called;
           });
         });
@@ -142,11 +142,11 @@ describe('Analytics Service', function () {
             expect(console.log).to.have.been.calledOnce;
           });
 
-          it('does not call out to amplitude', function() {
+          it('does not call out to Amplitude', function() {
             expect(amplitude.logEvent).to.not.be.called;
           });
 
-          it('does not call out to google analytics', function() {
+          it('does not call out to Google Analytics', function() {
             expect(ga).to.not.be.called;
           });
         });
@@ -183,12 +183,12 @@ describe('Analytics Service', function () {
           analytics.updateUser(properties);
         });
 
-        it('calls amplitude with provided properties and select user info', function() {
+        it('calls Amplitude with provided properties and select user info', function() {
           expect(amplitude.setUserProperties).to.have.been.calledOnce;
           expect(amplitude.setUserProperties).to.have.been.calledWith(expectedProperties);
         });
 
-        it('calls google analytics with provided properties and select user info', function() {
+        it('calls Google Analytics with provided properties and select user info', function() {
           expect(ga).to.have.been.calledOnce;
           expect(ga).to.have.been.calledWith('set', expectedProperties);
         });
@@ -221,12 +221,12 @@ describe('Analytics Service', function () {
           analytics.updateUser();
         });
 
-        it('calls amplitude with select user info', function() {
+        it('calls Amplitude with select user info', function() {
           expect(amplitude.setUserProperties).to.have.been.calledOnce;
           expect(amplitude.setUserProperties).to.have.been.calledWith(expectedProperties);
         });
 
-        it('calls google analytics with select user info', function() {
+        it('calls Google Analytics with select user info', function() {
           expect(ga).to.have.been.calledOnce;
           expect(ga).to.have.been.calledWith('set', expectedProperties);
         });

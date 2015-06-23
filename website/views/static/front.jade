@@ -39,6 +39,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     include ../shared/mixins
     include ../shared/modals/members
     .mobile-container
+      div(ng-init='Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/static/front"});')
       header#header
         nav.navbar.navbar-default.navbar-static-top
           .container-fluid

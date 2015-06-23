@@ -88,7 +88,7 @@
   }
 
   function _gatherUserStats(user, properties) {
-    if (user._id) properties.user_id = user._id;
+    if (user._id) properties.UUID = user._id;
     if (user.stats) {
       properties.Class = user.stats.class;
       properties.Experience = Math.floor(user.stats.exp);
