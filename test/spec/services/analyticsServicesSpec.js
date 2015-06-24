@@ -28,7 +28,7 @@ describe('Analytics Service', function () {
         sandbox.stub(window, 'ga');
       });
 
-      it.only('sets up user with Amplitude', function() {
+      it('sets up user with Amplitude', function() {
         analytics.register();
         clock.tick();
         expect(amplitude.setUserId).to.have.been.calledOnce;
