@@ -13,16 +13,16 @@
   ];
 
   function analyticsFactory(User) {
+    var analytics;
+    try {
+      analytics = buildAnalyticsTool(User);
+    } catch(e) {
+      analytics = buildAnalyticsStub(User);
+    }
+    return analytics;
+  }
 
-    // Stub the whole factory to prove the service is causing the errors
-    var noop = function(){};
-    return {
-      loadScripts: noop,
-      register: noop,
-      login: noop,
-      track: noop,
-      updateUser: noop
-    };
+  function buildAnalyticsTool(User) {
 
     var user = User.user;
 
@@ -99,11 +99,11 @@
     if (window.env.NODE_ENV === 'production') loadScripts();
 
     return {
-      loadScripts: loadScripts,
-      register: register,
-      login: login,
-      track: track,
-      updateUser: updateUser
+      loadScripts:  loadScripts,
+      updateUser:   updateUser,
+      register:     register,
+      login:        login,
+      track:        track
     };
   }
 
@@ -134,5 +134,17 @@
       return true;
     }
   }
+
+  function buildAnalyticsStub() {
+    var noop = function(){};
+    return {
+      loadScripts:  noop,
+      updateUser:   noop,
+      register:     noop,
+      login:        noop,
+      track:        noop
+    };
+  }
+
 }());
 
