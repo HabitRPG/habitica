@@ -13,6 +13,16 @@
   ];
 
   function analyticsFactory(User) {
+    var analytics;
+    try {
+      analytics = buildAnalyticsTool(User);
+    } catch(e) {
+      analytics = buildAnalyticsStub(User);
+    }
+    return analytics;
+  }
+
+  function buildAnalyticsTool(User) {
 
     var user = User.user;
 
@@ -33,57 +43,67 @@
     ga('create', window.env.GA_ID, 'auto');
 
     function loadScripts() {
-      // Amplitude
-      var n = document.createElement("script");
-      var s = document.getElementsByTagName("script")[0];
-      n.type = "text/javascript";
-      n.async = true;
-      n.src = "https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js";
-      s.parentNode.insertBefore(n, s);
+      try {
+        // Amplitude
+        var n = document.createElement("script");
+        var s = document.getElementsByTagName("script")[0];
+        n.type = "text/javascript";
+        n.async = true;
+        n.src = "https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js";
+        s.parentNode.insertBefore(n, s);
 
-      // Google Analytics
-      var a = document.createElement('script');
-      var m = document.getElementsByTagName('script')[0];
-      a.async = 1;
-      a.src = '//www.google-analytics.com/analytics.js';
-      m.parentNode.insertBefore(a, m);
+        // Google Analytics
+        var a = document.createElement('script');
+        var m = document.getElementsByTagName('script')[0];
+        a.async = 1;
+        a.src = '//www.google-analytics.com/analytics.js';
+        m.parentNode.insertBefore(a, m);
+      } catch(e) {}
     }
 
     function register() {
-      amplitude.setUserId(user._id);
-      ga('set', {'userId':user._id});
+      try {
+        amplitude.setUserId(user._id);
+        ga('set', {'userId':user._id});
+      } catch(e) {}
     }
 
     function login() {
-      amplitude.setUserId(user._id);
-      ga('set', {'userId':user._id});
+      try {
+        amplitude.setUserId(user._id);
+        ga('set', {'userId':user._id});
+      } catch(e) {}
     }
 
     function track(properties) {
-      if(_doesNotHaveRequiredFields(properties)) { return false; }
-      if(_doesNotHaveAllowedHitType(properties)) { return false; }
+      try {
+        if(_doesNotHaveRequiredFields(properties)) { return false; }
+        if(_doesNotHaveAllowedHitType(properties)) { return false; }
 
-      amplitude.logEvent(properties.eventAction,properties);
-      ga('send',properties);
+        amplitude.logEvent(properties.eventAction,properties);
+        ga('send',properties);
+      } catch(e) {}
     }
 
     function updateUser(properties) {
-      properties = properties || {};
+      try {
+        properties = properties || {};
 
-      _gatherUserStats(user, properties);
+        _gatherUserStats(user, properties);
 
-      amplitude.setUserProperties(properties);
-      ga('set',properties);
+        amplitude.setUserProperties(properties);
+        ga('set',properties);
+      } catch(e) {}
     }
 
     if (window.env.NODE_ENV === 'production') loadScripts();
 
     return {
-      loadScripts: loadScripts,
-      register: register,
-      login: login,
-      track: track,
-      updateUser: updateUser
+      loadScripts:  loadScripts,
+      updateUser:   updateUser,
+      register:     register,
+      login:        login,
+      track:        track
     };
   }
 
@@ -114,5 +134,17 @@
       return true;
     }
   }
+
+  function buildAnalyticsStub() {
+    var noop = function(){};
+    return {
+      loadScripts:  noop,
+      updateUser:   noop,
+      register:     noop,
+      login:        noop,
+      track:        noop
+    };
+  }
+
 }());
 
