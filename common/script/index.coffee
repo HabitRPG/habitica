@@ -81,21 +81,21 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   if dailyTask.startDate instanceof String
     dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
-  day = api.startOfDay(_.defaults {now:day}, o)
+  startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)
 
-  if day < api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+  if startOfDayWithCDSTime < api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
     return false # Daily starts in the future
 
   if dailyTask.frequency == 'daily'
     if !dailyTask.everyX
       return false # error condition
-    daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
+    daysSinceTaskStart = api.numDaysApart(startOfDayWithCDSTime.startOf('day'), dailyTask.startDate, o)
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck
   else if dailyTask.frequency == 'weekly'
     if !dailyTask.repeat
       return false # error condition
-    dayOfWeekNum = day.day() # e.g. 0 for Sunday
+    dayOfWeekNum = startOfDayWithCDSTime.day() # e.g. 0 for Sunday
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
     return dayOfWeekCheck
   else
