@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('Analytics Service', function () {
+describe('Analytics Service', function () {
   var analytics, user, clock;
 
   beforeEach(function() {
