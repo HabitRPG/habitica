@@ -75,7 +75,7 @@ api.daysSince = (yesterday, options = {}) ->
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
-  return false unless dailyTask.type == 'daily' && dailyTask.repeat
+  return false unless dailyTask.type == 'daily'
   if !dailyTask.startDate
     dailyTask.startDate = moment().toDate()
   if dailyTask.startDate instanceof String
@@ -88,10 +88,14 @@ api.shouldDo = (day, dailyTask, options = {}) ->
     return false # Daily starts in the future
 
   if dailyTask.frequency == 'daily'
+    if !dailyTask.everyX
+      return false # error condition
     daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck
   else if dailyTask.frequency == 'weekly'
+    if !dailyTask.repeat
+      return false # error condition
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
     return dayOfWeekCheck
   else
