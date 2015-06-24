@@ -48,21 +48,21 @@
         a.async = 1;
         a.src = '//www.google-analytics.com/analytics.js';
         m.parentNode.insertBefore(a, m);
-      } catch() {}
+      } catch(e) {}
     }
 
     function register() {
       try {
         amplitude.setUserId(user._id);
         ga('set', {'userId':user._id});
-      } catch() {}
+      } catch(e) {}
     }
 
     function login() {
       try {
         amplitude.setUserId(user._id);
         ga('set', {'userId':user._id});
-      } catch() {}
+      } catch(e) {}
     }
 
     function track(properties) {
@@ -72,7 +72,7 @@
 
         amplitude.logEvent(properties.eventAction,properties);
         ga('send',properties);
-      } catch() {}
+      } catch(e) {}
     }
 
     function updateUser(properties) {
@@ -83,7 +83,7 @@
 
         amplitude.setUserProperties(properties);
         ga('set',properties);
-      } catch() {}
+      } catch(e) {}
     }
 
     if (window.env.NODE_ENV === 'production') loadScripts();
