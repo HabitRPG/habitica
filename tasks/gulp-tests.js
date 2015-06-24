@@ -77,6 +77,17 @@ gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:api:clean', (cb) => {
+  pipe(exec(testBin("mocha test/api"), () => cb()));
+});
+
+gulp.task('test:api:watch', [
+  'test:prepare:mongo',
+  'test:api:clean'
+], () => {
+  gulp.watch(['website/src/**', 'test/api/**'], ['test:api:clean']);
+});
+
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('karma start --single-run'),
