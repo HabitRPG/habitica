@@ -1,9 +1,11 @@
 'use strict';
 
-describe('Analytics Service', function () {
-  var analytics, user;
+describe.only('Analytics Service', function () {
+  var analytics, user, clock;
 
   beforeEach(function() {
+    clock = sandbox.useFakeTimers();
+    sandbox.stub(window, 'refresher', function(){return true});
     user = specHelper.newUser();
     user.contributor = {};
     user.purchased = { plan: {} };
@@ -26,14 +28,16 @@ describe('Analytics Service', function () {
         sandbox.stub(window, 'ga');
       });
 
-      it('sets up user with Amplitude', function() {
+      it.only('sets up user with Amplitude', function() {
         analytics.register();
+        clock.tick();
         expect(amplitude.setUserId).to.have.been.calledOnce;
         expect(amplitude.setUserId).to.have.been.calledWith(user._id);
       });
 
       it('sets up user with Google Analytics', function() {
         analytics.register();
+        clock.tick();
         expect(ga).to.have.been.calledOnce;
         expect(ga).to.have.been.calledWith('set', {userId: user._id});
       });
@@ -48,6 +52,7 @@ describe('Analytics Service', function () {
 
       it('sets up tracking for amplitude', function() {
         analytics.login();
+        clock.tick();
 
         expect(amplitude.setUserId).to.have.been.calledOnce;
         expect(amplitude.setUserId).to.have.been.calledWith(user._id);
@@ -55,6 +60,7 @@ describe('Analytics Service', function () {
 
       it('sets up tracking for google analytics', function() {
         analytics.login();
+        clock.tick();
 
         expect(ga).to.have.been.calledOnce;
         expect(ga).to.have.been.calledWith('set', {userId: user._id});
@@ -73,6 +79,7 @@ describe('Analytics Service', function () {
         it('tracks a simple user action with Amplitude', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron'};
           analytics.track(properties);
+          clock.tick();
 
           expect(amplitude.logEvent).to.have.been.calledOnce;
           expect(amplitude.logEvent).to.have.been.calledWith('cron', properties);
@@ -81,6 +88,7 @@ describe('Analytics Service', function () {
         it('tracks a simple user action with Google Analytics', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron'};
           analytics.track(properties);
+          clock.tick();
 
           expect(ga).to.have.been.calledOnce;
           expect(ga).to.have.been.calledWith('send', properties);
@@ -89,6 +97,7 @@ describe('Analytics Service', function () {
         it('tracks a user action with additional properties in Amplitude', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'};
           analytics.track(properties);
+          clock.tick();
 
           expect(amplitude.logEvent).to.have.been.calledOnce;
           expect(amplitude.logEvent).to.have.been.calledWith('cron', properties);
@@ -97,6 +106,7 @@ describe('Analytics Service', function () {
         it('tracks a user action with additional properties in google analytics', function() {
           var properties = {'hitType':'event','eventCategory':'behavior','eventAction':'cron','booleanProperty':true,'numericProperty':17,'stringProperty':'bagel'};
           analytics.track(properties);
+          clock.tick();
 
           expect(ga).to.have.been.calledOnce;
           expect(ga).to.have.been.calledWith('send', properties);
@@ -118,6 +128,7 @@ describe('Analytics Service', function () {
             analytics.track({'hitType':'pageview'});
             analytics.track({'eventCategory':'green'});
             analytics.track({'eventAction':'eat'});
+            clock.tick();
           });
 
           it('logs errors to console', function() {
@@ -136,6 +147,7 @@ describe('Analytics Service', function () {
         context('incorrect hit type', function() {
           beforeEach(function() {
             analytics.track({'hitType':'moogly','eventCategory':'green','eventAction':'eat'});
+            clock.tick();
           });
 
           it('logs error to console', function () {
@@ -181,6 +193,7 @@ describe('Analytics Service', function () {
           user.stats.mp = 41;
 
           analytics.updateUser(properties);
+          clock.tick();
         });
 
         it('calls Amplitude with provided properties and select user info', function() {
@@ -219,6 +232,7 @@ describe('Analytics Service', function () {
           user.purchased.plan.planId = 'unique-plan-id';
 
           analytics.updateUser();
+          clock.tick();
         });
 
         it('calls Amplitude with select user info', function() {
