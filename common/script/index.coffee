@@ -82,7 +82,6 @@ api.shouldDo = (day, dailyTask, options = {}) ->
     dailyTask.startDate = moment(dailyTask.startDate).toDate()
   o = sanitizeOptions options
   day = api.startOfDay(_.defaults {now:day}, o)
-  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
 
   if day < api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
     return false # Daily starts in the future
@@ -96,6 +95,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   else if dailyTask.frequency == 'weekly'
     if !dailyTask.repeat
       return false # error condition
+    dayOfWeekNum = day.day() # e.g. 0 for Sunday
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
     return dayOfWeekCheck
   else
