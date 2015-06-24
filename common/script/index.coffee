@@ -97,7 +97,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   if dailyTask.frequency == 'daily' # "Every X Days"
     if !dailyTask.everyX
       return false # error condition
-    daysSinceTaskStart = api.numDaysApart(startOfDayWithCDSTime.startOf('day'), dailyTask.startDate, o)
+    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(dailyTask.startDate, 'days')
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck
   else if dailyTask.frequency == 'weekly' # "On Certain Days of the Week"
@@ -109,12 +109,6 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   else
     # unexpected frequency string
     return false
-
-api.numDaysApart = (day1, day2, o) ->
-  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
-  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
-  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
-  return numDays
 
 ###
   ------------------------------------------------------
