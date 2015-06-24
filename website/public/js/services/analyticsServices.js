@@ -33,47 +33,57 @@
     ga('create', window.env.GA_ID, 'auto');
 
     function loadScripts() {
-      // Amplitude
-      var n = document.createElement("script");
-      var s = document.getElementsByTagName("script")[0];
-      n.type = "text/javascript";
-      n.async = true;
-      n.src = "https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js";
-      s.parentNode.insertBefore(n, s);
+      setTimeout(function() {
+        // Amplitude
+        var n = document.createElement("script");
+        var s = document.getElementsByTagName("script")[0];
+        n.type = "text/javascript";
+        n.async = true;
+        n.src = "https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js";
+        s.parentNode.insertBefore(n, s);
 
-      // Google Analytics
-      var a = document.createElement('script');
-      var m = document.getElementsByTagName('script')[0];
-      a.async = 1;
-      a.src = '//www.google-analytics.com/analytics.js';
-      m.parentNode.insertBefore(a, m);
+        // Google Analytics
+        var a = document.createElement('script');
+        var m = document.getElementsByTagName('script')[0];
+        a.async = 1;
+        a.src = '//www.google-analytics.com/analytics.js';
+        m.parentNode.insertBefore(a, m);
+      });
     }
 
     function register() {
-      amplitude.setUserId(user._id);
-      ga('set', {'userId':user._id});
+      setTimeout(function() {
+        amplitude.setUserId(user._id);
+        ga('set', {'userId':user._id});
+      });
     }
 
     function login() {
-      amplitude.setUserId(user._id);
-      ga('set', {'userId':user._id});
+      setTimeout(function() {
+        amplitude.setUserId(user._id);
+        ga('set', {'userId':user._id});
+      });
     }
 
     function track(properties) {
-      if(_doesNotHaveRequiredFields(properties)) { return false; }
-      if(_doesNotHaveAllowedHitType(properties)) { return false; }
+      setTimeout(function() {
+        if(_doesNotHaveRequiredFields(properties)) { return false; }
+        if(_doesNotHaveAllowedHitType(properties)) { return false; }
 
-      amplitude.logEvent(properties.eventAction,properties);
-      ga('send',properties);
+        amplitude.logEvent(properties.eventAction,properties);
+        ga('send',properties);
+      });
     }
 
     function updateUser(properties) {
-      properties = properties || {};
+      setTimeout(function() {
+        properties = properties || {};
 
-      _gatherUserStats(user, properties);
+        _gatherUserStats(user, properties);
 
-      amplitude.setUserProperties(properties);
-      ga('set',properties);
+        amplitude.setUserProperties(properties);
+        ga('set',properties);
+      });
     }
 
     if (window.env.NODE_ENV === 'production') loadScripts();
@@ -115,4 +125,3 @@
     }
   }
 }());
-
