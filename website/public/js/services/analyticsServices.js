@@ -14,6 +14,16 @@
 
   function analyticsFactory(User) {
 
+    // Stub the whole factory to prove the service is causing the errors
+    var noop = function(){};
+    return {
+      loadScripts: noop,
+      register: noop,
+      login: noop,
+      track: noop,
+      updateUser: noop
+    };
+
     var user = User.user;
 
     // Amplitude
