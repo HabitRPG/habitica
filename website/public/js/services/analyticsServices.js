@@ -13,11 +13,9 @@
   ];
 
   function analyticsFactory(User) {
-    console.debug("Analytics Factory function");
 
     var user = User.user;
 
-    console.debug("Setting amplitude stub...");
     // Amplitude
     var r = window.amplitude || {};
     r._q = [];
@@ -26,21 +24,15 @@
     for (var o = 0; o < i.length; o++) {a(i[o])}
     window.amplitude = r;
     amplitude.init(window.env.AMPLITUDE_KEY);
-    console.debug("done");
 
-    console.debug("Setting GA stub...");
     // Google Analytics (aka Universal Analytics)
     window['GoogleAnalyticsObject'] = 'ga';
     window['ga'] = window['ga'] || function() {
         (window['ga'].q = window['ga'].q || []).push(arguments)
       }, window['ga'].l = 1 * new Date();
     ga('create', window.env.GA_ID, 'auto');
-    console.debug("done");
 
     function loadScripts() {
-      console.debug("Analytics.loadScripts function");
-
-      console.debug("Adding amplitude script...");
       // Amplitude
       var n = document.createElement("script");
       var s = document.getElementsByTagName("script")[0];
@@ -48,56 +40,44 @@
       n.async = true;
       n.src = "https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js";
       s.parentNode.insertBefore(n, s);
-      console.debug("done");
 
-      console.debug("Adding GA script...");
       // Google Analytics
       var a = document.createElement('script');
       var m = document.getElementsByTagName('script')[0];
       a.async = 1;
       a.src = '//www.google-analytics.com/analytics.js';
       m.parentNode.insertBefore(a, m);
-      console.debug("done");
     }
 
     function register() {
-      console.debug("Analytics.register function");
       amplitude.setUserId(user._id);
       ga('set', {'userId':user._id});
-      console.debug("done");
     }
 
     function login() {
-      console.debug("Analytics.login function");
       amplitude.setUserId(user._id);
       ga('set', {'userId':user._id});
-      console.debug("done");
     }
 
     function track(properties) {
-      console.debug("Analytics.track function");
       if(_doesNotHaveRequiredFields(properties)) { return false; }
       if(_doesNotHaveAllowedHitType(properties)) { return false; }
 
       amplitude.logEvent(properties.eventAction,properties);
       ga('send',properties);
-      console.debug("done");
     }
 
     function updateUser(properties) {
-      console.debug("Analytics.updateUser function");
       properties = properties || {};
 
       _gatherUserStats(user, properties);
 
       amplitude.setUserProperties(properties);
       ga('set',properties);
-      console.debug("done");
     }
 
     if (window.env.NODE_ENV === 'production') loadScripts();
 
-    console.debug("Returning from factory");
     return {
       loadScripts: loadScripts,
       register: register,
