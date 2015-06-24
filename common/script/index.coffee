@@ -56,6 +56,10 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
   moment(o.now).startOf('week')
 
 api.startOfDay = (options={}) ->
+  # This is designed for use with any date that has an important time portion (e.g., when comparing the current date-time with the previous cron's date-time for determing if cron should run now).
+  # It changes the time portion of the date-time to be the Custom Day Start hour, so that the date-time is now the user's correct start of day.
+  # It SUBTRACTS a day if the date-time's original hour is before CDS (e.g., if your CDS is 5am and it's currently 4am, it's still the previous day).
+  # This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
   o = sanitizeOptions(options)
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
   if moment(o.now).hour() < o.dayStart
@@ -77,22 +81,26 @@ api.daysSince = (yesterday, options = {}) ->
 api.shouldDo = (day, dailyTask, options = {}) ->
   return false unless dailyTask.type == 'daily'
   if !dailyTask.startDate
-    dailyTask.startDate = moment().toDate()
-  if dailyTask.startDate instanceof String
-    dailyTask.startDate = moment(dailyTask.startDate).toDate()
-  o = sanitizeOptions options
-  startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)
+    dailyTask.startDate = moment()
+  # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it:
+  dailyTask.startDate = moment(dailyTask.startDate).startOf('day');
 
-  if startOfDayWithCDSTime < api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+  o = sanitizeOptions options
+  startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)  # a moment()
+
+  # Work out if the Daily's Start Date is in the future.
+  # Since we are ignoring the time portion of Start Date, we must also ignore the time portion of the user's day start.
+  # (NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.)
+  if dailyTask.startDate > startOfDayWithCDSTime.startOf('day')
     return false # Daily starts in the future
 
-  if dailyTask.frequency == 'daily'
+  if dailyTask.frequency == 'daily' # "Every X Days"
     if !dailyTask.everyX
       return false # error condition
     daysSinceTaskStart = api.numDaysApart(startOfDayWithCDSTime.startOf('day'), dailyTask.startDate, o)
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck
-  else if dailyTask.frequency == 'weekly'
+  else if dailyTask.frequency == 'weekly' # "On Certain Days of the Week"
     if !dailyTask.repeat
       return false # error condition
     dayOfWeekNum = startOfDayWithCDSTime.day() # e.g. 0 for Sunday
