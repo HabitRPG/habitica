@@ -5,7 +5,7 @@
     "disableAds": "Werbung entfernen",
     "disableAdsText": "Ads are disabled while you have an active subscription (original donors are grandfathered).",
     "buyGemsGold": "Kaufe Edelsteine mit Gold",
-    "buyGemsGoldText": "Alexander the Merchant will sell you gems at a cost of <%= gemCost %> gold per gem. His monthly shipments are initially capped at <%= gemLimit %> gems per month, but this cap increases by 5 gems for every three months of consecutive subscription, up to a maximum of 50 gems per month!",
+    "buyGemsGoldText": "Alexander der Händler verkauft dir Edelsteine für den Preis von <%= gemCost %> Goldstücken pro Edelstein. Seine monatlichen Lieferungen sind anfangs beschränkt auf <%= gemLimit %> Edelsteine pro Monat, aber dieses Limit erhöht sich um 5 Edelsteine für alle drei Monate, die du ein fortlaufendes Abo hast, bis zu einem Maximum von 50 Edelsteinen pro Monat!",
     "retainHistory": "Behalte alle Verlaufeinträge",
     "retainHistoryText": "Dein gesamter Verlauf steht Dir für Graphen und Exporte zur Verfügung. Der Verlauf von Nicht-Abonnementen wird zusammengelegt um die Datenbanken zu optimieren.",
     "doubleDrops": "Du kannst doppelt so viele Gegenstände pro Tag finden",

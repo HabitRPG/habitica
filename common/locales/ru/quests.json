@@ -1,8 +1,8 @@
 {
     "quests": "Квесты",
     "quest": "квест",
-    "questDetails": "Quest Details",
-    "invitations": "Invitations",
+    "questDetails": "Информация о квесте",
+    "invitations": "Приглашения",
     "completed": "Завершено!",
     "youReceived": "Вы получили",
     "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",

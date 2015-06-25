@@ -62,7 +62,7 @@
     "questEggSlimeAdjective": "甘い",
     "questEggSheepText": "羊",
     "questEggSheepAdjective": "もふもふな",
-    "questEggCuttlefishText": "鯣",
+    "questEggCuttlefishText": "コウイカ",
     "questEggCuttlefishAdjective": "すりすりの",
     "eggNotes": "孵化ポーションを探し、このたまごに注ぐと、それが<%= eggAdjective(locale) %> <%= eggText(locale) %>に孵化します。",
     "hatchingPotionBase": "普通の",

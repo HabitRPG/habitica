@@ -1,7 +1,7 @@
 {
     "messageLostItem": "Сломано: <%= itemText %>.",
     "messageTaskNotFound": "Задание не найдено.",
-    "messageDuplicateTaskID": "A task with that ID already exists.",
+    "messageDuplicateTaskID": "Задание с таким ID уже существует.",
     "messageTagNotFound": "Тег не найден.",
     "messagePetNotFound": ":pet не найдено в user.items.pets",
     "messageFoodNotFound": ":food не найдено в user.items.food",
@@ -22,7 +22,7 @@
     "messageDropEgg": "Вы нашли: <%= dropText %> в яйце! <%= dropNotes %>",
     "messageDropPotion": "Вы нашли <%= dropText %> инкубационный эликсир! <%= dropNotes %>",
     "messageFoundQuest": "Вы нашли квест: «<%= questText %>»!",
-    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
-    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
-    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
+    "armoireEquipment": "<%= image %> Вы извлекли из сундука редкий предмет: <%= dropText %>! Потрясающе!",
+    "armoireFood": "<%= image %> Копаясь в сундуке, вы находите <%= dropArticle %><%= dropText %>. Откуда это здесь?",
+    "armoireExp": "Вы сражаетесь с сундуком и получаете опыт. Получай!"
 }

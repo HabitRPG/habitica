@@ -119,5 +119,5 @@
     "promoCode": "优惠码",
     "promoCodeApplied": "优惠码已生效！请查看物品栏",
     "promoPlaceholder": "输入优惠码",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "当队伍有1名成员时显示“邀请至队伍”"
 }

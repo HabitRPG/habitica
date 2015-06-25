@@ -10,8 +10,8 @@
     "alexander": "Alexander o Comerciante",
     "welcomeMarket": "Bem-vindo ao Mercado! Compre ovos e poções difíceis de encontrar! Venda seus extras! Encomende serviços úteis! Veja ver o que temos para oferecer.",
     "sellForGold": "Vender <%= item %> por <%= gold %> Ouro",
-    "sellEggForGold": "Sell <%= itemType %> Egg for <%= gold %> Gold",
-    "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
+    "sellEggForGold": "Vender <%= itemType %> Ovo por <%= gold %> Ouro",
+    "sellPotionForGold": "Vender <%= itemType %> Porção por <%= gold %> Ouro",
     "buyGems": "Comprar Gemas",
     "justin": "Justin",
     "USD": "USD",
@@ -65,14 +65,14 @@
     "tourDailiesBrief": "<strong>Daily Tasks</strong><ul><li>Dailies repeat every day.</li><li>You lose Health if you skip Dailies.</li></ul>",
     "tourDailiesProceed": "I'll be careful!",
     "tourHabitsBrief": "<strong>Good & Bad Habits</strong><ul><li>Good Habits award Gold & Experience.</li><li>Bad Habits make you lose Health.</li></ul>",
-    "tourHabitsProceed": "Makes sense!",
+    "tourHabitsProceed": "Faz sentido!",
     "tourRewardsBrief": "<strong>Reward List</strong><ul><li>Spend your hard-earned Gold here!</li><li>Purchase Equipment for your avatar, or set custom Rewards.</li></ul>",
-    "tourRewardsProceed": "That's all!",
+    "tourRewardsProceed": "Isso é tudo!",
     "welcomeToHabit": "Welcome to HabitRPG, a game to improve your life!",
     "welcome1": "Create and customize an in-game avatar to represent you.",
     "welcome2": "Your real-life tasks affect your avatar's Health (HP), Experience (XP), and Gold!",
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
     "welcome5": "Now you'll customize your avatar and set up your tasks...",
-    "imReady": "I'm Ready!"
+    "imReady": "Estou pronto!"
 }

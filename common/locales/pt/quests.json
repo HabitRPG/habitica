@@ -1,8 +1,8 @@
 {
     "quests": "Missões",
     "quest": "missão",
-    "questDetails": "Quest Details",
-    "invitations": "Invitations",
+    "questDetails": "Detalhes da Missão",
+    "invitations": "Convites",
     "completed": "Completo!",
     "youReceived": "Você Recebeu",
     "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",

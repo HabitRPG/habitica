@@ -3,7 +3,7 @@
     "subscriptions": "購読",
     "subDescription": "広告を無効にする、ゴールドでジェムを購入する、毎月の不思議なアイテム、進展履歴の維持、毎日のドロップ獲得を倍にする、開発者のサポート、詳細な情報はをクリックしてください。",
     "disableAds": "広告を無効にする",
-    "disableAdsText": "Ads are disabled while you have an active subscription (original donors are grandfathered).",
+    "disableAdsText": "あなたの購読が有効な間、広告は無効になります (広告が無効にされている元のユーザは適用除外)",
     "buyGemsGold": "ジェムをゴールドで購入",
     "buyGemsGoldText": "Alexander the Merchant will sell you gems at a cost of <%= gemCost %> gold per gem. His monthly shipments are initially capped at <%= gemLimit %> gems per month, but this cap increases by 5 gems for every three months of consecutive subscription, up to a maximum of 50 gems per month!",
     "retainHistory": "完全な履歴エントリーの保持",

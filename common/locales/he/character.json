@@ -142,9 +142,9 @@
     "unequipPetMountBackground": "הסר את חיית המחמד, חיית הרכיבה ותמונת הרקע",
     "animalSkins": "עורות דמוי בע״ח",
     "chooseClassHeading": "בחר את המקצוע שלך! או דחה את הבחירה לשלב מאוחר יותר.",
-    "warriorWiki": "<a href='http://habitrpg.wikia.com/wiki/Warrior' target='_blank'>Warrior</a>",
-    "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
-    "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Rogue</a>",
-    "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Healer</a>",
+    "warriorWiki": "<a href='http://habitrpg.wikia.com/wiki/Warrior' target='_blank'לוחם</a>",
+    "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>מכשף</a>",
+    "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>נוכל</a>",
+    "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>מרפא</a>",
     "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>מידע נוסף לגבי מקצועות</a>"
 }
