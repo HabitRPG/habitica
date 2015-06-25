@@ -78,6 +78,7 @@ function($rootScope, User, $http, Content) {
     Payments.amazonPayments.modal = null;
     Payments.amazonPayments.type = null;
     Payments.amazonPayments.loggedIn = false;
+    Payments.amazonPayments.gift = null;
     Payments.amazonPayments.orderReferenceId = null;
     Payments.amazonPayments.billingAgreementId = null;
     Payments.amazonPayments.paymentSelected = false;
@@ -85,9 +86,16 @@ function($rootScope, User, $http, Content) {
   };
 
   // Needs to be called everytime the modal/router is accessed
-  Payments.amazonPayments.init = function(type){
+  Payments.amazonPayments.init = function(type, gift, giftedTo){
+    if(gift){
+      if(gift.gems && gift.gems.amount && gift.gems.amount <= 0) return;
+      gift.uuid = giftedTo;
+    }
+
     if(!isAmazonReady) return;
     if(type !== 'donation' && type !== 'subscription') return;
+
+    Payments.amazonPayments.gift = gift;
     Payments.amazonPayments.type = type;
 
     var modal = Payments.amazonPayments.modal = $rootScope.openModal('amazonPayments', {
@@ -195,9 +203,12 @@ function($rootScope, User, $http, Content) {
   Payments.amazonPayments.checkout = function(){
     if(Payments.amazonPayments.type === 'donation'){
       var url = '/amazon/checkout'
-      $http.post(url, {orderReferenceId: Payments.amazonPayments.orderReferenceId}).success(function(){
-        console.log(arguments);
+      $http.post(url, {
+        orderReferenceId: Payments.amazonPayments.orderReferenceId,
+        gift: Payments.amazonPayments.gift
+      }).success(function(){
         Payments.amazonPayments.reset();
+        window.location.reload(true);
       }).error(function(res){
         alert(res.err);
         Payments.amazonPayments.reset();
