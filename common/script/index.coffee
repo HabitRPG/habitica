@@ -80,24 +80,21 @@ api.daysSince = (yesterday, options = {}) ->
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
   return false unless dailyTask.type == 'daily'
-  if !dailyTask.startDate
-    dailyTask.startDate = moment()
-  # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it:
-  dailyTask.startDate = moment(dailyTask.startDate).startOf('day');
-
   o = sanitizeOptions options
   startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)  # a moment()
 
-  # Work out if the Daily's Start Date is in the future.
-  # Since we are ignoring the time portion of Start Date, we must also ignore the time portion of the user's day start.
-  # (NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.)
-  if dailyTask.startDate > startOfDayWithCDSTime.startOf('day')
+  # Work out if the Daily's Start Date (taskStartDate) is in the future.
+  # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
+  # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
+  # NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+  taskStartDate = moment(dailyTask.startDate || now()).startOf('day');
+  if taskStartDate > startOfDayWithCDSTime.startOf('day')
     return false # Daily starts in the future
 
   if dailyTask.frequency == 'daily' # "Every X Days"
     if !dailyTask.everyX
       return false # error condition
-    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(dailyTask.startDate, 'days')
+    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days')
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
     return everyXCheck
   else if dailyTask.frequency == 'weekly' # "On Certain Days of the Week"
