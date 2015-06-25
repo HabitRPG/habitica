@@ -215,7 +215,25 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       var gems = User.user.balance * 4;
 
-      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'back') ? window.env.t('back') : (type == 'body') ? window.env.t('body') : (type == 'headAccessory') ? window.env.t('headAccessory') : (type == 'eyewear') ? window.env.t('eyewear') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // FIXME this is ugly but temporary, once the purchase modal is done this will be removed
+
+
+      var equipmentList = {
+        'weapon': window.env.t('weapon'),
+        'armor' : window.env.t('armor'),
+        'head' : window.env.t('headgear'),
+        'shield' : window.env.t('offhand'),
+        'back' : window.env.t('back'),
+        'body' : window.env.t('body'),
+        'headAccessory' : window.env.t('headAccessory'),
+        'eyewear' : window.env.t('eyewear'),
+        'hatchingPotions' : window.env.t('hatchingPotion'),
+        'eggs' : window.env.t('eggSingular'),
+        'quests' : window.env.t('quest'),
+        'Saddle' : window.env.t('foodSaddleText').toLowerCase()
+      };
+
+      var string = (type in equipmentList) ? string = equipmentList.type : string = type;
+      // var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'back') ? window.env.t('back') : (type == 'body') ? window.env.t('body') : (type == 'headAccessory') ? window.env.t('headAccessory') : (type == 'eyewear') ? window.env.t('eyewear') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // FIXME this is ugly but temporary, once the purchase modal is done this will be removed
 
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
       if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield' || type == 'headAccessory' || type == 'body' || type == 'back' || type == 'eyewear' ) {
