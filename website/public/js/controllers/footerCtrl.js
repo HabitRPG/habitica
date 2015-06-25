@@ -24,7 +24,9 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
   $scope.deferredScripts = function(){
 
     // Amazon Payments
-    $.getScript('https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js');
+    var amazonPaymentsUrl = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/' +
+                        (window.env.NODE_ENV === 'production' ? 'sandbox/' : '') + 'js/Widgets.js';
+    $.getScript(amazonPaymentsUrl);
 
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
