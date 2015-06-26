@@ -11,7 +11,7 @@
     "welcomeMarket": "Witaj na Targu! Tu kupisz rzadkie jaja oraz eliksiry! Sprzedasz nadmiar towaru! Zamówisz usługi! Zobacz, co dla Ciebie mamy.",
     "sellForGold": "Sprzedaj <%= item %> za <%= gold %> Złota",
     "sellEggForGold": "Sprzedaj <%= itemType %> jajo za <%= gold %> złota",
-    "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
+    "sellPotionForGold": "Sprzedaj <%= itemType %> eliksir za <%= gold %> złota",
     "buyGems": "Kup Klejnoty",
     "justin": "Justin",
     "USD": "USD",
@@ -56,7 +56,7 @@
     "tourPetsPage": "This is the Stable! After level 4, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 4, and they'll grow into powerful mounts.",
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. (Pets, mounts, and food are available after level 4.) Click a mount to saddle up!",
     "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your stats. If you want to show different Equipment on your avatar without changing your stats, click \"Enable Costume.\"",
-    "tourOkay": "Okay!",
+    "tourOkay": "Oki!",
     "tourAwesome": "Świetnie!",
     "tourSplendid": "Wspaniale!",
     "tourNifty": "Sprytnie!",
@@ -67,12 +67,12 @@
     "tourHabitsBrief": "<strong>Good & Bad Habits</strong><ul><li>Good Habits award Gold & Experience.</li><li>Bad Habits make you lose Health.</li></ul>",
     "tourHabitsProceed": "Makes sense!",
     "tourRewardsBrief": "<strong>Reward List</strong><ul><li>Spend your hard-earned Gold here!</li><li>Purchase Equipment for your avatar, or set custom Rewards.</li></ul>",
-    "tourRewardsProceed": "That's all!",
+    "tourRewardsProceed": "To wszystko!",
     "welcomeToHabit": "Welcome to HabitRPG, a game to improve your life!",
     "welcome1": "Create and customize an in-game avatar to represent you.",
     "welcome2": "Your real-life tasks affect your avatar's Health (HP), Experience (XP), and Gold!",
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
     "welcome5": "Now you'll customize your avatar and set up your tasks...",
-    "imReady": "I'm Ready!"
+    "imReady": "Jestem gotów!"
 }

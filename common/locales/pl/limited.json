@@ -24,8 +24,8 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Siena Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezonowe Czary<%= linkEnd %>",
     "seasonalShopClosedText": "Sklepik sezonowy jest zamknięty! Nie wiemy gdzie obecnie znajduje się Sezonowa Wróżka, ale na pewno zjawi się na kolejną <%= linkStart %>Wielką Galę<%= linkEnd %>!",
-    "seasonalShopText": "Witaj w Sezonowym Sklepiku!! Aktualnie mamy na składzie wiosenne przedmioty z <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Sezonowej Edycji</a>. Wszystkie będą dostępne w sprzedaży co roku podczas wydarzenia Wiosenne Szaleństwo, lecz Sklepik będzie czynny do 30 kwietnia. Zrób odpowiednie zapasy, inaczej będziesz zmuszony czekać cały rok, aby móc kupić te przedmioty ponownie!",
-    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
+    "seasonalShopText": "Witaj w Sezonowym Sklepiku!! Aktualnie mamy na składzie wiosenne przedmioty z <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Edycji sezonowej</a>. Wszystko dostępne tutaj będzie w sprzedaży co roku podczas Wiosennego Szaleństwa, , lecz będziemy otwarci tylko do 30 kwietnia. Zrób więc teraz odpowiednie zapasy, inaczej będziesz zmuszony czekać cały rok, aby móc kupić te przedmioty ponownie!",
+    "seasonalShopSummerText": "Witaj w Sezonowym Sklepiku!! Aktualnie mamy na składzie letnie przedmioty z <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Edycji sezonowej</a>. Wszystko dostępne tutaj będzie w sprzedaży co roku podczas Letniego Plusku, lecz będziemy otwarci tylko do 31 lipca. Zrób więc teraz odpowiednie zapasy, inaczej będziesz zmuszony czekać cały rok, aby móc kupić te przedmioty ponownie!",
     "seasonalShopRebirth": "Jeśli użyłeś Kuli Odrodzenia, możesz ponownie kupić wyposażenie w dziale nagród po odblokowaniu sklepiku. Na początku będziesz mógł nabyć tylko ekwipunek dla swojej obecnej klasy (domyślnie to Wojownik), ale nie martw się, przedmioty należące do innych klas pojawią się, kiedy zmienisz klasę.",
     "candycaneSet": "Cukierkowa laska (Mag)",
     "skiSet": "Narto-bójca (Łotrzyk)",
@@ -46,8 +46,8 @@
     "magicMouseSet": "Magiczna myszka (Mag)",
     "lovingPupSet": "Kochane szczenię (Uzdrowiciel)",
     "stealthyKittySet": "Skradający się kotek (Łotrzyk)",
-    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
-    "emeraldMermageSet": "Emerald Mermage (Mage)",
-    "reefSeahealerSet": "Reef Seahealer (Healer)",
-    "roguishPirateSet": "Roguish Pirate (Rogue)"
+    "daringSwashbucklerSet": "Śmiały Zawadiaka (Wojownik)",
+    "emeraldMermageSet": "Szmaragdowy Syremagik (Mag)",
+    "reefSeahealerSet": "Koralowy Morskozdrowiciel (Uzdrowiciel)",
+    "roguishPirateSet": "Psotliwy Pirat (Łotrzyk)"
 }
