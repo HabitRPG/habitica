@@ -3,7 +3,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.cl
   h5= '- ' + env.t('or') + ' -'
   select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', style='display:block')
     option(value='')
-    option(ng-repeat='u in closingChal.members', value='{{u._id}}') {{u.profile.name}}
+    option(ng-repeat='u in closingChal.members track by $index', value='{{u._id}}') {{u.profile.name}}
 
   .text-right
     small.btn-link(ng-click='cancelClosing(closingChal)')=env.t('cancel')
@@ -56,7 +56,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
   // Accordion version if we choose that instead
   //- div(ng-if='challenge.members')
     h4=env.t('hows')
-    .accordion-group(bindonce='challenge.members', ng-repeat='member in challenge.members')
+    .accordion-group(bindonce='challenge.members', ng-repeat='member in challenge.members track by $index')
       .accordion-heading
         a.accordion-toggle(ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
       .accordion-body(ng-class='{collapse: $stateParams.uid != member._id}')
@@ -74,7 +74,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             a.btn.btn-xs.btn-default.pull-left(ng-click='selectAll()')=env.t('all')
             a.btn.btn-xs.btn-default(ng-click='selectNone()')=env.t('none')
           br
-          .checkbox(ng-repeat='group in groupsFilter')
+          .checkbox(ng-repeat='group in groupsFilter track by $index')
             label
               input(type='checkbox', ng-model='search.group[group._id]')
               | {{group.name}}

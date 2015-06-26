@@ -26,7 +26,7 @@ script(type='text/ng-template', id='modals/showQuest.html')
           strong=env.t('bossStrength') + ': '
           | {{::selectedQuest.boss.str}}
       div(ng-if='::selectedQuest.collect')
-        p(ng-repeat='(k,v) in ::selectedQuest.collect')
+        p(ng-repeat='(k,v) in ::selectedQuest.collect track by $index')
           strong=env.t('collect') + ': '
           | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}} 
 
@@ -55,7 +55,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
           strong=env.t('bossStrength') + ': '
           | {{::selectedQuest.boss.str}}
       div(ng-if='::selectedQuest.collect')
-        p(ng-repeat='(k,v) in ::selectedQuest.collect')
+        p(ng-repeat='(k,v) in ::selectedQuest.collect track by $index')
           strong=env.t('collect') + ': '
           | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}} 
     div(ng-bind-html='::selectedQuest.notes()')
@@ -80,7 +80,7 @@ script(type='text/ng-template', id='modals/questInvitation.html')
           strong=env.t('bossStrength') + ': '
           | {{::Content.quests[party.quest.key].boss.str}}
       div(ng-if='::Content.quests[party.quest.key].collect')
-        p(ng-repeat='(k,v) in ::Content.quests[party.quest.key].collect')
+        p(ng-repeat='(k,v) in ::Content.quests[party.quest.key].collect track by $index')
           strong=env.t('collect') + ': '
           | {{::Content.quests[party.quest.key].collect[k].count}} {{::Content.quests[party.quest.key].collect[k].text()}} 
     div(ng-bind-html='::Content.quests[party.quest.key].notes()')

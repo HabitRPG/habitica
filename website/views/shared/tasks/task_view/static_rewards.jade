@@ -1,5 +1,5 @@
 ul.items.rewards(ng-if='main && list.type=="reward"')
-  li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.key == "armoire" && !user.flags.armoireEmpty ? env.t("armoireNotesFull") + armoireCount(user.items.gear.owned) : item.notes()}}')
+  li.task.reward-item(ng-repeat='item in itemStore track by $index',popover-trigger='mouseenter', popover-placement='top', popover='{{item.key == "armoire" && !user.flags.armoireEmpty ? env.t("armoireNotesFull") + armoireCount(user.items.gear.owned) : item.notes()}}')
     // right-hand side control buttons
     .task-meta-controls
       span.task-notes

@@ -76,7 +76,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         th=env.t('title')
         th=env.t('contributions')
     tbody
-      tr(ng-repeat='hero in heroes')
+      tr(ng-repeat='hero in heroes track by $index')
         td
           span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
             a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)')
@@ -98,7 +98,7 @@ script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
         th(ng-if='user.contributor.admin')=env.t('UUID')
         th=env.t('backerTier')
     tbody
-      tr(ng-repeat='patron in patrons')
+      tr(ng-repeat='patron in patrons track by $index')
         td
           a.label.label-default(ng-class='userLevelStyle(patron)', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
         td(ng-if='user.contributor.admin') {{patron._id}}

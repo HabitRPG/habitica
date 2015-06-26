@@ -62,7 +62,7 @@ mixin customizeProfile(mobile)
           span(ng-hide='#{showPath("user.items.gear.owned", gearGroup("animal"), "&&")}')
             +gemCost(2)
               button.btn.btn-xs(ng-click='#{unlockPath("items.gear.owned", gearGroup("animal"))}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-          button.customize-option(ng-repeat='item in ::getGearArray("animal")' ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}", popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='{{::item.key}}')
+          button.customize-option(ng-repeat='item in ::getGearArray("animal") track by $index' ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}", popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='{{::item.key}}')
 
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')

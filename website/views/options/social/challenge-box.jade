@@ -8,7 +8,7 @@
   .panel-body.modal-fixed-height(bindonce='group.challenges')
     div(ng-if='group.challenges.length > 0')
       table.table.table-striped
-        tr(ng-repeat='challenge in group.challenges')
+        tr(ng-repeat='challenge in group.challenges track by $index')
           td
             a(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
     div(ng-if='group.challenges.length == 0')

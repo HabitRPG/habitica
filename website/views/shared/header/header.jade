@@ -35,5 +35,5 @@
       button.party-invite.pull-right.btn.btn-primary(ng-click="inviteOrStartParty(group)",
         ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1",
         popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")=env.t("inviteFriends")
-      .herobox-wrap(ng-repeat='profile in partyMinusSelf')
+      .herobox-wrap(ng-repeat='profile in partyMinusSelf track by $index')
         +herobox()

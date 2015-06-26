@@ -1,6 +1,6 @@
 mixin chatMessages(inbox)
   ul.list-unstyled.tavern-chat
-    - var ngRepeat = inbox ? 'message in user.inbox.messages | toArray:true | orderBy:"sort":true' : 'message in group.chat track by message.id'
+    - var ngRepeat = inbox ? 'message in user.inbox.messages track by $index | toArray:true | orderBy:"sort":true' : 'message in group.chat track by message.id'
     li.chat-message(ng-repeat=ngRepeat, ng-class=':: {highlight: isUserMentioned(user,message) || message.uuid=="system", "own-message": user._id == message.uuid}', ng-if="!message.flagCount || message.flagCount < 2 || user.contributor.admin")
       span.pull-right.text-danger(ng-if="user.contributor.admin && message.flagCount > 0")
         | {{message.flagCount > 1 ? "Message Hidden" : "1 flag"}}

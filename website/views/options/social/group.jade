@@ -101,7 +101,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 
           h4(ng-show='group.invites.length > 0')=env.t('invited')
           table.table.table-striped
-            tr(ng-repeat='invite in group.invites')
+            tr(ng-repeat='invite in group.invites track by $index')
               td.media
                 // allow leaders to ban members
                 div.pull-left(ng-show='group.leader._id == user.id')

@@ -188,7 +188,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.social.party', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
-              li(ng-repeat='guild in user.invitations.guilds')
+              li(ng-repeat='guild in user.invitations.guilds track by $index')
                 a(ui-sref='options.social.guilds.public', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
@@ -196,7 +196,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ui-sref='options.profile.stats', ng-click='expandMenu(null)')
                   span.glyphicon.glyphicon-plus-sign
                   span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
-              li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
+              li(ng-repeat='(k,v) in user.newMessages track by $index', ng-if='v.value')
                 a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}

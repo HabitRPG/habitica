@@ -2,7 +2,7 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
   hr
   h5 {{::header}}
   table.table.table-striped
-    tr(ng-repeat='drop in quest.drop.items')
+    tr(ng-repeat='drop in quest.drop.items track by $index')
       td {{::drop.text()}}
     tr(ng-if='::quest.drop.exp > 0')
       td {{::quest.drop.exp}} 

@@ -22,7 +22,7 @@ script(type='text/ng-template', id='modals/invite-friends.html')
             th=env.t('name')
             th=env.t('email')
         tbody
-          tr(ng-repeat='email in emails')
+          tr(ng-repeat='email in emails track by $index')
             td
               input.form-control(type='text', ng-model='email.name')
             td
