@@ -51,5 +51,14 @@ describe('Task Ordering Filters', function() {
       expect(filter('filterByTextAndNotes')(tasks, 'bar')).to.eql([tasks[1]]);
       expect(filter('filterByTextAndNotes')(tasks, 'foo')).to.eql([tasks[0], tasks[1]]);
     });
+
+    it('filters items by checklists', function () {
+      var tasks = [
+        { text: 'foo' },
+        { text: 'foo', notes: 'bar', checklist: [ {text: "checkListToFind"} ] }
+      ];
+
+      expect(filter('filterByTextAndNotes')(tasks, 'checkListToFind')).to.eql([tasks[1]]);
+    });
   });
 });
