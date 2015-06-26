@@ -29,6 +29,7 @@ unless mobile
       td
         strong {{piece.text()}}:&nbsp;
         span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{env.t(stat)}}&nbsp;
+        span(ng-hide='piece.str || piece.con || piece.per || piece.int')=env.t('noBenefit')
 
 h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped
