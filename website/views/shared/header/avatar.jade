@@ -22,27 +22,22 @@ mixin avatar(opts)
     span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust && !profile.stats.buffs.shinySeed')
 
       // Back Accessory
-      span(class='{{profile.items.gear.equipped.back}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.back}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.back}}' : '{{profile.items.gear.equipped.back}}'")
 
       // Avatar
-      span(class='skin_{{profile.preferences.skin}}', ng-if='!profile.preferences.sleep')
-      span(class='skin_{{profile.preferences.skin}}_sleep', ng-if='profile.preferences.sleep')
+      span(ng-class="profile.preferences.sleep ? 'skin_{{profile.preferences.skin}}_sleep' : 'skin_{{profile.preferences.skin}}'")
 
       // Shirt
       span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')
 
       // Armor
-      span(class='{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}' : '{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}'")
 
       //- Cape collar
-      span(class='{{profile.items.gear.equipped.back}}_collar', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.back}}_collar', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.back}}_collar' : '{{profile.items.gear.equipped.back}}_collar'")
 
       // Body
-      span(class='{{profile.items.gear.equipped.body}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.body}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.body}}' : '{{profile.items.gear.equipped.body}}'")
 
       // Hair
       span(class='head_0')
@@ -52,28 +47,22 @@ mixin avatar(opts)
       span(class='hair_beard_{{profile.preferences.hair.beard}}_{{profile.preferences.hair.color}}')
 
       // Eyewear
-      span(class='{{profile.items.gear.equipped.eyewear}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.eyewear}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.eyewear}}' : '{{profile.items.gear.equipped.eyewear}}'")
 
       // Helm
-      span(class='{{profile.items.gear.equipped.head}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.head}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.head}}' : '{{profile.items.gear.equipped.head}}'")
 
       // Head Accessory
-      span(class='{{profile.items.gear.equipped.headAccessory}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.headAccessory}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.headAccessory}}' : '{{profile.items.gear.equipped.headAccessory}}'")
 
       // Flower
       span(class='hair_flower_{{profile.preferences.hair.flower}}')
 
       // Shield
-      span(class='{{profile.items.gear.equipped.shield}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.shield}}', ng-if='profile.preferences.costume')
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.shield}}': '{{profile.items.gear.equipped.shield}}'")
 
       // Weapon
-      span(class='{{profile.items.gear.equipped.weapon}}', ng-if='!profile.preferences.costume')
-      span(class='{{profile.items.gear.costume.weapon}}', ng-if='profile.preferences.costume')
-
+      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.weapon}}': '{{profile.items.gear.equipped.weapon}}'")
 
     // Mount Head
     if !opts.minimal
