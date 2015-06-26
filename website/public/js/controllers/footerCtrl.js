@@ -25,7 +25,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
 
     // Amazon Payments
     var amazonPaymentsUrl = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/' +
-                        (window.env.NODE_ENV === 'production' ? 'sandbox/' : '') + 'js/Widgets.js';
+                        (window.env.NODE_ENV === 'production' ? '' : 'sandbox/') + 'js/Widgets.js';
     $.getScript(amazonPaymentsUrl);
 
     // Stripe
