@@ -49,7 +49,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
   div.container-fluid(style='margin-bottom: 1.5em')
     input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
   table.table.table-striped(style='clear:left;')
-    tr(ng-repeat='group in groups.public track by $index | filter:guildSearch track by group._id')
+    tr(ng-repeat='group in groups.public | filter:guildSearch track by group._id')
       td
         ul.pull-right.challenge-accordion-header-specs
           li='{{::group.memberCount}} ' + env.t('members')
