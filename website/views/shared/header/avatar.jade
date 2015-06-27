@@ -22,7 +22,7 @@ mixin avatar(opts)
     span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust && !profile.stats.buffs.shinySeed')
 
       // Back Accessory
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.back}}' : '{{profile.items.gear.equipped.back}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.back : profile.items.gear.equipped.back")
 
       // Avatar
       span(ng-class="profile.preferences.sleep ? 'skin_{{profile.preferences.skin}}_sleep' : 'skin_{{profile.preferences.skin}}'")
@@ -31,13 +31,13 @@ mixin avatar(opts)
       span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')
 
       // Armor
-      span(ng-class="profile.preferences.costume ? '{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}' : '{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}'")
+      span(ng-class="profile.preferences.costume ? profile.preferences.size + '_' + profile.items.gear.costume.armor : profile.preferences.size + '_' + profile.items.gear.equipped.armor")
 
       //- Cape collar
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.back}}_collar' : '{{profile.items.gear.equipped.back}}_collar'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.back + '_collar' : profile.items.gear.equipped.back + '_collar'")
 
       // Body
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.body}}' : '{{profile.items.gear.equipped.body}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.body : profile.items.gear.equipped.body")
 
       // Hair
       span(class='head_0')
@@ -47,22 +47,22 @@ mixin avatar(opts)
       span(class='hair_beard_{{profile.preferences.hair.beard}}_{{profile.preferences.hair.color}}')
 
       // Eyewear
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.eyewear}}' : '{{profile.items.gear.equipped.eyewear}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.eyewear : profile.items.gear.equipped.eyewear")
 
       // Helm
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.head}}' : '{{profile.items.gear.equipped.head}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.head : profile.items.gear.equipped.head")
 
       // Head Accessory
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.headAccessory}}' : '{{profile.items.gear.equipped.headAccessory}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.headAccessory : profile.items.gear.equipped.headAccessory")
 
       // Flower
       span(class='hair_flower_{{profile.preferences.hair.flower}}')
 
       // Shield
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.shield}}': '{{profile.items.gear.equipped.shield}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.shield: profile.items.gear.equipped.shield")
 
       // Weapon
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.weapon}}': '{{profile.items.gear.equipped.weapon}}'")
+      span(ng-class="profile.preferences.costume ? profile.items.gear.costume.weapon: profile.items.gear.equipped.weapon")
 
     // Mount Head
     if !opts.minimal
