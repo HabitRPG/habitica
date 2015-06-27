@@ -25,7 +25,7 @@ mixin avatar(opts)
       span(ng-class="profile.preferences.costume ? profile.items.gear.costume.back : profile.items.gear.equipped.back")
 
       // Avatar
-      span(ng-class="profile.preferences.sleep ? 'skin_{{profile.preferences.skin}}_sleep' : 'skin_{{profile.preferences.skin}}'")
+      span(ng-class="profile.preferences.sleep ? 'skin_' + profile.preferences.skin + '_sleep' : 'skin_' + profile.preferences.skin")
 
       // Shirt
       span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')
