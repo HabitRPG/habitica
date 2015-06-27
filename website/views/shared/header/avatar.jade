@@ -3,6 +3,9 @@
     Removing it will remove the user's name, but will allow more room for mounts & helms. IMO this is the lesser of two evils, revisit
 //-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.currentPet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
 
+mixin costumeSetting(pref)
+  span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.#{pref}}}' : '{{profile.items.gear.equipped.#{pref}}}'")
+
 mixin avatar(opts)
 
   .character-sprites
@@ -22,7 +25,7 @@ mixin avatar(opts)
     span(ng-if='!profile.stats.buffs.snowball && !profile.stats.buffs.spookDust && !profile.stats.buffs.shinySeed')
 
       // Back Accessory
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.back}}' : '{{profile.items.gear.equipped.back}}'")
+      +costumeSetting('back')
 
       // Avatar
       span(ng-class="profile.preferences.sleep ? 'skin_{{profile.preferences.skin}}_sleep' : 'skin_{{profile.preferences.skin}}'")
@@ -37,7 +40,7 @@ mixin avatar(opts)
       span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.back}}_collar' : '{{profile.items.gear.equipped.back}}_collar'")
 
       // Body
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.body}}' : '{{profile.items.gear.equipped.body}}'")
+      +costumeSetting('body')
 
       // Hair
       span(class='head_0')
@@ -47,22 +50,22 @@ mixin avatar(opts)
       span(class='hair_beard_{{profile.preferences.hair.beard}}_{{profile.preferences.hair.color}}')
 
       // Eyewear
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.eyewear}}' : '{{profile.items.gear.equipped.eyewear}}'")
+      +costumeSetting('eyewear')
 
       // Helm
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.head}}' : '{{profile.items.gear.equipped.head}}'")
+      +costumeSetting('head')
 
       // Head Accessory
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.headAccessory}}' : '{{profile.items.gear.equipped.headAccessory}}'")
+      +costumeSetting('headAccessory')
 
       // Flower
       span(class='hair_flower_{{profile.preferences.hair.flower}}')
 
       // Shield
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.shield}}': '{{profile.items.gear.equipped.shield}}'")
+      +costumeSetting('shield')
 
       // Weapon
-      span(ng-class="profile.preferences.costume ? '{{profile.items.gear.costume.weapon}}': '{{profile.items.gear.equipped.weapon}}'")
+      +costumeSetting('weapon')
 
     // Mount Head
     if !opts.minimal
