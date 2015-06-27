@@ -13,7 +13,7 @@
         span.hint(popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom')
           =env.t('checklist')
       ul(hrpg-sort-checklist)
-        li(ng-repeat='item in task.checklist')
+        li(ng-repeat='item in task.checklist track by $index')
           //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
           //-,ng-blur='saveTask(task,true)')
           span.checklist-icon.glyphicon.glyphicon-resize-vertical

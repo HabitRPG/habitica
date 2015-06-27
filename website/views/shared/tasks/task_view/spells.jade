@@ -10,7 +10,7 @@ ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowb
 
 // Spells
 ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-  li.task.reward-item(ng-repeat='(k,skill) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= skill.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{skill.notes()}}')
+  li.task.reward-item(ng-repeat='(k,skill) in Content.spells[user.stats.class] track by $index', ng-if='user.stats.lvl >= skill.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{skill.notes()}}')
     .task-meta-controls
       span.task-notes
         span.glyphicon.glyphicon-comment

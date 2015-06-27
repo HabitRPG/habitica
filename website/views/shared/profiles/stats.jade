@@ -25,10 +25,10 @@ table.table.table-striped
 unless mobile
   h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
-    tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+    tr(ng-repeat='(k,v) in profile.items.gear.equipped track by $index', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
       td
         strong {{piece.text()}}:&nbsp;
-        span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
+        span(ng-repeat='stat in ["str","con","per","int"] track by $index', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
 
 h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped

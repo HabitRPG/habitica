@@ -14,7 +14,7 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
     textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == 'habitrpg' ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
     span.user-list
       ul.list-at-user(ng-show="query")
-        li(ng-repeat='msg in response | filter:filterUser | limitTo: 5', ng-click='performCompletion(msg)')
+        li(ng-repeat='msg in response | filter:filterUser | limitTo: 5 track by $index', ng-click='performCompletion(msg)')
           span.username.label.label-default(ng-class=':: userLevelStyle(msg)') {{::msg.user}}
   .chat-controls.clearfix
     .chat-buttons

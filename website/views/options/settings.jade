@@ -205,7 +205,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
               th Webhook URL
               th
           tbody
-            tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
+            tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort' track by $index")
               td
                 input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook.$key,webhook)')
               td
@@ -320,7 +320,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
               li Mystic Hourglasses: {{user.purchased.plan.consecutive.trinkets}}
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           .form-group
-            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"')
+            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months" track by $index')
               label
                 input(type="radio", name="subRadio", ng-value="block.key", ng-model='_subscription.key')
                 span(ng-show='block.original')

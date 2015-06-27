@@ -30,6 +30,6 @@
 
   div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')
     fieldset.option-group.task-checklist
-      label.checkbox(ng-repeat='item in task.checklist')
+      label.checkbox(ng-repeat='item in task.checklist track by $index')
         input(type='checkbox', ng-model='item.completed', ng-change='saveTask(task,true)')
         markdown(text='item.text', target='_blank')
