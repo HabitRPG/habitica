@@ -1922,7 +1922,7 @@ api.subscriptionBlocks =
   basic_12mo: months:12, price:48
 _.each api.subscriptionBlocks, (b,k)->b.key = k
 
-repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
+# repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
     {type: 'habit', text: t('defaultHabit1Text'), value: 0, up: true, down: false, attribute: 'per' }
