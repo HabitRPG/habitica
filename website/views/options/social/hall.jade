@@ -8,8 +8,7 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
         =env.t('hallPatrons')
   ul.options-blurbmenu
       span(data-ng-show="$state.includes('options.social.hall.heroes')")
-         =env.t('blurbHallHeroes') 
-           a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('blurbHallHeroesLink')
+         li!=env.t('blurbHallHeroes')
       span(data-ng-show="$state.includes('options.social.hall.patrons')")
          =env.t('blurbHallPatrons')
 
