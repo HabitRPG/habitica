@@ -309,6 +309,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return message.highlight;
     }
 
+    $scope.togglehidingSystemMessages = function() {
+      // Intentionally flip the boolean state
+      $scope.hideSystemMessages = $scope.hideSystemMessages ? false : true;
+    }
+
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
