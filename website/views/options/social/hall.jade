@@ -6,6 +6,12 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
     li(ng-class="{ active: $state.includes('options.social.hall.patrons') }")
       a(ui-sref='options.social.hall.patrons')
         =env.t('hallPatrons')
+  ul.options-blurbmenu
+      span(data-ng-show="$state.includes('options.social.hall.heroes')")
+         =env.t('blurbHallHeroes') 
+           a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('blurbHallHeroesLink')
+      span(data-ng-show="$state.includes('options.social.hall.patrons')")
+         =env.t('blurbHallPatrons')
 
   .tab-content
     .tab-pane.active
