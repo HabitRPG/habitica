@@ -316,7 +316,9 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
     classes += ' habit-wide' if task.down and task.up
     classes += ' habit-narrow' if !task.down and !task.up
 
-  if priority == 1
+  if priority == 0.1
+    classes += ' difficulty-trivial'
+  else if priority == 1
     classes += ' difficulty-easy'
   else if priority == 1.5
     classes += ' difficulty-medium'
