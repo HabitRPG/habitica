@@ -151,6 +151,5 @@
     "str": "STR",
     "con": "CON",
     "per": "PER",
-    "int": "INT",
-    "noBenefit": "Confers no benefit"
+    "int": "INT"
 }
