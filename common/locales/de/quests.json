@@ -1,9 +1,11 @@
 {
     "quests": "Quests",
     "quest": "Quest",
+    "questDetails": "Quest-Details",
+    "invitations": "Einladungen",
     "completed": "Erfüllt!",
     "youReceived": "Du hast folgendes erhalten:",
-    "questSend": "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an Deine Gruppenmitglieder. Wenn alle Mitglieder angenommen oder abgelehnt haben beginnt das Quest. Statusabfrage unter Optionen > Soziales > Gruppe.",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "Gruppe einladen",
     "questInvitation": "Quest Einladung:",
     "questInvitationTitle": "Quest-Einladung",

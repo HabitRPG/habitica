@@ -202,5 +202,11 @@
     "questSheepBoss": "Donderram",
     "questSheepCompletion": "Onder de indruk van je ijver, wordt de Donder Ram ontdaan van zijn razernij. Hij lanceert drie grote hagelstenen in jouw richting, en vervaagt dan met een laag gerommel. Als je een tweede blik werpt, ontdek je dat de hagelstenen eigenlijk drie pluizige eieren zijn. Je verzamelt ze, en wandelt dan naar huis onder een blauwe lucht.",
     "questSheepDropSheepEgg": "Schaap (ei)",
-    "questSheepUnlockText": "Maakt het kopen van schapeneieren in de markt mogelijk"
+    "questSheepUnlockText": "Maakt het kopen van schapeneieren in de markt mogelijk",
+    "questKrakenText": "De Kraken van Incompleet",
+    "questKrakenNotes": "Het is een warme zonnige dag wanneer je langs Baai Incompleet vaart, maar je gedachten worden vertroebeld door de zorgen over wat je allemaal nog moet doen. Het lijkt erop dat, wanneer je de ene Taak af hebt, er een andere verschijnt en zo maar door... <br><br> Plotseling schokt de boot hevig en slijmerige tentakels barsten aan alle kanten uit het water! \"We worden aangevallen door de Kraken van Incompleet!\" roept Wolvenhalo. <br><br> \"Snel!\" roept Lemoness naar je. \"Sla zoveel mogelijk tentakels en Taken neer als je kunt, voordat er nieuwe verschijnen om hun plaats in te nemen!\"",
+    "questKrakenBoss": "De Kraken van Incompleet",
+    "questKrakenCompletion": "Terwijl de Kraken vlucht, drijven er een paar eieren naar het wateroppervlak. Lemoness onderzoekt ze en haar achterdocht verandert in verrukking. \"Inktviseieren!\" zegt ze. \"Hier, neem ze als beloning voor alles dat je hebt afgemaakt.\"",
+    "questKrakenDropCuttlefishEgg": "Inktvis (Ei)",
+    "questKrakenUnlockText": "Maakt het kopen van inktviseieren in de markt mogelijk"
 }

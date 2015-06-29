@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %> 季節魔女 <%= linkEnd %>",
     "seasonalShopClosedText": "季節限定商店目前沒有營業！我不知道店主人在哪，不過我想下個<%= linkStart %>Grand Gala<%= linkEnd %>!他會回來的。",
     "seasonalShopText": "歡迎來到季節限定商店！！我們正要把春天 <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a> 的商品上架呢。這裡的每樣物品都會在每年歡慶春日的時節開放購買，但只到四月30日為止，所以趕快趁現在採購，不然你可得等到明年才能再買囉。",
+    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "如果你用過重生球，你可以在解鎖物品商店後在獎勵欄再次購買它。起初，你只能為你當前職業購買裝備(默認戰士)，別擔心，如果你切換到別的職業，你將可以購買該職業的特別物品。",
     "candycaneSet": "拐杖糖 ( 法師 )",
     "skiSet": "滑雪杖 ( 盜賊 )",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "強力兔子 ( 戰士 )",
     "magicMouseSet": "魔法老鼠 ( 法師 )",
     "lovingPupSet": "可愛小狗 ( 醫者 )",
-    "stealthyKittySet": "隱身小貓 ( 盜賊 )"
+    "stealthyKittySet": "隱身小貓 ( 盜賊 )",
+    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
+    "emeraldMermageSet": "Emerald Mermage (Mage)",
+    "reefSeahealerSet": "Reef Seahealer (Healer)",
+    "roguishPirateSet": "Roguish Pirate (Rogue)"
 }

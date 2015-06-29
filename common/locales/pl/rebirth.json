@@ -21,11 +21,5 @@
     "rebirthOrb": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu",
     "rebirthPop": "Stwórz nową postać na Poziomie 1 zachowując osiągnięcia, przedmioty kolekcjonerskie oraz zadania wraz z historią.",
     "rebirthName": "Kula Odrodzenia",
-    "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>",
-    "welcome100": "Witaj na poziomie 100!",
-    "intro100": "Teraz gdy już dotarłeś do poziomu 100, masz możliwość użycia Kuli Odrodzenia w dowolnej chwili za darmo.",
-    "followup100": "Chociaż nadal możesz zdobywać poziomy, nie będą już one podwyższały twoich atrybutów ani nie odblokujesz żadnych nowych elementów, aby Habit był ciekawy dla ludzi preferujących różne style gry.",
-    "rebirth100Info": "Jeśli jesteś gotów rozpocząć nową przygodę, możesz Odrodzić się teraz... lub sprawdzić o ile dalej leżą granice Twojej wytrzymałości.",
-    "rebirthWait": "Jeszcze poczekam...",
-    "rebirthNow": "Odrodź mnie teraz!"
+    "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>"
 }

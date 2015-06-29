@@ -113,10 +113,11 @@
     "benefits": "好处",
     "coupon": "优惠券",
     "couponPlaceholder": "输入优惠券代码",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "申请",
     "resubscribe": "重新订阅",
     "promoCode": "优惠码",
     "promoCodeApplied": "优惠码已生效！请查看物品栏",
-    "promoPlaceholder": "输入优惠码"
+    "promoPlaceholder": "输入优惠码",
+    "displayInviteToPartyWhenPartyIs1": "当队伍有1名成员时显示“邀请至队伍”"
 }

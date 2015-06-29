@@ -16,7 +16,7 @@
     "selectWinner": "Выбрать победителя и закрыть испытание:",
     "deleteOrSelect": "Удалить или выбрать победителя",
     "endChallenge": "Завершить испытание",
-    "challengeDiscription": "These are the Challenge's tasks that will be added to your task dashboard when you join this Challenge. The sample Challenge tasks below will change color and gain graphs to show you the overall progress of the group.",
+    "challengeDiscription": "Это задания, входящие в испытание. После присоединения к испытанию они будут добавлены к списку ваших заданий. Цвет размещенных ниже заданий испытания будет меняться, станут доступны графики, показывающие общие достижения группы.",
     "hows": "Как идут дела?",
     "filter": "Фильтр",
     "groups": "Группы",
@@ -44,7 +44,7 @@
     "selectGroup": "Пожалуйста, выберите группу",
     "challengeCreated": "Испытание создано",
     "sureDelCha": "Вы уверены, что хотите удалить испытание?",
-    "sureDelChaTavern": "Delete challenge, are you sure? Your gems will not be refunded.",
+    "sureDelChaTavern": "Вы уверены, что хотите удалить испытание? Ваши самоцветы не будут возвращены.",
     "removeTasks": "Удалить задания",
     "keepTasks": "Оставить задания",
     "closeCha": "Закрыть испытание и...",
@@ -52,5 +52,7 @@
     "challengedOwnedFilterHeader": "Ownership",
     "challengedOwnedFilter": "Owned",
     "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedEitherOwnedFilter": "Either",
+    "backToChallenges": "Вернуться к списку испытаний",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

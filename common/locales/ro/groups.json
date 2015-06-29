@@ -39,6 +39,8 @@
     "editGroup": "Modifică grup",
     "newGroupName": "Nume: <%= groupType %>",
     "groupName": "Numele grupului",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Descrierea vizibilă în lista publică a Ghildelor (poți folosi Markdown)",
     "logoUrl": "URL logo",
     "assignLeader": "Stabilește liderul grupului",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

@@ -39,6 +39,8 @@
     "editGroup": "Редактировать группу",
     "newGroupName": "Название (<%= groupType %>)",
     "groupName": "Название группы",
+    "groupLeader": "Лидер группы",
+    "groupID": "ID группы",
     "groupDescr": "Описание, которое отображается в списке открытых гильдий (можно использовать Markdown)",
     "logoUrl": "Ссылка на логотип",
     "assignLeader": "Назначить лидера группы",
@@ -109,12 +111,14 @@
     "inviteByEmail": "пригласить друзей по почте. Если они присоединятся по ссылке из вашего письма, они будут автоматически приглашены в эту группу.",
     "byColon": "От:",
     "inviteNewUsers": "Пригласить Новых Пользователей",
-    "inviteAlertInfo2": "Or share this link (copy/paste):",
-    "sendGiftHeading": "Send Gift to <%= name %>",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
-    "sendGiftCost": "Total: $<%= cost %> USD",
+    "inviteAlertInfo2": "Или поделитесь этой ссылкой (Скопировать/Вставить)",
+    "sendGiftHeading": "Отправить Подарок <%= name %>",
+    "sendGiftGemsBalance": "Из <%= number %> Самоцветов",
+    "sendGiftCost": "Всего: $<%= cost %>",
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

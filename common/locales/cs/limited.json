@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %>Sezónní mudrci<%= linkEnd %>",
     "seasonalShopClosedText": "Sezónní obchod je momentálně zavřený!! Nevím, kde se momentálně Sezonní Kouzelnice nachází, ale vsadím se, že bude zpět na další <%= linkStart %>Velkolepé Gala<%= linkEnd %>!",
     "seasonalShopText": "Vítej v Sezonním obchodě! Zrovna tu máme jarní <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Sezonní edici</a> zboží. Všechno zde je možné zakoupit v průběhu Jarního flámu každý rok, ale máme otevřeno pouze do 30. dubna, tak si nakup teď nebo budeš muset čekat další rok!",
+    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Pokud jsi použil Kouli znovuzrození, můžeš si znovu zakoupit toto vybavení ve sloupci s odměnami, jakmile odemkneš Obchod. Ze začátku si budeš moci koupit pouze vybavení pro tvou momentální třídu (výchozí je Válečník), ale neboj, další vybavení pro další třídy bude přístupné jakmile si budeš moci svou třídu vybrat.",
     "candycaneSet": "Cukrátková hůl (mág)",
     "skiSet": "Lyžovrah (zloděj)",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "Mocný Králík (válečník)",
     "magicMouseSet": "Kouzelná Myš (mág)",
     "lovingPupSet": "Milující Štěně (léčitel)",
-    "stealthyKittySet": "Nenápadná Kočka (lupič)"
+    "stealthyKittySet": "Nenápadná Kočka (lupič)",
+    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
+    "emeraldMermageSet": "Emerald Mermage (Mage)",
+    "reefSeahealerSet": "Reef Seahealer (Healer)",
+    "roguishPirateSet": "Roguish Pirate (Rogue)"
 }

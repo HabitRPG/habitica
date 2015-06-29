@@ -202,5 +202,11 @@
     "questSheepBoss": "Hromový beran",
     "questSheepCompletion": "Všechna zloba opouští Hromového berana ohromeného vaší vytrvalostí. Hodí vám k nohám tři velké kroupy a poté za hlasitého zvuku hromu zmizí. Při bližší zkoumání zjistíte, že ty kroupy jsou vlastně tři nadýchaná vejce. Posbíráte je a vydáte se domů pod modrým nebem.",
     "questSheepDropSheepEgg": "Beran (vejce)",
-    "questSheepUnlockText": "Odemyká vejce berana na Trhu"
+    "questSheepUnlockText": "Odemyká vejce berana na Trhu",
+    "questKrakenText": "The Kraken of Inkomplete",
+    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
+    "questKrakenBoss": "The Kraken of Inkomplete",
+    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
+    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
 }

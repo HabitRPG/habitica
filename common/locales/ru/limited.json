@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %>Сезонная Волшебница<%= linkEnd %>",
     "seasonalShopClosedText": "Сезонная лавка сейчас закрыта!! Я не знаю где сейчас Сезонная Чародейка, но она уж точно вернется к следующему большому празднику.",
     "seasonalShopText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары весеннего <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Весенней Веселухи, но мы открыты только до 30 апреля, так что спешите закупиться сейчас, иначе придется ждать целый год!",
+    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Использовав шар возрождения, вы сможете повторно купить это снаряжение в колонке наград после того, как разблокируете лавку предметов. Изначально вы сможете купить только предметы для вашего текущего класса (класс по умолчанию – воин), но не волнуйтесь: после смены класса вам станут доступны другие классовые предметы.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Разбойник)",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "Могучий Кролик (Воин)",
     "magicMouseSet": "Волшебная Мышь (Маг)",
     "lovingPupSet": "Любящий Щенок (Целитель)",
-    "stealthyKittySet": "Скрытная Киса (Разбойник)"
+    "stealthyKittySet": "Скрытная Киса (Разбойник)",
+    "daringSwashbucklerSet": "Дерзкий Головорез (Воин)",
+    "emeraldMermageSet": "Изумрудный Русалколдун (Маг)",
+    "reefSeahealerSet": "Морской Целитель Рифов (Целитель)",
+    "roguishPirateSet": "Коварный Пират (Разбойник)"
 }

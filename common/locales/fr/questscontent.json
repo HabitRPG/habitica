@@ -202,5 +202,11 @@
     "questSheepBoss": "Bélier du Tonnerre",
     "questSheepCompletion": "Impressionné par votre assiduité, le Bélier du Tonnerre voit sa fureur se calmer peu à peu. Il lance trois énormes grêlons dans votre direction et disparaît dans un grondement sourd. En allant voir les grêlons de plus près, vous vous apercevez que ce sont en fait trois œufs doux et floconneux. Vous les ramassez et rentrez chez vous en flânant sous un ciel sans tache.",
     "questSheepDropSheepEgg": "Mouton (Œuf)",
-    "questSheepUnlockText": "Déverrouille l'achat d’œufs de mouton au Marché"
+    "questSheepUnlockText": "Déverrouille l'achat d’œufs de mouton au Marché",
+    "questKrakenText": "Le Kraken d'Inkomplet",
+    "questKrakenNotes": "Par une journée chaude et ensoleillée, vous naviguez à travers la Baie d'Inkomplet, mais votre esprit est obscurci car vous vous inquiétez de tout ce qu'il vous reste encore à faire. Il vous semble qu'à peine une tâche terminée, une autre surgit, puis une autre... <br><br>Soudain, le bateau est horriblement secoué et des tentacules visqueux jaillissent de l'eau de tous côtés! \"Nous sommes attaqués par le Kraken d'Inkomplet!\" s'écrie Wolvenhalo<br><br> \"Vite!\" vous crie Lemoness. \"Abattez autant de tentacules et de tâches que possible avant que d'autres ne s'élèvent pour prendre leur place!\"",
+    "questKrakenBoss": "Le Kraken d'Inkomplet",
+    "questKrakenCompletion": "Alors que le Kraken s'enfuit, plusieurs œufs remontent à la surface. Lemoness les examine et sa méfiance se change bientôt en ravissement. \"Des œufs  de seiche!\", dit-elle. \"Tiens, prends-les en récompense de tout ce que tu as accompli.\"",
+    "questKrakenDropCuttlefishEgg": "Seiche (Œuf) ",
+    "questKrakenUnlockText": "Déverrouille l'achat d’œufs de seiche au Marché"
 }

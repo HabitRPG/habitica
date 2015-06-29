@@ -71,7 +71,7 @@
     "questVice3Completion": "洞穴から影が消えて鋼のような沈黙に包まれました。これは驚いた、あなたはやりました！あなたはバイスを倒しました！あなたとパーティはとうとうほっとして息をつくでしょう。勇敢な習慣者よ、勝利を満喫しバイスと戦う事で学んだ事を習い前に進みましょう。まだこなす習慣があり倒すべき悪い悪魔が潜んでいます。",
     "questVice3Boss": "バイス、影のウィルム",
     "questVice3DropWeaponSpecial2": "Stephen Weberのドラゴンの矢",
-    "questVice3DropDragonEgg": "龍(卵)",
+    "questVice3DropDragonEgg": "ドラゴン(卵)",
     "questVice3DropShadeHatchingPotion": "暗い水薬",
     "questMoonstone1Text": "ムーンストーンチェーン",
     "questMoonstone1Notes": "<p>ひどい苦痛がHabitticanを襲いました。ずっと前に滅んだ悪い習慣が復讐に蘇りつつあります。皿は洗われず、教科書は読まれず放置され、先送りが蔓延しています！</p><br/><p>あなたは戻ってきた悪い習慣をよどみの沼まで追い、容疑者:幽霊のような魔術師レシディベイトを見つけます。あなたは武器を振りかざして突入しますが、彼女の幽霊を無駄にすり抜けます。</p><br/><p>「気にするな」と彼女はガラガラ声で息を漏らします。</p><br/><p>「月の石の鎖がなければ、だれも私を傷つける事はできない、そしてマスタージュエラー@aurakamiがすべての月の石を大昔にHabitica中に散らばせてしまった！」</p><br/>息切れしながらあなたは後退しました...ですがあなたは何をするべきか知っています。",
@@ -177,7 +177,7 @@
     "questTRexUndeadRageTitle": "スケルトンヒーリング",
     "questTRexUndeadRageDescription": "あなたが日課を終えないとこのバーが埋まります。満杯になると骸骨ティラノサウルスは残りの体力の30% o回復します！",
     "questTRexUndeadRageEffect": "`骸骨ティラノサウルスはスケルトンヒーリングを使います！`\n\nこのモンスターはこの世のものとは思えない唸り声をあげて、傷ついた骨を接合しなおしました！",
-    "questTRexDropTRexEgg": "ティラノサウルス　（卵）",
+    "questTRexDropTRexEgg": "ティラノサウルス(卵)",
     "questTRexUnlockText": "市場でのティラノサウルスの卵購入のアンロック",
     "questRockText": "逃げる洞窟生物",
     "questRockNotes": "Habiticaの蛇行山脈を友人たちと乗り越えて、輝く鉱石がレース飾りのようになった美しい洞窟で一晩キャンプしました。しかし翌朝目覚めると、入り口は消え去り、洞穴の床はあなたの下に移動していました。<br><br>「この山は生きている！」とあなたの友人の @pfeffernusseが叫びます。「これは水晶じゃない、歯だ！」<br><br>@Painter de Cluster はあなたの手をつかみます。「私たちは外に出る別の方法を見つけなければならない。私から離れず取り乱さないで、さもないと私たちは永遠にここに閉じ込められます！」",
@@ -202,5 +202,11 @@
     "questSheepBoss": "雷雄羊",
     "questSheepCompletion": "あなたの勤勉さに感銘をうけて、雷雄羊は怒りをおさめます。雷雄羊は3つのおおきなヒョウをあなたの方に放り、低いとどろきと共に消え去ります。近づいて調べると、実際にはヒョウは3つのふわふわした卵であることが分かります。あなたはそれを集め、青い空のした、家へぶらぶらと帰ります。",
     "questSheepDropSheepEgg": "羊(卵)",
-    "questSheepUnlockText": "市場での羊の卵購入のアンロック"
+    "questSheepUnlockText": "市場での羊の卵購入のアンロック",
+    "questKrakenText": "The Kraken of Inkomplete",
+    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
+    "questKrakenBoss": "The Kraken of Inkomplete",
+    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenDropCuttlefishEgg": "コウイカ(卵)",
+    "questKrakenUnlockText": "市場でのコウイカのたまご購入のアンロック"
 }

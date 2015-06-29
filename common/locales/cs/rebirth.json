@@ -21,11 +21,5 @@
     "rebirthOrb": "Použil Kouli znovuzrození, aby začal odznovu po dosažení úrovně",
     "rebirthPop": "Začni s novou postavou na úrovni 1 a přitom si zachovej ocenění, sběratelské předměty a úkoly s historií.",
     "rebirthName": "Koule znovuzrození",
-    "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
-    "welcome100": "Vítejte na úrovni 100!",
-    "intro100": "Teď, když jsi dosáhl úrovně 100, máš možnost kdykoli zdarma používat Kouli znovuzrození.",
-    "followup100": "Můžeš dál zvyšovat svoji úroveň, ale nebude to už zvedat tvoje statistiky a nic nového se ti neodemkne. Zavedli jsme to tak, aby Habitika zůstala zajímavá pro všechny bez ohledu na styl hraní.",
-    "rebirth100Info": "Jsi-li připraven začít nové dobrodružství, můžeš použít Znovuzrození... anebo vyzkoušet, jak daleko se dokážeš dostat.",
-    "rebirthWait": "Počkám...",
-    "rebirthNow": "Zroď se znovu teď!"
+    "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>"
 }

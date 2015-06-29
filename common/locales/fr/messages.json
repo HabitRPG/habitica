@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Votre <%= itemText %> s'est cassé·e.",
     "messageTaskNotFound": "Tâche non trouvée.",
+    "messageDuplicateTaskID": "Il y a déjà une tâche avec ce numéro d'identification (ID).",
     "messageTagNotFound": "Étiquette non trouvée.",
     "messagePetNotFound": ":pet non trouvé dans user.items.pets",
     "messageFoodNotFound": ":food non trouvé dans user.items.food",
@@ -20,5 +21,8 @@
     "messageDropFood": "Vous avez trouvé <%= dropArticle %><%= dropText %> ! <%= dropNotes %>",
     "messageDropEgg": "Vous avez trouvé un Œuf de <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Vous avez trouvé une Potion d’Éclosion <%= dropText %> ! <%= dropNotes %>",
-    "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !"
+    "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !",
+    "armoireEquipment": "<%= image %> Vous avez trouvé une pièce d'équipement rare dans l'Armoire: <%= dropText %>! Génial!",
+    "armoireFood": "<%= image %> Vous farfouillez dans l'Armoire et trouvez <%= dropArticle %><%= dropText %>. Qu'est-ce que ça fait là?",
+    "armoireExp": "Vous luttez contre l'Armoire et gagnez de l'Expérience. Prends ça!"
 }

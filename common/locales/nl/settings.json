@@ -93,7 +93,7 @@
     "wonChallenge": "Je hebt een uitdaging gewonnen!",
     "newPM": "Privébericht ontvangen",
     "giftedGems": "Geschonken edelstenen",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= amount %> edelstenen - van <%= name %>",
     "giftedSubscription": "Geschonken abonnement",
     "invitedParty": "Uitgenodigd voor groep",
     "invitedGuild": "Uitgenodigd voor gilde",
@@ -113,10 +113,11 @@
     "benefits": "Voordelen",
     "coupon": "Kadobon",
     "couponPlaceholder": "Kadocode invoeren",
-    "couponText": "We hebben soms evenementen waarbij we promotiecodes uitdelen voor speciale uitrustingstukken. (Bijvoorbeeld aan mensen die langskomen bij onze Wonderconkraam)",
+    "couponText": "We hebben soms evenementen en geven voucher codes weg voor speciale uitrusting. (Bijv. voor diegenen die stoppen bij onze Wondercon stand)",
     "apply": "Toepassen",
-    "resubscribe": "Opnieuw abonneren",
+    "resubscribe": "Opnieuw lid worden",
     "promoCode": "Promotiecode",
     "promoCodeApplied": "Promotiecode toegepast! Kijk in je boedel",
-    "promoPlaceholder": "Voer Promotiecode in"
+    "promoPlaceholder": "Voer promotiecode in",
+    "displayInviteToPartyWhenPartyIs1": "Toon de 'Uitnodigen voor groep'-knop wanneer de groep 1 lid heeft."
 }

@@ -113,10 +113,11 @@
     "benefits": "Előnyök",
     "coupon": "Kupon",
     "couponPlaceholder": "Írd be a Kupon kódodat",
-    "couponText": "Néha eseményeket tartunk és promóciós kódokat adunk különleges felszerelésekért (például azoknak, akik megállnak a standunknál a Wondercon-on)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Alkalmaz",
     "resubscribe": "Újra feliratkozás",
     "promoCode": "Promóciós kód",
     "promoCodeApplied": "Promóciós kód elfogadva! Ellenőrizd le a tárgylistád",
-    "promoPlaceholder": "Írd be a Promóciós kódodat"
+    "promoPlaceholder": "Írd be a Promóciós kódodat",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

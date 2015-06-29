@@ -56,6 +56,10 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
   moment(o.now).startOf('week')
 
 api.startOfDay = (options={}) ->
+  # This is designed for use with any date that has an important time portion (e.g., when comparing the current date-time with the previous cron's date-time for determing if cron should run now).
+  # It changes the time portion of the date-time to be the Custom Day Start hour, so that the date-time is now the user's correct start of day.
+  # It SUBTRACTS a day if the date-time's original hour is before CDS (e.g., if your CDS is 5am and it's currently 4am, it's still the previous day).
+  # This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
   o = sanitizeOptions(options)
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
   if moment(o.now).hour() < o.dayStart
@@ -75,34 +79,33 @@ api.daysSince = (yesterday, options = {}) ->
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
-  return false unless dailyTask.type == 'daily' && dailyTask.repeat
-  if !dailyTask.startDate
-    dailyTask.startDate = moment().toDate()
-  if dailyTask.startDate instanceof String
-    dailyTask.startDate = moment(dailyTask.startDate).toDate()
+  return false unless dailyTask.type == 'daily'
   o = sanitizeOptions options
-  day = api.startOfDay(_.defaults {now:day}, o)
-  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
+  startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)  # a moment()
 
-  # check if event is today or in the future
-  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+  # Work out if the Daily's Start Date (taskStartDate) is in the future.
+  # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
+  # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
+  # NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+  taskStartDate = moment(dailyTask.startDate || now()).startOf('day');
+  if taskStartDate > startOfDayWithCDSTime.startOf('day')
+    return false # Daily starts in the future
 
-  if dailyTask.frequency == 'daily'
-    daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
+  if dailyTask.frequency == 'daily' # "Every X Days"
+    if !dailyTask.everyX
+      return false # error condition
+    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days')
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
-    return everyXCheck && hasStartedCheck
-  else if dailyTask.frequency == 'weekly'
+    return everyXCheck
+  else if dailyTask.frequency == 'weekly' # "On Certain Days of the Week"
+    if !dailyTask.repeat
+      return false # error condition
+    dayOfWeekNum = startOfDayWithCDSTime.day() # e.g. 0 for Sunday
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
-    return dayOfWeekCheck && hasStartedCheck
+    return dayOfWeekCheck
   else
     # unexpected frequency string
     return false
-
-api.numDaysApart = (day1, day2, o) ->
-  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
-  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
-  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
-  return numDays
 
 ###
   ------------------------------------------------------
@@ -235,7 +238,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
@@ -698,7 +701,7 @@ api.wrap = (user, main=true) ->
         pd.push(item) unless i != -1
 
         cb? null, user.pushDevices
-      
+
       # ------
       # Inbox
       # ------
@@ -1580,7 +1583,7 @@ api.wrap = (user, main=true) ->
           _.merge plan.consecutive, {count:0, offset:0, gemCapExtra:0}
           user.markModified? 'purchased.plan'
 
-      # User is resting at the inn. 
+      # User is resting at the inn.
       # On cron, buffs are cleared and all dailies are reset without performing damage
       if user.preferences.sleep is true
         user.stats.buffs = clearBuffs
@@ -1716,7 +1719,7 @@ api.wrap = (user, main=true) ->
       owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
       user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
       content.classes.forEach (klass) ->
-        if user.achievements.ultimateGearSets[klass] is not true
+        if user.achievements.ultimateGearSets[klass] isnt true
           user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
             found = _.find content.gear.tree[type][klass], {last:true}
             soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)

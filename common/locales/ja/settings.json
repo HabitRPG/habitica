@@ -113,10 +113,11 @@
     "benefits": "便益",
     "coupon": "クーポン",
     "couponPlaceholder": "クーポンコードを入力してください",
-    "couponText": "我々は時々イベントを開催し、特殊装備(たとえばWonderconブースでとめられるような)のプロモコードを配布します。",
+    "couponText": "我々は時々Wonderconブースなどのイベントを開催し、特殊装備のプロモコードを配布します。",
     "apply": "適用",
     "resubscribe": "再購読",
     "promoCode": "プロモコード",
     "promoCodeApplied": "プロモコードが適用されました！所持品を確認してください",
-    "promoPlaceholder": "プロモコードを入力してください"
+    "promoPlaceholder": "プロモコードを入力してください",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

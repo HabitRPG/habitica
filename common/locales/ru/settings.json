@@ -17,7 +17,7 @@
     "showTour": "Показать тур",
     "restartTour": "Запустить ознакомительный тур, который вы видели, когда зарегистрировались на HabitRPG.",
     "showBailey": "Показать Бэйли",
-    "showBaileyPop": "Показать скрывшегося Бэйли «Городского Глашатая», чтобы просмотреть все прежние новости.",
+    "showBaileyPop": "Показать скрывшуюся Бэйли — Городского Глашатая, чтобы просмотреть все прежние новости.",
     "fixVal": "Исправить данные персонажа",
     "fixValPop": "Вручную изменить данные: здоровье, уровень и золото.",
     "enableClass": "Включить систему классов",
@@ -93,7 +93,7 @@
     "wonChallenge": "Вы выиграли испытание",
     "newPM": "Получено личное сообщение",
     "giftedGems": "Подаренные самоцветы",
-    "giftedGemsInfo": "<%= amount %> Gems - by <%= name %>",
+    "giftedGemsInfo": "<%= amount %> самоцветов от <%= name %>",
     "giftedSubscription": "Подписка в подарок",
     "invitedParty": "Приглашен в команду",
     "invitedGuild": "Приглашен в гильдию",
@@ -113,10 +113,11 @@
     "benefits": "Преимущества",
     "coupon": "Промо",
     "couponPlaceholder": "Введите Промо Код",
-    "couponText": "Иногда мы проводим мероприятия и дарим промокоды на особую экипировку (например, тем, кто заглянет на наш стенд на Wondercon)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Применить",
     "resubscribe": "Повторить подписку",
     "promoCode": "Промокод",
     "promoCodeApplied": "Промокод принят! Проверьте инвентарь",
-    "promoPlaceholder": "Введите Промокод"
+    "promoPlaceholder": "Введите Промокод",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

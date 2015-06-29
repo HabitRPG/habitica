@@ -118,5 +118,6 @@
     "resubscribe": "Subskrybuj ponownie",
     "promoCode": "Kod promocyjny",
     "promoCodeApplied": "Zastosowano kod promocyjny! Sprawdź swój ekwipunek",
-    "promoPlaceholder": "Wpisz kod promocyjny"
+    "promoPlaceholder": "Wpisz kod promocyjny",
+    "displayInviteToPartyWhenPartyIs1": "Wyświetl przycisk Zaproś do drużyny, gdy drużyna ma 1 członka."
 }

@@ -52,5 +52,7 @@
     "challengedOwnedFilterHeader": "Ownership",
     "challengedOwnedFilter": "Owned",
     "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedEitherOwnedFilter": "Either",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

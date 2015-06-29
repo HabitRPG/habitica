@@ -29,27 +29,66 @@ describe('Task Ordering Filters', function() {
     });
   });
 
-  describe('filterByTextAndNotes', function () {
+  describe('filterByTaskInfo', function () {
     it('returns undefined when no input given', function () {
-      expect(filter('filterByTextAndNotes')()).to.eql(undefined);
+      expect(filter('filterByTaskInfo')()).to.eql(undefined);
     });
 
-    it('returns input if term is not a string', function () {
-      var input  = [1, 2, 3];
-      expect(filter('filterByTextAndNotes')(input, '')).to.eql(input);
-      expect(filter('filterByTextAndNotes')(input, undefined)).to.eql(input);
-      expect(filter('filterByTextAndNotes')(input, [])).to.eql(input);
-      expect(filter('filterByTextAndNotes')(input, new Date())).to.eql(input);
+    it('returns all tasks if term is not a string', function () {
+      var tasks  = [1, 2, 3];
+      expect(filter('filterByTaskInfo')(tasks, undefined)).to.eql(tasks);
+      expect(filter('filterByTaskInfo')(tasks, [])).to.eql(tasks);
+      expect(filter('filterByTaskInfo')(tasks, new Date())).to.eql(tasks);
     });
 
-    it('filters items by notes and text', function () {
+    it('returns tasks if term is an empty string', function () {
+      var tasks  = [1, 2, 3];
+      expect(filter('filterByTaskInfo')(tasks, '')).to.eql(tasks);
+    });
+
+    it('filters items by text', function () {
       var tasks = [
         { text: 'foo' },
-        { text: 'foo', notes: 'bar' }
+        { text: 'some text that contains foo' },
+        { text: 'some text that should not be matched' }
       ];
 
-      expect(filter('filterByTextAndNotes')(tasks, 'bar')).to.eql([tasks[1]]);
-      expect(filter('filterByTextAndNotes')(tasks, 'foo')).to.eql([tasks[0], tasks[1]]);
+      expect(filter('filterByTaskInfo')(tasks, 'foo')).to.eql([tasks[0], tasks[1]]);
+    });
+
+    it('filters items by notes', function () {
+      var tasks = [
+        { text: 'some text', notes: 'foo' },
+        { text: 'some text', notes: 'a note that contains foo' },
+        { text: 'some text', notes: 'some text' },
+        { text: 'some text' }
+      ];
+
+      expect(filter('filterByTaskInfo')(tasks, 'foo')).to.eql([tasks[0], tasks[1]]);
+    });
+
+    it('filters items by checklists', function () {
+      var tasks = [
+        { text: 'foo' },
+        { text: 'foo', notes: 'bar', checklist: [ {text: "checkListToFind"} ] },
+        { text: 'foo', notes: 'bar', checklist: [ {text: "checkListToNotFind"} ] }
+      ];
+
+      expect(filter('filterByTaskInfo')(tasks, 'checkListToFind')).to.eql([tasks[1]]);
+    });
+
+    it('only includes task once, even with multiple matches in checklist', function() {
+      var tasks = [
+        {
+          text: 'foo', notes: 'bar', checklist: [
+            {text: "checkListToFind"},
+            {text: "checkListToFind"},
+            {text: "checkListToFind"}
+          ]
+        }
+      ];
+
+      expect(filter('filterByTaskInfo')(tasks, 'checkListToFind')).to.eql([tasks[0]]);
     });
   });
 });

@@ -39,6 +39,8 @@
     "editGroup": "Editar grupo",
     "newGroupName": "<%= groupType %> Nombre",
     "groupName": "Nombre del grupo",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Descripción mostrada en la lista pública de Gremios (permite usar formato Markdown)",
     "logoUrl": "URL del Logotipo",
     "assignLeader": "Asignar Líder del Grupo",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

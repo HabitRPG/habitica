@@ -1,9 +1,11 @@
 {
     "quests": "クエスト",
     "quest": "クエスト",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "完了！",
     "youReceived": "受け取りました",
-    "questSend": "【招待】を押すとあなたのパーティメンバーを招待する事ができます。各メンバーが参加をするかどうかを選択すると、クエスト開始となります！現在の招待状況は オプション > ソーシャル > パーティで確認できます。",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "パーティ招待",
     "questInvitation": "クエストへの招待状：",
     "questInvitationTitle": "クエストへの招待",

@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Przedmiot: <%= itemText %> zniszczył się.",
     "messageTaskNotFound": "Nie znaleziono zadania.",
+    "messageDuplicateTaskID": "Zadania z tym ID już istnieje.",
     "messageTagNotFound": "Nie znaleziono taga.",
     "messagePetNotFound": ":pet nie znaleziono w user.items.pets",
     "messageFoodNotFound": ":food nie znaleziono w user.items.food",
@@ -20,5 +21,8 @@
     "messageDropFood": "Znalazłeś: <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Znalazłeś jajo: <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Znalazłeś <%= dropText %> eliksir wyklucia! <%= dropNotes %>",
-    "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!"
+    "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!",
+    "armoireEquipment": "<%= image %> Znalazłeś część rzadkiego wyposażenia w Zaczarowanej Szafie: <%= dropText %>! Fantastycznie!",
+    "armoireFood": "<%= image %> Przeszukując Zaczarowaną Szafę znaleziono <%= dropArticle %><%= dropText %>. Co to tutaj robi?",
+    "armoireExp": "Mocujesz się z Zaczarowaną Szafą i zyskujesz doświadczenie. Masz za swoje!"
 }

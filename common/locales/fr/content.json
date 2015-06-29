@@ -62,6 +62,8 @@
     "questEggSlimeAdjective": "bonbon",
     "questEggSheepText": "Mouton",
     "questEggSheepAdjective": "laineux",
+    "questEggCuttlefishText": "Seiche",
+    "questEggCuttlefishAdjective": "câline",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira un·e <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "de Base",
     "hatchingPotionWhite": "Blanc",

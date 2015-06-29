@@ -39,6 +39,8 @@
     "editGroup": "Csoport szerkesztése",
     "newGroupName": "<%= groupType %> Név",
     "groupName": "Csoport neve",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Leírás, amit a nyilvános Céh listában láthatsz (Használhatsz Markdown-t)",
     "logoUrl": "Logo URL",
     "assignLeader": "Jelölj ki Csoportvezetőt",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

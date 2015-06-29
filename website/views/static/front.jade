@@ -2,7 +2,7 @@ doctype html
 html(ng-app='habitrpg', ng-controller='RootCtrl')
   head
     meta(charset='utf-8')
-    link(href='http://fonts.googleapis.com/css?family=Lato:400,700', rel='stylesheet', type='text/css')
+    link(href='//fonts.googleapis.com/css?family=Lato:400,700', rel='stylesheet', type='text/css')
     title HabitRPG | Your Life the Role Playing Game
     meta(name='description', content='')
     meta(name='keywords', content='')
@@ -33,20 +33,13 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap.min.js')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js')
 
-    script(type='text/javascript').
-      (function (f, b) {if (!b.__SV) {var a, e, i, g;window.mixpanel = b;b._i = [];b.init = function (a, e, d) {function f(b, h) {var a = h.split(".");2 == a.length && (b = b[a[0]], h = a[1]);b[h] = function () {b.push([h].concat(Array.prototype.slice.call(arguments, 0)))}}var c = b;"undefined" !== typeof d ? c = b[d] = [] : d = "mixpanel";c.people = c.people || [];c.toString = function (b) {var a = "mixpanel";"mixpanel" !== d && (a += "." + d);b || (a += " (stub)");return a};c.people.toString = function () {return c.toString(1) + ".people (stub)"};i = "disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-      for (g = 0; g < i.length; g++)f(c, i[g]);b._i.push([a, e, d])};b.__SV = 1.2;a = f.createElement("script");a.type = "text/javascript";a.async = !0;a.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e = f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a, e)}})(document, window.mixpanel || []);
-      mixpanel.init(window.env.MP_ID);
-
-    script(type='text/javascript').
-      mixpanel.track("Landing Page");
-
   body(ng-controller='AuthCtrl')
     include ./login-modal
-    include ../shared/header/avatar
+    include ../shared/avatar/index
     include ../shared/mixins
     include ../shared/modals/members
     .mobile-container
+      div(ng-init='Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/static/front"});')
       header#header
         nav.navbar.navbar-default.navbar-static-top
           .container-fluid
@@ -75,8 +68,8 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                   a(href='/static/contact')=env.t('contactUs')
                 li
                   button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')= env.t('playButtonFull')
-      #intro
-        h1(ng-cloak) {{ variant==0 ? "#{env.t('motivate')}" : (variant==1 ? "#{env.t('motivate1')}" : "#{env.t('motivate2')}") }}
+      #intro(ng-cloak)
+        h1 {{ variant==0 ? "#{env.t('motivate')}" : (variant==1 ? "#{env.t('motivate1')}" : "#{env.t('motivate2')}") }}
         img.center-block.img-responsive(src='https://s3.amazonaws.com/habitrpg-assets/front/images/intro.png')
         // insert intro images
         .introcall.bg-success

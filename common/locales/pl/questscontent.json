@@ -202,5 +202,11 @@
     "questSheepBoss": "Burzowy Baran",
     "questSheepCompletion": "Będąc pod wrażeniem twej pracowitości, Burzowy Baran osycha ze swej furii. Wypuszcza trzy ogromne kule gradowe w twoim kierunku, a potem znika z cichym dudnieniem. Po bliższym przyjrzeniu się odkrywasz, że kule gradowe to właściwie trzy puchate jaja. Zabierasz je, a następnie udajesz się na spacer do domu pod błękitnym niebem.",
     "questSheepDropSheepEgg": "Owca (jajo)",
-    "questSheepUnlockText": "Odblokowuje dostęp do kupna owczych jaj na Targu"
+    "questSheepUnlockText": "Odblokowuje dostęp do kupna owczych jaj na Targu",
+    "questKrakenText": "Kraken Niedoskonałości",
+    "questKrakenNotes": "W piękny słoneczny dzień żeglujesz przez Zatokę Niedoskonałości, jednak twoje myśli są przyćmione przez obawy na temat wszystkiego, co jeszcze musisz zrobić. Wydaje się, że gdy tylko ukończysz jedno zadanie, wyrasta przed tobą następne, a potem następne...\n<br><br>W pewnym momencie łódka zostaje porządnie wstrząśnięta i oślizgłe macki wyskakują z wody ze wszystkich stron! \"Jesteśmy atakowani przez Krakena Niedoskonałości!\" krzyczy Wolvenhalo.\n<br><br>\"Szybko!\" woła do ciebie Lemoness. \"Uderzaj tyle macek i zadań, ile to możliwe, zanim nowe urosną i zajmą ich miejsce!\"",
+    "questKrakenBoss": "Kraken Niedoskonałości",
+    "questKrakenCompletion": "Gdy Kraken ucieka, kilka jaj pozostaje pływając na powierzchni wody. Lemoness uważnie je ogląda, a jej podejrzliwość zamienia się w zachwyt. \"Mątwie jaja!\" mówi. \"Masz, weź je jako nagrodę za wszystko, co udało ci się ukończyć.\"",
+    "questKrakenDropCuttlefishEgg": "Mątwa (jajo)",
+    "questKrakenUnlockText": "Odblokowuje dostęp do kupna mątwich jaj na Targu"
 }

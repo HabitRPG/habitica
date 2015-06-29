@@ -127,7 +127,7 @@ cycle = (array)->
     return array[n % array.length]
 
 repeatWithoutLastWeekday = ()->
-  repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:1}
+  repeat = {su:true,m:true,t:true,w:true,th:true,f:true,s:true}
   if shared.startOfWeek(moment().zone(0)).isoWeekday() == 1 # Monday
     repeat.su = false
   else
@@ -178,7 +178,7 @@ describe 'User', ->
 
     # Handle greyed-out dailys
     yesterday = moment().subtract(1,'days')
-    user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
+    user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false
     _.each user.dailys[1..], (d)->d.completed = true
     cron()
     expect(user.stats.buffs.str).to.be 1
@@ -251,7 +251,7 @@ describe 'User', ->
 
     it 'does not reset checklist on grey incomplete dailies', ->
       yesterday = moment().subtract(1,'days')
-      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
+      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false
       user.dailys[0].checklist = [
         {
           "text" : "1",
@@ -276,7 +276,7 @@ describe 'User', ->
 
     it 'resets checklist on complete grey complete dailies', ->
       yesterday = moment().subtract(1,'days')
-      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
+      user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = false
       user.dailys[0].checklist = [
         {
           "text" : "1",
@@ -905,7 +905,7 @@ describe 'Cron', ->
 
               'due today':
                 # NOTE: a strange thing here, moment().startOf('week') is Sunday, but moment.zone(myTimeZone).startOf('week') is Monday.
-                defaults: {repeat:{su:1,m:true,t:1,w:1,th:1,f:1,s:1}}
+                defaults: {repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}}
                 steps:
                   'pre-dayStart':
                     defaults: {currentHour:3, dayStart:4, shouldDo:true}
@@ -919,7 +919,7 @@ describe 'Cron', ->
                       'unchecked': {checked:false, expect: 'losePoints'}
 
               'NOT due today':
-                defaults: {repeat:{su:1,m:false,t:1,w:1,th:1,f:1,s:1}}
+                defaults: {repeat:{su:true,m:false,t:true,w:true,th:true,f:true,s:true}}
                 steps:
                   'pre-dayStart':
                     defaults: {currentHour:3, dayStart:4, shouldDo:true}

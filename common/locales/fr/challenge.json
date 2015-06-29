@@ -34,7 +34,7 @@
     "challengeDescr": "Description",
     "prize": "Récompense",
     "prizePop": "S'il est possible de \"gagner\" votre défi, vous pouvez choisir de récompenser le vainqueur avec des Gemmes. La récompense maximum est le nombre de Gemmes que vous possédez vous-mêmes (auxquelles s'ajoutent les Gemmes de la guilde si vous êtes le créateur de la guilde proposant le défi). Remarque: la récompense ne peut pas être modifiée ultérieurement. ",
-    "prizePopTavern": "S'il est possible de \"gagner\" votre défi, vous pouvez choisir de récompenser le vainqueur avec des Gemmes. La récompense maximum est le nombre de Gemmes que vous possédez vous-mêmes (auxquelles s'ajoutent les Gemmes de la guilde si vous êtes le créateur de la guilde proposant le défi). Remarque: la récompense ne peut pas être modifiée ultérieurement et récompenses des défis de la Taverne ne peuvent être restituées si le défi est annulé. ",
+    "prizePopTavern": "S'il est possible de \"gagner\" votre défi, vous pouvez choisir de récompenser le vainqueur avec des Gemmes. La récompense maximum est le nombre de Gemmes que vous possédez vous-mêmes (auxquelles s'ajoutent les Gemmes de la guilde si vous êtes le créateur de la guilde proposant le défi). Remarque: la récompense ne peut pas être modifiée ultérieurement et les récompenses des défis de la Taverne ne peuvent être restituées si le défi est annulé. ",
     "publicChallenges": "Minimum 1 gemme pour les <strong> défis publics </strong> (ça aide à lutter contre le spam, pour de vrai).",
     "officialChallenge": "Défi officiel HabitRPG",
     "by": "par",
@@ -49,8 +49,10 @@
     "keepTasks": "Conserver les tâches",
     "closeCha": "Clore le défi et…",
     "leaveCha": "Abandonner le défi et…",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilterHeader": "Propriété",
+    "challengedOwnedFilter": "Possédé",
+    "challengedNotOwnedFilter": "Non possédé",
+    "challengedEitherOwnedFilter": "Les deux",
+    "backToChallenges": "Revenir aux défis ",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Récompense"
 }

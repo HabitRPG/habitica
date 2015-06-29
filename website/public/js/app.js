@@ -243,7 +243,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.settings.notifications', {
           url: "/notifications",
           templateUrl: "partials/options.settings.notifications.html"
-        })
+        });
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
       if (settings && settings.auth) {
@@ -251,4 +251,4 @@ window.habitrpg = angular.module('habitrpg',
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
-  }])
+  }]);

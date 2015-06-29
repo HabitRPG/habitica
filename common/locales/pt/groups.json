@@ -39,6 +39,8 @@
     "editGroup": "Editar Grupo",
     "newGroupName": "Nome da <%= groupType %>",
     "groupName": "Nome do Grupo",
+    "groupLeader": "Líder do Grupo",
+    "groupID": "Grupo ID",
     "groupDescr": "Descrição mostrada na lista pública de Guildas (Markdown OK)",
     "logoUrl": "URL do Logo",
     "assignLeader": "Nomear Líder do Grupo",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "Do Saldo",
     "sendGiftPurchase": "Compra",
     "sendGiftMessagePlaceholder": "Mensagem Pessoal (opcional)",
-    "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %>",
+    "startAParty": "Começar uma Equipe",
+    "addToParty": "Adicione alguém para sua equipe"
 }

@@ -202,5 +202,11 @@
     "questSheepBoss": "Ariete Tuonante",
     "questSheepCompletion": "Colpita dalla tua diligenza, l'Ariete Tuonante è prosciugata della sua furia. Lancia tre enormi chicchi di grandine nella tua direzione, e poi scompare con un cupo rombo. Guardandoli meglio, scopri che i chicchi di grandine sono in realtà tre uova morbide e pelose. Le raccogli, e ti incammini verso casa sotto un cielo azzurro.",
     "questSheepDropSheepEgg": "Pecorella (Uovo)",
-    "questSheepUnlockText": "Sblocca l'acquisto delle uova di pecorella nel Mercato"
+    "questSheepUnlockText": "Sblocca l'acquisto delle uova di pecorella nel Mercato",
+    "questKrakenText": "The Kraken of Inkomplete",
+    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
+    "questKrakenBoss": "The Kraken of Inkomplete",
+    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
+    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
 }

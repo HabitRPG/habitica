@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Зламано <%= itemText %>.",
     "messageTaskNotFound": "Завдання немає.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Ярлика немає.",
     "messagePetNotFound": ":pet немає у user.items.pets",
     "messageFoodNotFound": ":food нема у user.items.food",
@@ -20,5 +21,8 @@
     "messageDropFood": "Ви знайшли <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Ви знайшли яйце звіра <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Ви знайшли зілля вилуплення — <%= dropText %>! <%= dropNotes %>",
-    "messageFoundQuest": "Вам трапився квест \"<%= questText %>\"!"
+    "messageFoundQuest": "Вам трапився квест \"<%= questText %>\"!",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

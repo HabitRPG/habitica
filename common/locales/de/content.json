@@ -62,6 +62,8 @@
     "questEggSlimeAdjective": "süß",
     "questEggSheepText": "Schaf",
     "questEggSheepAdjective": "wolliges",
+    "questEggCuttlefishText": "Tintenfisch",
+    "questEggCuttlefishAdjective": "knuddeliger",
     "eggNotes": "Finde einen Schlüpftrank, den Du über dieses Ei gießen kannst, damit ein  <%= eggAdjective(locale) %> <%= eggText(locale) %> schlüpfen wird.",
     "hatchingPotionBase": "Normaler",
     "hatchingPotionWhite": "Weißer",

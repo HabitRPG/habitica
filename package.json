@@ -75,7 +75,7 @@
     "www.habitrpg.com"
   ],
   "engines": {
-    "node": "0.12.4"
+    "node": "0.10.x"
   },
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
@@ -92,6 +92,7 @@
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",
     "glob": "^4.3.5",
+    "grunt-contrib-imagemin": "^0.9.4",
     "istanbul": "^0.3.14",
     "karma": "~0.10.2",
     "karma-chai-plugins": "~0.1.0",

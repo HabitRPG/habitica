@@ -540,6 +540,9 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.methods.unlink = function(options, cb) {
   var cid = options.cid, keep = options.keep, tid = options.tid;
+  if (!cid) {
+    return cb("Could not remove challenge tasks. Please delete them manually.");
+  }
   var self = this;
   switch (keep) {
     case 'keep':

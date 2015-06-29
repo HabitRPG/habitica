@@ -44,7 +44,7 @@
     "selectGroup": "グループを選択して下さい",
     "challengeCreated": "チャレンジ作成終了",
     "sureDelCha": "チャレンジが消されます。よろしいでしょうか？",
-    "sureDelChaTavern": "Delete challenge, are you sure? Your gems will not be refunded.",
+    "sureDelChaTavern": "チャレンジが消されます。よろしいでしょうか？ジェムは返金不可となります。",
     "removeTasks": "タスクを消す",
     "keepTasks": "タスクを残す",
     "closeCha": "チャレンジを終了して・・・",
@@ -52,5 +52,7 @@
     "challengedOwnedFilterHeader": "Ownership",
     "challengedOwnedFilter": "Owned",
     "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedEitherOwnedFilter": "Either",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
 }

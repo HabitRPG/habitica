@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",
     "seasonalShopClosedText": "Der saisonale Shop ist zurzeit geschlossen!!! Ich weiß nicht wo zurzeit die saisonale Zauberin ist, aber ich wette sie kommt zur nächsten <%= linkStart %>Grand Gala<%= linkEnd %> wieder!",
     "seasonalShopText": "Willkommen zum Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Frühlingsgegenstände</a> auf Lager. Alles hier wird während des Frühlingsevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 30. April, also stocke jetzt auf, ansonsten musst du bis nächstes Jahr warten.",
+    "seasonalShopSummerText": "Willkommen zum Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>jahreszeitlich wechselnde</a>Gegenstände auf Lager. Alles hier wird während des Sommerevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Juli, also stocke jetzt auf, ansonsten musst du bis nächstes Jahr warten.",
     "seasonalShopRebirth": "Wenn Du eine Sphäre der Wiedergeburt benutzt hast, kannst Du diese Ausrüstung wieder in der Belohnungs Spalte finden und kaufen, nachdem Du den Item Shop freigeschaltet hast. Zunächst wirst Du nur die Items für deine aktuelle Klasse kaufen können (zu Beginn Krieger), aber keine Sorge, die anderen Klassen spezifischen Items werden Dir zur Verfügung stehen, wenn Du zu der entsprechenden Klasse wechselst.",
     "candycaneSet": "Zuckerstange (Magier)",
     "skiSet": "Ski-Attentäter (Schurke)",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "Mächtiges Häschen (Krieger)",
     "magicMouseSet": "Magische Maus (Magier)",
     "lovingPupSet": "Liebevoller Welpe (Heiler)",
-    "stealthyKittySet": "Verstohlenes Kätzchen (Schurke)"
+    "stealthyKittySet": "Verstohlenes Kätzchen (Schurke)",
+    "daringSwashbucklerSet": "Kühner Haudegen (Krieger)",
+    "emeraldMermageSet": "Smaragdgrüner Meermagier (Magier)",
+    "reefSeahealerSet": "Riff-Seeheiler (Heiler)",
+    "roguishPirateSet": "Schurkischer Pirat (Schurke)"
 }

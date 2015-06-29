@@ -98,7 +98,7 @@
     "invitedParty": "Gruppeinvitation",
     "invitedGuild": "Klaninvitation",
     "inactivityEmails": "Din konto er inaktiv",
-    "weeklyRecaps": "Summaries of your account activity in the past week",
+    "weeklyRecaps": "Oversigt over aktiviteter på din konto den sidste uge",
     "questStarted": "Jeres Quest er Begyndt",
     "invitedQuest": "Inviteret til Quest",
     "kickedGroup": "Fjernet fra gruppe",
@@ -113,10 +113,11 @@
     "benefits": "Fordele",
     "coupon": "Kupon",
     "couponPlaceholder": "Indtast Kuponkode",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Udfør",
     "resubscribe": "Genabonnér",
     "promoCode": "Promo-kode",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Enter Promotion Code"
+    "promoPlaceholder": "Indtast Promo-kode",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

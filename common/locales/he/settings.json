@@ -2,8 +2,8 @@
     "settings": "הגדרות",
     "language": "שפה",
     "americanEnglishGovern": "במקרה של חוסר נאמנות למקור, הגרסה האנגלית האמריקאית היא שקובעת.",
-    "helpWithTranslation": "האם אתה רוצה לעזור בתרגום HabitRPG? נהדר! לאחר מכן בקרו ב <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">זה</a> כרטיס Trello.",
-    "showHeaderPop": "הראה את הדמות, מדי הבריאות/ניסיון שלך, ואת החבורה.",
+    "helpWithTranslation": "האם אתה רוצה לעזור בתרגום HabitRPG? נהדר! בקרו ב <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">זה</a> כרטיס ה-Trello.",
+    "showHeaderPop": "הראה את האווטר, מד הבריאות/ניסיון והחבורה שלך.",
     "stickyHeader": "כותרת דביקה",
     "stickyHeaderPop": "מדביק את ה\"כותרת\" - התמונה שלך ושל מדי הבריאות/ניסיון - לראש המסך. אם התיבה לא מסומנת הכותרת תיעלם בירידה למטה.",
     "newTaskEdit": "פתח מטלות חדשות במצב עריכה",
@@ -113,10 +113,11 @@
     "benefits": "יתרונות",
     "coupon": "קופון",
     "couponPlaceholder": "הקלד קוד קופון",
-    "couponText": "We sometimes have events and give out promo codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Apply",
     "resubscribe": "Resubscribe",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
-    "promoPlaceholder": "Enter Promotion Code"
+    "promoPlaceholder": "Enter Promotion Code",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

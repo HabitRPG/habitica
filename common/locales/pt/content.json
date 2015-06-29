@@ -62,6 +62,8 @@
     "questEggSlimeAdjective": "doce",
     "questEggSheepText": "Ovelha",
     "questEggSheepAdjective": "felpuda",
+    "questEggCuttlefishText": "Lula",
+    "questEggCuttlefishAdjective": "fofinho",
     "eggNotes": "Ache uma poção de eclosão para usá-la nesse ovo, e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Branco",

@@ -1,7 +1,7 @@
 {
     "questEvilSantaText": "סנטה הסוהר",
-    "questEvilSantaNotes": "שאגה מיוסרת נשמעת הרחק בשדות הקרח. את/ה עוקב/ת אחר הנהמות והשאגות - המלוות בקול צחקוק משונה - לקרחת יער בה נמצאת דובת קוטב בוגרת. היא כלואה ואזוקה, שואגת בכל ריאותיה. מעל הכלוב שלה מרקד שדון קטן ומרושע, לבוש בתחפושות חג מולד זרוקות. חסל/י את סנטה הסוהר ושחרר/י את הדובה!",
-    "questEvilSantaCompletion": "סנטה הסוהר צווח בכעס, ונס אל הלילה. הדובה אסירת התודה, דרך נהמות ושאגות, מנסה לספר לך משהו. לאחר המסע לאורווה, מאט בוש הלוחש מקשיב לסיפורה ומזדעק באימה. יש לה גור! הוא רץ לשדות הקרב כשאמו נכלאה. עזור/עזרי לה למצוא את התינוק שלה!",
+    "questEvilSantaNotes": "שאגה מיוסרת נשמעת הרחק בשדות הקרח. אתה עוקב אחר הנהמות והשאגות - המלוות בקול צחקוק משונה - לקרחת יער בה נמצאת דובת קוטב בוגרת. היא כלואה ואזוקה, שואגת בכל ריאותיה. מעל הכלוב שלה מרקד שדון קטן ומרושע, לבוש בתחפושת חג מולד בלויה. חסל את סנטה הסוהר ושחרר את הדובה!",
+    "questEvilSantaCompletion": "סנטה הסוהר צווח בכעס, ונס אל הלילה. הדובה אסירת התודה, דרך נהמות ושאגות, מנסה לספר לך משהו. לאחר המסע לאורווה, הלוחש - מאט בוש מקשיב לסיפורה ומזדעק באימה. יש לה גור! הוא רץ לשדות הקרב כשאמו נכלאה. עזור לה למצוא את התינוק שלה!",
     "questEvilSantaBoss": "סנטה הסוהר",
     "questEvilSantaDropBearCubPolarMount": "דוב קוטב (חיית רכיבה)",
     "questEvilSanta2Text": "מצא את הגור",
@@ -202,5 +202,11 @@
     "questSheepBoss": "Thunder Ram",
     "questSheepCompletion": "Impressed by your diligence, the Thunder Ram is drained of its fury. It launches three huge hailstones in your direction, and then fades away with a low rumble. Upon closer inspection, you discover that the hailstones are actually three fluffy eggs. You gather them up, and then stroll home under a blue sky.",
     "questSheepDropSheepEgg": "Sheep (Egg)",
-    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market"
+    "questSheepUnlockText": "Unlocks purchasable sheep eggs in the Market",
+    "questKrakenText": "The Kraken of Inkomplete",
+    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
+    "questKrakenBoss": "The Kraken of Inkomplete",
+    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
+    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
 }

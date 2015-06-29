@@ -118,5 +118,6 @@
     "resubscribe": "Obnoviti pretplatu",
     "promoCode": "Kupon",
     "promoCodeApplied": "Kupon je aktiviran! Pogledajte u svoj inventar",
-    "promoPlaceholder": "Unesite kod sa kupona"
+    "promoPlaceholder": "Unesite kod sa kupona",
+    "displayInviteToPartyWhenPartyIs1": "Prikazati opciju „Pozvati u družinu” kad družina ima 1 člana."
 }

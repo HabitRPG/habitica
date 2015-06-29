@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -87,7 +87,7 @@ habitrpg.controller('NotificationCtrl',
         Notification.drop(User.user._tmp.drop.dialog);
       }
       $rootScope.playSound('Item_Drop');
-      mixpanel.track("Acquire Item",{'itemName':after.key,'acquireMethod':'Drop'})
+      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
