@@ -248,7 +248,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.clearUserlist();
 
     $scope.chatChanged = function(newvalue,oldvalue){
-      if($scope.group.chat && $scope.group.chat.length > 0){
+      if($scope.group && $scope.group.chat && $scope.group.chat.length > 0){
         for(var i = 0; i < $scope.group.chat.length; i++) {
           $scope.addNewUser($scope.group.chat[i]);
         }
