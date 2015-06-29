@@ -193,9 +193,8 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   mongoose.model('User').update(q, updates, {multi:true}, cb);
 }
 
-// FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
 function isOnQuest(user,progress,group){
-  return group && progress && user.party.quest.key && user.party.quest.key == group.quest.key;
+  return group && progress && user.party.quest.key && group.quest && user.party.quest.key == group.quest.key && group.quest.active;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
