@@ -65,7 +65,7 @@
     "clearTags": "クリア",
     "hideTags": "非表示にする",
     "showTags": "表示する",
-    "startDate": "Start Date",
+    "startDate": "開始日",
     "startDateHelpTitle": "When should this task start?",
     "startDateHelp": "Set the date for which this task takes effect. Will not be due on earlier days.",
     "streakName": "Streak Achivements",

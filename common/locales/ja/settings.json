@@ -119,5 +119,5 @@
     "promoCode": "プロモコード",
     "promoCodeApplied": "プロモコードが適用されました！所持品を確認してください",
     "promoPlaceholder": "プロモコードを入力してください",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "パーティにメンバーが1人の場合に「パーティに招待する」ボタンを表示する"
 }

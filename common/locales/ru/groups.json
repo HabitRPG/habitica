@@ -119,6 +119,6 @@
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
-    "startAParty": "Start a Party",
+    "startAParty": "Создать команду",
     "addToParty": "Add someone to your party"
 }

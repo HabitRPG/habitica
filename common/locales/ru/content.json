@@ -63,7 +63,7 @@
     "questEggSheepText": "Баран",
     "questEggSheepAdjective": "Шерстистая",
     "questEggCuttlefishText": "Каракатица",
-    "questEggCuttlefishAdjective": "cuddly",
+    "questEggCuttlefishAdjective": "пушистый",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить им яйцо и из него вылупится <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

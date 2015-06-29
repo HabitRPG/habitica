@@ -39,7 +39,7 @@
     "editGroup": "Gruppe bearbeiten",
     "newGroupName": "<%= groupType %> Name",
     "groupName": "Gruppenname",
-    "groupLeader": "Group Leader",
+    "groupLeader": "Gruppenleiter",
     "groupID": "Group ID",
     "groupDescr": "Beschreibung auf der öffentlichen Gildenliste (Markdown Okay)",
     "logoUrl": "Logo URL",
@@ -120,5 +120,5 @@
     "sendGiftMessagePlaceholder": "Persönliche Nachricht (optional)",
     "sendGiftSubscription": "<%= months %> Monat(e): $<%= price %>",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Füge jemanden deiner Gruppe hinzu"
 }

@@ -16,7 +16,7 @@
     "selectWinner": "Kies een winnaar en sluit de uitdaging af:",
     "deleteOrSelect": "Verwijder of kies een winnaar",
     "endChallenge": "Uitdaging beëindigen",
-    "challengeDiscription": "Dit zijn de uitdagingstaken die zullen worden toegevoegd aan je taken wanneer je deze uitdaging aangaat. De voorbeeld uitdagingstaken hieronder zullen veranderen van kleur en grafieken krijgen om je de algemene voortgang van de groep te laten zien.",
+    "challengeDiscription": "Deze uitdagingstaken  zullen worden toegevoegd aan je taken wanneer je de uitdaging aangaat. De voorbeeldtaken hieronder veranderen van kleur en krijgen grafieken om je de  voortgang van de hele groep te laten zien.",
     "hows": "Hoe gaat het met iedereen?",
     "filter": "Filter",
     "groups": "Groepen",
@@ -33,8 +33,8 @@
     "challengeTagPop": "Uitdagingen zijn te zien op labellijsten en op taakomschrijvingen. Dus hoewel je een omschrijvende titel wil voor hierboven, heb je ook een 'korte naam' nodig. '5 kilo afvallen in drie maanden' kan bijvoorbeeld worden afgekort to '-5kg' (Klik voor meer informatie).",
     "challengeDescr": "Beschrijving",
     "prize": "Prijs",
-    "prizePop": "Als jouw uitdaging een 'winnaar' kan hebben, kun je eventueel edelstenen beschikbaar stellen als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden.",
-    "prizePopTavern": "Als jouw uitdaging een 'winnaar' kan hebben, kun je eventueel edelstenen beschikbaar stellen als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden en herberg uitdagingen zullen niet teruggestort worden als de uitdaging geannuleerd wordt.",
+    "prizePop": "Als je uitdaging een 'winnaar' kan hebben kun je eventueel edelstenen aanbieden als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden.",
+    "prizePopTavern": "Als je uitdaging een 'winnaar' kan hebben kun je eventueel edelstenen beschikbaar stellen als prijs. Maximum = aantal edelstenen in jouw bezit (+gilde-edelstenen, als jij het gilde aangemaakt hebt waarin de uitdaging valt). Let op: deze prijs kan later niet veranderd worden en herberguitdagingen zullen niet teruggestort worden als de uitdaging geannuleerd wordt.",
     "publicChallenges": "Minimaal 1 edelsteen voor <strong>openbare uitdagingen</strong> (helpt spam voorkomen, echt).",
     "officialChallenge": "Officiële HabitRPG-Uitdaging",
     "by": "door",
@@ -54,5 +54,5 @@
     "challengedNotOwnedFilter": "Niet in je bezit",
     "challengedEitherOwnedFilter": "Beide",
     "backToChallenges": "Terug naar alle uitdagingen",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prijs"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> prijs"
 }

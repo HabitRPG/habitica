@@ -40,7 +40,7 @@
     "newGroupName": "Nome da <%= groupType %>",
     "groupName": "Nome do Grupo",
     "groupLeader": "Líder do Grupo",
-    "groupID": "Grupo ID",
+    "groupID": "ID do Grupo",
     "groupDescr": "Descrição mostrada na lista pública de Guildas (Markdown OK)",
     "logoUrl": "URL do Logo",
     "assignLeader": "Nomear Líder do Grupo",
@@ -120,5 +120,5 @@
     "sendGiftMessagePlaceholder": "Mensagem Pessoal (opcional)",
     "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %>",
     "startAParty": "Começar uma Equipe",
-    "addToParty": "Adicione alguém para sua equipe"
+    "addToParty": "Adicione alguém em sua equipe"
 }

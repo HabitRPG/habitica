@@ -33,7 +33,7 @@
     "challengeTagPop": "チャレンジはタグ・リストとタスク・ツールチップにあります。題名を詳しく書く必要がありますが、短いタイトルも必要です。例：「三ヶ月で５キロを減らす」を「-5キロ」にする（詳細はこちら）。",
     "challengeDescr": "説明",
     "prize": "賞品",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "もし誰かがあなたのチャレンジで「優勝」したら、任意で優勝者に賞品としてジェムを与えることができます。最大で#gemsあなたが負担します(もしチャレンジのギルドを作っていれば追加でギルドのジェムを)。注意: この賞品は後で変更できません。",
     "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "<strong>公共のチャレンジ</strong>は最小でジェムが１個必要です（スパムを減らすために助かる）。",
     "officialChallenge": "HabitRPGの公式チャレンジ",

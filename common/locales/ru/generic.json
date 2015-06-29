@@ -54,7 +54,7 @@
     "gems": "самоцв.",
     "gemButton": "Cамоцветов у вас: <%= number %>.",
     "moreInfo": "Подробнее",
-    "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
+    "gemsWhatFor": "Кликните, чтобы купить самоцветы! За самоцветы можно приобрести особые предметы - квесты, настройки для аватара и сезонное снаряжение.",
     "veteran": "Ветеран",
     "veteranText": "Получено множество боевых шрамов от багов Habit The Grey (наш сайт до перехода на Angular) и проявлена небывалая стойкость.",
     "originalUser": "Пользователь-первопроходец!",
