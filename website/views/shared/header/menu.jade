@@ -1,4 +1,4 @@
-nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
+nav.toolbar(ng-controller='MenuCtrl', ng-class='{active: isToolbarHidden}')
   button.toolbar-toggle(ng-click='isToolbarHidden = !isToolbarHidden', ng-class='{active: isToolbarHidden}')
     span.glyphicon.glyphicon-remove-circle
     span.toggle-text.toggle-close=env.t('close')

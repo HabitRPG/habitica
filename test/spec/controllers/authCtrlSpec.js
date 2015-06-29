@@ -41,11 +41,5 @@ describe('Auth Controller', function() {
         expect($window.alert).to.be.calledOnce;
       });
     });
-
-    describe('clearMessage', function() {
-      it('is Chat.seenMessage', inject(function(Chat) {
-        expect(scope.clearMessages).to.eql(Chat.seenMessage);
-      }));
-    });
   });
 });
