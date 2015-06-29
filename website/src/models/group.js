@@ -193,13 +193,13 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   mongoose.model('User').update(q, updates, {multi:true}, cb);
 }
 
-function isOnQuest(progress,group){
-  return group && progress && group.quest && group.quest.active;
+function isOnQuest(user,progress,group){
+  return group && progress && group.quest && group.quest.active && group.quest.members[user._id] == true;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(progress,group)) return cb(null);
+    if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
 
     _.each(progress.collect,function(v,k){
@@ -302,7 +302,7 @@ GroupSchema.statics.tavernBoss = function(user,progress) {
 
 GroupSchema.statics.bossQuest = function(user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(progress,group)) return cb(null);
+    if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
     if (!progress || !quest) return cb(null); // FIXME why is this ever happening, progress should be defined at this point
     var down = progress.down * quest.boss.str; // multiply by boss strength
