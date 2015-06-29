@@ -55,24 +55,20 @@ api.mystery =
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 _.each api.mystery, (v,k)->v.key = k
 
-equipmentList =
-  'weapon': {localeKey: 'weapon', isEquipment: true, needsLowerCase: false}
-  'armor' : {localeKey: 'armor', isEquipment: true, needsLowerCase: false}
-  'head' : {localeKey: 'headgear', isEquipment: true, needsLowerCase: false}
-  'shield' : {localeKey: 'offhand', isEquipment: true, needsLowerCase: false}
-  'back' : {localeKey: 'back', isEquipment: true, needsLowerCase: false}
-  'body' : {localeKey: 'body', isEquipment: true, needsLowerCase: false}
-  'headAccessory' : {localeKey: 'headAccessory', isEquipment: true, needsLowerCase: false}
-  'eyewear' : {localeKey: 'eyewear', isEquipment: true, needsLowerCase: false}
-  'hatchingPotions' : {localeKey: 'hatchingPotion', isEquipment: false, needsLowerCase: false}
-  'eggs' : {localeKey: 'eggSingular', isEquipment: false, needsLowerCase: false}
-  'quests' : {localeKey: 'quest', isEquipment: false, needsLowerCase: false}
-  'Saddle' : {localeKey: 'foodSaddleText', isEquipment: false, needsLowerCase: true}
-  get : (key, w = window) ->
-    string = w.env.t(this.key.localeKey)
-    if (this.key.needsLowerCase) then string = string.toLowerCase()
-    string
-  
+api.itemList =
+  'weapon': {localeKey: 'weapon', isEquipment: true}
+  'armor' : {localeKey: 'armor', isEquipment: true}
+  'head' : {localeKey: 'headgear', isEquipment: true}
+  'shield' : {localeKey: 'offhand', isEquipment: true}
+  'back' : {localeKey: 'back', isEquipment: true}
+  'body' : {localeKey: 'body', isEquipment: true}
+  'headAccessory' : {localeKey: 'headAccessory', isEquipment: true}
+  'eyewear' : {localeKey: 'eyewear', isEquipment: true}
+  'hatchingPotions' : {localeKey: 'hatchingPotion', isEquipment: false}
+  'eggs' : {localeKey: 'eggSingular', isEquipment: false}
+  'quests' : {localeKey: 'quest', isEquipment: false}
+  'Saddle' : {localeKey: 'foodSaddleText', isEquipment: false}
+
 gear =
   weapon:
     base:
