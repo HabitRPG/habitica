@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics', 'Chat',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics, Chat) {
       $scope.Analytics = Analytics;
 
       $scope.logout = function() {
@@ -102,6 +102,7 @@ angular.module('habitrpg')
           }
       };
 
+      // @TODO: Pull out menu stuff into separate menu controller
       $scope.expandMenu = function(menu) {
         $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
       };
@@ -120,6 +121,8 @@ angular.module('habitrpg')
           return noneValue;
         }
       };
+
+      $scope.clearMessages = Chat.seenMessage;
 
       $scope.iconClasses = function() {
         return selectNotificationValue(
