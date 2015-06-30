@@ -101,8 +101,8 @@ var UserSchema = new Schema({
     mobileChat: Boolean,
     plan: {
       planId: String,
-      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
-      customerId: String,
+      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
+      customerId: String, // Billing Agreement Id in case of Amazon Payments
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,

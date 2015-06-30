@@ -20,7 +20,13 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
    JS files not needed right away (google charts) or entirely optional (analytics)
    Each file gets loaded async via $.getScript, so it doesn't bog page-load
   */
+
   $scope.deferredScripts = function(){
+
+    // Amazon Payments
+    var amazonPaymentsUrl = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/' +
+                        (window.env.NODE_ENV === 'production' ? '' : 'sandbox/') + 'js/Widgets.js';
+    $.getScript(amazonPaymentsUrl);
 
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');

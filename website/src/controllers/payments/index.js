@@ -7,6 +7,7 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var amazon = require('./amazon');
 var members = require('../members')
 var async = require('async');
 var iap = require('./iap');
@@ -168,6 +169,11 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.amazonVerifyAccessToken = amazon.verifyAccessToken;
+exports.amazonCheckout = amazon.checkout;
+exports.amazonSubscribe = amazon.subscribe;
+exports.amazonSubscribeCancel = amazon.subscribeCancel;
 
 exports.iapAndroidVerify = iap.androidVerify;
 exports.iapIosVerify = iap.iosVerify;
