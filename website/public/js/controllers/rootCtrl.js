@@ -222,7 +222,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       }
 
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
-      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield' || type == 'headAccessory' || type == 'body' || type == 'back' || type == 'eyewear' ) {
+      if (itemTypes[type].isEquipment) {
         if (User.user.items.gear.owned[item.key]) {
           if (User.user.preferences.costume) return User.user.ops.equip({params:{type: 'costume', key: item.key}});
           else {
