@@ -65,6 +65,7 @@ function($rootScope, User, $http, Content) {
     console.error(error);
     console.log(error.getErrorMessage(), error.getErrorCode());
     alert(error.getErrorMessage());
+    Payments.amazonPayments.reset();
   };
 
   Payments.amazonPayments = {};
@@ -79,24 +80,30 @@ function($rootScope, User, $http, Content) {
     Payments.amazonPayments.type = null;
     Payments.amazonPayments.loggedIn = false;
     Payments.amazonPayments.gift = null;
-    Payments.amazonPayments.orderReferenceId = null;
     Payments.amazonPayments.billingAgreementId = null;
     Payments.amazonPayments.paymentSelected = false;
     Payments.amazonPayments.recurringConsent = false;
+    Payments.amazonPayments.subscription = null;
+    Payments.amazonPayments.coupon = null;
   };
 
   // Needs to be called everytime the modal/router is accessed
-  Payments.amazonPayments.init = function(type, gift, giftedTo){
-    if(gift){
-      if(gift.gems && gift.gems.amount && gift.gems.amount <= 0) return;
-      gift.uuid = giftedTo;
+  Payments.amazonPayments.init = function(data){
+    if(!isAmazonReady) return;
+    if(data.type !== 'donation' && data.type !== 'subscription') return;
+
+    if(data.gift){
+      if(data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
+      gift.uuid = data.giftedTo;
     }
 
-    if(!isAmazonReady) return;
-    if(type !== 'donation' && type !== 'subscription') return;
+    if(data.subscription){
+      Payments.amazonPayments.subscription = data.subscription;
+      Payments.amazonPayments.coupon = data.coupon;
+    }
 
-    Payments.amazonPayments.gift = gift;
-    Payments.amazonPayments.type = type;
+    Payments.amazonPayments.gift = data.gift;
+    Payments.amazonPayments.type = data.type;
 
     var modal = Payments.amazonPayments.modal = $rootScope.openModal('amazonPayments', {
       // Allow the modal to be closed only by pressing cancel
@@ -153,8 +160,38 @@ function($rootScope, User, $http, Content) {
       design: {
         designMode: 'responsive'
       },
+      agreementType: 'BillingAgreement',
 
-      onPaymentSelect: function(orderReference) {
+      onReady: function(billingAgreement){
+        Payments.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+
+        if(Payments.amazonPayments.type === 'subscription'){
+          new OffAmazonPayments.Widgets.Consent({
+            sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
+            amazonBillingAgreementId: Payments.amazonPayments.billingAgreementId, 
+            design: {
+              designMode: 'responsive'
+            },
+
+            onReady: function(consent){
+              $rootScope.$apply(function(){
+                var getConsent = consent.getConsentStatus
+                Payments.amazonPayments.recurringConsent = getConsent ? getConsent() : false;
+              });
+            },
+
+            onConsent: function(consent){
+              $rootScope.$apply(function(){
+                Payments.amazonPayments.recurringConsent = consent.getConsentStatus();
+              });
+            },
+
+            onError: amazonOnError
+          }).bind('AmazonPayRecurring');     
+        }
+      },
+
+      onPaymentSelect: function() {
         $rootScope.$apply(function(){
           Payments.amazonPayments.paymentSelected = true;
         });        
@@ -163,40 +200,6 @@ function($rootScope, User, $http, Content) {
       onError: amazonOnError
     };
 
-    if(Payments.amazonPayments.type === 'donation'){
-      walletParams.onOrderReferenceCreate = function(orderReference) {
-        Payments.amazonPayments.orderReferenceId = orderReference.getAmazonOrderReferenceId();
-      }
-    }else if(Payments.amazonPayments.type === 'subscription'){
-      walletParams.onReady = function(billingAgreement) {
-        Payments.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
-
-        new OffAmazonPayments.Widgets.Consent({
-          sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
-          amazonBillingAgreementId: Payments.amazonPayments.billingAgreementId, 
-          design: {
-            designMode: 'responsive'
-          },
-
-          onReady: function(consent){
-            $rootScope.$apply(function(){
-              Payments.amazonPayments.recurringConsent = consent.getConsentStatus();
-            });
-          },
-
-          onConsent: function(consent){
-            $rootScope.$apply(function(){
-              Payments.amazonPayments.recurringConsent = consent.getConsentStatus();
-            });
-          },
-
-          onError: amazonOnError
-        }).bind('AmazonPayRecurring');
-      };
-
-      walletParams.agreementType = 'BillingAgreement';
-    }
-
     new OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
   }
 
@@ -204,7 +207,7 @@ function($rootScope, User, $http, Content) {
     if(Payments.amazonPayments.type === 'donation'){
       var url = '/amazon/checkout'
       $http.post(url, {
-        orderReferenceId: Payments.amazonPayments.orderReferenceId,
+        billingAgreementId: Payments.amazonPayments.billingAgreementId,
         gift: Payments.amazonPayments.gift
       }).success(function(){
         Payments.amazonPayments.reset();
@@ -214,13 +217,33 @@ function($rootScope, User, $http, Content) {
         Payments.amazonPayments.reset();
       });
     }else if(Payments.amazonPayments.type === 'subscription'){
-      return false
+      var url = '/amazon/subscribe';
+
+      $http.post(url, {
+        billingAgreementId: Payments.amazonPayments.billingAgreementId,
+        subscription: Payments.amazonPayments.subscription,
+        coupon: Payments.amazonPayments.coupon
+      }).success(function(){
+        Payments.amazonPayments.reset();
+        window.location.reload(true);
+      }).error(function(res){
+        alert(res.err);
+        Payments.amazonPayments.reset();
+      });
     }
   }
 
   Payments.cancelSubscription = function(){
     if (!confirm(window.env.t('sureCancelSub'))) return;
-    window.location.href = '/' + User.user.purchased.plan.paymentMethod.toLowerCase() + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.user.apiToken;
+    var paymentMethod = User.user.purchased.plan.paymentMethod;
+
+    if(paymentMethod === 'Amazon Payments'){
+      paymentMethod = 'amazon';
+    }else{
+      paymentMethod = paymentMethod.toLowerCase();
+    }
+
+    window.location.href = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.user.apiToken;
   }
 
   Payments.encodeGift = function(uuid, gift){

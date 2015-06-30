@@ -19,6 +19,8 @@ router.get("/stripe/subscribe/cancel", auth.authWithUrl, i18n.getUserLanguage, p
 
 router.post('/amazon/verifyAccessToken', auth.auth, i18n.getUserLanguage, payments.amazonVerifyAccessToken);
 router.post('/amazon/checkout', auth.auth, i18n.getUserLanguage, payments.amazonCheckout);
+router.post('/amazon/subscribe', auth.auth, i18n.getUserLanguage, payments.amazonSubscribe);
+router.get('/amazon/subscribe/cancel', auth.authWithUrl, i18n.getUserLanguage, payments.amazonSubscribeCancel);
 
 router.post("/iap/android/verify", auth.authWithUrl, /*i18n.getUserLanguage, */payments.iapAndroidVerify);
 router.post("/iap/ios/verify", auth.auth, /*i18n.getUserLanguage, */ payments.iapIosVerify);
