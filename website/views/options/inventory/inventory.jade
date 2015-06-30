@@ -19,6 +19,11 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         div
           button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
           button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
+        li.customize-menu(ng-if='!user.preferences.costume')
+          .well.use-costume-info
+            p=env.t('useCostumeInfo1')
+            p(ng-if='showUseCostumeInfo')!=env.t('useCostumeInfo2')
+            p: a(ng-click='showUseCostumeInfo = !showUseCostumeInfo') {{!showUseCostumeInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')

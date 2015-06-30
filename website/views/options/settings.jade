@@ -79,7 +79,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             div.alert.alert-warning(style='padding:2px;margin-top:7px')
               h5=env.t('customDayStart')
               h5=env.t('customDayStartInfo1')
-                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('customDayStartInfo2') : env.t('customDayStartInfo3')}}
+                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
               .form-group
                 .input-group
