@@ -54,6 +54,8 @@
     "gems": "אבני חן",
     "gemButton": "יש לך <%= number %> פנינים",
     "moreInfo": "מידע נוסף",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "ותיק/ה",
     "veteranText": "סבל את ההאביט האפור (האתר הישן שלנו), וצבר אינספור צלקות קרב מהבאגים שלו",

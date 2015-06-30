@@ -54,6 +54,8 @@
     "costume": "衣装",
     "costumeText": "もし装備中のギアより他のギアの見た目が好ましい場合、「衣装する」のボックスをチェックしてください。そうすると、バトルギアを着たまま衣装が表れます。",
     "useCostume": "衣装する",
+    "useCostumeInfo1": "Click \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can equip for the best stats on the left, and dress up your avatar with your equipment on the right.",
+    "useCostumeInfo2": "Once you click \"Use Costume\" your avatar will look pretty basic... but don't worry! If you look on the left, you'll see that your Battle Gear is still equipped. Next, you can make things fancy! Anything you equip on the right won't affect your stats, but can make you look super awesome. Try out different combos, mixing sets, and coordinating your Costume with your pets, mounts, and backgrounds.<br><br>Got more questions? Check out the <a href=\"http://habitrpg.wikia.com/wiki/Equipment#Costumes\">Costume page</a> on the wiki. Find the perfect ensemble? Show it off in the <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival guild</a> or brag in the Tavern!",
     "gearAchievement": "とあるクラスの最高級のギアセットを揃えたため「アルティメット・ギア」賞を受賞した！下記のクラスのフルセットを揃えた：",
     "moreGearAchievements": "他のアルティメット・ギアのバッジを受賞するには、<a href='/#/options/profile/stats' target='_blank'>統計のページ</a>でクラスを変更して、新クラスのギアを買ってきてね！",
     "armoireUnlocked": "そして、<strong>魔法の戸棚</strong>をアンロックした！魔法の戸棚のご褒美をクリックすると特別な装備が当たるかもしれない！でたらめにXPや食べ物が出る可能性もある。",

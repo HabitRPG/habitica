@@ -54,6 +54,8 @@
     "gems": "Edelsteine",
     "gemButton": "Du hast <%= number %> Edelsteine.",
     "moreInfo": "Mehr Informationen",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veteran",
     "veteranText": "Hat Habit den Grauen (unsere pre-Angular Webseite) überlebt und hat viele Kriegsnarben von den Bugs davongetragen.",

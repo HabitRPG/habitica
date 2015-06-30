@@ -54,6 +54,8 @@
     "gems": "Edelstenen",
     "gemButton": "Je hebt <%= number %> edelstenen.",
     "moreInfo": "Meer informatie",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Klik hier om edelstenen te kopen! Met edelstenen kun je speciale voorwerpen, zoals queesten, avataraanpassingen en seizoensuitrusting kopen.",
     "veteran": "Veteraan",
     "veteranText": "Heeft Habit De Grijze doorstaan (onze website van vóór Angular), en heeft vele littekens opgelopen door de bugs daar.",

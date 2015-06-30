@@ -54,6 +54,8 @@
     "gems": "Klejnoty",
     "gemButton": "Masz <%= number %> Klejnotów.",
     "moreInfo": "Więcej informacji",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Kliknij, aby kupić klejnoty! Klejnoty umożliwiają nabywanie przedmiotów specjalnych takich jak misje, personalizacje awatara i wyposażenie sezonowe.",
     "veteran": "Weteran",
     "veteranText": "Przetrwał \"Habita Szarego\" (naszej strony przed aktualizacją Angular) i zdobył wiele wojennych blizn od jej błędów.",

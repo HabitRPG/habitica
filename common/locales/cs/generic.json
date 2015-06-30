@@ -54,6 +54,8 @@
     "gems": "Drahokamy",
     "gemButton": "Máš <%= number %> Drahokamy/Drahokamů",
     "moreInfo": "Více informací",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veterán",
     "veteranText": "Vystavil Zvyk Šedý (naši stránku před použitím Angular) vlivu přírody a získal mnoho jizev z boje s jejími chybami. ",

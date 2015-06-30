@@ -54,6 +54,8 @@
     "gems": "Ædelsten",
     "gemButton": "Du har <%= number %> Ædelsten.",
     "moreInfo": "Mere Information",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Klik for at købe Ædelsten! Ædelsten giver dig mulighed for at købe specielle ting, som Quests, ændringer til din Avatar og sæson udstyr.",
     "veteran": "Veteran",
     "veteranText": "Har klaret Den Grå Habit (vores hjemmeside før Angular), og har fået mange krigs-ar på grund af fejlene dengang.",

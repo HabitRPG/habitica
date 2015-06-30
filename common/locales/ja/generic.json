@@ -54,6 +54,8 @@
     "gems": "ジェム",
     "gemButton": "現在ジェム <%= number %>個を持っています。",
     "moreInfo": "詳細情報",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "ベテラン",
     "veteranText": "Habit The Grey (以前のウェブサイト)は役目を終え、数々のバグから多くの教訓を得ることができました。",

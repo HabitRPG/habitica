@@ -42,8 +42,6 @@
     "customDayStart": "設定開始日期",
     "24HrClock": "24 小時制",
     "customDayStartInfo1": "HabitRPG預設在你自己的時區的午夜檢查並重設你的每日任務。我們建議您在改變之前閱讀以下信息：",
-    "customDayStartInfo2": "(顯示更多)",
-    "customDayStartInfo3": "(顯示更少)",
     "customDayStartInfo4": "<strong> 在改變重設時間之前完成你所有的每日任務 </strong> 或是在那天 <a href='http:// habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'> 在旅館裡休息</a>。改變你的自定義時間可能會導致 <a href='http:// habitrpg .wikia.com/wiki/Cron' target='_blank'> 同步 </a> 立刻進行，但後一天它才會預期的運作。 <br> <br> <strong> 請給予兩個小時的空窗期，以使更改生效。</strong>例如，如果當前設置為0(午夜)，那你要在下午10時之前更改；如果你想將其更改到晚上9點，請下午7點之前改變它。 <br> <br> 輸入從0到23的某一小時 (它採用24小時制)。打字會比你按箭頭還快。設置以後，請重新整理確定系統已經使用新的時間。",
     "misc": "其他",
     "showHeader": "顯示頂部",

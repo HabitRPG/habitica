@@ -54,6 +54,8 @@
     "gems": "Drágakövek",
     "gemButton": "<%= number %> drágaköved van.",
     "moreInfo": "Több infó",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veterán",
     "veteranText": "Mállasztotta a Szürke Szokást (az Angular előtti weblapunkat), és szerzett néhány sebhelyet a hibáitól.",

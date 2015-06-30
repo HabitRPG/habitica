@@ -54,6 +54,8 @@
     "gems": "Dragulji",
     "gemButton": "Imate <%=number %> dragulja.",
     "moreInfo": "Više informacija",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veteran",
     "veteranText": "Korisnik je pokazao veliku istrajnost u borbi na Habit The Gray (našem sajtu pre prelaska na Angular), i primio mnogo ožiljaka od bagova.",

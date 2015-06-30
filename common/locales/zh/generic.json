@@ -54,6 +54,8 @@
     "gems": "宝石",
     "gemButton": "你拥有 <%= number %> 个宝石。",
     "moreInfo": "更多信息",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "老兵",
     "veteranText": "经历过 Habit The Grey (原来的网站) ，身上带着多处其bug带来的伤疤。",

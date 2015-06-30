@@ -42,8 +42,6 @@
     "customDayStart": "Własny początek dnia",
     "24HrClock": "zegar 24-godzinny",
     "customDayStartInfo1": "HabitRPG domyślnie sprawdza i resetuje twoje Codzienne o północy każdego dnia w twojej strefie czasowej. Zaleca się przeczytanie poniższych informacji przed jego zmianą.",
-    "customDayStartInfo2": "(pokaż więcej)",
-    "customDayStartInfo3": "(pokaż mniej)",
     "customDayStartInfo4": "<strong>Wykonaj wszystkie swoje Codzienne przed zmianą Własnego początku dnia</strong> lub <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Odpoczywaj w karczmie</a> tego dnia. Zmiana Własnego początku dnia może spowodować natychmiastowe uruchomienie <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Crona</a>, jednak po pierwszym dniu działa on zgodnie z założeniami.<br><br><strong>Daj dwugodzinne okno w celu wprowadzenia zmian.</strong> Dla przykładu, jeśli aktualnie jest ustawione na 0:00 (północ), zmień go przed 22:00; jeśli chcesz go ustawić na 21:00, zmień go przed 19:00.<br><br>Wprowadź godzinę od 0 do 23 (używa 24-godzinnego zegara). Wpisywanie jest skuteczniejsze niż klawisze strzałek. Po ustawieniu przeładuj stronę w celu potwierdzenia, że wyświetlane są nowe wartości.",
     "misc": "Pozostałe",
     "showHeader": "Pokaż nagłówek",

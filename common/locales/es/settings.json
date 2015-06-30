@@ -42,8 +42,6 @@
     "customDayStart": "Comienzo de Día Personalizado",
     "24HrClock": "Sistema 24h",
     "customDayStartInfo1": "HabitRPG verifica y reinicia tus tareas a medianoche en tu propia zona horaria. Es recomendable que leas lo siguiente antes de cambiarlo: ",
-    "customDayStartInfo2": "(Mostrar más) ",
-    "customDayStartInfo3": "(Mostrar menos)",
     "customDayStartInfo4": "<strong>Completa todas tus tareas Diarias antes de cambiar el Comienzo de Día Personalizado</strong> o <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Descansa en la Posada</a> ese día. Cambiar tu Comienzo de Día Personalizado puede causar que <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a> se lance inmediatamente, pero después del primer día funcionará normalmente. <br /><br /><strong>Concede un margen de dos horas para que los cambios cobren efecto.</strong> Por ejemplo, si ahora el valor es 0 (medianoche), cámbialo antes de las 22h; si lo quieres cambiar a las 21h, cámbialo antes de las 19h.<br /><br />Indica una hora entre 0 y 23. Teclearla es más efectivo que usar las teclas de cursor. Una vez cambiado, recarga la página para asegurarte de que el nuevo valor ha sido guardado.",
     "misc": "Varios",
     "showHeader": "Mostrar encabezamiento",

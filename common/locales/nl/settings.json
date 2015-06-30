@@ -42,8 +42,6 @@
     "customDayStart": "Begin van de dag aanpassen",
     "24HrClock": "24-uursklok",
     "customDayStartInfo1": "Standaard controleert en reset HabitRPG je Dagelijkse Taken elke nacht om middernacht in jouw tijdszone. Als je dat wilt veranderen, raden we je aan de volgende instructies te lezen:",
-    "customDayStartInfo2": "(laat meer zien)",
-    "customDayStartInfo3": "(laat minder zien)",
     "customDayStartInfo4": "<strong>Zorg ervoor dat je al je Dagelijkse Taken voltooid hebt voordat je het begin van de dag aanpast</strong> of <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>rust die dag uit in de herberg</a>. Het aanpassen van het begin van de dag kan ervoor zorgen dat  <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a> meteen optreedt, maar na die eerste dag zou het goed moeten werken.<br><br><strong>Geef het effect twee uur de kans om in te treden.</strong> Als de dagstart nu bijvoorbeeld op 0 staat (middernacht), pas hem dan aan voor 10 uur 's avonds. Als je hem naar 9 uur 's avonds wil veranderen, doe dat dan voor 7 uur 's avonds.<br><br>Vul een uur in van 0 tot 23 (op een 24-uursklok). Typen werkt beter dan de muistoetsen gebruiken. Herlaad het scherm nadat je de dagstart hebt aangepast om te controleren dat de nieuwe waarde weergegeven wordt.",
     "misc": "Diversen",
     "showHeader": "Bovenbalk laten zien",
