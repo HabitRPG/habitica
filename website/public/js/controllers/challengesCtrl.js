@@ -90,6 +90,41 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     /**
+     * Clone
+     */
+    $scope.clone = function(challenge) {
+      var clonedTasks = {
+        habit: [],
+        daily: [],
+        todo: [],
+        reward: []
+      };
+
+      _(clonedTasks).each(function(val, type) {
+        challenge[type + 's'].forEach(_cloneTaskAndPush);
+      });
+
+      $scope.obj = $scope.newChallenge = new Challenges.Challenge({
+        name: challenge.name,
+        shortName: challenge.shortName,
+        description: challenge.description,
+        habits: clonedTasks.habit,
+        dailys: clonedTasks.daily,
+        todos: clonedTasks.todo,
+        rewards: clonedTasks.reward,
+        leader: User.user._id,
+        group: challenge.group._id,
+        official: challenge.official,
+        prize: challenge.prize
+      });
+
+      function _cloneTaskAndPush(taskToClone) {
+        var task = Tasks.cloneTask(taskToClone);
+        clonedTasks[task.type].push(task);
+      }
+    };
+
+    /**
      * Save
      */
     $scope.save = function(challenge) {
