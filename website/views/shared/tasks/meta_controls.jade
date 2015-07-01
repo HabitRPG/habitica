@@ -36,7 +36,7 @@
     //challenges
     span(ng-if='task.challenge.id')
       span(ng-if='task.challenge.broken')
-        span.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
+        a.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
         | &nbsp;
       span(ng-if='!task.challenge.broken')
         span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
