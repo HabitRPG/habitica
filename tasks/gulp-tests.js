@@ -94,7 +94,7 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
 	  cb();
     }
   );
-  pipe(runner)
+  pipe(runner);
 });
 
 gulp.task('test:api:clean', (cb) => {
