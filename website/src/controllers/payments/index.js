@@ -53,7 +53,10 @@ exports.createSubscription = function(data, cb) {
       paymentMethod: data.paymentMethod,
       extraMonths: +p.extraMonths
         + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
-      dateTerminated: null
+      dateTerminated: null,
+      // Specify a lastBillingDate just for Amazon Payments
+      // Resetted every time the subscription restarts
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined
     }).defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date(),
       mysteryItems: []
