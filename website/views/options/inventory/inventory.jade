@@ -56,7 +56,7 @@ script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html
             span.Pet_Currency_Gem1x.inline-gems
       menu.pets-menu(label=env.t('seasonalItems'))
         div
-          button.customize-option(popover='{{::Content.spells.special.seafoam.notes()}}', popover-title='{{::Content.spells.special.seafoam.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.seafoam)', class='inventory_special_seafoam')
+          button.customize-option(popover='{{::Content.spells.special.seafoam.notes()}}', popover-title='{{::Content.spells.special.seafoam.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.seafoam)', class='shop_seafoam')
           p
             | {{::Content.spells.special.seafoam.value}}
             span(class='shop_gold')

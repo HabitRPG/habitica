@@ -1,6 +1,6 @@
 .shop_head_warrior_1 {
   background-image: url(spritesmith4.png);
-  background-position: -697px -1862px;
+  background-position: -738px -1862px;
   width: 40px;
   height: 40px;
 }
@@ -54,7 +54,7 @@
 }
 .shop_head_wizard_5 {
   background-image: url(spritesmith4.png);
-  background-position: -1929px -1817px;
+  background-position: -1970px -1817px;
   width: 40px;
   height: 40px;
 }
@@ -156,25 +156,25 @@
 }
 .shop_headAccessory_special_bearEars {
   background-image: url(spritesmith4.png);
-  background-position: -1970px -1817px;
+  background-position: -2011px -1817px;
   width: 40px;
   height: 40px;
 }
 .shop_headAccessory_special_cactusEars {
   background-image: url(spritesmith4.png);
-  background-position: -2011px -1817px;
+  background-position: -2052px -1817px;
   width: 40px;
   height: 40px;
 }
 .shop_headAccessory_special_foxEars {
   background-image: url(spritesmith4.png);
-  background-position: -2052px -1817px;
+  background-position: -1609px -1041px;
   width: 40px;
   height: 40px;
 }
 .shop_headAccessory_special_lionEars {
   background-image: url(spritesmith4.png);
-  background-position: -1609px -1041px;
+  background-position: -697px -1862px;
   width: 40px;
   height: 40px;
 }
@@ -828,7 +828,7 @@
 }
 .Pet_Currency_Gem {
   background-image: url(spritesmith4.png);
-  background-position: -738px -1862px;
+  background-position: -779px -1862px;
   width: 45px;
   height: 39px;
 }
@@ -1884,7 +1884,7 @@
 }
 .shop_copper {
   background-image: url(spritesmith4.png);
-  background-position: -2113px -719px;
+  background-position: -2126px -358px;
   width: 32px;
   height: 22px;
 }
@@ -1896,7 +1896,7 @@
 }
 .shop_gold {
   background-image: url(spritesmith4.png);
-  background-position: -2126px -358px;
+  background-position: -2113px -541px;
   width: 32px;
   height: 22px;
 }
@@ -1920,9 +1920,9 @@
 }
 .shop_seafoam {
   background-image: url(spritesmith4.png);
-  background-position: -2126px -325px;
-  width: 32px;
-  height: 32px;
+  background-position: -1929px -1817px;
+  width: 40px;
+  height: 40px;
 }
 .shop_shinySeed {
   background-image: url(spritesmith4.png);
@@ -1932,19 +1932,19 @@
 }
 .shop_silver {
   background-image: url(spritesmith4.png);
-  background-position: -2113px -541px;
+  background-position: -2113px -719px;
   width: 32px;
   height: 22px;
 }
 .shop_snowball {
   background-image: url(spritesmith4.png);
-  background-position: -2126px -1144px;
+  background-position: -2126px -1111px;
   width: 32px;
   height: 32px;
 }
 .shop_spookDust {
   background-image: url(spritesmith4.png);
-  background-position: -2126px -1111px;
+  background-position: -2126px -325px;
   width: 32px;
   height: 32px;
 }
