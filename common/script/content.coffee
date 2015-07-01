@@ -787,6 +787,7 @@ api.spells =
         target.stats.buffs.snowball = true
         target.stats.buffs.spookDust = false
         target.stats.buffs.shinySeed = false
+        target.stats.buffs.seafoam = false
         target.achievements.snowball ?= 0
         target.achievements.snowball++
         user.items.special.snowball--
@@ -812,6 +813,7 @@ api.spells =
         target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = true
         target.stats.buffs.shinySeed = false
+        target.stats.buffs.seafoam = false
         target.achievements.spookDust ?= 0
         target.achievements.spookDust++
         user.items.special.spookDust--
@@ -837,6 +839,7 @@ api.spells =
         target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = false
         target.stats.buffs.shinySeed = true
+        target.stats.buffs.seafoam = false
         target.achievements.shinySeed ?= 0
         target.achievements.shinySeed++
         user.items.special.shinySeed--
@@ -850,6 +853,32 @@ api.spells =
       notes: t('spellSpecialPetalFreePotionNotes')
       cast: (user, target) ->
         user.stats.buffs.shinySeed = false
+        user.stats.gp -= 5
+
+    seafoam:
+      text: t('spellSpecialSeafoamText')
+      mana: 0
+      value: 15
+      target: 'user'
+      notes: t('spellSpecialSeafoamNotes')
+      cast: (user, target) ->
+        target.stats.buffs.snowball = false
+        target.stats.buffs.spookDust = false
+        target.stats.buffs.shinySeed = false
+        target.stats.buffs.seafoam = true
+        target.achievements.seafoam ?= 0
+        target.achievements.seafoam++
+        user.items.special.seafoam--
+
+    sand:
+      text: t('spellSpecialSandText')
+      mana: 0
+      value: 5
+      immediateUse: true
+      target: 'self'
+      notes: t('spellSpecialSandNotes')
+      cast: (user, target) ->
+        user.stats.buffs.seafoam = false
         user.stats.gp -= 5
 
     nye:
@@ -1913,6 +1942,16 @@ api.backgrounds =
     island_waterfalls:
       text: t('backgroundIslandWaterfallsText')
       notes: t('backgroundIslandWaterfallsNotes')
+  backgrounds072015:
+    dilatory_ruins:
+      text: t('backgroundDilatoryRuinsText')
+      notes: t('backgroundDilatoryRuinsNotes')
+    giant_wave:
+      text: t('backgroundGiantWaveText')
+      notes: t('backgroundGiantWaveNotes')
+    sunken_ship:
+      text: t('backgroundSunkenShipText')
+      notes: t('backgroundSunkenShipNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
