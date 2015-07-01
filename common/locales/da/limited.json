@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %>Sæson-heksen<%= linkEnd %>",
     "seasonalShopClosedText": "Sæson-markedet er lukket! Jeg ved ikke hvor Sæson-heksen er lige nu, men hun kommer sikkert tilbage til den næste <%= linkStart %>Store Fest<%= linkEnd %>!",
     "seasonalShopText": "Velkommen til Sæson-markedet! Vi har forårs-<a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alting her kan købes under Forårsflirt-eventet hvert år, men vi holder kun åbent indtil 30. april, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
+    "seasonalShopSummerText": "Velkommen til Sæson-markedet! Vi har sommer-<a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alting her kan købes under Sommerplask-eventet hvert år, men vi holder kun åbent indtil 31. juli, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!\nWelcome to",
     "seasonalShopRebirth": "Hvis du har brugt Genfødselskuglen kan du genkøbe dette udstyr i Belønningskolonnen efter du har fået adgang til Udstyrsbutikken. I starten vil du kun kunne købe tingene, der passer til din nuværende klasse (Kriger som standard), men frygt ej, de andre klasse-specifikke varer bliver tilgængelige hvis du skifter til den klasse.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "Kraftfuld Kanin (Kriger)",
     "magicMouseSet": "Magisk Mus (Magiker)",
     "lovingPupSet": "Kærlig Hvalp (Helbreder)",
-    "stealthyKittySet": "Snigende Kat (Slyngel)"
+    "stealthyKittySet": "Snigende Kat (Slyngel)",
+    "daringSwashbucklerSet": "Modig Vovehals (Kriger)",
+    "emeraldMermageSet": "Smaragd Havmagiker (Magiker)",
+    "reefSeahealerSet": "Havhelbreder fra Revet (Helbreder)",
+    "roguishPirateSet": "Slyngelagtig Pirat (Slyngel)"
 }

@@ -39,6 +39,8 @@
     "editGroup": "Izmeni grupu",
     "newGroupName": "<%= groupType %> ime",
     "groupName": "Ime grupe",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Opis koji se pojavljuje u spisku udruženja (podržava Markdown)",
     "logoUrl": "Logo URL",
     "assignLeader": "Vođa grupe",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

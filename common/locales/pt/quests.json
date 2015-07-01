@@ -1,9 +1,11 @@
 {
     "quests": "Missões",
     "quest": "missão",
+    "questDetails": "Detalhes da Missão",
+    "invitations": "Convites",
     "completed": "Completo!",
     "youReceived": "Você Recebeu",
-    "questSend": "Clicar em \"Convidar\" enviará um convite para os membros da sua equipe. Quando todos membros aceitarem ou rejeitarem, a missão começará. Veja o estado da missão em Opções > Social > Equipe.",
+    "questSend": "Clicar em \"Convidar\" enviará um convite para os membros da sua equipe. Quando todos membros aceitarem ou rejeitarem, a missão começará. Veja o estado da missão em Social > Equipe.",
     "inviteParty": "Convidar Equipe",
     "questInvitation": "Convite de Missão:",
     "questInvitationTitle": "Convite para Missão",

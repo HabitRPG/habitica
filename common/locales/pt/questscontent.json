@@ -202,5 +202,11 @@
     "questSheepBoss": "Carneiro do Trovão",
     "questSheepCompletion": "Impressionado pela sua diligência, o Carneiro do Trovão deixa a raiva ir embora. Ele atira três enormes pedras de granizo na sua direção; e então, lentamente, desaparece, emitindo um estrondo grave. Ao olhar mais atentamente, você descobre que as pedras de granizo eram, na verdade, três ovos macios e peludos. Você os recolhe, e depois caminha calmamente de volta para casa sob um céu azul.",
     "questSheepDropSheepEgg": "Ovelha (Ovo)",
-    "questSheepUnlockText": "Desbloqueia ovos de ovelha para comprar no Mercado"
+    "questSheepUnlockText": "Desbloqueia ovos de ovelha para comprar no Mercado",
+    "questKrakenText": "O Kraken do Inkompleto",
+    "questKrakenNotes": "Está um dia quente e ensolarado enquanto vocês navegam sobre a Baia Inkompleta, mas seus pensamentos estão turvos com preocupações sobre tudo que vocês precisam fazer. Parece que assim que você termina uma tarefa, outra surge e depois outra...<br><br>De repente, o barco dá um horrível solavanco e pegajosos tentáculos eclodem da água por todos os lados! \"Estamos sendo atacados pelo Kraken do Inkompleto!\", brada Wolvenhalo.<br><br>\"Rápido!\" Limonada lhes chama. \"Acertem o máximo de tentáculos e tarefas que vocês puderem, antes que outros possam surgir em seu lugar!\"",
+    "questKrakenBoss": "O Kraken do Inkompleto",
+    "questKrakenCompletion": "Enquanto o Kraken foge, diversos ovos bóiam para a superfície da água. Limonada lhes examina e suas suspeitas se tornam deleite. \"Ovos de Lula!\", diz ela. \"Aqui, peguem ele como uma recompensa por tudo que vocês realizaram.\" ",
+    "questKrakenDropCuttlefishEgg": "Lula (Ovo)",
+    "questKrakenUnlockText": "Desbloqueia a compra de ovos de lula no Mercado"
 }

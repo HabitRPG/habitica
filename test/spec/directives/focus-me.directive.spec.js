@@ -16,7 +16,7 @@ describe('focusMe Directive', function() {
 
   it('focuses the element when appended to the DOM', function() {
     inject(function($timeout) {
-      var focusSpy = sinon.spy();
+      var focusSpy = sandbox.spy();
 
       element.appendTo(document.body);
       element.on('focus', focusSpy);

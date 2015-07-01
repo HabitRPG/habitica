@@ -30,7 +30,7 @@ describe('Groups Controller', function() {
       party.type = 'party';
       party.members = []; // Ensure we wouldn't pass automatically.
 
-      var partyStub = sinon.stub(groups,"party", function() {
+      var partyStub = sandbox.stub(groups,"party", function() {
         return party;
       });
 
@@ -44,7 +44,7 @@ describe('Groups Controller', function() {
       guild.type = 'guild';
       guild.members.push(user._id);
 
-      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
         return [guild];
       });
 
@@ -58,7 +58,7 @@ describe('Groups Controller', function() {
       guild._id = "unique-guild-id";
       guild.type = 'guild';
 
-      var myGuilds = sinon.stub(groups,"myGuilds", function() {
+      var myGuilds = sandbox.stub(groups,"myGuilds", function() {
         return [];
       });
 
@@ -98,7 +98,7 @@ describe("Chat Controller", function() {
         name: "Princess Bride"
       };
 
-      var modalSpy = sinon.spy($rootScope, "openModal");
+      var modalSpy = sandbox.spy($rootScope, "openModal");
       var message = {
         uuid: 'the-dread-pirate-roberts',
         user: 'Wesley',
@@ -120,7 +120,7 @@ describe("Chat Controller", function() {
         name: "Princess Bride"
       };
 
-      var modalSpy = sinon.spy($rootScope, "openModal");
+      var modalSpy = sandbox.spy($rootScope, "openModal");
       var message = {
         uuid: 'system',
         text: 'Wesley attacked the ROUS in the Fire Swamp'
@@ -221,7 +221,7 @@ describe("Autocomplete controller", function() {
 
   describe("performCompletion", function() {
     it('triggers autoComplete', function() {
-      scope.autoComplete = sinon.spy();
+      scope.autoComplete = sandbox.spy();
 
       var msg = {user: "boo"}; // scope.autoComplete only cares about user
       scope.query = {text: "b"};
@@ -247,7 +247,7 @@ describe("Autocomplete controller", function() {
 
   describe("chatChanged", function() {
     it('if a new chat arrives, the new user name is extracted', function() {
-      var chatChanged = sinon.spy(scope, 'chatChanged');
+      var chatChanged = sandbox.spy(scope, 'chatChanged');
       scope.$watch('group.chat',scope.chatChanged); // reinstantiate watch so spy works
 
       scope.$digest(); // trigger watch
@@ -269,11 +269,11 @@ describe("CopyMessageModal controller", function() {
       user = specHelper.newUser();
       user._id = "unique-user-id";
       user.ops = {
-        addTask: sinon.spy()
+        addTask: sandbox.spy()
       };
 
       scope = $rootScope.$new();
-      scope.$close = sinon.spy();
+      scope.$close = sandbox.spy();
 
       $controller = _$controller_;
 
@@ -283,7 +283,7 @@ describe("CopyMessageModal controller", function() {
       ctrl = $controller('CopyMessageModalCtrl', {$scope: scope, User: {user: user}});
 
       Notification = _Notification_;
-      Notification.text = sinon.spy();
+      Notification.text = sandbox.spy();
     });
   });
 
@@ -307,6 +307,135 @@ describe("CopyMessageModal controller", function() {
       Notification.text.should.have.been.calledOnce;
       Notification.text.should.have.been.calledWith(window.env.t('messageAddedAsToDo'));
       scope.$close.should.have.been.calledOnce;
+    });
+  });
+});
+
+describe("Party Controller", function() {
+  var scope, ctrl, user, User, groups, $rootScope, $controller;
+
+  beforeEach(function() {
+    user = specHelper.newUser(),
+    user._id = "unique-user-id";
+    User = {
+      user: user,
+      sync: sinon.spy
+    }
+
+    module(function($provide) {
+      $provide.value('User', User);
+    });
+
+    inject(function(_$rootScope_, _$controller_, Groups){
+
+      $rootScope = _$rootScope_;
+
+      scope = _$rootScope_.$new();
+
+      $controller = _$controller_;
+
+      groups = Groups;
+
+      // Load RootCtrl to ensure shared behaviors are loaded
+      $controller('RootCtrl',  {$scope: scope, User: User});
+
+      ctrl = $controller('PartyCtrl', {$scope: scope, User: User});
+    });
+  });
+
+  describe('questAccept', function() {
+    it('calls Groups.questAccept', function() {
+      var party = {};
+      var groupSpy = sinon.stub(groups, "questAccept", function(){return true;});
+      scope.questAccept(party);
+      groupSpy.should.have.been.calledOnce;
+    });
+  });
+
+  describe('questReject', function() {
+    it('calls Groups.questReject', function() {
+      var party = {};
+      var groupSpy = sinon.stub(groups, "questReject", function(){return true;});
+      scope.questReject(party);
+      groupSpy.should.have.been.calledOnce;
+    });
+  });
+
+  describe('questCancel', function() {
+    var party, cancelSpy, windowSpy;
+    beforeEach(function() {
+      party = {};
+      cancelSpy = sinon.stub(groups, "questCancel", function(){return true;});
+    });
+
+    afterEach(function() {
+      windowSpy.restore();
+      cancelSpy.restore();
+    });
+
+    it('calls Groups.questCancel when alert box is confirmed', function() {
+      windowSpy = sinon.stub(window, "confirm", function(){return true});
+
+      scope.questCancel(party);
+      windowSpy.should.have.been.calledOnce;
+      windowSpy.should.have.been.calledWith(window.env.t('sureCancel'));
+      cancelSpy.should.have.been.calledOnce;
+    });
+
+    it('does not call Groups.questCancel when alert box is confirmed', function() {
+      windowSpy = sinon.stub(window, "confirm", function(){return false});
+
+      scope.questCancel(party);
+      windowSpy.should.have.been.calledOnce;
+      cancelSpy.should.not.have.been.calledOnce;
+    });
+  });
+
+  describe('questAbort', function() {
+    var party, abortSpy, windowSpy;
+    beforeEach(function() {
+      party = {};
+      abortSpy = sinon.stub(groups, "questAbort", function(){return true;});
+    });
+
+    afterEach(function() {
+      windowSpy.restore();
+      abortSpy.restore();
+    });
+
+    it('calls Groups.questAbort when two alert boxes are confirmed', function() {
+      windowSpy = sinon.stub(window, "confirm", function(){return true});
+
+      scope.questAbort(party);
+      windowSpy.should.have.been.calledTwice;
+      windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
+      windowSpy.should.have.been.calledWith(window.env.t('doubleSureAbort'));
+      abortSpy.should.have.been.calledOnce;
+    });
+
+    it('does not call Groups.questAbort when first alert box is not confirmed', function() {
+      windowSpy = sinon.stub(window, "confirm", function(){return false});
+
+      scope.questAbort(party);
+      windowSpy.should.have.been.calledOnce;
+      windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
+      windowSpy.should.not.have.been.calledWith(window.env.t('doubleSureAbort'));
+      abortSpy.should.not.have.been.calledOnce;
+    });
+
+    it('does not call Groups.questAbort when first alert box is confirmed but second one is not', function() {
+      // Hack to confirm first window, but not second
+      var shouldReturn = false;
+      windowSpy = sinon.stub(window, "confirm", function(){
+        shouldReturn = !shouldReturn;
+        return shouldReturn;
+      });
+
+      scope.questAbort(party);
+      windowSpy.should.have.been.calledTwice;
+      windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
+      windowSpy.should.have.been.calledWith(window.env.t('doubleSureAbort'));
+      abortSpy.should.not.have.been.calledOnce;
     });
   });
 });

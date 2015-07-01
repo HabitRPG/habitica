@@ -21,11 +21,5 @@
     "rebirthOrb": "Ha utilizzato una Sfera della Rinascita al livello",
     "rebirthPop": "Ricomincia con un nuovo personaggio al livello 1 mantenendo medaglie, oggetti, attività e cronologia.",
     "rebirthName": "Sfera della Rinascita",
-    "reborn": "Rinasci, livello massimo <%= reLevel %>",
-    "welcome100": "Benvenuto al Livello 100!",
-    "intro100": "Ora che hai raggiungo il livello 100, potrai usare l'Orbe della Rinascita ogni volta che lo vorrai gratuitamente.",
-    "followup100": "Anche se potrai continuare a salire di livello, ciò non aumenterà più le tue statistiche e non sbloccherà nessun contenuto aggiuntivo, in modo che HabitRPG rimanga sempre divertente, indipendentemente dallo stile di gioco.",
-    "rebirth100Info": "Se sei pronto a cominciare una nuova avventura, puoi Rinascere ora... o scoprire quanto in là riesci a spingerti.",
-    "rebirthWait": "Aspetterò...",
-    "rebirthNow": "Rinasci Adesso!"
+    "reborn": "Rinasci, livello massimo <%= reLevel %>"
 }

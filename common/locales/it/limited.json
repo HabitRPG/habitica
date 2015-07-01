@@ -25,6 +25,7 @@
     "seasonalShopTitle": "<%= linkStart %>Maga Stagionale<%= linkEnd %>",
     "seasonalShopClosedText": "Il Negozio Stagionale è attualmente chiuso! Non so dove sia la Maga Stagionale ora, ma scommetto che sarà di ritorno durante il prossimo <%= linkStart %>Grand Gala<%= linkEnd %>!",
     "seasonalShopText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti primaverili in <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Spring Fling\" ogni anno, ma siamo aperti solo fino al 30 aprile! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
+    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "Se hai usato la Sfera della Rinascita, potrai riacquistare questo equipaggiamento dalla colonna delle Ricompense dopo aver sbloccato il Mercato. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero, se non l'hai ancora scelta/cambiata), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
     "candycaneSet": "Caramello (Mago)",
     "skiSet": "Nevassassino (Assassino)",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "Coniglio Valoroso (Guerriero)",
     "magicMouseSet": "Topo Magico (Mago)",
     "lovingPupSet": "Adorabile Cucciolo (Guaritore)",
-    "stealthyKittySet": "Gatto Furtivo (Assassino)"
+    "stealthyKittySet": "Gatto Furtivo (Assassino)",
+    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
+    "emeraldMermageSet": "Emerald Mermage (Mage)",
+    "reefSeahealerSet": "Reef Seahealer (Healer)",
+    "roguishPirateSet": "Roguish Pirate (Rogue)"
 }

@@ -39,6 +39,8 @@
     "editGroup": "Upraviť skupinu",
     "newGroupName": "<%= groupType %> meno",
     "groupName": "Názov družiny",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Popis zobrazujúci sa vo verejnom zozname cechov (Markdown je OK)",
     "logoUrl": "URL loga",
     "assignLeader": "Vodca družiny",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

@@ -62,6 +62,8 @@
     "questEggSlimeAdjective": "sweet",
     "questEggSheepText": "Sheep",
     "questEggSheepAdjective": "woolly",
+    "questEggCuttlefishText": "Cuttlefish",
+    "questEggCuttlefishAdjective": "cuddly",
     "eggNotes": "Nájdi liahoxír, ktorý vyleješ na vajíčko, a vyliahne sa z neho <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základný",
     "hatchingPotionWhite": "Biely",

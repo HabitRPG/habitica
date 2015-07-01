@@ -62,6 +62,8 @@
     "questEggSlimeAdjective": "una dolce",
     "questEggSheepText": "Pecorella",
     "questEggSheepAdjective": "una soffice",
+    "questEggCuttlefishText": "Seppia",
+    "questEggCuttlefishAdjective": "un'affettuosa",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

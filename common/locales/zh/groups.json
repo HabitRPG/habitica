@@ -39,6 +39,8 @@
     "editGroup": "编辑团队",
     "newGroupName": "<%= groupType %> 名称",
     "groupName": "团队名称",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "公会公开列表中显示的描述 (支持标记语言)",
     "logoUrl": "图标链接",
     "assignLeader": "任命队长",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

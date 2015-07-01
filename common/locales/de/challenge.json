@@ -49,8 +49,10 @@
     "keepTasks": "Aufgabe behalten",
     "closeCha": "Wettbewerb auswählen und...",
     "leaveCha": "Wettbewerb verlassen und...",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilterHeader": "Besitz",
+    "challengedOwnedFilter": "In deinem Besitz",
+    "challengedNotOwnedFilter": "Nicht in deinem Besitz",
+    "challengedEitherOwnedFilter": "Beides",
+    "backToChallenges": "Zurück zu allen Wettbewerben",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Preis"
 }

@@ -1,9 +1,11 @@
 {
     "quests": "Quêtes",
     "quest": "quête",
+    "questDetails": "Détails de la Quête",
+    "invitations": "Invitations",
     "completed": "Complétée !",
     "youReceived": "Vous remportez",
-    "questSend": "Cliquer sur \"Inviter\" enverra une invitation aux membres de votre équipe. Quand tous les membres auront accepté ou refusé, la quête commencera. Voir l'avancement dans Options > Social > Équipe.",
+    "questSend": "En cliquant sur \"Inviter\", vous enverrez une invitation aux membres de votre équipe. Lorsque tous les membres auront accepté ou refusé, la quête commencera. Vous pouvez suivre le statut de l'invitation sous Social > Équipe.",
     "inviteParty": "Inviter l'équipe",
     "questInvitation": "Invitation à une Quête :",
     "questInvitationTitle": "Invitation à une Quête",

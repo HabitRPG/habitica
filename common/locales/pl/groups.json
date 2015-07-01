@@ -39,6 +39,8 @@
     "editGroup": "Edytuj grupę",
     "newGroupName": "<%= groupType %> - nazwa",
     "groupName": "Nazwa grupy",
+    "groupLeader": "Przywódca grupy",
+    "groupID": "ID Grupy",
     "groupDescr": "Opis pokazywany na liście publicznych Gildii (kodowanie Markdown dostępne)",
     "logoUrl": "Link do logo",
     "assignLeader": "Przydziel przywódcę grupy",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "Z posiadanych",
     "sendGiftPurchase": "Kup nowe",
     "sendGiftMessagePlaceholder": "Osobista wiadomość (opcjonalnie)",
-    "sendGiftSubscription": "<%= months %> miesięcy: <%= price %> $"
+    "sendGiftSubscription": "<%= months %> miesięcy: <%= price %> $",
+    "startAParty": "Utwórz drużynę",
+    "addToParty": "Dodaj kogoś do swojej drużyny"
 }

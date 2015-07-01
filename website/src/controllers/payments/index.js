@@ -7,6 +7,7 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var amazon = require('./amazon');
 var members = require('../members')
 var async = require('async');
 var iap = require('./iap');
@@ -52,7 +53,10 @@ exports.createSubscription = function(data, cb) {
       paymentMethod: data.paymentMethod,
       extraMonths: +p.extraMonths
         + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
-      dateTerminated: null
+      dateTerminated: null,
+      // Specify a lastBillingDate just for Amazon Payments
+      // Resetted every time the subscription restarts
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined
     }).defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date(),
       mysteryItems: []
@@ -168,6 +172,11 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.amazonVerifyAccessToken = amazon.verifyAccessToken;
+exports.amazonCheckout = amazon.checkout;
+exports.amazonSubscribe = amazon.subscribe;
+exports.amazonSubscribeCancel = amazon.subscribeCancel;
 
 exports.iapAndroidVerify = iap.androidVerify;
 exports.iapIosVerify = iap.iosVerify;

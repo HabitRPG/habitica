@@ -182,4 +182,80 @@ describe('Challenges Controller', function() {
       });
     });
   });
+
+  describe('clone', function() {
+
+    var challengeToClone = {
+      name: 'copyChallenge',
+      description: 'copyChallenge',
+      habits: [specHelper.newHabit()],
+      dailys: [specHelper.newDaily()],
+      todos: [specHelper.newTodo()],
+      rewards: [specHelper.newReward()],
+      leader: 'unique-user-id',
+      group: { _id: "copyGroup" },
+      timestamp: new Date("October 13, 2014 11:13:00"),
+      members: ['id', 'another-id'],
+      official: true,
+      _isMember: true,
+      prize: 1
+    };
+
+    it('Clones the basic challenge info', function() {
+
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.name).to.eql(challengeToClone.name);
+      expect(scope.newChallenge.shortName).to.eql(challengeToClone.shortName);
+      expect(scope.newChallenge.description).to.eql(challengeToClone.description);
+      expect(scope.newChallenge.leader).to.eql(user._id);
+      expect(scope.newChallenge.group).to.eql(challengeToClone.group._id);
+      expect(scope.newChallenge.official).to.eql(challengeToClone.official);
+      expect(scope.newChallenge.prize).to.eql(challengeToClone.prize);
+    });
+
+    it('does not clone members', function() {
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.members).to.not.exist;
+    });
+
+    it('does not clone timestamp', function() {
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.timestamp).to.not.exist;
+    });
+
+    it('clones habits', function() {
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.habits.length).to.eql(challengeToClone.habits.length);
+      expect(scope.newChallenge.habits[0].text).to.eql(challengeToClone.habits[0].text);
+      expect(scope.newChallenge.habits[0].notes).to.eql(challengeToClone.habits[0].notes);
+    });
+
+    it('clones dailys', function() {
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.dailys.length).to.eql(challengeToClone.dailys.length);
+      expect(scope.newChallenge.dailys[0].text).to.eql(challengeToClone.dailys[0].text);
+      expect(scope.newChallenge.dailys[0].notes).to.eql(challengeToClone.dailys[0].notes);
+    });
+
+    it('clones todos', function() {
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.todos.length).to.eql(challengeToClone.todos.length);
+      expect(scope.newChallenge.todos[0].text).to.eql(challengeToClone.todos[0].text);
+      expect(scope.newChallenge.todos[0].notes).to.eql(challengeToClone.todos[0].notes);
+    });
+
+    it('clones rewards', function() {
+      scope.clone(challengeToClone);
+
+      expect(scope.newChallenge.rewards.length).to.eql(challengeToClone.rewards.length);
+      expect(scope.newChallenge.rewards[0].text).to.eql(challengeToClone.rewards[0].text);
+      expect(scope.newChallenge.rewards[0].notes).to.eql(challengeToClone.rewards[0].notes);
+    });
+  });
 });

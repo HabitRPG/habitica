@@ -42,8 +42,6 @@
     "customDayStart": "Tageswechsel einstellen",
     "24HrClock": "24h Uhr",
     "customDayStartInfo1": "HabitRPG ist so eingestellt, dass Deine täglichen Aufgaben um Mitternacht in deiner eigenen Zeitzone überprüft und zurückgesetzt werden. Wir empfehlen den folgenden Text zu lesen, bevor Du diese Einstellungen veränderst:",
-    "customDayStartInfo2": "(mehr anzeigen)",
-    "customDayStartInfo3": "(weniger anzeigen)",
     "customDayStartInfo4": "<strong>Erledige all Deine täglichen Aufgaben bevor Du den Beginn Deines Tages veränderst</strong> oder <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>ruhe Dich im Gasthaus aus</a> für diesen Tag. Wenn Du Deinen Tagesbeginn veränderst, werden eventuell deine täglichen Aufgaben sofort überprüft  <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a>, aber nach dem ersten Tag sollte alles wie erwartet funktionieren.<br><br><strong> Habe bitte zwei Stunden Geduld, bis die neuen Einstellungen greifen.</strong> Wenn der Beginn zum Beispiel aktuell auf 0 Uhr (Mitternacht) eingestellt ist, dann ändere es vor 10 Uhr Abends; wenn Du ihn auf 9 Uhr Abends setzen willst, solltest Du das vor 7 Uhr Abends machen.<br><br> Gib eine Stunde zwischen 0 und 23 (24 Stunden Uhr) an. Tippen ist effektiver, als die Pfeiltasten zu benutzen. Wenn Du den Wert eingestellt hast, lade die Seite neu um sicher zu gehen, dass der neue Wert angezeigt wird. ",
     "misc": "Verschiedenes",
     "showHeader": "Header anzeigen",
@@ -113,10 +111,11 @@
     "benefits": "Vorteile",
     "coupon": "Gutschein",
     "couponPlaceholder": "Gib Deinen Gutschein Code ein",
-    "couponText": "Wir halten manchmal Events und geben Promo Codes für besondere Ausrüstungsgegenstände heraus. (z.B. wenn du bei unserem Wondercon Stand vorbeigeschaut hast)",
+    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
     "apply": "Anwenden",
     "resubscribe": "Wieder abonnieren",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code aktiviert! Überprüfe dein Inventar",
-    "promoPlaceholder": "Promo Code eingeben"
+    "promoPlaceholder": "Promo Code eingeben",
+    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
 }

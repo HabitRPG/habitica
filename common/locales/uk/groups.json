@@ -39,6 +39,8 @@
     "editGroup": "Редагувати групу",
     "newGroupName": "<%= groupType %> Назва",
     "groupName": "Назва ватаги",
+    "groupLeader": "Group Leader",
+    "groupID": "Group ID",
     "groupDescr": "Опис, показаний у переліку ґільдій (з урахув. Markdown)",
     "logoUrl": "URL логотипу",
     "assignLeader": "Призначити лідера групи",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
-    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>"
+    "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "startAParty": "Start a Party",
+    "addToParty": "Add someone to your party"
 }

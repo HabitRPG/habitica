@@ -1,3 +1,4 @@
+'use strict';
 // @see ../routes for routing
 
 function clone(a) {
@@ -195,7 +196,7 @@ api.create = function(req, res, next) {
       group = user = null;
     });
 
-  }else{
+  } else{
     async.waterfall([
       function(cb){
         Group.findOne({type:'party',members:{$in:[user._id]}},cb);
@@ -210,8 +211,8 @@ api.create = function(req, res, next) {
     ], function(err, populated){
       if (err == 'Already in a party, try refreshing.') return res.json(400,{err:err});
       if (err) return next(err);
-      return res.json(populated);
       group = user = null;
+      return res.json(populated);
     })
   }
 }
@@ -285,7 +286,7 @@ api.postChat = function(req, res, next) {
 
     group.save(function(err, saved){
       if (err) return next(err);
-      return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
+      chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
       group = chatUpdated = null;
     });
   }
@@ -423,6 +424,9 @@ api.likeChatMessage = function(req, res, next) {
   group.markModified('chat');
   group.save(function(err,_saved){
     if (err) return next(err);
+    // @TODO: We're sending back the entire array of chats back
+    // Should we just send back the object of the single chat message?
+    // If not, should we update the group chat when a chat is liked?
     return res.send(_saved.chat);
   })
 }
@@ -549,8 +553,8 @@ api.leave = function(req, res, next) {
     }
   ],function(err){
     if (err) return next(err);
-    return res.send(204);
     user = group = keep = null;
+    return res.send(204);
   })
 }
 
@@ -786,8 +790,8 @@ api.removeMember = function(req, res, next){
 
     });
   }else{
-    return res.json(400, {err: "User not found among group's members!"});
     group = uuid = null;
+    return res.json(400, {err: "User not found among group's members!"});
   }
 }
 
@@ -795,7 +799,7 @@ api.removeMember = function(req, res, next){
 // Quests
 // ------------------------------------
 
-questStart = function(req, res, next) {
+function questStart(req, res, next) {
   var group = res.locals.group;
   var force = req.query.force;
 
@@ -918,6 +922,7 @@ api.questAccept = function(req, res, next) {
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
+        User.update({_id:m},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
         group.quest.members[m] = undefined;
       }
     });
@@ -953,6 +958,7 @@ api.questAccept = function(req, res, next) {
   } else {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
     group.quest.members[user._id] = true;
+    User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false}}).exec();
     questStart(req,res,next);
   }
 }
@@ -963,6 +969,7 @@ api.questReject = function(req, res, next) {
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
   group.quest.members[user._id] = false;
+  User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
   questStart(req,res,next);
 }
 
@@ -980,6 +987,9 @@ api.questCancel = function(req, res, next){
         group.quest = {key:null,progress:{},leader:null};
         group.markModified('quest');
         group.save(cb);
+        _.each(group.members, function(m){
+          User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+        });
       }
     }
   ], function(err){

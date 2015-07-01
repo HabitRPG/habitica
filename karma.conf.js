@@ -36,6 +36,7 @@ module.exports = function(config) {
       'common/dist/scripts/habitrpg-shared.js',
 
       "test/spec/mocks/translations.js",
+      "test/spec/mocks/sandbox.js",
 
       "website/public/js/env.js",
 
@@ -45,7 +46,9 @@ module.exports = function(config) {
       "website/public/js/services/notificationServices.js",
       "common/script/public/userServices.js",
       "common/script/public/directives.js",
+      "website/public/js/services/analyticsServices.js",
       "website/public/js/services/groupServices.js",
+      "website/public/js/services/chatServices.js",
       "website/public/js/services/memberServices.js",
       "website/public/js/services/guideServices.js",
       "website/public/js/services/challengeServices.js",
@@ -68,6 +71,7 @@ module.exports = function(config) {
       "website/public/js/directives/when-scrolled.directive.js",
 
       "website/public/js/controllers/authCtrl.js",
+      "website/public/js/controllers/menuCtrl.js",
       "website/public/js/controllers/notificationCtrl.js",
       "website/public/js/controllers/rootCtrl.js",
       "website/public/js/controllers/settingsCtrl.js",

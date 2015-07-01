@@ -136,11 +136,11 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.guilds.detail', {
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
-          controller: ['$scope', 'Groups', '$stateParams',
-          function($scope, Groups, $stateParams){
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams',
+          function($scope, Groups, Chat, $stateParams){
             Groups.Group.get({gid:$stateParams.gid}, function(group){
               $scope.group = group;
-              Groups.seenMessage(group._id);
+              Chat.seenMessage(group._id);
             });
           }]
         })
@@ -243,7 +243,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.settings.notifications', {
           url: "/notifications",
           templateUrl: "partials/options.settings.notifications.html"
-        })
+        });
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
       if (settings && settings.auth) {
@@ -251,4 +251,4 @@ window.habitrpg = angular.module('habitrpg',
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
-  }])
+  }]);

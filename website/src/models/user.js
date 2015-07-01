@@ -46,6 +46,7 @@ var UserSchema = new Schema({
     snowball: Number,
     spookDust: Number,
     shinySeed: Number,
+    seafoam: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -101,14 +102,15 @@ var UserSchema = new Schema({
     mobileChat: Boolean,
     plan: {
       planId: String,
-      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
-      customerId: String,
+      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
+      customerId: String, // Billing Agreement Id in case of Amazon Payments
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,
       extraMonths: {type:Number, 'default':0},
       gemsBought: {type: Number, 'default': 0},
       mysteryItems: {type: Array, 'default': []},
+      lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
       consecutive: {
         count: {type:Number, 'default':0},
         offset: {type:Number, 'default':0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
@@ -207,6 +209,7 @@ var UserSchema = new Schema({
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
       shinySeed: {type: Number, 'default': 0},
+      seafoam: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
@@ -292,11 +295,11 @@ var UserSchema = new Schema({
         down: {type: Number, 'default': 0},
         collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
       },
-      completed: String // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+      completed: String, // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+      RSVPNeeded: {type: Boolean, 'default': false} // Set to true when invite is pending, set to false when quest invite is accepted or rejected, quest starts, or quest is cancelled
     }
   },
   preferences: {
-    armorSet: String,
     dayStart: {type:Number, 'default': 0, min: 0, max: 23},
     size: {type:String, enum: ['broad','slim'], 'default': 'slim'},
     hair: {
@@ -311,7 +314,7 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
-    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme']},
+    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme', 'gokulTheme']},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
@@ -375,7 +378,8 @@ var UserSchema = new Schema({
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false},
       spookDust: {type: Boolean, 'default': false},
-      shinySeed: {type: Boolean, 'default': false}
+      shinySeed: {type: Boolean, 'default': false},
+      seafoam: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},
@@ -540,6 +544,9 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.methods.unlink = function(options, cb) {
   var cid = options.cid, keep = options.keep, tid = options.tid;
+  if (!cid) {
+    return cb("Could not remove challenge tasks. Please delete them manually.");
+  }
   var self = this;
   switch (keep) {
     case 'keep':

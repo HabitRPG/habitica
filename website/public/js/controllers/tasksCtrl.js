@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide', 'Tasks',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide, Tasks) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide', 'Tasks', 'Analytics',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide, Tasks, Analytics) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -25,8 +25,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
       User.user.ops.score({params:{id: task.id, direction:direction}});
-      mixpanel.register({'Gold':Math.floor(User.user.stats.gp),'Health':Math.ceil(User.user.stats.hp),'Experience':Math.floor(User.user.stats.exp),'Level':User.user.stats.lvl,'Mana':Math.floor(User.user.stats.mp),'Class':User.user.stats.class,'subscription':User.user.purchased.plan.planId,'contributorLevel':User.user.contributor.level,'UUID':User.user._id});
-      mixpanel.track('Score Task',{'taskType':task.type,'direction':direction});
+      Analytics.updateUser();
+      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
 
     function addTask(addTo, listDef, task) {

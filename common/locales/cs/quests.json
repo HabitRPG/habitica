@@ -1,9 +1,11 @@
 {
     "quests": "Výpravy",
     "quest": "výprava",
+    "questDetails": "Quest Details",
+    "invitations": "Invitations",
     "completed": "Dokončeno!",
     "youReceived": "Získal jsi",
-    "questSend": "Kliknutí na \"Pozvat\" pošle pozvání členům tvé družiny. Poté, co všichni členové přijali nebo odmítli, může výprava začít. Stav si můžeš zobrazit v Možnosti > Komunita > Družina.",
+    "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "inviteParty": "Pozvat družinu",
     "questInvitation": "Pozvánka na výpravu:",
     "questInvitationTitle": "Pozvánka na Výpravu",

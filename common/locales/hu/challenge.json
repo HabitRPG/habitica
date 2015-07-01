@@ -49,8 +49,10 @@
     "keepTasks": "Feladatok megtartása",
     "closeCha": "Kihívás bezárása és ...",
     "leaveCha": "Kihívás elhagyása és ...",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either"
+    "challengedOwnedFilterHeader": "Birtoklás",
+    "challengedOwnedFilter": "Saját",
+    "challengedNotOwnedFilter": "Nem saját",
+    "challengedEitherOwnedFilter": "Valamelyik",
+    "backToChallenges": "Vissza a kihívásokhoz",
+    "prizeValue": "Nyeremény <%= gemcount %>&nbsp;<%= gemicon %>"
 }

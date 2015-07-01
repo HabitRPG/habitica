@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -87,7 +87,7 @@ habitrpg.controller('NotificationCtrl',
         Notification.drop(User.user._tmp.drop.dialog);
       }
       $rootScope.playSound('Item_Drop');
-      mixpanel.track("Acquire Item",{'itemName':after.key,'acquireMethod':'Drop'})
+      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
@@ -148,15 +148,15 @@ habitrpg.controller('NotificationCtrl',
     });
 
     // Completed quest modal
-    $rootScope.$watch('user.party.quest.completed', function(after, before){
+    $scope.$watch('user.party.quest.completed', function(after, before){
       if (!after) return;
       $rootScope.openModal('questCompleted', {controller:'InventoryCtrl'});
     });
 
     // Quest invitation modal
-    $rootScope.$watch('party.quest.key && !party.quest.active && party.quest.members[user._id] == undefined', function(after, before){
-      if (after == before || after != true) return;
-      $rootScope.openModal('questInvitation');
+    $scope.$watch('user.party.quest.RSVPNeeded && !user.party.quest.completed', function(after, before){
+      if (after != true) return;
+      $rootScope.openModal('questInvitation', {controller:'PartyCtrl'});
     });
 
     $rootScope.$on('responseError', function(ev, error){

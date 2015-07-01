@@ -21,4 +21,4 @@ div(ng-if='group.quest.active==true')
 
   unless tavern
     button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group))', 
-      ng-click='questAbort()')=env.t('abort')
+      ng-click='questAbort(party)')=env.t('abort')

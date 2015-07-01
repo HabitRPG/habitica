@@ -21,11 +21,5 @@
     "rebirthOrb": "A utilisé un Orbe de Renaissance pour recommencer à zéro après avoir atteint le niveau ",
     "rebirthPop": "Commencez un nouveau personnage au Niveau 1 en conservant les succès, les objets de collection et les tâches avec historique.",
     "rebirthName": "Orbe de Renaissance",
-    "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
-    "welcome100": "Bienvenue au Niveau 100 !",
-    "intro100": "Maintenant que vous avez atteint le niveau 100, vous pouvez utiliser l'Orbe de Renaissance à tout moment, gratuitement. ",
-    "followup100": "Vous pouvez continuer à gagner des niveaux, mais cela n'augmentera plus vos caractéristiques et ne débloquera plus de contenu supplémentaire, de façon à garder HabitRPG amusant pour tous quel que soit le style de jeu.",
-    "rebirth100Info": "Si vous êtes prêt à débuter une nouvelle aventure, vous pouvez Renaître dès maintenant... ou découvrir jusqu'où vous êtes capable d'aller.",
-    "rebirthWait": "Je vais attendre...",
-    "rebirthNow": "Renaître maintenant !"
+    "reborn": "Né de nouveau, niveau maximum <%= reLevel %>"
 }

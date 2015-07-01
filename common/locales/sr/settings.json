@@ -42,8 +42,6 @@
     "customDayStart": "Vreme početka dana",
     "24HrClock": "24-časovni format",
     "customDayStartInfo1": "HabitRPG je automatski podešen da u ponoć proveri stanje svakodnevnih zadataka i spremi ih za sledeći dan. Savetujemo Vam da pročitate sledeće informacije pre nego što to promenite:",
-    "customDayStartInfo2": "(više informacija)",
-    "customDayStartInfo3": "(manje informacija)",
     "customDayStartInfo4": "<strong>Uradite sve svakodnevne zadatke pre nego što izmenite Vreme početka dana</strong> ili <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>se prijavite u Gostionicu</a> i ostanite tamo do kraja dana. Promena vremena početka dana može dovesti do toga da <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a> odmah bude pokrenut, ali posle prvog dana sve će raditi normalno.<br><br><strong>Može biti potrebno i do 2 sata da promene sistem prihvati promene.</strong> Na primer, ako je početak dana trenutno podešen na 0 (ponoć), promenite ga pre 10 uveče; ako želite da ga pomerite na 9 uveče, uradite to pre 7. <br><br>Unesite vrednost između 0 i 23 (24-časovni format). Biće bolje ako otkucate broj, nego ako budete koristili strelice na tastaturi. Kad promenite vrednost, učitajte stranicu ponovo i proverite da li prikazuje novu vrednost.",
     "misc": "Ostalo",
     "showHeader": "Prikazati zaglavlje",
@@ -118,5 +116,6 @@
     "resubscribe": "Obnoviti pretplatu",
     "promoCode": "Kupon",
     "promoCodeApplied": "Kupon je aktiviran! Pogledajte u svoj inventar",
-    "promoPlaceholder": "Unesite kod sa kupona"
+    "promoPlaceholder": "Unesite kod sa kupona",
+    "displayInviteToPartyWhenPartyIs1": "Prikazati opciju „Pozvati u družinu” kad družina ima 1 člana."
 }

@@ -21,7 +21,14 @@
     "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
-    "MP_ID": "MP_ID",
+    "MIXPANEL_TOKEN": "MIXPANEL_TOKEN",
+    "AMPLITUDE_KEY": "AMPLITUDE_KEY",
+    "AMAZON_PAYMENTS": {
+        "SELLER_ID": "SELLER_ID",
+        "CLIENT_ID": "CLIENT_ID",
+        "MWS_KEY": "",
+        "MWS_SECRET": ""
+    },
     "FLAG_REPORT_EMAIL": ["email@mod.com"],
     "EMAIL_SERVER": {
         "url": "http://example.com",

@@ -39,6 +39,8 @@
     "editGroup": "Modifier le Groupe",
     "newGroupName": "<%= groupType %> Nom",
     "groupName": "Nom du Groupe",
+    "groupLeader": "Responsable de groupe",
+    "groupID": "ID de groupe",
     "groupDescr": "Description affichée dans la liste des Guildes publiques (Markdown OK)",
     "logoUrl": "URL du logo",
     "assignLeader": "Désigner un Chef de Groupe",
@@ -116,5 +118,7 @@
     "sendGiftFromBalance": "Offrir vos propres Gemmes",
     "sendGiftPurchase": "Acheter les Gemmes",
     "sendGiftMessagePlaceholder": "Message personnel (facultatif)",
-    "sendGiftSubscription": "<%= months %> mois: <%= price %>$ (USD)"
+    "sendGiftSubscription": "<%= months %> mois: <%= price %>$ (USD)",
+    "startAParty": "Former une Equipe ",
+    "addToParty": "Ajouter un membre à votre équipe"
 }

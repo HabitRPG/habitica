@@ -25,10 +25,11 @@
     "seasonalShopTitle": "<%= linkStart %>季节魔女<%= linkEnd %>",
     "seasonalShopClosedText": "季节性商店目前停业！我不知道季节女巫现在在哪，但是我敢打赌她会在下一个<%= linkStart %>盛大的节日<%= linkEnd %>回来！",
     "seasonalShopText": "欢迎来到季度商店！！我们现在囤积了各色春日 <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>季度版</a> 商品。每年的春日嘉年华期间，这里的一切都能买到——直到4月30号。所以赶快来扫货吧，否则你要足足再等一年才能买到！",
+    "seasonalShopSummerText": "Welcome to the Seasonal Shop!! We're stocking summertime <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Summer Splash event each year, but we're only open until July 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopRebirth": "如果你用过重生球，你可以在解锁物品商店后在奖励栏再次购买它。开始，你只能为你当前职业购买物品(默认战士)，别害怕，如果你切换到别的职业，你将可以购买该职业的特别物品。",
     "candycaneSet": "拐杖糖 (法师)",
     "skiSet": "雪橇刺客 (盗贼)",
-    "snowflakeSet": "雪片 (医者)",
+    "snowflakeSet": "雪片 (医师)",
     "yetiSet": "野人驯化 (战士)",
     "nyeCard": "新年贺卡",
     "nyeCardNotes": "送一张新年贺卡给你的一个队伍成员",
@@ -44,5 +45,9 @@
     "mightyBunnySet": "强力兔(战士)",
     "magicMouseSet": "魔力鼠(法师)",
     "lovingPupSet": "可爱犬(医师)",
-    "stealthyKittySet": "偷盗猫(盗贼)"
+    "stealthyKittySet": "偷盗猫(盗贼)",
+    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
+    "emeraldMermageSet": "Emerald Mermage (Mage)",
+    "reefSeahealerSet": "Reef Seahealer (Healer)",
+    "roguishPirateSet": "Roguish Pirate (Rogue)"
 }
