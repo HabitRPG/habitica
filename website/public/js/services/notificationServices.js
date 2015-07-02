@@ -89,6 +89,10 @@ angular.module("habitrpg").factory("Notification",
     }
   }
 
+  function hitBoss(val) {
+    _notify(window.env.t('hitBoss', {'damage':_round(val)}), 'crit', 'glyphicon glyphicon-flash');
+  }
+
   //--------------------------------------------------
   // Private Methods
   //--------------------------------------------------
@@ -131,6 +135,7 @@ angular.module("habitrpg").factory("Notification",
     markdown: markdown,
     mp: mp,
     streak: streak,
-    text: text
+    text: text,
+    hitBoss: hitBoss
   };
 }]);
