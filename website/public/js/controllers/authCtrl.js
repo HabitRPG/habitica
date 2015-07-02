@@ -64,8 +64,8 @@ angular.module('habitrpg')
 
       $scope.auth = function() {
         var data = {
-          username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
-          password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
+          username: $scope.loginUsername || $('#loginForm input[name="username"]').val(),
+          password: $scope.loginPassword || $('#loginForm input[name="password"]').val()
         };
         $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
           .success(function(data, status, headers, config) {
