@@ -29,11 +29,15 @@
         span.meter-text.value
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
-
-    // party
-    span(ng-controller='PartyCtrl')
-      button.party-invite.pull-right.btn.btn-primary(ng-click="inviteOrStartParty(group)",
-        ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1",
-        popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")=env.t("inviteFriends")
+    // party, with Google Experiment boVO4eEyRfysNE5D53nCMQ for button caption and placement
+    .party(ng-controller='PartyCtrl', ng-cloak)
+      button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(group)",
+        ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1 && ((variant % 2 < 1) || !variant)",
+        popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")
+        span {{ variant < 2 ? '#{env.t("battleWithFriends")}' : '#{env.t("inviteFriends")}' }}
+      button.party-invite-middle.btn.btn-primary(ng-click="inviteOrStartParty(group)",
+        ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1 && (variant % 2 > 0)",
+        popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="top", popover-trigger="mouseenter")
+        span {{ variant < 2 ? '#{env.t("battleWithFriends")}' : '#{env.t("inviteFriends")}' }}
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         +herobox()

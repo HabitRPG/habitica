@@ -33,7 +33,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
 
     // Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
-      $.getScript('//www.google-analytics.com/cx/api.js?experiment=t-AFggRWQnuJ6Teck_x1-Q', function(){
+      $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){
         $rootScope.variant = cxApi.chooseVariation();
         $rootScope.$apply();
       })
