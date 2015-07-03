@@ -194,7 +194,15 @@ exports.subscribe = function(req, res, next){
           SellerOrderId: shared.uuid(),
           StoreName: 'HabitRPG'
         }
-      }, cb);
+      }, function(err, res){
+        if(err) return cb(err);
+
+        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
+          return cb(new Error('The payment was not successfull.'));
+        }
+
+        return cb();
+      });
     },
 
     createSubscription: function(cb){
