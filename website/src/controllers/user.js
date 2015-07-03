@@ -121,7 +121,7 @@ api.score = function(req, res, next) {
     // Select character data to send
     var userData = _.pick(user.toJSON(), ['_id', '_tmp', 'stats', 'profile']); // user.toJSON to copy-by-value
     userData.stats.toNextLevel = shared.tnl(user.stats.lvl);
-    userData.stats.maxHealth = 50;
+    userData.stats.maxHealth = shared.maxHealth;
     userData.stats.maxMP = user._statsComputed.maxMP;
 
     // for each webhook
