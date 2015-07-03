@@ -33,8 +33,8 @@
     .party(ng-controller='PartyCtrl', ng-cloak)
       button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(group)",
         ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1",
-        ng-class="::{'party-invite': (!variant || variant % 2 === 0), 'party-invite-middle': variant % 2 !== 0}"
+        ng-class="{'party-invite': (!variant || variant % 2 === 0), 'party-invite-middle': variant % 2 !== 0}"
         popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")
-        span {{:: variant < 2 ? '#{env.t("battleWithFriends")}' : '#{env.t("inviteFriends")}' }}
+        span {{ variant < 2 ? '#{env.t("battleWithFriends")}' : '#{env.t("inviteFriends")}' }}
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         +herobox()
