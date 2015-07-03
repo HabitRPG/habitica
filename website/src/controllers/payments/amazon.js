@@ -238,7 +238,13 @@ exports.subscribeCancel = function(req, res, next){
     }
   }, function(err, results){
     if (err) return next(err); // don't json this, let toString() handle errors
-    res.redirect('/');
+    
+    if(req.query.noRedirect){
+      res.send(200);
+    }else{
+      res.redirect('/');
+    }
+
     user = null;
   });
 };
