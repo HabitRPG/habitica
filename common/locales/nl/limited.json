@@ -8,6 +8,8 @@
     "alarmingFriendsText": "Is <%= spookDust %> keer bespookt door groepsleden.",
     "agriculturalFriends": "Vrienden met groene vingers",
     "agriculturalFriendsText": "Is <%= seeds %> keer door groepsgenoten in een bloem omgetoverd.",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Valentijnskaart",
     "valentineCardNotes": "Stuur een Valentijnskaart naar een groepsgenoot.",
     "valentine0": "\"Rozen zijn rood<%= lineBreak %>Taken zijn blauw<%= lineBreak %>Blij dat ik in<%= lineBreak %>Een groep zit met jou!\"",

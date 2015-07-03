@@ -49,7 +49,7 @@
     "tourStatsPage": "これはあなたのステータスページです！タスクを完了して実績を受け取りましょう。",
     "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
     "tourPartyPage": "パーティーはあなたが責任を果たす事を助けてくれるでしょう。友達を招待してクエストスクロールをアンロックしましょう！",
-    "tourGuildsPage": "Guilds are common-interest chat groups created by the players, for the players. Browse through the list and join the Guilds that interest you. Be sure to check out the popular Newbies Guild, where anyone can ask questions about HabitRPG!",
+    "tourGuildsPage": "ギルドは共通の興味を持つプレイヤー同士のためのチャットグループです。リストから興味のあるグループを探して参加しましょう。だれでもHabitRPGに関する質問ができる、初心者のためのギルドのチェックも忘れずに！",
     "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win Gem prizes!",
     "tourMarketPage": "レベル4の始めから、タスクを完了するとたまごと孵化ポーションがランダムにドロップします。それらはここに表示され、ペットを孵化するのに使いましょう！市場でアイテムを買う事もできます。",
     "tourHallPage": "Welcome to the Hall of Heroes, where open-source contributors to HabitRPG are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned Gems, exclusive equipment, and prestigious titles. You can contribute to HabitRPG, too!",
@@ -68,11 +68,11 @@
     "tourHabitsProceed": "Makes sense!",
     "tourRewardsBrief": "<strong>Reward List</strong><ul><li>Spend your hard-earned Gold here!</li><li>Purchase Equipment for your avatar, or set custom Rewards.</li></ul>",
     "tourRewardsProceed": "以上です！",
-    "welcomeToHabit": "Welcome to HabitRPG, a game to improve your life!",
+    "welcomeToHabit": "あなたの生活を向上させるゲーム、HabitRPGへようこそ！",
     "welcome1": "Create and customize an in-game avatar to represent you.",
     "welcome2": "Your real-life tasks affect your avatar's Health (HP), Experience (XP), and Gold!",
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
-    "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
+    "welcome4": "あなたのHPを減らす、悪い習慣を避けましょう。さもないとあなたのアバターは死んでしまいます！",
     "welcome5": "Now you'll customize your avatar and set up your tasks...",
     "imReady": "I'm Ready!"
 }

@@ -8,6 +8,8 @@
     "alarmingFriendsText": "Напуган членами команды <%= spookDust %> раз(а).",
     "agriculturalFriends": "Сельскохозяйственные друзья",
     "agriculturalFriendsText": "Превращен в цветок членами команды <%= seeds %> раз(а).",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Валентинка",
     "valentineCardNotes": "Отправьте валентинку члену команды.",
     "valentine0": "«Розы ярко-алые,<%= lineBreak %>А мои задачи – синие,<%= lineBreak %>Мы друзья в команде славные –<%= lineBreak %>Вот такое мое мнение!»",

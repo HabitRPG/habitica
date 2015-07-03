@@ -8,6 +8,8 @@
     "alarmingFriendsText": "Був наляканий членами групи <%= spookDust %> разiв.",
     "agriculturalFriends": "Друзі-Садівники",
     "agriculturalFriendsText": "Був <%= seeds %> разів перетворений на квітку товаришами по групі.",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Валентинка",
     "valentineCardNotes": "Відправити Валентинку члену гурту.",
     "valentine0": "Троянди червоні, мої завдання є сині. Я щасливий, що я з тобою",

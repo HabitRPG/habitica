@@ -56,11 +56,11 @@
     "tourPetsPage": "This is the Stable! After level 4, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 4, and they'll grow into powerful mounts.",
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. (Pets, mounts, and food are available after level 4.) Click a mount to saddle up!",
     "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your stats. If you want to show different Equipment on your avatar without changing your stats, click \"Enable Costume.\"",
-    "tourOkay": "Okay!",
-    "tourAwesome": "Awesome!",
-    "tourSplendid": "Splendid!",
+    "tourOkay": "Ok!",
+    "tourAwesome": "Fantastico!",
+    "tourSplendid": "Splendido!",
     "tourNifty": "Nifty!",
-    "tourAvatarProceed": "Show me my tasks!",
+    "tourAvatarProceed": "Mostrami le mie attività!",
     "tourToDosBrief": "<strong>To-Do List</strong><ul><li>Check off To-Dos to earn Gold & Experience!</li><li>To-Dos never make your avatar lose Health.</li></ul>",
     "tourDailiesBrief": "<strong>Daily Tasks</strong><ul><li>Dailies repeat every day.</li><li>You lose Health if you skip Dailies.</li></ul>",
     "tourDailiesProceed": "I'll be careful!",
@@ -74,5 +74,5 @@
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
     "welcome5": "Now you'll customize your avatar and set up your tasks...",
-    "imReady": "I'm Ready!"
+    "imReady": "Sono pronto!"
 }

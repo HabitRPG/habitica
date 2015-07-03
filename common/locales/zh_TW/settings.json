@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "包括你新的和舊的 eamil 地址，和你的UUID。",
     "username": "帳號",
+    "usernameOrEmail": "Login Name or Email",
     "email": "Email",
     "registeredWithFb": "Facebook 已註冊",
     "loginNameDescription1": "這是你用來登入 HabitRPG 的帳號。到",

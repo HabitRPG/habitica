@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Svetlucava semenka",
     "spellSpecialShinySeedNotes": "Pretvorite prijatelja u veseli cvet!",
     "spellSpecialPetalFreePotionText": "Napitak za skidanje latica",
-    "spellSpecialPetalFreePotionNotes": "Poništite efekat Svetlucave semenke."
+    "spellSpecialPetalFreePotionNotes": "Poništite efekat Svetlucave semenke.",
+    "spellSpecialSeafoamText": "Seafoam",
+    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

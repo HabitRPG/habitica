@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "Not Owned",
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Вернуться к списку испытаний",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
+    "clone": "Clone"
 }

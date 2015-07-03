@@ -8,6 +8,8 @@
     "alarmingFriendsText": "Byl <%= spookDust %>krát vyděšen členy družiny.",
     "agriculturalFriends": "Zemědělští přátelé",
     "agriculturalFriendsText": "Byl kamarády transformován <%= seeds %>krát na kytku.",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Valentýnka",
     "valentineCardNotes": "Poslat Valentínku členu družiny. ",
     "valentine0": "\"Růže jsou červené<%= lineBreak %>Mé denní úkoly modré<%= lineBreak %>Být s Tebou v družině<%= lineBreak %>Je vážně dobré!\"",
@@ -46,8 +48,8 @@
     "magicMouseSet": "Kouzelná Myš (mág)",
     "lovingPupSet": "Milující Štěně (léčitel)",
     "stealthyKittySet": "Nenápadná Kočka (lupič)",
-    "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
-    "emeraldMermageSet": "Emerald Mermage (Mage)",
-    "reefSeahealerSet": "Reef Seahealer (Healer)",
-    "roguishPirateSet": "Roguish Pirate (Rogue)"
+    "daringSwashbucklerSet": "Odvážný šermíř (Válečník)",
+    "emeraldMermageSet": "Smaragdový mořský mág (Mág)",
+    "reefSeahealerSet": "Útesový mořský léčitel (Léčitel)",
+    "roguishPirateSet": "Ničemný pirát (Zloděj)"
 }

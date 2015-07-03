@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "spolu s tvým starým a novým emailem a tvým uživatelským ID.",
     "username": "Přihlašovací jméno",
+    "usernameOrEmail": "Login Name or Email",
     "email": "Email",
     "registeredWithFb": "Registrovaný přes Facebook",
     "loginNameDescription1": "Tohle použiješ k přihlášení na HabitRPG. Jdi na",
@@ -111,11 +112,11 @@
     "benefits": "Benefity",
     "coupon": "Kupón",
     "couponPlaceholder": "Zadej kód z kupónu",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "Někdy máme akce, na kterých rozdáváme kupóny s kódy pro speciální vybavení. (např. těm, kteří se zastavili v našem Wondercon stánku) ",
     "apply": "Zadat",
     "resubscribe": "Znovu se přihlásit k odběru",
     "promoCode": "Promo kód",
     "promoCodeApplied": "Promo kód zadán! Koukni do Inventáře",
     "promoPlaceholder": "Vlož promo kód",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Zobrazit tlačítko \"Pozvat do družiny\", když má družina 1 člena."
 }

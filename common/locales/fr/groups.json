@@ -119,6 +119,7 @@
     "sendGiftPurchase": "Acheter les Gemmes",
     "sendGiftMessagePlaceholder": "Message personnel (facultatif)",
     "sendGiftSubscription": "<%= months %> mois: <%= price %>$ (USD)",
+    "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Former une Equipe ",
     "addToParty": "Ajouter un membre à votre équipe"
 }

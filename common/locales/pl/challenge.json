@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "Nieposiadane",
     "challengedEitherOwnedFilter": "Którykolwiek",
     "backToChallenges": "Powrót do wszystkich wyzwań",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Nagroda"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Nagroda",
+    "clone": "Clone"
 }

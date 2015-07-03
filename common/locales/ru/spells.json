@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Солнечное семя",
     "spellSpecialShinySeedNotes": "Превратите друга в радостный цветок!",
     "spellSpecialPetalFreePotionText": "Зелье освобождения от лепестков",
-    "spellSpecialPetalFreePotionNotes": "Отменить эффект Солнечного семени."
+    "spellSpecialPetalFreePotionNotes": "Отменить эффект Солнечного семени.",
+    "spellSpecialSeafoamText": "Seafoam",
+    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

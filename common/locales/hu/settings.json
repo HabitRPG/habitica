@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com-ra",
     "emailChange3": "a régi és az új email címeddel és a felhasználói azonosítóddal.",
     "username": "Bejelentkezési név",
+    "usernameOrEmail": "Login Name or Email",
     "email": "Email",
     "registeredWithFb": "Facebook-al regisztráltál",
     "loginNameDescription1": "Ez az amivel be tudsz lépni a HabitRPG oldalra. Menj a ",

@@ -44,7 +44,7 @@
     "selectGroup": "Por favor seleccione un grupo",
     "challengeCreated": "Desafío creado",
     "sureDelCha": "Eliminar desafío, ¿estás seguro?",
-    "sureDelChaTavern": "Delete challenge, are you sure? Your gems will not be refunded.",
+    "sureDelChaTavern": "¿Estás seguro de que quieres eliminar el desafío? Tus gemas no serán reembolsadas.",
     "removeTasks": "Eliminar Tareas",
     "keepTasks": "Mantener Tareas",
     "closeCha": "Cerrar desafío y...",
@@ -53,6 +53,7 @@
     "challengedOwnedFilter": "Owned",
     "challengedNotOwnedFilter": "Not Owned",
     "challengedEitherOwnedFilter": "Either",
-    "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "backToChallenges": "Volver a todos los desafíos",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
+    "clone": "Clone"
 }

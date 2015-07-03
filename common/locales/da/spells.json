@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Skinnende Frø",
     "spellSpecialShinySeedNotes": "Gør en ven til en glad blomst!",
     "spellSpecialPetalFreePotionText": "Kronblads-Fri Eliksir",
-    "spellSpecialPetalFreePotionNotes": "Fjerner effekterne af et Skinnende Frø."
+    "spellSpecialPetalFreePotionNotes": "Fjerner effekterne af et Skinnende Frø.",
+    "spellSpecialSeafoamText": "Seafoam",
+    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

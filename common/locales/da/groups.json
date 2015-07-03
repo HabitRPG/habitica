@@ -119,6 +119,7 @@
     "sendGiftPurchase": "Køb",
     "sendGiftMessagePlaceholder": "Personlig besked (valgfri)",
     "sendGiftSubscription": "<%= months %> Måned(er): $<%= price %>",
+    "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start en gruppe",
     "addToParty": "Tilføj nogen til din gruppe"
 }

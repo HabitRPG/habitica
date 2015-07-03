@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "尚未拥有的",
     "challengedEitherOwnedFilter": "显示全部",
     "backToChallenges": "回到所有挑战",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> 奖励"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> 奖励",
+    "clone": "Clone"
 }

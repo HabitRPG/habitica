@@ -8,6 +8,8 @@
     "alarmingFriendsText": "被隊員嚇到 <%= spookDust %> 次。",
     "agriculturalFriends": "園藝之友",
     "agriculturalFriendsText": "隊伍成員變身成一朵花共計<%= seeds %>次",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "情人節卡片",
     "valentineCardNotes": "寄送情人節卡片給隊伍成員。",
     "valentine0": "\"玫瑰是鮮紅的 <%= lineBreak %> 每日任務是碧藍的 <%= lineBreak %> 我很興高采烈的 <%= lineBreak %> 能與你在同個隊伍中！\"",

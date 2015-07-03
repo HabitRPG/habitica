@@ -119,6 +119,7 @@
     "sendGiftPurchase": "Kopen",
     "sendGiftMessagePlaceholder": "Persoonlijk bericht (optioneel)",
     "sendGiftSubscription": "<%= months %> maand(en): $<%= price %>",
+    "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Een groep beginnen",
     "addToParty": "Iemand aan je groep toevoegen"
 }

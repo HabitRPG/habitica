@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "incluyendo tu nueva y tu antigua dirección de correo electrónico, así como tu ID de Usuario.",
     "username": "Nombre de Usuario",
+    "usernameOrEmail": "Login Name or Email",
     "email": "Correo Electrónico",
     "registeredWithFb": "Registrado con Facebook",
     "loginNameDescription1": "Esto es lo que usas para entrar a HabitRPG. Ve a",

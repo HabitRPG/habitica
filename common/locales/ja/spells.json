@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "輝く種",
     "spellSpecialShinySeedNotes": "友達を楽しい花に変えよう！",
     "spellSpecialPetalFreePotionText": "花びら消しポーション",
-    "spellSpecialPetalFreePotionNotes": "輝く種の効果を取り消す。"
+    "spellSpecialPetalFreePotionNotes": "輝く種の効果を取り消す。",
+    "spellSpecialSeafoamText": "Seafoam",
+    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

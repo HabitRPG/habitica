@@ -53,6 +53,7 @@
     "challengedOwnedFilter": "Vlastníš",
     "challengedNotOwnedFilter": "Nevlastníš",
     "challengedEitherOwnedFilter": "Obojí",
-    "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "backToChallenges": "Zpět na všechny výzvy.",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Cena",
+    "clone": "Clone"
 }
