@@ -3,7 +3,7 @@ table.table.table-striped
   tr
     td
       strong=env.t('health')
-      | : {{Math.ceil(profile.stats.hp)}} / 50
+      | : {{Math.ceil(profile.stats.hp)}} / Shared.maxHealth
   tr(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
     td
       strong=env.t('mana')
