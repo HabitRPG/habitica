@@ -12,7 +12,7 @@
       .meter.health(tooltip='{{Math.round(user.stats.hp * 100) / 100}}')
         .bar(ng-style='{"width": Shared.percent(user.stats.hp, Shared.maxHealth)+"%"}')
         span.meter-text.value
-          | {{Math.ceil(user.stats.hp)}} / Shared.maxHealth
+          | {{Math.ceil(user.stats.hp)}} / {{::Shared.maxHealth}}
       .meter-label(tooltip=env.t('experience'))
         span.glyphicon.glyphicon-star
       .meter.experience(tooltip='{{Math.round(user.stats.exp * 100) / 100}}')
