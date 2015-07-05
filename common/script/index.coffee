@@ -83,8 +83,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   o = sanitizeOptions options
   startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)  # a moment()
 
-  # If the Daily does not have a Start Date (old tasks predating the Start Date feature), we assume it starts on the day being checked. This does not cause a bug with the Every X Days option because if the user had edited the task to select X days, then a start date would have been saved to the task at the same time.
-  taskStartDate = dailyTask.startDate || day
+  taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset)
 
   # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
