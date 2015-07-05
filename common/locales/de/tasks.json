@@ -23,6 +23,7 @@
     "difficulty": "Schwierigkeit",
     "difficultyHelpTitle": "Wie schwer ist die Aufgabe?",
     "difficultyHelpContent": "Je schwieriger eine Aufgabe ist, desto mehr Erfahrung und Gold bekommst du, wenn du sie abhakst... aber sie verursacht auch umso mehr Schaden, wenn es eine tägliche Aufgabe oder schlechte Gewohnheit ist!",
+    "trivial": "Trivial",
     "easy": "Einfach",
     "medium": "Mittel",
     "hard": "Schwer",

@@ -39,8 +39,8 @@
     "editGroup": "グループを編集する",
     "newGroupName": "<%= groupType %> 名",
     "groupName": "グループ名",
-    "groupLeader": "Group Leader",
-    "groupID": "Group ID",
+    "groupLeader": "グループリーダー",
+    "groupID": "グループID",
     "groupDescr": "公共ギルドリストに表示される説明 (マークダウン OK)",
     "logoUrl": "ロゴＵＲＬ",
     "assignLeader": "グループリーダー指定",
@@ -119,7 +119,7 @@
     "sendGiftPurchase": "購入する",
     "sendGiftMessagePlaceholder": "個人メッセージ(任意)",
     "sendGiftSubscription": "<%= months %>ヶ月: $<%= price %>",
-    "battleWithFriends": "Battle Monsters With Friends",
-    "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "battleWithFriends": "フレンドと一緒にモンスターと戦う",
+    "startAParty": "チームを作る",
+    "addToParty": "チームに誰かを入れる"
 }

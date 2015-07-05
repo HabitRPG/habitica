@@ -108,12 +108,12 @@
     "inviteFriends": "Пригласить друзей",
     "inviteAlertInfo": "Здесь можно пригласить друзей по <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>ID пользователя</a>.",
     "inviteExistUser": "Пригласить существующего пользователя",
-    "inviteByEmail": "пригласить друзей по почте. Если они присоединятся по ссылке из вашего письма, они будут автоматически приглашены в эту группу.",
+    "inviteByEmail": "Пригласить друзей по почте. Если они присоединятся по ссылке из вашего письма, они будут автоматически приглашены в эту группу.",
     "byColon": "От:",
     "inviteNewUsers": "Пригласить Новых Пользователей",
     "inviteAlertInfo2": "Или поделитесь этой ссылкой (Скопировать/Вставить)",
-    "sendGiftHeading": "Отправить Подарок <%= name %>",
-    "sendGiftGemsBalance": "Из <%= number %> Самоцветов",
+    "sendGiftHeading": "Отправить подарок <%= name %>",
+    "sendGiftGemsBalance": "Из <%= number %> самоцветов",
     "sendGiftCost": "Всего: $<%= cost %>",
     "sendGiftFromBalance": "From Balance",
     "sendGiftPurchase": "Purchase",
@@ -121,5 +121,5 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Создать команду",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Пригласите участника в команду"
 }

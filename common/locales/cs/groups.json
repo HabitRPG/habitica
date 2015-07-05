@@ -119,7 +119,7 @@
     "sendGiftPurchase": "Koupit",
     "sendGiftMessagePlaceholder": "Osobní zpráva (volitelné)",
     "sendGiftSubscription": "<%= months %> měsíc(e/ů): $<%= price %>",
-    "battleWithFriends": "Battle Monsters With Friends",
+    "battleWithFriends": "Bojuj s přáteli proti příšerám",
     "startAParty": "Založ družinu",
-    "addToParty": "Přidej někoho do tvojí družiny"
+    "addToParty": "Přidej někoho do své družiny"
 }

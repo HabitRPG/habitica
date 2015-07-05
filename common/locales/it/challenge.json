@@ -55,5 +55,5 @@
     "challengedEitherOwnedFilter": "Tutte",
     "backToChallenges": "Torna alla lista sfide",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Premio",
-    "clone": "Clone"
+    "clone": "Clona"
 }

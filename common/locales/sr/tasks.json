@@ -23,6 +23,7 @@
     "difficulty": "Težina",
     "difficultyHelpTitle": "Koliko je težak ovaj zadatak?",
     "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
+    "trivial": "Trivial",
     "easy": "Lako",
     "medium": "Normalno",
     "hard": "Teško",

@@ -82,7 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "Bitte gib sowohl Deine alte und neue Email-Adresse, als auch Deine Benutzer ID an.",
     "username": "Login Name",
-    "usernameOrEmail": "Login Name or Email",
+    "usernameOrEmail": "Login Name oder Emailadresse",
     "email": "Email",
     "registeredWithFb": "Mit Facebook registriert",
     "loginNameDescription1": "Dies hier benutzt Du, um Dich bei HabitRPG einzuloggen. Gehe zu",
@@ -118,5 +118,5 @@
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code aktiviert! Überprüfe dein Inventar",
     "promoPlaceholder": "Promo Code eingeben",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Zeige \"In Gruppe einladen\"-Schaltfläche an, wenn die Gruppe nur 1 Mitglied hat."
 }

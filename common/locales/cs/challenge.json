@@ -55,5 +55,5 @@
     "challengedEitherOwnedFilter": "Obojí",
     "backToChallenges": "Zpět na všechny výzvy.",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Cena",
-    "clone": "Clone"
+    "clone": "Naklonuj"
 }

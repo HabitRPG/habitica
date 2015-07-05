@@ -22,7 +22,7 @@
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
-    "armoireEquipment": "<%= image %> Ve zbrojnici jsi našel kus vzácného vybavení ve zbrojnici: <%= dropText %>! Skvělé!",
+    "armoireEquipment": "<%= image %> Ve zbrojnici jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
     "armoireFood": "<%= image %> Prohledáváš zbrojnici a nacházíš <%= dropArticle %><%= dropText %>. Co to tu dělá?",
-    "armoireExp": "Zápasíš se zbrojnicí a získáváš zkušenost. Ber to!"
+    "armoireExp": "Zápasíš se Zbrojnicí a získáváš zkušenost. To jsi jí to nandal!"
 }

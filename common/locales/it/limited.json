@@ -8,8 +8,8 @@
     "alarmingFriendsText": "Sei stato spaventato <%= spookDust %> volte dai tuoi compagni di squadra.",
     "agriculturalFriends": "Amici Floreali",
     "agriculturalFriendsText": "E' stato trasformato in un fiore <%= seeds %> volte dai compagni di squadra.",
-    "aquaticFriends": "Aquatic Friends",
-    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
+    "aquaticFriends": "Amici acquatici",
+    "aquaticFriendsText": "E' stato spruzzato dagli amici <%= seafoam %> volta/e.",
     "valentineCard": "Biglietto di San Valentino",
     "valentineCardNotes": "Manda un biglietto di San Valentino a un membro della squadra.",
     "valentine0": "\"Le rose sono rosse<%= lineBreak %>Le mie Daily sono blu<%= lineBreak %>E' bello esser in squadra<%= lineBreak %>Perchè qui ci sei anche tu!\"",
@@ -51,5 +51,5 @@
     "daringSwashbucklerSet": "Daring Swashbuckler (Warrior)",
     "emeraldMermageSet": "Magisirena di Smeraldo (Mago)",
     "reefSeahealerSet": "Marguaritore Corallino (Guaritore)",
-    "roguishPirateSet": "Roguish Pirate (Rogue)"
+    "roguishPirateSet": "Pirata Furfante (Assassino)"
 }

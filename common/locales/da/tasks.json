@@ -23,6 +23,7 @@
     "difficulty": "Sværhedsgrad",
     "difficultyHelpTitle": "Hvor svær er denne opgave?",
     "difficultyHelpContent": "Jo sværere en opgave er, jo mere Erfaring og Guld får du når du gennemfører den... men jo mere skader gievr den dig også, hvis det er en Daglig eller en Dårlig Vane.",
+    "trivial": "Trivial",
     "easy": "Let",
     "medium": "Medium",
     "hard": "Svær",

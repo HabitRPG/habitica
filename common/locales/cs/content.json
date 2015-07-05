@@ -62,7 +62,7 @@
     "questEggSlimeAdjective": "sladký",
     "questEggSheepText": "Beran",
     "questEggSheepAdjective": "huňatý",
-    "questEggCuttlefishText": "Sépie",
+    "questEggCuttlefishText": "Sépiák",
     "questEggCuttlefishAdjective": "mazlivý",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a z něj se pak vylíhne  <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základní",
