@@ -29,15 +29,34 @@ exports.verifyAccessToken = function(req, res, next){
   });
 };
 
+exports.createOrderReferenceId = function(req, res, next){
+  if(!req.body || !req.body.billingAgreementId){
+    return res.json(400, {err: 'Billing Agreement Id not supplied.'});
+  }
+
+  amzPayment.offAmazonPayments.createOrderReferenceForId({
+    Id: req.body.billingAgreementId,
+    IdType: 'BillingAgreement'
+  }, function(err, response){
+    if(err) return next(err);
+    if(!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId){
+      return next(new Error('Missing attributes in Amazon response.'));
+    }
+
+    res.json({
+      orderReferenceId: response.OrderReferenceDetails.AmazonOrderReferenceId
+    });
+  });
+};
+
 exports.checkout = function(req, res, next){
-  if(!req.body || !req.body['billingAgreementId']){
+  if(!req.body || !req.body.orderReferenceId){
     return res.json(400, {err: 'Billing Agreement Id not supplied.'});
   }
 
   var gift = req.body.gift;
   var user = res.locals.user;
-  var billingAgreementId = req.body.billingAgreementId;
-  var orderReferenceId;
+  var orderReferenceId = req.body.orderReferenceId;
   var amount = 5;
 
   if(gift){
@@ -49,21 +68,6 @@ exports.checkout = function(req, res, next){
   }
 
   async.series({
-    createOrderReferenceForId: function(cb){
-      amzPayment.offAmazonPayments.createOrderReferenceForId({
-        Id: billingAgreementId,
-        IdType: 'BillingAgreement'
-      }, function(err, response){
-        if(err) return cb(err);
-        if(!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId){
-          return cb('Missing attributes in Amazon response.');
-        }
-
-        orderReferenceId = response.OrderReferenceDetails.AmazonOrderReferenceId;
-        return cb();
-      });
-    },
-
     setOrderReferenceDetails: function(cb){
       amzPayment.offAmazonPayments.setOrderReferenceDetails({
         AmazonOrderReferenceId: orderReferenceId,
