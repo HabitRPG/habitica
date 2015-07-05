@@ -237,8 +237,8 @@ exports.subscribeCancel = function(req, res, next){
     cancelSubscription: function(cb){
       var data = {
         user: user,
-        // Date of next bill, dateUpdated can be used because it's only updated when the user is billed
-        nextBill: moment(user.purchased.plan.dateUpdated).add({days: 30}),
+        // Date of next bill
+        nextBill: moment(user.purchased.plan.lastBillingDate).add({days: 30}),
         paymentMethod: 'Amazon Payments'
       };
 
