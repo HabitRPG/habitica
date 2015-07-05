@@ -277,9 +277,11 @@ for $stage in $stages
     text-decoration: none
 
 // checkbox
-.task-checker input[type=checkbox]
+.task-checker input[type=checkbox], .task-checker input[type=checkbox]:focus
   margin: 0
   padding: 0
+  height: 0px
+  width: 0px
 
 .task-checker label
   display: inline-block
@@ -348,7 +350,7 @@ for $stage in $stages
     opacity: 0.75 !important
 
   // completed icon
-  input[type=checkbox]:checked + label:after
+  input[type=checkbox]:checked + label:after, input[type=checkbox]:focus + label:after
     content: "\E013"
     font-family: "Glyphicons Halflings"
     border: none
