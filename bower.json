@@ -33,7 +33,7 @@
     "pnotify": "~1.3.1",
     "jquery-ui": "~1.10.3",
     "hello": "~1.5.0",
-    "css-social-buttons": "samcollins/css-social-buttons#4c045e5",
+    "css-social-buttons": "samcollins/css-social-buttons#v1.1.1 ",
     "angular-filter": "~0.5.1",
     "angular-ui-router": "~0.2.13",
     "js-emoji": "snicker/js-emoji#f25d8a303f",
@@ -41,7 +41,7 @@
     "angular-ui-select2": "angular-ui/ui-select2#afa6589a54cb72815f",
     "bootstrap-growl": "ifightcrime/bootstrap-growl#162daa41cd1155f",
     "BrowserQuest": "browserquest/BrowserQuest#c3a960b03031dad5d",
-    "github-buttons": "~0.0.4"
+    "github-buttons": "mdo/github-buttons#v3.0.0"
   },
   "devDependencies": {
     "angular-mocks": "1.3.9"
