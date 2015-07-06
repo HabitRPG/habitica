@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "火焰爆轟",
-    "spellWizardFireballNotes": "你的手中冒出爆裂火焰。你會獲得經驗值，並且額外對Boss造成傷害！在任務上點擊後施放(加成：智力 )",
+    "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
     "spellWizardMPHealText": "澎湃靈泉",
     "spellWizardMPHealNotes": "你犧牲魔力來幫助你的朋友。隊伍的其他人會獲得MP！(加成：智力)",
     "spellWizardEarthText": "地震",
