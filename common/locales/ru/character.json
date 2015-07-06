@@ -54,11 +54,11 @@
     "costume": "Костюм",
     "costumeText": "Если внешний вид какой-либо экипировки вам нравится больше, чем надетой сейчас, можете отметить «Использовать костюм» для того, чтобы визуально предстать в желаемом костюме поверх боевой экипировки.",
     "useCostume": "Использовать костюм",
-    "useCostumeInfo1": "Click \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can equip for the best stats on the left, and dress up your avatar with your equipment on the right.",
-    "useCostumeInfo2": "Once you click \"Use Costume\" your avatar will look pretty basic... but don't worry! If you look on the left, you'll see that your Battle Gear is still equipped. Next, you can make things fancy! Anything you equip on the right won't affect your stats, but can make you look super awesome. Try out different combos, mixing sets, and coordinating your Costume with your pets, mounts, and backgrounds.<br><br>Got more questions? Check out the <a href=\"http://habitrpg.wikia.com/wiki/Equipment#Costumes\">Costume page</a> on the wiki. Find the perfect ensemble? Show it off in the <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival guild</a> or brag in the Tavern!",
+    "useCostumeInfo1": "Нажмите \"Использовать костюм\" чтобы надевать на персонажа вещи, не влияя на характеристики текущей экипировки. Это позволяет вам одевать наиболее эффективную экипировку на левой половине экрана и отдельно настраивать внешний вид аватара на правой половине экрана.",
+    "useCostumeInfo2": "Нажав \"Использовать Костюм\" на вашем аватаре не будет экипировки, но не бойтесь! Если вы посмотрите налево вы увидите, что экипировка еще действует на характеристики персонажа. Все что вы экипируете на правой половине экрана не повлияет на ваши характеристики, но позволит вашему аватару отлично выглядеть. Вы можете пробовать различные комбинации экипировок, смешивать экипировку из различных наборов а также выбирать питомца, скакуна и фон.<br><br>Есть вопросы? Проверьте <a href=\"http://habitrpg.wikia.com/wiki/Equipment#Costumes\">Страницу Костюмов</a> на вики. Нашли отличное сочетание? Продемонстрируйте его в <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Гильдии Карнавала Костюмов</a> или похвастайтесь им в Таверне.",
     "gearAchievement": "Вы заработали значок «Превосходная экипировка» за максимальное усовершенствование комплекта экипировки для вашего класса! Вы собрали полные наборы для следующих классов:",
     "moreGearAchievements": "Чтобы заработать больше значков «Первосходная экипировка», меняйте классы на <a href='/#/options/profile/stats' target='_blank'>странице характеристик</a> и покупайте обмундирование для нового класса!",
-    "armoireUnlocked": "Теперь вам доступен <strong>Волшебный сундук!</strong> Кликайте на нем, чтобы случайным образом получить предмет из особого снаряжения! Также вам может достаться опыт или еда.",
+    "armoireUnlocked": "Теперь вам доступна <strong>Зачарованная оружейная!</strong> Кликайте на нем, чтобы случайным образом получить предмет из особого снаряжения! Также вам может достаться опыт или еда.",
     "ultimGearName": "Превосходная экипировка",
     "ultimGearText": "Полностью усовершенствовал(а) оружие и комплект доспехов для следующих классов:",
     "level": "Уровень",
@@ -149,5 +149,5 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Маг</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Разбойник</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Целитель</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Подробнее о классах</a>"
 }

@@ -22,7 +22,7 @@
     "messageDropEgg": "Вы нашли: <%= dropText %> в яйце! <%= dropNotes %>",
     "messageDropPotion": "Вы нашли <%= dropText %> инкубационный эликсир! <%= dropNotes %>",
     "messageFoundQuest": "Вы нашли квест: «<%= questText %>»!",
-    "armoireEquipment": "<%= image %> Вы извлекли из сундука редкий предмет: <%= dropText %>! Потрясающе!",
-    "armoireFood": "<%= image %> Копаясь в сундуке, вы находите <%= dropArticle %><%= dropText %>. Откуда это здесь?",
-    "armoireExp": "Вы сражаетесь с сундуком и получаете опыт. Получай!"
+    "armoireEquipment": "<%= image %> Вы нашли в оружейной редкий предмет: <%= dropText %>! Потрясающе!",
+    "armoireFood": "<%= image %> Копаясь в оружейной, вы находите <%= dropArticle %><%= dropText %>. Откуда это здесь?",
+    "armoireExp": "Вы сражаетесь с оружейной и получаете опыт. Получай!"
 }
