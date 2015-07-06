@@ -1012,6 +1012,7 @@ api.specialMounts =
   'MantisShrimp-Base':  'mantisShrimp'
   'Turkey-Base':        'turkey'
   'Mammoth-Base':       'mammoth'
+  'Orca-Base':          'orca'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
