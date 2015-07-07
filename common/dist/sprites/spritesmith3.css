@@ -1380,7 +1380,7 @@
 }
 .shop_armor_special_summer2015Warrior {
   background-image: url(spritesmith3.png);
-  background-position: -1066px -1440px;
+  background-position: -1107px -1440px;
   width: 40px;
   height: 40px;
 }
@@ -1890,13 +1890,13 @@
 }
 .shop_head_special_nye2014 {
   background-image: url(spritesmith3.png);
-  background-position: -1389px -1274px;
+  background-position: -1066px -1440px;
   width: 40px;
   height: 40px;
 }
 .shop_head_special_ski {
   background-image: url(spritesmith3.png);
-  background-position: -1107px -1440px;
+  background-position: -1389px -1274px;
   width: 40px;
   height: 40px;
 }
@@ -2413,6 +2413,12 @@
 .shop_head_special_2 {
   background-image: url(spritesmith3.png);
   background-position: -1542px -123px;
+  width: 40px;
+  height: 40px;
+}
+.shop_head_warrior_1 {
+  background-image: url(spritesmith3.png);
+  background-position: -1542px -164px;
   width: 40px;
   height: 40px;
 }
