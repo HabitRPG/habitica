@@ -6,7 +6,8 @@ var ga;
 var amplitude;
 
 var analytics = {
-  trackPurchase: trackPurchase
+  trackPurchase: trackPurchase,
+  track: track
 }
 
 function init(options) {
@@ -16,6 +17,23 @@ function init(options) {
   ga = googleAnalytics(options.googleAnalytics);
 
   return analytics;
+}
+
+function track(eventType, data) {
+  _sendDataToAmplitude(eventType, data);
+  _sendDataToGoogle(eventType, data);
+}
+
+function _sendDataToAmplitude(eventType, data) {
+  var amplitudeData = _formatDataForAmplitude(data);
+  amplitudeData.event_type = eventType;
+  amplitude.track(amplitudeData);
+}
+
+function _sendDataToGoogle(eventType, data) {
+  var category = data.gaCategory;
+  var label = data.gaLabel;
+  ga.event(category, eventType, label).send();
 }
 
 function trackPurchase(data) {
@@ -32,7 +50,7 @@ function _sendPurchaseDataToAmplitude(data) {
 }
 
 function _formatDataForAmplitude(data) {
-  var PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue'];
+  var PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaCategory', 'gaLabel'];
   var event_properties = _.omit(data, PROPERTIES_TO_SCRUB);
 
   var ampData = {

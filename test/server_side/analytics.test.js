@@ -5,16 +5,30 @@ var expect = chai.expect
 var rewire = require('rewire');
 
 describe('analytics', function() {
+  // Mocks
   var amplitudeMock = sinon.stub();
   var googleAnalyticsMock = sinon.stub();
+  var amplitudeTrack = sinon.stub();
+  var googleEvent = sinon.stub().returns({
+    send: function() { }
+  });
+  var googleItem = sinon.stub().returns({
+    send: function() { }
+  });
+  var googleTransaction = sinon.stub().returns({
+    item: googleItem
+  });
+
+  afterEach(function(){
+    amplitudeMock.reset();
+    amplitudeTrack.reset();
+    googleEvent.reset();
+    googleTransaction.reset();
+    googleItem.reset();
+  });
 
   describe('init', function() {
     var analytics = rewire('../../website/src/analytics');
-
-    afterEach(function(){
-      amplitudeMock.reset();
-      googleAnalyticsMock.reset();
-    });
 
     it('throws an error if no options are passed in', function() {
       expect(analytics).to.throw('No options provided');
@@ -43,6 +57,54 @@ describe('analytics', function() {
     });
   });
 
+  describe('track', function() {
+
+    var event_type = 'Cron';
+    var analyticsData = {
+      gaCategory: 'behavior',
+      gaLabel: 'Ga Label',
+      uuid: 'unique-user-id',
+      resting: true,
+      cronCount: 5
+    }
+
+    var analytics = rewire('../../website/src/analytics');
+    var initializedAnalytics;
+
+    beforeEach(function() {
+      analytics.__set__('Amplitude', amplitudeMock);
+      initializedAnalytics = analytics({amplitudeToken: 'token'});
+      analytics.__set__('amplitude.track', amplitudeTrack);
+      analytics.__set__('ga.event', googleEvent);
+    });
+
+    it('tracks event in amplitude', function() {
+
+      initializedAnalytics.track(event_type, analyticsData);
+
+      expect(amplitudeTrack).to.be.calledOnce;
+      expect(amplitudeTrack).to.be.calledWith({
+        event_type: 'Cron',
+        user_id: 'unique-user-id',
+        event_properties: {
+          resting: true,
+          cronCount: 5
+        }
+      });
+    });
+
+    it('tracks event in google analytics', function() {
+      initializedAnalytics.track(event_type, analyticsData);
+
+      expect(googleEvent).to.be.calledOnce;
+      expect(googleEvent).to.be.calledWith(
+        'behavior',
+        'Cron',
+        'Ga Label'
+      );
+    });
+  });
+
   describe('trackPurchase', function() {
 
     var purchaseData = {
@@ -57,16 +119,6 @@ describe('analytics', function() {
     }
 
     var analytics = rewire('../../website/src/analytics');
-    var amplitudeTrack = sinon.stub();
-    var googleEvent = sinon.stub().returns({
-      send: function() { return true }
-    });
-    var googleItem = sinon.stub().returns({
-      send: function() {}
-    });
-    var googleTransaction = sinon.stub().returns({
-      item: googleItem
-    });
     var initializedAnalytics;
 
     beforeEach(function() {
@@ -75,13 +127,6 @@ describe('analytics', function() {
       analytics.__set__('amplitude.track', amplitudeTrack);
       analytics.__set__('ga.event', googleEvent);
       analytics.__set__('ga.transaction', googleTransaction);
-    });
-
-    afterEach(function(){
-      amplitudeMock.reset();
-      googleEvent.reset();
-      googleTransaction.reset();
-      googleItem.reset();
     });
 
     it('calls amplitude.track', function() {
