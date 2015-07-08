@@ -78,30 +78,68 @@ describe('analytics', function() {
       analytics.__set__('ga.event', googleEvent);
     });
 
-    it('tracks event in amplitude', function() {
+    context('Amplitude', function() {
+      it('tracks event in amplitude', function() {
 
-      initializedAnalytics.track(event_type, analyticsData);
+        initializedAnalytics.track(event_type, analyticsData);
 
-      expect(amplitudeTrack).to.be.calledOnce;
-      expect(amplitudeTrack).to.be.calledWith({
-        event_type: 'Cron',
-        user_id: 'unique-user-id',
-        event_properties: {
-          resting: true,
-          cronCount: 5
-        }
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          event_properties: {
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('sends user data if provided', function() {
+        var stats = { class: 'wizard', exp: 5, gp: 23, hp: 10, lvl: 4, mp: 30 };
+        var user = {
+          stats: stats,
+          contributor: { level: 1 },
+          purchased: { plan: { planId: 'foo-plan' } }
+        };
+
+        var analyticsDataWithUser = _.cloneDeep(analyticsData);
+        analyticsDataWithUser.user = user;
+
+        initializedAnalytics.track(event_type, analyticsDataWithUser);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          event_properties: {
+            resting: true,
+            cronCount: 5
+          },
+          user_properties: {
+            Class: 'wizard',
+            Experience: 5,
+            Gold: 23,
+            Health: 10,
+            Level: 4,
+            Mana: 30,
+            contributorLevel: 1,
+            subscription: 'foo-plan'
+          }
+        });
       });
     });
 
-    it('tracks event in google analytics', function() {
-      initializedAnalytics.track(event_type, analyticsData);
+    context('Google Analytics', function() {
+      it('tracks event in google analytics', function() {
+        initializedAnalytics.track(event_type, analyticsData);
 
-      expect(googleEvent).to.be.calledOnce;
-      expect(googleEvent).to.be.calledWith(
-        'behavior',
-        'Cron',
-        'Ga Label'
-      );
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith(
+          'behavior',
+          'Cron',
+          'Ga Label'
+        );
+      });
     });
   });
 

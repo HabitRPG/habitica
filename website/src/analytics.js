@@ -66,9 +66,26 @@ function _formatDataForAmplitude(data) {
 }
 
 function _formatUserData(user) {
-  var data = {};
+  var properties = {};
 
-  return data;
+  if (user.stats) {
+    properties.Class = user.stats.class;
+    properties.Experience = Math.floor(user.stats.exp);
+    properties.Gold = Math.floor(user.stats.gp);
+    properties.Health = Math.ceil(user.stats.hp);
+    properties.Level = user.stats.lvl;
+    properties.Mana = Math.floor(user.stats.mp);
+  }
+
+  if (user.contributor && user.contributor.level) {
+    properties.contributorLevel = user.contributor.level;
+  }
+
+  if (user.purchased && user.purchased.plan.planId) {
+    properties.subscription = user.purchased.plan.planId;
+  }
+
+  return properties;
 }
 
 function _sendPurchaseDataToGoogle(data) {
