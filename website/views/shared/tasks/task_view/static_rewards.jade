@@ -6,6 +6,10 @@ ul.items.rewards(ng-if='main && list.type=="reward"')
         span.glyphicon.glyphicon-comment
     //left-hand size commands
     .task-controls.task-primary
+      input.visuallyhidden(
+        class="reward",
+        type='checkbox',
+        ui-keypress='{13:"buy(item)"}')
       a.money.btn-buy.item-btn(ng-class='{highValue: item.value >= 1000}', ng-click='buy(item)')
         span.shop_gold
         span.reward-cost {{item.value}}

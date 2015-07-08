@@ -44,7 +44,7 @@ for $stage in $stages
         background-color: darken($stage[1], 30%)
         &:hover, &:focus
           background-color: darken($stage[1], 40%)
-      input[type=checkbox]:focus + label
+      input[type=checkbox]:focus + label, input.habit:focus + a
         background-color: darken($stage[1], 40%)
       .task-actions a:nth-of-type(2)
         border-top: 1px solid darken($stage[1],50%) // If there are two habit buttons (+ -), add a border to separate them
@@ -281,7 +281,8 @@ for $stage in $stages
     text-decoration: none
 
 // checkbox
-.task-checker input[type=checkbox], .task-checker input[type=checkbox]:focus
+.task-checker input[type=checkbox], .task-checker input[type=checkbox]:focus,
+input.habit, input.habit:focus, input.reward, input.reward:focus
   margin: 0
   padding: 0
   height: 0px

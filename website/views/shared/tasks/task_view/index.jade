@@ -4,13 +4,28 @@
   // Habits
   .task-actions(ng-if='::task.type=="habit"')
     // score() is overridden in challengesCtrl to do nothing
+    input.visuallyhidden(
+      class="habit",
+      ng-if='task.up',
+      type='checkbox',
+      ui-keypress='{13:"score(task, up)"}')
     a(ng-if='task.up', ng-click='applyingAction || score(task,"up")')
       span.glyphicon.glyphicon-plus
+    input.visuallyhidden(
+      class="habit",
+      ng-if='task.down',
+      type='checkbox',
+      ng-init='direction = "down"'
+      ui-keypress='{13:"score(task, direction)"}' )
     a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
       span.glyphicon.glyphicon-minus
 
   // Rewards
   span(ng-if='::task.type=="reward"')
+    input.visuallyhidden(
+      class="reward",
+      type='checkbox',
+      ui-keypress='{ 13:"score(task, down)" }')
     a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down")')
       span.shop_gold
       span.reward-cost {{task.value}}
