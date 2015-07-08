@@ -1692,8 +1692,16 @@ api.wrap = (user, main=true) ->
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
-      options.mixpanel?.track('Cron',{'distinct_id':user._id,'resting':user.preferences.sleep})
-      options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
+
+      analyticsData = {
+        gaCategory: 'behavior',
+        gaLabel: user.flags.cronCount,
+        uuid: user._id,
+        user: user,
+        resting: user.preferences.sleep,
+        cronCount: user.flags.cronCount
+      }
+      options.analytics?.track('Cron', analyticsData)
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
