@@ -31,8 +31,11 @@ script(type='text/ng-template', id='partials/options.inventory.quests.html')
                 button.customize-option(data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}", popover-title='{{::quest.text()}}', popover-append-to-body="true", popover-trigger='mouseenter', ng-click='buyQuest(quest.key)', ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
                 p(ng-if='quest.unlockCondition')
                   |  {{::quest.unlockCondition.text()}}
-                p(ng-if='quest.value && !lockQuest(quest)')
+                p(ng-if='quest.value && quest.category !== "gold" && !lockQuest(quest)')
                   |  {{::quest.value}}&nbsp;
                   span.Pet_Currency_Gem1x.inline-gems
+                p(ng-if='quest.value && quest.category === "gold" && !lockQuest(quest)')
+                  |  {{::quest.value}}&nbsp;
+                  span.shop_gold
                 p(ng-if='quest.lvl && lockQuest(quest)')=env.t('level')
                   |  {{::quest.lvl}}
