@@ -1,101 +1,3 @@
-script(type='text/ng-template', id='partials/options.inventory.equipment.html')
-  .container-fluid
-    .row
-      .col-md-6.border-right
-        h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', popover=env.t('battleGearText'))=env.t('battleGear')
-        div
-          button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
-        li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
-            div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
-      .col-md-6
-        h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', popover=env.t('costumeText'))=env.t('costume')
-        .checkbox.equipment-title
-          label
-            input(type="checkbox", ng-model="user.preferences.costume", ng-change='set({"preferences.costume":user.preferences.costume ? true : false})')
-            |&nbsp;
-            =env.t('useCostume')
-        div
-          button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
-          button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
-        li.customize-menu(ng-if='!user.preferences.costume')
-          .well.use-costume-info
-            p=env.t('useCostumeInfo1')
-            p(ng-if='showUseCostumeInfo')!=env.t('useCostumeInfo2')
-            p: a(ng-click='showUseCostumeInfo = !showUseCostumeInfo') {{!showUseCostumeInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
-        li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}', ng-show='gear[klass]')
-            div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{::item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
-
-script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html')
-  .container-fluid
-    .stable.row
-      .col-md-2
-        .seasonalshop_summer2015
-      .col-md-10
-        .popover.static-popover.fade.right.in
-          .arrow
-          h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
-          .popover-content
-            p!=env.t('seasonalShopSummerText')
-    .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
-    li.customize-menu.inventory-gear
-      menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{summerWarrior:env.t("daringSwashbucklerSet"), summerMage:env.t("emeraldMermageSet"), summerHealer:env.t("reefSeahealerSet"), summerRogue:env.t("roguishPirateSet")}')
-        div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key] === true ||user.items.gear.owned[item.key] === false}")
-          button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
-          .text-left
-            | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
-            span.Pet_Currency_Gem1x.inline-gems
-      // menu.pets-menu(label=env.t('quests'))
-        div(ng-repeat='quest in ::getSeasonalShopQuests()')
-          button.customize-option(data-popover-html="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : questPopover(quest) | markdown}}", popover-append-to-body='true', popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='buyQuest(quest.key)', ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
-          p
-            | {{::quest.value}}&nbsp;
-            span.Pet_Currency_Gem1x.inline-gems
-      menu.pets-menu(label=env.t('seasonalItems'))
-        div
-          button.customize-option(popover='{{::Content.spells.special.seafoam.notes()}}', popover-title='{{::Content.spells.special.seafoam.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.seafoam)', class='shop_seafoam')
-          p
-            | {{::Content.spells.special.seafoam.value}}
-            span(class='shop_gold')
-        // div
-          button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')
-          p
-            | {{Content.spells.special.nye.value}}
-            span(class='shop_gold')
-
-script(type='text/ng-template', id='partials/options.inventory.timetravelers.html')
-  .container-fluid
-    .stable.row(ng-if='user.purchased.plan.consecutive.trinkets <= 0')
-      .col-md-2
-        .npc_timetravelers
-      .col-md-10
-        .popover.static-popover.fade.right.in
-          .arrow
-          h3.popover-title!=env.t('timeTravelersTitleNoSub', {linkStartTyler: "<a href='https://github.com/lefnire' target='_blank'>", linkStartVicky: "<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
-          .popover-content
-            p!=env.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
-    .row.stable(ng-if='user.purchased.plan.consecutive.trinkets > 0')
-      .col-md-2
-        .npc_timetravelers_active
-      .col-md-10
-        .popover.static-popover.fade.right.in
-          .arrow
-          h3.popover-title=env.t('timeTravelersTitle')
-          .popover-content
-            .pull-right
-              span.inventory_special_trinket.inline-gems
-              b x{{user.purchased.plan.consecutive.trinkets}}
-            p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
-
-      .col-md-12
-        li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
-            div(ng-repeat='item in set.items')
-              button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='user.ops.buyMysterySet({params:{key:set.key}})', class='shop_{{::item.key}}')
-
 script(type='text/ng-template', id='partials/options.inventory.drops.html')
   .container-fluid
     .row
@@ -121,20 +23,11 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   .badge.badge-info.stack-count {{points}}
 
           li.customize-menu
-            menu.pets-menu(label=(env.t('quests') + ' ({{questCount}})'))
-              p.muted(ng-show='questCount < 1')=env.t('noScrolls')
-              p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
-              div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
-                button.customize-option(data-popover-html="{{:: quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : questPopover(quest) | markdown}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='showQuest(quest_key)', ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
-                  .badge.badge-info.stack-count {{points}}
-
-          li.customize-menu
             menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
               p.muted(ng-show='foodCount < 1')=env.t('noFood')
               div(ng-repeat='(food,points) in ownedItems(user.items.food)')
                 button.customize-option(popover='{{::Content.food[food].notes()}}', popover-title='{{::Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='chooseFood(food)', class='Pet_Food_{{::food}}')
                   .badge.badge-info.stack-count {{points}}
-
 
           li.customize-menu
             menu.pets-menu(label=env.t('special'))
@@ -219,15 +112,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   button.customize-option(popover='{{::food.notes()}}', popover-title='{{::food.text()}}', popover-trigger='mouseenter', popover-placement='top', popover-append-to-body='true', ng-click='purchase("food", food)', class='Pet_Food_{{::food.key}}')
                   p
                     |  {{::food.value}}&nbsp;
-                    span.Pet_Currency_Gem1x.inline-gems
-
-            li.customize-menu
-              menu.pets-menu(label=env.t('quests'))
-                p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
-                div(ng-repeat='quest in Content.quests', ng-if='quest.canBuy')
-                  button.customize-option(data-popover-html="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : questPopover(quest) | markdown}}", popover-title='{{::quest.text()}}', popover-append-to-body="true", popover-trigger='mouseenter', ng-click='buyQuest(quest.key)', ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
-                  p
-                    |  {{::quest.value}}&nbsp;
                     span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu

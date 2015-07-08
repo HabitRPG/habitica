@@ -574,6 +574,7 @@ describe 'User', ->
         expect(quest.value).to.be.greaterThan 0 if quest.canBuy
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
+        expect(quest.category).to.match('pet|unlockable|gold|world')
         if quest.drop.items
           expect(quest.drop.items).to.be.an(Array)
         if quest.boss
