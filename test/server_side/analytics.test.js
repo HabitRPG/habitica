@@ -167,73 +167,78 @@ describe('analytics', function() {
       analytics.__set__('ga.transaction', googleTransaction);
     });
 
-    it('calls amplitude.track', function() {
+    context('Amplitude', function() {
 
-      initializedAnalytics.trackPurchase(purchaseData);
+      it('calls amplitude.track', function() {
+        var data = _.cloneDeep(purchaseData);
+        initializedAnalytics.trackPurchase(data);
 
-      expect(amplitudeTrack).to.be.calledOnce;
-      expect(amplitudeTrack).to.be.calledWith({
-        event_type: 'purchase',
-        user_id: 'user-id',
-        event_properties: {
-          paymentMethod: 'PayPal',
-          sku: 'paypal-checkout',
-          gift: false,
-          itemPurchased: 'Gems',
-          purchaseType: 'checkout',
-          quantity: 1
-        },
-        revenue: 8
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'purchase',
+          user_id: 'user-id',
+          event_properties: {
+            paymentMethod: 'PayPal',
+            sku: 'paypal-checkout',
+            gift: false,
+            itemPurchased: 'Gems',
+            purchaseType: 'checkout',
+            quantity: 1
+          },
+          revenue: 8
+        });
       });
     });
 
-    it('calls ga.event', function() {
+    context('Google Analytics', function() {
 
-      initializedAnalytics.trackPurchase(purchaseData);
+      it('calls ga.event', function() {
+        var data = _.cloneDeep(purchaseData);
+        initializedAnalytics.trackPurchase(data);
 
-      expect(googleEvent).to.be.calledOnce;
-      expect(googleEvent).to.be.calledWith(
-        'commerce',
-        'checkout',
-        'PayPal',
-        8
-      );
-    });
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith(
+          'commerce',
+          'checkout',
+          'PayPal',
+          8
+        );
+      });
 
-    it('calls ga.transaction', function() {
+      it('calls ga.transaction', function() {
+        var data = _.cloneDeep(purchaseData);
+        initializedAnalytics.trackPurchase(data);
 
-      initializedAnalytics.trackPurchase(purchaseData);
+        expect(googleTransaction).to.be.calledOnce;
+        expect(googleTransaction).to.be.calledWith(
+          'user-id',
+          8
+        );
+        expect(googleItem).to.be.calledOnce;
+        expect(googleItem).to.be.calledWith(
+          8,
+          1,
+          'paypal-checkout',
+          'Gems',
+          'checkout'
+        );
+      });
 
-      expect(googleTransaction).to.be.calledOnce;
-      expect(googleTransaction).to.be.calledWith(
-        'user-id',
-        8
-      );
-      expect(googleItem).to.be.calledOnce;
-      expect(googleItem).to.be.calledWith(
-        8,
-        1,
-        'paypal-checkout',
-        'Gems',
-        'checkout'
-      );
-    });
+      it('appends gift to variation of ga.transaction.item if gift is true', function() {
 
-    it('appends gift to variation of ga.transaction.item if gift is true', function() {
+        var data = _.cloneDeep(purchaseData);
+        data.gift = true;
+        initializedAnalytics.trackPurchase(data);
 
-    var purchaseDataWithGift = _.clone(purchaseData);
-      purchaseDataWithGift.gift = true;
-
-      initializedAnalytics.trackPurchase(purchaseDataWithGift);
-
-      expect(googleItem).to.be.calledOnce;
-      expect(googleItem).to.be.calledWith(
-        8,
-        1,
-        'paypal-checkout',
-        'Gems',
-        'checkout - Gift'
-      );
+        expect(googleItem).to.be.calledOnce;
+        expect(googleItem).to.be.calledWith(
+          8,
+          1,
+          'paypal-checkout',
+          'Gems',
+          'checkout - Gift'
+        );
+      });
     });
   });
 });

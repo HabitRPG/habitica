@@ -127,7 +127,13 @@ exports.cancelSubscription = function(data, cb) {
 
   data.user.save(cb);
   utils.txnEmail(data.user, 'cancel-subscription');
-  utils.ga.event('commerce', 'unsubscribe', data.paymentMethod).send();
+  var analyticsData = {
+    uuid: data.user._id,
+    gaCategory: 'commerce',
+    gaLabel: data.paymentMethod,
+    paymentMethod: data.paymentMethod
+  }
+  utils.analytics.track('unsubscribe', analyticsData);
 }
 
 exports.buyGems = function(data, cb) {
