@@ -51,6 +51,8 @@
       span.glyphicon.glyphicon-signal
       | &nbsp;
     // notes
-    a.task-notes(ng-show='task.notes && !task._editing', ng-click='task.popoverOpen = !task.popoverOpen', popover-trigger='click', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
-      span.glyphicon.glyphicon-comment
-      | &nbsp;
+
+  // Make this icon available regardless of task ownership  
+  a.task-notes(ng-show='task.notes && !task._editing', ng-click='task.popoverOpen = !task.popoverOpen', popover-trigger='click', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
+    span.glyphicon.glyphicon-comment
+    | &nbsp;
