@@ -984,6 +984,7 @@ api.questEggs =
   Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
   Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
   Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
+  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1012,6 +1013,7 @@ api.specialMounts =
   'MantisShrimp-Base':  'mantisShrimp'
   'Turkey-Base':        'turkey'
   'Mammoth-Base':       'mammoth'
+  'Orca-Base':          'orca'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1802,6 +1804,25 @@ api.quests =
       gp: 55
       exp: 500
       unlock: t('questKrakenUnlockText')
+
+  whale:
+    text: t('questWhaleText')
+    notes: t('questWhaleNotes')
+    completion: t('questWhaleCompletion')
+    value: 4
+    boss:
+      name: t('questWhaleBoss')
+      hp: 500
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+      ]
+      gp: 37
+      exp: 275
+      unlock: t('questWhaleUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
