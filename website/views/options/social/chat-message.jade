@@ -19,16 +19,16 @@ mixin chatMessages(inbox)
           span
             a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
             a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group, message)') +1
-          | &nbsp; &nbsp;
+          span(ng-if=":: message.uuid != 'system'") &nbsp; &nbsp;
           a(ng-click="quickReply(message.uuid)" ng-if=":: message.uuid != 'system'")
             span.glyphicon.glyphicon-envelope(tooltip=env.t('sendPM'))
         if inbox
           a(ng-click="quickReply(message.uuid)")
             span.glyphicon.glyphicon-share-alt(tooltip=env.t('pm-reply'))
-        | &nbsp; &nbsp;
+        span(ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}') &nbsp; &nbsp;
         a(ng-click='#{inbox? "user.ops.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}', ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}')
           span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
-        | &nbsp; &nbsp;
+        span(ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted && message.uuid != user.id && message.uuid != "system")') &nbsp; &nbsp;
         a(ng-click="flagChatMessage(group._id, message)", ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted && message.uuid != user.id && message.uuid != "system")')
           span.glyphicon.glyphicon-flag(tooltip="{{message.flags[user._id] ? env.t('abuseAlreadyReported') : env.t('abuseFlag')}}" ng-class='message.flags[user._id] ? "text-danger" : ""')
         | &nbsp; &nbsp;
