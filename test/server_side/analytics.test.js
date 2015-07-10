@@ -61,8 +61,7 @@ describe('analytics', function() {
 
     var event_type = 'Cron';
     var analyticsData = {
-      gaCategory: 'behavior',
-      gaLabel: 'Ga Label',
+      category: 'behavior',
       uuid: 'unique-user-id',
       resting: true,
       cronCount: 5
@@ -88,6 +87,7 @@ describe('analytics', function() {
           event_type: 'Cron',
           user_id: 'unique-user-id',
           event_properties: {
+            category: 'behavior',
             resting: true,
             cronCount: 5
           }
@@ -112,6 +112,7 @@ describe('analytics', function() {
           event_type: 'Cron',
           user_id: 'unique-user-id',
           event_properties: {
+            category: 'behavior',
             resting: true,
             cronCount: 5
           },
@@ -137,7 +138,68 @@ describe('analytics', function() {
         expect(googleEvent).to.be.calledWith(
           'behavior',
           'Cron',
-          'Ga Label'
+          'Label Not Specified'
+        );
+      });
+
+      it('if goldCost property is provided, use as label', function() {
+        var data = _.cloneDeep(analyticsData);
+        data.goldCost = 4;
+
+        initializedAnalytics.track(event_type, data);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith(
+          'behavior',
+          'Cron',
+          4
+        );
+      });
+
+      it('if gemCost property is provided, use as label (overrides goldCost)', function() {
+        var data = _.cloneDeep(analyticsData);
+        data.goldCost = 10;
+        data.itemName = 50;
+
+        initializedAnalytics.track(event_type, data);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith(
+          'behavior',
+          'Cron',
+          50
+        );
+      });
+
+      it('if itemName property is provided, use as label (overrides gem/goldCost)', function() {
+        var data = _.cloneDeep(analyticsData);
+        data.goldCost = 5;
+        data.gemCost = 50;
+        data.itemName = 'some item';
+
+        initializedAnalytics.track(event_type, data);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith(
+          'behavior',
+          'Cron',
+          'some item'
+        );
+      });
+
+      it('if gaLabel property is provided, use as label (overrides itemName)', function() {
+        var data = _.cloneDeep(analyticsData);
+        data.value = 'some value';
+        data.itemName = 'some item';
+        data.gaLabel = 'some label';
+
+        initializedAnalytics.track(event_type, data);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith(
+          'behavior',
+          'Cron',
+          'some label'
         );
       });
     });

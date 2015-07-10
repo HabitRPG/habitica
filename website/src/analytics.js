@@ -31,9 +31,24 @@ function _sendDataToAmplitude(eventType, data) {
 }
 
 function _sendDataToGoogle(eventType, data) {
-  var category = data.gaCategory;
-  var label = data.gaLabel;
+  var category = data.category;
+  var label = _generateLabelForGoogleAnalytics(data);
+
   ga.event(category, eventType, label).send();
+}
+
+function _generateLabelForGoogleAnalytics(data) {
+  var label = 'Label Not Specified';
+  var POSSIBLE_LABELS = ['gaLabel', 'itemName', 'gemCost', 'goldCost'];
+
+  _(POSSIBLE_LABELS).each(function(key) {
+    if(data[key]) {
+      label = data[key];
+      return false; // exit _.each early
+    }
+  });
+
+  return label;
 }
 
 function trackPurchase(data) {
@@ -50,7 +65,7 @@ function _sendPurchaseDataToAmplitude(data) {
 }
 
 function _formatDataForAmplitude(data) {
-  var PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaCategory', 'gaLabel'];
+  var PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel'];
   var event_properties = _.omit(data, PROPERTIES_TO_SCRUB);
 
   var ampData = {
