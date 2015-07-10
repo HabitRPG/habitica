@@ -176,7 +176,6 @@ module.exports.setupConfig = function(){
   isProd = nconf.get('NODE_ENV') === 'production';
   baseUrl = nconf.get('BASE_URL');
 
-  module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
   var analytics = isProd && require('./analytics');
   var analyticsTokens = {
     amplitudeToken: nconf.get('AMPLITUDE_KEY'),
