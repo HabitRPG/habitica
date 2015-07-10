@@ -848,6 +848,7 @@ api.wrap = (user, main=true) ->
         analyticsData = {
           uuid: user._id,
           itemName: key,
+          itemType: 'Market',
           acquireMethod: 'Gems',
           gemCost: item.value,
           category: 'behavior'
@@ -996,6 +997,7 @@ api.wrap = (user, main=true) ->
           analyticsData = {
             uuid: user._id,
             itemName: i.key,
+            itemType: 'Subscriber Gear',
             acquireMethod: 'Hourglass',
             category: 'behavior'
           }
@@ -1169,6 +1171,7 @@ api.wrap = (user, main=true) ->
         analyticsData = {
           uuid: user._id,
           itemName: item,
+          itemType: 'Subscriber Gear',
           acquireMethod: 'Subscriber',
           category: 'behavior'
         }
