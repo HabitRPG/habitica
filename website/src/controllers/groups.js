@@ -987,7 +987,7 @@ api.questReject = function(req, res, next) {
     category: 'behavior',
     owner: false,
     response: 'reject',
-    questName: key
+    questName: group.quest.key
   };
   analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
