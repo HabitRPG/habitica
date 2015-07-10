@@ -924,6 +924,7 @@ api.questAccept = function(req, res, next) {
           category: 'behavior',
           owner: true,
           response: 'accept',
+          gaLabel: 'accept',
           questName: key
         };
         analytics.track('quest',analyticsData);
@@ -969,6 +970,7 @@ api.questAccept = function(req, res, next) {
       category: 'behavior',
       owner: false,
       response: 'accept',
+      gaLabel: 'accept',
       questName: group.quest.key
     };
     analytics.track('quest',analyticsData);
@@ -987,6 +989,7 @@ api.questReject = function(req, res, next) {
     category: 'behavior',
     owner: false,
     response: 'reject',
+    gaLabel: 'reject',
     questName: group.quest.key
   };
   analytics.track('quest',analyticsData);
