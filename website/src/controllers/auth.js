@@ -201,12 +201,12 @@ api.loginSocial = function(req, res, next) {
         cb.apply(cb, arguments);
       });
 
-        var analyticsData = {
-          category: 'acquisition',
-          type: network,
-          gaLabel: network
-        };
-        var analytics.track('register', analyticsData)
+      var analyticsData = {
+        category: 'acquisition',
+        type: network,
+        gaLabel: network
+      };
+      var analytics.track('register', analyticsData)
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
