@@ -8,7 +8,7 @@ var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
-var ga = utils.ga;
+var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
@@ -535,7 +535,7 @@ _.each(shared.wrap({}).ops, function(op,k){
           if (err) return next(err);
           res.json(200,response);
         })
-      }, ga);
+      }, analytics);
     }
   }
 })

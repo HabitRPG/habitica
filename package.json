@@ -42,7 +42,6 @@
     "lodash": "~2.4.1",
     "loggly": "~1.0.8",
     "method-override": "~2.2.0",
-    "mixpanel": "^0.2.1",
     "moment": "~2.8.3",
     "mongoose": "~3.8.23",
     "mongoose-id-autoinc": "~2013.7.14-4",
