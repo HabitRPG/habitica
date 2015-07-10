@@ -103,7 +103,7 @@
     "questGoldenknight3DropGoldenPotion": "Goldener Schlüpftrank",
     "questGoldenknight3DropWeapon": "Mustaines Meilenstein-matschender Morgenstern (Schildhand-Waffe)",
     "questBasilistText": "Der Basi-List",
-    "questBasilistNotes": "Da ist eine Aufruhr auf dem Marktplatz - es sieht ganz so aus, als man lieber in die andere Richtung rennen sollte. Da du aber ein mutiger Abenteurer bist, rennst du stattdessen darauf zu und entdeckst einen Basi-List, der sich aus einem Haufen unerledigter Aufgaben geformt hat! Alle umstehenden Habiticaner sind gelähmt vor Angst vor der Länge des Basi-List und können nicht anfangen, zu arbeiten. Von irgendwo in der Nähe hörst du @Arcosine schreien: \"Schnell! Erledige deine einmaligen und täglichen Aufgaben, um dem Monster die Zähne zu entfernen, bevor jemand sich am Papier schneidet!\" Greife schnell an, Abenteurer, und hake etwas ab - aber Vorsicht! Wenn du irgendwelche täglichen Aufgaben nicht erledigst, wird der Basi-List Dich und Deine Gruppe angreifen! ",
+    "questBasilistNotes": "Da ist ein Aufruhr auf dem Marktplatz - es sieht ganz so aus, als ob man lieber in die andere Richtung rennen sollte. Da Du aber ein mutiger Abenteurer bist, rennst Du stattdessen darauf zu und entdeckst einen Basi-List, der sich aus einem Haufen unerledigter Aufgaben geformt hat! Alle umstehenden Habiticaner sind aus Angst vor der Länge des Basi-Lists gelähmt und können nicht anfangen zu arbeiten. Von irgendwo in der Nähe hörst du @Arcosine schreien: \"Schnell! Erledige deine einmaligen und täglichen Aufgaben, um dem Monster die Zähne zu entfernen, bevor sich jemand am Papier schneidet!\" Greife schnell an, Abenteurer, und hake etwas ab - aber Vorsicht! Wenn Du irgendwelche täglichen Aufgaben nicht erledigst, wird der Basi-List Dich und Deine Gruppe angreifen! ",
     "questBasilistCompletion": "Der Basi-List ist in Papierschnitzel zerfallen, die sanft in Regenbogenfarben schimmern. \"Puh!\" sagt @Arcosine. \"Gut, dass ihr gerade hier wart!\" Du fühlst dich erfahrener als vorher und sammelst ein paar verstreute Goldstücke zwischen den Papierstücken auf. ",
     "questBasilistBoss": "Der Basi-List",
     "questEggHuntText": "Eierjagd",
@@ -206,7 +206,13 @@
     "questKrakenText": "Der Kraken von Unfertige",
     "questKrakenNotes": "Als du durch die Unfertige Bucht segelst, ist es ein warmer, sonniger Tag, aber deine Gedanken sind voller Sorgen über alles was du noch zu erledigen hast. Es scheint so, als ob sobald eine Aufgabe erledigt ist, eine andere auftaucht, und dann noch eine... <br><br>Plötzlich wird das Boot von einem furchtbaren Ruck erschüttert, und schleimige Tentakeln schlängeln sich an allen Seiten aus dem Wasser! \"Der Kraken von Unfertige greift uns an!\" schreit Wolvenhalo.<br><br>\"Schnell!\" ruft dir Lemoness zu. \"Schlage so viele Tentakeln und Aufgaben nieder wie du kannst, bevor neue auftauchen und ihren Platz einnehmen!\" ",
     "questKrakenBoss": "Der Kraken von Unfertige",
-    "questKrakenCompletion": "Als der Kraken flieht, treiben mehrere Eier an die Wasseroberfläche. Lemoness untersucht sie zunächst argwöhnisch, dann ruft sie freudestrahlend \"Tintenfischeier! Hier, nimm sie als Belohnung für alles was du erledigt hast!\" ",
+    "questKrakenCompletion": "Als der Kraken flieht, treiben mehrere Eier an die Wasseroberfläche. Lemoness untersucht sie zunächst argwöhnisch, dann ruft sie freudestrahlend \"Tintenfischeier! Hier, nimm sie als Belohnung für alles was Du erledigt hast!\" ",
     "questKrakenDropCuttlefishEgg": "Tintenfisch (Ei)",
-    "questKrakenUnlockText": "Ermöglicht den Kauf von Tintenfischeiern auf dem Marktplatz."
+    "questKrakenUnlockText": "Ermöglicht den Kauf von Tintenfischeiern auf dem Marktplatz.",
+    "questWhaleText": "Wail of the Whale",
+    "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
+    "questWhaleBoss": "Wailing Whale",
+    "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
+    "questWhaleDropWhaleEgg": "Whale (Egg)",
+    "questWhaleUnlockText": "Unlocks purchasable whale eggs in the Market"
 }

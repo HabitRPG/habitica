@@ -119,7 +119,7 @@
     "sendGiftPurchase": "Kup nowe",
     "sendGiftMessagePlaceholder": "Osobista wiadomość (opcjonalnie)",
     "sendGiftSubscription": "<%= months %> miesięcy: <%= price %> $",
-    "battleWithFriends": "Battle Monsters With Friends",
+    "battleWithFriends": "Zwalczaj potwory z przyjaciółmi",
     "startAParty": "Utwórz drużynę",
     "addToParty": "Dodaj kogoś do swojej drużyny"
 }

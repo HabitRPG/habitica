@@ -64,6 +64,8 @@
     "questEggSheepAdjective": "מלאי צמר",
     "questEggCuttlefishText": "דיונון",
     "questEggCuttlefishAdjective": "נעים",
+    "questEggWhaleText": "Whale",
+    "questEggWhaleAdjective": "splashy",
     "eggNotes": "מצא שיקוי בקיעה למזוג על ביצה זו, והיא תבקע כ: <%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

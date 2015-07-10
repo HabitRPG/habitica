@@ -13,6 +13,7 @@
     "hydra": "Hidra",
     "mantisShrimp": "Ustonožac",
     "mammoth": "Čupavi mamut",
+    "orca": "Orca",
     "rarePetPop1": "Kliknite na zlatnu šapu da saznate kako da nabavite ovu retku zver!",
     "rarePetPop2": "Kako nabaviti ovu zver!",
     "potion": "<%= potionType %> napitak",

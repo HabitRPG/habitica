@@ -55,5 +55,5 @@
     "challengedEitherOwnedFilter": "Valamelyik",
     "backToChallenges": "Vissza a kihívásokhoz",
     "prizeValue": "Nyeremény <%= gemcount %>&nbsp;<%= gemicon %>",
-    "clone": "Clone"
+    "clone": "Másol"
 }

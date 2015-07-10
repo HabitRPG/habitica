@@ -13,6 +13,7 @@
     "hydra": "Hidra",
     "mantisShrimp": "Sáskarák",
     "mammoth": "Gyapjas Mamut",
+    "orca": "Orca",
     "rarePetPop1": "Kattintas az arany mancsra, hogy megtudd hogyan tudod megszerezni ezt a ritka háziállatot úgy, hogy közreműködsz a HabitRPG-nek.",
     "rarePetPop2": "Hogyan szerezheted meg ezt a háziállatot!",
     "potion": "<%= potionType %> főzet",

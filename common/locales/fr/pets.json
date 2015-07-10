@@ -13,6 +13,7 @@
     "hydra": "Hydre",
     "mantisShrimp": "Crevette-mante",
     "mammoth": "Mammouth Laineux",
+    "orca": "Orca",
     "rarePetPop1": "Cliquez sur l'empreinte dorée pour savoir comment obtenir cet animal rare en contribuant à HabitRPG !",
     "rarePetPop2": "Comment obtenir ce Familier !",
     "potion": "Potion <%= potionType %>",
