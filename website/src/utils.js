@@ -178,7 +178,6 @@ module.exports.setupConfig = function(){
 
   module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
   var analytics = isProd && require('./analytics');
-  var analytics = require('./analytics');
   var analyticsTokens = {
     amplitudeToken: nconf.get('AMPLITUDE_KEY'),
     googleAnalytics: nconf.get('GA_ID')
