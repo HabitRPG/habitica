@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }
