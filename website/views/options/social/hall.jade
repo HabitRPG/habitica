@@ -67,7 +67,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         input.form-control.btn.btn-primary(type='submit')=env.t('save')
 
 
-  table.table.table-striped
+  table.table.table-striped(style='table-layout:fixed;')
     thead
       tr
         th=env.t('name')
@@ -91,7 +91,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           markdown(text='hero.contributor.contributions', target='_blank')
 
 script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
-  table.table.table-striped(infinite-scroll="loadMore()")
+  table.table.table-striped(infinite-scroll="loadMore()", style='table-layout:fixed;')
     thead
       tr
         th=env.t('name')
