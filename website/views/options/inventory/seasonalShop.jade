@@ -11,8 +11,13 @@
   .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
   li.customize-menu.inventory-gear
     menu.pets-menu(label='{{::label}}', ng-repeat='(set,label) in ::{summerWarrior:env.t("daringSwashbucklerSet"), summerMage:env.t("emeraldMermageSet"), summerHealer:env.t("reefSeahealerSet"), summerRogue:env.t("roguishPirateSet")}')
-      div(ng-repeat='item in ::getSeasonalShopArray(set)' ng-class="{transparent: user.items.gear.owned[item.key] === true ||user.items.gear.owned[item.key] === false}")
-        button.customize-option(popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='shop_{{::item.key}}')
+      div(ng-repeat='item in ::getSeasonalShopArray(set)',
+        ng-class="{transparent: user.items.gear.owned[item.key] !== undefined}")
+        button.customize-option(class='shop_{{::item.key}}',
+          popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='purchase(item.type,item)')
         .text-left
           | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
