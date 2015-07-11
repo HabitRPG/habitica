@@ -214,31 +214,34 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (type == 'special') return user.ops.buySpecialSpell({params:{key:item.key}});
 
       var gems = user.balance * 4;
-
-      var itemList = Content.itemList;
-      var str = type;
-      if (itemList[type]) {
-        str = window.env.t(itemList[type].localeKey)
-      }
+      var itemName = _getLocalekeyForItem(type);
 
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
+
       if (itemList[type].isEquipment) {
         if (user.items.gear.owned[item.key]) {
-          if (user.preferences.costume) return user.ops.equip({params:{type: 'costume', key: item.key}});
-          else {
-            return user.ops.equip({params:{type: 'equipped', key: item.key}})
-          }
+          var equipType = user.preferences.costume ? 'costume' : 'equipped';
+          return user.ops.equip({params:{type: equipType, key: item.key}});
         }
         if (gems < price) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: str, price: price, gems: gems})
+        var message = window.env.t('buyThis', {text: itemName, price: price, gems: gems})
         if($window.confirm(message))
           user.ops.purchase({params:{type:"gear",key:item.key}});
       } else {
         if(gems < item.value) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: str, price: item.value, gems: gems})
+        var message = window.env.t('buyThis', {text: itemName, price: item.value, gems: gems})
         if($window.confirm(message))
           user.ops.purchase({params:{type:type,key:item.key}});
       }
+    }
+
+    function _getLocalekeyForItem(type) {
+      var itemName = type;
+      if (Content.itemList[type]) {
+        itemName = window.env.t(Content.itemList[type].localeKey)
+      }
+
+      return itemName;
     }
 
     /*
