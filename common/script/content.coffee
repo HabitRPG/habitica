@@ -67,6 +67,7 @@ api.itemList =
   'hatchingPotions' : {localeKey: 'hatchingPotion', isEquipment: false}
   'eggs' : {localeKey: 'eggSingular', isEquipment: false}
   'quests' : {localeKey: 'quest', isEquipment: false}
+  'food' : {localeKey: 'foodText', isEquipment: false}
   'Saddle' : {localeKey: 'foodSaddleText', isEquipment: false}
 
 gear =
@@ -938,6 +939,7 @@ api.dropEggs =
   Dragon:           text: t('dropEggDragonText'), adjective: t('dropEggDragonAdjective')
   Cactus:           text: t('dropEggCactusText'), adjective: t('dropEggCactusAdjective')
   BearCub:          text: t('dropEggBearCubText'),  mountText: t('dropEggBearCubMountText'), adjective: t('dropEggBearCubAdjective')
+
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true

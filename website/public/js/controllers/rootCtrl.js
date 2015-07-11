@@ -210,38 +210,49 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       return filteredArray;
     }
 
+    // @TODO: Extract equip and purchase into equipment service
+    $rootScope.equip = function(itemKey) {
+      var equipType = user.preferences.costume ? 'costume' : 'equipped';
+      var equipParams = {
+         type: equipType,
+         key: itemKey
+      };
+
+      user.ops.equip({ params: equipParams });
+    }
+
     $rootScope.purchase = function(type, item){
       if (type == 'special') return user.ops.buySpecialSpell({params:{key:item.key}});
 
       var gems = user.balance * 4;
-      var itemName = _getLocalekeyForItem(type);
+      var price = item.value;
 
-      var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
+      var itemName = window.env.t(Content.itemList[type].localeKey)
 
-      if (itemList[type].isEquipment) {
-        if (user.items.gear.owned[item.key]) {
-          var equipType = user.preferences.costume ? 'costume' : 'equipped';
-          return user.ops.equip({params:{type: equipType, key: item.key}});
-        }
-        if (gems < price) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: itemName, price: price, gems: gems})
-        if($window.confirm(message))
-          user.ops.purchase({params:{type:"gear",key:item.key}});
-      } else {
-        if(gems < item.value) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: itemName, price: item.value, gems: gems})
-        if($window.confirm(message))
-          user.ops.purchase({params:{type:type,key:item.key}});
+      if (Content.itemList[type].isEquipment) {
+        var eligibleForPurchase = _canBuyEquipment(item.key);
+        if (!eligibleForPurchase) return false;
+
+        // @TODO: Attach gemValue to content so we don't have to do this
+        price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
+        type = 'gear';
       }
+
+      if (gems < price) return $rootScope.openModal('buyGems');
+
+      var message = window.env.t('buyThis', {text: itemName, price: price, gems: gems});
+      if ($window.confirm(message))
+        user.ops.purchase({params:{type:type,key:item.key}});
     }
 
-    function _getLocalekeyForItem(type) {
-      var itemName = type;
-      if (Content.itemList[type]) {
-        itemName = window.env.t(Content.itemList[type].localeKey)
+    function _canBuyEquipment(itemKey) {
+      if (user.items.gear.owned[itemKey]) {
+        $window.alert(window.env.t('messageAlreadyOwnGear'));
+      } else if (user.items.gear.owned[itemKey] === false) {
+        $window.alert(window.env.t('messageAlreadyPurchasedGear'));
+      } else {
+        return true;
       }
-
-      return itemName;
     }
 
     /*
