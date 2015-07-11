@@ -9,7 +9,6 @@
           menu.pets-menu(label=(env.t('eggs') + ' ({{eggCount}})'))
             p.muted(ng-show='eggCount < 1')=env.t('noEggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
-              //TODO move positioning this styling to css
               button.customize-option(popover='{{::Content.eggs[egg].notes()}}', popover-title!=env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"}), popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='chooseEgg(egg)', class='Pet_Egg_{{::egg}}', ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0)}')
                 .badge.badge-info.stack-count {{points}}
               //-p {{Content.eggs[egg].text()}}
