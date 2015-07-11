@@ -26,7 +26,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         input.form-control(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
       .form-group
         label=env.t('contribLevel')
-        input.form-control(type='number', ng-model='hero.contributor.level')        
+        input.form-control(type='number', ng-model='hero.contributor.level')
         small=env.t('contribHallText')
         |&nbsp;
         a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
@@ -92,7 +92,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
 
 script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
   .table-responsive
-    table.table.table-striped.table-responsive(infinite-scroll="loadMore()")
+    table.table.table-striped(infinite-scroll="loadMore()")
       thead
         tr
           th=env.t('name')
