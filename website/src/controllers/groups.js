@@ -756,8 +756,8 @@ api.removeMember = function(req, res, next){
 
         //Mark removed users messages as seen
         var update = {$unset:{}};
-        update['$unset']['newMessages.'+group._id] = '';
-        User.update({_id:removedUser._id, apiToken:removedUser.apiToken},update).exec();
+        update.$unset['newMessages.' + group._id] = '';
+        User.update({_id: removedUser._id, apiToken: removedUser.apiToken}, update).exec();
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
