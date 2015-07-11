@@ -215,14 +215,14 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       var gems = User.user.balance * 4;
 
-      var itemTypes = Content.itemList;
+      var itemList = Content.itemList;
       var string = type;
-      if (itemTypes[type]) {
-        string = window.env.t(itemTypes[type].localeKey)
+      if (itemList[type]) {
+        string = window.env.t(itemList[type].localeKey)
       }
 
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
-      if (itemTypes[type].isEquipment) {
+      if (itemList[type].isEquipment) {
         if (User.user.items.gear.owned[item.key]) {
           if (User.user.preferences.costume) return User.user.ops.equip({params:{type: 'costume', key: item.key}});
           else {
