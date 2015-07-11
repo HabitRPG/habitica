@@ -356,7 +356,7 @@ var UserSchema = new Schema({
     name: String,
   },
   stats: {
-    hp: {type: Number, 'default': 50},
+    hp: {type: Number, 'default': shared.maxHealth},
     mp: {type: Number, 'default': 10},
     exp: {type: Number, 'default': 0},
     gp: {type: Number, 'default': 0},
