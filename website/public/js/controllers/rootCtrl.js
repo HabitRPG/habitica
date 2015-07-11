@@ -211,9 +211,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.purchase = function(type, item){
-      if (type == 'special') return User.user.ops.buySpecialSpell({params:{key:item.key}});
+      if (type == 'special') return user.ops.buySpecialSpell({params:{key:item.key}});
 
-      var gems = User.user.balance * 4;
+      var gems = user.balance * 4;
 
       var itemList = Content.itemList;
       var str = type;
@@ -223,23 +223,22 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
       if (itemList[type].isEquipment) {
-        if (User.user.items.gear.owned[item.key]) {
-          if (User.user.preferences.costume) return User.user.ops.equip({params:{type: 'costume', key: item.key}});
+        if (user.items.gear.owned[item.key]) {
+          if (user.preferences.costume) return user.ops.equip({params:{type: 'costume', key: item.key}});
           else {
-            return User.user.ops.equip({params:{type: 'equipped', key: item.key}})
+            return user.ops.equip({params:{type: 'equipped', key: item.key}})
           }
         }
         if (gems < price) return $rootScope.openModal('buyGems');
         var message = window.env.t('buyThis', {text: str, price: price, gems: gems})
         if($window.confirm(message))
-          User.user.ops.purchase({params:{type:"gear",key:item.key}});
+          user.ops.purchase({params:{type:"gear",key:item.key}});
       } else {
         if(gems < item.value) return $rootScope.openModal('buyGems');
         var message = window.env.t('buyThis', {text: str, price: item.value, gems: gems})
         if($window.confirm(message))
-          User.user.ops.purchase({params:{type:type,key:item.key}});
+          user.ops.purchase({params:{type:type,key:item.key}});
       }
-
     }
 
     /*
