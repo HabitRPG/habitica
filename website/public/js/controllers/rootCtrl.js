@@ -216,9 +216,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       var gems = User.user.balance * 4;
 
       var itemList = Content.itemList;
-      var string = type;
+      var str = type;
       if (itemList[type]) {
-        string = window.env.t(itemList[type].localeKey)
+        str = window.env.t(itemList[type].localeKey)
       }
 
       var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
@@ -230,12 +230,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           }
         }
         if (gems < price) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: string, price: price, gems: gems})
+        var message = window.env.t('buyThis', {text: str, price: price, gems: gems})
         if($window.confirm(message))
           User.user.ops.purchase({params:{type:"gear",key:item.key}});
       } else {
         if(gems < item.value) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
+        var message = window.env.t('buyThis', {text: str, price: item.value, gems: gems})
         if($window.confirm(message))
           User.user.ops.purchase({params:{type:type,key:item.key}});
       }
