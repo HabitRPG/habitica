@@ -50,15 +50,6 @@ angular.module('habitrpg')
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
-          if (status == 200) {
-            if (data.auth.facebook) {
-              Analytics.updateUser({'email':data.auth.facebook._json.email,'language':data.preferences.language});
-              Analytics.track({'hitType':'event','eventCategory':'acquisition','eventAction':'register','authType':'facebook'});
-            } else {
-              Analytics.updateUser({'email':data.auth.local.email,'language':data.preferences.language});
-              Analytics.track({'hitType':'event','eventCategory':'acquisition','eventAction':'register','authType':'email'});
-            }
-          }
         }).error(errorAlert);
       };
 
