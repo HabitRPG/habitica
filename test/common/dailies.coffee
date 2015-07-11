@@ -6,7 +6,7 @@ shared = require '../../common/script/index.coffee'
 shared.i18n.translations = require('../../website/src/i18n.js').translations
 
 repeatWithoutLastWeekday = ()->
-  repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:1}
+  repeat = {su:true,m:true,t:true,w:true,th:true,f:true,s:true}
   if shared.startOfWeek(moment().zone(0)).isoWeekday() == 1 # Monday
     repeat.su = false
   else
@@ -64,7 +64,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
       user = newUser()
       user.dailys = [
         shared.taskDefaults({type:'daily', startDate: moment().add(7, 'days'), frequency: 'daily'})
-        shared.taskDefaults({type:'daily', startDate: moment().add(7, 'days'), frequency: 'weekly', repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}})
+        shared.taskDefaults({type:'daily', startDate: moment().add(7, 'days'), frequency: 'weekly', repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}})
       ]
       daily = user.dailys[0]
       weekly = user.dailys[1]

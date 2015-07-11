@@ -42,8 +42,6 @@
     "customDayStart": "Heure personnalisée de début de journée",
     "24HrClock": "Horloge de 24 heures",
     "customDayStartInfo1": "Par défaut, HabitRPG vérifie et réinitialise vos quotidiennes à minuit dans votre propre fuseau horaire tout les jours. Il est recommandé que vous lisiez les informations suivantes avant de les changées :",
-    "customDayStartInfo2": "(en voir plus)",
-    "customDayStartInfo3": "(en voir moins)",
     "customDayStartInfo4": "<strong>Terminez toutes vos tâches quotidiennes avant de personnaliser l'heure de démarrage de la journée</strong> ou <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>restez à l'auberge</a> pendant cette journée. Modifier l'heure de démarrage de la journée peut amener <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a> s'exécuter immédiatement, mais après le premier jour, il fonctionnera de la façon souhaitée.<br><br><strong>Attendre en moyenne deux heures pour que les changenents prennent effet.</strong> Par exemple, s'il est actuellement règlé à 0 (minuit), changez le avant 22h; si vous voulez le régler sur 21h, modifiez le avant 19h.<br><br>Entrez une heure de 0 à 23 (c'est le système horaire sur 24 heures qui est utilisé). Saisir directement est plus efficace que d'utiliser les flèches. Une fois le paramètre changé, actualisez la page pour vérifier que la nouvelle valeur s'affiche correctement.",
     "misc": "Divers",
     "showHeader": "Montrer le Bandeau",
@@ -84,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "incluant à la fois votre ancienne et votre nouvelle adresse mail et votre ID d'utilisateur·trice",
     "username": "Nom d'utilisateur",
+    "usernameOrEmail": "Nom d'utilisateur ou adresse courriel",
     "email": "Mail",
     "registeredWithFb": "Inscrit·e avec Facebook",
     "loginNameDescription1": "C'est ce que vous utilisez pour vous connecter à HabitRPG. Allez sur",
@@ -113,11 +112,11 @@
     "benefits": "Avantages",
     "coupon": "Promo",
     "couponPlaceholder": "Entrer le Code Promotionnel",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "Nous participons parfois à des événements, et donnons des codes pour de l'équipement spécial (par exemple pour ceux qui s'arrêtent à notre kiosque à la Wondercon).",
     "apply": "Appliquer",
     "resubscribe": "Se réinscrire",
     "promoCode": "Code promotionnel",
     "promoCodeApplied": "Code promotionnel validé ! Vérifiez votre inventaire",
     "promoPlaceholder": "Entrez le Code promotionnel",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Afficher le bouton Inviter Dans L'équipe lorsque l'équipe a 1 seul membre."
 }

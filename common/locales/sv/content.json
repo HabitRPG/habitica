@@ -64,6 +64,8 @@
     "questEggSheepAdjective": "ulligt",
     "questEggCuttlefishText": "Cuttlefish",
     "questEggCuttlefishAdjective": "cuddly",
+    "questEggWhaleText": "Whale",
+    "questEggWhaleAdjective": "splashy",
     "eggNotes": "Finn en kläckningsdryck att hälla på det här ägget, så kommer det att kläckas till<%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",

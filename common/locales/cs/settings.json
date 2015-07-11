@@ -42,8 +42,6 @@
     "customDayStart": "Vlastní začátek dne",
     "24HrClock": "24hod mód",
     "customDayStartInfo1": "HabitRPG implicitně kontroluje a resetuje tvé denní úkoly vždy o půlnoci tvé časové zóny. Měl by sis přečíst následující informace, než to změníš:",
-    "customDayStartInfo2": "(zobrazit více)",
-    "customDayStartInfo3": "(zobrazit méně)",
     "customDayStartInfo4": "<strong>Dokonči všechny své denní úkoly před změnou vlastního začátku dne</strong> nebo ten den <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Odpočívej v hostinci</a>. Změna vlastního začátku dne může způsobit okamžité spuštění <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>kronu</a>, ale po prvním dnu bude vše fungovat tak, jak má.<br><br><strong>Změna může trvat až dvě hodiny.</strong> Například pokud je nyní nastaven na 0 (půlnoc), změň ho před 22. hodinou; pokud ho chceš nastavit na 9. hodinu, změň ho před 7. hodinou.<br><br>Zadej hodinu od 0 do 23 (používá se 24-hodinový formát). Psaní je efektivnější než použití šipek. Jakmile máš nastaveno, obnov stránku pro kontrolu, že se již objevuje nová hodnota.",
     "misc": "Ostatní",
     "showHeader": "Zobrazit horní info panel",
@@ -84,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "spolu s tvým starým a novým emailem a tvým uživatelským ID.",
     "username": "Přihlašovací jméno",
+    "usernameOrEmail": "Přihlašovací jméno nebo email",
     "email": "Email",
     "registeredWithFb": "Registrovaný přes Facebook",
     "loginNameDescription1": "Tohle použiješ k přihlášení na HabitRPG. Jdi na",
@@ -113,11 +112,11 @@
     "benefits": "Benefity",
     "coupon": "Kupón",
     "couponPlaceholder": "Zadej kód z kupónu",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "Někdy máme akce, na kterých rozdáváme kupóny s kódy pro speciální vybavení. (např. těm, kteří se zastavili v našem stánku na Wonderconu) ",
     "apply": "Zadat",
     "resubscribe": "Znovu se přihlásit k odběru",
     "promoCode": "Promo kód",
     "promoCodeApplied": "Promo kód zadán! Koukni do Inventáře",
     "promoPlaceholder": "Vlož promo kód",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Zobrazit tlačítko \"Pozvat do družiny\", když má družina 1 člena."
 }

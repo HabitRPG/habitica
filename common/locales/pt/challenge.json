@@ -53,6 +53,7 @@
     "challengedOwnedFilter": "Adquirido",
     "challengedNotOwnedFilter": "Não adquirido",
     "challengedEitherOwnedFilter": "Ambos",
-    "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "backToChallenges": "Voltar para todos os desafios",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prêmio",
+    "clone": "Clone"
 }

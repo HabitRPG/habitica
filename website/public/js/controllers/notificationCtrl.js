@@ -148,15 +148,15 @@ habitrpg.controller('NotificationCtrl',
     });
 
     // Completed quest modal
-    $rootScope.$watch('user.party.quest.completed', function(after, before){
+    $scope.$watch('user.party.quest.completed', function(after, before){
       if (!after) return;
       $rootScope.openModal('questCompleted', {controller:'InventoryCtrl'});
     });
 
     // Quest invitation modal
-    $rootScope.$watch('party.quest.key && !party.quest.active && party.quest.members[user._id] == undefined', function(after, before){
-      if (after == before || after != true) return;
-      $rootScope.openModal('questInvitation');
+    $scope.$watch('user.party.quest.RSVPNeeded && !user.party.quest.completed', function(after, before){
+      if (after != true) return;
+      $rootScope.openModal('questInvitation', {controller:'PartyCtrl'});
     });
 
     $rootScope.$on('responseError', function(ev, error){

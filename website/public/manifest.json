@@ -45,6 +45,7 @@
             "common/script/public/directives.js",
             "js/services/analyticsServices.js",
             "js/services/groupServices.js",
+            "js/services/chatServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
             "js/services/taskServices.js",
@@ -67,6 +68,7 @@
             "js/directives/when-scrolled.directive.js",
 
             "js/controllers/authCtrl.js",
+            "js/controllers/menuCtrl.js",
             "js/controllers/notificationCtrl.js",
             "js/controllers/rootCtrl.js",
             "js/controllers/settingsCtrl.js",

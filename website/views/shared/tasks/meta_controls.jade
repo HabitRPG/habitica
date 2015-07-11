@@ -36,7 +36,7 @@
     //challenges
     span(ng-if='task.challenge.id')
       span(ng-if='task.challenge.broken')
-        span.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
+        a.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
         | &nbsp;
       span(ng-if='!task.challenge.broken')
         span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
@@ -51,6 +51,8 @@
       span.glyphicon.glyphicon-signal
       | &nbsp;
     // notes
-    span.task-notes(ng-show='task.notes && !task._editing', ng-click='task.popoverOpen = !task.popoverOpen', popover-trigger='click', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
-      span.glyphicon.glyphicon-comment
-      | &nbsp;
+
+  // Make this icon available regardless of task ownership  
+  a.task-notes(ng-show='task.notes && !task._editing', ng-click='task.popoverOpen = !task.popoverOpen', popover-trigger='click', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
+    span.glyphicon.glyphicon-comment
+    | &nbsp;

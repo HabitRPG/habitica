@@ -39,8 +39,8 @@
     "editGroup": "Editar Grupo",
     "newGroupName": "Nome da <%= groupType %>",
     "groupName": "Nome do Grupo",
-    "groupLeader": "Group Leader",
-    "groupID": "Group ID",
+    "groupLeader": "Líder do Grupo",
+    "groupID": "ID do Grupo",
     "groupDescr": "Descrição mostrada na lista pública de Guildas (Markdown OK)",
     "logoUrl": "URL do Logo",
     "assignLeader": "Nomear Líder do Grupo",
@@ -119,6 +119,7 @@
     "sendGiftPurchase": "Compra",
     "sendGiftMessagePlaceholder": "Mensagem Pessoal (opcional)",
     "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %>",
-    "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "battleWithFriends": "Batalhe contra monstros com os amigos",
+    "startAParty": "Começar uma Equipe",
+    "addToParty": "Adicione alguém em sua equipe"
 }

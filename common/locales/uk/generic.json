@@ -54,6 +54,8 @@
     "gems": "Самоцвіти",
     "gemButton": "Ви маєте <%= number %> Самоцвітів.",
     "moreInfo": "Довідатися більше",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Ветеран",
     "veteranText": "Вистояв у Habit The Grey (нашому тестовому сайті), та заробив купу шрамів у бою з його баґами.",

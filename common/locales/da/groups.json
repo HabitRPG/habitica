@@ -39,8 +39,8 @@
     "editGroup": "Ret Gruppe",
     "newGroupName": "<%= groupType %> Navn",
     "groupName": "Gruppenavn",
-    "groupLeader": "Group Leader",
-    "groupID": "Group ID",
+    "groupLeader": "Gruppeleder",
+    "groupID": "Gruppe ID",
     "groupDescr": "Beskrivelse, der bliver vist offentligt i Klanlisten (Markdown er tilladt)",
     "logoUrl": "Logo-URL",
     "assignLeader": "Udpeg Gruppeleder",
@@ -119,6 +119,7 @@
     "sendGiftPurchase": "Køb",
     "sendGiftMessagePlaceholder": "Personlig besked (valgfri)",
     "sendGiftSubscription": "<%= months %> Måned(er): $<%= price %>",
-    "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "battleWithFriends": "Bekæmp Monstre med dine Venner",
+    "startAParty": "Start en Gruppe",
+    "addToParty": "Tilføj nogen til din gruppe"
 }

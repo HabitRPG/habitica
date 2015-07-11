@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Seme Brillante",
     "spellSpecialShinySeedNotes": "Trasforma un amico in un gioioso fiore!",
     "spellSpecialPetalFreePotionText": "Pozione Senzapetali",
-    "spellSpecialPetalFreePotionNotes": "Annulla l'effetto di un Seme Brillante."
+    "spellSpecialPetalFreePotionNotes": "Annulla l'effetto di un Seme Brillante.",
+    "spellSpecialSeafoamText": "Schiumarina",
+    "spellSpecialSeafoamNotes": "Trasforma un amico in una creatura del mare!",
+    "spellSpecialSandText": "Sabbia",
+    "spellSpecialSandNotes": "Annulla gli effetti della Schiumarina."
 }

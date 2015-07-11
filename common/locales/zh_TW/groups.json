@@ -119,6 +119,7 @@
     "sendGiftPurchase": "購買",
     "sendGiftMessagePlaceholder": "私信 (可選)",
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
     "addToParty": "Add someone to your party"
 }

@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Semente Cintilante",
     "spellSpecialShinySeedNotes": "Transforme um amigo numa alegre flor!",
     "spellSpecialPetalFreePotionText": "Poção Livre-de-pétalas",
-    "spellSpecialPetalFreePotionNotes": "Cancela os efeitos de uma Semente Cintilante."
+    "spellSpecialPetalFreePotionNotes": "Cancela os efeitos de uma Semente Cintilante.",
+    "spellSpecialSeafoamText": "Espuma do mar",
+    "spellSpecialSeafoamNotes": "Transforma um amigo em uma criatura marinha!",
+    "spellSpecialSandText": "Areia",
+    "spellSpecialSandNotes": "Cancela os efeitos da espuma do mar."
 }

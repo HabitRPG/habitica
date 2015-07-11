@@ -1,4 +1,4 @@
-nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
+nav.toolbar(ng-controller='MenuCtrl', ng-class='{active: isToolbarHidden}')
   button.toolbar-toggle(ng-click='isToolbarHidden = !isToolbarHidden', ng-class='{active: isToolbarHidden}')
     span.glyphicon.glyphicon-remove-circle
     span.toggle-text.toggle-close=env.t('close')
@@ -92,7 +92,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
             li
               a(ui-sref='options.profile.stats')=env.t('stats')
             li
-              a(ui-sref='options.profile.profile')=env.t('profile') 
+              a(ui-sref='options.profile.profile')=env.t('profile')
       li.toolbar-button-dropdown
         a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
           span.badge.badge-danger {{user.inbox.newMessages}}
@@ -171,7 +171,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button.highlight(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
-    ul.toolbar-options  
+    ul.toolbar-options
       li.toolbar-notifs
         a(ng-click='expandMenu("notifs")')
           span.glyphicon(ng-class='iconClasses()')
@@ -200,7 +200,7 @@ nav.toolbar(ng-controller='AuthCtrl', ng-class='{active: isToolbarHidden}')
                 a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}
-                a(ng-click='Groups.seenMessage(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
+                a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
               // li(ng-if='user.items.special.valentineReceived[0] || user.items.special.nyeReceived[0]')
                 a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')

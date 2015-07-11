@@ -39,8 +39,8 @@
     "editGroup": "Upravit družinu",
     "newGroupName": "<%= groupType %> jméno",
     "groupName": "Jméno družiny",
-    "groupLeader": "Group Leader",
-    "groupID": "Group ID",
+    "groupLeader": "Vůdce skupiny",
+    "groupID": "ID skupiny",
     "groupDescr": "Popisek zobrazovaný ve veřejném seznamu cechů (formátování povoleno)",
     "logoUrl": "Adresa loga",
     "assignLeader": "Zvolit vůdce družiny",
@@ -119,6 +119,7 @@
     "sendGiftPurchase": "Koupit",
     "sendGiftMessagePlaceholder": "Osobní zpráva (volitelné)",
     "sendGiftSubscription": "<%= months %> měsíc(e/ů): $<%= price %>",
-    "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "battleWithFriends": "Bojuj s přáteli proti příšerám",
+    "startAParty": "Založ družinu",
+    "addToParty": "Přidej někoho do své družiny"
 }

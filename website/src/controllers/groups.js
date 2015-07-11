@@ -424,6 +424,9 @@ api.likeChatMessage = function(req, res, next) {
   group.markModified('chat');
   group.save(function(err,_saved){
     if (err) return next(err);
+    // @TODO: We're sending back the entire array of chats back
+    // Should we just send back the object of the single chat message?
+    // If not, should we update the group chat when a chat is liked?
     return res.send(_saved.chat);
   })
 }
@@ -751,6 +754,11 @@ api.removeMember = function(req, res, next){
 
         sendMessage(removedUser);
 
+        //Mark removed users messages as seen
+        var update = {$unset:{}};
+        update.$unset['newMessages.' + group._id] = '';
+        User.update({_id: removedUser._id, apiToken: removedUser.apiToken}, update).exec();
+
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
         group = uuid = null;
@@ -919,6 +927,7 @@ api.questAccept = function(req, res, next) {
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
+        User.update({_id:m},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
         group.quest.members[m] = undefined;
       }
     });
@@ -954,6 +963,7 @@ api.questAccept = function(req, res, next) {
   } else {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
     group.quest.members[user._id] = true;
+    User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false}}).exec();
     questStart(req,res,next);
   }
 }
@@ -964,6 +974,7 @@ api.questReject = function(req, res, next) {
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
   group.quest.members[user._id] = false;
+  User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
   questStart(req,res,next);
 }
 
@@ -981,6 +992,9 @@ api.questCancel = function(req, res, next){
         group.quest = {key:null,progress:{},leader:null};
         group.markModified('quest');
         group.save(cb);
+        _.each(group.members, function(m){
+          User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+        });
       }
     }
   ], function(err){

@@ -48,6 +48,7 @@ module.exports = function(config) {
       "common/script/public/directives.js",
       "website/public/js/services/analyticsServices.js",
       "website/public/js/services/groupServices.js",
+      "website/public/js/services/chatServices.js",
       "website/public/js/services/memberServices.js",
       "website/public/js/services/guideServices.js",
       "website/public/js/services/challengeServices.js",
@@ -70,6 +71,7 @@ module.exports = function(config) {
       "website/public/js/directives/when-scrolled.directive.js",
 
       "website/public/js/controllers/authCtrl.js",
+      "website/public/js/controllers/menuCtrl.js",
       "website/public/js/controllers/notificationCtrl.js",
       "website/public/js/controllers/rootCtrl.js",
       "website/public/js/controllers/settingsCtrl.js",

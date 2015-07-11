@@ -54,6 +54,8 @@
     "gems": "Juveler",
     "gemButton": "Du har <%= number %> juveler.",
     "moreInfo": "Mer Info",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veteran",
     "veteranText": "Har uthärdat Habit Den Grå (vår hemsida innan Angular) och har samlat på sig många krigsärr från dess buggar.",

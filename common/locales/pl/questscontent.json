@@ -203,10 +203,16 @@
     "questSheepCompletion": "Będąc pod wrażeniem twej pracowitości, Burzowy Baran osycha ze swej furii. Wypuszcza trzy ogromne kule gradowe w twoim kierunku, a potem znika z cichym dudnieniem. Po bliższym przyjrzeniu się odkrywasz, że kule gradowe to właściwie trzy puchate jaja. Zabierasz je, a następnie udajesz się na spacer do domu pod błękitnym niebem.",
     "questSheepDropSheepEgg": "Owca (jajo)",
     "questSheepUnlockText": "Odblokowuje dostęp do kupna owczych jaj na Targu",
-    "questKrakenText": "The Kraken of Inkomplete",
-    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
-    "questKrakenBoss": "The Kraken of Inkomplete",
-    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
-    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
-    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
+    "questKrakenText": "Kraken Niedoskonałości",
+    "questKrakenNotes": "W piękny słoneczny dzień żeglujesz przez Zatokę Niedoskonałości, jednak twoje myśli są przyćmione przez obawy na temat wszystkiego, co jeszcze musisz zrobić. Wydaje się, że gdy tylko ukończysz jedno zadanie, wyrasta przed tobą następne, a potem następne...\n<br><br>W pewnym momencie łódka zostaje porządnie wstrząśnięta i oślizgłe macki wyskakują z wody ze wszystkich stron! \"Jesteśmy atakowani przez Krakena Niedoskonałości!\" krzyczy Wolvenhalo.\n<br><br>\"Szybko!\" woła do ciebie Lemoness. \"Uderzaj tyle macek i zadań, ile to możliwe, zanim nowe urosną i zajmą ich miejsce!\"",
+    "questKrakenBoss": "Kraken Niedoskonałości",
+    "questKrakenCompletion": "Gdy Kraken ucieka, kilka jaj pozostaje pływając na powierzchni wody. Lemoness uważnie je ogląda, a jej podejrzliwość zamienia się w zachwyt. \"Mątwie jaja!\" mówi. \"Masz, weź je jako nagrodę za wszystko, co udało ci się ukończyć.\"",
+    "questKrakenDropCuttlefishEgg": "Mątwa (jajo)",
+    "questKrakenUnlockText": "Odblokowuje dostęp do kupna mątwich jaj na Targu",
+    "questWhaleText": "Wail of the Whale",
+    "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
+    "questWhaleBoss": "Wailing Whale",
+    "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
+    "questWhaleDropWhaleEgg": "Whale (Egg)",
+    "questWhaleUnlockText": "Unlocks purchasable whale eggs in the Market"
 }

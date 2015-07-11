@@ -13,6 +13,7 @@
     "hydra": "Hydra",
     "mantisShrimp": "Strašek paví",
     "mammoth": "Huňatý mamut",
+    "orca": "Orca",
     "rarePetPop1": "Klikni na zlatou packu pro více informací o tom, jak získat toto vzácné zvíře za přispívání HabitRPG!",
     "rarePetPop2": "Jak získat toto zvíře!",
     "potion": "<%= potionType %> lektvar",

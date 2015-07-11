@@ -8,6 +8,7 @@ describe('Auth Controller', function() {
     beforeEach(function(){
       module(function($provide) {
         $provide.value('Analytics', analyticsMock);
+        $provide.value('Chat', { seenMessage: function() {} });
       });
 
       inject(function(_$httpBackend_, $rootScope, $controller) {
@@ -22,21 +23,23 @@ describe('Auth Controller', function() {
       })
     });
 
-    it('should log in users with correct uname / pass', function() {
-      $httpBackend.expectPOST('/api/v2/user/auth/local').respond({id: 'abc', token: 'abc'});
-      scope.auth();
-      $httpBackend.flush();
-      expect(user.authenticate).to.be.calledOnce;
-      expect($window.alert).to.not.be.called;
-    });
+    describe('logging in', function() {
 
-    it('should not log in users with incorrect uname / pass', function() {
-      $httpBackend.expectPOST('/api/v2/user/auth/local').respond(404, '');
-      scope.auth();
-      $httpBackend.flush();
-      expect(user.authenticate).to.not.be.called;
-      expect($window.alert).to.be.calledOnce;
+      it('should log in users with correct uname / pass', function() {
+        $httpBackend.expectPOST('/api/v2/user/auth/local').respond({id: 'abc', token: 'abc'});
+        scope.auth();
+        $httpBackend.flush();
+        expect(user.authenticate).to.be.calledOnce;
+        expect($window.alert).to.not.be.called;
+      });
+
+      it('should not log in users with incorrect uname / pass', function() {
+        $httpBackend.expectPOST('/api/v2/user/auth/local').respond(404, '');
+        scope.auth();
+        $httpBackend.flush();
+        expect(user.authenticate).to.not.be.called;
+        expect($window.alert).to.be.calledOnce;
+      });
     });
   });
-
 });

@@ -3,7 +3,7 @@
     "subscriptions": "Előfizetések",
     "subDescription": "Reklámok letiltása, drágakő vásárlás arannyal, havonta egy rejtélyes tárgy, haladási előzmények megőrzése, dupla napi tárgyszerzés limit, a fejlesztők támogatása. Kattints a több információért.",
     "disableAds": "Reklámok kikapcsolása",
-    "disableAdsText": "Ads are disabled while you have an active subscription (original donors are grandfathered).",
+    "disableAdsText": "A reklámok ki vannak kapcsolva ameddig rendelkezel aktív előfizetéssel (az eredeti adományozók mentesülnek)",
     "buyGemsGold": "Drágakő vásárlása aranyért",
     "buyGemsGoldText": "Alexander the Merchant will sell you gems at a cost of <%= gemCost %> gold per gem. His monthly shipments are initially capped at <%= gemLimit %> gems per month, but this cap increases by 5 gems for every three months of consecutive subscription, up to a maximum of 50 gems per month!",
     "retainHistory": "Összes előzmény megőrzése",

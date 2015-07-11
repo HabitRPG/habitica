@@ -13,6 +13,7 @@
     "hydra": "Hydra",
     "mantisShrimp": "Mantis Shrimp",
     "mammoth": "Woolly Mammoth",
+    "orca": "Orca",
     "rarePetPop1": "Click th' gold paw to learn more 'bout how ye can obtain 'tis rare pet through contributin' to HabitRPG!",
     "rarePetPop2": "How t' Get this Pet!",
     "potion": "<%= potionType %> Potion",

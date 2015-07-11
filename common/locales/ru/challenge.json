@@ -49,10 +49,11 @@
     "keepTasks": "Оставить задания",
     "closeCha": "Закрыть испытание и...",
     "leaveCha": "Покинуть испытание и...",
-    "challengedOwnedFilterHeader": "Ownership",
-    "challengedOwnedFilter": "Owned",
-    "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either",
-    "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "challengedOwnedFilterHeader": "Создатель",
+    "challengedOwnedFilter": "Созданные вами",
+    "challengedNotOwnedFilter": "Созданные другими",
+    "challengedEitherOwnedFilter": "Все",
+    "backToChallenges": "Вернуться к списку испытаний",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> в награду",
+    "clone": "Clone"
 }

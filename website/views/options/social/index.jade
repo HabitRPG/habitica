@@ -61,7 +61,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
             a.btn.btn-sm.btn-success(ng-if="::!group._isMember", ng-click='join(group)')
               span.glyphicon.glyphicon-ok
               =env.t('join')
-        h4 {{::group.name}}
+        h4: a(href='/#/options/groups/guilds/{{::group._id}}') {{::group.name}}
         p {{::group.description}}
 
 script(type='text/ng-template', id='partials/options.social.guilds.detail.html')

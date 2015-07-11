@@ -54,6 +54,8 @@
     "gems": "寶石",
     "gemButton": "你有<%= number %>顆寶石",
     "moreInfo": "更多訊息",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "老兵",
     "veteranText": "經歷過Habit The Grey (原來的網站) ，身上帶著多處其bug帶來的傷疤。",

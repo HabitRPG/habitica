@@ -54,6 +54,8 @@
     "gems": "Drahokamy",
     "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Viac informácií",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veterán",
     "veteranText": "Je ošľahaný Habitom Šedým (naša stránka pred Angularom), a utŕžil veľa jaziev z boja s krvilačnými bugmi.",

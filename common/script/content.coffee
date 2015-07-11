@@ -50,6 +50,7 @@ api.mystery =
   201503: {start:'2015-03-25',end:'2015-04-02', text:'Aquamarine Set'}
   201504: {start:'2015-04-24',end:'2015-05-02', text:'Busy Bee Set'}
   201505: {start:'2015-05-25',end:'2015-06-02', text:'Green Knight Set'}
+  201506: {start:'2015-06-25',end:'2015-07-02', text:'Neon Snorkeler Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -252,6 +253,7 @@ gear =
       201501: text: t('armorMystery201501Text'), notes: t('armorMystery201501Notes'), mystery:'201501', value: 0
       201503: text: t('armorMystery201503Text'), notes: t('armorMystery201503Notes'), mystery:'201503', value: 0
       201504: text: t('armorMystery201504Text'), notes: t('armorMystery201504Notes'), mystery:'201504', value: 0
+      201506: text: t('armorMystery201506Text'), notes: t('armorMystery201506Notes'), mystery:'201506', value: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
     armoire:
       lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.armor_armoire_lunarArmor?)
@@ -484,6 +486,7 @@ gear =
       summerWarrior: event: events.summer, specialClass: 'warrior', text: t('eyewearSpecialSummerWarriorText'), notes: t('eyewearSpecialSummerWarriorNotes'), value: 20
     mystery:
       201503: text: t('eyewearMystery201503Text'), notes: t('eyewearMystery201503Notes'), mystery:'201503', value: 0
+      201506: text: t('eyewearMystery201506Text'), notes: t('eyewearMystery201506Notes'), mystery:'201506', value: 0
       301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
 
@@ -799,6 +802,7 @@ api.spells =
         target.stats.buffs.snowball = true
         target.stats.buffs.spookDust = false
         target.stats.buffs.shinySeed = false
+        target.stats.buffs.seafoam = false
         target.achievements.snowball ?= 0
         target.achievements.snowball++
         user.items.special.snowball--
@@ -824,6 +828,7 @@ api.spells =
         target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = true
         target.stats.buffs.shinySeed = false
+        target.stats.buffs.seafoam = false
         target.achievements.spookDust ?= 0
         target.achievements.spookDust++
         user.items.special.spookDust--
@@ -849,6 +854,7 @@ api.spells =
         target.stats.buffs.snowball = false
         target.stats.buffs.spookDust = false
         target.stats.buffs.shinySeed = true
+        target.stats.buffs.seafoam = false
         target.achievements.shinySeed ?= 0
         target.achievements.shinySeed++
         user.items.special.shinySeed--
@@ -862,6 +868,32 @@ api.spells =
       notes: t('spellSpecialPetalFreePotionNotes')
       cast: (user, target) ->
         user.stats.buffs.shinySeed = false
+        user.stats.gp -= 5
+
+    seafoam:
+      text: t('spellSpecialSeafoamText')
+      mana: 0
+      value: 15
+      target: 'user'
+      notes: t('spellSpecialSeafoamNotes')
+      cast: (user, target) ->
+        target.stats.buffs.snowball = false
+        target.stats.buffs.spookDust = false
+        target.stats.buffs.shinySeed = false
+        target.stats.buffs.seafoam = true
+        target.achievements.seafoam ?= 0
+        target.achievements.seafoam++
+        user.items.special.seafoam--
+
+    sand:
+      text: t('spellSpecialSandText')
+      mana: 0
+      value: 5
+      immediateUse: true
+      target: 'self'
+      notes: t('spellSpecialSandNotes')
+      cast: (user, target) ->
+        user.stats.buffs.seafoam = false
         user.stats.gp -= 5
 
     nye:
@@ -968,6 +1000,7 @@ api.questEggs =
   Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
   Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
   Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
+  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -996,6 +1029,7 @@ api.specialMounts =
   'MantisShrimp-Base':  'mantisShrimp'
   'Turkey-Base':        'turkey'
   'Mammoth-Base':       'mammoth'
+  'Orca-Base':          'orca'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1787,6 +1821,25 @@ api.quests =
       exp: 500
       unlock: t('questKrakenUnlockText')
 
+  whale:
+    text: t('questWhaleText')
+    notes: t('questWhaleNotes')
+    completion: t('questWhaleCompletion')
+    value: 4
+    boss:
+      name: t('questWhaleBoss')
+      hp: 500
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+      ]
+      gp: 37
+      exp: 275
+      unlock: t('questWhaleUnlockText')
+
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
   b = v.boss
@@ -1926,6 +1979,16 @@ api.backgrounds =
     island_waterfalls:
       text: t('backgroundIslandWaterfallsText')
       notes: t('backgroundIslandWaterfallsNotes')
+  backgrounds072015:
+    dilatory_ruins:
+      text: t('backgroundDilatoryRuinsText')
+      notes: t('backgroundDilatoryRuinsNotes')
+    giant_wave:
+      text: t('backgroundGiantWaveText')
+      notes: t('backgroundGiantWaveNotes')
+    sunken_ship:
+      text: t('backgroundSunkenShipText')
+      notes: t('backgroundSunkenShipNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
@@ -1935,7 +1998,7 @@ api.subscriptionBlocks =
   basic_12mo: months:12, price:48
 _.each api.subscriptionBlocks, (b,k)->b.key = k
 
-repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
+# repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
     {type: 'habit', text: t('defaultHabit1Text'), value: 0, up: true, down: false, attribute: 'per' }

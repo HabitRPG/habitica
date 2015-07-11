@@ -23,14 +23,14 @@
     var i = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "setGlobalUserProperties"];
     for (var o = 0; o < i.length; o++) {a(i[o])}
     window.amplitude = r;
-    amplitude.init(window.env.AMPLITUDE_KEY);
+    amplitude.init(window.env.AMPLITUDE_KEY, user ? user._id : undefined);
 
     // Google Analytics (aka Universal Analytics)
     window['GoogleAnalyticsObject'] = 'ga';
     window['ga'] = window['ga'] || function() {
         (window['ga'].q = window['ga'].q || []).push(arguments)
       }, window['ga'].l = 1 * new Date();
-    ga('create', window.env.GA_ID, 'auto');
+    ga('create', window.env.GA_ID, user ? {'userId': user._id} : undefined);
 
     function loadScripts() {
       setTimeout(function() {

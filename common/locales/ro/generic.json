@@ -54,6 +54,8 @@
     "gems": "Nestemate",
     "gemButton": "You have <%= number %> Gems.",
     "moreInfo": "Mai multe informații",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veteran",
     "veteranText": "A îndurat Habit cel Gri (situl nostru pre Angular) și a dobândit multe cicatrici de luptă de la erorile lui.",

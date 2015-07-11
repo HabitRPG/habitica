@@ -21,5 +21,10 @@ div(ng-if='group.quest.active==false')
   .npc_ian.pull-left
   p=env.t('questStart')
 
-  button.btn.btn-sm.btn-warning(ng-if=':: group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)', ng-click='party.$questAccept({"force":true})')=env.t('begin')
-  button.btn.btn-sm.btn-danger(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group))', ng-click='questCancel()')=env.t('cancel')
+  span(ng-if='user.party.quest.RSVPNeeded')
+    button.btn.btn-sm.btn-success(ng-click='questAccept(party)')=env.t('accept')
+    button.btn.btn-sm.btn-danger(ng-click='questReject(party)')=env.t('reject')
+
+  span(ng-if='::group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
+    button.btn.btn-sm.btn-warning(ng-click='party.$questAccept({"force":true})')=env.t('begin')
+    button.btn.btn-sm.btn-danger(ng-click='questCancel(party)')=env.t('cancel')

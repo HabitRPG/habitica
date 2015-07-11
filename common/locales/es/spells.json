@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Terremoto",
     "spellWizardEarthNotes": "Tu poder mental agita la tierra. ¡Tu grupo entero gana inteligencia!  ",
     "spellWizardFrostText": "Frío escalofriante.",
-    "spellWizardFrostNotes": "Ice covers your tasks. None of your streaks will reset to zero tomorrow! (One cast affects all streaks.)",
+    "spellWizardFrostNotes": "El hielo cubre tus tareas. ¡Ninguna de tus rachas volverá a cero mañana! (Un lanzamiento afectara a todas las rachas.)",
     "spellWarriorSmashText": "Golpe Brutal",
     "spellWarriorSmashNotes": "You hit a task with all of your might. It gets more blue/less red, and you deal extra damage to Bosses! Click on a task to cast. (Based on: STR)",
     "spellWarriorDefensiveStanceText": "Postura defensiva",
@@ -16,7 +16,7 @@
     "spellWarriorIntimidateText": "Mirada Intimidante.",
     "spellWarriorIntimidateNotes": "Your gaze strikes fear into your enemies. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
     "spellRoguePickPocketText": "Hurtar",
-    "spellRoguePickPocketNotes": "You rob a nearby task. You gain gold! Click on a task to cast. (Based on: PER)",
+    "spellRoguePickPocketNotes": "Te robas una tarea cercana. Ganas oro! Clickea en la tarea a lanzar. (Basado en: Percepción)",
     "spellRogueBackStabText": "Puñalada",
     "spellRogueBackStabNotes": "You betray a foolish task. You gain gold and XP! Click on a task to cast. (Based on: STR)",
     "spellRogueToolsOfTradeText": "Herramientas del Oficio",
@@ -41,6 +41,10 @@
     "spellSpecialOpaquePotionNotes": "Cancela los efectos de la brillantina espeluznante.",
     "spellSpecialShinySeedText": "Semilla Brillante",
     "spellSpecialShinySeedNotes": "¡Convierte un amigo en una flor alegre!",
-    "spellSpecialPetalFreePotionText": "Poción Sin Pétalos",
-    "spellSpecialPetalFreePotionNotes": "Anula los efectos de la semilla brillante"
+    "spellSpecialPetalFreePotionText": "Poción anti-pétalos",
+    "spellSpecialPetalFreePotionNotes": "Anula los efectos de la semilla brillante",
+    "spellSpecialSeafoamText": "Seafoam",
+    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

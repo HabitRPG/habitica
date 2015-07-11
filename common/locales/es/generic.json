@@ -54,6 +54,8 @@
     "gems": "Gemas",
     "gemButton": "Tienes <%= number %> Gemas.",
     "moreInfo": "Más información",
+    "showMoreMore": "(show more)",
+    "showMoreLess": "(show less)",
     "gemsWhatFor": "Click to buy Gems! Gems let you purchase special items like Quests, avatar customizations, and seasonal equipment.",
     "veteran": "Veterano",
     "veteranText": "Ha sobrevivido a Habit The Grey (nuestro sito web pre-Angular) y se ha ganado muchas cicatrices por sus fallos.",

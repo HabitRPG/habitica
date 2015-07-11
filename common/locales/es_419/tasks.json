@@ -23,6 +23,7 @@
     "difficulty": "Dificultad",
     "difficultyHelpTitle": "¿Qué dificultad tiene esta tarea?",
     "difficultyHelpContent": "Entre más difícil sea la tarea, recibirás mayor cantidad de Experiencia y Oro cuando la elimines de la lista... ¡pero hará más daño si es parte de una Diaria o un Mal Hábito!",
+    "trivial": "Trivial",
     "easy": "Fácil",
     "medium": "Intermedio",
     "hard": "Difícil",

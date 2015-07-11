@@ -42,8 +42,6 @@
     "customDayStart": "Comienzo de Día Personalizado",
     "24HrClock": "Sistema 24h",
     "customDayStartInfo1": "HabitRPG verifica y reinicia tus tareas a medianoche en tu propia zona horaria. Es recomendable que leas lo siguiente antes de cambiarlo: ",
-    "customDayStartInfo2": "(Mostrar más) ",
-    "customDayStartInfo3": "(Mostrar menos)",
     "customDayStartInfo4": "<strong>Completa todas tus tareas Diarias antes de cambiar el Comienzo de Día Personalizado</strong> o <a href='http://habitrpg.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Descansa en la Posada</a> ese día. Cambiar tu Comienzo de Día Personalizado puede causar que <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a> se lance inmediatamente, pero después del primer día funcionará normalmente. <br /><br /><strong>Concede un margen de dos horas para que los cambios cobren efecto.</strong> Por ejemplo, si ahora el valor es 0 (medianoche), cámbialo antes de las 22h; si lo quieres cambiar a las 21h, cámbialo antes de las 19h.<br /><br />Indica una hora entre 0 y 23. Teclearla es más efectivo que usar las teclas de cursor. Una vez cambiado, recarga la página para asegurarte de que el nuevo valor ha sido guardado.",
     "misc": "Varios",
     "showHeader": "Mostrar encabezamiento",
@@ -84,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "incluyendo tu nueva y tu antigua dirección de correo electrónico, así como tu ID de Usuario.",
     "username": "Nombre de Usuario",
+    "usernameOrEmail": "Login Name or Email",
     "email": "Correo Electrónico",
     "registeredWithFb": "Registrado con Facebook",
     "loginNameDescription1": "Esto es lo que usas para entrar a HabitRPG. Ve a",
@@ -113,11 +112,11 @@
     "benefits": "Beneficios",
     "coupon": "Cupón",
     "couponPlaceholder": "Introduce Código de Cupón",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "A veces organizamos eventos y regalamos códigos promocionales para equipamiento especial (p.ej., los que se pasan por nuestro stand en Wondercon)",
     "apply": "Aplicar",
     "resubscribe": "Resuscribirse",
     "promoCode": "Código Promocional",
     "promoCodeApplied": "¡Código Promocional Aplicado! Mira tu inventario",
     "promoPlaceholder": "Introducir Código Promocional",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Mostrar el botón \"Invitar al equipo\" cuando el equipo tiene 1 miembro."
 }

@@ -75,6 +75,20 @@ module.exports = function(grunt) {
 
     sprite: sprite,
 
+    imagemin: {
+      spritesmith: {
+        options: {
+          optimizationLevel: 7
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ["common/dist/sprites/*.png"],
+          dest: "common/dist/sprites/"
+        }]
+      }
+    },
+
     cssmin: {
       dist: {
         options: {
@@ -209,7 +223,7 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'cssmin']);
+  grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'imagemin', 'cssmin']);
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres','prepare:staticNewStuff']);
   grunt.registerTask('build:dev', ['browserify', 'stylus', 'prepare:staticNewStuff']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
@@ -250,6 +264,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-spritesmith');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
 
