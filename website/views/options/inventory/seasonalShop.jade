@@ -27,16 +27,15 @@
         p
           | {{::quest.value}}&nbsp;
           span.Pet_Currency_Gem1x.inline-gems
-    // menu.pets-menu(label=env.t('seasonalItems'))
+    menu.pets-menu(label=env.t('seasonalItems'))
       div
-        button.customize-option(popover='{{::Content.spells.special.shinySeed.notes()}}', popover-title='{{::Content.spells.special.shinySeed.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.shinySeed)', class='inventory_special_shinySeed')
-        p
-          | {{::Content.spells.special.shinySeed.value}}
-          span(class='shop_gold')
-      // div
-        button.customize-option(popover='{{::Content.spells.special.snowball.notes()}}', popover-title='{{::Content.spells.special.snowball.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
-        p
-          | {{::Content.spells.special.snowball.value}}
+        button.customize-option(class='shop_seafoam',
+          popover='{{::Content.spells.special.seafoam.notes()}}',
+          popover-title='{{::Content.spells.special.seafoam.text()}}',
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='purchase("special", Content.spells.special.seafoam)')
+        p {{::Content.spells.special.seafoam.value}}
           span(class='shop_gold')
       // div
         button.customize-option(popover='{{::Content.spells.special.nye.notes()}}', popover-title='{{::Content.spells.special.nye.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='castStart(Content.spells.special.nye)', class='inventory_special_nye')

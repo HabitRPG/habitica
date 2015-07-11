@@ -30,9 +30,16 @@
             ng-change='set({"preferences.costume":user.preferences.costume ? true : false})')
           |&nbsp;
           =env.t('useCostume')
+
       div
         button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
         button.btn.btn-default(type="button", ng-click='dequip("petMountBackground");') {{env.t("unequipPetMountBackground")}}
+
+      li.customize-menu(ng-if='!user.preferences.costume')
+        .well.use-costume-info
+          p=env.t('useCostumeInfo1')
+          p(ng-if='showUseCostumeInfo')!=env.t('useCostumeInfo2')
+          p: a(ng-click='showUseCostumeInfo = !showUseCostumeInfo') {{!showUseCostumeInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
 
       li.customize-menu(ng-if='user.preferences.costume')
         menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
