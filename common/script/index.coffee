@@ -1628,8 +1628,8 @@ api.wrap = (user, main=true) ->
 
           analyticsData = {
             uuid: user._id,
-            itemKey: 'quest drop: ' + k,
-            acquireMethod: 'Drop',
+            itemKey: k,
+            acquireMethod: 'Level Drop',
             category: 'behavior'
           }
           analytics?.track('acquire item', analyticsData)
