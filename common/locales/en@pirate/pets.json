@@ -25,6 +25,7 @@
     "hatchingPotion": "hatching potion",
     "noHatchingPotions": "Ye don't 'ave any hatchin' potions.",
     "inventoryText": "Click an egg to spy wit' ye eye usable potions highlighted in green 'n then click one 'o th' highlighted potions to hatch ye pet. If no potions be highlighted, click that egg again to deselect it, 'n instead click a potion first to have th' usable eggs highlighted. ye can also sell unwanted loot to Alexander th' Sutler.",
+    "foodText": "food",
     "food": "Vittles and Saddles",
     "noFood": "Ye don't 'ave any vittles 'r saddles.",
     "dropsExplanation": "Get these items faster with gems if you don't want to wait for them to drop when completing a task. <a href=\"http://habitrpg.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",

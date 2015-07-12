@@ -94,7 +94,7 @@
     "abuseFlag": "コミュニティガイドライン違反を報告する",
     "abuseFlagModalHeading": "<%= name %> を違反で報告しますか？",
     "abuseFlagModalBody": "本当にこの投稿を報告しますか？<%= firstLinkStart %>コミュニティガイドライン<%= linkEnd %>、もしくは<%= secondLinkStart %>利用規約<%= linkEnd %>違反の投稿のみを報告してください。不適切な報告はコミュニティガイドラインの違反となり、反則です。",
-    "abuseFlagModalButton": "報告",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "違反報告ありがとうございます。モデレータに通知されます。",
     "abuseAlreadyReported": "このメッセージは報告済みです。",
     "needsText": "メッセージを入力してください。",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %>ヶ月: $<%= price %>",
     "battleWithFriends": "フレンドと一緒にモンスターと戦う",
     "startAParty": "チームを作る",
-    "addToParty": "チームに誰かを入れる"
+    "addToParty": "チームに誰かを入れる",
+    "likePost": "Click if you like this post!"
 }

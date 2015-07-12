@@ -22,6 +22,8 @@
     "messageDropEgg": "你找到一個 <%= dropText %> 蛋！ <%= dropNotes %>",
     "messageDropPotion": "你找到了 <%= dropText %> 的孵化藥劑！ <%= dropNotes %>",
     "messageFoundQuest": "你找到了新任務\"<%= questText %>\"！",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
     "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
     "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
     "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"

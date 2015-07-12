@@ -22,6 +22,8 @@
     "messageDropEgg": "Vous avez trouvé un Œuf de <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Vous avez trouvé une Potion d’Éclosion <%= dropText %> ! <%= dropNotes %>",
     "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
     "armoireEquipment": "<%= image %> Vous avez trouvé une pièce d'équipement rare dans l'Armoire: <%= dropText %>! Génial!",
     "armoireFood": "<%= image %> Vous farfouillez dans l'Armoire et trouvez du/de la <%= dropArticle %><%= dropText %>. Qu'est-ce que ça fait là?",
     "armoireExp": "Vous luttez contre l'Armoire et gagnez de l'Expérience. Prends ça!"

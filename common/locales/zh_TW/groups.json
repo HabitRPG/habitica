@@ -94,7 +94,7 @@
     "abuseFlag": "舉報社群規範違規事件",
     "abuseFlagModalHeading": "您確定要舉報 <%= name %> 的違規事件？",
     "abuseFlagModalBody": "您確定要送出這份報告？您應該「只」提出一份關於違反<%= firstLinkStart %>社群規範<%= linkEnd %>或是<%= secondLinkStart %>服務條款<%= linkEnd %>的報告。不適當地提出也是一種違反社群規範的行為，可能將導致您違規。",
-    "abuseFlagModalButton": "報告",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "感謝您舉報這起違規事件。管理員將會被告知。",
     "abuseAlreadyReported": "您已經舉報過此留言訊息。",
     "needsText": "請輸入訊息",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }
