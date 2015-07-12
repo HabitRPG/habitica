@@ -47,7 +47,7 @@ module.exports.domainMiddleware = function(server,mongoose) {
           score = ts[ts.length-1].values.score,
           apdexBad = score < .75 || score == 1,
           memory = os.freemem() / os.totalmem(),
-          memoryHigh = false; //memory < 0.1;
+          memoryHigh = memory < 0.1;
         if (/*apdexBad || */memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
       })
     }, mins*60*1000);
