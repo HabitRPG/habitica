@@ -8,15 +8,14 @@
       class="habit",
       ng-if='task.up',
       type='checkbox',
-      ui-keypress='{13:"score(task, up)"}')
+      ui-keypress='{ 13:"score(task, \'up\')" }' )
     a(ng-if='task.up', ng-click='applyingAction || score(task,"up")')
       span.glyphicon.glyphicon-plus
     input.visuallyhidden(
       class="habit",
       ng-if='task.down',
       type='checkbox',
-      ng-init='direction = "down"'
-      ui-keypress='{13:"score(task, direction)"}' )
+      ui-keypress='{ 13:"score(task, \'down\')" }' )
     a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
       span.glyphicon.glyphicon-minus
 
@@ -25,7 +24,7 @@
     input.visuallyhidden(
       class="reward",
       type='checkbox',
-      ui-keypress='{ 13:"score(task, down)" }')
+      ui-keypress='{ 13:"score(task, \'down\')" }' )
     a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down")')
       span.shop_gold
       span.reward-cost {{task.value}}
