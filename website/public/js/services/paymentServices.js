@@ -152,7 +152,7 @@ function($rootScope, User, $http, Content) {
     }else{
       return false;
     }
-  },
+  }
 
   Payments.amazonPayments.initWidgets = function(){
     var walletParams = {
@@ -193,6 +193,7 @@ function($rootScope, User, $http, Content) {
 
       onPaymentSelect: function() {
         $rootScope.$apply(function(){
+          console.log('Payment plan selected')
           Payments.amazonPayments.paymentSelected = true;
         });        
       },
@@ -205,7 +206,7 @@ function($rootScope, User, $http, Content) {
 
   Payments.amazonPayments.checkout = function(){
     if(Payments.amazonPayments.type === 'donation'){
-      var url = '/amazon/checkout'
+      var url = '/amazon/createOrderReferenceId'
       $http.post(url, {
         billingAgreementId: Payments.amazonPayments.billingAgreementId,
         gift: Payments.amazonPayments.gift

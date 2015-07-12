@@ -36,7 +36,8 @@ exports.createOrderReferenceId = function(req, res, next){
 
   amzPayment.offAmazonPayments.createOrderReferenceForId({
     Id: req.body.billingAgreementId,
-    IdType: 'BillingAgreement'
+    IdType: 'BillingAgreement',
+    ConfirmNow: false
   }, function(err, response){
     if(err) return next(err);
     if(!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId){
