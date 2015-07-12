@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests) {
 
     var user = User.user;
 
@@ -10,6 +10,13 @@ habitrpg.controller("InventoryCtrl",
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
     $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
     $scope.totalMounts = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
+
+    // Functions from Quests service
+    $scope.lockQuest = Quests.lockQuest;
+    $scope.buyQuest = Quests.buyQuest;
+    $scope.questPopover = Quests.questPopover;
+    $scope.showQuest = Quests.showQuest;
+    $scope.closeQuest = Quests.closeQuest;
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
@@ -139,63 +146,12 @@ habitrpg.controller("InventoryCtrl",
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
     }
 
-    $scope.questPopover = function(quest) {
-      // The popover gets parsed as markdown (hence the double \n for line breaks
-      var text = '';
-      if(quest.boss) {
-        text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + '\n\n';
-        text += '**' + window.env.t('bossStrength') + ':** ' + quest.boss.str + '\n\n';
-      } else if(quest.collect) {
-        var count = 0;
-        for (var key in quest.collect) {
-          text += '**' + window.env.t('collect') + ':** ' + quest.collect[key].count + ' ' + quest.collect[key].text() + '\n\n';
-        }
-      }
-      text += '---\n\n';
-      text += '**' + window.env.t('rewards') + ':**\n\n';
-      if(quest.drop.items) {
-        for (var item in quest.drop.items) {
-          text += quest.drop.items[item].text() + '\n\n';
-        }
-      }
-      if(quest.drop.exp)
-        text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
-      if(quest.drop.gp)
-        text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
-
-      return text;
-    }
-
-    $scope.showQuest = function(quest) {
-      var item =  Content.quests[quest];
-      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
-      if (!completedPrevious)
-        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text()}));
-      if (item.lvl && item.lvl > user.stats.lvl)
-        return alert(window.env.t('mustLevel', {level: item.lvl}));
-      $rootScope.selectedQuest = item;
-      $rootScope.openModal('showQuest', {controller:'InventoryCtrl'});
-    }
-    $scope.closeQuest = function(){
-      $rootScope.selectedQuest = undefined;
-    }
     $scope.questInit = function(){
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$scope.selectedQuest.key});
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
         $rootScope.party.$get();
       });
       $scope.closeQuest();
-    }
-
-    $scope.buyQuest = function(quest) {
-      var item = Content.quests[quest];
-      if (item.lvl && item.lvl > user.stats.lvl)
-          return alert(window.env.t('mustLvlQuest', {level: item.lvl}));
-      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
-      if (!completedPrevious)
-        return $scope.purchase("quests", item);
-      $rootScope.selectedQuest = item;
-      $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
     }
 
     $scope.getSeasonalShopArray = function(set){

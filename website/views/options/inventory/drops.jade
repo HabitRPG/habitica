@@ -32,18 +32,6 @@
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
-          menu.pets-menu(label=(env.t('quests') + ' ({{questCount}})'))
-            p.muted(ng-show='questCount < 1')=env.t('noScrolls')
-            p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
-            div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
-              button.customize-option(ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
-                data-popover-html="{{:: quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
-                popover-title='{{::quest.text()}}', popover-trigger='mouseenter',
-                popover-placement='right', popover-append-to-body='true',
-                ng-click='showQuest(quest_key)')
-                .badge.badge-info.stack-count {{points}}
-
-        li.customize-menu
           menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
             p.muted(ng-show='foodCount < 1')=env.t('noFood')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
@@ -177,19 +165,6 @@
                   ng-click='purchase("food", food)')
                 p
                   |  {{::food.value}}&nbsp;
-                  span.Pet_Currency_Gem1x.inline-gems
-
-          li.customize-menu
-            menu.pets-menu(label=env.t('quests'))
-              p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
-              div(ng-repeat='quest in Content.quests', ng-if='quest.canBuy')
-                button.customize-option(ng-class='(quest.previous && !user.achievements.quests[quest.previous]) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
-                  data-popover-html="{{::quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
-                  popover-title='{{::quest.text()}}', popover-append-to-body="true",
-                  popover-trigger='mouseenter',
-                  ng-click='buyQuest(quest.key)')
-                p
-                  |  {{::quest.value}}&nbsp;
                   span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu

@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg').factory('Groups',
-['ApiUrl', '$resource', '$q', '$http', 'User', 'Challenges',
-function(ApiUrl, $resource, $q, $http, User, Challenges) {
+['$rootScope','ApiUrl', '$resource', '$q', '$http', 'User', 'Challenges', 'Analytics', '$location',
+function($rootScope, ApiUrl, $resource, $q, $http, User, Challenges, Analytics, $location) {
   var Group = $resource(ApiUrl.get() + '/api/v2/groups/:gid',
     {gid:'@_id', messageId: '@_messageId'},
     {
@@ -81,6 +81,20 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
     questAbort: function(party){
       party.$questAbort()
         .then(syncUser, logError);
+    },
+
+    inviteOrStartParty: function(group) {
+      if (group.type === "party") {
+        $rootScope.openModal('invite-friends', {
+          controller:'InviteToGroupCtrl',
+          resolve: {
+            injectedGroup: function(){ return group; }
+          }
+        });
+      } else {
+        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
+        $location.path("/options/groups/party");
+      }
     },
 
     // Pass reference to party, myGuilds, publicGuilds, tavern; inside data in order to
