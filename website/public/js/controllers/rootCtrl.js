@@ -212,12 +212,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     // @TODO: Extract equip and purchase into equipment service
     $rootScope.equip = function(itemKey, equipType) {
+      equipType = equipType || (user.preferences.costume ? 'costume' : 'equipped');
       var equipParams = {
-         type: equipType || 'costume',
+         type: equipType,
          key: itemKey
       };
-      // 'costume' default is in case I have missed any code that uses this.
-      // @TODO: Remove when we're sure it's not needed.
 
       user.ops.equip({ params: equipParams });
     }
