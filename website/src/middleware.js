@@ -48,7 +48,7 @@ module.exports.domainMiddleware = function(server,mongoose) {
           apdexBad = score < .75 || score == 1,
           memory = os.freemem() / os.totalmem(),
           memoryHigh = false; //memory < 0.1;
-        if (apdexBad || memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
+        if (/*apdexBad || */memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
       })
     }, mins*60*1000);
   }
@@ -168,7 +168,7 @@ var getManifestFiles = function(page){
       code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
     });
   }
-  
+
   return code;
 }
 
@@ -190,7 +190,7 @@ module.exports.locals = function(req, res, next) {
     isStaticPage: isStaticPage,
     translations: i18n.translations[language.code],
     t: function(){ // stringName and vars are the allowed parameters
-      var args = Array.prototype.slice.call(arguments, 0); 
+      var args = Array.prototype.slice.call(arguments, 0);
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },
