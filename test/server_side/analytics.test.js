@@ -86,6 +86,7 @@ describe('analytics', function() {
         expect(amplitudeTrack).to.be.calledWith({
           event_type: 'Cron',
           user_id: 'unique-user-id',
+          platform: 'server',
           event_properties: {
             category: 'behavior',
             resting: true,
@@ -111,6 +112,7 @@ describe('analytics', function() {
         expect(amplitudeTrack).to.be.calledWith({
           event_type: 'Cron',
           user_id: 'unique-user-id',
+          platform: 'server',
           event_properties: {
             category: 'behavior',
             resting: true,
@@ -159,7 +161,7 @@ describe('analytics', function() {
       it('if gemCost property is provided, use as label (overrides goldCost)', function() {
         var data = _.cloneDeep(analyticsData);
         data.goldCost = 10;
-        data.itemName = 50;
+        data.itemKey = 50;
 
         initializedAnalytics.track(event_type, data);
 
@@ -171,11 +173,11 @@ describe('analytics', function() {
         );
       });
 
-      it('if itemName property is provided, use as label (overrides gem/goldCost)', function() {
+      it('if itemKey property is provided, use as label (overrides gem/goldCost)', function() {
         var data = _.cloneDeep(analyticsData);
         data.goldCost = 5;
         data.gemCost = 50;
-        data.itemName = 'some item';
+        data.itemKey = 'some item';
 
         initializedAnalytics.track(event_type, data);
 
@@ -187,10 +189,10 @@ describe('analytics', function() {
         );
       });
 
-      it('if gaLabel property is provided, use as label (overrides itemName)', function() {
+      it('if gaLabel property is provided, use as label (overrides itemKey)', function() {
         var data = _.cloneDeep(analyticsData);
         data.value = 'some value';
-        data.itemName = 'some item';
+        data.itemKey = 'some item';
         data.gaLabel = 'some label';
 
         initializedAnalytics.track(event_type, data);
@@ -239,6 +241,7 @@ describe('analytics', function() {
         expect(amplitudeTrack).to.be.calledWith({
           event_type: 'purchase',
           user_id: 'user-id',
+          platform: 'server',
           event_properties: {
             paymentMethod: 'PayPal',
             sku: 'paypal-checkout',

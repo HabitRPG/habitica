@@ -820,7 +820,7 @@ api.wrap = (user, main=true) ->
 
           analyticsData = {
             uuid: user._id,
-            itemName: key,
+            itemKey: key,
             acquireMethod: 'Gold',
             goldCost: convRate,
             category: 'behavior'
@@ -847,7 +847,7 @@ api.wrap = (user, main=true) ->
 
         analyticsData = {
           uuid: user._id,
-          itemName: key,
+          itemKey: key,
           itemType: 'Market',
           acquireMethod: 'Gems',
           gemCost: item.value,
@@ -977,7 +977,7 @@ api.wrap = (user, main=true) ->
 
         analyticsData = {
           uuid: user._id,
-          itemName: key,
+          itemKey: key,
           acquireMethod: 'Gold',
           goldCost: item.value,
           category: 'behavior'
@@ -996,7 +996,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.owned[i.key]=true
           analyticsData = {
             uuid: user._id,
-            itemName: i.key,
+            itemKey: i.key,
             itemType: 'Subscriber Gear',
             acquireMethod: 'Hourglass',
             category: 'behavior'
@@ -1076,7 +1076,7 @@ api.wrap = (user, main=true) ->
         
         analyticsData = {
           uuid: user._id,
-          itemName: path,
+          itemKey: path,
           itemType: 'customization',
           acquireMethod: 'Gems',
           gemCost: (cost/.25),
@@ -1170,7 +1170,7 @@ api.wrap = (user, main=true) ->
 
         analyticsData = {
           uuid: user._id,
-          itemName: item,
+          itemKey: item,
           itemType: 'Subscriber Gear',
           acquireMethod: 'Subscriber',
           category: 'behavior'
@@ -1628,7 +1628,7 @@ api.wrap = (user, main=true) ->
 
           analyticsData = {
             uuid: user._id,
-            itemName: 'quest drop: ' + k,
+            itemKey: 'quest drop: ' + k,
             acquireMethod: 'Drop',
             category: 'behavior'
           }

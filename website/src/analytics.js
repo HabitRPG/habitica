@@ -39,7 +39,7 @@ function _sendDataToGoogle(eventType, data) {
 
 function _generateLabelForGoogleAnalytics(data) {
   var label = 'Label Not Specified';
-  var POSSIBLE_LABELS = ['gaLabel', 'itemName', 'gemCost', 'goldCost'];
+  var POSSIBLE_LABELS = ['gaLabel', 'itemKey', 'gemCost', 'goldCost'];
 
   _(POSSIBLE_LABELS).each(function(key) {
     if(data[key]) {
@@ -70,6 +70,7 @@ function _formatDataForAmplitude(data) {
 
   var ampData = {
     user_id: data.uuid,
+    platform: 'server',
     event_properties: event_properties
   }
 
@@ -109,7 +110,7 @@ function _sendPurchaseDataToGoogle(data) {
   var price = data.purchaseValue;
   var qty = data.quantity;
   var sku = data.sku;
-  var itemName = data.itemPurchased;
+  var itemKey = data.itemPurchased;
   var variation = type;
   if(data.gift) variation += ' - Gift';
 
@@ -117,7 +118,7 @@ function _sendPurchaseDataToGoogle(data) {
     .send();
 
   ga.transaction(data.uuid, price)
-    .item(price, qty, sku, itemName, variation)
+    .item(price, qty, sku, itemKey, variation)
     .send();
 }
 
