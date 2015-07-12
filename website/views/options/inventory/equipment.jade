@@ -14,7 +14,7 @@
           div(ng-repeat='item in gear[klass]')
             button.customize-option(class='shop_{{::item.key}}',
               ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}',
-              ng-click='equip(item.key)',
+              ng-click='equip(item.key, "equipped")',
               popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
               popover-trigger='mouseenter', popover-placement='right',
               popover-append-to-body='true')
@@ -50,4 +50,4 @@
               popover='{{::item.notes()}}',
               popover-title='{{::item.text()}}', popover-trigger='mouseenter',
               popover-placement='right', popover-append-to-body='true',
-              ng-click='equip(item.key)')
+              ng-click='equip(item.key, "costume")')
