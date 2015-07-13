@@ -1862,6 +1862,7 @@ api.quests =
     notes: t('questWhaleNotes')
     completion: t('questWhaleCompletion')
     value: 4
+    category: 'pet'
     boss:
       name: t('questWhaleBoss')
       hp: 500
