@@ -21,7 +21,6 @@ table.table.table-striped
       strong=env.t('experience')
       | : {{Math.floor(profile.stats.exp)}} / {{Shared.tnl(profile.stats.lvl)}}
 
-// FIXME get translations working before can use this
 unless mobile
   h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
