@@ -925,11 +925,11 @@ api.wrap = (user, main=true) ->
         {key} = req.params
         item = content.quests[key]
         return cb?({code:404, message:"Quest '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
-        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
+        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.goldValue
         message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
         user.items.quests[item.key] ?= 0
         user.items.quests[item.key] += 1
-        user.stats.gp -= item.value
+        user.stats.gp -= item.goldValue
         cb? {code:200, message}, user.items.quests
 
       buyMysterySet: (req, cb)->
