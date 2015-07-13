@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "met zowel je oude en nieuwe e-mailadres en je Gebruikers-ID.",
     "username": "Inlognaam",
+    "usernameOrEmail": "Loginnaam of e-mail",
     "email": "E-mail",
     "registeredWithFb": "Geregistreerd met Facebook",
     "loginNameDescription1": "Dit is wat je gebruikt om in te loggen bij HabitRPG. Ga naar",

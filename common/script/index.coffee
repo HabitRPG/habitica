@@ -83,8 +83,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   o = sanitizeOptions options
   startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)  # a moment()
 
-  # If the Daily does not have a Start Date (old tasks predating the Start Date feature), we assume it starts on the day being checked. This does not cause a bug with the Every X Days option because if the user had edited the task to select X days, then a start date would have been saved to the task at the same time.
-  taskStartDate = dailyTask.startDate || day
+  taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset)
 
   # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
@@ -120,6 +119,14 @@ api.maxLevel = 100
 
 api.capByLevel = (lvl) ->
   if lvl > api.maxLevel then api.maxLevel else lvl
+
+###
+  ------------------------------------------------------
+  Health cap
+  ------------------------------------------------------
+###
+
+api.maxHealth = 50
 
 ###
   ------------------------------------------------------
@@ -319,7 +326,9 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
     classes += ' habit-wide' if task.down and task.up
     classes += ' habit-narrow' if !task.down and !task.up
 
-  if priority == 1
+  if priority == 0.1
+    classes += ' difficulty-trivial'
+  else if priority == 1
     classes += ' difficulty-easy'
   else if priority == 1.5
     classes += ' difficulty-medium'
@@ -765,7 +774,7 @@ api.wrap = (user, main=true) ->
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
-        cb? {code:200, message}, userPets[pet]
+        cb? {code:200, message}, {value: userPets[pet]}
 
       buySpecialSpell: (req,cb) ->
         {key} = req.params
@@ -1636,7 +1645,14 @@ api.wrap = (user, main=true) ->
               else
                dailyDueUnchecked += 1
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
-            user.party.quest.progress.down += delta if type is 'daily'
+            if type is 'daily'
+              # Apply damage from a boss, less damage for Trivial priority (difficulty)
+              user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
+              # NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+              # initially, and when we realised, we could not fix it because users are used to
+              # their Medium and Hard Dailies doing an Easy amount of damage from boss.
+              # Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+              # setting between Trivial and Easy.
 
         switch type
           when 'daily'

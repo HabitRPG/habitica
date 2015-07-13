@@ -8,6 +8,8 @@
     "alarmingFriendsText": "A csapattagjaid <%= spookDust %>-szor kísértettek.",
     "agriculturalFriends": "Agricultural Friends",
     "agriculturalFriendsText": "Got transformed into a flower <%= seeds %> times by party members.",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Valentin napi képeslap",
     "valentineCardNotes": "Küldj egy Valentin napi képeslapot az egyik csapattagodnak.",
     "valentine0": "\"A rózsák vörösek<%= lineBreak %>a Napi feladataim kékek<%= lineBreak %>örülök <%= lineBreak %>hogy veled egy csapatban lehetek.\"",

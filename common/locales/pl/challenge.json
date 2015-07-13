@@ -44,7 +44,7 @@
     "selectGroup": "Wybierz grupę",
     "challengeCreated": "Wyzwanie zostało stworzone",
     "sureDelCha": "Jesteś pewien, że chcesz usunąć wyzwanie?",
-    "sureDelChaTavern": "Czy na pewno usunąć wyzwanie? Twoje klejnoty nie zostaną zwrócone.",
+    "sureDelChaTavern": "Na pewno chcesz usunąć wyzwanie? Twoje klejnoty nie zostaną zwrócone.",
     "removeTasks": "Usuń zadania",
     "keepTasks": "Zachowaj zadania",
     "closeCha": "Zakończ wyzwanie i...",
@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "Nieposiadane",
     "challengedEitherOwnedFilter": "Którykolwiek",
     "backToChallenges": "Powrót do wszystkich wyzwań",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Nagroda"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Nagroda",
+    "clone": "Klon"
 }

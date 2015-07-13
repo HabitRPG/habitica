@@ -1,7 +1,7 @@
 {
     "messageLostItem": "Něco se rozbilo. Asi <%= itemText %>.",
     "messageTaskNotFound": "Úkol nenalezen.",
-    "messageDuplicateTaskID": "A task with that ID already exists.",
+    "messageDuplicateTaskID": "Úkol s tímhle názvem už existuje",
     "messageTagNotFound": "Štítek nenalezen.",
     "messagePetNotFound": ":pet nebyl nalezen v user.items.pets",
     "messageFoodNotFound": ":food nebylo nalezeno v user.items.food",
@@ -22,7 +22,9 @@
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
-    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
-    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
-    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> Ve zbrojnici jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
+    "armoireFood": "<%= image %> Prohledáváš zbrojnici a nacházíš <%= dropArticle %><%= dropText %>. Co to tu dělá?",
+    "armoireExp": "Zápasíš se Zbrojnicí a získáváš zkušenost. To jsi jí to nandal!"
 }

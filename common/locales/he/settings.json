@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "וכלול את כתובות הדוא\"ל הישנה והחדשה שלך כמו גם את מספר זיהוי המשתמש שלך.",
     "username": "שם כניסה",
+    "usernameOrEmail": "Login Name or Email",
     "email": "כתובת דוא\"ל",
     "registeredWithFb": "רשום עם Facebook",
     "loginNameDescription1": "אלה הפרטים בהם אתה משתמש כדי להכנס ל-HabitRPG. עבור ל-",

@@ -64,6 +64,8 @@
     "questEggSheepAdjective": "lanoso",
     "questEggCuttlefishText": "Calamar",
     "questEggCuttlefishAdjective": "mimoso",
+    "questEggWhaleText": "Whale",
+    "questEggWhaleAdjective": "splashy",
     "eggNotes": "Encuentra una poción para verter sobre este huevo y saldrá un <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",

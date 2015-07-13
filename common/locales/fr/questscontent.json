@@ -208,5 +208,11 @@
     "questKrakenBoss": "Le Kraken d'Inkomplet",
     "questKrakenCompletion": "Alors que le Kraken s'enfuit, plusieurs œufs remontent à la surface. Lemoness les examine et sa méfiance se change bientôt en ravissement. \"Des œufs  de seiche!\", dit-elle. \"Tiens, prends-les en récompense de tout ce que tu as accompli.\"",
     "questKrakenDropCuttlefishEgg": "Seiche (Œuf) ",
-    "questKrakenUnlockText": "Déverrouille l'achat d’œufs de seiche au Marché"
+    "questKrakenUnlockText": "Déverrouille l'achat d’œufs de seiche au Marché",
+    "questWhaleText": "Les Lamentations de la Baleine",
+    "questWhaleNotes": "Vous arrivez au Quai Assidu, espérant prendre un sous-marin pour regarder la Course de Dilatoire. Soudain, un mugissement assourdissant vous force à vous arrêter et couvrir vos oreilles. \"La grande bleue !\" crie le Capitaine @krazjega, en pointant une gigantesque baleine gémissante. \"Ce n'est pas sur d'immerger nos sous-marins pendant qu'elle se débat !\"<br><br>\"Vite,\" appelle @UncommonCriminal. \"Aidez moi à calmer la pauvre créature pour qu'on puisse comprendre pourquoi elle fait tout ce bruit !\"",
+    "questWhaleBoss": "Baleine Gémissante",
+    "questWhaleCompletion": "Après de nombreux efforts, la baleine cesse finalement son cri tonitruant. \"On dirait qu'elle était en train de se noyer dans des vagues de mauvaises habitude,\" explique @zoebeagle. \"Grâce à vos efforts constants, nous avons pu changer le courant !\" Alors que vous prenez pied dans le sous-marin, plusieurs œufs de baleine voguent vers vous, et vous les ramassez.",
+    "questWhaleDropWhaleEgg": "Baleine (œuf)",
+    "questWhaleUnlockText": "Débloque l'achat d’œufs de baleine au Marché"
 }

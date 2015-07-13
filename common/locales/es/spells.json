@@ -41,6 +41,10 @@
     "spellSpecialOpaquePotionNotes": "Cancela los efectos de la brillantina espeluznante.",
     "spellSpecialShinySeedText": "Semilla Brillante",
     "spellSpecialShinySeedNotes": "¡Convierte un amigo en una flor alegre!",
-    "spellSpecialPetalFreePotionText": "Poción Sin Pétalos",
-    "spellSpecialPetalFreePotionNotes": "Anula los efectos de la semilla brillante"
+    "spellSpecialPetalFreePotionText": "Poción anti-pétalos",
+    "spellSpecialPetalFreePotionNotes": "Anula los efectos de la semilla brillante",
+    "spellSpecialSeafoamText": "Espuma de mar",
+    "spellSpecialSeafoamNotes": "¡Transforma a un amigo en una criatura marina!",
+    "spellSpecialSandText": "Arena",
+    "spellSpecialSandNotes": "Cancela los efectos de la espuma de mar"
 }

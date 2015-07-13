@@ -98,3 +98,48 @@ describe "Chat", ->
       body = res.body
       expect(body.err).to.equal "Message not found!"
       done()
+
+  it "removes a user's chat notifications when user is kicked", (done) ->
+    userToRemove = null
+    async.waterfall [
+      (cb) ->
+        registerManyUsers 1, cb
+
+      (members, cb) ->
+        userToRemove = members[0]
+        request.post(baseURL + "/groups/" + group._id + "/invite").send(
+          uuids: [userToRemove._id]
+        )
+        .end -> cb()
+
+      (cb) ->
+        request.post(baseURL + "/groups/" + group._id + "/join")
+          .set("X-API-User", userToRemove._id)
+          .set("X-API-Key", userToRemove.apiToken)
+          .end (res) -> cb()
+
+      (cb) ->
+        msg = "TestMsg"
+        request.post(baseURL + "/groups/" + group._id + "/chat?message=" + msg)
+          .end (res) -> cb()
+
+      (cb) ->
+        request.get(baseURL + "/user")
+          .set("X-API-User", userToRemove._id)
+          .set("X-API-Key", userToRemove.apiToken)
+          .end (res) ->
+            expect(res.body.newMessages[group._id]).to.exist
+            cb()
+
+      (cb) ->
+        request.post(baseURL + "/groups/" + group._id + "/removeMember?uuid=" + userToRemove._id)
+          .end (res) -> cb()
+
+      (cb) ->
+        request.get(baseURL + "/user")
+          .set("X-API-User", userToRemove._id)
+          .set("X-API-Key", userToRemove.apiToken)
+          .end (res) ->
+            expect(res.body.newMessages[group._id]).to.not.exist
+            cb()
+    ], done

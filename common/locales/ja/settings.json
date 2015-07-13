@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "古いメールアドレスとあなたのユーザIDとして使う新しいメールアドレスの両方を含んで",
     "username": "ログイン名",
+    "usernameOrEmail": "Login Name or Email",
     "email": "メール",
     "registeredWithFb": "Facebookで登録",
     "loginNameDescription1": "これはHabitRPGにログインするのに使うものです。行く",

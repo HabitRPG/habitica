@@ -244,6 +244,13 @@
   "questKrakenBoss": "The Kraken of Inkomplete",
   "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
   "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
-  "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
+  "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market",
+
+  "questWhaleText": "Wail of the Whale",
+  "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
+  "questWhaleBoss": "Wailing Whale",
+  "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
+  "questWhaleDropWhaleEgg": "Whale (Egg)",
+  "questWhaleUnlockText": "Unlocks purchasable whale eggs in the Market"
 
 }

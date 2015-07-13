@@ -143,11 +143,11 @@
     "unequipBattleGear": "Quitarse el Equipo de Battalla",
     "unequipCostume": "Quitarse el Disfraz",
     "unequipPetMountBackground": "Quitar la Mascota, Montura, Fondo",
-    "animalSkins": "Animal Skins",
-    "chooseClassHeading": "Choose your Class! Or opt out to choose later.",
-    "warriorWiki": "<a href='http://habitrpg.wikia.com/wiki/Warrior' target='_blank'>Warrior</a>",
-    "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
+    "animalSkins": "Aspectos animales",
+    "chooseClassHeading": "¡Elige tu clase! O puedes dejarlo para otro momento. ",
+    "warriorWiki": "<a href='http://habitrpg.wikia.com/wiki/Warrior' target='_blank'>Guerrero</a>",
+    "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mago</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Rogue</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Healer</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Aprende más acerca de las clases</a>"
 }

@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "включая ваш старый и новый адреса электронной почты, а также ваш User ID",
     "username": "Имя пользователя",
+    "usernameOrEmail": "Имя пользователя или e-mail",
     "email": "Email",
     "registeredWithFb": "Зарегистрирован с помощью Facebook",
     "loginNameDescription1": "Это ваше имя пользователя для входа в HabitRPG. Зайдите в",
@@ -111,11 +112,11 @@
     "benefits": "Преимущества",
     "coupon": "Промо",
     "couponPlaceholder": "Введите Промо Код",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "Иногда мы проводим различные мероприятия и раздаем купоны на особую экипировку (например, заглянувшим к нам на стенд на Wondercon)",
     "apply": "Применить",
     "resubscribe": "Повторить подписку",
     "promoCode": "Промокод",
     "promoCodeApplied": "Промокод принят! Проверьте инвентарь",
     "promoPlaceholder": "Введите Промокод",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Отображать кнопку приглашения в команду когда в команде 1 человек"
 }

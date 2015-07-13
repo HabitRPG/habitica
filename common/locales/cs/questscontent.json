@@ -203,10 +203,16 @@
     "questSheepCompletion": "Všechna zloba opouští Hromového berana ohromeného vaší vytrvalostí. Hodí vám k nohám tři velké kroupy a poté za hlasitého zvuku hromu zmizí. Při bližší zkoumání zjistíte, že ty kroupy jsou vlastně tři nadýchaná vejce. Posbíráte je a vydáte se domů pod modrým nebem.",
     "questSheepDropSheepEgg": "Beran (vejce)",
     "questSheepUnlockText": "Odemyká vejce berana na Trhu",
-    "questKrakenText": "The Kraken of Inkomplete",
-    "questKrakenNotes": "It's a warm, sunny day as you sail across the Inkomplete Bay, but your thoughts are clouded with worries about everything that you still need to do. It seems that as soon as you finish one task, another crops up, and then another...<br><br>Suddenly, the boat gives a horrible jolt, and slimy tentacles burst out of the water on all sides! \"We're being attacked by the Kraken of Inkomplete!\" Wolvenhalo cries.<br><br>\"Quickly!\" Lemoness calls to you. \"Strike down as many tentacles and tasks as you can, before new ones can rise up to take their place!\"",
-    "questKrakenBoss": "The Kraken of Inkomplete",
-    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
-    "questKrakenDropCuttlefishEgg": "Cuttlefish (Egg)",
-    "questKrakenUnlockText": "Unlocks purchasable cuttlefish eggs in the Market"
+    "questKrakenText": "Kraken Neúplnosti",
+    "questKrakenNotes": "Je teplý slunečný den a ty se plavíš do Nekompletní zátoky, ale tvé myšlenky jsou zahaleny mračny starostí o to, co všechno musíš udělat. Zdá se, že jen co splníš jeden úkol, vynoří se další a další... <br><br>Najednou se loďka hrozivě zhoupne a slizká chapadla vyrazí z vody všude kolem! \"Útočí na nás Kraken Neúplnosti!\" křičí Wolvenhalo. <br><br>\"Rychle!\" zavolá na tebe Lemoness. \"Utni co nejvíce chapadel a splň co nejvíce úkolů můžeš než se objeví další místo nich!\"",
+    "questKrakenBoss": "Kraken Neúplnosti",
+    "questKrakenCompletion": "Při svém úprku za sebou Kraken nechává tři vejce. Lemoness je prozkoumává a její podezřívavý pohled se změní na potěšený. \"Vejce sépiáka!\" řekne. \"Na, vezmi si je jako odměnu za to, co jsi splnil.\" ",
+    "questKrakenDropCuttlefishEgg": "Sépiák (vejce)",
+    "questKrakenUnlockText": "Odemkne možnost nákupu vejce sépiáka na Trhu.",
+    "questWhaleText": "Nářek plejtváka",
+    "questWhaleNotes": "Dorazíš do Svědomitého přístavu a doufáš, že chytíš ponorku na Závody v Liknavosti. Najednou se ozve řev tak hlasitý, že si musíš zacpat uši. \"Támhle chrlí!\" křičí kapitán @krazjega a ukazuje na obrovského naříkajícího plejtváka. \"Není bezpečné posílat ponorky dokud se tam plácá!\"<br><br>\"Rychle,\" volá @UncommonCriminal. \"Pomoz mi toho chudáka uklidnit abychom zjistili, proč tam naříká!\"",
+    "questWhaleBoss": "Naříkající plejtvák",
+    "questWhaleCompletion": "Po spoustě práce plejtvák konečně přestane naříkat. \"Vypadá to, že se topil ve svých zlozvycích,\" vysvětluje @zoebeagle. \"Díky tvému stálému snažení jsme to mohli zvrátit!\" Když nastupuješ do ponorky, dokutálí se k tobě několik vajec a tak je sebereš.",
+    "questWhaleDropWhaleEgg": "Plejtvák (vejce)",
+    "questWhaleUnlockText": "Odemyká vejce plejtváka na Trhu"
 }

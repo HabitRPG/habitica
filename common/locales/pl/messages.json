@@ -22,6 +22,8 @@
     "messageDropEgg": "Znalazłeś jajo: <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Znalazłeś <%= dropText %> eliksir wyklucia! <%= dropNotes %>",
     "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
     "armoireEquipment": "<%= image %> Znalazłeś część rzadkiego wyposażenia w Zaczarowanej Szafie: <%= dropText %>! Fantastycznie!",
     "armoireFood": "<%= image %> Przeszukując Zaczarowaną Szafę znaleziono <%= dropArticle %><%= dropText %>. Co to tutaj robi?",
     "armoireExp": "Mocujesz się z Zaczarowaną Szafą i zyskujesz doświadczenie. Masz za swoje!"

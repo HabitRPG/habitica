@@ -208,5 +208,11 @@
     "questKrakenBoss": "Kraken Niedoskonałości",
     "questKrakenCompletion": "Gdy Kraken ucieka, kilka jaj pozostaje pływając na powierzchni wody. Lemoness uważnie je ogląda, a jej podejrzliwość zamienia się w zachwyt. \"Mątwie jaja!\" mówi. \"Masz, weź je jako nagrodę za wszystko, co udało ci się ukończyć.\"",
     "questKrakenDropCuttlefishEgg": "Mątwa (jajo)",
-    "questKrakenUnlockText": "Odblokowuje dostęp do kupna mątwich jaj na Targu"
+    "questKrakenUnlockText": "Odblokowuje dostęp do kupna mątwich jaj na Targu",
+    "questWhaleText": "Wielorybi lament",
+    "questWhaleNotes": "Przybywasz do Starannych Doków, mając nadzieję na wzięcie łodzi podwodnej, by obejrzeć derby Atleńtydy. Nagle ogłuszający skowyt zmusza ciebie do zatrzymania i zasłonięcia uszu. \"Stamtąd dmucha!\" krzyczy Kapitan @krazjega, wskazując na ogromnego lamentującego wieloryba. \"Dopóki on rozrabia w okolicy, dopóty nie będzie bezpiecznie, by wysłać nasze łodzie podwodne!\"<br><br>\"Szybko,\" nawołuje @UncommonCriminal. \"Pomóż mi uspokoić to biedne stworzenie, byśmy mogli dojść do przyczyny, dlaczego robi tyle hałasu!\"",
+    "questWhaleBoss": "Lamentujący wieloryb",
+    "questWhaleCompletion": "Po sporej ilości ciężkiej pracy, wieloryb w końcu zaprzestaje swojego ogłuszającego jęku. \"Wygląda na to, że tonął on w falach negatywnych nawyków,\" wyjaśnia @zoebeagle. \"Dzięki twoim konsekwentnym wysiłkom, jesteśmy w stanie zawrócić fale!\" Gdy wchodzisz do łodzi podwodnej, kilka wielorybich jaj podskakuje w twoim kierunku, więc je zgarniasz.",
+    "questWhaleDropWhaleEgg": "Wieloryb (jajo)",
+    "questWhaleUnlockText": "Odblokowuje dostęp do kupna wielorybich jaj na Targu"
 }

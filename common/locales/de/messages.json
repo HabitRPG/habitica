@@ -22,6 +22,8 @@
     "messageDropEgg": "Du hast ein <%= dropText %> Ei gefunden! <%= dropNotes %>",
     "messageDropPotion": "Du hast einen <%= dropText %>  Schlüpftrank gefunden! <%= dropNotes %>",
     "messageFoundQuest": "Du hast das Quest \"<%= questText %>\" gefunden!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
     "armoireEquipment": "<%= image %> Du hast ein Stück seltener Ausrüstung im verzauberten Schrank gefunden: <%= dropText %>! Wow!",
     "armoireFood": "<%= image %> Du wühlst im verzauberten Schrank herum und findest <%= dropArticle %><%= dropText %>. Was macht das denn da drin?",
     "armoireExp": "Du ringst mit dem verzauberten Schrank und gewinnst Erfahrung. Nimm das!"

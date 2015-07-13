@@ -208,5 +208,11 @@
     "questKrakenBoss": "O Kraken do Inkompleto",
     "questKrakenCompletion": "Enquanto o Kraken foge, diversos ovos bóiam para a superfície da água. Limonada lhes examina e suas suspeitas se tornam deleite. \"Ovos de Lula!\", diz ela. \"Aqui, peguem ele como uma recompensa por tudo que vocês realizaram.\" ",
     "questKrakenDropCuttlefishEgg": "Lula (Ovo)",
-    "questKrakenUnlockText": "Desbloqueia a compra de ovos de lula no Mercado"
+    "questKrakenUnlockText": "Desbloqueia a compra de ovos de lula no Mercado",
+    "questWhaleText": "Lamento da Baleia",
+    "questWhaleNotes": "Você chega na Doca dos Trabalhadores, na esperança de ter um submarino para ver a Corrida de Cavalos Marinhos de Dilatória. De repente, um berro ensurdecedor faz você parar e cobrir seus ouvidos. \"Thar ela sopra!\" o Capitão @krazjega choraminga, apontando para a enorme, Baleia Chorona. \"Não é seguro enviar os submarinos enquanto ela está se debatendo!\"<br><br>\"Rápido,\" diz o @RaroCriminoso. \"Me ajude a acalmar a pobre criatura para podermos entender porque ela está fazendo todo este barulho!\"",
+    "questWhaleBoss": "Baleia Chorona",
+    "questWhaleCompletion": "Depois de muito trabalho duro, finalmente a baleia cessa seu choro violento. \"Parece que ela estava se afogando em ondas de hábitos ruins,\" @zoebeagle explica. \"Graças ao seu esforço consistente, nós fomos capazes de virar a maré!\" Assim que você entra no submarino, vários ovos de baleia pulam em sua direção, e você os acolhe.",
+    "questWhaleDropWhaleEgg": "Baleia (Ovo)",
+    "questWhaleUnlockText": "Desbloqueia a compra de ovos de baleia no Mercado"
 }

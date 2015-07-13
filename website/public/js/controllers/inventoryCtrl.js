@@ -186,6 +186,7 @@ habitrpg.controller("InventoryCtrl",
       });
       $scope.closeQuest();
     }
+
     $scope.buyQuest = function(quest) {
       var item = Content.quests[quest];
       if (item.lvl && item.lvl > user.stats.lvl)

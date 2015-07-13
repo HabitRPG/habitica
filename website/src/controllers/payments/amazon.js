@@ -194,7 +194,15 @@ exports.subscribe = function(req, res, next){
           SellerOrderId: shared.uuid(),
           StoreName: 'HabitRPG'
         }
-      }, cb);
+      }, function(err, res){
+        if(err) return cb(err);
+
+        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
+          return cb(new Error('The payment was not successfull.'));
+        }
+
+        return cb();
+      });
     },
 
     createSubscription: function(cb){
@@ -229,8 +237,8 @@ exports.subscribeCancel = function(req, res, next){
     cancelSubscription: function(cb){
       var data = {
         user: user,
-        // Date of next bill, dateUpdated can be used because it's only updated when the user is billed
-        nextBill: moment(user.purchased.plan.dateUpdated).add({days: 30}),
+        // Date of next bill
+        nextBill: moment(user.purchased.plan.lastBillingDate).add({days: 30}),
         paymentMethod: 'Amazon Payments'
       };
 
@@ -238,7 +246,13 @@ exports.subscribeCancel = function(req, res, next){
     }
   }, function(err, results){
     if (err) return next(err); // don't json this, let toString() handle errors
-    res.redirect('/');
+    
+    if(req.query.noRedirect){
+      res.send(200);
+    }else{
+      res.redirect('/');
+    }
+
     user = null;
   });
 };

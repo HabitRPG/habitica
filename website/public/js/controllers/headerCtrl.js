@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$rootScope',
-  function($scope, Groups, User, $location, $rootScope) {
+habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$rootScope', 'Analytics',
+  function($scope, Groups, User, $location, $rootScope, Analytics) {
 
     $scope.Math = window.Math;
     $scope.user = User.user;
@@ -25,6 +25,7 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$ro
           }
         });
       } else {
+        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
         $location.path("/options/groups/party");
       }
     }

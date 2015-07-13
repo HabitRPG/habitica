@@ -94,7 +94,7 @@
     "abuseFlag": "Prijavite kršenje Pravila ponašanja",
     "abuseFlagModalHeading": "Želite li da prijavite <%= name %> za kršenje pravila?",
     "abuseFlagModalBody": "Jeste li sigurni da želite prijavite ovu poruku? Poruku treba da prijavite SAMO ako kriši <%= firstLinkStart %>Pravila ponašanja<%= linkEnd %> i/ili <%= secondLinkStart %>Uslove korišćenja<%= linkEnd %>. Slanjem neosnovanih prijava krišite Pravila ponašanja i možete za to biti kažnjeni.",
-    "abuseFlagModalButton": "Prijaviti",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Hvala što ste prijavili ovaj prekršaj. Moderatorima je poslato obaveštenje.",
     "abuseAlreadyReported": "Već ste prijavili ovu poruku.",
     "needsText": "Molimo Vas da napišete poruku.",
@@ -119,6 +119,8 @@
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
+    "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }
