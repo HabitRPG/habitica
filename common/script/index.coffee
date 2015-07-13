@@ -774,7 +774,7 @@ api.wrap = (user, main=true) ->
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
-        cb? {code:200, message}, userPets[pet]
+        cb? {code:200, message}, {value: userPets[pet]}
 
       buySpecialSpell: (req,cb) ->
         {key} = req.params

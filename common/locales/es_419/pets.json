@@ -25,6 +25,7 @@
     "hatchingPotion": "pócima de eclosión",
     "noHatchingPotions": "No tienes pócimas de eclosión.",
     "inventoryText": "Haz clic en un huevo para ver las pócimas utilizables resaltadas en verde, y después haz clic en una de las pociones para incubar tu mascota. Si ninguna pócima se destacó, haz clic en ese huevo de nuevo para anular la selección, y haz clic primero sobre una pócima para destacar los huevos utilizables. También puedes vender los objetos que ya no desees a Alexander el Comerciante.",
+    "foodText": "food",
     "food": "Comida y Monturas",
     "noFood": "No tienes ni comida ni monturas.",
     "dropsExplanation": "Consigue estos objetos más rápido con gemas si no quieres esperar a que aparezcan cuando completes una Tarea. <a href=\"http://habitrpg.wikia.com/wiki/Drops\">Aprende más acerca del sistema de botín.</a>",

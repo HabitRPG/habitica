@@ -209,10 +209,10 @@
     "questKrakenCompletion": "Als der Kraken flieht, treiben mehrere Eier an die Wasseroberfläche. Lemoness untersucht sie zunächst argwöhnisch, dann ruft sie freudestrahlend \"Tintenfischeier! Hier, nimm sie als Belohnung für alles was Du erledigt hast!\" ",
     "questKrakenDropCuttlefishEgg": "Tintenfisch (Ei)",
     "questKrakenUnlockText": "Ermöglicht den Kauf von Tintenfischeiern auf dem Marktplatz.",
-    "questWhaleText": "Wail of the Whale",
+    "questWhaleText": "Jammern des Wals",
     "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
-    "questWhaleBoss": "Wailing Whale",
-    "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
-    "questWhaleDropWhaleEgg": "Whale (Egg)",
-    "questWhaleUnlockText": "Unlocks purchasable whale eggs in the Market"
+    "questWhaleBoss": "Jammernder Wal",
+    "questWhaleCompletion": "Nach der ganzen harten Arbeit verstummt das donnernde Jammern des Wahles. \"Scheint als wäre sie in der Flut schlechter Angewohnheiten fast ertrunken\", erklärt @zoebeagle, \"Dank deiner ununterbrochenen Bemühungen konnten wir die Fluten abwenden!\" Als du in das U-Boot steigen willst fallen dir in der ruhigen See einige Eier auf.",
+    "questWhaleDropWhaleEgg": "Wal (Ei)",
+    "questWhaleUnlockText": "Ermöglicht den Kauf von Waleiern auf dem Marktplatz."
 }

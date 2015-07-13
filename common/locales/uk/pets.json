@@ -25,6 +25,7 @@
     "hatchingPotion": "зілля вилуплення",
     "noHatchingPotions": "Ви не маєте жодного зілля дозрівання.",
     "inventoryText": "Клацніть на яйці, аби побачити доступні зілля, підсвічені зеленим, та оберіть одне з них, щоб яйце дозріло для вилуплення. Якщо не підсвічено жодного зілля, ще раз клацніть на яйці, щоб скасувати вибір. Натомість клацніть на зіллі, аби виявити яйця, з якими його можна використати. Непотрібні предмети можна також продати купцеві Александру.",
+    "foodText": "food",
     "food": "Їжа та сідла",
     "noFood": "У Вас немає жодної їжі чи сідла.",
     "dropsExplanation": "Get these items faster with gems if you don't want to wait for them to drop when completing a task. <a href=\"http://habitrpg.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",

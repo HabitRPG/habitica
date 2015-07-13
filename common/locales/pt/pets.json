@@ -25,6 +25,7 @@
     "hatchingPotion": "poção de eclosão",
     "noHatchingPotions": "Você não possui poções de eclosão.",
     "inventoryText": "Clique num ovo para ver as poções utilizáveis destacadas em verde e depois clique em uma das poções destacadas para eclodir seu mascote. Se nenhuma poção estiver destacada, clique no ovo novamente para desmarcá-lo, e em vez, clique na poção primeiro para ver os ovos utilizáveis marcados. Você também pode vender itens indesejados para Alexander o Comerciante.",
+    "foodText": "food",
     "food": "Comida e Selas",
     "noFood": "Você não possui comida ou selas.",
     "dropsExplanation": "Consiga estes itens mais rápido com gemas, caso você não queira esperar que eles apareçam ao completar uma tarefa. <a href=\"http://habitrpg.wikia.com/wiki/Drops\">Aprenda mais sobre o sistema de drop.</a>",

@@ -94,7 +94,7 @@
     "abuseFlag": "举报违反社区准则的用户",
     "abuseFlagModalHeading": "举报 <%= name %> 违规",
     "abuseFlagModalBody": "你确定要举报这个帖子？你只能举报违反了 <%= firstLinkStart %>社区准则<%= linkEnd %> 或者 <%= secondLinkStart %>服务条款<%= linkEnd %> 的帖子。不当的举报是违反社区准则的，并且你会因此而违规。",
-    "abuseFlagModalButton": "报告",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "感谢您报告此违反服务条款的行为。版主已经接到通知。",
     "abuseAlreadyReported": "你已经举报过此信息。",
     "needsText": "请输入一个信息",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }

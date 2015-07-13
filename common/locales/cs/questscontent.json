@@ -209,10 +209,10 @@
     "questKrakenCompletion": "Při svém úprku za sebou Kraken nechává tři vejce. Lemoness je prozkoumává a její podezřívavý pohled se změní na potěšený. \"Vejce sépiáka!\" řekne. \"Na, vezmi si je jako odměnu za to, co jsi splnil.\" ",
     "questKrakenDropCuttlefishEgg": "Sépiák (vejce)",
     "questKrakenUnlockText": "Odemkne možnost nákupu vejce sépiáka na Trhu.",
-    "questWhaleText": "Wail of the Whale",
-    "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
-    "questWhaleBoss": "Wailing Whale",
-    "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
-    "questWhaleDropWhaleEgg": "Whale (Egg)",
-    "questWhaleUnlockText": "Unlocks purchasable whale eggs in the Market"
+    "questWhaleText": "Nářek plejtváka",
+    "questWhaleNotes": "Dorazíš do Svědomitého přístavu a doufáš, že chytíš ponorku na Závody v Liknavosti. Najednou se ozve řev tak hlasitý, že si musíš zacpat uši. \"Támhle chrlí!\" křičí kapitán @krazjega a ukazuje na obrovského naříkajícího plejtváka. \"Není bezpečné posílat ponorky dokud se tam plácá!\"<br><br>\"Rychle,\" volá @UncommonCriminal. \"Pomoz mi toho chudáka uklidnit abychom zjistili, proč tam naříká!\"",
+    "questWhaleBoss": "Naříkající plejtvák",
+    "questWhaleCompletion": "Po spoustě práce plejtvák konečně přestane naříkat. \"Vypadá to, že se topil ve svých zlozvycích,\" vysvětluje @zoebeagle. \"Díky tvému stálému snažení jsme to mohli zvrátit!\" Když nastupuješ do ponorky, dokutálí se k tobě několik vajec a tak je sebereš.",
+    "questWhaleDropWhaleEgg": "Plejtvák (vejce)",
+    "questWhaleUnlockText": "Odemyká vejce plejtváka na Trhu"
 }
