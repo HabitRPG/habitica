@@ -208,5 +208,11 @@
     "questKrakenBoss": "De Kraken van Incompleet",
     "questKrakenCompletion": "Terwijl de Kraken vlucht, drijven er een paar eieren naar het wateroppervlak. Lemoness onderzoekt ze en haar achterdocht verandert in verrukking. \"Inktviseieren!\" zegt ze. \"Hier, neem ze als beloning voor alles dat je hebt afgemaakt.\"",
     "questKrakenDropCuttlefishEgg": "Inktvis (Ei)",
-    "questKrakenUnlockText": "Maakt het kopen van inktviseieren in de markt mogelijk"
+    "questKrakenUnlockText": "Maakt het kopen van inktviseieren in de markt mogelijk",
+    "questWhaleText": "De Weeklacht van de Walvis",
+    "questWhaleNotes": "Je komt aan bij de IJverige Havens, in de hoop een onderzeeër te kunnen pakken om de Derby van Dralen te zien. Opeens dwingt een oorverdovend geloei je te blijven staan en je oren te bedekken. \"Daar blaast ze!\" schreeuwt kapitein @krazjega, en wijst naar een enorme wenende walvis. \"Het is niet veilig om de onderzeeërs te laten vertrekken terwijl ze daar nog rondspettert!<br><br>\"Snel,\" roept @UncommonCriminal. \"Help me het arme dier te kalmeren zodat we erachter kunnen komen waarom ze zoveel herrie maakt!\"",
+    "questWhaleBoss": "Wenende Walvis",
+    "questWhaleCompletion": "Na hard werken houdt de walvis eindelijk op met haar oorverdovende geweeklaag. \"Het lijkt erop dat ze aan het verzuipen was in golven negatieve gewoontes,\" legt @zoebeagle uit. \"Door jouw aanhoudende inspanningen is het tij gekeerd!\" Terwijl je de onderzeeër instapt, dobberen enkele walviseieren jouw richting op, vis je ze op.",
+    "questWhaleDropWhaleEgg": "Walvis (ei)",
+    "questWhaleUnlockText": "Maakt het kopen van walviseieren in de markt mogelijk"
 }

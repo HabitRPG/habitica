@@ -111,7 +111,7 @@ script(type='text/ng-template', id='modals/abuse-flag.html')
     button.pull-left.btn.btn-danger(ng-click='clearFlagCount(abuseObject, groupId)', ng-if='user.contributor.admin && abuseObject.flagCount >= 2')
       | Reset Flag Count
     button.btn.btn-primary(ng-click='$close()')=env.t('cancel')
-    button.btn.btn-default(ng-click='reportAbuse(user, abuseObject, groupId)')=env.t("abuseFlagModalButton")
+    button.btn.btn-danger(ng-click='reportAbuse(user, abuseObject, groupId)')=env.t("abuseFlagModalButton")
 
 script(type='text/ng-template', id='modals/remove-member.html')
   .modal-header

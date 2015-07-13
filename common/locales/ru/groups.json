@@ -94,7 +94,7 @@
     "abuseFlag": "Сообщить о нарушении Правил сообщества",
     "abuseFlagModalHeading": "Сообщить о нарушении со стороны <%= name %>?",
     "abuseFlagModalBody": "Вы уверены, что хотите пожаловаться на это сообщение? Вы можете пожаловаться ТОЛЬКО на сообщения, нарушающие <%= firstLinkStart %>Правила сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условия предоставления сервиса<%= linkEnd %>. Некорректная жалоба является нарушением Правил сообщества и может стать поводом для вынесения предупреждения.",
-    "abuseFlagModalButton": "Пожаловаться",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Спасибо, что сообщили об этом нарушении. Модераторы уведомлены.",
     "abuseAlreadyReported": "Вы уже сообщали об этом нарушении.",
     "needsText": "Пожалуйста введите сообщение.",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Создать команду",
-    "addToParty": "Пригласите участника в команду"
+    "addToParty": "Пригласите участника в команду",
+    "likePost": "Click if you like this post!"
 }

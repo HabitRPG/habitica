@@ -122,6 +122,14 @@ api.capByLevel = (lvl) ->
 
 ###
   ------------------------------------------------------
+  Health cap
+  ------------------------------------------------------
+###
+
+api.maxHealth = 50
+
+###
+  ------------------------------------------------------
   Scoring
   ------------------------------------------------------
 ###
@@ -766,7 +774,7 @@ api.wrap = (user, main=true) ->
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
-        cb? {code:200, message}, userPets[pet]
+        cb? {code:200, message}, {value: userPets[pet]}
 
       buySpecialSpell: (req,cb) ->
         {key} = req.params
@@ -1648,7 +1656,14 @@ api.wrap = (user, main=true) ->
               else
                dailyDueUnchecked += 1
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
-            user.party.quest.progress.down += delta if type is 'daily'
+            if type is 'daily'
+              # Apply damage from a boss, less damage for Trivial priority (difficulty)
+              user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
+              # NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+              # initially, and when we realised, we could not fix it because users are used to
+              # their Medium and Hard Dailies doing an Easy amount of damage from boss.
+              # Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+              # setting between Trivial and Easy.
 
         switch type
           when 'daily'

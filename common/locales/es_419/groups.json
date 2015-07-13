@@ -94,7 +94,7 @@
     "abuseFlag": "Reportar una violación de las Normas de la comunidad.",
     "abuseFlagModalHeading": "¿Reportar una violación hecha por <%= name %>?",
     "abuseFlagModalBody": "¿De verdad queres reportar esta publicación? Se debe reportar una publicación SOLAMENTE cuando hay una violación de las <%= firstLinkStart %>Normas de la comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de servicio<%= linkEnd %>. Reportar una publicación indebidamente es una violación de las Normas de la comunidad y puede resultar en una infracción.",
-    "abuseFlagModalButton": "Reportar",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Gracias por reportar esta violación. Se han notificado los moderadores.",
     "abuseAlreadyReported": "Ya has reportado este mensaje.",
     "needsText": "Por favor escribe un mensaje.",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Mes(es): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Crear un grupo",
-    "addToParty": "Añadir a alguien a tu grupo"
+    "addToParty": "Añadir a alguien a tu grupo",
+    "likePost": "Click if you like this post!"
 }

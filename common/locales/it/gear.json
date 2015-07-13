@@ -494,7 +494,7 @@
     "shieldMystery301405Text": "Scudo Orologio",
     "shieldMystery301405Notes": "Con questo scudo il tempo sarà sempre dalla tua parte! Non conferisce alcun bonus. Oggetto per abbonati, giugno 3015.",
     "shieldArmoireGladiatorShieldText": "Gladiator Shield",
-    "shieldArmoireGladiatorShieldNotes": "To be a gladiator you must.... eh, whatever, just bash them with your shield. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Gladiator Set (Item 3 of 3).",
+    "shieldArmoireGladiatorShieldNotes": "Per essere un gladiatore devi...eh, lasciamo stare, piuttosto respingi tutti con il tuo scudo. Aumenta la Costituzione di <%= con %> e la Forza di <%= str %>. Scrigno Incantato: Set Gladiatore (oggetto 3 di 3)",
     "back": "Back Accessory",
     "backBase0Text": "Nessun accessorio da schiena",
     "backBase0Notes": "Nessun accessorio da schiena.",

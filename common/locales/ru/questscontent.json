@@ -208,5 +208,11 @@
     "questKrakenBoss": "The Kraken of Inkomplete",
     "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
     "questKrakenDropCuttlefishEgg": "Кальмар (яйцо)",
-    "questKrakenUnlockText": "Позволяет покупать на рынке кальмара в яйце."
+    "questKrakenUnlockText": "Позволяет покупать на рынке кальмара в яйце.",
+    "questWhaleText": "Вой Кита",
+    "questWhaleNotes": "Вы прибыли в Порт Усердия, в надежде взять подлодку и чтобы посмотреть Медленный Дерби. Неожиданно оглушающий звук останавливает вас. \"Это его вопль!\" кричит Капитан @krazjega, указывая на большого воющего кита. \"Небезопасно высылать субмарины, пока этот кит плавает неподалеку!\" <br><br> \"Бегом!\" зовет @UncommonCriminal. \"Помогите мне успокоить несчастное животное, чтобы мы смогли выяснить, почему оно так шумит!\"",
+    "questWhaleBoss": "Воющий Кит",
+    "questWhaleCompletion": "После долгих трудов кит, наконец, перестает кричать. \"Похоже он тонул в волнах вредных привычек\" объясняет @zoebeagle. \"Благодаря вашим усилиям мы смогли перенаправить волны\". Как только вы входите в подлодку перед вами появляются несколько яиц кита и вы собираете их.",
+    "questWhaleDropWhaleEgg": "Кит (яйцо)",
+    "questWhaleUnlockText": "Unlocks purchasable whale eggs in the Market"
 }

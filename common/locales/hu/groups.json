@@ -94,7 +94,7 @@
     "abuseFlag": "Jelentsd a Közösségi Irányelvek megsértését",
     "abuseFlagModalHeading": "Jelented <%= name %>-t a megsértésért?",
     "abuseFlagModalBody": "Biztos hogy jelenteni akarod ezt a bejegyzést? CSAK olyat jelents, ami megsérti a <%= firstLinkStart %>Közösségi Irányelveket<%= linkEnd %> és/vagy <%= secondLinkStart %>Felhasználási feltételeket<%= linkEnd %>. Ha nem helyénvaló a bejegyzés megszegése, az a Közösségi Irányelvek megszegését jelenti és következményekkel járhat.",
-    "abuseFlagModalButton": "Jelentés",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Köszönjük ennek a megsértésnek a jelentését, értesítettük a moderátorokat.",
     "abuseAlreadyReported": "Már jelentetted ezt az üzenetet.",
     "needsText": "Kérlek, írj egy üzenetet.",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }

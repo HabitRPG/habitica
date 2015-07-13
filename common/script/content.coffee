@@ -56,6 +56,21 @@ api.mystery =
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
 _.each api.mystery, (v,k)->v.key = k
 
+api.itemList =
+  'weapon': {localeKey: 'weapon', isEquipment: true}
+  'armor' : {localeKey: 'armor', isEquipment: true}
+  'head' : {localeKey: 'headgear', isEquipment: true}
+  'shield' : {localeKey: 'offhand', isEquipment: true}
+  'back' : {localeKey: 'back', isEquipment: true}
+  'body' : {localeKey: 'body', isEquipment: true}
+  'headAccessory' : {localeKey: 'headAccessory', isEquipment: true}
+  'eyewear' : {localeKey: 'eyewear', isEquipment: true}
+  'hatchingPotions' : {localeKey: 'hatchingPotion', isEquipment: false}
+  'eggs' : {localeKey: 'eggSingular', isEquipment: false}
+  'quests' : {localeKey: 'quest', isEquipment: false}
+  'food' : {localeKey: 'foodText', isEquipment: false}
+  'Saddle' : {localeKey: 'foodSaddleText', isEquipment: false}
+
 gear =
   weapon:
     base:
@@ -956,6 +971,7 @@ api.dropEggs =
   Dragon:           text: t('dropEggDragonText'), adjective: t('dropEggDragonAdjective')
   Cactus:           text: t('dropEggCactusText'), adjective: t('dropEggCactusAdjective')
   BearCub:          text: t('dropEggBearCubText'),  mountText: t('dropEggBearCubMountText'), adjective: t('dropEggBearCubAdjective')
+
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true
@@ -984,6 +1000,7 @@ api.questEggs =
   Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
   Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
   Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
+  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -1012,6 +1029,7 @@ api.specialMounts =
   'MantisShrimp-Base':  'mantisShrimp'
   'Turkey-Base':        'turkey'
   'Mammoth-Base':       'mammoth'
+  'Orca-Base':          'orca'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1838,6 +1856,26 @@ api.quests =
       gp: 55
       exp: 500
       unlock: t('questKrakenUnlockText')
+
+  whale:
+    text: t('questWhaleText')
+    notes: t('questWhaleNotes')
+    completion: t('questWhaleCompletion')
+    value: 4
+    category: 'pet'
+    boss:
+      name: t('questWhaleBoss')
+      hp: 500
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+        {type: 'eggs', key: 'Whale', text: t('questWhaleDropWhaleEgg')}
+      ]
+      gp: 37
+      exp: 275
+      unlock: t('questWhaleUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}

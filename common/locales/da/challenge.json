@@ -16,7 +16,7 @@
     "selectWinner": "Vælg en vinder og luk udfordringen:",
     "deleteOrSelect": "Slet eller vælg vinder",
     "endChallenge": "Afslut udfordring",
-    "challengeDiscription": "Dette er udfordringens opgaver. De vil blive tilføjet dine nuværende opgaver når du tilmelder dig denne udfordring. Nedenstående er et eksempel der viser at opgaverne i en udfordring skifter farve og får tilført grafer der viser gruppens samlede fremskridt.",
+    "challengeDiscription": "Dette er udfordringens opgaver. De vil blive tilføjet dine nuværende opgaver når du tilmelder dig denne udfordring. Nedenstående er et eksempel, der viser at opgaverne i en udfordring skifter farve og får tilføjet grafer, der viser gruppens samlede fremskridt.",
     "hows": "Hvordan går det for folk?",
     "filter": "Filter",
     "groups": "Grupper",
@@ -55,5 +55,5 @@
     "challengedEitherOwnedFilter": "Begge",
     "backToChallenges": "Tilbage til Udfordringer",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Præmie",
-    "clone": "Clone"
+    "clone": "Klon"
 }
