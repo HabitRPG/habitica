@@ -75,6 +75,10 @@ table.table.table-striped
 
 h4(class=mobile?'item item-divider':'',ng-if='user.flags.dropsEnabled')=env.t('pets')
 table.table.table-striped(ng-if='user.flags.dropsEnabled')
+  tr(ng-if='user._id != profile._id && profile.items.currentPet')
+    td
+      strong=env.t('equippedPet')
+      |: {{::isBasicAnimal(profile.items.currentPet) ? env.t('petName', {potion: Content.hatchingPotions[potion].text(), egg: Content.eggs[egg].text()}) : env.t(Content.specialPets[profile.items.currentPet])}}
   tr
     td
       strong=env.t('petsFound')
@@ -86,6 +90,10 @@ table.table.table-striped(ng-if='user.flags.dropsEnabled')
 
 h4(class=mobile?'item item-divider':'', ng-if='user.flags.dropsEnabled')=env.t('mounts')
 table.table.table-striped(ng-if='user.flags.dropsEnabled')
+  tr(ng-if='user._id != profile._id && profile.items.currentMount')
+    td
+      strong=env.t('equippedMount')
+      |: {{::isBasicAnimal(profile.items.currentMount) ? env.t('mountName', {potion: Content.hatchingPotions[potion].text(), mount: Content.eggs[egg].text()}) : env.t(Content.specialMounts[profile.items.currentMount])}}
   tr
     td
       strong=env.t('mountsTamed')
