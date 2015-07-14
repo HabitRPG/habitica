@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var questsService, user, quest;
+  var rootScope, groupsService, quest, questsService, user;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -12,9 +12,17 @@ describe('Quests Service', function() {
       $provide.value('User', {user: user});
     });
 
-    inject(function(Quests) {
+    inject(function($rootScope, Quests, Groups) {
+      rootScope = $rootScope;
       questsService = Quests;
+      groupsService = Groups;
     });
+
+    sandbox.stub(groupsService, 'inviteOrStartParty');
+    sandbox.stub(rootScope, 'openModal');
+    sandbox.stub(user.ops, 'buyQuest');
+    sandbox.stub(window,'confirm',function(){return true});
+    sandbox.stub(window,'alert');
   });
 
   context('functions', function() {
@@ -52,6 +60,59 @@ describe('Quests Service', function() {
         user.achievements.quests.priorQuest = 1;
 
         expect(questsService.lockQuest(quest)).to.not.be.ok;
+      });
+    });
+
+    describe('buy quest', function() {
+
+      it('prompts user to invite friends to party for invite reward quests', function() {
+        quest.unlockCondition = {condition: 'party invite'};
+
+        questsService.buyQuest(quest);
+
+        expect(window.confirm).to.have.been.calledOnce;
+        expect(groupsService.inviteOrStartParty).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.notCalled;
+      });
+
+      it('does not allow user to buy quests whose previous quests are incomplete', function() {
+        quest.previous = 'priorQuest';
+        user.stats.lvl = 50;
+
+        questsService.buyQuest(quest);
+
+        expect(window.alert).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.notCalled;
+      });
+
+      it('does not allow user to buy quests beyond their level', function() {
+        user.stats.lvl = 1;
+
+        questsService.buyQuest(quest);
+
+        expect(window.alert).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.notCalled;
+      });
+
+      it('opens purchase modal if all prerequisites are met', function() {
+        quest.previous = 'priorQuest';
+        user.stats.lvl = 50;
+        user.achievements.quests.priorQuest = 2;
+
+        questsService.buyQuest(quest);
+
+        expect(rootScope.selectedQuest).to.eql(quest);
+        expect(rootScope.openModal).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.calledWith('buyQuest');
+      });
+
+      it('calls user ops buyQuest if quest is Gold-purchasable', function() {
+        quest.category = 'gold';
+
+        questsService.buyQuest(quest);
+
+        expect(user.ops.buyQuest).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.notCalled;
       });
     });
   });
