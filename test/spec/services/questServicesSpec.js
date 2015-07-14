@@ -1,10 +1,14 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var rootScope, groupsService, quest, questsService, user;
+  var scope, groupsService, quest, questsService, user;
 
   beforeEach(function() {
     user = specHelper.newUser();
+    user.ops = {
+      buyQuest: sandbox.spy()
+    };
+
     user.achievements.quests = {};
     quest = {lvl:20};
 
@@ -12,15 +16,15 @@ describe('Quests Service', function() {
       $provide.value('User', {user: user});
     });
 
-    inject(function($rootScope, Quests, Groups) {
-      rootScope = $rootScope;
+    inject(function($rootScope, $controller, Quests, Groups) {
+      scope = $rootScope.$new();
+      $controller('RootCtrl', {$scope: scope, User: {user: user}});
       questsService = Quests;
       groupsService = Groups;
     });
 
     sandbox.stub(groupsService, 'inviteOrStartParty');
-    sandbox.stub(rootScope, 'openModal');
-    sandbox.stub(user.ops, 'buyQuest');
+    sandbox.stub(scope, 'openModal');
     sandbox.stub(window,'confirm',function(){return true});
     sandbox.stub(window,'alert');
   });
@@ -72,7 +76,7 @@ describe('Quests Service', function() {
 
         expect(window.confirm).to.have.been.calledOnce;
         expect(groupsService.inviteOrStartParty).to.have.been.calledOnce;
-        expect(rootScope.openModal).to.have.been.notCalled;
+        expect(scope.openModal).to.have.been.notCalled;
       });
 
       it('does not allow user to buy quests whose previous quests are incomplete', function() {
@@ -82,7 +86,7 @@ describe('Quests Service', function() {
         questsService.buyQuest(quest);
 
         expect(window.alert).to.have.been.calledOnce;
-        expect(rootScope.openModal).to.have.been.notCalled;
+        expect(scope.openModal).to.have.been.notCalled;
       });
 
       it('does not allow user to buy quests beyond their level', function() {
@@ -91,7 +95,7 @@ describe('Quests Service', function() {
         questsService.buyQuest(quest);
 
         expect(window.alert).to.have.been.calledOnce;
-        expect(rootScope.openModal).to.have.been.notCalled;
+        expect(scope.openModal).to.have.been.notCalled;
       });
 
       it('opens purchase modal if all prerequisites are met', function() {
@@ -101,9 +105,9 @@ describe('Quests Service', function() {
 
         questsService.buyQuest(quest);
 
-        expect(rootScope.selectedQuest).to.eql(quest);
-        expect(rootScope.openModal).to.have.been.calledOnce;
-        expect(rootScope.openModal).to.have.been.calledWith('buyQuest');
+        expect(scope.selectedQuest).to.eql(quest);
+        expect(scope.openModal).to.have.been.calledOnce;
+        expect(scope.openModal).to.have.been.calledWith('buyQuest');
       });
 
       it('calls user ops buyQuest if quest is Gold-purchasable', function() {
@@ -112,7 +116,7 @@ describe('Quests Service', function() {
         questsService.buyQuest(quest);
 
         expect(user.ops.buyQuest).to.have.been.calledOnce;
-        expect(rootScope.openModal).to.have.been.notCalled;
+        expect(scope.openModal).to.have.been.notCalled;
       });
     });
   });
