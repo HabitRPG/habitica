@@ -24,7 +24,7 @@ var specHelper = {};
         food: {},
         pets: {},
         mounts: {},
-        gear: {equipped: {}, costume: {}, owned: {}},
+        gear: {equipped: {}, costume: {}, owned: {}}
       },
       party: {
         quest: {
@@ -37,7 +37,7 @@ var specHelper = {};
       rewards: [],
       flags: {},
       filters: {},
-      achievements: {},
+      achievements: {}
     };
     return user;
   }

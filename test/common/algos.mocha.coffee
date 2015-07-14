@@ -484,7 +484,8 @@ describe 'User', ->
 
   describe 'Enchanted Armoire', ->
     user = newUser()
-    fullArmoire = {'weapon_warrior_0': true,
+    fullArmoire = 
+      'weapon_warrior_0': true,
       'armor_armoire_gladiatorArmor':true,
       'armor_armoire_lunarArmor':true,
       'armor_armoire_rancherRobes':true,
@@ -499,7 +500,6 @@ describe 'User', ->
       'weapon_armoire_basicCrossbow':true,
       'weapon_armoire_lunarSceptre':true,
       'weapon_armoire_rancherLasso':true
-    }
 
     beforeEach ->
       # too many predictableRandom calls to stub, let's return the last element
