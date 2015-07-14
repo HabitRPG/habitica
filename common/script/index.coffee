@@ -883,7 +883,7 @@ api.wrap = (user, main=true) ->
         item = if key is 'potion' then content.potion
         else if key is 'armoire' then content.armoire
         else content.gear.flat[key]
-        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
+        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
         if item.key is 'potion'
@@ -920,6 +920,18 @@ api.wrap = (user, main=true) ->
         user.stats.gp -= item.value
         mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats flags')
+
+      buyQuest: (req, cb) ->
+        {key} = req.params
+        item = content.quests[key]
+        return cb?({code:404, message:"Quest '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
+        return cb?({code:404, message:"Quest '#{key} is not a Gold-purchasable quest (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item.category is 'gold' and item.goldValue
+        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.goldValue
+        message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
+        user.items.quests[item.key] ?= 0
+        user.items.quests[item.key] += 1
+        user.stats.gp -= item.goldValue
+        cb? {code:200, message}, user.items.quests
 
       buyMysterySet: (req, cb)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0

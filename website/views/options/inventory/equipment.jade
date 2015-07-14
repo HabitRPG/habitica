@@ -6,13 +6,13 @@
         popover=env.t('battleGearText'))=env.t('battleGear')
 
       div
-        button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
+         button.btn.btn-default(type="button", ng-click='dequip("battleGear");') {{env.t("unequipBattleGear")}}
 
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{::label}}', ng-show='gear[klass]',
           ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
           div(ng-repeat='item in gear[klass]')
-            button.customize-option(class='shop_{{::item.key}}',
+            button.customize-option(, class='shop_{{::item.key}}',
               ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}',
               ng-click='equip(item.key, "equipped")',
               popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
@@ -28,8 +28,8 @@
         label
           input(type="checkbox", ng-model="user.preferences.costume",
             ng-change='set({"preferences.costume":user.preferences.costume ? true : false})')
-          |&nbsp;
-          =env.t('useCostume')
+        | &nbsp;
+        =env.t('useCostume')
 
       div
         button.btn.btn-default(type="button", ng-click='dequip("costume");') {{env.t("unequipCostume")}}
@@ -47,7 +47,7 @@
           div(ng-repeat='item in gear[klass]')
             button.customize-option(class='shop_{{::item.key}}',
               ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}',
-              popover='{{::item.notes()}}',
-              popover-title='{{::item.text()}}', popover-trigger='mouseenter',
-              popover-placement='right', popover-append-to-body='true',
-              ng-click='equip(item.key, "costume")')
+              ng-click='equip(item.key, "costume")',
+              popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              popover-trigger='mouseenter', popover-placement='right',
+              popover-append-to-body='true')

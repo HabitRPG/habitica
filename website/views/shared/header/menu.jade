@@ -42,6 +42,8 @@ nav.toolbar(ng-controller='MenuCtrl', ng-class='{active: isToolbarHidden}')
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
               li
+                a(ui-sref='options.inventory.quests')=env.t('quests')
+              li
                 a(ui-sref='options.inventory.pets')=env.t('pets')
               li
                 a(ui-sref='options.inventory.mounts')=env.t('mounts')
@@ -125,6 +127,8 @@ nav.toolbar(ng-controller='MenuCtrl', ng-class='{active: isToolbarHidden}')
           ul.toolbar-submenu(ng-click='expandMenu(null)')
             li
               a(ui-sref='options.inventory.drops')=env.t('market')
+            li
+              a(ui-sref='options.inventory.quests')=env.t('quests')
             li
               a(ui-sref='options.inventory.pets')=env.t('pets')
             li
