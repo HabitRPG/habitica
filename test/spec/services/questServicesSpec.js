@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var scope, groupsService, quest, questsService, user, content;
+  var scope, rootScope, groupsService, quest, questsService, user, content;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -18,6 +18,7 @@ describe('Quests Service', function() {
 
     inject(function($rootScope, $controller, Quests, Groups, Content) {
       scope = $rootScope.$new();
+      rootScope = $rootScope;
       $controller('RootCtrl', {$scope: scope, User: {user: user}});
       questsService = Quests;
       groupsService = Groups;
@@ -25,7 +26,7 @@ describe('Quests Service', function() {
     });
 
     sandbox.stub(groupsService, 'inviteOrStartParty');
-    sandbox.stub(scope, 'openModal');
+    sandbox.stub(rootScope, 'openModal');
     sandbox.stub(window,'confirm',function(){return true});
     sandbox.stub(window,'alert');
   });
@@ -75,7 +76,7 @@ describe('Quests Service', function() {
 
         expect(window.confirm).to.have.been.calledOnce;
         expect(groupsService.inviteOrStartParty).to.have.been.calledOnce;
-        expect(scope.openModal).to.have.been.notCalled;
+        expect(rootScope.openModal).to.have.been.notCalled;
       });
 
       it('does not allow user to buy quests whose previous quests are incomplete', function() {
@@ -84,7 +85,7 @@ describe('Quests Service', function() {
         questsService.buyQuest('goldenknight2');
 
         expect(window.alert).to.have.been.calledOnce;
-        expect(scope.openModal).to.have.been.notCalled;
+        expect(rootScope.openModal).to.have.been.notCalled;
       });
 
       it('does not allow user to buy quests beyond their level', function() {
@@ -93,7 +94,7 @@ describe('Quests Service', function() {
         questsService.buyQuest('vice1');
 
         expect(window.alert).to.have.been.calledOnce;
-        expect(scope.openModal).to.have.been.notCalled;
+        expect(rootScope.openModal).to.have.been.notCalled;
       });
 
       it('opens purchase modal if all prerequisites are met', function() {
@@ -101,17 +102,17 @@ describe('Quests Service', function() {
         user.achievements.quests.atom1 = 2;
 
         questsService.buyQuest('atom2');
-       
+
         expect(scope.selectedQuest).to.eql(content.quests.atom2);
-        expect(scope.openModal).to.have.been.calledOnce;
-        expect(scope.openModal).to.have.been.calledWith('buyQuest');
+        expect(rootScope.openModal).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.calledWith('buyQuest');
       });
 
       it('calls user ops buyQuest if quest is Gold-purchasable', function() {
         questsService.buyQuest('dilatoryDistress1');
 
         expect(user.ops.buyQuest).to.have.been.calledOnce;
-        expect(scope.openModal).to.have.been.notCalled;
+        expect(rootScope.openModal).to.have.been.notCalled;
       });
     });
   });
