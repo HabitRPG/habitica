@@ -484,7 +484,22 @@ describe 'User', ->
 
   describe 'Enchanted Armoire', ->
     user = newUser()
-    fullArmoire = {'weapon_warrior_0': true, 'armor_armoire_gladiatorArmor':true,'armor_armoire_lunarArmor':true,'head_armoire_gladiatorHelm':true,'head_armoire_lunarCrown':true,'head_armoire_rancherHat':true,'head_armoire_redHairbow':true,'head_armoire_violetFloppyHat':true,'shield_armoire_gladiatorShield':true,'weapon_armoire_basicCrossbow':true,'weapon_armoire_lunarSceptre':true}
+    fullArmoire = {'weapon_warrior_0': true,
+      'armor_armoire_gladiatorArmor':true,
+      'armor_armoire_lunarArmor':true,
+      'armor_armoire_rancherRobes':true,
+      'head_armoire_blueHairbow':true,
+      'head_armoire_gladiatorHelm':true,
+      'head_armoire_lunarCrown':true,
+      'head_armoire_rancherHat':true,
+      'head_armoire_redHairbow':true,
+      'head_armoire_royalCrown':true,
+      'head_armoire_violetFloppyHat':true,
+      'shield_armoire_gladiatorShield':true,
+      'weapon_armoire_basicCrossbow':true,
+      'weapon_armoire_lunarSceptre':true,
+      'weapon_armoire_rancherLasso':true
+    }
 
     beforeEach ->
       # too many predictableRandom calls to stub, let's return the last element
@@ -545,7 +560,7 @@ describe 'User', ->
     it 'gives more equipment', ->
       sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.ops.buy({params: {key: 'armoire'}})
-      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true,'head_armoire_rancherHat':true}
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true, 'head_armoire_blueHairbow':true}
       expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 3)
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 30
