@@ -1,7 +1,7 @@
 {
     "messageLostItem": "<%= itemText %> gick sönder.",
     "messageTaskNotFound": "Uppgift hittades inte.",
-    "messageDuplicateTaskID": "A task with that ID already exists.",
+    "messageDuplicateTaskID": "En Uppgift Med den IDn Finns Redan",
     "messageTagNotFound": "Tagg hittades inte.",
     "messagePetNotFound": ":pet not found in user.items.pets",
     "messageFoodNotFound": ":food not found in user.items.food",

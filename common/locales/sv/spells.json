@@ -39,12 +39,12 @@
     "spellSpecialSpookDustNotes": "Transformera en vän till en flytande filt med ögon.",
     "spellSpecialOpaquePotionText": "Ogenomskinlig Dryck",
     "spellSpecialOpaquePotionNotes": "Avbryt effekterna av spöklik hud.",
-    "spellSpecialShinySeedText": "Shiny Seed",
+    "spellSpecialShinySeedText": "Glänsande Frö",
     "spellSpecialShinySeedNotes": "Transformera en vän till en glad blomma!",
     "spellSpecialPetalFreePotionText": "Petal-Free Potion",
-    "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed.",
-    "spellSpecialSeafoamText": "Seafoam",
-    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialPetalFreePotionNotes": "Avbryt Effekten av ett Glänsande Frö",
+    "spellSpecialSeafoamText": "Sjöform",
+    "spellSpecialSeafoamNotes": "Förvandla en Vän Till ett Sjödjur",
     "spellSpecialSandText": "Sand",
-    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
+    "spellSpecialSandNotes": "Avbryt Effekten av Sjöform"
 }

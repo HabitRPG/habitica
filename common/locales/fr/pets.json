@@ -25,7 +25,7 @@
     "hatchingPotion": "potion d'éclosion",
     "noHatchingPotions": "Vous n'avez pas de potion d'éclosion.",
     "inventoryText": "Cliquez sur un œuf pour voir les potions utilisables surlignées en vert puis cliquez sur une des potions surlignées pour faire éclore votre familier. Si aucune potion n'est surlignée, cliquez à nouveau sur l’œuf pour le désélectionner et cliquez plutôt sur une potion d'abord pour voir les œufs utilisables. Vous pouvez aussi vendre votre surplus d'objets à Alexander le Marchand.",
-    "foodText": "food",
+    "foodText": "nourriture",
     "food": "Nourriture et Selles",
     "noFood": "Vous n'avez ni nourriture ni selle.",
     "dropsExplanation": "Récupérez ces objets plus vite avec des Gemmes, si vous ne voulez pas attendre de les recevoir en butin d'une tâche. <a href=\"http://habitrpg.wikia.com/wiki/Drops\">Apprenez-en plus à propos du système de butin.</a>",

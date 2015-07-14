@@ -53,7 +53,7 @@
     "challengedOwnedFilter": "Owned",
     "challengedNotOwnedFilter": "Not Owned",
     "challengedEitherOwnedFilter": "Either",
-    "backToChallenges": "Back to all challenges",
+    "backToChallenges": "すべてのチャレンジへ戻る",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "clone": "クローン"
 }

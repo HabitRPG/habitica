@@ -94,7 +94,7 @@
     "abuseFlag": "Zgłoś naruszenie regulaminu społeczności.",
     "abuseFlagModalHeading": "Zgłosić naruszenie zasad przez <%= name %>?",
     "abuseFlagModalBody": "Czy jesteś pewien, że chcesz zgłosić tę wiadomość? Powinieneś zgłaszać WYŁĄCZNIE wiadomości, które naruszają <%= firstLinkStart %>regulamin społeczności<%= linkEnd %> i/lub <%= secondLinkStart %>warunki korzystania<%= linkEnd %>. Niewłaściwe zgłaszanie wiadomości jest naruszeniem regulaminu społeczności i może być traktowane jako wykroczenie.",
-    "abuseFlagModalButton": "Report Violation",
+    "abuseFlagModalButton": "Zgłoś nadużycie",
     "abuseReported": "Dziękujemy za zgłoszenie. Moderatorzy zostali powiadomieni.",
     "abuseAlreadyReported": "Już zgłosiłeś tę wiadomość.",
     "needsText": "Proszę wpisz wiadomość.",
@@ -122,5 +122,5 @@
     "battleWithFriends": "Zwalczaj potwory z przyjaciółmi",
     "startAParty": "Utwórz drużynę",
     "addToParty": "Dodaj kogoś do swojej drużyny",
-    "likePost": "Click if you like this post!"
+    "likePost": "Kliknij jeśli lubisz ten post!"
 }

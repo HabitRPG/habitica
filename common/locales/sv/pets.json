@@ -25,7 +25,7 @@
     "hatchingPotion": "kläckningsdryck",
     "noHatchingPotions": "Du har inga kläckningsdrycker.",
     "inventoryText": "Klicka på ett ägg för att se användbara drycker markerade i grönt och klicka sedan på en av de markerade dryckerna för att kläcka ditt husdjur. Om inga drycker är markerade: tryck igen för att avmarkera ägget och klicka istället på en dryck för att få de användbara äggen markerade. Du kan också sälja oönskade drops till Köpmannen Alexander.",
-    "foodText": "food",
+    "foodText": "Mat",
     "food": "Mat och Sadlar",
     "noFood": "Du har inte någon mat eller några sadlar.",
     "dropsExplanation": "Get these items faster with gems if you don't want to wait for them to drop when completing a task. <a href=\"http://habitrpg.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
