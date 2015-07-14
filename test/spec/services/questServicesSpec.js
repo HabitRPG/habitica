@@ -70,9 +70,7 @@ describe('Quests Service', function() {
     describe('buy quest', function() {
 
       it('prompts user to invite friends to party for invite reward quests', function() {
-        quest.unlockCondition = {condition: 'party invite'};
-
-        questsService.buyQuest(quest);
+        questsService.buyQuest('basilist');
 
         expect(window.confirm).to.have.been.calledOnce;
         expect(groupsService.inviteOrStartParty).to.have.been.calledOnce;
@@ -80,10 +78,9 @@ describe('Quests Service', function() {
       });
 
       it('does not allow user to buy quests whose previous quests are incomplete', function() {
-        quest.previous = 'priorQuest';
-        user.stats.lvl = 50;
+        user.stats.lvl = 100;
 
-        questsService.buyQuest(quest);
+        questsService.buyQuest('goldenknight2');
 
         expect(window.alert).to.have.been.calledOnce;
         expect(scope.openModal).to.have.been.notCalled;
@@ -92,28 +89,25 @@ describe('Quests Service', function() {
       it('does not allow user to buy quests beyond their level', function() {
         user.stats.lvl = 1;
 
-        questsService.buyQuest(quest);
+        questsService.buyQuest('vice1');
 
         expect(window.alert).to.have.been.calledOnce;
         expect(scope.openModal).to.have.been.notCalled;
       });
 
       it('opens purchase modal if all prerequisites are met', function() {
-        quest.previous = 'priorQuest';
-        user.stats.lvl = 50;
-        user.achievements.quests.priorQuest = 2;
+        user.stats.lvl = 100;
+        user.achievements.quests.atom1 = 2;
 
-        questsService.buyQuest(quest);
+        questsService.buyQuest('atom2');
 
-        expect(scope.selectedQuest).to.eql(quest);
+        expect(scope.selectedQuest).to.eql('atom2');
         expect(scope.openModal).to.have.been.calledOnce;
         expect(scope.openModal).to.have.been.calledWith('buyQuest');
       });
 
       it('calls user ops buyQuest if quest is Gold-purchasable', function() {
-        quest.category = 'gold';
-
-        questsService.buyQuest(quest);
+        questsService.buyQuest('dilatoryDistress1');
 
         expect(user.ops.buyQuest).to.have.been.calledOnce;
         expect(scope.openModal).to.have.been.notCalled;
