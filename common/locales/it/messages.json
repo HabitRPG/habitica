@@ -23,7 +23,7 @@
     "messageDropPotion": "Hai trovato una Pozione di Schiusura <%= dropText %>! <%= dropNotes %>",
     "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
-    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
+    "messageAlreadyOwnGear": "Possiedi già questo oggetto. Equipaggialo andando nella pagina dell'inventario.",
     "armoireEquipment": "<%= image %> Hai trovato dell'equipaggiamento raro nello Scrigno: <%= dropText %>! Fantastico!",
     "armoireFood": "<%= image %> Frughi nello Scrigno e trovi <%= dropArticle %><%= dropText %>. Cosa ci fa qui dentro?",
     "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
