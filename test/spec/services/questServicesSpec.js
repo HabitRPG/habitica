@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var scope, groupsService, quest, questsService, user;
+  var scope, groupsService, quest, questsService, user, content;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -16,11 +16,12 @@ describe('Quests Service', function() {
       $provide.value('User', {user: user});
     });
 
-    inject(function($rootScope, $controller, Quests, Groups) {
+    inject(function($rootScope, $controller, Quests, Groups, Content) {
       scope = $rootScope.$new();
       $controller('RootCtrl', {$scope: scope, User: {user: user}});
       questsService = Quests;
       groupsService = Groups;
+      content = Content;
     });
 
     sandbox.stub(groupsService, 'inviteOrStartParty');
@@ -100,8 +101,8 @@ describe('Quests Service', function() {
         user.achievements.quests.atom1 = 2;
 
         questsService.buyQuest('atom2');
-
-        expect(scope.selectedQuest).to.eql('atom2');
+       
+        expect(scope.selectedQuest).to.eql(content.quests.atom2);
         expect(scope.openModal).to.have.been.calledOnce;
         expect(scope.openModal).to.have.been.calledWith('buyQuest');
       });
