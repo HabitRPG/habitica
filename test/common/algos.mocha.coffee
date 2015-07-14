@@ -25,6 +25,7 @@ newUser = (addTasks=true)->
         equipped: {}
         costume: {}
         owned: {}
+      quests: {}
     party:
       quest:
         progress:
@@ -386,12 +387,40 @@ describe 'User', ->
       expect(user.items.gear.equipped).to.eql { armor: 'armor_warrior_1', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
 
-    it 'do not buy equipment without enough money', ->
+    it 'does not buy equipment without enough Gold', ->
       user = newUser()
       user.stats.gp = 1
       user.ops.buy {params: {key: 'armor_warrior_1'}}
       expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
+
+    it 'buys a Quest scroll', ->
+      user = newUser()
+      user.stats.gp = 205
+      user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
+      expect(user.items.quests).to.eql {dilatoryDistress: 1}
+      expect(user).toHaveGP 5
+
+    it 'does not buy Quests without enough Gold', ->
+      user = newUser()
+      user.stats.gp = 1
+      user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 1
+
+    it 'does not buy nonexistent Quests', ->
+      user = newUser()
+      user.stats.gp = 9999
+      user.ops.buyQuest {params: {key: 'snarfblatter'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 9999
+
+    it 'does not buy Gem-premium Quests', ->
+      user = newUser()
+      user.stats.gp = 9999
+      user.ops.buyQuest {params: {key: 'kraken'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 9999
 
   describe 'Gem purchases', ->
     it 'does not purchase items without enough Gems', ->
