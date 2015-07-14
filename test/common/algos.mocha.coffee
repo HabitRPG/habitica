@@ -398,7 +398,7 @@ describe 'User', ->
       user = newUser()
       user.stats.gp = 205
       user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
-      expect(user.items.quests).to.eql {dilatoryDistress: 1}
+      expect(user.items.quests).to.eql {dilatoryDistress1: 1}
       expect(user).toHaveGP 5
 
     it 'does not buy Quests without enough Gold', ->
