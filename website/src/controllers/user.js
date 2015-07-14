@@ -9,7 +9,6 @@ var shared = require('../../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
 var ga = utils.ga;
-var groups = require("../controllers/groups");
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
