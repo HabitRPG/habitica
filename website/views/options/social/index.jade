@@ -7,8 +7,8 @@ include ./quests/index
 include ./chat-message
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
- ul.options-blurbmenu    
-   li=env.t('blurbInbox')
+  .options-blurbmenu
+    small.muted=env.t('blurbInbox')
 
   .container-fluid
     .row
@@ -44,8 +44,8 @@ script(type='text/ng-template', id='partials/options.social.party.html')
       include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
- ul.options-blurbmenu    
-   li=env.t('blurbGuildsPage')
+  .options-blurbmenu
+    small.muted=env.t('blurbGuildsPage')
 
   div.col-xs-12(ng-repeat='invitation in user.invitations.guilds' style='margin-bottom: 1.5em')
     h3=env.t('invitedTo', {name: '{{invitation.name}}'})
