@@ -188,8 +188,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         var tmp = name.split('-');
         $scope.egg = tmp[0];
         $scope.potion = tmp[1];
-        if (env.Content.hatchingPotions[$scope.potion]) return true;
-        else return false;
+        return env.Content.hatchingPotions[$scope.potion] ? true : false;
       }
       $scope.gift = {
         type: 'gems',
