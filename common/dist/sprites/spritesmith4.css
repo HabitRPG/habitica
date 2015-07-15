@@ -132,43 +132,43 @@
 }
 .shop_shield_healer_3 {
   background-image: url(spritesmith4.png);
-  background-position: -2077px 0px;
+  background-position: -1327px -1068px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_healer_4 {
   background-image: url(spritesmith4.png);
-  background-position: -2077px -82px;
+  background-position: -2077px 0px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_healer_5 {
   background-image: url(spritesmith4.png);
-  background-position: -2077px -574px;
+  background-position: -2077px -82px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_rogue_0 {
   background-image: url(spritesmith4.png);
-  background-position: -2077px -615px;
+  background-position: -2077px -574px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_rogue_1 {
   background-image: url(spritesmith4.png);
-  background-position: -2077px -656px;
+  background-position: -2077px -615px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_rogue_2 {
   background-image: url(spritesmith4.png);
-  background-position: -2077px -943px;
+  background-position: -2077px -656px;
   width: 40px;
   height: 40px;
 }
 .shop_shield_rogue_3 {
   background-image: url(spritesmith4.png);
-  background-position: -287px -2072px;
+  background-position: -2077px -943px;
   width: 40px;
   height: 40px;
 }
@@ -648,7 +648,7 @@
 }
 .Pet_Currency_Gem {
   background-image: url(spritesmith4.png);
-  background-position: -328px -2072px;
+  background-position: -287px -2072px;
   width: 45px;
   height: 39px;
 }
@@ -660,7 +660,7 @@
 }
 .Pet_Currency_Gem2x {
   background-image: url(spritesmith4.png);
-  background-position: -1803px -106px;
+  background-position: -1803px -137px;
   width: 30px;
   height: 26px;
 }
@@ -1692,7 +1692,7 @@
 }
 .quest_moonstone1_moonstone {
   background-image: url(spritesmith4.png);
-  background-position: -1895px -1729px;
+  background-position: -1803px -106px;
   width: 30px;
   height: 30px;
 }
@@ -1836,7 +1836,7 @@
 }
 .shop_gold {
   background-image: url(spritesmith4.png);
-  background-position: -1895px -1760px;
+  background-position: -1803px -164px;
   width: 32px;
   height: 22px;
 }
@@ -1860,19 +1860,19 @@
 }
 .shop_seafoam {
   background-image: url(spritesmith4.png);
-  background-position: -1327px -1068px;
-  width: 40px;
-  height: 40px;
+  background-position: -1986px -1668px;
+  width: 32px;
+  height: 32px;
 }
 .shop_shinySeed {
   background-image: url(spritesmith4.png);
-  background-position: -1986px -1668px;
+  background-position: -1986px -1701px;
   width: 32px;
   height: 32px;
 }
 .shop_silver {
   background-image: url(spritesmith4.png);
-  background-position: -1803px -133px;
+  background-position: -1581px -647px;
   width: 32px;
   height: 22px;
 }
@@ -1884,7 +1884,7 @@
 }
 .shop_spookDust {
   background-image: url(spritesmith4.png);
-  background-position: -1986px -1701px;
+  background-position: -1895px -1729px;
   width: 32px;
   height: 32px;
 }
