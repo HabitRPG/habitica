@@ -173,6 +173,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           member.petCount = Shared.countPets($rootScope.countExists(member.items.pets), member.items.pets);
           member.mountCount = Shared.countMounts($rootScope.countExists(member.items.mounts), member.items.mounts);
         $scope.profile = member;
+        $scope.e = member.items.gear.equipped;
       });
       $scope.sendPrivateMessage = function(uuid, message){
         // Don't do anything if the user somehow gets here without a message.
