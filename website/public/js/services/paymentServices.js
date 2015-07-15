@@ -72,15 +72,12 @@ function($rootScope, User, $http, Content) {
 
   Payments.amazonPayments.reset = function(){
     Payments.amazonPayments.modal.close();
-    // TODO this is needed because if we do not logout
-    // users then if they use donation & then subscription 
-    // the billing agreement will be wrong
-    amazon.Login.logout();
     Payments.amazonPayments.modal = null;
     Payments.amazonPayments.type = null;
     Payments.amazonPayments.loggedIn = false;
     Payments.amazonPayments.gift = null;
     Payments.amazonPayments.billingAgreementId = null;
+    Payments.amazonPayments.orderReferenceId = null;
     Payments.amazonPayments.paymentSelected = false;
     Payments.amazonPayments.recurringConsent = false;
     Payments.amazonPayments.subscription = null;
@@ -90,11 +87,11 @@ function($rootScope, User, $http, Content) {
   // Needs to be called everytime the modal/router is accessed
   Payments.amazonPayments.init = function(data){
     if(!isAmazonReady) return;
-    if(data.type !== 'donation' && data.type !== 'subscription') return;
+    if(data.type !== 'single' && data.type !== 'subscription') return;
 
     if(data.gift){
       if(data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
-      gift.uuid = data.giftedTo;
+      data.gift.uuid = data.giftedTo;
     }
 
     if(data.subscription){
@@ -118,6 +115,27 @@ function($rootScope, User, $http, Content) {
         type:  'PwA',
         color: 'Gold',
         size:  'small',
+        agreementType: 'BillingAgreement',
+
+        onSignIn: function(contract){
+          Payments.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
+
+          if(Payments.amazonPayments.type === 'subscription'){
+            Payments.amazonPayments.loggedIn = true;
+            Payments.amazonPayments.initWidgets();
+          }else{
+            var url = '/amazon/createOrderReferenceId'
+            $http.post(url, {
+              billingAgreementId: Payments.amazonPayments.billingAgreementId
+            }).success(function(data){
+              Payments.amazonPayments.loggedIn = true;
+              Payments.amazonPayments.orderReferenceId = data.orderReferenceId;
+              Payments.amazonPayments.initWidgets();
+            }).error(function(res){
+              alert(res.err);
+            });
+          }
+        },
 
         authorization: function(){
           amazon.Login.authorize({
@@ -127,10 +145,7 @@ function($rootScope, User, $http, Content) {
             if(response.error) return alert(response.error);
 
             var url = '/amazon/verifyAccessToken'
-            $http.post(url, response).success(function(){
-              Payments.amazonPayments.loggedIn = true;
-              Payments.amazonPayments.initWidgets();
-            }).error(function(res){
+            $http.post(url, response).error(function(res){
               alert(res.err);
             });
           });
@@ -143,7 +158,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.amazonPayments.canCheckout = function(){
-    if(Payments.amazonPayments.type === 'donation'){
+    if(Payments.amazonPayments.type === 'single'){
       return Payments.amazonPayments.paymentSelected === true;
     }else if(Payments.amazonPayments.type === 'subscription'){
       return Payments.amazonPayments.paymentSelected === true && 
@@ -160,55 +175,58 @@ function($rootScope, User, $http, Content) {
       design: {
         designMode: 'responsive'
       },
-      agreementType: 'BillingAgreement',
-
-      onReady: function(billingAgreement){
-        Payments.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
-
-        if(Payments.amazonPayments.type === 'subscription'){
-          new OffAmazonPayments.Widgets.Consent({
-            sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
-            amazonBillingAgreementId: Payments.amazonPayments.billingAgreementId, 
-            design: {
-              designMode: 'responsive'
-            },
-
-            onReady: function(consent){
-              $rootScope.$apply(function(){
-                var getConsent = consent.getConsentStatus
-                Payments.amazonPayments.recurringConsent = getConsent ? getConsent() : false;
-              });
-            },
-
-            onConsent: function(consent){
-              $rootScope.$apply(function(){
-                Payments.amazonPayments.recurringConsent = consent.getConsentStatus();
-              });
-            },
-
-            onError: amazonOnError
-          }).bind('AmazonPayRecurring');     
-        }
-      },
 
       onPaymentSelect: function() {
         $rootScope.$apply(function(){
-          console.log('Payment plan selected')
           Payments.amazonPayments.paymentSelected = true;
         });        
       },
 
       onError: amazonOnError
-    };
+    }
+
+    if(Payments.amazonPayments.type === 'subscription'){
+      walletParams.agreementType = 'BillingAgreement';
+      console.log(Payments.amazonPayments.billingAgreementId);
+      walletParams.billingAgreementId = Payments.amazonPayments.billingAgreementId;
+      walletParams.onReady = function(billingAgreement){
+        Payments.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+
+        new OffAmazonPayments.Widgets.Consent({
+          sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
+          amazonBillingAgreementId: Payments.amazonPayments.billingAgreementId, 
+          design: {
+            designMode: 'responsive'
+          },
+
+          onReady: function(consent){
+            $rootScope.$apply(function(){
+              var getConsent = consent.getConsentStatus
+              Payments.amazonPayments.recurringConsent = getConsent ? getConsent() : false;
+            });
+          },
+
+          onConsent: function(consent){
+            $rootScope.$apply(function(){
+              Payments.amazonPayments.recurringConsent = consent.getConsentStatus();
+            });
+          },
+
+          onError: amazonOnError
+        }).bind('AmazonPayRecurring');     
+      }
+    }else{
+      walletParams.amazonOrderReferenceId = Payments.amazonPayments.orderReferenceId;
+    }
 
     new OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
   }
 
   Payments.amazonPayments.checkout = function(){
-    if(Payments.amazonPayments.type === 'donation'){
-      var url = '/amazon/createOrderReferenceId'
+    if(Payments.amazonPayments.type === 'single'){
+      var url = '/amazon/checkout';
       $http.post(url, {
-        billingAgreementId: Payments.amazonPayments.billingAgreementId,
+        orderReferenceId: Payments.amazonPayments.orderReferenceId,
         gift: Payments.amazonPayments.gift
       }).success(function(){
         Payments.amazonPayments.reset();

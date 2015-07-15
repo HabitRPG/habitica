@@ -103,7 +103,15 @@ exports.checkout = function(req, res, next){
         SellerAuthorizationNote: 'HabitRPG Payment',
         TransactionTimeout: 0,
         CaptureNow: true
-      }, cb);
+      }, function(err, res){
+        if(err) return cb(err);
+
+        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
+          return cb(new Error('The payment was not successfull.'));
+        }
+
+        return cb();
+      });
     },
 
     closeOrderReference: function(cb){
