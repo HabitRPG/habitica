@@ -75,6 +75,10 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
         return type+'.'+k;
       }).join(',');
     }
-
+    
+    $scope.heroboxClick = function(spell) {
+      if (spell) return castEnd(profile, "user", $event);
+      else if (!$scope.shareIsHovered) return clickMember(profile._id);
+    }
   }
 ]);
