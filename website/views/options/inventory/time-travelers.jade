@@ -11,19 +11,20 @@
             .popover-content
               p!=env.t('timeTravelersPopoverNoSub', {linkStart: "<a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
 
-  .row.stable(ng-if='user.purchased.plan.consecutive.trinkets > 0')
-    .col-md-2
-      .npc_timetravelers_active
-
-    .col-md-10
-      .popover.static-popover.fade.right.in
-        .arrow
-        h3.popover-title=env.t('timeTravelersTitle')
-        .popover-content
-          .pull-right
-            span.inventory_special_trinket.inline-gems
-            b x{{user.purchased.plan.consecutive.trinkets}}
-          p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
+  .stable.row-fluid(ng-if='user.purchased.plan.consecutive.trinkets > 0')
+    table
+      tr
+        td
+          .npc_timetravelers_active
+        td
+          .popover.static-popover.fade.right.in
+            .arrow
+            h3.popover-title=env.t('timeTravelersTitle')
+            .popover-content
+              .pull-right
+                span.inventory_special_trinket.inline-gems
+                b x{{user.purchased.plan.consecutive.trinkets}}
+              p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
 
     .col-md-12
       li.customize-menu.inventory-gear
