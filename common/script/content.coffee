@@ -167,7 +167,7 @@ gear =
     armoire:
       basicCrossbow:  text: t('weaponArmoireBasicCrossbowText'), notes: t('weaponArmoireBasicCrossbowNotes', {str: 5, per: 5, con: 5}), value: 100, str: 5, per: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_basicCrossbow?)
       lunarSceptre:   text: t('weaponArmoireLunarSceptreText'), notes: t('weaponArmoireLunarSceptreNotes', {con: 7, int: 7}), value: 100, con: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_lunarSceptre?)
-      rancherLasso:   text: t('weaponArmoireRancherLassoText'), notes: t('weaponArmoireRancherLassoNotes', twoHanded:true, {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_rancherLasso?)
+      rancherLasso:   twoHanded:true, text: t('weaponArmoireRancherLassoText'), notes: t('weaponArmoireRancherLassoNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_rancherLasso?)
 
   armor:
     base:
