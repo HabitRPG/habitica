@@ -14,6 +14,8 @@
     "sellPotionForGold": "Prodej <%= itemType %> lektvar za <%= gold %> zlaťáků.",
     "buyGems": "Kup drahokamy",
     "justin": "Justin",
+    "ian": "Ian",
+    "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
     "USD": "dolar/ů",
     "newStuff": "Nové věci",
     "cool": "Připomeň mi to později",

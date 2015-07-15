@@ -14,6 +14,8 @@
     "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
     "buyGems": "קנה אבני חן",
     "justin": "ג'סטין",
+    "ian": "Ian",
+    "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
     "USD": "דולר אמריקאי",
     "newStuff": "דברים חדשים",
     "cool": "ספר לי מאוחר יותר",

@@ -23,7 +23,7 @@
     "messageDropPotion": "Вы нашли <%= dropText %> инкубационный эликсир! <%= dropNotes %>",
     "messageFoundQuest": "Вы нашли квест: «<%= questText %>»!",
     "messageAlreadyPurchasedGear": "Вы приобретали эту вещь в прошлом, но сейчас у вас ее нет. Вы можете купить ее снова в колонке наград на странице задач.",
-    "messageAlreadyOwnGear": "У вас уже есть эта вещь. Оденьте ее на странице снаряжения.",
+    "messageAlreadyOwnGear": "У вас уже есть эта вещь. Наденьте ее на странице снаряжения.",
     "armoireEquipment": "<%= image %> Вы нашли в сундуке редкий предмет: <%= dropText %>! Потрясающе!",
     "armoireFood": "<%= image %> Копаясь в сундуке, вы находите <%= dropArticle %><%= dropText %>. Откуда это здесь?",
     "armoireExp": "Вы сражаетесь с сундуком и получаете опыт. Получай!"

@@ -22,8 +22,8 @@
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
-    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
-    "messageAlreadyOwnGear": "You have already own this item. Equip it by going to the equipment page.",
+    "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
+    "messageAlreadyOwnGear": "Tenhle předmět už máš. Vybav se jím na stránce s vybavením.",
     "armoireEquipment": "<%= image %> Ve zbrojnici jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
     "armoireFood": "<%= image %> Prohledáváš zbrojnici a nacházíš <%= dropArticle %><%= dropText %>. Co to tu dělá?",
     "armoireExp": "Zápasíš se Zbrojnicí a získáváš zkušenost. To jsi jí to nandal!"

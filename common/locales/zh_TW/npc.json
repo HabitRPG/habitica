@@ -14,6 +14,8 @@
     "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
     "buyGems": "購買寶石",
     "justin": "Justin",
+    "ian": "Ian",
+    "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
     "USD": "美金",
     "newStuff": "新品",
     "cool": "稍候再跟我說",

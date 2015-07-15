@@ -14,6 +14,8 @@
     "sellPotionForGold": "Verkoop <%= itemType %> toverdrank voor <%= gold %> goud",
     "buyGems": "Koop edelstenen",
     "justin": "Justin",
+    "ian": "Ian",
+    "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
     "USD": "USD ($)",
     "newStuff": "Nieuwe informatie",
     "cool": "Een andere keer lezen",

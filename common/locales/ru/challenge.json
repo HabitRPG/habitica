@@ -55,5 +55,5 @@
     "challengedEitherOwnedFilter": "Все",
     "backToChallenges": "Вернуться к списку испытаний",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> в награду",
-    "clone": "Клон"
+    "clone": "Клонировать"
 }

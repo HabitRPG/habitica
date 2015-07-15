@@ -65,9 +65,9 @@
     "habitBirthdayText": "Świętował imprezę urodzinową HabitRPG!",
     "habitBirthdayPluralText": "Świętował <%= number %> imprez urodzinowych HabitRPG!",
     "achievementDilatory": "Zbawca Atleńtydy",
-    "achievementDilatoryText": "Pomógł pokonać Straszliwego Smoka Atleńtydy podczas \"2014 Summer Splash!\"",
+    "achievementDilatoryText": "Pomógł pokonać Straszliwego Smoka Atleńtydy podczas Obchodów Letniego Plusku 2014!",
     "costumeContest": "Konkurs Kostiumowy 2014",
-    "costumeContestText": "Brał(a) udział w Konkursie Kostiumów Halloweenowych w 2014. Przejrzyj niektóre zgłoszenia na blog.habitrpg.com/tagged/cosplay!",
+    "costumeContestText": "Brał udział w Konkursie Kostiumów Halloweenowych w 2014. Przejrzyj niektóre zgłoszenia na blog.habitrpg.com/tagged/cosplay!",
     "memberSince": "- Członek od",
     "lastLoggedIn": "- Ostatnio zalogowany",
     "notPorted": "Ta funkcja nie jest jeszcze zaimportowana z oryginalnej strony.",
@@ -86,8 +86,8 @@
     "audioTheme": "Zestaw dźwięków",
     "audioTheme_off": "Wyłączone",
     "audioTheme_danielTheBard": "Bard Daniel",
-    "audioTheme_wattsTheme": "Zestaw Wattsa",
-    "audioTheme_gokulTheme": "Zestaw Gokula",
+    "audioTheme_wattsTheme": "Motyw dźwiękowy Wattsa",
+    "audioTheme_gokulTheme": "Motyw dźwiękowy Gokula",
     "askQuestion": "Zadaj pytanie",
     "reportBug": "Zgłoś błąd",
     "contributeToHRPG": "Wspomóż HabitRPG",
@@ -106,5 +106,5 @@
     "December": "Grudzień",
     "dateFormat": "Format daty",
     "achievementStressbeast": "Zbawca Stoikonii",
-    "achievementStressbeastText": "Pomógł pokonać Potworną Stresobestię podczas Obchodów Cudownej Zimy 2015"
+    "achievementStressbeastText": "Pomógł pokonać Potworną Stresobestię podczas Obchodów Cudownej Zimy 2015!"
 }
