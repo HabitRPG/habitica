@@ -38,9 +38,6 @@
       if (item.lvl && item.lvl > user.stats.lvl) {
         return alert(window.env.t('mustLvlQuest', {level: item.lvl}));
       }
-      if (item.category === 'gold') {
-        return User.user.ops.buyQuest({params:{key:item.key}});
-      }
       $rootScope.selectedQuest = item;
       $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
     }

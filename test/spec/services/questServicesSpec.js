@@ -97,7 +97,7 @@ describe('Quests Service', function() {
         expect(rootScope.openModal).to.have.been.notCalled;
       });
 
-      it('opens purchase modal if all prerequisites are met', function() {
+      it('opens purchase modal if Gem quest prerequisites are met', function() {
         user.stats.lvl = 100;
         user.achievements.quests.atom1 = 2;
 
@@ -108,11 +108,12 @@ describe('Quests Service', function() {
         expect(rootScope.openModal).to.have.been.calledWith('buyQuest');
       });
 
-      it('calls user ops buyQuest if quest is Gold-purchasable', function() {
+      it('opens purchase modal if quest is Gold-purchasable', function() {
         questsService.buyQuest('dilatoryDistress1');
 
-        expect(user.ops.buyQuest).to.have.been.calledOnce;
-        expect(rootScope.openModal).to.have.been.notCalled;
+        expect(scope.selectedQuest).to.eql(content.quests.dilatoryDistress1);
+        expect(rootScope.openModal).to.have.been.calledOnce;
+        expect(rootScope.openModal).to.have.been.calledWith('buyQuest');
       });
     });
   });
