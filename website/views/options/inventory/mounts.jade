@@ -6,7 +6,7 @@ mixin mountList(source)
           menu
             each potion in env.Content.hatchingPotions
               - mount = egg.key+"-"+potion.key
-              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
+              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(), mount: egg.mountText()}), popover-placement='bottom')
                 button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
                   //div(class='Mount_Head_{{mount}}')
                 button(class="pet-button mount-not-owned", ng-hide='user.items.mounts["#{mount}"]')
