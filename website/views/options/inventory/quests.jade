@@ -1,3 +1,6 @@
+//- If this variable gets any bigger, please move it out of this jade template and into common/script/content
+- var questCategories = {'unlockable':'unlockableQuests','pet':'petQuests','gold':'goldQuests'}
+
 .container-fluid
   .row
     .col-md-2
@@ -8,8 +11,8 @@
         h3.popover-title=env.t('ian')
         .popover-content
           p=env.t('ianText')
+
   .row
-    - var questCategories = {'unlockable':'unlockableQuests','pet':'petQuests','gold':'goldQuests'}
     .col-md-6
       h3.equipment-title=env.t('yourQuests')
       menu.inventory-list
@@ -18,15 +21,23 @@
           each caption,type in questCategories
             menu.pets-menu(label=env.t(caption))
               div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-if='Content.quests[quest_key].category === "#{type}"')
-                button.customize-option(data-popover-html="{{::lockQuest(quest) ? env.t('scrollsPre') : questPopover(quest) | markdown}}", popover-title='{{::quest.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='showQuest(quest_key)', ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
+                button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+                  ng-click='showQuest(quest_key)',
+                  data-popover-html="{{::lockQuest(quest) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+                  popover-title='{{::quest.text()}}', popover-trigger='mouseenter',
+                  popover-placement='right', popover-append-to-body='true')
                   .badge.badge-info.stack-count {{points}}
+
     .col-md-6.border-left
       li.customize-menu
         h3.equipment-title=env.t('questsForSale')
         each caption,type in questCategories
           menu.pets-menu(label=env.t(caption))
             div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy && quest.category === "#{type}"')
-              button.customize-option(data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}", popover-title='{{::quest.text()}}', popover-append-to-body="true", popover-trigger='mouseenter', ng-click='buyQuest(quest.key)', ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"')
+              button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+                data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+                popover-title='{{::quest.text()}}', popover-append-to-body="true",
+                popover-trigger='mouseenter', ng-click='buyQuest(quest.key)')
               p(ng-if='quest.unlockCondition')
                 |  {{::quest.unlockCondition.text()}}
               p(ng-if='!quest.unlockCondition && quest.category !== "gold" && !lockQuest(quest)')
