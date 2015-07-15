@@ -14,17 +14,19 @@ mixin mountList(source)
       -}
 
 .container-fluid
-  .stable.row
-    .col-md-2
-      div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
-    .col-md-10
-      .popover.static-popover.fade.right.in
-        .arrow
-        h3.popover-title
-          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
-        .popover-content
-          p=env.t('mattShall', {name: "{{user.profile.name}}"})
-          h4= env.t('mountMasterProgress') + ': {{mountCount}} / {{totalMounts}} ' + env.t('mountsTamed')
+  .stable.row-fluid
+    table
+      tr
+        td
+          div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
+        td
+          .popover.static-popover.fade.right.in
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+            .popover-content
+              p=env.t('mattShall', {name: "{{user.profile.name}}"})
+              h4= env.t('mountMasterProgress') + ': {{mountCount}} / {{totalMounts}} ' + env.t('mountsTamed')
     .col-md-12
       +mountList(env.Content.dropEggs)
     .col-md-12

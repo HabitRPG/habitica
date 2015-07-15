@@ -2,16 +2,17 @@
 - var questCategories = {'unlockable':'unlockableQuests','gold':'goldQuests','pet':'petQuests'}
 
 .container-fluid
-  .row
-    .col-md-1
-      .npc_ian
-    .col-md-11
-      .popover.static-popover.fade.right.in
-        .arrow
-        h3.popover-title=env.t('ian')
-        .popover-content
-          p=env.t('ianText')
-
+  .row-fluid
+    table
+      tr
+        td
+          .npc_ian
+        td
+          .popover.static-popover.fade.right.in
+            .arrow
+            h3.popover-title=env.t('ian')
+            .popover-content
+              p=env.t('ianText')
   .row
     .col-md-6
       h3.equipment-title=env.t('yourQuests')

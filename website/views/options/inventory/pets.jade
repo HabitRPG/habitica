@@ -14,17 +14,19 @@ mixin petList(source)
               button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
 
 .container-fluid
-  .stable.row
-    .col-md-2
-      div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
-    .col-md-10
-      .popover.static-popover.fade.right.in
-        .arrow
-        h3.popover-title
-          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
-        .popover-content
-          p=env.t('mattBochText1')
-          h4= env.t('beastMasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
+  .stable.row-fluid
+    table
+      tr
+        td
+          div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
+        td
+          .popover.static-popover.fade.right.in
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+            .popover-content
+              p=env.t('mattBochText1')
+              h4=env.t('beastMasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
     .col-md-12
       +petList(env.Content.dropEggs)
