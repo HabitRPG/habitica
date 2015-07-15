@@ -3,7 +3,7 @@ include appearance
 mixin herobox(opts)
   - if (!opts) {opts = {minimal:false,main:false}}
 
-  - var ngClick = 'spell ? castEnd(profile, "user", $event) : clickMember(profile._id)'
+  - var ngClick = 'spell ? castEnd(profile, "user", $event) : siHovered ? null : clickMember(profile._id)'
 
   - var klass = 'background_{{profile.preferences.background}} ' + opts.main + ' ? "isUser" : ""} ' + opts.minimal + ' ? "minimal" : ""}'
 
