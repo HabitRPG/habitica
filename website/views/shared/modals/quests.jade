@@ -38,7 +38,7 @@ script(type='text/ng-template', id='modals/showQuest.html')
     .npc_ian.pull-left
     p=env.t('questSend')
     p=env.t('questWarning')
-  .modal-footer(ng-controller='PartyCtrl')
+  .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
     button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
 
@@ -88,6 +88,6 @@ script(type='text/ng-template', id='modals/questDrop.html')
     hr
     .npc_ian.pull-left
     p=env.t('dropQuestCongrats')
-  .modal-footer(ng-controller='PartyCtrl')
+  .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
     button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
