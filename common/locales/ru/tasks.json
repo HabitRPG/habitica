@@ -99,11 +99,11 @@
     "dailyHelp5": "Ищете вдохновения? Посмотрите <a href='http://habitrpg.wikia.com/wiki/Sample_Dailies' target='_blank'>примеры ежедневных заданий</a>!",
     "toDoHelp1": "Задачи изначально желтые и краснеют (их стоимость повышается) тем сильнее, чем больше времени вам требуется на их завершение. ",
     "toDoHelp2": "Задачи не наносят вам ущерба! Они только приносят золото и опыт.",
-    "toDoHelp3": "Breaking a To-Do down into a checklist of smaller items will make it less scary, and will increase your points!",
+    "toDoHelp3": "Если Вы разобьете Задачу на список задачек поменьше, она покажется не такой страшной и принесет вам больше очков!",
     "toDoHelp4": "Ищете вдохновения? Посмотрите <a href='http://habitrpg.wikia.com/wiki/Sample_To-Dos' target='_blank'>примеры задач</a>!",
     "rewardHelp1": "Купленное вами снаряжение хранится здесь: <%= linkStart %>Инвентарь > Снаряжение<%= linkEnd %>.",
     "rewardHelp2": "Снаряжение влияет на ваши характеристики (<%= linkStart %>Пользователь > Характеристики<%= linkEnd %>).",
-    "rewardHelp3": "Special equipment will appear here during World Events.",
+    "rewardHelp3": "Здесь появится особое снаряжение во время Мировых Событий.",
     "rewardHelp4": "Не бойтесь назначать себе персональные награды! Посмотрите <a href='http://habitrpg.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>примеры наград здесь</a>.",
     "clickForHelp": "Помощь"
 }

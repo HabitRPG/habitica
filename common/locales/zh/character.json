@@ -39,7 +39,7 @@
     "pastelSkins": "柔和肤色",
     "spookySkins": "万圣节色",
     "supernaturalSkins": "超自然肤色",
-    "splashySkins": "Splashy Skins",
+    "splashySkins": "鳞光肤色",
     "rainbowColors": "七彩",
     "shimmerColors": "微光七彩",
     "hauntedColors": "幽灵的颜色",
@@ -54,11 +54,11 @@
     "costume": "服装",
     "costumeText": "如果你更喜欢其它装备的样子，勾选\"显示服装\"的按钮，在装备战斗装备的情况下换一个造型。",
     "useCostume": "显示服装",
-    "useCostumeInfo1": "Click \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can equip for the best stats on the left, and dress up your avatar with your equipment on the right.",
+    "useCostumeInfo1": "点击“使用服装”来更换装备不影响你战斗装备的属性点，所以你可以在左边为你的人物最优属性点装备，右边为你的人物装备上好看的装备",
     "useCostumeInfo2": "Once you click \"Use Costume\" your avatar will look pretty basic... but don't worry! If you look on the left, you'll see that your Battle Gear is still equipped. Next, you can make things fancy! Anything you equip on the right won't affect your stats, but can make you look super awesome. Try out different combos, mixing sets, and coordinating your Costume with your pets, mounts, and backgrounds.<br><br>Got more questions? Check out the <a href=\"http://habitrpg.wikia.com/wiki/Equipment#Costumes\">Costume page</a> on the wiki. Find the perfect ensemble? Show it off in the <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival guild</a> or brag in the Tavern!",
-    "gearAchievement": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class! You have attained the following complete sets:",
+    "gearAchievement": "你因为得到了一个职业的装备组，所以你获得了成就“终极装备”！你已经得到了以下的全套装备：",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/#/options/profile/stats' target='_blank'>your stats page</a> and buy up your new class's gear!",
-    "armoireUnlocked": "You've also unlocked the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
+    "armoireUnlocked": "你还解锁了<strong>魔法衣橱！</strong>点击魔法衣橱有机会获得随机的特殊装备！而且还有可能获得随机的经验值或者食物等等",
     "ultimGearName": "终极装备",
     "ultimGearText": "已经将以下职业的武器和装备升级到满级：",
     "level": "级",
@@ -149,5 +149,5 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>法师</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>盗贼</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>医师</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>了解更多关于课程的情况</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>了解更多关于职业的情况</a>"
 }
