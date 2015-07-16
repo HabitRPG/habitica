@@ -226,6 +226,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       var gems = user.balance * 4;
       var price = item.value;
+      var message;
 
       var itemName = window.env.t(Content.itemList[type].localeKey)
 
@@ -240,10 +241,15 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       if (gems < price) return $rootScope.openModal('buyGems');
 
-      var message = window.env.t('buyThis', {text: itemName, price: price, gems: gems});
+      if (type === 'quests') {
+        if (item.previous) {message = window.env.t('alreadyEarnedQuestReward', {priorQuest: Content.quests[item.previous].text()})}
+        else if (item.lvl) {message = window.env.t('alreadyEarnedQuestLevel', {level: item.lvl})}
+      } else message = "";
+
+      message += window.env.t('buyThis', {text: itemName, price: price, gems: gems});
       if ($window.confirm(message))
         user.ops.purchase({params:{type:type,key:item.key}});
-    }
+    };
 
     function _canBuyEquipment(itemKey) {
       if (user.items.gear.owned[itemKey]) {
