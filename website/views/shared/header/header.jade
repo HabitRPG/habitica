@@ -29,12 +29,12 @@
         span.meter-text.value
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
-    //- party, with Google Experiment boVO4eEyRfysNE5D53nCMQ for button caption and placement
-    .party(ng-controller='PartyCtrl', ng-cloak)
+    // party
+    .party(ng-controller='PartyCtrl')
       button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(group)",
         ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1",
-        ng-class="{'party-invite': (!variant || variant % 2 === 0), 'party-invite-middle': (variant && (variant % 2 !== 0))}"
+        class="party-invite-middle",
         popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")
-        span {{ variant < 2 ? env.t("battleWithFriends") : env.t("inviteFriends") }}
+        span=env.t("battleWithFriends")
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         +herobox()
