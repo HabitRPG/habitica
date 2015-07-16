@@ -58,9 +58,11 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
-      if (after == before || !after) return;
-      $rootScope.playSound('Achievement_Unlocked');
-      if (after.type !== 'gear') {
+      if (_.isEqual(after, before) || !after) return;
+      var text, notes;
+      $rootScope.playSound('Item_Drop');
+
+      if (after.type !== 'gear' && after.type !== 'Quest') {
         var type = (after.type == 'Food') ? 'food' :
           (after.type == 'HatchingPotion') ? 'hatchingPotions' : // can we use camelcase and remove this line?
           (after.type.toLowerCase() + 's');
@@ -70,23 +72,30 @@ habitrpg.controller('NotificationCtrl',
         User.user.items[type][after.key]++;
       }
 
-      if(after.type === 'HatchingPotion'){
-        var text = Content.hatchingPotions[after.key].text();
-        var notes = Content.hatchingPotions[after.key].notes();
-        Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), after);
-      }else if(after.type === 'Egg'){
-        var text = Content.eggs[after.key].text();
-        var notes = Content.eggs[after.key].notes();
-        Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), after);
-      }else if(after.type === 'Food'){
-        var text = Content.food[after.key].text();
-        var notes = Content.food[after.key].notes();
-        Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
-      }else{
-        // Keep support for another type of drops that might be added
-        Notification.drop(User.user._tmp.drop.dialog);
+      switch(after.type) {
+        case 'Quest':
+          $rootScope.selectedQuest = Content.quests[after.key];
+          $rootScope.openModal('questDrop');
+          break;
+        case 'HatchingPotion':
+          text = Content.hatchingPotions[after.key].text();
+          notes = Content.hatchingPotions[after.key].notes();
+          Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), after);
+          break;
+        case 'Egg':
+          text = Content.eggs[after.key].text();
+          notes = Content.eggs[after.key].notes();
+          Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), after);
+          break;
+        case 'Food':
+          text = Content.food[after.key].text();
+          notes = Content.food[after.key].notes();
+          Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
+          break;
+        default:
+          Notification.drop(User.user._tmp.drop.dialog);
       }
-      $rootScope.playSound('Item_Drop');
+
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
     });
 

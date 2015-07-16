@@ -1,5 +1,23 @@
 include ./quest-rewards
 
+mixin questInfo
+  .pull-right-sm.text-center
+    .col-centered(class='quest_{{::selectedQuest.key}}')
+    div(ng-if='::selectedQuest.boss')
+      h4 {{::selectedQuest.boss.name()}}
+      p
+        strong=env.t('bossHP') + ': '
+        | {{::selectedQuest.boss.hp}}
+      p
+        strong=env.t('bossStrength') + ': '
+        | {{::selectedQuest.boss.str}}
+    div(ng-if='::selectedQuest.collect')
+      p(ng-repeat='(k,v) in ::selectedQuest.collect')
+        strong=env.t('collect') + ': '
+        | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}}
+  div(ng-bind-html='::selectedQuest.notes()')
+  quest-rewards(key='{{::selectedQuest.key}}', header=env.t('rewards'))
+
 script(type='text/ng-template', id='modals/questCompleted.html')  
   .modal-header
     h4 "{{::Content.quests[user.party.quest.completed].text()}}"
@@ -15,28 +33,12 @@ script(type='text/ng-template', id='modals/showQuest.html')
   .modal-header
     h4 {{::selectedQuest.text()}}
   .modal-body
-    .pull-right-sm.text-center
-      .col-centered(class='quest_{{::selectedQuest.key}}')
-      div(ng-if='::selectedQuest.boss')
-        h4 {{::selectedQuest.boss.name()}}
-        p
-          strong=env.t('bossHP') + ': ' 
-          | {{::selectedQuest.boss.hp}}
-        p
-          strong=env.t('bossStrength') + ': '
-          | {{::selectedQuest.boss.str}}
-      div(ng-if='::selectedQuest.collect')
-        p(ng-repeat='(k,v) in ::selectedQuest.collect')
-          strong=env.t('collect') + ': '
-          | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}} 
-
-    div(ng-bind-html='::selectedQuest.notes()')
-    quest-rewards(key='{{::selectedQuest.key}}', header=env.t('rewards'))
-    hr    
+    +questInfo
+    hr
     .npc_ian.pull-left
     p=env.t('questSend')
     p=env.t('questWarning')
-  .modal-footer
+  .modal-footer(ng-controller='PartyCtrl')
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
     button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
 
@@ -44,22 +46,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-header
     h4 {{::selectedQuest.text()}}
   .modal-body
-    .pull-right-sm.text-center
-      .col-centered(class='quest_{{::selectedQuest.key}}')
-      div(ng-if='::selectedQuest.boss')
-        h4 {{::selectedQuest.boss.name()}}
-        p
-          strong=env.t('bossHP') + ': ' 
-          | {{::selectedQuest.boss.hp}}
-        p
-          strong=env.t('bossStrength') + ': '
-          | {{::selectedQuest.boss.str}}
-      div(ng-if='::selectedQuest.collect')
-        p(ng-repeat='(k,v) in ::selectedQuest.collect')
-          strong=env.t('collect') + ': '
-          | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}} 
-    div(ng-bind-html='::selectedQuest.notes()')
-    quest-rewards(key='{{::selectedQuest.key}}', header=env.t('rewards'))
+    +questInfo
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
     button.btn.btn-primary(ng-if='::selectedQuest.category !== "gold"', ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest') + ': {{::selectedQuest.value}} ' + env.t('gems')
@@ -90,3 +77,17 @@ script(type='text/ng-template', id='modals/questInvitation.html')
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
     button.btn.btn-default(ng-click='questReject(party); $close()')=env.t('reject')
     button.btn.btn-primary(ng-click='questAccept(party); $close()')=env.t('accept')
+
+script(type='text/ng-template', id='modals/questDrop.html')
+  .quest-icon.pull-right(class='inventory_quest_scroll_{{::selectedQuest.key}}')
+  .modal-header
+    h4=env.t('messageDropQuest')
+  .modal-body
+    h4 {{::selectedQuest.text()}}
+    +questInfo
+    hr
+    .npc_ian.pull-left
+    p=env.t('dropQuestCongrats')
+  .modal-footer(ng-controller='PartyCtrl')
+    button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
+    button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
