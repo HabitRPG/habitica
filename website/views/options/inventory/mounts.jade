@@ -14,28 +14,24 @@ mixin mountList(source)
       -}
 
 .container-fluid
-  .stable.row-fluid
-    table
-      tr
-        td
-          div(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
-        td
-          .popover.static-popover.fade.right.in
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
-            .popover-content
-              p=env.t('mattShall', {name: "{{user.profile.name}}"})
-              h4= env.t('mountMasterProgress') + ': {{mountCount}} / {{totalMounts}} ' + env.t('mountsTamed')
-    .col-md-12
-      +mountList(env.Content.dropEggs)
-    .col-md-12
-      h4=env.t('questMounts')
-      +mountList(env.Content.questEggs)
-    .col-md-12
-      h4=env.t('rareMounts')
-      menu
-        div
-          each t,k in env.Content.specialMounts
-            - var animal = k.split('-')[0], color = k.split('-')[1]
-            button(ng-if='user.items.mounts["#{animal}-#{color}"]', class="pet-button Mount_Head_#{animal}-#{color}", ng-class='{active: user.items.currentMount == "#{animal}-#{color}"}', ng-click='chooseMount("#{animal}", "#{color}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
+  .stable.row: .col-xs-12
+    .pull-left-sm.col-centered(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
+    .popover.static-popover.fade.right.in.pull-left-sm.col-centered
+      .arrow.hidden-xs
+      h3.popover-title
+        a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
+      .popover-content
+        p=env.t('mattShall', {name: "{{user.profile.name}}"})
+        h4= env.t('mountMasterProgress') + ': {{mountCount}} / {{totalMounts}} ' + env.t('mountsTamed')
+  .row.col-md-12
+    +mountList(env.Content.dropEggs)
+  .row.col-md-12
+    h4=env.t('questMounts')
+    +mountList(env.Content.questEggs)
+  .row.col-md-12
+    h4=env.t('rareMounts')
+    menu
+      div
+        each t,k in env.Content.specialMounts
+          - var animal = k.split('-')[0], color = k.split('-')[1]
+          button(ng-if='user.items.mounts["#{animal}-#{color}"]', class="pet-button Mount_Head_#{animal}-#{color}", ng-class='{active: user.items.currentMount == "#{animal}-#{color}"}', ng-click='chooseMount("#{animal}", "#{color}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
