@@ -24,13 +24,13 @@ mixin petList(source)
         p=env.t('mattBochText1')
         h4=env.t('beastMasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
-  .row.col-md-12
+  .row: .col-md-12
     +petList(env.Content.dropEggs)
-  .row.col-md-12
+  .row: .col-md-12
     h4=env.t('questPets')
     +petList(env.Content.questEggs)
 
-  .row.col-md-12
+  .row: .col-md-12
     h4=env.t('rarePets')
     menu
       div

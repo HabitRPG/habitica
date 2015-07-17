@@ -18,7 +18,7 @@
           b x{{user.purchased.plan.consecutive.trinkets}}
         p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitrpg.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
 
-  .row.col-md-12
+  .row: .col-md-12
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
         div(ng-repeat='item in set.items')

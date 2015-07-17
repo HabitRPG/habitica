@@ -23,12 +23,12 @@ mixin mountList(source)
       .popover-content
         p=env.t('mattShall', {name: "{{user.profile.name}}"})
         h4= env.t('mountMasterProgress') + ': {{mountCount}} / {{totalMounts}} ' + env.t('mountsTamed')
-  .row.col-md-12
+  .row: .col-md-12
     +mountList(env.Content.dropEggs)
-  .row.col-md-12
+  .row: .col-md-12
     h4=env.t('questMounts')
     +mountList(env.Content.questEggs)
-  .row.col-md-12
+  .row: .col-md-12
     h4=env.t('rareMounts')
     menu
       div
