@@ -27,6 +27,7 @@
     "payWithCard": "Betal med kort",
     "payNote": "Bemærk: PayPal tager nogen gange lang tid om at udføre betalinger. Vi anbefaler, at du betaler med kort.",
     "card": "Kort",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Betalingsmetoder:",
     "classGear": "Klasseudstyr",
     "classGearText": "Først: Lad være med at panikke! Dit gamle udstyr er nu i dit inventar, og du er nu iført dit <strong><%= klass %></strong>-lærlingeudstyr. At være iført din klasses udstyr giver 50% bonus til statistikker. Du kan dog stadig skifte tilbage til dit gamle udstyr hvis du vil.",

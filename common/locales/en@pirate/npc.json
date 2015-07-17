@@ -27,6 +27,7 @@
     "payWithCard": "Pay with Card",
     "payNote": "Ahoy! PayPal sometimes be takin' a long time to clear.  Payin' with yer card be better.",
     "card": "Card",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Payment Methods:",
     "classGear": "Class Gear",
     "classGearText": "First: don't panic! ye barnacle-covered gear be in ye inventory, 'n ye're now wearin' ye apprentice <strong><%= klass %></strong> equipment. Wearin' ye class's gear grants ye a 50% bonus to stats. However, feel free to switch back to ye old gear.",

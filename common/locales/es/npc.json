@@ -27,6 +27,7 @@
     "payWithCard": "Pagar con una tarjeta de crédito",
     "payNote": "Nota: Paypal a veces toma mucho tiempo autorizando. Recomendamos pagar con tarjeta de crédito.",
     "card": "Tarjeta de Crédito",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Formas de pago:",
     "classGear": "Equipo de clase",
     "classGearText": "Primero: ¡No te preocupes! Tu equipo viejo está en tu inventario y ahora llevas tu equipamiento de aprendiz de <strong><%= klass %></strong>. Llevar el equipo de tu clase te da un bonus del 50% a tus atributos. Sin embargo, eres libre de ponerte tu antiguo equipo.",

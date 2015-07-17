@@ -27,6 +27,7 @@
     "payWithCard": "Betala med Kort",
     "payNote": "Notera: Ibland tar PayPal länge tid att godkänna köpet. Vi rekommenderar kortbetalning.",
     "card": "Kort",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Betalningsmetoder:",
     "classGear": "Klassutrustning",
     "classGearText": "Först av allt: drabbas inte av panik! Din gamla utrustning är i ditt förråd och du har nu på dig lärlingsutrustningen för <strong><%= klass %></strong>. Att bära din klass utrustning ger dig en 50% egenskapsbonus. Men du får självklart byta tillbaka till din gamla utrustning om du hellre vill det.",

@@ -27,6 +27,7 @@
     "payWithCard": "Platiti karticom",
     "payNote": "Napomena: Uplatem putem PayPal-a ponekad se sporo realizuju. Preporučujemo plaćanje karticom.",
     "card": "Kartica",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Metode plaćanja:",
     "classGear": "Oprema i klase",
     "classGearText": "Samo polako i bez panike. Vaša stara oprema je u inventaru. Na Vama je početnička oprema za klasu <strong><%= klass %></strong>. Možete se slobodno vratiti svojoj staroj opremi, ali imajte u vidu da sa opremom za svoju klasu imate bonus od 50%.",

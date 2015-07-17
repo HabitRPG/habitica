@@ -27,6 +27,7 @@
     "payWithCard": "Platba kartou",
     "payNote": "Poznámka: Platby cez PayPal občas trvajú dlho. Odporúčame platiť kartou.",
     "card": "Platobná karta",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Možnosti platby:",
     "classGear": "Výzbroj povolania",
     "classGearText": "Poprvé: Nepanikár! Svoju starú výzbroj máš v inventári. Teraz máš oblečenú výzbroj pre <strong><%= klass %>a</strong> - učňa. Keď máš oblečenú výzbroj určenú pre svoje povolanie, získavať 50% bonus k atribútom. Ak chceš, môžeš si obliecť aj svoju starú výzbroj.",

@@ -27,6 +27,7 @@
     "payWithCard": "用信用卡購買",
     "payNote": "請注意： PayPal 有時候付款會蠻花時間的，我們建議你用信用卡購買。",
     "card": "信用卡",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "付款方式：",
     "classGear": "職業裝備",
     "classGearText": "首先：別怕！你的舊裝備放在你的背包，你現在穿著你的新手<strong><%= klass %></strong>裝備。穿你的職業裝備會為你提供50%額外屬性獎勵。但是，你仍然可以切換回原來的裝備。",

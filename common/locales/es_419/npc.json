@@ -27,6 +27,7 @@
     "payWithCard": "Pagar con una tarjeta de crédito",
     "payNote": "Nota: Paypal a veces toma mucho tiempo para autorizar el pago. Recomendamos que pagues con tarjeta de crédito.",
     "card": "Tarjeta de crédito",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Métodos de pago:",
     "classGear": "Equipo de clase",
     "classGearText": "Primero: ¡No se preocupe! Tu equipamiento viejo está en tu inventario, y ahora llevas puesto tu equipamiento de aprendiz de <strong><%= klass %></strong>.  Vestir del equipamiento de tu clase le da un aumento de 50% a tus estadísticas. Sin embargo, siéntete libre de cambiar de equipamiento cuando quieras.",

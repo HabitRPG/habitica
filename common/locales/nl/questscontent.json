@@ -229,7 +229,7 @@
     "questDilatoryDistress2RageDescription": "Zwerm herrijzing: Deze balk vult zich wanneer je je dagelijkse taken niet afvinkt. Wanneer de balk vol is, zal de Waterschedelzwerm 30% van zijn resterende gezondheid terugkrijgen!",
     "questDilatoryDistress2RageEffect": "`Waterschedelzwerm gebruikt ZWERM HERRIJZING!`\n\nAangemoedigd door hun overwinning, komen er meer schedels uit de gletsjerspleet, versterkt het de zwerm!",
     "questDilatoryDistress2DropSkeletonPotion": "Skelet-uitbroedtoverdrankje",
-    "questDilatoryDistress2DropCottonCandyBluePotion": "Suikerspinblauwe-uitbroedtoverdrankje",
+    "questDilatoryDistress2DropCottonCandyBluePotion": "Suikerspinblauw uitbroedtoverdrankje",
     "questDilatoryDistress2DropHeadgear": "Diadeem van brandkoraal (hoofduitrusting)",
     "questDilatoryDistress3Text": "De Droefheid van Dralen, deel 3: Min of Meer een Zeemeermin",
     "questDilatoryDistress3Notes": "Je volgt de bidsprinkhaankreeften diep de trog in en ontdekt een onderwaterfort. Prinses Adva, begeleid door meer waterige schedels, wacht je op in de centrale hal. \"Mijn vader heeft je gestuurd, is het niet? Vertel hem dat ik weiger terug te komen. Ik neem er genoegen mee hier te blijven en mijn toverkrachten te beoefenen. Vertrek nu, of je zult de toorn van de nieuwe koningin van de oceaan voelen!\" Adva lijkt keihard, maar als ze spreekt valt je een rare, robijnrode hanger op, die onheilspellend gloeit om haar nek... Misschien zouden haar waarbeelden ophouden als je het breekt?",
@@ -237,5 +237,5 @@
     "questDilatoryDistress3Boss": "Adva, de overweldigende meermin",
     "questDilatoryDistress3DropFish": "Vis (voedsel)",
     "questDilatoryDistress3DropWeapon": "Drietand van verpletterend getij (wapen)",
-    "questDilatoryDistress3DropShield": "Maanparel schild (schild)"
+    "questDilatoryDistress3DropShield": "Maanparelschild (schild)"
 }
