@@ -27,6 +27,7 @@
     "payWithCard": "Pay with Card",
     "payNote": "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
     "card": "Card",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Payment Methods:",
 
     "classGear": "Class Gear",
