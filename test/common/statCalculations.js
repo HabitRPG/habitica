@@ -78,5 +78,28 @@ describe('stat calculation functions', function() {
 
       expect(classBonus).to.eql(20)
     });
+
+    it('does not return value if user has not been wrapped (_statComputed)', function() {
+      var equippedGear = {
+        "weapon" : "weapon_warrior_1",
+        "shield" : "shield_warrior_1",
+        "head" : "head_warrior_1",
+        "armor" : "armor_warrior_1"
+      };
+      var user = {
+        stats: {
+          lvl: 10,
+          buffs: { str: 10 },
+          str: 10
+        },
+        items: {
+         gear: { equipped: equippedGear }
+        }
+      };
+      var stat = 'str';
+      var classBonus = statCalc.classBonus(user, stat);
+
+      expect(classBonus).to.not.exist;
+    });
   });
 });

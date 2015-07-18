@@ -23,22 +23,27 @@ function equipmentStatBonus(stat, equipped) {
 
   _(equipmentTypes).each(function(type) {
     var equippedItem = equipped[type]
-    var equipmentStat = gear[equippedItem][stat];
+    if(gear[equippedItem]) {
+      var equipmentStat = gear[equippedItem][stat];
 
-    total += equipmentStat;
+      total += equipmentStat;
+    }
   });
 
   return total;
 }
 
 function classBonus(user, stat) {
-  var bonus = user._statsComputed[stat]
-    - user.stats.buffs[stat]
-    - levelBonus(user.stats.lvl)
-    - equipmentStatBonus(stat, user.items.gear.equipped)
-    - user.stats[stat]
+  var computedStats = user._statsComputed;
+  if(computedStats) {
+    var bonus = computedStats[stat]
+      - user.stats.buffs[stat]
+      - levelBonus(user.stats.lvl)
+      - equipmentStatBonus(stat, user.items.gear.equipped)
+      - user.stats[stat]
 
-  return bonus;
+    return bonus;
+  }
 }
 
 module.exports = {
