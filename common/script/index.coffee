@@ -33,8 +33,6 @@ api.planGemLimits =
   convRate: 20 #how much does a gem cost?
   convCap: 25 #how many gems can be converted / month?
 
-api.statCalc = require('./methods/statCalculations')
-
 ###
   ------------------------------------------------------
   Time / Day

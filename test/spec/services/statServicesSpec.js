@@ -1,12 +1,20 @@
 'use strict';
-var sinon = require('sinon');
-var chai = require("chai");
-chai.use(require("sinon-chai"));
-var expect = chai.expect;
 
-var statCalc = require('../../common/script/methods/statCalculations');
+describe('Stats Service', function() {
+  var scope, statCalc, user;
 
-describe('stat calculation functions', function() {
+  beforeEach(function() {
+    user = specHelper.newUser();
+
+    module(function($provide) {
+      $provide.value('User', {user: user});
+    });
+
+    inject(function($rootScope, $controller, Stats) {
+      statCalc = Stats;
+    });
+  });
+
   describe('levelBonus', function() {
     it('calculates bonus as half of level for even numbered level under 100', function() {
       var level = 50;
