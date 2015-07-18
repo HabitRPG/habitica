@@ -26,8 +26,9 @@ unless mobile
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
     tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
       td
-        strong {{piece.text()}}:&nbsp;
-        span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
+        strong {{piece.text()}}
+        strong(ng-show='piece.str || piece.con || piece.per || piece.int') :&nbsp;
+        span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{env.t(stat)}}&nbsp;
 
 h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped
