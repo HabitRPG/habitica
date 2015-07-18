@@ -350,6 +350,18 @@ Friendly timestamp
 api.friendlyTimestamp = (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
 
 ###
+ISO timestamp
+###
+api.isoTimestamp = (timestamp) -> moment(timestamp).toISOString()
+
+###
+plain timestamp
+###
+api.momentTimestamp = (timestamp) -> moment(timestamp)
+
+
+
+###
 Does user have new chat messages?
 ###
 api.newChatMessages = (messages, lastMessageSeen) ->

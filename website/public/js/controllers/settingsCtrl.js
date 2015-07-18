@@ -66,11 +66,22 @@ habitrpg.controller('SettingsCtrl',
       User.set({'flags.newStuff':true});
     }
 
-    $scope.saveDayStart = function(){
-      var dayStart = +User.user.preferences.dayStart;
-      if (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
+    $scope.passDayStart = User.user.preferences.dayStart;
+
+    $scope.saveDayStart = function(newDayStart){
+      var oldDayStart = User.user.preferences.dayStart;
+      var dayStart = newDayStart;
+      var lastCron = User.user.lastCron;
+      var getOldStart = Shared.startOfDay({ dayStart: oldDayStart});
+      var getNewStart = Shared.startOfDay({ dayStart: dayStart});
+      var isoNewStart = Shared.isoTimestamp(getNewStart);
+
+      if (dayStart == undefined || _.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
         dayStart = 0;
         return alert(window.env.t('enterNumber'));
+      }
+      if (Shared.momentTimestamp(getOldStart) <= Shared.momentTimestamp(lastCron) && Shared.momentTimestamp(lastCron) <  Shared.momentTimestamp(getNewStart)) {
+        User.set({ 'lastCron' : isoNewStart});
       }
       User.set({'preferences.dayStart': dayStart});
     }

@@ -83,7 +83,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
               .form-group
                 .input-group
-                  input.form-control(type='number', min='0', max='23', ng-model='user.preferences.dayStart', ng-blur='saveDayStart()')
+                  input.form-control(type='number', min='0', max='23', ng-model='passDayStart', ng-blur='saveDayStart(passDayStart)')
                   span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
 
       .personal-options.col-md-6
@@ -270,7 +270,7 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
             =env.t('emailNotifications')
           .panel-body
 
-            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'inactivityEmails', 'weeklyRecaps'] 
+            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'inactivityEmails', 'weeklyRecaps']
               -var preference = 'user.preferences.emailNotifications.' + notification
               -var unsubscribeFromAll = 'user.preferences.emailNotifications.unsubscribeFromAll'
 
