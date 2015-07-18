@@ -113,6 +113,8 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
@@ -140,6 +142,8 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
