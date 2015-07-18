@@ -15,7 +15,7 @@
     function hpDisplay(hp) {
       var remainingHP = Math.ceil(hp);
       var totalHP = Shared.maxHealth;
-      var display = remainingHP + '/' + totalHP;
+      var display = _formatOutOfTotalDisplay(remainingHP, totalHP);
 
       return display;
     }
@@ -28,7 +28,7 @@
     function mpDisplay(user) {
       var remainingMP = Math.floor(user.stats.mp);
       var totalMP = user._statsComputed.maxMP;
-      var display = remainingMP + '/' + totalMP;
+      var display = _formatOutOfTotalDisplay(remainingMP, totalMP);
 
       return display;
     }
@@ -36,7 +36,7 @@
     function expDisplay(user) {
       var exp = Math.floor(user.stats.exp);
       var toNextLevel = Shared.tnl(user.stats.lvl);
-      var display = exp + '/' + toNextLevel;
+      var display = _formatOutOfTotalDisplay(exp, toNextLevel);
 
       return display;
     }
@@ -83,6 +83,11 @@
 
         return bonus;
       }
+    }
+
+    function _formatOutOfTotalDisplay(stat, totalStat) {
+      var display = stat + "/" + totalStat;
+      return display;
     }
 
     return {
