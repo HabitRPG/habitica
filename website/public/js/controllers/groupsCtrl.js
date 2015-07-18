@@ -184,6 +184,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $scope.$close();
         });
       }
+      $scope.isBasicAnimal = function(name) {
+        var tmp = name.split('-');
+        $scope.egg = tmp[0];
+        $scope.potion = tmp[1];
+        return env.Content.hatchingPotions[$scope.potion] ? true : false;
+      }
       $scope.gift = {
         type: 'gems',
         gems: {amount:0, fromBalance:true},

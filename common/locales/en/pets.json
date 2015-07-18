@@ -1,9 +1,11 @@
 {
     "pets": "Pets",
+    "equippedPet": "Equipped Pet",
     "petsFound": "Pets Found",
     "rarePets": "Rare Pets",
     "questPets": "Quest Pets",
     "mounts": "Mounts",
+    "equippedMount": "Equipped Mount",
     "mountsTamed": "Mounts Tamed",
     "questMounts": "Quest Mounts",
     "rareMounts": "Rare Mounts",

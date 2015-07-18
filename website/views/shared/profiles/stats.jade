@@ -22,13 +22,19 @@ table.table.table-striped
       | : {{Math.floor(profile.stats.exp)}} / {{Shared.tnl(profile.stats.lvl)}}
 
 unless mobile
-  h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
+  h4(ng-show='user.flags.itemsEnabled')=env.t('battleGear')
   table.table.table-striped(ng-show='user.flags.itemsEnabled')
     tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
       td
         strong {{piece.text()}}
         strong(ng-show='piece.str || piece.con || piece.per || piece.int') :&nbsp;
         span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{env.t(stat)}}&nbsp;
+
+  h4(ng-show='profile.preferences.costume && user._id != profile._id')=env.t('costume')
+  table.table.table-striped(ng-show='profile.preferences.costume && user._id != profile._id')
+    tr(ng-repeat='(k,v) in profile.items.gear.costume', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+      td
+        strong {{piece.text()}}
 
 h4(class=mobile?'item item-divider':'')=env.t('attributes')
 table.table.table-striped
@@ -70,6 +76,10 @@ table.table.table-striped
 
 h4(class=mobile?'item item-divider':'',ng-if='user.flags.dropsEnabled')=env.t('pets')
 table.table.table-striped(ng-if='user.flags.dropsEnabled')
+  tr(ng-if='user._id != profile._id && profile.items.currentPet')
+    td
+      strong=env.t('equippedPet')
+      |: {{::isBasicAnimal(profile.items.currentPet) ? env.t('petName', {potion: Content.hatchingPotions[potion].text(), egg: Content.eggs[egg].text()}) : env.t(Content.specialPets[profile.items.currentPet])}}
   tr
     td
       strong=env.t('petsFound')
@@ -81,6 +91,10 @@ table.table.table-striped(ng-if='user.flags.dropsEnabled')
 
 h4(class=mobile?'item item-divider':'', ng-if='user.flags.dropsEnabled')=env.t('mounts')
 table.table.table-striped(ng-if='user.flags.dropsEnabled')
+  tr(ng-if='user._id != profile._id && profile.items.currentMount')
+    td
+      strong=env.t('equippedMount')
+      |: {{::isBasicAnimal(profile.items.currentMount) ? env.t('mountName', {potion: Content.hatchingPotions[potion].text(), mount: Content.eggs[egg].text()}) : env.t(Content.specialMounts[profile.items.currentMount])}}
   tr
     td
       strong=env.t('mountsTamed')
