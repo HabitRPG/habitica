@@ -53,4 +53,30 @@ describe('stat calculation functions', function() {
       expect(perStat).to.eql(24);
     });
   });
+
+  describe('classBonus', function() {
+    it('calculates class bonus', function() {
+      var equippedGear = {
+        "weapon" : "weapon_warrior_1",
+        "shield" : "shield_warrior_1",
+        "head" : "head_warrior_1",
+        "armor" : "armor_warrior_1"
+      };
+      var user = {
+        _statsComputed: { str: 50 },
+        stats: {
+          lvl: 10,
+          buffs: { str: 10 },
+          str: 10
+        },
+        items: {
+         gear: { equipped: equippedGear }
+        }
+      };
+      var stat = 'str';
+      var classBonus = statCalc.classBonus(user, stat);
+
+      expect(classBonus).to.eql(20)
+    });
+  });
 });

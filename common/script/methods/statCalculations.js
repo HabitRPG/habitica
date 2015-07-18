@@ -31,7 +31,18 @@ function equipmentStatBonus(stat, equipped) {
   return total;
 }
 
+function classBonus(user, stat) {
+  var bonus = user._statsComputed[stat]
+    - user.stats.buffs[stat]
+    - levelBonus(user.stats.lvl)
+    - equipmentStatBonus(stat, user.items.gear.equipped)
+    - user.stats[stat]
+
+  return bonus;
+}
+
 module.exports = {
-  levelBonus: levelBonus,
-  equipmentStatBonus: equipmentStatBonus
+  classBonus: classBonus,
+  equipmentStatBonus: equipmentStatBonus,
+  levelBonus: levelBonus
 }
