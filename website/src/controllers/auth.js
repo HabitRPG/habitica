@@ -11,6 +11,9 @@ var EmailUnsubscription = require('../models/emailUnsubscription').model;
 var ga = require('./../utils').ga;
 var i18n = require('./../i18n');
 
+var querystring = require('querystring');
+var https = require('https');
+
 var isProd = nconf.get('NODE_ENV') === 'production';
 
 var api = module.exports;
@@ -65,10 +68,43 @@ api.authWithUrl = function(req, res, next) {
   });
 }
 
+var SECRET = "6LfGQ8wSAAAAADxUZbqjnRpMVIUJ9McpzvZt92iV";
+
+// Helper function to make API call to recatpcha and check response
+function verifyRecaptcha(key, callback) {
+        https.get("https://www.google.com/recaptcha/api/siteverify?secret=" + SECRET + "&response=" + key, function(res) {
+                var data = "";
+                res.on('data', function (chunk) {
+                        data += chunk.toString();
+                });
+                res.on('end', function() {
+                        try {
+                                var parsedData = JSON.parse(data);
+                                callback(parsedData.success);
+                        } catch (e) {
+                                callback(false);
+                        }
+                });
+        });
+}
+
 api.registerUser = function(req, res, next) {
   var regEmail = RegexEscape(req.body.email),
     regUname = RegexEscape(req.body.username);
+
+  var recaptchaResponse = req.body['g-recaptcha-response'];
+
   async.auto({
+    recaptcha: function(cb) {
+      verifyRecaptcha(recaptchaResponse, function(success) {
+          if (success) {
+            cb();
+          } else {
+            //cb();
+            return cb({code:401, err: "Captcha invalid"});
+          }
+      });
+    },
     validate: function(cb) {
       if (!(req.body.username && req.body.password && req.body.email))
         return cb({code:401, err: ":username, :email, :password, :confirmPassword required"});

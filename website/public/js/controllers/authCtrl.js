@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics', 'vcRecaptchaService',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics, vcRecaptchaService) {
       $scope.Analytics = Analytics;
 
       $scope.logout = function() {
@@ -45,6 +45,13 @@ angular.module('habitrpg')
         if (scope.registrationForm.$invalid) return;
 
         $scope.registrationInProgress = true;
+
+        //Check ReCaptcha data
+        if(!vcRecaptchaService.getResponse()){
+            alert("Please resolve the captcha and submit!")
+        }else {
+            scope.registerVals['g-recaptcha-response'] = vcRecaptchaService.getResponse();
+        }
 
         var url = ApiUrl.get() + "/api/v2/register";
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
@@ -114,6 +121,15 @@ angular.module('habitrpg')
         }, function( e ){
           alert("Signin error: " + e.error.message );
         });
+      }
+
+      //reCaptcha
+      this.publicKey = "6LfGQ8wSAAAAAHP86aI1YMfRq3Lg1lxGo-HYxO7u";
+
+      $scope.signup = function(){
+
+
+
       }
     }
 ]);
