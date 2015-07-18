@@ -71,6 +71,7 @@
 
             "js/controllers/authCtrl.js",
             "js/controllers/menuCtrl.js",
+            "js/controllers/memberModalCtrl.js",
             "js/controllers/notificationCtrl.js",
             "js/controllers/rootCtrl.js",
             "js/controllers/settingsCtrl.js",

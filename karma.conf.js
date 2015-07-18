@@ -73,6 +73,7 @@ module.exports = function(config) {
       "website/public/js/directives/when-scrolled.directive.js",
 
       "website/public/js/controllers/authCtrl.js",
+      "website/public/js/controllers/memberModalCtrl.js",
       "website/public/js/controllers/menuCtrl.js",
       "website/public/js/controllers/notificationCtrl.js",
       "website/public/js/controllers/rootCtrl.js",
