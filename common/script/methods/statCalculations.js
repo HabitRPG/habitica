@@ -15,6 +15,23 @@ function levelBonus(level) {
   return statBonus;
 }
 
+function equipmentStatBonus(stat, equipped) {
+  var gear = Content.gear.flat;
+  var total = 0;
+
+  var equipmentTypes = ['weapon', 'armor', 'head', 'shield'];
+
+  _(equipmentTypes).each(function(type) {
+    var equippedItem = equipped[type]
+    var equipmentStat = gear[equippedItem][stat];
+
+    total += equipmentStat;
+  });
+
+  return total;
+}
+
 module.exports = {
-  levelBonus: levelBonus
+  levelBonus: levelBonus,
+  equipmentStatBonus: equipmentStatBonus
 }
