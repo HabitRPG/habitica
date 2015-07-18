@@ -20,6 +20,14 @@
       return display;
     }
 
+    function mpDisplay(user) {
+      var remainingMP = Math.floor(user.stats.mp);
+      var totalMP = user._statsComputed.maxMP;
+      var display = remainingMP + '/' + totalMP;
+
+      return display;
+    }
+
     function levelBonus(level) {
       // Level bonus is derived by taking the level, subtracting one,
       // taking the smaller of it or maxLevel (100),
@@ -68,7 +76,8 @@
       classBonus: classBonus,
       equipmentStatBonus: equipmentStatBonus,
       hpDisplay: hpDisplay,
-      levelBonus: levelBonus
+      levelBonus: levelBonus,
+      mpDisplay: mpDisplay
     }
   }
 }());

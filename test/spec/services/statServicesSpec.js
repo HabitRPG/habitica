@@ -32,6 +32,24 @@ describe('Stats Service', function() {
     });
   });
 
+  describe('mpDisplay', function() {
+    it('displays mp as "mp / totalMP"', function() {
+      user._statsComputed = { maxMP: 100 };
+      user.stats.mp = 30;
+      var mpDisplay = statCalc.mpDisplay(user);
+
+      expect(mpDisplay).to.eql('30/100');
+    });
+
+    it('Rounds mp down when given a decimal', function() {
+      user._statsComputed = { maxMP: 100 };
+      user.stats.mp = 30.99;
+      var mpDisplay = statCalc.mpDisplay(user);
+
+      expect(mpDisplay).to.eql('30/100');
+    });
+  });
+
   describe('levelBonus', function() {
     it('calculates bonus as half of level for even numbered level under 100', function() {
       var level = 50;
