@@ -95,9 +95,9 @@
     .col-md-6.border-left
       h2=env.t('market')
       .npc_alex_container
-        .pull-left(class="#{env.worldDmg.market ? 'npc_alex_broken' : 'npc_alex'}")
-        .popover.static-popover.fade.right.in.pull-left
-          .arrow
+        .pull-left-sm.col-centered(class="#{env.worldDmg.market ? 'npc_alex_broken' : 'npc_alex'}")
+        .popover.static-popover.fade.right.in.pull-left-sm
+          .arrow.hidden-xs
           h3.popover-title
             a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
           .popover-content
