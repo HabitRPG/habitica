@@ -18,11 +18,12 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           h3.panel-title
             | {{group.name}}
             span.group-leave-join(ng-if='group')
-              a.btn.btn-sm.btn-danger.pull-right(ng-if=":: isMemberOfGroup(User.user._id, group)", ng-click='clickLeave(group, $event)')
+              a.btn.btn-sm.btn-danger.pull-right(ng-if=':: isMemberOfGroup(User.user._id, group) && group.leader._id != user.id', ng-click='clickLeave(group, $event)')
                 span.glyphicon.glyphicon-ban-circle
                 =env.t('leave')
               a.btn.btn-success.pull-right(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
             span(ng-if='group.leader._id == user.id')
+              a.btn.btn-sm.btn-danger.pull-right(ng-show='group._editing', ng-click='group._editing = false')=env.t('cancel')
               button.btn.btn-sm.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
               button.btn.btn-sm.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
 
