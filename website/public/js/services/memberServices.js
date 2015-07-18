@@ -47,7 +47,7 @@
     }
 
     $rootScope.$on('userUpdated', function(event, user){
-      populate(user);
+      addToMembersList(user);
     })
 
     return {
