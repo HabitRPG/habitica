@@ -66,6 +66,24 @@ describe('Stats Service', function() {
     });
   });
 
+  describe('expDisplay', function() {
+    it('displays exp as "exp / toNextLevelExp"', function() {
+      user.stats.exp = 10;
+      user.stats.lvl = 29;
+      var expDisplay = statCalc.expDisplay(user);
+
+      expect(expDisplay).to.eql('10/640');
+    });
+
+    it('Rounds exp down when given a decimal', function() {
+      user.stats.exp = 10.999;
+      user.stats.lvl = 29;
+      var expDisplay = statCalc.expDisplay(user);
+
+      expect(expDisplay).to.eql('10/640');
+    });
+  });
+
   describe('levelBonus', function() {
     it('calculates bonus as half of level for even numbered level under 100', function() {
       var level = 50;

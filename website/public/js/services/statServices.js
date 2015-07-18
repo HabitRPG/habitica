@@ -33,6 +33,14 @@
       return display;
     }
 
+    function expDisplay(user) {
+      var exp = Math.floor(user.stats.exp);
+      var toNextLevel = Shared.tnl(user.stats.lvl);
+      var display = exp + '/' + toNextLevel;
+
+      return display;
+    }
+
     function levelBonus(level) {
       // Level bonus is derived by taking the level, subtracting one,
       // taking the smaller of it or maxLevel (100),
@@ -80,6 +88,7 @@
     return {
       classBonus: classBonus,
       equipmentStatBonus: equipmentStatBonus,
+      expDisplay: expDisplay,
       goldDisplay: goldDisplay,
       hpDisplay: hpDisplay,
       levelBonus: levelBonus,
