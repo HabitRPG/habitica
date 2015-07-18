@@ -1,14 +1,11 @@
 .container-fluid
-  .stable.row
-    .col-md-2
-      .seasonalshop_summer2015
-
-    .col-md-10
-      .popover.static-popover.fade.right.in
-        .arrow
-        h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
-        .popover-content
-          p!=env.t('seasonalShopSummerText')
+  .stable.row: .col-xs-12
+    .seasonalshop_summer2015.pull-left-sm.col-centered
+    .popover.static-popover.fade.right.in.pull-left-sm.col-centered
+      .arrow.hidden-xs
+      h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+      .popover-content
+        p!=env.t('seasonalShopSummerText')
 
   .well(ng-if='User.user.achievements.rebirths > 0')=env.t('seasonalShopRebirth')
 
