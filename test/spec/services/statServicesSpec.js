@@ -15,6 +15,23 @@ describe('Stats Service', function() {
     });
   });
 
+  describe('hpDisplay', function() {
+    it('displays hp as "hp / totalHP"', function() {
+      var hp = 34;
+      var hpDisplay = statCalc.hpDisplay(hp);
+
+      expect(hpDisplay).to.eql('34/50');
+    });
+
+    it('Rounds hp up when given a decimal', function() {
+
+      var hp = 34.4;
+      var hpDisplay = statCalc.hpDisplay(hp);
+
+      expect(hpDisplay).to.eql('35/50');
+    });
+  });
+
   describe('levelBonus', function() {
     it('calculates bonus as half of level for even numbered level under 100', function() {
       var level = 50;

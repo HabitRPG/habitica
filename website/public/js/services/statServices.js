@@ -12,6 +12,14 @@
 
   function statsFactory(Content, Shared) {
 
+    function hpDisplay(hp) {
+      var remainingHP = Math.ceil(hp);
+      var totalHP = Shared.maxHealth;
+      var display = remainingHP + '/' + totalHP;
+
+      return display;
+    }
+
     function levelBonus(level) {
       // Level bonus is derived by taking the level, subtracting one,
       // taking the smaller of it or maxLevel (100),
@@ -59,6 +67,7 @@
     return {
       classBonus: classBonus,
       equipmentStatBonus: equipmentStatBonus,
+      hpDisplay: hpDisplay,
       levelBonus: levelBonus
     }
   }
