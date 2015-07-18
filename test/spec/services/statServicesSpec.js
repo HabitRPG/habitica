@@ -50,6 +50,22 @@ describe('Stats Service', function() {
     });
   });
 
+  describe('goldDisplay', function() {
+    it('displays gold', function() {
+      var gold = 30;
+      var goldDisplay = statCalc.goldDisplay(gold);
+
+      expect(goldDisplay).to.eql(30);
+    });
+
+    it('Rounds gold down when given a decimal', function() {
+      var gold = 30.999;
+      var goldDisplay = statCalc.goldDisplay(gold);
+
+      expect(goldDisplay).to.eql(30);
+    });
+  });
+
   describe('levelBonus', function() {
     it('calculates bonus as half of level for even numbered level under 100', function() {
       var level = 50;

@@ -20,6 +20,11 @@
       return display;
     }
 
+    function goldDisplay(gold) {
+      var display = Math.floor(gold);
+      return display;
+    }
+
     function mpDisplay(user) {
       var remainingMP = Math.floor(user.stats.mp);
       var totalMP = user._statsComputed.maxMP;
@@ -75,6 +80,7 @@
     return {
       classBonus: classBonus,
       equipmentStatBonus: equipmentStatBonus,
+      goldDisplay: goldDisplay,
       hpDisplay: hpDisplay,
       levelBonus: levelBonus,
       mpDisplay: mpDisplay
