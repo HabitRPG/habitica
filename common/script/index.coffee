@@ -90,7 +90,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   # NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  taskStartDate = moment(taskStartDate).startOf('day');
+  taskStartDate = moment(taskStartDate).startOf('day')
 
   if taskStartDate > startOfDayWithCDSTime.startOf('day')
     return false # Daily starts in the future
@@ -514,7 +514,7 @@ api.wrap = (user, main=true) ->
           gear[type].weapon = 'weapon_base_0'
           gear[type].head   = 'head_base_0'
           gear[type].shield = 'shield_base_0'
-        gear.owned = {} if typeof gear.owned == 'undefined';
+        gear.owned = {} if typeof gear.owned == 'undefined'
         _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
         gear.owned.weapon_warrior_0 = true
         user.markModified? 'items.gear.owned'
@@ -709,7 +709,7 @@ api.wrap = (user, main=true) ->
       addPushDevice: (req, cb) ->
         user.pushDevices = [] unless user.pushDevices
         pd = user.pushDevices
-        item = {regId:req.body.regId, type:req.body.type};
+        item = {regId:req.body.regId, type:req.body.type}
         i = _.findIndex pd, {regId: item.regId}
 
         pd.push(item) unless i != -1
@@ -1188,7 +1188,7 @@ api.wrap = (user, main=true) ->
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
               if direction is 'up' # Make progress on quest based on STR
-                user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                user.party.quest.progress.up = user.party.quest.progress.up || 0
                 user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
                 user.party.quest.progress.up += (nextDelta * (0.5 + (user._statsComputed.str / 400))) if task.type is 'habit'
               task.value += nextDelta
@@ -1512,7 +1512,7 @@ api.wrap = (user, main=true) ->
             user.fns.autoAllocate()
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int)
             if user.stats.points < 0
               user.stats.points = 0
               # This happens after dropping level with Fix Character Values and perhaps from other causes.
