@@ -170,6 +170,47 @@ describe('analytics', function() {
           el: 'some label'
         });
       });
+
+      it('if goldCost property is provided, use as value', function() {
+        analyticsData.goldCost = 5;
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith({
+          ec: 'behavior',
+          ea: 'Cron',
+          ev: 5
+        });
+      });
+
+      it('if gemCost property is provided, use as value (overrides goldCost)', function() {
+        analyticsData.gemCost = 7;
+        analyticsData.goldCost = 5;
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith({
+          ec: 'behavior',
+          ea: 'Cron',
+          ev: 7
+        });
+      });
+
+      it('if gaValue property is provided, use as value (overrides gemCost)', function() {
+        analyticsData.gemCost = 7;
+        analyticsData.gaValue = 5;
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(googleEvent).to.be.calledOnce;
+        expect(googleEvent).to.be.calledWith({
+          ec: 'behavior',
+          ea: 'Cron',
+          ev: 5
+        });
+      });
     });
   });
 
