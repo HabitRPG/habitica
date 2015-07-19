@@ -59,14 +59,7 @@ describe('analytics', function() {
 
   describe('track', function() {
 
-    var event_type = 'Cron';
-    var analyticsData = {
-      category: 'behavior',
-      uuid: 'unique-user-id',
-      resting: true,
-      cronCount: 5
-    }
-
+    var analyticsData, event_type;
     var analytics = rewire('../../website/src/analytics');
     var initializedAnalytics;
 
@@ -75,6 +68,14 @@ describe('analytics', function() {
       initializedAnalytics = analytics({amplitudeToken: 'token'});
       analytics.__set__('amplitude.track', amplitudeTrack);
       analytics.__set__('ga.event', googleEvent);
+
+      event_type = 'Cron';
+      analyticsData = {
+        category: 'behavior',
+        uuid: 'unique-user-id',
+        resting: true,
+        cronCount: 5
+      }
     });
 
     context('Amplitude', function() {
@@ -103,10 +104,9 @@ describe('analytics', function() {
           purchased: { plan: { planId: 'foo-plan' } }
         };
 
-        var analyticsDataWithUser = _.cloneDeep(analyticsData);
-        analyticsDataWithUser.user = user;
+        analyticsData.user = user;
 
-        initializedAnalytics.track(event_type, analyticsDataWithUser);
+        initializedAnalytics.track(event_type, analyticsData);
 
         expect(amplitudeTrack).to.be.calledOnce;
         expect(amplitudeTrack).to.be.calledWith({
@@ -137,88 +137,45 @@ describe('analytics', function() {
         initializedAnalytics.track(event_type, analyticsData);
 
         expect(googleEvent).to.be.calledOnce;
-        expect(googleEvent).to.be.calledWith(
-          'behavior',
-          'Cron',
-          'Label Not Specified'
-        );
+        expect(googleEvent).to.be.calledWith({
+          ec: 'behavior',
+          ea: 'Cron'
+        });
       });
 
-      it('if goldCost property is provided, use as label', function() {
-        var data = _.cloneDeep(analyticsData);
-        data.goldCost = 4;
+      it('if itemKey property is provided, use as label', function() {
+        analyticsData.itemKey = 'some item';
 
-        initializedAnalytics.track(event_type, data);
-
-        expect(googleEvent).to.be.calledOnce;
-        expect(googleEvent).to.be.calledWith(
-          'behavior',
-          'Cron',
-          4
-        );
-      });
-
-      it('if gemCost property is provided, use as label (overrides goldCost)', function() {
-        var data = _.cloneDeep(analyticsData);
-        data.goldCost = 10;
-        data.itemKey = 50;
-
-        initializedAnalytics.track(event_type, data);
+        initializedAnalytics.track(event_type, analyticsData);
 
         expect(googleEvent).to.be.calledOnce;
-        expect(googleEvent).to.be.calledWith(
-          'behavior',
-          'Cron',
-          50
-        );
-      });
-
-      it('if itemKey property is provided, use as label (overrides gem/goldCost)', function() {
-        var data = _.cloneDeep(analyticsData);
-        data.goldCost = 5;
-        data.gemCost = 50;
-        data.itemKey = 'some item';
-
-        initializedAnalytics.track(event_type, data);
-
-        expect(googleEvent).to.be.calledOnce;
-        expect(googleEvent).to.be.calledWith(
-          'behavior',
-          'Cron',
-          'some item'
-        );
+        expect(googleEvent).to.be.calledWith({
+          ec: 'behavior',
+          ea: 'Cron',
+          el: 'some item'
+        });
       });
 
       it('if gaLabel property is provided, use as label (overrides itemKey)', function() {
-        var data = _.cloneDeep(analyticsData);
-        data.value = 'some value';
-        data.itemKey = 'some item';
-        data.gaLabel = 'some label';
+        analyticsData.value = 'some value';
+        analyticsData.itemKey = 'some item';
+        analyticsData.gaLabel = 'some label';
 
-        initializedAnalytics.track(event_type, data);
+        initializedAnalytics.track(event_type, analyticsData);
 
         expect(googleEvent).to.be.calledOnce;
-        expect(googleEvent).to.be.calledWith(
-          'behavior',
-          'Cron',
-          'some label'
-        );
+        expect(googleEvent).to.be.calledWith({
+          ec: 'behavior',
+          ea: 'Cron',
+          el: 'some label'
+        });
       });
     });
   });
 
   describe('trackPurchase', function() {
 
-    var purchaseData = {
-      uuid: 'user-id',
-      sku: 'paypal-checkout',
-      paymentMethod: 'PayPal',
-      itemPurchased: 'Gems',
-      purchaseValue: 8,
-      purchaseType: 'checkout',
-      gift: false,
-      quantity: 1
-    }
+    var purchaseData;
 
     var analytics = rewire('../../website/src/analytics');
     var initializedAnalytics;
@@ -229,13 +186,24 @@ describe('analytics', function() {
       analytics.__set__('amplitude.track', amplitudeTrack);
       analytics.__set__('ga.event', googleEvent);
       analytics.__set__('ga.transaction', googleTransaction);
+
+     purchaseData  = {
+        uuid: 'user-id',
+        sku: 'paypal-checkout',
+        paymentMethod: 'PayPal',
+        itemPurchased: 'Gems',
+        purchaseValue: 8,
+        purchaseType: 'checkout',
+        gift: false,
+        quantity: 1
+      }
+
     });
 
     context('Amplitude', function() {
 
       it('calls amplitude.track', function() {
-        var data = _.cloneDeep(purchaseData);
-        initializedAnalytics.trackPurchase(data);
+        initializedAnalytics.trackPurchase(purchaseData);
 
         expect(amplitudeTrack).to.be.calledOnce;
         expect(amplitudeTrack).to.be.calledWith({
@@ -258,21 +226,19 @@ describe('analytics', function() {
     context('Google Analytics', function() {
 
       it('calls ga.event', function() {
-        var data = _.cloneDeep(purchaseData);
-        initializedAnalytics.trackPurchase(data);
+        initializedAnalytics.trackPurchase(purchaseData);
 
         expect(googleEvent).to.be.calledOnce;
-        expect(googleEvent).to.be.calledWith(
-          'commerce',
-          'checkout',
-          'PayPal',
-          8
-        );
+        expect(googleEvent).to.be.calledWith({
+          ec: 'commerce',
+          ea: 'checkout',
+          el: 'PayPal',
+          ev: 8
+        });
       });
 
       it('calls ga.transaction', function() {
-        var data = _.cloneDeep(purchaseData);
-        initializedAnalytics.trackPurchase(data);
+        initializedAnalytics.trackPurchase(purchaseData);
 
         expect(googleTransaction).to.be.calledOnce;
         expect(googleTransaction).to.be.calledWith(
@@ -291,9 +257,8 @@ describe('analytics', function() {
 
       it('appends gift to variation of ga.transaction.item if gift is true', function() {
 
-        var data = _.cloneDeep(purchaseData);
-        data.gift = true;
-        initializedAnalytics.trackPurchase(data);
+        purchaseData.gift = true;
+        initializedAnalytics.trackPurchase(purchaseData);
 
         expect(googleItem).to.be.calledOnce;
         expect(googleItem).to.be.calledWith(
