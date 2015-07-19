@@ -124,7 +124,7 @@ angular.module('habitrpg')
       }
 
       //reCaptcha
-      this.publicKey = "6LfGQ8wSAAAAAHP86aI1YMfRq3Lg1lxGo-HYxO7u";
+      this.publicKey = window.env.RECAPTCHA_PUBLIC;
 
       $scope.signup = function(){
 

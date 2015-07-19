@@ -68,11 +68,9 @@ api.authWithUrl = function(req, res, next) {
   });
 }
 
-var SECRET = "6LfGQ8wSAAAAADxUZbqjnRpMVIUJ9McpzvZt92iV";
-
 // Helper function to make API call to recatpcha and check response
 function verifyRecaptcha(key, callback) {
-        https.get("https://www.google.com/recaptcha/api/siteverify?secret=" + SECRET + "&response=" + key, function(res) {
+        https.get("https://www.google.com/recaptcha/api/siteverify?secret=" + nconf.get('RECAPTCHA_SECRET') + "&response=" + key, function(res) {
                 var data = "";
                 res.on('data', function (chunk) {
                         data += chunk.toString();
@@ -93,14 +91,12 @@ api.registerUser = function(req, res, next) {
     regUname = RegexEscape(req.body.username);
 
   var recaptchaResponse = req.body['g-recaptcha-response'];
-
   async.auto({
     recaptcha: function(cb) {
       verifyRecaptcha(recaptchaResponse, function(success) {
           if (success) {
             cb();
           } else {
-            //cb();
             return cb({code:401, err: "Captcha invalid"});
           }
       });
