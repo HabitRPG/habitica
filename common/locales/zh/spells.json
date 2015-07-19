@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "闪光种子",
     "spellSpecialShinySeedNotes": "把一个好友变成一朵笑笑花。",
     "spellSpecialPetalFreePotionText": "除花剂",
-    "spellSpecialPetalFreePotionNotes": "解除闪光种子效果。"
+    "spellSpecialPetalFreePotionNotes": "解除闪光种子效果。",
+    "spellSpecialSeafoamText": "浪花",
+    "spellSpecialSeafoamNotes": "把好友变成海洋生物",
+    "spellSpecialSandText": "沙子",
+    "spellSpecialSandNotes": "取消浪花效果"
 }

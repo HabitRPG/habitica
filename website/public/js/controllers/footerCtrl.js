@@ -31,13 +31,13 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
-    // Google Content Experiments
+    /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
-      $.getScript('//www.google-analytics.com/cx/api.js?experiment=t-AFggRWQnuJ6Teck_x1-Q', function(){
+      $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){
         $rootScope.variant = cxApi.chooseVariation();
         $rootScope.$apply();
       })
-    }
+    } */
 
     // Scripts only for desktop
     if (!window.env.IS_MOBILE) {

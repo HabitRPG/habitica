@@ -8,6 +8,8 @@
     "alarmingFriendsText": "被队友吓到了 <%= spookDust %> 次",
     "agriculturalFriends": "农民同志",
     "agriculturalFriendsText": "被队友变成花朵<%= seeds %>次。",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "情人节卡片",
     "valentineCardNotes": "赠送情人节卡片给你的一个队伍成员。",
     "valentine0": "\"玫瑰红艳<%= lineBreak %>我的每日任务宝蓝<%= lineBreak %>我欢呼雀跃，因为<%= lineBreak %>能与你同在派对中!\"",

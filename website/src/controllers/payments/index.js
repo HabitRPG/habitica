@@ -198,6 +198,7 @@ exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
 
 exports.amazonVerifyAccessToken = amazon.verifyAccessToken;
+exports.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
 exports.amazonCheckout = amazon.checkout;
 exports.amazonSubscribe = amazon.subscribe;
 exports.amazonSubscribeCancel = amazon.subscribeCancel;

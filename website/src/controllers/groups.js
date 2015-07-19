@@ -443,6 +443,7 @@ api.join = function(req, res, next) {
     user.save();
     // invite new user to pending quest
     if (group.quest.key && !group.quest.active) {
+      User.update({_id:user._id},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
       group.quest.members[user._id] = undefined;
       group.markModified('quest.members');
     }
@@ -754,6 +755,11 @@ api.removeMember = function(req, res, next){
         if(err) return next(err);
 
         sendMessage(removedUser);
+
+        //Mark removed users messages as seen
+        var update = {$unset:{}};
+        update.$unset['newMessages.' + group._id] = '';
+        User.update({_id: removedUser._id, apiToken: removedUser.apiToken}, update).exec();
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update

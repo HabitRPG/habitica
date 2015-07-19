@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "לא בבעלות",
     "challengedEitherOwnedFilter": "אחד מהשניים",
     "backToChallenges": "בחזרה לכל האתגרים",
-    "prizeValue": "<%= gemcount %><%= gemicon %> פרס"
+    "prizeValue": "<%= gemcount %><%= gemicon %> פרס",
+    "clone": "שכפול"
 }

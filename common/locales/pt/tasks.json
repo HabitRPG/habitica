@@ -23,6 +23,7 @@
     "difficulty": "Dificuldade",
     "difficultyHelpTitle": "Quão difícil é essa tarefa?",
     "difficultyHelpContent": "Quanto mais difícil é uma tarefa, mais Experiência e Ouro dará quando você a completa... mas lhe causará mais dano se for uma Tarefa Diária ou Hábito Ruim.",
+    "trivial": "Trivial",
     "easy": "Fácil",
     "medium": "Médio",
     "hard": "Difícil",

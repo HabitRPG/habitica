@@ -94,7 +94,7 @@
     "abuseFlag": "Anmeld overtrædelse af Retningslinjer for Fællesskabet",
     "abuseFlagModalHeading": "Anmeld <%= name %> for overtrædelse?",
     "abuseFlagModalBody": "Er du sikker på, at du vil anmelde denne besked? Du skal KUN anmelde en besked, der overtræder <%= firstLinkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og/eller <%= secondLinkStart %>Betingelser og Vilkår<%= linkEnd %>.  Hvis du anmelder en besked for andre ting end disse har du selv brudt Retningslinjer for Fællesskabet og kan få en Overtrædelse.",
-    "abuseFlagModalButton": "Anmeld",
+    "abuseFlagModalButton": "Anmeld Overtrædelse",
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
     "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",
     "needsText": "Indtast venligst en besked.",
@@ -119,6 +119,8 @@
     "sendGiftPurchase": "Køb",
     "sendGiftMessagePlaceholder": "Personlig besked (valgfri)",
     "sendGiftSubscription": "<%= months %> Måned(er): $<%= price %>",
-    "startAParty": "Start en gruppe",
-    "addToParty": "Tilføj nogen til din gruppe"
+    "battleWithFriends": "Bekæmp Monstre med dine Venner",
+    "startAParty": "Start en Gruppe",
+    "addToParty": "Tilføj nogen til din gruppe",
+    "likePost": "Click if you like this post!"
 }

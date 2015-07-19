@@ -10,9 +10,9 @@
       .meter-label(tooltip=env.t('health'))
         span.glyphicon.glyphicon-heart
       .meter.health(tooltip='{{Math.round(user.stats.hp * 100) / 100}}')
-        .bar(ng-style='{"width": Shared.percent(user.stats.hp, 50)+"%"}')
+        .bar(ng-style='{"width": Shared.percent(user.stats.hp, Shared.maxHealth)+"%"}')
         span.meter-text.value
-          | {{Math.ceil(user.stats.hp)}} / 50
+          | {{Math.ceil(user.stats.hp)}} / {{::Shared.maxHealth}}
       .meter-label(tooltip=env.t('experience'))
         span.glyphicon.glyphicon-star
       .meter.experience(tooltip='{{Math.round(user.stats.exp * 100) / 100}}')
@@ -29,11 +29,11 @@
         span.meter-text.value
           span
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
-
     // party
-    span(ng-controller='PartyCtrl')
-      button.party-invite.pull-right.btn.btn-primary(ng-click="inviteOrStartParty(group)",
+    .party(ng-controller='PartyCtrl')
+      button.party-invite.btn.btn-primary(ng-click="inviteOrStartParty(group)",
         ng-if="(!party.members || party.memberCount === 1) && user.preferences.displayInviteToPartyWhenPartyIs1",
-        popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")=env.t("inviteFriends")
+        popover="{{!party.members ? env.t('startAParty') : env.t('addToParty')}}", popover-placement="left", popover-trigger="mouseenter")
+        span=env.t("battleWithFriends")
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         +herobox()

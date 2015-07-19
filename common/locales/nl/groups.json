@@ -94,7 +94,7 @@
     "abuseFlag": "Overtreding van gemeenschapsrichtlijnen melden",
     "abuseFlagModalHeading": "<%= name %> rapporteren wegens overtreding?",
     "abuseFlagModalBody": "Weet je zeker dat je dit bericht wil aangeven? Je moet alleen berichten aangeven die de  <%= firstLinkStart %>gemeenschaprsichtlijnen<%= linkEnd %> of <%= secondLinkStart %>algemene voorwaarden<%= linkEnd %> overtreden. Het onnodig rapporteren van berichten is een overtreding van de gemeenschapsrichtlijnen en kan resulteren in een berisping.",
-    "abuseFlagModalButton": "Melding sturen",
+    "abuseFlagModalButton": "Overtreding melden",
     "abuseReported": "Dank je voor het melden van deze overtreding. De beheerders zijn op de hoogte gesteld.",
     "abuseAlreadyReported": "Je hebt dit bericht al gemeld.",
     "needsText": "Typ een bericht.",
@@ -119,6 +119,8 @@
     "sendGiftPurchase": "Kopen",
     "sendGiftMessagePlaceholder": "Persoonlijk bericht (optioneel)",
     "sendGiftSubscription": "<%= months %> maand(en): $<%= price %>",
+    "battleWithFriends": "Strijd met je vrienden tegen monsters ",
     "startAParty": "Een groep beginnen",
-    "addToParty": "Iemand aan je groep toevoegen"
+    "addToParty": "Iemand aan je groep toevoegen",
+    "likePost": "Klik hier als je dit bericht leuk vindt!"
 }

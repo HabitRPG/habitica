@@ -1,10 +1,12 @@
 "use strict";
 
-habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$rootScope',
-  function($scope, Groups, User, $location, $rootScope) {
+habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
+  function($scope, Groups, User) {
 
     $scope.Math = window.Math;
     $scope.user = User.user;
+
+    $scope.inviteOrStartParty = Groups.inviteOrStartParty;
 
     $scope.party = Groups.party(function(){
         var triggerResort = function() {
@@ -15,19 +17,6 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User', '$location', '$ro
         $scope.$watch('user.party.order', triggerResort);
         $scope.$watch('user.party.orderAscending', triggerResort);
     });
-
-    $scope.inviteOrStartParty = function(group) {
-      if (group.type === "party") {
-        $rootScope.openModal('invite-friends', {
-          controller:'InviteToGroupCtrl',
-          resolve: {
-            injectedGroup: function(){ return group; }
-          }
-        });
-      } else {
-        $location.path("/options/groups/party");
-      }
-    }
 
     function resortParty() {
       var result = _.sortBy(

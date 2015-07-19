@@ -52,7 +52,8 @@
     "challengedOwnedFilterHeader": "Ownership",
     "challengedOwnedFilter": "Owned",
     "challengedNotOwnedFilter": "Not Owned",
-    "challengedEitherOwnedFilter": "Either",
-    "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "challengedEitherOwnedFilter": "どちらも",
+    "backToChallenges": "すべてのチャレンジへ戻る",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
+    "clone": "クローン"
 }

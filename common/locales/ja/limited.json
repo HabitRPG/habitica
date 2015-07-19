@@ -8,6 +8,8 @@
     "alarmingFriendsText": "パーティメンバーから <%= spookDust %> 回おどかされました。",
     "agriculturalFriends": "農業の友人",
     "agriculturalFriendsText": "パーティメンバーによって<%= seeds %>回花に変化させられました。",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "バレンタインカード",
     "valentineCardNotes": "パーティメンバーにバレンタインカードを送ろう",
     "valentine0": "「バラは赤い<%= lineBreak %> 私の日課は青い<%= lineBreak %> 私はあなたと同じ<%= lineBreak %>パーティで嬉しい！」",

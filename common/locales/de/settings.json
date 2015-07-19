@@ -82,6 +82,7 @@
     "emailChange2": "admin@habitrpg.com",
     "emailChange3": "Bitte gib sowohl Deine alte und neue Email-Adresse, als auch Deine Benutzer ID an.",
     "username": "Login Name",
+    "usernameOrEmail": "Login Name oder Emailadresse",
     "email": "Email",
     "registeredWithFb": "Mit Facebook registriert",
     "loginNameDescription1": "Dies hier benutzt Du, um Dich bei HabitRPG einzuloggen. Gehe zu",
@@ -95,7 +96,7 @@
     "giftedSubscription": "Verschenkte Abonnements ",
     "invitedParty": "In die Gruppe eingeladen",
     "invitedGuild": "In die Gilde eingeladen",
-    "inactivityEmails": "Dein Account ist inaktiv",
+    "importantAnnouncements": "Dein Konto ist inaktiv",
     "weeklyRecaps": "Zusammenfassung deiner Kontoaktivitäten der letzten Woche",
     "questStarted": "Dein Quest hat begonnen",
     "invitedQuest": "Zu einem Quest eingeladen",
@@ -111,11 +112,11 @@
     "benefits": "Vorteile",
     "coupon": "Gutschein",
     "couponPlaceholder": "Gib Deinen Gutschein Code ein",
-    "couponText": "We sometimes have events and give out coupon codes for special gear. (eg, those who stop by our Wondercon booth)",
+    "couponText": "Manchmal verteilen wir auf Events Coupon-Codes für spezielle Ausrüstung (z.B. an unserem WonderCon-Stand)",
     "apply": "Anwenden",
     "resubscribe": "Wieder abonnieren",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code aktiviert! Überprüfe dein Inventar",
     "promoPlaceholder": "Promo Code eingeben",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Zeige \"In Gruppe einladen\"-Schaltfläche an, wenn die Gruppe nur 1 Mitglied hat."
 }

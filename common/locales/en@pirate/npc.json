@@ -14,6 +14,8 @@
     "sellPotionForGold": "Sell <%= itemType %> Potion for <%= gold %> Gold",
     "buyGems": "Buy Gems",
     "justin": "Justin",
+    "ian": "Ian",
+    "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
     "USD": "USD",
     "newStuff": "New Stuff",
     "cool": "Ye Be tellin' Me Later",
@@ -25,6 +27,7 @@
     "payWithCard": "Pay with Card",
     "payNote": "Ahoy! PayPal sometimes be takin' a long time to clear.  Payin' with yer card be better.",
     "card": "Card",
+    "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Payment Methods:",
     "classGear": "Class Gear",
     "classGearText": "First: don't panic! ye barnacle-covered gear be in ye inventory, 'n ye're now wearin' ye apprentice <strong><%= klass %></strong> equipment. Wearin' ye class's gear grants ye a 50% bonus to stats. However, feel free to switch back to ye old gear.",
@@ -73,6 +76,6 @@
     "welcome2": "Your real-life tasks affect your avatar's Health (HP), Experience (XP), and Gold!",
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
-    "welcome5": "Now you'll customize your avatar and set up your tasks...",
+    "welcome5": "Now ye'll customize yer avatar 'n set up yer tasks...",
     "imReady": "I'm Ready!"
 }

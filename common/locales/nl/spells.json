@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Glanzend zaadje",
     "spellSpecialShinySeedNotes": "Verander een vriend in een blij bloemetje!",
     "spellSpecialPetalFreePotionText": "Ontbladeringsdrankje",
-    "spellSpecialPetalFreePotionNotes": "Haal het effect van een glanzend zaadje weg."
+    "spellSpecialPetalFreePotionNotes": "Haal het effect van een glanzend zaadje weg.",
+    "spellSpecialSeafoamText": "Zeeschuim",
+    "spellSpecialSeafoamNotes": "Verander een vriend in een zeedier!",
+    "spellSpecialSandText": "Zand",
+    "spellSpecialSandNotes": "Verwijder de effecten van Zeeschuim."
 }

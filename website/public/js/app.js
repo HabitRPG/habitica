@@ -193,6 +193,10 @@ window.habitrpg = angular.module('habitrpg',
           url: '/drops',
           templateUrl: "partials/options.inventory.drops.html"
         })
+        .state('options.inventory.quests', {
+          url: '/quests',
+          templateUrl: "partials/options.inventory.quests.html"
+        })
         .state('options.inventory.pets', {
           url: '/pets',
           templateUrl: "partials/options.inventory.pets.html"

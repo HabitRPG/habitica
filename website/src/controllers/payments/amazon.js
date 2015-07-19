@@ -29,15 +29,35 @@ exports.verifyAccessToken = function(req, res, next){
   });
 };
 
+exports.createOrderReferenceId = function(req, res, next){
+  if(!req.body || !req.body.billingAgreementId){
+    return res.json(400, {err: 'Billing Agreement Id not supplied.'});
+  }
+
+  amzPayment.offAmazonPayments.createOrderReferenceForId({
+    Id: req.body.billingAgreementId,
+    IdType: 'BillingAgreement',
+    ConfirmNow: false
+  }, function(err, response){
+    if(err) return next(err);
+    if(!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId){
+      return next(new Error('Missing attributes in Amazon response.'));
+    }
+
+    res.json({
+      orderReferenceId: response.OrderReferenceDetails.AmazonOrderReferenceId
+    });
+  });
+};
+
 exports.checkout = function(req, res, next){
-  if(!req.body || !req.body['billingAgreementId']){
+  if(!req.body || !req.body.orderReferenceId){
     return res.json(400, {err: 'Billing Agreement Id not supplied.'});
   }
 
   var gift = req.body.gift;
   var user = res.locals.user;
-  var billingAgreementId = req.body.billingAgreementId;
-  var orderReferenceId;
+  var orderReferenceId = req.body.orderReferenceId;
   var amount = 5;
 
   if(gift){
@@ -49,21 +69,6 @@ exports.checkout = function(req, res, next){
   }
 
   async.series({
-    createOrderReferenceForId: function(cb){
-      amzPayment.offAmazonPayments.createOrderReferenceForId({
-        Id: billingAgreementId,
-        IdType: 'BillingAgreement'
-      }, function(err, response){
-        if(err) return cb(err);
-        if(!response.OrderReferenceDetails || !response.OrderReferenceDetails.AmazonOrderReferenceId){
-          return cb('Missing attributes in Amazon response.');
-        }
-
-        orderReferenceId = response.OrderReferenceDetails.AmazonOrderReferenceId;
-        return cb();
-      });
-    },
-
     setOrderReferenceDetails: function(cb){
       amzPayment.offAmazonPayments.setOrderReferenceDetails({
         AmazonOrderReferenceId: orderReferenceId,
@@ -98,7 +103,15 @@ exports.checkout = function(req, res, next){
         SellerAuthorizationNote: 'HabitRPG Payment',
         TransactionTimeout: 0,
         CaptureNow: true
-      }, cb);
+      }, function(err, res){
+        if(err) return cb(err);
+
+        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
+          return cb(new Error('The payment was not successfull.'));
+        }
+
+        return cb();
+      });
     },
 
     closeOrderReference: function(cb){
@@ -194,7 +207,15 @@ exports.subscribe = function(req, res, next){
           SellerOrderId: shared.uuid(),
           StoreName: 'HabitRPG'
         }
-      }, cb);
+      }, function(err, res){
+        if(err) return cb(err);
+
+        if(res.AuthorizationDetails.AuthorizationStatus.State === 'Declined'){
+          return cb(new Error('The payment was not successfull.'));
+        }
+
+        return cb();
+      });
     },
 
     createSubscription: function(cb){
@@ -229,8 +250,8 @@ exports.subscribeCancel = function(req, res, next){
     cancelSubscription: function(cb){
       var data = {
         user: user,
-        // Date of next bill, dateUpdated can be used because it's only updated when the user is billed
-        nextBill: moment(user.purchased.plan.dateUpdated).add({days: 30}),
+        // Date of next bill
+        nextBill: moment(user.purchased.plan.lastBillingDate).add({days: 30}),
         paymentMethod: 'Amazon Payments'
       };
 
@@ -238,7 +259,13 @@ exports.subscribeCancel = function(req, res, next){
     }
   }, function(err, results){
     if (err) return next(err); // don't json this, let toString() handle errors
-    res.redirect('/');
+    
+    if(req.query.noRedirect){
+      res.send(200);
+    }else{
+      res.redirect('/');
+    }
+
     user = null;
   });
 };

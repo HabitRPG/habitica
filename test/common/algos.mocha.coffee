@@ -25,6 +25,7 @@ newUser = (addTasks=true)->
         equipped: {}
         costume: {}
         owned: {}
+      quests: {}
     party:
       quest:
         progress:
@@ -386,12 +387,40 @@ describe 'User', ->
       expect(user.items.gear.equipped).to.eql { armor: 'armor_warrior_1', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
 
-    it 'do not buy equipment without enough money', ->
+    it 'does not buy equipment without enough Gold', ->
       user = newUser()
       user.stats.gp = 1
       user.ops.buy {params: {key: 'armor_warrior_1'}}
       expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
+
+    it 'buys a Quest scroll', ->
+      user = newUser()
+      user.stats.gp = 205
+      user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
+      expect(user.items.quests).to.eql {dilatoryDistress1: 1}
+      expect(user).toHaveGP 5
+
+    it 'does not buy Quests without enough Gold', ->
+      user = newUser()
+      user.stats.gp = 1
+      user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 1
+
+    it 'does not buy nonexistent Quests', ->
+      user = newUser()
+      user.stats.gp = 9999
+      user.ops.buyQuest {params: {key: 'snarfblatter'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 9999
+
+    it 'does not buy Gem-premium Quests', ->
+      user = newUser()
+      user.stats.gp = 9999
+      user.ops.buyQuest {params: {key: 'kraken'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 9999
 
   describe 'Gem purchases', ->
     it 'does not purchase items without enough Gems', ->
@@ -484,7 +513,22 @@ describe 'User', ->
 
   describe 'Enchanted Armoire', ->
     user = newUser()
-    fullArmoire = {'weapon_warrior_0': true, 'armor_armoire_gladiatorArmor':true,'armor_armoire_lunarArmor':true,'head_armoire_gladiatorHelm':true,'head_armoire_lunarCrown':true,'head_armoire_rancherHat':true,'head_armoire_redHairbow':true,'head_armoire_violetFloppyHat':true,'shield_armoire_gladiatorShield':true,'weapon_armoire_basicCrossbow':true,'weapon_armoire_lunarSceptre':true}
+    fullArmoire = 
+      'weapon_warrior_0': true,
+      'armor_armoire_gladiatorArmor':true,
+      'armor_armoire_lunarArmor':true,
+      'armor_armoire_rancherRobes':true,
+      'head_armoire_blueHairbow':true,
+      'head_armoire_gladiatorHelm':true,
+      'head_armoire_lunarCrown':true,
+      'head_armoire_rancherHat':true,
+      'head_armoire_redHairbow':true,
+      'head_armoire_royalCrown':true,
+      'head_armoire_violetFloppyHat':true,
+      'shield_armoire_gladiatorShield':true,
+      'weapon_armoire_basicCrossbow':true,
+      'weapon_armoire_lunarSceptre':true,
+      'weapon_armoire_rancherLasso':true
 
     beforeEach ->
       # too many predictableRandom calls to stub, let's return the last element
@@ -545,7 +589,7 @@ describe 'User', ->
     it 'gives more equipment', ->
       sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.ops.buy({params: {key: 'armoire'}})
-      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true,'head_armoire_rancherHat':true}
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true, 'head_armoire_blueHairbow':true}
       expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 3)
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 30
@@ -574,6 +618,7 @@ describe 'User', ->
         expect(quest.value).to.be.greaterThan 0 if quest.canBuy
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
+        expect(quest.category).to.match(/pet|unlockable|gold|world/)
         if quest.drop.items
           expect(quest.drop.items).to.be.an(Array)
         if quest.boss

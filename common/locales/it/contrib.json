@@ -22,7 +22,7 @@
     "contribLink": "che premi hai guadagnato grazie al tuo contributo!",
     "contribName": "Contribuente",
     "contribText": "Ha contribuito ad HabitRPG (codice, design, pixel art, consigli legali, documentazione, ecc). Desideri questa onoreficenza?",
-    "readMore": "Più informazioni",
+    "readMore": "Maggiori informazioni",
     "kickstartName": "Sostenitore Kickstarter - grado $<%= tier %>",
     "kickstartText": "Ha sostenuto il progetto Kickstarter",
     "helped": "Ha aiutato Habit a crescere",
@@ -61,5 +61,10 @@
     "surveysSingle": "Ha aiutato HabitRPG a crescere, compilando un questionario. Al momento non ci sono questionari attivi.",
     "surveysMultiple": "Ha aiutato HabitRPG a crescere, compilando <%= surveys %> questionari. Al momento non ci sono questionari attivi.",
     "currentSurvey": "Questionario in corso",
-    "surveyWhen": "Questa onoreficenza verrà conferita a tutti i partecipanti, non appena i risultati dei questionari saranno elaborati, verso fine marzo."
+    "surveyWhen": "Questa onoreficenza verrà conferita a tutti i partecipanti, non appena i risultati dei questionari saranno elaborati, verso fine marzo.",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat.",
+    "blurbGuildsPage": "Guilds are common-interest chat groups created by the players, for players. Browse through the list and join the Guilds that interest you!",
+    "blurbChallenges": "Challenges are created by your fellow players. Joining a Challenge will add its tasks to your task dashboard, and winning a Challenge will give you an achievement and often a gem prize!",
+    "blurbHallPatrons": "This is the Hall of Patrons, where we honor the noble adventurers who backed HabitRPG's original Kickstarter. We thank them for helping us bring Habitica to life!",
+    "blurbHallHeroes": "This is the Hall of Heroes, where open-source contributors to HabitRPG are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'> gems, exclusive equipment</a>, and <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigious titles</a>. You can contribute to HabitRPG, too! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Find out more here. </a>"
 }

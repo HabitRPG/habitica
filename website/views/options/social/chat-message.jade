@@ -17,23 +17,23 @@ mixin chatMessages(inbox)
         span.muted.time(from-now='::message.timestamp' tooltip="{{::message.timestamp | date:user.preferences.dateFormat.concat(' HH:mm:ss')}}")
         unless inbox
           span
-            a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
-            a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group, message)') +1
-          | &nbsp; &nbsp;
-          a(ng-click="quickReply(message.uuid)" ng-if=":: message.uuid != 'system'")
-            span.glyphicon.glyphicon-envelope(tooltip=env.t('sendPM'))
+            a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)', tooltip=env.t('likePost')) +{{countExists(message.likes)}}
+            a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group, message)', tooltip=env.t('likePost')) +1
+          span(ng-if=":: message.uuid != 'system'") &nbsp; &nbsp;
+            a(ng-click="quickReply(message.uuid)")
+              span.glyphicon.glyphicon-envelope(tooltip=env.t('sendPM'))
         if inbox
           a(ng-click="quickReply(message.uuid)")
             span.glyphicon.glyphicon-share-alt(tooltip=env.t('pm-reply'))
-        | &nbsp; &nbsp;
-        a(ng-click='#{inbox? "user.ops.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}', ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}')
-          span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
-        | &nbsp; &nbsp;
-        a(ng-click="flagChatMessage(group._id, message)", ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted && message.uuid != user.id && message.uuid != "system")')
-          span.glyphicon.glyphicon-flag(tooltip="{{message.flags[user._id] ? env.t('abuseAlreadyReported') : env.t('abuseFlag')}}" ng-class='message.flags[user._id] ? "text-danger" : ""')
-        | &nbsp; &nbsp;
-        a(ng-click="copyToDo(message)")
-          span.glyphicon.glyphicon-share(tooltip=env.t('copyMessageAsToDo'))
+        span(ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}') &nbsp; &nbsp;
+          a(ng-click='#{inbox? "user.ops.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}')
+            span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+        span(ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted && message.uuid != user.id && message.uuid != "system")') &nbsp; &nbsp;
+          a(ng-click="flagChatMessage(group._id, message)")
+            span.glyphicon.glyphicon-flag(tooltip="{{message.flags[user._id] ? env.t('abuseAlreadyReported') : env.t('abuseFlag')}}" ng-class='message.flags[user._id] ? "text-danger" : ""')
+        span &nbsp; &nbsp;
+          a(ng-click="copyToDo(message)")
+            span.glyphicon.glyphicon-share(tooltip=env.t('copyMessageAsToDo'))
       span.float-label(ng-class='::contribText(message.contributor, message.backer).length > 30 ? "long-title" : ""')
         a.label.label-default.chat-message(ng-if=':: message.user', ng-class='::userLevelStyleFromLevel(message.contributor.level, message.backer.npc, style)', ng-click='clickMember(message.uuid, true)')
           span.glyphicon.glyphicon-arrow-right(ng-if='::message.sent')

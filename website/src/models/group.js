@@ -194,7 +194,7 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
 }
 
 function isOnQuest(user,progress,group){
-  return group && progress && user.party.quest.key && group.quest && user.party.quest.key == group.quest.key && group.quest.active;
+  return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {

@@ -61,5 +61,10 @@
     "surveysSingle": "Помог развитию HabitRPG, заполнив опрос. Сейчас нет опросов для заполнения.",
     "surveysMultiple": "Помог развитию HabitPRG, заполнив опросы: <%= surveys %>. Сейчас нет опросов для заполнения.",
     "currentSurvey": "Текущий опрос",
-    "surveyWhen": "Участники получат этот значок после обработки опросов, в конце марта."
+    "surveyWhen": "Участники получат этот значок после обработки опросов, в конце марта.",
+    "blurbInbox": "Вот здесь хранятся ваши личные сообщения! Вы можете отправить кому-то сообщение, кликнув по иконке конверта рядом с его именем в таверне, команде или чате гильдии.",
+    "blurbGuildsPage": "Гильдии представляют собой групповые чаты по общим интересам, создаваемые игроками и для игроков. Просмотрите весь список и присоединитесь к гильдиям, которые вас заинтересуют!",
+    "blurbChallenges": "Испытания создаются вашими собратьями-игроками. Присоединившись к испытанию, вы добавите его задачи к своим, а победа в испытании принесет вам достижение и зачастую призовые самоцветы!",
+    "blurbHallPatrons": "Это Зал Покровителей, где мы чествуем благородных искателей приключений, который поддержали проект HabitRPG на Kickstarter. Мы благодарим их за помощь в воплощении страны Habitica в жизнь!",
+    "blurbHallHeroes": "This is the Hall of Heroes, where open-source contributors to HabitRPG are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'> gems, exclusive equipment</a>, and <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigious titles</a>. You can contribute to HabitRPG, too! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Find out more here. </a>"
 }

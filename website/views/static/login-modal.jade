@@ -14,17 +14,13 @@ script(id='modals/login.html', type='text/ng-template')
     hr
     tabset(justified='true')
       tab(heading=env.t('login'))
-        form#login-tab(ng-submit='auth()', method='POST')
+        form#loginForm(ng-submit='auth()', method='POST', name='loginForm')
           .form-group
-            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username')+' or Email', name='username')
+            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('usernameOrEmail'), name='username', spellcheck='false', required)
           .form-group
-            input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
-            //-.control-group
-              label.checkbox
-                input(type='checkbox', ng-click='useUUID = !useUUID')
-                =env.t('useUUID')
+            input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password', required)
           .form-group
-            input.btn.btn-primary(type='submit', value=env.t('login'))
+            input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='loginForm.$invalid', value=env.t('login'))
 
           small=env.t('passMan')
           br
@@ -51,7 +47,7 @@ script(id='modals/login.html', type='text/ng-template')
       tab(heading=env.t('register'))
         form#registrationForm(ng-submit='register()', name='registrationForm')
           .form-group
-            input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
+            input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), spellcheck='false', required)
           .form-group
             input.form-control(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
           .form-group
@@ -69,4 +65,4 @@ script(id='modals/login.html', type='text/ng-template')
               a(href='/static/privacy' target='_blank')=env.t('privacy')
               | .
           .form-group
-            input.btn.btn-primary(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('register'))
+            input.btn.btn-block.btn-lg.btn-primary(type='submit', ng-disabled='registrationForm.$invalid || registrationInProgress', value=env.t('register'))
