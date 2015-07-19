@@ -1812,7 +1812,8 @@ api.wrap = (user, main=true) ->
 
       analyticsData = {
         category: 'behavior',
-        gaLabel: user.flags.cronCount,
+        gaLabel: 'Cron Count',
+        gaValue: user.flags.cronCount,
         uuid: user._id,
         user: user,
         resting: user.preferences.sleep,
