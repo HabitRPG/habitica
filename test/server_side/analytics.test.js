@@ -188,7 +188,7 @@ describe('analytics', function() {
           platform: 'server',
           event_properties: {
             itemKey: 'atom1',
-            itemName: 'Attack of the Mundane Questline, Pt. 1: Dish Disaster!',
+            itemName: 'Attack of the Mundane, Part 1: Dish Disaster!',
             category: 'behavior',
             resting: true,
             cronCount: 5
