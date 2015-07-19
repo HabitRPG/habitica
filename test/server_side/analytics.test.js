@@ -96,6 +96,126 @@ describe('analytics', function() {
         });
       });
 
+      it('sends english item name for gear if itemKey is provided', function() {
+        analyticsData.itemKey = 'headAccessory_special_foxEars'
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            itemKey: 'headAccessory_special_foxEars',
+            itemName: 'Fox Ears',
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('sends english item name for egg if itemKey is provided', function() {
+        analyticsData.itemKey = 'Wolf'
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            itemKey: 'Wolf',
+            itemName: 'Wolf Egg',
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('sends english item name for food if itemKey is provided', function() {
+        analyticsData.itemKey = 'Cake_Skeleton'
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            itemKey: 'Cake_Skeleton',
+            itemName: 'Bare Bones Cake',
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('sends english item name for hatching potion if itemKey is provided', function() {
+        analyticsData.itemKey = 'Golden'
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            itemKey: 'Golden',
+            itemName: 'Golden Hatching Potion',
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('sends english item name for quest if itemKey is provided', function() {
+        analyticsData.itemKey = 'atom1'
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            itemKey: 'atom1',
+            itemName: 'Attack of the Mundane Questline, Pt. 1: Dish Disaster!',
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
+      it('sends english item name for purchased spell if itemKey is provided', function() {
+        analyticsData.itemKey = 'seafoam'
+
+        initializedAnalytics.track(event_type, analyticsData);
+
+        expect(amplitudeTrack).to.be.calledOnce;
+        expect(amplitudeTrack).to.be.calledWith({
+          event_type: 'Cron',
+          user_id: 'unique-user-id',
+          platform: 'server',
+          event_properties: {
+            itemKey: 'seafoam',
+            itemName: 'Seafoam',
+            category: 'behavior',
+            resting: true,
+            cronCount: 5
+          }
+        });
+      });
+
       it('sends user data if provided', function() {
         var stats = { class: 'wizard', exp: 5, gp: 23, hp: 10, lvl: 4, mp: 30 };
         var user = {

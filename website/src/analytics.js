@@ -1,4 +1,7 @@
 var _ = require('lodash');
+require('coffee-script'); // remove this once we've fully converted over
+var i18n = require('./i18n');
+var Content = require('../../common/script/content');
 var Amplitude = require('amplitude');
 var googleAnalytics = require('universal-analytics');
 
@@ -100,7 +103,41 @@ function _formatDataForAmplitude(data) {
     ampData.user_properties = _formatUserData(data.user);
   }
 
+  var itemName = _lookUpItemName(data.itemKey);
+  if(itemName) {
+    event_properties.itemName = itemName;
+  }
+
   return ampData;
+}
+
+function _lookUpItemName(itemKey) {
+  if (!itemKey) return;
+
+  var gear = Content.gear.flat[itemKey];
+  var egg = Content.eggs[itemKey];
+  var food = Content.food[itemKey];
+  var hatchingPotion = Content.hatchingPotions[itemKey];
+  var quest = Content.quests[itemKey];
+  var spell = Content.special[itemKey];
+
+  var itemName;
+
+  if (gear) {
+    itemName = gear.text();
+  } else if (egg) {
+    itemName = egg.text() + ' Egg';
+  } else if (food) {
+    itemName = food.text();
+  } else if (hatchingPotion) {
+    itemName = hatchingPotion.text() + " Hatching Potion";
+  } else if (quest) {
+    itemName = quest.text();
+  } else if (spell) {
+    itemName = spell.text();
+  }
+
+  return itemName;
 }
 
 function _formatUserData(user) {
