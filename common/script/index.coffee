@@ -378,14 +378,6 @@ api.appliedTags = (userTags, taskTags) ->
     arr.push(t.name) if taskTags?[t.id]
   arr.join(', ')
 
-api.countPets = (originalCount, pets) ->
-  count = if originalCount? then originalCount else _.size(pets)
-  for pet of content.questPets
-    count-- if pets[pet]
-  for pet of content.specialPets
-    count-- if pets[pet]
-  count
-
 DROP_ANIMALS = _.keys(content.pets)
 
 api.countBeastMasterProgress = (pets) ->
@@ -403,14 +395,6 @@ api.countMountMasterProgress = (mounts) ->
       count++
 
   count
-
-api.countMounts = (originalCount, mounts) ->
-  count2 = if originalCount? then originalCount else _.size(mounts)
-  for mount of content.questPets
-    count2-- if mounts[mount]
-  for mount of content.specialMounts
-    count2-- if mounts[mount]
-  count2
 
 api.countTriad = (pets) ->
   count3 = 0

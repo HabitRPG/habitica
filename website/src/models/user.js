@@ -495,20 +495,13 @@ UserSchema.pre('save', function(next) {
   }
 
   // Determines if Beast Master should be awarded
-  var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.pets);
-
+  var petCount = shared.countBeastMasterProgress(this.items.pets);
   if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true
+    this.achievements.beastMaster = true;
   }
 
   // Determines if Mount Master should be awarded
-  var mountCount = shared.countMounts(_.reduce(this.items.mounts,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.mounts);
+  var mountCount = shared.countMountMasterProgress(this.items.mounts);
 
   if (mountCount >= 90 || this.achievements.mountMasterCount > 0) {
     this.achievements.mountMaster = true

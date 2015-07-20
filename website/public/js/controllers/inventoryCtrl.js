@@ -92,8 +92,6 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
-      $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
-
       // Checks if beastmaster has been reached for the first time
       if(!User.user.achievements.beastMaster
           && $rootScope.petCount >= 90) {
