@@ -386,6 +386,24 @@ api.countPets = (originalCount, pets) ->
     count-- if pets[pet]
   count
 
+DROP_ANIMALS = _.keys(content.pets)
+
+api.countBeastMasterProgress = (pets) ->
+  count = 0
+  for animal in DROP_ANIMALS
+    if pets[animal] > 0 || pets[animal] == -1
+      count++
+
+  count
+
+api.countMountMasterProgress = (mounts) ->
+  count = 0
+  for animal in DROP_ANIMALS
+    if mounts[animal]
+      count++
+
+  count
+
 api.countMounts = (originalCount, mounts) ->
   count2 = if originalCount? then originalCount else _.size(mounts)
   for mount of content.questPets

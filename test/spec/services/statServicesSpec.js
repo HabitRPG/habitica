@@ -15,6 +15,56 @@ describe('Stats Service', function() {
     });
   });
 
+  describe('beastMasterProgress', function() {
+    it('counts drop pets that user has', function() {
+      user.items.pets = {
+        "BearCub-Base" : 5,
+        "BearCub-CottonCandyBlue" : 5,
+        "Cactus-Zombie" : 5,
+        "Deer-Golden" : 5,
+        "Deer-Red" : 5,
+        "Egg-Desert" : 5,
+        "MantisShrimp-Base" : 5
+      }
+
+      var beastMasterDisplay = statCalc.beastMasterProgress(user.items.pets);
+
+      expect(beastMasterDisplay).to.eql('3/90');
+    });
+
+    it('counts drop pets with a value of -1', function() {
+      user.items.pets = {
+        "BearCub-Base" : -1,
+        "BearCub-CottonCandyBlue" : -1,
+        "Cactus-Zombie" : 5,
+        "Deer-Golden" : 5,
+        "Deer-Red" : 5,
+        "Egg-Desert" : 5,
+        "MantisShrimp-Base" : 5
+      }
+
+      var beastMasterDisplay = statCalc.beastMasterProgress(user.items.pets);
+
+      expect(beastMasterDisplay).to.eql('3/90');
+    });
+
+    it('does not count drop pets with a value of 0', function() {
+      user.items.pets = {
+        "BearCub-Base" : 0,
+        "BearCub-CottonCandyBlue" : 0,
+        "Cactus-Zombie" : 5,
+        "Deer-Golden" : 5,
+        "Deer-Red" : 5,
+        "Egg-Desert" : 5,
+        "MantisShrimp-Base" : 5
+      }
+
+      var beastMasterDisplay = statCalc.beastMasterProgress(user.items.pets);
+
+      expect(beastMasterDisplay).to.eql('1/90');
+    });
+  });
+
   describe('classBonus', function() {
     it('calculates class bonus', function() {
       var equippedGear = {
@@ -159,6 +209,40 @@ describe('Stats Service', function() {
       var level = 1;
       var bonus = statCalc.levelBonus(level);
       expect(bonus).to.eql(0);
+    });
+  });
+
+  describe('mountMasterProgress', function() {
+    it('counts drop mounts that user has', function() {
+      user.items.mounts = {
+        "Hedgehog-Desert" : true,
+        "Octopus-CottonCandyPink" : true,
+        "TigerCub-White" : true,
+        "Wolf-Golden" : true,
+        "Owl-CottonCandyBlue" : true,
+        "Mammoth-Base" : true,
+        "Bunny-Skeleton" : true
+      }
+
+      var mountMasterDisplay = statCalc.mountMasterProgress(user.items.mounts);
+
+      expect(mountMasterDisplay).to.eql('2/90');
+    });
+
+    it('does not count drop mounts with a value of false', function() {
+      user.items.mounts = {
+        "Hedgehog-Desert" : true,
+        "Octopus-CottonCandyPink" : true,
+        "TigerCub-White" : false,
+        "Wolf-Golden" : false,
+        "Owl-CottonCandyBlue" : true,
+        "Mammoth-Base" : true,
+        "Bunny-Skeleton" : true
+      }
+
+      var mountMasterDisplay = statCalc.mountMasterProgress(user.items.mounts);
+
+      expect(mountMasterDisplay).to.eql('0/90');
     });
   });
 
