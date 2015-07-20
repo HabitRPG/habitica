@@ -59,41 +59,39 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (_.isEqual(after, before) || !after) return;
-      var text, notes;
+      var text, notes, type;
       $rootScope.playSound('Item_Drop');
 
       if (after.type !== 'gear' && after.type !== 'Quest') {
-        var type = (after.type == 'Food') ? 'food' :
-          (after.type == 'HatchingPotion') ? 'hatchingPotions' : // can we use camelcase and remove this line?
-          (after.type.toLowerCase() + 's');
+        if (after.type === 'Food') {
+          type = 'food';
+        } else if (after.type === 'HatchingPotion') {
+          type = 'hatchingPotions';
+        } else type = after.type.toLowerCase() + 's';
         if(!User.user.items[type][after.key]){
           User.user.items[type][after.key] = 0;
         }
         User.user.items[type][after.key]++;
       }
 
-      switch(after.type) {
-        case 'Quest':
-          $rootScope.selectedQuest = Content.quests[after.key];
-          $rootScope.openModal('questDrop');
-          break;
-        case 'HatchingPotion':
-          text = Content.hatchingPotions[after.key].text();
-          notes = Content.hatchingPotions[after.key].notes();
-          Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), after);
-          break;
-        case 'Egg':
-          text = Content.eggs[after.key].text();
-          notes = Content.eggs[after.key].notes();
-          Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), after);
-          break;
-        case 'Food':
-          text = Content.food[after.key].text();
-          notes = Content.food[after.key].notes();
-          Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
-          break;
-        default:
-          Notification.drop(User.user._tmp.drop.dialog);
+      if (after.type === 'HatchingPotion'){
+        text = Content.hatchingPotions[after.key].text();
+        notes = Content.hatchingPotions[after.key].notes();
+        Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), after);
+      } else if (after.type === 'Egg'){
+        text = Content.eggs[after.key].text();
+        notes = Content.eggs[after.key].notes();
+        Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), after);
+      } else if (after.type === 'Food'){
+        text = Content.food[after.key].text();
+        notes = Content.food[after.key].notes();
+        Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
+      } else if (after.type === 'Quest') {
+        $rootScope.selectedQuest = Content.quests[after.key];
+        $rootScope.openModal('questDrop');
+      } else {
+        // Keep support for another type of drops that might be added
+        Notification.drop(User.user._tmp.drop.dialog);
       }
 
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
@@ -129,17 +127,6 @@ habitrpg.controller('NotificationCtrl',
       if (after === before || after !== true) return;
       $rootScope.openModal('achievements/contributor');
     });
-
-    /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
-      $rootScope.$watch('user.items.' + watched, function(before, after){
-        if (after == before) return;
-        if (+after < +before) {
-          //don't want to day "lost a head"
-          if (watched === 'head') watched = 'helm';
-          Notification.text('Lost GP, 1 LVL, ' + watched);
-        }
-      })
-    });*/
 
     // Classes modal
     $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
