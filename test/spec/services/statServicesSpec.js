@@ -180,7 +180,7 @@ describe('Stats Service', function() {
     });
   });
 
-  describe('totalPetCount', function() {
+  describe('totalCount', function() {
     it('counts all pets that user has', function() {
       user.items.pets = {
         "BearCub-Base" : 5,
@@ -192,7 +192,7 @@ describe('Stats Service', function() {
         "MantisShrimp-Base" : 5
       }
 
-      var petsFound = statCalc.totalPetCount(user.items.pets);
+      var petsFound = statCalc.totalCount(user.items.pets);
 
       expect(petsFound).to.eql(7);
     });
@@ -208,7 +208,7 @@ describe('Stats Service', function() {
         "MantisShrimp-Base" : 5
       }
 
-      var petsFound = statCalc.totalPetCount(user.items.pets);
+      var petsFound = statCalc.totalCount(user.items.pets);
 
       expect(petsFound).to.eql(7);
     });
@@ -224,13 +224,11 @@ describe('Stats Service', function() {
         "MantisShrimp-Base" : 5
       }
 
-      var petsFound = statCalc.totalPetCount(user.items.pets);
+      var petsFound = statCalc.totalCount(user.items.pets);
 
       expect(petsFound).to.eql(7);
     });
-  });
 
-  describe('totalMountCount', function() {
     it('counts all mounts that user has', function() {
       user.items.mounts = {
         "Hedgehog-Desert" : true,
@@ -242,7 +240,7 @@ describe('Stats Service', function() {
         "Bunny-Skeleton" : true
       }
 
-      var mountsFound = statCalc.totalMountCount(user.items.mounts);
+      var mountsFound = statCalc.totalCount(user.items.mounts);
 
       expect(mountsFound).to.eql(7);
     });
@@ -258,7 +256,7 @@ describe('Stats Service', function() {
         "Bunny-Skeleton" : false
       }
 
-      var mountsFound = statCalc.totalMountCount(user.items.mounts);
+      var mountsFound = statCalc.totalCount(user.items.mounts);
 
       expect(mountsFound).to.eql(7);
     });

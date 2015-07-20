@@ -12,6 +12,10 @@
 
   function statsFactory(Content, Shared) {
 
+    function beastMasterProgress(pets) {
+
+    }
+
     function classBonus(user, stat) {
       var computedStats = user._statsComputed;
 
@@ -85,14 +89,8 @@
       return display;
     }
 
-    function totalPetCount(pets) {
-      var total = _.size(pets);
-
-      return total;
-    }
-
-    function totalMountCount(mounts) {
-      var total = _.size(mounts);
+    function totalCount(objectToCount) {
+      var total = _.size(objectToCount);
 
       return total;
     }
@@ -103,6 +101,7 @@
     }
 
     return {
+      beastMasterProgress: beastMasterProgress,
       classBonus: classBonus,
       equipmentStatBonus: equipmentStatBonus,
       expDisplay: expDisplay,
@@ -110,8 +109,7 @@
       hpDisplay: hpDisplay,
       levelBonus: levelBonus,
       mpDisplay: mpDisplay,
-      totalPetCount: totalPetCount,
-      totalMountCount: totalMountCount
+      totalCount: totalCount
     }
   }
 }());

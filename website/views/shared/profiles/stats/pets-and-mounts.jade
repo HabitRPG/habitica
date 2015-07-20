@@ -2,11 +2,11 @@ div(ng-if='user.flags.dropsEnabled')
   h4(class=mobile?'item item-divider':'')=env.t('pets')
 
   table.table.table-striped
-    +basicRow('petsFound','{{::statCalc.totalPetCount(profile.items.pets)}}')
+    +basicRow('petsFound','{{::statCalc.totalCount(profile.items.pets)}}')
     +basicRow('beastMasterProgress','{{profile.petCount}}/90')
 
   h4(class=mobile?'item item-divider':'')=env.t('mounts')
 
   table.table.table-striped
-    +basicRow('mountsTamed','{{::statCalc.totalPetCount(profile.items.mounts)}}')
+    +basicRow('mountsTamed','{{::statCalc.totalCount(profile.items.mounts)}}')
     +basicRow('mountMasterProgress','{{profile.mountCount}}/90')
