@@ -179,4 +179,88 @@ describe('Stats Service', function() {
       expect(mpDisplay).to.eql('30/100');
     });
   });
+
+  describe('totalPetCount', function() {
+    it('counts all pets that user has', function() {
+      user.items.pets = {
+        "BearCub-Base" : 5,
+        "BearCub-CottonCandyBlue" : 5,
+        "Cactus-Zombie" : 5,
+        "Deer-Golden" : 5,
+        "Deer-Red" : 5,
+        "Egg-Desert" : 5,
+        "MantisShrimp-Base" : 5
+      }
+
+      var petsFound = statCalc.totalPetCount(user.items.pets);
+
+      expect(petsFound).to.eql(7);
+    });
+
+    it('includes pets that have a value of 0', function() {
+      user.items.pets = {
+        "BearCub-Base" : 0,
+        "BearCub-CottonCandyBlue" : 5,
+        "Cactus-Zombie" : 0,
+        "Deer-Golden" : 0,
+        "Deer-Red" : 0,
+        "Egg-Desert" : 0,
+        "MantisShrimp-Base" : 5
+      }
+
+      var petsFound = statCalc.totalPetCount(user.items.pets);
+
+      expect(petsFound).to.eql(7);
+    });
+
+    it('includes pets that have a value of -1', function() {
+      user.items.pets = {
+        "BearCub-Base" : -1,
+        "BearCub-CottonCandyBlue" : 5,
+        "Cactus-Zombie" : -1,
+        "Deer-Golden" : -1,
+        "Deer-Red" : -1,
+        "Egg-Desert" : -1,
+        "MantisShrimp-Base" : 5
+      }
+
+      var petsFound = statCalc.totalPetCount(user.items.pets);
+
+      expect(petsFound).to.eql(7);
+    });
+  });
+
+  describe('totalMountCount', function() {
+    it('counts all mounts that user has', function() {
+      user.items.mounts = {
+        "Hedgehog-Desert" : true,
+        "Octopus-CottonCandyPink" : true,
+        "TigerCub-White" : true,
+        "Wolf-Golden" : true,
+        "Owl-CottonCandyBlue" : true,
+        "Mammoth-Base" : true,
+        "Bunny-Skeleton" : true
+      }
+
+      var mountsFound = statCalc.totalMountCount(user.items.mounts);
+
+      expect(mountsFound).to.eql(7);
+    });
+
+    it('inlcudes mounts with a value of false', function() {
+      user.items.mounts = {
+        "Hedgehog-Desert" : false,
+        "Octopus-CottonCandyPink" : true,
+        "TigerCub-White" : false,
+        "Wolf-Golden" : false,
+        "Owl-CottonCandyBlue" : false,
+        "Mammoth-Base" : true,
+        "Bunny-Skeleton" : false
+      }
+
+      var mountsFound = statCalc.totalMountCount(user.items.mounts);
+
+      expect(mountsFound).to.eql(7);
+    });
+  });
 });

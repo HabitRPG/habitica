@@ -85,6 +85,18 @@
       return display;
     }
 
+    function totalPetCount(pets) {
+      var total = _.size(pets);
+
+      return total;
+    }
+
+    function totalMountCount(mounts) {
+      var total = _.size(mounts);
+
+      return total;
+    }
+
     function _formatOutOfTotalDisplay(stat, totalStat) {
       var display = stat + "/" + totalStat;
       return display;
@@ -97,7 +109,9 @@
       goldDisplay: goldDisplay,
       hpDisplay: hpDisplay,
       levelBonus: levelBonus,
-      mpDisplay: mpDisplay
+      mpDisplay: mpDisplay,
+      totalPetCount: totalPetCount,
+      totalMountCount: totalMountCount
     }
   }
 }());
