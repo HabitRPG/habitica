@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats) {
 
     var user = User.user;
 
@@ -8,8 +8,8 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
-    $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
-    $scope.totalMounts = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
+
+    _updateDropAnimalCount(user.items);
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
@@ -92,16 +92,18 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
+      _updateDropAnimalCount(user.items);
+
       // Checks if beastmaster has been reached for the first time
-      if(!User.user.achievements.beastMaster
-          && $rootScope.petCount >= 90) {
+      if(!user.achievements.beastMaster
+          && $scope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
         $rootScope.openModal('achievements/beastMaster');
       }
 
       // Checks if Triad Bingo has been reached for the first time
-      if(!User.user.achievements.triadBingo
-          && $rootScope.mountCount >= 90
+      if(!user.achievements.triadBingo
+          && $scope.mountCount >= 90
           && Shared.countTriad(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
@@ -125,14 +127,15 @@ habitrpg.controller("InventoryCtrl",
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
-        $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
 
-      // Checks if mountmaster has been reached for the first time
-      if(!User.user.achievements.mountMaster
-          && $rootScope.mountCount >= 90) {
-        User.user.achievements.mountMaster = true;
-        $rootScope.openModal('achievements/mountMaster');
-      }
+        _updateDropAnimalCount(user.items);
+
+        // Checks if mountmaster has been reached for the first time
+        if(!user.achievements.mountMaster
+            && $scope.mountCount >= 90) {
+          User.user.achievements.mountMaster = true;
+          $rootScope.openModal('achievements/mountMaster');
+        }
 
       // Selecting Pet
       } else {
@@ -209,5 +212,12 @@ habitrpg.controller("InventoryCtrl",
           break;
       }
     };
+
+    function _updateDropAnimalCount(items) {
+      $scope.petCount = Shared.countBeastMasterProgress(items.pets);
+      $scope.mountCount = Shared.countMountMasterProgress(items.mounts);
+      $scope.beastMasterProgress = Stats.beastMasterProgress(items.pets);
+      $scope.mountMasterProgress = Stats.mountMasterProgress(items.mounts);
+    }
   }
 ]);
