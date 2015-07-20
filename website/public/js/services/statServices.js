@@ -12,45 +12,18 @@
 
   function statsFactory(Content, Shared) {
 
-    function hpDisplay(hp) {
-      var remainingHP = Math.ceil(hp);
-      var totalHP = Shared.maxHealth;
-      var display = _formatOutOfTotalDisplay(remainingHP, totalHP);
+    function classBonus(user, stat) {
+      var computedStats = user._statsComputed;
 
-      return display;
-    }
+      if(computedStats) {
+        var bonus = computedStats[stat]
+          - user.stats.buffs[stat]
+          - levelBonus(user.stats.lvl)
+          - equipmentStatBonus(stat, user.items.gear.equipped)
+          - user.stats[stat];
 
-    function goldDisplay(gold) {
-      var display = Math.floor(gold);
-      return display;
-    }
-
-    function mpDisplay(user) {
-      var remainingMP = Math.floor(user.stats.mp);
-      var totalMP = user._statsComputed.maxMP;
-      var display = _formatOutOfTotalDisplay(remainingMP, totalMP);
-
-      return display;
-    }
-
-    function expDisplay(user) {
-      var exp = Math.floor(user.stats.exp);
-      var toNextLevel = Shared.tnl(user.stats.lvl);
-      var display = _formatOutOfTotalDisplay(exp, toNextLevel);
-
-      return display;
-    }
-
-    function levelBonus(level) {
-      // Level bonus is derived by taking the level, subtracting one,
-      // taking the smaller of it or maxLevel (100),
-      // dividing that by two and then raising it to a whole number
-
-      var levelOrMaxLevel = Math.min((level - 1), Shared.maxLevel);
-      var levelDividedByTwo = levelOrMaxLevel / 2;
-      var bonus = Math.ceil(levelDividedByTwo );
-
-      return bonus;
+        return bonus;
+      }
     }
 
     function equipmentStatBonus(stat, equipped) {
@@ -71,18 +44,45 @@
       return total;
     }
 
-    function classBonus(user, stat) {
-      var computedStats = user._statsComputed;
+    function expDisplay(user) {
+      var exp = Math.floor(user.stats.exp);
+      var toNextLevel = Shared.tnl(user.stats.lvl);
+      var display = _formatOutOfTotalDisplay(exp, toNextLevel);
 
-      if(computedStats) {
-        var bonus = computedStats[stat]
-          - user.stats.buffs[stat]
-          - levelBonus(user.stats.lvl)
-          - equipmentStatBonus(stat, user.items.gear.equipped)
-          - user.stats[stat];
+      return display;
+    }
 
-        return bonus;
-      }
+    function goldDisplay(gold) {
+      var display = Math.floor(gold);
+      return display;
+    }
+
+    function hpDisplay(hp) {
+      var remainingHP = Math.ceil(hp);
+      var totalHP = Shared.maxHealth;
+      var display = _formatOutOfTotalDisplay(remainingHP, totalHP);
+
+      return display;
+    }
+
+    function levelBonus(level) {
+      // Level bonus is derived by taking the level, subtracting one,
+      // taking the smaller of it or maxLevel (100),
+      // dividing that by two and then raising it to a whole number
+
+      var levelOrMaxLevel = Math.min((level - 1), Shared.maxLevel);
+      var levelDividedByTwo = levelOrMaxLevel / 2;
+      var bonus = Math.ceil(levelDividedByTwo );
+
+      return bonus;
+    }
+
+    function mpDisplay(user) {
+      var remainingMP = Math.floor(user.stats.mp);
+      var totalMP = user._statsComputed.maxMP;
+      var display = _formatOutOfTotalDisplay(remainingMP, totalMP);
+
+      return display;
     }
 
     function _formatOutOfTotalDisplay(stat, totalStat) {
