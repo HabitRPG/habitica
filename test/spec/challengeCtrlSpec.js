@@ -151,7 +151,8 @@ describe('Challenges Controller', function() {
     });
 
     it("saves the challenge if user does not have enough gems, but the challenge is not new", function() {
-
+      var saveWasCalled = false;
+      
       var challenge = new Challenges.Challenge({
         _id: 'challeng-id',
         name: 'Challenge without enough gems',
@@ -167,14 +168,14 @@ describe('Challenges Controller', function() {
         official: false,
         // Mock $save
         $save: function(cb) {
-          cb();
+          saveWasCalled = true;
+          return;
         }
       });
 
-      scope.enoughGems = false;
       scope.save(challenge);
-      console.log("SDF1")
-      expect(challenge._locked).to.be.ok;
+
+      expect(saveWasCalled).to.be.ok;
     });
 
     it("saves the challenge if user has enough gems and challenge is new", function() {
