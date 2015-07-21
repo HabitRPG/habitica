@@ -31,10 +31,10 @@ script(type='text/ng-template', id='modals/death.html')
             span(class='hair_flower_{{profile.preferences.hair.flower}}')
             +costumeSetting('shield')
             +costumeSetting('weapon')
-            span(class='zzz')
+            span(class='knockout')
       .col-md-6
-        h4=env.t('dontDespair')
-        p(style='margin-top:3em')=env.t('deathPenaltyDetails')
+        h4(style='margin-top:1.5em')=env.t('dontDespair')
+        p(style='margin-top:1.5em')=env.t('deathPenaltyDetails')
     .modal-footer
       a.btn.btn-danger.btn-lg.flex-column(ng-click='user.ops.revive({}); $close()')=env.t('refillHealthTryAgain')
       h4.text-center!=env.t('dyingOftenTips')
