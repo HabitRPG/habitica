@@ -26,6 +26,23 @@ describe('Challenges Controller', function() {
 
   describe("enough gems tracking", function() {
 
+    it("set enoughGems to false when user selects habitrpg without enough gems", function() {
+      scope.newChallenge = new Challenges.Challenge({
+        name: 'Challenge without a group',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        timestamp: +(new Date),
+        members: [],
+        official: false
+      });
+      scope.hasEnoughGems('habitrpg');
+      expect(scope.enoughGems).to.equal(false);
+    });
+
     it("set enoughGems to true when user selects habitrpg with enough gems", function() {
       scope.newChallenge = new Challenges.Challenge({
         name: 'Challenge without a group',
@@ -40,8 +57,8 @@ describe('Challenges Controller', function() {
         official: false
       });
       user.balance = 1;
-      scope.newChallenge.group = 'habitrpg';
-      //expect(scope.enoughGems).to.equal(true);
+      scope.hasEnoughGems('habitrpg');
+      expect(scope.enoughGems).to.equal(true);
     });
 
   });
@@ -156,7 +173,7 @@ describe('Challenges Controller', function() {
 
       scope.enoughGems = false;
       scope.save(challenge);
-
+      console.log("SDF1")
       expect(challenge._locked).to.be.ok;
     });
 
