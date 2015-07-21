@@ -84,4 +84,32 @@ describe('count', function() {
       expect(mountMasterTotal).to.eql(1);
     });
   });
+
+  describe('remainingGearInSet', function() {
+    it('counts remaining gear based on set', function() {
+      var gear = {
+        'weapon_wizard_0':true,
+        'weapon_wizard_1':true,
+        'weapon_warrior_0':true,
+        'weapon_warrior_1':true,
+        'weapon_armor_0':true,
+        'weapon_armor_1':true
+      };
+
+      var armoireCount = count.remainingGearInSet(gear, 'warrior');
+      expect(armoireCount).to.eql(20);
+    });
+
+    it('includes previously owned items in count', function() {
+      var gear = {
+        'weapon_warrior_0':false,
+        'weapon_warrior_1':false,
+        'weapon_armor_0':true,
+        'weapon_armor_1':true
+      };
+
+      var armoireCount = count.remainingGearInSet(gear, 'warrior');
+      expect(armoireCount).to.eql(20);
+    });
+  });
 });

@@ -26,7 +26,21 @@ function mountMasterProgress(mounts) {
   return count;
 }
 
+function remainingGearInSet(userGear, set) {
+  var gear = _.filter(content.gear.flat, function(item) {
+    var setMatches = item.klass === set;
+    var hasItem = _.has(userGear, item.key);
+
+    return setMatches && !hasItem;
+  });
+
+  var count = _.size(gear);
+
+  return count;
+}
+
 module.exports = {
   beastMasterProgress: beastMasterProgress,
-  mountMasterProgress: mountMasterProgress
+  mountMasterProgress: mountMasterProgress,
+  remainingGearInSet: remainingGearInSet
 };
