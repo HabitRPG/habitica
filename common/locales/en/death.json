@@ -1,6 +1,7 @@
 {
   "lostAllHealth": "You lost all your Health!",
-  "deathPenaltyDetails": "Don't despair! You lost a Level, all your Gold, and your <%= gearName %>, but you can get them all back with hard work! Good luck--you'll do great.",
+  "dontDespair": "Don't despair!",
+  "deathPenaltyDetails": "You lost a Level, your Gold, and a piece of Equipment, but you can get them all back with hard work! Good luck--you'll do great.",
   "refillHealthTryAgain": "Refill Health & Try Again",
   "dyingOftenTips": "Dying often? <a href='http://habitrpg.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Here are some tips!</a>"
 }
