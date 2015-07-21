@@ -67,7 +67,9 @@ habitrpg.controller('NotificationCtrl',
           type = 'food';
         } else if (after.type === 'HatchingPotion') {
           type = 'hatchingPotions';
-        } else type = after.type.toLowerCase() + 's';
+        } else {
+          type = after.type.toLowerCase() + 's';
+        }
         if(!User.user.items[type][after.key]){
           User.user.items[type][after.key] = 0;
         }
@@ -88,7 +90,7 @@ habitrpg.controller('NotificationCtrl',
         Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}), after);
       } else if (after.type === 'Quest') {
         $rootScope.selectedQuest = Content.quests[after.key];
-        $rootScope.openModal('questDrop');
+        $rootScope.openModal('questDrop', {controller:'PartyCtrl'});
       } else {
         // Keep support for another type of drops that might be added
         Notification.drop(User.user._tmp.drop.dialog);

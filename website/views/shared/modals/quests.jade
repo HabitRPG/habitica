@@ -90,4 +90,5 @@ script(type='text/ng-template', id='modals/questDrop.html')
     p=env.t('dropQuestCongrats')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
-    button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
+    button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
+    button.btn.btn-primary(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
