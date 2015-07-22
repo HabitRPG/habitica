@@ -211,5 +211,25 @@ habitrpg.controller("InventoryCtrl",
           break;
       }
     };
+
+    $scope.$on("habit:keyup", function (e, keyEvent) {
+      if (keyEvent.keyCode == "27") {
+        $scope.deselectItem();
+      }
+    });
+ //$scope.listen(keyEvent)
+
+    $scope.deselectItem = function() {
+      if ($scope.selectedFood) {
+        $scope.selectedFood = null;
+      }
+      if ($scope.selectedPotion) {
+         $scope.selectedPotion = null
+      }
+      if ($scope.selectedEgg) {
+        $scope.selectedEgg = null;
+      }
+    }
+
   }
 ]);
