@@ -89,8 +89,8 @@
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
       $rootScope.party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
         $rootScope.party.$get();
+        $rootScope.$state.go('options.social.party');
       });
-      $rootScope.$state.go('options.social.party');
       closeQuest();
     }
 
