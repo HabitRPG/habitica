@@ -16,6 +16,18 @@ function beastMasterProgress(pets) {
   return count;
 }
 
+function dropPetsCurrentlyOwned(pets) {
+  var count = 0;
+
+  _(DROP_ANIMALS).each(function(animal) {
+    if(pets[animal] > 0)
+      count++
+  });
+
+  return count;
+}
+
+
 function mountMasterProgress(mounts) {
   var count = 0;
   _(DROP_ANIMALS).each(function(animal) {
@@ -41,6 +53,7 @@ function remainingGearInSet(userGear, set) {
 
 module.exports = {
   beastMasterProgress: beastMasterProgress,
+  dropPetsCurrentlyOwned: dropPetsCurrentlyOwned,
   mountMasterProgress: mountMasterProgress,
   remainingGearInSet: remainingGearInSet
 };

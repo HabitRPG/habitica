@@ -112,4 +112,46 @@ describe('count', function() {
       expect(armoireCount).to.eql(20);
     });
   });
+
+  describe('dropPetsCurrentlyOwned', function() {
+    it('counts drop pets owned', function() {
+      var pets = {
+        "Wolf-Base": 2,
+        "Wolf-Red": 4
+      };
+      var dropPets = count.dropPetsCurrentlyOwned(pets);
+      expect(dropPets).to.eql(2);
+    });
+
+    it('does not count pets that have been raised to mounts', function() {
+      var pets = {
+        "Wolf-Base": -1,
+        "Wolf-Red": 4,
+        "Wolf-Veteran": 1,
+        "Gryphon-Base": 1
+      };
+      var dropPets = count.dropPetsCurrentlyOwned(pets);
+      expect(dropPets).to.eql(1);
+    });
+
+    it('does not count quest pets', function() {
+      var pets = {
+        "Wolf-Base": 2,
+        "Wolf-Red": 4,
+        "Gryphon-Base": 1
+      };
+      var dropPets = count.dropPetsCurrentlyOwned(pets);
+      expect(dropPets).to.eql(2);
+    });
+
+    it('does not count special pets', function() {
+      var pets = {
+        "Wolf-Base": 2,
+        "Wolf-Red": 4,
+        "Wolf-Veteran": 1
+      };
+      var dropPets = count.dropPetsCurrentlyOwned(pets);
+      expect(dropPets).to.eql(2);
+    });
+  });
 });
