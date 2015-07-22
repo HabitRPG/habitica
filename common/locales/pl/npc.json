@@ -27,7 +27,7 @@
     "payWithCard": "Zapłać kartą",
     "payNote": "Uwaga: Transakcje PayPal czasami długo czekają na realizację. Zalecamy płatność kartą.",
     "card": "Karta",
-    "amazonInstructions": "Click the button to pay using Amazon Payments",
+    "amazonInstructions": "Kliknij przycisk, by zapłacić używając Amazon Payments",
     "paymentMethods": "Metody płatności:",
     "classGear": "Wyposażenie klasowe",
     "classGearText": "Po pierwsze: nie panikuj! Twoje stare wyposażenie znajduje się w ekwipunku, a teraz nosisz ekwipunek <strong><%= klass %></strong> nowicjusza. Używanie ekwipunku przynależnego twojej klasie zapewnia ci 50%  premię do atrybutów. Możesz jednak w każdej chwili wrócić do swojego starego wyposażenia.",

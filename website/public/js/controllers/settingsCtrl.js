@@ -162,13 +162,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.releaseMounts = function() {
       User.user.ops.releaseMounts({});
-      $rootScope.mountCount = 0;
       $rootScope.$state.go('tasks');
     }
 
     $scope.releaseBoth = function() {
       User.user.ops.releaseBoth({});
-      $rootScope.mountCount = 0;
       $rootScope.$state.go('tasks');
     }
 

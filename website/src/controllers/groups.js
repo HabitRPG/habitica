@@ -917,7 +917,7 @@ api.questAccept = function(req, res, next) {
     var quest = shared.content.quests[key];
     if (!quest) return res.json(404,{err:'Quest ' + key + ' not found'});
     if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to begin this quest."});
-    if (group.quest.key) return res.json(400, {err: 'Party already on a quest (and only have one quest at a time)'});
+    if (group.quest.key) return res.json(400, {err: 'Your party is already on a quest. Try again when the current quest has ended.'});
     if (!user.items.quests[key]) return res.json(400, {err: "You don't own that quest scroll"});
     group.quest.key = key;
     group.quest.members = {};

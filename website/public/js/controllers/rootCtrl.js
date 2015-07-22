@@ -89,9 +89,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 
-    $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
-    $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
-
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
       if(phase == '$apply' || phase == '$digest') {

@@ -88,7 +88,7 @@ api.shouldDo = (day, dailyTask, options = {}) ->
   # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   # NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  taskStartDate = moment(taskStartDate).startOf('day');
+  taskStartDate = moment(taskStartDate).startOf('day')
 
   if taskStartDate > startOfDayWithCDSTime.startOf('day')
     return false # Daily starts in the future
@@ -378,32 +378,10 @@ api.appliedTags = (userTags, taskTags) ->
     arr.push(t.name) if taskTags?[t.id]
   arr.join(', ')
 
-api.countPets = (originalCount, pets) ->
-  count = if originalCount? then originalCount else _.size(pets)
-  for pet of content.questPets
-    count-- if pets[pet]
-  for pet of content.specialPets
-    count-- if pets[pet]
-  count
-
-api.countMounts = (originalCount, mounts) ->
-  count2 = if originalCount? then originalCount else _.size(mounts)
-  for mount of content.questPets
-    count2-- if mounts[mount]
-  for mount of content.specialMounts
-    count2-- if mounts[mount]
-  count2
-
-api.countTriad = (pets) ->
-  count3 = 0
-  for egg of content.dropEggs
-    for potion of content.hatchingPotions
-      if pets[egg + "-" + potion] > 0 then count3++
-  count3
-
-api.countArmoire = (gear) ->
-  count = _.size(_.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !gear[i.key])))
-  count
+###
+Various counting functions
+###
+api.count = require('./count')
 
 ###
 ------------------------------------------------------
@@ -512,7 +490,7 @@ api.wrap = (user, main=true) ->
           gear[type].weapon = 'weapon_base_0'
           gear[type].head   = 'head_base_0'
           gear[type].shield = 'shield_base_0'
-        gear.owned = {} if typeof gear.owned == 'undefined';
+        gear.owned = {} if typeof gear.owned == 'undefined'
         _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
         gear.owned.weapon_warrior_0 = true
         user.markModified? 'items.gear.owned'
@@ -707,7 +685,7 @@ api.wrap = (user, main=true) ->
       addPushDevice: (req, cb) ->
         user.pushDevices = [] unless user.pushDevices
         pd = user.pushDevices
-        item = {regId:req.body.regId, type:req.body.type};
+        item = {regId:req.body.regId, type:req.body.type}
         i = _.findIndex pd, {regId: item.regId}
 
         pd.push(item) unless i != -1
@@ -902,7 +880,7 @@ api.wrap = (user, main=true) ->
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
             message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
-            if api.countArmoire(user.items.gear.owned) is 0 then user.flags.armoireEmpty = true
+            if api.count.remainingGearInSet(user.items.gear.owned, 'armoire') is 0 then user.flags.armoireEmpty = true
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
@@ -1186,7 +1164,7 @@ api.wrap = (user, main=true) ->
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
               if direction is 'up' # Make progress on quest based on STR
-                user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                user.party.quest.progress.up = user.party.quest.progress.up || 0
                 user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
                 user.party.quest.progress.up += (nextDelta * (0.5 + (user._statsComputed.str / 400))) if task.type is 'habit'
               task.value += nextDelta
@@ -1510,7 +1488,7 @@ api.wrap = (user, main=true) ->
             user.fns.autoAllocate()
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int)
             if user.stats.points < 0
               user.stats.points = 0
               # This happens after dropping level with Fix Character Values and perhaps from other causes.
@@ -1538,9 +1516,7 @@ api.wrap = (user, main=true) ->
           (user.flags.levelDrops ?= {})[k] = true
           user.markModified? 'flags.levelDrops'
           mixpanel?.track("Acquire Item",{'itemName':k,'acquireMethod':'Drop'})
-          user._tmp.drop = _.defaults content.quests[k],
-            type: 'Quest'
-            dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
+          user._tmp.drop = {type: 'Quest', key: k}
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
 
