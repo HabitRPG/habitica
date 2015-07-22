@@ -541,7 +541,7 @@ describe 'User', ->
 
     it 'counts all available equipment before any are claimed', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 1)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 1)
 
     it 'does not open without paying', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0
@@ -565,7 +565,7 @@ describe 'User', ->
       user.achievements.ultimateGearSets = {'healer':false,'wizard':false,'rogue':true,'warrior':false}
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 2)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 2)
       expect(user.items.food).to.eql {}
       expect(user.stats.exp).to.eql 0
       expect(user.stats.gp).to.eql 400
@@ -590,7 +590,7 @@ describe 'User', ->
       sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true, 'head_armoire_blueHairbow':true}
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 3)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 3)
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 30
       expect(user.stats.gp).to.eql 100
@@ -600,7 +600,7 @@ describe 'User', ->
       user.items.gear.owned = fullArmoire
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql fullArmoire
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql 0
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql 0
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 60
       expect(user.stats.gp).to.eql 0

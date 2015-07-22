@@ -378,10 +378,6 @@ api.appliedTags = (userTags, taskTags) ->
     arr.push(t.name) if taskTags?[t.id]
   arr.join(', ')
 
-api.countArmoire = (gear) ->
-  count = _.size(_.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !gear[i.key])))
-  count
-
 ###
 Various counting functions
 ###
@@ -884,7 +880,7 @@ api.wrap = (user, main=true) ->
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
             message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
-            if api.countArmoire(user.items.gear.owned) is 0 then user.flags.armoireEmpty = true
+            if api.count.remainingGearInSet(user.items.gear.owned, 'armoire') is 0 then user.flags.armoireEmpty = true
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
