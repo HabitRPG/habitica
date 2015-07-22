@@ -17,6 +17,7 @@ habitrpg.controller("InventoryCtrl",
     $scope.questPopover = Quests.questPopover;
     $scope.showQuest = Quests.showQuest;
     $scope.closeQuest = Quests.closeQuest;
+    $scope.questInit = Quests.questInit;
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
@@ -145,14 +146,6 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.chooseMount = function(egg, potion) {
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
-    }
-
-    $scope.questInit = function(){
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$scope.selectedQuest.key});
-      $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
-        $rootScope.party.$get();
-      });
-      $scope.closeQuest();
     }
 
     $scope.getSeasonalShopArray = function(set){

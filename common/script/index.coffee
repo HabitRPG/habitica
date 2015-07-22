@@ -1516,9 +1516,7 @@ api.wrap = (user, main=true) ->
           (user.flags.levelDrops ?= {})[k] = true
           user.markModified? 'flags.levelDrops'
           mixpanel?.track("Acquire Item",{'itemName':k,'acquireMethod':'Drop'})
-          user._tmp.drop = _.defaults content.quests[k],
-            type: 'Quest'
-            dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
+          user._tmp.drop = {type: 'Quest', key: k}
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
 

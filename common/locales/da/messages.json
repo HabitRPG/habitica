@@ -22,7 +22,7 @@
     "messageDropEgg": "Du fandt et <%= dropText %> Æg! <%= dropNotes %>",
     "messageDropPotion": "Du fandt en <%= dropText %> Udrugningseliksir! <%= dropNotes %>",
     "messageFoundQuest": "Du fandt questen \"<%= questText %>\"!",
-    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyPurchasedGear": "Du købte dette udstyr en gang, men ejer det ikke på nuværende tidspunkt. Du kan købe det igen i belønningskolonnen på opgavesiden.",
     "messageAlreadyOwnGear": "Du ejer allerede denne ting. Tag det på ved at gå til udstyrs-siden.",
     "armoireEquipment": "<%= image %> Du har fundet sjældent Udstyr i Klædeskabet: <%= dropText %>! Fantastisk!",
     "armoireFood": "<%= image %> Du roder rundt i bunden af Klædeskabet. Pludselig finder du <%= dropArticle %><%= dropText %>. Gad vide hvad den laver her?",

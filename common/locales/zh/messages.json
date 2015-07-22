@@ -1,7 +1,7 @@
 {
     "messageLostItem": "你的<%= itemText %>损坏了。",
     "messageTaskNotFound": "找不到任务。",
-    "messageDuplicateTaskID": "A task with that ID already exists.",
+    "messageDuplicateTaskID": "此任务在这个账号中已经存在",
     "messageTagNotFound": "找不到标签。",
     "messagePetNotFound": "找不到该宠物。",
     "messageFoodNotFound": "找不到该食物。",
