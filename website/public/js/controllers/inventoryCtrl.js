@@ -217,18 +217,11 @@ habitrpg.controller("InventoryCtrl",
         $scope.deselectItem();
       }
     });
- //$scope.listen(keyEvent)
 
     $scope.deselectItem = function() {
-      if ($scope.selectedFood) {
-        $scope.selectedFood = null;
-      }
-      if ($scope.selectedPotion) {
-         $scope.selectedPotion = null
-      }
-      if ($scope.selectedEgg) {
-        $scope.selectedEgg = null;
-      }
+      $scope.selectedFood = null;
+      $scope.selectedPotion = null;
+      $scope.selectedEgg = null;
     }
 
   }

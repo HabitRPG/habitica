@@ -91,7 +91,6 @@ describe('Inventory Controller', function() {
   }));
 
   describe('Deselecting Items', function() {
-
     it('deselects a food', function(){
       scope.chooseFood('Meat');
       scope.deselectItem();
@@ -109,7 +108,5 @@ describe('Inventory Controller', function() {
       scope.deselectItem();
       expect(scope.selectedEgg).to.eql(null);
     });
-
   });
-
 });
