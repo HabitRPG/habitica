@@ -512,12 +512,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'Chat', 'User', 'Challenges', '$state', '$compile', 'Analytics',
-    function($rootScope,$scope, Groups, Chat, User, Challenges, $state, $compile, Analytics) {
+  .controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests',
+    function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests) {
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
+      $scope.inviteOrStartParty = Groups.inviteOrStartParty;
+      $scope.questInit = Quests.questInit;
 
       if ($state.is('options.social.party')) {
         $scope.group.$syncParty(); // Sync party automatically when navigating to party page

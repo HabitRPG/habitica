@@ -10,10 +10,11 @@
     '$rootScope',
     'Content',
     'Groups',
-    'User'
+    'User',
+    'Analytics'
   ];
 
-  function questsFactory($rootScope,Content,Groups,User) {
+  function questsFactory($rootScope,Content,Groups,User,Analytics) {
 
     var user = User.user;
 
@@ -84,12 +85,22 @@
       $rootScope.selectedQuest = undefined;
     }
 
+    function questInit(){
+      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
+      $rootScope.party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
+        $rootScope.party.$get();
+        $rootScope.$state.go('options.social.party');
+      });
+      closeQuest();
+    }
+
     return {
       lockQuest: lockQuest,
       buyQuest: buyQuest,
       questPopover: questPopover,
       showQuest: showQuest,
-      closeQuest: closeQuest
+      closeQuest: closeQuest,
+      questInit: questInit
     }
   }
 }());
