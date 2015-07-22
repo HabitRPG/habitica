@@ -15,7 +15,7 @@
     var TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
     function beastMasterProgress(pets) {
-      var dropPetsFound = Shared.countBeastMasterProgress(pets);
+      var dropPetsFound = Shared.count.beastMasterProgress(pets);
       var display = _formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
 
       return display;
@@ -87,7 +87,7 @@
     }
 
     function mountMasterProgress(mounts) {
-      var dropMountsFound = Shared.countMountMasterProgress(mounts);
+      var dropMountsFound = Shared.count.mountMasterProgress(mounts);
       var display = _formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
 
       return display;

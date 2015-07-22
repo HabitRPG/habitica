@@ -2,7 +2,7 @@
 
 require('coffee-script');
 var _ = require('lodash');
-var content = require('./content');
+var content = require('./content.coffee');
 
 var DROP_ANIMALS = _.keys(content.pets);
 

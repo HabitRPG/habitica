@@ -495,13 +495,13 @@ UserSchema.pre('save', function(next) {
   }
 
   // Determines if Beast Master should be awarded
-  var beastMasterProgress = shared.countBeastMasterProgress(this.items.pets);
+  var beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
   if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
     this.achievements.beastMaster = true;
   }
 
   // Determines if Mount Master should be awarded
-  var mountMasterProgress = shared.countMountMasterProgress(this.items.mounts);
+  var mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
   if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
     this.achievements.mountMaster = true
@@ -509,9 +509,10 @@ UserSchema.pre('save', function(next) {
 
   // Determines if Triad Bingo should be awarded
 
-  var triadCount = shared.countTriad(this.items.pets);
+  var dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+  var qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-  if ((mountMasterProgress >= 90 && triadCount >= 90) || this.achievements.triadBingoCount > 0) {
+  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
   }
 

@@ -104,7 +104,7 @@ habitrpg.controller("InventoryCtrl",
       // Checks if Triad Bingo has been reached for the first time
       if(!user.achievements.triadBingo
           && $scope.mountCount >= 90
-          && Shared.countTriad(User.user.items.pets) >= 90) {
+          && Shared.count.dropPetsCurrentlyOwned(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
@@ -214,8 +214,8 @@ habitrpg.controller("InventoryCtrl",
     };
 
     function _updateDropAnimalCount(items) {
-      $scope.petCount = Shared.countBeastMasterProgress(items.pets);
-      $scope.mountCount = Shared.countMountMasterProgress(items.mounts);
+      $scope.petCount = Shared.count.beastMasterProgress(items.pets);
+      $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
       $scope.beastMasterProgress = Stats.beastMasterProgress(items.pets);
       $scope.mountMasterProgress = Stats.mountMasterProgress(items.mounts);
     }

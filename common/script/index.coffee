@@ -378,34 +378,14 @@ api.appliedTags = (userTags, taskTags) ->
     arr.push(t.name) if taskTags?[t.id]
   arr.join(', ')
 
-DROP_ANIMALS = _.keys(content.pets)
-
-api.countBeastMasterProgress = (pets) ->
-  count = 0
-  for animal in DROP_ANIMALS
-    if pets[animal] > 0 || pets[animal] == -1
-      count++
-
-  count
-
-api.countMountMasterProgress = (mounts) ->
-  count = 0
-  for animal in DROP_ANIMALS
-    if mounts[animal]
-      count++
-
-  count
-
-api.countTriad = (pets) ->
-  count3 = 0
-  for egg of content.dropEggs
-    for potion of content.hatchingPotions
-      if pets[egg + "-" + potion] > 0 then count3++
-  count3
-
 api.countArmoire = (gear) ->
   count = _.size(_.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !gear[i.key])))
   count
+
+###
+Various counting functions
+###
+api.count = require('./count')
 
 ###
 ------------------------------------------------------
