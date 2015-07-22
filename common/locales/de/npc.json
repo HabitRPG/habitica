@@ -27,7 +27,7 @@
     "payWithCard": "Mit Kreditkarte bezahlen",
     "payNote": "Achtung: PayPal braucht manchmal viel Zeit. Wir empfehlen, eine Kreditkarte zu benutzen",
     "card": "Kreditkarte",
-    "amazonInstructions": "Click the button to pay using Amazon Payments",
+    "amazonInstructions": "Klicke hier um über Amazon Payments zu zahlen.",
     "paymentMethods": "Zahlungsarten:",
     "classGear": "Klassenausrüstung",
     "classGearText": "Zuallererst: Keine Panik! Deine alte Ausrüstung ist in Deinem Inventar und Du trägst jetzt Deine Lehrling <strong><%= klass %></strong>-Ausrüstung. Die Ausrüstung Deiner Klasse zu tragen verleiht Dir einen 50% Bonus auf ihre Werte. Aber Du kannst jederzeit zu Deiner alten Ausrüstung zurückwechseln.",

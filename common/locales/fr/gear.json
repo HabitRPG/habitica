@@ -189,7 +189,7 @@
     "armorSpecial1Notes": "Son pouvoir inlassable habitue son porteur à l'inconfort ordinaire. Augmente tous les attributs de <%= attrs %>.",
     "armorSpecial2Text": "Tunique de Noble de Jean Chalard",
     "armorSpecial2Notes": "Vous rend super moelleux ! Augmente la Consitution et l'Intelligence  de <%= attrs %> points.",
-    "armorSpecialFinnedOceanicArmorText": "Armure Océane à Aileron",
+    "armorSpecialFinnedOceanicArmorText": "Armure Océane à Nageoire",
     "armorSpecialFinnedOceanicArmorNotes": "Bien qu'elle soit délicate, cette armure rend votre peau aussi dangereuse à toucher qu'un Corail de Feu. Augmente la Force de <%= str %> points.",
     "armorSpecialYetiText": "Tunique du Dresseur de Yeti",
     "armorSpecialYetiNotes": "Flou et féroce. Augmente la Constitution de <%= con %> points. Équipement en Édition Limitée de l'Hiver 2013-2014.",

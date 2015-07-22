@@ -51,7 +51,7 @@
     "mustLevel": "You must be level <%= level %> to begin this quest.",
     "mustLvlQuest": "Вам нужно достигнуть уровня <%= level %>, чтобы купить этот квест!",
     "mustInviteFriend": "To earn this quest, invite a friend to your Party. Invite someone now?",
-    "unlockByQuesting": "To earn this quest, complete <%= title %>.",
+    "unlockByQuesting": "Чтобы получить этот квест, выполните <%= title %>.",
     "sureCancel": "Вы уверены, что хотите отменить квест? Приглашение будет потеряно. Свиток сохранится у владельца квеста.",
     "sureAbort": "Вы уверены, что хотите отменить эту миссию? Она отменится для всех членов группы, весь прогресс будет утерян. Свиток вернется к владельцу квеста.",
     "doubleSureAbort": "Вы точно-точно уверены? Подумайте, не будут ли они ненавидеть вас всю жизнь после этого?",

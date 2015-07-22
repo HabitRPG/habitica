@@ -16,7 +16,7 @@
     "selectWinner": "Seleccionar un ganador y cerrar el desafío:",
     "deleteOrSelect": "Borrar o seleccionar el ganador",
     "endChallenge": "Terminar desafío",
-    "challengeDiscription": "These are the Challenge's tasks that will be added to your task dashboard when you join this Challenge. The sample Challenge tasks below will change color and gain graphs to show you the overall progress of the group.",
+    "challengeDiscription": "Estas son las tareas de Desafío que serán añadidas a tu lista de tareas cuando te unas al Desafío. Las tareas de Desafío de abajo cambiarán de color y tendrán gráficas de acuerdo al progreso general del grupo.",
     "hows": "¿Qué tal vamos?",
     "filter": "Filtro",
     "groups": "Grupos",
@@ -38,7 +38,7 @@
     "publicChallenges": "Mínimo 1 Gema para <strong> desafíos públicos </strong> (ayuda a prevenir el spam, de verdad que sí).",
     "officialChallenge": "Desafío oficial de HabitRPG",
     "by": "por",
-    "participants": "Participantes",
+    "participants": "Participantes: <%= membercount %>",
     "join": "Unirse",
     "exportChallengeCSV": "Exportar a CSV",
     "selectGroup": "Por favor seleccione un grupo",
@@ -51,9 +51,9 @@
     "leaveCha": "Dejar el desafio y...",
     "challengedOwnedFilterHeader": "Propiedad",
     "challengedOwnedFilter": "En posesión",
-    "challengedNotOwnedFilter": "Not Owned",
+    "challengedNotOwnedFilter": "Fuera de posesión",
     "challengedEitherOwnedFilter": "Cualquiera",
     "backToChallenges": "Volver a todos los desafío",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "prizeValue": "Premio: <%= gemcount %>&nbsp;<%= gemicon %>",
+    "clone": "Clonar"
 }
