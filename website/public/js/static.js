@@ -6,11 +6,12 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
   .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
   .constant("MOBILE_APP", false)
 
-.controller("RootCtrl", ['$scope', '$location', '$modal', '$http', function($scope, $location, $modal, $http){
+.controller("RootCtrl", ['$scope', '$location', '$modal', '$http', 'Stats', function($scope, $location, $modal, $http, Stats){
     var memberId = $location.search()['memberId'];
     if (memberId) {
       $http.get('/api/v2/members/'+memberId).success(function(data, status, headers, config){
-        $scope.profile = data;
+        $scope.profile = window.habitrpgShared.wrap(data, false);
+        $scope.statCalc = Stats;
         $scope.Content = window.habitrpgShared.content;
         $modal.open({
           templateUrl: 'modals/member.html',
@@ -18,8 +19,6 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
         });
       })
     }
-
-    $scope.Math = window.Math;
   }])
 
 .controller("PlansCtrl", ['$rootScope','Analytics',

@@ -1,6 +1,5 @@
-/**
- * Created by Sabe on 7/7/2015.
- */
+'use strict';
+
 (function(){
   angular
     .module('habitrpg')
