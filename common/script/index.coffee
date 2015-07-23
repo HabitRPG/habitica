@@ -1064,9 +1064,8 @@ api.wrap = (user, main=true) ->
         item = content.gear.flat[item]
         user.items.gear.owned[item.key] = true
         user.markModified? 'purchased.plan.mysteryItems'
-        # Could show {code:200} message, but it's yellow with no icon. This is round-about, but prettier. FIXME
-        (user._tmp?={}).drop = {type: 'gear', dialog: "#{item.text(req.language)} inside!"} if typeof window != 'undefined'
-        #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
+        item.type = 'Mystery'
+        (user._tmp?={}).drop = item if typeof window != 'undefined'
         cb? null, user.items.gear.owned
 
       readNYE: (req,cb) ->
