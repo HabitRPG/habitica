@@ -41,7 +41,7 @@ function mountMasterProgress(mounts) {
 function remainingGearInSet(userGear, set) {
   var gear = _.filter(content.gear.flat, function(item) {
     var setMatches = item.klass === set;
-    var hasItem = _.has(userGear, item.key);
+    var hasItem = userGear[item.key];
 
     return setMatches && !hasItem;
   });
