@@ -45,6 +45,7 @@
     "hauntedColors": "Cores Assombradas",
     "winteryColors": "Cores Invernais",
     "equipment": "Equipamento",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Bônus de atributo concedido pelo seu equipamento de batalha. Veja a aba de Equipamento dentro de Inventário para selecionar seu equipamento de batalha.",
     "classBonus": "Bônus de Equipamento da Classe",
     "classBonusText": "Sua classe (Guerreiro, se você ainda não liberou ou selecionou outra classe) usa seu próprio equipamento com mais eficiência que equipamentos de outras classes. Usar equipamentos da própria classe garante um aumento de 50% ao bônus de atributo concedido pelo equipamento.",
@@ -150,7 +151,7 @@
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Ladino</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Curandeiro</a>",
     "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Aprenda mais sobre classes</a>",
-    "str": "STR",
+    "str": "FOR",
     "con": "CON",
     "per": "PER",
     "int": "INT"

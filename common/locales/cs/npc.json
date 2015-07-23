@@ -27,7 +27,7 @@
     "payWithCard": "Zaplatit kartou",
     "payNote": "Poznámka: Zpracování platby přes PayPal někdy trvá delší dobu. Doporučujeme platit kartou.",
     "card": "Kartou",
-    "amazonInstructions": "Click the button to pay using Amazon Payments",
+    "amazonInstructions": "Klikni pro zaplacení přes Amazon platby",
     "paymentMethods": "Platební metody:",
     "classGear": "Vybavení pro tvé povolání",
     "classGearText": "Za prvé: Nepanikař! Tvé staré vybavení je v tvém inventáři a nyní nosíš začátečnické vybavení povolání <strong><%= klass %></strong>. Nošení vybavení tvého povolání ti dává 50% bonus k statistikám.  Ale neboj se vrátit ke svému starému vybavení.",

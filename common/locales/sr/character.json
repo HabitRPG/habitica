@@ -45,6 +45,7 @@
     "hauntedColors": "Sablasne kože",
     "winteryColors": "Zimske kože",
     "equipment": "Oprema",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Od opreme koju nosite dobijate bonuse na osobine. Opremu možete birati u Inventaru na tabu Oprema.",
     "classBonus": "Bonus klase",
     "classBonusText": "Vaša klasa (ako još niste otključali i odabrali klasu, onda ste Ratnik) bolje se snalazi sa svojom opremom, nego sa opremom drugih klasa. Kad nosite opremu namenjenu Vašoj klasi, uvećavate njene bonus osobine za 50%.",

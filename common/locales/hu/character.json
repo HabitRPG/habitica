@@ -45,6 +45,7 @@
     "hauntedColors": "Kísérteties hajszínek",
     "winteryColors": "Télies színek",
     "equipment": "Felszerelés",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "A tulajdonság bónuszokat a viselt harci felszereléseid adják. Lesd meg a Felszerelés fület a Tárgylistádban, hogy kiválaszd a viselt harci felszereléseket.",
     "classBonus": "Kaszt felszerelés bónusz",
     "classBonusText": "A kasztod (Harcos, ha még nem oldottál fel, vagy választottál ki másik kasztot) a saját kasztjához tartozó felszereléseket hatékonyabban használja. Ha a jelenlegi kasztodnak megfelelő holmit használsz, akkor az általa biztosított tulajdonság bónuszok 50%-kal nőnek.",

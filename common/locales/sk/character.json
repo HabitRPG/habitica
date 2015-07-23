@@ -45,6 +45,7 @@
     "hauntedColors": "Strašidelné farby",
     "winteryColors": "Zimné Farby",
     "equipment": "Výstroj",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Bonusy k atribútom, ktoré ti poskytuje bojová výzbroj. Ak ju chceš zmeniť, nájdeš ju v záložke \"výstroj\" v inventári.",
     "classBonus": "Bonus za výstroj povolania",
     "classBonusText": "Tvoje povolanie (ak nemáš zvolené iné povolanie, si bojovník) používa vlastný výstroj efektívnejšie ako výstroj iných povolaní. Výstroj tvojho aktuálneho povolania dostane pri použití 50% bonus k atribútom, ktoré vylepšuje.",

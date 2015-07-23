@@ -45,6 +45,7 @@
     "hauntedColors": "幽灵的颜色",
     "winteryColors": "冷色",
     "equipment": "装备",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "装备提供的奖励加成. 详情见物品栏中的装备.",
     "classBonus": "职业装备额外奖励",
     "classBonusText": "用跟你的职业相符的装备会比其他更有效。(在你还没有解锁或选择其他职业之前，你是个战士) 使用相符的装备能给你的属性点50%的提升。",

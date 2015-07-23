@@ -45,6 +45,7 @@
     "hauntedColors": "Hjemsøgte farver",
     "winteryColors": "Vinterfarver",
     "equipment": "Udstyr",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Attributsbonusser tilføjet af din udstyrede kamprustning. Se Udstyrsfanen under Inventar for at vælge din kamprustning.",
     "classBonus": "Klasseudstyrsbonus",
     "classBonusText": "Din klasse (kriger, hvis du ikke har opnået eller valgt en anden klasse) bruger sit eget udstyr mere effektivt end udstyr til andre klasser. Båret udstyr der hører til din nuværende klasse får et 50% tillæg til den attributbonus, den giver.",
@@ -150,8 +151,8 @@
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Slyngel</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Helbreder</a>",
     "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Lær mere om klasserne</a>",
-    "str": "STR",
-    "con": "CON",
-    "per": "PER",
+    "str": "STY",
+    "con": "KON",
+    "per": "OPF",
     "int": "INT"
 }

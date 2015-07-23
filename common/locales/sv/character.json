@@ -45,6 +45,7 @@
     "hauntedColors": "Spöklika färger",
     "winteryColors": "Vinterfärger",
     "equipment": "Utrustning",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Egenskapsbonusar från din nuvarande stridsutrustning. Gå in på fliken \"Utrustning\" under \"Förråd\" för att välja din stridsutrustning.",
     "classBonus": "Klassutrustningsbonus",
     "classBonusText": "Din klass (krigare, om du inte har låst upp eller valt en annan klass) använder sin egen utrustning mer effektivt än utrustning från andra klasser. Att använda utrustning från din nuvarande klass höjer egenskapsbonusen med 50%.",
