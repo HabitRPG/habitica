@@ -69,6 +69,9 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         members: [],
         official: false
       });
+
+      _calculateMaxPrize(defaultGroup);
+      _checkIfUserHasEnoughGemsForTavernChallenge();
     };
 
     /**
@@ -277,7 +280,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     }
 
     $scope.$watch('newChallenge.group', function(gid){
-      $scope.hasEnoughGems(gid);
+      if (!gid) return;
+
+      _checkIfUserHasEnoughGemsForTavernChallenge();
+      $scope.maxPrize = _calculateMaxPrize(gid);
+
+      if (gid == 'habitrpg') {
+        $scope.newChallenge.prize = 1;
+      }
     })
 
     $scope.selectAll = function(){
