@@ -22,6 +22,7 @@
   "messageDropEgg": "You've found a <%= dropText %> Egg! <%= dropNotes %>",
   "messageDropPotion": "You've found a <%= dropText %> Hatching Potion! <%= dropNotes %>",
   "messageDropQuest": "You've found a quest!",
+  "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
   "messageFoundQuest": "You've found the quest \"<%= questText %>\"!",
 
   "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",

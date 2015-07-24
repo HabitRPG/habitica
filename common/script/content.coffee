@@ -51,6 +51,7 @@ api.mystery =
   201504: {start:'2015-04-24',end:'2015-05-02', text:'Busy Bee Set'}
   201505: {start:'2015-05-25',end:'2015-06-02', text:'Green Knight Set'}
   201506: {start:'2015-06-25',end:'2015-07-02', text:'Neon Snorkeler Set'}
+  201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -429,6 +430,7 @@ gear =
       201404: text: t('backMystery201404Text'), notes: t('backMystery201404Notes'), mystery:'201404', value: 0
       201410: text: t('backMystery201410Text'), notes: t('backMystery201410Notes'), mystery:'201410', value: 0
       201504: text: t('backMystery201504Text'), notes: t('backMystery201504Notes'), mystery:'201504', value: 0
+      201507: text: t('backMystery201507Text'), notes: t('backMystery201507Notes'), mystery:'201507', value: 0
     special:
       wondercon_red: text: t('backSpecialWonderconRedText'), notes: t('backSpecialWonderconRedNotes'), value: 0, mystery:'wondercon'
       wondercon_black: text: t('backSpecialWonderconBlackText'), notes: t('backSpecialWonderconBlackNotes'), value: 0, mystery:'wondercon'
@@ -491,12 +493,13 @@ gear =
     mystery:
       201503: text: t('eyewearMystery201503Text'), notes: t('eyewearMystery201503Notes'), mystery:'201503', value: 0
       201506: text: t('eyewearMystery201506Text'), notes: t('eyewearMystery201506Notes'), mystery:'201506', value: 0
+      201507: text: t('eyewearMystery201507Text'), notes: t('eyewearMystery201507Notes'), mystery:'201507', value: 0
       301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
-  they are needed in different froms at different points in the app
+  they are needed in different forms at different points in the app
 ###
 api.gear =
   tree: gear

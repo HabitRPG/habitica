@@ -62,7 +62,7 @@ habitrpg.controller('NotificationCtrl',
       var text, notes, type;
       $rootScope.playSound('Item_Drop');
 
-      if (after.type !== 'gear' && after.type !== 'Quest') {
+      if (after.type !== 'gear' && after.type !== 'Quest' && after.type !== 'Mystery') {
         if (after.type === 'Food') {
           type = 'food';
         } else if (after.type === 'HatchingPotion') {
@@ -91,6 +91,9 @@ habitrpg.controller('NotificationCtrl',
       } else if (after.type === 'Quest') {
         $rootScope.selectedQuest = Content.quests[after.key];
         $rootScope.openModal('questDrop', {controller:'PartyCtrl'});
+      } else if (after.type === 'Mystery') {
+        text = Content.gear.flat[after.key].text();
+        Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), after);
       } else {
         // Keep support for another type of drops that might be added
         Notification.drop(User.user._tmp.drop.dialog);
