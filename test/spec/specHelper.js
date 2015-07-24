@@ -11,6 +11,7 @@ var specHelper = {};
   specHelper.newDaily = newDaily;
   specHelper.newTodo = newTodo;
   specHelper.newReward = newReward;
+  specHelper.newChallenge = newChallenge;
 
   function newUser() {
     var buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false};
@@ -136,6 +137,26 @@ var specHelper = {};
     _setOverrides(reward, overrides);
 
     return reward;
+  }
+
+  function newChallenge(overrides) {
+    var challenge = {
+      name: 'challenge name',
+      description: 'challeng description',
+      habits: [],
+      dailys: [],
+      todos: [],
+      rewards: [],
+      leader: 'leader-id',
+      group: 'group-id',
+      timestamp: +(new Date),
+      members: ['leader-id'],
+      official: false
+    };
+
+    _setOverrides(challenge, overrides);
+
+    return challenge;
   }
 
   function _setOverrides(factory, overrides) {
