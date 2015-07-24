@@ -292,22 +292,33 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       return true;
     };
 
-    //A helper function to dermine if the user has enough gems to create a Habitrpg challenge
-    $scope.hasEnoughGems = function(gid) {
-      if (!gid) return;
-      var groupBalance = 0;
-      var group = _.find($scope.groups, {_id:gid});
-      if (group) { groupBalance = group.balance; }
-      var userBalance = User.user.balance || 0;
-      $scope.maxPrize = userBalance * 4 + ((group && groupBalance && group.leader==User.user._id) ? groupBalance*4 : 0);
-      if (gid == 'habitrpg') {
-       $scope.newChallenge.prize = 1;
-       //If the user does not have enough gems for the Habitrpg group, the set our enoughGems var to false
-       if ( $scope.maxPrize <= 0 ) $scope.enoughGems = false;
+    function _checkIfUserHasEnoughGemsForTavernChallenge() {
+      var balance = User.user.balance || 0;
+      var isForTavern = $scope.newChallenge.group == 'habitrpg';
+
+      if (isForTavern && balance <= 0) {
+        $scope.isTavernChallengeAndUserCannotProvidePrize = false;
       } else {
-       //Reset our enoughGems variable incase the user tried to create a challenge for habitrpg and was unable to
-       $scope.enoughGems = true;
+        $scope.isTavernChallengeAndUserCannotProvidePrize = true;
       }
+    }
+
+    function _calculateMaxPrize(gid) {
+      var userBalance = User.getBalanceInGems() || 0;
+      var availableGroupBalance = _calculateAvailableGroupBalance(gid);
+
+      return userBalance + availableGroupBalance;
+    }
+
+    function _calculateAvailableGroupBalance(gid) {
+      var groupBalance = 0;
+      var group = _.find($scope.groups, { _id: gid });
+
+      if (group && group.balance && group.leader === User.user._id) {
+        groupBalance = group.balance * 4;
+      }
+
+      return groupBalance;
     }
 
     function _shouldShowChallenge(chal) {
