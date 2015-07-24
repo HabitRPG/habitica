@@ -42,19 +42,22 @@ var specHelper = {};
     return user;
   }
 
-  function newGroup(leader) {
+  function newGroup(overrides) {
     var quest = { progress: { }, active: false };
     group = {
-      "leader" : leader,
-      "quest" : quest,
-      "memberCount" : 1,
-      "chat" : [],
-      "privacy" : "public",
-      "invites" : [],
-      "members" : [
-        leader
+      _id: 'group-id',
+      leader : 'leader-id',
+      memberCount : 1,
+      chat : [],
+      privacy : "public",
+      invites : [],
+      members : [
+        'leader-id'
       ]
     };
+
+    _setOverrides(group, overrides);
+
     return group;
   }
 
