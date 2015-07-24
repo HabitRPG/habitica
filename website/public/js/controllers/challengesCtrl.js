@@ -12,9 +12,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
 
-
-    // we should fix this, that's pretty brittle
-
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
     $scope.score = function(){}
 
