@@ -39,7 +39,7 @@ describe('Challenges Controller', function() {
         members: [],
         official: false
       });
-      scope.hasEnoughGems('habitrpg');
+      scope.hasEnoughGemsToCreateChallenge('habitrpg');
       expect(scope.enoughGems).to.equal(false);
     });
 
@@ -57,7 +57,7 @@ describe('Challenges Controller', function() {
         official: false
       });
       user.balance = 1;
-      scope.hasEnoughGems('habitrpg');
+      scope.hasEnoughGemsToCreateChallenge('habitrpg');
       expect(scope.enoughGems).to.equal(true);
     });
 
@@ -152,7 +152,7 @@ describe('Challenges Controller', function() {
 
     it("saves the challenge if user does not have enough gems, but the challenge is not new", function() {
       var saveWasCalled = false;
-      
+
       var challenge = new Challenges.Challenge({
         _id: 'challeng-id',
         name: 'Challenge without enough gems',

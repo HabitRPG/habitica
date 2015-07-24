@@ -133,7 +133,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.save = function(challenge) {
       if (!challenge.group) return alert(window.env.t('selectGroup'));
       var isNew = !challenge._id;
-      $scope.hasEnoughGems(challenge.group);
+      $scope.hasEnoughGemsToCreateChallenge(challenge.group);
       if (!$scope.enoughGems && isNew ) return alert(window.env.t('challengeNotEnoughGems'));
       challenge.$save(function(_challenge){
         if (isNew) {
@@ -305,7 +305,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     }
 
     $scope.$watch('newChallenge.group', function(gid){
-      $scope.hasEnoughGems(gid);
+      $scope.hasEnoughGemsToCreateChallenge(gid);
     })
 
     $scope.selectAll = function(){
@@ -316,12 +316,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.search.group = _.transform($scope.groups, function(m,g){m[g._id] = false});
     }
 
-    $scope.shouldShow = function(task, list, prefs){
-      return true;
-    };
-
     //A helper function to dermine if the user has enough gems to create a Habitrpg challenge
-    $scope.hasEnoughGems = function(gid) {
+    $scope.hasEnoughGemsToCreateChallenge = function(gid) {
       if (!gid) return;
       var groupBalance = 0;
       var group = _.find($scope.groups, {_id:gid});
