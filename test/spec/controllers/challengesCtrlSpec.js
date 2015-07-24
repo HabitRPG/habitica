@@ -424,11 +424,57 @@ describe('Challenges Controller', function() {
     });
 
     describe('clickLeave', function() {
-      it('opens a popover to confirm');
+      var clickEvent = {
+        target: 'button'
+      };
+
+      it('sets selectedChal to passed in challenge', function() {
+        var challenge = specHelper.newChallenge({
+          _id: 'popover-challenge-to-leave'
+        });
+
+        expect(scope.selectedChal).to.not.exist;
+
+        scope.clickLeave(challenge, clickEvent);
+        expect(scope.selectedChal).to.eql(challenge);
+      });
+
+      it('creates popover element', function() {
+        var challenge = specHelper.newChallenge({
+          _id: 'popover-challenge-to-leave'
+        });
+
+        expect(scope.popoverEl).to.not.exist;
+        scope.clickLeave(challenge, clickEvent);
+        expect(scope.popoverEl).to.exist;
+      });
     });
 
     describe('leave', function() {
-      it('(@TODO: write tests)');
+      var challenge = specHelper.newChallenge({
+        _id: 'challenge-to-leave',
+        $leave: sandbox.spy()
+      });
+
+      var clickEvent = {
+        target: 'button'
+      };
+
+      it('removes selectedChal when cancel is chosen', function() {
+        scope.clickLeave(challenge, clickEvent);
+
+        expect(scope.selectedChal).to.eql(challenge);
+
+        scope.leave('cancel');
+        expect(scope.selectedChal).to.not.exist;
+      });
+
+      it('calls challenge.$leave when anything but cancel is chosen', function() {
+        scope.clickLeave(challenge, clickEvent);
+
+        scope.leave('not-cancel');
+        expect(challenge.$leave).to.be.calledOnce;
+      });
     });
   });
 });
