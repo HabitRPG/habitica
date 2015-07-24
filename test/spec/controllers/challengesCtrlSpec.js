@@ -183,6 +183,12 @@ describe('Challenges Controller', function() {
     it('selects no groups');
   });
 
+  describe('shouldShow', function() {
+    it('overrides task controller function by always returning true', function() {
+      expect(scope.shouldShow()).to.eq(true);
+    });
+  });
+
   describe("save challenge", function() {
   });
 
