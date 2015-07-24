@@ -528,7 +528,13 @@ describe('Challenges Controller', function() {
     });
 
     describe('discard', function() {
-      it('sets new challenge to null');
+      it('sets new challenge to null', function() {
+        scope.newChallenge = specHelper.newChallenge();
+
+        scope.discard();
+
+        expect(scope.newChallenge).to.not.exist;
+      });
     });
 
     describe('clone', function() {
