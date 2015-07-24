@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Challenges Controller', function() {
-  var $rootScope, scope, user, User, ctrl, challenges, groups, notification, state;
+  var $rootScope, scope, user, User, ctrl, groups, notification, state;
 
   beforeEach(function() {
     module(function($provide) {
@@ -15,7 +15,7 @@ describe('Challenges Controller', function() {
       $provide.value('User', User);
     });
 
-    inject(function($rootScope, $controller, _$state_, _Challenges_, _Groups_, _Notification_){
+    inject(function($rootScope, $controller, _$state_, _Groups_, _Notification_){
       user = specHelper.newUser();
       user._id = "unique-user-id";
 
@@ -26,7 +26,6 @@ describe('Challenges Controller', function() {
 
       ctrl = $controller('ChallengesCtrl', {$scope: scope, User: User});
 
-      challenges = _Challenges_;
       groups = _Groups_;
       notification = _Notification_;
       state = _$state_;
@@ -38,63 +37,31 @@ describe('Challenges Controller', function() {
       var ownMem, ownNotMem, notOwnMem, notOwnNotMem;
 
       beforeEach(function() {
-        ownMem = new challenges.Challenge({
-          name: 'test',
+        ownMem = specHelper.newChallenge({
           description: 'You are the owner and member',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
           leader: user._id,
-          group: "test",
-          timestamp: +(new Date),
           members: [user],
-          official: false,
           _isMember: true
         });
 
-        ownNotMem = new challenges.Challenge({
-          name: 'test',
+        ownNotMem = specHelper.newChallenge({
           description: 'You are the owner, but not a member',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
           leader: user._id,
-          group: "test",
-          timestamp: +(new Date),
           members: [],
-          official: false,
           _isMember: false
         });
 
-        notOwnMem = new challenges.Challenge({
-          name: 'test',
+        notOwnMem = specHelper.newChallenge({
           description: 'Not owner but a member',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
           leader: {_id:"test"},
-          group: "test",
-          timestamp: +(new Date),
           members: [user],
-          official: false,
           _isMember: true
         });
 
-        notOwnNotMem = new challenges.Challenge({
-          name: 'test',
+        notOwnNotMem = specHelper.newChallenge({
           description: 'Not owner or member',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
           leader: {_id:"test"},
-          group: "test",
-          timestamp: +(new Date),
           members: [],
-          official: false,
           _isMember: false
         });
 
@@ -237,18 +204,11 @@ describe('Challenges Controller', function() {
         alert = sandbox.stub(window, "alert");
       });
 
-      it("opens an alert box if challenge.group is not specified", function() {
-        var challenge = new challenges.Challenge({
+      it("opens an alert box if challenge.group is not specified", function()
+        {
+        var challenge = specHelper.newChallenge({
           name: 'Challenge without a group',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          leader: user._id,
-          timestamp: +(new Date),
-          members: [],
-          official: false
+          group: null
         });
 
         scope.save(challenge);
@@ -258,19 +218,9 @@ describe('Challenges Controller', function() {
       });
 
       it("opens an alert box if isNew and user does not have enough gems", function() {
-        var challenge = new challenges.Challenge({
+        var challenge = specHelper.newChallenge({
           name: 'Challenge without enough gems',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          prize: 5,
-          leader: user._id,
-          group: "a-group-id",
-          timestamp: +(new Date),
-          members: [],
-          official: false
+          prize: 5
         });
 
         scope.maxPrize = 4;
@@ -281,22 +231,11 @@ describe('Challenges Controller', function() {
       });
 
       it("saves the challenge if user does not have enough gems, but the challenge is not new", function() {
-        var challenge = new challenges.Challenge({
-          _id: 'challeng-id', // challenge has id, so it's not new
+        var challenge = specHelper.newChallenge({
+          _id: 'challenge-has-id-so-its-not-new',
           name: 'Challenge without enough gems',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          leader: user._id,
-          group: "a-group-id",
           prize: 5,
-          timestamp: +(new Date),
-          members: [],
-          official: false,
-          // Mock $save
-          $save: sandbox.spy()
+          $save: sandbox.spy() // stub $save
         });
 
         scope.maxPrize = 0;
@@ -307,21 +246,10 @@ describe('Challenges Controller', function() {
       });
 
       it("saves the challenge if user has enough gems and challenge is new", function() {
-        var challenge = new challenges.Challenge({
+        var challenge = specHelper.newChallenge({
           name: 'Challenge without enough gems',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          leader: user._id,
-          group: "a-group-id",
           prize: 5,
-          timestamp: +(new Date),
-          members: [],
-          official: false,
-          // Mock $save
-          $save: sandbox.spy()
+          $save: sandbox.spy() // stub $save
         });
 
         scope.maxPrize = 5;
@@ -336,22 +264,8 @@ describe('Challenges Controller', function() {
         saveSpy.yields({_id: 'challenge-id'});
         sandbox.stub(state, 'transitionTo');
 
-        var challenge = new challenges.Challenge({
-          _id: 'challenge-id',
-          name: 'Challenge without enough gems',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          leader: user._id,
-          group: "a-group-id",
-          prize: 5,
-          timestamp: +(new Date),
-          members: [],
-          official: false,
-          // Mock $save
-          $save: saveSpy
+        var challenge = specHelper.newChallenge({
+          $save: saveSpy // stub $save
         });
 
         scope.save(challenge);
@@ -370,21 +284,8 @@ describe('Challenges Controller', function() {
         var saveSpy = sandbox.stub();
         saveSpy.yields({_id: 'new-challenge'});
 
-        var challenge = new challenges.Challenge({
-          name: 'Challenge without enough gems',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          leader: user._id,
-          group: "a-group-id",
-          prize: 5,
-          timestamp: +(new Date),
-          members: [],
-          official: false,
-          // Mock $save
-          $save: saveSpy
+        var challenge = specHelper.newChallenge({
+          $save: saveSpy // stub $save
         });
 
         scope.save(challenge);
@@ -397,21 +298,8 @@ describe('Challenges Controller', function() {
         saveSpy.yields({_id: 'new-challenge'});
         sinon.stub(notification, 'text');
 
-        var challenge = new challenges.Challenge({
-          name: 'Challenge without enough gems',
-          description: '',
-          habits: [],
-          dailys: [],
-          todos: [],
-          rewards: [],
-          leader: user._id,
-          group: "a-group-id",
-          prize: 5,
-          timestamp: +(new Date),
-          members: [],
-          official: false,
-          // Mock $save
-          $save: saveSpy
+        var challenge = specHelper.newChallenge({
+          $save: saveSpy // stub $save
         });
 
         scope.save(challenge);
