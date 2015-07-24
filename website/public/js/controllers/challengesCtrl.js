@@ -141,13 +141,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Close Challenge
      * ------------------
      */
-    function backToChallenges(){
-      $scope.popoverEl.popover('destroy');
-      $scope.cid = null;
-      $state.go('options.social.challenges');
-      $scope.challenges = Challenges.Challenge.query();
-      User.log({});
-    }
     $scope.cancelClosing = function(challenge) {
       $scope.popoverEl.popover('destroy');
       $scope.popoverEl = undefined;
@@ -164,7 +157,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!confirm(warningMsg)) return;
       challenge.$delete(function(){
         $scope.popoverEl.popover('destroy');
-        backToChallenges();
+        _backToChallenges();
       });
     };
     $scope.selectWinner = function(challenge) {
@@ -172,7 +165,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!confirm(window.env.t('youSure'))) return;
       challenge.$close({uid:challenge.winner}, function(){
         $scope.popoverEl.popover('destroy');
-        backToChallenges();
+        _backToChallenges();
       })
     }
     $scope.close = function(challenge, $event) {
@@ -325,6 +318,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // Have to check that the leader object exists first in the
     // case where a challenge's leader deletes their account
     var userIsOwner = (chal.leader && chal.leader._id) == User.user.id;
+
+    function _backToChallenges(){
+      $scope.popoverEl.popover('destroy');
+      $scope.cid = null;
+      $state.go('options.social.challenges');
+      $scope.challenges = Challenges.Challenge.query();
+      User.log({});
+    }
 
     var groupSelected = $scope.search.group[chal.group._id];
     var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
