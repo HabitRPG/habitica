@@ -114,9 +114,13 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      */
     $scope.save = function(challenge) {
       if (!challenge.group) return alert(window.env.t('selectGroup'));
+
       var isNew = !challenge._id;
-      $scope.hasEnoughGems(challenge.group);
-      if (!$scope.enoughGems && isNew ) return alert(window.env.t('challengeNotEnoughGems'));
+
+      if(isNew && challenge.prize > $scope.maxPrize) {
+        return alert(window.env.t('challengeNotEnoughGems'));
+      }
+
       challenge.$save(function(_challenge){
         if (isNew) {
           Notification.text(window.env.t('challengeCreated'));
