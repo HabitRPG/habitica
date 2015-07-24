@@ -283,7 +283,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       if (!gid) return;
 
       _checkIfUserHasEnoughGemsForTavernChallenge();
-      $scope.maxPrize = _calculateMaxPrize(gid);
+      _calculateMaxPrize(gid);
 
       if (gid == 'habitrpg') {
         $scope.newChallenge.prize = 1;
@@ -318,10 +318,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     }
 
     function _calculateMaxPrize(gid) {
+
       var userBalance = User.getBalanceInGems() || 0;
       var availableGroupBalance = _calculateAvailableGroupBalance(gid);
 
-      return userBalance + availableGroupBalance;
+      $scope.maxPrize = userBalance + availableGroupBalance;
     }
 
     function _calculateAvailableGroupBalance(gid) {
