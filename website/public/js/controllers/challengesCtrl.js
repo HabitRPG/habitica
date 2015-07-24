@@ -310,14 +310,17 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       }
     }
 
-   $scope.shouldShow = function(task, list, prefs){
-     return true;
-   };
+    function _shouldShowChallenge(chal) {
+      // Have to check that the leader object exists first in the
+      // case where a challenge's leader deletes their account
+      var userIsOwner = (chal.leader && chal.leader._id) === User.user.id;
 
-  function _shouldShowChallenge(chal) {
-    // Have to check that the leader object exists first in the
-    // case where a challenge's leader deletes their account
-    var userIsOwner = (chal.leader && chal.leader._id) == User.user.id;
+      var groupSelected = $scope.search.group[chal.group._id];
+      var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
+      var checkMember = $scope.search._isMember === 'either' || (chal._isMember === $scope.search._isMember);
+
+      return groupSelected && checkOwner && checkMember;
+    }
 
     function _backToChallenges(){
       $scope.popoverEl.popover('destroy');
@@ -327,9 +330,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       User.log({});
     }
 
-    var groupSelected = $scope.search.group[chal.group._id];
-    var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
-    var checkMember = $scope.search._isMember === 'either' || (chal._isMember === $scope.search._isMember);
 
     // Fetch single challenge if a cid is present; fetch multiple challenges
     // otherwise
