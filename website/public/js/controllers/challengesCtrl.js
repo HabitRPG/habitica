@@ -232,7 +232,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
     $scope.join = function(challenge){
       challenge.$join(function(){
-        getChallenges()
+        _getChallenges()
         User.log({});
       });
 
@@ -243,7 +243,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         $scope.selectedChal = undefined;
       } else {
         $scope.selectedChal.$leave({keep:keep}, function(){
-          getChallenges()
+          _getChallenges()
           User.log({});
         });
       }
