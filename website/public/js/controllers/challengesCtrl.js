@@ -54,6 +54,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         }
       }
 
+      if(!defaultGroup) defaultGroup = 'habitrpg';
+
       $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: '',
         description: '',
