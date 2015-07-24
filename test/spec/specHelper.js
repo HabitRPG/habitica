@@ -72,9 +72,7 @@ var specHelper = {};
       challenge: { }
     };
 
-    for(var key in overrides) {
-      task[key] = overrides[key];
-    }
+    _setOverrides(task, overrides);
 
     return task;
   }
@@ -86,9 +84,7 @@ var specHelper = {};
     habit.up = true;
     habit.down = true;
 
-    for(var key in overrides) {
-      habit[key] = overrides[key];
-    }
+    _setOverrides(habit, overrides);
 
     return habit;
   }
@@ -113,9 +109,7 @@ var specHelper = {};
     daily.checklist = [];
     daily.streak = 0;
 
-    for(var key in overrides) {
-      daily[key] = overrides[key];
-    }
+    _setOverrides(daily, overrides);
 
     return daily;
   }
@@ -127,9 +121,7 @@ var specHelper = {};
     todo.collapseChecklist = false;
     todo.checklist = [];
 
-    for(var key in overrides) {
-      todo[key] = overrides[key];
-    }
+    _setOverrides(todo, overrides);
 
     return todo;
   }
@@ -138,10 +130,14 @@ var specHelper = {};
     var reward = newTask();
     reward.type = 'reward';
 
-    for(var key in overrides) {
-      reward[key] = overrides[key];
-    }
+    _setOverrides(reward, overrides);
 
     return reward;
+  }
+
+  function _setOverrides(factory, overrides) {
+    for(var key in overrides) {
+      factory[key] = overrides[key];
+    }
   }
 })();
