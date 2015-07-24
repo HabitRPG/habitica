@@ -402,13 +402,75 @@ describe('Challenges Controller', function() {
     });
 
     describe('create', function() {
-      it('creates new challenge with group that user has selected in filter');
+      it('creates new challenge with group that user has selected in filter', function() {
+        var party = specHelper.newGroup({
+          type: 'party',
+          _id: 'user-party'
+        });
+        scope.groupsFilter = [party];
+        scope.search = {
+          group: {
+            'user-party': true
+          }
+        };
 
-      it('defaults to tavern if no group can be set as default');
+        scope.create();
 
-      it('calculates maxPrize');
+        expect(scope.newChallenge.group).to.eql('user-party');
+      });
 
-      it('sets newChallenge to a blank challenge');
+      it('uses first group in $scope.groups if more than one exists', function() {
+        var party = specHelper.newGroup({
+          type: 'party',
+          _id: 'user-party'
+        });
+        var guild = specHelper.newGroup({
+          type: 'guild',
+          _id: 'guild'
+        });
+        scope.groups = [party, guild];
+        scope.groupsFilter = [party, guild];
+        scope.search = {
+          group: {
+            'user-party': true,
+            'guild': true
+          }
+        };
+
+        scope.create();
+
+        expect(scope.newChallenge.group).to.eql('user-party');
+      });
+
+      it('defaults to tavern if no group can be set as default', function() {
+        scope.create();
+
+        expect(scope.newChallenge.group).to.eql('habitrpg');
+      });
+
+      it('calculates maxPrize', function() {
+        User.getBalanceInGems.returns(20);
+        scope.create();
+
+        expect(scope.maxPrize).to.eql(20);
+      });
+
+      it('sets newChallenge to a blank challenge', function() {
+        scope.create();
+
+        var chal = scope.newChallenge;
+
+        expect(chal.name).to.eql('');
+        expect(chal.description).to.eql('');
+        expect(chal.habits).to.eql([]);
+        expect(chal.dailys).to.eql([]);
+        expect(chal.todos).to.eql([]);
+        expect(chal.rewards).to.eql([]);
+        expect(chal.leader).to.eql('unique-user-id');
+        expect(chal.group).to.eql('habitrpg');
+        expect(chal.timestamp).to.be.greaterThan(0);
+        expect(chal.official).to.eql(false);
+      });
 
       context('tavern challenge', function() {
         it('sets isTavernChallengeAndUserCannotProvidePrize to false if user has no gems');
