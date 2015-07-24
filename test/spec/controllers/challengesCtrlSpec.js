@@ -198,8 +198,46 @@ describe('Challenges Controller', function() {
     });
 
     describe('addTask', function() {
-      it('adds default task to array');
-      it('removes text from new task input box');
+      it('adds default task to array', function() {
+        var taskArray = [];
+        var listDef = {
+          newTask: 'new todo text',
+          type: 'todo'
+        }
+
+        scope.addTask(taskArray, listDef);
+
+        expect(taskArray.length).to.eql(1);
+        expect(taskArray[0].text).to.eql('new todo text');
+        expect(taskArray[0].type).to.eql('todo');
+      });
+
+      it('adds the task to the front of the array', function() {
+        var previousTask = specHelper.newTodo({ text: 'previous task' });
+        var taskArray = [previousTask];
+        var listDef = {
+          newTask: 'new todo',
+          type: 'todo'
+        }
+
+        scope.addTask(taskArray, listDef);
+
+        expect(taskArray.length).to.eql(2);
+        expect(taskArray[0].text).to.eql('new todo');
+        expect(taskArray[1].text).to.eql('previous task');
+      });
+
+      it('removes text from new task input box', function() {
+        var taskArray = [];
+        var listDef = {
+          newTask: 'new todo text',
+          type: 'todo'
+        }
+
+        scope.addTask(taskArray, listDef);
+
+        expect(listDef.newTask).to.not.exist;
+      });
     });
 
     describe('editTask', function() {
@@ -211,12 +249,42 @@ describe('Challenges Controller', function() {
     });
 
     describe('removeTask', function() {
-      it('asks user to confirm deletion');
-      it('removes task from list');
+      var task, list;
+
+      beforeEach(function() {
+        sandbox.stub(window, 'confirm');
+        task = specHelper.newTodo();
+        list = [task];
+      });
+
+      it('asks user to confirm deletion', function() {
+        scope.removeTask(task, list);
+        expect(window.confirm).to.be.calledOnce;
+      });
+
+      it('does not remove task from list if not confirmed', function() {
+        window.confirm.returns(false);
+        scope.removeTask(task, list);
+
+        expect(list).to.include(task);
+      });
+
+      it('removes task from list', function() {
+        window.confirm.returns(true);
+        scope.removeTask(task, list);
+
+        expect(list).to.not.include(task);
+      });
     });
 
     describe('saveTask', function() {
-      it('sets task._editing to false');
+      it('sets task._editing to false', function() {
+        var task = specHelper.newTask({ _editing: true });
+
+        scope.saveTask(task);
+
+        expect(task._editing).to.be.eql(false);
+      });
     });
   });
 
