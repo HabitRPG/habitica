@@ -510,7 +510,21 @@ describe('Challenges Controller', function() {
     });
 
     describe('edit', function() {
-      it('transitions to edit page');
+      it('transitions to edit page', function() {
+        sandbox.stub(state, 'transitionTo');
+        var challenge = specHelper.newChallenge({
+          _id: 'challenge-id'
+        });
+
+        scope.edit(challenge);
+
+        expect(state.transitionTo).to.be.calledOnce;
+        expect(state.transitionTo).to.be.calledWith(
+          'options.social.challenges.edit',
+          { cid: challenge._id },
+          { reload: true, inherit: false, notify: true }
+        );
+      });
     });
 
     describe('discard', function() {
