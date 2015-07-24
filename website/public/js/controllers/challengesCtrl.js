@@ -1,5 +1,3 @@
-"use strict";
-
 habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Tasks',
   function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Tasks) {
 
@@ -68,7 +66,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
 
       _calculateMaxPrize(defaultGroup);
-      _checkIfUserHasEnoughGemsForTavernChallenge();
     };
 
     /**
@@ -282,7 +279,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.$watch('newChallenge.group', function(gid){
       if (!gid) return;
 
-      _checkIfUserHasEnoughGemsForTavernChallenge();
       _calculateMaxPrize(gid);
 
       if (gid == 'habitrpg') {
@@ -306,14 +302,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       return true;
     };
 
-    function _checkIfUserHasEnoughGemsForTavernChallenge() {
+    $scope.insufficientGemsForTavernChallenge = function() {
       var balance = User.user.balance || 0;
       var isForTavern = $scope.newChallenge.group == 'habitrpg';
 
-      if (isForTavern && balance <= 0) {
-        $scope.isTavernChallengeAndUserCannotProvidePrize = false;
+      if (isForTavern) {
+        return balance <= 0;
       } else {
-        $scope.isTavernChallengeAndUserCannotProvidePrize = true;
+        return false;
       }
     }
 

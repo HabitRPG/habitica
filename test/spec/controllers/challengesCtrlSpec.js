@@ -471,14 +471,41 @@ describe('Challenges Controller', function() {
         expect(chal.timestamp).to.be.greaterThan(0);
         expect(chal.official).to.eql(false);
       });
+    });
 
+    describe('insufficientGemsForTavernChallenge', function() {
       context('tavern challenge', function() {
-        it('sets isTavernChallengeAndUserCannotProvidePrize to false if user has no gems');
-        it('sets isTavernChallengeAndUserCannotProvidePrize to true if user has at least one gem');
+        it('returns true if user has no gems', function() {
+          User.user.balance = 0;
+          scope.newChallenge = specHelper.newChallenge({
+            group: 'habitrpg'
+          });
+
+          var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
+          expect(cannotCreateTavernChallenge).to.eql(true);
+        });
+
+        it('returns false if user has gems', function() {
+          User.user.balance = .25;
+          scope.newChallenge = specHelper.newChallenge({
+            group: 'habitrpg'
+          });
+
+          var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
+          expect(cannotCreateTavernChallenge).to.eql(false);
+        });
       });
 
       context('non-tavern challenge', function() {
-        it('sets isTavernChallengeAndUserCannotProvidePrize to false');
+        it('returns false', function() {
+          User.user.balance = 0;
+          scope.newChallenge = specHelper.newChallenge({
+            group: 'not-tavern'
+          });
+
+          var cannotCreateTavernChallenge = scope.insufficientGemsForTavernChallenge();
+          expect(cannotCreateTavernChallenge).to.eql(false);
+        });
       });
     });
 
