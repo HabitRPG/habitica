@@ -7,27 +7,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // challenge
     $scope.cid = $state.params.cid;
 
-    // Fetch single challenge if a cid is present; fetch multiple challenges
-    // otherwise
-    var getChallenges = function() {
-      if ($scope.cid) {
-        Challenges.Challenge.get({cid: $scope.cid}, function(challenge) {
-          $scope.challenges = [challenge];
-        });
-      } else {
-        Challenges.Challenge.query(function(challenges){
-          $scope.challenges = challenges;
-          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-          $scope.search = {
-            group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
-            _isMember: "either",
-            _isOwner: "either"
-          };
-        });
-      }
-    };
-
-    getChallenges();
+    _getChallenges();
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
@@ -351,7 +331,24 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     var checkOwner = $scope.search._isOwner === 'either' || (userIsOwner === $scope.search._isOwner);
     var checkMember = $scope.search._isMember === 'either' || (chal._isMember === $scope.search._isMember);
 
-    return groupSelected && checkOwner && checkMember;
-  }
+    // Fetch single challenge if a cid is present; fetch multiple challenges
+    // otherwise
+    function _getChallenges() {
+      if ($scope.cid) {
+        Challenges.Challenge.get({cid: $scope.cid}, function(challenge) {
+          $scope.challenges = [challenge];
+        });
+      } else {
+        Challenges.Challenge.query(function(challenges){
+          $scope.challenges = challenges;
+          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
+          $scope.search = {
+            group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
+            _isMember: "either",
+            _isOwner: "either"
+          };
+        });
+      }
+    };
 
 }]);
