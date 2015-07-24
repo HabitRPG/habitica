@@ -291,11 +291,15 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     })
 
     $scope.selectAll = function(){
-      $scope.search.group = _.transform($scope.groups, function(m,g){m[g._id] = true});
+      $scope.search.group = _.transform($scope.groups, function(searchPool, group){
+        searchPool[group._id] = true;
+      });
     }
 
     $scope.selectNone = function(){
-      $scope.search.group = _.transform($scope.groups, function(m,g){m[g._id] = false});
+      $scope.search.group = _.transform($scope.groups, function(searchPool, group){
+        searchPool[group._id] = false;
+      });
     }
 
     $scope.shouldShow = function(task, list, prefs){
