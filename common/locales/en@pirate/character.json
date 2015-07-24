@@ -45,6 +45,7 @@
     "hauntedColors": "Haunted Colors",
     "winteryColors": "Wintery Colors",
     "equipment": "Slops",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Attribute bonuses provided by ye equipped battle gear. See th' Equipment tab under Inventory to select ye battle gear.",
     "classBonus": "Class Equipment Bonus",
     "classBonusText": "Yer class (Mercenary, if ye haven't unlocked or picked another class) uses its own gear more effective-like than gear from other classes. Equipped gear from yer current class gets a 50% boost to the attribute bonus it gives ye.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Rogue</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Healer</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

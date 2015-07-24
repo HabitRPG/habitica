@@ -1,9 +1,5 @@
-nav.toolbar(ng-controller='MenuCtrl', ng-class='{active: isToolbarHidden}')
-  button.toolbar-toggle(ng-click='isToolbarHidden = !isToolbarHidden', ng-class='{active: isToolbarHidden}')
-    span.glyphicon.glyphicon-remove-circle
-    span.toggle-text.toggle-close=env.t('close')
-    span.toggle-text.toggle-open=env.t('menu')
-  .toolbar-container(ng-if='!isToolbarHidden')
+nav.toolbar(ng-controller='MenuCtrl')
+  .toolbar-container
     ul.toolbar-mobile-nav
       li.toolbar-mobile
         a(ng-click='expandMenu("mobile")', ng-class='{active: _expandedMenu=="mobile"}')

@@ -45,6 +45,7 @@
     "hauntedColors": "幽灵的颜色",
     "winteryColors": "冷色",
     "equipment": "装备",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "装备提供的奖励加成. 详情见物品栏中的装备.",
     "classBonus": "职业装备额外奖励",
     "classBonusText": "用跟你的职业相符的装备会比其他更有效。(在你还没有解锁或选择其他职业之前，你是个战士) 使用相符的装备能给你的属性点50%的提升。",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>法师</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>盗贼</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>医师</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>了解更多关于职业的情况</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>了解更多关于职业的情况</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

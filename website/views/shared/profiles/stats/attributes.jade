@@ -1,0 +1,29 @@
+h4(class=mobile?'item item-divider':'')=env.t('attributes')
+
+table.table.table-striped
+  each statInfo, stat in { str: {title:"strength",popover:'strengthText'},int: {title:"intelligence",popover:'intText'},con: {title:"constitution",popover:'conText'},per: {title:"perception",popover:'perText'} }
+    tr
+      td
+        span.hint(popover-title=env.t(statInfo.title), popover-placement='right',
+          popover=env.t(statInfo.popover), popover-trigger='mouseenter')
+          strong=env.t(statInfo.title)
+        strong : {{profile._statsComputed.#{stat}}}
+
+      td: ul.list-unstyled
+        +statList('statCalc.levelBonus(profile.stats.lvl)', 'levelBonus', 'level', true)
+        +statList('statCalc.equipmentStatBonus("' + stat + '", profile.items.gear.equipped)', 'equipmentBonus', 'equipment', true)
+        +statList('statCalc.classBonus(profile, "' + stat + '")', 'classBonus', 'classEquipBonus')
+        +statList('profile.stats.' + stat, 'allocatedPoints', 'allocated')
+        +statList('profile.stats.buffs.' + stat, 'buffs', 'buffs', true)
+
+  tr(ng-if='profile.stats.buffs.stealth')
+    td(colspan='2')
+      strong.hint(popover-title=env.t('stealth'), popover-trigger='mouseenter',
+        popover-placement='right', popover=env.t('stealthNewDay'))
+        =env.t('stealth')
+      strong : {{profile.stats.buffs.stealth}}&nbsp;
+  tr(ng-if='profile.stats.buffs.streaks')
+    td(colspan='2')
+      strong.hint(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter',
+        popover-placement='right', popover=env.t('streaksFrozenText'))
+        =env.t('streaksFrozen')

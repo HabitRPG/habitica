@@ -45,6 +45,7 @@
     "hauntedColors": "Призрачные цвета",
     "winteryColors": "Зимние цвета",
     "equipment": "Снаряжение",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Дополнительные очки характеристик от надетой боевой экипировки. Выбор боевой экипировки доступен на вкладке Снаряжение на странице инвентаря.",
     "classBonus": "Бонус снаряжения класса",
     "classBonusText": "Ваш класс (воин, если вы еще не открыли систему классов и не выбрали другой класс) использует свою собственную экипировку более эффективно, чем экипировку других классов. Надетая экипировка вашего текущего класса дает 50% к дополнительным очкам характеристик.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Маг</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Разбойник</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Целитель</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Подробнее о классах</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Подробнее о классах</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

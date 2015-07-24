@@ -45,6 +45,7 @@
     "hauntedColors": "Couleurs Hantées",
     "winteryColors": "Couleurs Hivernales",
     "equipment": "Équipement",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Bonus d'attribut de votre équipement. Voir l'onglet Équipement dans l'Inventaire pour choisir votre équipement.",
     "classBonus": "Bonus d'équipement de classe",
     "classBonusText": "Votre classe (Guerrier, si vous n'avez pas débloqué ou sélectionné d'autre classe) utilise mieux son équipement spécifique que celui d'autres classes. Le bonus conféré par l'équipement spécifique à votre classe actuelle est augmenté de 50%.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://fr.habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
     "rogueWiki": "<a href='http://fr.habitrpg.wikia.com/wiki/Voleur' target='_blank'>Voleur</a>",
     "healerWiki": "<a href='http://fr.habitrpg.wikia.com/wiki/Guerisseur' target='_blank'>Guérisseur</a>",
-    "chooseClassLearn": "<a href='http://fr.habitrpg.wikia.com/wiki/Syst%C3%A8me_de_Classe' target='_blank'>Apprenez-en plus à propos des classes</a>"
+    "chooseClassLearn": "<a href='http://fr.habitrpg.wikia.com/wiki/Syst%C3%A8me_de_Classe' target='_blank'>Apprenez-en plus à propos des classes</a>",
+    "str": "FOR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

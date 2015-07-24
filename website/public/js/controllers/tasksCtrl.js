@@ -6,7 +6,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.user = User.user;
 
     $scope.armoireCount = function(gear) {
-      return Shared.countArmoire(gear);
+      return Shared.count.remainingGearInSet(gear, 'armoire');
     };
 
     $scope.score = function(task, direction) {

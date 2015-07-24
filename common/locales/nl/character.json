@@ -45,6 +45,7 @@
     "hauntedColors": "Spookachtige haarkleuren",
     "winteryColors": "Winterkleuren",
     "equipment": "Uitrusting",
+    "equipmentBonus": "Uitrusting",
     "equipmentBonusText": "Door je strijduitrusting geleverde bonuspunten voor je eigenschappen. Zie het Uitrustingstabblad onder Boedel om je strijduitrusting te selecteren.",
     "classBonus": "Bonus van klassespecifieke uitrusting",
     "classBonusText": "Jouw klasse (Krijger, als je nog geen andere klasse hebt vrijgespeeld of geselecteerd) gebruikt zijn eigen uitrusting effectiever dan de uitrusting van een andere klasse. Uitrustingsstukken die horen bij je huidige klasse geven een 50% bonus bovenop de eigenschapsbonus die het normaal al verleent.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Magiër</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Dief</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Heler</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Leer meer over klassen</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Leer meer over klassen</a>",
+    "str": "KRA",
+    "con": "LIC",
+    "per": "PER",
+    "int": "INT"
 }
