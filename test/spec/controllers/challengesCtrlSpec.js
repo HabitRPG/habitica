@@ -197,10 +197,6 @@ describe('Challenges Controller', function() {
       });
     });
 
-    describe('edit', function() {
-      it('transitions to edit page');
-    });
-
     describe('addTask', function() {
       it('adds default task to array');
       it('removes text from new task input box');
@@ -354,6 +350,10 @@ describe('Challenges Controller', function() {
       context('non-tavern challenge', function() {
         it('sets isTavernChallengeAndUserCannotProvidePrize to false');
       });
+    });
+
+    describe('edit', function() {
+      it('transitions to edit page');
     });
 
     describe('discard', function() {
