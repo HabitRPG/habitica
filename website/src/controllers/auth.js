@@ -8,7 +8,7 @@ var nconf = require('nconf');
 var request = require('request');
 var User = require('../models/user').model;
 var EmailUnsubscription = require('../models/emailUnsubscription').model;
-var ga = require('./../utils').ga;
+var analytics = utils.analytics;
 var i18n = require('./../i18n');
 
 var isProd = nconf.get('NODE_ENV') === 'production';
@@ -110,7 +110,14 @@ api.registerUser = function(req, res, next) {
         newUser.preferences = newUser.preferences || {};
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
-        ga.event('acquisition', 'register', 'local').send();
+
+        var analyticsData = {
+          category: 'acquisition',
+          type: 'local',
+          gaLabel: 'local'
+        };
+        analytics.track('register', analyticsData)
+
         user.save(function(err, savedUser){
           // Clean previous email preferences
           EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
@@ -194,7 +201,12 @@ api.loginSocial = function(req, res, next) {
         cb.apply(cb, arguments);
       });
 
-      ga.event('acquisition', 'register', network).send();
+      var analyticsData = {
+        category: 'acquisition',
+        type: network,
+        gaLabel: network
+      };
+      analytics.track('register', analyticsData)
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});

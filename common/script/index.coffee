@@ -442,7 +442,7 @@ api.wrap = (user, main=true) ->
         user.preferences.sleep = !user.preferences.sleep
         cb? null, {}
 
-      revive: (req, cb) ->
+      revive: (req, cb, analytics) ->
         return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp <= 0
 
         # Reset stats after death
@@ -471,7 +471,15 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
-        mixpanel?.track('Death',{'lostItem':lostItem})
+
+        analyticsData = {
+          uuid: user._id,
+          lostItem: lostItem,
+          gaLabel: lostItem,
+          category: 'behavior'
+        }
+        analytics?.track('Death', analyticsData)
+
         cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
@@ -497,7 +505,7 @@ api.wrap = (user, main=true) ->
         user.preferences.costume = false
         cb? null, user
 
-      reroll: (req, cb, ga) ->
+      reroll: (req, cb, analytics) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         user.balance--
@@ -505,19 +513,37 @@ api.wrap = (user, main=true) ->
           unless task.type is 'reward'
             task.value = 0
         user.stats.hp = 50
-        cb? null, user
-        mixpanel?.track("Acquire Item",{'itemName':'Fortify','acquireMethod':'Gems','gemCost':4})
-        ga?.event('behavior', 'gems', 'reroll').send()
 
-      rebirth: (req, cb, ga) ->
+        analyticsData = {
+          uuid: user._id,
+          acquireMethod: 'Gems',
+          gemCost: 4,
+          category: 'behavior'
+        }
+        analytics?.track('Fortify Potion', analyticsData)
+
+        cb? null, user
+
+      rebirth: (req, cb, analytics) ->
         # Cost is 8 Gems ($2)
         if (user.balance < 2 && user.stats.lvl < api.maxLevel)
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+
+        analyticsData = {
+          uuid: user._id,
+          category: 'behavior'
+        }
         # only charge people if they are under the max level - ryan
         if user.stats.lvl < api.maxLevel
           user.balance -= 2
-          mixpanel?.track("Acquire Item",{'itemName':'Rebirth','acquireMethod':'Gems','gemCost':8})
-          ga?.event('behavior', 'gems', 'rebirth').send()
+          analyticsData.acquireMethod = 'Gems'
+          analyticsData.gemCost = 8
+        else
+          analyticsData.gemCost = 0
+          analyticsData.acquireMethod = '> 100'
+
+        analytics?.track('Rebirth', analyticsData)
+
         # Save off user's level, for calculating achievement eligibility later
         lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
@@ -766,7 +792,7 @@ api.wrap = (user, main=true) ->
         cb? {code:200,message}, _.pick(user,$w 'items stats')
 
       # buy is for using Gold, purchase is for Gems (I know, I know...)
-      purchase: (req, cb, ga) ->
+      purchase: (req, cb, analytics) ->
         {type,key}  = req.params
 
         if type is 'gems' and key is 'gem'
@@ -778,7 +804,16 @@ api.wrap = (user, main=true) ->
           user.balance += .25
           user.purchased.plan.gemsBought++
           user.stats.gp -= convRate
-          mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':convRate})
+
+          analyticsData = {
+            uuid: user._id,
+            itemKey: key,
+            acquireMethod: 'Gold',
+            goldCost: convRate,
+            category: 'behavior'
+          }
+          analytics?.track('purchase gems', analyticsData)
+
           return cb? {code:200,message:"+1 Gem"}, _.pick(user,$w 'stats balance')
 
         return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
@@ -796,11 +831,20 @@ api.wrap = (user, main=true) ->
         else
           user.items[type][key] = 0  unless user.items[type][key] > 0
           user.items[type][key]++
-        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gems','gemCost':item.value})
-        cb? null, _.pick(user,$w 'items balance')
-        ga?.event('behavior', 'gems', key).send()
 
-      releasePets: (req, cb) ->
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          itemType: 'Market',
+          acquireMethod: 'Gems',
+          gemCost: item.value,
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+
+        cb? null, _.pick(user,$w 'items balance')
+
+      releasePets: (req, cb, analytics) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
@@ -811,10 +855,17 @@ api.wrap = (user, main=true) ->
             user.achievements.beastMasterCount = 0
           user.achievements.beastMasterCount++
           user.items.currentPet = ""
-        cb? null, user
-        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
-      releaseMounts: (req, cb) ->
+        analyticsData = {
+          uuid: user._id,
+          acquireMethod: 'Gems',
+          gemCost: 4,
+          category: 'behavior'
+        }
+        analytics?.track('release pets', analyticsData)
+        cb? null, user
+
+      releaseMounts: (req, cb, analytics) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
@@ -825,8 +876,16 @@ api.wrap = (user, main=true) ->
           if not user.achievements.mountMasterCount
             user.achievements.mountMasterCount = 0
           user.achievements.mountMasterCount++
+
+        analyticsData = {
+          uuid: user._id,
+          acquireMethod: 'Gems',
+          gemCost: 4,
+          category: 'behavior'
+        }
+        analytics?.track('release mounts', analyticsData)
+
         cb? null, user
-        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
       releaseBoth: (req, cb) ->
         if user.balance < 1.5 and not user.achievements.triadBingo
@@ -834,7 +893,13 @@ api.wrap = (user, main=true) ->
         else
           giveTriadBingo = true
           if not user.achievements.triadBingo
-            mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':6})
+            analyticsData = {
+              uuid: user._id,
+              acquireMethod: 'Gems',
+              gemCost: 6,
+              category: 'behavior'
+            }
+            analytics?.track('release pets & mounts', analyticsData)
             user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
@@ -855,7 +920,7 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
-      buy: (req, cb) ->
+      buy: (req, cb, analytics) ->
         {key} = req.params
 
         item = if key is 'potion' then content.potion
@@ -896,10 +961,19 @@ api.wrap = (user, main=true) ->
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
           if item.last then user.fns.ultimateGear()
         user.stats.gp -= item.value
-        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
+
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          acquireMethod: 'Gold',
+          goldCost: item.value,
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats flags')
 
-      buyQuest: (req, cb) ->
+      buyQuest: (req, cb, analytics) ->
         {key} = req.params
         item = content.quests[key]
         return cb?({code:404, message:"Quest '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
@@ -909,9 +983,18 @@ api.wrap = (user, main=true) ->
         user.items.quests[item.key] ?= 0
         user.items.quests[item.key] += 1
         user.stats.gp -= item.goldValue
+        analyticsData = {
+          uuid: user._id,
+          itemKey: item.key,
+          itemType: 'Market',
+          goldCost: item.goldValue,
+          acquireMethod: 'Gold',
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
         cb? {code:200, message}, user.items.quests
 
-      buyMysterySet: (req, cb)->
+      buyMysterySet: (req, cb, analytics)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
         mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
         if window?.confirm?
@@ -919,7 +1002,15 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
         _.each mysterySet.items, (i)->
           user.items.gear.owned[i.key]=true
-          mixpanel?.track("Acquire Item",{'itemName':i.key,'acquireMethod':'Hourglass'})
+          analyticsData = {
+            uuid: user._id,
+            itemKey: i.key,
+            itemType: 'Subscriber Gear',
+            acquireMethod: 'Hourglass',
+            category: 'behavior'
+          }
+          analytics?.track('acquire item', analyticsData)
+
         user.purchased.plan.consecutive.trinkets--
         cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
@@ -963,7 +1054,7 @@ api.wrap = (user, main=true) ->
         user.items.hatchingPotions[hatchingPotion]--
         cb? {code:200, message:i18n.t('messageHatched', req.language)}, user.items
 
-      unlock: (req, cb, ga) ->
+      unlock: (req, cb, analytics) ->
         {path} = req.query
         fullSet = ~path.indexOf(",")
         cost =
@@ -990,17 +1081,36 @@ api.wrap = (user, main=true) ->
           user.fns.dotSet "purchased." + path, true
         user.balance -= cost
         if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
+        
+        analyticsData = {
+          uuid: user._id,
+          itemKey: path,
+          itemType: 'customization',
+          acquireMethod: 'Gems',
+          gemCost: (cost/.25),
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+
         cb? null, _.pick(user,$w 'purchased preferences items')
-        mixpanel?.track("Acquire Item",{'itemName':'Customizations','acquireMethod':'Gems','gemCost':(cost / .25)})
-        ga?.event('behavior', 'gems', path).send()
 
       # ------
       # Classes
       # ------
 
-      changeClass: (req, cb, ga) ->
+      changeClass: (req, cb, analytics) ->
         klass = req.query?.class
         if klass in ['warrior','rogue','wizard','healer']
+
+          analyticsData = {
+            uuid: user._id,
+            class: klass,
+            acquireMethod: 'Gems',
+            gemCost: 3,
+            category: 'behavior'
+          }
+          analytics?.track('change class', analyticsData)
+
           user.stats.class = klass
           user.flags.classSelected = true
           # Clear their gear and equip their new class's gear (can still equip old gear from inventory)
@@ -1031,8 +1141,6 @@ api.wrap = (user, main=true) ->
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
-          mixpanel?.track("Acquire Item",{'itemName':klass,'acquireMethod':'Gems','gemCost':3})
-          ga?.event('behavior', 'gems', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
 
@@ -1058,13 +1166,21 @@ api.wrap = (user, main=true) ->
         user.markModified? 'items.special.valentineReceived'
         cb? null, 'items.special'
 
-      openMysteryItem: (req,cb,ga) ->
+      openMysteryItem: (req,cb,analytics) ->
         item = user.purchased.plan?.mysteryItems?.shift()
         return cb?(code:400,message:"Empty") unless item
         item = content.gear.flat[item]
         user.items.gear.owned[item.key] = true
         user.markModified? 'purchased.plan.mysteryItems'
         item.type = 'Mystery'
+        analyticsData = {
+          uuid: user._id,
+          itemKey: item,
+          itemType: 'Subscriber Gear',
+          acquireMethod: 'Subscriber',
+          category: 'behavior'
+        }
+        analytics?.track('open mystery item', analyticsData)
         (user._tmp?={}).drop = item if typeof window != 'undefined'
         cb? null, user.items.gear.owned
 
@@ -1460,7 +1576,7 @@ api.wrap = (user, main=true) ->
           else "str" # if all else fails, dump into STR
       )()]++
 
-    updateStats: (stats, req) ->
+    updateStats: (stats, req, analytics) ->
       # Game Over (death)
       return user.stats.hp=0 if stats.hp <= 0
 
@@ -1514,7 +1630,13 @@ api.wrap = (user, main=true) ->
           user.items.quests[k]++
           (user.flags.levelDrops ?= {})[k] = true
           user.markModified? 'flags.levelDrops'
-          mixpanel?.track("Acquire Item",{'itemName':k,'acquireMethod':'Drop'})
+          analyticsData = {
+            uuid: user._id,
+            itemKey: k,
+            acquireMethod: 'Level Drop',
+            category: 'behavior'
+          }
+          analytics?.track('acquire item', analyticsData)
           user._tmp.drop = {type: 'Quest', key: k}
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
@@ -1695,8 +1817,17 @@ api.wrap = (user, main=true) ->
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
-      options.mixpanel?.track('Cron',{'distinct_id':user._id,'resting':user.preferences.sleep})
-      options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
+
+      analyticsData = {
+        category: 'behavior',
+        gaLabel: 'Cron Count',
+        gaValue: user.flags.cronCount,
+        uuid: user._id,
+        user: user,
+        resting: user.preferences.sleep,
+        cronCount: user.flags.cronCount
+      }
+      options.analytics?.track('Cron', analyticsData)
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress

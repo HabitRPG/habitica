@@ -17,6 +17,7 @@ var EmailUnsubscription = require('./../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
+var analytics = utils.analytics;
 
 /*
   ------------------------------------------------------------------------
@@ -925,6 +926,14 @@ api.questAccept = function(req, res, next) {
     // or everyone has either accepted/rejected, then we store quest key in user object.
     _.each(group.members, function(m){
       if (m == user._id) {
+        var analyticsData = {
+          category: 'behavior',
+          owner: true,
+          response: 'accept',
+          gaLabel: 'accept',
+          questName: key
+        };
+        analytics.track('quest',analyticsData);
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
@@ -963,6 +972,14 @@ api.questAccept = function(req, res, next) {
   // Party member accepting the invitation
   } else {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+    var analyticsData = {
+      category: 'behavior',
+      owner: false,
+      response: 'accept',
+      gaLabel: 'accept',
+      questName: group.quest.key
+    };
+    analytics.track('quest',analyticsData);
     group.quest.members[user._id] = true;
     User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false}}).exec();
     questStart(req,res,next);
@@ -974,6 +991,14 @@ api.questReject = function(req, res, next) {
   var user = res.locals.user;
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+  var analyticsData = {
+    category: 'behavior',
+    owner: false,
+    response: 'reject',
+    gaLabel: 'reject',
+    questName: group.quest.key
+  };
+  analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
   User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
   questStart(req,res,next);

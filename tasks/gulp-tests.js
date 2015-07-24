@@ -70,6 +70,31 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/server_side'),
+    (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/server_side'),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'Servser Side Specs\t',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
+  );
+  pipe(runner);
+});
 
 gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
@@ -193,6 +218,7 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
 
 gulp.task('test', [
   'test:common:safe',
+  'test:server_side:safe',
   'test:karma:safe',
   'test:api:safe',
   'test:e2e:safe'
