@@ -149,6 +149,7 @@ var specHelper = {};
       rewards: [],
       leader: 'leader-id',
       group: 'group-id',
+      prize: 0,
       timestamp: +(new Date),
       members: ['leader-id'],
       official: false
