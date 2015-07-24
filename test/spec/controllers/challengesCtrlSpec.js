@@ -411,7 +411,16 @@ describe('Challenges Controller', function() {
 
   describe('User interactions', function() {
     describe('join', function() {
-      it('calls challenge join endpoint');
+      it('calls challenge.$join', function(){
+        var challenge = specHelper.newChallenge({
+          _id: 'challenge-to-join',
+          $join: sandbox.spy()
+        });
+
+        scope.join(challenge);
+
+        expect(challenge.$join).to.be.calledOnce;
+      });
     });
 
     describe('clickLeave', function() {
