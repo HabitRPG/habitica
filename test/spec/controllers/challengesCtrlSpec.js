@@ -1,26 +1,35 @@
 'use strict';
 
 describe('Challenges Controller', function() {
-  var $rootScope, scope, user, ctrl, challenges, groups;
+  var $rootScope, scope, user, User, ctrl, challenges, groups, notification, state;
 
   beforeEach(function() {
     module(function($provide) {
-      $provide.value('User', {});
+      user = specHelper.newUser();
+      user._id = "unique-user-id";
+      User = {
+        getBalanceInGems: sandbox.stub(),
+        sync: sandbox.stub(),
+        user: user
+      }
+      $provide.value('User', User);
     });
 
-    inject(function($rootScope, $controller, Challenges, Groups){
+    inject(function($rootScope, $controller, _$state_, _Challenges_, _Groups_, _Notification_){
       user = specHelper.newUser();
       user._id = "unique-user-id";
 
       scope = $rootScope.$new();
 
       // Load RootCtrl to ensure shared behaviors are loaded
-      $controller('RootCtrl',  {$scope: scope, User: {user: user}});
+      $controller('RootCtrl',  {$scope: scope, User: User});
 
-      ctrl = $controller('ChallengesCtrl', {$scope: scope, User: {user: user}});
+      ctrl = $controller('ChallengesCtrl', {$scope: scope, User: User});
 
-      challenges = Challenges;
-      groups = Groups;
+      challenges = _Challenges_;
+      groups = _Groups_;
+      notification = _Notification_;
+      state = _$state_;
     });
   });
 
@@ -190,6 +199,194 @@ describe('Challenges Controller', function() {
   });
 
   describe("save challenge", function() {
+    var alert;
+
+    beforeEach(function(){
+      alert = sandbox.stub(window, "alert");
+    });
+
+    it("opens an alert box if challenge.group is not specified", function() {
+      var challenge = new challenges.Challenge({
+        name: 'Challenge without a group',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        timestamp: +(new Date),
+        members: [],
+        official: false
+      });
+
+      scope.save(challenge);
+
+      expect(alert).to.be.calledOnce;
+      expect(alert).to.be.calledWith(window.env.t('selectGroup'));
+    });
+
+    it("opens an alert box if isNew and user does not have enough gems", function() {
+      var challenge = new challenges.Challenge({
+        name: 'Challenge without enough gems',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        prize: 5,
+        leader: user._id,
+        group: "a-group-id",
+        timestamp: +(new Date),
+        members: [],
+        official: false
+      });
+
+      scope.maxPrize = 4;
+      scope.save(challenge);
+
+      expect(alert).to.be.calledOnce;
+      expect(alert).to.be.calledWith(window.env.t('challengeNotEnoughGems'));
+    });
+
+    it("saves the challenge if user does not have enough gems, but the challenge is not new", function() {
+      var challenge = new challenges.Challenge({
+        _id: 'challeng-id', // challenge has id, so it's not new
+        name: 'Challenge without enough gems',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        group: "a-group-id",
+        prize: 5,
+        timestamp: +(new Date),
+        members: [],
+        official: false,
+        // Mock $save
+        $save: sandbox.spy()
+      });
+
+      scope.maxPrize = 0;
+      scope.save(challenge);
+
+      expect(challenge.$save).to.be.calledOnce;
+      expect(alert).to.not.be.called;
+    });
+
+    it("saves the challenge if user has enough gems and challenge is new", function() {
+      var challenge = new challenges.Challenge({
+        name: 'Challenge without enough gems',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        group: "a-group-id",
+        prize: 5,
+        timestamp: +(new Date),
+        members: [],
+        official: false,
+        // Mock $save
+        $save: sandbox.spy()
+      });
+
+      scope.maxPrize = 5;
+      scope.save(challenge);
+
+      expect(challenge.$save).to.be.calledOnce;
+      expect(alert).to.not.be.called;
+    });
+
+    it('saves challenge and then proceeds to detail page', function() {
+      var saveSpy = sandbox.stub();
+      saveSpy.yields({_id: 'challenge-id'});
+      sandbox.stub(state, 'transitionTo');
+
+      var challenge = new challenges.Challenge({
+        _id: 'challenge-id',
+        name: 'Challenge without enough gems',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        group: "a-group-id",
+        prize: 5,
+        timestamp: +(new Date),
+        members: [],
+        official: false,
+        // Mock $save
+        $save: saveSpy
+      });
+
+      scope.save(challenge);
+
+      expect(state.transitionTo).to.be.calledOnce;
+      expect(state.transitionTo).to.be.calledWith(
+       'options.social.challenges.detail',
+       { cid: 'challenge-id' },
+       {
+          reload: true, inherit: false, notify: true
+        }
+      );
+    });
+
+    it('saves new challenge and syncs User', function() {
+      var saveSpy = sandbox.stub();
+      saveSpy.yields({_id: 'new-challenge'});
+
+      var challenge = new challenges.Challenge({
+        name: 'Challenge without enough gems',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        group: "a-group-id",
+        prize: 5,
+        timestamp: +(new Date),
+        members: [],
+        official: false,
+        // Mock $save
+        $save: saveSpy
+      });
+
+      scope.save(challenge);
+
+      expect(User.sync).to.be.calledOnce;
+    });
+
+    it('saves new challenge and syncs User', function() {
+      var saveSpy = sandbox.stub();
+      saveSpy.yields({_id: 'new-challenge'});
+      sinon.stub(notification, 'text');
+
+      var challenge = new challenges.Challenge({
+        name: 'Challenge without enough gems',
+        description: '',
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+        leader: user._id,
+        group: "a-group-id",
+        prize: 5,
+        timestamp: +(new Date),
+        members: [],
+        official: false,
+        // Mock $save
+        $save: saveSpy
+      });
+
+      scope.save(challenge);
+
+      expect(notification.text).to.be.calledOnce;
+      expect(notification.text).to.be.calledWith(window.env.t('challengeCreated'));
+    });
   });
 
   describe('create', function() {
