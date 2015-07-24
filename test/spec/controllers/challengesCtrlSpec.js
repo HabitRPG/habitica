@@ -175,12 +175,76 @@ describe('Challenges Controller', function() {
     });
   });
 
+  describe('selectAll', function() {
+    it('selects all groups');
+  });
+
+  describe('selectNone', function() {
+    it('selects no groups');
+  });
+
+  describe("save challenge", function() {
+  });
+
+  describe('create', function() {
+    it('creates new challenge with group that user has selected in filter');
+
+    it('defaults to tavern if no group can be set as default');
+
+    it('calculates maxPrize');
+
+    it('sets newChallenge to a blank challenge');
+
+    context('tavern challenge', function() {
+      it('sets isTavernChallengeAndUserCannotProvidePrize to false if user has no gems');
+      it('sets isTavernChallengeAndUserCannotProvidePrize to true if user has at least one gem');
+    });
+
+    context('non-tavern challenge', function() {
+      it('sets isTavernChallengeAndUserCannotProvidePrize to false');
+    });
+  });
+
+  describe('discard', function() {
+    it('sets new challenge to null');
+  });
+
+  describe('edit', function() {
+    it('transitions to edit page');
+  });
+
+  describe('addTask', function() {
+    it('adds default task to array');
+    it('removes text from new task input box');
+  });
+
   describe('editTask', function() {
     it('is Tasks.editTask', function() {
       inject(function(Tasks) {
         expect(scope.editTask).to.eql(Tasks.editTask);
       });
     });
+  });
+
+  describe('removeTask', function() {
+    it('asks user to confirm deletion');
+    it('removes task from list');
+  });
+
+  describe('saveTask', function() {
+    it('sets task._editing to false');
+  });
+
+  describe('join', function() {
+    it('calls challenge join endpoint');
+  });
+
+  describe('clickLeave', function() {
+    it('opens a popover to confirm');
+  });
+
+  describe('leave', function() {
+    it('(@TODO: write tests)');
   });
 
   describe('clone', function() {
