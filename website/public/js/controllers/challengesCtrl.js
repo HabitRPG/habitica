@@ -15,9 +15,6 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
     $scope.score = function(){}
 
-    //This is used to ensure the user has enough gems to create a challenge
-    $scope.enoughGems = true;
-
     //------------------------------------------------------------
     // Challenge
     //------------------------------------------------------------
