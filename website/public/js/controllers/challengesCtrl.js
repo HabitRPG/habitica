@@ -147,7 +147,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.popoverEl = undefined;
       $scope.closingChal = undefined;
       challenge.winner = undefined;
-    }
+    };
+
     $scope["delete"] = function(challenge) {
       var warningMsg;
       if(challenge.group._id == 'habitrpg') {
@@ -161,6 +162,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         _backToChallenges();
       });
     };
+
     $scope.selectWinner = function(challenge) {
       if (!challenge.winner) return;
       if (!confirm(window.env.t('youSure'))) return;
@@ -169,6 +171,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         _backToChallenges();
       })
     }
+
     $scope.close = function(challenge, $event) {
       $scope.closingChal = challenge;
       $scope.popoverEl = $($event.target);
@@ -180,8 +183,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         title: window.env.t('closeCha'),
         content: html
       }).popover('show');
-
-    }
+    };
 
     $scope.toggle = function(id){
       if($state.includes('options.social.challenges.detail', {cid: id})){
@@ -189,7 +191,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       }else{
         $state.go('options.social.challenges.detail', {cid: id});
       }
-    }
+    };
 
     $scope.toggleMember = function(cid, uid){
       if($state.includes('options.social.challenges.detail.member', {cid: cid, uid: uid})){
@@ -197,7 +199,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       }else{
         $state.go('options.social.challenges.detail.member', {cid: cid, uid: uid});
       }
-    }
+    };
 
     //------------------------------------------------------------
     // Tasks
