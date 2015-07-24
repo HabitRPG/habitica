@@ -153,11 +153,39 @@ describe('Challenges Controller', function() {
     });
 
     describe('selectAll', function() {
-      it('selects all groups');
+      it('sets all groups in seach.group to true', function() {
+        scope.search = { };
+        scope.groups = {
+          0: specHelper.newGroup({_id: 'group-one'}),
+          1: specHelper.newGroup({_id: 'group-two'}),
+          2: specHelper.newGroup({_id: 'group-three'})
+        };
+        scope.selectAll();
+
+        expect(scope.search.group).to.eql({
+          'group-one': true,
+          'group-two': true,
+          'group-three': true
+        });
+      });
     });
 
     describe('selectNone', function() {
-      it('selects no groups');
+      it('sets all groups in seach.group to false', function() {
+        scope.search = { };
+        scope.groups = {
+          0: specHelper.newGroup({_id: 'group-one'}),
+          1: specHelper.newGroup({_id: 'group-two'}),
+          2: specHelper.newGroup({_id: 'group-three'})
+        };
+        scope.selectNone();
+
+        expect(scope.search.group).to.eql({
+          'group-one': false,
+          'group-two': false,
+          'group-three': false
+        });
+      });
     });
   });
 
