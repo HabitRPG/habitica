@@ -498,7 +498,7 @@
     "shieldSpecialSpring2015RogueText": "Exploderande pipleksak",
     "shieldSpecialSpring2015RogueNotes": "Don't let the sound fool you - these explosives pack a punch. Increases Strength <%= str %>. Limited Edition 2015 Spring Gear.",
     "shieldSpecialSpring2015WarriorText": "Dish Discus",
-    "shieldSpecialSpring2015WarriorNotes": "Kasta den mot dina fiender... eller håll bara i den, för den kommer att fyllas med mumsigt torrfoder vid middagstid. Ökar Tålighet med <%= con%>. Begränsad utgåva 2015 vårutrustning.",
+    "shieldSpecialSpring2015WarriorNotes": "Kasta den mot dina fiender... eller håll bara i den, för den kommer att fyllas med mumsigt torrfoder vid middagstid. Ökar Tålighet med <%= con %>. Begränsad utgåva 2015 vårutrustning.",
     "shieldSpecialSpring2015HealerText": "Mönstrad kudde",
     "shieldSpecialSpring2015HealerNotes": "You can rest your head on this soft pillow, or you can wrestle it with your fearsome claws. Rawr! Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
     "shieldSpecialSummer2015RogueText": "Firing Coral",

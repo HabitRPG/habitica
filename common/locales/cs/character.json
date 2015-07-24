@@ -45,6 +45,7 @@
     "hauntedColors": "Strašidelné barvy",
     "winteryColors": "Zimní barvy",
     "equipment": "Vybavení",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Dovednostní bonusy, které ti poskytuje výbava, kterou používáš. Aby sis mohl vybrat výbavu, klikni na Inventář a pak na Vybavení.",
     "classBonus": "Bonus vybavení povolání",
     "classBonusText": "Tvé povolání (válečník - pokud jsi neodemkl nebo sis nevybral jiné) využívá vybavení přímo pro to povolání efektivněji než vybavení pro ostatní povolání. Pokud používáš vybavení pro tvé současné povolání, přidává ti to 50% bonus k poskytované vlastnosti.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mág</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Zloděj</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Léčitel</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Dočti se více o povoláních</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Dočti se více o povoláních</a>",
+    "str": "SÍL",
+    "con": "OBR",
+    "per": "VNM",
+    "int": "INT"
 }

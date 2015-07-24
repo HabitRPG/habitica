@@ -50,7 +50,7 @@
     "useGems": "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Inventory > Market</strong> to buy one!",
     "hatchAPot": "Kläck ett <%= potion %> <%= egg %>?",
     "feedPet": "Mata <%= article %><%= text %> till din <%= name %>?",
-    "useSaddle": "Sadla <%= pet%>?",
+    "useSaddle": "Sadla <%= pet %>?",
     "petName": "Kläck ett <%= potion %> <%= egg %>?",
     "mountName": "<%= potion %> <%= mount %>",
     "petKeyName": "Key to the Kennels",

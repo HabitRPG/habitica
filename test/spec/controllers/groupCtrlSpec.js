@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Groups Controller', function() {
-  var scope, ctrl, groups, user, guild, party, $rootScope;
+  var scope, ctrl, groups, user, guild, $rootScope;
 
   beforeEach(function() {
     module(function($provide) {
@@ -24,11 +24,12 @@ describe('Groups Controller', function() {
   });
 
   describe("isMemberOfGroup", function() {
-    it("returns true if group is the user's party", function() {
-      party = specHelper.newGroup("test-party");
-      party._id = "unique-party-id";
-      party.type = 'party';
-      party.members = []; // Ensure we wouldn't pass automatically.
+    it("returns true if group is the user's party retrieved from groups service", function() {
+      var party = specHelper.newGroup({
+        _id: "unique-party-id",
+        type: 'party',
+        members: ['leader-id'] // Ensure we wouldn't pass automatically.
+      });
 
       var partyStub = sandbox.stub(groups,"party", function() {
         return party;
@@ -39,10 +40,11 @@ describe('Groups Controller', function() {
 
     it('returns true if guild is included in myGuilds call', function(){
 
-      guild = specHelper.newGroup("leaders-user-id");
-      guild._id = "unique-guild-id";
-      guild.type = 'guild';
-      guild.members.push(user._id);
+      var guild = specHelper.newGroup({
+        _id: "unique-guild-id",
+        type: 'guild',
+        members: [user._id]
+      });
 
       var myGuilds = sandbox.stub(groups,"myGuilds", function() {
         return [guild];
@@ -54,16 +56,18 @@ describe('Groups Controller', function() {
 
     it('does not return true if guild is not included in myGuilds call', function(){
 
-      guild = specHelper.newGroup("leaders-user-id");
-      guild._id = "unique-guild-id";
-      guild.type = 'guild';
+      var guild = specHelper.newGroup({
+        _id: "unique-guild-id",
+        type: 'guild',
+        members: ['not-user-id']
+      });
 
       var myGuilds = sandbox.stub(groups,"myGuilds", function() {
         return [];
       });
 
       expect(scope.isMemberOfGroup(user._id, guild)).to.not.be.ok;
-      expect(myGuilds).to.be.called;
+      expect(myGuilds).to.be.calledOnce;
     });
   });
 });

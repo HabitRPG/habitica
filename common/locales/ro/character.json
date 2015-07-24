@@ -45,6 +45,7 @@
     "hauntedColors": "Haunted Colors",
     "winteryColors": "Wintery Colors",
     "equipment": "Echipament",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Bonusuri de atribut furnizate de echipamentul pe care îl porți. Uită-te la tab-ul de Echipament de sub Inventar ca să-ți alegi echipamentul de luptă.",
     "classBonus": "Bonus de Echipament de Clasă",
     "classBonusText": "Clasa ta (Războinic, dacă n-ai deblocat sau n-ai ales altă clasă) folosește mai eficient echipamentul ei decât echipamentul altor clase. Îmbrăcămintea echipată din clasa ta curentă sporește cu 50% bonusului de atribut pe care îl acordă.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Rogue</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Healer</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

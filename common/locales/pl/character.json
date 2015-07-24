@@ -45,6 +45,7 @@
     "hauntedColors": "Nawiedzone Kolory",
     "winteryColors": "Zimowe Kolory",
     "equipment": "Wyposażenie",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Premie do atrybutów zapewniane przez Twoje wyposażenie bojowe. Zajrzyj do zakładki \"Wyposażenie\" w dziale \"Ekwipunek\", żeby wybrać broń i zbroję.",
     "classBonus": "Premia wyposażenia klasowego",
     "classBonusText": "Twoja klasa postaci (Wojownik, jeśli nie wybrałeś innej klasy lub nie odblokowałeś jeszcze tej możliwości) o wiele skuteczniej włada wyposażeniem jej przypisanym niż przeznaczonym dla innych klas. Wyposażenie przypisane do twojej aktualnej klasy zwiększa premię do atrybutu o dodatkowe 50%.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mag</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Łotrzyk</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Uzdrowiciel</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Dowiedz się więcej na temat klas</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Dowiedz się więcej na temat klas</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

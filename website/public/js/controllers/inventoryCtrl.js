@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats) {
 
     var user = User.user;
 
@@ -8,8 +8,8 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
-    $scope.totalPets = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
-    $scope.totalMounts = _.size(Content.dropEggs) * _.size(Content.hatchingPotions);
+
+    _updateDropAnimalCount(user.items);
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
@@ -17,6 +17,7 @@ habitrpg.controller("InventoryCtrl",
     $scope.questPopover = Quests.questPopover;
     $scope.showQuest = Quests.showQuest;
     $scope.closeQuest = Quests.closeQuest;
+    $scope.questInit = Quests.questInit;
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
@@ -92,19 +93,19 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
 
-      $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
+      _updateDropAnimalCount(user.items);
 
       // Checks if beastmaster has been reached for the first time
-      if(!User.user.achievements.beastMaster
-          && $rootScope.petCount >= 90) {
+      if(!user.achievements.beastMaster
+          && $scope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
         $rootScope.openModal('achievements/beastMaster');
       }
 
       // Checks if Triad Bingo has been reached for the first time
-      if(!User.user.achievements.triadBingo
-          && $rootScope.mountCount >= 90
-          && Shared.countTriad(User.user.items.pets) >= 90) {
+      if(!user.achievements.triadBingo
+          && $scope.mountCount >= 90
+          && Shared.count.dropPetsCurrentlyOwned(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
         $rootScope.openModal('achievements/triadBingo');
       }
@@ -127,14 +128,15 @@ habitrpg.controller("InventoryCtrl",
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
-        $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
 
-      // Checks if mountmaster has been reached for the first time
-      if(!User.user.achievements.mountMaster
-          && $rootScope.mountCount >= 90) {
-        User.user.achievements.mountMaster = true;
-        $rootScope.openModal('achievements/mountMaster');
-      }
+        _updateDropAnimalCount(user.items);
+
+        // Checks if mountmaster has been reached for the first time
+        if(!user.achievements.mountMaster
+            && $scope.mountCount >= 90) {
+          User.user.achievements.mountMaster = true;
+          $rootScope.openModal('achievements/mountMaster');
+        }
 
       // Selecting Pet
       } else {
@@ -144,14 +146,6 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.chooseMount = function(egg, potion) {
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
-    }
-
-    $scope.questInit = function(){
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$scope.selectedQuest.key});
-      $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
-        $rootScope.party.$get();
-      });
-      $scope.closeQuest();
     }
 
     $scope.getSeasonalShopArray = function(set){
@@ -211,5 +205,24 @@ habitrpg.controller("InventoryCtrl",
           break;
       }
     };
+
+    $scope.$on("habit:keyup", function (e, keyEvent) {
+      if (keyEvent.keyCode == "27") {
+        $scope.deselectItem();
+      }
+    });
+
+    $scope.deselectItem = function() {
+      $scope.selectedFood = null;
+      $scope.selectedPotion = null;
+      $scope.selectedEgg = null;
+    }
+
+    function _updateDropAnimalCount(items) {
+      $scope.petCount = Shared.count.beastMasterProgress(items.pets);
+      $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
+      $scope.beastMasterProgress = Stats.beastMasterProgress(items.pets);
+      $scope.mountMasterProgress = Stats.mountMasterProgress(items.mounts);
+    }
   }
 ]);

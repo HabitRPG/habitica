@@ -71,7 +71,7 @@
     "memberSince": "- Medlem sedan",
     "lastLoggedIn": "- Senast inloggad",
     "notPorted": "Denna funktion är inte flyttad från orginalhemsidan ännu.",
-    "buyThis": "Vill du verkligen köpa <%= text%> med <%= price%> av dina <%= gems%> Juveler?",
+    "buyThis": "Vill du verkligen köpa <%= text %> med <%= price %> av dina <%= gems %> Juveler?",
     "noReachServer": "Servern är otillgänglig för tillfället, försök igen senare",
     "errorUpCase": "FEL:",
     "newPassSent": "Nytt lösenord skickat.",

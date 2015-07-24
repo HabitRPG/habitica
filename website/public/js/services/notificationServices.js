@@ -29,18 +29,21 @@ angular.module("habitrpg").factory("Notification",
   function drop(val, item) {
     var dropClass = "";
     if ( item !== undefined ) {
-     switch ( item.type ) {
-      case "Egg":
-       dropClass = 'Pet_Egg_' + item.key;
-       break;
-      case "HatchingPotion":
-       dropClass = 'Pet_HatchingPotion_' + item.key;
-       break;
-      case "Food":
-       dropClass = 'Pet_Food_' + item.key;
-       break;
-      default:
-       dropClass = 'glyphicon glyphicon-gift';
+      switch ( item.type ) {
+        case "Egg":
+          dropClass = 'Pet_Egg_' + item.key;
+          break;
+        case "HatchingPotion":
+          dropClass = 'Pet_HatchingPotion_' + item.key;
+          break;
+        case "Food":
+          dropClass = 'Pet_Food_' + item.key;
+          break;
+        case "Mystery":
+          dropClass = 'shop_' + item.key;
+          break;
+        default:
+          dropClass = 'glyphicon glyphicon-gift';
      }
     }
     _notify(val, 'drop', dropClass);

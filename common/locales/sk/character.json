@@ -45,6 +45,7 @@
     "hauntedColors": "Strašidelné farby",
     "winteryColors": "Zimné Farby",
     "equipment": "Výstroj",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Bonusy k atribútom, ktoré ti poskytuje bojová výzbroj. Ak ju chceš zmeniť, nájdeš ju v záložke \"výstroj\" v inventári.",
     "classBonus": "Bonus za výstroj povolania",
     "classBonusText": "Tvoje povolanie (ak nemáš zvolené iné povolanie, si bojovník) používa vlastný výstroj efektívnejšie ako výstroj iných povolaní. Výstroj tvojho aktuálneho povolania dostane pri použití 50% bonus k atribútom, ktoré vylepšuje.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Rogue</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Healer</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

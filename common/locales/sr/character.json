@@ -45,6 +45,7 @@
     "hauntedColors": "Sablasne kože",
     "winteryColors": "Zimske kože",
     "equipment": "Oprema",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Od opreme koju nosite dobijate bonuse na osobine. Opremu možete birati u Inventaru na tabu Oprema.",
     "classBonus": "Bonus klase",
     "classBonusText": "Vaša klasa (ako još niste otključali i odabrali klasu, onda ste Ratnik) bolje se snalazi sa svojom opremom, nego sa opremom drugih klasa. Kad nosite opremu namenjenu Vašoj klasi, uvećavate njene bonus osobine za 50%.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Čarobnjak</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Odmetnik</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Vidar</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Informacije o klasama</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Informacije o klasama</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

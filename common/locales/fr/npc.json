@@ -27,7 +27,7 @@
     "payWithCard": "Payer par Carte Bancaire",
     "payNote": "Note : Paypal met parfois longtemps à transmettre. Nous vous recommandons de payer par carte.",
     "card": "Carte",
-    "amazonInstructions": "Click the button to pay using Amazon Payments",
+    "amazonInstructions": "Cliquez sur ce bouton pour payer avec Amazon Payments.",
     "paymentMethods": "Moyens de paiement :",
     "classGear": "Équipement de classe",
     "classGearText": "D'abord, pas de panique ! Votre vieil équipement est dans votre inventaire et vous portez maintenant votre équipement d'apprenti <strong><%= klass %></strong>. Porter l'équipement de votre classe apporte un bonus de 50% à vos attributs. Cependant, rien ne vous empêche de revenir à votre ancien équipement.",

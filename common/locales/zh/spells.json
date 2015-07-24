@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "火焰爆轰",
-    "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
+    "spellWizardFireballNotes": "你的手中释放出强大的烈焰。你得到经验值，并且对怪物造成额外伤害！点击一个目标以使用 (法术强度与智力值有关)",
     "spellWizardMPHealText": "澎湃灵泉",
     "spellWizardMPHealNotes": "You sacrifice mana to help your friends. The rest of your party gains MP! (Based on: INT)",
     "spellWizardEarthText": "地震",

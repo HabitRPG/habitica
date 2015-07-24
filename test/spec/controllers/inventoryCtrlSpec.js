@@ -89,4 +89,24 @@ describe('Inventory Controller', function() {
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
   }));
+
+  describe('Deselecting Items', function() {
+    it('deselects a food', function(){
+      scope.chooseFood('Meat');
+      scope.deselectItem();
+      expect(scope.selectedFood).to.eql(null);
+    });
+
+    it('deselects a potion', function(){
+      scope.choosePotion('Base');
+      scope.deselectItem();
+      expect(scope.selectedPotion).to.eql(null);
+    });
+
+    it('deselects a egg', function(){
+      scope.chooseEgg('Cactus');
+      scope.deselectItem();
+      expect(scope.selectedEgg).to.eql(null);
+    });
+  });
 });

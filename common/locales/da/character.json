@@ -45,6 +45,7 @@
     "hauntedColors": "Hjemsøgte farver",
     "winteryColors": "Vinterfarver",
     "equipment": "Udstyr",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Attributsbonusser tilføjet af din udstyrede kamprustning. Se Udstyrsfanen under Inventar for at vælge din kamprustning.",
     "classBonus": "Klasseudstyrsbonus",
     "classBonusText": "Din klasse (kriger, hvis du ikke har opnået eller valgt en anden klasse) bruger sit eget udstyr mere effektivt end udstyr til andre klasser. Båret udstyr der hører til din nuværende klasse får et 50% tillæg til den attributbonus, den giver.",
@@ -55,7 +56,7 @@
     "costumeText": "Hvis du foretrækker udseendet af andet udstyr end hvad du bærer, tjek \"Brug Kostume\"-feltet for at visuelt bære et kostume, mens du bærer dit kampudstyr nedenunder.",
     "useCostume": "Brug kostume",
     "useCostumeInfo1": "Klik på \"Brug Kostume\" for at få din avatar til at iføre sig udstyr uden at det påvirker attributterne fra dit Kampudstyr! Det betyder at du kan vælge udstyret med de bedste attributter i venstre side og klæde din avatar ud med udstyret i højre side.",
-    "useCostumeInfo2": "Once you click \"Use Costume\" your avatar will look pretty basic... but don't worry! If you look on the left, you'll see that your Battle Gear is still equipped. Next, you can make things fancy! Anything you equip on the right won't affect your stats, but can make you look super awesome. Try out different combos, mixing sets, and coordinating your Costume with your pets, mounts, and backgrounds.<br><br>Got more questions? Check out the <a href=\"http://habitrpg.wikia.com/wiki/Equipment#Costumes\">Costume page</a> on the wiki. Find the perfect ensemble? Show it off in the <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival guild</a> or brag in the Tavern!",
+    "useCostumeInfo2": "Selvom du har sat flueben i \"Brug kostume\" ser din avatar rimelig kedelig ud... men det er ingen grund til bekymring! Hvis du ser i venstre side, kan du se at du stadig er iført dit Kampudstyr. Nu er det tid til at få det til at se lækkert ud! Hvis du ifører dig noget i højre side vil det ikke påvirke dine attributter, men kan få dig til at se super fantastisk ud. Prøv forskellige kombinationer, bland de forskellige sæt, og farvekoordiner dit udseende med dit kæledyr, ridedyr og baggrunde. <br><br>Har du flere spørgsmål? Se mere på <a href=\"http://habitrpg.wikia.com/wiki/Equipment#Costumes\">Kustume siden</a> på wiki. Fundet det perfekte udseende? Vis dig frem i <a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">Costume Carnival guild</a> eller pral med det i værtshuset!",
     "gearAchievement": "Du har gennemført præstationen \"Det Ultimative Udstyr\" ved at opgradere til det maksimale udstyrssæt for din klasse. Du har opnået følgende komplette sæt:",
     "moreGearAchievements": "For at opnå flere emblemer for Ultimativt Udstyr, skift klasse på <a href='/#/options/profile/stats' target='_blank'>din status side</a> og køb udstyr til din nye klasse!",
     "armoireUnlocked": "Du har også låst op for det <strong>Fortryllede Klædeskab!</strong> Klik på det Fortryllede Klædeskab-belønningen for en chance for at få specielt Udstyr! Der er også en chance for XP eller mad.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Magiker</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Slyngel</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Helbreder</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Lær mere om klasserne</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Lær mere om klasserne</a>",
+    "str": "STY",
+    "con": "KON",
+    "per": "OPF",
+    "int": "INT"
 }

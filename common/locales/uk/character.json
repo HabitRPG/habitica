@@ -45,6 +45,7 @@
     "hauntedColors": "Примарні кольори",
     "winteryColors": "Зимові кольори",
     "equipment": "Спорядження",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "Бойове спорядження надає бонуси до характеристик. Вибір бойового спорядження можливий на вкладці спорядження на сторінці інвентаря.",
     "classBonus": "Бонус спорядження класу",
     "classBonusText": "Ваш клас (воїне, якщо Ви ще не відкрили чи обрали інший клас) використовує своє спорядження ефективніше, ніж спорядження інших класів. Одягаючи спорядження класу, Ви збільшуєте на 50% бонус характеристики, на яку воно впливає.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mage</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Rogue</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Healer</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Learn more about classes</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

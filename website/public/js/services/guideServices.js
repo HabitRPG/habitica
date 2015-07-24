@@ -178,14 +178,14 @@ function($rootScope, User, $timeout, $state, Analytics) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
+        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':false});
         // step.path doesn't work in Angular do to async ui-router. Our custom solution:
         if (step.state && !$state.is(step.state)) {
           // $state.go() returns a promise, necessary for async tour steps; however, that's not working here - have to use timeout instead :/
           $state.go(step.state);
           return $timeout(function(){});
         }
-        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':false})
-      }
+      };
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
           var ups={};ups['flags.tour.'+k] = -2;
@@ -194,7 +194,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }
       }
     })
-  })
+  });
 
   var tour = {};
   _.each(chapters, function(v,k){

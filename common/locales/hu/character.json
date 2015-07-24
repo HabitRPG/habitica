@@ -45,6 +45,7 @@
     "hauntedColors": "Kísérteties hajszínek",
     "winteryColors": "Télies színek",
     "equipment": "Felszerelés",
+    "equipmentBonus": "Equipment",
     "equipmentBonusText": "A tulajdonság bónuszokat a viselt harci felszereléseid adják. Lesd meg a Felszerelés fület a Tárgylistádban, hogy kiválaszd a viselt harci felszereléseket.",
     "classBonus": "Kaszt felszerelés bónusz",
     "classBonusText": "A kasztod (Harcos, ha még nem oldottál fel, vagy választottál ki másik kasztot) a saját kasztjához tartozó felszereléseket hatékonyabban használja. Ha a jelenlegi kasztodnak megfelelő holmit használsz, akkor az általa biztosított tulajdonság bónuszok 50%-kal nőnek.",
@@ -149,5 +150,9 @@
     "mageWiki": "<a href='http://habitrpg.wikia.com/wiki/Mage' target='_blank'>Mágus</a>",
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>Tolvaj</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>Gyógyító</a>",
-    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Tudj meg többet a kasztokról</a>"
+    "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Tudj meg többet a kasztokról</a>",
+    "str": "STR",
+    "con": "CON",
+    "per": "PER",
+    "int": "INT"
 }

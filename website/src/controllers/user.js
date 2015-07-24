@@ -8,7 +8,7 @@ var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
-var ga = utils.ga;
+var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
@@ -102,7 +102,7 @@ api.score = function(req, res, next) {
 
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
-      
+
     task = user.ops.addTask({body:task});
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
@@ -336,7 +336,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron({ga:ga, mixpanel:utils.mixpanel}),
+    progress = user.fns.cron({analytics:utils.analytics}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
@@ -535,7 +535,7 @@ _.each(shared.wrap({}).ops, function(op,k){
           if (err) return next(err);
           res.json(200,response);
         })
-      }, ga);
+      }, analytics);
     }
   }
 })
