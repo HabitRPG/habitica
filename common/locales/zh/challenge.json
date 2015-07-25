@@ -38,7 +38,7 @@
     "publicChallenges": " <strong>公共挑战</strong> 需要至少1个宝石 (为了防止垃圾信息)。",
     "officialChallenge": "HabitRPG 的官方挑战",
     "by": "发起自",
-    "participants": "<%=membercount%>参与者",
+    "participants": "<%= membercount %>参与者",
     "join": "加入",
     "exportChallengeCSV": "导出为 CSV",
     "selectGroup": "请选择小组",
@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "尚未拥有的",
     "challengedEitherOwnedFilter": "显示全部",
     "backToChallenges": "回到所有挑战",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> 奖励"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> 奖励",
+    "clone": "复制"
 }

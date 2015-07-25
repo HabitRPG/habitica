@@ -1,0 +1,15 @@
+script(id='modals/amazonPayments.html', type='text/ng-template')
+  .modal-header
+    h4 Amazon Payments
+  .modal-body
+    p=env.t('amazonInstructions')
+    #AmazonPayButton
+    br(ng-show="Payments.amazonPayments.loggedIn")
+    #AmazonPayWallet(ng-show="Payments.amazonPayments.loggedIn", style="width: 400px; height: 228px;")
+    br(ng-show="Payments.amazonPayments.loggedIn")
+    #AmazonPayRecurring(ng-show="Payments.amazonPayments.loggedIn && Payments.amazonPayments.type === 'subscription'",
+                        style="width: 400px; height: 140px;")
+
+  .modal-footer
+    .btn.btn-default(ng-click='Payments.amazonPayments.reset()')=env.t('cancel')
+    .btn.btn-primary(ng-disabled="!Payments.amazonPayments.canCheckout()", ng-click="Payments.amazonPayments.checkout()")=env.t('checkout')

@@ -8,6 +8,8 @@
     "alarmingFriendsText": "Članovi družine uplašili su Vas <%= spookDust %> puta.",
     "agriculturalFriends": "Prijatelji zemljoradnici",
     "agriculturalFriendsText": "Članovi družine pretvorili su Vas u cvet <%= seeds %> puta.",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Čestitka za dan zaljubljenih",
     "valentineCardNotes": "Pošaljite članu družine čestitku za Dan zaljubljenih.",
     "valentine0": "\"Roses are red<%= lineBreak %>My Dailies are blue<%= lineBreak %>I'm happy that I'm<%= lineBreak %>In a Party with you!\"",

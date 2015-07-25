@@ -89,9 +89,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 
-    $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
-    $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
-
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
       if(phase == '$apply' || phase == '$digest') {
@@ -210,32 +207,55 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       return filteredArray;
     }
 
+    // @TODO: Extract equip and purchase into equipment service
+    $rootScope.equip = function(itemKey, equipType) {
+      equipType = equipType || (user.preferences.costume ? 'costume' : 'equipped');
+      var equipParams = {
+         type: equipType,
+         key: itemKey
+      };
+
+      user.ops.equip({ params: equipParams });
+    }
+
     $rootScope.purchase = function(type, item){
-      if (type == 'special') return User.user.ops.buySpecialSpell({params:{key:item.key}});
+      if (type == 'special') return user.ops.buySpecialSpell({params:{key:item.key}});
 
-      var gems = User.user.balance * 4;
+      var gems = user.balance * 4;
+      var price = item.value;
+      var message;
 
-      var string = (type == 'weapon') ? window.env.t('weapon') : (type == 'armor') ? window.env.t('armor') : (type == 'head') ? window.env.t('headgear') : (type == 'shield') ? window.env.t('offhand') : (type == 'back') ? window.env.t('back') : (type == 'body') ? window.env.t('body') : (type == 'headAccessory') ? window.env.t('headAccessory') : (type == 'eyewear') ? window.env.t('eyewear') : (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : type; // FIXME this is ugly but temporary, once the purchase modal is done this will be removed
+      var itemName = window.env.t(Content.itemList[type].localeKey)
 
-      var price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
-      if (type == 'weapon' || type == 'armor' || type == 'head' || type == 'shield' || type == 'headAccessory' || type == 'body' || type == 'back' || type == 'eyewear' ) {
-        if (User.user.items.gear.owned[item.key]) {
-          if (User.user.preferences.costume) return User.user.ops.equip({params:{type: 'costume', key: item.key}});
-          else {
-            return User.user.ops.equip({params:{type: 'equipped', key: item.key}})
-          }
-        }
-        if (gems < price) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: string, price: price, gems: gems})
-        if($window.confirm(message))
-          User.user.ops.purchase({params:{type:"gear",key:item.key}});
-      } else {
-        if(gems < item.value) return $rootScope.openModal('buyGems');
-        var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
-        if($window.confirm(message))
-          User.user.ops.purchase({params:{type:type,key:item.key}});
+      if (Content.itemList[type].isEquipment) {
+        var eligibleForPurchase = _canBuyEquipment(item.key);
+        if (!eligibleForPurchase) return false;
+
+        // @TODO: Attach gemValue to content so we don't have to do this
+        price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
+        type = 'gear';
       }
 
+      if (gems < price) return $rootScope.openModal('buyGems');
+
+      if (type === 'quests') {
+        if (item.previous) {message = window.env.t('alreadyEarnedQuestReward', {priorQuest: Content.quests[item.previous].text()})}
+        else if (item.lvl) {message = window.env.t('alreadyEarnedQuestLevel', {level: item.lvl})}
+      } else message = "";
+
+      message += window.env.t('buyThis', {text: itemName, price: price, gems: gems});
+      if ($window.confirm(message))
+        user.ops.purchase({params:{type:type,key:item.key}});
+    };
+
+    function _canBuyEquipment(itemKey) {
+      if (user.items.gear.owned[itemKey]) {
+        $window.alert(window.env.t('messageAlreadyOwnGear'));
+      } else if (user.items.gear.owned[itemKey] === false) {
+        $window.alert(window.env.t('messageAlreadyPurchasedGear'));
+      } else {
+        return true;
+      }
     }
 
     /*

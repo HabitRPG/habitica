@@ -8,6 +8,8 @@
     "alarmingFriendsText": "Tus compañeros the han asustado <%= spookDust %> veces.",
     "agriculturalFriends": "Amigos Agrícolas",
     "agriculturalFriendsText": "Miembros de su partido le han convertido en una flor <%=seeds%> veces. ",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "Tarjeta del Día de San Valentin",
     "valentineCardNotes": "Envia una Tarjeta del Día de San Valentín a un miembro del grupo.",
     "valentine0": "\"¡Las rosas son rojas<%= lineBreak %>Mis Tareas Diarias son Azules<%= lineBreak %>Soy feliz por estar<%= lineBreak %>En un grupo contigo!",

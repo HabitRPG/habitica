@@ -6,7 +6,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.user = User.user;
 
     $scope.armoireCount = function(gear) {
-      return Shared.countArmoire(gear);
+      return Shared.count.remainingGearInSet(gear, 'armoire');
     };
 
     $scope.score = function(task, direction) {
@@ -219,7 +219,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
       $rootScope.playSound('Reward');
-      Guide.goto('intro', 4);
     };
 
 

@@ -34,7 +34,7 @@ describe('front page', function() {
     browser.sleep(1000);
     element(by.model('loginUsername')).sendKeys('username');
     element(by.model('loginPassword')).sendKeys('pass');
-    var login = element(by.css("#login-tab input[value='Login']"));
+    var login = element(by.css("#loginForm input[value='Login']"));
     login.click();
     var alertDialog = browser.switchTo().alert();
     expect(alertDialog.getText()).toMatch("Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\".");

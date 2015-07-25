@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "Schimmernde Saat",
     "spellSpecialShinySeedNotes": "Verwandle einen Freund in eine fröhliche Blume!",
     "spellSpecialPetalFreePotionText": "Blütenfrei Trank",
-    "spellSpecialPetalFreePotionNotes": "Beendet den Effekt der schimmernden Saat."
+    "spellSpecialPetalFreePotionNotes": "Beendet den Effekt der schimmernden Saat.",
+    "spellSpecialSeafoamText": "Meeresschaum",
+    "spellSpecialSeafoamNotes": "Verwandle einen Freund in ein Meereslebewesen!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Beendet den Effekt von Meeresschaum."
 }

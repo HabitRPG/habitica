@@ -61,5 +61,10 @@
     "surveysSingle": "Pomógł rozwinąć HabitRPG poprzez wypełnienie ankiety. Brak aktywnych ankiet.",
     "surveysMultiple": "Pomógł rozwinąć HabitRPG poprzez wypełnienie <%=surveys %> ankiet. Brak aktywnych ankiet.",
     "currentSurvey": "Bieżąca ankieta.",
-    "surveyWhen": "Odznaki zostaną przyznane wszystkim biorącym udział, gdy zgłoszenia zostaną przetworzone pod koniec marca."
+    "surveyWhen": "Odznaki zostaną przyznane wszystkim biorącym udział, gdy zgłoszenia zostaną przetworzone pod koniec marca.",
+    "blurbInbox": "Tutaj trzymane są twoje prywatne wiadomości! Możesz wysłać komuś wiadomość klikając na ikonę koperty koło kogoś nazwy w Karczmie, Drużynie lub na czacie Gildii.",
+    "blurbGuildsPage": "Gildie są grupami czatowymi zrzeszającymi graczy o wspólnych zainteresowaniach. Tworzone są przez graczy i dla graczy. Przeszukaj listę i dołącz do Gildii, które cię interesują.",
+    "blurbChallenges": "Wyzwania są tworzone przez twoich współtowarzyszy. Dołączenie do wyzwania doda jego zadania do twojej tablicy, a wygranie wyzwania nagrodzi osiągnięciem, a czasami nagrodą w postaci klejnotów!",
+    "blurbHallPatrons": "To jest Sala patronów, gdzie oddajemy cześć szlachetnym poszukiwaczom przygód, którzy wsparli oryginalny HabitRPG na Kickstarterze. Dziękujemy im za pomoc w powołaniu Habitiki do życia!",
+    "blurbHallHeroes": "To jest Sala bohaterów, gdzie uhonorowani zostali open-source'owi współautorzy HabitRPG. Niezależnie czy za pomocą kodu, sztuki, muzyki, pisania, czy nawet tylko uczynności, zdobyli oni <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'> klejnoty, ekskluzywne wyposażenie</a> oraz <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestiżowy tytuł</a>. Ty również możesz współtworzyć HabitRPG! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Tutaj dowiesz się więcej. </a>"
 }

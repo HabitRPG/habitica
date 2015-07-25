@@ -18,6 +18,9 @@ angular.module('habitrpg')
         User.authenticate(id, token, function(err) {
           if(!err) $scope.registrationInProgress = false;
           $window.location.href = ('/' + window.location.hash);
+          Analytics.login();
+          Analytics.updateUser();
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
         });
       };
 
@@ -47,32 +50,17 @@ angular.module('habitrpg')
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
-          if (status == 200) {
-            Analytics.register();
-            if (data.auth.facebook) {
-              Analytics.updateUser({'email':data.auth.facebook._json.email,'language':data.preferences.language});
-              Analytics.track({'hitType':'event','eventCategory':'acquisition','eventAction':'register','authType':'facebook'});
-            } else {
-              Analytics.updateUser({'email':data.auth.local.email,'language':data.preferences.language});
-              Analytics.track({'hitType':'event','eventCategory':'acquisition','eventAction':'register','authType':'email'});
-            }
-          }
         }).error(errorAlert);
       };
 
       $scope.auth = function() {
         var data = {
-          username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
-          password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
+          username: $scope.loginUsername || $('#loginForm input[name="username"]').val(),
+          password: $scope.loginPassword || $('#loginForm input[name="password"]').val()
         };
         $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
-            if (status == 200) {
-              Analytics.login();
-              Analytics.updateUser();
-              Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
-            }
           }).error(errorAlert);
       };
 
@@ -112,11 +100,6 @@ angular.module('habitrpg')
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
-              if (status == 200) {
-                Analytics.login();
-                Analytics.updateUser();
-                Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
-              }
               runAuth(data.id, data.token);
             }).error(errorAlert);
         }, function( e ){

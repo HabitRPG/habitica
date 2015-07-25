@@ -61,5 +61,10 @@
     "surveysSingle": "Ayudó con el crecimiento de HabitRPG llenando una encuesta. No hay encuestas activas.",
     "surveysMultiple": "Ayudó con el crecimiento de HabitRPG llenando <%= surveys %> encuestas. No hay encuestas activas.",
     "currentSurvey": "Encuesta actual",
-    "surveyWhen": "La medalla será otorgada a todos los participantes cuando las encuestas sean procesadas, a finales de Marzo."
+    "surveyWhen": "La medalla será otorgada a todos los participantes cuando las encuestas sean procesadas, a finales de Marzo.",
+    "blurbInbox": "¡Aquí es donde se guardan tus mensajes privados! Puedes enviarle un mensaje privado a alguien simplemente haciendo clic en el sobre al lado de su nombre en la Taverna, Grupo o Chat de Alianza.",
+    "blurbGuildsPage": "Las Alianzas son salas de chat con temas de interés común creados por jugadores para jugadores. Busca entre la lista de alianzas y únete al que más te llame la atención. Te recomendamos la Alianza de los Novatos ¡puedes preguntar lo que necesites sobre HabitRPG!",
+    "blurbChallenges": "Los Retos son creados por los usuarios. Al unirte a un Reto éste añadirá tareas a tu cuenta. ¡Y si ganas el Reto se te otorgará un logro y posiblemente gemas!",
+    "blurbHallPatrons": "Éste es la Sala de Patrocinadores, donde honramos a los nobles aventureros que apoyaron HabitRPG en su original Kickstarter. ¡Les agradecemos por ayudarnos a traer Habitica a la vida!",
+    "blurbHallHeroes": "Ésta es la Sala de Heroes, donde los contribuyentes a HabitRPG son honrados. Ya sea a través de código, arte, música, escritura, o incluso sólo por ser serviciales, se han ganado <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>gemas, equipamiento exlusivo</a> y <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>títulos prestigiosos</a>. ¡Tu también puedes contribuir a HabitRPG! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Descubre cómo aquí</a>."
 }

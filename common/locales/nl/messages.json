@@ -21,7 +21,10 @@
     "messageDropFood": "<%= dropText %> gevonden! <%= dropNotes %>",
     "messageDropEgg": "Je hebt het ei van een <%= dropText %> gevonden! <%= dropNotes %>",
     "messageDropPotion": "Je hebt een <%= dropText %> uitbroedtoverdrank gevonden! <%= dropNotes %>",
+    "messageDropQuest": "You've found a quest!",
     "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!",
+    "messageAlreadyPurchasedGear": "Je hebt dit stuk uitrusting in het verleden al eens gekocht, maar hebt het nu niet in je bezit. Je kunt het opnieuw aanschaffen in de beloningenkolom op de Takenpagina.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
     "armoireEquipment": "<%= image %> Je hebt een zeldzaam uitrustingsstuk gevonden in het kabinet: <%= dropText %>! Super!",
     "armoireFood": "<%= image %> Je rommelt wat in het kabinet en vindt <%= dropArticle %><%= dropText %>. Hoe komt dat nou hier?",
     "armoireExp": "Je worstelt met het kabinet en krijgt er ervaringspunten bij. Daar met je!"

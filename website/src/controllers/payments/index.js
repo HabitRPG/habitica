@@ -7,6 +7,7 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var amazon = require('./amazon');
 var members = require('../members')
 var async = require('async');
 var iap = require('./iap');
@@ -52,7 +53,10 @@ exports.createSubscription = function(data, cb) {
       paymentMethod: data.paymentMethod,
       extraMonths: +p.extraMonths
         + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
-      dateTerminated: null
+      dateTerminated: null,
+      // Specify a lastBillingDate just for Amazon Payments
+      // Resetted every time the subscription restarts
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined
     }).defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date(),
       mysteryItems: []
@@ -70,9 +74,18 @@ exports.createSubscription = function(data, cb) {
   revealMysteryItems(recipient);
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'subscription-begins');
-    utils.ga.event('commerce', 'subscribe', data.paymentMethod, block.price).send();
-    utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
-    utils.mixpanel.track('purchase',{'distinct_id':data.user._id,'itemPurchased':block.key,'purchaseValue':block.price})
+
+    var analyticsData = {
+      uuid: data.user._id,
+      itemPurchased: 'Subscription',
+      sku: data.paymentMethod.toLowerCase() + '-subscription',
+      purchaseType: 'subscribe',
+      paymentMethod: data.paymentMethod,
+      quantity: 1,
+      gift: !!data.gift, // coerced into a boolean
+      purchaseValue: block.price
+    }
+    utils.analytics.trackPurchase(analyticsData);
   }
   data.user.purchased.txnCount++;
   if (data.gift){
@@ -114,7 +127,13 @@ exports.cancelSubscription = function(data, cb) {
 
   data.user.save(cb);
   utils.txnEmail(data.user, 'cancel-subscription');
-  utils.ga.event('commerce', 'unsubscribe', data.paymentMethod).send();
+  var analyticsData = {
+    uuid: data.user._id,
+    gaCategory: 'commerce',
+    gaLabel: data.paymentMethod,
+    paymentMethod: data.paymentMethod
+  }
+  utils.analytics.track('unsubscribe', analyticsData);
 }
 
 exports.buyGems = function(data, cb) {
@@ -123,11 +142,20 @@ exports.buyGems = function(data, cb) {
   data.user.purchased.txnCount++;
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'donation');
-    utils.ga.event('commerce', 'checkout', data.paymentMethod, amt).send();
-    utils.mixpanel.track('purchase',{'distinct_id':data.user._id,'itemPurchased':'Gems','purchaseValue':amt})
-    //TODO ga.transaction to reflect whether this is gift or self-purchase
-    utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+
+    var analyticsData = {
+      uuid: data.user._id,
+      itemPurchased: 'Gems',
+      sku: data.paymentMethod.toLowerCase() + '-checkout',
+      purchaseType: 'checkout',
+      paymentMethod: data.paymentMethod,
+      quantity: 1,
+      gift: !!data.gift, // coerced into a boolean
+      purchaseValue: amt
+    }
+    utils.analytics.trackPurchase(analyticsData);
   }
+
   if (data.gift){
     var byUsername = utils.getUserInfo(data.user, ['name']).name;
     var gemAmount = data.gift.gems.amount || 20;
@@ -168,6 +196,12 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.amazonVerifyAccessToken = amazon.verifyAccessToken;
+exports.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
+exports.amazonCheckout = amazon.checkout;
+exports.amazonSubscribe = amazon.subscribe;
+exports.amazonSubscribeCancel = amazon.subscribeCancel;
 
 exports.iapAndroidVerify = iap.androidVerify;
 exports.iapIosVerify = iap.iosVerify;

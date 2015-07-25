@@ -87,18 +87,7 @@
 .site-header
   display: table
   height: 10.5em
-
-@media (min-width: 42.5em)
-  .site-header
-    width: 75%
-@media (min-width: 60em)
-  .site-header
-    // margin: 0 auto
-    width: 66%
-@media (min-width: 70em)
-  .site-header
-    width: 70%
-
+  width: 100%
 
 // this is a wrapper for avatars in the header
 // inside this is the actual `herobox` module
@@ -117,6 +106,7 @@
   display: table-cell
   vertical-align: middle
   min-width:175px
+  width: 75%
   @media screen and (max-width:768px)
     padding: 1.1em 0.618em 0
   .meter-label
@@ -173,7 +163,10 @@ header .hero-stats
   background-color: darken($color-herobox, 4%)
   border-right: 1px solid darken($color-herobox, 12%)
 
+.party
+  display: table-cell
+  width: 100%
+
 button.party-invite
-  right: 10px;
-  position: absolute;
-  top: 55px;
+  display: block
+  margin: 57px auto

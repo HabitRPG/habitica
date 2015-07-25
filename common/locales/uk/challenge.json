@@ -38,7 +38,7 @@
     "publicChallenges": "Щонайменше 1 самоцвіт для <strong> громадських випробувань </strong> (допомагає запобігти спаму, справді).",
     "officialChallenge": "Офіційне випробування HabitRPG",
     "by": "від",
-    "participants": "Учаснки",
+    "participants": "<%= membercount %> Учаснки",
     "join": "Приєднатися",
     "exportChallengeCSV": "Експортувати до CSV",
     "selectGroup": "Будь ласка, оберіть групу",
@@ -54,5 +54,6 @@
     "challengedNotOwnedFilter": "Not Owned",
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Back to all challenges",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize"
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
+    "clone": "Clone"
 }

@@ -1,12 +1,10 @@
 // Events
-ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball || user.items.special.spookDust>0 || user.stats.buffs.spookDust || user.items.special.shinySeed>0 || user.stats.buffs.shinySeed)')
-
-  +specialSpell('snowball')
-  +specialSpell('spookDust')
-  +specialSpell('shinySeed')
-  +specialSpell('salt','snowball')
-  +specialSpell('opaquePotion','spookDust')
-  +specialSpell('petalFreePotion','shinySeed')
+- var seasonalSpells = {'snowball':'salt', 'spookDust':'opaquePotion', 'shinySeed':'petalFreePotion', 'seafoam':'sand'}
+ul.items.rewards
+  each dispel,spell in seasonalSpells
+    span(ng-if='main && list.type=="reward" && (user.items.special.#{spell}>0 || user.stats.buffs.#{spell})')
+      +specialSpell(spell)
+      +specialSpell(dispel,spell)
 
 // Spells
 ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')

@@ -7,6 +7,9 @@ include ./quests/index
 include ./chat-message
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
+  .options-blurbmenu
+    small.muted=env.t('blurbInbox')
+
   .container-fluid
     .row
       .col-md-12
@@ -41,6 +44,9 @@ script(type='text/ng-template', id='partials/options.social.party.html')
       include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
+  .options-blurbmenu
+    small.muted=env.t('blurbGuildsPage')
+
   div.col-xs-12(ng-repeat='invitation in user.invitations.guilds' style='margin-bottom: 1.5em')
     h3=env.t('invitedTo', {name: '{{invitation.name}}'})
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
@@ -61,7 +67,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
             a.btn.btn-sm.btn-success(ng-if="::!group._isMember", ng-click='join(group)')
               span.glyphicon.glyphicon-ok
               =env.t('join')
-        h4 {{::group.name}}
+        h4: a(href='/#/options/groups/guilds/{{::group._id}}') {{::group.name}}
         p {{::group.description}}
 
 script(type='text/ng-template', id='partials/options.social.guilds.detail.html')

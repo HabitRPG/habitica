@@ -61,5 +61,10 @@
     "surveysSingle": "Hat HabitRPG durch die Teilnahme an einer Umfrage geholfen zu wachsen. Es gibt keine aktuellen Umfragen. ",
     "surveysMultiple": "Hat HabitRPG durch Teilnahme an <%= surveys %> Umfragen geholfen zu wachsen. Es gibt keine aktiven Umfragen.",
     "currentSurvey": "Aktuelle Umfrage",
-    "surveyWhen": "Das Abzeichen wird gegen Ende März verliehen, wenn alle Umfragen bearbeitet wurden."
+    "surveyWhen": "Das Abzeichen wird gegen Ende März verliehen, wenn alle Umfragen bearbeitet wurden.",
+    "blurbInbox": "Hier werden deine privaten Nachrichten gespeichert! Du kannst Nachrichten verschicken, indem du auf den kleinen Briefumschlag neben den Namen im Gasthaus-, Gruppen- oder Gildenchat klickst.",
+    "blurbGuildsPage": "Gilden sind Chatgruppen mit einem gemeinsamen Interesse. Sie sind von Spielern für Spieler erstellt worden. Durchblättere die Liste und tritt den Gilden bei, die dich interessieren.",
+    "blurbChallenges": "Wettbewerbe werden von anderen Spielern erstellt. Wenn du einem Wettbewerb beitrittst, werden seine Aufgaben deinem Aufgabenmenü hinzugefügt, und wenn du einen Wettbewerb gewinnst erhälst du einen Erfolg und oft auch einen Edelstein-Preis!",
+    "blurbHallPatrons": "Dies ist die Halle der Unterstützer, in der wir die edlen Abenteurer ehren, die HabitRPG's ursprüngliche Kickstarter-Kampagne unterstützt haben. Wir danken ihnen für die Hilfe Habitica zum Leben zu erwecken!",
+    "blurbHallHeroes": "Dies ist die Halle der Helden, in der Open-Source Unterstützter von HabitRPG geehrt werden. Ob durch Code, Kunst, Musik, schreiben, oder auch nur Hilfsbereitschaft, haben sie <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'> Edelsteine, exklusive Ausstattung </a>verdient und <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'> angesehenen Titel</a> erlangt. Sie können HabitRPG ebenfalls unterstützen! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Hier erfahren Sie mehr. </a>"
 }

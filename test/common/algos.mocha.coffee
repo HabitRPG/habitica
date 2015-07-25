@@ -25,6 +25,7 @@ newUser = (addTasks=true)->
         equipped: {}
         costume: {}
         owned: {}
+      quests: {}
     party:
       quest:
         progress:
@@ -386,12 +387,40 @@ describe 'User', ->
       expect(user.items.gear.equipped).to.eql { armor: 'armor_warrior_1', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
 
-    it 'do not buy equipment without enough money', ->
+    it 'does not buy equipment without enough Gold', ->
       user = newUser()
       user.stats.gp = 1
       user.ops.buy {params: {key: 'armor_warrior_1'}}
       expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user).toHaveGP 1
+
+    it 'buys a Quest scroll', ->
+      user = newUser()
+      user.stats.gp = 205
+      user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
+      expect(user.items.quests).to.eql {dilatoryDistress1: 1}
+      expect(user).toHaveGP 5
+
+    it 'does not buy Quests without enough Gold', ->
+      user = newUser()
+      user.stats.gp = 1
+      user.ops.buyQuest {params: {key: 'dilatoryDistress1'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 1
+
+    it 'does not buy nonexistent Quests', ->
+      user = newUser()
+      user.stats.gp = 9999
+      user.ops.buyQuest {params: {key: 'snarfblatter'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 9999
+
+    it 'does not buy Gem-premium Quests', ->
+      user = newUser()
+      user.stats.gp = 9999
+      user.ops.buyQuest {params: {key: 'kraken'}}
+      expect(user.items.quests).to.eql {}
+      expect(user).toHaveGP 9999
 
   describe 'Gem purchases', ->
     it 'does not purchase items without enough Gems', ->
@@ -484,7 +513,22 @@ describe 'User', ->
 
   describe 'Enchanted Armoire', ->
     user = newUser()
-    fullArmoire = {'weapon_warrior_0': true, 'armor_armoire_gladiatorArmor':true,'armor_armoire_lunarArmor':true,'head_armoire_gladiatorHelm':true,'head_armoire_lunarCrown':true,'head_armoire_rancherHat':true,'head_armoire_redHairbow':true,'head_armoire_violetFloppyHat':true,'shield_armoire_gladiatorShield':true,'weapon_armoire_basicCrossbow':true,'weapon_armoire_lunarSceptre':true}
+    fullArmoire = 
+      'weapon_warrior_0': true,
+      'armor_armoire_gladiatorArmor':true,
+      'armor_armoire_lunarArmor':true,
+      'armor_armoire_rancherRobes':true,
+      'head_armoire_blueHairbow':true,
+      'head_armoire_gladiatorHelm':true,
+      'head_armoire_lunarCrown':true,
+      'head_armoire_rancherHat':true,
+      'head_armoire_redHairbow':true,
+      'head_armoire_royalCrown':true,
+      'head_armoire_violetFloppyHat':true,
+      'shield_armoire_gladiatorShield':true,
+      'weapon_armoire_basicCrossbow':true,
+      'weapon_armoire_lunarSceptre':true,
+      'weapon_armoire_rancherLasso':true
 
     beforeEach ->
       # too many predictableRandom calls to stub, let's return the last element
@@ -497,7 +541,7 @@ describe 'User', ->
 
     it 'counts all available equipment before any are claimed', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 1)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 1)
 
     it 'does not open without paying', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0
@@ -521,7 +565,7 @@ describe 'User', ->
       user.achievements.ultimateGearSets = {'healer':false,'wizard':false,'rogue':true,'warrior':false}
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 2)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 2)
       expect(user.items.food).to.eql {}
       expect(user.stats.exp).to.eql 0
       expect(user.stats.gp).to.eql 400
@@ -545,8 +589,8 @@ describe 'User', ->
     it 'gives more equipment', ->
       sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.ops.buy({params: {key: 'armoire'}})
-      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true,'head_armoire_rancherHat':true}
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql (_.size(fullArmoire) - 3)
+      expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true, 'head_armoire_blueHairbow':true}
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 3)
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 30
       expect(user.stats.gp).to.eql 100
@@ -556,7 +600,7 @@ describe 'User', ->
       user.items.gear.owned = fullArmoire
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql fullArmoire
-      expect(shared.countArmoire(user.items.gear.owned)).to.eql 0
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql 0
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 60
       expect(user.stats.gp).to.eql 0
@@ -574,6 +618,7 @@ describe 'User', ->
         expect(quest.value).to.be.greaterThan 0 if quest.canBuy
         expect(quest.drop.gp).to.not.be.lessThan 0
         expect(quest.drop.exp).to.not.be.lessThan 0
+        expect(quest.category).to.match(/pet|unlockable|gold|world/)
         if quest.drop.items
           expect(quest.drop.items).to.be.an(Array)
         if quest.boss
@@ -606,62 +651,6 @@ describe 'User', ->
       user.items.gear.owned.weapon_rogue_6 = false
       user.ops.buy {params:'shield_warrior_5'}
       expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
-
-    it 'does not get beastMaster if user has less than 90 drop pets', ->
-      user = newUser()
-      user.items.pets = {'Wolf-White': 1, 'Wolf-Desert': 1, 'Wolf-Red': 1, 'Wolf-Shade': 1, 'Wolf-Skeleton': 1, 'Wolf-Zombie': 1, 'Wolf-CottonCandyPink': 1, 'Wolf-CottonCandyBlue': 1, 'Wolf-Golden': 1, 'TigerCub-Base': 1, 'TigerCub-White': 1, 'TigerCub-Desert': 1, 'TigerCub-Red': 1, 'TigerCub-Shade': 1, 'TigerCub-Skeleton': 1, 'TigerCub-Zombie': 1, 'TigerCub-CottonCandyPink': 1, 'TigerCub-CottonCandyBlue': 1, 'TigerCub-Golden': 1, 'PandaCub-Base': 1, 'PandaCub-White': 1, 'PandaCub-Desert': 1, 'PandaCub-Red': 1, 'PandaCub-Shade': 1, 'PandaCub-Skeleton': 1, 'PandaCub-Zombie': 1, 'PandaCub-CottonCandyPink': 1, 'PandaCub-CottonCandyBlue': 1, 'PandaCub-Golden': 1, 'LionCub-Base': 1, 'LionCub-White': 1, 'LionCub-Desert': 1, 'LionCub-Red': 1, 'LionCub-Shade': 1, 'LionCub-Skeleton': 1, 'LionCub-Zombie': 1, 'LionCub-CottonCandyPink': 1, 'LionCub-CottonCandyBlue': 1, 'LionCub-Golden': 1, 'Fox-Base': 1, 'Fox-White': 1, 'Fox-Desert': 1, 'Fox-Red': 1, 'Fox-Shade': 1, 'Fox-Skeleton': 1, 'Fox-Zombie': 1, 'Fox-CottonCandyPink': 1, 'Fox-CottonCandyBlue': 1, 'Fox-Golden': 1, 'FlyingPig-Base': 1, 'FlyingPig-White': 1, 'FlyingPig-Desert': 1, 'FlyingPig-Red': 1, 'FlyingPig-Shade': 1, 'FlyingPig-Skeleton': 1, 'FlyingPig-Zombie': 1, 'FlyingPig-CottonCandyPink': 1, 'FlyingPig-CottonCandyBlue': 1, 'FlyingPig-Golden': 1, 'Dragon-Base': 1, 'Dragon-White': 1, 'Dragon-Desert': 1, 'Dragon-Red': 1, 'Dragon-Shade': 1, 'Dragon-Skeleton': 1, 'Dragon-Zombie': 1, 'Dragon-CottonCandyPink': 1, 'Dragon-CottonCandyBlue': 1, 'Dragon-Golden': 1, 'Cactus-Base': 1, 'Cactus-White': 1, 'Cactus-Desert': 1, 'Cactus-Red': 1, 'Cactus-Shade': 1, 'Cactus-Skeleton': 1, 'Cactus-Zombie': 1, 'Cactus-CottonCandyPink': 1, 'Cactus-CottonCandyBlue': 1, 'Cactus-Golden': 1, 'BearCub-Base': 1, 'BearCub-White': 1, 'BearCub-Desert': 1, 'BearCub-Red': 1, 'BearCub-Shade': 1, 'BearCub-Skeleton': 1, 'BearCub-Zombie': 1, 'BearCub-CottonCandyPink': 1, 'BearCub-CottonCandyBlue': 1, 'BearCub-Golden': 1 }
-      expect(shared.countPets(null,user.items.pets)).to.eql 89
-      expect(shared.countPets(_.size(user.items.pets), user.items.pets)).to.eql 89
-      expect(user.achievements.beastMaster).to.not.be.ok()
-
-    it 'does not get beastMaster with 89 drop pets + 1 gryphon', ->
-      user = newUser()
-      user.items.pets = {'Gryphon-Base': 1, 'Wolf-White': 1, 'Wolf-Desert': 1, 'Wolf-Red': 1, 'Wolf-Shade': 1, 'Wolf-Skeleton': 1, 'Wolf-Zombie': 1, 'Wolf-CottonCandyPink': 1, 'Wolf-CottonCandyBlue': 1, 'Wolf-Golden': 1, 'TigerCub-Base': 1, 'TigerCub-White': 1, 'TigerCub-Desert': 1, 'TigerCub-Red': 1, 'TigerCub-Shade': 1, 'TigerCub-Skeleton': 1, 'TigerCub-Zombie': 1, 'TigerCub-CottonCandyPink': 1, 'TigerCub-CottonCandyBlue': 1, 'TigerCub-Golden': 1, 'PandaCub-Base': 1, 'PandaCub-White': 1, 'PandaCub-Desert': 1, 'PandaCub-Red': 1, 'PandaCub-Shade': 1, 'PandaCub-Skeleton': 1, 'PandaCub-Zombie': 1, 'PandaCub-CottonCandyPink': 1, 'PandaCub-CottonCandyBlue': 1, 'PandaCub-Golden': 1, 'LionCub-Base': 1, 'LionCub-White': 1, 'LionCub-Desert': 1, 'LionCub-Red': 1, 'LionCub-Shade': 1, 'LionCub-Skeleton': 1, 'LionCub-Zombie': 1, 'LionCub-CottonCandyPink': 1, 'LionCub-CottonCandyBlue': 1, 'LionCub-Golden': 1, 'Fox-Base': 1, 'Fox-White': 1, 'Fox-Desert': 1, 'Fox-Red': 1, 'Fox-Shade': 1, 'Fox-Skeleton': 1, 'Fox-Zombie': 1, 'Fox-CottonCandyPink': 1, 'Fox-CottonCandyBlue': 1, 'Fox-Golden': 1, 'FlyingPig-Base': 1, 'FlyingPig-White': 1, 'FlyingPig-Desert': 1, 'FlyingPig-Red': 1, 'FlyingPig-Shade': 1, 'FlyingPig-Skeleton': 1, 'FlyingPig-Zombie': 1, 'FlyingPig-CottonCandyPink': 1, 'FlyingPig-CottonCandyBlue': 1, 'FlyingPig-Golden': 1, 'Dragon-Base': 1, 'Dragon-White': 1, 'Dragon-Desert': 1, 'Dragon-Red': 1, 'Dragon-Shade': 1, 'Dragon-Skeleton': 1, 'Dragon-Zombie': 1, 'Dragon-CottonCandyPink': 1, 'Dragon-CottonCandyBlue': 1, 'Dragon-Golden': 1, 'Cactus-Base': 1, 'Cactus-White': 1, 'Cactus-Desert': 1, 'Cactus-Red': 1, 'Cactus-Shade': 1, 'Cactus-Skeleton': 1, 'Cactus-Zombie': 1, 'Cactus-CottonCandyPink': 1, 'Cactus-CottonCandyBlue': 1, 'Cactus-Golden': 1, 'BearCub-Base': 1, 'BearCub-White': 1, 'BearCub-Desert': 1, 'BearCub-Red': 1, 'BearCub-Shade': 1, 'BearCub-Skeleton': 1, 'BearCub-Zombie': 1, 'BearCub-CottonCandyPink': 1, 'BearCub-CottonCandyBlue': 1, 'BearCub-Golden': 1 }
-      expect(shared.countPets(null,user.items.pets)).to.eql 89
-      expect(shared.countPets(_.size(user.items.pets), user.items.pets)).to.eql 89
-      expect(user.achievements.beastMaster).to.not.be.ok()
-
-    it 'does not get beastMaster with 89 pets + 1 hydra', ->
-      user = newUser()
-      user.items.pets = {'Dragon-Hydra': 1, 'Wolf-White': 1, 'Wolf-Desert': 1, 'Wolf-Red': 1, 'Wolf-Shade': 1, 'Wolf-Skeleton': 1, 'Wolf-Zombie': 1, 'Wolf-CottonCandyPink': 1, 'Wolf-CottonCandyBlue': 1, 'Wolf-Golden': 1, 'TigerCub-Base': 1, 'TigerCub-White': 1, 'TigerCub-Desert': 1, 'TigerCub-Red': 1, 'TigerCub-Shade': 1, 'TigerCub-Skeleton': 1, 'TigerCub-Zombie': 1, 'TigerCub-CottonCandyPink': 1, 'TigerCub-CottonCandyBlue': 1, 'TigerCub-Golden': 1, 'PandaCub-Base': 1, 'PandaCub-White': 1, 'PandaCub-Desert': 1, 'PandaCub-Red': 1, 'PandaCub-Shade': 1, 'PandaCub-Skeleton': 1, 'PandaCub-Zombie': 1, 'PandaCub-CottonCandyPink': 1, 'PandaCub-CottonCandyBlue': 1, 'PandaCub-Golden': 1, 'LionCub-Base': 1, 'LionCub-White': 1, 'LionCub-Desert': 1, 'LionCub-Red': 1, 'LionCub-Shade': 1, 'LionCub-Skeleton': 1, 'LionCub-Zombie': 1, 'LionCub-CottonCandyPink': 1, 'LionCub-CottonCandyBlue': 1, 'LionCub-Golden': 1, 'Fox-Base': 1, 'Fox-White': 1, 'Fox-Desert': 1, 'Fox-Red': 1, 'Fox-Shade': 1, 'Fox-Skeleton': 1, 'Fox-Zombie': 1, 'Fox-CottonCandyPink': 1, 'Fox-CottonCandyBlue': 1, 'Fox-Golden': 1, 'FlyingPig-Base': 1, 'FlyingPig-White': 1, 'FlyingPig-Desert': 1, 'FlyingPig-Red': 1, 'FlyingPig-Shade': 1, 'FlyingPig-Skeleton': 1, 'FlyingPig-Zombie': 1, 'FlyingPig-CottonCandyPink': 1, 'FlyingPig-CottonCandyBlue': 1, 'FlyingPig-Golden': 1, 'Dragon-Base': 1, 'Dragon-White': 1, 'Dragon-Desert': 1, 'Dragon-Red': 1, 'Dragon-Shade': 1, 'Dragon-Skeleton': 1, 'Dragon-Zombie': 1, 'Dragon-CottonCandyPink': 1, 'Dragon-CottonCandyBlue': 1, 'Dragon-Golden': 1, 'Cactus-Base': 1, 'Cactus-White': 1, 'Cactus-Desert': 1, 'Cactus-Red': 1, 'Cactus-Shade': 1, 'Cactus-Skeleton': 1, 'Cactus-Zombie': 1, 'Cactus-CottonCandyPink': 1, 'Cactus-CottonCandyBlue': 1, 'Cactus-Golden': 1, 'BearCub-Base': 1, 'BearCub-White': 1, 'BearCub-Desert': 1, 'BearCub-Red': 1, 'BearCub-Shade': 1, 'BearCub-Skeleton': 1, 'BearCub-Zombie': 1, 'BearCub-CottonCandyPink': 1, 'BearCub-CottonCandyBlue': 1, 'BearCub-Golden': 1 }
-      expect(shared.countPets(null,user.items.pets)).to.eql 89
-      expect(shared.countPets(_.size(user.items.pets), user.items.pets)).to.eql 89
-      expect(user.achievements.beastMaster).to.not.be.ok()
-
-    xit 'does get beastMaster', ->
-      user = newUser()
-      user.items.pets = {'Wolf-Base': 1, 'Wolf-White': 1, 'Wolf-Desert': 1, 'Wolf-Red': 1, 'Wolf-Shade': 1, 'Wolf-Skeleton': 1, 'Wolf-Zombie': 1, 'Wolf-CottonCandyPink': 1, 'Wolf-CottonCandyBlue': 1, 'Wolf-Golden': 1, 'TigerCub-Base': 1, 'TigerCub-White': 1, 'TigerCub-Desert': 1, 'TigerCub-Red': 1, 'TigerCub-Shade': 1, 'TigerCub-Skeleton': 1, 'TigerCub-Zombie': 1, 'TigerCub-CottonCandyPink': 1, 'TigerCub-CottonCandyBlue': 1, 'TigerCub-Golden': 1, 'PandaCub-Base': 1, 'PandaCub-White': 1, 'PandaCub-Desert': 1, 'PandaCub-Red': 1, 'PandaCub-Shade': 1, 'PandaCub-Skeleton': 1, 'PandaCub-Zombie': 1, 'PandaCub-CottonCandyPink': 1, 'PandaCub-CottonCandyBlue': 1, 'PandaCub-Golden': 1, 'LionCub-Base': 1, 'LionCub-White': 1, 'LionCub-Desert': 1, 'LionCub-Red': 1, 'LionCub-Shade': 1, 'LionCub-Skeleton': 1, 'LionCub-Zombie': 1, 'LionCub-CottonCandyPink': 1, 'LionCub-CottonCandyBlue': 1, 'LionCub-Golden': 1, 'Fox-Base': 1, 'Fox-White': 1, 'Fox-Desert': 1, 'Fox-Red': 1, 'Fox-Shade': 1, 'Fox-Skeleton': 1, 'Fox-Zombie': 1, 'Fox-CottonCandyPink': 1, 'Fox-CottonCandyBlue': 1, 'Fox-Golden': 1, 'FlyingPig-Base': 1, 'FlyingPig-White': 1, 'FlyingPig-Desert': 1, 'FlyingPig-Red': 1, 'FlyingPig-Shade': 1, 'FlyingPig-Skeleton': 1, 'FlyingPig-Zombie': 1, 'FlyingPig-CottonCandyPink': 1, 'FlyingPig-CottonCandyBlue': 1, 'FlyingPig-Golden': 1, 'Dragon-Base': 1, 'Dragon-White': 1, 'Dragon-Desert': 1, 'Dragon-Red': 1, 'Dragon-Shade': 1, 'Dragon-Skeleton': 1, 'Dragon-Zombie': 1, 'Dragon-CottonCandyPink': 1, 'Dragon-CottonCandyBlue': 1, 'Dragon-Golden': 1, 'Cactus-Base': 1, 'Cactus-White': 1, 'Cactus-Desert': 1, 'Cactus-Red': 1, 'Cactus-Shade': 1, 'Cactus-Skeleton': 1, 'Cactus-Zombie': 1, 'Cactus-CottonCandyPink': 1, 'Cactus-CottonCandyBlue': 1, 'Cactus-Golden': 1, 'BearCub-Base': 1, 'BearCub-White': 1, 'BearCub-Desert': 1, 'BearCub-Red': 1, 'BearCub-Shade': 1, 'BearCub-Skeleton': 1, 'BearCub-Zombie': 1, 'BearCub-CottonCandyPink': 1, 'BearCub-CottonCandyBlue': 1, 'BearCub-Golden': 1 }
-      expect(shared.countPets(null,user.items.pets)).to.eql 90
-      expect(shared.countPets(_.size(user.items.pets), user.items.pets)).to.eql 90
-      expect(user.achievements.beastMaster).to.be.ok()
-
-    it 'does not get mountMaster if user has less than 90 drop mounts', ->
-      user = newUser()
-      user.items.mounts = {'Wolf-White': true, 'Wolf-Desert': true, 'Wolf-Red': true, 'Wolf-Shade': true, 'Wolf-Skeleton': true, 'Wolf-Zombie': true, 'Wolf-CottonCandyPink': true, 'Wolf-CottonCandyBlue': true, 'Wolf-Golden': true, 'TigerCub-Base': true, 'TigerCub-White': true, 'TigerCub-Desert': true, 'TigerCub-Red': true, 'TigerCub-Shade': true, 'TigerCub-Skeleton': true, 'TigerCub-Zombie': true, 'TigerCub-CottonCandyPink': true, 'TigerCub-CottonCandyBlue': true, 'TigerCub-Golden': true, 'PandaCub-Base': true, 'PandaCub-White': true, 'PandaCub-Desert': true, 'PandaCub-Red': true, 'PandaCub-Shade': true, 'PandaCub-Skeleton': true, 'PandaCub-Zombie': true, 'PandaCub-CottonCandyPink': true, 'PandaCub-CottonCandyBlue': true, 'PandaCub-Golden': true, 'LionCub-Base': true, 'LionCub-White': true, 'LionCub-Desert': true, 'LionCub-Red': true, 'LionCub-Shade': true, 'LionCub-Skeleton': true, 'LionCub-Zombie': true, 'LionCub-CottonCandyPink': true, 'LionCub-CottonCandyBlue': true, 'LionCub-Golden': true, 'Fox-Base': true, 'Fox-White': true, 'Fox-Desert': true, 'Fox-Red': true, 'Fox-Shade': true, 'Fox-Skeleton': true, 'Fox-Zombie': true, 'Fox-CottonCandyPink': true, 'Fox-CottonCandyBlue': true, 'Fox-Golden': true, 'FlyingPig-Base': true, 'FlyingPig-White': true, 'FlyingPig-Desert': true, 'FlyingPig-Red': true, 'FlyingPig-Shade': true, 'FlyingPig-Skeleton': true, 'FlyingPig-Zombie': true, 'FlyingPig-CottonCandyPink': true, 'FlyingPig-CottonCandyBlue': true, 'FlyingPig-Golden': true, 'Dragon-Base': true, 'Dragon-White': true, 'Dragon-Desert': true, 'Dragon-Red': true, 'Dragon-Shade': true, 'Dragon-Skeleton': true, 'Dragon-Zombie': true, 'Dragon-CottonCandyPink': true, 'Dragon-CottonCandyBlue': true, 'Dragon-Golden': true, 'Cactus-Base': true, 'Cactus-White': true, 'Cactus-Desert': true, 'Cactus-Red': true, 'Cactus-Shade': true, 'Cactus-Skeleton': true, 'Cactus-Zombie': true, 'Cactus-CottonCandyPink': true, 'Cactus-CottonCandyBlue': true, 'Cactus-Golden': true, 'BearCub-Base': true, 'BearCub-White': true, 'BearCub-Desert': true, 'BearCub-Red': true, 'BearCub-Shade': true, 'BearCub-Skeleton': true, 'BearCub-Zombie': true, 'BearCub-CottonCandyPink': true, 'BearCub-CottonCandyBlue': true, 'BearCub-Golden': true }
-      expect(shared.countMounts(null,user.items.mounts)).to.eql 89
-      expect(shared.countMounts(_.size(user.items.mounts), user.items.mounts)).to.eql 89
-      expect(user.achievements.mountMaster).to.not.be.ok()
-
-    it 'does not get mountMaster with 89 drop pets + 1 gryphon', ->
-      user = newUser()
-      user.items.mounts = {'Gryphon-Base': true, 'Wolf-White': true, 'Wolf-Desert': true, 'Wolf-Red': true, 'Wolf-Shade': true, 'Wolf-Skeleton': true, 'Wolf-Zombie': true, 'Wolf-CottonCandyPink': true, 'Wolf-CottonCandyBlue': true, 'Wolf-Golden': true, 'TigerCub-Base': true, 'TigerCub-White': true, 'TigerCub-Desert': true, 'TigerCub-Red': true, 'TigerCub-Shade': true, 'TigerCub-Skeleton': true, 'TigerCub-Zombie': true, 'TigerCub-CottonCandyPink': true, 'TigerCub-CottonCandyBlue': true, 'TigerCub-Golden': true, 'PandaCub-Base': true, 'PandaCub-White': true, 'PandaCub-Desert': true, 'PandaCub-Red': true, 'PandaCub-Shade': true, 'PandaCub-Skeleton': true, 'PandaCub-Zombie': true, 'PandaCub-CottonCandyPink': true, 'PandaCub-CottonCandyBlue': true, 'PandaCub-Golden': true, 'LionCub-Base': true, 'LionCub-White': true, 'LionCub-Desert': true, 'LionCub-Red': true, 'LionCub-Shade': true, 'LionCub-Skeleton': true, 'LionCub-Zombie': true, 'LionCub-CottonCandyPink': true, 'LionCub-CottonCandyBlue': true, 'LionCub-Golden': true, 'Fox-Base': true, 'Fox-White': true, 'Fox-Desert': true, 'Fox-Red': true, 'Fox-Shade': true, 'Fox-Skeleton': true, 'Fox-Zombie': true, 'Fox-CottonCandyPink': true, 'Fox-CottonCandyBlue': true, 'Fox-Golden': true, 'FlyingPig-Base': true, 'FlyingPig-White': true, 'FlyingPig-Desert': true, 'FlyingPig-Red': true, 'FlyingPig-Shade': true, 'FlyingPig-Skeleton': true, 'FlyingPig-Zombie': true, 'FlyingPig-CottonCandyPink': true, 'FlyingPig-CottonCandyBlue': true, 'FlyingPig-Golden': true, 'Dragon-Base': true, 'Dragon-White': true, 'Dragon-Desert': true, 'Dragon-Red': true, 'Dragon-Shade': true, 'Dragon-Skeleton': true, 'Dragon-Zombie': true, 'Dragon-CottonCandyPink': true, 'Dragon-CottonCandyBlue': true, 'Dragon-Golden': true, 'Cactus-Base': true, 'Cactus-White': true, 'Cactus-Desert': true, 'Cactus-Red': true, 'Cactus-Shade': true, 'Cactus-Skeleton': true, 'Cactus-Zombie': true, 'Cactus-CottonCandyPink': true, 'Cactus-CottonCandyBlue': true, 'Cactus-Golden': true, 'BearCub-Base': true, 'BearCub-White': true, 'BearCub-Desert': true, 'BearCub-Red': true, 'BearCub-Shade': true, 'BearCub-Skeleton': true, 'BearCub-Zombie': true, 'BearCub-CottonCandyPink': true, 'BearCub-CottonCandyBlue': true, 'BearCub-Golden': true }
-      expect(shared.countMounts(null,user.items.mounts)).to.eql 89
-      expect(shared.countMounts(_.size(user.items.mounts), user.items.mounts)).to.eql 89
-      expect(user.achievements.mountMaster).to.not.be.ok()
-
-    it 'does not get mountMaster with 89 drop pets + 1 mantis shrimp', ->
-      user = newUser()
-      user.items.mounts = {'MantisShrimp-Base': true, 'Wolf-White': true, 'Wolf-Desert': true, 'Wolf-Red': true, 'Wolf-Shade': true, 'Wolf-Skeleton': true, 'Wolf-Zombie': true, 'Wolf-CottonCandyPink': true, 'Wolf-CottonCandyBlue': true, 'Wolf-Golden': true, 'TigerCub-Base': true, 'TigerCub-White': true, 'TigerCub-Desert': true, 'TigerCub-Red': true, 'TigerCub-Shade': true, 'TigerCub-Skeleton': true, 'TigerCub-Zombie': true, 'TigerCub-CottonCandyPink': true, 'TigerCub-CottonCandyBlue': true, 'TigerCub-Golden': true, 'PandaCub-Base': true, 'PandaCub-White': true, 'PandaCub-Desert': true, 'PandaCub-Red': true, 'PandaCub-Shade': true, 'PandaCub-Skeleton': true, 'PandaCub-Zombie': true, 'PandaCub-CottonCandyPink': true, 'PandaCub-CottonCandyBlue': true, 'PandaCub-Golden': true, 'LionCub-Base': true, 'LionCub-White': true, 'LionCub-Desert': true, 'LionCub-Red': true, 'LionCub-Shade': true, 'LionCub-Skeleton': true, 'LionCub-Zombie': true, 'LionCub-CottonCandyPink': true, 'LionCub-CottonCandyBlue': true, 'LionCub-Golden': true, 'Fox-Base': true, 'Fox-White': true, 'Fox-Desert': true, 'Fox-Red': true, 'Fox-Shade': true, 'Fox-Skeleton': true, 'Fox-Zombie': true, 'Fox-CottonCandyPink': true, 'Fox-CottonCandyBlue': true, 'Fox-Golden': true, 'FlyingPig-Base': true, 'FlyingPig-White': true, 'FlyingPig-Desert': true, 'FlyingPig-Red': true, 'FlyingPig-Shade': true, 'FlyingPig-Skeleton': true, 'FlyingPig-Zombie': true, 'FlyingPig-CottonCandyPink': true, 'FlyingPig-CottonCandyBlue': true, 'FlyingPig-Golden': true, 'Dragon-Base': true, 'Dragon-White': true, 'Dragon-Desert': true, 'Dragon-Red': true, 'Dragon-Shade': true, 'Dragon-Skeleton': true, 'Dragon-Zombie': true, 'Dragon-CottonCandyPink': true, 'Dragon-CottonCandyBlue': true, 'Dragon-Golden': true, 'Cactus-Base': true, 'Cactus-White': true, 'Cactus-Desert': true, 'Cactus-Red': true, 'Cactus-Shade': true, 'Cactus-Skeleton': true, 'Cactus-Zombie': true, 'Cactus-CottonCandyPink': true, 'Cactus-CottonCandyBlue': true, 'Cactus-Golden': true, 'BearCub-Base': true, 'BearCub-White': true, 'BearCub-Desert': true, 'BearCub-Red': true, 'BearCub-Shade': true, 'BearCub-Skeleton': true, 'BearCub-Zombie': true, 'BearCub-CottonCandyPink': true, 'BearCub-CottonCandyBlue': true, 'BearCub-Golden': true }
-      expect(shared.countMounts(null,user.items.mounts)).to.eql 89
-      expect(shared.countMounts(_.size(user.items.mounts), user.items.mounts)).to.eql 89
-      expect(user.achievements.mountMaster).to.not.be.ok()
-
-    xit 'does get mountMaster', ->
-      user = newUser()
-      user.items.mounts = {'Wolf-Base': true, 'Wolf-White': true, 'Wolf-Desert': true, 'Wolf-Red': true, 'Wolf-Shade': true, 'Wolf-Skeleton': true, 'Wolf-Zombie': true, 'Wolf-CottonCandyPink': true, 'Wolf-CottonCandyBlue': true, 'Wolf-Golden': true, 'TigerCub-Base': true, 'TigerCub-White': true, 'TigerCub-Desert': true, 'TigerCub-Red': true, 'TigerCub-Shade': true, 'TigerCub-Skeleton': true, 'TigerCub-Zombie': true, 'TigerCub-CottonCandyPink': true, 'TigerCub-CottonCandyBlue': true, 'TigerCub-Golden': true, 'PandaCub-Base': true, 'PandaCub-White': true, 'PandaCub-Desert': true, 'PandaCub-Red': true, 'PandaCub-Shade': true, 'PandaCub-Skeleton': true, 'PandaCub-Zombie': true, 'PandaCub-CottonCandyPink': true, 'PandaCub-CottonCandyBlue': true, 'PandaCub-Golden': true, 'LionCub-Base': true, 'LionCub-White': true, 'LionCub-Desert': true, 'LionCub-Red': true, 'LionCub-Shade': true, 'LionCub-Skeleton': true, 'LionCub-Zombie': true, 'LionCub-CottonCandyPink': true, 'LionCub-CottonCandyBlue': true, 'LionCub-Golden': true, 'Fox-Base': true, 'Fox-White': true, 'Fox-Desert': true, 'Fox-Red': true, 'Fox-Shade': true, 'Fox-Skeleton': true, 'Fox-Zombie': true, 'Fox-CottonCandyPink': true, 'Fox-CottonCandyBlue': true, 'Fox-Golden': true, 'FlyingPig-Base': true, 'FlyingPig-White': true, 'FlyingPig-Desert': true, 'FlyingPig-Red': true, 'FlyingPig-Shade': true, 'FlyingPig-Skeleton': true, 'FlyingPig-Zombie': true, 'FlyingPig-CottonCandyPink': true, 'FlyingPig-CottonCandyBlue': true, 'FlyingPig-Golden': true, 'Dragon-Base': true, 'Dragon-White': true, 'Dragon-Desert': true, 'Dragon-Red': true, 'Dragon-Shade': true, 'Dragon-Skeleton': true, 'Dragon-Zombie': true, 'Dragon-CottonCandyPink': true, 'Dragon-CottonCandyBlue': true, 'Dragon-Golden': true, 'Cactus-Base': true, 'Cactus-White': true, 'Cactus-Desert': true, 'Cactus-Red': true, 'Cactus-Shade': true, 'Cactus-Skeleton': true, 'Cactus-Zombie': true, 'Cactus-CottonCandyPink': true, 'Cactus-CottonCandyBlue': true, 'Cactus-Golden': true, 'BearCub-Base': true, 'BearCub-White': true, 'BearCub-Desert': true, 'BearCub-Red': true, 'BearCub-Shade': true, 'BearCub-Skeleton': true, 'BearCub-Zombie': true, 'BearCub-CottonCandyPink': true, 'BearCub-CottonCandyBlue': true, 'BearCub-Golden': true }
-      expect(shared.countMounts(null,user.items.mounts)).to.eql 90
-      expect(shared.countMounts(_.size(user.items.mounts), user.items.mounts)).to.eql 90
-      expect(user.achievements.mountMaster).to.be.ok()
 
 describe 'Simple Scoring', ->
   beforeEach ->
@@ -978,37 +967,3 @@ describe 'Helper', ->
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}, timezoneOffset:zone).format(fstr)).to.eql today
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}, timezoneOffset:zone).format(fstr)).to.eql today
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59), timezoneOffset:zone}).format(fstr)).to.eql today
-
-  it 'counts pets', ->
-    pets = {}
-    expect(shared.countPets(null, pets)).to.eql 0
-    expect(shared.countPets(1, pets)).to.eql 1
-
-    pets = { "Dragon-Red": 1, "Wolf-Base": 2 }
-    expect(shared.countPets(null, pets)).to.eql 2
-    expect(shared.countPets(2, pets)).to.eql 2
-
-    pets = { "Dragon-Red": 1, "Gryphon-Base": 1 }
-    expect(shared.countPets(null, pets)).to.eql 1
-    expect(shared.countPets(_.size(pets), pets)).to.eql 1
-
-    pets = { "Wolf-Base": 2, "Wolf-Veteran": 1, "Wolf-Cerberus": 1, "Dragon-Hydra": 1}
-    expect(shared.countPets(null, pets)).to.eql 1
-    expect(shared.countPets(_.size(pets), pets)).to.eql 1
-
-  it 'counts mounts', ->
-    mounts = {}
-    expect(shared.countMounts(null, mounts)).to.eql 0
-    expect(shared.countMounts(1, mounts)).to.eql 1
-
-    mounts = { "Dragon-Red": true, "Wolf-Base": true }
-    expect(shared.countMounts(null, mounts)).to.eql 2
-    expect(shared.countMounts(2, mounts)).to.eql 2
-
-    mounts = { "Dragon-Red": true, "Gryphon-Base": true }
-    expect(shared.countMounts(null, mounts)).to.eql 1
-    expect(shared.countMounts(_.size(mounts), mounts)).to.eql 1
-
-    mounts = { "Wolf-Base": true, "BearCub-Polar": true}
-    expect(shared.countMounts(null, mounts)).to.eql 1
-    expect(shared.countMounts(_.size(mounts), mounts)).to.eql 1

@@ -51,6 +51,8 @@
             "js/services/taskServices.js",
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
+            "js/services/questServices.js",
+            "js/services/statServices.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
@@ -69,6 +71,7 @@
 
             "js/controllers/authCtrl.js",
             "js/controllers/menuCtrl.js",
+            "js/controllers/memberModalCtrl.js",
             "js/controllers/notificationCtrl.js",
             "js/controllers/rootCtrl.js",
             "js/controllers/settingsCtrl.js",
@@ -110,6 +113,8 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
@@ -137,6 +142,8 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"

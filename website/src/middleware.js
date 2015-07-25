@@ -47,8 +47,8 @@ module.exports.domainMiddleware = function(server,mongoose) {
           score = ts[ts.length-1].values.score,
           apdexBad = score < .75 || score == 1,
           memory = os.freemem() / os.totalmem(),
-          memoryHigh = false; //memory < 0.1;
-        if (apdexBad || memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
+          memoryHigh = memory < 0.1;
+        if (/*apdexBad || */memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
       })
     }, mins*60*1000);
   }
@@ -168,7 +168,7 @@ var getManifestFiles = function(page){
       code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
     });
   }
-  
+
   return code;
 }
 
@@ -190,7 +190,7 @@ module.exports.locals = function(req, res, next) {
     isStaticPage: isStaticPage,
     translations: i18n.translations[language.code],
     t: function(){ // stringName and vars are the allowed parameters
-      var args = Array.prototype.slice.call(arguments, 0); 
+      var args = Array.prototype.slice.call(arguments, 0);
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },
@@ -200,7 +200,11 @@ module.exports.locals = function(req, res, next) {
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
     _: _,
-    MP_ID: nconf.get('MP_ID')
+    MP_ID: nconf.get('MP_ID'),
+    AMAZON_PAYMENTS: {
+      SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
+      CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID')
+    }
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)

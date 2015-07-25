@@ -20,18 +20,24 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
    JS files not needed right away (google charts) or entirely optional (analytics)
    Each file gets loaded async via $.getScript, so it doesn't bog page-load
   */
+
   $scope.deferredScripts = function(){
+
+    // Amazon Payments
+    var amazonPaymentsUrl = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/' +
+                        (window.env.NODE_ENV === 'production' ? '' : 'sandbox/') + 'js/Widgets.js';
+    $.getScript(amazonPaymentsUrl);
 
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
-    // Google Content Experiments
+    /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
-      $.getScript('//www.google-analytics.com/cx/api.js?experiment=t-AFggRWQnuJ6Teck_x1-Q', function(){
+      $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){
         $rootScope.variant = cxApi.chooseVariation();
         $rootScope.$apply();
       })
-    }
+    } */
 
     // Scripts only for desktop
     if (!window.env.IS_MOBILE) {

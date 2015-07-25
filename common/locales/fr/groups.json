@@ -94,7 +94,7 @@
     "abuseFlag": "Signaler une infraction aux Règles de la Communauté",
     "abuseFlagModalHeading": "Signaler <%= name %> pour infraction?",
     "abuseFlagModalBody": "Voulez-vous vraiment signaler cette publication ? Vous ne devez signaler QUE celles qui enfreignent les <%= firstLinkStart %>Règles de la Communauté<%= linkEnd %> et/ou les<%= secondLinkStart %>Conditions Générales<%= linkEnd %>. Le signalement innaproprié d'une publication est une violation des Règles de la Communauté et peut vous affecter d'une infraction.",
-    "abuseFlagModalButton": "Signaler",
+    "abuseFlagModalButton": "Signaler une infraction",
     "abuseReported": "Merci d'avoir signalé cette infraction. Les modérateurs en ont été informé.",
     "abuseAlreadyReported": "Vous avez déjà signalé ce message.",
     "needsText": "Veuillez écrire un message.",
@@ -119,6 +119,8 @@
     "sendGiftPurchase": "Acheter les Gemmes",
     "sendGiftMessagePlaceholder": "Message personnel (facultatif)",
     "sendGiftSubscription": "<%= months %> mois: <%= price %>$ (USD)",
+    "battleWithFriends": "Combattez des Monstres aux côtés d'Amis",
     "startAParty": "Former une Equipe ",
-    "addToParty": "Ajouter un membre à votre équipe"
+    "addToParty": "Ajouter un membre à votre équipe",
+    "likePost": "Cliquez si vous aimez cette publication!"
 }

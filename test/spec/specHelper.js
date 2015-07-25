@@ -11,6 +11,7 @@ var specHelper = {};
   specHelper.newDaily = newDaily;
   specHelper.newTodo = newTodo;
   specHelper.newReward = newReward;
+  specHelper.newChallenge = newChallenge;
 
   function newUser() {
     var buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false};
@@ -24,7 +25,7 @@ var specHelper = {};
         food: {},
         pets: {},
         mounts: {},
-        gear: {equipped: {}, costume: {}, owned: {}},
+        gear: {equipped: {}, costume: {}, owned: {}}
       },
       party: {
         quest: {
@@ -37,24 +38,27 @@ var specHelper = {};
       rewards: [],
       flags: {},
       filters: {},
-      achievements: {},
+      achievements: {}
     };
     return user;
   }
 
-  function newGroup(leader) {
+  function newGroup(overrides) {
     var quest = { progress: { }, active: false };
     group = {
-      "leader" : leader,
-      "quest" : quest,
-      "memberCount" : 1,
-      "chat" : [],
-      "privacy" : "public",
-      "invites" : [],
-      "members" : [
-        leader
+      _id: 'group-id',
+      leader : 'leader-id',
+      memberCount : 1,
+      chat : [],
+      privacy : "public",
+      invites : [],
+      members : [
+        'leader-id'
       ]
     };
+
+    _setOverrides(group, overrides);
+
     return group;
   }
 
@@ -72,9 +76,7 @@ var specHelper = {};
       challenge: { }
     };
 
-    for(var key in overrides) {
-      task[key] = overrides[key];
-    }
+    _setOverrides(task, overrides);
 
     return task;
   }
@@ -86,9 +88,7 @@ var specHelper = {};
     habit.up = true;
     habit.down = true;
 
-    for(var key in overrides) {
-      habit[key] = overrides[key];
-    }
+    _setOverrides(habit, overrides);
 
     return habit;
   }
@@ -113,9 +113,7 @@ var specHelper = {};
     daily.checklist = [];
     daily.streak = 0;
 
-    for(var key in overrides) {
-      daily[key] = overrides[key];
-    }
+    _setOverrides(daily, overrides);
 
     return daily;
   }
@@ -127,9 +125,7 @@ var specHelper = {};
     todo.collapseChecklist = false;
     todo.checklist = [];
 
-    for(var key in overrides) {
-      todo[key] = overrides[key];
-    }
+    _setOverrides(todo, overrides);
 
     return todo;
   }
@@ -138,10 +134,35 @@ var specHelper = {};
     var reward = newTask();
     reward.type = 'reward';
 
-    for(var key in overrides) {
-      reward[key] = overrides[key];
-    }
+    _setOverrides(reward, overrides);
 
     return reward;
+  }
+
+  function newChallenge(overrides) {
+    var challenge = {
+      name: 'challenge name',
+      description: 'challeng description',
+      habits: [],
+      dailys: [],
+      todos: [],
+      rewards: [],
+      leader: 'leader-id',
+      group: 'group-id',
+      prize: 0,
+      timestamp: +(new Date),
+      members: ['leader-id'],
+      official: false
+    };
+
+    _setOverrides(challenge, overrides);
+
+    return challenge;
+  }
+
+  function _setOverrides(factory, overrides) {
+    for(var key in overrides) {
+      factory[key] = overrides[key];
+    }
   }
 })();

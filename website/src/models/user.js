@@ -46,6 +46,7 @@ var UserSchema = new Schema({
     snowball: Number,
     spookDust: Number,
     shinySeed: Number,
+    seafoam: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
@@ -101,14 +102,15 @@ var UserSchema = new Schema({
     mobileChat: Boolean,
     plan: {
       planId: String,
-      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
-      customerId: String,
+      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
+      customerId: String, // Billing Agreement Id in case of Amazon Payments
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,
       extraMonths: {type:Number, 'default':0},
       gemsBought: {type: Number, 'default': 0},
       mysteryItems: {type: Array, 'default': []},
+      lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
       consecutive: {
         count: {type:Number, 'default':0},
         offset: {type:Number, 'default':0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
@@ -207,6 +209,7 @@ var UserSchema = new Schema({
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
       shinySeed: {type: Number, 'default': 0},
+      seafoam: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
@@ -353,7 +356,7 @@ var UserSchema = new Schema({
     name: String,
   },
   stats: {
-    hp: {type: Number, 'default': 50},
+    hp: {type: Number, 'default': shared.maxHealth},
     mp: {type: Number, 'default': 10},
     exp: {type: Number, 'default': 0},
     gp: {type: Number, 'default': 0},
@@ -375,7 +378,8 @@ var UserSchema = new Schema({
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false},
       spookDust: {type: Boolean, 'default': false},
-      shinySeed: {type: Boolean, 'default': false}
+      shinySeed: {type: Boolean, 'default': false},
+      seafoam: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},
@@ -491,30 +495,24 @@ UserSchema.pre('save', function(next) {
   }
 
   // Determines if Beast Master should be awarded
-  var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.pets);
-
-  if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true
+  var beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+    this.achievements.beastMaster = true;
   }
 
   // Determines if Mount Master should be awarded
-  var mountCount = shared.countMounts(_.reduce(this.items.mounts,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.mounts);
+  var mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
-  if (mountCount >= 90 || this.achievements.mountMasterCount > 0) {
+  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
     this.achievements.mountMaster = true
   }
 
   // Determines if Triad Bingo should be awarded
 
-  var triadCount = shared.countTriad(this.items.pets);
+  var dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+  var qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-  if ((mountCount >= 90 && triadCount >= 90) || this.achievements.triadBingoCount > 0) {
+  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
   }
 

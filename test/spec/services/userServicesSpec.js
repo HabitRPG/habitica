@@ -46,4 +46,21 @@ describe('userServices', function() {
     //TODO where does that null comes from?
     expect(user.settings.sync.queue).to.eql([null, {}]);
   });
+
+  describe('getBalanceInGems', function() {
+
+    it('multiplies balance by 4', function() {
+      user.user.balance = 5;
+      var balanceInGems = user.getBalanceInGems();
+
+      expect(balanceInGems).to.eql(20);
+    });
+
+    it('returns zero if balance is not defined', function() {
+      var balanceInGems = user.getBalanceInGems();
+
+      expect(user.user.balance).to.not.exist;
+      expect(balanceInGems).to.eql(0);
+    });
+  });
 });

@@ -23,6 +23,7 @@
     "difficulty": "Difficulty",
     "difficultyHelpTitle": "How difficult is this task?",
     "difficultyHelpContent": "The harder a task, the more Experience and Gold it awards you when you check it off... but the more it damages you if it is a Daily or Bad Habit!",
+    "trivial": "Trivial",
     "easy": "Easy",
     "medium": "Medium",
     "hard": "Hard",
