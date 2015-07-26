@@ -195,7 +195,7 @@
               button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'),
                 popover-trigger='mouseenter', popover-placement='top',
                 popover-append-to-body='true',
-                ng-click='openModal("pet-key", {size:"lg"})', class='pet_key')
+                ng-click='openModal("pet-key", {size:"lg", controller:"InventoryCtrl"})', class='pet_key')
               p(ng-show='petCount < 90 || mountCount < 90 || !user.achievements.triadBingo')
                 | 4&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems
