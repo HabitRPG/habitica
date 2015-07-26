@@ -59,7 +59,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
   weekly = null
 
   describe 'when startDate is in the future', ->
-    
+
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -71,7 +71,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
     it 'does not damage user for not completing it', ->
       cron(user)
-      expect(user.stats.hp).to.be 50
+      expect(user.stats.hp).to.be 500
 
     it 'does not change value on cron if daily is incomplete', ->
       cron(user)
@@ -141,19 +141,19 @@ describe 'daily/weekly that repeats everyday (default)', ->
     it 'is due on startDate', ->
       daily_due_today = shared.shouldDo moment(), daily
       daily_due_on_start_date = shared.shouldDo moment().add(7, 'days'), daily
- 
+
       expect(daily_due_today).to.be false
       expect(daily_due_on_start_date).to.be true
 
       weekly_due_today = shared.shouldDo moment(), weekly
       weekly_due_on_start_date = shared.shouldDo moment().add(7, 'days'), weekly
- 
+
       expect(weekly_due_today).to.be false
       expect(weekly_due_on_start_date).to.be true
 
   describe 'when startDate is in the past', ->
     completeDaily = null
-    
+
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -165,7 +165,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
     it 'does damage user for not completing it', ->
       cron(user)
-      expect(user.stats.hp).to.be.lessThan 50
+      expect(user.stats.hp).to.be.lessThan 500
 
     it 'decreases value on cron if daily is incomplete', ->
       cron(user)
@@ -196,7 +196,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
       _.each daily.checklist, (box)->
         expect(box.completed).to.be false
-      
+
       _.each weekly.checklist, (box)->
         expect(box.completed).to.be false
 
@@ -232,7 +232,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
   describe 'when startDate is today', ->
     completeDaily = null
-    
+
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -245,7 +245,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
     it 'does damage user for not completing it', ->
       cron(user)
-      expect(user.stats.hp).to.be.lessThan 50
+      expect(user.stats.hp).to.be.lessThan 500
 
     it 'decreases value on cron if daily is incomplete', ->
       cron(user)
@@ -276,7 +276,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
       _.each daily.checklist, (box)->
         expect(box.completed).to.be false
-      
+
       _.each weekly.checklist, (box)->
         expect(box.completed).to.be false
 

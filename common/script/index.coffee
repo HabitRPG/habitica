@@ -126,7 +126,7 @@ api.capByLevel = (lvl) ->
   ------------------------------------------------------
 ###
 
-api.maxHealth = 50
+api.maxHealth = 500
 
 ###
   ------------------------------------------------------
@@ -446,7 +446,7 @@ api.wrap = (user, main=true) ->
         return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp <= 0
 
         # Reset stats after death
-        _.merge user.stats, {hp:50, exp:0, gp:0}
+        _.merge user.stats, {hp:api.maxHealth, exp:0, gp:0}
         user.stats.lvl-- if user.stats.lvl > 1
 
         # Lose a stat point
@@ -479,7 +479,7 @@ api.wrap = (user, main=true) ->
         user.dailys = []
         user.todos = []
         user.rewards = []
-        user.stats.hp = 50
+        user.stats.hp = api.maxHealth
         user.stats.lvl = 1
         user.stats.gp = 0
         user.stats.exp = 0
@@ -504,7 +504,7 @@ api.wrap = (user, main=true) ->
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
             task.value = 0
-        user.stats.hp = 50
+        user.stats.hp = api.maxHealth
         cb? null, user
         mixpanel?.track("Acquire Item",{'itemName':'Fortify','acquireMethod':'Gems','gemCost':4})
         ga?.event('behavior', 'gems', 'reroll').send()
@@ -529,7 +529,7 @@ api.wrap = (user, main=true) ->
         # Reset all dynamic stats
         stats = user.stats
         stats.buffs = {}
-        stats.hp = 50
+        stats.hp = api.maxHealth
         stats.lvl = 1
         stats.class = 'warrior'
         _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
@@ -865,8 +865,8 @@ api.wrap = (user, main=true) ->
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
         if item.key is 'potion'
-          user.stats.hp += 15
-          user.stats.hp = 50 if user.stats.hp > 50
+          user.stats.hp += 150
+          user.stats.hp = api.maxHealth if user.stats.hp > api.maxHealth
         else if item.key is 'armoire'
           armoireResult = user.fns.predictableRandom(user.stats.gp)
           # We use a different seed to choose the Armoire action than we use
@@ -1203,9 +1203,9 @@ api.wrap = (user, main=true) ->
           # ===== CONSTITUTION =====
           # TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
           conBonus = 1 - (user._statsComputed.con / 250)
-          conBonus = 0.1 if conBonus < .1
+          conBonus = 0.1 if conBonus < 0.1
           hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
-          stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
+          stats.hp += Math.round(hpMod * 10) # round to 1dp
 
         gainMP = (delta) ->
           delta *= user._tmp.crit or 1
@@ -1336,8 +1336,8 @@ api.wrap = (user, main=true) ->
        array[Math.floor(rand * array.length)]
 
     ###
-    This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
-    user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
+    This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',500,user) which is the same as
+    user.stats.hp = 500. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
     so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
     Angular sets object properties directly - in which case, this function will be used.
     ###
@@ -1479,7 +1479,7 @@ api.wrap = (user, main=true) ->
           user.stats.lvl++
           tnl = api.tnl(user.stats.lvl)
 
-          user.stats.hp = 50
+          user.stats.hp = api.maxHealth
 
           continue if user.stats.lvl > api.maxLevel
 

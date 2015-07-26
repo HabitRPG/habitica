@@ -87,7 +87,7 @@ expectLostPoints = (before, after, taskType) ->
   expect(after["#{taskType}s"][0].value).to.be.lessThan before["#{taskType}s"][0].value
 
 expectGainedPoints = (before, after, taskType) ->
-  expect(after.stats.hp).to.be 50
+  expect(after.stats.hp).to.be 500
   expect(after.stats.exp).to.be.greaterThan before.stats.exp
   expect(after.stats.gp).to.be.greaterThan before.stats.gp
   expect(after["#{taskType}s"][0].value).to.be.greaterThan before["#{taskType}s"][0].value
@@ -142,7 +142,7 @@ describe 'User', ->
     user = newUser()
     base_gear = { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
     buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false}
-    expect(user.stats).to.eql { str: 1, con: 1, per: 1, int: 1, hp: 50, mp: 32, lvl: 1, exp: 0, gp: 0, class: 'warrior', buffs: buffs }
+    expect(user.stats).to.eql { str: 1, con: 1, per: 1, int: 1, hp: 500, mp: 32, lvl: 1, exp: 0, gp: 0, class: 'warrior', buffs: buffs }
     expect(user.items.gear).to.eql { equipped: base_gear, costume: base_gear, owned: {weapon_warrior_0: true} }
     expect(user.preferences).to.eql { costume: false }
 
@@ -302,11 +302,11 @@ describe 'User', ->
         expect(box.completed).to.be false
 
     it 'does not damage user for incomplete dailies', ->
-      expect(user).toHaveHP 50
+      expect(user).toHaveHP 500
       user.dailys[0].completed = true
       user.dailys[1].completed = false
       cron()
-      expect(user).toHaveHP 50
+      expect(user).toHaveHP 500
 
     it 'gives credit for complete dailies', ->
       user.dailys[0].completed = true
@@ -315,12 +315,12 @@ describe 'User', ->
       expect(user.dailys[0].history).to.not.be.empty
 
     it 'damages user for incomplete dailies after checkout', ->
-      expect(user).toHaveHP 50
+      expect(user).toHaveHP 500
       user.dailys[0].completed = true
       user.dailys[1].completed = false
       user.preferences.sleep = false
       cron()
-      expect(user.stats.hp).to.be.lessThan 50
+      expect(user.stats.hp).to.be.lessThan 500
 
   describe 'Death', ->
     user = undefined
@@ -331,7 +331,7 @@ describe 'User', ->
       expect(user).toHaveGP 0
       expect(user).toHaveExp 0
       expect(user).toHaveLevel 1
-      expect(user).toHaveHP 50
+      expect(user).toHaveHP 500
       expect(user.items.gear.owned).to.eql { weapon_warrior_0: false }
 
     it "doesn't break unbreakables", ->
@@ -369,14 +369,14 @@ describe 'User', ->
   describe 'store', ->
     it 'recovers hp buying potions', ->
       user = newUser()
-      user.stats.hp = 30
+      user.stats.hp = 300
       user.stats.gp = 50
       user.ops.buy {params: {key: 'potion'}}
-      expect(user).toHaveHP 45
+      expect(user).toHaveHP 450
       expect(user).toHaveGP 25
 
       user.ops.buy {params: {key: 'potion'}}
-      expect(user).toHaveHP 50 # don't exceed max hp
+      expect(user).toHaveHP 500 # don't exceed max hp
       expect(user).toHaveGP 0
 
     it 'buys equipment', ->
@@ -513,7 +513,7 @@ describe 'User', ->
 
   describe 'Enchanted Armoire', ->
     user = newUser()
-    fullArmoire = 
+    fullArmoire =
       'weapon_warrior_0': true,
       'armor_armoire_gladiatorArmor':true,
       'armor_armoire_lunarArmor':true,
@@ -782,7 +782,7 @@ describe 'Cron', ->
       after.fns.cron()
 
       # todos don't effect stats
-      expect(after).toHaveHP 50
+      expect(after).toHaveHP 500
       expect(after).toHaveExp 0
       expect(after).toHaveGP 0
 

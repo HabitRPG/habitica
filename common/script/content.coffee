@@ -756,7 +756,7 @@ api.spells =
       notes: t('spellHealerHealNotes')
       cast: (user, target) ->
         user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
-        user.stats.hp = 50 if user.stats.hp > 50
+        user.stats.hp = 500 if user.stats.hp > 500
 
     brightness:
       # Searing Brightness
@@ -793,7 +793,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04
-          member.stats.hp = 50 if member.stats.hp > 50
+          member.stats.hp = 500 if member.stats.hp > 500
 
   special:
     snowball:
@@ -1881,7 +1881,7 @@ api.quests =
       gp: 37
       exp: 275
       unlock: t('questWhaleUnlockText')
-      
+
   dilatoryDistress1:
     text: t('questDilatoryDistress1Text')
     notes: t('questDilatoryDistress1Notes')
