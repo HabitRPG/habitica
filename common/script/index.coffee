@@ -1719,61 +1719,58 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
+      user.todos.forEach (task) -> # make uncompleted todos redder
+        return unless task
+        {id, completed} = task
+        delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(daysMissed), cron:true}})
+        absVal = if (completed) then Math.abs(task.value) else task.value
+        todoTally += absVal
+
       dailyChecked = 0        # how many dailies were checked?
       dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
-      user.todos.concat(user.dailys).forEach (task) ->
+      user.dailys.forEach (task) ->
         return unless task
-
-        {id, type, completed, repeat} = task
+        {id, completed} = task
 
         # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
         EvadeTask = 0
         scheduleMisses = daysMissed
         if completed
-          if type is 'daily'
-            dailyChecked += 1
+          dailyChecked += 1
         else
-          # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
-          if (type is 'daily') and repeat
-            scheduleMisses = 0
-            _.times daysMissed, (n) ->
-              thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay.toDate(), task, user.preferences)
-                scheduleMisses++
-                if user.stats.buffs.stealth
-                  user.stats.buffs.stealth--
-                  EvadeTask++
-          if scheduleMisses > EvadeTask
-            if type is 'daily'
-              perfect = false
-              if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
-                fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
-                dailyDueUnchecked += (1 - fractionChecked)
-                dailyChecked += fractionChecked
-              else
-               dailyDueUnchecked += 1
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
-            if type is 'daily'
-              # Apply damage from a boss, less damage for Trivial priority (difficulty)
-              user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
-              # NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-              # initially, and when we realised, we could not fix it because users are used to
-              # their Medium and Hard Dailies doing an Easy amount of damage from boss.
-              # Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-              # setting between Trivial and Easy.
+          # dailys repeat, so need to calculate how many they've missed according to their own schedule
+          scheduleMisses = 0
+          _.times daysMissed, (n) ->
+            thatDay = moment(now).subtract({days: n + 1})
+            if api.shouldDo(thatDay.toDate(), task, user.preferences)
+              scheduleMisses++
+              if user.stats.buffs.stealth
+                user.stats.buffs.stealth--
+                EvadeTask++
 
-        switch type
-          when 'daily'
-            # This occurs whether or not the task is completed
-            (task.history ?= []).push({ date: +new Date, value: task.value })
-            task.completed = false
-            if completed || (scheduleMisses > 0)
-              _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
-          when 'todo'
-          #get updated value
-            absVal = if (completed) then Math.abs(task.value) else task.value
-            todoTally += absVal
+          if scheduleMisses > EvadeTask
+            perfect = false
+            if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
+              fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
+              dailyDueUnchecked += (1 - fractionChecked)
+              dailyChecked += fractionChecked
+            else
+             dailyDueUnchecked += 1
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}})
+
+            # Apply damage from a boss, less damage for Trivial priority (difficulty)
+            user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
+            # NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+            # initially, and when we realised, we could not fix it because users are used to
+            # their Medium and Hard Dailies doing an Easy amount of damage from boss.
+            # Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+            # setting between Trivial and Easy.
+
+        (task.history ?= []).push({ date: +new Date, value: task.value })
+        task.completed = false
+        if completed || (scheduleMisses > 0)
+          _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
 
       user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
         if task.up is false or task.down is false
@@ -1781,7 +1778,6 @@ api.wrap = (user, main=true) ->
             task.value = 0
           else
             task.value = task.value / 2
-
 
       # Finished tallying
       ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
