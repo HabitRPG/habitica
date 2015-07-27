@@ -183,6 +183,7 @@ describe('Analytics Service', function () {
         expectedProperties.Health = 48;
         expectedProperties.Level = 24;
         expectedProperties.Mana = 41;
+        expectedProperties.tutorialComplete = false;
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -192,6 +193,7 @@ describe('Analytics Service', function () {
           user.stats.hp = 47.8;
           user.stats.lvl = 24;
           user.stats.mp = 41;
+          user.flags.tour.intro = 3;
 
           analytics.updateUser(properties);
           clock.tick();

@@ -5,7 +5,7 @@ describe('groupServices', function() {
 
   beforeEach(function() {
     module(function($provide) {
-      $provide.value('User', {});
+      $provide.value('User', {user:user});
     });
 
     inject(function(_$httpBackend_, Groups, User) {
