@@ -1,3 +1,5 @@
+include generated_avatar
+
 mixin avatar(opts)
   .character-sprites
     .addthis_native_toolbox(ng-if='::profile._id==user._id',
@@ -16,7 +18,7 @@ mixin avatar(opts)
     // Show avatar only if not currently affected by visual buff
     - var buffs = '!profile.stats.buffs'
     span(ng-if='#{buffs}.snowball && #{buffs}.spookDust && #{buffs}.shinySeed && #{buffs}.seafoam')
-      include generated_avatar
+      +generatedAvatar
 
     // Mount Head
     if !opts.minimal
