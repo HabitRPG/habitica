@@ -87,7 +87,7 @@
 
     function questInit(){
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
-      Analytics.updateUser({'partySize':party.memberCount,'partyID':party.id});
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
         party.$get();
         $rootScope.$state.go('options.social.party');

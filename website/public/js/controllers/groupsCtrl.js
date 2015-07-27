@@ -267,7 +267,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $scope.message.content = '';
         $scope._sending = false;
         if (group.type == 'party') {
-          Analytics.updateUser({'partySize':group.memberCount});
+          Analytics.updateUser({'partyID':group.id,'partySize':group.memberCount});
         }
         if (group.privacy == 'public'){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name,'message':message});
