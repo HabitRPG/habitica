@@ -9,6 +9,7 @@ describe('Analytics Service', function () {
     user = specHelper.newUser();
     user.contributor = {};
     user.purchased = { plan: {} };
+    user.flags.tour = { intro: null };
 
     module(function($provide) {
       $provide.value('User', {user: user});
@@ -217,7 +218,8 @@ describe('Analytics Service', function () {
           Level: 24,
           Mana: 41,
           contributorLevel: 1,
-          subscription: 'unique-plan-id'
+          subscription: 'unique-plan-id',
+          tutorialComplete: true
         };
 
         beforeEach(function() {
@@ -230,6 +232,7 @@ describe('Analytics Service', function () {
           user.stats.mp = 41;
           user.contributor.level = 1;
           user.purchased.plan.planId = 'unique-plan-id';
+          user.flags.tour.intro = -2;
 
           analytics.updateUser();
           clock.tick();

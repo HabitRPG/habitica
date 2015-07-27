@@ -64,21 +64,25 @@ function($rootScope, ApiUrl, $resource, $q, $http, User, Challenges, Analytics, 
     },
 
     questAccept: function(party){
+      Analytics.updateUser({'partySize':party.memberCount,'partyID':party.id});
       party.$questAccept()
         .then(syncUser, logError);
     },
 
     questReject: function(party){
+      Analytics.updateUser({'partySize':party.memberCount,'partyID':party.id});
       party.$questReject()
         .then(syncUser, logError);
     },
 
     questCancel: function(party){
+      Analytics.updateUser({'partySize':party.memberCount,'partyID':party.id});
       party.$questCancel()
         .then(syncUser, logError);
     },
 
     questAbort: function(party){
+      Analytics.updateUser({'partySize':party.memberCount,'partyID':party.id});
       party.$questAbort()
         .then(syncUser, logError);
     },

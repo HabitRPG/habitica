@@ -16,6 +16,7 @@
   function questsFactory($rootScope,Content,Groups,User,Analytics) {
 
     var user = User.user;
+    var party = $rootScope.party;
 
     function lockQuest(quest,ignoreLevel) {
       if (!ignoreLevel){
@@ -86,8 +87,9 @@
 
     function questInit(){
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
-      $rootScope.party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
-        $rootScope.party.$get();
+      Analytics.updateUser({'partySize':party.memberCount,'partyID':party.id});
+      party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
+        party.$get();
         $rootScope.$state.go('options.social.party');
       });
       closeQuest();
