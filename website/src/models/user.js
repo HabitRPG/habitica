@@ -142,7 +142,6 @@ var UserSchema = new Schema({
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
-    partyEnabled: Boolean, // FIXME do we need this?
     contributor: Boolean,
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,

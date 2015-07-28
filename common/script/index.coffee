@@ -1616,9 +1616,7 @@ api.wrap = (user, main=true) ->
         user.flags.customizationsNotification = true
       if !user.flags.itemsEnabled and (user.stats.exp > 10 or user.stats.lvl > 1)
         user.flags.itemsEnabled = true
-      if !user.flags.partyEnabled and user.stats.lvl >= 3
-        user.flags.partyEnabled = true
-      if !user.flags.dropsEnabled and user.stats.lvl >= 4
+      if !user.flags.dropsEnabled and user.stats.lvl >= 3
         user.flags.dropsEnabled = true
         if user.items.eggs["Wolf"] > 0 then user.items.eggs["Wolf"]++ else user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
