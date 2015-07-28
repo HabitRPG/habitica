@@ -660,6 +660,12 @@ describe 'User', ->
       user.fns.updateStats(user.stats)
       expect(user.flags.dropsEnabled).to.be.ok()
 
+    it 'unlocks Rebirth at level 50', ->
+      user = newUser()
+      user.stats.lvl = 50
+      user.fns.updateStats(user.stats)
+      expect(user.flags.rebirthEnabled).to.be.ok()
+
     describe 'level-awarded Quests', ->
       it 'gets Attack of the Mundane at level 15', ->
         user = newUser()
