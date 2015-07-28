@@ -106,9 +106,12 @@ function isProxied(req) {
 }
 
 module.exports.forceSSL = function(req, res, next){
+  var baseUrl = nconf.get("BASE_URL");
+
   if(isHTTP(req) && !isProxied(req)) {
     return res.redirect(baseUrl + req.url);
   }
+
   next();
 }
 
