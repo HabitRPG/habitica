@@ -135,7 +135,7 @@
     "weaponMystery301404Text": "Bengala Steampunk",
     "weaponMystery301404Notes": "Excelente para dar uma volta pela cidade. Item de Assinante de Março 3015. Não concede benefícios.",
     "weaponArmoireBasicCrossbowText": "Besta Básica",
-    "weaponArmoireBasicCrossbowNotes": "Esta besta pode perfurar a armadura de uma tarefa de muito longe! Aumenta a Força em <%= str%>, Percepção em <%= per%>, e Constituição em <%= con%>. Guarda-Roupa Encantado: Ítem Independente.",
+    "weaponArmoireBasicCrossbowNotes": "Esta besta pode perfurar a armadura de uma tarefa de muito longe! Aumenta a Força em <%= str %>, Percepção em <%= per %>, e Constituição em <%= con %>. Guarda-Roupa Encantado: Ítem Independente.",
     "weaponArmoireLunarSceptreText": "Cetro Lunar Calmante",
     "weaponArmoireLunarSceptreNotes": "O poder de cura desta varinha aumenta e diminui. Aumenta a Constituição em <%= con %> e Inteligência em <%= int %>. Armário Encantado: Conjunto Lunar Calmante (Item 3 de 3).",
     "weaponArmoireRancherLassoText": "Laço do Rancheiro",
