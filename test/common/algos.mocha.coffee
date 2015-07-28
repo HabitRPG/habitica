@@ -39,6 +39,7 @@ newUser = (addTasks=true)->
       ultimateGearSets: {}
     contributor:
       level: 2
+    _tmp: {}
 
   shared.wrap(user)
   user.ops.reset(null, ->)
@@ -651,6 +652,48 @@ describe 'User', ->
       user.items.gear.owned.weapon_rogue_6 = false
       user.ops.buy {params:'shield_warrior_5'}
       expect(user.achievements.ultimateGearSets).to.eql {'healer':true,'wizard':true,'rogue':true,'warrior':true}
+
+  describe 'unlocking features', ->
+    it 'unlocks drops at level 3', ->
+      user = newUser()
+      user.stats.lvl = 3
+      user.fns.updateStats(user.stats)
+      expect(user.flags.dropsEnabled).to.be.ok()
+
+    it 'unlocks Rebirth at level 50', ->
+      user = newUser()
+      user.stats.lvl = 50
+      user.fns.updateStats(user.stats)
+      expect(user.flags.rebirthEnabled).to.be.ok()
+
+    describe 'level-awarded Quests', ->
+      it 'gets Attack of the Mundane at level 15', ->
+        user = newUser()
+        user.stats.lvl = 15
+        user.fns.updateStats(user.stats)
+        expect(user.flags.levelDrops.atom1).to.be.ok()    
+        expect(user.items.quests.atom1).to.eql 1
+
+      it 'gets Vice at level 30', ->
+        user = newUser()
+        user.stats.lvl = 30
+        user.fns.updateStats(user.stats)
+        expect(user.flags.levelDrops.vice1).to.be.ok()
+        expect(user.items.quests.vice1).to.eql 1
+
+      it 'gets Golden Knight at level 40', ->
+        user = newUser()
+        user.stats.lvl = 40
+        user.fns.updateStats(user.stats)
+        expect(user.flags.levelDrops.goldenknight1).to.be.ok()
+        expect(user.items.quests.goldenknight1).to.eql 1
+
+      it 'gets Moonstone Chain at level 60', ->
+        user = newUser()
+        user.stats.lvl = 60
+        user.fns.updateStats(user.stats)
+        expect(user.flags.levelDrops.moonstone1).to.be.ok()
+        expect(user.items.quests.moonstone1).to.eql 1
 
 describe 'Simple Scoring', ->
   beforeEach ->
