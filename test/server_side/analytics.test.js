@@ -221,7 +221,8 @@ describe('analytics', function() {
         var user = {
           stats: stats,
           contributor: { level: 1 },
-          purchased: { plan: { planId: 'foo-plan' } }
+          purchased: { plan: { planId: 'foo-plan' } },
+          flags: {tour: {intro: -2}}
         };
 
         analyticsData.user = user;
@@ -246,7 +247,8 @@ describe('analytics', function() {
             Level: 4,
             Mana: 30,
             contributorLevel: 1,
-            subscription: 'foo-plan'
+            subscription: 'foo-plan',
+            tutorialComplete: true
           }
         });
       });

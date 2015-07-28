@@ -107,8 +107,7 @@
       properties.Level = user.stats.lvl;
       properties.Mana = Math.floor(user.stats.mp);
     }
-    if (user.flags && user.flags.tour && user.flags.tour.intro === -2) {properties.tutorialComplete = true}
-	else {properties.tutorialComplete = false};
+    properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
     if (user.contributor && user.contributor.level) properties.contributorLevel = user.contributor.level;
     if (user.purchased && user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
   }
