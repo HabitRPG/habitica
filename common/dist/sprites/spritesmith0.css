@@ -1,6 +1,6 @@
 .achievement-alien {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -1274px;
+  background-position: -1379px -1274px;
   width: 24px;
   height: 26px;
 }
@@ -12,71 +12,77 @@
 }
 .achievement-armor {
   background-image: url(spritesmith0.png);
-  background-position: -1495px -1392px;
+  background-position: -1354px -1274px;
   width: 24px;
   height: 26px;
 }
 .achievement-boot {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -1392px;
+  background-position: -1495px -1392px;
   width: 24px;
   height: 26px;
 }
 .achievement-bow {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -1392px;
+  background-position: -1470px -1392px;
   width: 24px;
   height: 26px;
 }
 .achievement-cactus {
   background-image: url(spritesmith0.png);
-  background-position: -1495px -1365px;
+  background-position: -1445px -1392px;
   width: 24px;
   height: 26px;
 }
 .achievement-cake {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -1365px;
+  background-position: -1495px -1365px;
   width: 24px;
   height: 26px;
 }
 .achievement-cave {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -1365px;
+  background-position: -1470px -1365px;
   width: 24px;
   height: 26px;
 }
 .achievement-coffin {
   background-image: url(spritesmith0.png);
-  background-position: -1586px -1483px;
+  background-position: -1445px -1365px;
   width: 24px;
   height: 26px;
 }
 .achievement-comment {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1483px;
+  background-position: -1586px -1483px;
   width: 24px;
   height: 26px;
 }
 .achievement-costumeContest {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -1483px;
+  background-position: -1561px -1483px;
   width: 24px;
   height: 26px;
 }
 .achievement-dilatory {
   background-image: url(spritesmith0.png);
-  background-position: -1586px -1456px;
+  background-position: -1536px -1483px;
   width: 24px;
   height: 26px;
 }
 .achievement-firefox {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1456px;
+  background-position: -1586px -1456px;
   width: 24px;
   height: 26px;
 }
 .achievement-habitBirthday {
+  background-image: url(spritesmith0.png);
+  background-position: -1561px -1456px;
+  width: 24px;
+  height: 26px;
+}
+.achievement-habiticaDay {
   background-image: url(spritesmith0.png);
   background-position: -1536px -1456px;
   width: 24px;
@@ -108,13 +114,13 @@
 }
 .achievement-perfect {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1547px;
+  background-position: -1900px -1820px;
   width: 24px;
   height: 26px;
 }
 .achievement-rat {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1820px;
+  background-position: -1627px -1547px;
   width: 24px;
   height: 26px;
 }
@@ -216,7 +222,7 @@
 }
 .achievement-wolf {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1547px;
+  background-position: -1652px -1547px;
   width: 24px;
   height: 26px;
 }
@@ -474,3589 +480,3589 @@
 }
 .hair_beard_1_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -546px;
+  background-position: -1081px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -561px;
+  background-position: -1106px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -637px;
+  background-position: -1081px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -652px;
+  background-position: -1106px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_black {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -728px;
+  background-position: -1081px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_black {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -743px;
+  background-position: -1106px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -819px;
+  background-position: -1081px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -834px;
+  background-position: -1106px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -910px;
+  background-position: 0px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -925px;
+  background-position: -25px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_brown {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1070px;
+  background-position: -91px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_brown {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1085px;
+  background-position: -116px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1070px;
+  background-position: -182px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1085px;
+  background-position: -207px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1070px;
+  background-position: -273px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1085px;
+  background-position: -298px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_festive {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1070px;
+  background-position: -364px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_festive {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1085px;
+  background-position: -389px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_frost {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1070px;
+  background-position: -455px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_frost {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1085px;
+  background-position: -480px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1070px;
+  background-position: -546px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1085px;
+  background-position: -571px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_green {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1070px;
+  background-position: -637px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_green {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1085px;
+  background-position: -662px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1070px;
+  background-position: -728px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1085px;
+  background-position: -753px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_holly {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1070px;
+  background-position: -819px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_holly {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1085px;
+  background-position: -844px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1070px;
+  background-position: -910px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1085px;
+  background-position: -935px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1070px;
+  background-position: -1001px -1070px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1085px;
+  background-position: -1026px -1085px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1070px;
+  background-position: -1172px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1085px;
+  background-position: -1197px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1172px 0px;
+  background-position: -1172px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -15px;
+  background-position: -1197px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -91px;
+  background-position: -1172px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -106px;
+  background-position: -1197px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -182px;
+  background-position: -1172px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -197px;
+  background-position: -1197px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -273px;
+  background-position: -1172px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -288px;
+  background-position: -1197px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -364px;
+  background-position: -1172px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -379px;
+  background-position: -1197px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -455px;
+  background-position: -1172px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -470px;
+  background-position: -1197px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -546px;
+  background-position: -1172px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -561px;
+  background-position: -1197px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -637px;
+  background-position: -1172px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -652px;
+  background-position: -1197px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -728px;
+  background-position: -1172px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -743px;
+  background-position: -1197px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_red {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -819px;
+  background-position: -1172px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_red {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -834px;
+  background-position: -1197px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -910px;
+  background-position: -1172px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -925px;
+  background-position: -1197px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_white {
   background-image: url(spritesmith0.png);
-  background-position: -1172px -1001px;
+  background-position: 0px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_white {
   background-image: url(spritesmith0.png);
-  background-position: -1197px -1016px;
+  background-position: -25px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_winternight {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1161px;
+  background-position: -91px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1176px;
+  background-position: -116px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1161px;
+  background-position: -182px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1176px;
+  background-position: -207px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1161px;
+  background-position: -273px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1176px;
+  background-position: -298px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_1_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1161px;
+  background-position: -364px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_1_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1176px;
+  background-position: -389px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1161px;
+  background-position: -455px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1176px;
+  background-position: -480px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1161px;
+  background-position: -546px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1176px;
+  background-position: -571px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_black {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1161px;
+  background-position: -637px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_black {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1176px;
+  background-position: -662px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_blond {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1161px;
+  background-position: -728px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_blond {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1176px;
+  background-position: -753px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_blue {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1161px;
+  background-position: -819px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_blue {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1176px;
+  background-position: -844px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_brown {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1161px;
+  background-position: -910px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_brown {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1176px;
+  background-position: -935px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1161px;
+  background-position: -1001px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1176px;
+  background-position: -1026px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1161px;
+  background-position: -1092px -1161px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1176px;
+  background-position: -1117px -1176px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1161px;
+  background-position: -1263px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1176px;
+  background-position: -1288px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1263px 0px;
+  background-position: -1263px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -15px;
+  background-position: -1288px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -91px;
+  background-position: -1263px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -106px;
+  background-position: -1288px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_green {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -182px;
+  background-position: -1263px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_green {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -197px;
+  background-position: -1288px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -273px;
+  background-position: -1263px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -288px;
+  background-position: -1288px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_holly {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -364px;
+  background-position: -1263px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_holly {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -379px;
+  background-position: -1288px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -455px;
+  background-position: -1263px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -470px;
+  background-position: -1288px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -546px;
+  background-position: -1263px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -561px;
+  background-position: -1288px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -637px;
+  background-position: -1263px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -652px;
+  background-position: -1288px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -728px;
+  background-position: -1263px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -743px;
+  background-position: -1288px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -819px;
+  background-position: -1263px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -834px;
+  background-position: -1288px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -910px;
+  background-position: -1263px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -925px;
+  background-position: -1288px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -1001px;
+  background-position: -1263px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -1016px;
+  background-position: -1288px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1263px -1092px;
+  background-position: 0px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1288px -1107px;
+  background-position: -25px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1252px;
+  background-position: -91px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1267px;
+  background-position: -116px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_purple {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1252px;
+  background-position: -182px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_purple {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1267px;
+  background-position: -207px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1252px;
+  background-position: -273px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1267px;
+  background-position: -298px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1252px;
+  background-position: -364px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1267px;
+  background-position: -389px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_red {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1252px;
+  background-position: -455px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_red {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1267px;
+  background-position: -480px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1252px;
+  background-position: -546px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1267px;
+  background-position: -571px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_white {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1252px;
+  background-position: -637px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_white {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1267px;
+  background-position: -662px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1252px;
+  background-position: -728px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1267px;
+  background-position: -753px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1252px;
+  background-position: -819px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1267px;
+  background-position: -844px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1252px;
+  background-position: -910px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1267px;
+  background-position: -935px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_2_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1252px;
+  background-position: -1001px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_2_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1267px;
+  background-position: -1026px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1252px;
+  background-position: -1092px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1267px;
+  background-position: -1117px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1252px;
+  background-position: -1183px -1252px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1267px;
+  background-position: -1208px -1267px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_black {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1252px;
+  background-position: -1354px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_black {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1267px;
+  background-position: -1379px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1354px 0px;
+  background-position: -1354px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -15px;
+  background-position: -1379px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -91px;
+  background-position: -1354px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -106px;
+  background-position: -1379px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -182px;
+  background-position: -1354px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -197px;
+  background-position: -1379px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -273px;
+  background-position: -1354px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -288px;
+  background-position: -1379px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -364px;
+  background-position: -1354px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -379px;
+  background-position: -1379px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -455px;
+  background-position: -1354px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -470px;
+  background-position: -1379px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -546px;
+  background-position: -1354px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -561px;
+  background-position: -1379px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -637px;
+  background-position: -1354px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -652px;
+  background-position: -1379px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_green {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -728px;
+  background-position: -1354px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_green {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -743px;
+  background-position: -1379px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -819px;
+  background-position: -1354px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -834px;
+  background-position: -1379px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_holly {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -910px;
+  background-position: -1354px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_holly {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -925px;
+  background-position: -1379px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -1001px;
+  background-position: -1354px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -1016px;
+  background-position: -1379px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -1092px;
+  background-position: -1354px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -1107px;
+  background-position: -1379px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1354px -1183px;
+  background-position: 0px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1379px -1198px;
+  background-position: -25px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1343px;
+  background-position: -91px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1358px;
+  background-position: -116px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1343px;
+  background-position: -182px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1358px;
+  background-position: -207px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_porange {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1343px;
+  background-position: -273px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_porange {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1358px;
+  background-position: -298px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1343px;
+  background-position: -364px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1358px;
+  background-position: -389px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1343px;
+  background-position: -455px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1358px;
+  background-position: -480px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1343px;
+  background-position: -546px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1358px;
+  background-position: -571px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_purple {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1343px;
+  background-position: -637px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_purple {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1358px;
+  background-position: -662px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1343px;
+  background-position: -728px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1358px;
+  background-position: -753px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1343px;
+  background-position: -819px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1358px;
+  background-position: -844px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_red {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1343px;
+  background-position: -910px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_red {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1358px;
+  background-position: -935px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1343px;
+  background-position: -1001px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1358px;
+  background-position: -1026px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_white {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1343px;
+  background-position: -1092px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_white {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1358px;
+  background-position: -1117px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1343px;
+  background-position: -1183px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1358px;
+  background-position: -1208px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1343px;
+  background-position: -1274px -1343px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1358px;
+  background-position: -1299px -1358px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1274px -1343px;
+  background-position: -1445px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1299px -1358px;
+  background-position: -1470px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_beard_3_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1445px 0px;
+  background-position: -1445px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_beard_3_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -15px;
+  background-position: -1470px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -91px;
+  background-position: -1445px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -106px;
+  background-position: -1470px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -182px;
+  background-position: -1445px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -197px;
+  background-position: -1470px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_black {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -273px;
+  background-position: -1445px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_black {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -288px;
+  background-position: -1470px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -364px;
+  background-position: -1445px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -379px;
+  background-position: -1470px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -455px;
+  background-position: -1445px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -470px;
+  background-position: -1470px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -546px;
+  background-position: -1445px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -561px;
+  background-position: -1470px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -637px;
+  background-position: -1445px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -652px;
+  background-position: -1470px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -728px;
+  background-position: -1445px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -743px;
+  background-position: -1470px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -819px;
+  background-position: -1445px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -834px;
+  background-position: -1470px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -910px;
+  background-position: -1445px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -925px;
+  background-position: -1470px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -1001px;
+  background-position: -1445px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -1016px;
+  background-position: -1470px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_green {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -1092px;
+  background-position: -1445px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_green {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -1107px;
+  background-position: -1470px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -1183px;
+  background-position: -1445px -1274px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -1198px;
+  background-position: -1470px -1289px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_holly {
   background-image: url(spritesmith0.png);
-  background-position: -1445px -1274px;
+  background-position: 0px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_holly {
   background-image: url(spritesmith0.png);
-  background-position: -1470px -1289px;
+  background-position: -25px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1434px;
+  background-position: -91px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1449px;
+  background-position: -116px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1434px;
+  background-position: -182px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1449px;
+  background-position: -207px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1434px;
+  background-position: -273px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1449px;
+  background-position: -298px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1434px;
+  background-position: -364px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1449px;
+  background-position: -389px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1434px;
+  background-position: -455px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1449px;
+  background-position: -480px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_porange {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1434px;
+  background-position: -546px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_porange {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1449px;
+  background-position: -571px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1434px;
+  background-position: -637px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1449px;
+  background-position: -662px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1434px;
+  background-position: -728px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1449px;
+  background-position: -753px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1434px;
+  background-position: -819px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1449px;
+  background-position: -844px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_purple {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1434px;
+  background-position: -910px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_purple {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1449px;
+  background-position: -935px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1434px;
+  background-position: -1001px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1449px;
+  background-position: -1026px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1434px;
+  background-position: -1092px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1449px;
+  background-position: -1117px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_red {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1434px;
+  background-position: -1183px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_red {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1449px;
+  background-position: -1208px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1434px;
+  background-position: -1274px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1449px;
+  background-position: -1299px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_white {
   background-image: url(spritesmith0.png);
-  background-position: -1274px -1434px;
+  background-position: 0px -888px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_white {
   background-image: url(spritesmith0.png);
-  background-position: -1299px -1449px;
+  background-position: -25px -903px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_winternight {
   background-image: url(spritesmith0.png);
-  background-position: 0px -888px;
+  background-position: -1536px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -25px -903px;
+  background-position: -1561px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1536px 0px;
+  background-position: -1536px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -15px;
+  background-position: -1561px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -91px;
+  background-position: -1536px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -106px;
+  background-position: -1561px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_1_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -182px;
+  background-position: -1536px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_1_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -197px;
+  background-position: -1561px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -273px;
+  background-position: -1536px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -288px;
+  background-position: -1561px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -364px;
+  background-position: -1536px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -379px;
+  background-position: -1561px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_black {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -455px;
+  background-position: -1536px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_black {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -470px;
+  background-position: -1561px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -546px;
+  background-position: -1536px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -561px;
+  background-position: -1561px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -637px;
+  background-position: -1536px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -652px;
+  background-position: -1561px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -728px;
+  background-position: -1536px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -743px;
+  background-position: -1561px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -819px;
+  background-position: -1536px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -834px;
+  background-position: -1561px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -910px;
+  background-position: -1536px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -925px;
+  background-position: -1561px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -1001px;
+  background-position: -1536px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_festive {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1016px;
+  background-position: -1561px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -1092px;
+  background-position: -1536px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_frost {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1107px;
+  background-position: -1561px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -1183px;
+  background-position: -1536px -1274px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1198px;
+  background-position: -1561px -1289px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_green {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -1274px;
+  background-position: -1536px -1365px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_green {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1289px;
+  background-position: -1561px -1380px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1536px -1365px;
+  background-position: 0px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -1561px -1380px;
+  background-position: -25px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_holly {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1525px;
+  background-position: -91px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_holly {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1540px;
+  background-position: -116px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1525px;
+  background-position: -182px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1540px;
+  background-position: -207px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1525px;
+  background-position: -273px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1540px;
+  background-position: -298px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1525px;
+  background-position: -364px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1540px;
+  background-position: -389px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1525px;
+  background-position: -455px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1540px;
+  background-position: -480px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1525px;
+  background-position: -546px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1540px;
+  background-position: -571px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_porange {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1525px;
+  background-position: -637px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_porange {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1540px;
+  background-position: -662px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1525px;
+  background-position: -728px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1540px;
+  background-position: -753px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1525px;
+  background-position: -819px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1540px;
+  background-position: -844px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1525px;
+  background-position: -910px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1540px;
+  background-position: -935px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_purple {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1525px;
+  background-position: -1001px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_purple {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1540px;
+  background-position: -1026px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1525px;
+  background-position: -1092px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1540px;
+  background-position: -1117px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1525px;
+  background-position: -1183px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1540px;
+  background-position: -1208px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_red {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1525px;
+  background-position: -1274px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_red {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1540px;
+  background-position: -1299px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1274px -1525px;
+  background-position: -1365px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1299px -1540px;
+  background-position: -1390px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_white {
   background-image: url(spritesmith0.png);
-  background-position: -1365px -1525px;
+  background-position: -1456px -1525px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_white {
   background-image: url(spritesmith0.png);
-  background-position: -1390px -1540px;
+  background-position: -1481px -1540px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1456px -1525px;
+  background-position: -1627px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1481px -1540px;
+  background-position: -1652px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1627px 0px;
+  background-position: -1627px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -15px;
+  background-position: -1652px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -91px;
+  background-position: -1627px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -106px;
+  background-position: -1652px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_mustache_2_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -182px;
+  background-position: -1627px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_mustache_2_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -197px;
+  background-position: -1652px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_flower_1 {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -273px;
+  background-position: -1627px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_flower_1 {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -288px;
+  background-position: -1652px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_flower_2 {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -364px;
+  background-position: -1627px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_flower_2 {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -379px;
+  background-position: -1652px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_flower_3 {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -455px;
+  background-position: -1627px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_flower_3 {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -470px;
+  background-position: -1652px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_flower_4 {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -546px;
+  background-position: -1627px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_flower_4 {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -561px;
+  background-position: -1652px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_flower_5 {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -637px;
+  background-position: -1627px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_flower_5 {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -652px;
+  background-position: -1652px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_flower_6 {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -728px;
+  background-position: -1627px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_flower_6 {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -743px;
+  background-position: -1652px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -819px;
+  background-position: -1627px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -834px;
+  background-position: -1652px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -910px;
+  background-position: -1627px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -925px;
+  background-position: -1652px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_black {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1001px;
+  background-position: -1627px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_black {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1016px;
+  background-position: -1652px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1092px;
+  background-position: -1627px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1107px;
+  background-position: -1652px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1183px;
+  background-position: -1627px -1274px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1198px;
+  background-position: -1652px -1289px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1274px;
+  background-position: -1627px -1365px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1289px;
+  background-position: -1652px -1380px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1365px;
+  background-position: -1627px -1456px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1380px;
+  background-position: -1652px -1471px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1627px -1456px;
+  background-position: 0px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -1652px -1471px;
+  background-position: -25px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_festive {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1616px;
+  background-position: -91px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_festive {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1631px;
+  background-position: -116px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_frost {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1616px;
+  background-position: -182px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_frost {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1631px;
+  background-position: -207px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1616px;
+  background-position: -273px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1631px;
+  background-position: -298px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_green {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1616px;
+  background-position: -364px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_green {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1631px;
+  background-position: -389px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1616px;
+  background-position: -455px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1631px;
+  background-position: -480px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_holly {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1616px;
+  background-position: -546px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_holly {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1631px;
+  background-position: -571px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1616px;
+  background-position: -637px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1631px;
+  background-position: -662px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1616px;
+  background-position: -728px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1631px;
+  background-position: -753px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1616px;
+  background-position: -819px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1631px;
+  background-position: -844px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pblue2 {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1616px;
+  background-position: -910px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pblue2 {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1631px;
+  background-position: -935px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1616px;
+  background-position: -1001px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1631px;
+  background-position: -1026px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1616px;
+  background-position: -1092px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1631px;
+  background-position: -1117px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pgreen2 {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1616px;
+  background-position: -1183px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pgreen2 {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1631px;
+  background-position: -1208px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1616px;
+  background-position: -1274px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1631px;
+  background-position: -1299px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_porange2 {
   background-image: url(spritesmith0.png);
-  background-position: -1274px -1616px;
+  background-position: -1365px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_porange2 {
   background-image: url(spritesmith0.png);
-  background-position: -1299px -1631px;
+  background-position: -1390px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1365px -1616px;
+  background-position: -1456px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1390px -1631px;
+  background-position: -1481px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_ppink2 {
   background-image: url(spritesmith0.png);
-  background-position: -1456px -1616px;
+  background-position: -1547px -1616px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_ppink2 {
   background-image: url(spritesmith0.png);
-  background-position: -1481px -1631px;
+  background-position: -1572px -1631px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1547px -1616px;
+  background-position: -1718px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1572px -1631px;
+  background-position: -1743px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_ppurple2 {
   background-image: url(spritesmith0.png);
-  background-position: -1718px 0px;
+  background-position: -1718px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_ppurple2 {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -15px;
+  background-position: -1743px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -91px;
+  background-position: -1718px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -106px;
+  background-position: -1743px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -182px;
+  background-position: -1718px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -197px;
+  background-position: -1743px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -273px;
+  background-position: -1718px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -288px;
+  background-position: -1743px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_pyellow2 {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -364px;
+  background-position: -1718px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_pyellow2 {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -379px;
+  background-position: -1743px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -455px;
+  background-position: -1718px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -470px;
+  background-position: -1743px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_red {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -546px;
+  background-position: -1718px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_red {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -561px;
+  background-position: -1743px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -637px;
+  background-position: -1718px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -652px;
+  background-position: -1743px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_white {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -728px;
+  background-position: -1718px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_white {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -743px;
+  background-position: -1743px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -819px;
+  background-position: -1718px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -834px;
+  background-position: -1743px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -910px;
+  background-position: -1718px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -925px;
+  background-position: -1743px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1001px;
+  background-position: -1718px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1016px;
+  background-position: -1743px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_1_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1092px;
+  background-position: -1718px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_1_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1107px;
+  background-position: -1743px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1183px;
+  background-position: -1718px -1274px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1198px;
+  background-position: -1743px -1289px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1274px;
+  background-position: -1718px -1365px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1289px;
+  background-position: -1743px -1380px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_black {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1365px;
+  background-position: -1718px -1456px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_black {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1380px;
+  background-position: -1743px -1471px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1456px;
+  background-position: -1718px -1547px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1471px;
+  background-position: -1743px -1562px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1718px -1547px;
+  background-position: 0px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1743px -1562px;
+  background-position: -25px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_brown {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1707px;
+  background-position: -91px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_brown {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1722px;
+  background-position: -116px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1707px;
+  background-position: -182px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1722px;
+  background-position: -207px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1707px;
+  background-position: -273px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1722px;
+  background-position: -298px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_festive {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1707px;
+  background-position: -364px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_festive {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1722px;
+  background-position: -389px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_frost {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1707px;
+  background-position: -455px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_frost {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1722px;
+  background-position: -480px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1707px;
+  background-position: -546px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1722px;
+  background-position: -571px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_green {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1707px;
+  background-position: -637px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_green {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1722px;
+  background-position: -662px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1707px;
+  background-position: -728px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1722px;
+  background-position: -753px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_holly {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1707px;
+  background-position: -819px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_holly {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1722px;
+  background-position: -844px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1707px;
+  background-position: -910px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1722px;
+  background-position: -935px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1707px;
+  background-position: -1001px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1722px;
+  background-position: -1026px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1707px;
+  background-position: -1092px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1722px;
+  background-position: -1117px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pblue2 {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1707px;
+  background-position: -1183px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pblue2 {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1722px;
+  background-position: -1208px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1707px;
+  background-position: -1274px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1722px;
+  background-position: -1299px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1274px -1707px;
+  background-position: -1365px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1299px -1722px;
+  background-position: -1390px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pgreen2 {
   background-image: url(spritesmith0.png);
-  background-position: -1365px -1707px;
+  background-position: -1456px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pgreen2 {
   background-image: url(spritesmith0.png);
-  background-position: -1390px -1722px;
+  background-position: -1481px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1456px -1707px;
+  background-position: -1547px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1481px -1722px;
+  background-position: -1572px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_porange2 {
   background-image: url(spritesmith0.png);
-  background-position: -1547px -1707px;
+  background-position: -1638px -1707px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_porange2 {
   background-image: url(spritesmith0.png);
-  background-position: -1572px -1722px;
+  background-position: -1663px -1722px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1638px -1707px;
+  background-position: -1809px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1663px -1722px;
+  background-position: -1834px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_ppink2 {
   background-image: url(spritesmith0.png);
-  background-position: -1809px 0px;
+  background-position: -1809px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_ppink2 {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -15px;
+  background-position: -1834px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -91px;
+  background-position: -1809px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -106px;
+  background-position: -1834px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_ppurple2 {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -182px;
+  background-position: -1809px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_ppurple2 {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -197px;
+  background-position: -1834px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -273px;
+  background-position: -1809px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -288px;
+  background-position: -1834px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -364px;
+  background-position: -1809px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -379px;
+  background-position: -1834px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -455px;
+  background-position: -1809px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -470px;
+  background-position: -1834px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_pyellow2 {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -546px;
+  background-position: -1809px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pyellow2 {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -561px;
+  background-position: -1834px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -637px;
+  background-position: -1809px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -652px;
+  background-position: -1834px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_red {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -728px;
+  background-position: -1809px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_red {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -743px;
+  background-position: -1834px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -819px;
+  background-position: -1809px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -834px;
+  background-position: -1834px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_white {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -910px;
+  background-position: -1809px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_white {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -925px;
+  background-position: -1834px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1001px;
+  background-position: -1809px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1016px;
+  background-position: -1834px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1092px;
+  background-position: -1809px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1107px;
+  background-position: -1834px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1183px;
+  background-position: -1809px -1274px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1198px;
+  background-position: -1834px -1289px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1274px;
+  background-position: -1809px -1365px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1289px;
+  background-position: -1834px -1380px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1365px;
+  background-position: -1809px -1456px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1380px;
+  background-position: -1834px -1471px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1456px;
+  background-position: -1809px -1547px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1471px;
+  background-position: -1834px -1562px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_black {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1547px;
+  background-position: -1809px -1638px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_black {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1562px;
+  background-position: -1834px -1653px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1809px -1638px;
+  background-position: 0px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1834px -1653px;
+  background-position: -25px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_blue {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1798px;
+  background-position: -91px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_blue {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1813px;
+  background-position: -116px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_brown {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1798px;
+  background-position: -182px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_brown {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1813px;
+  background-position: -207px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1798px;
+  background-position: -273px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1813px;
+  background-position: -298px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1798px;
+  background-position: -364px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1813px;
+  background-position: -389px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_festive {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1798px;
+  background-position: -455px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_festive {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1813px;
+  background-position: -480px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_frost {
   background-image: url(spritesmith0.png);
-  background-position: -455px -1798px;
+  background-position: -546px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_frost {
   background-image: url(spritesmith0.png);
-  background-position: -480px -1813px;
+  background-position: -571px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -546px -1798px;
+  background-position: -637px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -571px -1813px;
+  background-position: -662px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_green {
   background-image: url(spritesmith0.png);
-  background-position: -637px -1798px;
+  background-position: -728px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_green {
   background-image: url(spritesmith0.png);
-  background-position: -662px -1813px;
+  background-position: -753px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -728px -1798px;
+  background-position: -819px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_halloween {
   background-image: url(spritesmith0.png);
-  background-position: -753px -1813px;
+  background-position: -844px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_holly {
   background-image: url(spritesmith0.png);
-  background-position: -819px -1798px;
+  background-position: -910px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_holly {
   background-image: url(spritesmith0.png);
-  background-position: -844px -1813px;
+  background-position: -935px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -910px -1798px;
+  background-position: -1001px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_hollygreen {
   background-image: url(spritesmith0.png);
-  background-position: -935px -1813px;
+  background-position: -1026px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -1001px -1798px;
+  background-position: -1092px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_midnight {
   background-image: url(spritesmith0.png);
-  background-position: -1026px -1813px;
+  background-position: -1117px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1092px -1798px;
+  background-position: -1183px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pblue {
   background-image: url(spritesmith0.png);
-  background-position: -1117px -1813px;
+  background-position: -1208px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pblue2 {
   background-image: url(spritesmith0.png);
-  background-position: -1183px -1798px;
+  background-position: -1274px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pblue2 {
   background-image: url(spritesmith0.png);
-  background-position: -1208px -1813px;
+  background-position: -1299px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1274px -1798px;
+  background-position: -1365px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_peppermint {
   background-image: url(spritesmith0.png);
-  background-position: -1299px -1813px;
+  background-position: -1390px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1365px -1798px;
+  background-position: -1456px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pgreen {
   background-image: url(spritesmith0.png);
-  background-position: -1390px -1813px;
+  background-position: -1481px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pgreen2 {
   background-image: url(spritesmith0.png);
-  background-position: -1456px -1798px;
+  background-position: -1547px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pgreen2 {
   background-image: url(spritesmith0.png);
-  background-position: -1481px -1813px;
+  background-position: -1572px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1547px -1798px;
+  background-position: -1638px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_porange {
   background-image: url(spritesmith0.png);
-  background-position: -1572px -1813px;
+  background-position: -1663px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_porange2 {
   background-image: url(spritesmith0.png);
-  background-position: -1638px -1798px;
+  background-position: -1729px -1798px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_porange2 {
   background-image: url(spritesmith0.png);
-  background-position: -1663px -1813px;
+  background-position: -1754px -1813px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1729px -1798px;
+  background-position: -1900px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_ppink {
   background-image: url(spritesmith0.png);
-  background-position: -1754px -1813px;
+  background-position: -1925px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_ppink2 {
   background-image: url(spritesmith0.png);
-  background-position: -1900px 0px;
+  background-position: -1900px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_ppink2 {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -15px;
+  background-position: -1925px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -91px;
+  background-position: -1900px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_ppurple {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -106px;
+  background-position: -1925px -197px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_ppurple2 {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -182px;
+  background-position: -1900px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_ppurple2 {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -197px;
+  background-position: -1925px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -273px;
+  background-position: -1900px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pumpkin {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -288px;
+  background-position: -1925px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -364px;
+  background-position: -1900px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_purple {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -379px;
+  background-position: -1925px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -455px;
+  background-position: -1900px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pyellow {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -470px;
+  background-position: -1925px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_pyellow2 {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -546px;
+  background-position: -1900px -637px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_pyellow2 {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -561px;
+  background-position: -1925px -652px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -637px;
+  background-position: -1900px -728px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_rainbow {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -652px;
+  background-position: -1925px -743px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_red {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -728px;
+  background-position: -1900px -819px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_red {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -743px;
+  background-position: -1925px -834px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -819px;
+  background-position: -1900px -910px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_snowy {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -834px;
+  background-position: -1925px -925px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_white {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -910px;
+  background-position: -1900px -1001px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_white {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -925px;
+  background-position: -1925px -1016px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1001px;
+  background-position: -1900px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_winternight {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1016px;
+  background-position: -1925px -1107px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1092px;
+  background-position: -1900px -1183px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_winterstar {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1107px;
+  background-position: -1925px -1198px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1183px;
+  background-position: -1900px -1274px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_yellow {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1198px;
+  background-position: -1925px -1289px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_3_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1274px;
+  background-position: -1900px -1365px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_3_zombie {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1289px;
+  background-position: -1925px -1380px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1365px;
+  background-position: -1900px -1456px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_TRUred {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1380px;
+  background-position: -1925px -1471px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1456px;
+  background-position: -1900px -1547px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_aurora {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1471px;
+  background-position: -1925px -1562px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_black {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1547px;
+  background-position: -1900px -1638px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_black {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1562px;
+  background-position: -1925px -1653px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1638px;
+  background-position: -1900px -1729px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1653px;
+  background-position: -1925px -1744px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1900px -1729px;
+  background-position: 0px -1889px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1925px -1744px;
+  background-position: -25px -1904px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_brown {
   background-image: url(spritesmith0.png);
-  background-position: 0px -1889px;
+  background-position: -91px -1889px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_brown {
   background-image: url(spritesmith0.png);
-  background-position: -25px -1904px;
+  background-position: -116px -1904px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -91px -1889px;
+  background-position: -182px -1889px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -116px -1904px;
+  background-position: -207px -1904px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -182px -1889px;
+  background-position: -273px -1889px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_candycorn {
   background-image: url(spritesmith0.png);
-  background-position: -207px -1904px;
+  background-position: -298px -1904px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_festive {
   background-image: url(spritesmith0.png);
-  background-position: -273px -1889px;
+  background-position: -1365px -1434px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_festive {
   background-image: url(spritesmith0.png);
-  background-position: -298px -1904px;
+  background-position: -1390px -1449px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_frost {
   background-image: url(spritesmith0.png);
-  background-position: -364px -1889px;
+  background-position: -1081px -91px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_frost {
   background-image: url(spritesmith0.png);
-  background-position: -389px -1904px;
+  background-position: -1106px -106px;
   width: 60px;
   height: 60px;
 }
 .hair_base_10_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1365px -1434px;
+  background-position: -1081px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_ghostwhite {
   background-image: url(spritesmith0.png);
-  background-position: -1390px -1449px;
+  background-position: -1106px -15px;
   width: 60px;
   height: 60px;
 }
@@ -4422,73 +4428,61 @@
 }
 .hair_base_11_black {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -455px;
+  background-position: -1081px -546px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_11_black {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -470px;
+  background-position: -1106px -561px;
   width: 60px;
   height: 60px;
 }
 .hair_base_11_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -364px;
+  background-position: -1081px -455px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_11_blond {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -379px;
+  background-position: -1106px -470px;
   width: 60px;
   height: 60px;
 }
 .hair_base_11_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -273px;
+  background-position: -1081px -364px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_11_blue {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -288px;
+  background-position: -1106px -379px;
   width: 60px;
   height: 60px;
 }
 .hair_base_11_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -182px;
+  background-position: -1081px -273px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_11_brown {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -197px;
+  background-position: -1106px -288px;
   width: 60px;
   height: 60px;
 }
 .hair_base_11_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1081px -91px;
+  background-position: -1081px -182px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_11_candycane {
   background-image: url(spritesmith0.png);
-  background-position: -1106px -106px;
-  width: 60px;
-  height: 60px;
-}
-.hair_base_11_candycorn {
-  background-image: url(spritesmith0.png);
-  background-position: -1081px 0px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.hair_base_11_candycorn {
-  background-image: url(spritesmith0.png);
-  background-position: -1106px -15px;
+  background-position: -1106px -197px;
   width: 60px;
   height: 60px;
 }
