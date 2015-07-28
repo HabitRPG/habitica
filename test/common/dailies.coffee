@@ -49,8 +49,8 @@ newUser = (addTasks=true)->
       user.ops.addTask {body: {type: task, id: shared.uuid()}}
   user
 
-cron = (usr) ->
-  usr.lastCron = moment().subtract(1,'days')
+cron = (usr, missedDays=1) ->
+  usr.lastCron = moment().subtract(missedDays,'days')
   usr.fns.cron()
 
 describe 'daily/weekly that repeats everyday (default)', ->
