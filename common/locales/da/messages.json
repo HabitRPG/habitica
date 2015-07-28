@@ -22,7 +22,7 @@
     "messageDropEgg": "Du fandt et <%= dropText %> Æg! <%= dropNotes %>",
     "messageDropPotion": "Du fandt en <%= dropText %> Udrugningseliksir! <%= dropNotes %>",
     "messageDropQuest": "Du har fundet en quest!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Du åbner æsken og finder <%= dropText %>!",
     "messageFoundQuest": "Du fandt questen \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Du har engang købt dette udstyr, men ejer det ikke på nuværende tidspunkt. Du kan købe det igen i belønningskolonnen på opgavesiden.",
     "messageAlreadyOwnGear": "Du ejer allerede denne ting. Tag det på ved at gå til udstyrssiden.",

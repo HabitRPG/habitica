@@ -56,5 +56,5 @@
     "backToChallenges": "Tilbage til Udfordringer",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Præmie",
     "clone": "Klon",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "Du har ikke nok ædelsten til at oprette denne udfordring."
 }

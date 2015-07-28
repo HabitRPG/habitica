@@ -22,7 +22,7 @@
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
     "messageDropQuest": "Našel jsi Výpravu!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Copak se to skrývá v té krabici? No vida, je to <%= dropText %>!",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
     "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
