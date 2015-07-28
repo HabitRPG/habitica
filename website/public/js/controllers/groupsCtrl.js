@@ -266,6 +266,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
         $scope.message.content = '';
         $scope._sending = false;
+        if (group.type == 'party') {
+          Analytics.updateUser({'partyID':group.id,'partySize':group.memberCount});
+        }
         if (group.privacy == 'public'){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name,'message':message});
         } else {
@@ -475,17 +478,19 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.create = function(group){
         group.$save(function(){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'party','privacy':'private'});
+          Analytics.updateUser({'partyID':group.id,'partySize':1});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
-      }
+      };
 
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         group.$join(function(){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
+          Analytics.updateUser({'partyID':party.id});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
-      }
+      };
 
       // TODO: refactor guild and party leave into one function
       $scope.leave = function(keep) {
@@ -494,10 +499,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $scope.popoverEl.popover('destroy');
         } else {
           Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+            Analytics.updateUser({'partySize':null,'partyID':null});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
         }
-      }
+      };
 
       // TODO: refactor guild and party clickLeave into one function
       $scope.clickLeave = function(group, $event){
@@ -547,7 +553,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       $scope.questAccept = function(party){
         Groups.questAccept(party);
-      }
+      };
 
       $scope.questReject = function(party){
         Groups.questReject(party);
