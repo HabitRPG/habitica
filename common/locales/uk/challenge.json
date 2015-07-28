@@ -33,8 +33,8 @@
     "challengeTagPop": "Випробування з'являються у переліках з ярликами та панелях. Згори йде опис, а знизу — скорочення. Наприклад: „скинути 10 фунтів за 3 місяці“ позначиться „-10 фнт.“ (Клацніть для довідки).",
     "challengeDescr": "Опис",
     "prize": "Винагорода",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Щонайменше 1 самоцвіт для <strong> громадських випробувань </strong> (допомагає запобігти спаму, справді).",
     "officialChallenge": "Офіційне випробування HabitRPG",
     "by": "від",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Back to all challenges",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "clone": "Clone",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

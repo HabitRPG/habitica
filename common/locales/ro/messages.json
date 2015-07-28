@@ -22,6 +22,7 @@
     "messageDropEgg": "Ai găsit un Ou <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Ai găsit o poţiune de eclozare <%= dropText %>! <%= dropNotes %>",
     "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageFoundQuest": "Ai găsit aventura \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
     "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",

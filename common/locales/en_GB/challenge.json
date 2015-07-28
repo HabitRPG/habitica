@@ -33,8 +33,8 @@
     "challengeTagPop": "Challenges appear on tag-lists & task-tooltips. So while you'll want a descriptive title above, you'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb' (Click for more info).",
     "challengeDescr": "Description",
     "prize": "Prize",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minimum 1 Gem for <strong> public challenges </strong> (helps prevent spam, it really does).",
     "officialChallenge": "Official HabitRPG Challenge",
     "by": "by",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Back to all challenges",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "clone": "Clone",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

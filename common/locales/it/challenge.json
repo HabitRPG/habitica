@@ -16,7 +16,7 @@
     "selectWinner": "Scegli un vincitore e chiudi la sfida:",
     "deleteOrSelect": "Elimina o scegli il vincitore",
     "endChallenge": "Fine Sfida",
-    "challengeDiscription": "Queste sono le attività della Sfida che verranno aggiunte alla tua pagina delle attività quando parteciperai a questa Sfida. Le attività esempio della Sfida qui sotto cambieranno colore e appariranno dei grafici per mostrarti il progresso complessivo del gruppo.",
+    "challengeDiscription": "Queste sono le attività della Sfida, verranno aggiunte alla tua pagina delle attività quando parteciperai a questa Sfida. Le attività esempio qui sotto cambieranno colore e renderanno disponibili dei grafici per mostrarti il progresso complessivo dei partecipanti.",
     "hows": "Come se la cavano gli altri?",
     "filter": "Filtro",
     "groups": "Gruppi",
@@ -33,8 +33,8 @@
     "challengeTagPop": "Le sfide compaiono nelle liste dei tag (etichette), quindi oltre al titolo descrittivo avrai bisogno anche di un nome breve e facilmente riconoscibile. Per esempio, 'Perdi 10 kg in 3 mesi' potrebbe diventare '-10kg' (Clicca il '?' per saperne di più).",
     "challengeDescr": "Descrizione",
     "prize": "Premio",
-    "prizePop": "Se qualcuno può ''vincere'' questa sfida, hai l'opzione di ricompensarlo con un premio in Gemme. Il premio massimo equivale al numero di gemme che possiedi (+ le gemme della gilda, se sei tu il creatore della gilda di questa sfida). Nota: questo premio non potrà essere successivamente modificato.",
-    "prizePopTavern": "Se qualcuno può ''vincere'' questa sfida, hai l'opzione di ricompensarlo con un premio in Gemme. Il premio massimo equivale al numero di gemme che possiedi (+ le gemme della gilda, se sei il creatore della gilda di questa sfida). Nota: questo premio non potrà essere modificato e le sfide della Taverna non verranno rimborsate in caso siano cancellate.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Serve un minimo di 1 Gemma per le <strong> sfide pubbliche </strong> (aiuta a prevenire lo spam, lo fa davvero).",
     "officialChallenge": "Sfida Ufficiale HabitRPG",
     "by": "di ",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Tutte",
     "backToChallenges": "Torna alla lista sfide",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Premio",
-    "clone": "Clona"
+    "clone": "Clona",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

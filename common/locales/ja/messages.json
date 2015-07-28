@@ -22,6 +22,7 @@
     "messageDropEgg": "<%= dropText %>のたまごを見つけました! <%= dropNotes %>",
     "messageDropPotion": "<%= dropText %>孵化ポーションを見つけました! <%= dropNotes %>",
     "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
     "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",

@@ -27,7 +27,7 @@
     "payWithCard": "クレジットカードで支払う",
     "payNote": "備考:Paypalでの支払いは時間がかかることがあります。キャッシュカードのご使用をおすすめいたします。",
     "card": "クレジットカード",
-    "amazonInstructions": "Click the button to pay using Amazon Payments",
+    "amazonInstructions": "このボタンをクリックしてAmazon Paymentsで支払う。",
     "paymentMethods": "お支払い方法:",
     "classGear": "クラスギア",
     "classGearText": "最初に: 慌てる必要はありません! あなたの古いギアは、あなたの所持品です。あなたは今、弟子の <strong><%= klass %></strong> の装備を着ています。あなたのクラスのギアを身に着けていると、ステータスに50%のボーナスが付与されます。しかし、気軽に古いギアに切り替えてください。",
@@ -60,9 +60,9 @@
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. (Pets, mounts, and food are available after level 4.) Click a mount to saddle up!",
     "tourEquipmentPage": "装備はここに保管されています。武具はステータスに影響を与えます。ステータスを変えないままアバターに別の装備を付けたい時は「衣装を有効にする」をクリックしてください。",
     "tourOkay": "わかった！",
-    "tourAwesome": "Awesome!",
+    "tourAwesome": "素晴らしい！",
     "tourSplendid": "素晴らしい！",
-    "tourNifty": "Nifty!",
+    "tourNifty": "二フティ！",
     "tourAvatarProceed": "タスクを見せて！",
     "tourToDosBrief": "<strong>To-Do List</strong><ul><li>Check off To-Dos to earn Gold & Experience!</li><li>To-Dos never make your avatar lose Health.</li></ul>",
     "tourDailiesBrief": "<strong>日課</strong><ul><li>日課は毎日繰り返します。</li><li>日課を終わらせないとHPを失います。</li></ul>",
@@ -77,5 +77,5 @@
     "welcome3": "Complete tasks to earn Experience (XP) and Gold, which unlock awesome features and rewards!",
     "welcome4": "あなたのHPを減らす、悪い習慣を避けましょう。さもないとあなたのアバターは死んでしまいます！",
     "welcome5": "それではアバターをカスタマイズしてタスクをセットしましょう…",
-    "imReady": "I'm Ready!"
+    "imReady": "準備してますよ！"
 }

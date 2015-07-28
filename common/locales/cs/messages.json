@@ -21,10 +21,11 @@
     "messageDropFood": "Copak to je? A hele, <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
-    "messageDropQuest": "You've found a quest!",
+    "messageDropQuest": "Našel jsi Výpravu!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
-    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
     "armoireEquipment": "<%= image %> Ve zbrojnici jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
     "armoireFood": "<%= image %> Prohledáváš zbrojnici a nacházíš <%= dropArticle %><%= dropText %>. Co to tu dělá?",
     "armoireExp": "Zápasíš se Zbrojnicí a získáváš zkušenost. To jsi jí to nandal!"
