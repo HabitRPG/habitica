@@ -3,15 +3,14 @@ mixin petList(source)
     each egg in source
       li.customize-menu
         menu
-          var petsfound = 0
+          - var petVariations = 0
           each potion in env.Content.hatchingPotions
             - pet = egg.key+"-"+potion.key
-            if user.items.pets["#{pet}"]
-              break
-            else 
-              petsfound++
+            if 'user.items.pets["#{pet}"]'>0
+              - petVariations +=1
+              - console.log(petVariations)
 
-          if petsfound > 0
+          if petVariations > 0
             each potion in env.Content.hatchingPotions
               - pet = egg.key+"-"+potion.key
               div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
@@ -21,10 +20,6 @@ mixin petList(source)
                 button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
                   .PixelPaw
                 button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
-          else
-            //ugh make translatable string?
-            p=env.t('mattBochText1')
-
 
 .container-fluid
   .stable.row: .col-xs-12
