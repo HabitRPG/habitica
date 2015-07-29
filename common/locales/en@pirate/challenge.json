@@ -33,8 +33,8 @@
     "challengeTagPop": "Challenges appear on tag-lists & task-tooltips. So while ye'll want a descriptive title above, ye'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb' (Click fer more info).",
     "challengeDescr": "Description",
     "prize": "Treasure",
-    "prizePop": "If someone can 'win' yer challenge, ye can optionally award that winner a Gem prize. Max = #gems ye own (+ allianceguild.gems, if ye created this challenge's alliance). Note: This prize can't be changed later an' will not be refunded if challenge is cancelled.",
-    "prizePopTavern": "If someone can 'win' yer challenge, ye can optionally award that winner a Gem prize. Max = #gems ye own (+ allianceguild.gems, if ye created this challenge's alliance). Note: This prize can't be changed later an' will not be refunded if challenge is cancelled.",
+    "prizePop": "If someone can 'win' yer challenge, you can optionally award tha' winner a Sapphire prize. Max = number of gems you own (+ alliance sapphires, if ye created this challenge's alliance). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' yer challenge, ye can award tha' winner a Sapphire prize. Max = number o' sapphires ye own. Note: This prize can't be changed later an' Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minimum 1 Gem fer <strong> public challenges </strong> (helps prevent spam, it really does).",
     "officialChallenge": "Official HabitRPG Challenge",
     "by": "by",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Back to all challenges",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "clone": "Clone",
+    "challengeNotEnoughGems": "Ye do not have enough sapphires to post this challenge."
 }

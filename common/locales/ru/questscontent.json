@@ -131,7 +131,7 @@
     "questAtom1Text": "Attack of the Mundane, Part 1: Dish Disaster!",
     "questAtom1Notes": "Вы достигли берегов Разбитого Озера, чтобы получить свой заслуженный отдых... но по прибытии вы замечаете, что озеро переполнено грязными тарелками? Что здесь произошло? Что ж, вы просто не можете позволить озеру находиться в таком состоянии. И здесь есть только один выбор: вымыть всю посуду и спасти свое райское местечко. И вам понадобится мыло, чтобы избавиться от этого беспорядка. Много мыла...",
     "questAtom1CollectSoapBars": "Куски мыла",
-    "questAtom1Drop": "The SnackLess Monster (Quest Scroll)",
+    "questAtom1Drop": "Безобеденный Монстр (свиток квеста)",
     "questAtom2Text": "Attack of the Mundane, Part 2: The SnackLess Monster",
     "questAtom2Notes": "Уф, это место выглядит намного лучше без этих грязных тарелок. Может быть, вы наконец-то сможете повеселиться. Погодите-ка... неужели это коробка из-под пиццы плывет по поверхности озера? Видимо, уборка не закончена. Но, увы, это не просто коробка из-под пиццы! Внезапно коробка взлетает к небу, обнаруживая голову монстра. Это невозможно! Легендарный Безобеденный Монстр?! Говорят, что он скрывался в озере с доисторических времен: существо, порожденное из остатков пищи и мусора жителей Habitica. Гадость!",
     "questAtom2Boss": "Безобеденный Монстр",
@@ -230,12 +230,12 @@
     "questDilatoryDistress2RageEffect": "`Water Skull Swarm uses SWARM RESPAWN!`\n\nEmboldened by their victories, more skulls pour forth from the crevasse, bolstering the swarm!",
     "questDilatoryDistress2DropSkeletonPotion": "Костяной инкубационный эликсир",
     "questDilatoryDistress2DropCottonCandyBluePotion": "Синий сахарный инкубационный эликсир",
-    "questDilatoryDistress2DropHeadgear": "Огненный коралловый венец (головной убор)",
+    "questDilatoryDistress2DropHeadgear": "Коралловый огненный венец (головной убор)",
     "questDilatoryDistress3Text": "Dilatory Distress, Part 3: Not a Mere Maid",
     "questDilatoryDistress3Notes": "You follow the mantis shrimps deep into the Crevasse, and discover an underwater fortress. Princess Adva, escorted by more watery skulls, awaits you inside the main hall. \"My father has sent you, has he not? Tell him I refuse to return. I am content to stay here and practice my sorcery. Leave now, or you shall feel the wrath of the ocean's new queen!\" Adva seems very adamant, but as she speaks you notice a strange, ruby pendant on her neck glowing ominously... Perhaps her delusions would cease should you break it?",
     "questDilatoryDistress3Completion": "Finally, you manage to pull the bewitched pendant from Adva's neck and throw it away. Adva clutches her head. \"Where am I? What happened here?\" After hearing your story, she frowns. \"This necklace was given to me by a strange ambassador - a lady called 'Tzina'. I don't remember anything after that!\"<br><br>Back at Dilatory, Manta is overjoyed by your success. \"Allow me to reward you with this trident and shield! I ordered them from @aiseant and @starsystemic as a gift for Adva, but... I'd rather not put weapons in her hands any time soon.\"",
     "questDilatoryDistress3Boss": "Adva, the Usurping Mermaid",
     "questDilatoryDistress3DropFish": "Рыба (Еда)",
     "questDilatoryDistress3DropWeapon": "Трезубец сокрушительных приливов (Оружие)",
-    "questDilatoryDistress3DropShield": "Щит из лунного жемчуга (Щит-рука предмет)"
+    "questDilatoryDistress3DropShield": "Щит из лунного жемчуга (Щит-рука)"
 }

@@ -45,7 +45,7 @@
     "hauntedColors": "呪われた色",
     "winteryColors": "冬の色",
     "equipment": "装備",
-    "equipmentBonus": "Equipment",
+    "equipmentBonus": "装備",
     "equipmentBonusText": "能力ボーナスは装備したバトルギアからもらえます。所持品の装備タブでバトルギアを選択してください。",
     "classBonus": "クラスの装備ボーナス",
     "classBonusText": "あなたのクラスは同クラスの装備を他のクラスより効率的に使えます(まだクラスをアンロックしていないか他のクラスを選択していない場合は戦士になっています)。自分の現在のクラスから選んだ装備については、50%の能力ボーナスを得ることができます。",
@@ -151,8 +151,8 @@
     "rogueWiki": "<a href='http://habitrpg.wikia.com/wiki/Rogue' target='_blank'>盗賊</a>",
     "healerWiki": "<a href='http://habitrpg.wikia.com/wiki/Healer' target='_blank'>神官</a>",
     "chooseClassLearn": "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>クラスについて</a>",
-    "str": "STR",
-    "con": "CON",
-    "per": "PER",
-    "int": "INT"
+    "str": "力（短縮形）",
+    "con": "体質　（短縮形）",
+    "per": "知覚　（短縮形）",
+    "int": "知能　（短縮形）"
 }

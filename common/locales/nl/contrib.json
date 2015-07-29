@@ -62,9 +62,9 @@
     "surveysMultiple": "Heeft HabitRPG geholpen te groeien door <%= surveys %> enquête(s) in te vullen. Er zijn op dit moment geen enquêtes.",
     "currentSurvey": "Huidige enquête",
     "surveyWhen": "De badge zal eind maart worden uitgereikt, wanneer de enquêtes van alle deelnemers zijn verwerkt.",
-    "blurbInbox": "Hier zijn al jou privéberichten opgeslagen! Je kunt iemand een bericht sturen doormiddel van op het envelopje naast zijn of haar naam in de herberg, groep of gilde.",
-    "blurbGuildsPage": "Gildes zijn chat groepen waar een bepaalde interesse centraal staat. Deze zijn opgezet door spelers, voor spelers! Zoek naar gildes met de zelfde interesses als die van jou en sluit je er bij aan!",
-    "blurbChallenges": "Uitdagingen zijn gemaakt door medespelers. Door mee te doen met een uitdaging krijg je extra taken bij jouw takenlijst. Het winnen van een uitdaging geeft je een prestatie en soms een edelstenen beloning!",
+    "blurbInbox": "Hier zijn al jouw privéberichten opgeslagen! Je kunt iemand een bericht sturen door op het envelopje naast zijn of haar naam in de herberg, groep of gilde te klikken.",
+    "blurbGuildsPage": "Gildes zijn chatgroepen waar een bepaalde interesse centraal staat. Gildes zijn opgezet door spelers, voor spelers! Zoek naar gildes met de zelfde interesses als die van jou en sluit je erbij aan!",
+    "blurbChallenges": "Uitdagingen worden gemaakt door medespelers. Door mee te doen met een uitdaging krijg je extra taken op je takenlijst. Het winnen van een uitdaging geeft je een prestatie en soms edelstenen als beloning!",
     "blurbHallPatrons": "Dit is de Hal der Weldoeners. Hier eren we de nobele adventuriers die HabitRPG hebben gesteund in de Kickstarter. We bedanken ze omdat ze Habitica tot leven hebben gebracht!",
     "blurbHallHeroes": "Dit is de Hal der Helden, waar mensen die een bijdrage leveren aan HabitRPG worden geëerd. Door programmeren, kunst, muziek, schrijven, of zelfs door behulpzaam te zijn hebben zij <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>edelstenen, exclusieve uitrusting</a> en <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigieuze titels</a> verdiend. Als je wilt, kun jij ook bijdragen aan HabitRPG! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Lees hier meer. </a>"
 }

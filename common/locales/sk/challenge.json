@@ -33,8 +33,8 @@
     "challengeTagPop": "Výzvy sa zobrazujú v zozname štítkov a v popise úlohy. Takže oficiálny názov výzvy môže byť dlhší a výstižný, no potrebuješ aj krátku verziu. Napr výzva s názvom \"Schudnúť 10 kíl za 3 mesiace\" môže používať štítok \"-10kg\" (Pre viac informácií klikni na \"?\").",
     "challengeDescr": "Popis",
     "prize": "Odmena",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minimum je 1 drahokam pre <strong> verejné výzvy </strong> (pomáha predísť spamu, naozaj).",
     "officialChallenge": "Oficiálna výzva HabitRPG",
     "by": "od",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Back to all challenges",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "clone": "Clone",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

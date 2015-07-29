@@ -16,7 +16,7 @@
     "selectWinner": "Välj en vinnare och avsluta utmaningen:",
     "deleteOrSelect": "Ta bort eller välj vinnare",
     "endChallenge": "Avsluta utmaning",
-    "challengeDiscription": "These are the Challenge's tasks that will be added to your task dashboard when you join this Challenge. The sample Challenge tasks below will change color and gain graphs to show you the overall progress of the group.",
+    "challengeDiscription": "Det här är utmaningens uppgifter som kommer att läggas till dina uppgifter när du går med i utmaningen. Exempeluppgifterna här under kommer att ändra färg och få diagram som visar gruppens samlade framsteg.",
     "hows": "Hur går det för alla?",
     "filter": "Filter",
     "groups": "Grupper",
@@ -33,8 +33,8 @@
     "challengeTagPop": "Utmaningar syns på tagglistor och uppgiftens verktygstips. Så du behöver en beskrivande titel, men även ett 'kort namn'. T.ex. 'Gå ner 5 kilo på 3 månader' som kan förkortas till '-5kg' (Klicka för mer information).",
     "challengeDescr": "Beskrivning",
     "prize": "Vinst",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minst 1 Juvel för <strong>offentliga utmaningar</strong> (motverkar spam).",
     "officialChallenge": "Officiell HabitRPG-utmaning",
     "by": "av",
@@ -44,7 +44,7 @@
     "selectGroup": "Var vänlig välj grupp",
     "challengeCreated": "Utmaning skapad",
     "sureDelCha": "Är du säker på att du vill ta bort utmaningen?",
-    "sureDelChaTavern": "Delete challenge, are you sure? Your gems will not be refunded.",
+    "sureDelChaTavern": "Är du säker på att du vill ta bort utmaningen? Du kommer inte få tillbaka juveler.",
     "removeTasks": "Ta bort uppgifter",
     "keepTasks": "Ha kvar uppgifter",
     "closeCha": "Avsluta utmaning och...",
@@ -54,6 +54,7 @@
     "challengedNotOwnedFilter": "Inte Ägs",
     "challengedEitherOwnedFilter": "Vilket som",
     "backToChallenges": "Tillbaka till alla utmaningar",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Klon"
+    "prizeValue": "Pris",
+    "clone": "Klon",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

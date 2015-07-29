@@ -9,6 +9,7 @@ describe('Analytics Service', function () {
     user = specHelper.newUser();
     user.contributor = {};
     user.purchased = { plan: {} };
+    user.flags.tour = { intro: null };
 
     module(function($provide) {
       $provide.value('User', {user: user});
@@ -182,6 +183,7 @@ describe('Analytics Service', function () {
         expectedProperties.Health = 48;
         expectedProperties.Level = 24;
         expectedProperties.Mana = 41;
+        expectedProperties.tutorialComplete = false;
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -191,6 +193,7 @@ describe('Analytics Service', function () {
           user.stats.hp = 47.8;
           user.stats.lvl = 24;
           user.stats.mp = 41;
+          user.flags.tour.intro = 3;
 
           analytics.updateUser(properties);
           clock.tick();
@@ -217,7 +220,8 @@ describe('Analytics Service', function () {
           Level: 24,
           Mana: 41,
           contributorLevel: 1,
-          subscription: 'unique-plan-id'
+          subscription: 'unique-plan-id',
+          tutorialComplete: true
         };
 
         beforeEach(function() {
@@ -230,6 +234,7 @@ describe('Analytics Service', function () {
           user.stats.mp = 41;
           user.contributor.level = 1;
           user.purchased.plan.planId = 'unique-plan-id';
+          user.flags.tour.intro = -2;
 
           analytics.updateUser();
           clock.tick();

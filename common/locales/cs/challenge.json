@@ -33,8 +33,8 @@
     "challengeTagPop": "Výzvy se ti objeví na seznamu štítků pod panelem i v popiscích úkolů. Takže název může být dlouhý, ale budeš také potřebovat 'krátký název'. Tzn. 'Shodit za 3 měsíce 10 kilo' by mohlo být zkráceno na '-10kg' (Klikni pro více informací).",
     "challengeDescr": "Popis",
     "prize": "Cena",
-    "prizePop": "Pokud někdo může \"vyhrát\" tvou výzvu, můžeš jej odměnit drahokamy. Maximum = #počet tvých drahokamů (+ drahokamy ve tvém cechu) Pozn.: Výhra nemůže být později změněna.",
-    "prizePopTavern": "Pokud někdo může 'vyhrát' tvou výzvu, můžeš jej odměnit drahokamy. Maximum = počet tvých drahokamů (+ drahokamy cechu, pokud jsi tvůrcem výzvy tohoto cechu). Poznámka: Výhra nemůže být později změněna a výhra z Výzvy z krčmy se nevrací, pokud je výzva zrušena.",
+    "prizePop": "Pokud někdo může 'vyhrát' tvou výzvu, můžeš jej odměnit drahokamy. Maximum = počet tvých drahokamů (+ drahokamy cechu, pokud jsi tvůrcem výzvy tohoto cechu). Poznámka: Výhra nemůže být později změněna.",
+    "prizePopTavern": "Pokud někdo může 'vyhrát' tvou výzvu, můžeš jej odměnit drahokamy. Maximum = počet tvých drahokamů. Poznámka: Výhra nemůže být později změněna a výhra z výzev v Krčmě se nevrací, pokud je výzva zrušena.",
     "publicChallenges": "Minimálně 1 drahokam za <strong> veřejné výzvy </strong> (opravdu to eliminuje spam).",
     "officialChallenge": "Oficiální výzva HabitRPG",
     "by": "od",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Obojí",
     "backToChallenges": "Zpět na všechny výzvy.",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Cena",
-    "clone": "Naklonuj"
+    "clone": "Naklonuj",
+    "challengeNotEnoughGems": "Nemáš dostatek Drahokamů, abys mohl uveřejnit tuto výzvu."
 }

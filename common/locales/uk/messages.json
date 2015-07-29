@@ -22,6 +22,7 @@
     "messageDropEgg": "Ви знайшли яйце звіра <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Ви знайшли зілля вилуплення — <%= dropText %>! <%= dropNotes %>",
     "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageFoundQuest": "Вам трапився квест \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
     "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",

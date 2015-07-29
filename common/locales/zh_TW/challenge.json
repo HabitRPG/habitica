@@ -33,8 +33,8 @@
     "challengeTagPop": "挑戰名會顯示在在標籤列表和任務的工具提示中。所以挑戰名要盡量短。例如用「-10 磅」代替「在 3 個月內減掉 10 磅」 (點選查看詳細資訊)。",
     "challengeDescr": "詳細說明",
     "prize": "戰利品",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "<strong>公開挑戰</strong> 最少需要 1 個寶石作為獎勵 (為了防止有人拿來打廣告。)",
     "officialChallenge": "HabitRPG 官方挑戰",
     "by": "發起人",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Either",
     "backToChallenges": "Back to all challenges",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
-    "clone": "Clone"
+    "clone": "Clone",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

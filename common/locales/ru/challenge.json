@@ -33,8 +33,8 @@
     "challengeTagPop": "Испытания появляются в списке тегов и в описании заданий. Поэтому кроме содержательного названия, указанного выше, потребуется также «короткое имя». Например, «Сбросить 10 килограммов за 3 месяца» может стать «-10кг» (Нажмите здесь, чтобы узнать подробнее).",
     "challengeDescr": "Описание",
     "prize": "Приз",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Для <strong> общедоступных испытаний </strong> минимум составляет 1 самоцвет (действенная мера против спама).",
     "officialChallenge": "Официальное испытание HabitRPG",
     "by": "от",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Все",
     "backToChallenges": "Вернуться к списку испытаний",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> в награду",
-    "clone": "Клонировать"
+    "clone": "Клонировать",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

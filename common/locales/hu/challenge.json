@@ -33,8 +33,8 @@
     "challengeTagPop": "A kihívások cimkékben és tippekben jellennek meg, tehát kell egy bő és egy rövid leírás pl: \"Fogyj 10 kilót 3 hónap alatt\"-ból \"-10kg\" lesz (Kattints bővebb infókért).",
     "challengeDescr": "Leírás",
     "prize": "Jutalom",
-    "prizePop": "Ha valaki meg tudja \"nyerni\" a kihívásodat, akkor opcionálisan ajándékozhatsz neki Drágakövet. Max = drágaköveid száma (+ céh drágaköveinek száma, ha te hoztad létre a kihívás céhét). Megjegyzés: A díjat nem tudod később megváltoztatni.",
-    "prizePopTavern": "Ha valaki meg tudja \"nyerni\" a kihívásodat, akkor opcionálisan ajándékozhatsz neki Drágakövet. Max = drágaköveid száma (+ céh drágaköveinek száma, ha te hoztad létre a kihívás céhét). Megjegyzés: A díjat nem tudod később megváltoztatni, és a Fogadós kihívások esetén akkor sem kapod vissza, ha a kihívást visszavonod.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Legalább 1 Drágakő <strong> nyílvános kihívásoknak </strong>. Segít megakadályozni a spamelést (valóban segít).",
     "officialChallenge": "Hivatalos HabitRPG kihívás",
     "by": "által",
@@ -55,5 +55,6 @@
     "challengedEitherOwnedFilter": "Valamelyik",
     "backToChallenges": "Vissza a kihívásokhoz",
     "prizeValue": "Nyeremény <%= gemcount %>&nbsp;<%= gemicon %>",
-    "clone": "Másol"
+    "clone": "Másol",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

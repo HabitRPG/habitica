@@ -65,7 +65,7 @@
     "fixValuesText1": "Si vous avez rencontré un bug ou avez fait une erreur qui a modifié de manière injuste votre personnage (dégâts que n'auriez pas du prendre, Or que vous n'auriez pas du vraiment gagner, etc.), vous pouvez modifier manuellement vos valeurs ici. Oui, ceci permet de tricher : utilisez cette fonctionnalité avec sagesse ou vous saboterez vos propres bonnes habitudes !",
     "fixValuesText2": "Notez que vous ne pouvez pas restaurer les combos sur des tâches individuelles ici. Pour faire cela, modifiez la Quotidienne et allez dans les Options Avancées où vous trouverez un champ \"Restaurer les Combos\".",
     "disabledWinterEvent": "Désactivé durant le Winter Wonderland Event Pt.4 (étant donné que les récompenses sont achetables avec de l'or).",
-    "fix21Streaks": "Combo de 21 jours",
+    "fix21Streaks": "21 jours d'affilée",
     "discardChanges": "Annuler les changements ",
     "deleteDo": "Allez-y, supprimez mon compte !",
     "enterNumber": "Veuillez entrer un chiffre entre 0 et 24",
