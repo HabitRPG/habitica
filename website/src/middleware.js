@@ -87,16 +87,32 @@ module.exports.errorHandler = function(err, req, res, next) {
   res.json(500,{err:message}); //res.end(err.message);
 }
 
+function isHTTP(req) {
+  var baseUrl = nconf.get("BASE_URL");
+
+  return (
+    req.headers['x-forwarded-proto']              &&
+    req.headers['x-forwarded-proto'] !== 'https'  &&
+    nconf.get('NODE_ENV') === 'production'        &&
+    baseUrl.indexOf('https') === 0
+  );
+}
+
+function isProxied(req) {
+  return (
+    req.headers['x-habitica-lb'] &&
+    req.headers['x-habitica-lb'] === 'Yes'
+  );
+}
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
-  // Note x-forwarded-proto is used by Heroku & nginx, you'll have to do something different if you're not using those
-  if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https'
-    && nconf.get('NODE_ENV') === 'production'
-    && baseUrl.indexOf('https') === 0) {
+
+  if(isHTTP(req) && !isProxied(req)) {
     return res.redirect(baseUrl + req.url);
   }
-  next()
+
+  next();
 }
 
 module.exports.cors = function(req, res, next) {
