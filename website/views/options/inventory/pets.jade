@@ -3,7 +3,7 @@ mixin petList(source)
     each egg in source
       li.customize-menu
         menu
-          - petsfound = 0
+          var petsfound = 0
           each potion in env.Content.hatchingPotions
             - pet = egg.key+"-"+potion.key
             if user.items.pets["#{pet}"]
@@ -13,6 +13,7 @@ mixin petList(source)
 
           if petsfound > 0
             each potion in env.Content.hatchingPotions
+              - pet = egg.key+"-"+potion.key
               div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
                 button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                   .progress(ng-show='!user.items.mounts["#{pet}"]')
@@ -22,6 +23,8 @@ mixin petList(source)
                 button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
           else
             //ugh make translatable string?
+            p=env.t('mattBochText1')
+
 
 .container-fluid
   .stable.row: .col-xs-12
