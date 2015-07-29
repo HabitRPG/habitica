@@ -1,0 +1,20 @@
+include ../../shared/avatar/generated_avatar
+
+script(type='text/ng-template', id='partials/options.social.party.html')
+  div(ng-if='group._id')
+    include ./group
+  div(ng-if='!group._id')
+    div(ng-show='user.invitations.party.id').container-fluid
+      h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
+      a.btn.btn-danger(ng-click='reject()')=env.t('reject')
+
+    div(ng-hide='user.invitations.party.id').container-fluid
+      .row.margin-auto
+        a.btn.btn-primary.btn-lg.flex-column(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
+      .row.margin-auto.text-center(ng-controller='UserCtrl')
+        .margin-auto
+          span.inline-block.quest_vice3
+          span.figure.herobox.inline-block
+            .character-sprites
+              +generatedAvatar

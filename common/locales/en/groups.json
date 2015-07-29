@@ -120,6 +120,7 @@
     "sendGiftMessagePlaceholder": "Personal message (optional)",
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
+    "startPartyWithFriends": "Start a Party with your friends!",
     "startAParty": "Start a Party",
     "addToParty": "Add someone to your party",
     "likePost": "Click if you like this post!"
