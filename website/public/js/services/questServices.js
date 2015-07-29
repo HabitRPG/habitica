@@ -31,7 +31,7 @@
 
       if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
         if (!confirm(window.env.t('mustInviteFriend'))) return;
-        return Groups.inviteOrStartParty(Groups.party());
+        return Groups.inviteOrStartParty(party);
       }
       if (item.previous && (!User.user.achievements.quests || (User.user.achievements.quests && !User.user.achievements.quests[item.previous]))){
         return alert(window.env.t('unlockByQuesting', {title: Content.quests[item.previous].text()}));
