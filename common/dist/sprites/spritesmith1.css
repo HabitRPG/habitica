@@ -4966,3 +4966,15 @@
   width: 60px;
   height: 60px;
 }
+.hair_base_7_red {
+  background-image: url(spritesmith1.png);
+  background-position: -1820px -1274px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.hair_base_7_red {
+  background-image: url(spritesmith1.png);
+  background-position: -1845px -1289px;
+  width: 60px;
+  height: 60px;
+}

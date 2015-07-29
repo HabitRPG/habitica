@@ -32,9 +32,7 @@ var UserSchema = new Schema({
   _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
-    helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
     habitSurveys: Number,
-    ultimateGear: Boolean, //TODO: Deprecate this. Superseded by ultimateGearSets
     ultimateGearSets: Schema.Types.Mixed,
     beastMaster: Boolean,
     beastMasterCount: Number,
@@ -53,11 +51,11 @@ var UserSchema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean, // TODO: Deprecate this. Superseded by habitBirthdays
     habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean,
-    nye: Number
+    nye: Number,
+    habiticaDays: Number
   },
   auth: {
     blocked: Boolean,

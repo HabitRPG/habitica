@@ -1029,14 +1029,16 @@ api.specialPets =
   'MantisShrimp-Base':  'mantisShrimp'
   'JackOLantern-Base':  'jackolantern'
   'Mammoth-Base':       'mammoth'
+  'Tiger-Veteran':      'veteranTiger'
 
 api.specialMounts =
-  'BearCub-Polar':      'polarBear'
-  'LionCub-Ethereal':   'etherealLion'
-  'MantisShrimp-Base':  'mantisShrimp'
-  'Turkey-Base':        'turkey'
-  'Mammoth-Base':       'mammoth'
-  'Orca-Base':          'orca'
+  'BearCub-Polar':       'polarBear'
+  'LionCub-Ethereal':    'etherealLion'
+  'MantisShrimp-Base':   'mantisShrimp'
+  'Turkey-Base':         'turkey'
+  'Mammoth-Base':        'mammoth'
+  'Orca-Base':           'orca'
+  'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
