@@ -97,6 +97,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.set("view engine", "jade");
   app.use(express.favicon(publicDir + '/favicon.ico'));
   app.use(middleware.cors);
+  app.use(middleware.forceHabitica);
   app.use(middleware.forceSSL);
   app.use(express.urlencoded());
   app.use(express.json());
