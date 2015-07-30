@@ -1,48 +1,53 @@
 script(type='text/ng-template', id='modals/invite-friends.html')
-  .modal-header
-    h4=env.t('inviteFriends')
   .modal-body
-    p.alert.alert-info!=env.t('inviteAlertInfo')
-
-    form.form-inline(ng-submit='invite()')
-      //-.alert.alert-danger(ng-show='_groupError') {{_groupError}}
-      .form-group
-        input.form-control(type='text', placeholder=env.t('userId'), ng-model='invitee')
-        |&nbsp;
-        button.btn.btn-primary(type='submit')=env.t('inviteExistUser')
-
-    hr
-
-    p.alert.alert-info=env.t('inviteByEmail')
-
-    form.form-horizontal(ng-submit='inviteEmails()')
-      table.table.table-striped
-        thead
-          tr
-            th=env.t('name')
-            th=env.t('email')
-        tbody
-          tr(ng-repeat='email in emails')
-            td
-              input.form-control(type='text', ng-model='email.name')
-            td
-              input.form-control(type='email', ng-model='email.email')
-          tr
-            td(colspan=2)
-              a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
-                i.glyphicon.glyphicon-plus
-          tr
-            td.form-group(colspan=2)
-              label.col-sm-1.control-label=env.t('byColon')
-              .col-sm-7
-                input.form-control(type='text', ng-model='inviter')
-              .col-sm-4
-                button.btn.btn-primary.btn-wrap(type='submit')=env.t('inviteNewUsers')
-    //-
-      hr
-      p.alert.alert-info=env.t('inviteAlertInfo2')
-      input.form-control(type='text', ng-value='inviteLink({id: party._id, inviter: user._id, name: party.name})')
-
-  .modal-footer
-    button.btn.btn-default(ng-click='$close()')=env.t('close')
-
+    tabset
+      tab(heading=env.t('inviteByEmail'))
+        p.alert.alert-info=env.t('inviteByEmailExplanation')
+        form.form-horizontal(ng-submit='inviteEmails()')
+          table.table.table-striped
+            thead
+              tr
+                th=env.t('name')
+                th=env.t('email')
+            tbody
+              tr(ng-repeat='email in emails')
+                td
+                  input.form-control(type='text', ng-model='email.name')
+                td
+                  input.form-control(type='email', ng-model='email.email')
+              tr
+                td(colspan=2)
+                  a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+                    i.glyphicon.glyphicon-plus
+              tr
+                td.form-group(colspan=2)
+                  label.col-sm-1.control-label=env.t('byColon')
+                  .col-sm-7
+                    input.form-control(type='text', ng-model='inviter')
+                  .col-sm-4
+                    button.btn.btn-primary(type='submit')=env.t('sendInvitations')
+      tab(heading=env.t('inviteExistUser'))
+        p.alert.alert-info!=env.t('inviteAlertInfo')
+        form.form-horizontal(ng-submit='invite()')
+          table.table.table-striped
+            thead
+              tr
+                th=env.t('userId')
+            tbody
+              tr(ng-repeat='invitee in invitees')
+                td
+                  input.form-control(type='text', ng-model='invitee.invitee')
+              tr
+                td(colspan=2)
+                  a.btn.btn-xs.pull-right(ng-click='invitees = invitees.concat([{invitee:""}])')
+                    i.glyphicon.glyphicon-plus
+              tr
+                td
+                  .col-sm-1
+                  .col-sm-7
+                  .col-sm-4
+                    button.btn.btn-primary(type='submit')=env.t('sendInvitations')
+    .row
+      .quest_basilist.pull-left
+      p(style='margin:2em')=env.t('exclusiveQuestScroll')
+      button.btn.btn-default.pull-right(style='margin:auto 1em', ng-click='$close()')=env.t('close')

@@ -139,6 +139,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.inviter = User.user.profile.name;
     $scope.emails = [{name:"",email:""},{name:"",email:""}];
+    $scope.invitees = [{invitee:""},{invitee:""}];
 
     $scope.inviteEmails = function(){
       Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){

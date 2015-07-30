@@ -88,7 +88,7 @@ function($rootScope, ApiUrl, $resource, $q, $http, User, Challenges, Analytics, 
     },
 
     inviteOrStartParty: function(group) {
-      if (group.type === "party") {
+      if (group.type === "party" || $location.$$path === "/options/groups/party") {
         $rootScope.openModal('invite-friends', {
           controller:'InviteToGroupCtrl',
           resolve: {
