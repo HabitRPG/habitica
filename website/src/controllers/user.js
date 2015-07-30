@@ -109,32 +109,39 @@ api.score = function(req, res, next) {
 
   user.save(function(err,saved){
     if (err) return next(err);
+    
+    // Convert Mongoose model to JS object and store copy of stats object to send to client
+    var userStats = saved.toJSON().stats;
+    
     // TODO this should be return {_v,task,stats,_tmp}, instead of merging everything togther at top-level response
     // However, this is the most commonly used API route, and changing it will mess with all 3rd party consumers. Bad idea :(
     res.json(200, _.extend({
       delta: delta,
       _tmp: user._tmp
-    }, saved.toJSON().stats));
+    }, userStats));
 
     // Webhooks
 
-    // Select character data to send
-    var userData = _.pick(user.toJSON(), ['_id', '_tmp', 'stats']); // user.toJSON to copy-by-value
-    userData.stats.toNextLevel = shared.tnl(user.stats.lvl);
-    userData.stats.maxHealth = shared.maxHealth;
-    userData.stats.maxMP = user._statsComputed.maxMP;
+    var userData = {
+      _id: user._id,
+      _tmp: user._tmp,
+      stats: _.extend({}, userStats, { // send stats as well as exp tnl, max health, and max mp
+        toNextLevel: shared.tnl(user.stats.lvl),
+        maxHealth: shared.maxHealth,
+        maxMP: user._statsComputed.maxMP
+      })
+    };
 
-    // for each webhook
     _.each(user.preferences.webhooks, function(h){
       if (!h.enabled || !validator.isURL(h.url)) return;
       request.post({
         url: h.url,
         //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
         body: {
-          direction: direction, // direction of change
-          task: task, // task object
+          direction: direction,
+          task: task,
           delta: delta,
-          user: userData // character/profile data
+          user: userData
         },
         json:true
       });
