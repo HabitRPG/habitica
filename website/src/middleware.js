@@ -124,7 +124,7 @@ function nonApiUrl(req) {
 }
 
 module.exports.forceHabitica = function(req, res, next) {
-  if(nconf.get('NODE_ENV') === 'production' && req.hostname !== 'habitica.com' && nonApiUrl(req)) {
+  if(nconf.get('NODE_ENV') === 'production' && (req.hostname.search('habitica') === -1) && nonApiUrl(req)) {
     return res.redirect('https://habitica.com' + req.url);
   }
   next();
