@@ -475,7 +475,7 @@
     "shieldSpecialSpringRogueNotes": "Great for scaling tall buildings, and also for shredding carpets. Increases Strength <%= str %>. Limited Edition 2014 Spring Gear.",
     "shieldSpecialSpringWarriorText": "Яєчний щит",
     "shieldSpecialSpringWarriorNotes": "This shield never cracks, no matter how hard you hit it! Increases Constitution by <%= con %>. Limited Edition 2014 Spring Gear.",
-    "shieldSpecialSpringHealerText": "Скрипучий м'ячик Неймовірного захисту.",
+    "shieldSpecialSpringHealerText": "Скрипучий м'ячик Неймовірного захисту. ",
     "shieldSpecialSpringHealerNotes": "Lets out an obnoxious, continuous squeak when bitten, driving enemies away. Increases Constitution by <%= con %>. Limited Edition 2014 Spring Gear.",
     "shieldSpecialSummerRogueText": "Pirate Cutlass",
     "shieldSpecialSummerRogueNotes": "Avast! You'll make those Dailies walk the plank! Increases Strength by <%= str %>. Limited Edition 2014 Summer Gear.",

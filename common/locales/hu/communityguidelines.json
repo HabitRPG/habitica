@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Elfogadom és betartom a Közösségi irányelveket.",
-    "tavernCommunityGuidelinesPlaceholder": "Figyelmeztetés: ez itt egy korhatármentes társalgószoba, ezért arra kérünk, hogy ennek megfelelő tartalmat és nyelvezetet használj! Lásd lentebb a Közösségi irányelveket, ha ezzel kapcsolatban kérdésed van.",
+    "tavernCommunityGuidelinesPlaceholder": "Figyelmeztetés: ez itt egy korhatármentes társalgószoba, ezért arra kérünk, hogy ennek megfelelő tartalmat és nyelvezetet használj! Lásd lentebb a Közösségi irányelveket, ha ezzel kapcsolatban kérdésed van.  ",
     "commGuideHeadingWelcome": "Üdvözlünk Habiticában",
     "commGuidePara001": "Isten hozott, kalandor! Üdvözlünk Habiticaban, a produktivitás, egészséges élet és a néhanapján tomboló griffmadár földjén. Egy vidám közösség telis-tele segítőkész emberekkel, akik támogatják egymást az önfejlesztésük útja felé, fogad téged.",
     "commGuidePara002": "Létrehoztunk néhány szabályt arra, hogy a közösségünkben mindenki biztonságban, boldog és hatékony lehessen. Kiemelt figyelemmel hoztuk ezeket létre, hogy a lehető legbarátságosabb és olvashatóbb legyen. Kérünk szánd rá idődet és olvasd el.",
@@ -126,8 +126,8 @@
     "commGuideList10B": "Korlátozott privát chat jogok",
     "commGuideList10C": "Restricted guild/challenge creation privileges",
     "commGuideList10D": "Temporarily disabling (\"freezing\") progression through Contributor Tiers",
-    "commGuideList10E": "Közreműködő szint csökkentése",
-    "commGuideList10F": "Feltételesre ítélni egy felhasználót",
+    "commGuideList10E": "Közreműködő szint csökkentése ",
+    "commGuideList10F": "Feltételesre ítélni egy felhasználót ",
     "commGuideHeadingMinorConsequences": "Példák kisebb következményekre",
     "commGuideList11A": "Reminders of Public Space Guidelines",
     "commGuideList11B": "Figyelmeztetések",

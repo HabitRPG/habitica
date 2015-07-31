@@ -8,7 +8,7 @@
     "messageCannotFeedPet": "Ovu zver nije moguće hraniti.",
     "messageAlreadyMount": "Već imate takvu zver za jahanje. Hranite neku drugu zver.",
     "messageEvolve": "Ukrotili ste  <%= egg %>, idemo na jahanje!",
-    "messageLikesFood": "<%= egg %> je veoma zadovoljan/na hranom  <%= foodText %>!",
+    "messageLikesFood": " <%= egg %> je veoma zadovoljan/na hranom  <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> ne odbija <%= foodText %>, ali izgleda da je ne voli.",
     "messageBought": "Predmet <%= itemText %> kupljen",
     "messageEquipped": "Predmet <%= itemText %> postavljen.",

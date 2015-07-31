@@ -1,5 +1,5 @@
 {
-    "friend": "Amigo",
+    "friend": "Amigo\n",
     "friendFirst": "Cuando se implemente tu <strong>primera</strong> contribución, recibirás la medalla de Colaborador de Habitica. Tu nombre en el chat de la Taberna mostrará orgullosamente que eres un colaborador. Como premio por tu trabajo también recibirás <strong>3 Gemas</strong>.",
     "friendSecond": "Cuando se implemente tu <strong>segunda</strong> contribución, la <strong>Armadura de cristal</strong> estará disponible en la tienda de Recompensas. Como premio por tu trabajo también recibirás <strong>3 Gemas</strong>.",
     "elite": "Élite",
@@ -32,8 +32,8 @@
     "contribTitle": "Título de colaborador (p ej, \"Herrero\")",
     "contribLevel": "Nivel de contribución",
     "contribHallText": "1-7 para los contribuidores normales, 8 para moderadores, 9 para los del personal. Esto determina cuáles artículos, mascotas y monturas están disponibles. También determina el color de la etiqueta de nombre. A los de nivel 8 y 9 se les da estatus de administrador automáticamente.",
-    "hallHeroes": "Salón de héroes",
-    "hallPatrons": "Salón de patrocinadores",
+    "hallHeroes": "Salón de héroes ",
+    "hallPatrons": "Salón de patrocinadores ",
     "rewardUser": "Recompensar usuario",
     "UUID": "UUID",
     "loadUser": "Cargar usuario",

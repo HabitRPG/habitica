@@ -36,7 +36,7 @@
     "prizePop": "Se alguém conseguir 'vencer' o seu Desafio, você pode escolher recompensar esta pessoa com Gemas. Máximo = número de gemas que possui (+ gemas da guilda, se você criou este desafio para a guilda). Nota: Este prêmio não pode ser alterado depois.",
     "prizePopTavern": "Se alguém puder \"vencer\" o seu desafio, você pode presentear o vencedor com Gemas. Máximo = número de gemas que você possui. Nota: Este prêmio não pode ser alterado depois e Desafios da Taverna não serão reembolsados se o mesmo for cancelado.",
     "publicChallenges": "Mínimo de 1 Gema para <strong>desafios públicos </strong> (realmente ajuda a prevenir spam).",
-    "officialChallenge": "Official Habitica Challenge",
+    "officialChallenge": "Desafio Oficial do Habitica",
     "by": "por",
     "participants": "<%= membercount %> Participantes",
     "join": "Juntar-se",

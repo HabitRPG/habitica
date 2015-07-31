@@ -26,7 +26,7 @@
     "kickstartName": "Kickstarter Stödjare - $<%= tier %> Nivån",
     "kickstartText": "Stödde Kickstarter-projektet",
     "helped": "Hjälpte Habit Växa",
-    "helpedText1": "Hjälpte Habitica växa genom att fylla i",
+    "helpedText1": "Hjälpte Habitica växa genom att fylla i ",
     "helpedText2": "denna undersökning.",
     "hall": "Hall",
     "contribTitle": "Medarbetare-titel (t.ex. \"Smed\")",

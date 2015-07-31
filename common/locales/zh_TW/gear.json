@@ -62,7 +62,7 @@
     "weaponSpecial0Notes": "饕餮敵人的靈魂以助長自己的邪惡。增加 <%= str %> 點力量。",
     "weaponSpecial1Text": "水晶之刃",
     "weaponSpecial1Notes": "閃耀的側面訴說著英雄的傳說。增加全屬性 <%= attrs %> 點。",
-    "weaponSpecial2Text": "史蒂芬‧韋伯的龍之劍",
+    "weaponSpecial2Text": " 史蒂芬‧韋伯的龍之劍",
     "weaponSpecial2Notes": "內部散發著龍的洶湧之力！增加力量和感知各 <%= attrs %> 點。",
     "weaponSpecial3Text": "馬斯泰恩的碎石流星錘",
     "weaponSpecial3Notes": "怪物統統搗爛！增加力量、智力、體質各 <%= attrs %> 點。",

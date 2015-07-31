@@ -15,7 +15,7 @@
     "messageUnEquipped": "<%= itemText %> знято.",
     "messageMissingEggPotion": "Ви сумуєте чи то за тим яйцем, чи то за тим зіллям.",
     "messageAlreadyPet": "У вас уже є така тваринка. Спробуйте вивести інше поєднання!",
-    "messageHatched": "Яйце дозріло! Зайдіть до стайні та оберіть улюбленця.",
+    "messageHatched": "Яйце дозріло! Зайдіть до стайні та оберіть улюбленця. ",
     "messageNotEnoughGold": "Замало золота",
     "messageTwoHandled": "<%= gearText %> вимагає двох рук",
     "messageDropFood": "Ви знайшли <%= dropArticle %><%= dropText %>! <%= dropNotes %>",

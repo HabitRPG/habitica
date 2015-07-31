@@ -2,7 +2,7 @@
     "potionText": "Potion de Santé",
     "potionNotes": "Rend 15 points de Santé (effet immédiat)",
     "armoireText": "Armoire Enchantée",
-    "armoireNotesFull": "Ouvrez l'Armoire pour recevoir au hasard de l'Équipement spécial, de l'Expérience ou de la nourriture! Pièces d'Équipement restantes:",
+    "armoireNotesFull": "Ouvrez l'Armoire pour recevoir au hasard de l'Équipement spécial, de l'Expérience ou de la nourriture! Pièces d'Équipement restantes: ",
     "armoireLastItem": "Vous avez trouvé la dernière pièce d'Équipement rare dans l'Armoire Enchantée.",
     "armoireNotesEmpty": "L'Armoire contiendra de nouvelles pièces d'Équipement la première semaine de chaque mois. D'ici là, continuez à cliquer pour obtenir de l'Expérience et de la Nourriture!",
     "dropEggWolfText": "Loup",
@@ -33,7 +33,7 @@
     "questEggHedgehogAdjective": "épineux",
     "questEggDeerText": "Faon",
     "questEggDeerAdjective": "élégant",
-    "questEggEggText": "Œuf",
+    "questEggEggText": "Œuf ",
     "questEggEggMountText": "Panier d'Œufs",
     "questEggEggAdjective": "coloré",
     "questEggRatText": "Rat",
@@ -110,5 +110,5 @@
     "foodCandyRed": "Bonbon à la Cannelle",
     "foodSaddleText": "Selle",
     "foodSaddleNotes": "Transforme directement l'un de vos familiers en monture.",
-    "foodNotes": "Nourrissez votre familier avec ceci et il pourrait bien devenir un robuste destrier."
+    "foodNotes": "Nourrissez votre familier avec ceci et il pourrait bien devenir un robuste destrier. "
 }

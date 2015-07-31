@@ -19,7 +19,7 @@
     "rebirthBegan": "Is een nieuw avontuur begonnen",
     "rebirthText": "Is <%= rebirths %> nieuwe avonturen begonnen",
     "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau",
-    "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt.",
+    "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt. ",
     "rebirthName": "Bol der Hergeboorte",
     "reborn": "Herboren, maximale niveau <%= reLevel %>"
 }

@@ -383,7 +383,7 @@
     "headSpecialWinter2015HealerText": "Snuggly Earmuffs",
     "headSpecialWinter2015HealerNotes": "These warm earmuffs keep out chills and distracting noises. Increases Intelligence by <%= int %>. Limited Edition 2014-2015 Winter Gear.",
     "headSpecialSpring2015RogueText": "Fireproof Helmet",
-    "headSpecialSpring2015RogueNotes": "Fire? HA! You squeak fiercely in the face of fire! Increases Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
+    "headSpecialSpring2015RogueNotes": "Fire? HA! You squeak fiercely in the face of fire! Increases Perception by <%= per %>. Limited Edition 2015 Spring Gear. ",
     "headSpecialSpring2015WarriorText": "Beware Helmet",
     "headSpecialSpring2015WarriorNotes": "Beware the Helmet! Only a fierce doggy can wear it. Stop laughing. Increases Strength by <%= str %>. Limited Edition 2015 Spring Gear.",
     "headSpecialSpring2015MageText": "Stage Mage Hat",

@@ -23,7 +23,7 @@
     "contribName": "Contribuitor",
     "contribText": "A contribuit la Habitica (programare, design, pixel art, sfaturi legalizare, documente, etc.). Vrei această insignă?",
     "readMore": "Citește mai mult",
-    "kickstartName": "Susținător Kickstarter - Nivel $<%= tier %>",
+    "kickstartName": "Susținător Kickstarter - Nivel $<%= tier %> ",
     "kickstartText": "A susținut proiectul Kickstarter",
     "helped": "A ajutat Habit să crească",
     "helpedText1": "A ajutat Habitica prin completarea",

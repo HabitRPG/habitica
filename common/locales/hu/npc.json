@@ -35,7 +35,7 @@
     "autoAllocate": "Automatikus kiosztás",
     "autoAllocateText": "Ha az automatikus kiosztás ki van választva, akkor az avatarod automatikusan kap jellemzőket, a feladatok tulajdonságai alapján, amiket a <strong>FELADAT > Szerkeszt > Haladó > Tulajdonságok</strong> menüpont alatt találsz. Tehát, ha gyakran jársz az edzőterembe és az \"Edzés\" napi feladatod \"Fizikai\"-ra van állatva, akkor az erőd fog automatikusan növekedni.",
     "spells": "Varázslatok",
-    "spellsText": "Mostantól feloldhatod a kaszt specifikus varázslatokat. Az első ilyen varázslatot a 11. szinten láthatod. A varázserőd 10 pontot töltődik újra naponta, plusz 1 pontot teljesített",
+    "spellsText": "Mostantól feloldhatod a kaszt specifikus varázslatokat. Az első ilyen varázslatot a 11. szinten láthatod. A varázserőd 10 pontot töltődik újra naponta, plusz 1 pontot teljesített ",
     "toDo": "tennivalónként",
     "moreClass": "Több információért a kaszt-rendszerről, nézd meg a",
     "tourWelcome": "Welcome to Habitica! This is your To-Do list. Check off a task to proceed!",

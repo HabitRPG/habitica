@@ -12,7 +12,7 @@
     "messageDontEnjoyFood": "<%= foodText %> zdá se není pro zvířátko, jakým je <%= egg %>, žádnou pochoutkou.",
     "messageBought": "<%= itemText %>, koupeno",
     "messageEquipped": "<%= itemText %> - nasazeno.",
-    "messageUnEquipped": "<%= itemText %> byl odebrán.",
+    "messageUnEquipped": " <%= itemText %> byl odebrán.",
     "messageMissingEggPotion": "Chybí ti buď to vejce nebo ten lektvar",
     "messageAlreadyPet": "Tohoto mazlíčka už máš. Zkus vylíhnout jinou kombinaci.",
     "messageHatched": "Tvé vejce se vylíhlo! Navštiv svou stáj, abys svého mazlíčka mohl vybavit.",

@@ -74,7 +74,7 @@
     "streakSingular": "Serija",
     "streakSingularText": "Redovno završavani Svakodnevni zadaci tokom 21. dana.",
     "perfectName": "Savršeni dani",
-    "perfectText": "<%= perfects %> puta urađeni svi aktivni Svakodnevni zadaci. Ovo odlikovanje donosi Vam +nivo/2 bonus na sve osobine tokom narednog dana.",
+    "perfectText": " <%= perfects %> puta urađeni svi aktivni Svakodnevni zadaci. Ovo odlikovanje donosi Vam +nivo/2 bonus na sve osobine tokom narednog dana.",
     "perfectSingular": "Savršen dan",
     "perfectSingularText": "Urađeni svi aktivni Svakodnevni zadaci u jednom danu. Ovo odlikovanje donosi Vam +nivo/2 bonus na sve osobine tokom narednog dana.",
     "streakerAchievement": "Stekli ste titulu „Serija“! Prvi 21 dan je najbitniji period u sticanju navike. Za svaki 21 dan ispunjavanja ovog ili drugog zadatka ponovo ćete dobiti ovo odlikovanje.",

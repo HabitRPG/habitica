@@ -1,6 +1,6 @@
 {
     "potionText": "Livseliksir",
-    "potionNotes": "Genvind 15 liv (Øjeblikkelig Brug)",
+    "potionNotes": "Genvind 15 liv (Øjeblikkelig Brug) ",
     "armoireText": "Fortryllet Klædeskab",
     "armoireNotesFull": "Åbn Klædeskabet for tilfældigt at modtage særligt Udstyr, Erfaring eller mad! Udstyrsdele tilbage:",
     "armoireLastItem": "Du har fundet det sidste stykke sjældent Udstyr i det Fortryllede Klædeskab",
@@ -110,5 +110,5 @@
     "foodCandyRed": "Kanelslik",
     "foodSaddleText": "Sadel",
     "foodSaddleNotes": "Gør øjeblikkeligt et af dine kæledyr til et ridedyr.",
-    "foodNotes": "Giv dette til et kæledyr, så kan det vokse sig til en stolt ganger."
+    "foodNotes": "Giv dette til et kæledyr, så kan det vokse sig til en stolt ganger. "
 }

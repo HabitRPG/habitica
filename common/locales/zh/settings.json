@@ -108,7 +108,7 @@
     "unsubscribeAllEmails": "确认从电子邮件退订",
     "unsubscribeAllEmailsText": "以此确认，我明白在我取消邮箱订阅后，Habitica不会再通过邮件通知我关于我的账号或关于网站的重要更改。",
     "correctlyUnsubscribedEmailType": "正确的退订了 \"<%= emailType %>\"的邮件",
-    "subscriptionRateText": "每 <%= months %> 个月重复$<%= price %>",
+    "subscriptionRateText": "每 <%= months %> 个月重复$<%= price %> ",
     "benefits": "好处",
     "coupon": "优惠券",
     "couponPlaceholder": "输入优惠券代码",

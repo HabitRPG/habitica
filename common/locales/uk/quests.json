@@ -33,7 +33,7 @@
     "bossDmg2": "Тільки учасники битимуться з босом та розділять квестові трофеї.",
     "tavernBossInfo": "To hurt a world boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). For each Daily you've missed (multiplied by the boss's Strength), the boss's Rage will increase. Once his Rage reaches max, something bad will happen - so complete your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossColl1": "Аби зібрати всі предмети, виконуйте позитивні завдання. Квестові предмети випадають так само часто, як і звичайні, але Ви не побачите, що випало, до початку наступного дня, лише після цього все, що було знайдено, буде підраховано та складено до загальної купи.",
-    "bossColl2": "Лише учасники можуть збирати предмети та розподіляти квестові трофеї.",
+    "bossColl2": "Лише учасники можуть збирати предмети та розподіляти квестові трофеї. ",
     "abort": "Перервати",
     "questOwner": "Власник квесту",
     "questOwnerNotInPendingQuest": "Власник квесту покинув його і більше не може почати його. Рекомендується скасувати його зараз. Власник квесту зберігає собі квестовий сувій.",

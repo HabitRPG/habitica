@@ -9,13 +9,11 @@
     "rareMounts": "レアマウントペット",
     "etherealLion": "エーテルライオン",
     "veteranWolf": "ベテラン狼",
-    "veteranTiger": "Veteran Tiger",
     "cerberusPup": "ケルベロスの幼体",
     "hydra": "ヒドラ",
     "mantisShrimp": "シャコ",
     "mammoth": "長毛マンモス",
     "orca": "シャチ",
-    "royalPurpleGryphon": "Royal Purple Gryphon",
     "rarePetPop1": "Habiticaに貢献することを通してどのようにこの珍しいペットを得ることができるかについて、より多くを学ぶために、金の足をクリックしてください！",
     "rarePetPop2": "このペットを得る方法！",
     "potion": "<%= potionType %> ポーション",
@@ -66,5 +64,5 @@
     "petKeyMounts": "マウントペットを逃がす",
     "petKeyBoth": "両方逃がす",
     "petKeyNeverMind": "まだだ！",
-    "gemsEach": "各ジェム"
+    "gemsEach": " 各ジェム"
 }
