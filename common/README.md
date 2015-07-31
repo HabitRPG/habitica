@@ -1,6 +1,6 @@
 # Common
 
-Shared resources useful for the multiple HabitRPG repositories, that way all the repositories remain in-sync with common characteristics. Includes things like:
+Shared resources useful for the multiple Habitica repositories, that way all the repositories remain in-sync with common characteristics. Includes things like:
 
  * Assets - sprites, images, etc
  * CSS - especially, esp. sprite-sheet mapping
