@@ -31,7 +31,7 @@ _.each(pages, function(name){
 // --------- Redirects --------
 
 router.get('/static/extensions', function(req, res) {
-  res.redirect('http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations');
+  res.redirect('http://habitica.wikia.com/wiki/App_and_Extension_Integrations');
 });
 
 module.exports = router;
