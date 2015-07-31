@@ -21,12 +21,12 @@
     "contribModal": "<%= name %>, ty úžasná osobo! Nyní jsi za pomoc Habit RPG na úrovni přispěvatele <%= name %> . Podívej se",
     "contribLink": "jaké ceny jsi za svou pomoc získal!",
     "contribName": "Přispěvatel",
-    "contribText": "Pomohl si Habitica (programování, design, pixel art, právní pomoc, dokumentace, atd.). Chceš toto ocenění?",
+    "contribText": "Pomohl si Habitice (programování, design, pixel art, právní pomoc, dokumentace, atd.). Chceš toto ocenění?",
     "readMore": "Číst dál",
     "kickstartName": "Podporovatel z Kickstarteru ve výši - $<%= tier %>",
     "kickstartText": "Podpořil projekt na Kickstarteru",
     "helped": "Pomohl Habitu růst",
-    "helpedText1": "Pomohl Habitica růst vyplněním",
+    "helpedText1": "Pomohl Habitice růst vyplněním",
     "helpedText2": "tohoto dotazníku.",
     "hall": "Síň slávy",
     "contribTitle": "Přispěvatelský titul (např. \"Kovář\")",
@@ -66,5 +66,5 @@
     "blurbGuildsPage": "Cechy jsou chatovací skupiny s podobnými zájmy, které jsou tvořené hráči pro hráče. Můžeš si vyhledat témata, která tě zajímají!",
     "blurbChallenges": "Výzvy jsou tvořeny tvými spoluhráči. Když se účastníš Výzvy, přidají se ti úkoly na tvou stránku s úkoly, a když Výzvu vyhraješ, dostaneš ocenění a často i Drahokamy!",
     "blurbHallPatrons": "Toto je Síň Patronů, ve které oslavujeme vznešené dobrodruhy, kteří podpořili Habitiku na Kickstarteru. Jsme jim vděční za to, že pomohli Habitiku přivést k životu!",
-    "blurbHallHeroes": "Toto je Síň Hrdinů, kde oslavujeme open-source přispěvatele Habitiky. Ať už za kód, kresby, hudbu, psaní, nebo jen prostě za pomoc, vysloužili si <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> Drahokamy, exkluzivní vybavení</a> a <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižní tituly</a>. Také můžeš Habitica přispět! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Více informací najdeš zde.</a>"
+    "blurbHallHeroes": "Toto je Síň Hrdinů, kde oslavujeme open-source přispěvatele Habitiky. Ať už za kód, kresby, hudbu, psaní, nebo jen prostě za pomoc, vysloužili si <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> Drahokamy, exkluzivní vybavení</a> a <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestižní tituly</a>. Také můžeš Habitice přispět! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Více informací najdeš zde.</a>"
 }
