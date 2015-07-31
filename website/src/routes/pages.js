@@ -13,7 +13,7 @@ router.get('/', i18n.getUserLanguage, middleware.locals, function(req, res) {
     return res.redirect('/static/front')
 
   return res.render('index', {
-    title: 'HabitRPG | Your Life, The Role Playing Game',
+    title: 'Habitica | Your Life The Role Playing Game',
     env: res.locals.habitrpg
   });
 });
