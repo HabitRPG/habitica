@@ -102,7 +102,7 @@
     "toDoHelp3": "Hvis du laver din To-Do om til en tjekliste med mindre ting, vil det gøre den mere overskuelig, og det vil give mere erfaring!",
     "toDoHelp4": "For inspiration, se disse <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'> eksempler på To-Dos</a>!",
     "rewardHelp1": "Det Udstyr du køber til din avatar bliver opbevaret i <%= linkStart %>Inventar > Udstyr<%= linkEnd %>.",
-    "rewardHelp2": "Udstyr påvirker dine statistikker (<%= linkStart %>Bruger > Statistikker<%= linkEnd %>).",
+    "rewardHelp2": "Udstyr påvirker dine stats (<%= linkStart %>Bruger > Stats<%= linkEnd %>).",
     "rewardHelp3": "Specielt Udstyr vil dukke op her når der er Verdensevents.",
     "rewardHelp4": "Vær ikke bange for at oprette selvvalgte Belønninger! Se <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>nogle eksempler her</a>.",
     "clickForHelp": "Klik for hjælp"

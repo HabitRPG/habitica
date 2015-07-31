@@ -36,7 +36,7 @@
     "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Serve un minimo di 1 Gemma per le <strong> sfide pubbliche </strong> (aiuta a prevenire lo spam, lo fa davvero).",
-    "officialChallenge": "Sfida Ufficiale Habitica",
+    "officialChallenge": "Sfida ufficiale Habitica",
     "by": "di",
     "participants": "<%= membercount %> partecipanti",
     "join": "Partecipa",
@@ -56,5 +56,5 @@
     "backToChallenges": "Torna alla lista sfide",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Premio",
     "clone": "Clona",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "Non hai abbastanza gemme per creare questa sfida."
 }

@@ -33,7 +33,7 @@
     "adminSub": "Administratorabonnementer",
     "morePlans": "Flere Abonnementer<br/>Kommer Snart",
     "organizationSub": "Privat Organisation",
-    "organizationSubText": "Organisationens medlemmer deltager udenfor rsten af Habitica, hvilket gør det mere fokuseret for deltagerne.",
+    "organizationSubText": "Organisationens medlemmer deltager udenfor resten af Habitica, hvilket gør det mere fokuseret for deltagerne.",
     "hostingType": "Hostingtype",
     "hostingTypeText": "Delt hosting betyder at jeres organisation bruger samme database som resten af Habitica, selvom I ikke interagerer med Habitica. Dedikeret hosting betyder, at I får jeres egen database og server. Du kan vælge at lade HabitRPG hoste jeres server/db eller vi kan installere det på jeres egen server.",
     "dedicated": "Dedikeret",

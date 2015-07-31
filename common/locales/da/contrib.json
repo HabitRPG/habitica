@@ -18,7 +18,7 @@
     "heroicText": "Det Heltemodige trin indeholder Habitica-ansatte og bidragydere på ansatteniveau. Hvis du har denne titel, så blev du udnævnt til den (eller ansat)!",
     "npcText": "NPCs støttede Habitica-Kickstarteren på det højeste trin. Du kan se deres avatarer overvåge side-features!",
     "modalContribAchievement": "Bidragsyderspræstation!",
-    "contribModal": "<%= name %>, du fantastisk person! Du er nu trin <%= level %> bidragyder for at hjælpe Habitica. Se",
+    "contribModal": "<%= name %>, du fantastiske person! Du er nu trin <%= level %> bidragyder fordi du hjalp Habitica. Se",
     "contribLink": "hvilke præmier du har fået for dit bidrag!",
     "contribName": "Bidragsyder",
     "contribText": "Har bidraget til Habitica (kode, design, pixel art, juridisk rådgivning, dokumenter, m.m). Vil du have dette emblem?",
@@ -65,6 +65,6 @@
     "blurbInbox": "Her bliver dine private beskeder gemt! Du kan sende en besked til nogen ved at klikke på det lille brev-ikon ved siden af deres navn i Værtshuset, gruppe-, eller klanchat.",
     "blurbGuildsPage": "Klaner er chat-grupper der deler en fælles interesse. Se listen igennem og slut dig til de klaner, der interesserer dig.",
     "blurbChallenges": "Udfordringer bliver oprettet af dine medspillere. Når du tilmelder dig en udfordring vil dens opgaver blive føjet til dine nuværende opgaver, og når du vinder en udfordring modtager du en præstation og ofte også en ædelstensbelønning.",
-    "blurbHallPatrons": "Dette er Protektorernes Sal, hvor vi ærer de ædle eventyrere, der støttede Habiticas originale Kickstarter. Vi takker dem for at hjælpe os med at vække HabitRPG til live!",
-    "blurbHallHeroes": "Dette er Heltenes Sal, hvor dem, der har bidraget med open-source materiale til Habitica, bliver æret. Om det er gennem kode, grafik, musik, tekst eller bare generel hjælpsomhed, har de modtaget <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> ædelsten, eksklusivt udstyr</a>, og <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigefyldte titler</a>. Du kan også bidrage til HabitRPG! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'> Find ud af mere her. </a>"
+    "blurbHallPatrons": "Dette er Protektorernes Sal, hvor vi ærer de ædle eventyrere, der støttede Habiticas originale Kickstarter. Vi takker dem for at hjælpe os med at vække Habitica til live!",
+    "blurbHallHeroes": "Dette er Heltenes Sal, hvor dem, der har bidraget med open-source materiale til Habitica, bliver æret. Om det er gennem kode, grafik, musik, tekst eller bare generel hjælpsomhed, har de modtaget <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> ædelsten, eksklusivt udstyr</a>, og <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigefyldte titler</a>. Du kan også bidrage til Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Find ud af mere her. </a>"
 }

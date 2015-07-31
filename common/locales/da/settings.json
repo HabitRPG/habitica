@@ -27,7 +27,7 @@
     "resetAccount": "Nulstil Konto",
     "resetAccPop": "Fjern alle niveauer og opgaver og alt guld, udstyr og historik og start helt forfra.",
     "deleteAccount": "Slet Konto",
-    "deleteAccPop": "Opsig og slet din Habitica konto.",
+    "deleteAccPop": "Luk og slet din Habitica konto.",
     "qrCode": "QR Kode",
     "dataExport": "Dataeksport",
     "saveData": "Her er et par muligheder for at gemme dine Vanedata.",
@@ -42,7 +42,7 @@
     "customDayStart": "Brugerdefineret Dagstart",
     "24HrClock": "24-timers tid",
     "customDayStartInfo1": "Som udgangspunkt vil Habitica tjekke og nulstille dine Daglige ved midnat hver dag. Vi anbefaler, at du læser følgende information inden du ændrer det:",
-    "customDayStartInfo4": "<strong>Gennemfør alle dine Daglige inden du ændrer Brugerdefineret Dagstart</strong> eller <a href='http://habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Slap af på Kroen</a> den dag. Når du ændrer Brugerdefineret Dagstart kan det ske, at <a href='http://habitrpg.wikia.com/wiki/Cron' target='_blank'>Cron</a> udføres med det samme, men efter den første dag virker det som forventet.<br><br><strong>Det tager cirka to timer før ændringen træder i kraft.</strong> Eksempel: Hvis den er sat til 0 (midnat), så skal du ændre det inden klokken 22; hvis du vil ændre det til klokken 21, skal du gøre det inden klokken 19.<br><br>Indtast et timetal mellem 0 og 23 (det er et 24-timers ur). Det er mere effektivt at skrive tallet end at bruge pilene. Når du har ændret tidspunktet, kan du genindlæse siden for at se om din ændring er blevet gemt.",
+    "customDayStartInfo4": "<strong>Gennemfør alle dine Daglige inden du ændrer Brugerdefineret Dagstart</strong> eller <a href='http://habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Slap af på Kroen</a> den dag. Når du ændrer Brugerdefineret Dagstart kan det ske, at <a href='http://habitica.wikia.com/wiki/Cron' target='_blank'>Cron</a> udføres med det samme, men efter den første dag virker det som forventet.<br><br><strong>Det tager cirka to timer før ændringen træder i kraft.</strong> Eksempel: Hvis den er sat til 0 (midnat), så skal du ændre det inden klokken 22; hvis du vil ændre det til klokken 21, skal du gøre det inden klokken 19.<br><br>Indtast et timetal mellem 0 og 23 (det er et 24-timers ur). Det er mere effektivt at skrive tallet end at bruge pilene. Når du har ændret tidspunktet, kan du genindlæse siden for at se om din ændring er blevet gemt.",
     "misc": "Diverse",
     "showHeader": "Vis Sidehoved",
     "changePass": "Skift Kodeord",
@@ -101,7 +101,7 @@
     "questStarted": "Jeres Quest er Begyndt",
     "invitedQuest": "Inviteret til Quest",
     "kickedGroup": "Fjernet fra gruppe",
-    "remindersToLogin": "Påmindelser om at tjekek ind på Habitica",
+    "remindersToLogin": "Påmindelser om at tjekke ind på Habitica",
     "unsubscribedSuccessfully": "Du er nu afmeldt!",
     "unsubscribedTextUsers": "Du er nu afmeldt alle emails fra Habitica. Du kan tilmelde dig de enkelte typer emails, du ønsker at modtage under <a href=\"/#/options/settings/notifications\">indstillinger</a> (kræver login).",
     "unsubscribedTextOthers": "Du vil ikke modtage flere emails fra Habitica.",
@@ -118,5 +118,5 @@
     "promoCode": "Promo-kode",
     "promoCodeApplied": "Promo-kode anvendt. Tjek dit inventar",
     "promoPlaceholder": "Indtast Promo-kode",
-    "displayInviteToPartyWhenPartyIs1": "Display Invite To Party button when party has 1 member."
+    "displayInviteToPartyWhenPartyIs1": "Vis Invitér til Gruppe-knap når gruppen har 1 medlem."
 }
