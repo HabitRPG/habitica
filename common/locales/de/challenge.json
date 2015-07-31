@@ -33,10 +33,10 @@
     "challengeTagPop": "Wettbewerbe erscheinen als Tag-Liste und Aufgabenbeschreibungen. Also ist es einerseits sinnvoll, oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine \"Kurzfassung\". Dazu kannst Du zum Beispiel \"Verliere 5 Kilo in 3 Monaten\" mit \"-5kg\" abkürzen. (Klicke auf das '?' für mehr Informationen).",
     "challengeDescr": "Beschreibung",
     "prize": "Preis",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben (+Gilden Edelsteine, wenn Du die dazugehörige Gilde gegründet hast). Achtung: Diese Preise können später nicht mehr geändert werden.",
+    "prizePopTavern": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben. Achtung: Diese Preise können später nicht mehr geändert werden und bei Gasthaus-Wettbewerben werden sie nicht ersetzt, wenn der Wettbewerb abgebrochen wird.",
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
-    "officialChallenge": "Offizieller HabitRPG Wettbewerb",
+    "officialChallenge": "Official Habitica Challenge",
     "by": "von",
     "participants": "<%= membercount %> Teilnehmer",
     "join": "Teilnehmen",
@@ -56,5 +56,5 @@
     "backToChallenges": "Zurück zu allen Wettbewerben",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Preis",
     "clone": "Klonen",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "Du besitzt nicht genügend Edelsteine um diesen Wettbewerb zu erstellen."
 }

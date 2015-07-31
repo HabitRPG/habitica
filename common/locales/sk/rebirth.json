@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Znovuzrodenie: Čas na nové dobrodružstvo!",
-    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do HabitRPG vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika.",
+    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do Habitica vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika.",
     "rebirthBegin": "Znovuzrodenie: Začni nové dobrodružstvo",
     "rebirthStartOver": "Znovuzrodenie začne tvoju postavu od 1. levelu, akoby si si vytvoril nový účet.",
     "rebirthAdvList1": "Vráti sa ti plné zdravie.",
@@ -17,7 +17,7 @@
     "beReborn": "Znovu sa zrodiť",
     "rebirthAchievement": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie čislo <%= number %> a najvušší level, ktorý si dosiahol je <%= level %>. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí ešte vyššieho levelu!",
     "rebirthBegan": "Začal nové dobrodružstvo",
-    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %> ",
+    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %>",
     "rebirthOrb": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu",
     "rebirthPop": "Začni s novou postavou na leveli 1, pričom ti ostanú odznaky, zberateľské predmety, a úlohy.",
     "rebirthName": "Orb znovuzrodenia",

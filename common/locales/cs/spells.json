@@ -25,7 +25,7 @@
     "spellRogueStealthNotes": "Jsi velice hbitý a nikdo se tě nevšimne. Některé z tvých nesplněných denních úkolů ti dnes v noci neublíží a jejich šňůry/barva se nezmění. (Sešli vícekrát, abys ovlivnil více denních úkolů)",
     "spellHealerHealText": "Léčivé světlo",
     "spellHealerHealNotes": "Světlo obklopuje tvé tělo a léčí tvá zranění. Získáváš zpět své zdraví! (vypočteno na základě: OBR a INT)",
-    "spellHealerBrightnessText": " Spalující záře",
+    "spellHealerBrightnessText": "Spalující záře",
     "spellHealerBrightnessNotes": "Záblesk světla oslepí tvé úkoly. Jsou více modré a méně červené! (vypočteno na základě: INT)",
     "spellHealerProtectAuraText": "Ochranná aura",
     "spellHealerProtectAuraNotes": "Chráníš svou družinu před újmou. Celá tvá družina získá bonus k Obraně! (vypočteno na základě: OBR před bonusem)",

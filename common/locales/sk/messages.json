@@ -12,7 +12,7 @@
     "messageDontEnjoyFood": "<%= egg %> zjedlo <%= foodText %>, ale veľmi mu to nechutí.",
     "messageBought": "Kúpené: <%= itemText %>",
     "messageEquipped": "<%= itemText %> - vo výbave.",
-    "messageUnEquipped": "Zložené - <%= itemText %> . ",
+    "messageUnEquipped": "Zložené - <%= itemText %> .",
     "messageMissingEggPotion": "Na túto kombináciu ti chýba buď vajíčko alebo liahoxír",
     "messageAlreadyPet": "Toto zvieratko už máš. Skús vyliahnuť inú kombináciu!",
     "messageHatched": "Z vajíčka sa ti vyliahlo zvieratko! Zájdi do stajne a zober si ho k sebe.",

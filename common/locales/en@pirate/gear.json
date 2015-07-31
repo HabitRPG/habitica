@@ -1,5 +1,5 @@
 {
-    "weapon": "weapon",
+    "weapon": "Sword",
     "weaponBase0Text": "No Weapon",
     "weaponBase0Notes": "No Weapon.",
     "weaponWarrior0Text": "Cutlass o' Trainin'",
@@ -200,9 +200,9 @@
     "armorSpecialSnowflakeText": "Snowflake Robe",
     "armorSpecialSnowflakeNotes": "A robe to keep you warm, even in a blizzard. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
     "armorSpecialBirthdayText": "Absurd Parrrty Robes",
-    "armorSpecialBirthdayNotes": "Happy Birthday, HabitRPG! Wear these Absurd Party Robes to celebrate this wonderful day. Confers no benefit.",
+    "armorSpecialBirthdayNotes": "Happy Birthday, Habitica! Wear these Absurd Party Robes to celebrate this wonderful day. Confers no benefit.",
     "armorSpecialBirthday2015Text": "Silly Party Robes",
-    "armorSpecialBirthday2015Notes": "Happy Birthday, HabitRPG! Wear these Silly Party Robes to celebrate this wonderful day. Confers no benefit.",
+    "armorSpecialBirthday2015Notes": "Happy Birthday, Habitica! Wear these Silly Party Robes to celebrate this wonderful day. Confers no benefit.",
     "armorSpecialGaymerxText": "Rainbow Warrior Armor",
     "armorSpecialGaymerxNotes": "In celebration of pride season and GaymerX, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGBTQ and gaming and is open to everyone. It takes place at the InterContinental in downtown San Francisco on July 11-13! Confers no benefit.",
     "armorSpecialSpringRogueText": "Sleek Cat Suit",

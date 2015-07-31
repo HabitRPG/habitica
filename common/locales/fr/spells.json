@@ -28,7 +28,7 @@
     "spellHealerBrightnessText": "Éclat Brûlant",
     "spellHealerBrightnessNotes": "Une explosion de lumière éblouit vos tâches. Elles deviennent plus bleues et moins rouges ! (Basé sur : INT)",
     "spellHealerProtectAuraText": "Aura Protectrice",
-    "spellHealerProtectAuraNotes": "Vous protégez votre équipe contre les dommages. Toute votre équipe gagne un bonus de Constitution (Basé sur : CON sans bonus). ",
+    "spellHealerProtectAuraNotes": "Vous protégez votre équipe contre les dommages. Toute votre équipe gagne un bonus de Constitution (Basé sur : CON sans bonus).",
     "spellHealerHealAllText": "Bénédiction",
     "spellHealerHealAllNotes": "Une aura apaisante enveloppe votre équipe. Tous les membres récupèrent de la santé ! (Basé sur : CON et INT).",
     "spellSpecialSnowballAuraText": "Boule de neige",
@@ -43,8 +43,8 @@
     "spellSpecialShinySeedNotes": "Change un ami en une fleur joyeuse !",
     "spellSpecialPetalFreePotionText": "Potion d'effeuillage",
     "spellSpecialPetalFreePotionNotes": "Annule les effet de la Graine Brillante",
-    "spellSpecialSeafoamText": "Écume ",
+    "spellSpecialSeafoamText": "Écume",
     "spellSpecialSeafoamNotes": "Transformez un ami en une créature marine!",
-    "spellSpecialSandText": "Sable ",
+    "spellSpecialSandText": "Sable",
     "spellSpecialSandNotes": "Annule les effets de l'Écume."
 }

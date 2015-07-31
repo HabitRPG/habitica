@@ -1,7 +1,7 @@
 {
     "defaultHabit1Text": "Trabalho Produtivo (Clique no lápis para editar)",
     "defaultHabit1Notes": "Exemplo de Bons Hábitos: + Comer um vegetal + 15 minutos de trabalho produtivo",
-    "defaultHabit2Text": "Comer Porcarias (Clique no lápis para editar) ",
+    "defaultHabit2Text": "Comer Porcarias (Clique no lápis para editar)",
     "defaultHabit2Notes": "Exemplos de Maus Hábitos: - Fumar - Procrastinar",
     "defaultHabit3Text": "Usar as Escadas/Elevador (Clique no lápis para editar)",
     "defaultHabit3Notes": "Exemplos de Hábitos Bons ou Maus: +/- Usar Escadas/Elevator ; +/- Beber Água/Refrigerante",
@@ -17,7 +17,7 @@
     "defaultDaily4Checklist2": "Abdominais",
     "defaultDaily4Checklist3": "Flexões",
     "defaultTodoNotes": "Você pode tanto como completar esse afazer, como editá-lo ou removê-lo.",
-    "defaultTodo1Text": "Juntar-se ao HabitRPG (me complete!)",
+    "defaultTodo1Text": "Juntar-se ao Habitica (me complete!)",
     "defaultTodo2Text": "Estabelecer um hábito",
     "defaultTodo2Checklist1": "criar um hábito",
     "defaultTodo2Checklist2": "faça-o somente \"+\", \"-\" ou \"+/-\" no Editar.",

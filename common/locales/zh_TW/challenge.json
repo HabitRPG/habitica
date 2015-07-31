@@ -36,7 +36,7 @@
     "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "<strong>公開挑戰</strong> 最少需要 1 個寶石作為獎勵 (為了防止有人拿來打廣告。)",
-    "officialChallenge": "HabitRPG 官方挑戰",
+    "officialChallenge": "Official Habitica Challenge",
     "by": "發起人",
     "participants": "<%= membercount %>個參與者",
     "join": "加入",

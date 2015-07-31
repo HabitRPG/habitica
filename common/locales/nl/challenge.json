@@ -33,10 +33,10 @@
     "challengeTagPop": "Uitdagingen zijn te zien op labellijsten en op taakomschrijvingen. Dus hoewel je een omschrijvende titel wil voor hierboven, heb je ook een 'korte naam' nodig. '5 kilo afvallen in drie maanden' kan bijvoorbeeld worden afgekort to '-5kg' (Klik voor meer informatie).",
     "challengeDescr": "Beschrijving",
     "prize": "Prijs",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "Als iemand jouw uitdaging 'wint', kun je de winnaar mogelijk edelstenen als prijs uitreiken. Max = het aantal edelstenen dat jij hebt (+ gilde-edelstenen, als jij het gilde van deze uitdaging hebt aangemaakt). Let op: de prijs kan later niet veranderd worden.",
+    "prizePopTavern": "Als iemand jouw uitdaging 'wint', kun je de winnaar edelstenen als prijs uitreiken. Max = het aantal edelstenen dat jij in je bezit hebt. Let op: de prijs kan later niet veranderd worden en Herberguitdagingen worden niet terugbetaald als de uitdaging wordt geannuleerd.",
     "publicChallenges": "Minimaal 1 edelsteen voor <strong>openbare uitdagingen</strong> (helpt spam voorkomen, echt).",
-    "officialChallenge": "Officiële HabitRPG-Uitdaging",
+    "officialChallenge": "Official Habitica Challenge",
     "by": "door",
     "participants": "<%= membercount %> deelnemers",
     "join": "Meedoen",
@@ -56,5 +56,5 @@
     "backToChallenges": "Terug naar alle uitdagingen",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> prijs",
     "clone": "Kopiëren",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "Je hebt niet genoeg edelstenen om deze uitdaging te plaatsen."
 }
