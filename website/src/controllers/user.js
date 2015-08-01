@@ -23,14 +23,14 @@ var webhook = require('../webhook');
 api.getContent = function(req, res, next) {
   var language = 'en';
 
-  if(typeof req.query.language != 'undefined')
+  if (typeof req.query.language != 'undefined')
     language = req.query.language.toString(); //|| 'en' in i18n
 
   var content = _.cloneDeep(shared.content);
   var walk = function(obj, lang){
     _.each(obj, function(item, key, source){
-      if(_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
-      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
+      if (_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
+      if (_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
     });
   }
   walk(content, language);
@@ -123,7 +123,7 @@ api.score = function(req, res, next) {
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
       || (task.type == 'reward') // we don't want to update the reward GP cost
     ) return clearMemory();
-    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal){
+    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
@@ -136,6 +136,7 @@ api.score = function(req, res, next) {
         chal.syncToUser(user);
         return clearMemory();
       }
+
       t.value += delta;
       if (t.type == 'habit' || t.type == 'daily')
         t.history.push({value: t.value, date: +new Date});
@@ -493,9 +494,9 @@ api.sessionPartyInvite = function(req,res,next){
         return cb();
       }
 
-      if(group.type == 'guild'){
+      if (group.type == 'guild'){
         inv.guilds.push(req.session.partyInvite);
-      }else{
+      } else{
         //req.body.type in 'guild', 'party'
         inv.party = req.session.partyInvite;
       }
@@ -592,7 +593,7 @@ api.batchUpdate = function(req, res, next) {
       res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
-    }else if(response.wasModified){
+    } else if (response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
       response.todos = _.where(response.todos, function(t) {
         return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
@@ -600,7 +601,7 @@ api.batchUpdate = function(req, res, next) {
       res.json(200, response);
 
     // return only the version number
-    }else{
+    } else{
       res.json(200, {_v: response._v});
     }
   });
