@@ -16,8 +16,7 @@ var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
-var request = require('request');
-var validator = require('validator');
+var webhook = require('../webhook');
 
 // api.purchase // Shared.ops
 
@@ -110,43 +109,15 @@ api.score = function(req, res, next) {
   user.save(function(err,saved){
     if (err) return next(err);
 
-    var userStats = saved.stats.toJSON();
+    var userStats = _.cloneDeep(saved.stats);
 
     var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
     res.json(200, resJsonData);
 
-    // ====================================================
-    // Webhooks - @TODO: Webhooks should be their own module
-    // ====================================================
-    var extendedStats = _.extend(userStats, {
-      toNextLevel: shared.tnl(user.stats.lvl),
-      maxHealth: shared.maxHealth,
-      maxMP: user._statsComputed.maxMP
-    });
-
-    var userData = {
-      _id: user._id,
-      _tmp: user._tmp,
-      stats: extendedStats
-    };
-
-    _.each(user.preferences.webhooks, function(h){
-      if (!h.enabled || !validator.isURL(h.url)) return;
-
-      request.post({
-        url: h.url,
-        body: {
-          direction: direction,
-          task: task,
-          delta: delta,
-          user: userData
-        },
-        json:true
-      });
-    });
-    // ====================================================
-    // End Webhooks section
-    // ====================================================
+    var webhookData = _generateWebhookTaskData(
+      task, direction, delta, userStats, user
+    );
+    webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
     if (
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
@@ -634,3 +605,28 @@ api.batchUpdate = function(req, res, next) {
     }
   });
 };
+
+function _generateWebhookTaskData(task, direction, delta, stats, user) {
+  var extendedStats = _.extend(stats, {
+    toNextLevel: shared.tnl(user.stats.lvl),
+    maxHealth: shared.maxHealth,
+    maxMP: user._statsComputed.maxMP
+  });
+
+  var userData = {
+    _id: user._id,
+    _tmp: user._tmp,
+    stats: extendedStats
+  };
+
+  var taskData = {
+    details: task,
+    direction: direction,
+    delta: delta
+  }
+
+  return {
+    task: taskData,
+    user: userData
+  }
+}
