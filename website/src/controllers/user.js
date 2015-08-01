@@ -106,11 +106,10 @@ api.score = function(req, res, next) {
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 
-  user.save(function(err,saved){
+  user.save(function(err, saved){
     if (err) return next(err);
 
-    var userStats = _.cloneDeep(saved.stats);
-
+    var userStats = saved.toJSON().stats;
     var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
     res.json(200, resJsonData);
 
@@ -123,6 +122,7 @@ api.score = function(req, res, next) {
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
       || (task.type == 'reward') // we don't want to update the reward GP cost
     ) return clearMemory();
+
     Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
       if (err) return next(err);
       if (!chal) {
