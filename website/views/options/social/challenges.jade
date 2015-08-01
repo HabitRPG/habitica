@@ -14,7 +14,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
       .modal-content
         .modal-header
           button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
-          h3 {{obj.profile.name}}
+          a(ng-click='clickMember(obj._id, true)')
+            h3 {{obj.profile.name}}
         .modal-body
           habitrpg-tasks(main=false, modal='true')
         .modal-footer
