@@ -1,0 +1,9 @@
+languages:
+  Ruby: false
+  JavaScript: true
+  Python: false
+  PHP: false
+
+exclude_paths:
+- "database_reports/*"
+- "migrations/*"
