@@ -151,8 +151,8 @@
     "rogueWiki": "<a href='http://habitica.wikia.com/wiki/Rogue' target='_blank'>盗賊</a>",
     "healerWiki": "<a href='http://habitica.wikia.com/wiki/Healer' target='_blank'>神官</a>",
     "chooseClassLearn": "<a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>クラスについて</a>",
-    "str": "力（短縮形）",
-    "con": "体質　（短縮形）",
-    "per": "知覚　（短縮形）",
-    "int": "知能　（短縮形）"
+    "str": "力",
+    "con": "体質",
+    "per": "知覚",
+    "int": "知能"
 }

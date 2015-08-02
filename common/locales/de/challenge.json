@@ -36,7 +36,7 @@
     "prizePop": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben (+Gilden Edelsteine, wenn Du die dazugehörige Gilde gegründet hast). Achtung: Diese Preise können später nicht mehr geändert werden.",
     "prizePopTavern": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben. Achtung: Diese Preise können später nicht mehr geändert werden und bei Gasthaus-Wettbewerben werden sie nicht ersetzt, wenn der Wettbewerb abgebrochen wird.",
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
-    "officialChallenge": "Offizieller Habitica Wettbewerb",
+    "officialChallenge": "Offizieller Habitica-Wettbewerb",
     "by": "von",
     "participants": "<%= membercount %> Teilnehmer",
     "join": "Teilnehmen",
