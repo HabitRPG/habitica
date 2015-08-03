@@ -1,5 +1,5 @@
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Tasks',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Tasks) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -312,6 +312,18 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         return false;
       }
     }
+
+    $scope.sendMessageToChallengeParticipant = function(uid) {
+      Members.selectMember(uid, function(){
+        $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
+      });
+    };
+
+    $scope.sendGiftToChallengeParticipant = function(uid) {
+      Members.selectMember(uid, function(){
+        $rootScope.openModal('send-gift',{controller:'MemberModalCtrl'})
+      });
+    };
 
     function _calculateMaxPrize(gid) {
 
