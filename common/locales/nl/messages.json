@@ -22,7 +22,7 @@
     "messageDropEgg": "Je hebt het ei van een <%= dropText %> gevonden! <%= dropNotes %>",
     "messageDropPotion": "Je hebt een <%= dropText %> uitbroedtoverdrank gevonden! <%= dropNotes %>",
     "messageDropQuest": "Je hebt een queeste gevonden!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Je opent de kist en vindt <%= dropText %>!",
     "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!",
     "messageAlreadyPurchasedGear": "Je hebt dit stuk uitrusting in het verleden al eens gekocht, maar hebt het nu niet in je bezit. Je kunt het opnieuw aanschaffen in de beloningenkolom op de Takenpagina.",
     "messageAlreadyOwnGear": "Je hebt dit uitrustingsstuk al. Je kunt het aantrekken op de uitrustingspagina.",

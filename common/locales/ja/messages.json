@@ -21,12 +21,12 @@
     "messageDropFood": "<%= dropArticle %><%= dropText %> を見つけました! <%= dropNotes %>",
     "messageDropEgg": "<%= dropText %>のたまごを見つけました! <%= dropNotes %>",
     "messageDropPotion": "<%= dropText %>孵化ポーションを見つけました! <%= dropNotes %>",
-    "messageDropQuest": "You've found a quest!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropQuest": "クエストを見つかりました！",
+    "messageDropMysteryItem": "箱を開けて <%= dropText %>!を見つけます！",
     "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
-    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
-    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
-    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
-    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
-    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
+    "messageAlreadyPurchasedGear": "前にこのギアを買えましたが、今は有しません。再びタスクページの報酬列で買えられます。",
+    "messageAlreadyOwnGear": "このアイテムはもう有します。装備ページに行って装備して下さい。",
+    "armoireEquipment": "<%= image %>戸棚で珍しい装備を見つけました：<%= dropText %>! 素晴らしい！",
+    "armoireFood": "<%= image %>戸棚で漁って <%= dropArticle %><%= dropText %>. を見つけます。何でこの所に？",
+    "armoireExp": "戸棚と組み付いてエクスペリエンスを得ます。持ってけ！"
 }

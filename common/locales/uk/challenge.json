@@ -36,7 +36,7 @@
     "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Щонайменше 1 самоцвіт для <strong> громадських випробувань </strong> (допомагає запобігти спаму, справді).",
-    "officialChallenge": "Офіційне випробування HabitRPG",
+    "officialChallenge": "Офіційне випробування Habitica",
     "by": "від",
     "participants": "<%= membercount %> Учаснки",
     "join": "Приєднатися",

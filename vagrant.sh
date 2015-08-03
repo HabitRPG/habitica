@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# HabitRPG provisioning script
+# Habitica provisioning script
 
 # function for autostart
 function autostart_habitrpg {
@@ -24,7 +24,7 @@ function autostart_habitrpg {
 }
 
 # Main provisioning
-echo Setting up HabitRPG...
+echo Setting up Habitica...
 echo cd /vagrant >> /home/vagrant/.bashrc
 
 # Prevent warnings: "dpkg-preconfigure: unable to re-open stdin ..."
@@ -74,7 +74,7 @@ cd /vagrant
 echo Installing grunt/bower...
 npm install -g grunt-cli bower phantomjs
 
-echo Installing HabitRPG
+echo Installing Habitica
 npm install --no-bin-link
 
 echo Installing Bower packages
@@ -84,7 +84,7 @@ sudo -H -u vagrant bower --config.interactive=false install -f
 ## node ./src/seed.js
 ## no longer required - see comments in src/seed.js
 
-# Uncomment both lines to autostart the habitrpg server when provisioning
-# echo Starting HabitRPG server...
+# Uncomment both lines to autostart the habitica server when provisioning
+# echo Starting Habitica server...
 # autostart_habitrpg
 

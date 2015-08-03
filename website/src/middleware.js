@@ -115,6 +115,21 @@ module.exports.forceSSL = function(req, res, next){
   next();
 }
 
+// Redirect to habitica for non-api urls
+// NOTE: Currently using a static 'habitica.com' string, rather than baseUrl,
+// to make rollback easy. Eventually, baseUrl should be migrated.
+
+function nonApiUrl(req) {
+  return req.url.search(/\/api\//) === -1;
+}
+
+module.exports.forceHabitica = function(req, res, next) {
+  if(nconf.get('NODE_ENV') === 'production' && !isProxied(req) && nonApiUrl(req)) {
+    return res.redirect('https://habitica.com' + req.url);
+  }
+  next();
+};
+
 module.exports.cors = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
   res.header("Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE");

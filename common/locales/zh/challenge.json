@@ -35,8 +35,8 @@
     "prize": "战利品",
     "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
-    "publicChallenges": " <strong>公共挑战</strong> 需要至少1个宝石 (为了防止垃圾信息)。",
-    "officialChallenge": "HabitRPG 的官方挑战",
+    "publicChallenges": "<strong>公共挑战</strong> 需要至少1个宝石 (为了防止垃圾信息)。",
+    "officialChallenge": "Habitica 的官方挑战",
     "by": "发起自",
     "participants": "<%= membercount %>参与者",
     "join": "加入",
@@ -56,5 +56,5 @@
     "backToChallenges": "回到所有挑战",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> 奖励",
     "clone": "复制",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "你没有足够的宝石来发布这一挑战。"
 }

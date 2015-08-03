@@ -22,7 +22,7 @@
     "messageDropEgg": "Vous avez trouvé un Œuf de <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Vous avez trouvé une Potion d’Éclosion <%= dropText %> ! <%= dropNotes %>",
     "messageDropQuest": "Vous avez trouvé une quête !",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Vous ouvrez la boite et trouvez <%= dropText %> !",
     "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !",
     "messageAlreadyPurchasedGear": " Vous avez acheté cet équipement auparavant mais ne le possédez actuellement pas. Vous pouvez l'acheter à nouveau dans la colonne Récompenses sur la page des tâches. ",
     "messageAlreadyOwnGear": "Vous possédez déjà cet objet. Équipez le depuis la page d'équipement.",

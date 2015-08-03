@@ -25,7 +25,7 @@ describe('front page', function() {
 
   it('shows the front page', function(){
     var button = element(by.id('play-btn'));
-    expect(button.getText()).toEqual('Play for free');
+    expect(button.getText()).toEqual('Join for free');
   });
 
   it("don't login when using wrong credentials", function(){

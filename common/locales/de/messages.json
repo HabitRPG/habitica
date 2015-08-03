@@ -22,7 +22,7 @@
     "messageDropEgg": "Du hast ein <%= dropText %> Ei gefunden! <%= dropNotes %>",
     "messageDropPotion": "Du hast einen <%= dropText %>  Schlüpftrank gefunden! <%= dropNotes %>",
     "messageDropQuest": "Du hast eine Quest gefunden!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Du öffnest die Kiste und findest <%= dropText %>!",
     "messageFoundQuest": "Du hast das Quest \"<%= questText %>\" gefunden!",
     "messageAlreadyPurchasedGear": "Du hast dieses Item in der Vergangenheit bereits gekauft, besitzt es aktuell aber nicht mehr. Du kannst es in der Belohnungen Spalte deiner Aufgaben Seite erneut kaufen.",
     "messageAlreadyOwnGear": "Du besitzt den Gegenstand schon. Gehe zur Ausrüstungsseite, um ihn anzulegen.",

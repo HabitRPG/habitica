@@ -19,7 +19,7 @@ html(ng-app='habitrpg')
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
 
-    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=3')
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=4')
 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -39,7 +39,7 @@ html(ng-app='habitrpg')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='/static/front') HabitRPG
+          a.navbar-brand(href='/static/front') Habitica
         .collapse.navbar-collapse(collapse="isNavbarCollapsed")
           ul.nav.navbar-nav
             li(class='#{menuItem=="features" ? "active" : ""}')

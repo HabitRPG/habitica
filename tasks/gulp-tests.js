@@ -85,7 +85,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
     testBin('mocha test/server_side'),
     (err, stdout, stderr) => {
       testResults.push({
-        suite: 'Servser Side Specs\t',
+        suite: 'Server Side Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
