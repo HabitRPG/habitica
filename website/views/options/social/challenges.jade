@@ -14,10 +14,18 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
       .modal-content
         .modal-header
           button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
-          h3 {{obj.profile.name}}
+          a(ng-click='clickMember(obj._id, true)')
+            h3 {{obj.profile.name}}
         .modal-body
           habitrpg-tasks(main=false, modal='true')
         .modal-footer
+          .btn-group.pull-left(role="group")
+            button.btn.btn-default(ng-click='clickMember(obj._id, true)')
+              .glyphicon.glyphicon-user
+            button.btn.btn-default(ng-click='sendMessageToChallengeParticipant(obj._id)')
+              .glyphicon.glyphicon-envelope
+            button.btn.btn-default(ng-click='sendGiftToChallengeParticipant(obj._id)')
+              .glyphicon.glyphicon-gift
           a.btn.btn-default(ng-click='$state.go("^")')=env.t('close')
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')

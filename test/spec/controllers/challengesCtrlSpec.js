@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Challenges Controller', function() {
-  var $rootScope, scope, user, User, ctrl, groups, notification, state;
+  var rootScope, scope, user, User, ctrl, groups, members, notification, state;
 
   beforeEach(function() {
     module(function($provide) {
@@ -15,11 +15,12 @@ describe('Challenges Controller', function() {
       $provide.value('User', User);
     });
 
-    inject(function($rootScope, $controller, _$state_, _Groups_, _Notification_){
+    inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_){
       user = specHelper.newUser();
       user._id = "unique-user-id";
 
       scope = $rootScope.$new();
+      rootScope = $rootScope;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: User});
@@ -27,6 +28,7 @@ describe('Challenges Controller', function() {
       ctrl = $controller('ChallengesCtrl', {$scope: scope, User: User});
 
       groups = _Groups_;
+      members = _Members_;
       notification = _Notification_;
       state = _$state_;
     });
@@ -614,7 +616,7 @@ describe('Challenges Controller', function() {
     });
   });
 
-  describe('User interactions', function() {
+  context('User interactions', function() {
     describe('join', function() {
       it('calls challenge.$join', function(){
         var challenge = specHelper.newChallenge({
@@ -679,6 +681,39 @@ describe('Challenges Controller', function() {
 
         scope.leave('not-cancel');
         expect(challenge.$leave).to.be.calledOnce;
+      });
+    });
+  });
+
+  context('modal actions', function() {
+    beforeEach(function() {
+      sandbox.stub(members, 'selectMember');
+      sandbox.stub(rootScope, 'openModal');
+    });
+
+    describe('sendMessageToChallengeParticipant', function() {
+      it('opens private-message modal', function() {
+        members.selectMember.yields();
+        scope.sendMessageToChallengeParticipant(user._id);
+
+        expect(rootScope.openModal).to.be.calledOnce;
+        expect(rootScope.openModal).to.be.calledWith(
+          'private-message',
+          { controller: 'MemberModalCtrl' }
+        );
+      });
+    });
+
+    describe('sendGiftToChallengeParticipant', function() {
+      it('opens send-gift modal', function() {
+        members.selectMember.yields();
+        scope.sendGiftToChallengeParticipant(user._id);
+
+        expect(rootScope.openModal).to.be.calledOnce;
+        expect(rootScope.openModal).to.be.calledWith(
+          'send-gift',
+          { controller: 'MemberModalCtrl' }
+        );
       });
     });
   });
