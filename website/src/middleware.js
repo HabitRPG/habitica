@@ -124,9 +124,11 @@ function nonApiUrl(req) {
 }
 
 module.exports.forceHabitica = function(req, res, next) {
-  var baseUrl = nconf.get("BASE_URL");
+  var baseUrl = nconf.get('BASE_URL');
+  var isProd = nconf.get('NODE_ENV') === 'production';
+  var isHabitRPG = req.headers.host === 'habitrpg.com';
 
-  if(nconf.get('NODE_ENV') === 'production' && !isProxied(req) && nonApiUrl(req)) {
+  if(isProd && isHabitRPG && !isProxied(req) && nonApiUrl(req)) {
     return res.redirect(baseUrl + req.url);
   }
   next();
