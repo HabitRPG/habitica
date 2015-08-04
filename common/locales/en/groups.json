@@ -14,7 +14,7 @@
     "resources": "Resources",
     "tavernTalk": "Tavern Talk",
     "tavernAlert1": "Note: if you're reporting a bug, the developers won't see it here. Please",
-    "tavernAlert2": "use Github instead",
+    "tavernAlert2": "use GitHub instead",
     "moderatorIntro1": "Tavern and guild moderators are: ",
     "communityGuidelines": "Community Guidelines",
     "communityGuidelinesRead1": "Please read our",
@@ -24,6 +24,7 @@
     "updatedParty": "Party settings updated.",
     "noPartyText": "You are either not in a party or your party is taking a while to load. You can either create one and invite friends, or if you want to join an existing party, have them enter your Unique User ID below and then come back here to look for the invitation:",
     "LFG": "To advertise your new party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
+    "wantExistingParty": "Want to join an existing party? Go to the <%= linkStart %>Party Wanted Guild<%= linkEnd %> and post this ID:",
     "create": "Create",
     "userId": "User ID",
     "invite": "Invite",
@@ -132,5 +133,6 @@
     "partyExplanation2": "Battle monsters and create Challenges!",
     "partyExplanation3": "Invite friends now to earn a Quest Scroll!",
     "wantToStartParty": "Do you want to start a party?",
-    "exclusiveQuestScroll": "Inviting a friend to your party will grant you an exclusive Quest Scroll to battle the Basi-List together!"
+    "exclusiveQuestScroll": "Inviting a friend to your party will grant you an exclusive Quest Scroll to battle the Basi-List together!",
+    "nameYourParty": "Name your new party!"
 }

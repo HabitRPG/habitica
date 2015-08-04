@@ -1,5 +1,8 @@
 script(type='text/ng-template', id='modals/invite-friends.html')
   .modal-body
+    div(ng-if='!group._id')
+      h4(style='margin-top:0')=env.t('nameYourParty')
+      input.form-control#new-group-name.input-medium.option-content(required, type='text', ng-model='newGroup.name')
     tabset
       tab(heading=env.t('inviteByEmail'))
         p.alert.alert-info=env.t('inviteByEmailExplanation')
@@ -51,3 +54,7 @@ script(type='text/ng-template', id='modals/invite-friends.html')
       .quest_basilist.pull-left
       p(style='margin:2em')=env.t('exclusiveQuestScroll')
       button.btn.btn-default.pull-right(style='margin:auto 1em', ng-click='$close()')=env.t('close')
+    .modal-footer(style='padding-bottom:0')
+      p!=env.t('wantExistingParty', {linkStart: "<a href='/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>", linkEnd: "</a>"})
+      pre(style='margin:1em 0 0 0').
+        {{user.id}}
