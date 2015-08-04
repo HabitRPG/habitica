@@ -169,6 +169,8 @@ gear =
       basicCrossbow:  text: t('weaponArmoireBasicCrossbowText'), notes: t('weaponArmoireBasicCrossbowNotes', {str: 5, per: 5, con: 5}), value: 100, str: 5, per: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_basicCrossbow?)
       lunarSceptre:   text: t('weaponArmoireLunarSceptreText'), notes: t('weaponArmoireLunarSceptreNotes', {con: 7, int: 7}), value: 100, con: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_lunarSceptre?)
       rancherLasso:   twoHanded:true, text: t('weaponArmoireRancherLassoText'), notes: t('weaponArmoireRancherLassoNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_rancherLasso?)
+      mythmakerSword:   text: t('weaponArmoireMythmakerSwordText'), notes: t('weaponArmoireMythmakerSwordNotes', {attrs: 6}), value: 100, str: 6, per: 6, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_mythmakerSword?)
+      ironCrook:   text: t('weaponArmoireIronCrookText'), notes: t('weaponArmoireIronCrookNotes', {attrs: 7}), value: 100, str: 7, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_ironCrook?)
 
   armor:
     base:
@@ -261,6 +263,8 @@ gear =
       lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.armor_armoire_lunarArmor?)
       gladiatorArmor: text: t('armorArmoireGladiatorArmorText'), notes: t('armorArmoireGladiatorArmorNotes', {str: 7, per: 7}), value: 100, str: 7, per: 7, set: 'gladiator', canOwn: ((u)-> u.items.gear.owned.armor_armoire_gladiatorArmor?)
       rancherRobes: text: t('armorArmoireRancherRobesText'), notes: t('armorArmoireRancherRobesNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.armor_armoire_rancherRobes?)
+      goldenToga: text: t('armorArmoireGoldenTogaText'), notes: t('armorArmoireGoldenTogaNotes', {attrs: 8}), value: 100, str: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.armor_armoire_goldenToga?)
+      hornedIronArmor: text: t('armorArmoireHornedIronArmorText'), notes: t('armorArmoireHornedIronArmorNotes', {con: 9, per: 7}), value: 100, con: 9, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.armor_armoire_hornedIronArmor?)
 
   head:
     base:
@@ -354,6 +358,8 @@ gear =
       rancherHat: text: t('headArmoireRancherHatText'), notes: t('headArmoireRancherHatNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.head_armoire_rancherHat?)
       royalCrown: text: t('headArmoireRoyalCrownText'), notes: t('headArmoireRoyalCrownNotes', {str: 10}), value: 100, str: 10, canOwn: ((u)-> u.items.gear.owned.head_armoire_royalCrown?)
       blueHairbow: text: t('headArmoireBlueHairbowText'), notes: t('headArmoireBlueHairbowNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_blueHairbow?)
+      goldenLaurels: text: t('headArmoireGoldenLaurelsText'), notes: t('headArmoireGoldenLaurelsNotes', {attrs: 8}), value: 100, per: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.head_armoire_goldenLaurels?)
+      hornedIronHelm: text: t('headArmoireHornedIronHelmText'), notes: t('headArmoireHornedIronHelmNotes', {con: 9, str: 7}), value: 100, con: 9, str:7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.head_armoire_hornedIronHelm?)
 
   shield:
     base:
@@ -2104,6 +2110,16 @@ api.backgrounds =
     sunken_ship:
       text: t('backgroundSunkenShipText')
       notes: t('backgroundSunkenShipNotes')
+  backgrounds082015:
+    pyramids: 
+      text: t('backgroundPyramidsText')
+      notes: t('backgroundPyramidsNotes')
+    sunset_savannah:
+      text: t('backgroundSunsetSavannahText')
+      notes: t('backgroundSunsetSavannahNotes')
+    twinkly_party_lights:
+      text: t('backgroundTwinklyPartyLightsText')
+      notes: t('backgroundTwinklyPartyLightsNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5
