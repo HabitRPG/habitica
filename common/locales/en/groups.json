@@ -144,6 +144,8 @@
     "partyEmpty": "You're the only one in your party. Invite your friends!",
     "partyChatEmpty": "Your party chat is empty! Type a message in the box above to start chatting.",
     "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
-    "possessiveParty": "<%= name %>'s Party"
+    "possessiveParty": "<%= name %>'s Party",
+    "removedFromGroup": "Removed from <%= groupName %>",
+    "removedFromGroupHeader": "Removed from <%= groupName %>",
+    "removedFromGroupMessage": "The group leader gave this reason: <%= groupKickedMessage %>"
 }
-

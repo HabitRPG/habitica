@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat',
-    function($scope, $rootScope, $http, Chat) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'User',
+    function($scope, $rootScope, $http, Chat, User) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -43,5 +43,13 @@ angular.module('habitrpg')
       $scope.hasNoNotifications = function() {
         return selectNotificationValue(false, false, false, false, false, true);
       }
+
+      $scope.seenRemovedFromGroupNotification = function() {
+        delete User.user.newMessages.removedFromGroup;
+        User.set({
+          'flags.kickedFromGroup': {}
+        });
+      }
+
     }
 ]);

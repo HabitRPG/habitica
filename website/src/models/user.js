@@ -165,6 +165,7 @@ var UserSchema = new Schema({
     armoireEmpty: {type: Boolean, 'default': false},
     cardReceived: {type: Boolean, 'default': false},
     warnedLowHealth: {type: Boolean, 'default': false}
+    kickedFromGroup: {type: Object, 'default': {}}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -578,7 +579,7 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
-// Initially export an empty object so external requires will get 
+// Initially export an empty object so external requires will get
 // the right object by reference when it's defined later
 // Otherwise it would remain undefined if requested before the query executes
 module.exports.mods = [];

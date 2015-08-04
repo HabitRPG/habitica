@@ -206,6 +206,13 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
+              li(ng-if='user.flags.kickedFromGroup.name')
+                a(ng-click='openModal("kicked-from-group", {controller:"MenuCtrl"});')
+                  span=env.t('removedFromGroup', {groupName: '{{user.flags.kickedFromGroup.name}}'})
+              // li(ng-if='user.items.special.valentineReceived[0] || user.items.special.nyeReceived[0]')
+                a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
+                  span.glyphicon.glyphicon-envelope
+                  span=env.t('holidayCard')
 
           ul.toolbar-controls
             li.toolbar-controls-button
