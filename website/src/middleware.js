@@ -125,7 +125,7 @@ function nonApiUrl(req) {
 
 module.exports.forceHabitica = function(req, res, next) {
   if(nconf.get('NODE_ENV') === 'production' && !isProxied(req) && nonApiUrl(req)) {
-    return res.redirect('https://habitica.com' + req.url);
+    return res.redirect(baseUrl + req.url);
   }
   next();
 };
