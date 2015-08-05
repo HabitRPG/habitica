@@ -42,12 +42,23 @@ describe('user.fns.buy', function() {
   });
 
   context('Potion', function() {
+    it('recovers hp');
   });
 
   context('Gear', function() {
+    it('buys equipment');
+
+    it('does not buy equipment without enough Gold');
   });
 
   context('Quests', function() {
+    it('buys a Quest scroll');
+
+    it('does not buy Quests without enough Gold');
+
+    it('does not buy nonexistent Quests');
+
+    it('does not buy Gem-premium Quests');
   });
 
   context('Enchanted Armoire', function() {
