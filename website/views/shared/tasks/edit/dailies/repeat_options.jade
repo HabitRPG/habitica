@@ -1,6 +1,5 @@
 legend.option-title
-  span.hint(ng-if='task.frequency=="weekly"', popover-title=env.t('repeatEveryHelpTitle'), popover-trigger='mouseenter', popover=env.t('repeatEveryHelpContent'))=env.t('repeatEvery')
-  span(ng-if='task.frequency!="weekly"')=env.t('repeatEvery')
+  span.hint(popover-trigger='mouseenter', popover-title=env.t('repeatEveryHelpTitle'), popover='{{env.t((task.frequency==="daily") ? "repeatDailyHelpContent" : "repeatWeeklyHelpContent")}}')=env.t('repeatEvery')
 
 // If frequency is daily
 ng-form.form-group(name='everyX' ng-if='task.frequency=="daily"')
