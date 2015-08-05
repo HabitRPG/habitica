@@ -929,6 +929,7 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
+        armoireResp = undefined
         if item.key is 'potion'
           user.stats.hp += 15
           user.stats.hp = 50 if user.stats.hp > 50
@@ -946,14 +947,18 @@ api.wrap = (user, main=true) ->
             user.flags.armoireOpened = true
             message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
             if api.count.remainingGearInSet(user.items.gear.owned, 'armoire') is 0 then user.flags.armoireEmpty = true
+            armoireResp = {type: "gear", dropKey: drop.key, dropText: drop.text(req.language)}
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
             user.items.food[drop.key] ?= 0
             user.items.food[drop.key] += 1
             message = i18n.t('armoireFood', {image: '<span class="Pet_Food_'+drop.key+' pull-left"></span>', dropArticle: drop.article, dropText: drop.text(req.language)}, req.language)
+            armoireResp = {type: "food", dropKey: drop.key, dropArticle: drop.article, dropText: drop.text(req.language)}
           else
-            user.stats.exp += Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
+            armoireExp = Math.floor(user.fns.predictableRandom(user.stats.exp) * 40 + 10)
+            user.stats.exp += armoireExp
             message = i18n.t('armoireExp', req.language)
+            armoireResp = {"type": "experience", "value": armoireExp}
         else
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
@@ -971,7 +976,9 @@ api.wrap = (user, main=true) ->
         }
         analytics?.track('acquire item', analyticsData)
 
-        cb? {code:200, message}, _.pick(user,$w 'items achievements stats flags')
+        buyResp = _.pick(user,$w 'items achievements stats flags')
+        buyResp["armoire"] = armoireResp if armoireResp
+        cb? {code:200, message}, buyResp
 
       buyQuest: (req, cb, analytics) ->
         {key} = req.params

@@ -4,7 +4,7 @@ mixin avatar(opts)
   .character-sprites
     .addthis_native_toolbox(ng-if='::profile._id==user._id',
       data-url="#{env.BASE_URL}/static/front/#?memberId={{::profile._id}}",
-      data-title="Check out my HabitRPG progress!")
+      data-title=env.t('checkOutProgress'))
 
     // Mount Body
     if !opts.minimal

@@ -17,7 +17,7 @@
     "beReborn": "Znovu sa zrodiť",
     "rebirthAchievement": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie čislo <%= number %> a najvušší level, ktorý si dosiahol je <%= level %>. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí ešte vyššieho levelu!",
     "rebirthBegan": "Začal nové dobrodružstvo",
-    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %> ",
+    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %>",
     "rebirthOrb": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu",
     "rebirthPop": "Začni s novou postavou na leveli 1, pričom ti ostanú odznaky, zberateľské predmety, a úlohy.",
     "rebirthName": "Orb znovuzrodenia",

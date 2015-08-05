@@ -341,8 +341,10 @@ for $stage in $stages
   label:hover:before,
   label:focus:before
     content: ''
-  label:hover:after,
-  label:focus:after
+  input[type=checkbox]:focus + label
+    opacity: 1 !important
+    border: none
+  label:hover:after
     content: "\E013"
     font-family: "Glyphicons Halflings"
     border: none
@@ -356,7 +358,7 @@ for $stage in $stages
     opacity: 0.75 !important
 
   // completed icon
-  input[type=checkbox]:checked + label:after, input[type=checkbox]:focus + label:after
+  input[type=checkbox]:checked + label:after
     content: "\E013"
     font-family: "Glyphicons Halflings"
     border: none
