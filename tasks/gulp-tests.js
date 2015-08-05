@@ -54,6 +54,16 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:common:clean', (cb) => {
+  pipe(exec(testBin("mocha test/common"), () => cb()));
+});
+
+gulp.task('test:common:watch', [
+  'test:common:clean'
+], () => {
+  gulp.watch(['common/script/**', 'test/common/**'], ['test:common:clean']);
+});
+
 gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('mocha test/common'),
