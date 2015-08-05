@@ -14,8 +14,11 @@ var os = require('os');
 var moment = require('moment');
 var utils = require('./utils');
 
+var IS_PROD = nconf.get('NODE_ENV') === 'production';
+var BASE_URL = nconf.get("BASE_URL");
+
 module.exports.apiThrottle = function(app) {
-  if (nconf.get('NODE_ENV') !== 'production') return;
+  if (!IS_PROD) return;
   app.use(limiter({
     end:false,
     catagories:{
@@ -33,7 +36,7 @@ module.exports.apiThrottle = function(app) {
 }
 
 module.exports.domainMiddleware = function(server,mongoose) {
-  if (nconf.get('NODE_ENV')=='production') {
+  if (IS_PROD) {
     var mins = 3, // how often to run this check
       useAvg = false, // use average over 3 minutes, or simply the last minute's report
       url = 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=Apdex&values[]=score';
@@ -88,13 +91,11 @@ module.exports.errorHandler = function(err, req, res, next) {
 }
 
 function isHTTP(req) {
-  var baseUrl = nconf.get("BASE_URL");
-
   return (
     req.headers['x-forwarded-proto']              &&
     req.headers['x-forwarded-proto'] !== 'https'  &&
-    nconf.get('NODE_ENV') === 'production'        &&
-    baseUrl.indexOf('https') === 0
+    IS_PROD                                       &&
+    BASE_URL.indexOf('https') === 0
   );
 }
 
@@ -106,25 +107,25 @@ function isProxied(req) {
 }
 
 module.exports.forceSSL = function(req, res, next){
-  var baseUrl = nconf.get("BASE_URL");
-
   if(isHTTP(req) && !isProxied(req)) {
-    return res.redirect(baseUrl + req.url);
+    return res.redirect(BASE_URL + req.url);
   }
 
   next();
 }
 
 // Redirect to habitica for non-api urls
-// NOTE: Currently using a static 'habitica.com' string, rather than baseUrl,
-// to make rollback easy. Eventually, baseUrl should be migrated.
+// NOTE: Currently using a static 'habitica.com' string, rather than BASE_URL,
+// to make rollback easy. Eventually, BASE_URL should be migrated.
 
 function nonApiUrl(req) {
   return req.url.search(/\/api\//) === -1;
 }
 
 module.exports.forceHabitica = function(req, res, next) {
-  if(nconf.get('NODE_ENV') === 'production' && !isProxied(req) && nonApiUrl(req)) {
+  var ignoreRedirect = nconf.get('IGNORE_REDIRECT');
+
+  if (IS_PROD && !ignoreRedirect && !isProxied(req) && nonApiUrl(req)) {
     return res.redirect('https://habitica.com' + req.url);
   }
   next();
@@ -188,7 +189,7 @@ var getManifestFiles = function(page){
 
   var code = '';
 
-  if(nconf.get('NODE_ENV') === 'production'){
+  if(IS_PROD){
     code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(page + '.css') + '">';
     code += '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
   }else{
