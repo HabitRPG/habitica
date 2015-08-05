@@ -1452,10 +1452,10 @@ api.wrap = (user, main=true) ->
       returns random property (the value)
     ###
     randomVal: (obj, options) ->
-       array =  if options?.key then _.keys(obj) else _.values(obj)
-       rand = user.fns.predictableRandom(options?.seed)
-       array.sort()
-       array[Math.floor(rand * array.length)]
+      array = if options?.key then _.keys(obj) else _.values(obj)
+      rand = user.fns.predictableRandom(options?.seed)
+      array.sort()
+      array[Math.floor(rand * array.length)]
 
     ###
     This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
