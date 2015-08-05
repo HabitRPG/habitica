@@ -1,7 +1,7 @@
 script(type='text/ng-template', id='modals/kicked-from-group.html')
   .modal-header
-    h4=env.t('removedFromGroupHeader', {groupName: '{{user.flags.kickedFromGroup.name}}'})
+    h4=env.t('removedFromGroupHeader', {groupName: '{{groupKickedFrom.name}}'})
   .modal-body
-    p=env.t('removedFromGroupMessage', {groupKickedMessage: '{{user.flags.kickedFromGroup.message}}'})
+    p=env.t('removedFromGroupMessage', {groupKickedMessage: '{{groupKickedFrom.message}}'})
   .modal-footer
-    button.btn.btn-default(ng-click='$close();seenRemovedFromGroupNotification()')=env.t('close')
+    button.btn.btn-default(ng-click='$close();')=env.t('close')

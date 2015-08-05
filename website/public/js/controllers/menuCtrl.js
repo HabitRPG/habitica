@@ -44,10 +44,21 @@ angular.module('habitrpg')
         return selectNotificationValue(false, false, false, false, false, true);
       }
 
-      $scope.seenRemovedFromGroupNotification = function() {
-        delete User.user.newMessages.removedFromGroup;
+      $scope.seenRemovedFromGroupNotification = function(index) {
+        $rootScope.openModal("kicked-from-group", {
+            controller: ['$scope', 'groupKickedFrom',
+              function($scope, groupKickedFrom){
+                $scope.groupKickedFrom = groupKickedFrom;
+            }],
+            resolve: {
+              groupKickedFrom: function () {
+                  return User.user.flags.kickedFromGroup[index];
+              }
+            }
+        });
+        User.user.flags.kickedFromGroup.splice(index, 1);
         User.set({
-          'flags.kickedFromGroup': {}
+          'flags.kickedFromGroup': User.user.flags.kickedFromGroup
         });
       }
 
