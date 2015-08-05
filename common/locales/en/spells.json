@@ -60,6 +60,11 @@
   "spellSpecialShinySeedText": "Shiny Seed",
   "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
   "spellSpecialPetalFreePotionText": "Petal-Free Potion",
-  "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed."
+  "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed.",
+
+  "spellSpecialSeafoamText": "Seafoam",
+  "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+  "spellSpecialSandText": "Sand",
+  "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 
 }

@@ -7,6 +7,10 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
       a(ui-sref='options.social.hall.patrons')
         =env.t('hallPatrons')
 
+  .options-blurbmenu
+    small.muted(ng-if="$state.includes('options.social.hall.heroes')")!=env.t('blurbHallHeroes')
+    small.muted(ng-if="$state.includes('options.social.hall.patrons')")=env.t('blurbHallPatrons')
+
   .tab-content
     .tab-pane.active
       div(ui-view)
@@ -26,7 +30,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         input.form-control(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
       .form-group
         label=env.t('contribLevel')
-        input.form-control(type='number', ng-model='hero.contributor.level')        
+        input.form-control(type='number', ng-model='hero.contributor.level')
         small=env.t('contribHallText')
         |&nbsp;
         a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
@@ -66,40 +70,41 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
       .form-group
         input.form-control.btn.btn-primary(type='submit')=env.t('save')
 
-
-  table.table.table-striped
-    thead
-      tr
-        th=env.t('name')
-        th(ng-if='user.contributor.admin')=env.t('UUID')
-        th=env.t('contribLevel')
-        th=env.t('title')
-        th=env.t('contributions')
-    tbody
-      tr(ng-repeat='hero in heroes')
-        td
-          span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
-            a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)')
-              | {{hero.profile.name}}&nbsp;
-              span(ng-class='userAdminGlyphiconStyle(hero)')
-          span(ng-if='!hero.contributor.admin')
-            a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
-        td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id)').btn-link {{hero._id}}
-        td {{hero.contributor.level}}
-        td {{hero.contributor.text}}
-        td
-          markdown(text='hero.contributor.contributions', target='_blank')
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th=env.t('name')
+          th(ng-if='user.contributor.admin')=env.t('UUID')
+          th=env.t('contribLevel')
+          th=env.t('title')
+          th=env.t('contributions')
+      tbody
+        tr(ng-repeat='hero in heroes')
+          td
+            span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
+              a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)')
+                | {{hero.profile.name}}&nbsp;
+                span(ng-class='userAdminGlyphiconStyle(hero)')
+            span(ng-if='!hero.contributor.admin')
+              a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
+          td(ng-if='user.contributor.admin', ng-click='populateContributorInput(hero._id)').btn-link {{hero._id}}
+          td {{hero.contributor.level}}
+          td {{hero.contributor.text}}
+          td
+            markdown(text='hero.contributor.contributions', target='_blank')
 
 script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
-  table.table.table-striped(infinite-scroll="loadMore()")
-    thead
-      tr
-        th=env.t('name')
-        th(ng-if='user.contributor.admin')=env.t('UUID')
-        th=env.t('backerTier')
-    tbody
-      tr(ng-repeat='patron in patrons')
-        td
-          a.label.label-default(ng-class='userLevelStyle(patron)', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
-        td(ng-if='user.contributor.admin') {{patron._id}}
-        td {{patron.backer.tier}}
+  .table-responsive
+    table.table.table-striped(infinite-scroll="loadMore()")
+      thead
+        tr
+          th=env.t('name')
+          th(ng-if='user.contributor.admin')=env.t('UUID')
+          th=env.t('backerTier')
+      tbody
+        tr(ng-repeat='patron in patrons')
+          td
+            a.label.label-default(ng-class='userLevelStyle(patron)', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
+          td(ng-if='user.contributor.admin') {{patron._id}}
+          td {{patron.backer.tier}}

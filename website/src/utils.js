@@ -7,8 +7,6 @@ var request = require('request');
 // Set when utils.setupConfig is run
 var isProd, baseUrl;
 
-module.exports.ga = undefined; // set Google Analytics on nconf init
-
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
     service: nconf.get('SMTP_SERVICE'),
@@ -172,18 +170,21 @@ module.exports.setupConfig = function(){
 
   if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;
-  if (nconf.get('NODE_ENV') === 'production')
-    require('newrelic');
+  //if (nconf.get('NODE_ENV') === 'production')
+  //  require('newrelic');
 
   isProd = nconf.get('NODE_ENV') === 'production';
   baseUrl = nconf.get('BASE_URL');
 
-  module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
+  var analytics = isProd && require('./analytics');
+  var analyticsTokens = {
+    amplitudeToken: nconf.get('AMPLITUDE_KEY'),
+    googleAnalytics: nconf.get('GA_ID')
+  }
 
-  var mixpanel = isProd && require('mixpanel');
-  module.exports.mixpanel = mixpanel
-    ? mixpanel.init(nconf.get('MP_ID'))
-    : { track: function() {} };
+  module.exports.analytics = analytics
+    ? analytics(analyticsTokens)
+    : { track: function() { }, trackPurchase: function() { } };
 };
 
 var algorithm = 'aes-256-ctr';

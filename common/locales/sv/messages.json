@@ -1,6 +1,7 @@
 {
     "messageLostItem": "<%= itemText %> gick sönder.",
     "messageTaskNotFound": "Uppgift hittades inte.",
+    "messageDuplicateTaskID": "En Uppgift Med den IDn Finns Redan",
     "messageTagNotFound": "Tagg hittades inte.",
     "messagePetNotFound": ":pet not found in user.items.pets",
     "messageFoodNotFound": ":food not found in user.items.food",
@@ -20,5 +21,12 @@
     "messageDropFood": "Du har hittat <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Du hittade ett <%= dropText %> Ägg! <%= dropNotes %>",
     "messageDropPotion": "Du hittade en <%= dropText %> kläckningsdryck! <%= dropNotes %>",
-    "messageFoundQuest": "Du hittade uppdraget \"<%= questText %>\"!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "Du hittade uppdraget \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

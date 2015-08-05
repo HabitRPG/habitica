@@ -8,7 +8,7 @@ var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
 var utils = require('./../utils');
-var ga = utils.ga;
+var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var moment = require('moment');
@@ -16,22 +16,21 @@ var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
-var request = require('request');
-var validator = require('validator');
+var webhook = require('../webhook');
 
 // api.purchase // Shared.ops
 
 api.getContent = function(req, res, next) {
   var language = 'en';
 
-  if(typeof req.query.language != 'undefined')
+  if (typeof req.query.language != 'undefined')
     language = req.query.language.toString(); //|| 'en' in i18n
 
   var content = _.cloneDeep(shared.content);
   var walk = function(obj, lang){
     _.each(obj, function(item, key, source){
-      if(_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
-      if(_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
+      if (_.isPlainObject(item) || _.isArray(item)) return walk(item, lang);
+      if (_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
     });
   }
   walk(content, language);
@@ -99,36 +98,32 @@ api.score = function(req, res, next) {
       text: req.body && req.body.text,
       notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
     };
-    task = user.ops.addTask({body:task});
+
     if (task.type === 'daily' || task.type === 'todo')
       task.completed = direction === 'up';
+
+    task = user.ops.addTask({body:task});
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}, language: req.language});
 
-  user.save(function(err,saved){
+  user.save(function(err, saved){
     if (err) return next(err);
-    // TODO this should be return {_v,task,stats,_tmp}, instead of merging everything togther at top-level response
-    // However, this is the most commonly used API route, and changing it will mess with all 3rd party consumers. Bad idea :(
-    res.json(200, _.extend({
-      delta: delta,
-      _tmp: user._tmp
-    }, saved.toJSON().stats));
 
-    // Webhooks
-    _.each(user.preferences.webhooks, function(h){
-      if (!h.enabled || !validator.isURL(h.url)) return;
-      request.post({
-        url: h.url,
-        //form: {task: task, delta: delta, user: _.pick(user, ['stats', '_tmp'])} // this is causing "Maximum Call Stack Exceeded"
-        body: {direction:direction, task: task, delta: delta, user: _.pick(user, ['_id', 'stats', '_tmp'])}, json:true
-      });
-    });
+    var userStats = saved.toJSON().stats;
+    var resJsonData = _.extend({ delta: delta, _tmp: user._tmp }, userStats);
+    res.json(200, resJsonData);
+
+    var webhookData = _generateWebhookTaskData(
+      task, direction, delta, userStats, user
+    );
+    webhook.sendTaskWebhook(user.preferences.webhooks, webhookData);
 
     if (
       (!task.challenge || !task.challenge.id || task.challenge.broken) // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response and the user doesn't care what happens back there
       || (task.type == 'reward') // we don't want to update the reward GP cost
     ) return clearMemory();
-    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal){
+
+    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal) {
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
@@ -141,6 +136,7 @@ api.score = function(req, res, next) {
         chal.syncToUser(user);
         return clearMemory();
       }
+
       t.value += delta;
       if (t.type == 'habit' || t.type == 'daily')
         t.history.push({value: t.value, date: +new Date});
@@ -205,7 +201,7 @@ api.getBuyList = function (req, res, next) {
 api.getUser = function(req, res, next) {
   var user = res.locals.user.toJSON();
   user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = 50;
+  user.stats.maxHealth = shared.maxHealth;
   user.stats.maxMP = res.locals.user._statsComputed.maxMP;
   delete user.apiToken;
   if (user.auth) {
@@ -221,7 +217,7 @@ api.getUser = function(req, res, next) {
 api.getUserAnonymized = function(req, res, next) {
   var user = res.locals.user.toJSON();
   user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = 50;
+  user.stats.maxHealth = shared.maxHealth;
   user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
   delete user.apiToken;
@@ -334,7 +330,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    progress = user.fns.cron({ga:ga, mixpanel:utils.mixpanel}),
+    progress = user.fns.cron({analytics:utils.analytics}),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
@@ -498,9 +494,9 @@ api.sessionPartyInvite = function(req,res,next){
         return cb();
       }
 
-      if(group.type == 'guild'){
+      if (group.type == 'guild'){
         inv.guilds.push(req.session.partyInvite);
-      }else{
+      } else{
         //req.body.type in 'guild', 'party'
         inv.party = req.session.partyInvite;
       }
@@ -533,7 +529,7 @@ _.each(shared.wrap({}).ops, function(op,k){
           if (err) return next(err);
           res.json(200,response);
         })
-      }, ga);
+      }, analytics);
     }
   }
 })
@@ -597,7 +593,7 @@ api.batchUpdate = function(req, res, next) {
       res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
 
     // Fetch full user object
-    }else if(response.wasModified){
+    } else if (response.wasModified){
       // Preen 3-day past-completed To-Dos from Angular & mobile app
       response.todos = _.where(response.todos, function(t) {
         return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract({days:3}));
@@ -605,8 +601,33 @@ api.batchUpdate = function(req, res, next) {
       res.json(200, response);
 
     // return only the version number
-    }else{
+    } else{
       res.json(200, {_v: response._v});
     }
   });
 };
+
+function _generateWebhookTaskData(task, direction, delta, stats, user) {
+  var extendedStats = _.extend(stats, {
+    toNextLevel: shared.tnl(user.stats.lvl),
+    maxHealth: shared.maxHealth,
+    maxMP: user._statsComputed.maxMP
+  });
+
+  var userData = {
+    _id: user._id,
+    _tmp: user._tmp,
+    stats: extendedStats
+  };
+
+  var taskData = {
+    details: task,
+    direction: direction,
+    delta: delta
+  }
+
+  return {
+    task: taskData,
+    user: userData
+  }
+}

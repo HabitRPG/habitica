@@ -48,20 +48,65 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('mocha test/common'),
     (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/common'),
+    (err, stdout, stderr) => {
       testResults.push({
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
+      cb();
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/server_side'),
+    (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/server_side'),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'Server Side Specs\t',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
+  let runner = exec(
+    testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
+    (err, stdout, stderr) => {
       cb(err);
     }
   );
   pipe(runner);
 });
 
-
-gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
+gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
     testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
     (err, stdout, stderr) => {
@@ -71,13 +116,34 @@ gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
       });
-      cb(err);
+	  cb();
     }
   );
   pipe(runner);
 });
 
+gulp.task('test:api:clean', (cb) => {
+  pipe(exec(testBin("mocha test/api"), () => cb()));
+});
+
+gulp.task('test:api:watch', [
+  'test:prepare:mongo',
+  'test:api:clean'
+], () => {
+  gulp.watch(['website/src/**', 'test/api/**'], ['test:api:clean']);
+});
+
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('karma start --single-run'),
+    (err, stdout) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('karma start --single-run'),
     (err, stdout) => {
@@ -87,13 +153,38 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
         fail: testCount(stdout, /(\d+) tests failed/),
         pend: testCount(stdout, /(\d+) tests skipped/)
       });
-      cb(err);
+      cb();
     }
   );
   pipe(runner);
 });
 
 gulp.task('test:e2e', ['test:prepare'], (cb) => {
+  let support = [
+    'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
+    `NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`,
+    './node_modules/protractor/bin/webdriver-manager start',
+  ].map(exec);
+
+  Q.all([
+    awaitPort(3001),
+    awaitPort(4444)
+  ]).then(() => {
+    let runner = exec(
+      'DISPLAY=:99 NODE_ENV=testing ./node_modules/protractor/bin/protractor protractor.conf.js',
+      (err, stdout, stderr) => {
+        /*
+         * Note: As it stands, protractor wont report pending specs
+         */
+        support.forEach(kill);
+        cb(err);
+      }
+    );
+    pipe(runner);
+  });
+});
+
+gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
   let support = [
     'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
     `NODE_DB_URI="${TEST_DB_URI}" PORT="${TEST_SERVER_PORT}" node ./website/src/server.js`,
@@ -118,7 +209,7 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
           pend: 0
         });
         support.forEach(kill);
-        cb(err);
+        cb();
       }
     );
     pipe(runner);
@@ -126,10 +217,11 @@ gulp.task('test:e2e', ['test:prepare'], (cb) => {
 });
 
 gulp.task('test', [
-  'test:common',
-  'test:karma',
-  'test:api',
-  'test:e2e'
+  'test:common:safe',
+  'test:server_side:safe',
+  'test:karma:safe',
+  'test:api:safe',
+  'test:e2e:safe'
 ], () => {
   let totals = [0,0,0];
 
@@ -153,5 +245,8 @@ gulp.task('test', [
     `\x1b[36mPending: ${totals[2]}\t`
   );
 
-  console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
+  if (totals[1] > 0) throw "ERROR: There are failing tests!"
+  else {
+    console.log('\n\x1b[36mThanks for helping keep Habitica clean!\x1b[0m');
+  }
 });

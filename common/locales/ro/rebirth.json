@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Renaştere: O nouă aventură te aşteaptă!",
-    "rebirthUnlock": "Ai deblocat Renaşterea! Această achiziţie specială îţi permite să începi un joc nou de la nivelul 1 păstrând totodată toate țelurile, realizările, animalele de companie şi multe altele. Folosește-o ca să redai viață jocului HabitRPG dacă simţi că ai realizat totul sau ca să experimentezi facilităţi noi cu o perspectivă proaspătă a unui caracter începător.",
+    "rebirthUnlock": "Ai deblocat Renaşterea! Această achiziţie specială îţi permite să începi un joc nou de la nivelul 1 păstrând totodată toate țelurile, realizările, animalele de companie şi multe altele. Folosește-o ca să redai viață jocului Habitica dacă simţi că ai realizat totul sau ca să experimentezi facilităţi noi cu o perspectivă proaspătă a unui caracter începător.",
     "rebirthBegin": "Renaştere: Începe o nouă aventură!",
     "rebirthStartOver": "Renaşterea îți readuce personajul la Nivelul 1, ca şi cum ai fi creat un cont nou.",
     "rebirthAdvList1": "Ai revenit la Sănătate deplină.",
@@ -21,11 +21,5 @@
     "rebirthOrb": "A folosit un Glob al Renașterii pentru a o lua de la început după ce a atins Nivelul",
     "rebirthPop": "Începe un nou personaj la Nivelul 1 păstrând realizările, obiectele de colecție și țelurile cu istoric.",
     "rebirthName": "Globul Renașterii",
-    "reborn": "Renăscut, nivel maxim <%= reLevel %>",
-    "welcome100": "Bine ai sosit la nivelul 100!",
-    "intro100": "Acum dacă ai atins nivelul 100 ai opţiunea să foloseşti gratis Globul Renaşterii oricând.",
-    "followup100": "While you can continue to level up, it will no longer boost your stats and no more content will unlock, to keep Habit fun for folks of all play styles.",
-    "rebirth100Info": "Dacă eşti gata să o iei de la cap cu aventura poţi să te renaşti chiar acum... sau poţi încerca să vezi cât poţi avansa în joc.",
-    "rebirthWait": "Aştept...",
-    "rebirthNow": "Renaştere acum !"
+    "reborn": "Renăscut, nivel maxim <%= reLevel %>"
 }

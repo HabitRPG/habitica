@@ -41,6 +41,10 @@
     "spellSpecialOpaquePotionNotes": "Отменить эффект Зловещих искр",
     "spellSpecialShinySeedText": "Солнечное семя",
     "spellSpecialShinySeedNotes": "Превратите друга в радостный цветок!",
-    "spellSpecialPetalFreePotionText": "Зелье освобождения от лепестков",
-    "spellSpecialPetalFreePotionNotes": "Отменить эффект Солнечного семени."
+    "spellSpecialPetalFreePotionText": "Эликсир освобождения от лепестков",
+    "spellSpecialPetalFreePotionNotes": "Отменить эффект Солнечного семени.",
+    "spellSpecialSeafoamText": "Морская пена",
+    "spellSpecialSeafoamNotes": "Превратите друга в морское животное!",
+    "spellSpecialSandText": "Песок",
+    "spellSpecialSandNotes": "Отменить эффект морской пены."
 }

@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Reinkarnacija: Nova avantura!",
-    "rebirthUnlock": "Otključali ste reinkarnaciju. Ovaj predmet sa Pijace omogućava Vam da počnete novu igru, od 1. nivoa, a da pritom zadržite svoje zadatke, odlikovanja, zveri, itd. Upotrebite ovaj predmet da biste udahnuli novi život HabitRPG-u, ako verujete da ste već sve postigli, ili da iskusite nove funkcije iz pozicije početnika.",
+    "rebirthUnlock": "Otključali ste reinkarnaciju. Ovaj predmet sa Pijace omogućava Vam da počnete novu igru, od 1. nivoa, a da pritom zadržite svoje zadatke, odlikovanja, zveri, itd. Upotrebite ovaj predmet da biste udahnuli novi život Habitica-u, ako verujete da ste već sve postigli, ili da iskusite nove funkcije iz pozicije početnika.",
     "rebirthBegin": "Reinkarnacija: Započnite novu avanturu",
     "rebirthStartOver": "Reinkarnacija će vratiti Vašeg lika na novi 1, kao kad ste otvorili nalog.",
     "rebirthAdvList1": "Zdravlje će Vam biti napunjeno.",
@@ -21,11 +21,5 @@
     "rebirthOrb": "Upotrebio Sferu za reinkarnaciju da se vrati na početak igre nakon što je dostigao nivo",
     "rebirthPop": "Počnite iz početka s nivoa 1, i zadržite odlikovanja, kolekcionarske predmete, i zadatke, zajedno sa istorijom.",
     "rebirthName": "Sfera za reinkarnaciju",
-    "reborn": "Reinkarniran, najviši nivo <%= reLevel %>",
-    "welcome100": "Dobrodošli na nivo 100!",
-    "intro100": "Pošto ste dostigli 100. nivo, možete besplatno da upotrebite Sferu za reinkarnaciju kad god poželite.",
-    "followup100": "Možete nastaviti da skupljate iskustvo i dobijate nivoe, ali više nećete dobijati poene za snagu, itd, i nećete moći da otključate novi sadržaj. Ovo je urađeno da bi HabitRPG bio zabavan igračima sa različitim stilovima igranja.",
-    "rebirth100Info": "Ako ste spremni da počnete novu avanturu, možete sad da se reinkarnirate... ili da vidite dokle možete da dogurate.",
-    "rebirthWait": "Sačekaću...",
-    "rebirthNow": "Reinkarnacija!"
+    "reborn": "Reinkarniran, najviši nivo <%= reLevel %>"
 }

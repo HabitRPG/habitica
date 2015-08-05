@@ -1,4 +1,4 @@
-New landing page for HabitRPG
+New landing page for Habitica
 ======================
 ## (February 2014)
 

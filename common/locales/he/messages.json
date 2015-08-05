@@ -1,6 +1,7 @@
 {
     "messageLostItem": "ה<%= itemText %> נשבר.",
     "messageTaskNotFound": "משימה לא נמצאה.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "תגית לא נמצאה",
     "messagePetNotFound": ": לא נמצאה חיה כזו ברשותך.",
     "messageFoodNotFound": ": לא נמצא מזון שכזה ברשותך",
@@ -14,11 +15,18 @@
     "messageUnEquipped": "הפסקת להשתמש ב<%= itemText %>",
     "messageMissingEggPotion": "חסרה לך הביצה או התרופה הזו",
     "messageAlreadyPet": "כבר השגת חיית מחמד זו. נסה/י שילוב אחר!",
-    "messageHatched": "הביצה שלך בקעה! בקר/י באורווה כדי לראות את חיית המחמד החדשה שלך.",
+    "messageHatched": "הביצה שלך בקעה! בקר באורווה כדי לראות את חיית המחמד החדשה שלך.",
     "messageNotEnoughGold": "אין מספיק זהב",
     "messageTwoHandled": "<%= gearText %> הוא דו ידני",
     "messageDropFood": "מצאת <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "מצאת ביצת <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "מצאת שיקוי <%= dropText %> לבקיעה! <%= dropNotes %>",
-    "messageFoundQuest": "מצאת את המשימה \"<%= questText %>\"!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "מצאת את המשימה \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

@@ -1,27 +1,23 @@
-include ./inventory
-include ./stable
-
 script(type='text/ng-template', id='partials/options.inventory.html')
-  ul.options-menu
-    li(ng-class="{ active: $state.includes('options.inventory.drops') }")
-      a(ui-sref='options.inventory.drops')
-        =env.t('market')
-    li(ng-class="{ active: $state.includes('options.inventory.pets') }")
-      a(ui-sref='options.inventory.pets')
-        =env.t('pets')
-    li(ng-class="{ active: $state.includes('options.inventory.mounts') }")
-      a(ui-sref='options.inventory.mounts')
-        =env.t('mounts')
-    li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.equipment') }")
-      a(ui-sref='options.inventory.equipment')
-        =env.t('equipment')
-    li(ng-class="{ active: $state.includes('options.inventory.timetravelers') }")
-      a(ui-sref='options.inventory.timetravelers')
-        =env.t('timeTravelers')
-    li(ng-class="{ active: $state.includes('options.inventory.seasonalshop') }")
-      a(ui-sref='options.inventory.seasonalshop')
-        =env.t('seasonalShop')
+  include ./menu
 
-  .tab-content
-    .tab-pane.active
-      div(ui-view)
+script(type='text/ng-template', id='partials/options.inventory.equipment.html')
+  include ./equipment
+
+script(type='text/ng-template', id='partials/options.inventory.seasonalshop.html')
+  include ./seasonal-shop
+
+script(type='text/ng-template', id='partials/options.inventory.timetravelers.html')
+  include ./time-travelers
+
+script(type='text/ng-template', id='partials/options.inventory.drops.html')
+  include ./drops
+
+script(type='text/ng-template', id='partials/options.inventory.quests.html')
+  include ./quests
+
+script(type='text/ng-template', id='partials/options.inventory.pets.html')
+  include ./pets
+
+script(type='text/ng-template', id='partials/options.inventory.mounts.html')
+  include ./mounts

@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg').factory('Groups',
-['ApiUrl', '$resource', '$q', '$http', 'User', 'Challenges',
-function(ApiUrl, $resource, $q, $http, User, Challenges) {
+['$rootScope','ApiUrl', '$resource', '$q', '$http', 'User', 'Challenges', 'Analytics', '$location',
+function($rootScope, ApiUrl, $resource, $q, $http, User, Challenges, Analytics, $location) {
   var Group = $resource(ApiUrl.get() + '/api/v2/groups/:gid',
     {gid:'@_id', messageId: '@_messageId'},
     {
@@ -23,10 +23,7 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
         }
       },
 
-      postChat: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat'},
-      deleteChatMessage: {method: "DELETE", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId'},
-      flagChatMessage: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/flag'},
-      clearFlagCount: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/chat/:messageId/clearflags'},
+      syncParty: {method: "GET", url: '/api/v2/groups/party'},
       join: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/join'},
       leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
       invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
@@ -39,6 +36,13 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
 
   // Defer loading everything until they're requested
   var data = {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined};
+
+  var syncUser = function(res) {
+    User.sync();
+  }
+  var logError = function(err) {
+    console.log(err);
+  }
 
   return {
     party: function(cb){
@@ -59,10 +63,42 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
       return data.tavern;
     },
 
-    // On enter, set chat message to "seen"
-    seenMessage: function(gid){
-      $http.post(ApiUrl.get() + '/api/v2/groups/'+gid+'/chat/seen');
-      if (User.user.newMessages) delete User.user.newMessages[gid];
+    questAccept: function(party){
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
+      party.$questAccept()
+        .then(syncUser, logError);
+    },
+
+    questReject: function(party){
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
+      party.$questReject()
+        .then(syncUser, logError);
+    },
+
+    questCancel: function(party){
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
+      party.$questCancel()
+        .then(syncUser, logError);
+    },
+
+    questAbort: function(party){
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
+      party.$questAbort()
+        .then(syncUser, logError);
+    },
+
+    inviteOrStartParty: function(group) {
+      if (group.type === "party") {
+        $rootScope.openModal('invite-friends', {
+          controller:'InviteToGroupCtrl',
+          resolve: {
+            injectedGroup: function(){ return group; }
+          }
+        });
+      } else {
+        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
+        $location.path("/options/groups/party");
+      }
     },
 
     // Pass reference to party, myGuilds, publicGuilds, tavern; inside data in order to
@@ -72,19 +108,3 @@ function(ApiUrl, $resource, $q, $http, User, Challenges) {
     Group: Group
   }
 }])
-/**
- * TODO Get this working. Make ChatService it's own ngResource, so we can update chat without having to sync the whole
- * group object (expensive). Also so we can add chat-specific routes
- */
-//    .factory('Chat', ['API_URL', '$resource',
-//      function(API_URL, $resource) {
-//        var Chat = $resource(API_URL + '/api/v2/groups/:gid/chat/:mid',
-//          //{gid:'@_id', mid: '@_messageId'},
-//          {
-//            like: {method: 'POST', url: API_URL + '/api/v2/groups/:gid/chat/:mid'}
-//            //postChat: {method: "POST", url: API_URL + '/api/v2/groups/:gid/chat'},
-//            //deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v2/groups/:gid/chat/:messageId'},
-//          });
-//        return {Chat:Chat};
-//      }
-//    ]);

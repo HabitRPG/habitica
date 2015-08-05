@@ -21,8 +21,9 @@ script(id='modals/buyGems.html', type='text/ng-template')
               p
                 small.muted=env.t('paymentMethods')
               .btn.btn-primary(ng-click='Payments.showStripe({})')=env.t('card')
-              a.btn.btn-warning(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
-
+              a.btn.btn-success(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
+              .btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'single'})") Amazon Payments
+      
       div(ng-include="'partials/options.settings.subscription.html'")
 
   .modal-footer

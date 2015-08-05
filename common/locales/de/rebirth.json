@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Wiedergeburt: Ein neues Abenteuer erwartet Dich!",
-    "rebirthUnlock": "Du hast die Wiedergeburt freigeschaltet! Dieser besondere Dienst gestattet es Dir ein neues Spiel mit Level 1 zu beginnen, jedoch Deine Aufgaben, Erfolge, Haustiere und mehr zu behalten. Verwende den Gegenstand, um neues Leben in HabitRPG zu bringen wenn Du glaubst Alles erreicht zu haben, oder um neue Feature auf dem Blickwinkel eines neuen Spielers zu erleben!",
+    "rebirthUnlock": "Du hast die Wiedergeburt freigeschaltet! Dieser besondere Dienst gestattet es Dir ein neues Spiel mit Level 1 zu beginnen, jedoch Deine Aufgaben, Erfolge, Haustiere und mehr zu behalten. Verwende den Gegenstand, um neues Leben in Habitica zu bringen wenn Du glaubst Alles erreicht zu haben, oder um neue Feature auf dem Blickwinkel eines neuen Spielers zu erleben!",
     "rebirthBegin": "Wiedergeburt: Beginne ein neues Abenteuer",
     "rebirthStartOver": "Die Wiedergeburt setzt Deinen Charakter auf Level 1 zurück, als ob Du ein neues Konto erstellt hättest.",
     "rebirthAdvList1": "Du erhältst volle Lebenspunkte.",
@@ -21,11 +21,5 @@
     "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet nachdem er folgendes Level erreicht hatte:",
     "rebirthPop": "Starte einen neuen Charakter mit Level 1, aber behalte Erfolge, Sammlungen und Aufgaben mit Verlauf bei.",
     "rebirthName": "Sphäre der Wiedergeburt",
-    "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
-    "welcome100": "Willkommen auf Level 100!",
-    "intro100": "Jetzt, da du Level 100 erreicht hast, hast du die Möglichkeit jederzeit eine Sphäre der Wiedergeburt zu verwenden.",
-    "followup100": "Du wirst weiterhin Erfahrung und Level hinzuverdienen können, aber deine Statuswerte werden nicht weiter ansteigen und es wird kein neuer Inhalt freigeschaltet, damit HabitRPG weiterhin für jeden Spielertyp attraktiv und unterhaltsam bleibt.",
-    "rebirth100Info": "Wenn Du ein neues Abenteuer beginnen willst, dann kannst du jetzt wiedergeboren werden...oder Du kannst austesten wie weit Du noch kommst.",
-    "rebirthWait": "Ich werde hier warten...",
-    "rebirthNow": "Werde jetzt wiedergeboren!"
+    "reborn": "Wiedergeboren, max. Level <%= reLevel %>"
 }

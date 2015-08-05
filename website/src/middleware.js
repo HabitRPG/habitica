@@ -14,8 +14,11 @@ var os = require('os');
 var moment = require('moment');
 var utils = require('./utils');
 
+var IS_PROD = nconf.get('NODE_ENV') === 'production';
+var BASE_URL = nconf.get("BASE_URL");
+
 module.exports.apiThrottle = function(app) {
-  if (nconf.get('NODE_ENV') !== 'production') return;
+  if (!IS_PROD) return;
   app.use(limiter({
     end:false,
     catagories:{
@@ -33,7 +36,7 @@ module.exports.apiThrottle = function(app) {
 }
 
 module.exports.domainMiddleware = function(server,mongoose) {
-  if (nconf.get('NODE_ENV')=='production') {
+  if (IS_PROD) {
     var mins = 3, // how often to run this check
       useAvg = false, // use average over 3 minutes, or simply the last minute's report
       url = 'https://api.newrelic.com/v2/applications/'+nconf.get('NEW_RELIC_APPLICATION_ID')+'/metrics/data.json?names[]=Apdex&values[]=score';
@@ -47,8 +50,8 @@ module.exports.domainMiddleware = function(server,mongoose) {
           score = ts[ts.length-1].values.score,
           apdexBad = score < .75 || score == 1,
           memory = os.freemem() / os.totalmem(),
-          memoryHigh = false; //memory < 0.1;
-        if (apdexBad || memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
+          memoryHigh = memory < 0.1;
+        if (/*apdexBad || */memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
       })
     }, mins*60*1000);
   }
@@ -87,17 +90,46 @@ module.exports.errorHandler = function(err, req, res, next) {
   res.json(500,{err:message}); //res.end(err.message);
 }
 
+function isHTTP(req) {
+  return (
+    req.headers['x-forwarded-proto']              &&
+    req.headers['x-forwarded-proto'] !== 'https'  &&
+    IS_PROD                                       &&
+    BASE_URL.indexOf('https') === 0
+  );
+}
+
+function isProxied(req) {
+  return (
+    req.headers['x-habitica-lb'] &&
+    req.headers['x-habitica-lb'] === 'Yes'
+  );
+}
 
 module.exports.forceSSL = function(req, res, next){
-  var baseUrl = nconf.get("BASE_URL");
-  // Note x-forwarded-proto is used by Heroku & nginx, you'll have to do something different if you're not using those
-  if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https'
-    && nconf.get('NODE_ENV') === 'production'
-    && baseUrl.indexOf('https') === 0) {
-    return res.redirect(baseUrl + req.url);
+  if(isHTTP(req) && !isProxied(req)) {
+    return res.redirect(BASE_URL + req.url);
   }
-  next()
+
+  next();
 }
+
+// Redirect to habitica for non-api urls
+// NOTE: Currently using a static 'habitica.com' string, rather than BASE_URL,
+// to make rollback easy. Eventually, BASE_URL should be migrated.
+
+function nonApiUrl(req) {
+  return req.url.search(/\/api\//) === -1;
+}
+
+module.exports.forceHabitica = function(req, res, next) {
+  var ignoreRedirect = nconf.get('IGNORE_REDIRECT');
+
+  if (IS_PROD && !ignoreRedirect && !isProxied(req) && nonApiUrl(req)) {
+    return res.redirect('https://habitica.com' + req.url);
+  }
+  next();
+};
 
 module.exports.cors = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
@@ -157,7 +189,7 @@ var getManifestFiles = function(page){
 
   var code = '';
 
-  if(nconf.get('NODE_ENV') === 'production'){
+  if(IS_PROD){
     code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(page + '.css') + '">';
     code += '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
   }else{
@@ -168,7 +200,7 @@ var getManifestFiles = function(page){
       code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
     });
   }
-  
+
   return code;
 }
 
@@ -180,7 +212,7 @@ module.exports.locals = function(req, res, next) {
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
   var tavern = require('./models/group').tavern;
-  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY'.split(' '));
+  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY'.split(' '));
   res.locals.habitrpg = _.merge(envVars, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     getManifestFiles: getManifestFiles,
@@ -190,7 +222,7 @@ module.exports.locals = function(req, res, next) {
     isStaticPage: isStaticPage,
     translations: i18n.translations[language.code],
     t: function(){ // stringName and vars are the allowed parameters
-      var args = Array.prototype.slice.call(arguments, 0); 
+      var args = Array.prototype.slice.call(arguments, 0);
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },
@@ -200,7 +232,11 @@ module.exports.locals = function(req, res, next) {
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
     _: _,
-    MP_ID: nconf.get('MP_ID')
+    MP_ID: nconf.get('MP_ID'),
+    AMAZON_PAYMENTS: {
+      SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
+      CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID')
+    }
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)

@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Renacimiento: ¡Una nueva aventura disponible!",
-    "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial del Mercado te permite empezar el juego de nuevo al nivel 1, manteniendo tus tareas, logros, mascotas, y más. Úsalo para darle nueva vida a HabitRPG por si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo.",
+    "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial del Mercado te permite empezar el juego de nuevo al nivel 1, manteniendo tus tareas, logros, mascotas, y más. Úsalo para darle nueva vida a Habitica por si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo.",
     "rebirthBegin": "Renacimiento: Empieza una nueva aventura",
     "rebirthStartOver": "Renacimiento reinicia tu carácter al Nivel 1, como si creaste una nueva cuenta.",
     "rebirthAdvList1": "Regresas con salud plena.",
@@ -21,11 +21,5 @@
     "rebirthOrb": "Uso una Esfera derenacimiento para comenzar de nuevo después de conseguir Nivel",
     "rebirthPop": "Comenzar con un personaje nuevo a Nivel 1, mientras manteniendo logros, lo coleccionable, y tareas con historial.",
     "rebirthName": "Esfera de renacimiento",
-    "reborn": "Renacido, nivel máximo <%= reLevel %>",
-    "welcome100": "¡Bienvenido a Nivel 100!",
-    "intro100": "Ahora que has llegado al nivel 100, tienes la opción de usar la Esfera de renacimiento gratis en cualquier momento.",
-    "followup100": "Aunque puedes continuar a nivelar, ya no sera posible aumentar tus estadísticas y no sera desbloqueado mas contenido, así Habit seguirá siendo divertido para todos los estilos de juego.",
-    "rebirth100Info": "Si estas listo para comenzar una nueva aventura, puedes Renacer ahora... o ver qué tan lejos puedes llegar.",
-    "rebirthWait": "Yo esperaré...",
-    "rebirthNow": "¡Renacimiento ahora!"
+    "reborn": "Renacido, nivel máximo <%= reLevel %>"
 }

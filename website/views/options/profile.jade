@@ -62,7 +62,11 @@ mixin customizeProfile(mobile)
           span(ng-hide='#{showPath("user.items.gear.owned", gearGroup("animal"), "&&")}')
             +gemCost(2)
               button.btn.btn-xs(ng-click='#{unlockPath("items.gear.owned", gearGroup("animal"))}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-          button.customize-option(ng-repeat='item in ::getGearArray("animal")' ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}", popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter', popover-placement='right', popover-append-to-body='true', ng-click='purchase(item.type,item)', class='{{::item.key}}')
+          button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
+            ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}",
+            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
+            popover-placement='right', popover-append-to-body='true',
+            ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
 
     .col-md-4
         h3(class=mobile?'item item-divider':'')=env.t('bodyHead')
@@ -73,7 +77,7 @@ mixin customizeProfile(mobile)
           li.customize-menu
             menu(label=env.t('color'))
               each color in ['white','brown','blond','red','black']
-                button(type='button', class='#{path=="skin" ? "skin_"+color : "customize-option hair hair_bangs_1_"+color}', ng-click='set({"preferences.hair.color": "#{color}"})', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}') 
+                button(type='button', class='#{path=="skin" ? "skin_"+color : "customize-option hair hair_bangs_1_"+color}', ng-click='set({"preferences.hair.color": "#{color}"})', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}')
               each color in ['candycane','frost','winternight','holly']
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}')
               each color in ['pblue','pgreen','porange','ppink','ppurple','pyellow']
@@ -149,6 +153,7 @@ mixin customizeProfile(mobile)
           +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
+          +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
 
 
 script(id='partials/options.profile.avatar.html', type='text/ng-template')

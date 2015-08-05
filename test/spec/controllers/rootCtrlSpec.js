@@ -24,25 +24,18 @@ describe('Root Controller', function() {
       $httpBackend = _$httpBackend_;
 
       notification = Notification;
-      sinon.stub(notification, 'text');
-      sinon.stub(notification, 'markdown');
+      sandbox.stub(notification, 'text');
+      sandbox.stub(notification, 'markdown');
 
       user = specHelper.newUser();
       User = {user: user};
-      User.save = sinon.spy();
-      User.sync = sinon.spy();
+      User.save = sandbox.spy();
+      User.sync = sandbox.spy();
 
       $httpBackend.whenGET(/partials/).respond();
 
       ctrl = $controller('RootCtrl', {$scope: scope, User: User});
     });
-  });
-
-  afterEach(function() {
-    notification.text.reset();
-    notification.markdown.reset();
-    User.save.reset();
-    User.sync.reset();
   });
 
   describe('contribText', function(){

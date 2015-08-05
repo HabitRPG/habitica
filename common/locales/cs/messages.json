@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Něco se rozbilo. Asi <%= itemText %>.",
     "messageTaskNotFound": "Úkol nenalezen.",
+    "messageDuplicateTaskID": "Úkol s tímhle názvem už existuje",
     "messageTagNotFound": "Štítek nenalezen.",
     "messagePetNotFound": ":pet nebyl nalezen v user.items.pets",
     "messageFoodNotFound": ":food nebylo nalezeno v user.items.food",
@@ -20,5 +21,12 @@
     "messageDropFood": "Copak to je? A hele, <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našel jsi vejce, ze kterého se vylíhne <%= dropText %> ! <%= dropNotes %>",
     "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar! <%= dropNotes %>",
-    "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!"
+    "messageDropQuest": "Našel jsi Výpravu!",
+    "messageDropMysteryItem": "Copak se to skrývá v té krabici? No vida, je to <%= dropText %>!",
+    "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
+    "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
+    "armoireEquipment": "<%= image %> Ve zbrojnici jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
+    "armoireFood": "<%= image %> Prohledáváš zbrojnici a nacházíš <%= dropArticle %><%= dropText %>. Co to tu dělá?",
+    "armoireExp": "Zápasíš se Zbrojnicí a získáváš zkušenost. To jsi jí to nandal!"
 }

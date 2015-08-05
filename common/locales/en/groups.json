@@ -70,7 +70,7 @@
     "sortJoined": "Sort by date joined the party",
     "sortName": "Sort by avatar name",
     "sortBackgrounds": "Sort by background",
-    "sortHabitrpgJoined": "Sort by HabitRPG date joined",
+    "sortHabitrpgJoined": "Sort by Habitica date joined",
     "sortHabitrpgLastLoggedIn": "Sort by last time user logged in",
     "ascendingSort": "Sort Ascending",
     "descendingSort": "Sort Descending",
@@ -94,7 +94,7 @@
     "abuseFlag": "Report violation of Community Guidelines",
     "abuseFlagModalHeading": "Report <%= name %> for violation?",
     "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
-    "abuseFlagModalButton": "Report",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Thank you for reporting this violation. The moderators have been notified.",
     "abuseAlreadyReported": "You have already reported this message.",
     "needsText": "Please type a message.",
@@ -106,7 +106,7 @@
     "leaderOnlyChallenges": "Only group leader can create challenges",
     "sendGift": "Send Gift",
     "inviteFriends": "Invite Friends",
-    "inviteAlertInfo": "Invite friends by <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
+    "inviteAlertInfo": "Invite friends by <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>User ID</a> here.",
     "inviteExistUser": "Invite Existing User",
     "inviteByEmail": "Invite friends by email. If they join via your email, they'll automatically be invited to this group.",
     "byColon": "By:",
@@ -119,7 +119,8 @@
     "sendGiftPurchase": "Purchase",
     "sendGiftMessagePlaceholder": "Personal message (optional)",
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
-    "inviteFriends": "Invite Friends",
+    "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }

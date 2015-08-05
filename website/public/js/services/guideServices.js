@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg').factory('Guide',
-['$rootScope', 'User', '$timeout', '$state',
-function($rootScope, User, $timeout, $state) {
+['$rootScope', 'User', '$timeout', '$state', 'Analytics',
+function($rootScope, User, $timeout, $state, Analytics) {
 
   var chapters = {
     intro: [
@@ -72,11 +72,11 @@ function($rootScope, User, $timeout, $state) {
         }, {
           element: ".meter.mana",
           title: window.env.t('spells'),
-          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitrpg.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
+          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
         }, {
           orphan: true,
           title: window.env.t('readMore'),
-          content: window.env.t('moreClass') + " <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+          content: window.env.t('moreClass') + " <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
           final: true
         }
       ]
@@ -178,24 +178,23 @@ function($rootScope, User, $timeout, $state) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
+        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':false});
         // step.path doesn't work in Angular do to async ui-router. Our custom solution:
         if (step.state && !$state.is(step.state)) {
           // $state.go() returns a promise, necessary for async tour steps; however, that's not working here - have to use timeout instead :/
           $state.go(step.state);
           return $timeout(function(){});
         }
-        window.ga && ga('send', 'event', 'behavior', 'tour', k, i+1);
-        mixpanel.track('Tutorial',{'tour':k+'-web','step':i+1,'complete':false});
-      }
+      };
       step.onHide = function(){
         if (step.final) { // -2 indicates complete
           var ups={};ups['flags.tour.'+k] = -2;
           User.set(ups);
-          mixpanel.track('Tutorial',{'tour':k+'-web','step':i+1,'complete':true});
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
         }
       }
     })
-  })
+  });
 
   var tour = {};
   _.each(chapters, function(v,k){

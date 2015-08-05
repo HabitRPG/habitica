@@ -7,21 +7,25 @@ angular.module('habitrpg')
       return array;
     };
   }])
-  .filter('filterByTextAndNotes', ['$filter', function($filter) {
-    return function (input, term) {
-      if (!input) return;
+  .filter('filterByTaskInfo', ['$filter', function($filter) {
+    return function (tasks, term) {
+      if (!tasks) return;
 
       if (!angular.isString(term) || term.legth === 0) {
-        return input;
+        return tasks;
       }
 
       term = new RegExp(term, 'i');
 
       var result = [];
 
-      for (var i = 0; i < input.length; i++) {
-        if (term.test(input[i].text) || term.test(input[i].notes)) {
-          result.push(input[i]);
+      for (var i = 0; i < tasks.length; i++) {
+        var checklist = tasks[i].checklist;
+        if (term.test(tasks[i].text) || term.test(tasks[i].notes)) {
+          result.push(tasks[i]);
+        } else if (checklist) {
+          var found = _.find(checklist, function(box) { return term.test(box.text); });
+          if (found) { result.push(tasks[i]) }
         }
       }
 

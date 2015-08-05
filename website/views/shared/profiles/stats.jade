@@ -1,91 +1,18 @@
-h4(class=mobile?'item item-divider':'')=env.t('stats')
-table.table.table-striped
-  tr
+mixin basicRow(label, value)
+  tr&attributes(attributes)
     td
-      strong=env.t('health')
-      | : {{Math.ceil(profile.stats.hp)}} / 50
-  tr(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
-    td
-      strong=env.t('mana')
-      | : {{Math.floor(profile.stats.mp)}} / {{profile._statsComputed.maxMP}}
-  tr
-    td
-      strong=env.t('gold')
-      | : {{Math.floor(profile.stats.gp)}}
-  tr
-    td
-      strong=env.t('level')
-      | : {{profile.stats.lvl}}
-  tr
-    td
-      strong=env.t('experience')
-      | : {{Math.floor(profile.stats.exp)}} / {{Shared.tnl(profile.stats.lvl)}}
+      strong=env.t(label)
+      | : #{value}
 
-// FIXME get translations working before can use this
-unless mobile
-  h4.stats-equipment(class=mobile?'item item-divider':'',ng-show='user.flags.itemsEnabled')=env.t('equipment')
-  table.table.table-striped(ng-show='user.flags.itemsEnabled')
-    tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
-      td
-        strong {{piece.text()}}:&nbsp;
-        span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
+mixin statList(calculatedStat, popover, text, useOneTimeBinding)
+  - var binding = useOneTimeBinding ? "::" : ""
+  li(ng-if=binding + '#{calculatedStat} > 0')
+    span.hint(popover-title=env.t('#{popover}'), popover-trigger='mouseenter',
+      popover-placement='top', popover=env.t('#{popover}Text'))
+      =env.t(text)
+    =': {{' + binding + calculatedStat + '}}'
 
-h4(class=mobile?'item item-divider':'')=env.t('attributes')
-table.table.table-striped
-  each v,k in { str: {title:"strength",popover:'strengthText'},int: {title:"intelligence",popover:'intText'},con: {title:"constitution",popover:'conText'},per: {title:"perception",popover:'perText'} }
-    tr
-      td
-        span.hint(popover-title=env.t(v.title), popover-placement='right', popover=env.t(v.popover), popover-trigger='mouseenter', style='margin-right:3px')
-          strong=env.t(v.title)
-        span
-          strong : {{profile._statsComputed.#{k}}}
-      td
-        ul.list-unstyled(ng-init='g=Content.gear.flat;e=profile.items.gear.equipped')
-          li(ng-show='profile.stats.lvl > 1')
-            span.hint(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))=env.t('level')
-            |: {{Math.ceil((Math.min(profile.stats.lvl - 1, 100)) / 2)}}&nbsp;
-          li(ng-show='g[e.weapon].#{k} + g[e.armor].#{k} + g[e.head].#{k} + g[e.shield].#{k} > 0')
-            span.hint(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))=env.t('equipment')
-            |: {{g[e.weapon].#{k} + g[e.armor].#{k} + g[e.head].#{k} + g[e.shield].#{k} || 0}}&nbsp;
-          li(ng-show='profile._statsComputed.#{k} - profile.stats.buffs.#{k} - Math.ceil((Math.min(profile.stats.lvl - 1, 100)) / 2) - g[e.weapon].#{k} - g[e.armor].#{k} - g[e.head].#{k} - g[e.shield].#{k} - profile.stats.#{k} > 0')
-            span.hint(popover-title=env.t('classBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('classBonusText'))=env.t('classEquipBonus')
-            |: {{profile._statsComputed.#{k} - profile.stats.buffs.#{k} - Math.ceil((Math.min(profile.stats.lvl - 1,100)) / 2) - g[e.weapon].#{k} - g[e.armor].#{k} - g[e.head].#{k} - g[e.shield].#{k} - profile.stats.#{k}}}&nbsp;
-          li(ng-show='profile.stats.#{k} > 0')
-            span.hint(popover-title=env.t('allocatedPoints'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('allocatedPointsText'))=env.t('allocated')
-            |: {{profile.stats.#{k} || 0}}&nbsp;
-          li(ng-show='profile.stats.buffs.#{k} > 0')
-            span.hint(popover-title=env.t('buffs'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('buffsText'))=env.t('buffs')
-            |: {{profile.stats.buffs.#{k} || 0}}&nbsp;
-  tr(ng-if='profile.stats.buffs.stealth')
-    td
-      span.hint(popover-title=env.t('stealth'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('stealthNewDay'))
-        strong
-          =env.t('stealth')
-      strong : {{profile.stats.buffs.stealth}}&nbsp;
-    td
-  tr(ng-if='profile.stats.buffs.streaks')
-    td
-      strong.hint(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))=env.t('streaksFrozen')
-    td
-
-h4(class=mobile?'item item-divider':'',ng-if='user.flags.dropsEnabled')=env.t('pets')
-table.table.table-striped(ng-if='user.flags.dropsEnabled')
-  tr
-    td
-      strong=env.t('petsFound')
-      | : {{_.size(profile.items.pets)}}
-  tr
-    td
-      strong=env.t('beastMasterProgress')
-      | : {{profile.petCount}}/90
-
-h4(class=mobile?'item item-divider':'', ng-if='user.flags.dropsEnabled')=env.t('mounts')
-table.table.table-striped(ng-if='user.flags.dropsEnabled')
-  tr
-    td
-      strong=env.t('mountsTamed')
-      | : {{_.size(profile.items.mounts)}}
-  tr
-    td
-      strong=env.t('mountMasterProgress')
-      | : {{profile.mountCount}}/90
+include ./stats/basic-stats
+include ./stats/equipment
+include ./stats/attributes
+include ./stats/pets-and-mounts

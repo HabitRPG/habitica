@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Pokazil sa ti predmet -  <%= itemText %>.",
     "messageTaskNotFound": "Úloha sa nenašla.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Štítok sa nenašiel.",
     "messagePetNotFound": ":pet sa nenašlo medzi user.items.pets",
     "messageFoodNotFound": ":food sa nenašlo v user.items.food",
@@ -11,7 +12,7 @@
     "messageDontEnjoyFood": "<%= egg %> zjedlo <%= foodText %>, ale veľmi mu to nechutí.",
     "messageBought": "Kúpené: <%= itemText %>",
     "messageEquipped": "<%= itemText %> - vo výbave.",
-    "messageUnEquipped": "Zložené - <%= itemText %> . ",
+    "messageUnEquipped": "Zložené - <%= itemText %> .",
     "messageMissingEggPotion": "Na túto kombináciu ti chýba buď vajíčko alebo liahoxír",
     "messageAlreadyPet": "Toto zvieratko už máš. Skús vyliahnuť inú kombináciu!",
     "messageHatched": "Z vajíčka sa ti vyliahlo zvieratko! Zájdi do stajne a zober si ho k sebe.",
@@ -20,5 +21,12 @@
     "messageDropFood": "Našiel si: <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Našiel si vajíčko: <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Našiel si liahoxír: <%= dropText %>! <%= dropNotes %>",
-    "messageFoundQuest": "Našiel si zvitok s popisom výpravy: \"<%= questText %>\"!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "Našiel si zvitok s popisom výpravy: \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

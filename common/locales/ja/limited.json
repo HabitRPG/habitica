@@ -8,6 +8,8 @@
     "alarmingFriendsText": "パーティメンバーから <%= spookDust %> 回おどかされました。",
     "agriculturalFriends": "農業の友人",
     "agriculturalFriendsText": "パーティメンバーによって<%= seeds %>回花に変化させられました。",
+    "aquaticFriends": "Aquatic Friends",
+    "aquaticFriendsText": "Got splashed <%= seafoam %> times by party members.",
     "valentineCard": "バレンタインカード",
     "valentineCardNotes": "パーティメンバーにバレンタインカードを送ろう",
     "valentine0": "「バラは赤い<%= lineBreak %> 私の日課は青い<%= lineBreak %> 私はあなたと同じ<%= lineBreak %>パーティで嬉しい！」",
@@ -24,7 +26,8 @@
     "seasonalShopClosedTitle": "<%= linkStart %>シエナレスリー<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季節限定魔女<%= linkEnd %>",
     "seasonalShopClosedText": "季節品ショップは現在閉鎖されています！季節の魔女は今どこにいるかはわかりませんが、彼女は次の<%= linkStart %>グランドガーラ<%= linkEnd %>中に戻ってくるでしょう！",
-    "seasonalShopText": "季節限定ショップへようこそ！ 春の <a href='http://habitrpg.wikia.com/wiki/Item_Availability' target='_blank'>季節限定</a>グッズを揃えています。ここにあるものはすべて毎年Spring Fling期間中に買う事ができますが、4月30日までしかオープンしていません。ですので今買い備えないと、買うのにまた一年またなければいけませよ！",
+    "seasonalShopText": "季節限定ショップへようこそ！ 春の <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a>グッズを揃えています。ここにあるものはすべて毎年スプリングフリング期間中に買う事ができますが、4月30日までしかオープンしていません。ですので今買い備えないと、買うのにまた一年またなければなりませんよ！",
+    "seasonalShopSummerText": "季節限定ショップへようこそ！ 夏の <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定版</a>グッズを揃えています。ここにあるものはすべて毎年サマースプラッシュイベント期間中に買う事ができますが、7月31日までしかオープンしていません。ですので今買い備えないと、買うのにまた一年またなければなりませんよ！",
     "seasonalShopRebirth": "もし転生のオーブを使ったのなら、アイテムショップをアンロックした後この装備を報酬欄に買い戻す事が出来ます。最初は、現在のクラス(デフォルトでは戦士)のアイテムしか買えないでしょう。でも心配しないで、あなたがクラスを切り替えれば、他のクラスのアイテムも可能になります。",
     "candycaneSet": "キャンディケイン (魔道士)",
     "skiSet": "スキーアサシン(盗賊)",
@@ -44,5 +47,9 @@
     "mightyBunnySet": "強大なウサギ(戦士)",
     "magicMouseSet": "魔法のネズミ(魔道士)",
     "lovingPupSet": "忠実な子犬(神官)",
-    "stealthyKittySet": "ステルスキティ(盗賊)"
+    "stealthyKittySet": "ステルスキティ(盗賊)",
+    "daringSwashbucklerSet": "不適な海賊(戦士)",
+    "emeraldMermageSet": "エメラルドマーメイジ(魔道士)",
+    "reefSeahealerSet": "さんご礁のシーヒーラー(神官)",
+    "roguishPirateSet": "いたずら好きな海賊(盗賊)"
 }

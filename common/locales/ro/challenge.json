@@ -33,10 +33,10 @@
     "challengeTagPop": "Provocările apar în listele de etichete și țeluri. Așa că, deși trebuie să ai un titlu descriptiv mai sus, vei avea nevoie și de un „nume scurt”. Ex. „Scapă de 5 kilograme în 3 luni” va deveni „-5kg” (Clic pentru mai multe informații)",
     "challengeDescr": "Descriere",
     "prize": "Premiu",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minim 1 Nestemată pentru <strong>provocări publice</strong> (ajută la prevenirea spamului, pe bune).",
-    "officialChallenge": "Provocare oficială HabitRPG",
+    "officialChallenge": "Provocare oficială Habitica",
     "by": "de",
     "participants": "<%= membercount %> Participants",
     "join": "Participă",
@@ -48,5 +48,13 @@
     "removeTasks": "Șterge Țelurile",
     "keepTasks": "Păstrează Țelurile",
     "closeCha": "Închide provocarea și...",
-    "leaveCha": "Părăsește provocarea și..."
+    "leaveCha": "Părăsește provocarea și...",
+    "challengedOwnedFilterHeader": "Ownership",
+    "challengedOwnedFilter": "Owned",
+    "challengedNotOwnedFilter": "Not Owned",
+    "challengedEitherOwnedFilter": "Either",
+    "backToChallenges": "Back to all challenges",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
+    "clone": "Clone",
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

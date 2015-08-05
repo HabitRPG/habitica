@@ -4,7 +4,7 @@
     "rebirthBegin": "重生:开始新的冒险",
     "rebirthStartOver": "重生让你的角色从1级重新开始，如同你创建了一个新帐号。",
     "rebirthAdvList1": "生命值完全复原",
-    "rebirthAdvList2": "你沒有经验, 黄金或装备",
+    "rebirthAdvList2": "你沒有经验、金币或装备",
     "rebirthAdvList3": "你的习惯，每日任务，待办事项会被重置为黄色，连击数也会被重置。",
     "rebirthAdvList4": "你的初始职业是战士，但你以后可以解锁新的职业。",
     "rebirthInherit": "你的新角色继承了一些前身的东西：",
@@ -21,11 +21,5 @@
     "rebirthOrb": "使用重生球来重新开始获得级别",
     "rebirthPop": "开始一个1级的新角色并保留成就，物品和任务历史。",
     "rebirthName": "重生球",
-    "reborn": "重生, 最高级别 <%= reLevel %>",
-    "welcome100": "恭喜到达100级！",
-    "intro100": "你现在到达了100级，你可以在任何时候自由使用重生球。",
-    "followup100": "虽然你可以继续升级，但是你的属性将不再增加，也不会有新内容解锁，这是为了让那些喜欢变换玩法的人继续玩得开心。",
-    "rebirth100Info": "如果你准备好开始一段新冒险了，你可以现在重生……或者看看你能够继续推进多远。",
-    "rebirthWait": "我想等等……",
-    "rebirthNow": "现在重生！"
+    "reborn": "重生, 最高级别 <%= reLevel %>"
 }

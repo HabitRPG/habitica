@@ -1,8 +1,8 @@
-li(id='task-{{::task.id}}', 
-  ng-repeat='task in obj[list.type+"s"] | filterByTextAndNotes: obj.filterQuery | conditionalOrderBy: list.view=="dated":"date"', 
-  class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', 
-  ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}', 
-  ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)', 
+li(id='task-{{::task.id}}',
+  ng-repeat='task in obj[list.type+"s"] | filterByTaskInfo: obj.filterQuery | conditionalOrderBy: list.view=="dated":"date"',
+  class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}',
+  ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}',
+  ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)',
   ng-show='shouldShow(task, list, user.preferences)',
   popover-trigger='mouseenter', popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}',
   data-popover-html="{{task.popoverOpen ? '' : task.notes | markdown}}")

@@ -1,6 +1,7 @@
 {
     "messageLostItem": "A(z) <%= itemText %> eltörött.",
     "messageTaskNotFound": "A feladat nem található.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "A cimke nem található.",
     "messagePetNotFound": ":pet nem található a(z) user.items.pets -ben",
     "messageFoodNotFound": ":food nem található a(z) user.items.food -ben",
@@ -20,5 +21,12 @@
     "messageDropFood": "Találtál egy <%= dropArticle %><%= dropText %>-t! <%= dropNotes %>",
     "messageDropEgg": "Találtál egy <%= dropText %> tojást! <%= dropNotes %>",
     "messageDropPotion": "Találtál egy <%= dropText %> keltetőfőzetet! <%= dropNotes %>",
-    "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

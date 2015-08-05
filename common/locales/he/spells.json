@@ -2,7 +2,7 @@
     "spellWizardFireballText": "פרץ להבות",
     "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
     "spellWizardMPHealText": "פרץ אתרי",
-    "spellWizardMPHealNotes": "את/ה מקריבה מאנה כדי לעזור לחברים שלך. כל שאר החבורה מקבלת מאנה! (מבוסס על תבונה)",
+    "spellWizardMPHealNotes": "אתה מקריב מאנה כדי לעזור לחברים שלך. כל שאר החבורה מקבלת מאנה! (מבוסס על תבונה)",
     "spellWizardEarthText": "רעידת אדמה",
     "spellWizardEarthNotes": "כוח המוח שלך מזעזע את האדמה. כל החבורה מקבלת בונוס לתבונה שלהם! (מבוסס על: תבונה ללא בונוס)",
     "spellWizardFrostText": "קור מקפיא",
@@ -42,5 +42,9 @@
     "spellSpecialShinySeedText": "זרע מנצנץ",
     "spellSpecialShinySeedNotes": "הפכו חבר/ה לפרח מאושר!",
     "spellSpecialPetalFreePotionText": "תרופה ללא כותרת",
-    "spellSpecialPetalFreePotionNotes": "מבטלת את השפעת הזרעים המנצנצים"
+    "spellSpecialPetalFreePotionNotes": "מבטלת את השפעת הזרעים המנצנצים",
+    "spellSpecialSeafoamText": "Seafoam",
+    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+    "spellSpecialSandText": "Sand",
+    "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

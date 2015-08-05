@@ -56,6 +56,10 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
   moment(o.now).startOf('week')
 
 api.startOfDay = (options={}) ->
+  # This is designed for use with any date that has an important time portion (e.g., when comparing the current date-time with the previous cron's date-time for determing if cron should run now).
+  # It changes the time portion of the date-time to be the Custom Day Start hour, so that the date-time is now the user's correct start of day.
+  # It SUBTRACTS a day if the date-time's original hour is before CDS (e.g., if your CDS is 5am and it's currently 4am, it's still the previous day).
+  # This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
   o = sanitizeOptions(options)
   dayStart = moment(o.now).startOf('day').add({hours:o.dayStart})
   if moment(o.now).hour() < o.dayStart
@@ -75,34 +79,35 @@ api.daysSince = (yesterday, options = {}) ->
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
 ###
 api.shouldDo = (day, dailyTask, options = {}) ->
-  return false unless dailyTask.type == 'daily' && dailyTask.repeat
-  if !dailyTask.startDate
-    dailyTask.startDate = moment().toDate()
-  if dailyTask.startDate instanceof String
-    dailyTask.startDate = moment(dailyTask.startDate).toDate()
+  return false unless dailyTask.type == 'daily'
   o = sanitizeOptions options
-  day = api.startOfDay(_.defaults {now:day}, o)
-  dayOfWeekNum = day.day() # e.g. 1 for Monday if week starts on Mon
+  startOfDayWithCDSTime = api.startOfDay(_.defaults {now:day}, o)  # a moment()
 
-  # check if event is today or in the future
-  hasStartedCheck = day >= api.startOfDay(_.defaults {now:dailyTask.startDate}, o)
+  taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset)
 
-  if dailyTask.frequency == 'daily'
-    daysSinceTaskStart = api.numDaysApart(day.startOf('day'), dailyTask.startDate, o)
+  # The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
+  # Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
+  # NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+  taskStartDate = moment(taskStartDate).startOf('day')
+
+  if taskStartDate > startOfDayWithCDSTime.startOf('day')
+    return false # Daily starts in the future
+
+  if dailyTask.frequency == 'daily' # "Every X Days"
+    if !dailyTask.everyX
+      return false # error condition
+    daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days')
     everyXCheck = (daysSinceTaskStart % dailyTask.everyX == 0)
-    return everyXCheck && hasStartedCheck
-  else if dailyTask.frequency == 'weekly'
+    return everyXCheck
+  else if dailyTask.frequency == 'weekly' # "On Certain Days of the Week"
+    if !dailyTask.repeat
+      return false # error condition
+    dayOfWeekNum = startOfDayWithCDSTime.day() # e.g. 0 for Sunday
     dayOfWeekCheck = dailyTask.repeat[api.dayMapping[dayOfWeekNum]]
-    return dayOfWeekCheck && hasStartedCheck
+    return dayOfWeekCheck
   else
     # unexpected frequency string
     return false
-
-api.numDaysApart = (day1, day2, o) ->
-  startOfDay1 = api.startOfDay(_.defaults {now:day1}, o)
-  startOfDay2 = api.startOfDay(_.defaults {now:day2}, o)
-  numDays = Math.abs(startOfDay1.diff(startOfDay2, 'days'))
-  return numDays
 
 ###
   ------------------------------------------------------
@@ -114,6 +119,14 @@ api.maxLevel = 100
 
 api.capByLevel = (lvl) ->
   if lvl > api.maxLevel then api.maxLevel else lvl
+
+###
+  ------------------------------------------------------
+  Health cap
+  ------------------------------------------------------
+###
+
+api.maxHealth = 50
 
 ###
   ------------------------------------------------------
@@ -235,7 +248,7 @@ api.taskDefaults = (task={}) ->
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
   _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
-  _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
+  _.defaults(task, {streak:0, repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}}, startDate: new Date(), everyX: 1, frequency: 'weekly') if task.type is 'daily'
   task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
   task.value ?= if task.type is 'reward' then 10 else 0
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
@@ -313,7 +326,9 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
     classes += ' habit-wide' if task.down and task.up
     classes += ' habit-narrow' if !task.down and !task.up
 
-  if priority == 1
+  if priority == 0.1
+    classes += ' difficulty-trivial'
+  else if priority == 1
     classes += ' difficulty-easy'
   else if priority == 1.5
     classes += ' difficulty-medium'
@@ -363,32 +378,10 @@ api.appliedTags = (userTags, taskTags) ->
     arr.push(t.name) if taskTags?[t.id]
   arr.join(', ')
 
-api.countPets = (originalCount, pets) ->
-  count = if originalCount? then originalCount else _.size(pets)
-  for pet of content.questPets
-    count-- if pets[pet]
-  for pet of content.specialPets
-    count-- if pets[pet]
-  count
-
-api.countMounts = (originalCount, mounts) ->
-  count2 = if originalCount? then originalCount else _.size(mounts)
-  for mount of content.questPets
-    count2-- if mounts[mount]
-  for mount of content.specialMounts
-    count2-- if mounts[mount]
-  count2
-
-api.countTriad = (pets) ->
-  count3 = 0
-  for egg of content.dropEggs
-    for potion of content.hatchingPotions
-      if pets[egg + "-" + potion] > 0 then count3++
-  count3
-
-api.countArmoire = (gear) ->
-  count = _.size(_.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !gear[i.key])))
-  count
+###
+Various counting functions
+###
+api.count = require('./count')
 
 ###
 ------------------------------------------------------
@@ -449,7 +442,7 @@ api.wrap = (user, main=true) ->
         user.preferences.sleep = !user.preferences.sleep
         cb? null, {}
 
-      revive: (req, cb) ->
+      revive: (req, cb, analytics) ->
         return cb?({code:400, message: "Cannot revive if not dead"}) unless user.stats.hp <= 0
 
         # Reset stats after death
@@ -478,7 +471,15 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
-        mixpanel?.track('Death',{'lostItem':lostItem})
+
+        analyticsData = {
+          uuid: user._id,
+          lostItem: lostItem,
+          gaLabel: lostItem,
+          category: 'behavior'
+        }
+        analytics?.track('Death', analyticsData)
+
         cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text(req.language)}, req.language)} else null), user
 
       reset: (req, cb) ->
@@ -497,14 +498,14 @@ api.wrap = (user, main=true) ->
           gear[type].weapon = 'weapon_base_0'
           gear[type].head   = 'head_base_0'
           gear[type].shield = 'shield_base_0'
-        gear.owned = {} if typeof gear.owned == 'undefined';
+        gear.owned = {} if typeof gear.owned == 'undefined'
         _.each gear.owned, (v, k)-> gear.owned[k]=false if gear.owned[k];true
         gear.owned.weapon_warrior_0 = true
         user.markModified? 'items.gear.owned'
         user.preferences.costume = false
         cb? null, user
 
-      reroll: (req, cb, ga) ->
+      reroll: (req, cb, analytics) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         user.balance--
@@ -512,19 +513,37 @@ api.wrap = (user, main=true) ->
           unless task.type is 'reward'
             task.value = 0
         user.stats.hp = 50
-        cb? null, user
-        mixpanel?.track("Acquire Item",{'itemName':'Fortify','acquireMethod':'Gems','gemCost':4})
-        ga?.event('behavior', 'gems', 'reroll').send()
 
-      rebirth: (req, cb, ga) ->
+        analyticsData = {
+          uuid: user._id,
+          acquireMethod: 'Gems',
+          gemCost: 4,
+          category: 'behavior'
+        }
+        analytics?.track('Fortify Potion', analyticsData)
+
+        cb? null, user
+
+      rebirth: (req, cb, analytics) ->
         # Cost is 8 Gems ($2)
         if (user.balance < 2 && user.stats.lvl < api.maxLevel)
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
+
+        analyticsData = {
+          uuid: user._id,
+          category: 'behavior'
+        }
         # only charge people if they are under the max level - ryan
         if user.stats.lvl < api.maxLevel
           user.balance -= 2
-          mixpanel?.track("Acquire Item",{'itemName':'Rebirth','acquireMethod':'Gems','gemCost':8})
-          ga?.event('behavior', 'gems', 'rebirth').send()
+          analyticsData.acquireMethod = 'Gems'
+          analyticsData.gemCost = 8
+        else
+          analyticsData.gemCost = 0
+          analyticsData.acquireMethod = '> 100'
+
+        analytics?.track('Rebirth', analyticsData)
+
         # Save off user's level, for calculating achievement eligibility later
         lvl = api.capByLevel(user.stats.lvl)
         # Turn tasks yellow, zero out streaks
@@ -692,7 +711,7 @@ api.wrap = (user, main=true) ->
       addPushDevice: (req, cb) ->
         user.pushDevices = [] unless user.pushDevices
         pd = user.pushDevices
-        item = {regId:req.body.regId, type:req.body.type};
+        item = {regId:req.body.regId, type:req.body.type}
         i = _.findIndex pd, {regId: item.regId}
 
         pd.push(item) unless i != -1
@@ -759,7 +778,7 @@ api.wrap = (user, main=true) ->
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
-        cb? {code:200, message}, userPets[pet]
+        cb? {code:200, message}, {value: userPets[pet]}
 
       buySpecialSpell: (req,cb) ->
         {key} = req.params
@@ -773,7 +792,7 @@ api.wrap = (user, main=true) ->
         cb? {code:200,message}, _.pick(user,$w 'items stats')
 
       # buy is for using Gold, purchase is for Gems (I know, I know...)
-      purchase: (req, cb, ga) ->
+      purchase: (req, cb, analytics) ->
         {type,key}  = req.params
 
         if type is 'gems' and key is 'gem'
@@ -785,7 +804,16 @@ api.wrap = (user, main=true) ->
           user.balance += .25
           user.purchased.plan.gemsBought++
           user.stats.gp -= convRate
-          mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':convRate})
+
+          analyticsData = {
+            uuid: user._id,
+            itemKey: key,
+            acquireMethod: 'Gold',
+            goldCost: convRate,
+            category: 'behavior'
+          }
+          analytics?.track('purchase gems', analyticsData)
+
           return cb? {code:200,message:"+1 Gem"}, _.pick(user,$w 'stats balance')
 
         return cb?({code:404,message:":type must be in [eggs,hatchingPotions,food,quests,gear]"},req) unless type in ['eggs','hatchingPotions','food','quests','gear']
@@ -803,11 +831,20 @@ api.wrap = (user, main=true) ->
         else
           user.items[type][key] = 0  unless user.items[type][key] > 0
           user.items[type][key]++
-        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gems','gemCost':item.value})
-        cb? null, _.pick(user,$w 'items balance')
-        ga?.event('behavior', 'gems', key).send()
 
-      releasePets: (req, cb) ->
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          itemType: 'Market',
+          acquireMethod: 'Gems',
+          gemCost: item.value,
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+
+        cb? null, _.pick(user,$w 'items balance')
+
+      releasePets: (req, cb, analytics) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
@@ -818,10 +855,17 @@ api.wrap = (user, main=true) ->
             user.achievements.beastMasterCount = 0
           user.achievements.beastMasterCount++
           user.items.currentPet = ""
-        cb? null, user
-        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
-      releaseMounts: (req, cb) ->
+        analyticsData = {
+          uuid: user._id,
+          acquireMethod: 'Gems',
+          gemCost: 4,
+          category: 'behavior'
+        }
+        analytics?.track('release pets', analyticsData)
+        cb? null, user
+
+      releaseMounts: (req, cb, analytics) ->
         if user.balance < 1
           return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         else
@@ -832,8 +876,16 @@ api.wrap = (user, main=true) ->
           if not user.achievements.mountMasterCount
             user.achievements.mountMasterCount = 0
           user.achievements.mountMasterCount++
+
+        analyticsData = {
+          uuid: user._id,
+          acquireMethod: 'Gems',
+          gemCost: 4,
+          category: 'behavior'
+        }
+        analytics?.track('release mounts', analyticsData)
+
         cb? null, user
-        mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':4})
 
       releaseBoth: (req, cb) ->
         if user.balance < 1.5 and not user.achievements.triadBingo
@@ -841,7 +893,13 @@ api.wrap = (user, main=true) ->
         else
           giveTriadBingo = true
           if not user.achievements.triadBingo
-            mixpanel?.track("Acquire Item",{'itemName':'Kennel Key','acquireMethod':'Gems','gemCost':6})
+            analyticsData = {
+              uuid: user._id,
+              acquireMethod: 'Gems',
+              gemCost: 6,
+              category: 'behavior'
+            }
+            analytics?.track('release pets & mounts', analyticsData)
             user.balance -= 1.5
           user.items.currentMount = ""
           user.items.currentPet = ""
@@ -862,13 +920,13 @@ api.wrap = (user, main=true) ->
         cb? null, user
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
-      buy: (req, cb) ->
+      buy: (req, cb, analytics) ->
         {key} = req.params
 
         item = if key is 'potion' then content.potion
         else if key is 'armoire' then content.armoire
         else content.gear.flat[key]
-        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
+        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
         armoireResp = undefined
@@ -883,11 +941,12 @@ api.wrap = (user, main=true) ->
           # the same seed would give one of the first five foods only.
           eligibleEquipment = _.filter(content.gear.flat, ((i)->i.klass is 'armoire' and !user.items.gear.owned[i.key]))
           if !_.isEmpty(eligibleEquipment) and (armoireResult < .6 or !user.flags.armoireOpened)
+            eligibleEquipment.sort()  # https://github.com/HabitRPG/habitrpg/issues/5376#issuecomment-111799217
             drop = user.fns.randomVal(eligibleEquipment)
             user.items.gear.owned[drop.key] = true
             user.flags.armoireOpened = true
             message = i18n.t('armoireEquipment', {image: '<span class="shop_'+drop.key+' pull-left"></span>', dropText: drop.text(req.language)}, req.language)
-            if api.countArmoire(user.items.gear.owned) is 0 then user.flags.armoireEmpty = true
+            if api.count.remainingGearInSet(user.items.gear.owned, 'armoire') is 0 then user.flags.armoireEmpty = true
             armoireResp = {type: "gear", dropKey: drop.key, dropText: drop.text(req.language)}
           else if (!_.isEmpty(eligibleEquipment) and armoireResult < .8) or armoireResult < .5
             drop = user.fns.randomVal _.where(content.food, {canDrop:true})
@@ -907,12 +966,42 @@ api.wrap = (user, main=true) ->
           message ?= i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
           if item.last then user.fns.ultimateGear()
         user.stats.gp -= item.value
+
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          acquireMethod: 'Gold',
+          goldCost: item.value,
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+
         buyResp = _.pick(user,$w 'items achievements stats flags')
         buyResp["armoire"] = armoireResp if armoireResp
-        mixpanel?.track("Acquire Item",{'itemName':key,'acquireMethod':'Gold','goldCost':item.value})
         cb? {code:200, message}, buyResp
 
-      buyMysterySet: (req, cb)->
+      buyQuest: (req, cb, analytics) ->
+        {key} = req.params
+        item = content.quests[key]
+        return cb?({code:404, message:"Quest '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
+        return cb?({code:404, message:"Quest '#{key} is not a Gold-purchasable quest (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item.category is 'gold' and item.goldValue
+        return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.goldValue
+        message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
+        user.items.quests[item.key] ?= 0
+        user.items.quests[item.key] += 1
+        user.stats.gp -= item.goldValue
+        analyticsData = {
+          uuid: user._id,
+          itemKey: item.key,
+          itemType: 'Market',
+          goldCost: item.goldValue,
+          acquireMethod: 'Gold',
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+        cb? {code:200, message}, user.items.quests
+
+      buyMysterySet: (req, cb, analytics)->
         return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
         mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
         if window?.confirm?
@@ -920,7 +1009,15 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
         _.each mysterySet.items, (i)->
           user.items.gear.owned[i.key]=true
-          mixpanel?.track("Acquire Item",{'itemName':i.key,'acquireMethod':'Hourglass'})
+          analyticsData = {
+            uuid: user._id,
+            itemKey: i.key,
+            itemType: 'Subscriber Gear',
+            acquireMethod: 'Hourglass',
+            category: 'behavior'
+          }
+          analytics?.track('acquire item', analyticsData)
+
         user.purchased.plan.consecutive.trinkets--
         cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
@@ -964,7 +1061,7 @@ api.wrap = (user, main=true) ->
         user.items.hatchingPotions[hatchingPotion]--
         cb? {code:200, message:i18n.t('messageHatched', req.language)}, user.items
 
-      unlock: (req, cb, ga) ->
+      unlock: (req, cb, analytics) ->
         {path} = req.query
         fullSet = ~path.indexOf(",")
         cost =
@@ -991,17 +1088,36 @@ api.wrap = (user, main=true) ->
           user.fns.dotSet "purchased." + path, true
         user.balance -= cost
         if ~path.indexOf('gear.') then user.markModified? 'gear.owned' else user.markModified? 'purchased'
+        
+        analyticsData = {
+          uuid: user._id,
+          itemKey: path,
+          itemType: 'customization',
+          acquireMethod: 'Gems',
+          gemCost: (cost/.25),
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+
         cb? null, _.pick(user,$w 'purchased preferences items')
-        mixpanel?.track("Acquire Item",{'itemName':'Customizations','acquireMethod':'Gems','gemCost':(cost / .25)})
-        ga?.event('behavior', 'gems', path).send()
 
       # ------
       # Classes
       # ------
 
-      changeClass: (req, cb, ga) ->
+      changeClass: (req, cb, analytics) ->
         klass = req.query?.class
         if klass in ['warrior','rogue','wizard','healer']
+
+          analyticsData = {
+            uuid: user._id,
+            class: klass,
+            acquireMethod: 'Gems',
+            gemCost: 3,
+            category: 'behavior'
+          }
+          analytics?.track('change class', analyticsData)
+
           user.stats.class = klass
           user.flags.classSelected = true
           # Clear their gear and equip their new class's gear (can still equip old gear from inventory)
@@ -1032,8 +1148,6 @@ api.wrap = (user, main=true) ->
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: api.capByLevel(user.stats.lvl)}
           user.flags.classSelected = false
-          mixpanel?.track("Acquire Item",{'itemName':klass,'acquireMethod':'Gems','gemCost':3})
-          ga?.event('behavior', 'gems', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
 
@@ -1059,15 +1173,22 @@ api.wrap = (user, main=true) ->
         user.markModified? 'items.special.valentineReceived'
         cb? null, 'items.special'
 
-      openMysteryItem: (req,cb,ga) ->
+      openMysteryItem: (req,cb,analytics) ->
         item = user.purchased.plan?.mysteryItems?.shift()
         return cb?(code:400,message:"Empty") unless item
         item = content.gear.flat[item]
         user.items.gear.owned[item.key] = true
         user.markModified? 'purchased.plan.mysteryItems'
-        # Could show {code:200} message, but it's yellow with no icon. This is round-about, but prettier. FIXME
-        (user._tmp?={}).drop = {type: 'gear', dialog: "#{item.text(req.language)} inside!"} if typeof window != 'undefined'
-        #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
+        item.type = 'Mystery'
+        analyticsData = {
+          uuid: user._id,
+          itemKey: item,
+          itemType: 'Subscriber Gear',
+          acquireMethod: 'Subscriber',
+          category: 'behavior'
+        }
+        analytics?.track('open mystery item', analyticsData)
+        (user._tmp?={}).drop = item if typeof window != 'undefined'
         cb? null, user.items.gear.owned
 
       readNYE: (req,cb) ->
@@ -1165,7 +1286,7 @@ api.wrap = (user, main=true) ->
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
               if direction is 'up' # Make progress on quest based on STR
-                user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                user.party.quest.progress.up = user.party.quest.progress.up || 0
                 user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
                 user.party.quest.progress.up += (nextDelta * (0.5 + (user._statsComputed.str / 400))) if task.type is 'habit'
               task.value += nextDelta
@@ -1462,7 +1583,7 @@ api.wrap = (user, main=true) ->
           else "str" # if all else fails, dump into STR
       )()]++
 
-    updateStats: (stats, req) ->
+    updateStats: (stats, req, analytics) ->
       # Game Over (death)
       return user.stats.hp=0 if stats.hp <= 0
 
@@ -1489,7 +1610,7 @@ api.wrap = (user, main=true) ->
             user.fns.autoAllocate()
           else
             # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
-            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+            user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int)
             if user.stats.points < 0
               user.stats.points = 0
               # This happens after dropping level with Fix Character Values and perhaps from other causes.
@@ -1502,9 +1623,7 @@ api.wrap = (user, main=true) ->
         user.flags.customizationsNotification = true
       if !user.flags.itemsEnabled and (user.stats.exp > 10 or user.stats.lvl > 1)
         user.flags.itemsEnabled = true
-      if !user.flags.partyEnabled and user.stats.lvl >= 3
-        user.flags.partyEnabled = true
-      if !user.flags.dropsEnabled and user.stats.lvl >= 4
+      if !user.flags.dropsEnabled and user.stats.lvl >= 3
         user.flags.dropsEnabled = true
         if user.items.eggs["Wolf"] > 0 then user.items.eggs["Wolf"]++ else user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
@@ -1516,14 +1635,16 @@ api.wrap = (user, main=true) ->
           user.items.quests[k]++
           (user.flags.levelDrops ?= {})[k] = true
           user.markModified? 'flags.levelDrops'
-          mixpanel?.track("Acquire Item",{'itemName':k,'acquireMethod':'Drop'})
-          user._tmp.drop = _.defaults content.quests[k],
-            type: 'Quest'
-            dialog: i18n.t('messageFoundQuest', {questText: content.quests[k].text(req.language)}, req.language)
+          analyticsData = {
+            uuid: user._id,
+            itemKey: k,
+            acquireMethod: 'Level Drop',
+            category: 'behavior'
+          }
+          analytics?.track('acquire item', analyticsData)
+          user._tmp.drop = {type: 'Quest', key: k}
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
-      if user.stats.lvl >= api.maxLevel and !user.flags.freeRebirth
-        user.flags.freeRebirth = true
 
     ###
       ------------------------------------------------------
@@ -1603,54 +1724,58 @@ api.wrap = (user, main=true) ->
 
       # Tally each task
       todoTally = 0
+      user.todos.forEach (task) -> # make uncompleted todos redder
+        return unless task
+        {id, completed} = task
+        delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(daysMissed), cron:true}})
+        absVal = if (completed) then Math.abs(task.value) else task.value
+        todoTally += absVal
+
       dailyChecked = 0        # how many dailies were checked?
       dailyDueUnchecked = 0   # how many dailies were due but not checked?
       user.party.quest.progress.down ?= 0
-      user.todos.concat(user.dailys).forEach (task) ->
+      user.dailys.forEach (task) ->
         return unless task
-
-        {id, type, completed, repeat} = task
+        {id, completed} = task
 
         # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
         EvadeTask = 0
         scheduleMisses = daysMissed
         if completed
-          if type is 'daily'
-            dailyChecked += 1
+          dailyChecked += 1
         else
-          # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
-          if (type is 'daily') and repeat
-            scheduleMisses = 0
-            _.times daysMissed, (n) ->
-              thatDay = moment(now).subtract({days: n + 1})
-              if api.shouldDo(thatDay.toDate(), task, user.preferences)
-                scheduleMisses++
-                if user.stats.buffs.stealth
-                  user.stats.buffs.stealth--
-                  EvadeTask++
-          if scheduleMisses > EvadeTask
-            if type is 'daily'
-              perfect = false
-              if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
-                fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
-                dailyDueUnchecked += (1 - fractionChecked)
-                dailyChecked += fractionChecked
-              else
-               dailyDueUnchecked += 1
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}}); # this line occurs for todos or dailys
-            user.party.quest.progress.down += delta if type is 'daily'
+          # dailys repeat, so need to calculate how many they've missed according to their own schedule
+          scheduleMisses = 0
+          _.times daysMissed, (n) ->
+            thatDay = moment(now).subtract({days: n + 1})
+            if api.shouldDo(thatDay.toDate(), task, user.preferences)
+              scheduleMisses++
+              if user.stats.buffs.stealth
+                user.stats.buffs.stealth--
+                EvadeTask++
 
-        switch type
-          when 'daily'
-            # This occurs whether or not the task is completed
-            (task.history ?= []).push({ date: +new Date, value: task.value })
-            task.completed = false
-            if completed || (scheduleMisses > 0)
-              _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
-          when 'todo'
-          #get updated value
-            absVal = if (completed) then Math.abs(task.value) else task.value
-            todoTally += absVal
+          if scheduleMisses > EvadeTask
+            perfect = false
+            if task.checklist?.length > 0  # Partially completed checklists dock fewer mana points
+              fractionChecked = _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length
+              dailyDueUnchecked += (1 - fractionChecked)
+              dailyChecked += fractionChecked
+            else
+             dailyDueUnchecked += 1
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}})
+
+            # Apply damage from a boss, less damage for Trivial priority (difficulty)
+            user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
+            # NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+            # initially, and when we realised, we could not fix it because users are used to
+            # their Medium and Hard Dailies doing an Easy amount of damage from boss.
+            # Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+            # setting between Trivial and Easy.
+
+        (task.history ?= []).push({ date: +new Date, value: task.value })
+        task.completed = false
+        if completed || (scheduleMisses > 0)
+          _.each task.checklist, ((i)->i.completed=false;true) # this should not happen for grey tasks unless they are completed
 
       user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
         if task.up is false or task.down is false
@@ -1658,7 +1783,6 @@ api.wrap = (user, main=true) ->
             task.value = 0
           else
             task.value = task.value / 2
-
 
       # Finished tallying
       ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
@@ -1694,8 +1818,17 @@ api.wrap = (user, main=true) ->
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
-      options.mixpanel?.track('Cron',{'distinct_id':user._id,'resting':user.preferences.sleep})
-      options.ga?.event('behavior', 'cron', 'cron', user.flags.cronCount).send(); #TODO userId for cohort
+
+      analyticsData = {
+        category: 'behavior',
+        gaLabel: 'Cron Count',
+        gaValue: user.flags.cronCount,
+        uuid: user._id,
+        user: user,
+        resting: user.preferences.sleep,
+        cronCount: user.flags.cronCount
+      }
+      options.analytics?.track('Cron', analyticsData)
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
@@ -1724,7 +1857,7 @@ api.wrap = (user, main=true) ->
       owned = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
       user.achievements.ultimateGearSets ?= {healer: false, wizard: false, rogue: false, warrior: false}
       content.classes.forEach (klass) ->
-        if user.achievements.ultimateGearSets[klass] is not true
+        if user.achievements.ultimateGearSets[klass] isnt true
           user.achievements.ultimateGearSets[klass] = _.reduce ['armor', 'shield', 'head', 'weapon'], (soFarGood, type) ->
             found = _.find content.gear.tree[type][klass], {last:true}
             soFarGood and (!found or owned[found.key]==true) #!found only true when weapon is two-handed (mages)

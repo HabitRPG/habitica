@@ -79,7 +79,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             div.alert.alert-warning(style='padding:2px;margin-top:7px')
               h5=env.t('customDayStart')
               h5=env.t('customDayStartInfo1')
-                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('customDayStartInfo2') : env.t('customDayStartInfo3')}}
+                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
               .form-group
                 .input-group
@@ -180,8 +180,6 @@ script(type='text/ng-template', id='partials/options.settings.promo.html')
               button.btn.btn-primary(type='submit') Generate
               a.btn.btn-default(href='/api/v2/coupons?_id={{user._id}}&apiToken={{user.apiToken}}') Get Codes
 
-
-
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .container-fluid
     .row
@@ -272,66 +270,16 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
             =env.t('emailNotifications')
           .panel-body
 
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.newPM', ng-change='set({"preferences.emailNotifications.newPM": user.preferences.emailNotifications.newPM ? true: false})')
-                span=env.t('newPM')
+            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps'] 
+              -var preference = 'user.preferences.emailNotifications.' + notification
+              -var unsubscribeFromAll = 'user.preferences.emailNotifications.unsubscribeFromAll'
 
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.wonChallenge', ng-change='set({"preferences.emailNotifications.wonChallenge": user.preferences.emailNotifications.wonChallenge ? true: false})')
-                span=env.t('wonChallenge')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedGems', ng-change='set({"preferences.emailNotifications.giftedGems": user.preferences.emailNotifications.giftedGems ? true: false})')
-                span=env.t('giftedGems')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.giftedSubscription', ng-change='set({"preferences.emailNotifications.giftedSubscription": user.preferences.emailNotifications.giftedSubscription ? true: false})')
-                span=env.t('giftedSubscription')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedParty', ng-change='set({"preferences.emailNotifications.invitedParty": user.preferences.emailNotifications.invitedParty ? true: false})')
-                span=env.t('invitedParty')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedGuild', ng-change='set({"preferences.emailNotifications.invitedGuild": user.preferences.emailNotifications.invitedGuild ? true: false})')
-                span=env.t('invitedGuild')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.kickedGroup', ng-change='set({"preferences.emailNotifications.kickedGroup": user.preferences.emailNotifications.kickedGroup ? true: false})')
-                span=env.t('kickedGroup')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.questStarted', ng-change='set({"preferences.emailNotifications.questStarted": user.preferences.emailNotifications.questStarted ? true: false})')
-                span=env.t('questStarted')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.invitedQuest', ng-change='set({"preferences.emailNotifications.invitedQuest": user.preferences.emailNotifications.invitedQuest ? true: false})')
-                span=env.t('invitedQuest')
-
-            //.checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.remindersToLogin', ng-change='set({"preferences.emailNotifications.remindersToLogin": user.preferences.emailNotifications.remindersToLogin ? true: false})')
-                span=env.t('remindersToLogin')
-
-            // These are the recapture emails, important announcements was the previous name used for them
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.importantAnnouncements', ng-change='set({"preferences.emailNotifications.importantAnnouncements": user.preferences.emailNotifications.importantAnnouncements ? true: false})')
-                span=env.t('inactivityEmails')
-
-            .checkbox
-              label
-                input(type='checkbox', ng-disabled='user.preferences.emailNotifications.unsubscribeFromAll === true', ng-model='user.preferences.emailNotifications.weeklyRecaps', ng-change='set({"preferences.emailNotifications.weeklyRecaps": user.preferences.emailNotifications.weeklyRecaps ? true: false})')
-                span=env.t('weeklyRecaps')
+              .checkbox: label
+                input(type='checkbox', ng-model='#{preference}',
+                  ng-disabled='#{unsubscribeFromAll} === true',
+                  ng-checked='#{unsubscribeFromAll} === false && #{preference} === true',
+                  ng-change='set({"preferences.emailNotifications.#{notification}": #{preference} ? true: false})')
+                span=env.t(notification)
 
             hr
 
@@ -388,7 +336,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
           h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
           a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
-          a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
+          a.btn.btn-success(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
+          a.btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})") Amazon Payments
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

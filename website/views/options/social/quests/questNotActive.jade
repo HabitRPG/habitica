@@ -1,0 +1,30 @@
+div(ng-if='group.quest.active==false')
+  tabset
+    tab(heading=env.t('invitations'))
+      +participants(false)
+
+    tab(heading=env.t('questDetails'))
+      div(class="quest_{{::group.quest.key}}")
+      div(ng-if='::Content.quests[group.quest.key].boss')
+        h4 {{::Content.quests[group.quest.key].boss.name()}}
+        p: strong=env.t('bossHP') + ': {{::Content.quests[group.quest.key].boss.hp}}'
+        p: strong=env.t('bossStrength') + ':  {{::Content.quests[group.quest.key].boss.str}}'
+      div(ng-if='::Content.quests[group.quest.key].collect')
+        p(ng-repeat='(k,v) in ::Content.quests[group.quest.key].collect')
+          strong=env.t('collect') + ': '
+          | {{::Content.quests[group.quest.key].collect[k].count}} {{::Content.quests[group.quest.key].collect[k].text()}}
+      div(ng-bind-html='::Content.quests[group.quest.key].notes()')
+      quest-rewards(key='{{::group.quest.key}}')
+
+  hr
+
+  .npc_ian.pull-left
+  p=env.t('questStart')
+
+  span(ng-if='user.party.quest.RSVPNeeded')
+    button.btn.btn-sm.btn-success(ng-click='questAccept(party)')=env.t('accept')
+    button.btn.btn-sm.btn-danger(ng-click='questReject(party)')=env.t('reject')
+
+  span(ng-if='::group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfPendingQuest(group.quest.leader,group)')
+    button.btn.btn-sm.btn-warning(ng-click='party.$questAccept({"force":true})')=env.t('begin')
+    button.btn.btn-sm.btn-danger(ng-click='questCancel(party)')=env.t('cancel')

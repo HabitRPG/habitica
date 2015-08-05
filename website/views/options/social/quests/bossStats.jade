@@ -1,0 +1,24 @@
+if tavern
+  div(class="quest_{{group.quest.key}} quest_{{group.quest.key}}_#{env.worldDmg.recent}")
+else
+  div(class="quest_{{::group.quest.key}}")
+
+.hero-stats
+  h4 {{::Content.quests[group.quest.key].boss.name()}}
+  .meter-label(tooltip=env.t('bossHP'))
+    span.glyphicon.glyphicon-heart
+  .meter.health
+    .bar(ng-style='{width: Shared.percent(progress.hp, boss.hp) + "%"}')
+    span.meter-text.value
+      | {{Math.ceil(progress.hp) | roundLargeNumbers}} 
+      | &nbsp;/ {{::boss.hp | roundLargeNumbers}}
+  div(ng-if='boss.rage')
+    .meter-label(tooltip='Rage')
+      span.glyphicon.glyphicon-fire
+    .meter.mana(popover="{{::boss.rage.description()}}",
+      popover-title="{{::boss.rage.title()}}",
+      popover-trigger='mouseenter', popover-placement='bottom')
+      .bar(ng-style='{width: Shared.percent(progress.rage, boss.rage.value) + "%"}')
+      span.meter-text.value
+        | {{Math.ceil(progress.rage)  | roundLargeNumbers}} 
+        | &nbsp;/ {{::boss.rage.value | roundLargeNumbers}}

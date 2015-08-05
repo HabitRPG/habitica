@@ -32,15 +32,19 @@ div(ng-if='::task.type!="reward"')
       a.hint.priority-multiplier-help(href='http://habitrpg.wikia.com/wiki/Difficulty', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
     ul.priority-multiplier
       li
-        button(type='button', ng-class='{active: task.priority==1 || !task.priority}', 
+        button(type='button', ng-class='{active: task.priority==0.1}',
+          ng-click='task.challenge.id || (task.priority=0.1)')
+          =env.t('trivial')
+      li
+        button(type='button', ng-class='{active: task.priority==1 || !task.priority}',
           ng-click='task.challenge.id || (task.priority=1)')
           =env.t('easy')
       li
-        button(type='button', ng-class='{active: task.priority==1.5}', 
+        button(type='button', ng-class='{active: task.priority==1.5}',
           ng-click='task.challenge.id || (task.priority=1.5)')
           =env.t('medium')
       li
-        button(type='button', ng-class='{active: task.priority==2}', 
+        button(type='button', ng-class='{active: task.priority==2}',
           ng-click='task.challenge.id || (task.priority=2)')
           =env.t('hard')
 
@@ -52,19 +56,19 @@ div(ng-if='::task.type!="reward"')
       legend.option-title.pull-left=env.t('attributes')
       ul.task-attributes
         li
-          button(type='button', ng-class='{active: task.attribute=="str"}', 
+          button(type='button', ng-class='{active: task.attribute=="str"}',
             ng-click='task.attribute="str"')
             =env.t('physical')
         li
-          button(type='button', ng-class='{active: task.attribute=="int"}', 
+          button(type='button', ng-class='{active: task.attribute=="int"}',
             ng-click='task.attribute="int"')
             =env.t('mental')
         li
-          button(type='button', ng-class='{active: task.attribute=="con"}', 
+          button(type='button', ng-class='{active: task.attribute=="con"}',
             ng-click='task.attribute="con"')
             =env.t('social')
         li
-          button(type='button', ng-class='{active: task.attribute=="per"}', 
-            ng-click='task.attribute="per"', 
+          button(type='button', ng-class='{active: task.attribute=="per"}',
+            ng-click='task.attribute="per"',
             popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')
             =env.t('other')

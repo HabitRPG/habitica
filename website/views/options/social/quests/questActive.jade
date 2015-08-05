@@ -1,0 +1,24 @@
+div(ng-if='group.quest.active==true')
+  unless tavern
+    tabset
+      tab(heading=env.t('questDetails'))
+        div(ng-if='::Content.quests[group.quest.key].boss',ng-init='boss=Content.quests[group.quest.key].boss;progress=group.quest.progress')
+          include ./bossStats
+
+        div(ng-if='::Content.quests[group.quest.key].collect')
+          include ./collectionStats
+
+        div(ng-bind-html='::Content.quests[group.quest.key].notes()')
+        unless tavern
+          quest-rewards(key='{{::group.quest.key}}')
+
+      tab(heading=env.t('questParticipants'))
+        +participants(true)
+
+  hr
+
+  include ./ianQuestInfo
+
+  unless tavern
+    button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfGroup(group.quest.leader,group) && isMemberOfRunningQuest(group.quest.leader,group))', 
+      ng-click='questAbort(party)')=env.t('abort')

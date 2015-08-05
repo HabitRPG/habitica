@@ -1,5 +1,4 @@
 {
-  "defaultTaskNotes": " ",
   "defaultHabit1Text": "Productive Work (Click the pencil to edit)",
   "defaultHabit1Notes": "Sample Good Habits: + Eat a vegetable + 15 minutes productive work",
 
@@ -26,7 +25,7 @@
 
   "defaultTodoNotes": "You can either complete this To-Do, edit it, or remove it.",
 
-  "defaultTodo1Text": "Join HabitRPG (Check me off!)",
+  "defaultTodo1Text": "Join Habitica (Check me off!)",
 
   "defaultTodo2Text": "Set up a Habit",
   "defaultTodo2Checklist1": "create a Habit",

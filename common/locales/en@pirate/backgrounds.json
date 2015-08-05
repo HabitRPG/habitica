@@ -81,7 +81,7 @@
     "backgroundMarbleTempleText": "Marble Temple",
     "backgroundMarbleTempleNotes": "Pose in front of a Marble Temple.",
     "backgroundMountainLakeText": "Mountain Lake",
-    "backgroundMountainLakeNotes": "Dip your toes in a Mountain Lake.",
+    "backgroundMountainLakeNotes": "Dip yar'g toes in a Mountain Lake.",
     "backgroundPagodasText": "Pagodas",
     "backgroundPagodasNotes": "Climb to the top of Pagodas.",
     "backgrounds062015": "SET 13: Released June 2015",
@@ -90,5 +90,12 @@
     "backgroundShimmeryBubblesText": "Shimmery Bubbles",
     "backgroundShimmeryBubblesNotes": "Float through a sea of Shimmery Bubbles.",
     "backgroundIslandWaterfallsText": "Island Waterfalls",
-    "backgroundIslandWaterfallsNotes": "Picnic near Island Waterfalls."
+    "backgroundIslandWaterfallsNotes": "Picnic near Island Waterfalls.",
+    "backgrounds072015": "SET 14: Released July 2015",
+    "backgroundDilatoryRuinsText": "Ruins o' Dilatory",
+    "backgroundDilatoryRuinsNotes": "Dive t' th' Ruins o' Dilatory.",
+    "backgroundGiantWaveText": "Giant Wave",
+    "backgroundGiantWaveNotes": "Surf a Giant Wave!",
+    "backgroundSunkenShipText": "Sunken Ship",
+    "backgroundSunkenShipNotes": "Explore ye Sunken Ship."
 }

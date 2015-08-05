@@ -8,7 +8,7 @@ var nconf = require('nconf');
 var request = require('request');
 var User = require('../models/user').model;
 var EmailUnsubscription = require('../models/emailUnsubscription').model;
-var ga = require('./../utils').ga;
+var analytics = utils.analytics;
 var i18n = require('./../i18n');
 
 var isProd = nconf.get('NODE_ENV') === 'production';
@@ -20,7 +20,7 @@ var NO_USER_FOUND = {err: "No user found."};
 var NO_SESSION_FOUND = { err: "You must be logged in." };
 var accountSuspended = function(uuid){
   return {
-    err: 'Account has been suspended, please contact leslie@habitrpg.com with your UUID ('+uuid+') for assistance.',
+    err: 'Account has been suspended, please contact leslie@habitica.com with your UUID ('+uuid+') for assistance.',
     code: 'ACCOUNT_SUSPENDED'
   };
 }
@@ -110,7 +110,14 @@ api.registerUser = function(req, res, next) {
         newUser.preferences = newUser.preferences || {};
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
-        ga.event('acquisition', 'register', 'local').send();
+
+        var analyticsData = {
+          category: 'acquisition',
+          type: 'local',
+          gaLabel: 'local'
+        };
+        analytics.track('register', analyticsData)
+
         user.save(function(err, savedUser){
           // Clean previous email preferences
           EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
@@ -194,7 +201,12 @@ api.loginSocial = function(req, res, next) {
         cb.apply(cb, arguments);
       });
 
-      ga.event('acquisition', 'register', network).send();
+      var analyticsData = {
+        category: 'acquisition',
+        type: network,
+        gaLabel: network
+      };
+      analytics.track('register', analyticsData)
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
@@ -231,9 +243,9 @@ api.resetPassword = function(req, res, next){
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
     utils.sendEmail({
-      from: "HabitRPG <admin@habitrpg.com>",
+      from: "Habitica <admin@habitica.com>",
       to: email,
-      subject: "Password Reset for HabitRPG",
+      subject: "Password Reset for Habitica",
       text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL') + ". After you've logged in, head to "+nconf.get('BASE_URL')+"/#/options/settings/settings and change your password.",
       html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL') + ". After you've logged in, head to "+nconf.get('BASE_URL')+"/#/options/settings/settings and change your password."
     });

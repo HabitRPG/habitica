@@ -1,16 +1,3 @@
-// <div class='achievement achievement-sword'></div>
-// <div class='achievement achievement-tree'></div>
-// <div class='achievement achievement-comment'></div>
-// <div class='achievement achievement-cave'></div>
-// <div class='achievement achievement-boot'></div>
-// <div class='achievement achievement-coffin'></div>
-// <div class='achievement achievement-alien'></div>
-// <div class='achievement achievement-ninja'></div>
-// <div class='achievement achievement-cactus'></div>
-// <div class='achievement achievement-bow'></div>
-// <div class='achievement achievement-shield'></div>
-// <div class='achievement achievement-karaoke'></div>
-
 if mobile
   .item.item-divider=env.t('achievements')
 
@@ -151,7 +138,7 @@ div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
     small!=env.t('originalUserText')
   hr
-  
+
 div(ng-if='::profile.achievements.challenges.length || user._id == profile._id')
   // This is a very strange icon to use. revisit
   .achievement.achievement-karaoke(ng-if='::profile.achievements.challenges.length')
@@ -191,6 +178,22 @@ div(ng-if='::profile.achievements.shinySeed')
   h5=env.t('agriculturalFriends')
   small
     =env.t('agriculturalFriendsText', {seeds: "{{::profile.achievements.shinySeed}}"})
+  hr
+
+div(ng-if='::profile.achievements.seafoam')
+  .achievement.achievement-seafoam
+  h5=env.t('aquaticFriends')
+  small
+    =env.t('aquaticFriendsText', {seafoam: "{{::profile.achievements.seafoam}}"})
+  hr
+
+div(ng-if='::profile.achievements.habiticaDays')
+  .achievement.achievement-habiticaDay
+  h5=env.t('habiticaDay')
+  small(ng-if='::profile.achievements.habiticaDays == 1')
+    =env.t('habiticaDaySingularText')
+  small(ng-if='::profile.achievements.habiticaDays > 1')
+    =env.t('habiticaDayPluralText', {number: "{{::profile.achievements.habiticaDays}}"})
   hr
 
 div(ng-if='::profile.achievements.habitBirthdays')

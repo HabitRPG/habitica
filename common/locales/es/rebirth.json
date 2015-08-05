@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Renacimiento: ¡Nueva aventura disponible!",
-    "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial en el Mercado te permite empezar un juego nuevo en nivel 1, manteniendo tus tareas, logros, mascotas, y más. Úsalo para vigorizar de nuevo HabitRPG, por si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo.",
+    "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial en el Mercado te permite empezar un juego nuevo en nivel 1, manteniendo tus tareas, logros, mascotas, y más. Úsalo para vigorizar de nuevo Habitica, por si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo.",
     "rebirthBegin": "Renacimiento: Empieza Una Nueva Aventura",
     "rebirthStartOver": "Renacimiento comienza con tu carácter en nivel 1, como si crearas una nueva cuenta.",
     "rebirthAdvList1": "Restauras completamente tu salud. ",
@@ -21,11 +21,5 @@
     "rebirthOrb": "Usó una Esfera de Renacimiento para comenzar de nuevo después de llegar al Nivel",
     "rebirthPop": "Comienza con un personaje en Nivel 1, manteniendo logros, coleccionables, y tareas con historial.",
     "rebirthName": "Esfera de Renacimiento",
-    "reborn": "Renacido, nivel máximo <%= reLevel %>",
-    "welcome100": "¡Bienvenido al Nivel 100!",
-    "intro100": "Ahora que has llegado al nivel 100, tienes la opción de usar la Esfera de Renacimiento gratis en cualquier momento.",
-    "followup100": "Aunque puedes contribuir para aumentar de nivel, esto no impulsará tus estadísitcas y no te desbloqueará más contenido, para mantener así Habit divertido para gente de todos los estilos de juego.",
-    "rebirth100Info": "Si estás listo para empezar una nueva aventura, puedes Renacer ahora... O ver cuánto más lejos puedes empujarte a tí mismo.",
-    "rebirthWait": "Esperaré...",
-    "rebirthNow": "¡Quiero renacer!"
+    "reborn": "Renacido, nivel máximo <%= reLevel %>"
 }

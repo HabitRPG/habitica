@@ -5,8 +5,9 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
+      $scope.Analytics = Analytics;
 
       $scope.logout = function() {
         localStorage.clear();
@@ -17,6 +18,9 @@ angular.module('habitrpg')
         User.authenticate(id, token, function(err) {
           if(!err) $scope.registrationInProgress = false;
           $window.location.href = ('/' + window.location.hash);
+          Analytics.login();
+          Analytics.updateUser();
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
         });
       };
 
@@ -46,37 +50,22 @@ angular.module('habitrpg')
         if($rootScope.selectedLanguage) url = url + '?lang=' + $rootScope.selectedLanguage.code;
         $http.post(url, scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
-          if (status == 200) {
-            mixpanel.alias(data._id);
-            if (data.auth.facebook) {
-              mixpanel.register({'authType':'facebook','email':data.auth.facebook._json.email})
-            } else {
-              mixpanel.register({'authType':'email','email':data.auth.local.email})
-            }
-            mixpanel.register({'UUID':data._id,'language':data.preferences.language});
-            mixpanel.track('Registration');
-          }
         }).error(errorAlert);
       };
 
       $scope.auth = function() {
         var data = {
-          username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
-          password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
+          username: $scope.loginUsername || $('#loginForm input[name="username"]').val(),
+          password: $scope.loginPassword || $('#loginForm input[name="password"]').val()
         };
         $http.post(ApiUrl.get() + "/api/v2/user/auth/local", data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
-            if (status == 200) {
-              mixpanel.identify(data.id);
-              mixpanel.register({'UUID':data._id});
-              mixpanel.track('Login');
-            }
           }).error(errorAlert);
       };
 
       $scope.playButtonClick = function(){
-        window.ga && ga('send', 'event', 'button', 'click', 'Play');
+        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Play'})
         if (User.authenticated()) {
           window.location.href = ('/' + window.location.hash);
         } else {
@@ -101,38 +90,6 @@ angular.module('habitrpg')
           }
       };
 
-      $scope.expandMenu = function(menu) {
-        $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
-      };
-
-      function selectNotificationValue(mysteryValue, invitationValue, unallocatedValue, messageValue, noneValue) {
-        var user = $scope.user;
-        if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
-          return mysteryValue;
-        } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
-          return invitationValue;
-        } else if (user.flags.classSelected && !(user.preferences && user.preferences.disableClasses) && user.stats.points) {
-          return unallocatedValue;
-        } else if (!(_.isEmpty(user.newMessages))) {
-          return messageValue;
-        } else {
-          return noneValue;
-        }
-      };
-
-      $scope.iconClasses = function() {
-        return selectNotificationValue(
-            "glyphicon-gift",
-            "glyphicon-user",
-            "glyphicon-plus-sign",
-            "glyphicon-comment",
-            "glyphicon-comment inactive");
-      };
-
-      $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, true);
-      }
-
       // ------ Social ----------
 
       hello.init({
@@ -143,11 +100,6 @@ angular.module('habitrpg')
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
             .success(function(data, status, headers, config) {
-              if (status == 200) {
-                mixpanel.identify(data.id);
-                mixpanel.register({'UUID':data._id});
-                mixpanel.track('Login');
-              }
               runAuth(data.id, data.token);
             }).error(errorAlert);
         }, function( e ){

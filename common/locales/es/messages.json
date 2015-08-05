@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Tu <%= itemText %> se rompió.",
     "messageTaskNotFound": "Tarea no encontrada.",
+    "messageDuplicateTaskID": "Ya existe una tarea con esa ID",
     "messageTagNotFound": "Etiqueta no encontrada.",
     "messagePetNotFound": ":pet no encontrada en user.items.pets",
     "messageFoodNotFound": ":food no encontrada en user.items.food",
@@ -20,5 +21,12 @@
     "messageDropFood": "¡Has encontrado <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "¡Has encontrado un huevo de <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "¡Has encontrado una pocion de eclosión de <%= dropText %>! <%= dropNotes %>",
-    "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!"
+    "messageDropQuest": "¡Has encontrado una misión!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "Ya posees este objeto. Para equiparlo has de ir a la página de equipo.",
+    "armoireEquipment": "<%= image %> Has encontrado un objeto de equipamiento raro en  el armario: <%= dropText %>! ¡Genial!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

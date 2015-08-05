@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Dein <%= itemText %> ist kaputt gegangen.",
     "messageTaskNotFound": "Aufgabe nicht gefunden.",
+    "messageDuplicateTaskID": "Es gibt schon eine Aufgabe mit dieser ID.",
     "messageTagNotFound": "Tag nicht gefunden.",
     "messagePetNotFound": ":pet in user.items.pets nicht gefunden",
     "messageFoodNotFound": ":food in user.items.food nicht gefunden",
@@ -20,5 +21,12 @@
     "messageDropFood": "<%= dropArticle %><%= dropText %> gefunden! <%= dropNotes %>",
     "messageDropEgg": "Du hast ein <%= dropText %> Ei gefunden! <%= dropNotes %>",
     "messageDropPotion": "Du hast einen <%= dropText %>  Schlüpftrank gefunden! <%= dropNotes %>",
-    "messageFoundQuest": "Du hast das Quest \"<%= questText %>\" gefunden!"
+    "messageDropQuest": "Du hast eine Quest gefunden!",
+    "messageDropMysteryItem": "Du öffnest die Kiste und findest <%= dropText %>!",
+    "messageFoundQuest": "Du hast das Quest \"<%= questText %>\" gefunden!",
+    "messageAlreadyPurchasedGear": "Du hast dieses Item in der Vergangenheit bereits gekauft, besitzt es aktuell aber nicht mehr. Du kannst es in der Belohnungen Spalte deiner Aufgaben Seite erneut kaufen.",
+    "messageAlreadyOwnGear": "Du besitzt den Gegenstand schon. Gehe zur Ausrüstungsseite, um ihn anzulegen.",
+    "armoireEquipment": "<%= image %> Du hast ein Stück seltener Ausrüstung im verzauberten Schrank gefunden: <%= dropText %>! Wow!",
+    "armoireFood": "<%= image %> Du wühlst im verzauberten Schrank herum und findest <%= dropArticle %><%= dropText %>. Was macht das denn da drin?",
+    "armoireExp": "Du ringst mit dem verzauberten Schrank und gewinnst Erfahrung. Nimm das!"
 }

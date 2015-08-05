@@ -1,6 +1,7 @@
 {
     "messageLostItem": "<%= itemText %> は壊れてしまいました",
     "messageTaskNotFound": "タスクが見つかりません",
+    "messageDuplicateTaskID": "同じIDのタスクがすでに存在しています。",
     "messageTagNotFound": "タグが見つかりません",
     "messagePetNotFound": ":pet が user.items.pets 上に見つかりません",
     "messageFoodNotFound": ":food が user.items.food 上に見つかりません",
@@ -20,5 +21,12 @@
     "messageDropFood": "<%= dropArticle %><%= dropText %> を見つけました! <%= dropNotes %>",
     "messageDropEgg": "<%= dropText %>のたまごを見つけました! <%= dropNotes %>",
     "messageDropPotion": "<%= dropText %>孵化ポーションを見つけました! <%= dropNotes %>",
-    "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!"
+    "messageDropQuest": "クエストを見つかりました！",
+    "messageDropMysteryItem": "箱を開けて <%= dropText %>!を見つけます！",
+    "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
+    "messageAlreadyPurchasedGear": "前にこのギアを買えましたが、今は有しません。再びタスクページの報酬列で買えられます。",
+    "messageAlreadyOwnGear": "このアイテムはもう有します。装備ページに行って装備して下さい。",
+    "armoireEquipment": "<%= image %>戸棚で珍しい装備を見つけました：<%= dropText %>! 素晴らしい！",
+    "armoireFood": "<%= image %>戸棚で漁って <%= dropArticle %><%= dropText %>. を見つけます。何でこの所に？",
+    "armoireExp": "戸棚と組み付いてエクスペリエンスを得ます。持ってけ！"
 }
