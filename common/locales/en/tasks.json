@@ -54,6 +54,7 @@
     "complete": "Done",
     "dated": "Dated",
     "due": "Due",
+    "notDue": "Not Due", 
     "grey": "Grey",
     "score": "Score",
     "rewards": "Rewards",

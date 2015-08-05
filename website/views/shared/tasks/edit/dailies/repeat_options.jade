@@ -14,7 +14,7 @@ ng-form.form-group(name='everyX' ng-if='task.frequency=="daily"')
     mixin dayOfWeek(day, num)
       li
         button(type='button', ng-class='{active: task.repeat.#{day}}', 
-          ng-disabled='task.challenge.id', ng-click='task.repeat.#{day} = !task.repeat.#{day}') 
+          ng-disabled='task.challenge.id', ng-click='task.repeat.#{day} = !task.repeat.#{day}', tooltip='{{env.t((task.repeat.#{day}) ? "due" : "notDue")}}') 
           | {{::moment.weekdaysMin(#{num})}}
 
     +dayOfWeek('su', 0)
