@@ -3,6 +3,7 @@ expect = require 'expect.js'
 sinon = require 'sinon'
 moment = require 'moment'
 shared = require '../../common/script/index.coffee'
+Content = require '../../common/script/content.coffee'
 shared.i18n.translations = require('../../website/src/i18n.js').translations
 test_helper = require './test_helper'
 test_helper.addCustomMatchers()
@@ -514,28 +515,11 @@ describe 'User', ->
 
   describe 'Enchanted Armoire', ->
     user = newUser()
-    fullArmoire = 
-      'weapon_warrior_0': true,
-      'armor_armoire_gladiatorArmor':true,
-      'armor_armoire_goldenToga':true,
-      'armor_armoire_hornedIronArmor':true,
-      'armor_armoire_lunarArmor':true,
-      'armor_armoire_rancherRobes':true,
-      'head_armoire_blueHairbow':true,
-      'head_armoire_gladiatorHelm':true,
-      'head_armoire_goldenLaurels':true,
-      'head_armoire_hornedIronHelm':true,
-      'head_armoire_lunarCrown':true,
-      'head_armoire_rancherHat':true,
-      'head_armoire_redHairbow':true,
-      'head_armoire_royalCrown':true,
-      'head_armoire_violetFloppyHat':true,
-      'shield_armoire_gladiatorShield':true,
-      'weapon_armoire_basicCrossbow':true,
-      'weapon_armoire_ironCrook':true,
-      'weapon_armoire_lunarSceptre':true,
-      'weapon_armoire_rancherLasso':true,
-      'weapon_armoire_mythmakerSword':true
+    fullArmoire = {}
+    _(Content.gearTypes).each (type) ->
+      _(Content.gear.tree[type].armoire).each (value, gear_name) ->
+        armoire_gear = "#{type}_armoire_#{gear_name}"
+        fullArmoire[armoire_gear] = true
 
     beforeEach ->
       # too many predictableRandom calls to stub, let's return the last element
@@ -548,7 +532,7 @@ describe 'User', ->
 
     it 'counts all available equipment before any are claimed', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0
-      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 1)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql _.size(fullArmoire)
 
     it 'does not open without paying', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0
@@ -572,7 +556,7 @@ describe 'User', ->
       user.achievements.ultimateGearSets = {'healer':false,'wizard':false,'rogue':true,'warrior':false}
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true}
-      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 2)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 1)
       expect(user.items.food).to.eql {}
       expect(user.stats.exp).to.eql 0
       expect(user.stats.gp).to.eql 400
@@ -597,7 +581,7 @@ describe 'User', ->
       sinon.stub(user.fns, 'predictableRandom', cycle [.5,.5])
       user.ops.buy({params: {key: 'armoire'}})
       expect(user.items.gear.owned).to.eql {'weapon_warrior_0': true, 'shield_armoire_gladiatorShield':true, 'head_armoire_hornedIronHelm':true}
-      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 3)
+      expect(shared.count.remainingGearInSet(user.items.gear.owned, 'armoire')).to.eql (_.size(fullArmoire) - 2)
       expect(user.items.food).to.eql {'Honey': 1}
       expect(user.stats.exp).to.eql 30
       expect(user.stats.gp).to.eql 100
