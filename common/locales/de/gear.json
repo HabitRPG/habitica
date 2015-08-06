@@ -152,7 +152,7 @@
     "armorWarrior4Text": "Glutrüstung",
     "armorWarrior4Notes": "Schwere Plattenrüstung, die durch Verteidigungszaubern glüht. Erhöht Ausdauer um <%= con %>.",
     "armorWarrior5Text": "Güldene Rüstung",
-    "armorWarrior5Notes": "Obwohl er zeremoniell wirkt, gibt es keine Klinge, die ihn durchstoßen kann. Erhöht Ausdauer um <%= con %>.",
+    "armorWarrior5Notes": "Obwohl sie zeremoniell wirkt, gibt es keine Klinge, die sie durchstoßen kann. Erhöht Ausdauer um <%= con %>.",
     "armorRogue1Text": "Geölte Lederrüstung",
     "armorRogue1Notes": "Lederrüstung - speziell behandelt, damit sie lautloser wird. Erhöht Wahrnehmung um <%= per %>.",
     "armorRogue2Text": "Schwarze Lederrüstung",
