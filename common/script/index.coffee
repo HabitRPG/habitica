@@ -66,6 +66,13 @@ api.startOfDay = (options={}) ->
     dayStart.subtract({days:1})
   dayStart
 
+
+api.startOfDayAllowsFuture = (options={}) ->
+  # Use this version to use if you need the result even if the offset would cause today's day start to be in the future.
+  o = sanitizeOptions(options)
+  moment(o.now).startOf('day').add({hours:o.dayStart})
+
+
 api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
 ###

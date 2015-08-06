@@ -83,7 +83,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
               .form-group
                 .input-group
-                  input.form-control(type='number', min='0', max='23', ng-model='passDayStart', ng-blur='saveDayStart(passDayStart)')
+                  input.form-control(type='number', min='0', max='23', ng-model='dayStart', ng-blur='saveDayStart(dayStart)')
                   span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
 
       .personal-options.col-md-6
