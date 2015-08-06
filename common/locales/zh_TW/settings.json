@@ -42,7 +42,7 @@
     "customDayStart": "設定開始日期",
     "24HrClock": "24 小時制",
     "customDayStartInfo1": "Habitica預設在你自己的時區的午夜檢查並重設你的每日任務。我們建議您在改變之前閱讀以下信息：",
-    "customDayStartInfo4": "<strong> 在改變重設時間之前完成你所有的每日任務 </strong> 或是在那天 <a href='http:// habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'> 在旅館裡休息</a>。改變你的自定義時間可能會導致 <a href='http:// habitrpg .wikia.com/wiki/Cron' target='_blank'> 同步 </a> 立刻進行，但後一天它才會預期的運作。 <br> <br> <strong> 請給予兩個小時的空窗期，以使更改生效。</strong>例如，如果當前設置為0(午夜)，那你要在下午10時之前更改；如果你想將其更改到晚上9點，請下午7點之前改變它。 <br> <br> 輸入從0到23的某一小時 (它採用24小時制)。打字會比你按箭頭還快。設置以後，請重新整理確定系統已經使用新的時間。",
+    "customDayStartInfo4": "<strong>Complete all your Dailies before changing the Custom Day Start</strong> or <a href='http://habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>Rest in the Inn</a> that day. Changing your Custom Day Start may cause <a href='http://habitica.wikia.com/wiki/Cron' target='_blank'>Cron</a> to run immediately, but after the first day it works as expected.<br><br><strong>Allow a window of two hours for the change to take effect.</strong> For example, if it is currently set to 0 (midnight), change it before 10pm; if you want to set it to 9pm, change it before 7pm.<br><br>Enter an hour from 0 to 23 (it uses a 24 hour clock). Typing is more effective than arrow keys. Once set, reload the page to confirm that the new value is being displayed.",
     "misc": "其他",
     "showHeader": "顯示頂部",
     "changePass": "修改密碼",

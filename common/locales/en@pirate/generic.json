@@ -64,6 +64,9 @@
     "habitBirthday": "Habitica Birthday Bash",
     "habitBirthdayText": "Celebrated the Habitica Birthday Bash!",
     "habitBirthdayPluralText": "Celebrated <%= number %> Habitica Birthday Bashes!",
+    "habiticaDay": "Habitica Naming Day",
+    "habiticaDaySingularText": "Celebrated Habitica's Naming Day! Thanks for being a fantastic user.",
+    "habiticaDayPluralText": "Celebrated <%= number %> Naming Days! Thanks for being a fantastic user.",
     "achievementDilatory": "Savior o' Dilatory",
     "achievementDilatoryText": "Helped defeat th' Dread Drag'on 'o Dilatory durin' th' 2014 Summer Splash Event!",
     "costumeContest": "2014 Costume Contest",
@@ -106,5 +109,6 @@
     "December": "Decemberrr",
     "dateFormat": "Date Format",
     "achievementStressbeast": "Savior o' Stoïkalm",
-    "achievementStressbeastText": "Help'd d'feat th' Abominable Stressbeast durin' th' 2015 Winter Wonderland Event!"
+    "achievementStressbeastText": "Help'd d'feat th' Abominable Stressbeast durin' th' 2015 Winter Wonderland Event!",
+    "checkOutProgress": "Check out my progress in Habitica!"
 }

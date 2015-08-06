@@ -16,8 +16,8 @@
     "backgroundSeafarerShipNotes": "Segla ombord ett havsfartyg.",
     "backgrounds082014": "SET 3: Släpptes Augusti 2014",
     "backgroundCloudsText": "Moln",
-    "backgroundCloudsNotes": "Flyg bland molnen. ",
-    "backgroundDustyCanyonsText": "En Dammig Ravin. ",
+    "backgroundCloudsNotes": "Flyg bland molnen.",
+    "backgroundDustyCanyonsText": "En Dammig Ravin.",
     "backgroundDustyCanyonsNotes": "Vandra genom en Dammig Ravin.",
     "backgroundVolcanoText": "Vulkan",
     "backgroundVolcanoNotes": "Värm dig i en Vulkan.",
@@ -97,5 +97,12 @@
     "backgroundGiantWaveText": "Jättevåg",
     "backgroundGiantWaveNotes": "Surfa en Jättevåg!",
     "backgroundSunkenShipText": "Sjunket Skepp",
-    "backgroundSunkenShipNotes": "Utforska Ett Sjunket Skepp"
+    "backgroundSunkenShipNotes": "Utforska Ett Sjunket Skepp",
+    "backgrounds082015": "SET 15: Released August 2015",
+    "backgroundPyramidsText": "Pyramids",
+    "backgroundPyramidsNotes": "Admire the Pyramids.",
+    "backgroundSunsetSavannahText": "Sunset Savannah",
+    "backgroundSunsetSavannahNotes": "Stalk across the Sunset Savannah.",
+    "backgroundTwinklyPartyLightsText": "Twinkly Party Lights",
+    "backgroundTwinklyPartyLightsNotes": "Dance under Twinkly Party Lights!"
 }

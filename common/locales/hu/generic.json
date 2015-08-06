@@ -63,7 +63,10 @@
     "originalUserText": "Az egyik <em>nagyon</em> korai felhasználó. Ő tud mesélni az alfa tesztről!",
     "habitBirthday": "Habitica Születésnapi Banzáj",
     "habitBirthdayText": "Megünnepelte a Habitica Születésnapi Banzájt!",
-    "habitBirthdayPluralText": " <%= number %> alkalommal ünnepelte meg a Habitica Születésnapi Banzájt!",
+    "habitBirthdayPluralText": "<%= number %> alkalommal ünnepelte meg a Habitica Születésnapi Banzájt!",
+    "habiticaDay": "Habitica Naming Day",
+    "habiticaDaySingularText": "Celebrated Habitica's Naming Day! Thanks for being a fantastic user.",
+    "habiticaDayPluralText": "Celebrated <%= number %> Naming Days! Thanks for being a fantastic user.",
     "achievementDilatory": "A halogatók megmentője",
     "achievementDilatoryText": "Segített legyőzni a Rettenet Késlekedő Sárkányát a 2014 Nyári Loccsanás esemény alatt.",
     "costumeContest": "2014 Jelmez Verseny",
@@ -106,5 +109,6 @@
     "December": "December",
     "dateFormat": "Dátum formátum",
     "achievementStressbeast": "Stoïkalm megmentője",
-    "achievementStressbeastText": "Segített legyőzni az Utálatos Stresszörnyet a 2015-ös Winter Wonderland esemény keretein belül."
+    "achievementStressbeastText": "Segített legyőzni az Utálatos Stresszörnyet a 2015-ös Winter Wonderland esemény keretein belül.",
+    "checkOutProgress": "Check out my progress in Habitica!"
 }

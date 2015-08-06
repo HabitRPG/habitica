@@ -64,6 +64,9 @@
     "habitBirthday": "Proslava rođendana Habitica-a",
     "habitBirthdayText": "Učestvovao u proslavi rođendana Habitica-a!",
     "habitBirthdayPluralText": "Učestvovao u <%= number %> proslava rođendana Habitica-a!",
+    "habiticaDay": "Habitica Naming Day",
+    "habiticaDaySingularText": "Celebrated Habitica's Naming Day! Thanks for being a fantastic user.",
+    "habiticaDayPluralText": "Celebrated <%= number %> Naming Days! Thanks for being a fantastic user.",
     "achievementDilatory": "Spasilac odlagača",
     "achievementDilatoryText": "Borac iz bitke protiv Gospodara Odlaganja Zadataka tokom letnjeg festivala 2014.",
     "costumeContest": "Takmičenje pod maskama 2014.",
@@ -76,7 +79,7 @@
     "errorUpCase": "Greška:",
     "newPassSent": "Nova lozinka poslata.",
     "serverUnreach": "Server trenutno nije dostupan.",
-    "seeConsole": "Ako se greška još uvek pojavljuje, molimo Vas da je prijavite na Pomoć > Prijaviti grešku. Ako umete da koristite konzolu pretraživača, pošaljite nam i obaveštenje o grešci. ",
+    "seeConsole": "Ako se greška još uvek pojavljuje, molimo Vas da je prijavite na Pomoć > Prijaviti grešku. Ako umete da koristite konzolu pretraživača, pošaljite nam i obaveštenje o grešci.",
     "error": "Greška",
     "menu": "Meni",
     "notifications": "Obaveštenja",
@@ -106,5 +109,6 @@
     "December": "decembar",
     "dateFormat": "Format datuma",
     "achievementStressbeast": "Spasitelj od Stoïkalma",
-    "achievementStressbeastText": "Pomogao u borbi protiv Gnusnog Stres-čudovišta za vreme Zimske Zemlje čuda 2015."
+    "achievementStressbeastText": "Pomogao u borbi protiv Gnusnog Stres-čudovišta za vreme Zimske Zemlje čuda 2015.",
+    "checkOutProgress": "Check out my progress in Habitica!"
 }
