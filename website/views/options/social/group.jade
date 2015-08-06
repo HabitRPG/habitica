@@ -16,7 +16,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       .panel.panel-default
         .panel-heading(bindonce='group')
           h3.panel-title
-            | {{group.name}}
+            span {{group.name}}
             span.group-leave-join(ng-if='group')
               a.btn.btn-sm.btn-danger.pull-right(ng-if=":: isMemberOfGroup(User.user._id, group)", ng-click='clickLeave(group, $event)')
                 span.glyphicon.glyphicon-ban-circle
@@ -50,16 +50,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           div(ng-show='!group._editing')
             img.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
             markdown(text='group.description')
-          hr
+          br
           p=env.t('groupLeader')
             |: 
             a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
               | {{group.leader.profile.name}}
-          .slight-vertical-padding
-            small.muted=env.t('groupID')
-              |: {{group._id}}
-
-      include ./challenge-box
 
       // ------ Members -------
       .panel.panel-default
@@ -68,7 +63,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             =env.t('members')
             button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
         .panel-body.modal-fixed-height
-          div.form-group(ng-if='::group.type=="party"')
+          div.form-group(ng-if='::group.type=="party" && group.memberCount > 1')
             p=env.t('partyList')
             select.form-control#partyOrder(
               ng-model='user.party.order',
@@ -83,7 +78,8 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               ng-options='k as v for (k , v) in partyOrderAscendingChoices',
               ng-change='set({"party.orderAscending": user.party.orderAscending})'
               )
-          table.table.table-striped(bindonce='group')
+          h4(ng-show='group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
+          table.table.table-striped(ng-show='group.memberCount > 1 || group.type !== "party"' bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')
               td.media
                 // allow leaders to ban members
@@ -111,9 +107,17 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
 
+      div.text-center(ng-if='group.type === "party"')
+        button.btn.btn-success.margin-auto.width-100=env.t('startQuest')
+
+      include ./challenge-box
+
       div(ng-if="group")
-        a.btn.btn-danger(ng-if=':: isMemberOfGroup(User.user._id, group)', data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
         a.btn.btn-success(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
+
+      .slight-vertical-padding
+        small.muted=env.t('groupID')
+        | : {{group._id}}
 
     .col-md-8
       div()

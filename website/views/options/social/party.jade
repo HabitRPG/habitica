@@ -26,5 +26,5 @@ script(type='text/ng-template', id='partials/options.social.party.html')
       .row.margin-auto.text-center
         h4=env.t('wantToStartParty')
       .row.margin-auto.text-center
-        span.btn.btn-primary(ng-click="inviteOrStartParty(group)")=env.t('inviteFriendsNow')
-        span.btn.btn-default=env.t('inviteFriendsLater')
+        span.btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
+        span.btn.btn-default(ng-click='create(newGroup)')=env.t('inviteFriendsLater')

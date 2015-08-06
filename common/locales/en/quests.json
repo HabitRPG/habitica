@@ -59,5 +59,6 @@
     "doubleSureAbort": "Are you double sure? Make sure they won't hate you forever!",
     "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
     "bossRageTitle": "Rage",
-    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!"
+    "bossRageDescription": "When this bar fills, the boss will unleash a special attack!",
+    "startQuest": "START A QUEST"
 }

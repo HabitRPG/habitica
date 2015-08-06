@@ -45,7 +45,7 @@
     "groupDescr": "Description shown in public Guilds list (Markdown OK)",
     "logoUrl": "Logo URL",
     "assignLeader": "Assign Group Leader",
-    "members": "Member(s)",
+    "members": "Members",
     "partyList": "Order for party members in header (reload browser after changing order)",
     "banTip": "Boot Member",
     "moreMembers": "more members",
@@ -134,5 +134,7 @@
     "partyExplanation3": "Invite friends now to earn a Quest Scroll!",
     "wantToStartParty": "Do you want to start a party?",
     "exclusiveQuestScroll": "Inviting a friend to your party will grant you an exclusive Quest Scroll to battle the Basi-List together!",
-    "nameYourParty": "Name your new party!"
+    "nameYourParty": "Name your new party!",
+    "partyEmpty": "You're the only one in your party. Invite your friends!",
+    "possessiveParty": "<%= name %>'s Party"
 }
