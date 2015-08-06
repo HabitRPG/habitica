@@ -12,12 +12,11 @@ script(type='text/ng-template', id='partials/options.social.party.html')
     div(ng-hide='user.invitations.party.id').container-fluid
       .row.margin-auto.text-center
         a.btn.btn-primary.btn-lg.width-50(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
-      .row.margin-auto.text-center(ng-controller='UserCtrl')
-        .margin-auto
-          span.inline-block.quest_vice3
-          span.figure.herobox.inline-block
-            .character-sprites
-              +generatedAvatar
+      .row.text-center.margin-auto(ng-controller='UserCtrl')
+        span.inline-block.party_preview(style='margin-left:-100px')
+        span.figure.herobox.inline-block.width-0
+          .character-sprites(style='width:0')
+            +generatedAvatar
       .row.margin-auto.text-center
         ul
           li=env.t('partyExplanation1')
