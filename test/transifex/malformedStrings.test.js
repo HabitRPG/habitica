@@ -29,10 +29,16 @@ _(languages).each(function(lang) {
           var englishString = parsedEnglishFile[key];
           var translationString = parsedTranslationFile[key];
 
+          it(key + ' exists in ' + file + ' for the ' + lang + ' language', function() {
+            expect(translationString).to.exist;
+          });
+
+          if(!translationString) return;
+
           var EnglishOccurences = englishString.match(interpolationRegex);
           var TranslationOccurences = translationString.match(interpolationRegex);
 
-          xit(key + ' - contains an interpolation', function() {
+          it(key + ' - contains an interpolation', function() {
 
             if(!TranslationOccurences) console.log("English String:", englishString);
             expect(EnglishOccurences).to.exist;
@@ -40,7 +46,7 @@ _(languages).each(function(lang) {
           });
 
           if(EnglishOccurences.length > 1) {
-            it(key + ' - has the correct number of interpolations', function() {
+            xit(key + ' - has the correct number of interpolations', function() {
               if(!TranslationOccurences) console.log("English String:", englishString);
               var numberOfOccurences = TranslationOccurences && TranslationOccurences.length;
               expect(numberOfOccurences).to.eql(EnglishOccurences.length);
