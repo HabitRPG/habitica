@@ -1,6 +1,7 @@
 import fs      from 'fs';
 import _       from 'lodash';
 import nconf   from 'nconf';
+import md5     from 'md5';
 import gulp    from 'gulp';
 import request from 'superagent';
 
@@ -13,6 +14,16 @@ const SLACK_URL = nconf.get('TRANSIFEX_SLACK:url');
 const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
+
+gulp.task('transifex:look', () => {
+  // curl -i -L --user username:password -X GET https://www.transifex.com/api/2/project/transifex/resource/core/translation/pt_BR/string/e9fbd679f07d178744bfa80344080962/
+  // /project/<project_slug>/resource/<resource_slug>/translation/<language_code>/string/<source_hash>/
+  // request.get('https://www.transifex.com/api/2/project/habitrpg/resource/petsjson/translation/uk/string/7541ebdf41af9839f458f9afb1644882/')
+  //   .end((err, res) => {
+  //     if (err) console.log(":(", err);
+  //     else console.log(res.body);
+  //   });
+});
 
 gulp.task('transifex:untranslatedStrings', () => {
 
@@ -103,6 +114,11 @@ function formatMessageForPosting(msg, items) {
   body += '\n```';
 
   return body;
+}
+
+function getHash(string) {
+  let hash = md5(`${string}:`);
+  return hash;
 }
 
 function stripOutNonJsonFiles(collection) {

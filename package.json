@@ -109,6 +109,7 @@
     "karma-requirejs": "~0.2.0",
     "karma-script-launcher": "~0.1.0",
     "lcov-result-merger": "^1.0.2",
+    "md5": "^2.0.0",
     "mocha": "~1.12.1",
     "mongoskin": "~0.6.1",
     "phantomjssmith": "~0.5.4",
