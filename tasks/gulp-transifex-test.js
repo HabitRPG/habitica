@@ -14,46 +14,64 @@ const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
-gulp.task('transifex:exists', () => {
+gulp.task('transifex:untranslatedStrings', () => {
 
-  var missingStrings = [];
+  let missingStrings = [];
+  let languages = getArrayOfLanguages();
 
-  eachTranslationString((language, key, englishString, translationString) => {
+  eachTranslationString(languages, (language, filename, key, englishString, translationString) => {
     if(!translationString) {
-      let errorString = `${language} - ${key} - ${englishString}`;
+      let errorString = `${language} - ${filename} - ${key} - ${englishString}`;
       missingStrings.push(errorString);
     }
   });
 
   if (!_.isEmpty(missingStrings)) {
-    post('The following strings are missing', missingStrings);
+    let message = 'The following strings are not translated';
+    let formattedMessage = formatMessageForPosting(message, missingStrings);
+    console.log(formattedMessage);
   }
 });
 
-function eachTranslationFile(cb) {
+function getArrayOfLanguages() {
   let languages = fs.readdirSync(LOCALES);
   languages.shift(); // Remove README.md from array of languages
 
+  return languages;
+}
+
+function getEnglishLanguages(cb) {
+  let allLanguages = getArrayOfLanguages();
+
+  let nonEnglishLanguages = _.filter(allLanguages, (lang) => {
+    return lang.indexOf('en') !== 0;
+  });
+
+  return nonEnglishLanguages;
+}
+
+
+function eachTranslationFile(languages, cb) {
   let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
 
   _(languages).each((lang) => {
-    _.each(jsonFiles, (file) => {
-      let translationFile = fs.readFileSync(LOCALES + lang + '/' + file);
+    _.each(jsonFiles, (filename) => {
+      let translationFile = fs.readFileSync(LOCALES + lang + '/' + filename);
       let parsedTranslationFile = JSON.parse(translationFile);
 
-      let englishFile = fs.readFileSync(ENGLISH_LOCALE + file);
+      let englishFile = fs.readFileSync(ENGLISH_LOCALE + filename);
       let parsedEnglishFile = JSON.parse(englishFile);
 
-      cb(lang, parsedEnglishFile, parsedTranslationFile)
+      cb(lang, filename, parsedEnglishFile, parsedTranslationFile)
     });
   });
 }
 
-function eachTranslationString(cb) {
-  eachTranslationFile((language, englishJSON, translationJSON) => {
+function eachTranslationString(languages, cb) {
+  eachTranslationFile(languages, (language, filename, englishJSON, translationJSON) => {
     _.each(englishJSON, (string, key) => {
       var translationString = translationJSON[key];
-      cb(language, key, string, translationString);
+      cb(language, filename, key, string, translationString);
     });
   });
 }
