@@ -1,7 +1,7 @@
 {
-    "lostAllHealth": "You ran out of Health!",
-    "dontDespair": "Don't despair!",
-    "deathPenaltyDetails": "You lost a Level, your Gold, and a piece of Equipment, but you can get them all back with hard work! Good luck--you'll do great.",
-    "refillHealthTryAgain": "Refill Health & Try Again",
-    "dyingOftenTips": "Is this happening often? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Here are some tips!</a>"
+    "lostAllHealth": "Je gezondheidspunten zijn op!",
+    "dontDespair": "Wanhoop niet!",
+    "deathPenaltyDetails": "Je hebt een niveau, je goud en een stuk van je uitrusting verloren, maar je kan het allemaal terug krijgen door hard te werken! Succes--Je zult het fantastisch doen.",
+    "refillHealthTryAgain": "Vul je gezondheid aan en probeer het opnieuw",
+    "dyingOftenTips": "Gebeurt dit vaker? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Hier zijn een paar tips!</a>"
 }
