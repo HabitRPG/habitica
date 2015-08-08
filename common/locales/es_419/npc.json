@@ -6,7 +6,7 @@
     "mattBochText1": "¡Bienvenidos al Establo! Soy Matt, el maestro de las bestias. Después del nivel 4, puede encontrar mascotas adentro de huevos y al usar pociónes. Cuando encontras una mascota en el Mercado, ¡se aparecerá aqui! Haz clic en la imagen de la mascota para añadirla a tu avatar. Aliméntalas con la comida que se encuentras después del nivel 4, y se convertirán en monturas poderosos.",
     "daniel": "Daniel",
     "danielText": "¡Bienvenido a la Taberna! Quédate un rato y conoce a los locales. Si necesitas descansar (¿vacaciones, enfermedad?) te alojaré en la Posada. Mientras estés registrado tus Diarias no te lastimarán al final del día, pero todavía las puedes marcar.",
-    "danielText2": "Aviso: Si estás participando en una misión contra un jefe, ¡el jefe todavía te hará daño si los de tu equipo no completan sus Diarias! Además, el daño que acumules contra el (o los objetos que hayas recolectado) no se aplicarán sino hasta que salgas de la Posada. ",
+    "danielText2": "Aviso: Si estás participando en una misión contra un jefe, ¡el jefe todavía te hará daño si los de tu equipo no completan sus Diarias! Además, el daño que acumules contra el (o los objetos que hayas recolectado) no se aplicarán sino hasta que salgas de la Posada.",
     "alexander": "Alexander el Comerciante",
     "welcomeMarket": "¡Bienvenidos al Mercado! ¡Compra huevos difíciles de encontrar y pociones! ¡Vende tus extras! ¡Encarga servicios útiles! Ven a ver lo que tenemos para ofrecer.",
     "sellForGold": "Vender <%= item %> por <%= gold %> Oro",

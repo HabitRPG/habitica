@@ -37,7 +37,7 @@
     "guildBankPop2": "Gemas que el líder de tu gremio puede usar como premios de los desafíos.",
     "guildGems": "Gemas del gremio",
     "editGroup": "Editar grupo",
-    "newGroupName": "Nombre del <%= groupType %> ",
+    "newGroupName": "Nombre del <%= groupType %>",
     "groupName": "Nombre del grupo",
     "groupLeader": "Líder del grupo",
     "groupID": "ID del grupo",
