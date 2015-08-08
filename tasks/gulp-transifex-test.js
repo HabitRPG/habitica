@@ -16,13 +16,18 @@ const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
 gulp.task('transifex:look', () => {
-  // curl -i -L --user username:password -X GET https://www.transifex.com/api/2/project/transifex/resource/core/translation/pt_BR/string/e9fbd679f07d178744bfa80344080962/
-  // /project/<project_slug>/resource/<resource_slug>/translation/<language_code>/string/<source_hash>/
-  // request.get('https://www.transifex.com/api/2/project/habitrpg/resource/petsjson/translation/uk/string/7541ebdf41af9839f458f9afb1644882/')
-  //   .end((err, res) => {
-  //     if (err) console.log(":(", err);
-  //     else console.log(res.body);
-  //   });
+
+  let equivalentStrings = [];
+  let nonEnglishLanguages = getNonEnglishLanguages();
+
+  eachTranslationString(nonEnglishLanguages, (language, filename, key, englishString, translationString) => {
+    if (englishString === translationString) {
+      let hash = getHash(key);
+      let json = filename.replace('.','');
+      let url = `https://www.transifex.com/api/2/project/habitrpg/resource/${json}/translation/${language}/string/${hash}/`
+      console.log(url);
+    }
+  });
 });
 
 gulp.task('transifex:untranslatedStrings', () => {
@@ -31,7 +36,7 @@ gulp.task('transifex:untranslatedStrings', () => {
   let languages = getArrayOfLanguages();
 
   eachTranslationString(languages, (language, filename, key, englishString, translationString) => {
-    if(!translationString) {
+    if (!translationString) {
       let errorString = `${language} - ${filename} - ${key} - ${englishString}`;
       missingStrings.push(errorString);
     }
@@ -51,7 +56,7 @@ function getArrayOfLanguages() {
   return languages;
 }
 
-function getEnglishLanguages() {
+function getNonEnglishLanguages() {
   let allLanguages = getArrayOfLanguages();
 
   let nonEnglishLanguages = _.filter(allLanguages, (lang) => {
