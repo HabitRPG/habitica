@@ -65,7 +65,7 @@
     "questEggCuttlefishText": "Tintahal",
     "questEggCuttlefishAdjective": "ennivaló",
     "questEggWhaleText": "Bálna",
-    "questEggWhaleAdjective": "spriccelő ",
+    "questEggWhaleAdjective": "spriccelő",
     "eggNotes": "Keress egy keltetőfőzetet ehhez a tojáshoz, és egy <%= eggAdjective(locale) %> <%= eggText(locale) %> kel majd ki belőle.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",
@@ -110,5 +110,5 @@
     "foodCandyRed": "Fahéjas cukorka",
     "foodSaddleText": "Nyereg",
     "foodSaddleNotes": "Azonnal hátassá változtatja a háziállatod.",
-    "foodNotes": "Etesd meg ezt egy háziállattal, hogy életerős hátassá váljon. "
+    "foodNotes": "Etesd meg ezt egy háziállattal, hogy életerős hátassá váljon."
 }

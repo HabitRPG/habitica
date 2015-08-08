@@ -24,7 +24,7 @@
     "messageDropQuest": "Znalazłeś misję!",
     "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
     "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!",
-    "messageAlreadyPurchasedGear": "Ten element wyposażenia został zakupiony, ale już go nie posiadasz. Możesz kupić go ponownie w sekcji nagród na stronie z zadaniami. ",
+    "messageAlreadyPurchasedGear": "Ten element wyposażenia został zakupiony, ale już go nie posiadasz. Możesz kupić go ponownie w sekcji nagród na stronie z zadaniami.",
     "messageAlreadyOwnGear": "Już posiadasz ten przedmiot. Przejdź do strony z wyposażeniem, aby zacząć go używać.",
     "armoireEquipment": "<%= image %> Znalazłeś część rzadkiego wyposażenia w Zaczarowanej Szafie: <%= dropText %>! Fantastycznie!",
     "armoireFood": "<%= image %> Przeszukując Zaczarowaną Szafę znaleziono <%= dropArticle %><%= dropText %>. Co to tutaj robi?",
