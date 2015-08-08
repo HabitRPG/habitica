@@ -51,7 +51,7 @@ function getArrayOfLanguages() {
   return languages;
 }
 
-function getEnglishLanguages(cb) {
+function getEnglishLanguages() {
   let allLanguages = getArrayOfLanguages();
 
   let nonEnglishLanguages = _.filter(allLanguages, (lang) => {
