@@ -106,7 +106,7 @@
     "leaderOnlyChallenges": "グループリーダーだけがチャレンジを作成できます",
     "sendGift": "贈り物を送る",
     "inviteFriends": "友達を招待する",
-    "inviteAlertInfo": " <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>ユーザーID</a> で友人をここに招待する",
+    "inviteAlertInfo": "<a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>ユーザーID</a> で友人をここに招待する",
     "inviteExistUser": "既存のユーザーを招待する",
     "inviteByEmail": "メールで友人を招待する。もし彼らがあなたのメール経由で参加したら、自動的にこのグループに招待されます。",
     "byColon": "で",

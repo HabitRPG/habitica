@@ -7,7 +7,7 @@
     "buyGemsGold": "Kupovina dragulja zlatom",
     "buyGemsGoldText": "Alexander the Merchant will sell you gems at a cost of <%= gemCost %> gold per gem. His monthly shipments are initially capped at <%= gemLimit %> gems per month, but this cap increases by 5 gems for every three months of consecutive subscription, up to a maximum of 50 gems per month!",
     "retainHistory": "Čuvanje kompletne istorije",
-    "retainHistoryText": "Kompletna istorija biće Vam dostupna u vidu grafikona i za eksport. Istorija korisnika bez pretplate objedinjuje se radi optimizacije baza podataka. ",
+    "retainHistoryText": "Kompletna istorija biće Vam dostupna u vidu grafikona i za eksport. Istorija korisnika bez pretplate objedinjuje se radi optimizacije baza podataka.",
     "doubleDrops": "Udvostručenje maksimalnog dnevnog broja predmeta",
     "doubleDropsText": "Brže ćete skupiti sve životinje!",
     "mysteryItem": "Posebni predmeti za pretplatnike svakog meseca",
