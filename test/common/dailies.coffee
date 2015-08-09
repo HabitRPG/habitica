@@ -151,8 +151,6 @@ describe 'daily/weekly that repeats everyday (default)', ->
       expect(weekly_due_on_start_date).to.be true
 
   describe 'when startDate is in the past', ->
-    completeDaily = null
-
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -235,8 +233,6 @@ describe 'daily/weekly that repeats everyday (default)', ->
         expect(box.completed).to.be false
 
   describe 'when startDate is today', ->
-    completeDaily = null
-
     beforeEach ->
       user = newUser()
       user.dailys = [
