@@ -644,7 +644,7 @@ describe 'Cron', ->
 #    paths = {};algos.cron user, {paths}
 #    expect(paths.lastCron).to.be true # busted cron (was set to after today's date)
 
-  it 'only dailies & todos are effected', ->
+  it 'only dailies & todos are affected', ->
     {before,after} = beforeAfter({daysAgo:1})
     before.dailys = before.todos = after.dailys = after.todos = []
     after.fns.cron()
@@ -732,8 +732,18 @@ describe 'Cron', ->
       expect(after).toHaveGP 0
 
       # but they devalue
-      expect(after.todos[0].value).to.be.lessThan before.todos[0].value
+      expect(before.todos[0].value).to.be 0  # sanity check for task setup
+      expect(after.todos[0].value).to.be -1  # the actual test
       expect(after.history.todos).to.have.length 1
+
+    it '2 days missed', ->
+      {before,after} = beforeAfter({daysAgo:2})
+      before.dailys = after.dailys = []
+      after.fns.cron()
+
+      # todos devalue by only one day's worth of devaluation
+      expect(before.todos[0].value).to.be 0  # sanity check for task setup
+      expect(after.todos[0].value).to.be -1  # the actual test
 
   # I used hard-coded dates here instead of 'now' so the tests don't fail
   #  when you run them between midnight and dayStart. Nothing worse than
