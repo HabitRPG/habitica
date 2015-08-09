@@ -15,6 +15,21 @@ const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
+gulp.task('transifex:missingFiles', () => {
+  let missingStrings = [];
+  let languages = getArrayOfLanguages();
+  eachTranslationFile(languages, (error) => {
+    if(error) {
+      missingStrings.push(error.path);
+    }
+  });
+
+  if (!_.isEmpty(missingStrings)) {
+    let message = 'the following files were missing from the translations folder';
+    post(message, missingStrings);
+  }
+});
+
 gulp.task('transifex:missingStrings', () => {
 
   let missingStrings = [];
