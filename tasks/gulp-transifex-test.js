@@ -37,15 +37,14 @@ gulp.task('transifex:missingStrings', () => {
 
   eachTranslationString(ALL_LANGUAGES, (language, filename, key, englishString, translationString) => {
     if (!translationString) {
-      let errorString = `${language} - ${filename} - ${key} - ${englishString}`;
+      let errorString = `${language} - ${filename} - ${key} - \`${englishString}\``;
       missingStrings.push(errorString);
     }
   });
 
   if (!_.isEmpty(missingStrings)) {
     let message = 'The following strings are not translated';
-    let formattedMessage = formatMessageForPosting(message, missingStrings);
-    console.log(formattedMessage);
+    post(message, missingStrings);
   }
 });
 
