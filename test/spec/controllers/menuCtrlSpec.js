@@ -32,6 +32,25 @@ describe('Menu Controller', function() {
       })
     });
 
+    describe('iconClasses', function() {
+      beforeEach(function() {
+        scope.user = User.user;
+        scope.user.invitations = [];
+        scope.user.flags.bootedFromGroupNotifications = [];
+      });
+
+      it('should return comment inactive icon when there are no messages', function() {
+        expect(scope.iconClasses()).to.eql("glyphicon-comment inactive");
+      });
+
+      it('should return comment icon when there is a group notification', function() {
+        scope.user.flags.bootedFromGroupNotifications = [
+          {"name": "GroupBootedFrom", "message": "You are inactive"}
+        ];
+        expect(scope.iconClasses()).to.eql("glyphicon-comment");
+      });
+    });
+
     describe('clearMessage', function() {
       it('is Chat.seenMessage', inject(function(Chat) {
         expect(scope.clearMessages).to.eql(Chat.seenMessage);
@@ -39,7 +58,6 @@ describe('Menu Controller', function() {
     });
 
     describe('Booted Group Notifications', function() {
-
       beforeEach(function() {
         sandbox.stub(rootScope, 'openModal');
       });
