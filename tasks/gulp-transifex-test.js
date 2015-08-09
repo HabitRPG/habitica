@@ -15,7 +15,7 @@ const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
-gulp.task('transifex:untranslatedStrings', () => {
+gulp.task('transifex:missingStrings', () => {
 
   let missingStrings = [];
   let languages = getArrayOfLanguages();
