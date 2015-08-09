@@ -48,6 +48,51 @@ gulp.task('transifex:missingStrings', () => {
   }
 });
 
+gulp.task('transifex:malformedStrings', () => {
+
+  let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
+  let interpolationRegex = /<%= [a-zA-Z]* %>/g;
+  let stringsToLookFor = getStringsWith(jsonFiles, interpolationRegex);
+
+  let stringsWithMalformedInterpolations = [];
+  let stringsWithIncorrectNumberOfInterpolations = [];
+
+  let count = 0;
+  _(ALL_LANGUAGES).each(function(lang) {
+
+    _.each(stringsToLookFor, function(strings, file) {
+      let translationFile = fs.readFileSync(LOCALES + lang + '/' + file);
+      let parsedTranslationFile = JSON.parse(translationFile);
+
+      _.each(strings, function(value, key) {
+        let translationString = parsedTranslationFile[key];
+        if (!translationString) return;
+
+        let englishOccurences = stringsToLookFor[file][key];
+        let translationOccurences = translationString.match(interpolationRegex);
+
+        if (!translationOccurences) {
+          let malformedString = `${lang} - ${file} - ${key} - \`${translationString}\``;
+          stringsWithMalformedInterpolations.push(malformedString);
+        } else if (englishOccurences.length !== translationOccurences.length) {
+          let missingInterploationString = `${lang} - ${file} - ${key} - \`${translationString}\``;
+          stringsWithIncorrectNumberOfInterpolations.push(missingInterploationString);
+        }
+      });
+    });
+  });
+
+  if (!_.isEmpty(stringsWithMalformedInterpolations)) {
+    let message = '*Warning:* The following strings have malformed interpolations';
+    post(message, stringsWithMalformedInterpolations);
+  }
+
+  if (!_.isEmpty(stringsWithIncorrectNumberOfInterpolations)) {
+    let message = '*Warning:* The following strings have a different number of string interpolations';
+    post(message, stringsWithIncorrectNumberOfInterpolations);
+  }
+});
+
 function getArrayOfLanguages() {
   let languages = fs.readdirSync(LOCALES);
   languages.shift(); // Remove README.md from array of languages
@@ -119,6 +164,23 @@ function formatMessageForPosting(msg, items) {
   body += items.join('\n');
 
   return body;
+}
+
+function getStringsWith(json, interpolationRegex) {
+  var strings = {};
+
+  _(json).each(function(file_name) {
+    var raw_file = fs.readFileSync(ENGLISH_LOCALE + file_name);
+    var parsed_json = JSON.parse(raw_file);
+
+    strings[file_name] = {};
+    _.each(parsed_json, function(value, key) {
+      var match = value.match(interpolationRegex);
+      if(match) strings[file_name][key] = match;
+    });
+  });
+
+  return strings;
 }
 
 function stripOutNonJsonFiles(collection) {
