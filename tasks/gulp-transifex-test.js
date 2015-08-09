@@ -12,7 +12,7 @@ const ENGLISH_LOCALE = `${LOCALES}en/`;
 const ALL_LANGUAGES = getArrayOfLanguages();
 
 const SLACK_URL = nconf.get('TRANSIFEX_SLACK:url');
-const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
+const SLACK_CHANNEL = '#' + (nconf.get('TRANSIFEX_SLACK:channel') || 'general');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
