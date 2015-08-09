@@ -40,6 +40,10 @@
         "accessKeyId":"accessKeyId",
         "secretAccessKey":"secretAccessKey"
     },
+    "transifex_slack": {
+      "url": "https://hooks.slack.com/services/some-url",
+      "channel": "general"
+    },
     "PAYPAL":{
         "billing_plans": {
             "basic_earned":"basic_earned",
