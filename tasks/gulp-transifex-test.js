@@ -15,21 +15,6 @@ const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
-gulp.task('transifex:look', () => {
-
-  let equivalentStrings = [];
-  let nonEnglishLanguages = getNonEnglishLanguages();
-
-  eachTranslationString(nonEnglishLanguages, (language, filename, key, englishString, translationString) => {
-    if (englishString === translationString) {
-      let hash = getHash(key);
-      let json = filename.replace('.','');
-      let url = `https://www.transifex.com/api/2/project/habitrpg/resource/${json}/translation/${language}/string/${hash}/`
-      console.log(url);
-    }
-  });
-});
-
 gulp.task('transifex:untranslatedStrings', () => {
 
   let missingStrings = [];
