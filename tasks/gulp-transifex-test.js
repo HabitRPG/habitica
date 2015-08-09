@@ -57,19 +57,24 @@ function eachTranslationFile(languages, cb) {
 
   _(languages).each((lang) => {
     _.each(jsonFiles, (filename) => {
-      let translationFile = fs.readFileSync(LOCALES + lang + '/' + filename);
-      let parsedTranslationFile = JSON.parse(translationFile);
+      try {
+        var translationFile = fs.readFileSync(LOCALES + lang + '/' + filename);
+        var parsedTranslationFile = JSON.parse(translationFile);
+      } catch (err) {
+        return cb(err);
+      }
 
       let englishFile = fs.readFileSync(ENGLISH_LOCALE + filename);
       let parsedEnglishFile = JSON.parse(englishFile);
 
-      cb(lang, filename, parsedEnglishFile, parsedTranslationFile)
+      cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile)
     });
   });
 }
 
 function eachTranslationString(languages, cb) {
-  eachTranslationFile(languages, (language, filename, englishJSON, translationJSON) => {
+  eachTranslationFile(languages, (error, language, filename, englishJSON, translationJSON) => {
+    if (error) return;
     _.each(englishJSON, (string, key) => {
       var translationString = translationJSON[key];
       cb(language, filename, key, string, translationString);
