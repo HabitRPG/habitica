@@ -9,6 +9,7 @@ nconf.argv().env().file({ file: 'config.json' });
 
 const LOCALES = './common/locales/';
 const ENGLISH_LOCALE = `${LOCALES}en/`;
+const ALL_LANGUAGES = getArrayOfLanguages();
 
 const SLACK_URL = nconf.get('TRANSIFEX_SLACK:url');
 const SLACK_CHANNEL = '#' + nconf.get('TRANSIFEX_SLACK:channel');
@@ -17,8 +18,8 @@ const SLACK_EMOJI = ':transifex:';
 
 gulp.task('transifex:missingFiles', () => {
   let missingStrings = [];
-  let languages = getArrayOfLanguages();
-  eachTranslationFile(languages, (error) => {
+
+  eachTranslationFile(ALL_LANGUAGES, (error) => {
     if(error) {
       missingStrings.push(error.path);
     }
@@ -33,9 +34,8 @@ gulp.task('transifex:missingFiles', () => {
 gulp.task('transifex:missingStrings', () => {
 
   let missingStrings = [];
-  let languages = getArrayOfLanguages();
 
-  eachTranslationString(languages, (language, filename, key, englishString, translationString) => {
+  eachTranslationString(ALL_LANGUAGES, (language, filename, key, englishString, translationString) => {
     if (!translationString) {
       let errorString = `${language} - ${filename} - ${key} - ${englishString}`;
       missingStrings.push(errorString);
@@ -57,9 +57,7 @@ function getArrayOfLanguages() {
 }
 
 function getNonEnglishLanguages() {
-  let allLanguages = getArrayOfLanguages();
-
-  let nonEnglishLanguages = _.filter(allLanguages, (lang) => {
+  let nonEnglishLanguages = _.filter(ALL_LANGUAGES, (lang) => {
     return lang.indexOf('en') !== 0;
   });
 
