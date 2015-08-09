@@ -1749,19 +1749,15 @@ api.wrap = (user, main=true) ->
           dailyChecked += 1
         else
           # dailys repeat, so need to calculate how many they've missed according to their own schedule
-          console.log("---- task: " + task.text) # XXX Alys to remove these
           scheduleMisses = 0
           for n in [0...daysMissed]
-            console.log("n: " + n)
             thatDay = moment(now).subtract({days: n + 1})
             if api.shouldDo(thatDay.toDate(), task, user.preferences)
-              console.log("damage")
               scheduleMisses++
               if user.stats.buffs.stealth
                 user.stats.buffs.stealth--
                 EvadeTask++
               if multiDaysCountAsOneDay
-                console.log("end")
                 break
 
           if scheduleMisses > EvadeTask
