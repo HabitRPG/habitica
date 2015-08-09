@@ -271,7 +271,7 @@ describe "Guilds", ->
 
         ], done
 
-    it "sends member a message when they are kicked", (done) ->
+    it "sends member a message when they are booted", (done) ->
       guildToRemoveMember = undefined
       userToRemove = undefined
       request.post(baseURL + "/groups").send(
@@ -321,7 +321,7 @@ describe "Guilds", ->
             .set("X-API-Key", userToRemove.apiToken)
             .send()
             .end (res) ->
-              expect(res.body.flags.kickedFromGroup[0].name).to.equal( 'TestGuildToRemoveMemberAndMessageThem' )
+              expect(res.body.flags.bootedFromGroupNotifications[0].name).to.equal( 'TestGuildToRemoveMemberAndMessageThem' )
               cb()
 
         ], done

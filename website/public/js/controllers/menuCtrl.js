@@ -21,6 +21,8 @@ angular.module('habitrpg')
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
+        }  else if ( user.flags.bootedFromGroupNotifications.length > 0 ) {
+          return messageValue;
         } else {
           return noneValue;
         }
@@ -44,21 +46,21 @@ angular.module('habitrpg')
         return selectNotificationValue(false, false, false, false, false, true);
       }
 
-      $scope.seenRemovedFromGroupNotification = function(index) {
-        $rootScope.openModal("kicked-from-group", {
-            controller: ['$scope', 'groupKickedFrom',
-              function($scope, groupKickedFrom){
-                $scope.groupKickedFrom = groupKickedFrom;
+      $scope.seenBootedFromGroupNotification = function(index) {
+        $rootScope.openModal("booted-from-group", {
+            controller: ['$scope', 'groupBootedFrom',
+              function($scope, groupBootedFrom){
+                $scope.groupBootedFrom = groupBootedFrom;
             }],
             resolve: {
-              groupKickedFrom: function () {
-                  return User.user.flags.kickedFromGroup[index];
+              groupBootedFrom: function () {
+                  return User.user.flags.bootedFromGroupNotifications[index];
               }
             }
         });
-        User.user.flags.kickedFromGroup.splice(index, 1);
+        User.user.flags.bootedFromGroupNotifications.splice(index, 1);
         User.set({
-          'flags.kickedFromGroup': User.user.flags.kickedFromGroup
+          'flags.bootedFromGroupNotifications': User.user.flags.bootedFromGroupNotifications
         });
       }
 
