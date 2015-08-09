@@ -66,7 +66,6 @@ function getNonEnglishLanguages() {
   return nonEnglishLanguages;
 }
 
-
 function eachTranslationFile(languages, cb) {
   let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
 
@@ -124,11 +123,6 @@ function formatMessageForPosting(msg, items) {
   body += '\n```';
 
   return body;
-}
-
-function getHash(string) {
-  let hash = md5(`${string}:`);
-  return hash;
 }
 
 function stripOutNonJsonFiles(collection) {
