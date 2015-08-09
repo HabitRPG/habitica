@@ -1742,7 +1742,7 @@ api.wrap = (user, main=true) ->
         return unless task
         {id, completed} = task
 
-        # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
+        # Deduct points for missed Daily tasks
         EvadeTask = 0
         scheduleMisses = daysMissed
         if completed
