@@ -116,9 +116,8 @@ function post(message, items) {
 
 function formatMessageForPosting(msg, items) {
   let body = `*Warning:* ${msg}`;
-  body += '\n\n```\n';
+  body += '\n\n>>>\n';
   body += items.join('\n');
-  body += '\n```';
 
   return body;
 }
