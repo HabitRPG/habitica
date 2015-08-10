@@ -37,7 +37,7 @@ gulp.task('transifex:missingStrings', () => {
 
   eachTranslationString(ALL_LANGUAGES, (language, filename, key, englishString, translationString) => {
     if (!translationString) {
-      let errorString = `${language} - ${filename} - ${key} - \`${englishString}\``;
+      let errorString = `${language} - ${filename} - ${key} - ${englishString}`;
       missingStrings.push(errorString);
     }
   });
@@ -72,10 +72,10 @@ gulp.task('transifex:malformedStrings', () => {
         let translationOccurences = translationString.match(interpolationRegex);
 
         if (!translationOccurences) {
-          let malformedString = `${lang} - ${file} - ${key} - \`${translationString}\``;
+          let malformedString = `${lang} - ${file} - ${key} - ${translationString}`;
           stringsWithMalformedInterpolations.push(malformedString);
         } else if (englishOccurences.length !== translationOccurences.length) {
-          let missingInterploationString = `${lang} - ${file} - ${key} - \`${translationString}\``;
+          let missingInterploationString = `${lang} - ${file} - ${key} - ${translationString}`;
           stringsWithIncorrectNumberOfInterpolations.push(missingInterploationString);
         }
       });
@@ -160,8 +160,9 @@ function post(message, items) {
 
 function formatMessageForPosting(msg, items) {
   let body = `*Warning:* ${msg}`;
-  body += '\n\n>>>\n';
+  body += '\n\n```\n';
   body += items.join('\n');
+  body += '\n```';
 
   return body;
 }
