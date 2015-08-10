@@ -1,7 +1,6 @@
 import fs      from 'fs';
 import _       from 'lodash';
 import nconf   from 'nconf';
-import md5     from 'md5';
 import gulp    from 'gulp';
 import request from 'superagent';
 
