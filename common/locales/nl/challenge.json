@@ -33,7 +33,7 @@
     "challengeTagPop": "Uitdagingen zijn te zien op labellijsten en op taakomschrijvingen. Dus hoewel je een omschrijvende titel wil voor hierboven, heb je ook een 'korte naam' nodig. '5 kilo afvallen in drie maanden' kan bijvoorbeeld worden afgekort to '-5kg' (Klik voor meer informatie).",
     "challengeDescr": "Beschrijving",
     "prize": "Prijs",
-    "prizePop": "Als iemand jouw uitdaging 'wint', kun je de winnaar mogelijk edelstenen als prijs uitreiken. Max = het aantal edelstenen dat jij hebt (+ gilde-edelstenen, als jij het gilde van deze uitdaging hebt aangemaakt). Let op: de prijs kan later niet veranderd worden.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "Als iemand jouw uitdaging 'wint', kun je de winnaar edelstenen als prijs uitreiken. Max = het aantal edelstenen dat jij in je bezit hebt. Let op: de prijs kan later niet veranderd worden en Herberguitdagingen worden niet terugbetaald als de uitdaging wordt geannuleerd.",
     "publicChallenges": "Minimaal 1 edelsteen voor <strong>openbare uitdagingen</strong> (helpt spam voorkomen, echt).",
     "officialChallenge": "Officiële Habitica-Uitdaging",

@@ -33,7 +33,7 @@
     "challengeTagPop": "Los Desafíos aparecen en la lista de etiquetas y en las herramientas de tarea. Así que, aunque el título debería ser descriptivo, también se necesita una 'abreviatura'. P ej, 'Perder 5 kilos en 3 meses' se puede convertir en '-5 kg' (Haz clic para más información).",
     "challengeDescr": "Descripción",
     "prize": "Premio",
-    "prizePop": "Si alguien puede 'ganar' tu desafío,tienes la opción de premiar al ganador con Gemas. Máximo = # gemas que tienes (+ las gemas del gremio, si eres tú quien creó el gremio de este desafío). Nota: Este premio no se puede cambiar más tarde.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "Si alguien puede 'ganar' tu desafío, tienes la opción de premiar al ganador con Gemas. Máximo = numero gemas que tienes. Nota: Este premio no se puede cambiar más tarde y no será devuelto si se cancela el desafió..",
     "publicChallenges": "Mínimo 1 Gema para <strong> desafíos públicos </strong> (ayuda a prevenir el spam, de verdad que sí).",
     "officialChallenge": "Desafío oficial de Habitica",

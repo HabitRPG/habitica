@@ -33,7 +33,7 @@
     "challengeTagPop": "Le sfide compaiono nelle liste dei tag (etichette), quindi oltre al titolo descrittivo avrai bisogno anche di un nome breve e facilmente riconoscibile. Per esempio, 'Perdi 10 kg in 3 mesi' potrebbe diventare '-10kg' (Clicca il '?' per saperne di più).",
     "challengeDescr": "Descrizione",
     "prize": "Premio",
-    "prizePop": "Se qualcuno può \"vincere\" la tua sfida, hai l'opzione di ricompensarlo con un premio in Gemme. Il premio massimo equivale al numero di gemme che possiedi (+ le gemme della gilda, se sei tu il creatore della gilda di questa sfida). Nota: questo premio non potrà essere modificato una volta pubblicata la sfida.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "Se qualcuno può ''vincere'' la tua sfida, potrai ricompensarlo con un premio in Gemme. Il premio massimo equivale al numero di gemme che possiedi. Nota: questo premio non potrà essere modificato e le sfide della Taverna non verranno rimborsate in caso vengano eliminate.",
     "publicChallenges": "Serve un minimo di 1 Gemma per le <strong> sfide pubbliche </strong> (aiuta a prevenire lo spam, lo fa davvero).",
     "officialChallenge": "Sfida ufficiale Habitica",

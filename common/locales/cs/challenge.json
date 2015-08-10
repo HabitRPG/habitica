@@ -33,7 +33,7 @@
     "challengeTagPop": "Výzvy se ti objeví na seznamu štítků pod panelem i v popiscích úkolů. Takže název může být dlouhý, ale budeš také potřebovat 'krátký název'. Tzn. 'Shodit za 3 měsíce 10 kilo' by mohlo být zkráceno na '-10kg' (Klikni pro více informací).",
     "challengeDescr": "Popis",
     "prize": "Cena",
-    "prizePop": "Pokud někdo může 'vyhrát' tvou výzvu, můžeš jej odměnit drahokamy. Maximum = počet tvých drahokamů (+ drahokamy cechu, pokud jsi tvůrcem výzvy tohoto cechu). Poznámka: Výhra nemůže být později změněna.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "Pokud někdo může 'vyhrát' tvou výzvu, můžeš jej odměnit drahokamy. Maximum = počet tvých drahokamů. Poznámka: Výhra nemůže být později změněna a výhra z výzev v Krčmě se nevrací, pokud je výzva zrušena.",
     "publicChallenges": "Minimálně 1 drahokam za <strong> veřejné výzvy </strong> (opravdu to eliminuje spam).",
     "officialChallenge": "Oficiální výzva Habitiky",

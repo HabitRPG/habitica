@@ -6,7 +6,7 @@
     "lfgPosts": "Объявления о поиске команды",
     "tutorial": "Обучение",
     "glossary": "Терминология",
-    "wiki": "Wiki",
+    "wiki": "Вики",
     "reportAP": "Сообщить о проблеме",
     "requestAF": "Предложить новую функцию",
     "community": "Форум сообщества",
@@ -119,7 +119,7 @@
     "sendGiftPurchase": "Приобрести",
     "sendGiftMessagePlaceholder": "Личное сообщение (необязательно)",
     "sendGiftSubscription": "<%= months %> месяц(а/ев): $<%= price %>",
-    "battleWithFriends": "Сражайтесь с монстрами вместе с друзьями",
+    "battleWithFriends": "Побеждайте монстров с друзьями",
     "startAParty": "Создать команду",
     "addToParty": "Пригласите участника в команду",
     "likePost": "Кликните, если нравится пост!"

@@ -31,7 +31,7 @@
     "paymentMethods": "Metodi di pagamento:",
     "classGear": "Equipaggiamento per Classi",
     "classGearText": "Per prima cosa: non preoccuparti! Il tuo vecchio equipaggiamento è nel tuo inventario, ora stai indossando quello da <strong><%= klass %></strong> apprendista. Indossare un equipaggiamento apposito per la tua classe conferisce un bonus del 50% alle tue statistiche. In ogni caso, sentiti libero di tornare al tuo vecchio equipaggiamento.",
-    "classStats": "Queste sono le tue statistiche di classe; influenzano l'andamento del gioco. Ogni volta che sali di livello, ottieni un punto da assegnare ad una particolare statistica. Passa il cursore su ogni statistica per avere maggiori informazioni.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Assegnazione automatica dei punti",
     "autoAllocateText": "Se l'opzione \"allocazione automatica\" è selezionata, il tuo avatar guadagna automaticamente statistiche basate sugli attributi delle attività che completi, che puoi trovare in <strong>ATTIVITA' > Modifica > Avanzate > Attributi</strong>. Per esempio, se vai spesso in palestra, e la tua Daily \"Palestra\" è impostata sull'attributo \"Fisico\", guadagnerai Forza automaticamente.",
     "spells": "Incantesimi",
