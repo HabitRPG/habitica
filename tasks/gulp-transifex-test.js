@@ -99,14 +99,6 @@ function getArrayOfLanguages() {
   return languages;
 }
 
-function getNonEnglishLanguages() {
-  let nonEnglishLanguages = _.filter(ALL_LANGUAGES, (lang) => {
-    return lang.indexOf('en') !== 0;
-  });
-
-  return nonEnglishLanguages;
-}
-
 function eachTranslationFile(languages, cb) {
   let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
 
@@ -135,11 +127,6 @@ function eachTranslationString(languages, cb) {
       cb(language, filename, key, string, translationString);
     });
   });
-}
-
-function checkForIssues(thingToCheck) {
-  let hasIssues = !_.isEmpty(thingToCheck);
-  return hasIssues;
 }
 
 function post(message, items) {
