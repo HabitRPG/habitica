@@ -83,7 +83,7 @@ gulp.task('transifex:malformedStrings', () => {
   });
 
   if (!_.isEmpty(stringsWithMalformedInterpolations)) {
-    let message = '*Warning:* The following strings have malformed interpolations';
+    let message = '*Warning:* The following strings have malformed or missing interpolations';
     post(message, stringsWithMalformedInterpolations);
   }
 
