@@ -139,11 +139,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.inviter = User.user.profile.name;
     $scope.emails = [{name:"",email:""},{name:"",email:""}];
-    $scope.invitees = [{invitee:""},{invitee:""}];
+    $scope.invitees = [{uuid:""},{uuid:""}];
 
     $scope.inviteEmails = function(){
       Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
-        Notification.text("Invitation(s) sent!");
+        Notification.text(window.env.t('invitationsSent'));
         $scope.emails = [{name:'',email:''},{name:'',email:''}];
       }, function(){
         $scope.emails = [{name:'',email:''},{name:'',email:''}];
@@ -151,11 +151,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.invite = function(){
-      Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitee]}, function(){
-        Notification.text("Invitation(s) sent!");
-        $scope.invitee = '';
+      var uuidList = _.pluck($scope.invitees,'uuid');
+      Groups.Group.invite({gid: $scope.group._id}, {uuids: uuidList}, function(){
+        Notification.text(window.env.t('invitationsSent'));
+        $scope.invitees = [{uuid:""},{uuid:""}];
       }, function(){
-        $scope.invitee = '';
+        $scope.invitees = [{uuid:""},{uuid:""}];
       });
     };
   }])

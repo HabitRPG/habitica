@@ -39,10 +39,10 @@ script(type='text/ng-template', id='modals/invite-friends.html')
             tbody
               tr(ng-repeat='invitee in invitees')
                 td
-                  input.form-control(type='text', ng-model='invitee.invitee')
+                  input.form-control(type='text', ng-model='invitee.uuid')
               tr
                 td(colspan=2)
-                  a.btn.btn-xs.pull-right(ng-click='invitees = invitees.concat([{invitee:""}])')
+                  a.btn.btn-xs.pull-right(ng-click='invitees = invitees.concat([{uuid:""}])')
                     i.glyphicon.glyphicon-plus
               tr
                 td
