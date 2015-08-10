@@ -15,6 +15,8 @@ const SLACK_CHANNEL = '#' + (nconf.get('TRANSIFEX_SLACK:channel') || 'general');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
+gulp.task('transifex', ['transifex:missingFiles', 'transifex:missingStrings', 'transifex:malformedStrings']);
+
 gulp.task('transifex:missingFiles', () => {
 
   let missingStrings = [];
