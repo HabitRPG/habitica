@@ -1,4 +1,5 @@
 include ./quest-rewards
+include ../mixins
 
 mixin questInfo
   .pull-right-sm.text-center
@@ -92,3 +93,13 @@ script(type='text/ng-template', id='modals/questDrop.html')
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('questLater')
     button.btn.btn-primary(ng-click='inviteOrStartParty(group); $close()', ng-if='!party.members')=env.t('startAParty')
     button.btn.btn-primary(ng-click='questInit(); $close()', ng-if='party.members')=env.t('inviteParty')
+
+script(type='text/ng-template', id='modals/ownedQuests.html')
+  .modal-header
+    h4=env.t('whichQuestStart')
+  .modal-body
+    +ownedQuests(false,'top')
+  .modal-footer
+    h4.pull-left
+      a(ui-sref='options.inventory.quests', ng-click='$close()')=env.t('getMoreQuests')
+    button.btn.btn-default.pull-right(ng-click='$close()')=env.t('neverMind')

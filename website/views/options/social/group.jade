@@ -56,6 +56,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
               | {{group.leader.profile.name}}
 
+      div.text-center(ng-if='group.type === "party"')
+        button.btn.btn-success.margin-auto.width-50(ng-click='clickStartQuest();')=env.t('startQuest')
+
       // ------ Members -------
       .panel.panel-default
         .panel-heading
@@ -63,21 +66,6 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             =env.t('members')
             button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
         .panel-body.modal-fixed-height
-          div.form-group(ng-if='::group.type=="party" && group.memberCount > 1')
-            p=env.t('partyList')
-            select.form-control#partyOrder(
-              ng-model='user.party.order',
-              ng-controller='ChatCtrl',
-              ng-options='k as v for (k , v) in partyOrderChoices',
-              ng-change='set({"party.order": user.party.order})'
-              )
-            |&nbsp;
-            select.form-control#partyOrderAscending(
-              ng-model='user.party.orderAscending',
-              ng-controller='ChatCtrl',
-              ng-options='k as v for (k , v) in partyOrderAscendingChoices',
-              ng-change='set({"party.orderAscending": user.party.orderAscending})'
-              )
           h4(ng-show='group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
           table.table.table-striped(ng-show='group.memberCount > 1 || group.type !== "party"' bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')
@@ -94,7 +82,6 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 |<span class='badge'>{{group.memberCount - group.members.length}}
                 = ' ' + env.t('moreMembers')
                 |</span>
-
           h4(ng-show='group.invites.length > 0')=env.t('invited')
           table.table.table-striped
             tr(ng-repeat='invite in group.invites')
@@ -107,8 +94,24 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
 
-      div.text-center(ng-if='group.type === "party"')
-        button.btn.btn-success.margin-auto.width-100=env.t('startQuest')
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title=env.t('partyList')
+        .panel-body
+          div.form-group(ng-if='::group.type=="party" && group.memberCount > 1')
+            select.form-control#partyOrder(
+            ng-model='user.party.order',
+            ng-controller='ChatCtrl',
+            ng-options='k as v for (k , v) in partyOrderChoices',
+            ng-change='set({"party.order": user.party.order})'
+            )
+            | &nbsp;
+            select.form-control#partyOrderAscending(
+            ng-model='user.party.orderAscending',
+            ng-controller='ChatCtrl',
+            ng-options='k as v for (k , v) in partyOrderAscendingChoices',
+            ng-change='set({"party.orderAscending": user.party.orderAscending})'
+            )
 
       include ./challenge-box
 
@@ -135,3 +138,4 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         include ./chat-box
 
         +chatMessages()
+        h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')

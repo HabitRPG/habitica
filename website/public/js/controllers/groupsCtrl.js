@@ -535,7 +535,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
               content: html
           }).popover('show');
           });
-      }
+      };
+
+      $scope.clickStartQuest = function(){
+        if (_.reduce(User.user.items.quests, function(a,v){a += v; return a}) > 0){
+          $rootScope.openModal("ownedQuests", {controller:"InventoryCtrl"});
+        } else {
+          $rootScope.$state.go('options.inventory.quests');
+        }
+      };
 
       $scope.reject = function(){
         //User.user.invitations.party = undefined;

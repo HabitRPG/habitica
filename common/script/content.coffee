@@ -1119,6 +1119,11 @@ api.food =
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: t('foodNotes')}
 
+api.questCategories =
+  ableUnlock: 'unlockableQuests'
+  gold: 'goldQuests'
+  pet: 'petQuests'
+
 api.quests =
 
   dilatory:
@@ -1309,7 +1314,7 @@ api.quests =
     notes: t('questVice1Notes')
     value: 4
     lvl: 30
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questVice1Boss')
       hp: 750
@@ -1326,7 +1331,7 @@ api.quests =
     notes: t('questVice2Notes')
     value: 4
     lvl: 30
-    category: 'unlockable'
+    category: 'ableUnlock'
     previous: 'vice1'
     collect:
       lightCrystal: text: t('questVice2CollectLightCrystal'), count: 45
@@ -1344,7 +1349,7 @@ api.quests =
     previous: 'vice2'
     value: 4
     lvl: 30
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questVice3Boss')
       hp: 1500
@@ -1450,7 +1455,7 @@ api.quests =
     notes: t('questAtom1Notes')
     value: 4
     lvl: 15
-    category: 'unlockable'
+    category: 'ableUnlock'
     collect:
       soapBars: text: t('questAtom1CollectSoapBars'), count: 20
     drop:
@@ -1465,7 +1470,7 @@ api.quests =
     previous: 'atom1'
     value: 4
     lvl: 15
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questAtom2Boss')
       hp: 300
@@ -1483,7 +1488,7 @@ api.quests =
     completion: t('questAtom3Completion')
     value: 4
     lvl: 15
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questAtom3Boss')
       hp: 800
@@ -1562,7 +1567,7 @@ api.quests =
     notes: t('questMoonstone1Notes')
     value: 4
     lvl: 60
-    category: 'unlockable'
+    category: 'ableUnlock'
     collect:
       moonstone: text: t('questMoonstone1CollectMoonstone'), count: 500
     drop:
@@ -1577,7 +1582,7 @@ api.quests =
     value: 4
     lvl: 60
     previous: 'moonstone1'
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questMoonstone2Boss')
       hp: 1500
@@ -1595,7 +1600,7 @@ api.quests =
     previous: 'moonstone2'
     value: 4
     lvl: 60
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questMoonstone3Boss')
       hp: 2000
@@ -1620,7 +1625,7 @@ api.quests =
     notes: t('questGoldenknight1Notes')
     value: 4
     lvl: 40
-    category: 'unlockable'
+    category: 'ableUnlock'
     collect:
       testimony: text: t('questGoldenknight1CollectTestimony'), count: 300
     drop:
@@ -1635,7 +1640,7 @@ api.quests =
     value: 4
     previous: 'goldenknight1'
     lvl: 40
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questGoldenknight2Boss')
       hp: 1000
@@ -1653,7 +1658,7 @@ api.quests =
     previous: 'goldenknight2'
     value: 4
     lvl: 40
-    category: 'unlockable'
+    category: 'ableUnlock'
     boss:
       name: t('questGoldenknight3Boss')
       hp: 1700
@@ -1675,7 +1680,7 @@ api.quests =
     notes: t('questBasilistNotes')
     completion: t('questBasilistCompletion')
     value: 4
-    category: 'unlockable'
+    category: 'ableUnlock'
     unlockCondition:
       condition: 'party invite'
       text: t('inviteFriends')
