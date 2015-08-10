@@ -40,7 +40,7 @@
         "accessKeyId":"accessKeyId",
         "secretAccessKey":"secretAccessKey"
     },
-    "transifex_slack": {
+    "TRANSIFEX_SLACK": {
       "url": "https://hooks.slack.com/services/some-url",
       "channel": "general"
     },
