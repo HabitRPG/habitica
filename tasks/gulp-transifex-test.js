@@ -16,6 +16,7 @@ const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
 gulp.task('transifex:missingFiles', () => {
+
   let missingStrings = [];
 
   eachTranslationFile(ALL_LANGUAGES, (error) => {
