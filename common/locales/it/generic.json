@@ -64,10 +64,13 @@
     "habitBirthday": "Festa di compleanno di Habitica",
     "habitBirthdayText": "Ha celebrato la festa di compleanno di Habitica!",
     "habitBirthdayPluralText": "Ha celebrato <%= number %> feste di compleanno di Habitica!",
+    "habiticaDay": "Habitica Naming Day",
+    "habiticaDaySingularText": "Ha celebrato l'Habitica Naming Day! Grazie per essere un utente fantastico.",
+    "habiticaDayPluralText": "Ha celebrato <%= number %> Habitica Naming Day! Grazie per essere un utente fantastico.",
     "achievementDilatory": "Eroe dei Dilatori",
     "achievementDilatoryText": "Ha contribuito alla sconfitta del Drago Terrore dei Dilatori durante l'evento Summer Splash 2014!",
     "costumeContest": "Gara Mascherata 2014",
-    "costumeContestText": "Ha partecipato alla Gara Mascherata di Halloween 2014. Puoi trovare alcune foto su blog.habitica.com/tagged/cosplay! ",
+    "costumeContestText": "Ha partecipato alla Gara Mascherata di Halloween 2014. Puoi trovare alcune foto su blog.habitica.com/tagged/cosplay!",
     "memberSince": "- Membro dal:",
     "lastLoggedIn": "- Ultimo accesso:",
     "notPorted": "Questa funzionalità non è ancora stata trasposta dal sito originale.",
@@ -106,5 +109,6 @@
     "December": "dicembre",
     "dateFormat": "Formato data",
     "achievementStressbeast": "Eroe di Stoïkalm",
-    "achievementStressbeastText": "Ha contribuito alla sconfitta dell'Abominevole Mostro dello Stress durante l'evento Winter Wonderland 2015!"
+    "achievementStressbeastText": "Ha contribuito alla sconfitta dell'Abominevole Mostro dello Stress durante l'evento Winter Wonderland 2015!",
+    "checkOutProgress": "Guarda i miei progressi su Habitica!"
 }

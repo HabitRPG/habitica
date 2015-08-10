@@ -33,7 +33,7 @@
     "challengeTagPop": "אתגרים מופיעים ברשימות-תגים ובכלי-משימות, כך שאתה צריך לתת להם בנוסף לכותרת מפורטת, שם קצר וקולע, למשל: 'לאבד 1.5 קילו ב3 חודשים' יכול להתקצר ל'-1.5 ק\"ג' (לחץ למידע נוסף)",
     "challengeDescr": "תיאור",
     "prize": "פרס",
-    "prizePop": "אם יכול להיות ״מנצח״ לאתגר שלך, אתה יכול לזכות אותו באבני חן כפרס. לכל היותר כמספר אבני החן שברשותך + אבני החן השייכים לגילדה (במידה ואתה יצרת את הגילדה). שים לב: לא ניתן לערוך פרס זה בשלב מאוחר יותר.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "אם יכול להיות ״מנצח״ לאתגר שלך, אתה יכול לזכות אותו באבני חן כפרס. לכל היותר כמספר אבני החן שברשותך. שים לב: לא ניתן לערוך פרס זה בשלב מאוחר יותר, ואבני החן של אתגרי פונדק לא יוחזרו במידה ותבטל את האתגר.",
     "publicChallenges": "לכל הפחות אבן חן אחת ל<strong>אתגרים ציבוריים </strong> (זה עוזר למנוע ספאם, אל תזלזל/י)",
     "officialChallenge": "אתגר רשמי של האתר",

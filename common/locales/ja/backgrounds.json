@@ -17,7 +17,7 @@
     "backgrounds082014": "セット3: 2014年8月リリース済み",
     "backgroundCloudsText": "雲",
     "backgroundCloudsNotes": "雲の間を突き抜けよう",
-    "backgroundDustyCanyonsText": "埃っぽい峡谷 ",
+    "backgroundDustyCanyonsText": "埃っぽい峡谷",
     "backgroundDustyCanyonsNotes": "乾いた埃っぽい峡谷で彷徨い歩こう。",
     "backgroundVolcanoText": "火山",
     "backgroundVolcanoNotes": "火山の中で熱くなろう",
@@ -97,5 +97,12 @@
     "backgroundGiantWaveText": "高波",
     "backgroundGiantWaveNotes": "高波に乗ろう！",
     "backgroundSunkenShipText": "沈没船",
-    "backgroundSunkenShipNotes": "沈没船を探検する。"
+    "backgroundSunkenShipNotes": "沈没船を探検する。",
+    "backgrounds082015": "SET 15: Released August 2015",
+    "backgroundPyramidsText": "Pyramids",
+    "backgroundPyramidsNotes": "Admire the Pyramids.",
+    "backgroundSunsetSavannahText": "Sunset Savannah",
+    "backgroundSunsetSavannahNotes": "Stalk across the Sunset Savannah.",
+    "backgroundTwinklyPartyLightsText": "Twinkly Party Lights",
+    "backgroundTwinklyPartyLightsNotes": "Dance under Twinkly Party Lights!"
 }

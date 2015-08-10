@@ -33,7 +33,7 @@
     "challengeTagPop": "Výzvy sa zobrazujú v zozname štítkov a v popise úlohy. Takže oficiálny názov výzvy môže byť dlhší a výstižný, no potrebuješ aj krátku verziu. Napr výzva s názvom \"Schudnúť 10 kíl za 3 mesiace\" môže používať štítok \"-10kg\" (Pre viac informácií klikni na \"?\").",
     "challengeDescr": "Popis",
     "prize": "Odmena",
-    "prizePop": "Ak niekto môže 'vyhrať' tvoju výzvu, môžeš toho víťaza odmeniť drahokamami. Maximálny počet drahokamov = drahokamy, ktoré vlastníš (+ drahokamy cechu, ak si vytvoril výzvu v rámci cechu). Poznámka: Túto odmenu neskôr už nemôžeš zmeniť.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "Ak niekto môže 'vyhrať' tvoju výzvu, môžeš toho víťaza odmeniť drahokamami. Maximum = počet tvojich drahokamov. Poznámka: Túto odmenu neskôr už nemôžeš zmeniť a drahokamy sa ti nevrátia ak výzvu zrušíš.",
     "publicChallenges": "Minimum je 1 drahokam pre <strong> verejné výzvy </strong> (pomáha predísť spamu, naozaj).",
     "officialChallenge": "Oficiálna výzva Habiticy",

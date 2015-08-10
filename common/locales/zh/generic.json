@@ -64,6 +64,9 @@
     "habitBirthday": "Habitica的生日派对",
     "habitBirthdayText": "欢庆Habitica的生日派对",
     "habitBirthdayPluralText": "欢庆第<%= number %>个 Habitica生日派对",
+    "habiticaDay": "Habitica Naming Day",
+    "habiticaDaySingularText": "Celebrated Habitica's Naming Day! Thanks for being a fantastic user.",
+    "habiticaDayPluralText": "Celebrated <%= number %> Naming Days! Thanks for being a fantastic user.",
     "achievementDilatory": "拖延的救世者",
     "achievementDilatoryText": "2014年夏季世界事件中协助打败了恐怖的拖延巨龙！",
     "costumeContest": "2014服装大赛",
@@ -103,8 +106,9 @@
     "September": "九月",
     "October": "十月",
     "November": "十一月",
-    "December": "十二月\n",
+    "December": "十二月",
     "dateFormat": "日期格式",
     "achievementStressbeast": "Stoïkalm的救星",
-    "achievementStressbeastText": "在\"2015冬季仙境事件\"中协助战胜可恶的压力野兽！"
+    "achievementStressbeastText": "在\"2015冬季仙境事件\"中协助战胜可恶的压力野兽！",
+    "checkOutProgress": "Check out my progress in Habitica!"
 }

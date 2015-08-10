@@ -90,7 +90,7 @@
     "audioTheme_off": "Выкл.",
     "audioTheme_danielTheBard": "Бард Даниэль",
     "audioTheme_wattsTheme": "Тема Уоттса",
-    "audioTheme_gokulTheme": "Тема Гокула",
+    "audioTheme_gokulTheme": "Гокульская тема",
     "askQuestion": "Задать вопрос",
     "reportBug": "Сообщить о проблеме",
     "contributeToHRPG": "Участвовать в развитии Habitica",
@@ -109,5 +109,6 @@
     "December": "Декабрь",
     "dateFormat": "Формат даты",
     "achievementStressbeast": "Спаситель Стойкальма",
-    "achievementStressbeastText": "Помог победить Отвратительного Стрессозверя во время события Зимняя Страна Чудес 2015!"
+    "achievementStressbeastText": "Помог победить Отвратительного Стрессозверя во время события Зимняя Страна Чудес 2015!",
+    "checkOutProgress": "Check out my progress in Habitica!"
 }

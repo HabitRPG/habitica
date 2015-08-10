@@ -15,10 +15,10 @@
     "guardianText": "Les modérateurs ont été choisis avec soin parmi les contributeurs de plus haut rang, nous vous invitons donc à faire preuve de politesse et à prêter l'oreille à leurs suggestions.",
     "staff": "Équipe",
     "heroic": "Héroïque",
-    "heroicText": "Le niveau Héroïque rassemble l'équipe de Habitica ainsi que les contributeurs au palier de l'équipe. Si vous avez ce titre, vous avez été  commissionné pour celui-ci (ou engagé !). ",
+    "heroicText": "Le niveau Héroïque rassemble l'équipe de Habitica ainsi que les contributeurs au palier de l'équipe. Si vous avez ce titre, vous avez été  commissionné pour celui-ci (ou engagé !).",
     "npcText": "Les PNJs ont soutenu Habitica sur Kickstarter au plus haut palier. Vous pouvez voir leurs avatars veiller sur les fonctionnalités du site !",
     "modalContribAchievement": "le succès \"Contributeur\" !",
-    "contribModal": "<%= name %>, Vous êtes une personne géniale ! Vous êtes maintenant un contributeur de palier <%= level %> pour avoir aider Habitica. Voyez vous même ! ",
+    "contribModal": "<%= name %>, Vous êtes une personne géniale ! Vous êtes maintenant un contributeur de palier <%= level %> pour avoir aider Habitica. Voyez vous même !",
     "contribLink": "quelles récompenses vous avez gagnées grâce à votre contribution !",
     "contribName": "Contributeur",
     "contribText": "A contribué au développement d'Habitica (code, design, pixel art, conseils juridiques, documents, etc). Vous voulez ce badge ?",
@@ -65,6 +65,6 @@
     "blurbInbox": "C'est ici que vos messages privés sont stockés! Vous pouvez envoyer un message à quelqu'un en cliquant sur l'icône de l'enveloppe à côté de leur nom dans la Taverne, votre Équipe, ou votre Guilde.",
     "blurbGuildsPage": "Les Guildes sont des groupes de discussion créés par les joueurs pour les joueurs pour regroupe les personnes autour de leurs centres d'intérêt. Jetez un œil à la liste et rejoignez les Guildes qui vous intéressent!",
     "blurbChallenges": "Les Défis sont des listes de tâches créées par des membres! Rejoindre un défi ajoutera ses tâches aux vôtres dans la page des tâches; gagner un Défi vous fera gagner un succès ainsi que, souvent, des gemmes!",
-    "blurbHallPatrons": "Voici le Panthéon des Sponsors, où nous rendons hommage aux nobles aventuriers qui ont soutenu le Kickstarter original de Habitica. Nous les remercions de nous avoir aidés à donner la vie à Habitica! ",
-    "blurbHallHeroes": "Bienvenue au Panthéon des Héros, où nous rendons hommage aux contributeurs open-source de Habitica. Que ce soit par le code, les illustrations, la musique, l'écriture ou simplement par leur obligeance, ils ont gagné <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> des Gemmes, de l'équipement exclusif</a> et <a href='http://habitrpg.wikia.com/wiki/Contributor_Titles' target='_blank'>des titres prestigieux</a>. Vous pouvez vous aussi apporter votre contribution à Habitica! <a href='http://habitrpg.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Apprenez-en davantage ici. </a>"
+    "blurbHallPatrons": "Voici le Panthéon des Sponsors, où nous rendons hommage aux nobles aventuriers qui ont soutenu le Kickstarter original de Habitica. Nous les remercions de nous avoir aidés à donner la vie à Habitica!",
+    "blurbHallHeroes": "Ceci est le Panthéon des Héros, où tous les contributeurs open-source d'Habitica sont honorés. Que ce soit par du code, de l'art, de la musique, de l'écriture, ou juste de l'aide, ils ont mérité\n<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> des gemmes, de l'équipment exclusif</a>, et <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>des titres prestigieux</a>. Vous pouvez aussi contribuer à Habitica ! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Apprenez-en plus ici. </a>"
 }

@@ -1,0 +1,7 @@
+{
+    "lostAllHealth": "你的生命值不足！",
+    "dontDespair": "不要绝望！",
+    "deathPenaltyDetails": "你失去了一个等级，以及你的金币，还有一件装备，但是你能通过努力把它们都赢回来！祝你好运——你将做得很好。",
+    "refillHealthTryAgain": "完全恢复生命值 并 重新开始",
+    "dyingOftenTips": "这经常发生？ <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>这里有一些提示！</a>"
+}

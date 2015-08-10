@@ -11,7 +11,7 @@
     "messageLikesFood": "<%= egg %> 很喜欢你给的<%= foodText %>！",
     "messageDontEnjoyFood": "<%= egg %>吃了<%= foodText %>，但似乎不是很喜欢。",
     "messageBought": "购买了 <%= itemText %>",
-    "messageEquipped": "装备了<%= itemText %> ",
+    "messageEquipped": "装备了<%= itemText %>",
     "messageUnEquipped": "卸下了 <%= itemText %>",
     "messageMissingEggPotion": "你没选择药水或者宠物蛋",
     "messageAlreadyPet": "你已经拥有这只宠物了，试着用另一种方案孵化吧。",

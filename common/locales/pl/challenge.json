@@ -33,7 +33,7 @@
     "challengeTagPop": "Wyzwania pojawiają się na liście tagów oraz w opisach zadań. Dlatego oprócz pełnej nazwy, wpisanej wyżej, potrzebny będzie także jej \"skrót\". Na przykład \"Schudnąć 5 kilogramów w 3 miesiące\" może dostać skrót \"−5kg\" (Kliknij, by dowiedzieć się więcej).",
     "challengeDescr": "Opis",
     "prize": "Nagroda",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Przy <strong>publicznych wyzwaniach</strong> minimalna nagroda to 1 klejnot (metoda antyspamowa, naprawdę działa).",
     "officialChallenge": "Oficjalne wyzwanie Habitica",

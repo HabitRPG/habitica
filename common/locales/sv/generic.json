@@ -64,6 +64,9 @@
     "habitBirthday": "Habiticas födelsedagsparty",
     "habitBirthdayText": "Firade Habiticas födelsedagsparty!",
     "habitBirthdayPluralText": "Har firat <%= number %> HabitPRG födelsedagspartyn!",
+    "habiticaDay": "Habitica Naming Day",
+    "habiticaDaySingularText": "Celebrated Habitica's Naming Day! Thanks for being a fantastic user.",
+    "habiticaDayPluralText": "Celebrated <%= number %> Naming Days! Thanks for being a fantastic user.",
     "achievementDilatory": "Dilatorys Befriare",
     "achievementDilatoryText": "Helped defeat the Dread Drag'on of Dilatory during the 2014 Summer Splash Event!",
     "costumeContest": "2014 Kostym Tävling",
@@ -106,5 +109,6 @@
     "December": "December",
     "dateFormat": "Datumformat",
     "achievementStressbeast": "Stoïkalms Räddare",
-    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!"
+    "achievementStressbeastText": "Helped defeat the Abominable Stressbeast during the 2015 Winter Wonderland Event!",
+    "checkOutProgress": "Check out my progress in Habitica!"
 }

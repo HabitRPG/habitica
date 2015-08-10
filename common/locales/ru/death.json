@@ -1,0 +1,7 @@
+{
+    "lostAllHealth": "You ran out of Health!",
+    "dontDespair": "Don't despair!",
+    "deathPenaltyDetails": "You lost a Level, your Gold, and a piece of Equipment, but you can get them all back with hard work! Good luck--you'll do great.",
+    "refillHealthTryAgain": "Восстановить здоровье и попытаться снова",
+    "dyingOftenTips": "Is this happening often? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Here are some tips!</a>"
+}

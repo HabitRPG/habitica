@@ -55,7 +55,7 @@
     "backgroundFrigidPeakText": "Cima congelada",
     "backgroundFrigidPeakNotes": "Alcanza el pico de una cima congelada.",
     "backgroundSnowyPinesText": "Pinos nevados",
-    "backgroundSnowyPinesNotes": "Refúgiate en medio de unos pinos nevados. ",
+    "backgroundSnowyPinesNotes": "Refúgiate en medio de unos pinos nevados.",
     "backgrounds022015": "Conjunto 9: Lanzado en febrero 2015",
     "backgroundBlacksmithyText": "Herrería",
     "backgroundBlacksmithyNotes": "Trabaja en la herrería.",
@@ -97,5 +97,12 @@
     "backgroundGiantWaveText": "Ola Grande",
     "backgroundGiantWaveNotes": "¡Haz Surf un Ola Grande!",
     "backgroundSunkenShipText": "Barco Sumergido",
-    "backgroundSunkenShipNotes": "Explora un Barco Sumergido"
+    "backgroundSunkenShipNotes": "Explora un Barco Sumergido",
+    "backgrounds082015": "SET 15: Released August 2015",
+    "backgroundPyramidsText": "Pyramids",
+    "backgroundPyramidsNotes": "Admire the Pyramids.",
+    "backgroundSunsetSavannahText": "Sunset Savannah",
+    "backgroundSunsetSavannahNotes": "Stalk across the Sunset Savannah.",
+    "backgroundTwinklyPartyLightsText": "Twinkly Party Lights",
+    "backgroundTwinklyPartyLightsNotes": "Dance under Twinkly Party Lights!"
 }

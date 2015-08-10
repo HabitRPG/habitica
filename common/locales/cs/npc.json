@@ -31,7 +31,7 @@
     "paymentMethods": "Platební metody:",
     "classGear": "Vybavení pro tvé povolání",
     "classGearText": "Za prvé: Nepanikař! Tvé staré vybavení je v tvém inventáři a nyní nosíš začátečnické vybavení povolání <strong><%= klass %></strong>. Nošení vybavení tvého povolání ti dává 50% bonus k statistikám.  Ale neboj se vrátit ke svému starému vybavení.",
-    "classStats": "Toto jsou statistiky tvého povolání, ovlivňují hratelnost. Pokaždé, když postoupíš o úroveň výš, dostaneš jeden bod, který můžeš přiřadit k určité statistice. Najeď myší na každou statistiku pro více informací.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Připisovat automaticky",
     "autoAllocateText": "Pokud je zaškrtnuto 'automatické připisování', získává tvůj avatar body automaticky na základě atributů tvých úkolů, které najdeš v <strong>ÚKOL > Editovat > Pokročilé > Attributy</strong>. Např. pokud budeš chodit často do posilovny a tvoje denní 'posilovna' je nastavena na 'fyzický', budeš automaticky získávat sílu.",
     "spells": "Kouzla",
