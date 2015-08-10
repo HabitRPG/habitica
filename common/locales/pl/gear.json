@@ -445,7 +445,7 @@
     "headArmoireRoyalCrownText": "Królewska korona",
     "headArmoireRoyalCrownNotes": "Hurra dla władcy, potężnego i silnego! Zwiększa Siłę o <%= str %>. Zaczarowana szafa: przedmiot niezależny",
     "headArmoireGoldenLaurelsText": "Złoty laur",
-    "headArmoireGoldenLaurelsNotes": "Złoty laur wieńczy czoła tych, co pokonali złe nawyki. Polepsza percepcję i kondycję o <%= attrs %>. Zaczarowana szafa: Zestaw Złota Toga (przedmiot 2 z 3.)",
+    "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
     "headArmoireHornedIronHelmText": "Żelazny Rogaty Hełm",
     "headArmoireHornedIronHelmNotes": "Ukształtowany zaciekłymi uderzeniami młota, ten żelazny Rogaty Hełm jest niemal niezniszczalny. Poprawia kondycję o <%= con %> i siłę o <%= str %>. Zaczarowana szafa: Zestaw Rogate Żelazo (przedmiot 1 z 3.)",
     "offhand": "Tarcza",

@@ -445,7 +445,7 @@
     "headArmoireRoyalCrownText": "Royal Krone",
     "headArmoireRoyalCrownNotes": "Hurra for herskere, stor og stærk! Øger Styrke med <%= str %>. Fortryllet Klædeskab: Ikke en del af et sæt.",
     "headArmoireGoldenLaurelsText": "Gyldne Laurbær",
-    "headArmoireGoldenLaurelsNotes": "Disse gyldne laurbær belønner dem, der har overvundet dårlige vaner. Øger Opfattelse og Konstitution med <%= attrs %> hver. Fortryllet Klædeskab: Gyldent Togasæt (Genstand 2 af 3).",
+    "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
     "headArmoireHornedIronHelmText": "Hornet Jernhjelm",
     "headArmoireHornedIronHelmNotes": "Denne heftigt hamrede jernhjelm er næsten umulig at ødelægge. Øger Konstitution med <%= con %> og Styrke med <%= str %>. Fortryllet Klædeskab: Hornet Jernsæt (Genstand 1 af 3).",
     "offhand": "skjoldhånds-udstyr",

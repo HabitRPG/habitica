@@ -31,7 +31,7 @@
     "paymentMethods": "Fizetési módok:",
     "classGear": "Kaszt felszerelés",
     "classGearText": "Először is: ne pánikolj! A régi felszerelésed a tárgylistában van és most a <strong><%= klass %></strong> tanonc felszerelés van rajtad. A saját osztályod felszerelésének a hordása 50%-os bónuszt ad a jellemzőidhez. Egyébként nyugodtan visszaveheted a régi felszerelésed.",
-    "classStats": "Ezek a kasztod jellemzői, melyek hatással vannak a játékra. Amikor szintet lépsz, akkor kapsz egy pontot, amit eloszthatsz egy jellemzőre. Mozgasd az egeret a jellemzők felé több információért.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Automatikus kiosztás",
     "autoAllocateText": "Ha az automatikus kiosztás ki van választva, akkor az avatarod automatikusan kap jellemzőket, a feladatok tulajdonságai alapján, amiket a <strong>FELADAT > Szerkeszt > Haladó > Tulajdonságok</strong> menüpont alatt találsz. Tehát, ha gyakran jársz az edzőterembe és az \"Edzés\" napi feladatod \"Fizikai\"-ra van állatva, akkor az erőd fog automatikusan növekedni.",
     "spells": "Varázslatok",

@@ -33,7 +33,7 @@
     "challengeTagPop": "Izazovi treba da se vide na spiskovima tagova i na opisima zadataka. Zato Vam je, pored jasnog naziva u polju „Naziv izazova“, potreban i kratki naziv. Npr. „Skinuti 10 funti za 3 meseca“ mogli biste da skratite u „-10lb“. (Kliknite za detaljniji opis)",
     "challengeDescr": "Opis",
     "prize": "Nagrada",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = number of gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minimalno 1 dragulj za <strong> javne izazove </strong> . Pomaže da se spreči spam (zaista pomaže).",
     "officialChallenge": "Zvanični Habitica izazov",

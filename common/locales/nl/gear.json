@@ -445,7 +445,7 @@
     "headArmoireRoyalCrownText": "Koninklijke kroon",
     "headArmoireRoyalCrownNotes": "Hoezee voor de monarch, machtig en sterk! Verhoogt Kracht met <%= str %>. Betoverd kabinet: onafhankelijk voorwerp.",
     "headArmoireGoldenLaurelsText": "Gouden laurier",
-    "headArmoireGoldenLaurelsNotes": "Deze gouden laurieren worden toegekend aan diegenen die slechte gewoonten hebben overwonnen. Het verhoogt de Perceptie- en Lichaamspunten met elk <%= attrs %>. Betoverd kabinet: Gouden togaset (Onderdeel 2 van 3).",
+    "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
     "headArmoireHornedIronHelmText": "Gehoornde ijzeren helm",
     "headArmoireHornedIronHelmNotes": "Fiercely hammered from iron, this horned helmet is nearly impossible to break. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Horned Iron Set (Item 1 of 3).",
     "offhand": "artikel voor schildhand",

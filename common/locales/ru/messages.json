@@ -28,5 +28,5 @@
     "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
     "armoireEquipment": "<%= image %> Вы нашли в сундуке редкий предмет: <%= dropText %>! Потрясающе!",
     "armoireFood": "<%= image %> Копаясь в сундуке, вы что-то находите. Откуда здесь <%= dropArticle %><%= dropText %>?",
-    "armoireExp": "Вы сражаетесь с сундуком и получаете опыт. Получай!"
+    "armoireExp": "Вы сражаетесь с сундуком и набираете опыт. Получай!"
 }
