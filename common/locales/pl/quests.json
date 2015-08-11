@@ -55,7 +55,7 @@
     "mustInviteFriend": "By zdobyć tą misję, zaproś przyjaciela do swojej drużyny. Zaprosić kogoś teraz?",
     "unlockByQuesting": "By zdobyć tą misję, najpierw ukończ <%= title %>.",
     "sureCancel": "Czy na pewno chcesz zakończyć tę misję? Wszystkie zaakceptowane zaproszenia zostaną stracone. Właściciel misji zachowa zwój misji.",
-    "sureAbort": "Czy na pewno chcesz porzucić tę misję? Zostanie przerwana dla każdego członka twojej drużyny i cały postęp zostanie stracony. Zwój misji zostanie zwrócony właścicielowi.",
+    "sureAbort": "Czy na pewno chcesz porzucić tę misję? Zostanie przerwana dla każdego członka twojej drużyny i cały postęp zostanie stracony. Zwój misji zostanie zwrócony właścicielowi. ",
     "doubleSureAbort": "Czy jesteś pewien? Drużyna się na Ciebie nie obrazi?",
     "questWarning": "Jeśli nowi gracze dołączą do drużyny zanim rozpocznie się misja, również dostaną zaproszenie do niej. Jednakże kiedy już misja się zacznie, żadni nowi członkowie drużyny nie będą mogli  dołączyć do misji.",
     "bossRageTitle": "Furia",
