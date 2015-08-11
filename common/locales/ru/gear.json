@@ -447,7 +447,7 @@
     "headArmoireGoldenLaurelsText": "Золотые лавры",
     "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
     "headArmoireHornedIronHelmText": "Шлем Рогатого железа",
-    "headArmoireHornedIronHelmNotes": "Отчаянно выплавленный из железа, этот рогатый шлем почти невозможно сломать. Увеличивает телосложение на <%= cob %> и силу на <%= str >. Волшебный сундук: Набор Рогатого железа (Предмет 1 из 3).",
+    "headArmoireHornedIronHelmNotes": "Отчаянно выплавленный из железа, этот рогатый шлем почти невозможно сломать. Увеличивает телосложение на <%= cob %> и силу на <%= str %>. Волшебный сундук: Набор Рогатого железа (Предмет 1 из 3).",
     "offhand": "предмет для защитной руки",
     "shieldBase0Text": "Нет снаряжения для защитной руки",
     "shieldBase0Notes": "Нет щита или второго оружия.",
