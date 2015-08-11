@@ -15,6 +15,12 @@ const SLACK_CHANNEL = '#' + (nconf.get('TRANSIFEX_SLACK:channel') || 'general');
 const SLACK_USERNAME = 'Transifex';
 const SLACK_EMOJI = ':transifex:';
 
+const malformedStringExceptions = {
+  messageDropFood: true,
+  armoireFood: true,
+  feedPet: true
+}
+
 gulp.task('transifex', ['transifex:missingFiles', 'transifex:missingStrings', 'transifex:malformedStrings']);
 
 gulp.task('transifex:missingFiles', () => {
@@ -76,7 +82,7 @@ gulp.task('transifex:malformedStrings', () => {
         if (!translationOccurences) {
           let malformedString = `${lang} - ${file} - ${key} - ${translationString}`;
           stringsWithMalformedInterpolations.push(malformedString);
-        } else if (englishOccurences.length !== translationOccurences.length) {
+        } else if (englishOccurences.length !== translationOccurences.length && !malformedStringExceptions[key]) {
           let missingInterploationString = `${lang} - ${file} - ${key} - ${translationString}`;
           stringsWithIncorrectNumberOfInterpolations.push(missingInterploationString);
         }
