@@ -74,7 +74,7 @@
     "startDateHelpTitle": "Kedy by mala táto úloha začať?",
     "startDateHelp": "Set the date for which this task takes effect. Will not be due on earlier days.",
     "streakName": "- počet sérií",
-    "streakText": "Má na konte 21-dňové série na denných úlohách.",
+    "streakText": "Má na konte <%= streaks %> 21-dňové série na denných úlohách.",
     "streakSingular": "Sériovač",
     "streakSingularText": "Má na konte 21-dňovú sériu na denných úlohách.",
     "perfectName": "x perfektný deň",

@@ -50,7 +50,7 @@
     "alreadyEarnedQuestReward": "Hai già guadagnato questa missione completamento <%= priorQuest %>.",
     "completedQuests": "Ha completato le seguenti missioni:",
     "mustComplete": "Devi prima completare <%= quest %>.",
-    "mustLevel": "Devi essere di livello <% = livello%> per iniziare questa missione.",
+    "mustLevel": "Devi essere di livello <%= livello %> per iniziare questa missione.",
     "mustLvlQuest": "Devi essere almeno di livello <%= level %> per comprare questa missione!",
     "mustInviteFriend": "Per guadagnare questa missione, invitare un amico alla tua festa. Invitare qualcuno ora?",
     "unlockByQuesting": "Per guadagnare questa missione, completo <%= title %>.",

@@ -59,7 +59,7 @@
     "whyAdsContent2": "'Hej, podpořil jsem vás na Kickstarteru!' - řiď se",
     "whyAdsContent3": "těmito instrukcemi",
     "surveysSingle": "Pomohl Habitice vyplněním dotazníku. Nejsou žádné aktivní dotazníky.",
-    "surveysMultiple": "Pomohl Habitice růst vyplněním <%= surveys%> dotazníků. Nejsou žádné aktivní dotazníky.",
+    "surveysMultiple": "Pomohl Habitice růst vyplněním <%= surveys %> dotazníků. Nejsou žádné aktivní dotazníky.",
     "currentSurvey": "Aktuální dotazník",
     "surveyWhen": "Odznaky budou rozdány všem účastníkům poté, co budou všechny dotazníky zpracovány ke konci března.",
     "blurbInbox": "Tady se ti ukládají soukromé zprávy! Zprávu někomu odešleš tak, že klikneš na ikonku obálky vedle jejich jména v Krčmě, Družině, nebo chatu v Cechu.",

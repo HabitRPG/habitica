@@ -168,7 +168,7 @@
     "armorRogue5Text": "Armadura umbral",
     "armorRogue5Notes": "Permite sigilo a la plena luz del día. Incrementa la Percepción por <%= per %>.",
     "armorWizard1Text": "Túnica de mago",
-    "armorWizard1Notes": "Traje protector de mago. Incrementa la Inteligencia por <%=int %>",
+    "armorWizard1Notes": "Traje protector de mago. Incrementa la Inteligencia por <%= int %>",
     "armorWizard2Text": "Túnica de hechicero",
     "armorWizard2Notes": "Ropas para un errante taumaturgo. Incrementa la Inteligencia por <%= int %>",
     "armorWizard3Text": "Túnica de misterios",
