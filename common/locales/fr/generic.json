@@ -66,7 +66,7 @@
     "habitBirthdayPluralText": "A fêté <%= number %> Anniversaire d'Enfer d'Habitica !",
     "habiticaDay": "Le Jour d'Appellation d'Habitica",
     "habiticaDaySingularText": "Fêté le Jour d'Appellation d'Habitica! Merci à vous pour être un utilisateur fantastique.",
-    "habiticaDayPluralText": "Fêté <%=number %> Jours d'Appellation! Merci à vous pour être un utilisateur fantastique.",
+    "habiticaDayPluralText": "Fêté <%= number %> Jours d'Appellation! Merci à vous pour être un utilisateur fantastique.",
     "achievementDilatory": "Sauveur de Dilatoire",
     "achievementDilatoryText": "A contribué à vaincre le Redoutable Drag'on de Dilatoire au cours du \"Summer Splash Event\" 2014 !",
     "costumeContest": "Concours de Costumes 2014",

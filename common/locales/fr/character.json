@@ -136,7 +136,7 @@
     "invalidTarget": "Cible invalide",
     "youCast": "Vous avez lancé <%= spell %>.",
     "youCastTarget": "Vous avez lancé <%= spell %> sur <%= target %>.",
-    "youCastParty": "Vous avez lancé <%= spell%> pour l'équipe.",
+    "youCastParty": "Vous avez lancé <%= spell %> pour l'équipe.",
     "critBonus": "Coup critique ! Bonus :",
     "displayNameDescription1": "C'est ce qui est affiché sur votre avatar, et apparaît lorsque vous participez aux discussions de la Taverne, des guildes et de votre équipe. Allez dans",
     "displayNameDescription2": "Paramètres -> Site",

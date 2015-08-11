@@ -54,7 +54,7 @@
     "challengedNotOwnedFilter": "Inte Ägs",
     "challengedEitherOwnedFilter": "Vilket som",
     "backToChallenges": "Tillbaka till alla utmaningar",
-    "prizeValue": "Pris",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Pris",
     "clone": "Klon",
     "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
 }

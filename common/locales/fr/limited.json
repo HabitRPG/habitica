@@ -3,7 +3,7 @@
     "seasonalEdition": "Édition Saisonnière",
     "winterColors": "Couleurs Hivernales",
     "annoyingFriends": "Amis Pénibles",
-    "annoyingFriendsText": "Votre équipe vous a lancé <%=snowballs %> boules de neige.",
+    "annoyingFriendsText": "Votre équipe vous a lancé <%= snowballs %> boules de neige.",
     "alarmingFriends": "Amis Inquiétants",
     "alarmingFriendsText": "A été transformé·e en fantôme <%= spookDust %> fois par des membres de l'équipe.",
     "agriculturalFriends": "Amis Agricoles",

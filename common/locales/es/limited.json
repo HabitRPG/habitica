@@ -7,7 +7,7 @@
     "alarmingFriends": "Amigos Alarmantes",
     "alarmingFriendsText": "Tus compañeros the han asustado <%= spookDust %> veces.",
     "agriculturalFriends": "Amigos Agrícolas",
-    "agriculturalFriendsText": "Tus compañeros te han transformado en flor <%=seeds%> veces.",
+    "agriculturalFriendsText": "Tus compañeros te han transformado en flor <%= seeds %> veces.",
     "aquaticFriends": "Amigos Acuáticos",
     "aquaticFriendsText": "Tus compañeros te han mojado <%= seafoam %> veces.",
     "valentineCard": "Tarjeta del Día de San Valentin",

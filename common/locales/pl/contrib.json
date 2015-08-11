@@ -59,7 +59,7 @@
     "whyAdsContent2": "\"Hej! Wspierałem projekt na Kickstarterze!\" – podążaj za",
     "whyAdsContent3": "tymi instrukcjami",
     "surveysSingle": "Pomógł rozwinąć Habitica poprzez wypełnienie ankiety. Brak aktywnych ankiet.",
-    "surveysMultiple": "Pomógł rozwinąć Habitica poprzez wypełnienie <%=surveys %> ankiet. Brak aktywnych ankiet.",
+    "surveysMultiple": "Pomógł rozwinąć Habitica poprzez wypełnienie <%= surveys %> ankiet. Brak aktywnych ankiet.",
     "currentSurvey": "Bieżąca ankieta.",
     "surveyWhen": "Odznaki zostaną przyznane wszystkim biorącym udział, gdy zgłoszenia zostaną przetworzone pod koniec marca.",
     "blurbInbox": "Tutaj trzymane są twoje prywatne wiadomości! Możesz wysłać komuś wiadomość klikając na ikonę koperty koło kogoś nazwy w Karczmie, Drużynie lub na czacie Gildii.",

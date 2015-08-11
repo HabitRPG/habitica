@@ -22,7 +22,7 @@
     "messageDropEgg": "Znalazłeś jajo: <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Znalazłeś <%= dropText %> eliksir wyklucia! <%= dropNotes %>",
     "messageDropQuest": "Znalazłeś misję!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Otwierasz pudełko i znajdujesz <%= dropText %>!",
     "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Ten element wyposażenia został zakupiony, ale już go nie posiadasz. Możesz kupić go ponownie w sekcji nagród na stronie z zadaniami.",
     "messageAlreadyOwnGear": "Już posiadasz ten przedmiot. Przejdź do strony z wyposażeniem, aby zacząć go używać.",

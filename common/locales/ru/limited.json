@@ -23,7 +23,7 @@
     "polarBearPup": "Детеныш белого медведя",
     "jackolantern": "Тыквенная лампа",
     "seasonalShop": "Сезонная лавка",
-    "seasonalShopClosedTitle": "Сиена Лезли",
+    "seasonalShopClosedTitle": "<%= linkStart %>Сиена Лезли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Волшебница<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! I don't know where the Seasonal Sorceress is now, but I bet she'll be back during the next <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a>!",
     "seasonalShopText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары весеннего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно в дни Весенней Веселухи, но мы открыты только до 30 апреля, так что спешите закупиться сейчас, иначе придется ждать целый год!",

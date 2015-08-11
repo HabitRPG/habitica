@@ -28,7 +28,7 @@
     "userId": "Gebruikers-ID",
     "invite": "Uitnodigen",
     "leave": "Verlaten",
-    "invitedTo": "Uitgenodigd voor <%= name%>",
+    "invitedTo": "Uitgenodigd voor <%= name %>",
     "newMsg": "Nieuw bericht in \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Chat verzenden",
