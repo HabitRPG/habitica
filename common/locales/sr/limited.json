@@ -37,7 +37,7 @@
     "nyeCardNotes": "Pošaljite članu družine novogodnišnju čestitku.",
     "seasonalItems": "Sezonski predmeti",
     "auldAcquaintance": "Stari poznanik",
-    "auldAcquaintanceText": "Srećna Nova godina! Poslali ste i primili ukupno <%=cards %> Novogodišnjih čestitaka.",
+    "auldAcquaintanceText": "Srećna Nova godina! Poslali ste i primili ukupno <%= cards %> Novogodišnjih čestitaka.",
     "newYear0": "Srećna Nova godina! Želim ti mnogo pobeda u borbi protiv loših Navika.",
     "newYear1": "Srećna Nova godina! Želim ti mnogo Nagrada.",
     "newYear2": "Srećna Nova godina! Želim ti puno Savršenih dana.",

@@ -105,7 +105,7 @@
     "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",
-    "haveUnallocated": "Você tem <%= points%> Ponto(s) de Atributo não usados",
+    "haveUnallocated": "Você tem <%= points %> Ponto(s) de Atributo não usados",
     "autoAllocation": "Distribuição Automática",
     "autoAllocationPop": "Coloca pontos em atributos de acordo com suas preferências, quando você sobe de nível.",
     "evenAllocation": "Distribui pontos de atributo equilibradamente",
