@@ -67,7 +67,7 @@
     "questEggWhaleText": "Baleia",
     "questEggWhaleAdjective": "Espirro de Água",
     "eggNotes": "Ache uma poção de eclosão para usá-la nesse ovo, e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
-    "hatchingPotionBase": "Base",
+    "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",
     "hatchingPotionDesert": "Deserto",
     "hatchingPotionRed": "Vermelho",
