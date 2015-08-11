@@ -1722,12 +1722,16 @@ api.wrap = (user, main=true) ->
           daily.completed = false
         return
 
+      multiDaysCountAsOneDay = true
+      # If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
+      # When site-wide difficulty settings are introduced, this can be a user preference option.
+
       # Tally each task
       todoTally = 0
       user.todos.forEach (task) -> # make uncompleted todos redder
         return unless task
         {id, completed} = task
-        delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(daysMissed), cron:true}})
+        delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : daysMissed), cron:true}})
         absVal = if (completed) then Math.abs(task.value) else task.value
         todoTally += absVal
 
@@ -1738,7 +1742,7 @@ api.wrap = (user, main=true) ->
         return unless task
         {id, completed} = task
 
-        # Deduct points for missed Daily tasks, but not for Todos (just increase todo's value)
+        # Deduct points for missed Daily tasks
         EvadeTask = 0
         scheduleMisses = daysMissed
         if completed
@@ -1746,13 +1750,15 @@ api.wrap = (user, main=true) ->
         else
           # dailys repeat, so need to calculate how many they've missed according to their own schedule
           scheduleMisses = 0
-          _.times daysMissed, (n) ->
+          for n in [0...daysMissed]
             thatDay = moment(now).subtract({days: n + 1})
             if api.shouldDo(thatDay.toDate(), task, user.preferences)
               scheduleMisses++
               if user.stats.buffs.stealth
                 user.stats.buffs.stealth--
                 EvadeTask++
+              if multiDaysCountAsOneDay
+                break
 
           if scheduleMisses > EvadeTask
             perfect = false
@@ -1762,7 +1768,7 @@ api.wrap = (user, main=true) ->
               dailyChecked += fractionChecked
             else
              dailyDueUnchecked += 1
-            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(scheduleMisses-EvadeTask), cron:true}})
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:(multiDaysCountAsOneDay ? 1 : (scheduleMisses-EvadeTask)), cron:true}})
 
             # Apply damage from a boss, less damage for Trivial priority (difficulty)
             user.party.quest.progress.down += delta * (if task.priority < 1 then task.priority else 1)
