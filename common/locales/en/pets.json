@@ -1,10 +1,12 @@
 {
     "pets": "Pets",
     "petsFound": "Pets Found",
+    "petsFoundEnding": "Pets Found",
     "rarePets": "Rare Pets",
     "questPets": "Quest Pets",
     "mounts": "Mounts",
     "mountsTamed": "Mounts Tamed",
+    "mountsTamedEnding": "Mounts Tamed",
     "questMounts": "Quest Mounts",
     "rareMounts": "Rare Mounts",
     "etherealLion": "Ethereal Lion",
