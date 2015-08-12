@@ -19,7 +19,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           include ./task_view/add_new
 
-          alert.alert-warning.dailiesRestingInInn(ng-if='::list.type == "daily" && user.preferences.sleep && !$state.includes("options.social.challenges")')
+          alert.alert-warning.dailiesRestingInInn(ng-if='list.type == "daily" && user.preferences.sleep && !$state.includes("options.social.challenges")')
             i.glyphicon.glyphicon-warning-sign &nbsp;
             =env.t('dailiesRestingInInn')
 
