@@ -216,13 +216,29 @@ habitrpg.controller("InventoryCtrl",
       $scope.selectedFood = null;
       $scope.selectedPotion = null;
       $scope.selectedEgg = null;
-    }
+    };
+
+    $scope.openCardsModal = function(type, numberOfVariations) {
+      var cardsModalScope = $rootScope.$new();
+      cardsModalScope.cardType = type;
+      cardsModalScope.cardMessage = _generateCard(type, numberOfVariations);
+
+      $rootScope.openModal('cards', {
+        scope: cardsModalScope
+      });
+    };
 
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
       $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
       $scope.beastMasterProgress = Stats.beastMasterProgress(items.pets);
       $scope.mountMasterProgress = Stats.mountMasterProgress(items.mounts);
+    }
+
+    function _generateCard(kind, numberOfVariations) {
+      var random = Math.random() * numberOfVariations;
+      var selection = Math.floor(random);
+      return env.t(kind + selection);
     }
   }
 ]);
