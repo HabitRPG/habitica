@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Inventory Controller', function() {
-  var scope, ctrl, user, $rootScope;
+  var scope, ctrl, user, rootScope;
 
   beforeEach(function() {
     module(function($provide) {
@@ -23,6 +23,7 @@ describe('Inventory Controller', function() {
         }
       };
       scope = $rootScope.$new();
+      rootScope = $rootScope;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: {user: user}, $window: mockWindow});
@@ -107,6 +108,47 @@ describe('Inventory Controller', function() {
       scope.chooseEgg('Cactus');
       scope.deselectItem();
       expect(scope.selectedEgg).to.eql(null);
+    });
+  });
+
+  describe('openCardsModal', function(type, numberOfVariations) {
+    var cardsModalScope;
+
+    beforeEach(function() {
+      cardsModalScope = {};
+      sandbox.stub(rootScope, 'openModal');
+      sandbox.stub(rootScope, '$new').returns(cardsModalScope);
+    });
+
+    it('opens cards modal', function() {
+      scope.openCardsModal('valentine', 4);
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith(
+        'cards'
+      );
+    });
+
+    it('instantiates a new scope for the modal', function() {
+      scope.openCardsModal('valentine', 4);
+
+      expect(rootScope.$new).to.be.calledOnce;
+      expect(cardsModalScope.cardType).to.eql('valentine');
+      expect(cardsModalScope.cardMessage).to.exist;
+    });
+
+    it('provides a card message', function() {
+      scope.openCardsModal('valentine', 1);
+
+      expect(cardsModalScope.cardMessage).to.eql(env.t('valentine0'));
+    });
+
+    it('randomly generates message from x number of messages', function() {
+      var possibleValues = [env.t('valentine0'), env.t('valentine1')];
+
+      scope.openCardsModal('valentine', 2);
+
+      expect(possibleValues).to.contain(cardsModalScope.cardMessage);
     });
   });
 });
