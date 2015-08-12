@@ -6,7 +6,7 @@ script(type='text/ng-template', id='modals/invite-friends.html')
     tabset
       tab(heading=env.t('inviteByEmail'))
         p.alert.alert-info=env.t('inviteByEmailExplanation')
-        form.form-horizontal(ng-submit='inviteEmails()')
+        form.form-horizontal(ng-submit='inviteNewUsers("email")')
           table.table.table-striped
             thead
               tr
@@ -31,19 +31,15 @@ script(type='text/ng-template', id='modals/invite-friends.html')
                     button.btn.btn-primary(type='submit')=env.t('sendInvitations')
       tab(heading=env.t('inviteExistUser'))
         p.alert.alert-info!=env.t('inviteAlertInfo')
-        form.form-horizontal(ng-submit='invite()')
+        form.form-horizontal(ng-submit='inviteNewUsers("uuid")')
           table.table.table-striped
             thead
               tr
                 th=env.t('userId')
             tbody
-              tr(ng-repeat='invitee in invitees')
-                td
-                  input.form-control(type='text', ng-model='invitee.uuid')
               tr
-                td(colspan=2)
-                  a.btn.btn-xs.pull-right(ng-click='invitees = invitees.concat([{uuid:""}])')
-                    i.glyphicon.glyphicon-plus
+                td
+                  input.form-control(type='text', ng-model='invitees.uuid')
               tr
                 td
                   .col-sm-1

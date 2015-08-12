@@ -139,7 +139,29 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.inviter = User.user.profile.name;
     $scope.emails = [{name:"",email:""},{name:"",email:""}];
-    $scope.invitees = [{uuid:""},{uuid:""}];
+    $scope.invitees = {uuid:""};
+
+    $scope.inviteNewUsers = function(inviteMethod){
+      if (!$scope.group) {
+        Groups.group.create($scope.newGroup, function() {
+          inviteByMethod(inviteMethod);
+        });
+      } else {
+        inviteByMethod(inviteMethod);
+      }
+    };
+
+    var inviteByMethod = function(inviteMethod) {
+      if (inviteMethod === 'email') {
+        inviteEmails();
+      }
+      else if (inviteMethod === 'uuid') {
+        invite();
+      }
+      else {
+        return console.log('Invalid invite method.')
+      }
+    };
 
     $scope.inviteEmails = function(){
       Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
@@ -151,12 +173,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.invite = function(){
-      var uuidList = _.pluck($scope.invitees,'uuid');
-      Groups.Group.invite({gid: $scope.group._id}, {uuids: uuidList}, function(){
+      Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitees.uuid]}, function(){
         Notification.text(window.env.t('invitationsSent'));
-        $scope.invitees = [{uuid:""},{uuid:""}];
+        $scope.invitees = {uuid:""};
       }, function(){
-        $scope.invitees = [{uuid:""},{uuid:""}];
+        $scope.invitees = {uuid:""};
       });
     };
   }])
