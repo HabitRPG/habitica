@@ -190,7 +190,6 @@ preenHistory = (history) ->
   Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
 ###
 sortOrder = _.reduce content.gearTypes,((m,v,k)->m[v]=k;m), {}
-#sortOrder.potion = _.size(sortOrder) #potion goes last #actually, _.sortBy puts anything else last, so this is unecessary
 api.updateStore = (user) ->
   return unless user
   changes= []
