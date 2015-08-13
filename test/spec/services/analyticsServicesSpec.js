@@ -221,7 +221,13 @@ describe('Analytics Service', function () {
           Mana: 41,
           contributorLevel: 1,
           subscription: 'unique-plan-id',
-          tutorialComplete: true
+          tutorialComplete: true,
+          numberOfTasks: {
+            todos: 1,
+            dailys: 1,
+            habits: 1,
+            rewards: 1
+          }
         };
 
         beforeEach(function() {
@@ -235,6 +241,10 @@ describe('Analytics Service', function () {
           user.contributor.level = 1;
           user.purchased.plan.planId = 'unique-plan-id';
           user.flags.tour.intro = -2;
+          user.habits = [{_id: 'habit'}];
+          user.dailys = [{_id: 'daily'}];
+          user.todos = [{_id: 'todo'}];
+          user.rewards = [{_id: 'reward'}];
 
           analytics.updateUser();
           clock.tick();
