@@ -1165,9 +1165,9 @@ api.wrap = (user, main=true) ->
           user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
         cb? null, _.pick(user,$w 'stats')
 
-      readValentine: (req,cb) ->
-        user.items.special.valentineReceived.shift()
-        user.markModified? 'items.special.valentineReceived'
+      readCard: (cardType, cb) ->
+        user.items.special["#{cardType}Received"].shift()
+        user.markModified? "items.special.#{cardType}Received"
         cb? null, 'items.special'
 
       openMysteryItem: (req,cb,analytics) ->
@@ -1187,11 +1187,6 @@ api.wrap = (user, main=true) ->
         analytics?.track('open mystery item', analyticsData)
         (user._tmp?={}).drop = item if typeof window != 'undefined'
         cb? null, user.items.gear.owned
-
-      readNYE: (req,cb) ->
-        user.items.special.nyeReceived.shift()
-        user.markModified? 'items.special.nyeReceived'
-        cb? null, 'items.special'
 
       # ------
       # Score

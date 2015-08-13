@@ -67,7 +67,7 @@
                 popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}",
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
-                ng-click='openModal("valentine")')
+                ng-click='openCardsModal("valentine", 4)')
                 .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
             div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
@@ -89,7 +89,7 @@
                 popover="New Year's Card from {{User.user.items.special.nyeReceived[0]}}",
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
-                ng-click='openModal("nye")')
+                ng-click='openCardsModal("nye", 5)')
                 .badge.badge-info.stack-count {{user.items.special.nyeReceived.length}}
 
     .col-md-6.border-left
