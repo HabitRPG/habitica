@@ -955,6 +955,30 @@ api.spells =
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
 
+api.cardTypes =
+  greeting:
+    key: 'greeting'
+    text: t('greetingCard')
+    notes: t('greetingCardNotes')
+    messageOptions: 4
+    yearRound: true
+  nye:
+    key: 'nye'
+    text: t('nyeCard')
+    notes: t('nyeCardNotes')
+    messageOptions: 5
+  thankyou:
+    key: 'thankyou'
+    text: t('thankyouCard')
+    notes: t('thankyouCardNotes')
+    messageOptions: 4
+    yearRound: true
+  valentine:
+    key: 'valentine'
+    text: t('valentineCard')
+    notes: t('valentineCardNotes')
+    messageOptions: 4
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->

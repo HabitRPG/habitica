@@ -16,7 +16,6 @@
                 popover-trigger='mouseenter', popover-placement='right',
                 ng-click='chooseEgg(egg)')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{Content.eggs[egg].text()}}
 
         li.customize-menu
           menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
@@ -91,6 +90,13 @@
                 popover-append-to-body='true',
                 ng-click='openCardsModal("nye", 5)')
                 .badge.badge-info.stack-count {{user.items.special.nyeReceived.length}}
+
+            div(ng-repeat='type in Content.cardTypes', ng-init='received=type.key+"Received"', ng-show='user.items.special[{{received}}][0]')
+              button.customize-option(class='inventory_special_{{::type.key}}',
+              popover="bleh",
+              popover-trigger='mouseenter', popover-placement='right',
+              popover-append-to-body='true',
+              ng-click='openCardsModal("{{::type.key}}", type.messageOptions)')
 
     .col-md-6.border-left
       h2=env.t('market')
@@ -209,13 +215,13 @@
               p
                 | 20&nbsp;
                 span.shop_gold
-            // div
-              button.customize-option(class='inventory_special_valentine',
-              popover='{{::Content.spells.special.valentine.notes()}}',
-              popover-title='{{::Content.spells.special.valentine.text()}}',
+            div(ng-repeat='type in Content.cardTypes')
+              button.customize-option(class='inventory_special_{{::type.key}}',
+              popover='{{::type.notes()}}',
+              popover-title='{{::type.text()}}',
               popover-trigger='mouseenter', popover-placement='right',
               popover-append-to-body='true',
-              ng-click='castStart(Content.spells.special.valentine)')
+              ng-click='castStart(Content.spells.special.card,type.key)')
               p
-                | {{Content.spells.special.valentine.value}}
+                | {{Content.spells.special.card.value}}
                 span(class='shop_gold')

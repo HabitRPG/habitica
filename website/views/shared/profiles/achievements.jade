@@ -205,18 +205,18 @@ div(ng-if='::profile.achievements.habitBirthdays')
     =env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
   hr
 
-div(ng-if='::profile.achievements.valentine')
-  .achievement.achievement-valentine
-  h5=env.t('adoringFriends')
-  small
-    =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
-  hr
-
 div(ng-if='::profile.achievements.quests.dilatory')
   .achievement.achievement-dilatory
   h5=env.t('achievementDilatory')
   small
     =env.t('achievementDilatoryText')
+  hr
+
+div(ng-if='::profile.achievements.quests.stressbeast')
+  .achievement.achievement-stoikalm
+  h5=env.t('achievementStressbeast')
+  small
+    =env.t('achievementStressbeastText')
   hr
 
 div(ng-if='::profile.achievements.costumeContest')
@@ -226,6 +226,18 @@ div(ng-if='::profile.achievements.costumeContest')
     =env.t('costumeContestText')
   hr
 
+div(ng-if='::profile.achievements.greeting')
+  .achievement.achievement-greeting
+  h5=env.t('cheeryChum')
+  small=env.t('cheeryChumText', {cards: "{{::profile.achievements.greeting}}"})
+  hr
+
+div(ng-if='::profile.achievements.thankyou')
+  .achievement.achievement-thankyou
+  h5=env.t('greatlyGrateful')
+  small=env.t('greatlyGratefulText', {cards: "{{::profile.achievements.thankyou}}"})
+  hr
+
 div(ng-if='::profile.achievements.nye')
   .achievement.achievement-nye
   h5=env.t('auldAcquaintance')
@@ -233,9 +245,8 @@ div(ng-if='::profile.achievements.nye')
     =env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
   hr
 
-div(ng-if='::profile.achievements.quests.stressbeast')
-  .achievement.achievement-stoikalm
-  h5=env.t('achievementStressbeast')
+div(ng-if='::profile.achievements.valentine')
+  .achievement.achievement-valentine
+  h5=env.t('adoringFriends')
   small
-    =env.t('achievementStressbeastText')
-  hr
+    =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})

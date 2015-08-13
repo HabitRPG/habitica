@@ -1171,7 +1171,8 @@ api.wrap = (user, main=true) ->
       readCard: (cardType, cb) ->
         user.items.special["#{cardType}Received"].shift()
         user.markModified? "items.special.#{cardType}Received"
-        cb? null, 'items.special'
+        user.flags.cardReceived = false
+        cb? null, 'items.special flags.cardReceived'
 
       openMysteryItem: (req,cb,analytics) ->
         item = user.purchased.plan?.mysteryItems?.shift()
