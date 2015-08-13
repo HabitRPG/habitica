@@ -955,28 +955,66 @@ api.spells =
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
 
+    greeting:
+      text: t('greetingCard')
+      mana: 0
+      value: 10
+      immediateUse: true
+      silent: true
+      target: 'user'
+      notes: t('greetingCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.greeting ?= 0
+          user.achievements.greeting++
+        else
+          _.each [user,target], (t)->
+            t.achievements.greeting ?= 0
+            t.achievements.greeting++
+        if !target.items.special.greetingReceived
+          target.items.special.greetingReceived = []
+        target.items.special.greetingReceived.push user.profile.name
+
+        target.markModified? 'items.special.greetingReceived'
+        user.stats.gp -= 10
+
+    thankyou:
+      text: t('thankyouCard')
+      mana: 0
+      value: 10
+      immediateUse: true
+      silent: true
+      target: 'user'
+      notes: t('thankyouCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.thankyou ?= 0
+          user.achievements.thankyou++
+        else
+          _.each [user,target], (t)->
+            t.achievements.thankyou ?= 0
+            t.achievements.thankyou++
+        if !target.items.special.thankyouReceived
+          target.items.special.thankyouReceived = []
+        target.items.special.thankyouReceived.push user.profile.name
+
+        target.markModified? 'items.special.thankyouReceived'
+        user.stats.gp -= 10        
+        
 api.cardTypes =
   greeting:
     key: 'greeting'
-    text: t('greetingCard')
-    notes: t('greetingCardNotes')
     messageOptions: 4
     yearRound: true
   nye:
     key: 'nye'
-    text: t('nyeCard')
-    notes: t('nyeCardNotes')
     messageOptions: 5
   thankyou:
     key: 'thankyou'
-    text: t('thankyouCard')
-    notes: t('thankyouCardNotes')
     messageOptions: 4
     yearRound: true
   valentine:
     key: 'valentine'
-    text: t('valentineCard')
-    notes: t('valentineCardNotes')
     messageOptions: 4
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
