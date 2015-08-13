@@ -928,6 +928,7 @@ api.spells =
         if !target.items.special.nyeReceived
           target.items.special.nyeReceived = []
         target.items.special.nyeReceived.push user.profile.name
+        target.flags.cardReceived = true
 
         target.markModified? 'items.special.nyeReceived'
         user.stats.gp -= 10
@@ -951,6 +952,7 @@ api.spells =
         if !target.items.special.valentineReceived
           target.items.special.valentineReceived = []
         target.items.special.valentineReceived.push user.profile.name
+        target.flags.cardReceived = true
 
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
@@ -974,6 +976,7 @@ api.spells =
         if !target.items.special.greetingReceived
           target.items.special.greetingReceived = []
         target.items.special.greetingReceived.push user.profile.name
+        target.flags.cardReceived = true
 
         target.markModified? 'items.special.greetingReceived'
         user.stats.gp -= 10
@@ -997,6 +1000,7 @@ api.spells =
         if !target.items.special.thankyouReceived
           target.items.special.thankyouReceived = []
         target.items.special.thankyouReceived.push user.profile.name
+        target.flags.cardReceived = true
 
         target.markModified? 'items.special.thankyouReceived'
         user.stats.gp -= 10        

@@ -31,10 +31,7 @@ angular.module('habitrpg')
       }
 
       $scope.clearMessages = Chat.seenMessage;
-
-      $scope.clearCards = function() {
-        $scope.user.flags.cardReceived = false;
-      };
+      $scope.clearCards = Chat.clearCards;
 
       $scope.iconClasses = function() {
         return selectNotificationValue(
@@ -48,7 +45,7 @@ angular.module('habitrpg')
       };
 
       $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, true);
+        return selectNotificationValue(false, false, false, false, false, true);
       }
     }
 ]);

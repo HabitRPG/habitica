@@ -1168,7 +1168,8 @@ api.wrap = (user, main=true) ->
           user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
         cb? null, _.pick(user,$w 'stats')
 
-      readCard: (cardType, cb) ->
+      readCard: (req, cb) ->
+        {cardType} = req.params
         user.items.special["#{cardType}Received"].shift()
         user.markModified? "items.special.#{cardType}Received"
         user.flags.cardReceived = false
