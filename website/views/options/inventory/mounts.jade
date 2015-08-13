@@ -22,7 +22,7 @@ mixin mountList(source)
         a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
       .popover-content
         p=env.t('mattShall', {name: "{{user.profile.name}}"})
-        h4= env.t('mountMasterProgress') + ': {{::mountMasterProgress}} ' + env.t('mountsTamedEnding')
+        h4 {{:: env.t('stableMountMasterProgress', { number: mountMasterProgress }) }}
   .row: .col-md-12
     +mountList(env.Content.dropEggs)
   .row: .col-md-12
