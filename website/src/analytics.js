@@ -153,7 +153,7 @@ function _formatUserData(user) {
   }
 
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
-  properties.numberOfTasks = {
+  properties["Number Of Tasks"] = {
     habits: user.habits.length,
     dailys: user.dailys.length,
     todos: user.todos.length,

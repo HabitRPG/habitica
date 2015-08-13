@@ -253,7 +253,7 @@ describe('analytics', function() {
             contributorLevel: 1,
             subscription: 'foo-plan',
             tutorialComplete: true,
-            numberOfTasks: {
+            "Number Of Tasks": {
               todos: 1,
               dailys: 1,
               habits: 1,
