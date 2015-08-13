@@ -85,7 +85,7 @@
     "fortifyName": "Erősítőfőzet",
     "fortifyPop": "Visszaállít minden feladatot semleges értékűre (sárga színű), és feltölti az életerőt.",
     "fortify": "Megerősít",
-    "fortifyText": "Az Erősítés visszaállítja minden feladatodat semleges (sárga) állapotba, mintha csak most adtad volna őket hozzá, és feltölti az életerődet. Vedd úgy, hogy ez az utolsó lehetőség, amit végveszélyben használhatsz. A vörös feladatok arra bíztatnak, hogy fejleszd őket, de ha minden vörös feladat kétségbeeséssel tölt el és minden új nap halálosnak bizonyul, akkor költsd el a Drágaköveket és függeszd fel a halálbűntetést!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Biztos vagy benne, hogy törölni akarod ezt a feladatot?",
     "streakCoins": "Széria bónusz!",
     "pushTaskToTop": "Tetejére",

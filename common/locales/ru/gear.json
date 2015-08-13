@@ -443,7 +443,7 @@
     "headArmoireBlueHairbowText": "Синий бант",
     "headArmoireBlueHairbowNotes": "Станьте восприимчивым, стойким и находчивым, надев этот превосходный синий бант! Увеличивает восприятие на <%= per %>, телосложение на <%= con %> и интеллект на <%= int %>. Волшебный сундук: независимый предмет.",
     "headArmoireRoyalCrownText": "Королевская корона",
-    "headArmoireRoyalCrownNotes": "Да здравствует правитель, могучий и сильный!Увеличивает силу на <%= str %>. Волшебный сундук: независимый предмет.",
+    "headArmoireRoyalCrownNotes": "Да здравствует правитель, могучий и сильный! Увеличивает силу на <%= str %>. Волшебный сундук: независимый предмет.",
     "headArmoireGoldenLaurelsText": "Золотые лавры",
     "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
     "headArmoireHornedIronHelmText": "Шлем Рогатого железа",

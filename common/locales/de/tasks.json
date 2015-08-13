@@ -85,7 +85,7 @@
     "fortifyName": "Verstärkungstrank",
     "fortifyPop": "Setzt alle Aufgaben auf den Anfangswert (gelb) zurück und füllt Deine Lebenspunkte wieder auf.",
     "fortify": "Verstärken",
-    "fortifyText": "Verstärken wird alle Deine Aufgaben auf ihren Anfangswert (gelb) zurücksetzen, so als ob Du sie gerade erst Hinzugefügt hättest und füllt Deine Lebenspunkte wieder auf. Sieh' das als letzten Ausweg! Rote Aufgaben bieten einen guten Anreiz sich zu bessern. Aber wenn zu viel Rot Dich zur Verzweiflung treibt, und jeder Tag tödlich endet, dann investiere Deine Edelsteine hier und hol' erstmal Luft!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Bist Du sicher, dass Du diese Aufgabe löschen möchtest?",
     "streakCoins": "Strähnen Bonus!",
     "pushTaskToTop": "Aufgabe nach oben verschieben",

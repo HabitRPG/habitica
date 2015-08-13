@@ -85,7 +85,7 @@
     "fortifyName": "Stärkande Dryck",
     "fortifyPop": "Återställ alla uppgifter till neutralt värde (gul färg) och återställ all förlorad Hälsa.",
     "fortify": "Stärk",
-    "fortifyText": "Den Stärkande Drycken återställer alla uppgifter till ett neutralt (gult) värde, som om du nyss lagt till dem, och återställer all förlorad Hälsa. Se det här som en sista utväg! Röda uppgifter ger uppmuntran att bättra sig. Men om allt det röda fyller dig med förtvivlan och början av varje dag känns hemsk, spendera Juvelerna och bli benådad.",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Är du säker att du vill ta bort denna uppgift?",
     "streakCoins": "Följdbonus!",
     "pushTaskToTop": "Förflytta uppgift till toppen",

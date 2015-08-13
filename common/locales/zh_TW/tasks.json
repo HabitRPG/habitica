@@ -85,7 +85,7 @@
     "fortifyName": "穩固藥水",
     "fortifyPop": "將所有任務調回中性 ( 黃色 )，並將 HP 補滿。",
     "fortify": "穩固",
-    "fortifyText": "穩固會將你的任務回復到中性狀態 ( 黃色 ，如同剛新增時)，並把你的生命值補滿。把它當成無計可施時的最後王牌！紅色會為進步提供良好的動力，但如果滿目紅色讓你難過，且每天開始時都對你致命，那麼花費寶石來喘口氣吧！",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "你確定要刪除這個任務嗎？",
     "streakCoins": "連擊獎勵",
     "pushTaskToTop": "置頂",

@@ -85,7 +85,7 @@
     "fortifyName": "Зілля підсилення",
     "fortifyPop": "Повернути завдання до нейтрального стану (жовтого кольору) та відновити все здоров'я.",
     "fortify": "Підсилитися",
-    "fortifyText": "Підсилення поверне всі завдання до нейтрального (жовтого) стану, так, наче Ви щойно їх створили, а здоров'я повністю відновиться. Уважайте це крайнім заходом! Червоні завдання дають добрий стимул для самовдосконалення. Але, якщо все червоне вселяє у Вас безвихідь, а кожний новий день може стати останнім, тоді Ви можете придбати собі відтермінування за самоцвіти!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Ви справді бажаєте вилучити це завдання?",
     "streakCoins": "Бонус за серію!",
     "pushTaskToTop": "Перемістити завдання вгору",
