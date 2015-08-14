@@ -85,7 +85,7 @@
     "fortifyName": "Napitak okrepljenja",
     "fortifyPop": "Vraća sve zadatke na početnu vrednost (žuta boja), i obnavlja izgubljeno zdravlje.",
     "fortify": "Okrepljenje",
-    "fortifyText": "Okrepljenje vraća sve zadatke u početno (žuto) stanje, kao da su tek napravljeni, i podiže zdravlje na maksimum. Smatrajte ovo krajnjom merom! Crveni zadaci mogu biti dobra motivacija da više potrudite. Međutim, ako vas crveno baca u očaj i smrt vam preti na početku svakog dana, draguljima možete kupiti odušak.",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Jeste li sigurni da želite da obrišete ovaj zadatak?",
     "streakCoins": "Bonus zbog redovnog izvršavanja zadataka!",
     "pushTaskToTop": "Premesti zadatak na vrh",

@@ -30,8 +30,6 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Setup translations
   var i18n = require('./i18n');
 
-  var middleware = require('./middleware');
-
   var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
   var app = express();
   var server = http.createServer();
@@ -89,16 +87,18 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   var publicDir = path.join(__dirname, "/../public");
 
   app.set("port", nconf.get('PORT'));
-  middleware.apiThrottle(app);
-  app.use(middleware.domainMiddleware(server,mongoose));
+  require('./middlewares/apiThrottle')(app);
+  app.use(require('./middlewares/domain')(server,mongoose));
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
   app.use(express.favicon(publicDir + '/favicon.ico'));
-  app.use(middleware.cors);
-  app.use(middleware.forceHabitica);
-  app.use(middleware.forceSSL);
+  app.use(require('./middlewares/cors'));
+
+  var redirects = require('./middlewares/redirects');
+  app.use(redirects.forceHabitica);
+  app.use(redirects.forceSSL);
   app.use(express.urlencoded());
   app.use(express.json());
   app.use(require('method-override')());
@@ -134,7 +134,7 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
   require('./routes/apiv2.coffee')(swagger, v2);
-  app.use(middleware.errorHandler);
+  app.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
   server.listen(app.get("port"), function() {

@@ -222,7 +222,11 @@ describe('analytics', function() {
           stats: stats,
           contributor: { level: 1 },
           purchased: { plan: { planId: 'foo-plan' } },
-          flags: {tour: {intro: -2}}
+          flags: {tour: {intro: -2}},
+          habits: [{_id: 'habit'}],
+          dailys: [{_id: 'daily'}],
+          todos: [{_id: 'todo'}],
+          rewards: [{_id: 'reward'}]
         };
 
         analyticsData.user = user;
@@ -248,7 +252,13 @@ describe('analytics', function() {
             Mana: 30,
             contributorLevel: 1,
             subscription: 'foo-plan',
-            tutorialComplete: true
+            tutorialComplete: true,
+            "Number Of Tasks": {
+              todos: 1,
+              dailys: 1,
+              habits: 1,
+              rewards: 1
+            }
           }
         });
       });

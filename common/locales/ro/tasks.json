@@ -85,7 +85,7 @@
     "fortifyName": "Poțiune fortifiantă",
     "fortifyPop": "Readu toate țelurile la valoarea neutră (culoarea galbenă) și refă toată Sănătatea pierdută.",
     "fortify": "Fortifică",
-    "fortifyText": "Fortifierea va readuce toate țelurile la valoarea neutră (galben), ca și cum abia le-ai fi adăugat, și va reface Sănătatea la maxim. Consideră asta o opțiune de caz extrem! Sarcinile roșii furnizează un bun imbold pentru a progresa. Dar dacă tot roșul ăsta te umple cu disperare, și începutul fiecărei zile se dovedește letal, cheltuie Nestematele și ia o pauză!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Ești sigur că vrei să ștergi acest țel?",
     "streakCoins": "Bonus de realizare în șir!",
     "pushTaskToTop": "Urcă sarcina în vârf",

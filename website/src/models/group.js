@@ -236,7 +236,8 @@ module.exports.tavern = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
   mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    module.exports.tavern = tavern;
+    // Using _assign so we don't lose the reference to the exported tavern
+    _.assign(module.exports.tavern, tavern);
   });
 })
 GroupSchema.statics.tavernBoss = function(user,progress) {

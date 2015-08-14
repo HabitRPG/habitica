@@ -85,7 +85,7 @@
     "fortifyName": "Forstærkningseliksir",
     "fortifyPop": "Returnerer alle opgaver til neutral værdi (gul farve) og giver alt tabt helbred tilbage.",
     "fortify": "Forstærk",
-    "fortifyText": "Forstærk vil returnere alle dine opgaver til en neutral (gul) værdi, som om du lige har tilføjet dem, og give dig fuldt Helbred tilbage. Tænk på dette som en sidste mulighed! Røde opgaver tilskynder dig til at forbedre dig. Men hvis al den røde farve gør dig trist, og en ny dag er dødbringende, brug ædelstenene og bliv benådet!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Er du sikker på, at du vil slette denne opgave?",
     "streakCoins": "Stribebonus!",
     "pushTaskToTop": "Flyt opgave til toppen",
