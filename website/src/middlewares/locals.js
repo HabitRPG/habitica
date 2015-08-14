@@ -43,7 +43,7 @@ module.exports = function(req, res, next) {
   // Load moment.js language file only when not on static pages
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
-  res.locals.habitrpg = _.merge(env, {
+  res.locals.habitrpg = _.assign(env, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     language: language,
     isStaticPage: isStaticPage,

@@ -580,12 +580,13 @@ module.exports.model = mongoose.model("User", UserSchema);
 // Initially export an empty object so external requires will get 
 // the right object by reference when it's defined later
 // Otherwise it would remain undefined if requested before the query executes
-module.exports.mods = {};
+module.exports.mods = [];
 
 mongoose.model("User")
   .find({'contributor.admin':true})
   .sort('-contributor.level -backer.npc profile.name')
   .select('profile contributor backer')
   .exec(function(err,mods){
-    module.exports.mods = mods
+    // Using push to maintain the reference to mods
+    module.exports.mods.push.apply(module.exports.mods, mods);
 });
