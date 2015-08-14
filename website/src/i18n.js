@@ -148,7 +148,7 @@ module.exports = {
 
 
 // Export en strings only, temporary solution for mobile
-// This is copied from middleware.js#module.exports.locals#t()
+// This is copied from middlewares/locals#t()
 module.exports.enTranslations = function(){ // stringName and vars are the allowed parameters
   var language = _.find(avalaibleLanguages, {code: 'en'});
   //language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
