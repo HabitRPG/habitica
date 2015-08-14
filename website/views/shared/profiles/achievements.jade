@@ -227,8 +227,8 @@ div(ng-if='::profile.achievements.costumeContest')
   hr
 
 each card in ['greeting', 'thankyou', 'nye', 'valentine']
-  div(ng-if='::profile.achievements.#{card}')
-    div(class='achievement.achievement-#{card}')
-    h5=env.t('#{card}CardAchievementTitle')
-    small=env.t('#{card}CardAchievementText', {cards: "{{::profile.achievements.#{card}}}"})
+  div(ng-if='::profile.achievements.' + card)
+    div(class='achievement achievement-' + card)
+    h5=env.t(card + 'CardAchievementTitle')
+    small=env.t(card + 'CardAchievementText', {cards: "{{::profile.achievements." + card + "}}"})
     hr
