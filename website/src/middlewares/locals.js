@@ -14,7 +14,7 @@ var mods = require('../models/user').mods;
 var clientVars = ['language', 'isStaticPage', 'avalaibleLanguages', 'translations',
                   'FACEBOOK_KEY', 'NODE_ENV', 'BASE_URL', 'GA_ID',
                   'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY', 
-                  'worldDmg', 'IS_MOBILE'];
+                  'worldDmg', 'mods', 'IS_MOBILE'];
 
 var env = {
   getManifestFiles: buildManifest.getManifestFiles,
