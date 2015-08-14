@@ -60,6 +60,7 @@ module.exports = function(req, res, next) {
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)
   // invitations into session to be handled later
+  // TODO once we have proper logging in place, log errors here
   if(req.query.partyInvite){
     try{
       req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite));
