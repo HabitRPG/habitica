@@ -10,8 +10,12 @@ html(ng-app="habitrpg")
 
     // .slice(0).push('user') is to clone the array, 
     // to be surethat  `user` is never avalaible to other requests' env
+    -
+      clientVars = env.clientVars.slice(0);
+      clientVars.push('user');
+      
     script(type='text/javascript').
-      window.env = !{JSON.stringify(env._.pick(env, env.clientVars.slice(0).push('user')))};
+      window.env = !{JSON.stringify(env._.pick(env, clientVars))};
 
     != env.getManifestFiles("app")
 
