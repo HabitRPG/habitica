@@ -99,12 +99,10 @@ expressres.jsonstring = function(obj, headers, status) {
 
 
 dataexport.avatarPage = function(req, res) {
-  var env = _.defaults({user:user}, res.locals.habitrpg);
-
   User.findById(req.params.uuid).select('stats profile items achievements preferences backer contributor').exec(function(err, user){
     res.render('avatar-static', {
       title: user.profile.name,
-      env: env
+      env: _.defaults({user:user}, res.locals.habitrpg);
     });
   })
 };
