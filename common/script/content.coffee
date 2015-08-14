@@ -559,7 +559,10 @@ api.potion =
 api.armoire =
   type: 'armoire',
   text: t('armoireText'),
-  notes: t('armoireNotesEmpty'),
+  notes: ((user, count)->
+    return t('armoireNotesEmpty')() if (user.flags.armoireEmpty)
+    return t('armoireNotesFull')() + count
+  ),
   value: 100,
   key: 'armoire',
   canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))

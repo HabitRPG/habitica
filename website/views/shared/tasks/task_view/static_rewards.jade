@@ -19,4 +19,5 @@ mixin reward(item)
 ul.items.rewards(ng-if='main && list.type=="reward"')
   +reward('item')(ng-repeat='item in itemStore')
   +reward('healthPotion')
-  +reward('armoire')(ng-if='user.flags.armoireEnabled')
+  +reward('armoire')(ng-if='user.flags.armoireEnabled',
+    popover='{{armoire.notes(user, armoireCount(user.items.gear.owned))}}')
