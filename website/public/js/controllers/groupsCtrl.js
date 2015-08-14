@@ -103,7 +103,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.openInviteModal = function(group){
-      $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve:
+      $rootScope.openModal('invite-guild', {controller:'InviteToGroupCtrl', resolve:
         {injectedGroup: function(){
           return group;
         }}});

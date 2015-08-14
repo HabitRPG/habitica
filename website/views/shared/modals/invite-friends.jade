@@ -1,4 +1,42 @@
-script(type='text/ng-template', id='modals/invite-friends.html')
+script(type='text/ng-template', id='modals/invite-guild.html')
+  .modal-header
+    h4=env.t('inviteFriends')
+  .modal-body
+    p.alert.alert-info!=env.t('inviteAlertInfo')
+    form.form-inline(ng-submit='invite()')
+      .form-group
+        input.form-control(type='text', placeholder=env.t('userId'), ng-model='invitee')
+        |&nbsp;
+        button.btn.btn-primary(type='submit')=env.t('inviteExistUser')
+    hr
+    p.alert.alert-info=env.t('inviteByEmail')
+    form.form-horizontal(ng-submit='inviteEmails()')
+      table.table.table-striped
+        thead
+          tr
+            th=env.t('name')
+            th=env.t('email')
+        tbody
+          tr(ng-repeat='email in emails')
+            td
+              input.form-control(type='text', ng-model='email.name')
+            td
+              input.form-control(type='email', ng-model='email.email')
+          tr
+            td(colspan=2)
+              a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+                i.glyphicon.glyphicon-plus
+          tr
+            td.form-group(colspan=2)
+              label.col-sm-1.control-label=env.t('byColon')
+              .col-sm-7
+                input.form-control(type='text', ng-model='inviter')
+              .col-sm-4
+                button.btn.btn-primary.btn-wrap(type='submit')=env.t('inviteNewUsers')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
+
+script(type='text/ng-template', id='modals/invite-party.html')
   .modal-body
     div(ng-if='!group._id')
       h4(style='margin-top:0')=env.t('nameYourParty')

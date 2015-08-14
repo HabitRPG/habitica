@@ -100,7 +100,7 @@
 
     function inviteOrStartParty(group) {
       if (group.type === "party" || $location.$$path === "/options/groups/party") {
-        $rootScope.openModal('invite-friends', {
+        $rootScope.openModal('invite-party', {
           controller:'InviteToGroupCtrl',
           resolve: {
             injectedGroup: function(){ return group; }
