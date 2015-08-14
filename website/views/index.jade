@@ -20,7 +20,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     script(type="text/javascript", src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5016f6cc44ad68a4", async="async")
 
     script(type='text/javascript').
-      window.env = !{JSON.stringify(env)};
+     window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
     != env.getManifestFiles("app")
 
