@@ -1,7 +1,7 @@
 {
     "messageLostItem": "你的 <%= itemText %> 壞掉了。",
     "messageTaskNotFound": "找不到任務。",
-    "messageDuplicateTaskID": "A task with that ID already exists.",
+    "messageDuplicateTaskID": "這個任務的 ID 已存在。",
     "messageTagNotFound": "找不到標籤",
     "messagePetNotFound": "找不到寵物",
     "messageFoodNotFound": "找不到食物",
@@ -21,12 +21,12 @@
     "messageDropFood": "你找到了 <%= dropArticle %><%= dropText %>！ <%= dropNotes %>",
     "messageDropEgg": "你找到一個 <%= dropText %> 蛋！ <%= dropNotes %>",
     "messageDropPotion": "你找到了 <%= dropText %> 的孵化藥劑！ <%= dropNotes %>",
-    "messageDropQuest": "You've found a quest!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropQuest": "發現一個任務!",
+    "messageDropMysteryItem": "你打開一個箱子，發現到 <%= dropText %>!",
     "messageFoundQuest": "你找到了新任務\"<%= questText %>\"！",
-    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
-    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
-    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
-    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
-    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
+    "messageAlreadyPurchasedGear": " 你曾經買過某個裝備，但是現在沒有了，你可在工作頁裡重買一次。",
+    "messageAlreadyOwnGear": "你已經有這個東西了。到裝備頁裡裝備它吧。",
+    "armoireEquipment": "<%= image %> 你在衣櫥裡找到稀有的裝備 <%= dropText %>! 好棒!",
+    "armoireFood": "<%= image %> 你在衣櫥裡找到 <%= dropArticle %><%= dropText %>. 這是什麼啊?",
+    "armoireExp": "你打開衣櫥而且得到經驗值。"
 }

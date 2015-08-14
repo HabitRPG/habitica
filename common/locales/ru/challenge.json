@@ -56,5 +56,5 @@
     "backToChallenges": "Вернуться к списку испытаний",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> в награду",
     "clone": "Клонировать",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "У вас недостаточно самоцветов, чтобы разместить это испытание."
 }
