@@ -7,13 +7,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
       return userid in group.quest.members && group.quest.members[userid] != false;
-    }
+    };
 
     $scope.isMemberOfRunningQuest = function(userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (!group.quest.active) return false; // quest is pending, not started
       return group.quest.members[userid];
-    }
+    };
 
     $scope.isMemberOfGroup = function(userid, group){
 
@@ -32,11 +32,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if (!group.members) return false;
       var memberIds = _.map(group.members, function(x){return x._id});
       return ~(memberIds.indexOf(userid));
-    }
+    };
 
     $scope.isMember = function(user, group){
       return ~(group.members.indexOf(user._id));
-    }
+    };
 
     $scope.Members = Members;
     $scope._editing = {group:false};
@@ -45,13 +45,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if(group._newLeader && group._newLeader._id) group.leader = group._newLeader._id;
       group.$save();
       group._editing = false;
-    }
+    };
 
     $scope.deleteAllMessages = function() {
       if (confirm(window.env.t('confirmDeleteAllMessages'))) {
         User.user.ops.clearPMs({});
       }
-    }
+    };
 
     // ------ Modals ------
 
@@ -69,7 +69,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $rootScope.openModal('member', {controller:'MemberModalCtrl', windowClass:'profile-modal', size:'lg'});
         });
       }
-    }
+    };
 
 
     $scope.removeMember = function(group, member, isMember){
@@ -80,7 +80,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         isMember: isMember
       };
       $rootScope.openModal('remove-member', {scope: $scope});
-    }
+    };
 
     $scope.confirmRemoveMember = function(confirm){
       if(confirm){
@@ -100,7 +100,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }else{
         $scope.removeMemberData = undefined;
       }
-    }
+    };
 
     $scope.openInviteModal = function(group){
       $rootScope.openModal('invite-friends', {controller:'InviteToGroupCtrl', resolve:
@@ -108,23 +108,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           return group;
         }}});
     };
-
-    //var serializeQs = function(obj, prefix){
-    //  var str = [];
-    //  for(var p in obj) {
-    //    if (obj.hasOwnProperty(p)) {
-    //      var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-    //      str.push(typeof v == "object" ?
-    //        serializeQs(v, k) :
-    //        encodeURIComponent(k) + "=" + encodeURIComponent(v));
-    //    }
-    //  }
-    //  return str.join("&");
-    //}
-    //
-    //$scope.inviteLink = function(obj){
-    //  return window.env.BASE_URL + '?' + serializeQs({partyInvite: obj});
-    //}
 
     $scope.quickReply = function(uid) {
       Members.selectMember(uid, function(){
@@ -141,45 +124,39 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.emails = [{name:"",email:""},{name:"",email:""}];
     $scope.invitees = {uuid:""};
 
-    $scope.inviteNewUsers = function(inviteMethod){
-      if (!$scope.group) {
-        Groups.group.create($scope.newGroup, function() {
-          inviteByMethod(inviteMethod);
+    $scope.inviteNewUsers = function(inviteMethod) {
+      if (!$scope.group._id) {
+        group.create($scope.newGroup, function() {
+          _inviteByMethod(inviteMethod);
         });
       } else {
-        inviteByMethod(inviteMethod);
+        _inviteByMethod(inviteMethod);
       }
     };
 
-    var inviteByMethod = function(inviteMethod) {
+    function _inviteByMethod(inviteMethod) {
       if (inviteMethod === 'email') {
-        inviteEmails();
+        Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
+          Notification.text(window.env.t('invitationsSent'));
+          $scope.emails = [{name:'',email:''},{name:'',email:''}];
+        }, function(){
+          $scope.emails = [{name:'',email:''},{name:'',email:''}];
+        });
       }
       else if (inviteMethod === 'uuid') {
-        invite();
+        Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitees.uuid]}, function(){
+          Notification.text(window.env.t('invitationsSent'));
+          $scope.invitees = {uuid:""};
+        }, function(){
+          $scope.invitees = {uuid:""};
+        });
       }
       else {
         return console.log('Invalid invite method.')
       }
-    };
+    }
 
-    $scope.inviteEmails = function(){
-      Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
-        Notification.text(window.env.t('invitationsSent'));
-        $scope.emails = [{name:'',email:''},{name:'',email:''}];
-      }, function(){
-        $scope.emails = [{name:'',email:''},{name:'',email:''}];
-      });
-    };
 
-    $scope.invite = function(){
-      Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitees.uuid]}, function(){
-        Notification.text(window.env.t('invitationsSent'));
-        $scope.invitees = {uuid:""};
-      }, function(){
-        $scope.invitees = {uuid:""};
-      });
-    };
   }])
 
   .controller('AutocompleteCtrl', ['$scope', '$timeout', 'Groups', 'User', 'InputCaret', function ($scope,$timeout,Groups,User,InputCaret) {
