@@ -226,27 +226,9 @@ div(ng-if='::profile.achievements.costumeContest')
     =env.t('costumeContestText')
   hr
 
-div(ng-if='::profile.achievements.greeting')
-  .achievement.achievement-greeting
-  h5=env.t('cheeryChum')
-  small=env.t('cheeryChumText', {cards: "{{::profile.achievements.greeting}}"})
-  hr
-
-div(ng-if='::profile.achievements.thankyou')
-  .achievement.achievement-thankyou
-  h5=env.t('greatlyGrateful')
-  small=env.t('greatlyGratefulText', {cards: "{{::profile.achievements.thankyou}}"})
-  hr
-
-div(ng-if='::profile.achievements.nye')
-  .achievement.achievement-nye
-  h5=env.t('auldAcquaintance')
-  small
-    =env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
-  hr
-
-div(ng-if='::profile.achievements.valentine')
-  .achievement.achievement-valentine
-  h5=env.t('adoringFriends')
-  small
-    =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
+each card in ['greeting', 'thankyou', 'nye', 'valentine']
+  div(ng-if='::profile.achievements.#{card}')
+    div(class='achievement.achievement-#{card}')
+    h5=env.t('#{card}CardAchievementTitle')
+    small=env.t('#{card}CardAchievementText', {cards: "{{::profile.achievements.#{card}}}"})
+    hr

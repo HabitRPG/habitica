@@ -120,8 +120,8 @@
     "greeting1": "\"Just saying hello :)\"",
     "greeting2": "\"`waves frantically`\"",
     "greeting3": "\"Hey you!\"",
-    "cheeryChum": "Cheery Chum",
-    "cheeryChumText": "Hey! Hi! Hello! Sent or received <%= cards %> greeting cards.",
+    "greetingCardAchievementTitle": "Cheery Chum",
+    "greetingCardAchievementText": "Hey! Hi! Hello! Sent or received <%= cards %> greeting cards.",
     "thankyouCard": "Thank-You Card",
     "thankyouCardExplanation": "You both receive the Greatly Grateful achievement!",
     "thankyouCardNotes": "Send a Thank-You card to a party member.",
@@ -129,6 +129,6 @@
     "thankyou1": "\"Thank you, thank you, thank you!\"",
     "thankyou2": "\"Sending you a thousand thanks.\"",
     "thankyou3": "\"I'm very grateful - thank you!\"",
-    "greatlyGrateful": "Greatly Grateful",
-    "greatlyGratefulText": "Thanks for being thankful! Sent or received <%= cards %> Thank-You cards."
+    "thankyouCardAchievementTitle": "Greatly Grateful",
+    "thankyouCardAchievementText": "Thanks for being thankful! Sent or received <%= cards %> Thank-You cards."
 }
