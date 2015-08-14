@@ -55,7 +55,9 @@ var UserSchema = new Schema({
     valentine: Number,
     costumeContest: Boolean,
     nye: Number,
-    habiticaDays: Number
+    habiticaDays: Number,
+    greeting: Number,
+    thankyou: Number
   },
   auth: {
     blocked: Boolean,
@@ -160,7 +162,8 @@ var UserSchema = new Schema({
     welcomed: {type: Boolean, 'default': false},
     armoireEnabled: {type: Boolean, 'default': false},
     armoireOpened: {type: Boolean, 'default': false},
-    armoireEmpty: {type: Boolean, 'default': false}
+    armoireEmpty: {type: Boolean, 'default': false},
+    cardReceived: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -210,7 +213,11 @@ var UserSchema = new Schema({
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
-      nyeReceived: Array
+      nyeReceived: Array,
+      greeting: Number,
+      greetingReceived: Array,
+      thankyou: Number,
+      thankyouReceived: Array
     },
 
     // -------------- Animals -------------------
@@ -350,7 +357,7 @@ var UserSchema = new Schema({
   profile: {
     blurb: String,
     imageUrl: String,
-    name: String,
+    name: String
   },
   stats: {
     hp: {type: Number, 'default': shared.maxHealth},
