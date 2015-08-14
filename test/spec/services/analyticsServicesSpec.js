@@ -184,6 +184,12 @@ describe('Analytics Service', function () {
         expectedProperties.Level = 24;
         expectedProperties.Mana = 41;
         expectedProperties.tutorialComplete = false;
+        expectedProperties["Number Of Tasks"] = {
+          habits: 1,
+          dailys: 1,
+          todos: 1,
+          rewards: 1
+        };
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -194,6 +200,10 @@ describe('Analytics Service', function () {
           user.stats.lvl = 24;
           user.stats.mp = 41;
           user.flags.tour.intro = 3;
+          user.habits = [{_id: 'habit'}];
+          user.dailys = [{_id: 'daily'}];
+          user.todos = [{_id: 'todo'}];
+          user.rewards = [{_id: 'reward'}];
 
           analytics.updateUser(properties);
           clock.tick();
