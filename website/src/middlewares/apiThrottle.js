@@ -7,7 +7,7 @@ module.exports = function(app) {
   if (!IS_PROD) return;
   app.use(limiter({
     end:false,
-    catagories:{
+    categories:{
       normal: {
         // 2 req/s, but split as minutes
         totalRequests: 80,
