@@ -5,9 +5,9 @@ var async = require('async');
 var icalendar = require('icalendar');
 var api = require('./../controllers/user');
 var auth = require('./../controllers/auth');
-var middleware = require('../middleware');
 var logging = require('./../logging');
 var i18n = require('./../i18n');
+var forceRefresh = require('../middlewares/forceRefresh').middleware;
 
 /* ---------- Deprecated API ------------*/
 
@@ -161,7 +161,7 @@ router.post('/user/task', auth.auth, i18n.getUserLanguage, cron, api.addTask);
 // User
 router.get('/user', auth.auth, i18n.getUserLanguage, cron, api.getUser);
 router.post('/user/revive', auth.auth, i18n.getUserLanguage, cron, api.revive);
-router.post('/user/batch-update', middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron, batchUpdate);
+router.post('/user/batch-update', forceRefresh, auth.auth, i18n.getUserLanguage, cron, batchUpdate);
 
 function deprecated(req, res) {
   res.json(404, {err:'API v1 is no longer supported, please use API v2 instead (https://github.com/HabitRPG/habitrpg/blob/develop/API.md)'});
