@@ -549,8 +549,20 @@ api.timeTravelerStore = (owned) ->
   ---------------------------------------------------------------
 ###
 
-api.potion = type: 'potion', text: t('potionText'), notes: t('potionNotes'), value: 25, key: 'potion'
-api.armoire = type: 'armoire', text: t('armoireText'), notes: t('armoireNotesEmpty'), value: 100, key: 'armoire', canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
+api.potion =
+  type: 'potion',
+  text: t('potionText'),
+  notes: t('potionNotes'),
+  value: 25,
+  key: 'potion'
+
+api.armoire =
+  type: 'armoire',
+  text: t('armoireText'),
+  notes: t('armoireNotesEmpty'),
+  value: 100,
+  key: 'armoire',
+  canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
 
 ###
    ---------------------------------------------------------------
@@ -1003,8 +1015,8 @@ api.spells =
         target.flags.cardReceived = true
 
         target.markModified? 'items.special.thankyouReceived'
-        user.stats.gp -= 10        
-        
+        user.stats.gp -= 10
+
 api.cardTypes =
   greeting:
     key: 'greeting'
@@ -1958,7 +1970,7 @@ api.quests =
       gp: 37
       exp: 275
       unlock: t('questWhaleUnlockText')
-      
+
   dilatoryDistress1:
     text: t('questDilatoryDistress1Text')
     notes: t('questDilatoryDistress1Notes')
@@ -2177,7 +2189,7 @@ api.backgrounds =
       text: t('backgroundSunkenShipText')
       notes: t('backgroundSunkenShipNotes')
   backgrounds082015:
-    pyramids: 
+    pyramids:
       text: t('backgroundPyramidsText')
       notes: t('backgroundPyramidsNotes')
     sunset_savannah:
