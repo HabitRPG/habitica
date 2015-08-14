@@ -85,7 +85,7 @@
     "fortifyName": "Эликсир укрепления",
     "fortifyPop": "Вернуть все задания в нейтральное состояние (желтый цвет) и восстановить всё здоровье.",
     "fortify": "Укрепление",
-    "fortifyText": "Укрепление вернет все задания в нейтральное (желтое) состояние, как если бы вы только что добавили их, и восстановит здоровье до максимума. Считайте это крайней мерой! Красные задания дают хороший стимул для улучшения. Но если вы чувствуете, что вся эта краснота вселяет в вас безысходность, а начало каждого нового дня угрожает смертью, вы можете купить передышку за самоцветы!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Вы уверены, что хотите удалить эту задачу?",
     "streakCoins": "Бонус за серию!",
     "pushTaskToTop": "Переместить задание наверх",

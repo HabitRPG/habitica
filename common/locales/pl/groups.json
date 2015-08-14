@@ -30,7 +30,7 @@
     "leave": "Opuść",
     "invitedTo": "Zaproszono do <%= name %>",
     "newMsg": "Nowa wiadomość w \"<%= name %>\"",
-    "chat": "Chat",
+    "chat": "Czat",
     "sendChat": "Wyślij",
     "toolTipMsg": "Pobierz ostatnie wiadomości",
     "guildBankPop1": "Bank Gildii",

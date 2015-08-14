@@ -31,7 +31,7 @@
     "paymentMethods": "Moyens de paiement :",
     "classGear": "Équipement de classe",
     "classGearText": "D'abord, pas de panique ! Votre vieil équipement est dans votre inventaire et vous portez maintenant votre équipement d'apprenti <strong><%= klass %></strong>. Porter l'équipement de votre classe apporte un bonus de 50% à vos attributs. Cependant, rien ne vous empêche de revenir à votre ancien équipement.",
-    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
+    "classStats": "Voici les attributs de votre classe ; ils affectent la façon de jouer. Chaque fois que vous gagnez un niveau, vous obtenez un point à allouer à un attribut spécifique. Passez au dessus de chaque attribut pour plus d'information.",
     "autoAllocate": "Distribution automatique",
     "autoAllocateText": "Si \"attribution automatique\" est sélectionné, votre avatar gagne des attributs automatiquement selon les attributs de vos tâches, que vous pouvez trouver dans <strong>TÂCHES > Modifier > Avancé > Attributs</strong>. Par exemple, si vous allez souvent à la salle de sport et que votre Quotidienne \"Sport\" a l'attribut \"Physique\", vous gagnerez de la FOR automatiquement.",
     "spells": "Sorts",

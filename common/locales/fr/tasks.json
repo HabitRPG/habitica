@@ -85,7 +85,7 @@
     "fortifyName": "Potion de Fortification",
     "fortifyPop": "Fait revenir toutes les tâches à une valeur neutre (couleur jaune) et restaure tous les points de santé que vous aviez perdus.",
     "fortify": "Fortification",
-    "fortifyText": "La potion de fortification ramènera toutes vos tâches à un niveau neutre (jaune), comme si vous veniez de les ajouter, et remplira votre barre de santé. N'utilisez cette option qu'en dernier ressort ! Les tâches de couleur rouge sont une bonne invitation à s'améliorer. Mais si voir tout ce rouge vous remplit de désespoir et que chaque nouveau jour vous semble un danger mortel, dépenser vos gemmes et accordez vous un sursis !",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Êtes-vous sûr de vouloir supprimer cette tâche ?",
     "streakCoins": "Bonus de combo !",
     "pushTaskToTop": "Déplacer la tâche en tête de liste",

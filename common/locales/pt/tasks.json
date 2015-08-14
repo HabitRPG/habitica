@@ -85,7 +85,7 @@
     "fortifyName": "Poção de Fortificação",
     "fortifyPop": "Reverte todas tarefas para o valor neutro (cor amarela), e recupera toda Vida perdida.",
     "fortify": "Fortificar",
-    "fortifyText": "Fortificar reverterá todas suas tarefas para o valor neutro (amarelo), como se tivesse acabado de adicioná-las, e completará sua vida até estar cheia. Considere essa opção como último recurso! Tarefas vermelhas oferecem um grande incentivo para melhorar. Mas se todo vermelho o encher de desespero, e o começo de cada dia provar ser letal, gaste as Gemas e pegue um adiantamento!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Tem certeza de que deseja deletar essa tarefa?",
     "streakCoins": "Bônus de Combo!",
     "pushTaskToTop": "Enviar tarefa para o topo",

@@ -124,7 +124,7 @@
 
             if(removeWatch)
             {
-              doRemoveWatch(); 
+              doRemoveWatch();
             }
           };
 
@@ -144,9 +144,9 @@
   habitrpg.filter('markdown', function() {
     return function(input){
       var html = md.toHtml(input);
-      
+
       html = html.replace(' href',' target="_self" href');
-      
+
       return html;
     };
   });

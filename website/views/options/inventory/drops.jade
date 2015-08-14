@@ -16,7 +16,6 @@
                 popover-trigger='mouseenter', popover-placement='right',
                 ng-click='chooseEgg(egg)')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{Content.eggs[egg].text()}}
 
         li.customize-menu
           menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
@@ -62,14 +61,6 @@
             +specialItem('shinySeed')
             +specialItem('seafoam')
 
-            div(ng-if='user.items.special.valentineReceived[0]')
-              button.customize-option(class='inventory_special_valentine',
-                popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}",
-                popover-trigger='mouseenter', popover-placement='right',
-                popover-append-to-body='true',
-                ng-click='openModal("valentine")')
-                .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
-
             div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
               button.customize-option(class='inventory_present inventory_present_{{moment().format("MM")}}',
                 popover=env.t('subscriberItemText'), popover-trigger='mouseenter',
@@ -84,13 +75,13 @@
                 ng-click="$state.go('options.inventory.timetravelers')")
                 .badge.badge-info.stack-count {{user.purchased.plan.consecutive.trinkets}}
 
-            div(ng-if='user.items.special.nyeReceived[0]')
-              button.customize-option(class='inventory_special_nye',
-                popover="New Year's Card from {{User.user.items.special.nyeReceived[0]}}",
+            div(ng-repeat='type in Content.cardTypes', ng-init='received=type.key+"Received"', ng-show='user.items.special[received][0]')
+              button.customize-option(class='inventory_special_{{::type.key}}',
+                popover=env.t('cardReceivedFrom', {cardType:'{{::Content.spells.special[type.key].text()}}', userName: '{{User.user.items.special[received][0]}}'}),
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
-                ng-click='openModal("nye")')
-                .badge.badge-info.stack-count {{user.items.special.nyeReceived.length}}
+                ng-click='openCardsModal(type.key, type.messageOptions)')
+                .badge.badge-info.stack-count {{user.items.special[received].length}}
 
     .col-md-6.border-left
       h2=env.t('market')
@@ -209,13 +200,13 @@
               p
                 | 20&nbsp;
                 span.shop_gold
-            // div
-              button.customize-option(class='inventory_special_valentine',
-              popover='{{::Content.spells.special.valentine.notes()}}',
-              popover-title='{{::Content.spells.special.valentine.text()}}',
+            div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound')
+              button.customize-option(class='inventory_special_{{::type.key}}',
+              popover='{{::Content.spells.special[type.key].notes()}}',
+              popover-title='{{::Content.spells.special[type.key].text()}}',
               popover-trigger='mouseenter', popover-placement='right',
               popover-append-to-body='true',
-              ng-click='castStart(Content.spells.special.valentine)')
+              ng-click='castStart(Content.spells.special[type.key])')
               p
-                | {{Content.spells.special.valentine.value}}
+                | {{Content.spells.special[type.key].value}}
                 span(class='shop_gold')

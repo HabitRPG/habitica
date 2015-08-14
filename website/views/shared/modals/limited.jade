@@ -1,49 +1,12 @@
-//Valentine
-script(id='modals/valentine.html', type='text/ng-template')
+script(id='modals/cards.html', type='text/ng-template')
   .modal-header
-    h4
-      .inventory_special_valentine.pull-right
-      =env.t('valentineCard')
+    .pull-right(class='inventory_special_{{::cardType}}')
+    h4 {{::env.t(cardType + 'Card')}}
   .modal-body
     .bg-info(style='padding:10px')
-      p To: {{user.profile.name}}, From: {{user.items.special.valentineReceived[0]}}
+      p {{::env.t('toAndFromCard', { toName: user.profile.name, fromName: user.items.special[cardType + 'Received'][0]})}}
       hr
-      ul.list-unstyled(ng-switch='::Math.floor(Math.random()*4)')
-        li(ng-switch-when='0')
-          !=env.t('valentine0', {lineBreak:"<br>"})
-        li(ng-switch-when='1')
-          !=env.t('valentine1', {lineBreak:"<br>"})
-        li(ng-switch-when='2')
-          !=env.t('valentine2', {lineBreak:"<br>"})
-        li(ng-switch-default)
-          !=env.t('valentine3', {lineBreak:"<br>"})
-    p
-     small For enduring such a saccharine poem, you both receive the "Adoring Friends" badge!
+      markdown(text='::cardMessage')
   .modal-footer
-    button.btn.btn-default(ng-click='user.ops.readValentine({});$close()')=env.t('ok')
-
-// New Year's
-script(id='modals/nye.html', type='text/ng-template')
-  .modal-header
-    h4
-      .inventory_special_nye.pull-right
-      =env.t('nyeCard')
-  .modal-body
-    .bg-info(style='padding:10px')
-      p To: {{user.profile.name}}, From: {{user.items.special.nyeReceived[0]}}
-      hr
-      ul.list-unstyled(ng-switch='::Math.floor(Math.random()*5)')
-        li(ng-switch-when='0')
-          =env.t('newYear0')
-        li(ng-switch-when='1')
-          =env.t('newYear1')
-        li(ng-switch-when='2')
-          =env.t('newYear2')
-        li(ng-switch-when='3')
-          =env.t('newYear3')
-        li(ng-switch-default)
-          =env.t('newYear4')
-    p
-      small For celebrating the new year together, you both receive the "Auld Acquaintance" badge!
-  .modal-footer
-    button.btn.btn-default(ng-click='user.ops.readNYE({});$close()')=env.t('ok')
+    small.pull-left {{::env.t(cardType + 'CardExplanation')}}
+    button.btn.btn-default(ng-click='user.ops.readCard({params: {cardType: cardType}}); $close()')=env.t('ok')

@@ -33,7 +33,7 @@
     "challengeTagPop": "挑战名会显示在在标签列表和任务中。所以挑战名要短。例如用”-10磅“代替”在3个月内减掉10磅“ (点击查看详细信息)。",
     "challengeDescr": "详细描述",
     "prize": "战利品",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "如果有人能够完成你的挑战，你可以选择奖励完成者一些宝石。其最大值为你所拥有的宝石数(以及公会宝石，如果是您发起的公会挑战)。注意：该奖励一旦设定无法更改。",
     "prizePopTavern": "如果有人能够完成你的挑战，你可以选择奖励完成者一些宝石。其最大值为你所拥有的宝石数。注意：该奖励一旦设定无法更改，而且如果挑战被取消宝石也不会退回。",
     "publicChallenges": "<strong>公共挑战</strong> 需要至少1个宝石 (为了防止垃圾信息)。",
     "officialChallenge": "Habitica 的官方挑战",

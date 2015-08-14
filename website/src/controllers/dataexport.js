@@ -108,7 +108,7 @@ dataexport.avatarPage = function(req, res) {
 };
 
 dataexport.avatarImage = function(req, res, next) {
-  var filename = 'avatar-'+req.params.uuid+'.png';
+  var filename = 'avatars/'+req.params.uuid+'.png';
   request.head('https://'+bucket+'.s3.amazonaws.com/'+filename, function(err,response,body) {
     // cache images for 10 minutes on aws, else upload a new one
     if (response.statusCode==200 && moment().diff(response.headers['last-modified'], 'minutes') < 10)

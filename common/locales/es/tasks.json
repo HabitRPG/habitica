@@ -85,7 +85,7 @@
     "fortifyName": "Poción de Fortalecimiento.",
     "fortifyPop": "Devuelve todas sus tareas a un valor neutral (amarillo), y recupera toda la salud perdida.",
     "fortify": "Fortalecer",
-    "fortifyText": "Fortalecer devuelve todas tus tareas a un valor neutral  (amarillo), como si las acabaras de añadir, y pone a tope tu salud. ¡Considera esto como tu última opción! Las tareas rojas proporcionan un incentivo para mejorar. Si tanto rojo te llena de deseperación y el comienzo de cada día se vuelve mortal, gasta las gemas y tomate un suspiro.",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
     "streakCoins": "¡Bonus de Racha!",
     "pushTaskToTop": "Desplazar tarea al inicio",

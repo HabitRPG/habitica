@@ -85,7 +85,7 @@
     "fortifyName": "強化ポーション",
     "fortifyPop": "全てのタスクを通常の状態 (黄色)に戻します。加えて全ての体力を回復させます。",
     "fortify": "強化",
-    "fortifyText": "この強化は今追加したかのように、全てのタスクを中立（黄色）の状態に戻します。さらにあなたのHealthを全回復させます。このオプションは最後の手段だと考えてください！赤いタスクは成長のための良い動機を与えてくれます。しかし全ての赤いタスクがあなたを絶望でいっぱいにしてしまい、毎日の始まりが死に至るほどの苦しみであるならば、ジェムを支払って救済を得ましょう！",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "本当にこのタスクを削除しても良いですか？",
     "streakCoins": "連続実行ボーナス！",
     "pushTaskToTop": "タスクを一番上に上げる",

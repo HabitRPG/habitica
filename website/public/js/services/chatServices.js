@@ -15,14 +15,19 @@ function($resource, $http, ApiUrl, User) {
 
   var chatService = {
     seenMessage: seenMessage,
+    clearCards: clearCards,
     utils: utils
   };
 
   return chatService;
+
+  function clearCards() {
+    User.user.ops.update && User.set({'flags.cardReceived':false});
+  }
 
   function seenMessage(gid) {
     // On enter, set chat message to "seen"
     $http.post(ApiUrl.get() + '/api/v2/groups/'+gid+'/chat/seen');
     if (User.user.newMessages) delete User.user.newMessages[gid];
   }
-}])
+}]);

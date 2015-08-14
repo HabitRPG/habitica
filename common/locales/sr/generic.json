@@ -52,7 +52,7 @@
     "delete": "Obrisati",
     "gemsPopoverTitle": "Dragulji",
     "gems": "Dragulji",
-    "gemButton": "Imate <%=number %> dragulja.",
+    "gemButton": "Imate <%= number %> dragulja.",
     "moreInfo": "Više informacija",
     "showMoreMore": "(show more)",
     "showMoreLess": "(show less)",

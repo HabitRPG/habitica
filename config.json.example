@@ -21,7 +21,6 @@
     "NEW_RELIC_APPLICATION_ID":"NEW_RELIC_APPLICATION_ID",
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
-    "MIXPANEL_TOKEN": "MIXPANEL_TOKEN",
     "AMPLITUDE_KEY": "AMPLITUDE_KEY",
     "AMAZON_PAYMENTS": {
         "SELLER_ID": "SELLER_ID",
@@ -39,6 +38,10 @@
         "bucket":"bucket",
         "accessKeyId":"accessKeyId",
         "secretAccessKey":"secretAccessKey"
+    },
+    "TRANSIFEX_SLACK": {
+      "url": "https://hooks.slack.com/services/some-url",
+      "channel": "general"
     },
     "PAYPAL":{
         "billing_plans": {

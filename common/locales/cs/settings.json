@@ -107,7 +107,7 @@
     "unsubscribedTextOthers": "Již nedostanež od Habitiky žádný další email.",
     "unsubscribeAllEmails": "Zaškrtni, aby ses odhlásil z emailů",
     "unsubscribeAllEmailsText": "Zaškrtnutím toho políčka potvrzuji, že rozumím tomu, že kvůli odhlášení se z emailů mě nebude Habitika moci nikdy kontaktovat emailem o důležitých změnách na stránce nebo v mém účtu.",
-    "correctlyUnsubscribedEmailType": "Správně odhlášen z \"<%= email Type %>\" emailů.",
+    "correctlyUnsubscribedEmailType": "Úspěšně ses odhlásil z \"<%= emailType %>\" emailů.",
     "subscriptionRateText": "Opakovaně $<%= price %> každé <%= months %> měsíce",
     "benefits": "Benefity",
     "coupon": "Kupón",
