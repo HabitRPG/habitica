@@ -26,14 +26,14 @@ describe('user.ops', function() {
   describe('readCard', function() {
     it('removes card from invitation array', function() {
       user.items.special.valentineReceived = ['Leslie'];
-      user.ops.readCard('valentine');
+      user.ops.readCard({ params: { cardType: 'valentine' } });
 
       expect(user.items.special.valentineReceived).to.be.empty;
     });
 
     it('removes the first card from invitation array', function() {
       user.items.special.valentineReceived = ['Leslie', 'Vicky'];
-      user.ops.readCard('valentine');
+      user.ops.readCard({ params: { cardType: 'valentine' } });
 
       expect(user.items.special.valentineReceived).to.eql(['Vicky']);
     });
