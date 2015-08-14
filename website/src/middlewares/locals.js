@@ -6,6 +6,8 @@ var i18n = require('../i18n.js');
 var buildManifest = require('../libs/buildManifest');
 var shared = require('../../../common');
 var forceRefresh = require('./forceRefresh');
+var tavern = require('../models/group').tavern;
+var mods = require('../models/user').mods;
 
 module.exports = function(req, res, next) {
   var language = _.find(i18n.avalaibleLanguages, {code: req.language});
@@ -14,7 +16,6 @@ module.exports = function(req, res, next) {
   // Load moment.js language file only when not on static pages
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
-  var tavern = require('../models/group').tavern;
   var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY'.split(' '));
   res.locals.habitrpg = _.merge(envVars, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
@@ -31,7 +32,7 @@ module.exports = function(req, res, next) {
     },
     siteVersion: forceRefresh.siteVersion,
     Content: shared.content,
-    mods: require('../models/user').mods,
+    mods: mods,
     tavern: tavern, // for world boss
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
     _: _,

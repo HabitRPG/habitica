@@ -577,6 +577,10 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
+// Initially export an empty object so external requires will get 
+// the right object by reference when it's defined later
+// Otherwise it would remain undefined if requested before the query executes
+module.exports.mods = {};
 
 mongoose.model("User")
   .find({'contributor.admin':true})
