@@ -17,7 +17,7 @@ html(ng-app='habitrpg')
 
 
     script(type='text/javascript').
-      window.env = !{JSON.stringify(env)};
+      window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
     link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=4')
 

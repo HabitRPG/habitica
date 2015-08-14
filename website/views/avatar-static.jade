@@ -8,8 +8,10 @@ html(ng-app="habitrpg")
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
+    // .slice(0).push('user') is to clone the array, 
+    // to be surethat  `user` is never avalaible to other requests' env
     script(type='text/javascript').
-      window.env = !{JSON.stringify(env)};
+      window.env = !{JSON.stringify(env._.pick(env, env.clientVars.slice(0).push('user')))};
 
     != env.getManifestFiles("app")
 

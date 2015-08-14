@@ -9,6 +9,33 @@ var forceRefresh = require('./forceRefresh');
 var tavern = require('../models/group').tavern;
 var mods = require('../models/user').mods;
 
+// To avoid stringifying more data then we need,
+// items from `env` used on the client will have to be specified in this array
+var clientVars = ['language', 'isStaticPage', 'avalaibleLanguages', 'translations',
+                  'FACEBOOK_KEY', 'NODE_ENV', 'BASE_URL', 'GA_ID',
+                  'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY', 
+                  'worldDmg', 'IS_MOBILE'];
+
+var env = {
+  getManifestFiles: buildManifest.getManifestFiles,
+  getBuildUrl: buildManifest.getBuildUrl,
+  _: _,
+  clientVars: clientVars,
+  tavern: tavern, // for world boss
+  mods: mods,
+  Content: shared.content,
+  siteVersion: forceRefresh.siteVersion,
+  avalaibleLanguages: i18n.avalaibleLanguages,
+  AMAZON_PAYMENTS: {
+    SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
+    CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID')
+  }
+};
+
+'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY'.split(' ').forEach(function(key){
+  env[key] = nconf.get(key);
+});
+
 module.exports = function(req, res, next) {
   var language = _.find(i18n.avalaibleLanguages, {code: req.language});
   var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
@@ -16,12 +43,8 @@ module.exports = function(req, res, next) {
   // Load moment.js language file only when not on static pages
   language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
-  var envVars = _.pick(nconf.get(), 'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY AMPLITUDE_KEY'.split(' '));
-  res.locals.habitrpg = _.merge(envVars, {
+  res.locals.habitrpg = _.merge(env, {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-    getManifestFiles: buildManifest.getManifestFiles,
-    getBuildUrl: buildManifest.getBuildUrl,
-    avalaibleLanguages: i18n.avalaibleLanguages,
     language: language,
     isStaticPage: isStaticPage,
     translations: i18n.translations[language.code],
@@ -30,23 +53,18 @@ module.exports = function(req, res, next) {
       args.push(language.code);
       return shared.i18n.t.apply(null, args);
     },
-    siteVersion: forceRefresh.siteVersion,
-    Content: shared.content,
-    mods: mods,
-    tavern: tavern, // for world boss
+    // Defined here and not outside of the middleware because tavern might be an
+    // empty object until the query to fetch it finishes
     worldDmg: (tavern && tavern.quest && tavern.quest.extra && tavern.quest.extra.worldDmg) || {},
-    _: _,
-    AMAZON_PAYMENTS: {
-      SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
-      CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID')
-    }
   });
 
   // Put query-string party (& guild but use partyInvite for backward compatibility)
   // invitations into session to be handled later
-  try{
-    req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite));
-  } catch(e){}
+  if(req.query.partyInvite){
+    try{
+      req.session.partyInvite = JSON.parse(utils.decrypt(req.query.partyInvite));
+    } catch(e){}
+  }
 
   next();
 };
