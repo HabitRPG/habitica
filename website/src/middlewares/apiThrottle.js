@@ -1,4 +1,5 @@
 var nconf = require('nconf');
+var limiter = require('connect-ratelimit');
 
 var IS_PROD = nconf.get('NODE_ENV') === 'production';
 
@@ -18,4 +19,4 @@ module.exports = function(app) {
     if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
     next();
   });
-}
+};

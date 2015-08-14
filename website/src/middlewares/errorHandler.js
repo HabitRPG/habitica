@@ -21,4 +21,4 @@ module.exports = function(err, req, res, next) {
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.json(500,{err:message}); //res.end(err.message);
-}
+};

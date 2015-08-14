@@ -9,10 +9,9 @@ var buildFiles = [];
 
 var walk = function(folder){
   var res = fs.readdirSync(folder);
-  var files = [];
 
   res.forEach(function(fileName){
-    file = folder + '/' + fileName;
+    var file = folder + '/' + fileName;
     if(fs.statSync(file).isDirectory()){
       walk(file);
     }else{
@@ -24,12 +23,10 @@ var walk = function(folder){
         fileName = relFolder + '/' + fileName;
       }
 
-      buildFiles[old] = fileName
+      buildFiles[old] = fileName;
     }
   });
-
-  return files;
-}
+};
 
 walk(path.join(__dirname, "/../../build"));
 
@@ -37,7 +34,7 @@ var getBuildUrl = module.exports.getBuildUrl = function(url){
   if(buildFiles[url]) return '/' + buildFiles[url];
 
   return '/' + url;
-}
+};
 
 module.exports.getManifestFiles = function(page){
   var files = manifestFiles[page];
@@ -59,4 +56,4 @@ module.exports.getManifestFiles = function(page){
   }
 
   return code;
-}
+};

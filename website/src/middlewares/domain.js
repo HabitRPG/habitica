@@ -23,7 +23,7 @@ module.exports = function(server,mongoose) {
           memory = os.freemem() / os.totalmem(),
           memoryHigh = memory < 0.1;
         if (/*apdexBad || */memoryHigh) throw "[Memory Leak] Apdex="+score+" Memory="+parseFloat(memory).toFixed(3)+" Time="+moment().format();
-      })
+      });
     }, mins*60*1000);
   }
 
@@ -36,4 +36,4 @@ module.exports = function(server,mongoose) {
     },
     killTimeout: 10000
   });
-}
+};

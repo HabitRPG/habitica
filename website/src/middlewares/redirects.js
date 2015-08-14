@@ -25,7 +25,7 @@ module.exports.forceSSL = function(req, res, next){
   }
 
   next();
-}
+};
 
 // Redirect to habitica for non-api urls
 // NOTE: Currently using a static 'habitica.com' string, rather than BASE_URL,
