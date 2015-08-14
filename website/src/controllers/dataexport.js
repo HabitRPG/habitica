@@ -102,7 +102,7 @@ dataexport.avatarPage = function(req, res) {
   User.findById(req.params.uuid).select('stats profile items achievements preferences backer contributor').exec(function(err, user){
     res.render('avatar-static', {
       title: user.profile.name,
-      env: _.defaults({user:user},res.locals.habitrpg)
+      env: _.defaults({user:user}, res.locals.habitrpg)
     });
   })
 };
