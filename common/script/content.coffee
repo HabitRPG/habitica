@@ -2219,23 +2219,14 @@ api.userDefaults =
   ]
 
   dailys: [
-#    {type: 'daily', text: t('defaultDaily1Text'), notes: t('defaultDaily1Notes'), value: 0, completed: false, repeat: repeat, attribute: 'per' }
-#    {type: 'daily', text: t('defaultDaily2Text'), notes: t('defaultDaily2Notes'), value: 3, completed: false, repeat: repeat, attribute: 'con' }
-#    {type: 'daily', text: t('defaultDaily3Text'), notes: t('defaultDaily3Notes'), value: -10, completed: false, repeat: repeat, attribute: 'int' }
-#    {type: 'daily', text: t('defaultDaily4Text'), notes: t('defaultDaily4Notes'), checklist: [{completed: true, text: t('defaultDaily4Checklist1') }, {completed: false, text: t('defaultDaily4Checklist2')}, {completed: false, text: t('defaultDaily4Checklist3')}], completed: false, repeat: repeat, attribute: 'str' }
   ]
 
   todos: [
     {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'int' }
-#    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo2Checklist1') }, {completed: false, text: t('defaultTodo2Checklist2')}, {completed: false, text: t('defaultTodo2Checklist3')}], completed: false, attribute: 'per' }
-#    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo3Checklist1') }, {completed: false, text: t('defaultTodo3Checklist2')}, {completed: false, text: t('defaultTodo3Checklist3')}], completed: false, attribute: 'per' }
-#    {type: 'todo', text: t('defaultTodo4Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo4Checklist1') }, {completed: false, text: t('defaultTodo4Checklist2')}, {completed: false, text: t('defaultTodo4Checklist3')}], completed: false, attribute: 'per' }
-#    {type: 'todo', text: t('defaultTodo5Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'per' }
   ]
 
   rewards: [
     {type: 'reward', text: t('defaultReward1Text'), value: 10 }
-#    {type: 'reward', text: t('defaultReward2Text'), notes: t('defaultReward2Notes'), value: 10 }
   ]
 
   tags: [
