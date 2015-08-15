@@ -155,7 +155,7 @@ router.post('/user/tasks/:id/:direction', auth.auth, i18n.getUserLanguage, cron,
 // Tasks
 router.get('/user/tasks', auth.auth, i18n.getUserLanguage, cron, api.getTasks);
 router.get('/user/task/:id', auth.auth, i18n.getUserLanguage, cron, api.getTask);
-router["delete"]('/user/task/:id', auth.auth, i18n.getUserLanguage, cron, api.deleteTask);
+router.delete('/user/task/:id', auth.auth, i18n.getUserLanguage, cron, api.deleteTask);
 router.post('/user/task', auth.auth, i18n.getUserLanguage, cron, api.addTask);
 
 // User

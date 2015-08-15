@@ -297,7 +297,7 @@ function closeChal(cid, broken, cb) {
 /**
  * Delete & close
  */
-api['delete'] = function(req, res, next){
+api.delete = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
 
