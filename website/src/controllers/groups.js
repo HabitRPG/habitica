@@ -521,6 +521,7 @@ api.leave = function(req, res, next) {
   group.leave(user, keep, function(err){
     if (err) return next(err);
     user = group = keep = null;
+
     return res.send(204);
   });
 };
@@ -683,7 +684,7 @@ api.invite = function(req, res, next){
   } else if (req.body.emails) {
     inviteByEmails(req.body.emails, group, req, res, next)
   } else {
-    return res.json(400,{err: "Can invite only by email or uuid"});
+    return res.json(400, {err: "Can only invite by email or uuid"});
   }
 }
 
