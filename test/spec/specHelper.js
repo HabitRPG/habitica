@@ -33,6 +33,7 @@ var specHelper = {};
         }
       },
       preferences: {},
+      habits: [],
       dailys: [],
       todos: [],
       rewards: [],
