@@ -281,7 +281,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);')
                         span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
                       | &nbsp;
-                      .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;')= env.t('teamSample3')
+                      .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;')!= env.t('teamSample3')
                     br
                   img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/publicSpaces.png')
                   .usetweet-groups.col-lg-5.col-md-6.visible-lg-inline-block.visible-md-inline-block
@@ -333,7 +333,7 @@ html(ng-app='habitrpg', ng-controller='RootCtrl')
                       .usetweet.tweet.popover.right
                         .arrow
                         .popover-content
-                          = env.t('dreimQuote')
+                          != env.t('dreimQuote')
               // End Item
               .item.improvement-use
                 h3= env.t('goals')
