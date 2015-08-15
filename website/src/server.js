@@ -1,5 +1,5 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
-var cluster = require("cluster");
+var cluster = require('cluster');
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
@@ -7,7 +7,7 @@ utils.setupConfig();
 var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
-var cores = +nconf.get("WEB_CONCURRENCY") || 0;
+var cores = +nconf.get('WEB_CONCURRENCY') || 0;
 
 if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
@@ -20,10 +20,10 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
 } else {
   require('coffee-script'); // remove this once we've fully converted over
-  var express = require("express");
-  var http = require("http");
-  var path = require("path");
-  var swagger = require("swagger-node-express");
+  var express = require('express');
+  var http = require('http');
+  var path = require('path');
+  var swagger = require('swagger-node-express');
   var autoinc = require('mongoose-id-autoinc');
   var shared = require('../../common');
 
@@ -76,8 +76,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // This auth strategy is no longer used. It's just kept around for auth.js#loginFacebook() (passport._strategies.facebook.userProfile)
   // The proper fix would be to move to a general OAuth module simply to verify accessTokens
   passport.use(new FacebookStrategy({
-    clientID: nconf.get("FACEBOOK_KEY"),
-    clientSecret: nconf.get("FACEBOOK_SECRET"),
+    clientID: nconf.get('FACEBOOK_KEY'),
+    clientSecret: nconf.get('FACEBOOK_SECRET'),
     //callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
   },
     function(accessToken, refreshToken, profile, done) {
@@ -86,61 +86,75 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
    ));
 
   // ------------  Server Configuration ------------
-  var publicDir = path.join(__dirname, "/../public");
+  var publicDir = path.join(__dirname, '/../public');
 
-  app.set("port", nconf.get('PORT'));
+  app.set('port', nconf.get('PORT'));
   require('./middlewares/apiThrottle')(app);
   app.use(require('./middlewares/domain')(server,mongoose));
-  if (!isProd) app.use(express.logger("dev"));
-  app.use(express.compress());
-  app.set("views", __dirname + "/../views");
-  app.set("view engine", "jade");
-  app.use(express.favicon(publicDir + '/favicon.ico'));
+  if (!isProd) app.use(require('morgan')('dev'));
+  app.use(require('compression')());
+  app.set('views', __dirname + '/../views');
+  app.set('view engine', 'jade');
+  app.use(require('serve-favicon')(publicDir + '/favicon.ico'));
   app.use(require('./middlewares/cors'));
 
   var redirects = require('./middlewares/redirects');
   app.use(redirects.forceHabitica);
   app.use(redirects.forceSSL);
-  app.use(express.urlencoded());
-  app.use(express.json());
+
+  var bodyParser = require('body-parser');
+  // Default limit is 100kb, need that because we actually send whole groups to the server
+  // FIXME as soon as possible (need to move on the client from $resource -> $http)    
+  app.use(bodyParser.urlencoded({
+    limit: '1mb',
+    parameterLimit: 10000, // Upped for safety from 1k, FIXME as above
+    extended: true // Uses 'qs' library as old connect middleware
+  }));
+  app.use(bodyParser.json({
+    limit: '1mb'
+  }));
+
   app.use(require('method-override')());
   //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-  app.use(express.cookieParser());
-  app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
-  //app.use(express.session());
+  app.use(require('cookie-parser')());
+  app.use(require('cookie-session')({
+    name: 'connect:sess', // Used to keep backward compatibility with Express 3 cookies
+    secret: nconf.get('SESSION_SECRET'),
+    httpOnly: false,
+    maxAge: TWO_WEEKS
+  }));
 
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use(app.router);
+  // Custom Directives
+  app.use(require('./routes/pages'));
+  app.use(require('./routes/payments'));
+  app.use(require('./routes/auth'));
+  app.use(require('./routes/coupon'));
+  app.use(require('./routes/unsubscription'));
+  var v2 = express();
+  app.use('/api/v2', v2);
+  app.use('/api/v1', require('./routes/apiv1'));
+  app.use('/export', require('./routes/dataexport'));
+  require('./routes/apiv2.coffee')(swagger, v2);
 
   var maxAge = isProd ? 31536000000 : 0;
   // Cache emojis without copying them to build, they are too many
-  app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
-  app.use('/common/dist', express['static'](publicDir + "/../../common/dist", { maxAge: maxAge }));
-  app.use('/common/audio', express['static'](publicDir + "/../../common/audio", { maxAge: maxAge }));
-  app.use('/common/script/public', express['static'](publicDir + "/../../common/script/public", { maxAge: maxAge }));
-  app.use('/common/img', express['static'](publicDir + "/../../common/img", { maxAge: maxAge }));
-  app.use(express['static'](publicDir));
+  app.use(express.static(path.join(__dirname, '/../build'), { maxAge: maxAge }));
+  app.use('/common/dist', express.static(publicDir + '/../../common/dist', { maxAge: maxAge }));
+  app.use('/common/audio', express.static(publicDir + '/../../common/audio', { maxAge: maxAge }));
+  app.use('/common/script/public', express.static(publicDir + '/../../common/script/public', { maxAge: maxAge }));
+  app.use('/common/img', express.static(publicDir + '/../../common/img', { maxAge: maxAge }));
+  app.use(express.static(publicDir));
 
-  // Custom Directives
-  app.use(require('./routes/pages').middleware);
-  app.use(require('./routes/payments').middleware);
-  app.use(require('./routes/auth').middleware);
-  app.use(require('./routes/coupon').middleware);
-  app.use(require('./routes/unsubscription').middleware);
-  var v2 = express();
-  app.use('/api/v2', v2);
-  app.use('/api/v1', require('./routes/apiv1').middleware);
-  app.use('/export', require('./routes/dataexport').middleware);
-  require('./routes/apiv2.coffee')(swagger, v2);
   app.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
-  server.listen(app.get("port"), function() {
-    return logging.info("Express server listening on port " + app.get("port"));
+  server.listen(app.get('port'), function() {
+    return logging.info('Express server listening on port ' + app.get('port'));
   });
 
   module.exports = server;

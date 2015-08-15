@@ -365,7 +365,7 @@ api.cron = function(req, res, next) {
 // api.reroll // Shared.ops
 // api.reset // Shared.ops
 
-api['delete'] = function(req, res, next) {
+api.delete = function(req, res, next) {
   var user = res.locals.user;
   var plan = user.purchased.plan;
 
