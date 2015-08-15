@@ -6,9 +6,10 @@ describe('Analytics Service', function () {
   beforeEach(function() {
     clock = sandbox.useFakeTimers();
     sandbox.stub(window, 'refresher', function(){return true});
-    user = specHelper.newUser();
-    user.contributor = {};
-    user.purchased = { plan: {} };
+    user = specHelper.newUser({
+      contributor: {},
+      purchased: { plan: {} },
+    });
     user.flags.tour = { intro: null };
 
     module(function($provide) {

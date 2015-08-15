@@ -6,7 +6,6 @@ describe('Challenges Controller', function() {
   beforeEach(function() {
     module(function($provide) {
       user = specHelper.newUser();
-      user._id = "unique-user-id";
       User = {
         getBalanceInGems: sandbox.stub(),
         sync: sandbox.stub(),
@@ -16,9 +15,6 @@ describe('Challenges Controller', function() {
     });
 
     inject(function($rootScope, $controller, _$state_, _Groups_, _Members_, _Notification_){
-      user = specHelper.newUser();
-      user._id = "unique-user-id";
-
       scope = $rootScope.$new();
       rootScope = $rootScope;
 

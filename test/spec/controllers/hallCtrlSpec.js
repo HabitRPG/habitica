@@ -10,7 +10,6 @@ describe('Hall of Heroes Controller', function() {
 
     inject(function($rootScope, $controller){
       user = specHelper.newUser();
-      user._id = "unique-user-id"
 
       scope = $rootScope.$new();
 
