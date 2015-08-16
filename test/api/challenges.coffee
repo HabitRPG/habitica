@@ -259,3 +259,85 @@ describe "Challenges", ->
             User.findById user._id, (err, _user) ->
               expect(_user.balance).to.equal 5.5
               done()
+
+  describe "non-owner permissions", () ->
+    challenge = undefined
+
+    beforeEach (done) ->
+      async.waterfall [
+        (cb) ->
+          request.post(baseURL + "/challenges").send(
+            group: group._id
+            name: 'challenge name'
+            dailys: [
+              type: "daily"
+              text: "Challenge Daily"
+            ]
+          ).end (res) ->
+            challenge = res.body
+            cb()
+
+        (cb) ->
+          registerNewUser(done, true)
+        ]
+
+    context "non-owner", () ->
+
+      it 'can not edit challenge', (done) ->
+        challenge.name = 'foobar'
+        request.post(baseURL + "/challenges/" + challenge._id)
+          .send(challenge)
+          .end (res) ->
+            error = res.body.err
+
+            expect(error).to.eql("You don't have permissions to edit this challenge")
+            done()
+
+      it 'can not close challenge', (done) ->
+        request.post(baseURL + "/challenges/" + challenge._id + "/close?uid=" + user._id)
+          .end (res) ->
+            error = res.body.err
+
+            expect(error).to.eql("You don't have permissions to close this challenge")
+            done()
+
+      it 'can not delete challenge', (done) ->
+        request.del(baseURL + "/challenges/" + challenge._id)
+          .end (res) ->
+            error = res.body.err
+
+            expect(error).to.eql("You don't have permissions to delete this challenge")
+            done()
+
+    context "non-owner that is an admin", () ->
+
+      beforeEach (done) ->
+        User.findByIdAndUpdate(user._id, { 'contributor.admin': true }, done)
+          
+      it 'can edit challenge', (done) ->
+        challenge.name = 'foobar'
+        request.post(baseURL + "/challenges/" + challenge._id)
+          .send(challenge)
+          .end (res) ->
+            expect(res.body.err).to.not.exist
+            Challenge.findById challenge._id, (err, chal) ->
+              expect(chal.name).to.eql('foobar')
+              done()
+
+      it 'can close challenge', (done) ->
+        request.post(baseURL + "/challenges/" + challenge._id + "/close?uid=" + user._id)
+          .end (res) ->
+            expect(res.body.err).to.not.exist
+            User.findById user._id, (err, usr) ->
+              expect(usr.achievements.challenges[0]).to.eql(challenge.name)
+              done()
+
+      it 'can delete challenge', (done) ->
+        request.del(baseURL + "/challenges/" + challenge._id)
+          .end (res) ->
+            expect(res.body.err).to.not.exist
+            request.get(baseURL + "/challenges/" + challenge._id)
+              .end (res) ->
+                error = res.body.err
+                expect(error).to.eql("Challenge #{challenge._id} not found")
+                done()
