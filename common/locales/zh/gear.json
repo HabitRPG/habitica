@@ -445,7 +445,7 @@
     "headArmoireRoyalCrownText": "Royal Crown",
     "headArmoireRoyalCrownNotes": "Hooray for the ruler, mighty and strong! Increases Strength by <%= str %>. Enchanted Armoire: Independent Item.",
     "headArmoireGoldenLaurelsText": "Golden Laurels",
-    "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increses Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
+    "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
     "headArmoireHornedIronHelmText": "Horned Iron Helm",
     "headArmoireHornedIronHelmNotes": "Fiercely hammered from iron, this horned helmet is nearly impossible to break. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Horned Iron Set (Item 1 of 3).",
     "offhand": "副手物品",

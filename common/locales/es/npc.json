@@ -31,7 +31,7 @@
     "paymentMethods": "Formas de pago:",
     "classGear": "Equipo de clase",
     "classGearText": "Primero: ¡No te preocupes! Tu equipo viejo está en tu inventario y ahora llevas tu equipamiento de aprendiz de <strong><%= klass %></strong>. Llevar el equipo de tu clase te da un bonus del 50% a tus atributos. Sin embargo, eres libre de ponerte tu antiguo equipo.",
-    "classStats": "Estos son tus atributos de clase; ellos afectan el modo de juego. Cada vez que subas de nivel, tendrás un punto para asignar a un atributo en particular. Párate sobre cada atributo para ver más información.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Asignación Automática",
     "autoAllocateText": "Si 'distribución automática' está seleccionado, tu avatar gana estadísticas automáticamente basado en los atributos de sus tareas, que puedes encontrar en <strong>TAREA > Editar > Avanzado > Atributos</strong> Por ejemplo, si haces ejercicio con frecuencia, y si tu Diaria de 'Ejercicio' está fijado en 'Físico', vas a ganar Fuerza automáticamente.",
     "spells": "Hechizos",

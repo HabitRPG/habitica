@@ -85,7 +85,7 @@
     "fortifyName": "Mikstura wzmocnienia",
     "fortifyPop": "Przywraca wszystkie zadania do neutralnej wartości (żółty kolor), oraz uzdrawia całe stracone Zdrowie.",
     "fortify": "Wzmocnij",
-    "fortifyText": "Wzmocnienie przywróci wszystkie zadania do wartości neutralnej (żółty kolor), tak jakbyś dopiero co je dodał, a w dodatku uzdrowi cię do pełna. Traktuj tą opcję jako ostatnią deskę ratunku! Czerwone zadania zapewniają dobrą motywację do poprawienia się. Jednak jeśli te wszystkie czerwone zadania przyprawiają cię o rozpacz, a rozpoczęcie każdego nowego dnia jest śmiertelnie niebezpieczne, poświęć Klejnoty i poczuj ulgę!",
+    "fortifyText": "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "sureDelete": "Jesteś pewien, że chcesz usunąć to zadanie?",
     "streakCoins": "Premia za serię!",
     "pushTaskToTop": "Prześlij zadanie na górę",

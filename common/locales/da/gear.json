@@ -256,7 +256,7 @@
     "armorSpecialSummer2015MageText": "Sandsigerske-Kappe",
     "armorSpecialSummer2015MageNotes": "Skjulte kræfter gemmer sig i pufærmene på denne kappe. Øger Intelligens med <%= int %>. Specielt2015 Forårsudstyr.",
     "armorSpecialSummer2015HealerText": "Matrostøj",
-    "armorSpecialSummer2015HealerNotes": "Denne rustning lader enhver vide at du er en ærlig købmandssejler, som aldrig ville opføre sig som en landkrabbe. Øger Konstitution med <%= con >. Specielt 2015 Forårsudstyr.",
+    "armorSpecialSummer2015HealerNotes": "Denne rustning lader enhver vide at du er en ærlig købmandssejler, som aldrig ville opføre sig som en landkrabbe. Øger Konstitution med <%= con %>. Specielt 2015 Forårsudstyr.",
     "armorMystery201402Text": "Sendebudsdragt",
     "armorMystery201402Notes": "En skinnende og stærk dragt med masser af lommer til at bære breve i. Giver ingen bonusser. Februar 2014 Abonnentting.",
     "armorMystery201403Text": "Skovvandrer-rustning",

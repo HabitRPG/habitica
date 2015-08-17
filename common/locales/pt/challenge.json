@@ -33,7 +33,7 @@
     "challengeTagPop": "Desafios aparecem nas listas de etiqueta e descrições de tarefa. Então, mesmo querendo um título descritivo acima, você também precisará de um 'nome curto'. Ex.: 'Perder 10 kilos em 3 meses' pode virar '-10kg' (Clique para mais informações).",
     "challengeDescr": "Descrição",
     "prize": "Prêmio",
-    "prizePop": "Se alguém conseguir 'vencer' o seu Desafio, você pode escolher recompensar esta pessoa com Gemas. Máximo = número de gemas que possui (+ gemas da guilda, se você criou este desafio para a guilda). Nota: Este prêmio não pode ser alterado depois.",
+    "prizePop": "Se alguém conseguir 'vencer' o seu Desafio, você pode escolher recompensar esta pessoa com Gemas. O máximo  que você pode recompensar é o número de gemas que você possui (mais o número de gemas da guilda, se você criou este desafio para a guilda). Nota: Este prêmio não pode ser alterado depois.",
     "prizePopTavern": "Se alguém puder \"vencer\" o seu desafio, você pode presentear o vencedor com Gemas. Máximo = número de gemas que você possui. Nota: Este prêmio não pode ser alterado depois e Desafios da Taverna não serão reembolsados se o mesmo for cancelado.",
     "publicChallenges": "Mínimo de 1 Gema para <strong>desafios públicos </strong> (realmente ajuda a prevenir spam).",
     "officialChallenge": "Desafio Oficial do Habitica",
@@ -55,6 +55,6 @@
     "challengedEitherOwnedFilter": "Ambos",
     "backToChallenges": "Voltar para todos os desafios",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prêmio",
-    "clone": "Clone",
+    "clone": "Clonar",
     "challengeNotEnoughGems": "Você não tem gemas suficientes para postar este desafio."
 }

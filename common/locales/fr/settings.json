@@ -74,7 +74,7 @@
     "usernameSuccess": "Nom d'utilisateur modifié avec succès",
     "emailSuccess": "Adresse Mail modifiée avec succès",
     "detachFacebook": "Supprimer la connexion à Facebook",
-    "detachedFacebook": "Facebook retiré de votre compte avec succès",
+    "detachedFacebook": "Facebook a été retiré de votre compte avec succès",
     "addedLocalAuth": "Authentification locale ajoutée avec succès",
     "data": "Données",
     "exportData": "Exporter les Données",

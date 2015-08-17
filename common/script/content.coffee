@@ -549,8 +549,23 @@ api.timeTravelerStore = (owned) ->
   ---------------------------------------------------------------
 ###
 
-api.potion = type: 'potion', text: t('potionText'), notes: t('potionNotes'), value: 25, key: 'potion'
-api.armoire = type: 'armoire', text: t('armoireText'), notes: t('armoireNotesEmpty'), value: 100, key: 'armoire', canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
+api.potion =
+  type: 'potion',
+  text: t('potionText'),
+  notes: t('potionNotes'),
+  value: 25,
+  key: 'potion'
+
+api.armoire =
+  type: 'armoire',
+  text: t('armoireText'),
+  notes: ((user, count)->
+    return t('armoireNotesEmpty')() if (user.flags.armoireEmpty)
+    return t('armoireNotesFull')() + count
+  ),
+  value: 100,
+  key: 'armoire',
+  canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
 
 ###
    ---------------------------------------------------------------
@@ -928,6 +943,7 @@ api.spells =
         if !target.items.special.nyeReceived
           target.items.special.nyeReceived = []
         target.items.special.nyeReceived.push user.profile.name
+        target.flags.cardReceived = true
 
         target.markModified? 'items.special.nyeReceived'
         user.stats.gp -= 10
@@ -951,9 +967,74 @@ api.spells =
         if !target.items.special.valentineReceived
           target.items.special.valentineReceived = []
         target.items.special.valentineReceived.push user.profile.name
+        target.flags.cardReceived = true
 
         target.markModified? 'items.special.valentineReceived'
         user.stats.gp -= 10
+
+    greeting:
+      text: t('greetingCard')
+      mana: 0
+      value: 10
+      immediateUse: true
+      silent: true
+      target: 'user'
+      notes: t('greetingCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.greeting ?= 0
+          user.achievements.greeting++
+        else
+          _.each [user,target], (t)->
+            t.achievements.greeting ?= 0
+            t.achievements.greeting++
+        if !target.items.special.greetingReceived
+          target.items.special.greetingReceived = []
+        target.items.special.greetingReceived.push user.profile.name
+        target.flags.cardReceived = true
+
+        target.markModified? 'items.special.greetingReceived'
+        user.stats.gp -= 10
+
+    thankyou:
+      text: t('thankyouCard')
+      mana: 0
+      value: 10
+      immediateUse: true
+      silent: true
+      target: 'user'
+      notes: t('thankyouCardNotes')
+      cast: (user, target) ->
+        if user == target
+          user.achievements.thankyou ?= 0
+          user.achievements.thankyou++
+        else
+          _.each [user,target], (t)->
+            t.achievements.thankyou ?= 0
+            t.achievements.thankyou++
+        if !target.items.special.thankyouReceived
+          target.items.special.thankyouReceived = []
+        target.items.special.thankyouReceived.push user.profile.name
+        target.flags.cardReceived = true
+
+        target.markModified? 'items.special.thankyouReceived'
+        user.stats.gp -= 10
+
+api.cardTypes =
+  greeting:
+    key: 'greeting'
+    messageOptions: 4
+    yearRound: true
+  nye:
+    key: 'nye'
+    messageOptions: 5
+  thankyou:
+    key: 'thankyou'
+    messageOptions: 4
+    yearRound: true
+  valentine:
+    key: 'valentine'
+    messageOptions: 4
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
@@ -1892,7 +1973,7 @@ api.quests =
       gp: 37
       exp: 275
       unlock: t('questWhaleUnlockText')
-      
+
   dilatoryDistress1:
     text: t('questDilatoryDistress1Text')
     notes: t('questDilatoryDistress1Notes')
@@ -2111,7 +2192,7 @@ api.backgrounds =
       text: t('backgroundSunkenShipText')
       notes: t('backgroundSunkenShipNotes')
   backgrounds082015:
-    pyramids: 
+    pyramids:
       text: t('backgroundPyramidsText')
       notes: t('backgroundPyramidsNotes')
     sunset_savannah:
@@ -2138,23 +2219,14 @@ api.userDefaults =
   ]
 
   dailys: [
-#    {type: 'daily', text: t('defaultDaily1Text'), notes: t('defaultDaily1Notes'), value: 0, completed: false, repeat: repeat, attribute: 'per' }
-#    {type: 'daily', text: t('defaultDaily2Text'), notes: t('defaultDaily2Notes'), value: 3, completed: false, repeat: repeat, attribute: 'con' }
-#    {type: 'daily', text: t('defaultDaily3Text'), notes: t('defaultDaily3Notes'), value: -10, completed: false, repeat: repeat, attribute: 'int' }
-#    {type: 'daily', text: t('defaultDaily4Text'), notes: t('defaultDaily4Notes'), checklist: [{completed: true, text: t('defaultDaily4Checklist1') }, {completed: false, text: t('defaultDaily4Checklist2')}, {completed: false, text: t('defaultDaily4Checklist3')}], completed: false, repeat: repeat, attribute: 'str' }
   ]
 
   todos: [
     {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'int' }
-#    {type: 'todo', text: t('defaultTodo2Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo2Checklist1') }, {completed: false, text: t('defaultTodo2Checklist2')}, {completed: false, text: t('defaultTodo2Checklist3')}], completed: false, attribute: 'per' }
-#    {type: 'todo', text: t('defaultTodo3Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo3Checklist1') }, {completed: false, text: t('defaultTodo3Checklist2')}, {completed: false, text: t('defaultTodo3Checklist3')}], completed: false, attribute: 'per' }
-#    {type: 'todo', text: t('defaultTodo4Text'), notes: t('defaultTodoNotes'), checklist: [{completed: false, text: t('defaultTodo4Checklist1') }, {completed: false, text: t('defaultTodo4Checklist2')}, {completed: false, text: t('defaultTodo4Checklist3')}], completed: false, attribute: 'per' }
-#    {type: 'todo', text: t('defaultTodo5Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'per' }
   ]
 
   rewards: [
     {type: 'reward', text: t('defaultReward1Text'), value: 10 }
-#    {type: 'reward', text: t('defaultReward2Text'), notes: t('defaultReward2Notes'), value: 10 }
   ]
 
   tags: [

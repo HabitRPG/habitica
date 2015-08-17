@@ -33,7 +33,7 @@
     "challengeTagPop": "Les défis apparaissent dans la liste des étiquettes et dans l'infobulle des tâches. Utilisez un titre représentatif et une étiquette courte. Par exemple : \"Perdre 5 kilos en 3 mois\" pour le titre et \"-5kg\" pour l'étiquette (Cliquez pour plus d'informations).",
     "challengeDescr": "Description",
     "prize": "Récompense",
-    "prizePop": "Si quelqu'un peut \"gagner\" votre défi, vous pouvez accorder de façon optionnelle au vainqueur un prix en Gemmes. Max = nombre de gemmes que vous possédez (+ gemmes de guilde, si vous avez créé la guilde de ce Défi). Note : Ce prix ne pourra pas être changé ensuite.",
+    "prizePop": "Si quelqu'un peut \"gagner\" votre défi, vous pouvez accorder de façon optionnelle au vainqueur un prix en Gemmes. Le maximum de gemmes que vous pouvez accorder est le maximum que vous possédez (plus les gemmes de guilde, si vous avez créé la guilde de ce Défi). Note : Ce prix ne pourra pas être changé ensuite.",
     "prizePopTavern": "Si quelqu'un peut \"gagner\" votre défi, vous pouvez accorder de façon optionnelle au vainqueur un prix en Gemmes. Max = nombre de gemmes que vous possédez. Note : Ce prix ne pourra pas être changé ensuite, et les défis de la Taverne ne seront pas remboursés si le défi est annulé.",
     "publicChallenges": "Minimum 1 gemme pour les <strong> défis publics </strong> (ça aide à lutter contre le spam, pour de vrai).",
     "officialChallenge": "Défi officiel Habitica",

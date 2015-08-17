@@ -31,7 +31,7 @@
     "paymentMethods": "Zahlungsarten:",
     "classGear": "Klassenausrüstung",
     "classGearText": "Zuallererst: Keine Panik! Deine alte Ausrüstung ist in Deinem Inventar und Du trägst jetzt Deine Lehrling <strong><%= klass %></strong>-Ausrüstung. Die Ausrüstung Deiner Klasse zu tragen verleiht Dir einen 50% Bonus auf ihre Werte. Aber Du kannst jederzeit zu Deiner alten Ausrüstung zurückwechseln.",
-    "classStats": "Das sind die Werte Deiner Klasse; sie beeinflussen wie Du das Spiel spielst. Jedes Mal wenn Du ein Level aufsteigst, bekommst Du einen freien Punkt, den Du auf Deine Werte verteilen kannst. Fahre mit der Mouse über die Werte um mehr zu erfahren.",
+    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Automatische Verteilung",
     "autoAllocateText": "Falls Du eine automatische Verteilung wählst, werden die Punkte automatisch verteilt, abhängig von den Attributen Deiner Aufgaben, die Du unter <strong>Aufgabe > Bearbeiten > Erweitert > Attribute</strong> finden kannst. Ein Beispiel: Wenn Du oft im Fitnessstudio bist und die entsprechende Aufgabe auf \"körperlich\" gesetzt ist, bekommst Du automatisch Stärke.",
     "spells": "Fähigkeiten",

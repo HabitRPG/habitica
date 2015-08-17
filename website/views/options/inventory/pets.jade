@@ -22,8 +22,7 @@ mixin petList(source)
         a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
       .popover-content
         p=env.t('mattBochText1')
-        h4=env.t('beastMasterProgress') + ': {{::beastMasterProgress}} ' + env.t('petsFound')
-
+        h4 {{:: env.t('stableBeastMasterProgress', { number: beastMasterProgress }) }}
   .row: .col-md-12
     +petList(env.Content.dropEggs)
   .row: .col-md-12

@@ -57,7 +57,7 @@
     "mountName": "<%= potion %> <%= mount %>",
     "petKeyName": "Ključ štenare",
     "petKeyPop": "Oslobodite svoje zveri i započnite ponovo svoj put ka tituli Krotitelja zveri!",
-    "petKeyBegin": "Ključ štenare: Postanite ponovo Krotitelj zveri!",
+    "petKeyBegin": "Ključ štenare: Postanite ponovo <%= title %>!",
     "petKeyInfo": "Nedostaje Vam uzbuđenje sakupljanja zveri? Sad možete da ih oslobodite, i vratite značaj plenu.",
     "petKeyInfo2": "Ključ štenare poništiće sve vaše nađene životinje, osim onih koje ste našli u misijama. (Retke zveri i životinje za jahanje, kao i one iz misija, ostaće u Vašem posedu.)",
     "petKeyInfo3": "Postoje tri ključa: možete da oslobodite zveri za 4 dragulja, ili da oslobodite zveri za jahanje za 4 dragulja, ili obe kategorije za 6 dragulja. Upotrebom kjluča dobijate priliku da ponovo steknete odlikovanje Krotitelja zveri ili Jahača. Odlikovanje Trostruki bingo dobićete samo ako oslobodite obe kategorije, i ponovo skupite svih 90 zveri. Pokažite svetu da ste ozbiljan kolekcionar. I pažljivo donesite odluku – kad upotrebite ključ i oslobodite životinje, jedini način da ih vratite biće da ih ponovo nađete.",

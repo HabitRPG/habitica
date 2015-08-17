@@ -33,7 +33,7 @@
     "challengeTagPop": "Wettbewerbe erscheinen als Tag-Liste und Aufgabenbeschreibungen. Also ist es einerseits sinnvoll, oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine \"Kurzfassung\". Dazu kannst Du zum Beispiel \"Verliere 5 Kilo in 3 Monaten\" mit \"-5kg\" abkürzen. (Klicke auf das '?' für mehr Informationen).",
     "challengeDescr": "Beschreibung",
     "prize": "Preis",
-    "prizePop": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben (+Gilden Edelsteine, wenn Du die dazugehörige Gilde gegründet hast). Achtung: Diese Preise können später nicht mehr geändert werden.",
+    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
     "prizePopTavern": "Wenn jemand deinen Wettbewerb 'gewinnen' kann, dann kannst du, wenn du willst, für den Gewinner einen Edelstein-Preis ausschreiben. Maximal kannst du alle Edelsteine, die du hast, ausschreiben. Achtung: Diese Preise können später nicht mehr geändert werden und bei Gasthaus-Wettbewerben werden sie nicht ersetzt, wenn der Wettbewerb abgebrochen wird.",
     "publicChallenges": "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
     "officialChallenge": "Offizieller Habitica-Wettbewerb",

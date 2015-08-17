@@ -154,6 +154,15 @@ function _formatUserData(user) {
 
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 
+  if (user.habits && user.dailys && user.todos && user.rewards) {
+    properties["Number Of Tasks"] = {
+      habits: user.habits.length,
+      dailys: user.dailys.length,
+      todos: user.todos.length,
+      rewards: user.rewards.length
+    };
+  }
+
   if (user.contributor && user.contributor.level) {
     properties.contributorLevel = user.contributor.level;
   }
