@@ -121,6 +121,7 @@
       tavern: tavern,
       questAccept: questAccept,
       questReject: questReject,
+      questAbort: questAbort,
       questCancel: questCancel,
       inviteOrStartParty: inviteOrStartParty,
 
