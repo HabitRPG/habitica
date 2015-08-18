@@ -1,0 +1,22 @@
+include ../avatar/generated_avatar
+
+script(type='text/ng-template', id='modals/lowHealth.html')
+  .modal-header
+    h3.text-center=env.t('losingHealth')
+  .modal-body
+    .hero-stats
+      .meter-label(tooltip=env.t('health'))
+        span.glyphicon.glyphicon-heart
+      .meter.health(tooltip='{{Math.round(user.stats.hp * 100) / 100}}')
+        .bar(ng-style='{"width": Shared.percent(user.stats.hp, Shared.maxHealth)+"%"}')
+        span.meter-text.value
+          | {{Math.ceil(user.stats.hp)}} / {{::Shared.maxHealth}}
+    .herobox.inline-block(style='padding-top:0em')
+      .character-sprites
+        +generatedAvatar
+    p=env.t('lowHealthTips1')
+    p(style='margin-top:1.5em')=env.t('lowHealthTips2')
+    p(style='margin-top:1.5em')=env.t('goodLuck')
+  .modal-footer
+    a.btn.btn-primary(ng-click='acknowledgeHealthWarning(); $close()')=env.t('ok')
+
