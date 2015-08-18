@@ -537,8 +537,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       };
 
       $scope.clickStartQuest = function(){
-        if (_.reduce(User.user.items.quests, function(a,v){a += v; return a}) > 0){
-          $rootScope.openModal("ownedQuests", {controller:"InventoryCtrl"});
+        var hasQuests = _.find(User.user.items.quests, function(quest) {
+          return quest > 0;
+        });
+
+        if (hasQuests){
+          $rootScope.openModal("ownedQuests", { controller:"InventoryCtrl" });
         } else {
           $rootScope.$state.go('options.inventory.quests');
         }
