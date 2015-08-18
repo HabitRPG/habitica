@@ -45,11 +45,11 @@
         questAbort: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAbort'}
       });
 
-    function syncUser() {
+    function _syncUser() {
       User.sync();
     }
 
-    function logError(err) {
+    function _logError(err) {
       console.log(err);
     }
 
@@ -77,25 +77,25 @@
     function questAccept(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       party.$questAccept()
-        .then(syncUser, logError);
+        .then(_syncUser, _logError);
     }
 
     function questReject(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       party.$questReject()
-        .then(syncUser, logError);
+        .then(_syncUser, _logError);
     }
 
     function questCancel(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       party.$questCancel()
-        .then(syncUser, logError);
+        .then(_syncUser, _logError);
     }
 
     function questAbort(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       party.$questAbort()
-        .then(syncUser, logError);
+        .then(_syncUser, _logError);
     }
 
     function inviteOrStartParty(group) {
@@ -113,8 +113,6 @@
     }
 
     return {
-      syncUser: syncUser,
-      logError: logError,
       party: party,
       publicGuilds: publicGuilds,
       myGuilds: myGuilds,
