@@ -166,7 +166,7 @@ describe('count', function() {
         "goldenknight2": 1
       };
       var petQuestCount = count.questsOfCategory(quests, 'pet');
-      var unlockableQuestCount = count.questsOfCategory(quests, 'ableUnlock');
+      var unlockableQuestCount = count.questsOfCategory(quests, 'unlockable');
       var goldQuestCount = count.questsOfCategory(quests, 'gold');
       expect(petQuestCount).to.eql(3);
       expect(unlockableQuestCount).to.eql(2);
