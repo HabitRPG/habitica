@@ -221,6 +221,9 @@ nav.toolbar(ng-controller='MenuCtrl')
               for theme in ['off','danielTheBard', 'wattsTheme', 'gokulTheme']
                 li
                   a(ng-class="{'bg-primary':user.preferences.sound=='#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
+          ul.toolbar-controls
+            li.toolbar-controls-button
+              a(ng-click='expandMenu(null)')=env.t('close')
 
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')

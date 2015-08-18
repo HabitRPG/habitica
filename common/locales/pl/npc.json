@@ -31,7 +31,7 @@
     "paymentMethods": "Metody płatności:",
     "classGear": "Wyposażenie klasowe",
     "classGearText": "Po pierwsze: nie panikuj! Twoje stare wyposażenie znajduje się w ekwipunku, a teraz nosisz ekwipunek <strong><%= klass %></strong> nowicjusza. Używanie ekwipunku przynależnego twojej klasie zapewnia ci 50%  premię do atrybutów. Możesz jednak w każdej chwili wrócić do swojego starego wyposażenia.",
-    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
+    "classStats": "To statystyki twojej klasy; wpływają one na rozgrywkę. Za każdym razem gdy awansujesz, otrzymujesz jeden punkt do przydzielenia w wybraną statystykę. Najedź na każdą statystykę by otrzymać więcej informacji.",
     "autoAllocate": "Automatyczne rozlokowanie",
     "autoAllocateText": "Jeśli 'automatyczne rozlokowanie' jest zaznaczone, twój awatar zyskuje statystyki automatycznie w oparciu o atrybuty przypisane zadaniom, które to możesz znaleźć w <strong>ZADANIE > Edycja > Zaawansowane > Atrybuty</strong>. Np. jeśli często odwiedzasz siłownię, oraz twoje Codzienne 'Siłownia' jest ustawione na 'Fizyczne', twoja Siła zwiększy się automatycznie.",
     "spells": "Zaklęcia",
