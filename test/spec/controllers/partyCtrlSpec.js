@@ -1,7 +1,7 @@
 'use strict';
 
 describe("Party Controller", function() {
-  var scope, ctrl, user, User, groups, $rootScope, $controller;
+  var scope, ctrl, user, User, groups, rootScope, $controller;
 
   beforeEach(function() {
     user = specHelper.newUser(),
@@ -17,7 +17,7 @@ describe("Party Controller", function() {
 
     inject(function(_$rootScope_, _$controller_, Groups){
 
-      $rootScope = _$rootScope_;
+      rootScope = _$rootScope_;
 
       scope = _$rootScope_.$new();
 
