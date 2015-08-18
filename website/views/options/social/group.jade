@@ -52,8 +52,8 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             markdown(text='group.description')
           br
           p=env.t('groupLeader')
-            |: 
-            a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
+            |:
+            a.badge.badge-info(ng-click='clickMember(group.leader._id, true)')
               | {{group.leader.profile.name}}
 
       div.text-center(ng-if='group.type === "party"')
@@ -79,9 +79,8 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                     | {{member.profile.name}}
             tr(ng-if='group.memberCount > group.members.length')
               td
-                |<span class='badge'>{{group.memberCount - group.members.length}}
+                span.badge {{group.memberCount - group.members.length}}
                 = ' ' + env.t('moreMembers')
-                |</span>
           h4(ng-show='group.invites.length > 0')=env.t('invited')
           table.table.table-striped
             tr(ng-repeat='invite in group.invites')
@@ -100,17 +99,17 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-body
           div.form-group(ng-if='::group.type=="party" && group.memberCount > 1')
             select.form-control#partyOrder(
-            ng-model='user.party.order',
-            ng-controller='ChatCtrl',
-            ng-options='k as v for (k , v) in partyOrderChoices',
-            ng-change='set({"party.order": user.party.order})'
+              ng-model='user.party.order',
+              ng-controller='ChatCtrl',
+              ng-options='k as v for (k , v) in partyOrderChoices',
+              ng-change='set({"party.order": user.party.order})'
             )
             | &nbsp;
             select.form-control#partyOrderAscending(
-            ng-model='user.party.orderAscending',
-            ng-controller='ChatCtrl',
-            ng-options='k as v for (k , v) in partyOrderAscendingChoices',
-            ng-change='set({"party.orderAscending": user.party.orderAscending})'
+              ng-model='user.party.orderAscending',
+              ng-controller='ChatCtrl',
+              ng-options='k as v for (k , v) in partyOrderAscendingChoices',
+              ng-change='set({"party.orderAscending": user.party.orderAscending})'
             )
 
       include ./challenge-box
