@@ -127,4 +127,49 @@ describe("Party Controller", function() {
       abortSpy.should.not.have.been.calledOnce;
     });
   });
+
+  describe('clickStartQuest', function() {
+    beforeEach(function() {
+      sandbox.stub(rootScope, 'openModal');
+      sandbox.stub(rootScope.$state, 'go');
+    });
+
+    it('opens quest modal if user has a quest', function() {
+      user.items.quests = {
+        whale: 1
+      };
+
+      scope.clickStartQuest();
+
+      expect(rootScope.$state.go).to.not.be.called;
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith(
+        'ownedQuests',
+        { controller: 'InventoryCtrl' }
+      );
+    });
+
+    it('does not open modal if user has no quests', function() {
+      user.items.quests = { };
+
+      scope.clickStartQuest();
+
+      expect(rootScope.openModal).to.not.be.called;
+      expect(rootScope.$state.go).to.be.calledOnce;
+      expect(rootScope.$state.go).to.be.calledWith('options.inventory.quests');
+    });
+
+    it('does not open modal if user had quests previously, but does not now', function() {
+      user.items.quests = {
+        whale: 0,
+        atom1: 0
+      };
+
+      scope.clickStartQuest();
+
+      expect(rootScope.openModal).to.not.be.called;
+      expect(rootScope.$state.go).to.be.calledOnce;
+      expect(rootScope.$state.go).to.be.calledWith('options.inventory.quests');
+    });
+  });
 });
