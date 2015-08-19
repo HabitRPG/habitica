@@ -1095,6 +1095,7 @@ api.questEggs =
   Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
   Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
   Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
+  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -2037,6 +2038,26 @@ api.quests =
       ]
       gp: 0
       exp: 650
+  
+  cheetah:
+    text: t('questCheetahText')
+    notes: t('questCheetahNotes')
+    completion: t('questCheetahCompletion')
+    value: 4
+    category: 'pet'
+    boss:
+      name: t('questCheetahBoss')
+      hp: 600
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Cheetah', text: t('questCheetahDropCheetahEgg')}
+        {type: 'eggs', key: 'Cheetah', text: t('questCheetahDropCheetahEgg')}
+        {type: 'eggs', key: 'Cheetah', text: t('questCheetahDropCheetahEgg')}
+      ]
+      gp: 43
+      exp: 350
+      unlock: t('questCheetahUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}

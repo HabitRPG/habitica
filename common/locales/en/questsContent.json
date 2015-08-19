@@ -277,5 +277,12 @@
   "questDilatoryDistress3Boss": "Adva, the Usurping Mermaid",
   "questDilatoryDistress3DropFish": "Fish (Food)",
   "questDilatoryDistress3DropWeapon": "Trident of Crashing Tides (Weapon)",
-  "questDilatoryDistress3DropShield": "Moonpearl Shield (Shield-Hand Item)"
+  "questDilatoryDistress3DropShield": "Moonpearl Shield (Shield-Hand Item)",
+
+  "questCheetahText": "Such a Cheetah",
+  "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
+  "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
+  "questCheetahBoss": "Cheetah",
+  "questCheetahDropCheetahEgg": "Cheetah (Egg)",
+  "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market"
 }
