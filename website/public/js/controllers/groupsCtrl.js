@@ -103,10 +103,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.openInviteModal = function(group){
-      $rootScope.openModal('invite-guild', {controller:'InviteToGroupCtrl', resolve:
-        {injectedGroup: function(){
-          return group;
-        }}});
+      $rootScope.openModal('invite-guild', {
+        controller:'InviteToGroupCtrl',
+        resolve: {
+          injectedGroup: function(){
+            return group;
+          }
+        }
+      });
     };
 
     $scope.quickReply = function(uid) {
