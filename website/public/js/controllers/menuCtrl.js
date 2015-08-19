@@ -9,9 +9,7 @@ angular.module('habitrpg')
         window.location.href = '/logout';
       };
 
-      $scope.expandMenu = function(menu) {
-        $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
-      };
+      $scope._expandedMenu = null;
 
       function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
