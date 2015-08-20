@@ -96,6 +96,9 @@
   "questEggWhaleText": "Whale",
   "questEggWhaleAdjective": "splashy",
 
+  "questEggCheetahText": "Cheetah",
+  "questEggCheetahAdjective": "honest",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

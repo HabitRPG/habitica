@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification) {
     $scope.group = injectedGroup;
