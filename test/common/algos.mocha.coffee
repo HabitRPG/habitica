@@ -656,7 +656,7 @@ describe 'Cron', ->
     afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards)
     expect(beforeTasks).to.eql afterTasks
 
-  xdescribe 'preening', ->
+  describe 'preening', ->
     beforeEach ->
       @clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date")
 
