@@ -58,7 +58,7 @@ script(type='text/ng-template', id='modals/invite-party.html')
                   input.form-control(type='email', ng-model='email.email')
               tr
                 td(colspan=2)
-                  a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+                  a.btn.btn-xs.pull-right(ng-click='addEmail()')
                     i.glyphicon.glyphicon-plus
               tr
                 td.form-group(colspan=2)
@@ -75,14 +75,16 @@ script(type='text/ng-template', id='modals/invite-party.html')
               tr
                 th=env.t('userId')
             tbody
+              tr(ng-repeat='user in invitees track by $index')
+                td
+                  input.form-control(type='text', ng-model='user.uuid')
               tr
                 td
-                  input.form-control(type='text', ng-model='invitees.uuid')
+                  a.btn.btn-xs.pull-right(ng-click='addUuid()')
+                    i.glyphicon.glyphicon-plus
               tr
                 td
-                  .col-sm-1
-                  .col-sm-7
-                  .col-sm-4
+                  .col-sm-4.col-sm-offset-8
                     button.btn.btn-primary(type='submit')=env.t('sendInvitations')
     .row
       .quest_basilist.pull-left

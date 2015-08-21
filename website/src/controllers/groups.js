@@ -600,9 +600,6 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
         async.series([
           function(cb){
             invite.save(cb);
-          },
-          function(cb){
-            group.save(cb);
           }
         ], function(err, results){
           if (err) return cb(err);
@@ -636,14 +633,20 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
-    // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
-    populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
-      if(err) return next(err);
+    async.series([
+      function(cb) {
+        group.save(cb);
+      },
+      function(cb) {
+        // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
+        populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
+          if(err) return next(err);
 
-      res.json(populatedGroup);
-    });
+          res.json(populatedGroup);
+        });
+      }
+    ]);
   });
-
 };
 
 var inviteByEmails = function(invites, group, req, res, next){

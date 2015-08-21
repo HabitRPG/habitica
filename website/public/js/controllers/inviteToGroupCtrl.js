@@ -4,38 +4,48 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     $scope.group = injectedGroup;
 
     $scope.inviter = User.user.profile.name;
-    $scope.emails = [{name:"",email:""},{name:"",email:""}];
-    $scope.invitees = {uuid:""};
+    _resetInvitees();
+
+    $scope.addUuid = function() {
+      $scope.invitees.push({uuid: ''});
+    };
+
+    $scope.addEmail = function() {
+      $scope.emails.push({name: '', email: ''});
+    };
 
     $scope.inviteNewUsers = function(inviteMethod) {
-      if (!$scope.group._id) {
-        group.create($scope.newGroup, function() {
-          _inviteByMethod(inviteMethod);
-        });
-      } else {
-        _inviteByMethod(inviteMethod);
-      }
+      _inviteByMethod(inviteMethod);
     };
 
     function _inviteByMethod(inviteMethod) {
       if (inviteMethod === 'email') {
         Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
           Notification.text(window.env.t('invitationsSent'));
-          $scope.emails = [{name:'',email:''},{name:'',email:''}];
+          _resetInvitees();
         }, function(){
-          $scope.emails = [{name:'',email:''},{name:'',email:''}];
+          _resetInvitees();
         });
       }
       else if (inviteMethod === 'uuid') {
-        Groups.Group.invite({gid: $scope.group._id}, {uuids: [$scope.invitees.uuid]}, function(){
+        var uuids = _.pluck($scope.invitees, 'uuid');
+        Groups.Group.invite({gid: $scope.group._id}, {uuids: uuids}, function(){
           Notification.text(window.env.t('invitationsSent'));
-          $scope.invitees = {uuid:""};
+          _resetInvitees();
         }, function(){
-          $scope.invitees = {uuid:""};
+          _resetInvitees();
         });
       }
       else {
         return console.log('Invalid invite method.')
       }
+    }
+
+    function _resetInvitees() {
+      var emptyEmails = [{name:"",email:""},{name:"",email:""}];
+      var emptyInvitees = [{uuid: ''}];
+
+      $scope.emails = emptyEmails;
+      $scope.invitees = emptyInvitees;
     }
   }]);
