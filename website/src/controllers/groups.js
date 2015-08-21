@@ -708,11 +708,11 @@ var inviteByEmails = function(invites, group, req, res, next){
 api.invite = function(req, res, next){
   var group = res.locals.group;
 
-  if(req.body.uuids){
+  if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
-  }else if(req.body.emails){
+  } else if (req.body.emails) {
     inviteByEmails(req.body.emails, group, req, res, next)
-  }else{
+  } else {
     return res.json(400,{err: "Can invite only by email or uuid"});
   }
 }
