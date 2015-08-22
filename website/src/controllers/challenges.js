@@ -225,7 +225,7 @@ api.update = function(req, res, next){
     },
     function(_before, cb) {
       if (!_before) return cb('Challenge ' + cid + ' not found');
-      if (_before.leader != user._id) return cb("You don't have permissions to edit this challenge");
+      if (_before.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionEditChallenge', req.language));
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
       before = _before;
@@ -307,7 +307,7 @@ api['delete'] = function(req, res, next){
     },
     function(chal, cb){
       if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
+      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionDeleteChallenge', req.language));
       if (chal.group != 'habitrpg') user.balance += chal.prize/4; // Refund gems to user if a non-tavern challenge
       user.save(cb);
     },
@@ -336,7 +336,7 @@ api.selectWinner = function(req, res, next) {
     function(_chal, cb){
       chal = _chal;
       if (!chal) return cb('Challenge ' + cid + ' not found');
-      if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
+      if (chal.leader != user._id && !user.contributor.admin) return cb(shared.i18n.t('noPermissionCloseChallenge', req.language));
       User.findById(req.query.uid, cb)
     },
     function(winner, cb){

@@ -116,7 +116,7 @@
     "rewire": "^2.3.3",
     "rimraf": "^2.2.8",
     "shelljs": "^0.4.0",
-    "sinon": "^1.12.2",
+    "sinon": "1.15.4",
     "sinon-chai": "^2.7.0",
     "superagent": "~0.15.7",
     "superagent-defaults": "~0.1.5",

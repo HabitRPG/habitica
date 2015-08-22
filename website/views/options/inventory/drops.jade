@@ -112,7 +112,7 @@
                 span.Pet_Currency_Gem1x.inline-gems
             //- buyable quest eggs. TODO: Get this from a collection so we don't have to maintain this ridiculous comma-delimited list
             //- The hard part will be the trex stuff, since it is allowed to exist with two quests
-            each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime',sheep:'Sheep',kraken:'Cuttlefish',whale:'Whale'}
+            each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse',harpy:'Parrot',rooster:'Rooster',spider:'Spider',owl:'Owl',penguin:'Penguin',rock:'Rock',bunny:'Bunny',slime:'Slime',sheep:'Sheep',kraken:'Cuttlefish',whale:'Whale',cheetah:'Cheetah'}
               div(ng-show='user.achievements.quests.#{quest} > 0')
                 button.customize-option(class='Pet_Egg_#{egg}',
                   popover='{{::Content.eggs.#{egg}.notes()}}', popover-append-to-body='true',
