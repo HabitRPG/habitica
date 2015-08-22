@@ -141,7 +141,8 @@ var cleanQuestProgress = function(merge){
       down: 0,
       collect: {}
     },
-    completed: null
+    completed: null,
+    RSVPNeeded: false
   };
   merge = merge || {progress:{}};
   _.merge(clean, _.omit(merge,'progress'));
@@ -192,9 +193,8 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   mongoose.model('User').update(q, updates, {multi:true}, cb);
 }
 
-// FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
 function isOnQuest(user,progress,group){
-  return group && progress && user.party.quest.key && user.party.quest.key == group.quest.key;
+  return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
@@ -236,7 +236,8 @@ module.exports.tavern = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
   mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    module.exports.tavern = tavern;
+    // Using _assign so we don't lose the reference to the exported tavern
+    _.assign(module.exports.tavern, tavern);
   });
 })
 GroupSchema.statics.tavernBoss = function(user,progress) {

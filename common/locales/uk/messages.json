@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Зламано <%= itemText %>.",
     "messageTaskNotFound": "Завдання немає.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Ярлика немає.",
     "messagePetNotFound": ":pet немає у user.items.pets",
     "messageFoodNotFound": ":food нема у user.items.food",
@@ -14,11 +15,18 @@
     "messageUnEquipped": "<%= itemText %> знято.",
     "messageMissingEggPotion": "Ви сумуєте чи то за тим яйцем, чи то за тим зіллям.",
     "messageAlreadyPet": "У вас уже є така тваринка. Спробуйте вивести інше поєднання!",
-    "messageHatched": "Яйце дозріло! Зайдіть до стайні та оберіть улюбленця. ",
+    "messageHatched": "Яйце дозріло! Зайдіть до стайні та оберіть улюбленця.",
     "messageNotEnoughGold": "Замало золота",
     "messageTwoHandled": "<%= gearText %> вимагає двох рук",
     "messageDropFood": "Ви знайшли <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Ви знайшли яйце звіра <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Ви знайшли зілля вилуплення — <%= dropText %>! <%= dropNotes %>",
-    "messageFoundQuest": "Вам трапився квест \"<%= questText %>\"!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "Вам трапився квест \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

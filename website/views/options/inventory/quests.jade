@@ -1,0 +1,48 @@
+//- If this variable gets any bigger, please move it out of this jade template and into common/script/content
+- var questCategories = {'unlockable':'unlockableQuests','gold':'goldQuests','pet':'petQuests'}
+
+.container-fluid
+  .row: .col-xs-12
+    .npc_ian.pull-left-sm.col-centered
+    .popover.static-popover.fade.right.in.pull-left-sm.col-centered
+      .arrow.hidden-xs
+      h3.popover-title=env.t('ian')
+      .popover-content
+        p=env.t('ianText')
+
+  .row
+    .col-md-6
+      h3.equipment-title=env.t('yourQuests')
+      menu.inventory-list
+        li.customize-menu
+          p.muted(ng-show='questCount < 1')=env.t('noScrolls')
+          each caption,type in questCategories
+            menu.pets-menu(label=env.t(caption))
+              div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-if='Content.quests[quest_key].category === "#{type}"')
+                button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+                  ng-click='showQuest(quest_key)',
+                  data-popover-html="{{::lockQuest(quest) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+                  popover-title='{{::quest.text()}}', popover-trigger='mouseenter',
+                  popover-placement='right', popover-append-to-body='true')
+                  .badge.badge-info.stack-count {{points}}
+
+    .col-md-6.border-left
+      li.customize-menu
+        h3.equipment-title=env.t('questsForSale')
+        each caption,type in questCategories
+          menu.pets-menu(label=env.t(caption))
+            div(ng-repeat='quest in Content.questsByLevel', ng-if='quest.canBuy && quest.category === "#{type}"')
+              button.customize-option(ng-class='lockQuest(quest) ? "inventory_quest_scroll_locked inventory_quest_scroll_{{::quest.key}}_locked locked" : "inventory_quest_scroll inventory_quest_scroll_{{::quest.key}}"',
+                data-popover-html="{{::lockQuest(quest,true) ? env.t('scrollsPre') : questPopover(quest) | markdown}}",
+                popover-title='{{::quest.text()}}', popover-append-to-body="true",
+                popover-trigger='mouseenter', ng-click='buyQuest(quest.key)')
+              p(ng-if='quest.unlockCondition')
+                |  {{::quest.unlockCondition.text()}}
+              p(ng-if='!quest.unlockCondition && quest.category !== "gold" && !lockQuest(quest)')
+                |  {{::quest.value}}&nbsp;
+                span.Pet_Currency_Gem1x.inline-gems
+              p(ng-if='quest.category === "gold" && !lockQuest(quest)')
+                |  {{::quest.goldValue}}&nbsp;
+                span.shop_gold
+              p(ng-if='quest.lvl && lockQuest(quest)')=env.t('level')
+                |  {{::quest.lvl}}

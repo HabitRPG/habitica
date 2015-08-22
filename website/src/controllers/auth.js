@@ -7,7 +7,8 @@ var utils = require('../utils');
 var nconf = require('nconf');
 var request = require('request');
 var User = require('../models/user').model;
-var ga = require('./../utils').ga;
+var EmailUnsubscription = require('../models/emailUnsubscription').model;
+var analytics = utils.analytics;
 var i18n = require('./../i18n');
 
 var isProd = nconf.get('NODE_ENV') === 'production';
@@ -19,7 +20,7 @@ var NO_USER_FOUND = {err: "No user found."};
 var NO_SESSION_FOUND = { err: "You must be logged in." };
 var accountSuspended = function(uuid){
   return {
-    err: 'Account has been suspended, please contact leslie@habitrpg.com with your UUID ('+uuid+') for assistance.',
+    err: 'Account has been suspended, please contact leslie@habitica.com with your UUID ('+uuid+') for assistance.',
     code: 'ACCOUNT_SUSPENDED'
   };
 }
@@ -61,7 +62,7 @@ api.authWithUrl = function(req, res, next) {
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
     res.locals.user = user;
     next();
-  })
+  });
 }
 
 api.registerUser = function(req, res, next) {
@@ -109,9 +110,21 @@ api.registerUser = function(req, res, next) {
         newUser.preferences = newUser.preferences || {};
         newUser.preferences.language = req.language; // User language detected from browser, not saved
         var user = new User(newUser);
-        utils.txnEmail(user, 'welcome');
-        ga.event('register', 'Local').send();
-        user.save(cb);
+
+        var analyticsData = {
+          category: 'acquisition',
+          type: 'local',
+          gaLabel: 'local'
+        };
+        analytics.track('register', analyticsData)
+
+        user.save(function(err, savedUser){
+          // Clean previous email preferences
+          EmailUnsubscription.remove({email: savedUser.auth.local.email}, function(){
+            utils.txnEmail(savedUser, 'welcome');
+          });
+          cb.apply(cb, arguments);
+        });
       }
     }]
   }, function(err, data) {
@@ -132,7 +145,7 @@ api.loginLocal = function(req, res, next) {
   var login = validator.isEmail(username) ? {'auth.local.email':username} : {'auth.local.username':username};
   User.findOne(login, {auth:1}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.json(401, {err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
+    if (!user) return res.json(401, {err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
     if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
     // We needed the whole user object first so we can get his salt to encrypt password comparison
     User.findOne(
@@ -140,7 +153,7 @@ api.loginLocal = function(req, res, next) {
     , {_id:1, apiToken:1}
     , function(err, user){
       if (err) return next(err);
-      if (!user) return res.json(401,{err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
+      if (!user) return res.json(401,{err:"Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\"."});
       res.json({id: user._id,token: user.apiToken});
       password = null;
     });
@@ -178,10 +191,22 @@ api.loginSocial = function(req, res, next) {
       };
       user.auth[network] = prof;
       user = new User(user);
-      user.save(cb);
+      user.save(function(err, savedUser){
+        // Clean previous email preferences
+        if(savedUser.auth.facebook.emails && savedUser.auth.facebook.emails[0] && savedUser.auth.facebook.emails[0].value){
+          EmailUnsubscription.remove({email: savedUser.auth.facebook.emails[0].value}, function(){
+            utils.txnEmail(savedUser, 'welcome');
+          });
+        }
+        cb.apply(cb, arguments);
+      });
 
-      utils.txnEmail(user, 'welcome');
-      ga.event('register', network).send();
+      var analyticsData = {
+        category: 'acquisition',
+        type: network,
+        gaLabel: network
+      };
+      analytics.track('register', analyticsData)
     }]
   }, function(err, results){
     if (err) return res.json(401, {err: err.toString ? err.toString() : err});
@@ -214,16 +239,17 @@ api.resetPassword = function(req, res, next){
 
   User.findOne({'auth.local.email': RegexEscape(email)}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.send(401, {err:"Couldn't find a user registered for email " + email});
+    if (!user) return res.send(401, {err:"Sorry, we can't find a user registered with email " + email + "\n- Make sure your email address is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login."});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
     utils.sendEmail({
-      from: "HabitRPG <admin@habitrpg.com>",
+      from: "Habitica <admin@habitica.com>",
       to: email,
-      subject: "Password Reset for HabitRPG",
-      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL') + ". After you've logged in, head to "+nconf.get('BASE_URL')+"/#/options/settings/settings and change your password.",
-      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL') + ". After you've logged in, head to "+nconf.get('BASE_URL')+"/#/options/settings/settings and change your password."
+      subject: "Password Reset for Habitica",
+      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + " Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them. Log in at https://habitica.com/. After you've logged in, head to https://habitica.com/#/options/settings/settings and change your password.",
+      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong><br /><br />Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them.<br /><br />Log in at https://habitica.com/. After you've logged in, head to https://habitica.com/#/options/settings/settings and change your password."
     });
+    // TODO: change all four instances of habitica.com above to use BASE_URL when it has been updated. Previous version: https://github.com/HabitRPG/habitrpg/blob/2069936603aca7f8139a6c98e063136248262bdf/website/src/controllers/auth.js#L249
     user.save(function(err){
       if(err) return next(err);
       res.send('New password sent to '+ email);

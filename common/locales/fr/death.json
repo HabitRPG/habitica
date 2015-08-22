@@ -1,0 +1,7 @@
+{
+    "lostAllHealth": "Vous avez épuisé votre santé !",
+    "dontDespair": "Ne désespérez pas !",
+    "deathPenaltyDetails": "Vous avez perdu un niveau, de l'or, et une pièce d'équipement, mais vous pouvez tous les récupérer en travaillant dur ! Bonne chance--vous y arriverez.",
+    "refillHealthTryAgain": "Reprendre Santé et essayer à nouveau",
+    "dyingOftenTips": "Cela vous arrive trop souvent ? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Voici quelques astuces !</a>"
+}

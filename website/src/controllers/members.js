@@ -7,6 +7,7 @@ var _ = require('lodash');
 var shared = require('../../../common');
 var utils = require('../utils');
 var nconf = require('nconf');
+var pushNotify = require('./pushNotifications');
 
 var fetchMember = function(uuid, restrict){
   return function(cb){
@@ -72,7 +73,7 @@ api.sendPrivateMessage = function(req, res, next){
     if(fetchedMember.preferences.emailNotifications.newPM !== false){
       utils.txnEmail(fetchedMember, 'new-pm', [
         {name: 'SENDER', content: utils.getUserInfo(res.locals.user, ['name']).name},
-        {name: 'PMS_INBOX_URL', content: nconf.get('BASE_URL') + '/#/options/groups/inbox'}
+        {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'}
       ]);
     }
 
@@ -96,12 +97,18 @@ api.sendGift = function(req, res, next){
           member.balance += amt;
           user.balance -= amt;
           api.sendMessage(user, member, req.body);
+
+          var byUsername = utils.getUserInfo(user, ['name']).name;
+
           if(member.preferences.emailNotifications.giftedGems !== false){
             utils.txnEmail(member, 'gifted-gems', [
-              {name: 'GIFTER', content: utils.getUserInfo(user, ['name']).name},
+              {name: 'GIFTER', content: byUsername},
               {name: 'X_GEMS_GIFTED', content: req.body.gems.amount}
             ]);
           }
+
+          pushNotify.sendNotify(member, shared.i18n.t('giftedGems'), shared.i18n.t('giftedGemsInfo', { amount: req.body.gems.amount, name: byUsername }));
+
           return async.parallel([
             function (cb2) { member.save(cb2) },
             function (cb2) { user.save(cb2) }

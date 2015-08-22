@@ -1,0 +1,23 @@
+mixin reward(item)
+  li.task.reward-item(popover-trigger='mouseenter', popover-placement='top', popover='{{::#{item}.notes()}}')&attributes(attributes)
+    // right-hand side control buttons
+    .task-meta-controls
+      span.task-notes
+        span.glyphicon.glyphicon-comment
+    //left-hand size commands
+    .task-controls.task-primary
+      input.reward.visuallyhidden(
+        type='checkbox',
+        ui-keypress='{13:"buy(#{item})"}')
+      a.money.btn-buy.item-btn(ng-class='::{highValue: #{item}.value >= 1000}', ng-click='::buy(#{item})')
+        span.shop_gold
+        span.reward-cost {{::#{item}.value}}
+    // main content
+    span(ng-class='::{"shop_{{#{item}.key}} shop-sprite item-img": true}').reward-img
+    p.task-text {{::#{item}.text()}}
+
+ul.items.rewards(ng-if='main && list.type=="reward"')
+  +reward('item')(ng-repeat='item in itemStore')
+  +reward('healthPotion')
+  +reward('armoire')(ng-if='user.flags.armoireEnabled',
+    popover='{{armoire.notes(user, armoireCount(user.items.gear.owned))}}')

@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Renascimento: Nova Aventura Disponível!",
-    "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado o permite começar um novo jogo do nível 1 mantendo suas tarefas, conquistas, mascotes, e mais. Use-o para respirar uma vida nova em HabitRPG se sentir que já conquistou tudo, ou para experimentar novas funcionalidades com olhos frescos de um personagem iniciante!",
+    "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado o permite começar um novo jogo do nível 1 mantendo suas tarefas, conquistas, mascotes, e mais. Use-o para respirar uma vida nova em Habitica se sentir que já conquistou tudo, ou para experimentar novas funcionalidades com olhos frescos de um personagem iniciante!",
     "rebirthBegin": "Renascimento: Comece uma Nova Aventura",
     "rebirthStartOver": "Renascimento reinicia seu personagem do nível 1, como se tivesse acabo de criar uma nova conta.",
     "rebirthAdvList1": "Você recupera a Vida toda.",
@@ -21,11 +21,5 @@
     "rebirthOrb": "Usou um Orbe do Renascimento para recomeçar depois de alcançar Nível",
     "rebirthPop": "Comece um novo personagem do Nível 1 mantendo conquistas, colecionáveis, e tarefas com histórico.",
     "rebirthName": "Orbe do Renascimento",
-    "reborn": "Renascido, nível max <%= reLevel %>",
-    "welcome100": "Bem-vindo ao Nível 100!",
-    "intro100": "Agora que você atingiu o nível 100, você tem a opção de usar um Orbe do Renascimento de graça a qualquer momento...",
-    "followup100": "Enquanto você pode continuar a subir de nível, isso não irá mais aumentar seus atributos e mais nenhum conteúdo se desbloqueará, para manter o Habit divertido para jogadores de todos os estilos.",
-    "rebirth100Info": "Se você estiver pronto para começar uma nova aventura, você pode Renascer agora... ou ver até onde você ainda consegue chegar.",
-    "rebirthWait": "Eu esperarei...",
-    "rebirthNow": "Renasça agora!"
+    "reborn": "Renascido, nível max <%= reLevel %>"
 }

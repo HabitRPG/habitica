@@ -1,0 +1,30 @@
+mixin avatar(opts)
+  .character-sprites
+    .addthis_native_toolbox(ng-if='::profile._id==user._id',
+      data-url="#{env.BASE_URL}/static/front/#?memberId={{::profile._id}}",
+      data-title=env.t('checkOutProgress'))
+
+    // Mount Body
+    if !opts.minimal
+      span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
+
+    // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
+    - var visualBuffs = { snowball: 'snowman', spookDust: 'spookman', shinySeed: 'avatar_floral_{{profile.stats.class}}', seafoam: 'seafoam_star' }
+    each klass, item in visualBuffs
+      span(ng-if='profile.stats.buffs.#{item}', class='#{klass}')
+
+    // Show avatar only if not currently affected by visual buff
+    - var buffs = '!profile.stats.buffs'
+    span(ng-if='#{buffs}.snowball && #{buffs}.spookDust && #{buffs}.shinySeed && #{buffs}.seafoam')
+      include generated_avatar
+
+    // Mount Head
+    if !opts.minimal
+      span.current-mount(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')
+
+    // Resting
+    span(ng-class='{zzz:profile.preferences.sleep}')
+
+    // Pet
+    if !opts.minimal
+      span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet')

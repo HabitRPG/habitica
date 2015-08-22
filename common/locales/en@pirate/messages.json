@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Yer <%= itemText %> broke.",
     "messageTaskNotFound": "Task not found.",
+    "messageDuplicateTaskID": "ARRGH!  That task be made already.",
     "messageTagNotFound": "Tag not found.",
     "messagePetNotFound": ":pet not found in user.items.pets",
     "messageFoodNotFound": ":vittles not found in user.items.vittles",
@@ -20,5 +21,12 @@
     "messageDropFood": "Ye 'ave found <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Ye 'ave found a <%= dropText %> Egg! <%= dropNotes %>",
     "messageDropPotion": "Ye 'ave found a <%= dropText %> Hatchin' Potion! <%= dropNotes %>",
-    "messageFoundQuest": "Ye 'ave found th' adventure \"<%= questText %>\"!"
+    "messageDropQuest": "Ye've found a quest!",
+    "messageDropMysteryItem": "Ye open th' box an' find <%= dropText %>!",
+    "messageFoundQuest": "Ye 'ave found th' adventure \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "Ye purchased this gear in th' past, but do not currently own it. Ye can buy it again in th' rewards column on th' tasks page.",
+    "messageAlreadyOwnGear": "Ye already own this item. Equip it by going to th' equipment page.",
+    "armoireEquipment": "<%= image %> Ye found a piece of rare Equipment in th' Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> Ye rummage in the Armoire an' find <%= dropArticle %><%= dropText %>. What's tha' doin' in here?",
+    "armoireExp": "Ye wrestle wi' th' Armoire an' gain Experience. Take that!"
 }

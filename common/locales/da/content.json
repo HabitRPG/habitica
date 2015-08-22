@@ -1,6 +1,10 @@
 {
     "potionText": "Livseliksir",
-    "potionNotes": "Genvind 15 liv (Øjeblikkelig Brug) ",
+    "potionNotes": "Genvind 15 liv (Øjeblikkelig Brug)",
+    "armoireText": "Fortryllet Klædeskab",
+    "armoireNotesFull": "Åbn Klædeskabet for tilfældigt at modtage særligt Udstyr, Erfaring eller mad! Udstyrsdele tilbage:",
+    "armoireLastItem": "Du har fundet det sidste stykke sjældent Udstyr i det Fortryllede Klædeskab",
+    "armoireNotesEmpty": "Klædeskabet vil have nyt Udstyr hver måned. Indtil da kan du fortsætte med at klikke for at få Erfaring og Mad!",
     "dropEggWolfText": "Ulv",
     "dropEggWolfAdjective": "loyal",
     "dropEggTigerCubText": "Tigerunge",
@@ -30,6 +34,7 @@
     "questEggDeerText": "Rådyr",
     "questEggDeerAdjective": "elegant",
     "questEggEggText": "Æg",
+    "questEggEggMountText": "Æggekurv",
     "questEggEggAdjective": "farverig",
     "questEggRatText": "Rotte",
     "questEggRatAdjective": "beskidt",
@@ -53,6 +58,14 @@
     "questEggRockAdjective": "livlig",
     "questEggBunnyText": "Kanin",
     "questEggBunnyAdjective": "kælen",
+    "questEggSlimeText": "Skumfidus-Slim",
+    "questEggSlimeAdjective": "sødt",
+    "questEggSheepText": "Får",
+    "questEggSheepAdjective": "uldent",
+    "questEggCuttlefishText": "Tiarmet blæksprutte",
+    "questEggCuttlefishAdjective": "nuttet",
+    "questEggWhaleText": "Hval",
+    "questEggWhaleAdjective": "plaskende",
     "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",
@@ -97,5 +110,5 @@
     "foodCandyRed": "Kanelslik",
     "foodSaddleText": "Sadel",
     "foodSaddleNotes": "Gør øjeblikkeligt et af dine kæledyr til et ridedyr.",
-    "foodNotes": "Giv dette til et kæledyr, så kan det vokse sig til en stolt ganger. "
+    "foodNotes": "Giv dette til et kæledyr, så kan det vokse sig til en stolt ganger."
 }

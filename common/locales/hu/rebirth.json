@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Újjászületés: új kaland érhető el!",
-    "rebirthUnlock": "Feloldottad az Ujjászületést! Ez a különleges Bolti tárgy lehetővé teszi, hogy új játékot kezdj az 1. szinttől, megtartva a feladataidat, kitűntetéseidet, háziállataidat és egyebeket. Használd arra, hogy új életet lehelj a HabitRPG-be, ha úgy érzed, hogy már mindent elértél, vagy hogy új funkciókat tapasztalj meg a kezdő karakter friss szemeivel.",
+    "rebirthUnlock": "Feloldottad az Ujjászületést! Ez a különleges Bolti tárgy lehetővé teszi, hogy új játékot kezdj az 1. szinttől, megtartva a feladataidat, kitűntetéseidet, háziállataidat és egyebeket. Használd arra, hogy új életet lehelj a Habitica-be, ha úgy érzed, hogy már mindent elértél, vagy hogy új funkciókat tapasztalj meg a kezdő karakter friss szemeivel.",
     "rebirthBegin": "Újjászületés: kezdj egy új kalandot",
     "rebirthStartOver": "Az Újjászületés 1-es szintre állítja a karaktered, mintha most kezdenéd el a játékot.",
     "rebirthAdvList1": "Az életerőd feltöltődik.",
@@ -15,17 +15,11 @@
     "rebirthInList5": "A korlátozott példányszámú felszerelés, amit megvásároltál újra megvásárolható lesz, még akkor is, ha az esemény, aminek a keretében kapható volt már véget ért.",
     "rebirthEarnAchievement": "Kapsz továbbá egy Kitűntetést, amiért új kalandot kezdesz!",
     "beReborn": "Szüless Újjá",
-    "rebirthAchievement": "Új kalandot kezdtél! Ez a(z) <%= number %>. Újjászületésed. Ahhoz, hogy halmozd ezt a Kitűntetést kezdj új kalandot, amikor elértél egy mégmagasabb Szintet!",
+    "rebirthAchievement": "Új kalandot kezdtél! Ez a(z) <%= number %>. Újjászületésed. A legmagasabb szint, amit elértél: <%= level %>. Ahhoz, hogy halmozd ezt a Kitüntetést kezdj új kalandot, amikor elértél egy még magasabb Szintet!",
     "rebirthBegan": "Új Kalandot kezdtél",
     "rebirthText": "Eddig <%= rebirths %> Új Kalandot kezdtél",
     "rebirthOrb": "Az Újjászületés Gömbjét használtad, hogy újrakezdj miután elérted ezt a Szintet",
     "rebirthPop": "Kezdj új karaktert 1-es Szinttől, megtartva a kitűntetéseidet, a gyűjteményeidet, a feladataidat és a történetedet.",
     "rebirthName": "Az Újjászületés Gömbje",
-    "reborn": "Újjászülettél, maximális szint <%= reLevel %>",
-    "welcome100": "Üdvözlünk a 100-as szinten!",
-    "intro100": "Most, hogy elérted a 100. szintet, rendelkezésedre áll a lehetőség, hogy az Újjászületés Gömbjét használd ingyenesen, akármikor.",
-    "followup100": "Habár folytathatod a szintlépéseket, az többé már nem fogja tápolni a tulajdonságaidat és nem tudsz több tartalmat feloldani, hogy a Habit szórakoztató maradjon mindenkinek játékstílustól függetlenül.",
-    "rebirth100Info": "Ha készen állsz arra, hogy új kalandot kezdj, akkor Újjászülethetsz most...vagy megláthatod, hogy még meddig juthatsz el.",
-    "rebirthWait": "Várok...",
-    "rebirthNow": "Újjászületés most!"
+    "reborn": "Újjászülettél, maximális szint <%= reLevel %>"
 }

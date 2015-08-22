@@ -1,10 +1,11 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared',
-  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats',
+  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats) {
     $scope.profile = User.user;
-    $scope.profile.petCount = Shared.countPets($rootScope.countExists($scope.profile.items.pets), $scope.profile.items.pets);
-    $scope.profile.mountCount = Shared.countMounts($rootScope.countExists($scope.profile.items.mounts), $scope.profile.items.mounts);
+
+    $scope.statCalc = Stats;
+
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
     };

@@ -2,6 +2,11 @@
   "potionText": "Health Potion",
   "potionNotes": "Recover 15 Health (Instant Use)",
 
+  "armoireText": "Enchanted Armoire",
+  "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining: ",
+  "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
+  "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
+
   "dropEggWolfText": "Wolf",
   "dropEggWolfAdjective": "loyal",
 
@@ -43,6 +48,7 @@
   "questEggDeerAdjective": "elegant",
 
   "questEggEggText": "Egg",
+  "questEggEggMountText": "Egg Basket",
   "questEggEggAdjective": "colorful",
 
   "questEggRatText": "Rat",
@@ -77,6 +83,21 @@
 
   "questEggBunnyText": "Bunny",
   "questEggBunnyAdjective": "snuggly",
+
+  "questEggSlimeText": "Marshmallow Slime",
+  "questEggSlimeAdjective": "sweet",
+
+  "questEggSheepText": "Sheep",
+  "questEggSheepAdjective": "woolly",
+
+  "questEggCuttlefishText": "Cuttlefish",
+  "questEggCuttlefishAdjective": "cuddly",
+
+  "questEggWhaleText": "Whale",
+  "questEggWhaleAdjective": "splashy",
+
+  "questEggCheetahText": "Cheetah",
+  "questEggCheetahAdjective": "honest",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 

@@ -1,0 +1,26 @@
+ul.options-menu
+  li(ng-class="{ active: $state.includes('options.inventory.drops') }")
+    a(ui-sref='options.inventory.drops')
+      =env.t('market')
+  li(ng-class="{ active: $state.includes('options.inventory.quests') }")
+    a(ui-sref='options.inventory.quests')
+      =env.t('quests')
+  li(ng-class="{ active: $state.includes('options.inventory.pets') }")
+    a(ui-sref='options.inventory.pets')
+      =env.t('pets')
+  li(ng-class="{ active: $state.includes('options.inventory.mounts') }")
+    a(ui-sref='options.inventory.mounts')
+      =env.t('mounts')
+  li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.equipment') }")
+    a(ui-sref='options.inventory.equipment')
+      =env.t('equipment')
+  li(ng-class="{ active: $state.includes('options.inventory.timetravelers') }")
+    a(ui-sref='options.inventory.timetravelers')
+      =env.t('timeTravelers')
+  li(ng-class="{ active: $state.includes('options.inventory.seasonalshop') }")
+    a(ui-sref='options.inventory.seasonalshop')
+      =env.t('seasonalShop')
+
+.tab-content
+  .tab-pane.active
+    div(ui-view)

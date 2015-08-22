@@ -1,6 +1,7 @@
 {
     "messageLostItem": "你的<%= itemText %>损坏了。",
     "messageTaskNotFound": "找不到任务。",
+    "messageDuplicateTaskID": "此任务在这个账号中已经存在",
     "messageTagNotFound": "找不到标签。",
     "messagePetNotFound": "找不到该宠物。",
     "messageFoodNotFound": "找不到该食物。",
@@ -10,7 +11,7 @@
     "messageLikesFood": "<%= egg %> 很喜欢你给的<%= foodText %>！",
     "messageDontEnjoyFood": "<%= egg %>吃了<%= foodText %>，但似乎不是很喜欢。",
     "messageBought": "购买了 <%= itemText %>",
-    "messageEquipped": "装备了<%= itemText %> ",
+    "messageEquipped": "装备了<%= itemText %>",
     "messageUnEquipped": "卸下了 <%= itemText %>",
     "messageMissingEggPotion": "你没选择药水或者宠物蛋",
     "messageAlreadyPet": "你已经拥有这只宠物了，试着用另一种方案孵化吧。",
@@ -20,5 +21,12 @@
     "messageDropFood": "你找到了 <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "你找到了一个<%= dropText %>蛋！<%= dropNotes %>",
     "messageDropPotion": "你找到了一瓶 <%= dropText %> 药水! <%= dropNotes %>",
-    "messageFoundQuest": "你有个新剧情任务\"<%= questText %>\"!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "你有个新剧情任务\"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

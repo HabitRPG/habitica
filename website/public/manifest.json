@@ -38,21 +38,42 @@
 
             "js/app.js",
             "common/script/public/config.js",
+
             "js/services/sharedServices.js",
             "js/services/notificationServices.js",
             "common/script/public/userServices.js",
             "common/script/public/directives.js",
+            "js/services/analyticsServices.js",
             "js/services/groupServices.js",
+            "js/services/chatServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
+            "js/services/taskServices.js",
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
+            "js/services/questServices.js",
+            "js/services/statServices.js",
 
-            "js/filters/filters.js",
+            "js/filters/money.js",
+            "js/filters/roundLargeNumbers.js",
+            "js/filters/taskOrdering.js",
 
-            "js/directives/directives.js",
+            "js/directives/close-menu.directive.js",
+            "js/directives/expand-menu.directive.js",
+            "js/directives/focus-me.directive.js",
+            "js/directives/from-now.directive.js",
+            "js/directives/habitrpg-tasks.directive.js",
+            "js/directives/hrpg-sort-checklist.directive.js",
+            "js/directives/hrpg-sort-tags.directive.js",
+            "js/directives/hrpg-sort-tasks.directive.js",
+            "js/directives/popover-html-popup.directive.js",
+            "js/directives/popover-html.directive.js",
+            "js/directives/task-focus.directive.js",
+            "js/directives/when-scrolled.directive.js",
 
             "js/controllers/authCtrl.js",
+            "js/controllers/menuCtrl.js",
+            "js/controllers/memberModalCtrl.js",
             "js/controllers/notificationCtrl.js",
             "js/controllers/rootCtrl.js",
             "js/controllers/settingsCtrl.js",
@@ -92,7 +113,10 @@
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "js/env.js",
             "js/static.js",
+            "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
@@ -104,6 +128,33 @@
             "app.css",
             "common/dist/sprites/habitrpg-shared.css",
             "static.css"
+        ]
+    },
+    "tmp_static_front": {
+        "js": [
+            "bower_components/jquery/dist/jquery.min.js",
+            "common/dist/scripts/habitrpg-shared.js",
+            "bower_components/angular/angular.js",
+            "bower_components/angular-ui/build/angular-ui.js",
+            "bower_components/jquery-colorbox/jquery.colorbox-min.js",
+            "bower_components/hello/dist/hello.all.min.js",
+
+            "bower_components/angular-loading-bar/build/loading-bar.js",
+            "js/env.js",
+            "js/static.js",
+            "js/services/analyticsServices.js",
+            "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
+            "common/script/public/userServices.js",
+            "js/controllers/authCtrl.js",
+            "js/controllers/footerCtrl.js"
+        ],
+        "css": [
+            "bower_components/css-social-buttons/css/zocial.css",
+            "front/staticstyle.css",
+            "common/dist/sprites/habitrpg-shared.css",
+            "app.css"
         ]
     }
 }

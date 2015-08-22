@@ -1,23 +1,9 @@
+'use strict'
 /**
  Set up "+1 Exp", "Level Up", etc notifications
  */
 angular.module("habitrpg").factory("Notification",
-[function() {
-  var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
-  function notify(html, type, icon) {
-    var notice = $.pnotify({
-      type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
-      text: html,
-      opacity: 1,
-      addclass: 'alert-' + type,
-      delay: 7000,
-      hide: (type == 'error') ? false : true,
-      mouse_reset: false,
-      width: "250px",
-      stack: stack_topright,
-      icon: icon || false
-    }).click(function() { notice.pnotify_remove() });
-  };
+['$filter', function($filter) {
 
   /**
    Show "+ 5 {gold_coin} 3 {silver_coin}"
@@ -34,51 +20,120 @@ angular.module("habitrpg").factory("Notification",
     } else if (silver > 0) {
       return "" + silver + " <span class='notification-icon shop_silver'></span>";
     }
-  };
+  }
 
-  var sign = function(number){
+  function crit(val) {
+    _notify(window.env.t('critBonus') + Math.round(val) + "%", 'crit', 'glyphicon glyphicon-certificate');
+  }
+
+  function drop(val, item) {
+    var dropClass = "";
+    if ( item !== undefined ) {
+      switch ( item.type ) {
+        case "Egg":
+          dropClass = 'Pet_Egg_' + item.key;
+          break;
+        case "HatchingPotion":
+          dropClass = 'Pet_HatchingPotion_' + item.key;
+          break;
+        case "Food":
+          dropClass = 'Pet_Food_' + item.key;
+          break;
+        case "Mystery":
+          dropClass = 'shop_' + item.key;
+          break;
+        default:
+          dropClass = 'glyphicon glyphicon-gift';
+     }
+    }
+    _notify(val, 'drop', dropClass);
+  }
+
+  function exp(val) {
+    if (val < -50) return; // don't show when they level up (resetting their exp)
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('xp'), 'xp', 'glyphicon glyphicon-star');
+  }
+
+  function error(error){
+    _notify(error, "danger", 'glyphicon glyphicon-exclamation-sign');
+  }
+
+  function gp(val, bonus) {
+    _notify(_sign(val) + " " + coins(val - bonus), 'gp');
+  }
+
+  function hp(val) {
+    // don't show notifications if user dead
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('hp'), 'hp', 'glyphicon glyphicon-heart');
+  }
+
+  function lvl(){
+    _notify(window.env.t('levelUp'), 'lvl', 'glyphicon glyphicon-chevron-up');
+  }
+
+  function markdown(val){
+    if (val) {
+      var parsed_markdown = $filter("markdown")(val);
+      _notify(parsed_markdown, 'info');
+    }
+  }
+
+  function mp(val) {
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('mp'), 'mp', 'glyphicon glyphicon-fire');
+  }
+
+  function streak(val) {
+    _notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
+  }
+
+  function text(val){
+    if (val) {
+      _notify(val, 'info');
+    }
+  }
+
+  //--------------------------------------------------
+  // Private Methods
+  //--------------------------------------------------
+
+  function _sign(number){
     return number?number<0?'-':'+':'+';
   }
 
-  var round = function(number){
+  function _round(number){
     return Math.abs(number.toFixed(1));
+  }
+
+  // Used to stack notifications, must be outside of _notify
+  var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
+
+  function _notify(html, type, icon) {
+    var notice = $.pnotify({
+      type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
+      text: html,
+      opacity: 1,
+      addclass: 'alert-' + type,
+      delay: 7000,
+      hide: (type == 'error') ? false : true,
+      mouse_reset: false,
+      width: "250px",
+      stack: stack_topright,
+      icon: icon || false
+    }).click(function() { notice.pnotify_remove() });
   }
 
   return {
     coins: coins,
-    hp: function(val) {
-      // don't show notifications if user dead
-      notify(sign(val) + " " + round(val) + " " + window.env.t('hp'), 'hp', 'glyphicon glyphicon-heart');
-    },
-    exp: function(val) {
-      if (val < -50) return; // don't show when they level up (resetting their exp)
-      notify(sign(val) + " " + round(val) + " " + window.env.t('xp'), 'xp', 'glyphicon glyphicon-star');
-    },
-    gp: function(val, bonus) {
-      notify(sign(val) + " " + coins(val - bonus), 'gp');
-    },
-    text: function(val){
-      if (val) {
-        notify(val, 'info');
-      }
-    },
-    lvl: function(){
-      notify(window.env.t('levelUp'), 'lvl', 'glyphicon glyphicon-chevron-up');
-    },
-    error: function(error){
-      notify(error, "danger", 'glyphicon glyphicon-exclamation-sign');
-    },
-    mp: function(val) {
-      notify(sign(val) + " " + round(val) + " " + window.env.t('mp'), 'mp', 'glyphicon glyphicon-fire');
-    },
-    crit: function(val) {
-      notify(window.env.t('critBonus') + Math.round(val) + "%", 'crit', 'glyphicon glyphicon-certificate');
-    },
-    streak: function(val) {
-      notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
-    },
-    drop: function(val) {
-      notify(val, 'drop', 'glyphicon glyphicon-gift');
-    }
+    crit: crit,
+    drop: drop,
+    exp: exp,
+    error: error,
+    gp: gp,
+    hp: hp,
+    lvl: lvl,
+    markdown: markdown,
+    mp: mp,
+    streak: streak,
+    text: text
   };
 }]);

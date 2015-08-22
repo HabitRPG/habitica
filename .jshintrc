@@ -5,6 +5,9 @@
 
 	"browser": true,
 	"node": true,
+  "mocha": true,
+
+  "esnext": true,
 
 	"asi": true,
 	"boss": true,

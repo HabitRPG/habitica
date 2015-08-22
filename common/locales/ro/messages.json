@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Ți s-a stricat <%= itemText %>.",
     "messageTaskNotFound": "Țelul nu a fost găsit.",
+    "messageDuplicateTaskID": "A task with that ID already exists.",
     "messageTagNotFound": "Eticheta nu a fost găsită.",
     "messagePetNotFound": ":pet nu a fost găsit în user.items.pets",
     "messageFoodNotFound": ":food nu a fost găsit în user.items.food",
@@ -20,5 +21,12 @@
     "messageDropFood": "Ai găsit <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Ai găsit un Ou <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Ai găsit o poţiune de eclozare <%= dropText %>! <%= dropNotes %>",
-    "messageFoundQuest": "Ai găsit aventura \"<%= questText %>\"!"
+    "messageDropQuest": "You've found a quest!",
+    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageFoundQuest": "Ai găsit aventura \"<%= questText %>\"!",
+    "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
+    "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+    "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
+    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
+    "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!"
 }

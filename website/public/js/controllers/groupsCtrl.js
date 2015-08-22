@@ -16,6 +16,19 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
 
     $scope.isMemberOfGroup = function(userid, group){
+
+      // If the group is a guild, just check for an intersection with the
+      // current user's guilds, rather than checking the members of the group.
+      if(group.type === 'guild') {
+        return _.detect(Groups.myGuilds(), function(g) { return g._id === group._id });
+      }
+
+      // Similarly, if we're dealing with the user's current party, return true.
+      if(group.type === 'party') {
+        var currentParty = Groups.party();
+        if(currentParty._id && currentParty._id === group._id) return true;
+      }
+
       if (!group.members) return false;
       var memberIds = _.map(group.members, function(x){return x._id});
       return ~(memberIds.indexOf(userid));
@@ -86,7 +99,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
       }else{
         $scope.removeMemberData = undefined;
-      }  
+      }
     }
 
     $scope.openInviteModal = function(group){
@@ -118,7 +131,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         $rootScope.openModal('private-message',{controller:'MemberModalCtrl'});
       });
     }
-    
+
   }])
 
   .controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedGroup', '$http', 'Notification', function($scope, User, Groups, injectedGroup, $http, Notification){
@@ -146,59 +159,27 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
   }])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups) {
-      $scope.timestamp = function(timestamp){
-        return moment(timestamp).format($rootScope.User.user.preferences.dateFormat.toUpperCase());
-      }
-      // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
-      $scope.$watch( function() { return Members.selectedMember; }, function (member) {
-        if(member)
-          member.petCount = Shared.countPets($rootScope.countExists(member.items.pets), member.items.pets);
-          member.mountCount = Shared.countMounts($rootScope.countExists(member.items.mounts), member.items.mounts);
-        $scope.profile = member;
-      });
-      $scope.sendPrivateMessage = function(uuid, message){
-        $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
-          Notification.text(window.env.t('messageSentAlert'));
-          $rootScope.User.sync();
-          $scope.$close();
-        });
-      }
-      $scope.gift = {
-        type: 'gems',
-        gems: {amount:0, fromBalance:true},
-        subscription: {key:''},
-        message:''
-      };
-      $scope.sendGift = function(uuid, gift){
-        $http.post('/api/v2/members/'+uuid+'/gift', gift).success(function(){
-          Notification.text('Gift sent!')
-          $rootScope.User.sync();
-          $scope.$close();
-        })
-      }
-      $scope.reportAbuse = function(reporter, message, groupId) {
-        message.flags[reporter._id] = true;
-        Groups.Group.flagChatMessage({gid: groupId, messageId: message.id}, undefined, function(data){
-          Notification.text(window.env.t('abuseReported'));
-          $scope.$close();
-        });
-      }
-      $scope.clearFlagCount = function(message, groupId) {
-        Groups.Group.clearFlagCount({gid: groupId, messageId: message.id}, undefined, function(data){
-          message.flagCount = 0;
-          Notification.text("Flags cleared");
-          $scope.$close();
-        });
-      }
-    }
-  ])
-
   .controller('AutocompleteCtrl', ['$scope', '$timeout', 'Groups', 'User', 'InputCaret', function ($scope,$timeout,Groups,User,InputCaret) {
     $scope.clearUserlist = function() {
       $scope.response = [];
       $scope.usernames = [];
+    }
+
+    $scope.filterUser = function(msg) {
+      if (!$scope.query || !msg.user) {
+        return false;
+      }
+
+      // Ignore casing when checking for username
+      var user = msg.user.toLowerCase();
+      var text = $scope.query.text.toLowerCase();
+
+      return user.indexOf(text) == 0;
+    }
+
+    $scope.performCompletion = function(msg) {
+      $scope.autoComplete(msg);
+      $scope.query = null;
     }
 
     $scope.addNewUser = function(user) {
@@ -212,7 +193,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.clearUserlist();
 
     $scope.chatChanged = function(newvalue,oldvalue){
-      if($scope.group.chat && $scope.group.chat.length > 0){
+      if($scope.group && $scope.group.chat && $scope.group.chat.length > 0){
         for(var i = 0; i < $scope.group.chat.length; i++) {
           $scope.addNewUser($scope.group.chat[i]);
         }
@@ -250,7 +231,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     });
   }])
 
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', function($scope, Groups, User, $http, ApiUrl, Notification, Members, $rootScope){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics',
+    function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics){
     $scope.message = {content:''};
     $scope._sending = false;
 
@@ -276,7 +258,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
       var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
-      Groups.Group.postChat({gid: group._id, message:message, previousMsg: previousMsg}, undefined, function(data){
+      Chat.utils.postChat({gid: group._id, message:message, previousMsg: previousMsg}, undefined, function(data){
         if(data.chat){
           group.chat = data.chat;
         }else if(data.message){
@@ -284,6 +266,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
         $scope.message.content = '';
         $scope._sending = false;
+        if (group.type == 'party') {
+          Analytics.updateUser({'partyID':group.id,'partySize':group.memberCount});
+        }
+        if (group.privacy == 'public'){
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name,'message':message});
+        } else {
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy});
+        }
       }, function(err){
         $scope._sending = false;
       });
@@ -293,7 +283,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){
         var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
         if(confirm('Are you sure you want to delete this message?')){
-          Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
+          Chat.utils.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
             if(data.chat) group.chat = data.chat;
 
             var i = _.findIndex(group.chat, {id: message.id});
@@ -312,9 +302,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       } else {
         message.likes[User.user._id] = true;
       }
-      //Chat.Chat.like({gid:group._id,mid:message.id});
-
-      $http.post(ApiUrl.get() + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
+      Chat.utils.like({ gid:group._id, messageId:message.id }, undefined);
     }
 
     $scope.flagChatMessage = function(groupId,message) {
@@ -331,10 +319,35 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           });
         });
       }
-    }
+    };
+
+    $scope.copyToDo = function(message) {
+      var taskNotes = env.t("messageWroteIn",  {
+        user: message.uuid == 'system'
+            ? 'system'
+            : '[' + message.user + '](' + env.BASE_URL + '/static/front/#?memberId=' + message.uuid + ')',
+        group: '[' + $scope.group.name + '](' + window.location.href + ')'
+      });
+
+      var newScope = $scope.$new();
+      newScope.text = message.text;
+      newScope.notes = taskNotes;
+
+      $rootScope.openModal('copyChatToDo',{
+        controller:'CopyMessageModalCtrl',
+        scope: newScope
+      });
+    };
 
     $scope.sync = function(group){
-      group.$get();
+      if(group.type == 'party') {
+        group.$syncParty(); // Syncs the whole party, not just 15 members
+      } else {
+        group.$get();
+      }
+      // When the user clicks fetch recent messages we need to update
+      // that the user has seen the new messages
+      Chat.seenMessage(group._id);
     }
 
     // List of Ordering options for the party members list
@@ -356,8 +369,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile',
-    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile', 'Analytics',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile, Analytics) {
       $scope.groups = {
         guilds: Groups.myGuilds(),
         "public": Groups.publicGuilds()
@@ -375,6 +388,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
         if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){
+            if (saved.privacy == 'public') {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'guild','privacy':saved.privacy,'groupName':saved.name})}
+            else {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'guild','privacy':saved.privacy})}
             $rootScope.hardRedirect('/#/options/groups/guilds/' + saved._id);
           });
         }
@@ -389,6 +404,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
 
         group.$join(function(joined){
+          if (joined.privacy == 'public') {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'guild','privacy':joined.privacy,'groupName':joined.name})}
+          else {Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'guild','privacy':joined.privacy})}
           $rootScope.hardRedirect('/#/options/groups/guilds/' + joined._id);
         })
       }
@@ -443,27 +460,37 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', 'Challenges', '$state', '$compile',
-    function($rootScope,$scope, Groups, User, Challenges, $state, $compile) {
+  .controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests',
+    function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests) {
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
+      $scope.inviteOrStartParty = Groups.inviteOrStartParty;
+      $scope.questInit = Quests.questInit;
 
-      Groups.seenMessage($scope.group._id);
+      if ($state.is('options.social.party')) {
+        $scope.group.$syncParty(); // Sync party automatically when navigating to party page
+      }
+
+      Chat.seenMessage($scope.group._id);
 
       $scope.create = function(group){
         group.$save(function(){
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'party','privacy':'private'});
+          Analytics.updateUser({'partyID':group.id,'partySize':1});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
-      }
+      };
 
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         group.$join(function(){
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
+          Analytics.updateUser({'partyID':party.id});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
-      }
+      };
 
       // TODO: refactor guild and party leave into one function
       $scope.leave = function(keep) {
@@ -472,10 +499,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $scope.popoverEl.popover('destroy');
         } else {
           Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+            Analytics.updateUser({'partySize':null,'partyID':null});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
         }
-      }
+      };
 
       // TODO: refactor guild and party clickLeave into one function
       $scope.clickLeave = function(group, $event){
@@ -512,17 +540,24 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         User.set({'invitations.party':{}});
       }
 
-      $scope.questCancel = function(){
+      $scope.questCancel = function(party){
         if (!confirm(window.env.t('sureCancel'))) return;
-        $rootScope.party.$questCancel();
+        Groups.questCancel(party);
       }
 
-      $scope.questAbort = function(){
+      $scope.questAbort = function(party){
         if (!confirm(window.env.t('sureAbort'))) return;
         if (!confirm(window.env.t('doubleSureAbort'))) return;
-        $rootScope.party.$questAbort();
+        Groups.questAbort(party);
       }
 
+      $scope.questAccept = function(party){
+        Groups.questAccept(party);
+      };
+
+      $scope.questReject = function(party){
+        Groups.questReject(party);
+      }
     }
   ])
 
@@ -534,3 +569,20 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
     }
   ])
+
+  .controller("CopyMessageModalCtrl", ['$scope', 'User', 'Notification',
+    function($scope, User, Notification){
+      $scope.saveTodo = function() {
+        var newTask = {
+          text: $scope.text,
+          type: 'todo',
+          notes: $scope.notes
+        };
+
+        User.user.ops.addTask({body:newTask});
+        Notification.text(window.env.t('messageAddedAsToDo'));
+
+        $scope.$close();
+      }
+    }
+  ]);

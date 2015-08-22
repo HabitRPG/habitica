@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Znovuzrodenie: Čas na nové dobrodružstvo!",
-    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do HabitRPG vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika.",
+    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do Habitica vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika.",
     "rebirthBegin": "Znovuzrodenie: Začni nové dobrodružstvo",
     "rebirthStartOver": "Znovuzrodenie začne tvoju postavu od 1. levelu, akoby si si vytvoril nový účet.",
     "rebirthAdvList1": "Vráti sa ti plné zdravie.",
@@ -17,15 +17,9 @@
     "beReborn": "Znovu sa zrodiť",
     "rebirthAchievement": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie čislo <%= number %> a najvušší level, ktorý si dosiahol je <%= level %>. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí ešte vyššieho levelu!",
     "rebirthBegan": "Začal nové dobrodružstvo",
-    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %> ",
+    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %>",
     "rebirthOrb": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu",
     "rebirthPop": "Začni s novou postavou na leveli 1, pričom ti ostanú odznaky, zberateľské predmety, a úlohy.",
     "rebirthName": "Orb znovuzrodenia",
-    "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>",
-    "welcome100": "Vitaj na 100. leveli!",
-    "intro100": "Teraz, keď si dosiahol 100. level, môžeš kedykoľvek zadarmo použiť Orb znovuzrodenia.",
-    "followup100": "Aj keď môžeš pokračovať v získavaní levelov, už sa ti nebudú zvyšovať štatistiky a neodomkne sa žiadny obsah, aby Habit zostal zábavou pre ľudí všetkých herných štýlov. ",
-    "rebirth100Info": "Ak si pripravený na nové dobrodružstvo, môžeš sa znovuzrodiť, teraz... alebo počkať a sledovať, ako ďaleko sa ešte dokážeš dostať.",
-    "rebirthWait": "Počkám...",
-    "rebirthNow": "Znovuzrodenie - teraz!"
+    "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>"
 }

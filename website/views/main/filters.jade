@@ -1,6 +1,10 @@
 .container-fluid
   .row
     .filters(ng-controller='FiltersCtrl')
+      .input-group.input-group-sm.filters-search.pull-right
+        input.form-control(type='text', placeholder=env.t('search'), ng-model='filterQuery', ng-change='updateTaskFilter()', ng-model-options='{ debounce: 250 }')
+        .input-group-addon
+          .glyphicon.glyphicon-search
       ul.filters-controls
         li=env.t('tags')
         //- Edit button
@@ -20,8 +24,8 @@
         //- Add new tag
         li.filters-edit(ng-show='_editing')
           form.hrpg-input-group
-            input(type='text', ng-model='_newTag', placeholder=env.t('newTag'))
-            button(ng-click='createTag(_newTag)')=env.t('add')
+            input(type='text', ng-model='_newTag.name', placeholder=env.t('newTag'))
+            button(ng-click='createTag()')=env.t('add')
       div(ng-if='!areTagsHidden || _editing')
         ul(ng-if='_editing')
           li.filters-edit(ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags', bindonce='user.tags')

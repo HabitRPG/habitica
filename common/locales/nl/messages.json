@@ -1,6 +1,7 @@
 {
     "messageLostItem": "Je <%= itemText %> is stukgegaan.",
     "messageTaskNotFound": "Taak niet gevonden.",
+    "messageDuplicateTaskID": "Er is al een taak met dat ID.",
     "messageTagNotFound": "Label niet gevonden.",
     "messagePetNotFound": ":pet niet gevonden in user.items.pets",
     "messageFoodNotFound": ":food niet gevonden in user.items.food",
@@ -20,5 +21,12 @@
     "messageDropFood": "<%= dropText %> gevonden! <%= dropNotes %>",
     "messageDropEgg": "Je hebt het ei van een <%= dropText %> gevonden! <%= dropNotes %>",
     "messageDropPotion": "Je hebt een <%= dropText %> uitbroedtoverdrank gevonden! <%= dropNotes %>",
-    "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!"
+    "messageDropQuest": "Je hebt een queeste gevonden!",
+    "messageDropMysteryItem": "Je opent de kist en vindt <%= dropText %>!",
+    "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!",
+    "messageAlreadyPurchasedGear": "Je hebt dit stuk uitrusting in het verleden al eens gekocht, maar hebt het nu niet in je bezit. Je kunt het opnieuw aanschaffen in de beloningenkolom op de Takenpagina.",
+    "messageAlreadyOwnGear": "Je hebt dit uitrustingsstuk al. Je kunt het aantrekken op de uitrustingspagina.",
+    "armoireEquipment": "<%= image %> Je hebt een zeldzaam uitrustingsstuk gevonden in het kabinet: <%= dropText %>! Super!",
+    "armoireFood": "<%= image %> Je rommelt wat in het kabinet en vindt <%= dropText %>. Hoe komt dat nou hier?",
+    "armoireExp": "Je worstelt met het kabinet en krijgt er ervaringspunten bij. Daar met je!"
 }

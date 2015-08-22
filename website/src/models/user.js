@@ -32,9 +32,8 @@ var UserSchema = new Schema({
   _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
-    helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
     habitSurveys: Number,
-    ultimateGear: Boolean,
+    ultimateGearSets: Schema.Types.Mixed,
     beastMaster: Boolean,
     beastMasterCount: Number,
     mountMaster: Boolean,
@@ -44,17 +43,21 @@ var UserSchema = new Schema({
     veteran: Boolean,
     snowball: Number,
     spookDust: Number,
+    shinySeed: Number,
+    seafoam: Number,
     streak: Number,
     challenges: Array,
     quests: Schema.Types.Mixed,
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean, // TODO: Deprecate this. Superseded by habitBirthdays
     habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean,
-    nye: Number
+    nye: Number,
+    habiticaDays: Number,
+    greeting: Number,
+    thankyou: Number
   },
   auth: {
     blocked: Boolean,
@@ -99,14 +102,15 @@ var UserSchema = new Schema({
     mobileChat: Boolean,
     plan: {
       planId: String,
-      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', '']}
-      customerId: String,
+      paymentMethod: String, //enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
+      customerId: String, // Billing Agreement Id in case of Amazon Payments
       dateCreated: Date,
       dateTerminated: Date,
       dateUpdated: Date,
       extraMonths: {type:Number, 'default':0},
       gemsBought: {type: Number, 'default': 0},
       mysteryItems: {type: Array, 'default': []},
+      lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
       consecutive: {
         count: {type:Number, 'default':0},
         offset: {type:Number, 'default':0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
@@ -128,25 +132,38 @@ var UserSchema = new Schema({
       party: {type: Number,       'default': -1},
       guilds: {type: Number,      'default': -1},
       challenges: {type: Number,  'default': -1},
-      market: {type: Number,      'default': -1}
+      market: {type: Number,      'default': -1},
+      pets: {type: Number,        'default': -1},
+      mounts: {type: Number,      'default': -1},
+      hall: {type: Number,        'default': -1},
+      equipment: {type: Number,   'default': -1}
     },
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
-    partyEnabled: Boolean, // FIXME do we need this?
     contributor: Boolean,
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,
     rebirthEnabled: {type: Boolean, 'default': false},
-    freeRebirth: {type: Boolean, 'default': false},
     levelDrops: {type:Schema.Types.Mixed, 'default':{}},
     chatRevoked: Boolean,
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {type: Number, 'default': 0},
+    // Needed to track the tip to send inside the email
+    weeklyRecapEmailsPhase: {type: Number, 'default': 0},
+    // Used to track when the next weekly recap should be sent
+    lastWeeklyRecap: {type: Date, 'default': Date.now},
+    // Used to enable weekly recap emails as users login
+    lastWeeklyRecapDiscriminator: Boolean,
     communityGuidelinesAccepted: {type: Boolean, 'default': false},
-    cronCount: {type:Number, 'default':0}
+    cronCount: {type:Number, 'default':0},
+    welcomed: {type: Boolean, 'default': false},
+    armoireEnabled: {type: Boolean, 'default': false},
+    armoireOpened: {type: Boolean, 'default': false},
+    armoireEmpty: {type: Boolean, 'default': false},
+    cardReceived: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -191,10 +208,16 @@ var UserSchema = new Schema({
     special:{
       snowball: {type: Number, 'default': 0},
       spookDust: {type: Number, 'default': 0},
+      shinySeed: {type: Number, 'default': 0},
+      seafoam: {type: Number, 'default': 0},
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
-      nyeReceived: Array
+      nyeReceived: Array,
+      greeting: Number,
+      greetingReceived: Array,
+      thankyou: Number,
+      thankyouReceived: Array
     },
 
     // -------------- Animals -------------------
@@ -276,11 +299,11 @@ var UserSchema = new Schema({
         down: {type: Number, 'default': 0},
         collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
       },
-      completed: String // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+      completed: String, // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+      RSVPNeeded: {type: Boolean, 'default': false} // Set to true when invite is pending, set to false when quest invite is accepted or rejected, quest starts, or quest is cancelled
     }
   },
   preferences: {
-    armorSet: String,
     dayStart: {type:Number, 'default': 0, min: 0, max: 23},
     size: {type:String, enum: ['broad','slim'], 'default': 'slim'},
     hair: {
@@ -295,7 +318,7 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
-    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme']},
+    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme', 'gokulTheme']},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
@@ -310,6 +333,7 @@ var UserSchema = new Schema({
     advancedCollapsed: {type: Boolean, 'default': false},
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
+    displayInviteToPartyWhenPartyIs1: { type:Boolean, 'default':true},
     webhooks: {type: Schema.Types.Mixed, 'default': {}},
     // For this fields make sure to use strict comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
@@ -326,16 +350,17 @@ var UserSchema = new Schema({
       invitedQuest: {type: Boolean, 'default': true},
       //remindersToLogin: {type: Boolean, 'default': true},
       // Those importantAnnouncements are in fact the recapture emails
-      importantAnnouncements: {type: Boolean, 'default': true}
+      importantAnnouncements: {type: Boolean, 'default': true},
+      weeklyRecaps: {type: Boolean, 'default': true}
     }
   },
   profile: {
     blurb: String,
     imageUrl: String,
-    name: String,
+    name: String
   },
   stats: {
-    hp: {type: Number, 'default': 50},
+    hp: {type: Number, 'default': shared.maxHealth},
     mp: {type: Number, 'default': 10},
     exp: {type: Number, 'default': 0},
     gp: {type: Number, 'default': 0},
@@ -356,7 +381,9 @@ var UserSchema = new Schema({
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false},
-      spookDust: {type: Boolean, 'default': false}
+      spookDust: {type: Boolean, 'default': false},
+      shinySeed: {type: Boolean, 'default': false},
+      seafoam: {type: Boolean, 'default': false}
     },
     training: {
       int: {type: Number, 'default': 0},
@@ -387,7 +414,12 @@ var UserSchema = new Schema({
   todos:    {type:[TaskSchemas.TodoSchema]},
   rewards:  {type:[TaskSchemas.RewardSchema]},
 
-  extra: Schema.Types.Mixed
+  extra: Schema.Types.Mixed,
+
+  pushDevices: {type: [{
+    regId: {type: String},
+    type: {type: String}
+  }],'default': []}
 
 }, {
   strict: true,
@@ -436,7 +468,9 @@ UserSchema.pre('save', function(next) {
           newTask.name = newTask.name(self.preferences.language);
         }else{
           newTask.text = newTask.text(self.preferences.language);
-          newTask.notes = newTask.notes(self.preferences.language);
+          if(newTask.notes) {
+            newTask.notes = newTask.notes(self.preferences.language);
+          }
 
           if(newTask.checklist){
             newTask.checklist = _.map(newTask.checklist, function(checklistItem){
@@ -465,31 +499,33 @@ UserSchema.pre('save', function(next) {
   }
 
   // Determines if Beast Master should be awarded
-  var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.pets);
-
-  if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true
+  var beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+    this.achievements.beastMaster = true;
   }
 
   // Determines if Mount Master should be awarded
-  var mountCount = shared.countMounts(_.reduce(this.items.mounts,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.mounts);
+  var mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
-  if (mountCount >= 90 || this.achievements.mountMasterCount > 0) {
+  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
     this.achievements.mountMaster = true
   }
 
   // Determines if Triad Bingo should be awarded
 
-  var triadCount = shared.countTriad(this.items.pets);
+  var dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+  var qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-  if ((mountCount >= 90 && triadCount >= 90) || this.achievements.triadBingoCount > 0) {
+  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
+  }
+
+  // Enable weekly recap emails for old users who sign in
+  if(this.flags.lastWeeklyRecapDiscriminator){
+    // Enable weekly recap emails in 24 hours
+    this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
+    // Unset the field so this is run only once
+    this.flags.lastWeeklyRecapDiscriminator = undefined;
   }
 
   // EXAMPLE CODE for allowing all existing and new players to be
@@ -506,6 +542,9 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.methods.unlink = function(options, cb) {
   var cid = options.cid, keep = options.keep, tid = options.tid;
+  if (!cid) {
+    return cb("Could not remove challenge tasks. Please delete them manually.");
+  }
   var self = this;
   switch (keep) {
     case 'keep':
@@ -538,11 +577,16 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
+// Initially export an empty object so external requires will get 
+// the right object by reference when it's defined later
+// Otherwise it would remain undefined if requested before the query executes
+module.exports.mods = [];
 
 mongoose.model("User")
   .find({'contributor.admin':true})
   .sort('-contributor.level -backer.npc profile.name')
   .select('profile contributor backer')
   .exec(function(err,mods){
-    module.exports.mods = mods
+    // Using push to maintain the reference to mods
+    module.exports.mods.push.apply(module.exports.mods, mods);
 });

@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout', 'ApiUrl', 'Payments','$sce','$window','Analytics',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout, ApiUrl, Payments, $sce, $window, Analytics) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -15,7 +15,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
-        if (!!fromState.name) window.ga && ga('send', 'pageview', {page: '/#/'+toState.name});
+        if (!!fromState.name) Analytics.track({'hitType':'pageview','eventCategory':'navigation','eventAction':'navigate','page':'/#/'+toState.name});
         // clear inbox when entering or exiting inbox tab
         if (fromState.name=='options.social.inbox' || toState.name=='options.social.inbox') {
           User.user.ops.update && User.set({'inbox.newMessages':0});
@@ -29,6 +29,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.settings = User.settings;
     $rootScope.Shared = Shared;
     $rootScope.Content = Content;
+    $rootScope.Analytics = Analytics;
     $rootScope.env = window.env;
     $rootScope.Math = Math;
     $rootScope.Groups = Groups;
@@ -88,9 +89,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 
-    $rootScope.petCount = Shared.countPets($rootScope.countExists(User.user.items.pets), User.user.items.pets);
-    $rootScope.mountCount = Shared.countMounts($rootScope.countExists(User.user.items.mounts), User.user.items.mounts);
-
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
       if(phase == '$apply' || phase == '$digest') {
@@ -105,11 +103,29 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.set = User.set;
     $rootScope.authenticated = User.authenticated;
 
+    var forceLoadBailey = function(template, options) {
+      $http.get('/new-stuff.html')
+        .success(function(data) {
+          $rootScope.latestBaileyMessage = $sce.trustAsHtml(data);
+          $modal.open({
+            templateUrl: 'modals/' + template + '.html',
+            controller: options.controller, // optional
+            scope: options.scope, // optional
+            resolve: options.resolve, // optional
+            keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
+            backdrop: (options.backdrop === undefined ? true : options.backdrop), // optional
+            size: options.size, // optional, 'sm' or 'lg'
+            windowClass: options.windowClass // optional
+          });
+        });
+    };
+
     // Open a modal from a template expression (like ng-click,...)
     // Otherwise use the proper $modal.open
     $rootScope.openModal = function(template, options){//controller, scope, keyboard, backdrop){
       if (!options) options = {};
-      if (options.track) window.ga && ga('send', 'event', 'button', 'click', options.track);
+      if (options.track) Analytics.track(_.merge(options.track,{'hitType':'event','eventCategory':'button','eventAction':'click'}));
+      if(template === 'newStuff') return forceLoadBailey(template, options);
       return $modal.open({
         templateUrl: 'modals/' + template + '.html',
         controller: options.controller, // optional
@@ -183,7 +199,64 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       chart.draw(data, options);
     };
 
+    $rootScope.getGearArray = function(set){
+      var flatGearArray = _.toArray(Content.gear.flat);
 
+      var filteredArray = _.where(flatGearArray, {gearSet: set});
+
+      return filteredArray;
+    }
+
+    // @TODO: Extract equip and purchase into equipment service
+    $rootScope.equip = function(itemKey, equipType) {
+      equipType = equipType || (user.preferences.costume ? 'costume' : 'equipped');
+      var equipParams = {
+         type: equipType,
+         key: itemKey
+      };
+
+      user.ops.equip({ params: equipParams });
+    }
+
+    $rootScope.purchase = function(type, item){
+      if (type == 'special') return user.ops.buySpecialSpell({params:{key:item.key}});
+
+      var gems = user.balance * 4;
+      var price = item.value;
+      var message = "";
+
+      var itemName = window.env.t(Content.itemList[type].localeKey)
+
+      if (Content.itemList[type].isEquipment) {
+        var eligibleForPurchase = _canBuyEquipment(item.key);
+        if (!eligibleForPurchase) return false;
+
+        // @TODO: Attach gemValue to content so we don't have to do this
+        price = ((((item.specialClass == "wizard") && (item.type == "weapon")) || item.gearSet == "animal") + 1);
+        type = 'gear';
+      }
+
+      if (gems < price) return $rootScope.openModal('buyGems');
+
+      if (type === 'quests') {
+        if (item.previous) {message = window.env.t('alreadyEarnedQuestReward', {priorQuest: Content.quests[item.previous].text()})}
+        else if (item.lvl) {message = window.env.t('alreadyEarnedQuestLevel', {level: item.lvl})}
+      }
+
+      message += window.env.t('buyThis', {text: itemName, price: price, gems: gems});
+      if ($window.confirm(message))
+        user.ops.purchase({params:{type:type,key:item.key}});
+    };
+
+    function _canBuyEquipment(itemKey) {
+      if (user.items.gear.owned[itemKey]) {
+        $window.alert(window.env.t('messageAlreadyOwnGear'));
+      } else if (user.items.gear.owned[itemKey] === false) {
+        $window.alert(window.env.t('messageAlreadyPurchasedGear'));
+      } else {
+        return true;
+      }
+    }
 
     /*
      ------------------------
@@ -208,7 +281,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $scope.castEnd = function(target, type, $event){
-      if (!$rootScope.applyingAction) return;
+      if (!$rootScope.applyingAction) return 'No applying action';
       $event && ($event.stopPropagation(),$event.preventDefault());
       if ($scope.spell.target != type) return Notification.text(window.env.t('invalidTarget'));
       $scope.spell.cast(User.user, target);
@@ -220,16 +293,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.applyingAction = false;
 
       $http.post(ApiUrl.get() + '/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
-      .success(function(){
-        var msg = window.env.t('youCast', {spell: spell.text()});
-        switch (type) {
-         case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
-         case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
-         case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
-        }
-        Notification.text(msg);
-      });
-
+        .success(function(){
+          var msg = window.env.t('youCast', {spell: spell.text()});
+          switch (type) {
+           case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
+           case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
+           case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
+          }
+          Notification.markdown(msg);
+          User.sync();
+        });
     }
 
     $rootScope.castCancel = function(){
@@ -241,7 +314,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // reload the page. Perform manually.
     $rootScope.hardRedirect = function(url){
       window.location.href = url;
-      window.location.reload(false);
+      setTimeout(function() {
+        window.location.reload(false);
+      });
     }
 
     // Universal method for sending HTTP methods

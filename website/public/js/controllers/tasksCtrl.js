@@ -1,9 +1,13 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
+
+    $scope.armoireCount = function(gear) {
+      return Shared.count.remainingGearInSet(gear, 'armoire');
+    };
 
     $scope.score = function(task, direction) {
       switch (task.type) {
@@ -15,13 +19,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               break;
           case 'todo':
               $rootScope.playSound('ToDo');
-              Guide.goto('intro', 1);
               break;
           default:
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.user.ops.score({params:{id: task.id, direction:direction}})
+      User.user.ops.score({params:{id: task.id, direction:direction}});
+      Analytics.updateUser();
+      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
 
     function addTask(addTo, listDef, task) {
@@ -38,6 +43,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.addTask = function(addTo, listDef) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
+        //Reverse the order of tasks so the tasks will appear in the order the user entered them
+        tasks.reverse();
         _.each(tasks, function(t) {
           addTask(addTo, listDef, t);
         });
@@ -57,6 +64,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       list.bulk = !list.bulk;
       list.focus = true;
     };
+
+    $scope.editTask = Tasks.editTask;
 
     /**
      * Add the new task to the actions log
@@ -82,9 +91,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
-    $scope.removeTask = function(list, $index) {
+    $scope.removeTask = function(task) {
       if (!confirm(window.env.t('sureDelete'))) return;
-      User.user.ops.deleteTask({params:{id:list[$index].id}})
+      User.user.ops.deleteTask({params:{id:task.id}})
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -127,6 +136,19 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
+     Dailies
+     ------------------------
+     */
+
+    $scope.openDatePicker = function($event, task) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      task._isDatePickerOpen = !task._isDatePickerOpen;
+    }
+
+    /*
+     ------------------------
      Checklists
      ------------------------
      */
@@ -166,7 +188,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           focusChecklist(task,$index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
-      } 
+      }
     }
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
       var toSwap = task.checklist.splice(oldIndex, 1)[0];
@@ -186,18 +208,20 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items 
+     Items
      ------------------------
      */
 
-    $scope.$watch('user.items.gear.equipped', function(){
+    $scope.$watch('user.items.gear.owned', function(){
       $scope.itemStore = Shared.updateStore(User.user);
     },true);
+
+    $scope.healthPotion = Content.potion;
+    $scope.armoire = Content.armoire;
 
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
       $rootScope.playSound('Reward');
-      Guide.goto('intro', 4);
     };
 
 
@@ -210,7 +234,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.shouldShow = function(task, list, prefs){
       if (task._editing) // never hide a task while being edited
         return true;
-      var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task.repeat, prefs) : true;
+      var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task, prefs) : true;
       switch (list.view) {
         case "yellowred":  // Habits
           return task.value < 1;

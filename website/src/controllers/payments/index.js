@@ -7,11 +7,13 @@ var moment = require('moment');
 var isProduction = nconf.get("NODE_ENV") === "production";
 var stripe = require('./stripe');
 var paypal = require('./paypal');
+var amazon = require('./amazon');
 var members = require('../members')
 var async = require('async');
 var iap = require('./iap');
 var mongoose= require('mongoose');
 var cc = require('coupon-code');
+var pushNotify = require('./../pushNotifications');
 
 function revealMysteryItems(user) {
   _.each(shared.content.gear.flat, function(item) {
@@ -51,7 +53,10 @@ exports.createSubscription = function(data, cb) {
       paymentMethod: data.paymentMethod,
       extraMonths: +p.extraMonths
         + +(p.dateTerminated ? moment(p.dateTerminated).diff(new Date(),'months',true) : 0),
-      dateTerminated: null
+      dateTerminated: null,
+      // Specify a lastBillingDate just for Amazon Payments
+      // Resetted every time the subscription restarts
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined
     }).defaults({ // allow non-override if a plan was previously used
       dateCreated: new Date(),
       mysteryItems: []
@@ -69,18 +74,35 @@ exports.createSubscription = function(data, cb) {
   revealMysteryItems(recipient);
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'subscription-begins');
-    utils.ga.event('subscribe', data.paymentMethod).send();
-    utils.ga.transaction(data.user._id, block.price).item(block.price, 1, data.paymentMethod.toLowerCase() + '-subscription', data.paymentMethod).send();
+
+    var analyticsData = {
+      uuid: data.user._id,
+      itemPurchased: 'Subscription',
+      sku: data.paymentMethod.toLowerCase() + '-subscription',
+      purchaseType: 'subscribe',
+      paymentMethod: data.paymentMethod,
+      quantity: 1,
+      gift: !!data.gift, // coerced into a boolean
+      purchaseValue: block.price
+    }
+    utils.analytics.trackPurchase(analyticsData);
   }
   data.user.purchased.txnCount++;
   if (data.gift){
     members.sendMessage(data.user, data.gift.member, data.gift);
+
+    var byUserName = utils.getUserInfo(data.user, ['name']).name;
+
     if(data.gift.member.preferences.emailNotifications.giftedSubscription !== false){
       utils.txnEmail(data.gift.member, 'gifted-subscription', [
-        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
+        {name: 'GIFTER', content: byUserName},
         {name: 'X_MONTHS_SUBSCRIPTION', content: months}
       ]);
-    }    
+    }
+
+    if (data.gift.member._id != data.user._id) { // Only send push notifications if sending to a user other than yourself
+      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedSubscription'), months + " months - by "+ byUserName);
+    }
   }
   async.parallel([
     function(cb2){data.user.save(cb2)},
@@ -105,7 +127,13 @@ exports.cancelSubscription = function(data, cb) {
 
   data.user.save(cb);
   utils.txnEmail(data.user, 'cancel-subscription');
-  utils.ga.event('unsubscribe', data.paymentMethod).send();
+  var analyticsData = {
+    uuid: data.user._id,
+    gaCategory: 'commerce',
+    gaLabel: data.paymentMethod,
+    paymentMethod: data.paymentMethod
+  }
+  utils.analytics.track('unsubscribe', analyticsData);
 }
 
 exports.buyGems = function(data, cb) {
@@ -114,17 +142,34 @@ exports.buyGems = function(data, cb) {
   data.user.purchased.txnCount++;
   if(isProduction) {
     if (!data.gift) utils.txnEmail(data.user, 'donation');
-    utils.ga.event('checkout', data.paymentMethod).send();
-    //TODO ga.transaction to reflect whether this is gift or self-purchase
-    utils.ga.transaction(data.user._id, amt).item(amt, 1, data.paymentMethod.toLowerCase() + "-checkout", "Gems > " + data.paymentMethod).send();
+
+    var analyticsData = {
+      uuid: data.user._id,
+      itemPurchased: 'Gems',
+      sku: data.paymentMethod.toLowerCase() + '-checkout',
+      purchaseType: 'checkout',
+      paymentMethod: data.paymentMethod,
+      quantity: 1,
+      gift: !!data.gift, // coerced into a boolean
+      purchaseValue: amt
+    }
+    utils.analytics.trackPurchase(analyticsData);
   }
+
   if (data.gift){
+    var byUsername = utils.getUserInfo(data.user, ['name']).name;
+    var gemAmount = data.gift.gems.amount || 20;
+
     members.sendMessage(data.user, data.gift.member, data.gift);
     if(data.gift.member.preferences.emailNotifications.giftedGems !== false){
       utils.txnEmail(data.gift.member, 'gifted-gems', [
-        {name: 'GIFTER', content: utils.getUserInfo(data.user, ['name']).name},
-        {name: 'X_GEMS_GIFTED', content: data.gift.gems.amount || 20}
+        {name: 'GIFTER', content: byUsername},
+        {name: 'X_GEMS_GIFTED', content: gemAmount}
       ]);
+    }
+
+    if (data.gift.member._id != data.user._id) { // Only send push notifications if sending to a user other than yourself
+      pushNotify.sendNotify(data.gift.member, shared.i18n.t('giftedGems'), gemAmount + ' Gems - by '+byUsername);
     }
   }
   async.parallel([
@@ -151,6 +196,12 @@ exports.paypalSubscribeCancel = paypal.cancelSubscription;
 exports.paypalCheckout = paypal.createPayment;
 exports.paypalCheckoutSuccess = paypal.executePayment;
 exports.paypalIPN = paypal.ipn;
+
+exports.amazonVerifyAccessToken = amazon.verifyAccessToken;
+exports.amazonCreateOrderReferenceId = amazon.createOrderReferenceId;
+exports.amazonCheckout = amazon.checkout;
+exports.amazonSubscribe = amazon.subscribe;
+exports.amazonSubscribeCancel = amazon.subscribeCancel;
 
 exports.iapAndroidVerify = iap.androidVerify;
 exports.iapIosVerify = iap.iosVerify;
