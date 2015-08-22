@@ -61,6 +61,8 @@ module.exports = function(config) {
       "website/public/js/filters/roundLargeNumbers.js",
       "website/public/js/filters/taskOrdering.js",
 
+      "website/public/js/directives/expand-menu.directive.js",
+      "website/public/js/directives/close-menu.directive.js",
       "website/public/js/directives/focus-me.directive.js",
       "website/public/js/directives/from-now.directive.js",
       "website/public/js/directives/habitrpg-tasks.directive.js",
