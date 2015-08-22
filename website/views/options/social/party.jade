@@ -1,10 +1,16 @@
 include ../../shared/avatar/generated_avatar
 
 script(type='text/ng-template', id='partials/options.social.party.html')
+
+  .container-fluid(ng-if='group.loadingNewParty')
+    .row.text-center: .col-xs-12
+      h2=env.t('loadingNewParty')
+      img(src='/page-loader.gif')
+
   div(ng-if='group._id')
     include ./leave-party-and-join-another
     include ./group
-  div(ng-if='!group._id')
+  div(ng-if='!group._id && !group.loadingNewParty')
     div(ng-show='user.invitations.party.id').container-fluid
       h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
       a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
