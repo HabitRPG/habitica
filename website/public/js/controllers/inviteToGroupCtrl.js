@@ -55,7 +55,6 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
       var emails = _.filter($scope.emails, function(obj) {
           return obj.email != '';
       });
-      console.log(emails);
       return emails;
     }
 
