@@ -40,7 +40,7 @@ script(type='text/ng-template', id='modals/invite-party.html')
   .modal-body
     div(ng-if='!group._id')
       h4(style='margin-top:0')=env.t('nameYourParty')
-      input.form-control#new-group-name.input-medium.option-content(required, type='text', ng-model='newGroup.name')
+      input.form-control#new-group-name.input-medium.option-content(required, type='text', ng-model='group.name')
     tabset
       tab(heading=env.t('inviteByEmail'))
         p.alert.alert-info=env.t('inviteByEmailExplanation')
