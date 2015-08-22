@@ -93,11 +93,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
 
-      .panel.panel-default
+      .panel.panel-default(ng-if='::group.type=="party" && group.memberCount > 1')
         .panel-heading
           h3.panel-title=env.t('partyList')
         .panel-body
-          div.form-group(ng-if='::group.type=="party" && group.memberCount > 1')
+          .form-group
             select.form-control#partyOrder(
               ng-model='user.party.order',
               ng-controller='ChatCtrl',
