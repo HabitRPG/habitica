@@ -100,6 +100,7 @@
 
     function inviteOrStartParty(group) {
       if (group.type === "party" || $location.$$path === "/options/groups/party") {
+        group.type = 'party';
         $rootScope.openModal('invite-party', {
           controller:'InviteToGroupCtrl',
           resolve: {
