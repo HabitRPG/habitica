@@ -1,32 +1,25 @@
 'use strict';
 
 describe('closeMenu Directive', function() {
-  var element, menuElement, scope, ctrl;
+  var menuElement, scope;
 
   beforeEach(module('habitrpg'));
 
-  beforeEach(inject(function($rootScope, $compile, $controller) {
+  beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
 
-    ctrl = $controller('MenuCtrl', {$scope: scope});
+    var element = '<a data-close-menu menu="mobile">';
 
-    element = '<a data-close-menu menu="mobile">';
-
-    element = $compile(element)(scope);
     menuElement = $compile(element)(scope);
     scope.$digest();
   }));
 
   it('closes a connected menu when element is clicked', function() {
-    inject(function($timeout) {
-      var clickSpy = sandbox.spy();
+    scope._expandedMenu = 'mobile';
+    menuElement.appendTo(document.body);
 
-      element.appendTo(document.body);
-      element.on('click', clickSpy);
-      element.triggerHandler('click');
+    menuElement.triggerHandler('click');
 
-      expect(scope._expandedMenu).to.equal(null)
-      expect(clickSpy).to.have.been.called;
-    });
+    expect(scope._expandedMenu).to.eql(null)
   });
 });

@@ -1,32 +1,34 @@
 'use strict';
 
 describe('expandMenu Directive', function() {
-  var element, menuElement, scope, ctrl, elm;
+  var menuElement, scope;
 
   beforeEach(module('habitrpg'));
 
-  beforeEach(inject(function($rootScope, $compile, $controller) {
+  beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
 
-    ctrl = $controller('MenuCtrl', {$scope: scope});
+    var element = '<a data-expand-menu menu="mobile"></a>';
 
-    element = '<a data-expand-menu menu="mobile"></a>';
-
-    element = $compile(element)(scope);
     menuElement = $compile(element)(scope);
     scope.$digest();
   }));
 
   it('expands a connected menu when element is clicked', function() {
-    inject(function($timeout) {
-      var clickSpy = sandbox.spy();
+    expect(scope._expandedMenu).to.not.exist;
+    menuElement.appendTo(document.body);
 
-      element.appendTo(document.body);
+    menuElement.triggerHandler('click');
 
-      element.on('click', clickSpy);
-      element.triggerHandler('click');
+    expect(scope._expandedMenu).to.eql('mobile')
+  });
 
-      expect(clickSpy).to.have.been.called;
-    });
+  it('closes a connected menu when it is already open', function() {
+    scope._expandedMenu = 'mobile';
+    menuElement.appendTo(document.body);
+
+    menuElement.triggerHandler('click');
+
+    expect(scope._expandedMenu).to.eql(null)
   });
 });
