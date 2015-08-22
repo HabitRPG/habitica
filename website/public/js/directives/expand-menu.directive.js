@@ -1,6 +1,5 @@
 'use strict';
 
-var count = 0;
 (function(){
 
   angular
