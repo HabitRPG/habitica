@@ -28,7 +28,7 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
         });
       }
       else if (inviteMethod === 'uuid') {
-        var uuids = _.pluck($scope.invitees, 'uuid');
+        var uuids = _getOnlyUuids();
         Groups.Group.invite({gid: $scope.group._id}, {uuids: uuids}, function(){
           Notification.text(window.env.t('invitationsSent'));
           _resetInvitees();
@@ -39,6 +39,14 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
       else {
         return console.log('Invalid invite method.')
       }
+    }
+
+    function _getOnlyUuids() {
+      var uuids = _.pluck($scope.invitees, 'uuid');
+      var filteredUuids = _.filter(uuids, function(id) {
+        return id != '';
+      });
+      return filteredUuids;
     }
 
     function _resetInvitees() {

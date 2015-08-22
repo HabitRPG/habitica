@@ -109,6 +109,20 @@ describe('Invite to Group Controller', function() {
 
         expect(scope.invitees).to.eql([{uuid: ''}]);
       });
+
+      it('removes blank fields from being sent', function() {
+        groups.Group.invite.yields();
+        scope.invitees = [{uuid: 'user1'}, {uuid: ''}, {uuid: 'user3'}];
+
+        scope.inviteNewUsers('uuid');
+
+        expect(groups.Group.invite).to.be.calledOnce;
+        expect(groups.Group.invite).to.be.calledWith({
+          gid: scope.group._id,
+        }, {
+          uuids: ['user1', 'user3']
+        });
+      });
     });
 
     context('invalid invite method', function() {
