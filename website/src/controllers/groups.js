@@ -577,8 +577,9 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
           return cb({code:400,err:"User already pending invitation."});
         Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
           if (err) return cb(err);
-          if (!_.isEmpty(groups))
-            return cb({code:400,err:"User already in a party."})
+          if (!_.isEmpty(groups) && groups[0].members.length > 1) {
+            return cb({code:400, err:"User already in a party."})
+          }
           sendInvite();
         });
       }

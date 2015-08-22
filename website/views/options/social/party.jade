@@ -2,6 +2,7 @@ include ../../shared/avatar/generated_avatar
 
 script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-if='group._id')
+    include ./leave-party-and-join-another
     include ./group
   div(ng-if='!group._id')
     div(ng-show='user.invitations.party.id').container-fluid

@@ -172,4 +172,42 @@ describe("Party Controller", function() {
       expect(rootScope.$state.go).to.be.calledWith('options.inventory.quests');
     });
   });
+
+  describe('#leaveOldPartyAndJoinNewParty', function() {
+    beforeEach(function() {
+      sandbox.stub(scope, 'join');
+      sandbox.stub(groups.Group, 'leave').yields();
+      sandbox.stub(groups, 'party').returns({
+        _id: 'old-party'
+      });
+      sandbox.stub(window, 'confirm').returns(true);
+    });
+
+    it('does nothing if user declines confirmation', function() {
+      window.confirm.returns(false);
+      scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
+
+      expect(groups.Group.leave).to.not.be.called;
+    })
+
+    it('leaves user\'s current party', function() {
+      scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
+
+      expect(groups.Group.leave).to.be.calledOnce;
+      expect(groups.Group.leave).to.be.calledWith({
+        gid: 'old-party',
+        keep: false
+      });
+    });
+
+    it('joins the new party', function() {
+      scope.leaveOldPartyAndJoinNewParty('some-id', 'some-name');
+
+      expect(scope.join).to.be.calledOnce;
+      expect(scope.join).to.be.calledWith({
+        id: 'some-id',
+        name: 'some-name'
+      });
+    });
+  });
 });
