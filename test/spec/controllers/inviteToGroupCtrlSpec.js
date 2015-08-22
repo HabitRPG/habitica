@@ -45,8 +45,31 @@ describe('Invite to Group Controller', function() {
 
   describe('inviteNewUsers', function() {
     beforeEach(function() {
-      scope.group = specHelper.newGroup();
+      scope.group = specHelper.newGroup({
+        $save: sinon.stub().returns({
+          then: function(cb) { cb(); }
+        })
+      });
       sandbox.stub(groups.Group, 'invite');
+    });
+
+    context('pre-invite', function() {
+      it('saves the group', function() {
+        scope.inviteNewUsers('uuid');
+        expect(scope.group.$save).to.be.calledOnce;
+      });
+
+      it('uses provided name', function() {
+        scope.group.name = 'test party';
+        scope.inviteNewUsers('uuid');
+        expect(group.name).to.eql('test party');
+      });
+
+      it('names the group if no name is provided', function() {
+        scope.group.name = '';
+        scope.inviteNewUsers('uuid');
+        expect(group.name).to.eql(env.t('possessiveParty', {name: user.profile.name}));
+      });
     });
 
     context('email', function() {
