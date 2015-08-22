@@ -20,7 +20,9 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
 
     function _inviteByMethod(inviteMethod) {
       if (inviteMethod === 'email') {
-        Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: $scope.emails}, function(){
+        var emails = _getEmails();
+
+        Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: emails}, function(){
           Notification.text(window.env.t('invitationsSent'));
           _resetInvitees();
         }, function(){
@@ -47,6 +49,14 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
         return id != '';
       });
       return filteredUuids;
+    }
+
+    function _getEmails() {
+      var emails = _.filter($scope.emails, function(obj) {
+          return obj.email != '';
+      });
+      console.log(emails);
+      return emails;
     }
 
     function _resetInvitees() {

@@ -51,8 +51,10 @@ describe('Invite to Group Controller', function() {
 
     context('email', function() {
       it('invites user with emails', function() {
-        scope.emails[0].name = 'Luigi';
-        scope.emails[0].email = 'mario_bro@themushroomkingdom.com';
+        scope.emails = [
+          {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
+          {name: 'Mario', email: 'mario@tmk.com'}
+        ];
 
         scope.inviteNewUsers('email');
         expect(groups.Group.invite).to.be.calledOnce;
@@ -60,7 +62,10 @@ describe('Invite to Group Controller', function() {
           gid: scope.group._id,
         }, {
           inviter: user.profile.name,
-          emails: [{name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},{name: '', email: ''}]
+          emails: [
+            {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
+            {name: 'Mario', email: 'mario@tmk.com'}
+          ]
 
         });
       });
@@ -73,6 +78,26 @@ describe('Invite to Group Controller', function() {
         scope.inviteNewUsers('email');
 
         expect(scope.emails).to.eql([{name:'', email: ''},{name:'', email: ''}]);
+      });
+
+      it('filters out blank email inputs', function() {
+        scope.emails = [
+          {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
+          {name: 'Toad', email: ''},
+          {name: 'Mario', email: 'mario@tmk.com'}
+        ];
+
+        scope.inviteNewUsers('email');
+        expect(groups.Group.invite).to.be.calledOnce;
+        expect(groups.Group.invite).to.be.calledWith({
+          gid: scope.group._id,
+        }, {
+          inviter: user.profile.name,
+          emails: [
+            {name: 'Luigi', email: 'mario_bro@themushroomkingdom.com'},
+            {name: 'Mario', email: 'mario@tmk.com'}
+          ]
+        });
       });
     });
 
