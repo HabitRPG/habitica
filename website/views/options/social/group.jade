@@ -56,7 +56,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             a.badge.badge-info(ng-click='clickMember(group.leader._id, true)')
               | {{group.leader.profile.name}}
 
-      div.text-center(ng-if='group.type === "party"')
+      .text-center(ng-if='group.type === "party"')
         button.btn.btn-success.margin-auto.width-50(ng-click='clickStartQuest();')=env.t('startQuest')
 
       // ------ Members -------
@@ -71,7 +71,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             tr(ng-repeat='member in group.members track by member._id')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
+                .pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
                   a.media-object(ng-click='removeMember(group, member, true)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
@@ -86,7 +86,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             tr(ng-repeat='invite in group.invites')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader._id == user.id')
+                .pull-left(ng-show='group.leader._id == user.id')
                   a.media-object(ng-click='removeMember(group, invite, false)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
@@ -122,7 +122,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         | : {{group._id}}
 
     .col-md-8
-      div()
+      div
         textarea.form-control(ng-show='group._editing', rows=6, placeholder=env.t('leaderMsg'), ng-model='group.leaderMessage')
       table(ng-show='group.leaderMessage')
         tr
