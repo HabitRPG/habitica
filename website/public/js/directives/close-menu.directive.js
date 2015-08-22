@@ -9,10 +9,10 @@
   function closeMenu() {
     return {
       restrict: 'A',
-      link: function(scope, element, attrs) {
+      link: function($scope, element, attrs) {
         element.on('click', function(event) {
-          scope._expandedMenu = null;
-          scope.$apply()
+          $scope._expandedMenu = null;
+          $scope.$apply()
         });
       }
     }
