@@ -66,7 +66,7 @@ script(type='text/ng-template', id='modals/invite-party.html')
                   .col-sm-7
                     input.form-control(type='text', ng-model='inviter')
                   .col-sm-4
-                    button.btn.btn-primary(type='submit')=env.t('sendInvitations')
+                    button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
       tab(heading=env.t('inviteExistUser'))
         p.alert.alert-info!=env.t('inviteAlertInfo')
         form.form-horizontal(ng-submit='inviteNewUsers("uuid")')
@@ -86,7 +86,7 @@ script(type='text/ng-template', id='modals/invite-party.html')
               tr
                 td
                   .col-sm-4.col-sm-offset-8
-                    button.btn.btn-primary(type='submit')=env.t('sendInvitations')
+                    button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
     .row
       .quest_basilist.pull-left
       p(style='margin:2em')=env.t('exclusiveQuestScroll')
