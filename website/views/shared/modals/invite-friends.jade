@@ -3,14 +3,27 @@ script(type='text/ng-template', id='modals/invite-guild.html')
     h4=env.t('inviteFriends')
   .modal-body
     p.alert.alert-info!=env.t('inviteAlertInfo')
-    form.form-inline(ng-submit='invite()')
-      .form-group
-        input.form-control(type='text', placeholder=env.t('userId'), ng-model='invitee')
-        |&nbsp;
-        button.btn.btn-primary(type='submit')=env.t('inviteExistUser')
+    form.form-horizontal(ng-submit='inviteNewUsers("uuid")')
+      table.table.table-striped
+        thead
+          tr
+            th=env.t('userId')
+        tbody
+          tr(ng-repeat='user in invitees track by $index')
+            td
+              input.form-control(type='text', ng-model='user.uuid')
+          //- @TODO: Refactor src/controllers/groups api.invite to use promises before implimenting this
+          //- tr
+          //-   td
+          //-     a.btn.btn-xs.pull-right(ng-click='addUuid()')
+          //-       i.glyphicon.glyphicon-plus
+          tr
+            td
+              .col-sm-4.col-sm-offset-8
+                button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
     hr
     p.alert.alert-info=env.t('inviteByEmail')
-    form.form-horizontal(ng-submit='inviteEmails()')
+    form.form-horizontal(ng-submit='inviteNewUsers("email")')
       table.table.table-striped
         thead
           tr
@@ -24,7 +37,7 @@ script(type='text/ng-template', id='modals/invite-guild.html')
               input.form-control(type='email', ng-model='email.email')
           tr
             td(colspan=2)
-              a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+              a.btn.btn-xs.pull-right(ng-click='addEmail()')
                 i.glyphicon.glyphicon-plus
           tr
             td.form-group(colspan=2)
@@ -32,7 +45,7 @@ script(type='text/ng-template', id='modals/invite-guild.html')
               .col-sm-7
                 input.form-control(type='text', ng-model='inviter')
               .col-sm-4
-                button.btn.btn-primary.btn-wrap(type='submit')=env.t('inviteNewUsers')
+                button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 
