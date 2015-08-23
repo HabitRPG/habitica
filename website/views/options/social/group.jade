@@ -68,6 +68,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           h3.panel-title
             =env.t('members')
             button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
+
         .panel-body.modal-fixed-height
           h4(ng-show='group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
           table.table.table-striped(ng-show='group.memberCount > 1 || group.type !== "party"' bindonce='group')
@@ -80,7 +81,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 a.media-body
                   span(ng-click='clickMember(member._id, true)')
                     | {{member.profile.name}}
-            tr(ng-if='group.memberCount > group.members.length')
+            tr(ng-if='::group.memberCount > group.members.length')
               td
                 span.badge {{group.memberCount - group.members.length}}
                 = ' ' + env.t('moreMembers')
