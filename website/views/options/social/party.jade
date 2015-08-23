@@ -1,11 +1,8 @@
 include ../../shared/avatar/generated_avatar
 
 script(type='text/ng-template', id='partials/options.social.party.html')
-
-  .container-fluid(ng-if='group.loadingNewParty')
-    .row.text-center: .col-xs-12
-      h2=env.t('loadingNewParty')
-      img(src='/page-loader.gif')
+  div(ng-if='group.loadingNewParty')
+    include ./party/loading-new-party
 
   div(ng-if='group._id')
     include ./party/leave-party-and-join-another
