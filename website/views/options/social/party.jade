@@ -10,27 +10,7 @@ script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-if='group._id')
     include ./leave-party-and-join-another
     include ./group
-  div(ng-if='!group._id && !group.loadingNewParty')
-    div(ng-show='user.invitations.party.id').container-fluid
-      h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
-      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
-      a.btn.btn-danger(ng-click='reject()')=env.t('reject')
 
-    div(ng-hide='user.invitations.party.id').container-fluid
-      .row.margin-auto.text-center
-        a.btn.btn-primary.btn-lg.width-50(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
-      .row.text-center.margin-auto(ng-controller='UserCtrl')
-        span.inline-block.party_preview
-          span.figure.herobox.inline-block
-            .character-sprites(style='margin:0 0 0 4.2em')
-              +generatedAvatar
-      .row.margin-auto.text-center
-        ul
-          li=env.t('partyExplanation1')
-          li=env.t('partyExplanation2')
-          li=env.t('partyExplanation3')
-      .row.margin-auto.text-center
-        h4=env.t('wantToStartParty')
-      .row.margin-auto.text-center
-        span.btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
-        span.btn.btn-default(ng-click='create(newGroup)')=env.t('inviteFriendsLater')
+  div(ng-if='!group._id && !group.loadingNewParty')
+    include ./party-invitation
+    include ./start-a-party
