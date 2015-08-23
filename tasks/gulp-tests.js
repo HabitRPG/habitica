@@ -167,9 +167,9 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
     (err, stdout) => {
       testResults.push({
         suite: 'Karma Specs\t',
-        pass: testCount(stdout, /(\d+) tests completed/),
-        fail: testCount(stdout, /(\d+) tests failed/),
-        pend: testCount(stdout, /(\d+) tests skipped/)
+        pass: testCount(stdout, /(\d+) tests? completed/),
+        fail: testCount(stdout, /(\d+) tests? failed/),
+        pend: testCount(stdout, /(\d+) tests? skipped/)
       });
       cb();
     }
