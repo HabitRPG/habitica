@@ -58,6 +58,8 @@
             "js/filters/roundLargeNumbers.js",
             "js/filters/taskOrdering.js",
 
+            "js/directives/close-menu.directive.js",
+            "js/directives/expand-menu.directive.js",
             "js/directives/focus-me.directive.js",
             "js/directives/from-now.directive.js",
             "js/directives/habitrpg-tasks.directive.js",
