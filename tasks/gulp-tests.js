@@ -141,9 +141,9 @@ gulp.task('test:api:watch', [
   gulp.watch(['website/src/**', 'test/api/**'], ['test:api:clean']);
 });
 
-gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
+gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('karma start'),
+    testBin('karma start --single-run'),
     (err, stdout) => {
     	cb(err);
     }
@@ -151,9 +151,9 @@ gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:karma', ['test:prepare:build'], (cb) => {
+gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('karma start --single-run'),
+    testBin('karma start'),
     (err, stdout) => {
     	cb(err);
     }
