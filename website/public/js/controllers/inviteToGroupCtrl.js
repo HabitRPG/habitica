@@ -26,28 +26,24 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     };
 
     function _inviteByMethod(inviteMethod) {
+      var invitationDetails;
+
       if (inviteMethod === 'email') {
         var emails = _getEmails();
-
-        Groups.Group.invite({gid: $scope.group._id}, {inviter: $scope.inviter, emails: emails}, function(){
-          Notification.text(window.env.t('invitationsSent'));
-          _resetInvitees();
-        }, function(){
-          _resetInvitees();
-        });
-      }
-      else if (inviteMethod === 'uuid') {
+        invitationDetails = {inviter: $scope.inviter, emails: emails};
+      } else if (inviteMethod === 'uuid') {
         var uuids = _getOnlyUuids();
-        Groups.Group.invite({gid: $scope.group._id}, {uuids: uuids}, function(){
-          Notification.text(window.env.t('invitationsSent'));
-          _resetInvitees();
-        }, function(){
-          _resetInvitees();
-        });
-      }
-      else {
+        invitationDetails = {uuids: uuids};
+      } else {
         return console.log('Invalid invite method.')
       }
+
+      Groups.Group.invite({gid: $scope.group._id}, invitationDetails, function(){
+        Notification.text(window.env.t('invitationsSent'));
+        _resetInvitees();
+      }, function(){
+        _resetInvitees();
+      });
     }
 
     function _getOnlyUuids() {
