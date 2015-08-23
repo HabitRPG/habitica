@@ -6,16 +6,18 @@ mixin questInfo
     .col-centered(class='quest_{{::selectedQuest.key}}')
     div(ng-if='::selectedQuest.boss')
       h4 {{::selectedQuest.boss.name()}}
-      p
-        strong=env.t('bossHP') + ': '
-        | {{::selectedQuest.boss.hp}}
-      p
-        strong=env.t('bossStrength') + ': '
-        | {{::selectedQuest.boss.str}}
+      .well.well-sm
+        p
+          strong=env.t('bossHP') + ': '
+          | {{::selectedQuest.boss.hp}}
+        p
+          strong=env.t('bossStrength') + ': '
+          | {{::selectedQuest.boss.str}}
     div(ng-if='::selectedQuest.collect')
-      p(ng-repeat='(k,v) in ::selectedQuest.collect')
-        strong=env.t('collect') + ': '
-        | {{::selectedQuest.collect[k].count}} {{::selectedQuest.collect[k].text()}}
+      h4=env.t('itemsToCollect')
+      .well.well-sm
+        p(ng-repeat='(k,v) in ::selectedQuest.collect')
+          | {{:: env.t('collectionItems', { number: selectedQuest.collect[k].count, items: selectedQuest.collect[k].text() })}}
   div(ng-bind-html='::selectedQuest.notes()')
   quest-rewards(key='{{::selectedQuest.key}}', header=env.t('rewards'))
 
