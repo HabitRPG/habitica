@@ -62,7 +62,8 @@
     "questWarning": "If new players join the party before the quest starts, they will also receive an invitation. However once the quest has started, no new party members can join the quest.",
     "bossRageTitle": "Rage",
     "bossRageDescription": "When this bar fills, the boss will unleash a special attack!",
-    "startQuest": "START A QUEST",
+    "startAQuest": "START A QUEST",
+    "startQuest": "Start Quest",
     "whichQuestStart": "Which quest do you want to start?",
     "getMoreQuests": "Get more quests"
 }

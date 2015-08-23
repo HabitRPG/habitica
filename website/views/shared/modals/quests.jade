@@ -43,7 +43,8 @@ script(type='text/ng-template', id='modals/showQuest.html')
     p=env.t('questWarning')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
-    button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
+    button.btn.btn-primary(ng-click='questInit(); $close()')
+      | {{:: party.memberCount > 1  ? env.t('inviteParty') : env.t('startQuest')}}
 
 script(type='text/ng-template', id='modals/buyQuest.html')
   .modal-header
