@@ -246,10 +246,9 @@ api.resetPassword = function(req, res, next){
       from: "Habitica <admin@habitica.com>",
       to: email,
       subject: "Password Reset for Habitica",
-      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + " Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them. Log in at https://habitica.com/. After you've logged in, head to https://habitica.com/#/options/settings/settings and change your password.",
-      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong><br /><br />Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them.<br /><br />Log in at https://habitica.com/. After you've logged in, head to https://habitica.com/#/options/settings/settings and change your password."
+      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + " Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them. Log in at " + nconf.get('BASE_URL') + ". After you've logged in, head to " + nconf.get('BASE_URL') + "/#/options/settings/settings and change your password.",
+      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong><br /><br />Important! Both username and password are case-sensitive -- you must enter both exactly as shown here. We recommend copying and pasting both instead of typing them.<br /><br />Log in at " + nconf.get('BASE_URL') + ". After you've logged in, head to " + nconf.get('BASE_URL') + "/#/options/settings/settings and change your password."
     });
-    // TODO: change all four instances of habitica.com above to use BASE_URL when it has been updated. Previous version: https://github.com/HabitRPG/habitrpg/blob/2069936603aca7f8139a6c98e063136248262bdf/website/src/controllers/auth.js#L249
     user.save(function(err){
       if(err) return next(err);
       res.send('New password sent to '+ email);
