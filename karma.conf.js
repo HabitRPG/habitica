@@ -44,7 +44,7 @@ module.exports = function(config) {
 
       "website/public/js/services/**/*.js",
       "website/public/js/filters/**/*.js",
-      "website/public/js/directives/**/*.directive.js",
+      "website/public/js/directives/**/*.js",
       "website/public/js/controllers/**/*.js",
 
       'test/spec/mocks/**/*.js',
