@@ -120,6 +120,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       .slight-vertical-padding
         small.muted=env.t('groupID')
         | : {{group._id}}
+      .slight-vertical-padding(ng-if='group.type === "party" && group.memberCount === 1')
+        small.muted=env.t('userId')
+        | : {{user._id}}
 
     .col-md-8
       div
