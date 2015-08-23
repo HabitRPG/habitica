@@ -35,6 +35,8 @@ module.exports = function(config) {
       'website/public/bower_components/js-emoji/emoji.js',
       'common/dist/scripts/habitrpg-shared.js',
 
+      'test/spec/mocks/**/*.js',
+
       "website/public/js/env.js",
 
       "website/public/js/app.js",
@@ -47,7 +49,6 @@ module.exports = function(config) {
       "website/public/js/directives/**/*.js",
       "website/public/js/controllers/**/*.js",
 
-      'test/spec/mocks/**/*.js',
       'test/spec/specHelper.js',
       'test/spec/**/*.js'
     ],
