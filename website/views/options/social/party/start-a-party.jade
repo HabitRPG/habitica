@@ -19,4 +19,4 @@
 
   .row.row-margin
     span.btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
-    span.btn.btn-default(ng-click='create(newGroup)')=env.t('inviteFriendsLater')
+    span.btn.btn-default(ng-click='create(newGroup); group.loadingNewParty = true')=env.t('inviteFriendsLater')
