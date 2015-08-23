@@ -1,22 +1,22 @@
-.container-fluid.text-center(ng-hide='user.invitations.party.id')
-  .row.margin-auto
-    a.btn.btn-primary.btn-lg.width-50(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
+.container.text-center(ng-hide='user.invitations.party.id')
+  .row.row-margin: .col-sm-6.col-sm-offset-3
+    a.btn.btn-primary.btn-lg.btn-block(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
 
-  .row.margin-auto(ng-controller='UserCtrl')
+  .row.row-margin(ng-controller='UserCtrl')
     span.inline-block.party_preview
       span.figure.herobox.inline-block
         .character-sprites(style='margin:0 0 0 4.2em')
           +generatedAvatar
 
-  .row.margin-auto
+  .row.row-margin
     ul
       li=env.t('partyExplanation1')
       li=env.t('partyExplanation2')
       li=env.t('partyExplanation3')
 
-  .row.margin-auto
+  .row.row-margin
     h4=env.t('wantToStartParty')
 
-  .row.margin-auto
+  .row.row-margin
     span.btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
     span.btn.btn-default(ng-click='create(newGroup)')=env.t('inviteFriendsLater')

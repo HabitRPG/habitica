@@ -57,10 +57,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               | {{group.leader.profile.name}}
 
       .text-center(ng-if='group.type === "party"')
-        button.btn.btn-success.margin-auto.width-50(
-          ng-if='!party.quest.key',
-          ng-click='clickStartQuest();'
-        )=env.t('startAQuest')
+        .row.row-margin: .col-sm-6.col-sm-offset-3
+          button.btn.btn-success.btn-block(
+            ng-if='!party.quest.key',
+            ng-click='clickStartQuest();'
+          )=env.t('startAQuest')
 
       // ------ Members -------
       .panel.panel-default
