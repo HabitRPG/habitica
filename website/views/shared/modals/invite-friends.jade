@@ -107,4 +107,14 @@ script(type='text/ng-template', id='modals/invite-party.html')
     .modal-footer(style='padding-bottom:0',ng-if='!group._id || group.memberCount < 2')
       p!=env.t('wantExistingParty', {linkStart: "<a href='/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>", linkEnd: "</a>"})
       pre(style='margin:1em 0 0 0').
-        {{user.id}}
+        {{::user._id}}
+
+script(type='text/ng-template', id='modals/user-id.html')
+  .modal-header
+    h4=env.t('userId')
+  .modal-body
+    p!=env.t('wantExistingParty', {linkStart: "<a href='/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>", linkEnd: "</a>"})
+    pre(style='margin:1em 0 0 0').
+      {{::user._id}}
+  .modal-footer
+    .btn.btn-default.pull-right(ng-click='$close()')=env.t('close')

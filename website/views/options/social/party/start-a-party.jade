@@ -18,5 +18,6 @@
     h4=env.t('wantToStartParty')
 
   .row.row-margin
-    span.btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
-    span.btn.btn-default(ng-click='create(newGroup); group.loadingNewParty = true')=env.t('inviteFriendsLater')
+    .btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
+    .btn.btn-default(ng-click='create(newGroup); group.loadingNewParty = true')=env.t('inviteFriendsLater')
+    .btn.btn-default(ng-click='openModal("user-id")') Join Someone Else's Party
