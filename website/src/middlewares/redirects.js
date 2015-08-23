@@ -28,8 +28,6 @@ module.exports.forceSSL = function(req, res, next){
 };
 
 // Redirect to habitica for non-api urls
-// NOTE: Currently using a static 'habitica.com' string, rather than BASE_URL,
-// to make rollback easy. Eventually, BASE_URL should be migrated.
 
 function nonApiUrl(req) {
   return req.url.search(/\/api\//) === -1;
@@ -37,7 +35,7 @@ function nonApiUrl(req) {
 
 module.exports.forceHabitica = function(req, res, next) {
   if (IS_PROD && !ignoreRedirect && !isProxied(req) && nonApiUrl(req)) {
-    return res.redirect('https://habitica.com' + req.url);
+    return res.redirect(BASE_URL + req.url);
   }
   next();
 };
