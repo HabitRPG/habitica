@@ -11,8 +11,6 @@ describe('Groups Controller', function() {
     var res, req, group, user, saveSpy;
 
     beforeEach(function() {
-      sinon.stub(process, 'nextTick').yields();
-
       group = {
         _id: 'group-id',
         type: 'party',
@@ -47,6 +45,7 @@ describe('Groups Controller', function() {
               RSVPNeeded : false
           }
         },
+        save: sinon.stub().yields(),
         markModified: sinon.spy()
       };
 
@@ -60,10 +59,6 @@ describe('Groups Controller', function() {
       };
 
       req = { };
-    });
-
-    afterEach(function () {
-      process.nextTick.restore();
     });
 
     context('error conditions', function() {
@@ -104,13 +99,13 @@ describe('Groups Controller', function() {
       });
 
       it('sends 500 if group cannot save', function() {
-        group.save = sinon.stub().yields('save error');
+        group.save = sinon.stub().throws({err: 'save error'});
         var nextSpy = sinon.spy();
 
         groupsController.questLeave(req, res, nextSpy);
 
         expect(nextSpy).to.be.calledOnce;
-        expect(nextSpy).to.be.calledWith('save error');
+        expect(nextSpy).to.be.calledWith({err: 'save error'});
       });
     });
 

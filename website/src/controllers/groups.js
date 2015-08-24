@@ -1097,8 +1097,13 @@ api.questLeave = function(req, res, next) {
   user.party.quest = Group.cleanQuestProgress();
   user.markModified('party.quest');
 
-  group.save(function(err, result) {
-    if (err) return next(err);
-    return res.send(204);
-  });
+  var groupSavePromise = Q.nbind(group.save, group);
+  var userSavePromise = Q.nbind(user.save, user);
+
+  Q.all([groupSavePromise(), userSavePromise()])
+    .done(function(values) {
+      return res.send(204);
+    }, function(error) {
+      return next(error);
+    });
 }
