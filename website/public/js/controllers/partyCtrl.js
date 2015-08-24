@@ -114,6 +114,15 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         Groups.questAbort(party);
       }
 
+      $scope.questLeave = function(party){
+        if (!confirm(window.env.t('sureLeave'))) return;
+
+        Groups.questLeave(party)
+          .then(function() {
+            $rootScope.hardRedirect('/#/options/groups/party');
+          });
+      }
+
       $scope.questAccept = function(party){
         Groups.questAccept(party);
       };

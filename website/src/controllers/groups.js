@@ -1095,6 +1095,6 @@ api.questLeave = function(req, res, next) {
 
   group.save(function(err, result) {
     if (err) return next(err);
-    res.send(201);
+    return res.json(201, group);
   });
 }

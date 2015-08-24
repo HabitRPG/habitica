@@ -71,8 +71,8 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
 
         .panel-body.modal-fixed-height
-          h4(ng-show='group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
-          table.table.table-striped(ng-show='group.memberCount > 1 || group.type !== "party"' bindonce='group')
+          h4(ng-show='::group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
+          table.table.table-striped(ng-show='::group.memberCount > 1 || group.type !== "party"' bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')
               td.media
                 // allow leaders to ban members

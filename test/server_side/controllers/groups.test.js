@@ -54,8 +54,7 @@ describe('Groups Controller', function() {
           group: group,
           user: user
         },
-        json: sinon.stub(),
-        send: sinon.stub()
+        json: sinon.stub()
       };
 
       req = { };
@@ -125,8 +124,8 @@ describe('Groups Controller', function() {
       it('sends back 201 on success', function() {
         groupsController.questLeave(req, res);
 
-        expect(res.send).to.be.calledOnce;
-        expect(res.send).to.be.calledWith(201);
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(201);
       });
     });
   });

@@ -53,7 +53,8 @@ describe('groupServices', function() {
       $questAccept: successPromise,
       $questReject: successPromise,
       $questCancel: successPromise,
-      $questAbort:  successPromise
+      $questAbort:  successPromise,
+      $questLeave:  successPromise
     }
 
     var failPromise = function() {
@@ -68,7 +69,8 @@ describe('groupServices', function() {
       $questAccept: failPromise,
       $questReject: failPromise,
       $questCancel: failPromise,
-      $questAbort:  failPromise
+      $questAbort:  failPromise,
+      $questLeave:  failPromise
     }
 
     beforeEach(function() {
@@ -131,6 +133,20 @@ describe('groupServices', function() {
 
       it('does not sync user if $questAbort fails', function() {
         groups.questAbort(failParty);
+        user.sync.should.not.have.been.calledOnce;
+        console.log.should.have.been.calledWith('fail');
+      });
+    });
+
+    describe('questLeave', function() {
+      it('syncs user if $questLeave succeeds', function() {
+        groups.questLeave(successParty);
+        user.sync.should.have.been.calledOnce;
+        console.log.should.not.have.been.called;
+      });
+
+      it('does not sync user if $questLeave fails', function() {
+        groups.questLeave(failParty);
         user.sync.should.not.have.been.calledOnce;
         console.log.should.have.been.calledWith('fail');
       });

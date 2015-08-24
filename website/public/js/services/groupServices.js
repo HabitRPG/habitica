@@ -42,7 +42,8 @@
         questAccept: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAccept'},
         questReject: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questReject'},
         questCancel: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questCancel'},
-        questAbort: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAbort'}
+        questAbort: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAbort'},
+        questLeave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questLeave'}
       });
 
     function _syncUser() {
@@ -98,6 +99,12 @@
         .then(_syncUser, _logError);
     }
 
+    function questLeave(party) {
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
+      return party.$questLeave()
+        .then(_syncUser, _logError);
+    }
+
     function inviteOrStartParty(group) {
       if (group.type === "party" || $location.$$path === "/options/groups/party") {
         group.type = 'party';
@@ -121,6 +128,7 @@
       questAccept: questAccept,
       questReject: questReject,
       questAbort: questAbort,
+      questLeave: questLeave,
       questCancel: questCancel,
       inviteOrStartParty: inviteOrStartParty,
 

@@ -71,7 +71,7 @@ describe("Party Controller", function() {
       cancelSpy.should.have.been.calledOnce;
     });
 
-    it('does not call Groups.questCancel when alert box is confirmed', function() {
+    it('does not call Groups.questCancel when alert box is not confirmed', function() {
       windowSpy = sandbox.stub(window, "confirm", function(){return false});
 
       scope.questCancel(party);
@@ -125,6 +125,35 @@ describe("Party Controller", function() {
       windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
       windowSpy.should.have.been.calledWith(window.env.t('doubleSureAbort'));
       abortSpy.should.not.have.been.calledOnce;
+    });
+  });
+
+  describe('#questLeave', function() {
+    var party, leaveSpy, windowSpy;
+
+    beforeEach(function() {
+      party = {};
+      sandbox.stub(rootScope, 'hardRedirect');
+      leaveSpy = sandbox.stub(groups, 'questLeave').returns({
+        then: sandbox.stub().yields()
+      });
+    });
+
+    it('calls Groups.questLeave when alert box is confirmed', function() {
+      windowSpy = sandbox.stub(window, "confirm").returns(true);
+
+      scope.questLeave(party);
+      windowSpy.should.have.been.calledOnce;
+      windowSpy.should.have.been.calledWith(window.env.t('sureLeave'));
+      leaveSpy.should.have.been.calledOnce;
+    });
+
+    it('does not call Groups.questLeave when alert box is not confirmed', function() {
+      windowSpy = sandbox.stub(window, "confirm").returns(false);
+
+      scope.questLeave(party);
+      windowSpy.should.have.been.calledOnce;
+      leaveSpy.should.not.have.been.calledOnce;
     });
   });
 
