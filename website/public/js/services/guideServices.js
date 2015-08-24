@@ -18,28 +18,36 @@ function($rootScope, User, $timeout, $state, Analytics) {
           placement: "top",
           proceed: window.env.t('tourAvatarProceed'),
           backdrop: false,
-          orphan: true
+          orphan: true,
+          gold: 4,
+          experience: 29
         },
         {
           state: 'tasks',
           element: ".task-column.todos",
           content: window.env.t('tourToDosBrief'),
           placement: "top",
-          proceed: window.env.t('tourOkay')
+          proceed: window.env.t('tourOkay'),
+          gold: 4,
+          experience: 29
         },
         {
           state: 'tasks',
           element: ".task-column.dailys",
           content: window.env.t('tourDailiesBrief'),
           placement: "top",
-          proceed: window.env.t('tourDailiesProceed')
+          proceed: window.env.t('tourDailiesProceed'),
+          gold: 4,
+          experience: 29
         },
         {
           state: 'tasks',
           element: ".task-column.habits",
           content: window.env.t('tourHabitsBrief'),
           placement: "right",
-          proceed: window.env.t('tourHabitsProceed')
+          proceed: window.env.t('tourHabitsProceed'),
+          gold: 4,
+          experience: 29
         },
         {
           state: 'tasks',
@@ -47,6 +55,8 @@ function($rootScope, User, $timeout, $state, Analytics) {
           content: window.env.t('tourRewardsBrief'),
           placement: "top",
           proceed: window.env.t('tourRewardsProceed'),
+          gold: 4,
+          experience: 29,
           final: true
         }
       ]
@@ -187,11 +197,19 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }
       };
       step.onHide = function(){
+        var ups={};
+        if (!$rootScope.stepAwarded) $rootScope.stepAwarded = {};
+        if (!$rootScope.stepAwarded[i]) {
+          $rootScope.stepAwarded[i] = true;
+          ups['stats.gp'] = User.user.stats.gp + (step.gold || 0);
+          ups['stats.exp'] = User.user.stats.exp + (step.experience || 0);
+        }
         if (step.final) { // -2 indicates complete
-          var ups={};ups['flags.tour.'+k] = -2;
-          User.set(ups);
+          ups['flags.tour.'+k] = -2;
+          $rootScope.stepAwarded = null;
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
         }
+        User.set(ups);
       }
     })
   });
