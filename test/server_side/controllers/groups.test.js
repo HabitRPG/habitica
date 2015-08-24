@@ -1,8 +1,10 @@
 var sinon = require('sinon');
-var chai = require("chai")
-chai.use(require("sinon-chai"))
-var expect = chai.expect
+var chai = require("chai");
+chai.use(require('chai-as-promised'));
+chai.use(require("sinon-chai"));
+var expect = chai.expect;
 
+var Q = require('q');
 var groupsController = require('../../../website/src/controllers/groups');
 
 describe('Groups Controller', function() {
@@ -11,6 +13,9 @@ describe('Groups Controller', function() {
     var res, req, group, user, saveSpy;
 
     beforeEach(function() {
+      sinon.stub(Q, 'all').returns({
+        done: sinon.stub().yields()
+      });
       group = {
         _id: 'group-id',
         type: 'party',
@@ -61,6 +66,10 @@ describe('Groups Controller', function() {
       req = { };
     });
 
+    afterEach(function() {
+      Q.all.restore();
+    });
+
     context('error conditions', function() {
       it('errors if quest is not active', function() {
         group.quest.active = false;
@@ -99,11 +108,14 @@ describe('Groups Controller', function() {
       });
 
       it('sends 500 if group cannot save', function() {
-        group.save = sinon.stub().throws({err: 'save error'});
+        Q.all.returns({
+          done: sinon.stub().callsArgWith(1, {err: 'save error'})
+        });
         var nextSpy = sinon.spy();
 
         groupsController.questLeave(req, res, nextSpy);
 
+        expect(res.json).to.not.be.called;
         expect(nextSpy).to.be.calledOnce;
         expect(nextSpy).to.be.calledWith({err: 'save error'});
       });
