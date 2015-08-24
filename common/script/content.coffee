@@ -52,6 +52,7 @@ api.mystery =
   201505: {start:'2015-05-25',end:'2015-06-02', text:'Green Knight Set'}
   201506: {start:'2015-06-25',end:'2015-07-02', text:'Neon Snorkeler Set'}
   201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
+  201508: {start:'2015-08-24',end:'2015-09-02', text:'Cheetah Costume Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -258,6 +259,7 @@ gear =
       201503: text: t('armorMystery201503Text'), notes: t('armorMystery201503Notes'), mystery:'201503', value: 0
       201504: text: t('armorMystery201504Text'), notes: t('armorMystery201504Notes'), mystery:'201504', value: 0
       201506: text: t('armorMystery201506Text'), notes: t('armorMystery201506Notes'), mystery:'201506', value: 0
+      201508: text: t('armorMystery201508Text'), notes: t('armorMystery201508Notes'), mystery:'201508', value: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
     armoire:
       lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.armor_armoire_lunarArmor?)
@@ -348,6 +350,7 @@ gear =
       201412: text: t('headMystery201412Text'), notes: t('headMystery201412Notes'), mystery:'201412', value: 0
       201501: text: t('headMystery201501Text'), notes: t('headMystery201501Notes'), mystery:'201501', value: 0
       201505: text: t('headMystery201505Text'), notes: t('headMystery201505Notes'), mystery:'201505', value: 0
+      201508: text: t('headMystery201508Text'), notes: t('headMystery201508Notes'), mystery:'201508', value: 0
       301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
     armoire:
