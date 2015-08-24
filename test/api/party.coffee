@@ -318,7 +318,7 @@ describe "Party", ->
         .set("X-API-User", leavingMember._id)
         .set("X-API-Key", leavingMember.apiToken)
         .end (err, res) ->
-          expectCode res, 201
+          expectCode res, 204
           request.get(baseURL + '/groups/party')
             .end (err, res) ->
               expect(res.body.quest.members[leavingMember._id]).to.not.be.ok

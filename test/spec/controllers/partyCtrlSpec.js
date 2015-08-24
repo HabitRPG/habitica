@@ -133,7 +133,9 @@ describe("Party Controller", function() {
 
     beforeEach(function() {
       party = {};
-      sandbox.stub(rootScope, 'hardRedirect');
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
       leaveSpy = sandbox.stub(groups, 'questLeave').returns({
         then: sandbox.stub().yields()
       });
