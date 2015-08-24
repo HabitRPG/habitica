@@ -527,6 +527,14 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questAbort
 
+    "/groups/{gid}/questLeave":
+      spec:
+        method: 'POST'
+        description: 'Leave an active quest (Quest leaders cannot leave active quests. They must abort the quest to leave)'
+        parameters: [path('gid','Group to leave quest in','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.questLeave
+
     #TODO PUT  /groups/:gid/chat/:messageId
 
     "/groups/{gid}/chat:GET":

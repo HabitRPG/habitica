@@ -1072,3 +1072,29 @@ api.questAbort = function(req, res, next){
     group = null;
   })
 }
+
+api.questLeave = function(req, res, next) {
+  // Non-member leave quest while still in progress
+  var group = res.locals.group;
+  var user = res.locals.user;
+
+  if (!(group.quest && group.quest.active)) {
+    return res.json(404, { err: 'No active quest to leave' });
+  }
+
+  if (!(group.quest.members && group.quest.members[user._id])) {
+    return res.json(403, { err: 'You are not part of the quest' });
+  }
+
+  if (group.quest.leader === user._id) {
+    return res.json(403, { err: 'Quest leader cannot leave quest' });
+  }
+
+  delete group.quest.members[user._id];
+  group.markModified('quest.members');
+
+  group.save(function(err, result) {
+    if (err) return next(err);
+    res.send(201);
+  });
+}
