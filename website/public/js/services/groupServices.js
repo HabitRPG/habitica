@@ -77,25 +77,25 @@
 
     function questAccept(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questAccept()
+      return party.$questAccept()
         .then(_syncUser, _logError);
     }
 
     function questReject(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questReject()
+      return party.$questReject()
         .then(_syncUser, _logError);
     }
 
     function questCancel(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questCancel()
+      return party.$questCancel()
         .then(_syncUser, _logError);
     }
 
     function questAbort(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questAbort()
+      return party.$questAbort()
         .then(_syncUser, _logError);
     }
 
