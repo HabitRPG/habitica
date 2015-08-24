@@ -8,6 +8,7 @@ function clone(a) {
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
+var Q = require('q');
 var utils = require('./../utils');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
@@ -1092,6 +1093,9 @@ api.questLeave = function(req, res, next) {
 
   delete group.quest.members[user._id];
   group.markModified('quest.members');
+
+  user.party.quest = Group.cleanQuestProgress();
+  user.markModified('party.quest');
 
   group.save(function(err, result) {
     if (err) return next(err);

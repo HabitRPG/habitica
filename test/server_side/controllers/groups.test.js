@@ -46,7 +46,8 @@ describe('Groups Controller', function() {
               completed : null,
               RSVPNeeded : false
           }
-        }
+        },
+        markModified: sinon.spy()
       };
 
       res = {
@@ -120,6 +121,26 @@ describe('Groups Controller', function() {
         groupsController.questLeave(req, res);
 
         expect(group.quest.members[user._id]).to.not.exist;
+      });
+
+      it('scrubs quest data from user', function() {
+        user.party.quest.progress = {
+          up: 100,
+          down: 32,
+          collect: {
+            foo: 12,
+            bar: 4
+          }
+        };
+
+        groupsController.questLeave(req, res);
+
+        expect(user.party.quest.key).to.not.exist;
+        expect(user.party.quest.progress).to.eql({
+          up: 0,
+          down: 0,
+          collect: {}
+        });
       });
 
       it('sends back 204 on success', function() {
