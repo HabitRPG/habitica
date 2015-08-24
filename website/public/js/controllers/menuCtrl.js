@@ -21,7 +21,7 @@ angular.module('habitrpg')
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
-        }  else if ( user.flags.bootedFromGroupNotifications.length > 0 ) {
+        }  else if (user.flags.bootedFromGroupNotifications.length > 0) {
           return messageValue;
         } else {
           return noneValue;
@@ -46,7 +46,7 @@ angular.module('habitrpg')
         return selectNotificationValue(false, false, false, false, false, true);
       }
 
-      $scope.seenBootedFromGroupNotification = function(index) {
+      $scope.seeBootedFromGroupNotification = function(index) {
         $rootScope.openModal("booted-from-group", {
             controller: ['$scope', 'groupBootedFrom',
               function($scope, groupBootedFrom){

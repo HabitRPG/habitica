@@ -18,17 +18,17 @@ describe('Menu Controller', function() {
         $provide.value('User', User);
       });
 
-      inject(function(_$httpBackend_, $rootScope, $controller, _$rootScope_) {
+      inject(function(_$httpBackend_, _$controller_, _$rootScope_) {
         user = specHelper.newUser();
         user._id = "unique-user-id";
 
-        scope = $rootScope.$new();
+        scope =  _$rootScope_.$new();
         rootScope = _$rootScope_;
 
         // Load RootCtrl to ensure shared behaviors are loaded
-        $controller('RootCtrl',  {$scope: scope, User: User});
+        _$controller_('RootCtrl',  {$scope: scope, User: User});
 
-        ctrl = $controller('MenuCtrl', {$scope: scope, $window: $window, User: User});
+        ctrl = _$controller_('MenuCtrl', {$scope: scope, $window: $window, User: User});
       })
     });
 
@@ -66,7 +66,7 @@ describe('Menu Controller', function() {
         User.user.flags.bootedFromGroupNotifications = [
           {"name": "GroupBootedFrom", "message": "You are inactive"}
         ];
-        scope.seenBootedFromGroupNotification(0)
+        scope.seeBootedFromGroupNotification(0)
         expect(User.user.flags.bootedFromGroupNotifications).to.eql([]);
       });
 
@@ -75,9 +75,9 @@ describe('Menu Controller', function() {
           {"name": "GroupBootedFrom", "message": "You are inactive"},
           {"name": "GroupBootedFrom2", "message": "You are inactive again"}
         ];
-        scope.seenBootedFromGroupNotification(1)
+        scope.seeBootedFromGroupNotification(1)
         expect(User.user.flags.bootedFromGroupNotifications).to.eql([{"name": "GroupBootedFrom", "message": "You are inactive"}]);
-        scope.seenBootedFromGroupNotification(0)
+        scope.seeBootedFromGroupNotification(0)
         expect(User.user.flags.bootedFromGroupNotifications).to.eql([]);
       });
     });
