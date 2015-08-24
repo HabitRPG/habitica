@@ -74,13 +74,8 @@ describe('groupServices', function() {
     }
 
     beforeEach(function() {
-      sinon.spy(user, 'sync');
-      sinon.stub(console, 'log', function(arg) { return true; });
-    });
-
-    afterEach(function() {
-      user.sync.restore();
-      console.log.restore();
+      sandbox.spy(user, 'sync');
+      sandbox.stub(console, 'log');
     });
 
     describe('questAccept', function() {
