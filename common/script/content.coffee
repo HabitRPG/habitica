@@ -52,7 +52,7 @@ api.mystery =
   201505: {start:'2015-05-25',end:'2015-06-02', text:'Green Knight Set'}
   201506: {start:'2015-06-25',end:'2015-07-02', text:'Neon Snorkeler Set'}
   201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
-  201508: {start:'2015-08-24',end:'2015-09-02', text:'Cheetah Costume Set'}
+  201508: {start:'2015-08-23',end:'2015-09-02', text:'Cheetah Costume Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -87,14 +87,6 @@ gear =
       5: text: t('weaponWarrior5Text'), notes: t('weaponWarrior5Notes', {str: 15}), str: 15, value:90
       6: text: t('weaponWarrior6Text'), notes: t('weaponWarrior6Notes', {str: 18}), str: 18, value:120, last: true
     rogue:
-      #Not using bows at the moment, but they would be easy to add back in to an advanced Armory feature, as Quest drops, etc.
-      #0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
-      #1: twoHanded: true, text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
-      #2: twoHanded: true, text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
-      #3: twoHanded: true, text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
-      #4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
-      #5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
-      #6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
       0: text: t('weaponRogue0Text'), notes: t('weaponRogue0Notes'), str: 0, value: 0
       1: text: t('weaponRogue1Text'), notes: t('weaponRogue1Notes', {str: 2}), str: 2, value: 20
       2: text: t('weaponRogue2Text'), notes: t('weaponRogue2Notes', {str: 3}), str: 3, value: 35
