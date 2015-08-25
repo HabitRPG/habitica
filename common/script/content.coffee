@@ -251,7 +251,7 @@ gear =
       201503: text: t('armorMystery201503Text'), notes: t('armorMystery201503Notes'), mystery:'201503', value: 0
       201504: text: t('armorMystery201504Text'), notes: t('armorMystery201504Notes'), mystery:'201504', value: 0
       201506: text: t('armorMystery201506Text'), notes: t('armorMystery201506Notes'), mystery:'201506', value: 0
-      201508: text: t('armorMystery201508Text'), notes: t('armorMystery201508Notes'), mystery:'201508', value: 0
+      201508: text: t('armorMystery201508Text'), notes: t('armorMystery201508Notes'), mystery:'201508', value: 0, int: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
     armoire:
       lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.armor_armoire_lunarArmor?)
@@ -342,7 +342,7 @@ gear =
       201412: text: t('headMystery201412Text'), notes: t('headMystery201412Notes'), mystery:'201412', value: 0
       201501: text: t('headMystery201501Text'), notes: t('headMystery201501Notes'), mystery:'201501', value: 0
       201505: text: t('headMystery201505Text'), notes: t('headMystery201505Notes'), mystery:'201505', value: 0
-      201508: text: t('headMystery201508Text'), notes: t('headMystery201508Notes'), mystery:'201508', value: 0
+      201508: text: t('headMystery201508Text'), notes: t('headMystery201508Notes'), mystery:'201508', value: 0, int: 0
       301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
     armoire:
