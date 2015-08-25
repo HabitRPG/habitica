@@ -51,7 +51,7 @@ angular.module("habitrpg").factory("Notification",
 
   function exp(val) {
     if (val < -50) return; // don't show when they level up (resetting their exp)
-    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('xp'), 'xp', 'glyphicon glyphicon-star');
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('experience'), 'xp', 'glyphicon glyphicon-star');
   }
 
   function error(error){
@@ -64,7 +64,7 @@ angular.module("habitrpg").factory("Notification",
 
   function hp(val) {
     // don't show notifications if user dead
-    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('hp'), 'hp', 'glyphicon glyphicon-heart');
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('health'), 'hp', 'glyphicon glyphicon-heart');
   }
 
   function lvl(){
@@ -79,7 +79,7 @@ angular.module("habitrpg").factory("Notification",
   }
 
   function mp(val) {
-    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('mp'), 'mp', 'glyphicon glyphicon-fire');
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('mana'), 'mp', 'glyphicon glyphicon-fire');
   }
 
   function streak(val) {

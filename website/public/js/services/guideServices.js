@@ -189,9 +189,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
         Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':false});
-        // step.path doesn't work in Angular do to async ui-router. Our custom solution:
         if (step.state && !$state.is(step.state)) {
-          // $state.go() returns a promise, necessary for async tour steps; however, that's not working here - have to use timeout instead :/
           $state.go(step.state);
           return $timeout(function(){});
         }
@@ -228,7 +226,6 @@ function($rootScope, User, $timeout, $state, Analytics) {
           '<h3 class="popover-title"></h3>' +
           '<div class="popover-content"></div>' +
           '<div class="popover-navigation"> ' +
-            //'<button class="btn btn-sm btn-default" data-role="end" style="float:none;">' + (step.final ? 'Finish Tour' : 'Hide') + '</button>' +
             (showCounter ? '<span style="float:right;">'+ (i+1 +' of '+ _.flatten(chapters[k]).length) +'</span>' : '')+ // counter
             '<div class="btn-group">' +
               (step.hideNavigation ? '' : '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>') +
@@ -240,14 +237,10 @@ function($rootScope, User, $timeout, $state, Analytics) {
           '</div>';
       },
       storage: false
-      //onEnd: function(){
-      //  User.set({'flags.showTour': false});
-      //}
     });
   });
 
   var goto = function(chapter, page, force) {
-    //return; // TODO temporarily remove old tutorial system while experimenting with leslie's new gettup
     if (chapter == 'intro') User.set({'flags.welcomed': true});
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
