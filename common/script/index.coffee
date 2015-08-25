@@ -1178,7 +1178,7 @@ api.wrap = (user, main=true) ->
         item = content.gear.flat[item]
         user.items.gear.owned[item.key] = true
         user.markModified? 'purchased.plan.mysteryItems'
-        item.type = 'Mystery'
+        item.notificationType = 'Mystery' # needed for website/public/js/controllers/notificationCtrl.js line 59 approx.
         analyticsData = {
           uuid: user._id,
           itemKey: item,
