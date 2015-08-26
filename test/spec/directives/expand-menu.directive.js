@@ -20,15 +20,16 @@ describe('expandMenu Directive', function() {
 
     menuElement.triggerHandler('click');
 
-    expect(scope._expandedMenu).to.eql('mobile')
+    expect(scope._expandedMenu.menu).to.eql('mobile')
   });
 
   it('closes a connected menu when it is already open', function() {
-    scope._expandedMenu = 'mobile';
+    scope._expandedMenu = {};
+    scope._expandedMenu.menu = 'mobile';
     menuElement.appendTo(document.body);
 
     menuElement.triggerHandler('click');
 
-    expect(scope._expandedMenu).to.eql(null)
+    expect(scope._expandedMenu.menu).to.eql(null)
   });
 });
