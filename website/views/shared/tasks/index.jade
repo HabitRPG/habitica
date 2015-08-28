@@ -11,7 +11,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           include ./task_view/graph
 
-          h2.task-column_title {{::list.header}}
+          h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
 
           include ./task_view/help
 

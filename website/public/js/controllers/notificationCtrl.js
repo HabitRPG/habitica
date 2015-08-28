@@ -29,7 +29,10 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       var money = after - before;
-      var bonus = User.user._tmp.streakBonus;
+      var bonus;
+      if (User.user._tmp) {
+        bonus = User.user._tmp.streakBonus || 0;
+      }
       Notification.gp(money, bonus || 0);
 
       //Append Bonus
