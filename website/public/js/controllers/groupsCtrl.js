@@ -103,7 +103,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.openInviteModal = function(group){
-      $rootScope.openModal('invite-guild', {
+      if (group.type !== 'party' && group.type !== 'guild') {
+        return console.log('Invalid group type.')
+      }
+      $rootScope.openModal('invite-' + group.type, {
         controller:'InviteToGroupCtrl',
         resolve: {
           injectedGroup: function(){
