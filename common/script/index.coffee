@@ -567,8 +567,8 @@ api.wrap = (user, main=true) ->
           gear[type].shield = 'shield_base_0'
         if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
         if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
-        # Strip owned gear down to the training sword, but preserve purchase history so user can re-purchase limited edition equipment
-        _.each gear.owned, (v, k) -> if gear.owned[k] then gear.owned[k] = false; true
+        # Strip owned gear down to the training sword and free items (zero gold value), but preserve purchase history so user can re-purchase limited edition equipment
+        _.each gear.owned, (v, k) -> if gear.owned[k] and content.gear.flat[k].value then gear.owned[k] = false; true
         gear.owned.weapon_warrior_0 = true
         user.markModified? 'items.gear.owned'
         user.preferences.costume = false
