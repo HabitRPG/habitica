@@ -7,7 +7,7 @@ script(type='text/ng-template', id='modals/member.html')
     .container-fluid
       .row
         .col-md-6
-          img(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
+          img.image-rendering-auto(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
           markdown(ng-show='::profile.profile.blurb', text='::profile.profile.blurb')
           ul.muted.list-unstyled(ng-if='::profile.auth.timestamps')
             li {{profile._id}}

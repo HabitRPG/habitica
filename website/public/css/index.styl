@@ -194,3 +194,11 @@ a.label
 
 .markdown-preview markdown code
   white-space inherit
+
+// By default everything should render as pixelart, except images from img tags (which tend to be things like gravatars, 
+// screenshots and so on)
+*
+  image-rendering: pixelated
+
+.img-rendering-auto
+  image-rendering: auto
