@@ -241,7 +241,7 @@
     "armorSpecialWinter2015MageNotes": "You can see the glimmering lights of the north in this robe. Increases Intelligence by <%= int %>. Limited Edition 2014-2015 Winter Gear.",
     "armorSpecialWinter2015HealerText": "Skating Outfit",
     "armorSpecialWinter2015HealerNotes": "Ice-skating is very relaxing, but you shouldn't try it without this protective gear in case you get attacked by the icicle drakes. Increases Constitution by <%= con %>. Limited Edition 2014-2015 Winter Gear.",
-    "armorSpecialSpring2015RogueText": "Squeaky Robes",
+    "armorSpecialSpring2015RogueText": "Squeaker Robes",
     "armorSpecialSpring2015RogueNotes": "Furry, soft, and definitely not flammable. Increases Perception by <%= per %>. Limited Edition 2015 Spring Gear.",
     "armorSpecialSpring2015WarriorText": "Beware Armour",
     "armorSpecialSpring2015WarriorNotes": "Only the fiercest doggy is allowed to be this fluffy. Increases Constitution by <%= con %>. Limited Edition 2015 Spring Gear.",
