@@ -53,11 +53,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           br
           p=env.t('groupLeader')
             |:
-<<<<<<< HEAD
             a.badge.badge-info(ng-click='clickMember(group.leader._id, true)')
-=======
-            a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
->>>>>>> develop
               | {{group.leader.profile.name}}
 
       .text-center(ng-if='group.type === "party"')
