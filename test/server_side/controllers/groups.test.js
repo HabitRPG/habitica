@@ -5,6 +5,7 @@ chai.use(require("sinon-chai"));
 var expect = chai.expect;
 
 var Q = require('q');
+var Group = require('../../../website/src/models/group').model;
 var groupsController = require('../../../website/src/controllers/groups');
 
 describe('Groups Controller', function() {
@@ -60,6 +61,14 @@ describe('Groups Controller', function() {
           }
         };
 
+        sinon.spy(Group, 'update');
+      });
+
+      afterEach(function() {
+        Group.update.restore();
+      });
+
+      it('prevents user from leaving party if quest is active', function() {
         user.party = {
           quest : {
               key : 'vice1',
@@ -72,14 +81,21 @@ describe('Groups Controller', function() {
               RSVPNeeded : false
           }
         }
-      });
 
-      it('removes quest data from user', function() {
         groupsController.leave(req, res);
 
-        expect(user.party.quest.key).to.not.exist;
-        expect(user.party.quest.progress).to.eql({up: 0, down: 0, collect: {}});
-        expect(user.save).to.be.calledOnce;
+        expect(Group.update).to.not.be.called;
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(403, 'You cannot leave party during an active quest. Please leave the quest first');
+      });
+
+      it('leaves party if quest is not active', function() {
+        user.party = { quest: { key: null } };
+
+        groupsController.leave(req, res);
+
+        expect(Group.update).to.be.calledOnce;
+        expect(res.json).to.not.be.called;
       });
     });
   });

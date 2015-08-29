@@ -487,15 +487,12 @@ api.join = function(req, res, next) {
 api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
+
+  if (group.type === 'party' && user.party.quest && user.party.quest.key) return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
   async.parallel([
-    // Remove active quest from user if they're leaving the party
-    function(cb){
-      if (group.type != 'party') return cb(null,{},1);
-      user.party.quest = Group.cleanQuestProgress();
-      user.save(cb);
-    },
     // Remove user from group challenges
     function(cb){
       async.waterfall([
@@ -544,11 +541,6 @@ api.leave = function(req, res, next) {
         if (leader == user._id || !~group.members.indexOf(leader)) {
           update['$set'] = update['$set'] || {};
           update['$set'].leader = seniorMember;
-        }
-        leader = group.quest && group.quest.leader;
-        if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
-          update['$set'] = update['$set'] || {};
-          update['$set']['quest.leader'] = seniorMember;
         }
       }
       update['$inc'] = {memberCount: -1};
