@@ -529,10 +529,7 @@ api.leave = function(req, res, next) {
     // Update the group
     function(cb){
       var update = {$pull:{members:user._id}};
-      if (group.type == 'party' && group.quest.key){
-        update['$unset'] = {};
-        update['$unset']['quest.members.' + user._id] = 1;
-      }
+
       // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
       if (group.members.length > 1) {
         var seniorMember = _.find(group.members, function (m) {return m != user._id});
