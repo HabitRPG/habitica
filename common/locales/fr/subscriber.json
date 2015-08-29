@@ -1,7 +1,7 @@
 {
     "subscription": "Abonnement",
     "subscriptions": "Abonnements",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "Acheter des gemmes avec de l'or, gagner les objets mystères mensuels, conserver l'historique des progrès, doubler la limite quotidienne de butin, soutenir les développeurs. Cliquer pour plus d'information.",
     "buyGemsGold": "Acheter des Gemmes avec de l'Or",
     "buyGemsGoldText": "Alexandre le Marchand vous vendra des gemmes au prix de <%= gemCost %> pièces d'or par gemme. Ses cargaisons sont initialement plafonnées à <%= gemLimit %> gemmes par mois, mais ce plafond augmente de 5 gemmes pour chaque tranche de trois mois d'abonnement consécutifs, jusqu'à un maximum de 50 gemmes par mois.",
     "retainHistory": "Conserve la totalité des entrées de l'historique",

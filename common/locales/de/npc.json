@@ -31,7 +31,7 @@
     "paymentMethods": "Zahlungsarten:",
     "classGear": "Klassenausrüstung",
     "classGearText": "Zuallererst: Keine Panik! Deine alte Ausrüstung ist in Deinem Inventar und Du trägst jetzt Deine Lehrling <strong><%= klass %></strong>-Ausrüstung. Die Ausrüstung Deiner Klasse zu tragen verleiht Dir einen 50% Bonus auf ihre Werte. Aber Du kannst jederzeit zu Deiner alten Ausrüstung zurückwechseln.",
-    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
+    "classStats": "Dies sind die Statuswerte deiner Klasse; sie beeinflussen das Spiel. Jedes Mal, wenn du einen Level aufsteigst, erhälst du einen Punkt, den du einem Statuswert zuordnen kannst. Bewege die Maus über die Statuswerte für weitere Informationen.",
     "autoAllocate": "Automatische Verteilung",
     "autoAllocateText": "Falls Du eine automatische Verteilung wählst, werden die Punkte automatisch verteilt, abhängig von den Attributen Deiner Aufgaben, die Du unter <strong>Aufgabe > Bearbeiten > Erweitert > Attribute</strong> finden kannst. Ein Beispiel: Wenn Du oft im Fitnessstudio bist und die entsprechende Aufgabe auf \"körperlich\" gesetzt ist, bekommst Du automatisch Stärke.",
     "spells": "Fähigkeiten",
@@ -71,11 +71,14 @@
     "tourHabitsProceed": "Das leuchtet ein!",
     "tourRewardsBrief": "<strong>Liste der Belohnungen</strong><ul><li>Gib dein hart verdientes Gold hier aus!</li><li>Kaufe Ausrüstung für deinen Avatar oder führe eigene Belohnungen ein.</li></ul>",
     "tourRewardsProceed": "Das war's!",
-    "welcomeToHabit": "Willkommen bei Habitica, einem Spiel, das dein Leben verbessert!",
-    "welcome1": "Erstelle und bearbeite einen Avatar, der dich im Spiel repräsentiert.",
-    "welcome2": "Deine Aufgaben aus dem wirklichen Leben beeinflussen das Leben (HP), die Erfahrung (XP) und das Gold deines Avatars!",
-    "welcome3": "Beende Aufgaben um Erfahrung (XP) und Gold zu verdienen, welche tolle Features und Belohnungen freischalten!",
+    "welcomeToHabit": "Welcome to Habitica!",
+    "welcome1": "Create a basic avatar.",
+    "welcome1notes": "This avatar will represent you as you progress.",
+    "welcome2": "Set up your tasks.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progress in life and the game!",
+    "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "Vermeide schlechte Gewohnheiten, die Lebenspunkte (HP) abziehen oder dein Avatar wird sterben!",
     "welcome5": "Jetzt kannst du deinen Avatar anpassen und deine Aufgaben einrichten...",
-    "imReady": "Ich bin bereit!"
+    "imReady": "Enter Habitica"
 }

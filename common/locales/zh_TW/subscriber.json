@@ -1,7 +1,7 @@
 {
     "subscription": "訂閱",
     "subscriptions": "訂閱",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "用金幣購買寶石、每月提供神秘物品、保留歷史進度、每日掉寶限制翻倍、贊助開發人員等。點選查看詳細資訊。",
     "buyGemsGold": "用金幣購買寶石",
     "buyGemsGoldText": "商店賣1 顆寶石需要 <%= gemCost %> 金幣，每月有<%= gemLimit %>個寶石的兌換上限，連續開啟訂閱服務時每個月還會再多5個寶石可換，最大到每月50個寶石，解決了你對課金的擔憂。",
     "retainHistory": "保留所有歷史記錄了",

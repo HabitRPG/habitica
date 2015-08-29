@@ -2,9 +2,9 @@
     "rebirthNew": "Hergeboorte: nieuw avontuur beschikbaar!",
     "rebirthUnlock": "Je hebt Hergeboorte vrijgespeeld! Dit speciale marktvoorwerp stelt je in staat om een nieuw spel te beginnen vanaf niveau 1 terwijl je je taken, prestaties, dieren, en meer behoudt. Gebruik het om nieuw leven in Habitica te blazen als je voelt dat je alles al bereikt hebt, of om nieuwe spelonderdelen te beleven met de frisse blik van een beginnend personage!",
     "rebirthBegin": "Hergeboorte: begin een nieuw avontuur",
-    "rebirthStartOver": "Hergeboorte start je personage opnieuw vanaf niveau 1, alsof je een nieuw account aangemaakt had.",
+    "rebirthStartOver": "Rebirth starts your character over from Level 1.",
     "rebirthAdvList1": "Je krijgt je volle gezondheid terug.",
-    "rebirthAdvList2": "Je hebt geen ervaringspunten, goud of uitrusting.",
+    "rebirthAdvList2": "You have no Experience, Gold, or Equipment (with the exception of free items like Mystery items).",
     "rebirthAdvList3": "Je Gewoontes, Dagelijkse Taken en To-do's zijn op geel gezet, en series zijn teruggezet op nul.",
     "rebirthAdvList4": "Je hebt de startklasse van Krijger tot je een nieuwe klasse verwerft.",
     "rebirthInherit": "Je nieuwe personage erft een paar dingen van zijn voorganger:",
@@ -19,7 +19,7 @@
     "rebirthBegan": "Is een nieuw avontuur begonnen",
     "rebirthText": "Is <%= rebirths %> nieuwe avonturen begonnen",
     "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau",
-    "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt. ",
+    "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten en taken met hun geschiedenis behoudt.",
     "rebirthName": "Bol der Hergeboorte",
     "reborn": "Herboren, maximale niveau <%= reLevel %>"
 }

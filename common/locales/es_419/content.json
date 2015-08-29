@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "tierno",
     "questEggWhaleText": "Ballena",
     "questEggWhaleAdjective": "chapoteante",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "Encuentra una poción de eclosión para verter sobre este huevo y nacerá un <%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Blanco",

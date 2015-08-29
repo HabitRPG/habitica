@@ -33,7 +33,7 @@
     "challengeTagPop": "Challenges appear on tag-lists & task-tooltips. So while ye'll want a descriptive title above, ye'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb' (Click fer more info).",
     "challengeDescr": "Description",
     "prize": "Treasure",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "If someone can 'win' yer challenge, ye can optionally award that winner a Sapphire prize. Th' maximum number ye can award be th' number o' sapphires ye own (plus th' number o' alliance sapphires, if ye formed this challenge's alliance). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' yer challenge, ye can award tha' winner a Sapphire prize. Max = number o' sapphires ye own. Note: This prize can't be changed later an' Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minimum 1 Sapphire fer <strong> public challenges </strong> (helps prevent spam, it really does).",
     "officialChallenge": "Official Habitica Challenge",
@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Export to CSV",
     "selectGroup": "Please select group",
     "challengeCreated": "Challenge created",
-    "sureDelCha": "Delete challenge, arrr ye sure?",
-    "sureDelChaTavern": "Delete challenge, arr ye sure? Yer Sapphires 'll be plundered if ye do thi'.",
+    "sureDelCha": "Are you sure you want to delete this challenge?",
+    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "Remove Tasks",
     "keepTasks": "Keep Tasks",
     "closeCha": "Close challenge an'...",
@@ -56,5 +56,8 @@
     "backToChallenges": "Back to all challenges",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Prize",
     "clone": "Clone",
-    "challengeNotEnoughGems": "Ye do not have enough sapphires to post this challenge."
+    "challengeNotEnoughGems": "Ye do not have enough sapphires to post this challenge.",
+    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
+    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
 }

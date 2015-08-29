@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "פרץ להבות",
-    "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
+    "spellWizardFireballNotes": "להבות יוצאות לך מהידיים. אתה מרוויח נקודות ניסיון, ואתה גורם לנזק נוסף לבוסים! הקלק על מטלה כדי להטיל. (מבוסס על: תבונה)",
     "spellWizardMPHealText": "פרץ אתרי",
     "spellWizardMPHealNotes": "אתה מקריב מאנה כדי לעזור לחברים שלך. כל שאר החבורה מקבלת מאנה! (מבוסס על תבונה)",
     "spellWizardEarthText": "רעידת אדמה",
@@ -16,7 +16,7 @@
     "spellWarriorIntimidateText": "מבט מאיים",
     "spellWarriorIntimidateNotes": "Your gaze strikes fear into your enemies. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
     "spellRoguePickPocketText": "כיוס",
-    "spellRoguePickPocketNotes": "You rob a nearby task. You gain gold! Click on a task to cast. (Based on: PER)",
+    "spellRoguePickPocketNotes": "אתה שודד משימה קרובה. אתה מרוויח זהב! לחץ על מטלה כדי להטיל. (מבוסס על: PER)",
     "spellRogueBackStabText": "דקירה בגב",
     "spellRogueBackStabNotes": "You betray a foolish task. You gain gold and XP! Click on a task to cast. (Based on: STR)",
     "spellRogueToolsOfTradeText": "כלי המקצוע",
@@ -44,7 +44,7 @@
     "spellSpecialPetalFreePotionText": "תרופה ללא כותרת",
     "spellSpecialPetalFreePotionNotes": "מבטלת את השפעת הזרעים המנצנצים",
     "spellSpecialSeafoamText": "Seafoam",
-    "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
-    "spellSpecialSandText": "Sand",
+    "spellSpecialSeafoamNotes": "הפוך חבר ליצור ים!",
+    "spellSpecialSandText": "חול",
     "spellSpecialSandNotes": "Cancel the effects of Seafoam."
 }

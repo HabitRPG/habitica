@@ -71,11 +71,14 @@
     "tourHabitsProceed": "To dává smysl!",
     "tourRewardsBrief": "<strong>Seznam odměn</strong><ul><li>Tady můžeš utratit své těžce vydělané Zlaťáky!</li><li>Nakup si vybavení pro svého avatara, nebo si můžeš přidat své vlastní odměny.</li></ul>",
     "tourRewardsProceed": "To je vše!",
-    "welcomeToHabit": "Vítej v Habitice, hře, která zlepší tvůj život!",
-    "welcome1": "Vytvoř a uzpůsob si svého herního avatara, který tě reprezentuje.",
-    "welcome2": "Tvé úkoly v reálném životě ovlivňují Zdraví (HP), Zkušenost (XP), a Zlaťáky tvého avatara.",
-    "welcome3": "Plń úkoly a získej za ně Zkušenost (XP) a Zlaťáky, které odemknou super funkce a odměny!",
+    "welcomeToHabit": "Welcome to Habitica!",
+    "welcome1": "Create a basic avatar.",
+    "welcome1notes": "This avatar will represent you as you progress.",
+    "welcome2": "Set up your tasks.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progress in life and the game!",
+    "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "Vyvaruj se zlozvyků, které ti ubírají Zdraví (HP), nebo tvůj avatar zemře!",
     "welcome5": "Nyní si upravíš svůj avatar a zadáš úkoly...",
-    "imReady": "Jsem připraven!"
+    "imReady": "Enter Habitica"
 }

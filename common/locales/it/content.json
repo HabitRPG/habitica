@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "un'affettuosa",
     "questEggWhaleText": "Balena",
     "questEggWhaleAdjective": "una zampillante",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

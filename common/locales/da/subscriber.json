@@ -1,7 +1,7 @@
 {
     "subscription": "Abonnement",
     "subscriptions": "Abonnementer",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "Køb ædelsten for guld, få mystiske varer hver måned, gem fremskridtshistorik, din daglige drop-grænse bliver fordoblet OG du støtter udviklerne! Klik for mere info.",
     "buyGemsGold": "Køb Ædelsten med Guld",
     "buyGemsGoldText": "Købmanden Alexander sælger dig gerne ædelsten for <%= gemCost %> guld per ædelsten. Hans månedlige lager er begrænset til <%= gemLimit %> ædelsten om måneden i starten, men denne begrænsning stiger med 5 ædelsten for hver 3 måneders fortsat abonnement, til et maksimum på 50 ædelsten per måned!",
     "retainHistory": "Behold fuld historik",

@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "fofinho",
     "questEggWhaleText": "Baleia",
     "questEggWhaleAdjective": "Espirro de Água",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "Ache uma poção de eclosão para usá-la nesse ovo, e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",

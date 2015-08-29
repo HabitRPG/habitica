@@ -6,7 +6,7 @@
     "lfgPosts": "グループポスト(メンバー募集)を探してください",
     "tutorial": "チュートリアル",
     "glossary": "小辞典",
-    "wiki": "Wiki",
+    "wiki": "ウィキ",
     "reportAP": "問題を報告する",
     "requestAF": "仕様をお願いする",
     "community": "コミュニティフォーラム",
@@ -94,7 +94,7 @@
     "abuseFlag": "コミュニティガイドライン違反を報告する",
     "abuseFlagModalHeading": "<%= name %> を違反で報告しますか？",
     "abuseFlagModalBody": "本当にこの投稿を報告しますか？<%= firstLinkStart %>コミュニティガイドライン<%= linkEnd %>、もしくは<%= secondLinkStart %>利用規約<%= linkEnd %>違反の投稿のみを報告してください。不適切な報告はコミュニティガイドラインの違反となり、反則です。",
-    "abuseFlagModalButton": "Report Violation",
+    "abuseFlagModalButton": "違反を報告する",
     "abuseReported": "違反報告ありがとうございます。モデレータに通知されます。",
     "abuseAlreadyReported": "このメッセージは報告済みです。",
     "needsText": "メッセージを入力してください。",
@@ -113,7 +113,7 @@
     "inviteNewUsers": "新しいユーザー(達)を招待する",
     "inviteAlertInfo2": "もしくはこのリンクを共有する(コピー/ペースト):",
     "sendGiftHeading": "<%= name %>に贈り物を送る",
-    "sendGiftGemsBalance": "From <%= number %> Gems",
+    "sendGiftGemsBalance": "<%= number %>個のジェムから",
     "sendGiftCost": "会計： $<%= cost %> USD",
     "sendGiftFromBalance": "残高から",
     "sendGiftPurchase": "購入する",
@@ -122,5 +122,5 @@
     "battleWithFriends": "フレンドと一緒にモンスターと戦う",
     "startAParty": "チームを作る",
     "addToParty": "チームに誰かを入れる",
-    "likePost": "Click if you like this post!"
+    "likePost": "「いいね！」とすればクリックします。"
 }

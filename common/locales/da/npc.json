@@ -35,7 +35,7 @@
     "autoAllocate": "Tildel automatisk",
     "autoAllocateText": "Hvis 'tildel automatisk' er markeret vil din avatars attributter stige automatisk baseret på dine opgavers attributter, hvilket du kan finde i <strong>Opgave > Ret > Avanceret > Attributter</strong>. Hvis du for eksempel dyrker motion ofte, og din Daglige 'Motion' er sat til 'Fysisk' vil du automatisk gå på i Styrke.",
     "spells": "Fortryllelser",
-    "spellsText": "Du kan nu låse op for klasse-specifikke fortryllelser. Du vil se din første ved niveau 11. Dit mana vil blive genopfyldt med 10 point per dag, samt et point per færdiggjort",
+    "spellsText": "Du kan nu låse op for klasse-specifikke fortryllelser. Du vil se din første ved niveau 11. Dit mana vil blive genopfyldt med 10 point per dag, samt 1 point per færdiggjort",
     "toDo": "To-Do",
     "moreClass": "For mere information om klassesystemet, se",
     "tourWelcome": "Velkommen til Habitica! Dette er din To-Do-liste. Markér en opgave for at fortsætte!",
@@ -71,11 +71,14 @@
     "tourHabitsProceed": "Det giver mening!",
     "tourRewardsBrief": "<strong>Belønninger</strong><ul><li>Brug dit hårdt optjente guld her!</li><li>Køb udstyr til din avatar eller lav dine egne Belønninger.</li></ul>",
     "tourRewardsProceed": "Det var alt!",
-    "welcomeToHabit": "Velkommen til Habitica - et spil om at forbedre dit liv!",
-    "welcome1": "Lav en spil-avatar, der repræsenterer dig.",
-    "welcome2": "Dine opgaver i virkeligheden har indflydelse på dit Helbred (HP), Erfaring (XP) og Guld!",
-    "welcome3": "Færdiggør opgaver for at optjene Erfaring (XP) og Guld, som låser op for fede features og belønninger!",
+    "welcomeToHabit": "Welcome to Habitica!",
+    "welcome1": "Create a basic avatar.",
+    "welcome1notes": "This avatar will represent you as you progress.",
+    "welcome2": "Set up your tasks.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progress in life and the game!",
+    "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "Undgå dårlige vaner, der dræner dit Helbred (HP), ellers vil din avatar dø!",
     "welcome5": "Nu vil vi personliggøre din avatar og opsætte dine opgaver...",
-    "imReady": "Jeg er klar!"
+    "imReady": "Enter Habitica"
 }

@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "ennivaló",
     "questEggWhaleText": "Bálna",
     "questEggWhaleAdjective": "spriccelő",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "Keress egy keltetőfőzetet ehhez a tojáshoz, és egy <%= eggAdjective(locale) %> <%= eggText(locale) %> kel majd ki belőle.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",
