@@ -8,6 +8,81 @@ var Q = require('q');
 var groupsController = require('../../../website/src/controllers/groups');
 
 describe('Groups Controller', function() {
+  describe('#leave', function() {
+    var res, req, user, group;
+
+    beforeEach(function() {
+      group = {
+        _id: 'group-id',
+        type: 'party',
+        members: [
+          'user-id',
+          'another-user'
+        ],
+        save: sinon.stub().yields(),
+        markModified: sinon.spy()
+      };
+
+      user = {
+        _id: 'user-id',
+        save: sinon.stub().yields(),
+        markModified: sinon.spy()
+      };
+
+      res = {
+        locals: {
+          group: group,
+          user: user
+        },
+        json: sinon.stub(),
+        send: sinon.stub()
+      };
+
+      req = {
+        query: { keep: 'keep' }
+      };
+    });
+
+    context('party', function() {
+      beforeEach(function() {
+        group.type = 'party';
+        group.quest = {
+          leader : 'another-user',
+          active: true,
+          members: {
+            'user-id': true,
+            'another-user': true
+          },
+          key : 'vice1',
+          progress : {
+              hp : 364,
+              collect : {}
+          }
+        };
+
+        user.party = {
+          quest : {
+              key : 'vice1',
+              progress : {
+                  up : 50,
+                  down : 0,
+                  collect : {}
+              },
+              completed : null,
+              RSVPNeeded : false
+          }
+        }
+      });
+
+      it('removes quest data from user', function() {
+        groupsController.leave(req, res);
+
+        expect(user.party.quest.key).to.not.exist;
+        expect(user.party.quest.progress).to.eql({up: 0, down: 0, collect: {}});
+        expect(user.save).to.be.calledOnce;
+      });
+    });
+  });
 
   describe('#questLeave', function() {
     var res, req, group, user, saveSpy;
