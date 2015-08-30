@@ -20,6 +20,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
     .buy-gems
       +gemButton(true)
 
+      div(ng-if='user.purchased.plan.customerId && (user.purchased.plan.gemsBought >= User.user.purchased.plan.consecutive.gemCapExtra + Shared.planGemLimits.convCap)')
         .panel.panel-default
           .panel-body
               h3=env.t('buyGemsGold')
@@ -28,6 +29,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
           h3=env.t('purchaseGemsSeparately')
           +buyGemsDropdown()
 
+      div(ng-if='user.purchased.plan.customerId && (user.purchased.plan.gemsBought < User.user.purchased.plan.consecutive.gemCapExtra + Shared.planGemLimits.convCap)')
         .panel.panel-default
           .panel-body
             h3=env.t('buyGemsGold')
@@ -49,6 +51,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
                         &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp; 
                         =env.t('buyGemsAllow2')
 
+      div(ng-if='!user.purchased.plan.customerId')
         .panel.panel-default
           .panel-body
             h3=env.t('purchaseGems')
