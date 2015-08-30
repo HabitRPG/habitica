@@ -16,6 +16,7 @@
     "displayPotionForGold": "Do you want to sell a <strong><%= itemType %> Potion</strong>?",
     "sellForGold": "Sell it for <%= gold %> Gold",
     "buyGems": "Buy Gems",
+    "purchaseGems": "Purchase Gems",
     "justin": "Justin",
     "ian": "Ian",
     "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
@@ -32,7 +33,7 @@
     "payNote": "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
     "card": "Card",
     "amazonInstructions": "Click the button to pay using Amazon Payments",
-    "paymentMethods": "Payment Methods:",
+    "paymentMethods": "Purchase using",
 
     "classGear": "Class Gear",
     "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong><%= klass %></strong> equipment. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
