@@ -22,7 +22,7 @@
     "messageDropEgg": "Hai trovato un uovo di <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Hai trovato una Pozione di Schiusura <%= dropText %>! <%= dropNotes %>",
     "messageDropQuest": "Hai trovato una missione!",
-    "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
+    "messageDropMysteryItem": "Apri il pacco e trovi <%= dropText %>!",
     "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Hai già acquistato questo oggetto in passato, ma al momento non lo possiedi. Puoi comprarlo di nuovo nella colonna delle Ricompense, nella pagina delle attività.",
     "messageAlreadyOwnGear": "Possiedi già questo oggetto. Equipaggialo andando in Inventario > Equipaggiamento.",

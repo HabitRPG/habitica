@@ -112,7 +112,7 @@
     "achievementStressbeastText": "Ha contribuito alla sconfitta dell'Abominevole Mostro dello Stress durante l'evento Winter Wonderland 2015!",
     "checkOutProgress": "Guarda i miei progressi su Habitica!",
     "cardReceived": "Received a card!",
-    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
+    "cardReceivedFrom": "<%= cardType %> da <%= userName %>",
     "greetingCard": "Greeting Card",
     "greetingCardExplanation": "You both receive the Cheery Chum achievement!",
     "greetingCardNotes": "Send a greeting card to a party member.",

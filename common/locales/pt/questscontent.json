@@ -224,7 +224,7 @@
     "questDilatoryDistress2Text": "Angustia da Dilatória, Parte 2: Criaturas da Fenda",
     "questDilatoryDistress2Notes": "O cerco pode ser visto de muito longe: milhares de crânios sem corpo que correm através de um portal nas fendas das paredes em direção à Dilatória.<br><br>Quando você encontra o Rei Manta em sua sala de guerra, seus olhos parecem profundos e seu rosto preocupado. \"Minha filha Adva desapareceu na Fenda Escura pouco antes deste cerco começar. Por favor, encontre-a e traga-a de volta para casa em segurança! Eu vou lhe emprestar a minha Tiara do Coral de Fogo para ajudá-lo. Se você tiver sucesso, ela é sua.\"",
     "questDilatoryDistress2Completion": "Você acaba com a horda assustadora de crânios, mas você não tem a menor ideia de como encontrar Adva. Você fala para @Kiwibot, a rastreadora real, para ver se ela tem alguma ideia. \"Os camarões mantis que defendem a cidade devem ter visto Adva fugir,\" diz @Kiwibot. \"Tente seguir-los pela Fenda Escura.\"",
-    "questDilatoryDistress2Boss": "Enxame de Caveiras D'água",
+    "questDilatoryDistress2Boss": "Enxame da Caveiras D'água",
     "questDilatoryDistress2RageTitle": "Retorno do Enxame",
     "questDilatoryDistress2RageDescription": "Retorno do Enxame: Esta barra enche quando você não completa suas Tarefas Diárias. Quando fica cheia, o Enxame de Caveiras D'água irá curar 30% da sua vida!",
     "questDilatoryDistress2RageEffect": "`Enxame de Caveiras D'água usa RETORNO DO ENXAME!`\n\nEncorajado pelas suas vitórias, mais crânios jorram da fenda, reforçando o enxame!",
@@ -241,7 +241,7 @@
     "questCheetahText": "Such a Cheetah",
     "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
     "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
-    "questCheetahBoss": "Cheetah",
-    "questCheetahDropCheetahEgg": "Cheetah (Egg)",
-    "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market"
+    "questCheetahBoss": "Guepardo",
+    "questCheetahDropCheetahEgg": "Guepardo (Ovo)",
+    "questCheetahUnlockText": "Desbloqueia ovos de guepardo para comprar no Mercado"
 }
