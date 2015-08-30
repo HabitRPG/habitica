@@ -1,30 +1,73 @@
+mixin buyGemsDropdown()
+  .container-fluid
+    .row
+      .col-md-4.col-md-offset-4.alert.alert-info $5&nbsp;
+        =env.t('USD')
+        span#TotalGemPrice.dashed-underline(popover=env.t('donateText1'),popover-trigger='mouseenter',popover-placement='right') = +20 <span class="Pet_Currency_Gem1x inline-gems"/>
+  .container-fluid
+    .row
+      .col-md-10.col-md-offset-2
+        p
+          small.muted=env.t('paymentMethods')
+        a.purchase.btn.btn-primary(ng-click='Payments.showStripe({})')=env.t('card')
+        a.purchase(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}')
+          img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt='Pay now with Paypal')
+        a.purchase(ng-click="Payments.amazonPayments.init({type: 'single'})")
+          img(src='https://payments.amazon.com/gp/cba/button',alt='Pay now with Amazon Payments')
+
 script(id='modals/buyGems.html', type='text/ng-template')
   .modal-body
     .buy-gems
       +gemButton(true)
-      .well
-        h3=env.t('buyGems')
-        table.table
-          tr
-            td
-              span.dashed-underline(popover=env.t('donateText1'),popover-trigger='mouseenter',popover-placement='right')
-                | +20 <span class="Pet_Currency_Gem1x inline-gems"/>
-          tr
-            td
+
+        .panel.panel-default
+          .panel-body
+              h3=env.t('buyGemsGold')
+              p=env.t('maxBuyGems')
+        .well
+          h3=env.t('purchaseGemsSeparately')
+          +buyGemsDropdown()
+
+        .panel.panel-default
+          .panel-body
+            h3=env.t('buyGemsGold')
+            p=env.t('subGemPop')
+            .container-fluid
+              .row
+                .col-md-3
+                  button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
+                    span.Pet_Currency_Gem.inline-gems
+                     .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}
+                  p
+                    | 20&nbsp;
+                    span.shop_gold
+                .col-md-8
+                  .popover.right.gem-count-popover
+                    .arrow
+                    .popover-content
+                      p=env.t('buyGemsAllow1')
+                        &nbsp;{{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}&nbsp; 
+                        =env.t('buyGemsAllow2')
+
+        .panel.panel-default
+          .panel-body
+            h3=env.t('purchaseGems')
+            .small 
               span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='right')
-                =env.t('donateText2')
-          tr
-            td.alert.alert-info $5&nbsp;
-              =env.t('USD')
-          tr
-            td
-              p
-                small.muted=env.t('paymentMethods')
-              .btn.btn-primary(ng-click='Payments.showStripe({})')=env.t('card')
-              a.btn.btn-success(href='/paypal/checkout?_id={{user._id}}&apiToken={{user.apiToken}}') PayPal
-              .btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'single'})") Amazon Payments
-      
-      div(ng-include="'partials/options.settings.subscription.html'")
+                  =env.t('donateText2')
+            +buyGemsDropdown()
+
+          .well
+            h3
+              .small=env.t('buyGemsGoldTitle')
+            h3=env.t('becomeSubscriber')
+          
+            div(ng-include="'partials/options.settings.subscription.html'")
+
+          .container-fluid
+            h3=env.t('freeGemsTitle')
+            p!=env.t('subFreeGemsHow')
 
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
+
