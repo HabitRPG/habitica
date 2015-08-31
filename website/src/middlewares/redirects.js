@@ -21,7 +21,7 @@ function isProxied(req) {
 
 module.exports.forceSSL = function(req, res, next){
   if(isHTTP(req) && !isProxied(req)) {
-    return res.redirect(301, BASE_URL + req.url);
+    return res.redirect(BASE_URL + req.url);
   }
 
   next();
@@ -35,7 +35,7 @@ function nonApiUrl(req) {
 
 module.exports.forceHabitica = function(req, res, next) {
   if (IS_PROD && !ignoreRedirect && !isProxied(req) && nonApiUrl(req)) {
-    return res.redirect(BASE_URL + req.url);
+    return res.redirect(301, BASE_URL + req.url);
   }
   next();
 };
