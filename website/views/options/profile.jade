@@ -285,7 +285,7 @@ mixin backgrounds(mobile)
       - var bgsKeys = Object.keys(env.Content.backgrounds);
       - for (var i = bgsKeys.length-1; i >= 0; i--) {
         - var k = bgsKeys[i], bgs = env.Content.backgrounds[k];
-        - if (!bgs.hidden) {
+        - if (!bgs.inactive) {
           li.customize-menu
             menu(label=env.t(k))
               span(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})")
