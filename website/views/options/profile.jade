@@ -285,14 +285,16 @@ mixin backgrounds(mobile)
       - var bgsKeys = Object.keys(env.Content.backgrounds);
       - for (var i = bgsKeys.length-1; i >= 0; i--) {
         - var k = bgsKeys[i], bgs = env.Content.backgrounds[k];
-        li.customize-menu
-          menu(label=env.t(k))
-            span(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})")
-              +gemCost(7)
-                button.btn.btn-xs(ng-click="unlock(setKeys('background',#{JSON.stringify(bgs)}))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-            each bg,k in bgs
-              button.customize-option(type='button', class='background_#{k}', ng-class="user.purchased.background.#{k} ? 'background-unlocked' : 'background-locked'", ng-click='unlock("background.#{k}")', popover-title=bg.text(env.language.code), popover=bg.notes(env.language.code),popover-trigger='mouseenter')
-                i.glyphicon.glyphicon-lock(ng-if="!user.purchased.background.#{k}")
+        - if (!bgs.hidden) {
+          li.customize-menu
+            menu(label=env.t(k))
+              span(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})")
+                +gemCost(7)
+                  button.btn.btn-xs(ng-click="unlock(setKeys('background',#{JSON.stringify(bgs)}))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+              each bg,k in bgs
+                button.customize-option(type='button', class='background_#{k}', ng-class="user.purchased.background.#{k} ? 'background-unlocked' : 'background-locked'", ng-click='unlock("background.#{k}")', popover-title=bg.text(env.language.code), popover=bg.notes(env.language.code),popover-trigger='mouseenter')
+                  i.glyphicon.glyphicon-lock(ng-if="!user.purchased.background.#{k}")
+        - }
       - }
 
 script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
