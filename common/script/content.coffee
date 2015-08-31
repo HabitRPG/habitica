@@ -2225,6 +2225,7 @@ api.backgrounds =
       text: t('backgroundTwinklyPartyLightsText')
       notes: t('backgroundTwinklyPartyLightsNotes')
   backgrounds092015:
+    inactive: true
     market:
       text: t('backgroundMarketText')
       notes: t('backgroundMarketNotes')
