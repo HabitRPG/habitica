@@ -739,6 +739,10 @@ api.removeMember = function(req, res, next){
     return res.json(401, {err: "Only group leader can remove a member!"});
   }
 
+  if(user._id === uuid){
+    return res.json(401, {err: "You cannot remove yourself!"});
+  }
+
   if(_.contains(group.members, uuid)){
     var update = {$pull:{members:uuid}};
     if(group.quest && group.quest.members){
