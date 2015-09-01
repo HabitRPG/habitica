@@ -1,6 +1,6 @@
 'use strict';
 
-describe('taskFocus Directive', function() {
+describe('focusElement Directive', function() {
   var elementToFocus, scope;
 
   beforeEach(module('habitrpg'));
@@ -9,7 +9,7 @@ describe('taskFocus Directive', function() {
     scope = $rootScope.$new();
 
     scope.focusThisLink = false;
-    var element = '<input data-task-focus="focusThisLink" />';
+    var element = '<input data-focus-element="focusThisLink" />';
 
     elementToFocus = $compile(element)(scope);
     scope.$digest();
@@ -25,7 +25,7 @@ describe('taskFocus Directive', function() {
       scope.$digest();
 
       $timeout.flush();
-      expect(document.activeElement.dataset.taskFocus).to.eql("focusThisLink");
+      expect(document.activeElement.dataset.focusElement).to.eql("focusThisLink");
       expect(focusSpy).to.have.been.called;
     })
   );
