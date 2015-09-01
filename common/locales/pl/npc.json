@@ -71,11 +71,14 @@
     "tourHabitsProceed": "Brzmi sensownie!",
     "tourRewardsBrief": "<strong>Lista nagród</strong><ul><li>Wydaj tutaj swoje zarobione z trudem złoto!</li><li>Kup wyposażenie dla Twojego awatara, albo wybierz którąś z utworzonych przez siebie nagród.</li></ul>",
     "tourRewardsProceed": "To wszystko!",
-    "welcomeToHabit": "Witaj w Habitica, grze, która poprawi Twoje życie!",
-    "welcome1": "Stwórz i dostosuj awatar, który będzie reprezentował Ciebie w grze.",
-    "welcome2": "Fizyczne wypełnianie zadań w realnym świecie wpływa na Zdrowie (HP), Doświadczenie (XP) i Złoto Twojego awatara!",
-    "welcome3": "Wypełniaj zadania, by zarabiać punkty Doświadczenia (XP) i Złoto, które odblokują odjazdowe funkcje i nagrody!",
+    "welcomeToHabit": "Welcome to Habitica!",
+    "welcome1": "Create a basic avatar.",
+    "welcome1notes": "This avatar will represent you as you progress.",
+    "welcome2": "Set up your tasks.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progress in life and the game!",
+    "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "Unikaj złych nawyków, które wysysają punkty Zdrowia (HP), inaczej Twój awatar umrze!",
     "welcome5": "Teraz spersonalizujesz swój awatar i ustawisz swoje zadania...",
-    "imReady": "Zaczynajmy!"
+    "imReady": "Enter Habitica"
 }

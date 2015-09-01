@@ -7,7 +7,7 @@ script(type='text/ng-template', id='modals/member.html')
     .container-fluid
       .row
         .col-md-6
-          img.image-rendering-auto(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
+          img.img-rendering-auto(ng-show='::profile.profile.imageUrl', ng-src='{{::profile.profile.imageUrl}}')
           markdown(ng-show='::profile.profile.blurb', text='::profile.profile.blurb')
           ul.muted.list-unstyled(ng-if='::profile.auth.timestamps')
             li {{profile._id}}
@@ -47,7 +47,7 @@ script(type='text/ng-template', id='modals/private-message.html')
   .modal-header
     h4=env.t('pmHeading', {name: "{{profile.profile.name}}"})
   .modal-body
-    textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',placeholder=env.t('needsTextPlaceholder'),ng-model='_message', focus-me)
+    textarea.form-control(type='text',rows='5',ui-keydown='{"meta-enter":"sendPrivateMessage(profile._id, _message)"}',placeholder=env.t('needsTextPlaceholder'),ng-model='_message', focus-element='true')
     include ../formatting-help
   .modal-footer
     //- Due to a quirk in Bootstrap UI, we need to wrap this so the tooltip can

@@ -31,7 +31,7 @@
     "paymentMethods": "Betaalmogelijkheden",
     "classGear": "Klassespecifieke uitrusting",
     "classGearText": "Ten eerste: geen paniek! Je oude uitrusting bevindt zich in je boedel, en je draagt nu de leerlingenuitrusting van een <strong><%= klass %></strong>. Door je klasse-uitrusting te dragen krijg je een bonus van 50% op de eigenschappen die de uitrusting verstrekt. Voel je echter ook vrij om je oude uitrusting weer aan te trekken.",
-    "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
+    "classStats": "Dit zijn je klasse-eigenschappen; ze beïnvloeden het spel. Elke keer als je een niveau stijgt, krijg je één punt om aan een bepaalde eigenschap toe te wijzen. Plaats je muis op iedere eigenschap voor meer informatie.",
     "autoAllocate": "Automatische verdeling",
     "autoAllocateText": "Als 'automatische verdeling' aangevinkt is, worden de eigenschapspunten van je personage automatisch toegewezen afhankelijk van de eigenschappen van je taken. Die kun je vinden in <strong>TAAK > Bewerken > Geavanceerd > Eigenschappen</strong>. Als je bijvoorbeeld vaak naar de sportschool gaat en je dagelijkse 'Sportschool' taak is ingesteld op 'Fysiek', dan krijg je automatisch Kracht.",
     "spells": "Spreuken",
@@ -71,11 +71,14 @@
     "tourHabitsProceed": "Klinkt logisch!",
     "tourRewardsBrief": "<strong>Beloningenlijst</strong><ul><li>Geef hier je welverdiende goud uit!</li><li>Koop uitrustingsstukken voor je avatar of verzin je eigen beloningen.</li></ul>",
     "tourRewardsProceed": "Dat was alles!",
-    "welcomeToHabit": "Welkom bij Habitica, een spel om je leven te verbeteren!",
-    "welcome1": "Maak een avatar aan die jou representeert en doe interessante aanpassingen.",
-    "welcome2": "Jouw taken in het echte leven hebben invloed op de hoeveelheid gezondheidspunten (HP), ervaringspunten (XP) en goud die je avatar heeft!",
-    "welcome3": "Maak taken af om ervaringspunten (XP) en goud te verdienen, waarmee je coole opties en beloningen ontgrendelt!",
+    "welcomeToHabit": "Welcome to Habitica!",
+    "welcome1": "Create a basic avatar.",
+    "welcome1notes": "This avatar will represent you as you progress.",
+    "welcome2": "Set up your tasks.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progress in life and the game!",
+    "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "Vermijd slechte gewoontes die je gezondheid (HP) verminderen, want anders gaat je avatar  dood!",
     "welcome5": "Nu kun je je avatar aanpassen en je taken instellen...",
-    "imReady": "Ik ben er klaar voor!"
+    "imReady": "Enter Habitica"
 }

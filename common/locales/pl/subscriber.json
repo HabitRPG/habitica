@@ -1,7 +1,7 @@
 {
     "subscription": "Abonament",
     "subscriptions": "Abonamenty",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "Kupuj klejnoty za złoto, otrzymuj comiesięczne tajemnicze przedmioty, zachowuj historię postępów, podwój dzienny limit łupów, wspieraj twórców. Kliknij po więcej informacji.",
     "buyGemsGold": "Kup Klejnoty za Złoto",
     "buyGemsGoldText": "Kupiec Alexander sprzeda ci klejnoty w cenie <%= gemCost %> złota za klejnot. Ich miesięczna ilość jest początkowo ograniczona do <%= gemLimit %> klejnotów na miesiąc, jednak zwiększa się ona o 5 klejnotów za każde 3 miesiące ciągłego abonamentu, aż do maksymalnie 50 klejnotów na miesiąc!",
     "retainHistory": "Zachowanie pełnej historii konta",

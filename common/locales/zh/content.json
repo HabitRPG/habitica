@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "可爱的",
     "questEggWhaleText": "鲸",
     "questEggWhaleAdjective": "斑点",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "把孵化药水倒在宠物蛋上可以孵化出一只<%= eggAdjective(locale) %><%= eggText(locale) %>。",
     "hatchingPotionBase": "普通",
     "hatchingPotionWhite": "白色",

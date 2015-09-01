@@ -1,7 +1,7 @@
 {
     "subscription": "Předplatné",
     "subscriptions": "Předplatné",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "Nakupuj Drahokamy za Zlaťáky, získej každý měsíc tajemné předměty, uchovávej si historii svého pokroku, získej dvakrát více nálezů, podpoř vývojáře. Klikni pro více informací.",
     "buyGemsGold": "Kup drahokamy za zlato",
     "buyGemsGoldText": "Obchodník Alexander ti prodá drahokamy za cenu <%= gemCost %> zlaťáků za kámen. Jeho měsíční dodávky jsou zprvu omezeny na <%= gemLimit %> kamenů za měsíc, ale každé tři měsíce souvislého předplatného se jejich počet navýší o 5 a může dosáhnout maxima až 50 kamenů za měsíc!",
     "retainHistory": "Ponech si veškeré položky historie",

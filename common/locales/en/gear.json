@@ -159,6 +159,8 @@
   "weaponArmoireMythmakerSwordNotes": "Though it may seem humble, this sword has made many mythic heroes. Increases Perception and Strength by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 3 of 3)",
   "weaponArmoireIronCrookText": "Iron Crook",
   "weaponArmoireIronCrookNotes": "Fiercely hammered from iron, this iron crook is good at herding sheep. Increases Perception and Strength by <%= attrs %> each. Enchanted Armoire: Horned Iron Set (Item 3 of 3)",
+  "weaponArmoireGoldWingStaffText": "Gold Wing Staff",
+  "weaponArmoireGoldWingStaffNotes": "The wings on this staff constantly flutter and twist. Increases all attributes by <%= attrs %> each. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
 
@@ -329,6 +331,8 @@
   "armorArmoireGoldenTogaNotes": "This glimmering toga is only worn by true heroes. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 1 of 3).",
   "armorArmoireHornedIronArmorText": "Horned Iron Armor",
   "armorArmoireHornedIronArmorNotes": "Fiercely hammered from iron, this horned armor is nearly impossible to break. Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: Horned Iron Set (Item 2 of 3).",
+  "armorArmoirePlagueDoctorOvercoatText": "Plague Doctor Overcoat",
+  "armorArmoirePlagueDoctorOvercoatNotes": "An authentic overcoat worn by the doctors who battle the Plague of Procrastination! Increases Intelligence by <%= int %>, Strength by <%= str %>, and Constitution by <%= con %>. Enchanted Armoire: Plague Doctor Set (Item 3 of 3).",
 
   "headgear": "headgear",
 
@@ -501,6 +505,12 @@
   "headArmoireGoldenLaurelsNotes": "These golden laurels reward those who have conquered bad habits. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Golden Toga Set (Item 2 of 3).",
   "headArmoireHornedIronHelmText": "Horned Iron Helm",
   "headArmoireHornedIronHelmNotes": "Fiercely hammered from iron, this horned helmet is nearly impossible to break. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Horned Iron Set (Item 1 of 3).",
+  "headArmoireYellowHairbowText": "Yellow Hairbow",
+  "headArmoireYellowHairbowNotes": "Become perceptive, strong, and smart while wearing this beautiful Yellow Hairbow! Increases Perception, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+  "headArmoireRedFloppyHatText": "Red Floppy Hat",
+  "headArmoireRedFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a radiant red color. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
+  "headArmoirePlagueDoctorHatText": "Plague Doctor Hat",
+  "headArmoirePlagueDoctorHatNotes": "An authentic hat worn by the doctors who battle the Plague of Procrastination! Increases Strength by <%= str %>, Intelligence by <%= int %>, and Constitution by <%= con %>. Enchanted Armoire: Plague Doctor Set (Item 1 of 3).",
 
   "offhand": "shield-hand item",
 
@@ -713,5 +723,9 @@
   "eyewearMystery301404Text": "Eyewear Goggles",
   "eyewearMystery301404Notes": "No eyewear could be fancier than a pair of goggles - except, perhaps, for a monocle. Confers no benefit. April 3015 Subscriber Item.",
   "eyewearMystery301405Text": "Monocle",
-  "eyewearMystery301405Notes": "No eyewear could be fancier than a monocle - except, perhaps, for a pair of goggles. Confers no benefit. July 3015 Subscriber Item."
+  "eyewearMystery301405Notes": "No eyewear could be fancier than a monocle - except, perhaps, for a pair of goggles. Confers no benefit. July 3015 Subscriber Item.",
+
+  "eyewearArmoirePlagueDoctorMaskText": "Plague Doctor Mask",
+  "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3)."
 }
+

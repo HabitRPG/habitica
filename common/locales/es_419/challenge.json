@@ -33,7 +33,7 @@
     "challengeTagPop": "Los Desafíos aparecen en la lista de etiquetas y en las herramientas de tarea. Así que, aunque el título debería ser descriptivo, también se necesita una 'abreviatura'. P ej, 'Perder 5 kilos en 3 meses' se puede convertir en '-5 kg' (Haz clic para más información).",
     "challengeDescr": "Descripción",
     "prize": "Premio",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "Si alguien puede \"ganar\" tu desafío, puedes opcionalmente premiar al ganador con una recompensa de Gemas. El máximo número de participantes que puedes premiar es el número de gemas que poseas (más el número de gemas del gremio, si tú creaste el desafío de gremio). Nota: Este premio no puede ser cambiado después.",
     "prizePopTavern": "Si alguien puede 'ganar' tu desafío, tienes la opción de premiar al ganador con Gemas. Máximo = numero gemas que tienes. Nota: Este premio no se puede cambiar más tarde y no será devuelto si se cancela el desafió..",
     "publicChallenges": "Mínimo 1 Gema para <strong> desafíos públicos </strong> (ayuda a prevenir el spam, de verdad que sí).",
     "officialChallenge": "Desafío oficial de Habitica",
@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Exportar a CSV",
     "selectGroup": "Por favor seleccione un grupo",
     "challengeCreated": "Desafío creado",
-    "sureDelCha": "Eliminar desafío, ¿estás seguro?",
-    "sureDelChaTavern": "¿Estás seguro de que quieres eliminar el desafío? Tus gemas no serán devueltas.",
+    "sureDelCha": "Are you sure you want to delete this challenge?",
+    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "Eliminar Tareas",
     "keepTasks": "Mantener Tareas",
     "closeCha": "Cerrar desafío y...",
@@ -56,5 +56,8 @@
     "backToChallenges": "Volver a todos los desafíos",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Premio",
     "clone": "Clon",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "No tienes suficientes gemas para publicar este desafío.",
+    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
+    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
 }

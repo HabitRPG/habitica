@@ -71,11 +71,14 @@
     "tourHabitsProceed": "有道理！",
     "tourRewardsBrief": "<strong>奖励单</strong><ul><li>你可以在这里消费你的黄金！</li><li>给你的角色购买装备，或者组合个人奖励.</li></ul>",
     "tourRewardsProceed": "就是这些了！",
-    "welcomeToHabit": "欢迎来到Habitica，一个改善你生活的游戏！",
-    "welcome1": "创建并设置一个游戏中的角色来代替你。",
-    "welcome2": "你在现实中的任务影响你的角色的生命值(HP)，经验(XP)，以及财富！",
-    "welcome3": "完成任务获得经验(XP)以及金币，用它们来解锁酷炫的特点和奖励！",
+    "welcomeToHabit": "Welcome to Habitica!",
+    "welcome1": "Create a basic avatar.",
+    "welcome1notes": "This avatar will represent you as you progress.",
+    "welcome2": "Set up your tasks.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progress in life and the game!",
+    "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
     "welcome4": "避免坏习惯扣除你的生命值(HP)，否则你的角色会死亡！",
     "welcome5": "现在你要设置你的角色形象和建立你的任务……",
-    "imReady": "我准备好了！"
+    "imReady": "Enter Habitica"
 }

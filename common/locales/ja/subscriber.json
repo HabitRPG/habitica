@@ -1,7 +1,7 @@
 {
     "subscription": "購読",
     "subscriptions": "購読",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "ゴールドを使ってジェムを購入したり、毎月ミステリーアイテムをもらったり、進捗履歴を保持したり、デイリーのダブルドロップのキャップを外したり、そしてデベロプメントチームの支援にもなります。更に知るにはクリックしてください。",
     "buyGemsGold": "ジェムをゴールドで購入",
     "buyGemsGoldText": "アレクサンダー商人が1ジェムあたり<%= gemCost %>ゴールドで売ってくれるでしょう。彼の毎月の出荷は最初は上限<%= gemLimit %>ジェムに制限されていますが、この上限は継続購読の3ヶ月ごとに5ジェムづつ増加し、最大で月50ジェムまで増加します。",
     "retainHistory": "完全な履歴エントリーの保持",

@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Exportovat do CSV",
     "selectGroup": "Prosím, vyber skupinu",
     "challengeCreated": "Výzva vytvořena",
-    "sureDelCha": "Jsi si jistý, že chceš tuto výzvu smazat?",
-    "sureDelChaTavern": "Jsi si jistý, že chceš tuto výzvu smazat? Nedostaneš zpět Drahokamy.",
+    "sureDelCha": "Are you sure you want to delete this challenge?",
+    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "Odstranit úkoly",
     "keepTasks": "Ponechat úkoly",
     "closeCha": "Zavřít výzvu a...",
@@ -56,5 +56,8 @@
     "backToChallenges": "Zpět na všechny výzvy.",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Cena",
     "clone": "Naklonuj",
-    "challengeNotEnoughGems": "Nemáš dostatek Drahokamů, abys mohl uveřejnit tuto výzvu."
+    "challengeNotEnoughGems": "Nemáš dostatek Drahokamů, abys mohl uveřejnit tuto výzvu.",
+    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
+    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
 }
