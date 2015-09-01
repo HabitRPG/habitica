@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Экспорт в CSV",
     "selectGroup": "Пожалуйста, выберите группу",
     "challengeCreated": "Испытание создано",
-    "sureDelCha": "Вы уверены, что хотите удалить испытание?",
-    "sureDelChaTavern": "Вы уверены, что хотите удалить испытание? Ваши самоцветы не будут возвращены.",
+    "sureDelCha": "Are you sure you want to delete this challenge?",
+    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "Удалить задания",
     "keepTasks": "Оставить задания",
     "closeCha": "Закрыть испытание и...",
@@ -56,5 +56,8 @@
     "backToChallenges": "Вернуться к списку испытаний",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> в награду",
     "clone": "Клонировать",
-    "challengeNotEnoughGems": "У вас недостаточно самоцветов, чтобы разместить это испытание."
+    "challengeNotEnoughGems": "У вас недостаточно самоцветов, чтобы разместить это испытание.",
+    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
+    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
 }

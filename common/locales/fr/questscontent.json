@@ -237,5 +237,11 @@
     "questDilatoryDistress3Boss": "Adva, la Sirène usurpatrice",
     "questDilatoryDistress3DropFish": "Poisson (Nourriture)",
     "questDilatoryDistress3DropWeapon": "Trident des Marées Déferlantes (Arme)",
-    "questDilatoryDistress3DropShield": "Bouclier Perle de Lune (Objet de main gauche)"
+    "questDilatoryDistress3DropShield": "Bouclier Perle de Lune (Objet de main gauche)",
+    "questCheetahText": "Quel Guépard",
+    "questCheetahNotes": "Alors que vous vous promenez dans la Savanne de Sloensteadi avec vos amis @PainterProphet, @tivaquinn, @Unruly Hyena et @Crawford, vous êtes surpris de voir un Guépard tenant un nouvel Habiticien dans sa gueule. Sous la patte griffue du Guépard, les tâches se consument comme si elle étaient complétées -- juste avant que qui que ce soit puisse les finir ! L'Habiticien vous voit et crie : \"Aidez-moi s'il vous plait ! Ce Guépard me fait gagner des niveaux trop vite, mais je ne finis rien. Je veux prendre mon temps et profiter du jeu. Faites le cesser !\" Vous vous souvenez de votre premiers jours, et vous savez que vous devez aider le nouveau à arrêter le Guépard !",
+    "questCheetahCompletion": "Le nouvel Habiticien respire lourdement après cette chevauchée sauvage, mais vous remercie, vous et vos amis, pour votre aide. \"Je suis content que ce Guépard ne puisse plus attraper qui que ce soit. Il a laissé quelques œufs de Guépard pour vous, peut-être pourrions nous en élever quelques uns pour en faire des familiers dignes de confiance !\"",
+    "questCheetahBoss": "Guépard",
+    "questCheetahDropCheetahEgg": "Guépard (Œuf)",
+    "questCheetahUnlockText": "Déverrouille l'achat d'œufs de guépard au Marché"
 }

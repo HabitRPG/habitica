@@ -1,18 +1,31 @@
-// Created by sabrecat on 5/18/15.
-
 script(type='text/ng-template', id='modals/welcome.html')
-   .modal-header
-      h4=env.t('welcomeToHabit')
-   .modal-body.text-center
-      h4=env.t('welcome1')
-      .welcome_to_Habit_1.center-block
-      h4=env.t('welcome2')
-      .welcome_to_Habit_2.center-block
-      h4=env.t('welcome3')
-      .welcome_to_Habit_3.center-block
-      h4=env.t('welcome4')
-      .welcome_to_Habit_4.center-block
-   .modal-footer
-      span.h4=env.t('welcome5')
-      |&nbsp;
-      span.button.btn.btn-primary(ng-click='$close(); Guide.goto("intro",0)')=env.t('imReady')
+  .modal-header.text-center
+    h1=env.t('welcomeToHabit')
+  .modal-body
+    .container-fluid
+      .col-sm-4.col-centered
+        span(style='display:flex')
+          h1
+            | &#9312;
+          h3(style='margin:auto auto auto .5em')=env.t('welcome1')
+        .welcome_basic_avatars(style='margin: 1.5em auto 1.5em')
+        h4=env.t('welcome1notes')
+      .col-sm-4.col-centered
+        span(style='display:flex')
+          h1
+            | &#9313;
+          h3(style='margin:.3em auto auto .5em')=env.t('welcome2')
+        .welcome_sample_tasks(style='margin: 2.5em auto 1.5em')
+        h4=env.t('welcome2notes')
+      .col-sm-4.col-centered
+        span(style='display:flex')
+          h1
+            | &#9314;
+          h3(style='margin:auto auto auto .5em')=env.t('welcome3')
+        .welcome_promo_party(style='margin: 1em auto 1em')
+        h4=env.t('welcome3notes')
+  .modal-footer.text-center(style='margin-top:0')
+    .col-sm-3
+    .col-sm-6
+      a.btn.btn-primary.btn-lg.flex-column(ng-click='$close(); Guide.goto("intro",0)')=env.t('imReady')
+    .col-sm-3
