@@ -67,7 +67,7 @@
             "js/directives/hrpg-sort-tasks.directive.js",
             "js/directives/popover-html-popup.directive.js",
             "js/directives/popover-html.directive.js",
-            "js/directives/task-focus.directive.js",
+            "js/directives/focus-element.directive.js",
             "js/directives/when-scrolled.directive.js",
 
             "js/controllers/authCtrl.js",
