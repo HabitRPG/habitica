@@ -538,12 +538,18 @@ _.each gearTypes, (type) ->
   Time Traveler Store, mystery sets need their items mapped in
 ###
 _.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
-api.timeTravelerStore = (owned) ->
+api.timeTravelerStore = (owned, category) ->
   ownedKeys = _.keys owned.toObject?() or owned # mongoose workaround
-  _.reduce api.mystery, (m,v,k)->
-    return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
-    m[k] = v;m
-  , {}
+  if not category or category is "mystery"
+    _.reduce api.mystery, (m,v,k)->
+      return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
+      m[k] = v;m
+    , {}
+  else
+    _.reduce api.timeTravelStable[category], (m,v,i)->
+      returm m if ~ownedKeys.indexOf(v)
+      m[i] = v;m
+    , []
 
 ###
   ---------------------------------------------------------------
@@ -1129,6 +1135,10 @@ api.specialMounts =
   'Mammoth-Base':        'mammoth'
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
+
+api.timeTravelStable =
+  pets: ['Mammoth-Base','MantisShrimp-Base']
+  mounts: ['Mammoth-Base','MantisShrimp-Base']
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')

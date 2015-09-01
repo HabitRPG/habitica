@@ -64,5 +64,6 @@
     "mysticHourglassPopover": "Mystic Hourglass allow you to purchase previous months' subscriber sets.",
     "subUpdateCard": "Update Card",
     "subUpdateTitle": "Update",
-    "subUpdateDescription": "Update the card to be charged."
+    "subUpdateDescription": "Update the card to be charged.",
+    "notEnoughHourglasses": "You don't have enough Mystic Hourglasses."
 }
