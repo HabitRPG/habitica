@@ -65,5 +65,6 @@
     "subUpdateCard": "Update Card",
     "subUpdateTitle": "Update",
     "subUpdateDescription": "Update the card to be charged.",
-    "notEnoughHourglasses": "You don't have enough Mystic Hourglasses."
+    "notEnoughHourglasses": "You don't have enough Mystic Hourglasses.",
+    "hourglassBuyEquipSetConfirm": "Buy this full set of items for 1 Mystic Hourglass?"
 }
