@@ -146,3 +146,4 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 
         +chatMessages()
         h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
+        h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')

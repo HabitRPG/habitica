@@ -143,5 +143,6 @@
     "nameYourParty": "Name your new party!",
     "partyEmpty": "You're the only one in your party. Invite your friends!",
     "partyChatEmpty": "Your Party Chat is empty! Type a message in the box above to start chatting.",
+    "guildChatEmpty": "This Guild's chat is empty! Type a message in the box above to start chatting.",
     "possessiveParty": "<%= name %>'s Party"
 }
