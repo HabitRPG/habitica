@@ -9,7 +9,7 @@ habitrpg.controller('NotificationCtrl',
         $rootScope.playSound('Death');
         $rootScope.openModal('death', {keyboard:false, backdrop:'static'});
       } else if (after <= 30 && !User.user.flags.warnedLowHealth) {
-        $rootScope.openModal('lowHealth', {keyboard:false, backdrop:'static', controller:'UserCtrl'});
+        $rootScope.openModal('lowHealth', {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'});
       }
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
