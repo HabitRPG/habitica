@@ -2,9 +2,9 @@ nav.toolbar(ng-controller='MenuCtrl')
   .toolbar-container
     ul.toolbar-mobile-nav
       li.toolbar-mobile
-        a(ng-click='expandMenu("mobile")', ng-class='{active: _expandedMenu=="mobile"}')
+        a(data-expand-menu, menu='mobile', ng-class='{active: _expandedMenu.menu === "mobile"}')
           span.glyphicon.glyphicon-align-justify
-        div(ng-if='_expandedMenu=="mobile"', ng-click='expandMenu(null)')
+        div(ng-show='_expandedMenu.menu === "mobile"', data-close-menu)
           h4=env.t('menu')
           div
             ul.toolbar-submenu
@@ -23,7 +23,7 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(ui-sref='options.social.inbox')
                   span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}} &nbsp;
-                  =env.t("inbox")
+                  =env.t('inbox')
               li
                 a(ui-sref='options.social.tavern')=env.t('tavern')
               li
@@ -51,38 +51,38 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
             ul.toolbar-submenu
               li
-                a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+                a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
               li
                 a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+                a(target='_blank' href='http://habitica.wikia.com/wiki/')=env.t('overview')
               li
-                a(target="_blank" href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
+                a(target='_blank' href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
               li
-                a(target="_blank" href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestion')
+                a(target='_blank' href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestion')
               li
-                a(target="_blank" href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
+                a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
+                a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
               li
-                a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+                a(target='_blank' href='http://habitica.wikia.com/wiki/FAQ')=env.t('FAQ')
           ul.toolbar-controls
             li.toolbar-subscribe-button
               button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
             li.toolbar-controls-button
-              a(ng-click='expandMenu(null)')=env.t('close')
+              a(data-close-menu)=env.t('close')
     ul.toolbar-nav
       li.toolbar-button
-        a(ui-sref='tasks')
+        a(ui-sref='tasks', data-close-menu)
           span=env.t('tasks')
       li.toolbar-button-dropdown
-        a(ui-sref='options.profile.avatar')
+        a(ui-sref='options.profile.avatar', data-close-menu)
           span=env.t('user')
-        a(ng-click='expandMenu("avatar")', ng-class='{active: _expandedMenu == "avatar"}')
+        a(ng-class='{active: _expandedMenu.menu === "avatar"}', data-expand-menu, menu='avatar')
           span &#9776;
-        div(ng-if='_expandedMenu == "avatar"')
-          ul.toolbar-submenu(ng-click='expandMenu(null)')
+        div(ng-show='_expandedMenu.menu === "avatar"', data-close-menu)
+          ul.toolbar-submenu
             li
               a(ui-sref='options.profile.avatar')=env.t('avatar')
             li
@@ -94,12 +94,12 @@ nav.toolbar(ng-controller='MenuCtrl')
       li.toolbar-button-dropdown
         a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
           span.badge.badge-danger {{user.inbox.newMessages}}
-        a(ui-sref='options.social.tavern')
+        a(ui-sref='options.social.tavern', data-close-menu)
           span=env.t('social')
-        a(ng-click='expandMenu("social")', ng-class='{active: _expandedMenu == "social"}')
+        a(ng-class='{active: _expandedMenu.menu === "social"}', data-expand-menu, menu='social')
           span &#9776;
-        div(ng-if='_expandedMenu == "social"')
-          ul.toolbar-submenu(ng-click='expandMenu(null)')
+        div(ng-show='_expandedMenu.menu === "social"', data-close-menu)
+          ul.toolbar-submenu
             li
               a(ui-sref='options.social.inbox')
                 span.badge.badge-danger(ng-if='user.inbox.newMessages') {{user.inbox.newMessages}} &nbsp;
@@ -115,12 +115,12 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(ui-sref='options.social.hall.heroes')=env.t('hall')
       li.toolbar-button-dropdown
-        a(ui-sref='options.inventory.drops')
+        a(ui-sref='options.inventory.drops', data-close-menu)
           span=env.t('inventory')
-        a(ng-click='expandMenu("inventory")', ng-class='{active: _expandedMenu == "inventory"}')
+        a(ng-class='{active: _expandedMenu.menu === "inventory"}' data-expand-menu, menu='inventory')
           span  &#9776;
-        div(ng-if='_expandedMenu == "inventory"')
-          ul.toolbar-submenu(ng-click='expandMenu(null)')
+        div(ng-show='_expandedMenu.menu === "inventory"', data-close-menu)
+          ul.toolbar-submenu
             li
               a(ui-sref='options.inventory.drops')=env.t('market')
             li
@@ -136,72 +136,72 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
       li.toolbar-button-dropdown
-        a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')
+        a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}', data-close-menu)
           span=env.t('data')
-        a(ng-click='expandMenu("data")', ng-class='{active: _expandedMenu == "data"}')
+        a(ng-class='{active: _expandedMenu.menu === "data"}', data-expand-menu, menu='data')
           span  &#9776;
-        div(ng-if='_expandedMenu == "data"')
-          ul.toolbar-submenu(ng-click='expandMenu(null)')
+        div(ng-show='_expandedMenu.menu === "data"', data-close-menu)
+          ul.toolbar-submenu
             li
-              a(target="_blank" ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+              a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
       li.toolbar-button-dropdown.highlight
-        a(target="_blank" href='http://habitrpg.wikia.com/wiki/')
+        a(target='_blank' href='http://habitica.wikia.com/wiki/')
           span.glyphicon.glyphicon-question-sign
           span=env.t('help')
-        a(ng-click='expandMenu("help")', ng-class='{active: _expandedMenu == "help"}')
+        a(ng-class='{active: _expandedMenu.menu === "help"}',  data-expand-menu, menu='help')
           span  &#9776;
-        div(ng-if='_expandedMenu == "help"')
-          ul.toolbar-submenu(ng-click='expandMenu(null)')
+        div(ng-show='_expandedMenu.menu === "help"', data-close-menu)
+          ul.toolbar-submenu
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/')=env.t('overview')
+              a(target='_blank' href='http://habitica.wikia.com/wiki/')=env.t('overview')
             li
-              a(target="_blank" href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
+              a(target='_blank' href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
             li
-              a(target="_blank" href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestion')
+              a(target='_blank' href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestion')
             li
-              a(target="_blank" href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
+              a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')=env.t('contributeToHRPG')
+              a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
             li
-              a(target="_blank" href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+              a(target='_blank' href='http://habitica.wikia.com/wiki/FAQ')=env.t('FAQ')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button.highlight(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
     ul.toolbar-options
       li.toolbar-notifs
-        a(ng-click='expandMenu("notifs")')
+        a(data-expand-menu, menu='notifs')
           span.glyphicon(ng-class='iconClasses()')
-        div(ng-if='_expandedMenu=="notifs"')
+        div(ng-show='_expandedMenu.menu === "notifs"')
           h4=env.t('notifications')
           div
             ul.toolbar-notifs-notifs
               li.toolbar-notifs-no-messages(ng-if='hasNoNotifications()')=env.t('noNotifications')
               li(ng-if='user.purchased.plan.mysteryItems.length')
-                a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
+                a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
                   span.glyphicon.glyphicon-gift
                   span=env.t('newSubscriberItem')
               li(ng-if='user.invitations.party.id')
-                a(ui-sref='options.social.party', ng-click='expandMenu(null)')
+                a(ui-sref='options.social.party', data-close-menu)
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
               li(ng-if='user.flags.cardReceived')
-                a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')
+                a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
                   span.glyphicon.glyphicon-envelope
                   span=env.t('cardReceived')
                 a(ng-click='clearCards()', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
               li(ng-repeat='guild in user.invitations.guilds')
-                a(ui-sref='options.social.guilds.public', ng-click='expandMenu(null)')
+                a(ui-sref='options.social.guilds.public', data-close-menu)
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
               li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
-                a(ui-sref='options.profile.stats', ng-click='expandMenu(null)')
+                a(ui-sref='options.profile.stats', data-close-menu)
                   span.glyphicon.glyphicon-plus-sign
                   span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-                a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); expandMenu(null)')
+                a(ng-click='k === party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
@@ -209,35 +209,35 @@ nav.toolbar(ng-controller='MenuCtrl')
 
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(ng-click='expandMenu(null)')=env.t('close')
+              a(data-close-menu)=env.t('close')
       li.toolbar-audio
-        a(ng-click='expandMenu("audio")')
-          span.glyphicon(ng-class="{'glyphicon-volume-off':user.preferences.sound=='off', 'glyphicon-volume-up':user.preferences.sound!='off'}")
-        div(ng-if='_expandedMenu=="audio"',style='min-width:150px')
+        a(data-expand-menu, menu='audio')
+          span.glyphicon(ng-class="{'glyphicon-volume-off':user.preferences.sound === 'off', 'glyphicon-volume-up':user.preferences.sound!='off'}")
+        div(ng-show='_expandedMenu.menu === "audio"',style='min-width:150px', data-close-menu)
           h4=env.t('audioTheme')
           div
-            ul.toolbar-submenu(ng-click='expandMenu(null)')
+            ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
               for theme in ['off','danielTheBard', 'wattsTheme', 'gokulTheme']
                 li
-                  a(ng-class="{'bg-primary':user.preferences.sound=='#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
+                  a(ng-class="{'bg-primary':user.preferences.sound === '# {theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(ng-click='expandMenu(null)')=env.t('close')
+              a(data-close-menu)=env.t('close')
 
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh
       li.toolbar-settings
-        a(ng-click='expandMenu("settings")')
+        a(data-expand-menu, menu='settings')
           span.glyphicon.glyphicon-cog
-        div(ng-if='_expandedMenu=="settings"')
+        div(ng-show='_expandedMenu.menu === "settings"', data-close-menu)
           h4=env.t('settings')
           div
-            ul.toolbar-submenu(ng-click='expandMenu(null)')
+            ul.toolbar-submenu
               li
                 a(ng-click='logout()')=env.t('logout')
-            ul.toolbar-submenu(ng-click='expandMenu(null)')
+            ul.toolbar-submenu
               li
                 a(ui-sref='options.settings.settings')=env.t('site')
               li
@@ -250,14 +250,14 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.settings.subscription')=env.t('subscription')
               li
                 a(ui-sref='options.settings.notifications')=env.t('notifications')
-            ul.toolbar-submenu(ng-click='expandMenu(null)')
+            ul.toolbar-submenu
               li
-                a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')=env.t('FAQ')
+                a(href='http://habitica.wikia.com/wiki/FAQ', target='_blank')=env.t('FAQ')
               li
-                a(href="https://vimeo.com/57654086", target='_blank')=env.t('tutorials')
+                a(href='https://vimeo.com/57654086', target='_blank')=env.t('tutorials')
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(ng-click='expandMenu(null)')=env.t('close')
+              a(data-close-menu)=env.t('close')
     ul.toolbar-wallet
       li.toolbar-gems(popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
         a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})')
@@ -271,10 +271,10 @@ nav.toolbar(ng-controller='MenuCtrl')
         span.shop_silver
         span {{Shared.silver(user.stats.gp)}}
 
-    ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu}')
+    ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.tour.intro!=-2')
-        .npc_justin_head.npc_bailey_head(popover="Continue Tour", popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro, true)')
+        .npc_justin_head.npc_bailey_head(popover='Continue Tour', popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro, true)')
 
-    ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu}')
+    ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
         .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff",{size:"lg"})')

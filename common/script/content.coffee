@@ -52,6 +52,7 @@ api.mystery =
   201505: {start:'2015-05-25',end:'2015-06-02', text:'Green Knight Set'}
   201506: {start:'2015-06-25',end:'2015-07-02', text:'Neon Snorkeler Set'}
   201507: {start:'2015-07-24',end:'2015-08-02', text:'Rad Surfer Set'}
+  201508: {start:'2015-08-23',end:'2015-09-02', text:'Cheetah Costume Set'}
   301404: {start:'3014-03-24',end:'3014-04-02', text:'Steampunk Standard Set'}
   301405: {start:'3014-04-24',end:'3014-05-02', text:'Steampunk Accessories Set'}
   wondercon: {start:'2014-03-24',end:'2014-04-01'} # not really, but the mechanic works
@@ -86,14 +87,6 @@ gear =
       5: text: t('weaponWarrior5Text'), notes: t('weaponWarrior5Notes', {str: 15}), str: 15, value:90
       6: text: t('weaponWarrior6Text'), notes: t('weaponWarrior6Notes', {str: 18}), str: 18, value:120, last: true
     rogue:
-      #Not using bows at the moment, but they would be easy to add back in to an advanced Armory feature, as Quest drops, etc.
-      #0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
-      #1: twoHanded: true, text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
-      #2: twoHanded: true, text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
-      #3: twoHanded: true, text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
-      #4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
-      #5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
-      #6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
       0: text: t('weaponRogue0Text'), notes: t('weaponRogue0Notes'), str: 0, value: 0
       1: text: t('weaponRogue1Text'), notes: t('weaponRogue1Notes', {str: 2}), str: 2, value: 20
       2: text: t('weaponRogue2Text'), notes: t('weaponRogue2Notes', {str: 3}), str: 3, value: 35
@@ -171,6 +164,7 @@ gear =
       rancherLasso:   twoHanded:true, text: t('weaponArmoireRancherLassoText'), notes: t('weaponArmoireRancherLassoNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_rancherLasso?)
       mythmakerSword:   text: t('weaponArmoireMythmakerSwordText'), notes: t('weaponArmoireMythmakerSwordNotes', {attrs: 6}), value: 100, str: 6, per: 6, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_mythmakerSword?)
       ironCrook:   text: t('weaponArmoireIronCrookText'), notes: t('weaponArmoireIronCrookNotes', {attrs: 7}), value: 100, str: 7, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.weapon_armoire_ironCrook?)
+      goldWingStaff:  text: t('weaponArmoireGoldWingStaffText'), notes: t('weaponArmoireGoldWingStaffNotes', {attrs:4}), value: 100, con: 4, int: 4, per: 4, str: 4, canOwn: ((u)-> u.items.gear.owned.weapon_armoire_goldWingStaff?)
 
   armor:
     base:
@@ -258,6 +252,7 @@ gear =
       201503: text: t('armorMystery201503Text'), notes: t('armorMystery201503Notes'), mystery:'201503', value: 0
       201504: text: t('armorMystery201504Text'), notes: t('armorMystery201504Notes'), mystery:'201504', value: 0
       201506: text: t('armorMystery201506Text'), notes: t('armorMystery201506Notes'), mystery:'201506', value: 0
+      201508: text: t('armorMystery201508Text'), notes: t('armorMystery201508Notes'), mystery:'201508', value: 0, int: 0
       301404: text: t('armorMystery301404Text'), notes: t('armorMystery301404Notes'), mystery:'301404', value: 0
     armoire:
       lunarArmor: text: t('armorArmoireLunarArmorText'), notes: t('armorArmoireLunarArmorNotes', {str: 7, int: 7}), value: 100, str: 7, int: 7, set: 'soothing', canOwn: ((u)-> u.items.gear.owned.armor_armoire_lunarArmor?)
@@ -265,6 +260,7 @@ gear =
       rancherRobes: text: t('armorArmoireRancherRobesText'), notes: t('armorArmoireRancherRobesNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.armor_armoire_rancherRobes?)
       goldenToga: text: t('armorArmoireGoldenTogaText'), notes: t('armorArmoireGoldenTogaNotes', {attrs: 8}), value: 100, str: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.armor_armoire_goldenToga?)
       hornedIronArmor: text: t('armorArmoireHornedIronArmorText'), notes: t('armorArmoireHornedIronArmorNotes', {con: 9, per: 7}), value: 100, con: 9, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.armor_armoire_hornedIronArmor?)
+      plagueDoctorOvercoat: text: t('armorArmoirePlagueDoctorOvercoatText'), notes: t('armorArmoirePlagueDoctorOvercoatNotes', {int: 6, str: 5, con: 6}), int: 6, str: 5, con: 6, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.armor_armoire_plagueDoctorOvercoat?)
 
   head:
     base:
@@ -348,6 +344,7 @@ gear =
       201412: text: t('headMystery201412Text'), notes: t('headMystery201412Notes'), mystery:'201412', value: 0
       201501: text: t('headMystery201501Text'), notes: t('headMystery201501Notes'), mystery:'201501', value: 0
       201505: text: t('headMystery201505Text'), notes: t('headMystery201505Notes'), mystery:'201505', value: 0
+      201508: text: t('headMystery201508Text'), notes: t('headMystery201508Notes'), mystery:'201508', value: 0, int: 0
       301404: text: t('headMystery301404Text'), notes: t('headMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('headMystery301405Text'), notes: t('headMystery301405Notes'), mystery:'301405', value: 0
     armoire:
@@ -360,6 +357,9 @@ gear =
       blueHairbow: text: t('headArmoireBlueHairbowText'), notes: t('headArmoireBlueHairbowNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_blueHairbow?)
       goldenLaurels: text: t('headArmoireGoldenLaurelsText'), notes: t('headArmoireGoldenLaurelsNotes', {attrs: 8}), value: 100, per: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.head_armoire_goldenLaurels?)
       hornedIronHelm: text: t('headArmoireHornedIronHelmText'), notes: t('headArmoireHornedIronHelmNotes', {con: 9, str: 7}), value: 100, con: 9, str:7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.head_armoire_hornedIronHelm?)
+      yellowHairbow: text: t('headArmoireYellowHairbowText'), notes: t('headArmoireYellowHairbowNotes', {attrs: 5}), int: 5, per: 5, str: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_yellowHairbow?)
+      redFloppyHat: text: t('headArmoireRedFloppyHatText'), notes: t('headArmoireRedFloppyHatNotes', {attrs: 6}), con: 6, int: 6, per: 6, canOwn: ((u)-> u.items.gear.owned.head_armoire_redFloppyHat?)
+      plagueDoctorHat: text: t('headArmoirePlagueDoctorHatText'), notes: t('headArmoirePlagueDoctorHatNotes', {int: 5, str: 6, con: 5}), int: 5, str: 6, con: 5, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.head_armoire_plagueDoctorHat?)
 
   shield:
     base:
@@ -502,6 +502,8 @@ gear =
       201507: text: t('eyewearMystery201507Text'), notes: t('eyewearMystery201507Notes'), mystery:'201507', value: 0
       301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
+    armoire:
+      plagueDoctorMask: text: t('eyewearArmoirePlagueDoctorMaskText'), notes: t('eyewearArmoirePlagueDoctorMaskNotes'), set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.eyewear_armoire_plagueDoctorMask?)
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
@@ -1095,6 +1097,7 @@ api.questEggs =
   Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
   Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
   Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
+  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: false
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
@@ -2037,6 +2040,26 @@ api.quests =
       ]
       gp: 0
       exp: 650
+  
+  cheetah:
+    text: t('questCheetahText')
+    notes: t('questCheetahNotes')
+    completion: t('questCheetahCompletion')
+    value: 4
+    category: 'pet'
+    boss:
+      name: t('questCheetahBoss')
+      hp: 600
+      str: 1.5
+    drop:
+      items: [
+        {type: 'eggs', key: 'Cheetah', text: t('questCheetahDropCheetahEgg')}
+        {type: 'eggs', key: 'Cheetah', text: t('questCheetahDropCheetahEgg')}
+        {type: 'eggs', key: 'Cheetah', text: t('questCheetahDropCheetahEgg')}
+      ]
+      gp: 43
+      exp: 350
+      unlock: t('questCheetahUnlockText')
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key,canBuy:true}
@@ -2201,6 +2224,16 @@ api.backgrounds =
     twinkly_party_lights:
       text: t('backgroundTwinklyPartyLightsText')
       notes: t('backgroundTwinklyPartyLightsNotes')
+  backgrounds092015:
+    market:
+      text: t('backgroundMarketText')
+      notes: t('backgroundMarketNotes')
+    stable:
+      text: t('backgroundStableText')
+      notes: t('backgroundStableNotes')
+    tavern:
+      text: t('backgroundTavernText')
+      notes: t('backgroundTavernNotes')
 
 api.subscriptionBlocks =
   basic_earned: months:1, price:5

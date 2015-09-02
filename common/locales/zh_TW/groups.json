@@ -84,7 +84,7 @@
     "send": "送出",
     "messageSentAlert": "已寄出的留言",
     "pmHeading": "給<%= name %>的私訊",
-    "clearAll": "刪除所以郵件",
+    "clearAll": "刪除所有郵件",
     "confirmDeleteAllMessages": "你確定要刪除收件箱中的所有郵件？其他用戶仍然會看到你發給他們的郵件。",
     "optOutPopover": "不喜歡私密留言嗎？點選以更改設定。",
     "block": "塊",

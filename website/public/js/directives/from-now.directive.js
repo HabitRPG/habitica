@@ -11,18 +11,18 @@
   ];
 
   function fromNow($interval, $timeout) {
-    return function(scope, element, attr){
+    return function($scope, element, attr){
       var interval, timeout;
 
       var updateText = function(){
-        element.text(moment(scope.message.timestamp).fromNow());
+        element.text(moment($scope.message.timestamp).fromNow());
       };
 
       var setupInterval = function() {
         if(interval) $interval.cancel(interval);
         if(timeout)  $timeout.cancel(timeout);
 
-        var diff = moment().diff(scope.message.timestamp, 'minute');
+        var diff = moment().diff($scope.message.timestamp, 'minute');
 
         if(diff < 60) {
           // Update every minute
@@ -37,7 +37,7 @@
       updateText();
       setupInterval();
 
-      scope.$on('$destroy', function() {
+      $scope.$on('$destroy', function() {
         if(interval) $interval.cancel(interval);
         if(timeout)  $timeout.cancel(timeout);
       });

@@ -33,7 +33,7 @@
     "challengeTagPop": "チャレンジはタグ・リストとタスク・ツールチップにあります。題名を詳しく書く必要がありますが、短いタイトルも必要です。例：「三ヶ月で５キロを減らす」を「-5キロ」にする（詳細はこちら）。",
     "challengeDescr": "説明",
     "prize": "賞品",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
+    "prizePop": "あなたが作成したチャレンジに参加者が「勝利」できるのならば、オプションでジェムを賞品として設定できます。設定できる最大ジェム数は自分の所持しているジェム数までです(あなたが設定されたチャレンジがあるギルド創立者なら、ギルドの持つジェムも設定できます)。　注意：賞品が設定されたら、後から変更できません。チャレンジがキャンセルされても、返金不可となります。",
     "prizePopTavern": "どなたがあなとのチャレンジを”勝つ”ことが出来る、その勝者にジェム賞をあげることが出来ます。MAX=自分がある数までにあげることが出来る。注意：この賞は後に変えられません、そうして酒場のチャレンジをチャンセルとしてもこのジェム賞は返すことも出来ません。",
     "publicChallenges": "<strong>公共のチャレンジ</strong>は最小でジェムが１個必要です（スパムを減らすために助かる）。",
     "officialChallenge": "Habiticaの公式チャレンジ",
@@ -43,8 +43,8 @@
     "exportChallengeCSV": "CSVに送出",
     "selectGroup": "グループを選択して下さい",
     "challengeCreated": "チャレンジ作成終了",
-    "sureDelCha": "チャレンジが消されます。よろしいでしょうか？",
-    "sureDelChaTavern": "チャレンジが消されます。よろしいでしょうか？ジェムは返金不可となります。",
+    "sureDelCha": "Are you sure you want to delete this challenge?",
+    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "タスクを消す",
     "keepTasks": "タスクを残す",
     "closeCha": "チャレンジを終了して・・・",
@@ -56,5 +56,8 @@
     "backToChallenges": "すべてのチャレンジへ戻る",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %>賞",
     "clone": "クローン",
-    "challengeNotEnoughGems": "このチャレンジをポストするためにジェムの数が足りません。"
+    "challengeNotEnoughGems": "このチャレンジをポストするためにジェムの数が足りません。",
+    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
+    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
 }

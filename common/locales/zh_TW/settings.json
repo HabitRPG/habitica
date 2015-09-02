@@ -42,7 +42,7 @@
     "customDayStart": "設定開始日期",
     "24HrClock": "24 小時制",
     "customDayStartInfo1": "Habitica預設在你自己的時區的午夜檢查並重設你的每日任務。我們建議您在改變之前閱讀以下信息：",
-    "customDayStartInfo4": "<strong>在設定自訂每日起始時間前請先完成你的所有每日任務</strong>或在該日先<a href='http://habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>再旅館休息</a>以凍結所有任務的時間。自訂每日起始時間會立刻啟動<a href='http://habitica.wikia.com/wiki/Cron' target='_blank'>系統排程</a> ，但是接下來的日子就會正常。<br><br><strong>修改完後的2個小時期間後將會生效。</strong> 假設要設定午夜0點為每日起始時間，那就在晚上10點前設定完畢; 如果要設定晚上9點為每日起始時間，那就在晚上7點前設定完畢。<br><br>輸入0-23的數字(24小時制)。直接輸入比用上下鍵選擇方便。當設定完成請重新載入此頁面以看到新的每日起始時間。",
+    "customDayStartInfo4": "<strong>在設定自訂每日起始時間前請先完成你的所有每日任務</strong>或在該日先<a href='http://habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>在旅館休息</a>以凍結所有任務的時間。自訂每日起始時間會立刻啟動<a href='http://habitica.wikia.com/wiki/Cron' target='_blank'>系統排程</a> ，但是接下來的日子就會正常。<br><br><strong>修改完後的2個小時期間後將會生效。</strong> 假設要設定午夜0點為每日起始時間，那就在晚上10點前設定完畢; 如果要設定晚上9點為每日起始時間，那就在晚上7點前設定完畢。<br><br>輸入0-23的數字(24小時制)。直接輸入比用上下鍵選擇方便。當設定完成請重新載入此頁面以看到新的每日起始時間。",
     "misc": "其他",
     "showHeader": "顯示頂部",
     "changePass": "修改密碼",

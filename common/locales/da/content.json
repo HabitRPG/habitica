@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "nuttet",
     "questEggWhaleText": "Hval",
     "questEggWhaleAdjective": "plaskende",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",

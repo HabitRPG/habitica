@@ -52,7 +52,7 @@
     "delete": "מחק",
     "gemsPopoverTitle": "אבני חן",
     "gems": "אבני חן",
-    "gemButton": "יש לך <%= number %> פנינים",
+    "gemButton": "יש לך <%= number %> אבני חן",
     "moreInfo": "מידע נוסף",
     "showMoreMore": "(show more)",
     "showMoreLess": "(show less)",

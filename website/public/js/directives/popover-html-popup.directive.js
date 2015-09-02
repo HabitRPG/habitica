@@ -15,9 +15,9 @@
         restrict: 'EA',
         replace: true,
         scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
-        link: function(scope, element, attrs) {
-          scope.$watch('content', function(value, oldValue) {
-            scope.unsafeContent = $sce.trustAsHtml(scope.content);
+        link: function($scope, element, attrs) {
+          $scope.$watch('content', function(value, oldValue) {
+            $scope.unsafeContent = $sce.trustAsHtml($scope.content);
           });
         },
         templateUrl: 'template/popover/popover-html.html'

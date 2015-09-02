@@ -9,10 +9,6 @@ angular.module('habitrpg')
         window.location.href = '/logout';
       };
 
-      $scope.expandMenu = function(menu) {
-        $scope._expandedMenu = ($scope._expandedMenu == menu) ? null : menu;
-      };
-
       function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {

@@ -31,7 +31,7 @@
     "hall": "Salone",
     "contribTitle": "Titolo onorifico (per esempio \"Fabbro\")",
     "contribLevel": "Livello di contribuzione",
-    "contribHallText": "Dall'1 al 7 per i sostenitori normali, 8 per i moderatori, 9 per lo staff. Questo determina quali oggetti, animali e cavalcature sono disponibili, nonché il colore dell'etichetta del nome. Ai gradi 8 e 9 viene automaticamente attribuito lo status di admin.",
+    "contribHallText": "Dall'1 al 7 per i sostenitori normali, 8 per i moderatori, 9 per lo staff. Questo determina quali oggetti, animali e cavalcature sono disponibili, nonché il colore dell'etichetta del nome. Ai gradi 8 e 9 viene automaticamente attribuito lo status di admin (amministratore).",
     "hallHeroes": "Salone degli Eroi",
     "hallPatrons": "Salone dei Mecenati",
     "rewardUser": "Premia utente",
@@ -56,9 +56,9 @@
     "surveysMultiple": "Ha aiutato Habitica a crescere, compilando <%= surveys %> questionari. Al momento non ci sono questionari attivi.",
     "currentSurvey": "Questionario in corso",
     "surveyWhen": "Questa onoreficenza verrà conferita a tutti i partecipanti, non appena i risultati dei questionari saranno elaborati, verso fine marzo.",
-    "blurbInbox": "Qui è dove vengono conservati i tuoi messaggi privati! Puoi inviare un messaggio a qualcuno cliccando sull'icona \"busta da lettera\" accanto al suo nome nella Taverna, nella Squadra o nella chat di una Gilda.",
+    "blurbInbox": "Qui è dove vengono conservati i tuoi messaggi privati! Puoi inviare un messaggio a qualcuno cliccando sull'icona a forma di 'busta da lettere' accanto al suo nome nella Taverna, nella Squadra o nella chat di una Gilda.",
     "blurbGuildsPage": "Le Gilde sono gruppi di chat per persone con interessi comuni, create dai giocatori per i giocatori. Scorri la lista ed unisciti alle gilde che ti interessano!",
-    "blurbChallenges": "Challenges are created by your fellow players. Joining a Challenge will add its tasks to your task dashboard, and winning a Challenge will give you an achievement and often a gem prize!",
-    "blurbHallPatrons": "This is the Hall of Patrons, where we honor the noble adventurers who backed Habitica's original Kickstarter. We thank them for helping us bring Habitica to life!",
+    "blurbChallenges": "Le Sfide sono create dagli utenti. Unirsi a una sfida aggiungerà degli elementi nella tua pagina delle attività. Vincere una sfida ti conferirà un Trofeo e spesso un premio in Gemme!",
+    "blurbHallPatrons": "Questo è il salone dei Mecenati, nel quale vengono onorati i nobili avventurieri che hanno sostenuto la nostra campagna su Kickstarter. Li ringraziamo per aver aiutato a far nascere Habitica!",
     "blurbHallHeroes": "Questo è il Salone degli Eroi, dove viene reso onore agli aiutanti open-source di Habitica. Che sia attraverso codice, arte, musica, testi o anche semplice disponibilità, hanno guadagnato <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>gemme, equipaggiamento esclusivo</a> e <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titoli prestigiosi</a>. Anche tu puoi contribuire ad Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Clicca qui per avere maggiori informazioni.</a>"
 }

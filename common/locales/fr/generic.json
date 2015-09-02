@@ -120,8 +120,8 @@
     "greeting1": "Je te dis juste bonjour :)",
     "greeting2": "*agite frénétiquement les mains*",
     "greeting3": "Hep !",
-    "greetingCardAchievementTitle": "Cheery Chum",
-    "greetingCardAchievementText": "Hey! Hi! Hello! Sent or received <%= cards %> greeting cards.",
+    "greetingCardAchievementTitle": "Amis Encourageants",
+    "greetingCardAchievementText": "Hey ! Coucou ! Salut ! A envoyé ou reçu <%= cards %> cartes de vœux.",
     "thankyouCard": "Carte de Remerciement",
     "thankyouCardExplanation": "Ont tous les deux reçu le succès Très Reconnaissant !",
     "thankyouCardNotes": "Envoyer une Carte de Remerciement à un membre de l'équipe.",
@@ -129,6 +129,6 @@
     "thankyou1": "Merci, merci, merci !",
     "thankyou2": "Je t'envoie mille mercis.",
     "thankyou3": "Je suis très reconnaissant - merci !",
-    "thankyouCardAchievementTitle": "Greatly Grateful",
-    "thankyouCardAchievementText": "Thanks for being thankful! Sent or received <%= cards %> Thank-You cards."
+    "thankyouCardAchievementTitle": "Grandement Reconnaissant",
+    "thankyouCardAchievementText": "Merci d'être reconnaissant ! A envoyé ou reçu <%= cards %> cartes de remerciements."
 }

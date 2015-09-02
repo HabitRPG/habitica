@@ -29,7 +29,7 @@ div(ng-if='::task.type!="reward"')
   fieldset.option-group.advanced-option(ng-show="task._advanced")
 
     legend.option-title
-      a.hint.priority-multiplier-help(href='http://habitrpg.wikia.com/wiki/Difficulty', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
+      a.hint.priority-multiplier-help(href='http://habitica.wikia.com/wiki/Difficulty', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
     ul.priority-multiplier
       li
         button(type='button', ng-class='{active: task.priority==0.1}',

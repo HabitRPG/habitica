@@ -19,10 +19,10 @@
       //  main: '@', // true if it's the user's main list
       //  obj: '='
       //},
-      link: function(scope, element, attrs) {
+      link: function($scope, element, attrs) {
         // $scope.obj needs to come from controllers, so we can pass by ref
-        scope.main = attrs.main;
-        scope.modal = attrs.modal;
+        $scope.main = attrs.main;
+        $scope.modal = attrs.modal;
         var dailiesView;
         if(User.user.preferences.dailyDueDefaultView) {
           dailiesView = "remaining";

@@ -71,11 +71,14 @@
     "tourHabitsProceed": "Faz sentido!",
     "tourRewardsBrief": "<strong>Lista de Recompensas</strong><ul><li>Gaste o seu suado Ouro aqui!</li><li>Compre Equipamentos para o seu avatar ou defina Recompensas customizadas.</li></ul>",
     "tourRewardsProceed": "Isso é tudo!",
-    "welcomeToHabit": "Bem-vindo ao Habitica, um jogo para melhorar a sua vida!",
-    "welcome1": "Crie e customize um avatar para representar você.",
-    "welcome2": "Suas tarefas da vida real afetam a Vida (Saúde), Experiência (EXP) e Ouro do seu avatar!",
-    "welcome3": "Complete tarefas para ganhar Experiência (EXP) e Ouro, que desbloqueiam incríveis recursos e recompensas!",
+    "welcomeToHabit": "Bem Vindo à Habitica!",
+    "welcome1": "Crie um avatar simples.",
+    "welcome1notes": "Esse avatar representar-te-á enquanto você progride.",
+    "welcome2": "Estabeleça suas taréfas.",
+    "welcome2notes": "How well you do on your real-life tasks will control how well you do in the game!",
+    "welcome3": "Progrida na vida e no jogo!",
+    "welcome3notes": "À medida que você melhora sua vida, seu avatar sobe de nível e você libera mascotes, missões, equipamentos e mais!",
     "welcome4": "Evite maus hábitos que sugam sua Vida (Saúde), ou seu avatar morrerá!",
     "welcome5": "Agora você vai customizar o seu avatar e definir as suas tarefas...",
-    "imReady": "Estou pronto!"
+    "imReady": "Entre em Habitica"
 }

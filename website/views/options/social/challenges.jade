@@ -30,7 +30,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
-  div(bindonce='challenge', ng-if='challenge.leader._id==user._id')
+  div(bindonce='challenge', ng-if='challenge.leader._id==user._id || user.contributor.admin')
     div(ng-hide='challenge._locked==false')
       button.btn.btn-sm.btn-default(ng-click='edit(challenge)')=env.t('edit')
       button.btn.btn-sm.btn-success(ng-click='clone(challenge)')=env.t('clone')
@@ -144,7 +144,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
                   ng-disabled='insufficientGemsForTavernChallenge()')
                 |&nbsp;
-                a.hint.vertical-20(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags',
+                a.hint.vertical-20(target='_blank', href='http://habitica.wikia.com/wiki/Tags',
                   popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
                   =env.t('moreInfo')
 

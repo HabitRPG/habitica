@@ -93,7 +93,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
     testBin('mocha test/server_side'),
     (err, stdout, stderr) => {
       testResults.push({
-        suite: 'Server Side Specs\t',
+        suite: 'Server Side Specs',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
@@ -151,15 +151,25 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('karma start'),
+    (err, stdout) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
 gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('karma start --single-run'),
     (err, stdout) => {
       testResults.push({
         suite: 'Karma Specs\t',
-        pass: testCount(stdout, /(\d+) tests completed/),
-        fail: testCount(stdout, /(\d+) tests failed/),
-        pend: testCount(stdout, /(\d+) tests skipped/)
+        pass: testCount(stdout, /(\d+) tests? completed/),
+        fail: testCount(stdout, /(\d+) tests? failed/),
+        pend: testCount(stdout, /(\d+) tests? skipped/)
       });
       cb();
     }

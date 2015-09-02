@@ -31,7 +31,10 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       var money = after - before;
-      var bonus = User.user._tmp.streakBonus;
+      var bonus;
+      if (User.user._tmp) {
+        bonus = User.user._tmp.streakBonus || 0;
+      }
       Notification.gp(money, bonus || 0);
 
       //Append Bonus
@@ -64,7 +67,10 @@ habitrpg.controller('NotificationCtrl',
       var text, notes, type;
       $rootScope.playSound('Item_Drop');
 
-      if (after.type !== 'gear' && after.type !== 'Quest' && after.type !== 'Mystery') {
+      // Note: For Mystery Item gear, after.type will be 'head', 'armor', etc
+      // so we use after.notificationType below.
+
+      if (after.type !== 'gear' && after.type !== 'Quest' && after.notificationType !== 'Mystery') {
         if (after.type === 'Food') {
           type = 'food';
         } else if (after.type === 'HatchingPotion') {
@@ -93,7 +99,7 @@ habitrpg.controller('NotificationCtrl',
       } else if (after.type === 'Quest') {
         $rootScope.selectedQuest = Content.quests[after.key];
         $rootScope.openModal('questDrop', {controller:'PartyCtrl'});
-      } else if (after.type === 'Mystery') {
+      } else if (after.notificationType === 'Mystery') {
         text = Content.gear.flat[after.key].text();
         Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), after);
       } else {

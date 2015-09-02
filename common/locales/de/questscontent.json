@@ -62,7 +62,7 @@
     "questVice1Notes": "<p>Es heißt, dass in den Höhlen von Mount Habitica ein schreckliches Übel lauert. Das Monster ist ein Großdrache von gewaltiger Macht dessen bloße Gegenwart den Willen der stärksten Helden des Landes beugt und in schlechte Angewohnheiten und Faulheit verkehrt, Laster der Schattenwyrm. Tapfere Habiteers, erhebt Euch und erschlagt dieses Untier ein für allemal, aber nur, wenn Ihr Euch zutraut seiner gewaltigen Macht zu widerstehen.  </p><h3>Laster Teil 1: </h3><p>Denn wie könntet Ihr es wagen gegen die Bestie anzutreten solange Ihr Euch in ihrem Bann befindet? Werdet nicht die Beute von Faulheit und schlechten Angewohnheiten! Strengt euch an um den dunklen Einfluss des Drachen der Euch umfängt zu bannen! <p>",
     "questVice1Boss": "Lasters Schatten",
     "questVice1DropVice2Quest": "Laster Teil 2 (Rolle)",
-    "questVice2Text": "Laster, Teil 2: Finde des Wyrmes Hort",
+    "questVice2Text": "Laster, Teil 2: Finde den Hort des Wyrmes",
     "questVice2Notes": "Nachdem Laster keinen Einfluss mehr auf Euch hat, spürt Ihr lange vergessene Stärke zu euch zurückkehren. Vertrauend auf Eure Fähigkeit dem Einfluss des Wyrms zu widerstehen macht Ihr Euch auf den Weg zu Mount Habitica. Ihr nähert Euch dem Eingang der Höhle und stoppt. Ein Schwall von Schatten, nebelgleich quillt aus der Felsöffnung. Es ist fast unmöglich irgendetwas zu sehen. Das Licht Eurer Laterne scheint auf eine Wand von Schatten zu treffen. Es heisst, dass nur magisches Licht den höllischen Dunstkreis des Drachen durchdringen kann. Nur wenn Ihr genügend Lichtkristalle findet, könnt ihr es bis zu dem Drachen selbst schaffen.",
     "questVice2CollectLightCrystal": "Licht Kristalle",
     "questVice2DropVice3Quest": "Laster Teil 3 (Rolle)",
@@ -81,7 +81,7 @@
     "questMoonstone2Notes": "<p>Der tapfere Waffenschmied @Inventrix hilft dir dabei, die verzauberten Mondsteine zu einer Kette zu verarbeiten. Du bist endlich bereit, Recidivate zu konfrontieren, aber als Du die Sümpfe der Stagnation betrittst, kommt eine furchtbare Kälte über dich. </p><br/><p>Ein fauler Atem flüstert in dein Ohr. \"Du bist zurück? Wie entzückend...\" Du drehst dich um und greifst an, und unter dem Licht der Mondsteinkette trifft deine Waffe festes Fleisch. \"Du magst mich abermals an die Welt gebunden haben,\" stößt Recidivate wütend hervor, \"aber jetzt ist der Zeitpunkt gekommen, wo du sie verlässt!\"</p>",
     "questMoonstone2Boss": "Die Totenbeschwörerin",
     "questMoonstone2DropMoonstone3Quest": "Die Mondsteinkette Teil 3: Recidivate Transformiert (Rolle)",
-    "questMoonstone3Text": "Die Mondsteinkette Teil 3: Recidivate Transformiert",
+    "questMoonstone3Text": "Die Mondsteinkette Teil 3: Recidivate transformiert",
     "questMoonstone3Notes": "<p>Recidivate fällt zu Boden und Du schlägst mit der Mondsteinkette nach ihr. Zu deinem Entsetzen reißt Recidivate die Steine an sich und ihre Augen leuchten vor Triumph. </p><br/><p>\"Törichte Kreatur des Fleisches!\", schreit sie. \"Es ist wahr, die Mondsteine werden mich wieder in eine körperliche Form zurückversetzen, aber anders, als Du dir vorgestellt hast. Wenn der volle Mond zunimmt, wächst auch meine Macht, und aus den Schatten rufe ich deinen gefürchtetsten Feind hervor!\" </p><br/><p>Ein übler grüner Nebel steigt aus dem Sumpf auf und Recidivate's Körper windet und dreht sich und verzerrt sich in eine Form, die dich mit Schrecken erfüllt - der untote Körper von Vice, wiederauferstanden.</p>",
     "questMoonstone3Completion": "<p>Du atmest schwer und Schweiß brennt in Deinen Augen als der untote Wyrm zusammenbricht. Die Überreste von Recidivate lösen sich in einen dünnen, grauen Nebel auf, der sich bald durch eine frisch aufkommende Brise zerstreut. In der Ferne hörst Du die Schlachtrufe von Habiticanern, die ihre schlechten Gewohnheiten ein für und allemal besiegen.</p><br/><p>@Baconsaur, der Herr aller Bestien, landet mit seinem Greif neben Dir. \"Ich habe das Ende Deines Kampfes vom Himmel aus beobachtet und es hat mich sehr berührt. Bitte nimm diese verzauberte Tunika - Deine Tapferkeit zeugt von einem edlen Herzen und ich glaube, dass Du dazu bestimmt bist, sie zu bekommen.\"</p>",
     "questMoonstone3Boss": "Nekro-Laster",
@@ -237,5 +237,11 @@
     "questDilatoryDistress3Boss": "Adva, die verdränge Meerjungfrau",
     "questDilatoryDistress3DropFish": "Fisch (Futter)",
     "questDilatoryDistress3DropWeapon": "Dreizack der zerschmetternden Gezeiten (Waffe)",
-    "questDilatoryDistress3DropShield": "Mondperlenschild (Schildhand Item)"
+    "questDilatoryDistress3DropShield": "Mondperlenschild (Schildhand Item)",
+    "questCheetahText": "Such a Cheetah",
+    "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
+    "questCheetahCompletion": "The new Habitican is breathing heavily after the wild ride, but thanks you and your friends for your help. \"I'm glad that Cheetah won't be able to grab anyone else. It did leave some Cheetah eggs for us, so maybe we can raise them into more trustworthy pets!\"",
+    "questCheetahBoss": "Cheetah",
+    "questCheetahDropCheetahEgg": "Cheetah (Egg)",
+    "questCheetahUnlockText": "Unlocks purchasable Cheetah eggs in the Market"
 }

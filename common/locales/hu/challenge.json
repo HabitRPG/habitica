@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Exportálás CSV-be",
     "selectGroup": "Válassz csoportot",
     "challengeCreated": "Kihívás létrehozva",
-    "sureDelCha": "Biztosan törlöd a kihívást?",
-    "sureDelChaTavern": "Biztosan törlöd a kihívást? A drágaköveket nem kapod vissza.",
+    "sureDelCha": "Are you sure you want to delete this challenge?",
+    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "Feladatok eltávolítása",
     "keepTasks": "Feladatok megtartása",
     "closeCha": "Kihívás bezárása és ...",
@@ -56,5 +56,8 @@
     "backToChallenges": "Vissza a kihívásokhoz",
     "prizeValue": "Nyeremény <%= gemcount %>&nbsp;<%= gemicon %>",
     "clone": "Másol",
-    "challengeNotEnoughGems": "You do not have enough gems to post this challenge."
+    "challengeNotEnoughGems": "You do not have enough gems to post this challenge.",
+    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
+    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
+    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
 }

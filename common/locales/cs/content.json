@@ -66,6 +66,8 @@
     "questEggCuttlefishAdjective": "mazlivý",
     "questEggWhaleText": "Plejtvák",
     "questEggWhaleAdjective": "cákavá",
+    "questEggCheetahText": "Cheetah",
+    "questEggCheetahAdjective": "honest",
     "eggNotes": "Najdi líhnoucí lektvar, nalij ho na vejce a z něj se pak vylíhne  <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Základní",
     "hatchingPotionWhite": "Bílý",

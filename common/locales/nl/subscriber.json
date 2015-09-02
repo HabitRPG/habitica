@@ -1,7 +1,7 @@
 {
     "subscription": "Abonnement",
     "subscriptions": "Abonnementen",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "Koop edelstenen met goud, ontvang maandelijkse verrassingsartikelen, behoud je voortgangsgeschiedenis, verdubbel je maximum aantal dagelijkse vondsten, ondersteun de developers. Klik voor meer informatie.",
     "buyGemsGold": "Edelstenen kopen met goud",
     "buyGemsGoldText": "Alexander de Koopman verkoopt je edelstenen voor de prijs van <%= gemCost %> goud per edelsteen. Zijn maandelijkse leveringen zijn in eerste instantie gelimiteerd tot <%= gemLimit %> edelstenen per maand, maar deze limiet wordt met 5 edelstenen verhoogd per drie maanden aaneengesloten abonnement, tot een maximum van 50 edelstenen per maand!",
     "retainHistory": "Volledige geschiedenis behouden",

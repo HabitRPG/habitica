@@ -204,9 +204,9 @@ api.getUser = function(req, res, next) {
   user.stats.maxHealth = shared.maxHealth;
   user.stats.maxMP = res.locals.user._statsComputed.maxMP;
   delete user.apiToken;
-  if (user.auth) {
-    delete user.auth.hashed_password;
-    delete user.auth.salt;
+  if (user.auth && user.auth.local) {
+    delete user.auth.local.hashed_password;
+    delete user.auth.local.salt;
   }
   return res.json(200, user);
 };

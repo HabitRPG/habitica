@@ -366,6 +366,30 @@ describe 'User', ->
       shared.content.gear.flat.head_special_nye.event.end = moment().add(5,'days')
       expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be true
 
+  describe 'Rebirth', ->
+    user = undefined
+    it 'removes correct gear', ->
+      user = newUser()
+      user.stats.lvl = 100
+      user.items.gear.owned = {
+        "weapon_warrior_0": true,
+        "weapon_warrior_1": true,
+        "armor_warrior_1": false,
+        "armor_mystery_201402": true,
+        "back_mystery_201402": false,
+        "head_mystery_201402": true,
+        "weapon_armoire_basicCrossbow": true,
+        }
+      user.ops.rebirth()
+      expect(user.items.gear.owned).to.eql {
+        "weapon_warrior_0": true,
+        "weapon_warrior_1": false,
+        "armor_warrior_1": false,
+        "armor_mystery_201402": true,
+        "back_mystery_201402": false,
+        "head_mystery_201402": true,
+        "weapon_armoire_basicCrossbow": false,
+        }
 
   describe 'store', ->
     it 'recovers hp buying potions', ->
