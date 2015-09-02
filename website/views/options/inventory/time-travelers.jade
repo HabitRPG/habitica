@@ -20,6 +20,7 @@
 
   .row: .col-md-12
     li.customize-menu.inventory-gear
+      p!=env.t('timeTravelersAlreadyOwned', {linkStart: "<a href='https://habitica.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
       menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
         div(ng-repeat='item in set.items')
           button.customize-option(class='shop_{{::item.key}}',

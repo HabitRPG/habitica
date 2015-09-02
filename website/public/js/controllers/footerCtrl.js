@@ -85,8 +85,13 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
         User.log({});
       })
     }
-    $scope.addGold = function(){
+    $scope.addHourglass = function(){
       User.set({
+        'purchased.plan.consecutive.trinkets': User.user.purchased.plan.consecutive.trinkets + 1,
+      });
+    }
+    $scope.addGold = function(){
+      User.set({        
         'stats.gp': User.user.stats.gp + 500,
       });
     }
