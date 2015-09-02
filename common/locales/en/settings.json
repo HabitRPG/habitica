@@ -115,6 +115,7 @@
     "unsubscribeAllEmailsText": "By checking this box, I certify that I understand that by unsubscribing from all emails, Habitica will never be able to notify me via email about important changes to the site or my account.",
     "correctlyUnsubscribedEmailType": "Correctly unsubscribed from \"<%= emailType %>\" emails.",
     "subscriptionRateText": "Recurring $<%= price %> USD every <%= months %> months",
+    "recurringText": "recurring",
     "benefits": "Benefits",
     "coupon": "Coupon",
     "couponPlaceholder": "Enter Coupon Code",

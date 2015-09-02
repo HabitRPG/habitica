@@ -21,7 +21,7 @@
     "ian": "Ian",
     "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
     "ianBrokenText": "Welcome to the Quest Shop... Here you can use Quest Scrolls to battle monsters with your friends... Be sure to check out our fine array of Quest Scrolls for purchase on the right...",
-    "USD": "USD",
+    "USD": "(USD)",
     "newStuff": "New Stuff",
     "cool": "Tell Me Later",
     "dismissAlert": "Dismiss This Alert",
@@ -31,7 +31,7 @@
     "donationDesc": "20 Gems, Donation to Habitica",
     "payWithCard": "Pay with Card",
     "payNote": "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
-    "card": "Card",
+    "card": "Credit Card (using Stripe)",
     "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Purchase using",
 
