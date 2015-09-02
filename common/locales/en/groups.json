@@ -142,7 +142,8 @@
     "exclusiveQuestScroll": "Inviting a friend to your party will grant you an exclusive Quest Scroll to battle the Basi-List together!",
     "nameYourParty": "Name your new party!",
     "partyEmpty": "You're the only one in your party. Invite your friends!",
-    "partyChatEmpty": "Your Party Chat is empty! Type a message in the box above to start chatting.",
-    "guildChatEmpty": "This Guild's chat is empty! Type a message in the box above to start chatting.",
+    "partyChatEmpty": "Your party chat is empty! Type a message in the box above to start chatting.",
+    "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
     "possessiveParty": "<%= name %>'s Party"
 }
+
