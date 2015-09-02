@@ -151,7 +151,7 @@ describe "Guilds", ->
           done()
 
   context "removing users groups", ->
-    it "allows guild leaders to remove a member", (done) ->
+    it "allows guild leaders to remove a member (but not themselves)", (done) ->
       guildToRemoveMember = undefined
       members = undefined
       userToRemove = undefined
@@ -181,6 +181,11 @@ describe "Guilds", ->
               .set("X-API-Key", userToRemove.apiToken)
               .end (res) ->
                 cb()
+          (cb) ->
+            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + guildToRemoveMember.leader)
+            .send().end (res) ->
+              expectCode res, 401
+              cb()
 
           (cb) ->
             request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + userToRemove._id)
