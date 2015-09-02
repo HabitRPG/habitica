@@ -18,13 +18,10 @@ describe('user.ops.buyMysterySet', function() {
           owned: {
             weapon_warrior_0: true
           }
-        },
-        pets: {},
-        mounts: {}
+        }
       },
       purchased: {
         plan: {
-          planId: "basic",
           consecutive: {
             trinkets: 0
           }
