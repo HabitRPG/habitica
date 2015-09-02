@@ -8,7 +8,7 @@ require('coffee-script');
 var shared = require('../../common/script/index.coffee');
 var Content = require('../../common/script/content.coffee');
 
-describe('api.timeTravelerStore', function() {
+describe('user.ops.buyMysterySet', function() {
   var user;
 
   beforeEach(function() {
