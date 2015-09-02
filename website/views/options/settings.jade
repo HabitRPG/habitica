@@ -235,26 +235,21 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
         a(href="/export/userdata.json")= env.t('json')
 
 mixin subPerks()
-  table.table.table-striped
-    tr
-      td
-        span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
-        span.badge.badge-success(ng-show='_subscription.key!="basic_earned"') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(Content.subscriptionBlocks[_subscription.key].months/3*5), 50]  | min }}
-    tr
-      td
-        span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
-    tr
-      td
-        span.hint(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
-    tr
-      td
-        span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
-        div(ng-show='_subscription.key!="basic_earned"')
-          .badge.badge-success +{{Math.floor(Content.subscriptionBlocks[_subscription.key].months/3)}} Mystic Hourglass
-          .small.muted Mystic Hourglasses allow purchasing a previous month's Mystery Item set.
-    tr
-      td
-        span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
+  ul
+    li
+      span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
+      span.badge.badge-success(ng-show='_subscription.key!="basic_earned"') Cap raised to {{ [25 + user.purchased.plan.consecutive.gemCapExtra + Math.floor(Content.subscriptionBlocks[_subscription.key].months/3*5), 50]  | min }}
+    li
+      span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
+    li
+      span.hint(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
+    li
+      span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
+      div(ng-show='_subscription.key!="basic_earned"')
+        .badge.badge-success +{{Math.floor(Content.subscriptionBlocks[_subscription.key].months/3)}} Mystic Hourglass
+        .small.muted Mystic Hourglasses allow purchasing a previous month's Mystery Item set.
+    li
+      span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
 
 script(id='partials/feature-matrix-check.html',type='text/ng-template')
   span.task-checker.action-yesno
@@ -332,12 +327,17 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
             .form-group
               input.form-control(type='text', ng-model='_subscription.coupon', placeholder= env.t('couponPlaceholder'))
             .form-group
-              button.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
+              button.pull-right.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
-          h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
-          a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
-          a.btn.btn-success(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
-          a.btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})") Amazon Payments
+          h4(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
+          p.resubscribe
+            small.muted Subscribe using
+            a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
+            a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
+                  img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt='Subscribe now with Paypal')
+            a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")
+                  img(src='https://payments.amazon.com/gp/cba/button',alt='Subscribe now with Amazon Payments')
+          
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
