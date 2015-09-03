@@ -44,7 +44,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.acknowledgeHealthWarning = function(){
-      User.user.ops.update && User.set({'flags.warnedLowHealth':false});
+      User.user.ops.update && User.set({'flags.warnedLowHealth':true});
     }
 
     /**
