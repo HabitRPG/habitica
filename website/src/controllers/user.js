@@ -368,10 +368,33 @@ api['delete'] = function(req, res, next) {
   var plan = res.locals.user.purchased.plan;
   if (plan && plan.customerId && !plan.dateTerminated)
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
-  res.locals.user.remove(function(err){
+
+  function removeUser() {
+    res.locals.user.remove(function(err){
+      if (err) return next(err);
+      res.send(200);
+    })
+  }
+  //Check if user is in groups and remove the user from them
+  var q = Group.find({members: {'$in': [res.locals.user._id]}})
+
+  q.exec(function(err, groups){
     if (err) return next(err);
-    res.send(200);
-  })
+
+    if(groups){
+      var groupFunctions = [];
+      for (var groupIndex in groups) {
+        groupFunctions[groupIndex] = function(cb) {
+          Group.removeUserFromAll(res.locals.user, groups[groupIndex], "remove-all", cb);
+        }
+      }
+      async.waterfall(groupFunctions, removeUser);
+    } else {
+      removeUser()
+    }
+  });
+
+
 }
 
 /*
