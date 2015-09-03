@@ -11,7 +11,7 @@ describe "Guilds", ->
       registerNewUser ->
         User.findByIdAndUpdate user._id,
           $set:
-            "balance": 10
+            "balance": 40
           , (err, _user) ->
             done()
       , true
@@ -149,6 +149,28 @@ describe "Guilds", ->
         .end (res) ->
           expectCode res, 204
           done()
+
+    it "deletes a group when the last member leaves", (done) ->
+      groupToDeleteAfterLeave = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGroupToDeleteAfteLeave"
+        type: "guild"
+        privacy: "private"
+      ).end (res) ->
+        groupToDeleteAfterLeave = res.body
+        async.waterfall [
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id)
+            .end (res) ->
+              expectCode res, 404
+              cb()
+        ], done
 
   context "removing users groups", ->
     it "allows guild leaders to remove a member (but not themselves)", (done) ->
