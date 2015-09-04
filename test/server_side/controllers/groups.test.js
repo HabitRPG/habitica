@@ -1,6 +1,5 @@
 var sinon = require('sinon');
 var chai = require("chai");
-chai.use(require('chai-as-promised'));
 chai.use(require("sinon-chai"));
 var expect = chai.expect;
 
@@ -9,6 +8,137 @@ var Group = require('../../../website/src/models/group').model;
 var groupsController = require('../../../website/src/controllers/groups');
 
 describe('Groups Controller', function() {
+  var utils = require('../../../website/src/utils');
+
+  describe('#invite', function() {
+    var res, req, user, group;
+
+    beforeEach(function() {
+      group = {
+        _id: 'group-id',
+        name: 'group-name',
+        type: 'party',
+        members: [
+          'user-id',
+          'another-user'
+        ],
+        save: sinon.stub().yields(),
+        markModified: sinon.spy()
+      };
+
+      user = {
+        _id: 'user-id',
+        name: 'inviter',
+        email: 'inviter@example.com',
+        save: sinon.stub().yields(),
+        markModified: sinon.spy()
+      };
+
+      res = {
+        locals: {
+          group: group,
+          user: user
+        },
+        json: sinon.stub(),
+        send: sinon.stub()
+      };
+
+      req = {
+        body: {}
+      };
+    });
+
+    context('uuids', function() {
+      beforeEach(function() {
+        req.body.uuids = ['invited-user'];
+      });
+
+      it('returns 400 if user not found');
+
+      it('returns a 400 if user is already in the group');
+
+      it('retuns 400 if user was already invited to that group');
+
+      it('returns 400 if user is already pending an invitation');
+
+      it('returns 400 is user is already in another party');
+
+      it('emails invited user');
+
+      it('does not email invited user if email preference is set to false');
+    });
+
+    context('emails', function() {
+      var EmailUnsubscription = require('../../../website/src/models/emailUnsubscription').model;
+      var execStub, selectStub;
+
+      beforeEach(function() {
+        sinon.stub(utils, 'encrypt').returns('http://link.com');
+        sinon.stub(utils, 'getUserInfo').returns({
+          name: user.name,
+          email: user.email
+        });
+        execStub = sinon.stub();
+        selectStub = sinon.stub().returns({
+          exec: execStub
+        });
+        sinon.stub(User, 'findOne').returns({
+          select: selectStub
+        });
+        sinon.stub(EmailUnsubscription, 'findOne');
+        sinon.stub(utils, 'txnEmail');
+
+        req.body.emails = [{email: 'user@example.com', name: 'user'}];
+      });
+
+      afterEach(function() {
+        User.findOne.restore();
+        EmailUnsubscription.findOne.restore();
+        utils.encrypt.restore();
+        utils.getUserInfo.restore();
+        utils.txnEmail.restore();
+      });
+
+      it('emails user with invite', function() {
+        execStub.yields(null, null);
+        EmailUnsubscription.findOne.yields(null, null);
+
+        groupsController.invite(req, res);
+
+        expect(utils.txnEmail).to.be.calledOnce;
+        expect(utils.txnEmail).to.be.calledWith(
+          { email: 'user@example.com', name: 'user' },
+          'invite-friend',
+          [
+            { name: 'LINK', content: '?partyInvite=http://link.com' },
+            { name: 'INVITER', content: 'inviter' },
+            { name: 'REPLY_TO_ADDRESS', content: 'inviter@example.com' }
+          ]
+        );
+      });
+
+      it('does not email user if user is on unsubscribe list', function() {
+        EmailUnsubscription.findOne.yields(null, {_id: 'on-list'});
+
+        expect(utils.txnEmail).to.not.be.called;
+      });
+
+      it('checks if a user with provided email already exists');
+    });
+
+    context('others', function() {
+      it ('returns a 400 error', function() {
+        groupsController.invite(req, res);
+
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(
+          400,
+          { err: 'Can invite only by email or uuid' }
+        );
+      });
+    });
+  });
+
   describe('#leave', function() {
     var res, req, user, group;
 
