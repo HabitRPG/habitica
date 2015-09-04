@@ -577,7 +577,26 @@ api.leave = function(req, res, next) {
       } else if (group.members.length === 1) {
         //We don't delete public groups when they are empty
         if (group.privacy === 'private' || group.type === 'party') {
-          Group.remove({_id:group._id}, cb);
+          async.waterfall([
+            function(cb2) {
+              User.find({
+                'invitations.guilds.id': group._id
+              }, cb2);
+            },
+            function(users, cb2) {
+              if (users) {
+                users.forEach(function (user, index, array) {
+                  var i = _.findIndex(user.invitations.guilds, {id: group._id});
+                  user.invitations.guilds.splice(i, 1);
+                  user.save();
+                });
+              }
+              cb2();
+            },
+            function(cb2) {
+              Group.remove({_id:group._id}, cb2);
+            },
+          ], cb);
         }
       }
     }

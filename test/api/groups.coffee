@@ -172,6 +172,51 @@ describe "Guilds", ->
               cb()
         ], done
 
+    it "deletes all invites to a group when the last member leaves", (done) ->
+      groupToDeleteAfterLeave = undefined
+      userToRemoveInvite = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGroupToDeleteAfteLeave"
+        type: "guild"
+        privacy: "private"
+      ).end (res) ->
+        groupToDeleteAfterLeave = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToRemoveInvite = _members[0]
+            inviteURL = baseURL + "/groups/" + groupToDeleteAfterLeave._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToRemoveInvite._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.get(baseURL + '/user')
+              .set("X-API-User", userToRemoveInvite._id)
+              .set("X-API-Key", userToRemoveInvite.apiToken)
+              .end (err, res) ->
+                expectCode res, 200
+                groupInvitation = _.find(res.body.invitations.guilds, {id: groupToDeleteAfterLeave._id})
+                expect(groupInvitation).to.not.exist
+                cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id)
+            .end (res) ->
+              expectCode res, 404
+              cb()
+        ], done
+
   context "removing users groups", ->
     it "allows guild leaders to remove a member (but not themselves)", (done) ->
       guildToRemoveMember = undefined
