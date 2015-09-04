@@ -40,3 +40,20 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
     });
   });
 }])
+
+.controller('AccordionCtrl', function() {
+  function openHashAccordion() {
+    if (window.location.hash) {
+      var $target = $(window.location.hash.replace('/',''));
+      if ($target.hasClass('collapse')) {
+        $target.collapse('show');
+        $('html, body').animate({
+          scrollTop: $($target).offset().top - 100
+        });
+      }
+    }
+  }
+  $(document).ready(function(){
+    openHashAccordion();
+  });
+})  

@@ -8,23 +8,7 @@ block title
     =env.t('FAQ')
 
 block content
-  script(type='text/javascript').
-    function openHashAccordion() {
-      if (window.location.hash) {
-        var $target = $(window.location.hash.replace('/',''));
-        if ($target.hasClass('collapse')) {
-          $target.collapse('show');
-          $('html, body').animate({
-            scrollTop: $($target).offset().top - 100
-          });
-        }
-      }
-    }
-    $(document).ready(function(){
-      openHashAccordion();
-    });
-
-  .row
+  .row(ng-controller='AccordionCtrl')
     .col-md-12
       .page-header
         h1=env.t('frequentlyAskedQuestions')
@@ -34,7 +18,7 @@ block content
         =env.t('September')
         |&nbsp;4&comma; 2015
       a.h2.accordion.collapsed(href='#overview' data-toggle='collapse')=env.t('FAQheaderOverview')
-      .clearfix.collapse#overview
+        .clearfix.collapse#overview
         p!=env.t('FAQbodyOverview-1')
       a.h2.accordion.collapsed(href='#set-up-tasks' data-toggle='collapse')=env.t('FAQheaderSetUpTasks')
       .clearfix.collapse#set-up-tasks
