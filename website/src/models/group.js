@@ -413,14 +413,13 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
         }, cb);
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
-        
+
         if (group.type == 'party' && group.quest.key){
           update['$unset'] = {};
           update['$unset']['quest.members.' + user._id] = 1;
         }
 
         var seniorMember = _.find(group.members, function (m) {return m != user._id});
-
         // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
         var leader = group.leader;
         if (leader == user._id || !~group.members.indexOf(leader)) {
