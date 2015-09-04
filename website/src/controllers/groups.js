@@ -533,28 +533,39 @@ api.leave = function(req, res, next) {
     },
     // Update the group
     function(cb){
-      var update = {$pull:{members:user._id}};
-      if (group.type == 'party' && group.quest.key){
-        update['$unset'] = {};
-        update['$unset']['quest.members.' + user._id] = 1;
-      }
-      // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
-      if (group.members.length > 1) {
-        var seniorMember = _.find(group.members, function (m) {return m != user._id});
-        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-        var leader = group.leader;
-        if (leader == user._id || !~group.members.indexOf(leader)) {
-          update['$set'] = update['$set'] || {};
-          update['$set'].leader = seniorMember;
+      // If user is the last one in group and group is private, delete it
+      if(group.members.length === 1 && (
+          group.type === 'party' ||
+          (group.type === 'guild' && group.privacy === 'private')
+      )){
+        // TODO remove invitations to this group
+        Group.remove({
+          _id: group._id
+        }, cb);
+      }else{ // otherwise just remove a member
+        var update = {$pull:{members:user._id}};
+        if (group.type == 'party' && group.quest.key){
+          update['$unset'] = {};
+          update['$unset']['quest.members.' + user._id] = 1;
         }
-        leader = group.quest && group.quest.leader;
-        if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
-          update['$set'] = update['$set'] || {};
-          update['$set']['quest.leader'] = seniorMember;
+        // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
+        if (group.members.length > 1) {
+          var seniorMember = _.find(group.members, function (m) {return m != user._id});
+          // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+          var leader = group.leader;
+          if (leader == user._id || !~group.members.indexOf(leader)) {
+            update['$set'] = update['$set'] || {};
+            update['$set'].leader = seniorMember;
+          }
+          leader = group.quest && group.quest.leader;
+          if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
+            update['$set'] = update['$set'] || {};
+            update['$set']['quest.leader'] = seniorMember;
+          }
         }
+        update['$inc'] = {memberCount: -1};
+        Group.update({_id:group._id},update,cb);
       }
-      update['$inc'] = {memberCount: -1};
-      Group.update({_id:group._id},update,cb);
     }
   ],function(err){
     if (err) return next(err);
