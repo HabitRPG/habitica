@@ -424,16 +424,20 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
         var seniorMember = _.find(group.members, function (m) {return m != user._id});
         // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
         var leader = group.leader;
-        if (leader == user._id || !~group.members.indexOf(leader)) {
-          update['$set'] = update['$set'] || {};
-          update['$set'].leader = seniorMember;
-        }
 
-        leader = group.quest && group.quest.leader;
+        // could not exist in case of public guild with 1 member who is leaving
+        if(seniorMember){
+          if (leader == user._id || !~group.members.indexOf(leader)) {
+            update['$set'] = update['$set'] || {};
+            update['$set'].leader = seniorMember;
+          }
 
-        if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
-          update['$set'] = update['$set'] || {};
-          update['$set']['quest.leader'] = seniorMember;
+          leader = group.quest && group.quest.leader;
+
+          if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
+            update['$set'] = update['$set'] || {};
+            update['$set']['quest.leader'] = seniorMember;
+          }
         }
 
         update['$inc'] = {memberCount: -1};
