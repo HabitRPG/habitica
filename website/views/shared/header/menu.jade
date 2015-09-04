@@ -56,7 +56,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
               li
-                a(target='_blank' href='http://habitica.com/static/faq/')=env.t('FAQ')
+                a(target='_blank' href='https://habitica.com/static/faq/')=env.t('FAQ')
               li
                 a(target='_blank' href='http://habitica.wikia.com/wiki/')=env.t('overview')
               li
@@ -147,7 +147,7 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
       li.toolbar-button-dropdown.highlight
-        a(target='_blank' href='http://habitica.wikia.com/wiki/')
+        a(target='_blank' href='https://habitica.com/static/faq/')
           span.glyphicon.glyphicon-question-sign
           span=env.t('help')
         a(ng-class='{active: _expandedMenu.menu === "help"}',  data-expand-menu, menu='help')
@@ -155,7 +155,7 @@ nav.toolbar(ng-controller='MenuCtrl')
         div(ng-show='_expandedMenu.menu === "help"', data-close-menu)
           ul.toolbar-submenu
             li
-              a(target='_blank' href='http://habitica.com/static/faq/')=env.t('FAQ')
+              a(target='_blank' href='https://habitica.com/static/faq/')=env.t('FAQ')
             li
               a(target='_blank' href='http://habitica.wikia.com/wiki/')=env.t('overview')
             li
