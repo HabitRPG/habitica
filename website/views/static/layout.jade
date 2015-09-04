@@ -1,6 +1,7 @@
 include ../shared/mixins.jade
 
 //-Trick needed to pass 'env' to ./layout
+- var containerClass = '';
 block vars
 doctype html
 html(ng-app='habitrpg')
@@ -57,7 +58,7 @@ html(ng-app='habitrpg')
 
           button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')=env.t('playButton')
 
-      .container
+      .container(class='#{containerClass}')
         block content
 
   include ../shared/footer
