@@ -38,3 +38,21 @@ body
     box-shadow 0px 0px 10px 5px #888
     margin 10px
     max-width 500px
+
+// Accordion tweaks for FAQ
+
+a.h2.accordion
+  display: block
+  text-decoration: none
+
+a.h2.accordion:before
+  font-family: 'Glyphicons Halflings'
+  color: grey
+  content: "\e114"
+  margin-right: 0.5em
+
+a.h2.accordion.collapsed:before
+  font-family: 'Glyphicons Halflings'
+  color: grey
+  content: "\e080"
+  margin-right: 0.5em
