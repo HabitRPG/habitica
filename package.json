@@ -80,7 +80,7 @@
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
     "start": "grunt run:dev",
-    "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/grunt;",
+    "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/gulp build;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {
@@ -93,6 +93,7 @@
     "expect.js": "~0.2.0",
     "glob": "^4.3.5",
     "grunt-contrib-imagemin": "^0.9.4",
+    "gulp-grunt": "^0.5.2",
     "istanbul": "^0.3.14",
     "karma": "~0.10.2",
     "karma-chai-plugins": "~0.1.0",

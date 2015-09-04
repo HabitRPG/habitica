@@ -248,11 +248,6 @@ module.exports = function(grunt) {
     );
   });
 
-  if(process.env.NODE_ENV == 'production')
-    grunt.registerTask('default', ['build:prod']);
-  else
-    grunt.registerTask('default', ['build:dev']);
-
   // Load tasks
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
