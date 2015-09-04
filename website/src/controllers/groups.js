@@ -658,6 +658,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
+
           var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
           var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
@@ -688,9 +689,9 @@ var inviteByEmails = function(invites, group, req, res, next){
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
-    if(usersAlreadyRegistered.length > 0){
+    if (usersAlreadyRegistered.length > 0){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
-    }else{
+    } else{
 
       // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
