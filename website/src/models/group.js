@@ -6,6 +6,8 @@ var async = require('async');
 var logging = require('../logging');
 var Challenge = require('./../models/challenge').model;
 
+// NOTE any change to groups' members in MongoDB will have to be run through the API
+// changes made directly to the db will cause Firebase to get out of sync
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
   name: String,
