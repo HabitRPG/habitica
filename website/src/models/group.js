@@ -5,6 +5,7 @@ var _ = require('lodash');
 var async = require('async');
 var logging = require('../logging');
 var Challenge = require('./../models/challenge').model;
+var firebase = require('../libs/firebase');
 
 // NOTE any change to groups' members in MongoDB will have to be run through the API
 // changes made directly to the db will cause Firebase to get out of sync
@@ -444,7 +445,12 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
         Group.update({_id:group._id}, update, cb);
       }
     }
-  ], mainCb);
+  ], function(err){
+    if(err) return mainCb(err);
+
+    firebase.removeUserFromGroup(group._id, user._id);
+    return mainCb();
+  });
 };
 
 

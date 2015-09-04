@@ -18,6 +18,7 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
 var analytics = utils.analytics;
+var firebase = require('../libs/firebase');
 
 /*
   ------------------------------------------------------------------------
@@ -190,7 +191,10 @@ api.create = function(req, res, next) {
     async.waterfall([
       function(cb){user.save(cb)},
       function(saved,ct,cb){group.save(cb)},
-      function(saved,ct,cb){saved.populate('members',nameFields,cb)}
+      function(saved,ct,cb){
+        firebase.addUserToGroup(saved._id, user._id);
+        saved.populate('members', nameFields, cb);
+      }
     ],function(err,saved){
       if (err) return next(err);
       res.json(saved);
@@ -207,6 +211,7 @@ api.create = function(req, res, next) {
         group.save(cb);
       },
       function(saved, count, cb){
+        firebase.addUserToGroup(saved._id, user._id);
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
@@ -479,6 +484,8 @@ api.join = function(req, res, next) {
       group.save(cb);
     },
     function(cb){
+      firebase.addUserToGroup(group._id, user._id);
+      // TODO why query group once again?
       populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
