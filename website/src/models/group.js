@@ -4,6 +4,7 @@ var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
 var logging = require('../logging');
+var Challenge = require('./../models/challenge').model;
 
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
@@ -239,7 +240,8 @@ process.nextTick(function(){
     // Using _assign so we don't lose the reference to the exported tavern
     _.assign(module.exports.tavern, tavern);
   });
-})
+});
+
 GroupSchema.statics.tavernBoss = function(user,progress) {
   if (!progress) return;
 
@@ -342,6 +344,102 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
   })
 }
 
+// Remove user from this group
+GroupSchema.methods.leave = function(user, keep, mainCb){
+  if(!user) return mainCb(new Error('Missing user.'));
+
+  if(keep && typeof keep === 'function'){
+    mainCb = keep;
+    keep = null;
+  }
+  if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
+
+  var group = this;
+  
+  async.parallel([
+    // Remove active quest from user if they're leaving the party
+    function(cb){
+      if (group.type != 'party') return cb(null, {} ,1);
+      user.party.quest = Group.cleanQuestProgress();
+      user.save(cb);
+    },
+
+    // Remove user from group challenges
+    function(cb){
+      async.waterfall([
+        // Find relevant challenges
+        function(cb2) {
+          Challenge.find({
+            _id: {$in: user.challenges}, // Challenges I am in
+            group: group._id // that belong to the group I am leaving
+          }, cb2);
+        },
+        
+        // Update each challenge
+        function(challenges, cb2) {
+          Challenge.update(
+            {_id: {$in: _.pluck(challenges, '_id')}},
+            {$pull: {members: user._id}},
+            {multi: true},
+            function(err) {
+             cb2(err, challenges); // pass `challenges` above to cb
+            }
+          );
+        },
+
+        // Unlink the challenge tasks from user
+        function(challenges, cb2) {
+          async.waterfall(challenges.map(function(chal) {
+            return function(cb3) {
+              var i = user.challenges.indexOf(chal._id)
+              if (~i) user.challenges.splice(i,1);
+              user.unlink({cid: chal._id, keep: keep}, cb3);
+            }
+          }), cb2);
+        }
+      ], cb);
+    },
+
+    // Update the group
+    function(cb){
+      // If user is the last one in group and group is private, delete it
+      if(group.members.length === 1 && (
+          group.type === 'party' ||
+          (group.type === 'guild' && group.privacy === 'private')
+      )){
+        // TODO remove invitations to this group
+        Group.remove({
+          _id: group._id
+        }, cb);
+      }else{ // otherwise just remove a member
+        var update = {$pull:{members:user._id}};
+        if (group.type == 'party' && group.quest.key){
+          update['$unset'] = {};
+          update['$unset']['quest.members.' + user._id] = 1;
+        }
+        // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
+        if (group.members.length > 1) {
+          var seniorMember = _.find(group.members, function (m) {return m != user._id});
+          // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+          var leader = group.leader;
+          if (leader == user._id || !~group.members.indexOf(leader)) {
+            update['$set'] = update['$set'] || {};
+            update['$set'].leader = seniorMember;
+          }
+          leader = group.quest && group.quest.leader;
+          if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
+            update['$set'] = update['$set'] || {};
+            update['$set']['quest.leader'] = seniorMember;
+          }
+        }
+        update['$inc'] = {memberCount: -1};
+        Group.update({_id:group._id},update,cb);
+      }
+    }
+  ], mainCb);
+};
+
+
 GroupSchema.methods.toJSON = function() {
   var doc = this.toObject();
   if(doc.chat){
@@ -368,4 +466,4 @@ Group.count({_id:'habitrpg'},function(err,ct){
     type: 'guild',
     privacy:'public'
   }).save();
-})
+});
