@@ -20,7 +20,7 @@ router.get('/', i18n.getUserLanguage, locals, function(req, res) {
 
 // -------- Marketing --------
 
-var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines', 'old-news', 'press-kit'];
+var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines', 'old-news', 'press-kit', 'faq'];
 
 _.each(pages, function(name){
   router.get('/static/' + name, i18n.getUserLanguage, locals, function(req, res) {
