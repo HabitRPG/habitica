@@ -224,8 +224,8 @@ module.exports = function(grunt) {
 
   // Register tasks.
   grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'imagemin', 'cssmin']);
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres','prepare:staticNewStuff']);
-  grunt.registerTask('build:dev', ['browserify', 'stylus', 'prepare:staticNewStuff']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['browserify', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
@@ -237,15 +237,6 @@ module.exports = function(grunt) {
     fs.writeFileSync('test/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +
       "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
-  });
-
-  grunt.registerTask('prepare:staticNewStuff', function() {
-    var jade  = require('jade'),
-        fs    = require('fs');
-    fs.writeFileSync(
-      './website/public/new-stuff.html',
-      jade.compileFile('./website/views/shared/new-stuff.jade')()
-    );
   });
 
   // Load tasks

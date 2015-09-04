@@ -9,10 +9,10 @@ gulp.task('build', () => {
   }
 });
 
-gulp.task('build:dev', (done) => {
+gulp.task('build:dev', ['prepare:staticNewStuff'], (done) => {
   gulp.start('grunt-build:dev', done);
 });
 
-gulp.task('build:prod', (done) => {
+gulp.task('build:prod', ['prepare:staticNewStuff'], (done) => {
   gulp.start('grunt-build:prod', done);
 });
