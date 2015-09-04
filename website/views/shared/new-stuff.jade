@@ -17,8 +17,9 @@ h4 NEW ITEMS IN THE ENCHANTED ARMOIRE AND SEPTEMBER BACKGROUNDS!
       p.small.muted by Lemoness and SabreCat
       p.small.muted Art by Starsystemic and Kiwibot
 
-hr
-a(href='/static/old-news', target='_blank') Read older news
+if menuItem !== 'oldNews'
+  hr
+  a(href='/static/old-news', target='_blank') Read older news
 
 mixin oldNews
   h4 LAST CHANCE FOR CHEETAH COSTUME! COSTUME CHALLENGE ANNOUNCED!
