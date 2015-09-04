@@ -5,7 +5,7 @@ var firebaseRef;
 var firebaseConfig = nconf.get('FIREBASE');
 
 // Setup
-if(isProd || true){
+if(isProd){
   firebaseRef = new Firebase('https://' + firebaseConfig.APP + '.firebaseio.com');
 
   firebaseRef.on('value', function(snapshot){
