@@ -80,7 +80,7 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/server_side --recursive'),
+    testBin('mocha test/server_side'),
     (err, stdout, stderr) => {
     	cb(err);
     }
@@ -90,7 +90,7 @@ gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
-    testBin('mocha test/server_side --recursive'),
+    testBin('mocha test/server_side'),
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'Server Side Specs',
