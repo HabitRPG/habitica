@@ -466,7 +466,9 @@ api.join = function(req, res, next) {
     if (group.members.length === 0) {
       group.leader = user._id;
     }
+
     group.members.push(user._id);
+
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
     }
