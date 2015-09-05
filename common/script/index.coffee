@@ -66,13 +66,6 @@ api.startOfDay = (options={}) ->
     dayStart.subtract({days:1})
   dayStart
 
-
-api.startOfDayAllowsFuture = (options={}) ->
-  # Use this version to use if you need the result even if the offset would cause today's day start to be in the future.
-  o = sanitizeOptions(options)
-  moment(o.now).startOf('day').add({hours:o.dayStart})
-
-
 api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
 ###
@@ -359,18 +352,6 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
 Friendly timestamp
 ###
 api.friendlyTimestamp = (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
-
-###
-ISO timestamp
-###
-api.isoTimestamp = (timestamp) -> moment(timestamp).toISOString()
-
-###
-plain timestamp
-###
-api.momentTimestamp = (timestamp) -> moment(timestamp)
-
-
 
 ###
 Does user have new chat messages?

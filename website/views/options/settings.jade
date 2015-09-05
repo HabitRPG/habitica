@@ -90,10 +90,16 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               h5=env.t('customDayStartInfo1')
                 a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
-            .form-group
-              .input-group
-                input.form-control(type='number', min='0', max='23', ng-model='dayStart', ng-blur='saveDayStart(dayStart)')
-                span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
+            .form-horizontal
+              .form-group
+                .col-sm-7
+                  .input-group
+                    input.form-control(type='number', min='0', max='23', ng-model='dayStart')
+                    .input-group-addon= ':00 (' + env.t('24HrClock') + ')'
+
+                .col-sm-5
+                  br.visible-xs
+                  button.btn.btn-block.btn-primary(ng-click='openDayStartModal(dayStart)') Save Custom Day Start
 
       .personal-options.col-md-6
         .panel.panel-default

@@ -64,30 +64,25 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.dayStart = User.user.preferences.dayStart;
 
-    function updateLastCron(oldDayStart, newDayStart){
-      var getOldStart = Shared.startOfDayAllowsFuture({ dayStart: oldDayStart});
-      var getNewStart = Shared.startOfDayAllowsFuture({ dayStart: newDayStart});
-      var lastCron = User.user.lastCron;
-      var momentLastCron = Shared.momentTimestamp(lastCron);
-      var isoNewStart = Shared.isoTimestamp(getNewStart);
-      alert('Times are oldstart'+Shared.friendlyTimestamp(getOldStart)+' lastcron '+Shared.friendlyTimestamp(lastCron)+' and newstart '+Shared.friendlyTimestamp(getNewStart));
-      if (getOldStart < momentLastCron && momentLastCron <  getNewStart) {
-        alert('Setting lastcron to '+Shared.friendlyTimestamp(getNewStart));
-        User.set({ 'lastCron' : isoNewStart});
-      }
-    };
+    $scope.openDayStartModal = function(dayStart) {
+      var flooredDayStart = Math.floor(dayStart);
 
-    $scope.saveDayStart = function(varDayStart) {
-      var oldDayStart = User.user.preferences.dayStart;
-      var newDayStart = varDayStart;
-
-      if ( newDayStart != Math.floor(newDayStart) || newDayStart < 0 || newDayStart > 24 ) {
-        newDayStart = 0;
+      if (dayStart !== flooredDayStart || dayStart < 0 || dayStart > 24 ) {
         return alert(window.env.t('enterNumber'));
       }
-      updateLastCron( oldDayStart, newDayStart);
-      User.set({'preferences.dayStart': Math.floor(newDayStart)});
-    }
+
+      $scope.dayStart = dayStart;
+      $scope.nextCron = _calculateNextCron();
+
+      $rootScope.openModal('change-day-start', { scope: $scope });
+    };
+
+    $scope.saveDayStart = function() {
+      User.set({
+        'preferences.dayStart': Math.floor($scope.dayStart),
+        'lastCron': +new Date
+      });
+    };
 
     $scope.language = window.env.language;
     $scope.avalaibleLanguages = window.env.avalaibleLanguages;
@@ -209,6 +204,19 @@ habitrpg.controller('SettingsCtrl',
         subs["basic_6mo"].discount = true;
         subs["google_6mo"].discount = false;
       });
+    }
+
+    function _calculateNextCron() {
+      $scope.dayStart;
+
+      var nextCron = moment().hours($scope.dayStart).minutes(0).seconds(0).milliseconds(0);
+
+      var currentHour = moment().format('H');
+      if (currentHour >= $scope.dayStart) {
+        nextCron = nextCron.add(1, 'day');;
+      }
+
+      return +nextCron.format('x');
     }
   }
 ]);
