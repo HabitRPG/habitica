@@ -15,14 +15,15 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', 'User', 'Groups', 'injectedG
     };
 
     $scope.inviteNewUsers = function(inviteMethod) {
-      if (!$scope.group.name) {
-        $scope.group.name = env.t('possessiveParty', {name: User.user.profile.name});
+      if (!$scope.group._id) {
+        $scope.group.name = $scope.group.name || env.t('possessiveParty', {name: User.user.profile.name});
+        return $scope.group.$save()
+          .then(function(res) {
+            _inviteByMethod(inviteMethod);
+          });
       }
 
-      $scope.group.$save()
-        .then(function(res) {
-          _inviteByMethod(inviteMethod);
-        });
+      _inviteByMethod(inviteMethod);
     };
 
     function _inviteByMethod(inviteMethod) {
