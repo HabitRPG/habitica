@@ -46,15 +46,21 @@ describe('Invite to Group Controller', function() {
   describe('inviteNewUsers', function() {
     beforeEach(function() {
       scope.group = specHelper.newGroup({
+        type: 'party',
         $save: sinon.stub().returns({
           then: function(cb) { cb(); }
         })
       });
+
       sandbox.stub(groups.Group, 'invite');
     });
 
-    context('pre-invite', function() {
-      it('saves the group', function() {
+    context('if the party does not already exist', function() {
+      beforeEach(function() {
+        delete scope.group._id;
+      });
+
+      it('saves the group if a new group is being created', function() {
         scope.inviteNewUsers('uuid');
         expect(scope.group.$save).to.be.calledOnce;
       });
