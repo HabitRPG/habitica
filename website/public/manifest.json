@@ -51,12 +51,15 @@
             "js/services/taskServices.js",
             "js/services/challengeServices.js",
             "js/services/paymentServices.js",
+            "js/services/questServices.js",
+            "js/services/statServices.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
             "js/filters/taskOrdering.js",
 
-            "js/directives/focus-me.directive.js",
+            "js/directives/close-menu.directive.js",
+            "js/directives/expand-menu.directive.js",
             "js/directives/from-now.directive.js",
             "js/directives/habitrpg-tasks.directive.js",
             "js/directives/hrpg-sort-checklist.directive.js",
@@ -64,11 +67,12 @@
             "js/directives/hrpg-sort-tasks.directive.js",
             "js/directives/popover-html-popup.directive.js",
             "js/directives/popover-html.directive.js",
-            "js/directives/task-focus.directive.js",
+            "js/directives/focus-element.directive.js",
             "js/directives/when-scrolled.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/menuCtrl.js",
+            "js/controllers/memberModalCtrl.js",
             "js/controllers/notificationCtrl.js",
             "js/controllers/rootCtrl.js",
             "js/controllers/settingsCtrl.js",
@@ -110,6 +114,8 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"
@@ -137,6 +143,8 @@
             "js/static.js",
             "js/services/analyticsServices.js",
             "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/statServices.js",
             "common/script/public/userServices.js",
             "js/controllers/authCtrl.js",
             "js/controllers/footerCtrl.js"

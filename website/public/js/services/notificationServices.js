@@ -29,18 +29,21 @@ angular.module("habitrpg").factory("Notification",
   function drop(val, item) {
     var dropClass = "";
     if ( item !== undefined ) {
-     switch ( item.type ) {
-      case "Egg":
-       dropClass = 'Pet_Egg_' + item.key;
-       break;
-      case "HatchingPotion":
-       dropClass = 'Pet_HatchingPotion_' + item.key;
-       break;
-      case "Food":
-       dropClass = 'Pet_Food_' + item.key;
-       break;
-      default:
-       dropClass = 'glyphicon glyphicon-gift';
+      switch ( item.type ) {
+        case "Egg":
+          dropClass = 'Pet_Egg_' + item.key;
+          break;
+        case "HatchingPotion":
+          dropClass = 'Pet_HatchingPotion_' + item.key;
+          break;
+        case "Food":
+          dropClass = 'Pet_Food_' + item.key;
+          break;
+        case "Mystery":
+          dropClass = 'shop_' + item.key;
+          break;
+        default:
+          dropClass = 'glyphicon glyphicon-gift';
      }
     }
     _notify(val, 'drop', dropClass);
@@ -48,7 +51,7 @@ angular.module("habitrpg").factory("Notification",
 
   function exp(val) {
     if (val < -50) return; // don't show when they level up (resetting their exp)
-    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('xp'), 'xp', 'glyphicon glyphicon-star');
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('experience'), 'xp', 'glyphicon glyphicon-star');
   }
 
   function error(error){
@@ -61,7 +64,7 @@ angular.module("habitrpg").factory("Notification",
 
   function hp(val) {
     // don't show notifications if user dead
-    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('hp'), 'hp', 'glyphicon glyphicon-heart');
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('health'), 'hp', 'glyphicon glyphicon-heart');
   }
 
   function lvl(){
@@ -76,7 +79,7 @@ angular.module("habitrpg").factory("Notification",
   }
 
   function mp(val) {
-    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('mp'), 'mp', 'glyphicon glyphicon-fire');
+    _notify(_sign(val) + " " + _round(val) + " " + window.env.t('mana'), 'mp', 'glyphicon glyphicon-fire');
   }
 
   function streak(val) {

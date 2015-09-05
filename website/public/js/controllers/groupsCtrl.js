@@ -159,61 +159,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
   }])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller) {
-
-      $controller('RootCtrl', {$scope: $scope});
-
-      $scope.timestamp = function(timestamp){
-        return moment(timestamp).format($rootScope.User.user.preferences.dateFormat.toUpperCase());
-      }
-      // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
-      $scope.$watch( function() { return Members.selectedMember; }, function (member) {
-        if(member)
-          member.petCount = Shared.countPets($rootScope.countExists(member.items.pets), member.items.pets);
-          member.mountCount = Shared.countMounts($rootScope.countExists(member.items.mounts), member.items.mounts);
-        $scope.profile = member;
-      });
-      $scope.sendPrivateMessage = function(uuid, message){
-        // Don't do anything if the user somehow gets here without a message.
-        if (!message) return;
-
-        $http.post('/api/v2/members/'+uuid+'/message',{message:message}).success(function(){
-          Notification.text(window.env.t('messageSentAlert'));
-          $rootScope.User.sync();
-          $scope.$close();
-        });
-      }
-      $scope.gift = {
-        type: 'gems',
-        gems: {amount:0, fromBalance:true},
-        subscription: {key:''},
-        message:''
-      };
-      $scope.sendGift = function(uuid, gift){
-        $http.post('/api/v2/members/'+uuid+'/gift', gift).success(function(){
-          Notification.text('Gift sent!')
-          $rootScope.User.sync();
-          $scope.$close();
-        })
-      }
-      $scope.reportAbuse = function(reporter, message, groupId) {
-        message.flags[reporter._id] = true;
-        Chat.utils.flagChatMessage({gid: groupId, messageId: message.id}, undefined, function(data){
-          Notification.text(window.env.t('abuseReported'));
-          $scope.$close();
-        });
-      }
-      $scope.clearFlagCount = function(message, groupId) {
-        Chat.utils.clearFlagCount({gid: groupId, messageId: message.id}, undefined, function(data){
-          message.flagCount = 0;
-          Notification.text("Flags cleared");
-          $scope.$close();
-        });
-      }
-    }
-  ])
-
   .controller('AutocompleteCtrl', ['$scope', '$timeout', 'Groups', 'User', 'InputCaret', function ($scope,$timeout,Groups,User,InputCaret) {
     $scope.clearUserlist = function() {
       $scope.response = [];
@@ -321,6 +266,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         }
         $scope.message.content = '';
         $scope._sending = false;
+        if (group.type == 'party') {
+          Analytics.updateUser({'partyID':group.id,'partySize':group.memberCount});
+        }
         if (group.privacy == 'public'){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy,'groupName':group.name,'message':message});
         } else {
@@ -512,12 +460,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'Chat', 'User', 'Challenges', '$state', '$compile', 'Analytics',
-    function($rootScope,$scope, Groups, Chat, User, Challenges, $state, $compile, Analytics) {
+  .controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests',
+    function($rootScope,$scope,Groups,Chat,User,Challenges,$state,$compile,Analytics,Quests) {
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
+      $scope.inviteOrStartParty = Groups.inviteOrStartParty;
+      $scope.questInit = Quests.questInit;
 
       if ($state.is('options.social.party')) {
         $scope.group.$syncParty(); // Sync party automatically when navigating to party page
@@ -528,17 +478,19 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.create = function(group){
         group.$save(function(){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':true,'groupType':'party','privacy':'private'});
+          Analytics.updateUser({'partyID':group.id,'partySize':1});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
-      }
+      };
 
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         group.$join(function(){
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
+          Analytics.updateUser({'partyID':party.id});
           $rootScope.hardRedirect('/#/options/groups/party');
         });
-      }
+      };
 
       // TODO: refactor guild and party leave into one function
       $scope.leave = function(keep) {
@@ -547,10 +499,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           $scope.popoverEl.popover('destroy');
         } else {
           Groups.Group.leave({gid: $scope.selectedGroup._id, keep:keep}, undefined, function(){
+            Analytics.updateUser({'partySize':null,'partyID':null});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
         }
-      }
+      };
 
       // TODO: refactor guild and party clickLeave into one function
       $scope.clickLeave = function(group, $event){
@@ -600,7 +553,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
       $scope.questAccept = function(party){
         Groups.questAccept(party);
-      }
+      };
 
       $scope.questReject = function(party){
         Groups.questReject(party);

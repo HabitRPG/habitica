@@ -70,7 +70,7 @@
     "sortJoined": "Sortiranje po datumu dolaska u udruženje",
     "sortName": "Sortiranje po imenu",
     "sortBackgrounds": "Sortiranje po pozadini",
-    "sortHabitrpgJoined": "Sortiranje po datumu registracije na HabitRPG-u",
+    "sortHabitrpgJoined": "Sortiranje po datumu registracije na Habitica-u",
     "sortHabitrpgLastLoggedIn": "Sortiranje po vremenu poslednje prijave",
     "ascendingSort": "Rastuće",
     "descendingSort": "Opadajuće",
@@ -94,7 +94,7 @@
     "abuseFlag": "Prijavite kršenje Pravila ponašanja",
     "abuseFlagModalHeading": "Želite li da prijavite <%= name %> za kršenje pravila?",
     "abuseFlagModalBody": "Jeste li sigurni da želite prijavite ovu poruku? Poruku treba da prijavite SAMO ako kriši <%= firstLinkStart %>Pravila ponašanja<%= linkEnd %> i/ili <%= secondLinkStart %>Uslove korišćenja<%= linkEnd %>. Slanjem neosnovanih prijava krišite Pravila ponašanja i možete za to biti kažnjeni.",
-    "abuseFlagModalButton": "Prijaviti",
+    "abuseFlagModalButton": "Report Violation",
     "abuseReported": "Hvala što ste prijavili ovaj prekršaj. Moderatorima je poslato obaveštenje.",
     "abuseAlreadyReported": "Već ste prijavili ovu poruku.",
     "needsText": "Molimo Vas da napišete poruku.",
@@ -106,7 +106,7 @@
     "leaderOnlyChallenges": "Samo vođa grupe može da napravi izazov",
     "sendGift": "Poslati poklon",
     "inviteFriends": "Pozvati prijatelje",
-    "inviteAlertInfo": "Ovde možete pozvati prijatelje ako znate njihov <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>UID</a>",
+    "inviteAlertInfo": "Ovde možete pozvati prijatelje ako znate njihov <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>UID</a>",
     "inviteExistUser": "Pozvati registrovanog korisnika",
     "inviteByEmail": "Pozovite prijatelje imejlom. Ako se registruju preko linka iz poruke, automatski će biti pozvani u ovu grupu.",
     "byColon": "Od:",
@@ -121,5 +121,6 @@
     "sendGiftSubscription": "<%= months %> Month(s): $<%= price %>",
     "battleWithFriends": "Battle Monsters With Friends",
     "startAParty": "Start a Party",
-    "addToParty": "Add someone to your party"
+    "addToParty": "Add someone to your party",
+    "likePost": "Click if you like this post!"
 }

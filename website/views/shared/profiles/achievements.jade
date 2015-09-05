@@ -29,7 +29,7 @@ div(ng-if='::profile.contributor.level || user._id == profile._id')
     small
       =env.t('contribText')
       |&nbsp;
-      +aLink('http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', env.t('readMore'))
+      +aLink('http://habitica.wikia.com/wiki/Contributing_to_Habitica', env.t('readMore'))
       | .
   hr
 
@@ -138,7 +138,7 @@ div(ng-if='::profile.achievements.originalUser')
     h5=env.t('originalUser')
     small!=env.t('originalUserText')
   hr
-  
+
 div(ng-if='::profile.achievements.challenges.length || user._id == profile._id')
   // This is a very strange icon to use. revisit
   .achievement.achievement-karaoke(ng-if='::profile.achievements.challenges.length')
@@ -179,12 +179,21 @@ div(ng-if='::profile.achievements.shinySeed')
   small
     =env.t('agriculturalFriendsText', {seeds: "{{::profile.achievements.shinySeed}}"})
   hr
-  
+
 div(ng-if='::profile.achievements.seafoam')
   .achievement.achievement-seafoam
   h5=env.t('aquaticFriends')
   small
     =env.t('aquaticFriendsText', {seafoam: "{{::profile.achievements.seafoam}}"})
+  hr
+
+div(ng-if='::profile.achievements.habiticaDays')
+  .achievement.achievement-habiticaDay
+  h5=env.t('habiticaDay')
+  small(ng-if='::profile.achievements.habiticaDays == 1')
+    =env.t('habiticaDaySingularText')
+  small(ng-if='::profile.achievements.habiticaDays > 1')
+    =env.t('habiticaDayPluralText', {number: "{{::profile.achievements.habiticaDays}}"})
   hr
 
 div(ng-if='::profile.achievements.habitBirthdays')
@@ -196,18 +205,18 @@ div(ng-if='::profile.achievements.habitBirthdays')
     =env.t('habitBirthdayPluralText', {number: "{{::profile.achievements.habitBirthdays}}"})
   hr
 
-div(ng-if='::profile.achievements.valentine')
-  .achievement.achievement-valentine
-  h5=env.t('adoringFriends')
-  small
-    =env.t('adoringFriendsText', {cards: "{{::profile.achievements.valentine}}"})
-  hr
-
 div(ng-if='::profile.achievements.quests.dilatory')
   .achievement.achievement-dilatory
   h5=env.t('achievementDilatory')
   small
     =env.t('achievementDilatoryText')
+  hr
+
+div(ng-if='::profile.achievements.quests.stressbeast')
+  .achievement.achievement-stoikalm
+  h5=env.t('achievementStressbeast')
+  small
+    =env.t('achievementStressbeastText')
   hr
 
 div(ng-if='::profile.achievements.costumeContest')
@@ -217,16 +226,9 @@ div(ng-if='::profile.achievements.costumeContest')
     =env.t('costumeContestText')
   hr
 
-div(ng-if='::profile.achievements.nye')
-  .achievement.achievement-nye
-  h5=env.t('auldAcquaintance')
-  small
-    =env.t('auldAcquaintanceText', {cards: "{{::profile.achievements.nye}}"})
-  hr
-
-div(ng-if='::profile.achievements.quests.stressbeast')
-  .achievement.achievement-stoikalm
-  h5=env.t('achievementStressbeast')
-  small
-    =env.t('achievementStressbeastText')
-  hr
+each card in ['greeting', 'thankyou', 'nye', 'valentine']
+  div(ng-if='::profile.achievements.#{card}')
+    div(class='achievement achievement-#{card}')
+    h5=env.t(card + 'CardAchievementTitle')
+    small=env.t(card + 'CardAchievementText', {cards: "{{::profile.achievements." + card + "}}"})
+    hr

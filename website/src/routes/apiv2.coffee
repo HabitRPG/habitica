@@ -16,12 +16,11 @@ hall = require("../controllers/hall")
 challenges = require("../controllers/challenges")
 dataexport = require("../controllers/dataexport")
 nconf = require("nconf")
-middleware = require("../middleware")
 cron = user.cron
 _ = require('lodash')
 content = require('../../../common').content
 i18n = require('../i18n')
-
+forceRefresh = require('../middlewares/forceRefresh').middleware
 
 module.exports = (swagger, v2) ->
   [path,body,query] = [swagger.pathParam, swagger.bodyParam, swagger.queryParam]
@@ -326,7 +325,7 @@ module.exports = (swagger, v2) ->
         parameters:[
           body '','The array of batch-operations to perform','object'
         ]
-      middleware: [middleware.forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite]
+      middleware: [forceRefresh, auth.auth, i18n.getUserLanguage, cron, user.sessionPartyInvite]
       action: user.batchUpdate
 
     # Tags

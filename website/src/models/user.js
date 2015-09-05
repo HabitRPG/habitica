@@ -32,9 +32,7 @@ var UserSchema = new Schema({
   _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
-    helpedHabit: Boolean, //TODO: Deprecate this. Superseded by habitSurveys
     habitSurveys: Number,
-    ultimateGear: Boolean, //TODO: Deprecate this. Superseded by ultimateGearSets
     ultimateGearSets: Schema.Types.Mixed,
     beastMaster: Boolean,
     beastMasterCount: Number,
@@ -53,11 +51,13 @@ var UserSchema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean, // TODO: Deprecate this. Superseded by habitBirthdays
     habitBirthdays: Number,
     valentine: Number,
     costumeContest: Boolean,
-    nye: Number
+    nye: Number,
+    habiticaDays: Number,
+    greeting: Number,
+    thankyou: Number
   },
   auth: {
     blocked: Boolean,
@@ -142,7 +142,6 @@ var UserSchema = new Schema({
     itemsEnabled: {type: Boolean, 'default': false},
     newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
-    partyEnabled: Boolean, // FIXME do we need this?
     contributor: Boolean,
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,
@@ -163,7 +162,9 @@ var UserSchema = new Schema({
     welcomed: {type: Boolean, 'default': false},
     armoireEnabled: {type: Boolean, 'default': false},
     armoireOpened: {type: Boolean, 'default': false},
-    armoireEmpty: {type: Boolean, 'default': false}
+    armoireEmpty: {type: Boolean, 'default': false},
+    cardReceived: {type: Boolean, 'default': false},
+    warnedLowHealth: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -213,7 +214,11 @@ var UserSchema = new Schema({
       valentine: Number,
       valentineReceived: Array, // array of strings, by sender name
       nye: Number,
-      nyeReceived: Array
+      nyeReceived: Array,
+      greeting: Number,
+      greetingReceived: Array,
+      thankyou: Number,
+      thankyouReceived: Array
     },
 
     // -------------- Animals -------------------
@@ -353,10 +358,10 @@ var UserSchema = new Schema({
   profile: {
     blurb: String,
     imageUrl: String,
-    name: String,
+    name: String
   },
   stats: {
-    hp: {type: Number, 'default': 50},
+    hp: {type: Number, 'default': shared.maxHealth},
     mp: {type: Number, 'default': 10},
     exp: {type: Number, 'default': 0},
     gp: {type: Number, 'default': 0},
@@ -495,30 +500,24 @@ UserSchema.pre('save', function(next) {
   }
 
   // Determines if Beast Master should be awarded
-  var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.pets);
-
-  if (petCount >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true
+  var beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+    this.achievements.beastMaster = true;
   }
 
   // Determines if Mount Master should be awarded
-  var mountCount = shared.countMounts(_.reduce(this.items.mounts,function(m,v){
-    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
-    if(_.isFunction(v)) return m;
-    return m+(v?1:0)},0), this.items.mounts);
+  var mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
-  if (mountCount >= 90 || this.achievements.mountMasterCount > 0) {
+  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
     this.achievements.mountMaster = true
   }
 
   // Determines if Triad Bingo should be awarded
 
-  var triadCount = shared.countTriad(this.items.pets);
+  var dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+  var qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-  if ((mountCount >= 90 && triadCount >= 90) || this.achievements.triadBingoCount > 0) {
+  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
     this.achievements.triadBingo = true;
   }
 
@@ -579,11 +578,16 @@ UserSchema.methods.unlink = function(options, cb) {
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
+// Initially export an empty object so external requires will get 
+// the right object by reference when it's defined later
+// Otherwise it would remain undefined if requested before the query executes
+module.exports.mods = [];
 
 mongoose.model("User")
   .find({'contributor.admin':true})
   .sort('-contributor.level -backer.npc profile.name')
   .select('profile contributor backer')
   .exec(function(err,mods){
-    module.exports.mods = mods
+    // Using push to maintain the reference to mods
+    module.exports.mods.push.apply(module.exports.mods, mods);
 });

@@ -54,6 +54,14 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:common:clean', (cb) => {
+  pipe(exec(testBin("mocha test/common"), () => cb()));
+});
+
+gulp.task('test:common:watch', ['test:common:clean'], () => {
+  gulp.watch(['common/script/**', 'test/common/**'], ['test:common:clean']);
+});
+
 gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('mocha test/common'),
@@ -70,6 +78,31 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/server_side'),
+    (err, stdout, stderr) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
+gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('mocha test/server_side'),
+    (err, stdout, stderr) => {
+      testResults.push({
+        suite: 'Server Side Specs',
+        pass: testCount(stdout, /(\d+) passing/),
+        fail: testCount(stderr, /(\d+) failing/),
+        pend: testCount(stdout, /(\d+) pending/)
+      });
+      cb();
+    }
+  );
+  pipe(runner);
+});
 
 gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
@@ -118,15 +151,25 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
+gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
+  let runner = exec(
+    testBin('karma start'),
+    (err, stdout) => {
+    	cb(err);
+    }
+  );
+  pipe(runner);
+});
+
 gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin('karma start --single-run'),
     (err, stdout) => {
       testResults.push({
         suite: 'Karma Specs\t',
-        pass: testCount(stdout, /(\d+) tests completed/),
-        fail: testCount(stdout, /(\d+) tests failed/),
-        pend: testCount(stdout, /(\d+) tests skipped/)
+        pass: testCount(stdout, /(\d+) tests? completed/),
+        fail: testCount(stdout, /(\d+) tests? failed/),
+        pend: testCount(stdout, /(\d+) tests? skipped/)
       });
       cb();
     }
@@ -193,6 +236,7 @@ gulp.task('test:e2e:safe', ['test:prepare'], (cb) => {
 
 gulp.task('test', [
   'test:common:safe',
+  'test:server_side:safe',
   'test:karma:safe',
   'test:api:safe',
   'test:e2e:safe'

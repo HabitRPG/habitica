@@ -70,7 +70,7 @@
     "sortJoined": "Ordina per data di ingresso nella squadra",
     "sortName": "Ordina per nome avatar",
     "sortBackgrounds": "Ordina per background",
-    "sortHabitrpgJoined": "Ordina per data di registrazione a HabitRPG",
+    "sortHabitrpgJoined": "Ordina per data di registrazione ad Habitica",
     "sortHabitrpgLastLoggedIn": "Ordine per data dell'ultimo accesso",
     "ascendingSort": "Ordine crescente",
     "descendingSort": "Ordine decrescente",
@@ -94,7 +94,7 @@
     "abuseFlag": "Segnala violazione delle linee guida della community",
     "abuseFlagModalHeading": "Segnalare <%= name %> per violazione?",
     "abuseFlagModalBody": "Sei sicuro di voler segnalare questo post? Dovresti segnalare SOLO post che violano le <%= firstLinkStart %>Linee guida della community<%= linkEnd %> e/o i <%= secondLinkStart %>Termini del Servizio<%= linkEnd %>. Segnalare inappropriatamente un post è una violazione delle linee guida della community e può essere considerata come un'infrazione da parte tua.",
-    "abuseFlagModalButton": "Segnala",
+    "abuseFlagModalButton": "Segnala abuso",
     "abuseReported": "Grazie di aver segnalato questa violazione. I moderatori sono stati avvertiti.",
     "abuseAlreadyReported": "Hai già segnalato questo messaggio.",
     "needsText": "Scrivi un messaggio.",
@@ -106,7 +106,7 @@
     "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
     "sendGift": "Invia regalo",
     "inviteFriends": "Invita amici",
-    "inviteAlertInfo": "Invita amici tramite <a href='http://habitrpg.wikia.com/wiki/API_Options' target='_blank'>ID Utente</a> da qui.",
+    "inviteAlertInfo": "Invita amici tramite <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>ID Utente</a> da qui.",
     "inviteExistUser": "Invita Utente Esistente",
     "inviteByEmail": "Invita i tuoi amici tramite email. Se si iscrivono tramite la tua email, verranno automaticamente invitati in questo gruppo.",
     "byColon": "Da:",
@@ -119,7 +119,8 @@
     "sendGiftPurchase": "Acquisto",
     "sendGiftMessagePlaceholder": "Messaggio personale (facoltativo)",
     "sendGiftSubscription": "<%= months %> Mese(/i): <%= price %>$",
-    "battleWithFriends": "Battle Monsters With Friends",
+    "battleWithFriends": "Combatti i mostri con gli amici",
     "startAParty": "Crea una Squadra",
-    "addToParty": "Aggiungi qualcuno alla tua squadra"
+    "addToParty": "Aggiungi qualcuno alla tua squadra",
+    "likePost": "Fai click se ti piace questo post!"
 }

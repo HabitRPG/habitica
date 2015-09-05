@@ -194,6 +194,11 @@ angular.module('habitrpg')
           return this.settings.auth.apiId !== "";
         },
 
+        getBalanceInGems: function() {
+          var balance = user.balance || 0;
+          return balance * 4;
+        },
+
         log: function (action, cb) {
           //push by one buy one if an array passed in.
           if (_.isArray(action)) {

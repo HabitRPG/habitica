@@ -1,0 +1,7 @@
+{
+    "lostAllHealth": "HPが 0 になった!",
+    "dontDespair": "絶望してはいけません！",
+    "deathPenaltyDetails": "レベル、コイン、装備品を失いますが、たくさん戦えば再び手に入ります！あなたが活躍することを期待しています。",
+    "refillHealthTryAgain": "HPが回復しました。もう一度チャレンジしましょう",
+    "dyingOftenTips": "よく発生していますか？ <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>ここにヒントがあります！</a>"
+}

@@ -7,6 +7,8 @@
 	"node": true,
   "mocha": true,
 
+  "esnext": true,
+
 	"asi": true,
 	"boss": true,
 	"newcap": false

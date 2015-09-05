@@ -74,7 +74,6 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-            button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
             div.alert.alert-warning(style='padding:2px;margin-top:7px')
               h5=env.t('customDayStart')
@@ -191,7 +190,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         h6=env.t('APIToken')
         pre.prettyprint {{user.apiToken}}
         h6=env.t('qrCode')
-        img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
         hr
 
@@ -270,7 +269,7 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
             =env.t('emailNotifications')
           .panel-body
 
-            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'inactivityEmails', 'weeklyRecaps']
+            each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
               -var preference = 'user.preferences.emailNotifications.' + notification
               -var unsubscribeFromAll = 'user.preferences.emailNotifications.unsubscribeFromAll'
 
@@ -336,8 +335,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
           h3(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
           a.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
-          a.btn.btn-warning(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
-          a.btn.btn-default(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})") Amazon Payments
+          a.btn.btn-success(href='/paypal/subscribe?_id={{user._id}}&apiToken={{user.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key') PayPal
+          a.btn.btn-warning(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})") Amazon Payments
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')

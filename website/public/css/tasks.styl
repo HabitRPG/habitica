@@ -44,6 +44,8 @@ for $stage in $stages
         background-color: darken($stage[1], 30%)
         &:hover, &:focus
           background-color: darken($stage[1], 40%)
+      input[type=checkbox].task-input:focus + label, input.habit:focus + a
+        background-color: darken($stage[1], 40%)
       .task-actions a:nth-of-type(2)
         border-top: 1px solid darken($stage[1],50%) // If there are two habit buttons (+ -), add a border to separate them
       .task-options
@@ -91,6 +93,8 @@ for $stage in $stages
     background-color: darken($completed, 30%)
     &:hover, &:focus
       background-color: darken($completed, 40%)
+  input[type=checkbox]:focus + label
+    background-color: darken($completed, 40%)
   .task-options
     background-color: $completed
   .option-group:not(.task-checklist)
@@ -277,10 +281,13 @@ for $stage in $stages
     text-decoration: none
 
 // checkbox
-.task-checker input[type=checkbox]
+.task-checker input[type=checkbox], .task-checker input[type=checkbox]:focus
+  position: absolute
   margin: 0
   padding: 0
-  visibility: hidden
+  height: 10px
+  opacity: 0
+  width: 10px
 
 .task-checker label
   display: inline-block
@@ -334,8 +341,10 @@ for $stage in $stages
   label:hover:before,
   label:focus:before
     content: ''
-  label:hover:after,
-  label:focus:after
+  input[type=checkbox]:focus + label
+    opacity: 1 !important
+    border: none
+  label:hover:after
     content: "\E013"
     font-family: "Glyphicons Halflings"
     border: none

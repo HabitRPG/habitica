@@ -1,12 +1,12 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Shared', 'Guide', 'Tasks', 'Analytics',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Shared, Guide, Tasks, Analytics) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
     $scope.armoireCount = function(gear) {
-      return Shared.countArmoire(gear);
+      return Shared.count.remainingGearInSet(gear, 'armoire');
     };
 
     $scope.score = function(task, direction) {
@@ -212,14 +212,16 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.$watchGroup(['user.items.gear.owned', 'user.flags.armoireEnabled'], function(){
+    $scope.$watch('user.items.gear.owned', function(){
       $scope.itemStore = Shared.updateStore(User.user);
     },true);
+
+    $scope.healthPotion = Content.potion;
+    $scope.armoire = Content.armoire;
 
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
       $rootScope.playSound('Reward');
-      Guide.goto('intro', 4);
     };
 
 

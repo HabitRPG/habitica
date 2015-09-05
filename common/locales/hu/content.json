@@ -4,7 +4,7 @@
     "armoireText": "Elvarázsolt láda",
     "armoireNotesFull": "Nyisd ki a ládat, hogy véletlenszerűen speciális felszerelést, tapasztalati pontot, vagy kaját kapjál! Felszerelés darabok maradtak még:",
     "armoireLastItem": "Megtaláltad a ritka felszerelés utolsó darabját az elvarázsolt ládában.",
-    "armoireNotesEmpty": "A ládában minden hónapban új felszerelés lesz elérhető. Addig, kattintgass tovább tapasztalati pontért vagy kajáért.",
+    "armoireNotesEmpty": "A ládában új felszerelés lesz elérhető minden hónap első hetében. Addig továbbra is kattintgass Tapasztalatért és Ételért!",
     "dropEggWolfText": "Farkas",
     "dropEggWolfAdjective": "hűséges",
     "dropEggTigerCubText": "Tigriskölyök",
@@ -64,6 +64,10 @@
     "questEggSheepAdjective": "gyapjas",
     "questEggCuttlefishText": "Tintahal",
     "questEggCuttlefishAdjective": "ennivaló",
+    "questEggWhaleText": "Bálna",
+    "questEggWhaleAdjective": "spriccelő",
+    "questEggCheetahText": "Gepárd",
+    "questEggCheetahAdjective": "őszinte",
     "eggNotes": "Keress egy keltetőfőzetet ehhez a tojáshoz, és egy <%= eggAdjective(locale) %> <%= eggText(locale) %> kel majd ki belőle.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",
@@ -108,5 +112,5 @@
     "foodCandyRed": "Fahéjas cukorka",
     "foodSaddleText": "Nyereg",
     "foodSaddleNotes": "Azonnal hátassá változtatja a háziállatod.",
-    "foodNotes": "Etesd meg ezt egy háziállattal, hogy életerős hátassá váljon. "
+    "foodNotes": "Etesd meg ezt egy háziállattal, hogy életerős hátassá váljon."
 }

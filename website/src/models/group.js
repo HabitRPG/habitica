@@ -194,7 +194,7 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
 }
 
 function isOnQuest(user,progress,group){
-  return group && progress && user.party.quest.key && group.quest && user.party.quest.key == group.quest.key && group.quest.active;
+  return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
@@ -236,7 +236,8 @@ module.exports.tavern = {};
 var tavernQ = {_id:'habitrpg','quest.key':{$ne:null}};
 process.nextTick(function(){
   mongoose.model('Group').findOne(tavernQ,function(err,tavern){
-    module.exports.tavern = tavern;
+    // Using _assign so we don't lose the reference to the exported tavern
+    _.assign(module.exports.tavern, tavern);
   });
 })
 GroupSchema.statics.tavernBoss = function(user,progress) {

@@ -4,23 +4,35 @@
   // Habits
   .task-actions(ng-if='::task.type=="habit"')
     // score() is overridden in challengesCtrl to do nothing
+    input.task-input.habit.visuallyhidden(
+      ng-if='task.up',
+      type='checkbox',
+      ui-keypress='{ 13:"score(task, \'up\')" }' )
     a(ng-if='task.up', ng-click='applyingAction || score(task,"up")')
       span.glyphicon.glyphicon-plus
+    input.task-input.habit.visuallyhidden(
+      ng-if='task.down',
+      type='checkbox',
+      ui-keypress='{ 13:"score(task, \'down\')" }' )
     a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
       span.glyphicon.glyphicon-minus
 
   // Rewards
   span(ng-if='::task.type=="reward"')
+    input.task-input.reward.visuallyhidden(
+      type='checkbox',
+      ui-keypress='{ 13:"score(task, \'down\')" }' )
     a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down")')
       span.shop_gold
       span.reward-cost {{task.value}}
 
   // Daily & Todos
   span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"')
-    input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task.id}}', type='checkbox', 
-      ng-model='task.completed', ng-if='$state.includes("tasks")', 
-      ng-change='task.type=="todo" && pushTask(task,$index,"bottom"); changeCheck(task)')
-    input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task.id}}', type='checkbox', 
+    input.task-input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task.id}}', type='checkbox',
+      ng-model='task.completed', ng-if='$state.includes("tasks")',
+      ng-change='task.type=="todo" && pushTask(task,$index,"bottom"); changeCheck(task)'
+      ui-keypress='{13:"task.completed = !task.completed; changeCheck(task)"}' )
+    input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task.id}}', type='checkbox',
       ng-if='!$state.includes("tasks")')
     label(for='box-{{::obj._id}}_{{::task.id}}')
 

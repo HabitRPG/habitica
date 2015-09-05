@@ -94,7 +94,7 @@ describe('notificationServices', function() {
 
     expect($.pnotify).to.have.been.calledThrice;
     expect(arg.type).to.eql('xp');
-    expect(arg.text).to.eql('+ 50 XP');
+    expect(arg.text).to.eql('+ 50 Experience');
     expect(arg.icon).to.eql('glyphicon glyphicon-star');
   });
 
@@ -104,7 +104,7 @@ describe('notificationServices', function() {
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('xp');
-    expect(arg.text).to.eql('+ 50.2 XP');
+    expect(arg.text).to.eql('+ 50.2 Experience');
     expect(arg.icon).to.eql('glyphicon glyphicon-star');
   });
 
@@ -134,7 +134,7 @@ describe('notificationServices', function() {
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('hp');
-    expect(arg.text).to.eql('+ 10 HP');
+    expect(arg.text).to.eql('+ 10 Health');
     expect(arg.icon).to.eql('glyphicon glyphicon-heart');
   });
 
@@ -170,7 +170,7 @@ describe('notificationServices', function() {
 
     expect($.pnotify).to.have.been.calledOnce;
     expect(arg.type).to.eql('mp');
-    expect(arg.text).to.eql('+ 10 MP');
+    expect(arg.text).to.eql('+ 10 Mana');
     expect(arg.icon).to.eql('glyphicon glyphicon-fire');
   });
 

@@ -17,6 +17,7 @@ var EmailUnsubscription = require('./../models/emailUnsubscription').model;
 var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
+var analytics = utils.analytics;
 
 /*
   ------------------------------------------------------------------------
@@ -442,6 +443,7 @@ api.join = function(req, res, next) {
     user.save();
     // invite new user to pending quest
     if (group.quest.key && !group.quest.active) {
+      User.update({_id:user._id},{$set: {'party.quest.RSVPNeeded': true, 'party.quest.key': group.quest.key}}).exec();
       group.quest.members[user._id] = undefined;
       group.markModified('quest.members');
     }
@@ -460,6 +462,9 @@ api.join = function(req, res, next) {
   if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
+    if (group.members.length === 0) {
+      group.leader = user._id;
+    }
     group.members.push(user._id);
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
@@ -737,6 +742,10 @@ api.removeMember = function(req, res, next){
     return res.json(401, {err: "Only group leader can remove a member!"});
   }
 
+  if(user._id === uuid){
+    return res.json(401, {err: "You cannot remove yourself!"});
+  }
+
   if(_.contains(group.members, uuid)){
     var update = {$pull:{members:uuid}};
     if(group.quest && group.quest.members){
@@ -753,6 +762,11 @@ api.removeMember = function(req, res, next){
         if(err) return next(err);
 
         sendMessage(removedUser);
+
+        //Mark removed users messages as seen
+        var update = {$unset:{}};
+        update.$unset['newMessages.' + group._id] = '';
+        User.update({_id: removedUser._id, apiToken: removedUser.apiToken}, update).exec();
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
@@ -911,7 +925,7 @@ api.questAccept = function(req, res, next) {
     var quest = shared.content.quests[key];
     if (!quest) return res.json(404,{err:'Quest ' + key + ' not found'});
     if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to begin this quest."});
-    if (group.quest.key) return res.json(400, {err: 'Party already on a quest (and only have one quest at a time)'});
+    if (group.quest.key) return res.json(400, {err: 'Your party is already on a quest. Try again when the current quest has ended.'});
     if (!user.items.quests[key]) return res.json(400, {err: "You don't own that quest scroll"});
     group.quest.key = key;
     group.quest.members = {};
@@ -919,6 +933,14 @@ api.questAccept = function(req, res, next) {
     // or everyone has either accepted/rejected, then we store quest key in user object.
     _.each(group.members, function(m){
       if (m == user._id) {
+        var analyticsData = {
+          category: 'behavior',
+          owner: true,
+          response: 'accept',
+          gaLabel: 'accept',
+          questName: key
+        };
+        analytics.track('quest',analyticsData);
         group.quest.members[m] = true;
         group.quest.leader = user._id;
       } else {
@@ -957,6 +979,14 @@ api.questAccept = function(req, res, next) {
   // Party member accepting the invitation
   } else {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+    var analyticsData = {
+      category: 'behavior',
+      owner: false,
+      response: 'accept',
+      gaLabel: 'accept',
+      questName: group.quest.key
+    };
+    analytics.track('quest',analyticsData);
     group.quest.members[user._id] = true;
     User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false}}).exec();
     questStart(req,res,next);
@@ -968,6 +998,14 @@ api.questReject = function(req, res, next) {
   var user = res.locals.user;
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+  var analyticsData = {
+    category: 'behavior',
+    owner: false,
+    response: 'reject',
+    gaLabel: 'reject',
+    questName: group.quest.key
+  };
+  analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
   User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
   questStart(req,res,next);

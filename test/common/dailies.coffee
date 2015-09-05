@@ -49,8 +49,8 @@ newUser = (addTasks=true)->
       user.ops.addTask {body: {type: task, id: shared.uuid()}}
   user
 
-cron = (usr) ->
-  usr.lastCron = moment().subtract(1,'days')
+cron = (usr, missedDays=1) ->
+  usr.lastCron = moment().subtract(missedDays,'days')
   usr.fns.cron()
 
 describe 'daily/weekly that repeats everyday (default)', ->
@@ -59,7 +59,6 @@ describe 'daily/weekly that repeats everyday (default)', ->
   weekly = null
 
   describe 'when startDate is in the future', ->
-    
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -141,19 +140,17 @@ describe 'daily/weekly that repeats everyday (default)', ->
     it 'is due on startDate', ->
       daily_due_today = shared.shouldDo moment(), daily
       daily_due_on_start_date = shared.shouldDo moment().add(7, 'days'), daily
- 
+
       expect(daily_due_today).to.be false
       expect(daily_due_on_start_date).to.be true
 
       weekly_due_today = shared.shouldDo moment(), weekly
       weekly_due_on_start_date = shared.shouldDo moment().add(7, 'days'), weekly
- 
+
       expect(weekly_due_today).to.be false
       expect(weekly_due_on_start_date).to.be true
 
   describe 'when startDate is in the past', ->
-    completeDaily = null
-    
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -168,9 +165,14 @@ describe 'daily/weekly that repeats everyday (default)', ->
       expect(user.stats.hp).to.be.lessThan 50
 
     it 'decreases value on cron if daily is incomplete', ->
-      cron(user)
-      expect(daily.value).to.be.lessThan 0
-      expect(weekly.value).to.be.lessThan 0
+      cron(user, 1)
+      expect(daily.value).to.be -1
+      expect(weekly.value).to.be -1
+
+    it 'decreases value on cron once only if daily is incomplete and multiple days are missed', ->
+      cron(user, 7)
+      expect(daily.value).to.be -1
+      expect(weekly.value).to.be -1
 
     it 'resets checklists if daily is not marked as complete', ->
       checklist = [
@@ -196,7 +198,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
       _.each daily.checklist, (box)->
         expect(box.completed).to.be false
-      
+
       _.each weekly.checklist, (box)->
         expect(box.completed).to.be false
 
@@ -231,8 +233,6 @@ describe 'daily/weekly that repeats everyday (default)', ->
         expect(box.completed).to.be false
 
   describe 'when startDate is today', ->
-    completeDaily = null
-    
     beforeEach ->
       user = newUser()
       user.dailys = [
@@ -276,7 +276,7 @@ describe 'daily/weekly that repeats everyday (default)', ->
 
       _.each daily.checklist, (box)->
         expect(box.completed).to.be false
-      
+
       _.each weekly.checklist, (box)->
         expect(box.completed).to.be false
 
@@ -328,3 +328,91 @@ describe 'daily that repeats every x days', ->
         isDue = shared.shouldDo moment().add(day, 'days'), daily
         expect(isDue).to.be true if day % due == 0
         expect(isDue).to.be false if day % due != 0
+
+describe 'daily that repeats every X days when multiple days are missed', ->
+  everyX = 3
+  startDateDaysAgo = everyX * 3
+  user = null
+  daily = null
+
+  describe 'including missing a due date', ->
+    missedDays = everyX * 2 + 1
+
+    beforeEach ->
+      user = newUser()
+      user.dailys = [
+        shared.taskDefaults({type:'daily', startDate: moment().subtract(startDateDaysAgo, 'days'), frequency: 'daily', everyX: everyX})
+      ]
+      daily = user.dailys[0]
+
+    it 'decreases value on cron once only if daily is incomplete', ->
+      cron(user, missedDays)
+      expect(daily.value).to.be -1
+
+    it 'resets checklists if daily is incomplete', ->
+      checklist = [
+        {
+          'text' : '1',
+          'id' : 'checklist-one',
+          'completed' : true
+        }
+      ]
+      daily.checklist = checklist
+      cron(user, missedDays)
+      _.each daily.checklist, (box)->
+        expect(box.completed).to.be false
+
+    it 'resets checklists if daily is marked as complete', ->
+      checklist = [
+        {
+          'text' : '1',
+          'id' : 'checklist-one',
+          'completed' : true
+        }
+      ]
+      daily.checklist = checklist
+      daily.completed = true
+      cron(user, missedDays)
+      _.each daily.checklist, (box)->
+        expect(box.completed).to.be false
+
+  describe 'but not missing a due date', ->
+    missedDays = everyX - 1
+
+    beforeEach ->
+      user = newUser()
+      user.dailys = [
+        shared.taskDefaults({type:'daily', startDate: moment().subtract(startDateDaysAgo, 'days'), frequency: 'daily', everyX: everyX})
+      ]
+      daily = user.dailys[0]
+
+    it 'does not decrease value on cron', ->
+      cron(user, missedDays)
+      expect(daily.value).to.be 0
+
+    it 'does not reset checklists if daily is incomplete', ->
+      checklist = [
+        {
+          'text' : '1',
+          'id' : 'checklist-one',
+          'completed' : true
+        }
+      ]
+      daily.checklist = checklist
+      cron(user, missedDays)
+      _.each daily.checklist, (box)->
+        expect(box.completed).to.be true
+
+    it 'resets checklists if daily is marked as complete', ->
+      checklist = [
+        {
+          'text' : '1',
+          'id' : 'checklist-one',
+          'completed' : true
+        }
+      ]
+      daily.checklist = checklist
+      daily.completed = true
+      cron(user, missedDays)
+      _.each daily.checklist, (box)->
+        expect(box.completed).to.be false

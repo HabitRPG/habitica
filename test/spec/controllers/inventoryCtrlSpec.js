@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Inventory Controller', function() {
-  var scope, ctrl, user, $rootScope;
+  var scope, ctrl, user, rootScope;
 
   beforeEach(function() {
     module(function($provide) {
@@ -9,13 +9,17 @@ describe('Inventory Controller', function() {
     });
 
     inject(function($rootScope, $controller, Shared){
-      user = specHelper.newUser();
-      user.balance = 4;
-      user.items.eggs = {Cactus: 1};
-      user.items.hatchingPotions = {Base: 1};
-      user.items.food = {Meat: 1};
-      user.items.pets = {}
-      user.items.mounts = {};
+      user = specHelper.newUser({
+        balance: 4,
+        items: {
+          eggs: { Cactus: 1 },
+          hatchingPotions: { Base: 1 },
+          food: { Meat: 1 },
+          pets: {},
+          mounts: {}
+        }
+      });
+
       Shared.wrap(user);
       var mockWindow = {
         confirm: function(msg){
@@ -23,6 +27,7 @@ describe('Inventory Controller', function() {
         }
       };
       scope = $rootScope.$new();
+      rootScope = $rootScope;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: {user: user}, $window: mockWindow});
@@ -89,4 +94,65 @@ describe('Inventory Controller', function() {
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
   }));
+
+  describe('Deselecting Items', function() {
+    it('deselects a food', function(){
+      scope.chooseFood('Meat');
+      scope.deselectItem();
+      expect(scope.selectedFood).to.eql(null);
+    });
+
+    it('deselects a potion', function(){
+      scope.choosePotion('Base');
+      scope.deselectItem();
+      expect(scope.selectedPotion).to.eql(null);
+    });
+
+    it('deselects a egg', function(){
+      scope.chooseEgg('Cactus');
+      scope.deselectItem();
+      expect(scope.selectedEgg).to.eql(null);
+    });
+  });
+
+  describe('openCardsModal', function(type, numberOfVariations) {
+    var cardsModalScope;
+
+    beforeEach(function() {
+      cardsModalScope = {};
+      sandbox.stub(rootScope, 'openModal');
+      sandbox.stub(rootScope, '$new').returns(cardsModalScope);
+    });
+
+    it('opens cards modal', function() {
+      scope.openCardsModal('valentine', 4);
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith(
+        'cards'
+      );
+    });
+
+    it('instantiates a new scope for the modal', function() {
+      scope.openCardsModal('valentine', 4);
+
+      expect(rootScope.$new).to.be.calledOnce;
+      expect(cardsModalScope.cardType).to.eql('valentine');
+      expect(cardsModalScope.cardMessage).to.exist;
+    });
+
+    it('provides a card message', function() {
+      scope.openCardsModal('valentine', 1);
+
+      expect(cardsModalScope.cardMessage).to.eql(env.t('valentine0'));
+    });
+
+    it('randomly generates message from x number of messages', function() {
+      var possibleValues = [env.t('valentine0'), env.t('valentine1')];
+
+      scope.openCardsModal('valentine', 2);
+
+      expect(possibleValues).to.contain(cardsModalScope.cardMessage);
+    });
+  });
 });
