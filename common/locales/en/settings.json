@@ -22,7 +22,6 @@
     "fixValPop": "Manually change values like Health, Level, and Gold.",
     "enableClass": "Enable Class System",
     "enableClassPop": "You opted out of the class system initially. Would you like now to opt-in?",
-    "showClass": "Show Classes Tour",
     "classTourPop": "Show the tour for using the class system.",
     "resetAccount": "Reset Account",
     "resetAccPop": "Start over, removing all levels, gold, gear, history, and tasks.",

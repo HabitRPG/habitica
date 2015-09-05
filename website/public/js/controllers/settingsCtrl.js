@@ -58,10 +58,6 @@ habitrpg.controller('SettingsCtrl',
       Guide.goto('intro', 0, true);
     }
 
-    $scope.showClassesTour = function(){
-      Guide.goto('classes', 0, true);
-    }
-
     $scope.showBailey = function(){
       User.set({'flags.newStuff':true});
     }
