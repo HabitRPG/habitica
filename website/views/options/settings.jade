@@ -39,9 +39,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 strong
                   !=env.t('helpWithTranslation')
 
+            hr
+
             .form-horizontal
               h5=env.t('dateFormat')
               select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='set({"preferences.dateFormat": user.preferences.dateFormat})')
+
+            hr
+
             .checkbox
               label
                 input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
@@ -71,19 +76,24 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('displayInviteToPartyWhenPartyIs1'))=env.t('displayInviteToPartyWhenPartyIs1')
             // button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
+
+            hr
+
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
 
-            div.alert.alert-warning(style='padding:2px;margin-top:7px')
-              h5=env.t('customDayStart')
+            hr
+
+            h5=env.t('customDayStart')
+            .alert.alert-warning
               h5=env.t('customDayStartInfo1')
                 a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
-              .form-group
-                .input-group
-                  input.form-control(type='number', min='0', max='23', ng-model='dayStart', ng-blur='saveDayStart(dayStart)')
-                  span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
+            .form-group
+              .input-group
+                input.form-control(type='number', min='0', max='23', ng-model='dayStart', ng-blur='saveDayStart(dayStart)')
+                span.input-group-addon= ':00 (' + env.t('24HrClock') + ')'
 
       .personal-options.col-md-6
         .panel.panel-default
