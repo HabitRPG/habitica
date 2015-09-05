@@ -74,7 +74,6 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
             button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
             button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-            button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
             div.alert.alert-warning(style='padding:2px;margin-top:7px')
               h5=env.t('customDayStart')
