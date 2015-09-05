@@ -77,7 +77,7 @@ habitrpg.controller('SettingsCtrl',
       }
     };
 
-    $scope.saveDayStart = function(varDayStart){
+    $scope.saveDayStart = function(varDayStart) {
       var oldDayStart = User.user.preferences.dayStart;
       var newDayStart = varDayStart;
 
