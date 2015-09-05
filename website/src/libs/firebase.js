@@ -25,7 +25,7 @@ api.addUserToGroup = function(groupId, userId){
   firebaseRef.child('members/' + groupId + '/' + userId)
     .set(true);
 
-  firebaseRef.child('users/' + userId + '/' + groupId)
+  firebaseRef.child('users/' + userId + '/rooms/' + groupId)
     .set(true);
 };
 
@@ -35,10 +35,10 @@ api.removeUserFromGroup = function(groupId, userId){
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
 
   firebaseRef.child('members/' + groupId + '/' + userId)
-    .set(false);
+    .remove();
 
   firebaseRef.child('users/' + userId + '/' + groupId)
-    .set(false);
+    .remove();
 };
 
 api.userLeaves
