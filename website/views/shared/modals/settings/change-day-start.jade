@@ -7,9 +7,6 @@
       p=env.t('nextCron', {time: '{{nextCron | date: "M/d/yy \'@\' h:mm a"}}'})
       p=env.t('sureChangeCustomDayStart')
 
-    .alert.alert-info
-      div last cron {{user.lastCron}}
-
   .modal-footer
     a.btn.btn-default(ng-click='$close()')=env.t('close')
     a.btn.btn-danger(ng-click='saveDayStart(); $close()')=env.t('confirm')
