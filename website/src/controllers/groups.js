@@ -463,6 +463,9 @@ api.join = function(req, res, next) {
   if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
+    if (group.members.length === 0) {
+      group.leader = user._id;
+    }
     group.members.push(user._id);
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
@@ -732,6 +735,10 @@ api.removeMember = function(req, res, next){
 
   if(group.leader !== user._id){
     return res.json(401, {err: "Only group leader can remove a member!"});
+  }
+
+  if(user._id === uuid){
+    return res.json(401, {err: "You cannot remove yourself!"});
   }
 
   if(_.contains(group.members, uuid)){

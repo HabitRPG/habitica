@@ -5,7 +5,7 @@ node_modules
 *.swp
 .idea*
 config.json
-npm-debug.log
+npm-debug.log*
 lib
 website/public/bower_components
 website/public/new-stuff.html
