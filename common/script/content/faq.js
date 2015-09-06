@@ -2,7 +2,7 @@
 
 require('coffee-script');
 
-var t = require('./translation.coffee');
+var t = require('./translation.js');
 
 var faq = {};
 
