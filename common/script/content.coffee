@@ -1203,6 +1203,12 @@ api.food =
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: t('foodNotes')}
 
+api.userCanOwnQuestCategories = [
+  'unlockable'
+  'gold'
+  'pet'
+]
+
 api.quests =
 
   dilatory:
