@@ -129,7 +129,7 @@ describe "Party", ->
     group = undefined
     participating = []
     notParticipating = []
-    before (done) ->
+    beforeEach (done) ->
       # Tavern boss, side-by-side
       Group.update(
         _id: "habitrpg"
@@ -309,6 +309,20 @@ describe "Party", ->
       request.get(baseURL + "/groups/" + group._id).end (res) ->
         expect(_.size(res.body.quest.members)).to.equal 3
         done()
+
+    it "allows quest participants to leave quest", (done) ->
+      leavingMember = party[1]
+      expect(group.quest.members[leavingMember._id]).to.eql(true)
+
+      request.post(baseURL + "/groups/" + group._id + "/questLeave")
+        .set("X-API-User", leavingMember._id)
+        .set("X-API-Key", leavingMember.apiToken)
+        .end (err, res) ->
+          expectCode res, 204
+          request.get(baseURL + '/groups/party')
+            .end (err, res) ->
+              expect(res.body.quest.members[leavingMember._id]).to.not.be.ok
+              done()
 
     xit "Hurts the boss", (done) ->
       request.post(baseURL + "/user/batch-update").end (res) ->

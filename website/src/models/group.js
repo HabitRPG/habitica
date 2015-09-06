@@ -361,13 +361,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
   var groupWasRemoved = false;
   
   async.parallel([
-    // Remove active quest from user if they're leaving the party
-    function(cb){
-      if (group.type != 'party') return cb(null, {} ,1);
-      user.party.quest = Group.cleanQuestProgress();
-      user.save(cb);
-    },
-
     // Remove user from group challenges
     function(cb){
       async.waterfall([
@@ -419,27 +412,18 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
 
-        if (group.type == 'party' && group.quest.key){
-          update['$unset'] = {};
-          update['$unset']['quest.members.' + user._id] = 1;
-        }
-
-        var seniorMember = _.find(group.members, function (m) {return m != user._id});
         // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
         var leader = group.leader;
 
-        // could not exist in case of public guild with 1 member who is leaving
-        if(seniorMember){
-          if (leader == user._id || !~group.members.indexOf(leader)) {
-            update['$set'] = update['$set'] || {};
-            update['$set'].leader = seniorMember;
-          }
+        if(leader == user._id || !~group.members.indexOf(leader)){
+          var seniorMember = _.find(group.members, function (m) {return m != user._id});
 
-          leader = group.quest && group.quest.leader;
-
-          if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
-            update['$set'] = update['$set'] || {};
-            update['$set']['quest.leader'] = seniorMember;
+          // could not exist in case of public guild with 1 member who is leaving
+          if(seniorMember){
+            if (leader == user._id || !~group.members.indexOf(leader)) {
+              update['$set'] = update['$set'] || {};
+              update['$set'].leader = seniorMember;
+            }
           }
         }
 

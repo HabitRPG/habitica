@@ -1,21 +1,29 @@
-script(type='text/ng-template', id='modals/invite-friends.html')
+script(type='text/ng-template', id='modals/invite-guild.html')
   .modal-header
     h4=env.t('inviteFriends')
   .modal-body
     p.alert.alert-info!=env.t('inviteAlertInfo')
-
-    form.form-inline(ng-submit='invite()')
-      //-.alert.alert-danger(ng-show='_groupError') {{_groupError}}
-      .form-group
-        input.form-control(type='text', placeholder=env.t('userId'), ng-model='invitee')
-        |&nbsp;
-        button.btn.btn-primary(type='submit')=env.t('inviteExistUser')
-
+    form.form-horizontal(ng-submit='inviteNewUsers("uuid")')
+      table.table.table-striped
+        thead
+          tr
+            th=env.t('userId')
+        tbody
+          tr(ng-repeat='user in invitees track by $index')
+            td
+              input.form-control(type='text', ng-model='user.uuid')
+          //- @TODO: Refactor src/controllers/groups api.invite to use promises before implimenting this
+          //- tr
+          //-   td
+          //-     a.btn.btn-xs.pull-right(ng-click='addUuid()')
+          //-       i.glyphicon.glyphicon-plus
+          tr
+            td
+              .col-sm-4.col-sm-offset-8
+                button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
     hr
-
     p.alert.alert-info=env.t('inviteByEmail')
-
-    form.form-horizontal(ng-submit='inviteEmails()')
+    form.form-horizontal(ng-submit='inviteNewUsers("email")')
       table.table.table-striped
         thead
           tr
@@ -29,7 +37,7 @@ script(type='text/ng-template', id='modals/invite-friends.html')
               input.form-control(type='email', ng-model='email.email')
           tr
             td(colspan=2)
-              a.btn.btn-xs.pull-right(ng-click='emails = emails.concat([{name:"",email:""}])')
+              a.btn.btn-xs.pull-right(ng-click='addEmail()')
                 i.glyphicon.glyphicon-plus
           tr
             td.form-group(colspan=2)
@@ -37,12 +45,76 @@ script(type='text/ng-template', id='modals/invite-friends.html')
               .col-sm-7
                 input.form-control(type='text', ng-model='inviter')
               .col-sm-4
-                button.btn.btn-primary.btn-wrap(type='submit')=env.t('inviteNewUsers')
-    //-
-      hr
-      p.alert.alert-info=env.t('inviteAlertInfo2')
-      input.form-control(type='text', ng-value='inviteLink({id: party._id, inviter: user._id, name: party.name})')
-
+                button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 
+script(type='text/ng-template', id='modals/invite-party.html')
+  .modal-body
+    div(ng-if='!group._id')
+      h4(style='margin-top:0')=env.t('nameYourParty')
+      input.form-control#new-group-name.input-medium.option-content(required, type='text', ng-model='group.name')
+    tabset
+      tab(heading=env.t('inviteByEmail'))
+        p.alert.alert-info=env.t('inviteByEmailExplanation')
+        form.form-horizontal(ng-submit='inviteNewUsers("email")')
+          table.table.table-striped
+            thead
+              tr
+                th=env.t('name')
+                th=env.t('email')
+            tbody
+              tr(ng-repeat='email in emails')
+                td
+                  input.form-control(type='text', ng-model='email.name')
+                td
+                  input.form-control(type='email', ng-model='email.email')
+              tr
+                td(colspan=2)
+                  a.btn.btn-xs.pull-right(ng-click='addEmail()')
+                    i.glyphicon.glyphicon-plus
+              tr
+                td.form-group(colspan=2)
+                  label.col-sm-1.control-label=env.t('byColon')
+                  .col-sm-7
+                    input.form-control(type='text', ng-model='inviter')
+                  .col-sm-4
+                    button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
+      tab(heading=env.t('inviteExistUser'))
+        p.alert.alert-info!=env.t('inviteAlertInfo')
+        form.form-horizontal(ng-submit='inviteNewUsers("uuid")')
+          table.table.table-striped
+            thead
+              tr
+                th=env.t('userId')
+            tbody
+              tr(ng-repeat='user in invitees track by $index')
+                td
+                  input.form-control(type='text', ng-model='user.uuid')
+              //- @TODO: Refactor src/controllers/groups api.invite to use promises before implimenting this
+              //- tr
+              //-   td
+              //-     a.btn.btn-xs.pull-right(ng-click='addUuid()')
+              //-       i.glyphicon.glyphicon-plus
+              tr
+                td
+                  .col-sm-4.col-sm-offset-8
+                    button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
+    .row
+      .quest_basilist.pull-left
+      p(style='margin:2em')=env.t('exclusiveQuestScroll')
+      button.btn.btn-default.pull-right(style='margin:auto 1em', ng-click='$close()')=env.t('close')
+    .modal-footer(style='padding-bottom:0',ng-if='!group._id || group.memberCount < 2')
+      p!=env.t('wantExistingParty', {linkStart: "<a href='/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>", linkEnd: "</a>"})
+      pre(style='margin:1em 0 0 0').
+        {{::user._id}}
+
+script(type='text/ng-template', id='modals/user-id.html')
+  .modal-header
+    h4=env.t('userId')
+  .modal-body
+    p!=env.t('wantExistingParty', {linkStart: "<a href='/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'>", linkEnd: "</a>"})
+    pre(style='margin:1em 0 0 0').
+      {{::user._id}}
+  .modal-footer
+    .btn.btn-default.pull-right(ng-click='$close()')=env.t('close')
