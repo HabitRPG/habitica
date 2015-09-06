@@ -358,6 +358,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
   if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
 
   var group = this;
+  var groupWasRemoved = false;
   
   async.parallel([
     // Remove active quest from user if they're leaving the party
@@ -411,6 +412,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           (group.type === 'guild' && group.privacy === 'private')
       )){
         // TODO remove invitations to this group
+        groupWasRemoved = true;
         Group.remove({
           _id: group._id
         }, cb);
@@ -449,6 +451,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
     if(err) return mainCb(err);
 
     firebase.removeUserFromGroup(group._id, user._id);
+    if(groupWasRemoved) firebase.deleteGroup(group._id);
     return mainCb();
   });
 };

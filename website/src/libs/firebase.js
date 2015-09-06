@@ -18,7 +18,6 @@ var api = module.exports = {};
 
 api.addUserToGroup = function(groupId, userId){
   if(!isProd) return;
-
   // TODO is throw ok? we don't have callbacks
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
 
@@ -31,13 +30,28 @@ api.addUserToGroup = function(groupId, userId){
 
 api.removeUserFromGroup = function(groupId, userId){
   if(!isProd) return;
-
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
 
   firebaseRef.child('members/' + groupId + '/' + userId)
     .remove();
 
   firebaseRef.child('users/' + userId + '/' + groupId)
+    .remove();
+};
+
+api.deleteGroup = function(groupId){
+  if(!isProd) return;
+  if(!groupId) throw new Error('groupId is required.');
+
+  firebaseRef.child('members/' + groupId)
+    .remove();
+};
+
+api.deleteUser = function(userId){
+  if(!isProd) return;
+  if(!userId) throw new Error('userId is required.');
+
+  firebaseRef.child('users/' + userId)
     .remove();
 };
 

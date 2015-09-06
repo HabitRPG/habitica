@@ -16,6 +16,7 @@ var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
+var firebase = require('../libs/firebase');
 var webhook = require('../webhook');
 
 // api.purchase // Shared.ops
@@ -386,6 +387,8 @@ api['delete'] = function(req, res, next) {
 
       user.remove(function(err){
         if(err) return next(err);
+
+        firebase.deleteUser(user._id);
         res.send(200);
       });
     });
