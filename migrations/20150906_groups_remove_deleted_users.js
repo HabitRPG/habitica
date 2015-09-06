@@ -33,6 +33,7 @@ dbGroups.findEach({}, {_id: 1, members: 1}, {batchSize: 500}, function(err, grou
         countUsers++;
         console.log('User: ', countUsers);
 
+        // TODO updating the same group many times concurrently can cause problems?
         dbGroups.update({
           _id: group._id
         }, {
