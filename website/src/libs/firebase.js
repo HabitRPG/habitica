@@ -1,6 +1,6 @@
 var Firebase = require('firebase');
 var nconf = require('nconf');
-var isProd = nconf.get('NODE_ENV') === 'production';
+var isProd = true;
 var firebaseRef;
 var firebaseConfig = nconf.get('FIREBASE');
 
@@ -35,10 +35,12 @@ api.removeUserFromGroup = function(groupId, userId){
   firebaseRef.child('members/' + groupId + '/' + userId)
     .remove();
 
-  firebaseRef.child('users/' + userId + '/' + groupId)
+  firebaseRef.child('users/' + userId + '/rooms/' + groupId)
     .remove();
 };
 
+// FIXME not really necessary as long as we only store room data,
+// as empty objects are automatically deleted (/members/... in future...)
 api.deleteGroup = function(groupId){
   if(!isProd) return;
   if(!groupId) throw new Error('groupId is required.');
@@ -47,6 +49,8 @@ api.deleteGroup = function(groupId){
     .remove();
 };
 
+// FIXME not really necessary as long as we only store room data,
+// as empty objects are automatically deleted
 api.deleteUser = function(userId){
   if(!isProd) return;
   if(!userId) throw new Error('userId is required.');
