@@ -2268,3 +2268,5 @@ api.userDefaults =
     {name: t('defaultTag2')}
     {name: t('defaultTag3')}
   ]
+
+api.faq = require './faq.js'
