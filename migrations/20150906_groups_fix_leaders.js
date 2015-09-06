@@ -29,7 +29,7 @@ dbGroups.findEach({}, {_id: 1, members: 1, leader: 1}, {batchSize: 500}, functio
     if(err) throw err;
 
     // If leader has deleted account
-    if(count < 1 && (group._id !== 'habitrpg')) {
+    if(count < 1 && (group._id !== 'habitrpg') && members && members[0]) {
       dbGroups.update({
         _id: group._id
       }, {
