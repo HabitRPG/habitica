@@ -1,13 +1,8 @@
-_ = require 'lodash'
 api = module.exports
+
+_ = require 'lodash'
 moment = require 'moment'
-i18n = require './i18n.coffee'
-t = (string, vars) ->
-  func = (lang) ->
-    vars ?= {a: 'a'}
-    i18n.t(string, vars, lang)
-  func.i18nLangFunc = true #Trick to recognize this type of function
-  func
+t = require './translation.js'
 
 ###
   ---------------------------------------------------------------
@@ -2273,3 +2268,5 @@ api.userDefaults =
     {name: t('defaultTag2')}
     {name: t('defaultTag3')}
   ]
+
+api.faq = require './faq.js'

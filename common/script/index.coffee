@@ -1,6 +1,6 @@
 moment = require('moment')
 _ = require('lodash')
-content = require('./content.coffee')
+content = require('./content/index.coffee')
 i18n = require('./i18n.coffee')
 api = module.exports = {}
 
@@ -923,7 +923,7 @@ api.wrap = (user, main=true) ->
         item = if key is 'potion' then content.potion
         else if key is 'armoire' then content.armoire
         else content.gear.flat[key]
-        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
+        return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content/index.coffee)"}) unless item
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.value
         return cb?({code:401, message: "You can't buy this item"}) if item.canOwn? and !item.canOwn(user)
         armoireResp = undefined
@@ -980,8 +980,8 @@ api.wrap = (user, main=true) ->
       buyQuest: (req, cb, analytics) ->
         {key} = req.params
         item = content.quests[key]
-        return cb?({code:404, message:"Quest '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item
-        return cb?({code:404, message:"Quest '#{key} is not a Gold-purchasable quest (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content.coffee)"}) unless item.category is 'gold' and item.goldValue
+        return cb?({code:404, message:"Quest '#{key} not found (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content/index.coffee)"}) unless item
+        return cb?({code:404, message:"Quest '#{key} is not a Gold-purchasable quest (see https://github.com/HabitRPG/habitrpg/blob/develop/common/script/content/index.coffee)"}) unless item.category is 'gold' and item.goldValue
         return cb?({code:401, message: i18n.t('messageNotEnoughGold', req.language)}) if user.stats.gp < item.goldValue
         message = i18n.t('messageBought', {itemText: item.text(req.language)}, req.language)
         user.items.quests[item.key] ?= 0
@@ -1063,7 +1063,7 @@ api.wrap = (user, main=true) ->
         fullSet = ~path.indexOf(",")
         cost =
           # (Backgrounds) 15G per set, 7G per individual
-          if ~path.indexOf('background.') # FIXME, store prices of things in content.coffee instead of hard-coded here?
+          if ~path.indexOf('background.') # FIXME, store prices of things in content/index.coffee instead of hard-coded here?
             if fullSet then 3.75 else 1.75
           # (Skin, hair, etc) 5G per set, 2G per individual
           else
