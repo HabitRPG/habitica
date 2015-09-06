@@ -4,7 +4,7 @@
 
   .modal-body
     .alert.alert-danger
-      p=env.t('nextCron', {time: '{{nextCron | date: "M/d/yy \'@\' h:mm a"}}'})
+      p=env.t('nextCron', {time: '{{nextCron | date: user.preferences.dateFormat + " @ h:mm a"}}'})
       p=env.t('sureChangeCustomDayStart')
 
   .modal-footer
