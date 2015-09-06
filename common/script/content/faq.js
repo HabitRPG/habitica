@@ -11,7 +11,7 @@ faq.questions = [];
 
 for (var i = 1; i <= NUMBER_OF_QUESTIONS; i++) {
   var question = {
-    question: t('mobileFaqQuestion' + i),
+    question: t('faqQuestion' + i),
     ios: t('iosFaqAnswer' + i)
   };
 
@@ -19,7 +19,7 @@ for (var i = 1; i <= NUMBER_OF_QUESTIONS; i++) {
 }
 
 faq.stillNeedHelp = {
-  ios: t('iosStillNeedHelp')
+  ios: t('faqStillNeedHelp')
 };
 
 module.exports = faq;
