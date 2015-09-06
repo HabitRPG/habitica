@@ -72,6 +72,7 @@
     },
     "FIREBASE": {
         "APP": "app-name",
-        "SECRET": "secret"
+        "SECRET": "secret",
+        "ENABLED": "false"
     }
 }
