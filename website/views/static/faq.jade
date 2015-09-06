@@ -17,83 +17,13 @@ block content
         |&nbsp;
         =env.t('September')
         |&nbsp;4&comma; 2015
-      a.h2.accordion.collapsed(href='#overview' data-toggle='collapse')=env.t('FAQheaderOverview')
-      .clearfix.collapse#overview
-        p!=env.t('FAQbodyOverview-1')
-      a.h2.accordion.collapsed(href='#set-up-tasks' data-toggle='collapse')=env.t('FAQheaderSetUpTasks')
-      .clearfix.collapse#set-up-tasks
-        p!=env.t('FAQbodySetUpTasks-1')
-        br
-        p=env.t('FAQbodySetUpTasks-2')
-        br
-        p=env.t('FAQbodySetUpTasks-3')
-      a.h2.accordion.collapsed(href='#sample-tasks' data-toggle='collapse')=env.t('FAQheaderSampleTasks')
-      .clearfix.collapse#sample-tasks
-        p=env.t('FAQbodySampleTasks-1')
-        br
-        ul
-          li!=env.t('FAQlistSampleTasks-1')
-          li!=env.t('FAQlistSampleTasks-2')
-          li!=env.t('FAQlistSampleTasks-3')
-          li!=env.t('FAQlistSampleTasks-4')
-      a.h2.accordion.collapsed(href='#task-color' data-toggle='collapse')=env.t('FAQheaderTaskColor')
-      .clearfix.collapse#task-color
-        p=env.t('FAQbodyTaskColor-1')
-      a.h2.accordion.collapsed(href='#health' data-toggle='collapse')=env.t('FAQheaderHealth')
-      .clearfix.collapse#health
-        p=env.t('FAQbodyHealth-1')
-        br
-        p=env.t('FAQbodyHealth-2')
-      a.h2.accordion.collapsed(href='#party-with-friends' data-toggle='collapse')=env.t('FAQheaderPartyWithFriends')
-      .clearfix.collapse#party-with-friends
-        p=env.t('FAQbodyPartyWithFriends-1')
-        br
-        p!=env.t('FAQbodyPartyWithFriends-2')
-      a.h2.accordion.collapsed(href='#pets-mounts' data-toggle='collapse')=env.t('FAQheaderPetsMounts')
-      .clearfix.collapse#pets-mounts
-        p=env.t('FAQbodyPetsMounts-1')
-        br
-        p=env.t('FAQbodyPetsMounts-2')
-        br
-        p!=env.t('FAQbodyPetsMounts-3')
-        br
-        p=env.t('FAQbodyPetsMounts-4')
-      a.h2.accordion.collapsed(href='#character-classes' data-toggle='collapse')=env.t('FAQheaderCharacterClasses')
-      .clearfix.collapse#character-classes
-        p=env.t('FAQbodyCharacterClasses-1')
-        br
-        p=env.t('FAQbodyCharacterClasses-2')
-      a.h2.accordion.collapsed(href='#blue-mana-bar' data-toggle='collapse')=env.t('FAQheaderBlueManaBar')
-      .clearfix.collapse#blue-mana-bar
-        p=env.t('FAQbodyBlueManaBar-1')
-      a.h2.accordion.collapsed(href='#monsters-quests' data-toggle='collapse')=env.t('FAQheaderMonstersQuests')
-      .clearfix.collapse#monsters-quests
-        p=env.t('FAQbodyMonstersQuests-1')
-        br
-        p=env.t('FAQbodyMonstersQuests-2')
-        br
-        ul
-          li=env.t('FAQlistMonstersQuests-1')
-          li=env.t('FAQlistMonstersQuests-2')
-          li=env.t('FAQlistMonstersQuests-3')
-        br
-        p=env.t('FAQbodyMonstersQuests-3')
-        br
-        p=env.t('FAQbodyMonstersQuests-4')
-      a.h2.accordion.collapsed(href='#gems' data-toggle='collapse')=env.t('FAQheaderGems')
-      .clearfix.collapse#gems
-        p!=env.t('FAQbodyGems-1')
-        br
-        p=env.t('FAQbodyGems-2')
-        br
-        ol
-          li=env.t('FAQlistGems-1')
-          li!=env.t('FAQlistGems-2')
-        br
-        p=env.t('FAQbodyGems-3')
-      a.h2.accordion.collapsed(href='#bugs-features' data-toggle='collapse')=env.t('FAQheaderBugsFeatures')
-      .clearfix.collapse#bugs-features
-        p!=env.t('FAQbodyBugsFeatures-1')
-        br
-        p!=env.t('FAQbodyBugsFeatures-2')
-      h3!=env.t('FAQcloser')
+
+      - var headings = ['overview', 'set-up-tasks', 'sample-tasks', 'task-color', 'health', 'party-with-friends', 'pets-mounts', 'character-classes', 'blue-mana-bar', 'monsters-quests', 'gems', 'bugs-features']
+      - var questions = env.Content.faq.questions
+      - for (var h in headings)
+        - var faqNumber = 1 + +h
+        a.h2.accordion.collapsed(href='#' + headings[h], data-toggle='collapse')=env.t('faqQuestion' + faqNumber)
+        .clearfix.collapse(id=headings[h])
+          p!=env.t('webFaqAnswer' + faqNumber)
+
+      h3!=env.t('webFaqStillNeedHelp')
