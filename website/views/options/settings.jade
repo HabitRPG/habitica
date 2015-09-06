@@ -101,7 +101,9 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
                 .col-sm-5
                   br.visible-xs
-                  button.btn.btn-block.btn-primary(ng-click='openDayStartModal(dayStart)') Save Custom Day Start
+                  button.btn.btn-block.btn-primary(ng-click='openDayStartModal(dayStart)',
+                    ng-disabled='dayStart == user.preferences.dayStart')
+                    | Save Custom Day Start
 
       .personal-options.col-md-6
         .panel.panel-default
