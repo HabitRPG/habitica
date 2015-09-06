@@ -1,6 +1,6 @@
 var Firebase = require('firebase');
 var nconf = require('nconf');
-var isProd = nconf.get('NODE_ENV') === 'production';
+var isProd = false //nconf.get('NODE_ENV') === 'production';
 var firebaseRef;
 var firebaseConfig = nconf.get('FIREBASE');
 
@@ -18,6 +18,7 @@ var api = module.exports = {};
 
 api.updateGroupData = function(group){
   if(!isProd) return;
+  // TODO is throw ok? we don't have callbacks
   if(!group) throw new Error('group is required.');
   // Return in case of tavern (comparison working because we use string for _id)
   if(group._id === 'habitrpg') return;
@@ -30,7 +31,6 @@ api.updateGroupData = function(group){
 
 api.addUserToGroup = function(groupId, userId){
   if(!isProd) return;
-  // TODO is throw ok? we don't have callbacks
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
   if(groupId === 'habitrpg') return;
 
@@ -76,5 +76,3 @@ api.deleteUser = function(userId){
   firebaseRef.child('users/' + userId)
     .remove();
 };
-
-api.userLeaves
