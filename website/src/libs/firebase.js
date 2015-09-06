@@ -1,6 +1,6 @@
 var Firebase = require('firebase');
 var nconf = require('nconf');
-var isProd = true;
+var isProd = nconf.get('NODE_ENV') === 'production';
 var firebaseRef;
 var firebaseConfig = nconf.get('FIREBASE');
 
