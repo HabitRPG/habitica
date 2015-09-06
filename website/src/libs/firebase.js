@@ -16,6 +16,16 @@ if(isProd){
 
 var api = module.exports = {};
 
+api.updateGroupData = function(group){
+  if(!isProd) return;
+  if(!group) throw new Error('group is required.');
+
+  firebaseRef.child('rooms/' + group._id)
+    .set({
+      name: group.name
+    });
+};
+
 api.addUserToGroup = function(groupId, userId){
   if(!isProd) return;
   // TODO is throw ok? we don't have callbacks
@@ -39,12 +49,15 @@ api.removeUserFromGroup = function(groupId, userId){
     .remove();
 };
 
-// FIXME not really necessary as long as we only store room data,
-// as empty objects are automatically deleted (/members/... in future...)
 api.deleteGroup = function(groupId){
   if(!isProd) return;
-  if(!groupId) throw new Error('groupId is required.');
+  if(!groupId) throw new Error('groupId is required.');7
 
+  firebaseRef.child('rooms/' + groupId)
+    .remove();
+
+  // FIXME not really necessary as long as we only store room data,
+  // as empty objects are automatically deleted (/members/... in future...)
   firebaseRef.child('members/' + groupId)
     .remove();
 };

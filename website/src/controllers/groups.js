@@ -192,6 +192,7 @@ api.create = function(req, res, next) {
       function(cb){user.save(cb)},
       function(saved,ct,cb){group.save(cb)},
       function(saved,ct,cb){
+        firebase.updateGroupData(saved);
         firebase.addUserToGroup(saved._id, user._id);
         saved.populate('members', nameFields, cb);
       }
@@ -211,6 +212,7 @@ api.create = function(req, res, next) {
         group.save(cb);
       },
       function(saved, count, cb){
+        firebase.updateGroupData(saved);
         firebase.addUserToGroup(saved._id, user._id);
         saved.populate('members', nameFields, cb);
       }
@@ -236,6 +238,8 @@ api.update = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return next(err);
+
+    firebase.updateGroupData(saved);
     res.send(204);
   });
 }
