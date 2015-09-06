@@ -359,7 +359,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
 
   var group = this;
   var groupWasRemoved = false;
-  
+
   async.parallel([
     // Remove user from group challenges
     function(cb){
@@ -404,11 +404,29 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           group.type === 'party' ||
           (group.type === 'guild' && group.privacy === 'private')
       )){
-        // TODO remove invitations to this group
-        groupWasRemoved = true;
-        Group.remove({
-          _id: group._id
-        }, cb);
+        async.waterfall([
+          function(cb2) {
+            User.find({
+              'invitations.guilds.id': group._id
+            }, cb2);
+          },
+          function(users, cb2) {
+            if (users) {
+              users.forEach(function (user, index, array) {
+                var i = _.findIndex(user.invitations.guilds, {id: group._id});
+                user.invitations.guilds.splice(i, 1);
+                user.save();
+              });
+            }
+            cb2();
+          },
+          function(cb2) {
+            groupWasRemoved = true;
+            Group.remove({
+              _id: group._id
+            }, cb2);
+          },
+        ], cb);
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
 
