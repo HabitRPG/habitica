@@ -1,13 +1,8 @@
-_ = require 'lodash'
 api = module.exports
+
+_ = require 'lodash'
 moment = require 'moment'
-i18n = require './i18n.coffee'
-t = (string, vars) ->
-  func = (lang) ->
-    vars ?= {a: 'a'}
-    i18n.t(string, vars, lang)
-  func.i18nLangFunc = true #Trick to recognize this type of function
-  func
+t = require './translation.js'
 
 ###
   ---------------------------------------------------------------
@@ -1203,6 +1198,12 @@ api.food =
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: t('foodNotes')}
 
+api.userCanOwnQuestCategories = [
+  'unlockable'
+  'gold'
+  'pet'
+]
+
 api.quests =
 
   dilatory:
@@ -2267,3 +2268,5 @@ api.userDefaults =
     {name: t('defaultTag2')}
     {name: t('defaultTag3')}
   ]
+
+api.faq = require './faq.js'

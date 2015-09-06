@@ -6,7 +6,7 @@ var _ = require('lodash');
 
 require('coffee-script');
 var shared = require('../../common/script/index.coffee');
-var Content = require('../../common/script/content.coffee');
+var Content = require('../../common/script/content/index.coffee');
 
 describe('user.fns.buy', function() {
   var user;

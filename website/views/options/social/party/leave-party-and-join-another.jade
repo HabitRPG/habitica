@@ -1,0 +1,8 @@
+- var newParty = 'User.user.invitations.party'
+.containter-fluid(ng-if='#{newParty}.id && party._id')
+  .row.text-center
+    .col-sm-6.col-sm-offset-3.alert.alert-warning
+      p {{::env.t('invitedToNewParty', { partyName: #{newParty}.name })}}
+      p
+        button.btn.btn-success(ng-click='leaveOldPartyAndJoinNewParty(#{newParty}.id, #{newParty}.name)')=env.t('joinNewParty')
+        button.btn.btn-default(ng-click='reject()')=env.t('declineInvitation')
