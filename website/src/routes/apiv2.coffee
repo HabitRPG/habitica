@@ -302,7 +302,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Casts a spell on a target."
         parameters: [
-          path 'spell',"The key of the spell to cast (see ../../common#content.coffee)",'string'
+          path 'spell',"The key of the spell to cast (see ../../common#content/index.coffee)",'string'
           query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
           query 'targetId',"The ID of the object you're targeting",'string'
 

@@ -1,7 +1,7 @@
 _ = require 'lodash'
 api = module.exports
 moment = require 'moment'
-i18n = require './i18n.coffee'
+i18n = require '../i18n.coffee'
 t = (string, vars) ->
   func = (lang) ->
     vars ?= {a: 'a'}
