@@ -22,6 +22,7 @@ firebaseRef.authWithCustomToken('firebase-secret', function(err, authData){
 
   dbGroups.findEach({}, {_id: 1, members: 1}, {batchSize: 100}, function(err, group){
     if(err) throw err;
+    if(group._id !== 'habitrpg') return;
 
     countGroups++;
     console.log('Group: ', countGroups);

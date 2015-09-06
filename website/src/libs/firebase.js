@@ -19,6 +19,8 @@ var api = module.exports = {};
 api.updateGroupData = function(group){
   if(!isProd) return;
   if(!group) throw new Error('group is required.');
+  // Return in case of tavern (comparison working because we use string for _id)
+  if(group._id === 'habitrpg') return;
 
   firebaseRef.child('rooms/' + group._id)
     .set({
@@ -30,6 +32,7 @@ api.addUserToGroup = function(groupId, userId){
   if(!isProd) return;
   // TODO is throw ok? we don't have callbacks
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
+  if(groupId === 'habitrpg') return;
 
   firebaseRef.child('members/' + groupId + '/' + userId)
     .set(true);
@@ -41,6 +44,7 @@ api.addUserToGroup = function(groupId, userId){
 api.removeUserFromGroup = function(groupId, userId){
   if(!isProd) return;
   if(!userId || !groupId) throw new Error('groupId, userId are required.');
+  if(groupId === 'habitrpg') return;
 
   firebaseRef.child('members/' + groupId + '/' + userId)
     .remove();
@@ -51,7 +55,8 @@ api.removeUserFromGroup = function(groupId, userId){
 
 api.deleteGroup = function(groupId){
   if(!isProd) return;
-  if(!groupId) throw new Error('groupId is required.');7
+  if(!groupId) throw new Error('groupId is required.');
+  if(groupId === 'habitrpg') return; 
 
   firebaseRef.child('rooms/' + groupId)
     .remove();

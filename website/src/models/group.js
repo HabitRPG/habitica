@@ -444,7 +444,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
         }
 
         update['$inc'] = {memberCount: -1};
-        Group.update({_id:group._id}, update, cb);
+        Group.update({_id: group._id}, update, cb);
       }
     }
   ], function(err){
@@ -473,14 +473,15 @@ module.exports.schema = GroupSchema;
 var Group = module.exports.model = mongoose.model("Group", GroupSchema);
 
 // initialize tavern if !exists (fresh installs)
-Group.count({_id:'habitrpg'},function(err,ct){
+Group.count({_id: 'habitrpg'}, function(err, ct){
   if (ct > 0) return;
+
   new Group({
     _id: 'habitrpg',
     chat: [],
     leader: '9',
     name: 'HabitRPG',
     type: 'guild',
-    privacy:'public'
+    privacy: 'public'
   }).save();
 });
