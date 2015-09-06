@@ -86,12 +86,9 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             hr
 
             h5=env.t('customDayStart')
-            .alert.alert-warning
-              h5=env.t('customDayStartInfo1')
-                a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
-              h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
-            .form-horizontal
+            alert.alert-warning=env.t('customDayStartInfo1')
 
+            .form-horizontal
               .form-group
                 .col-sm-7
                   select.form-control(ng-model='dayStart')
