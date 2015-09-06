@@ -97,9 +97,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                   select.form-control(ng-model='dayStart')
                     - var number = 0
                     while number < 24
-                      - var hour = number++ % 12
+                      - var value = number
                       - var meridian = number < 12 ? 'AM' : 'PM'
-                      option(value=number) #{hour ? hour : 12}:00 #{meridian}
+                      - var hour = number++ % 12
+                      option(value=value) #{hour ? hour : 12}:00 #{meridian}
 
                 .col-sm-5
                   br.visible-xs
