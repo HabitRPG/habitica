@@ -270,7 +270,8 @@ describe "Guilds", ->
         userToBecomeLeader = undefined
         request.post(baseURL + "/groups").send(
           name: "TestGuildToEmptyAndAssignLeader"
-          type: "guild"
+          type: "guild",
+          privacy: "public"
         ).end (res) ->
           guildToEmptyAndAssignLeader = res.body
           #Add members to guild

@@ -19,6 +19,7 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
 var analytics = utils.analytics;
+var firebase = require('../libs/firebase');
 
 /*
   ------------------------------------------------------------------------
@@ -191,7 +192,11 @@ api.create = function(req, res, next) {
     async.waterfall([
       function(cb){user.save(cb)},
       function(saved,ct,cb){group.save(cb)},
-      function(saved,ct,cb){saved.populate('members',nameFields,cb)}
+      function(saved,ct,cb){
+        firebase.updateGroupData(saved);
+        firebase.addUserToGroup(saved._id, user._id);
+        saved.populate('members', nameFields, cb);
+      }
     ],function(err,saved){
       if (err) return next(err);
       res.json(saved);
@@ -208,6 +213,8 @@ api.create = function(req, res, next) {
         group.save(cb);
       },
       function(saved, count, cb){
+        firebase.updateGroupData(saved);
+        firebase.addUserToGroup(saved._id, user._id);
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
@@ -232,10 +239,13 @@ api.update = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return next(err);
+
+    firebase.updateGroupData(saved);
     res.send(204);
   });
 }
 
+// TODO remove from api object?
 api.attachGroup = function(req, res, next) {
   var gid = req.params.gid;
   var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
@@ -244,7 +254,7 @@ api.attachGroup = function(req, res, next) {
     if(!group) return res.json(404, {err: "Group not found"});
     res.locals.group = group;
     next();
-  })
+  });
 }
 
 api.getChat = function(req, res, next) {
@@ -466,7 +476,9 @@ api.join = function(req, res, next) {
     if (group.members.length === 0) {
       group.leader = user._id;
     }
+
     group.members.push(user._id);
+
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
     }
@@ -477,6 +489,8 @@ api.join = function(req, res, next) {
       group.save(cb);
     },
     function(cb){
+      firebase.addUserToGroup(group._id, user._id);
+      // TODO why query group once again?
       populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
@@ -488,70 +502,22 @@ api.join = function(req, res, next) {
 }
 
 api.leave = function(req, res, next) {
-  var user = res.locals.user,
-    group = res.locals.group;
+  var user = res.locals.user;
+  var group = res.locals.group;
 
-  if (group.type === 'party' && user.party.quest && user.party.quest.key) return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+  if (group.type === 'party' && user.party.quest && user.party.quest.key) {
+    return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+  }
 
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
-  async.parallel([
-    // Remove user from group challenges
-    function(cb){
-      async.waterfall([
-        // Find relevant challenges
-        function(cb2) {
-          Challenge.find({
-            _id: {$in: user.challenges}, // Challenges I am in
-            group: group._id // that belong to the group I am leaving
-          }, cb2);
-        },
-        // Update each challenge
-        function(challenges, cb2) {
-          Challenge.update(
-            {_id:{$in: _.pluck(challenges, '_id')}},
-            {$pull:{members:user._id}},
-            {multi: true},
-            function(err) {
-             cb2(err, challenges); // pass `challenges` above to cb
-            }
-          );
-        },
-        // Unlink the challenge tasks from user
-        function(challenges, cb2) {
-          async.waterfall(challenges.map(function(chal) {
-            return function(cb3) {
-              var i = user.challenges.indexOf(chal._id)
-              if (~i) user.challenges.splice(i,1);
-              user.unlink({cid:chal._id, keep:keep}, cb3);
-            }
-          }), cb2);
-        }
-      ], cb);
-    },
-    // Update the group
-    function(cb){
-      var update = {$pull:{members:user._id}};
 
-      // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
-      if (group.members.length > 1) {
-        var seniorMember = _.find(group.members, function (m) {return m != user._id});
-        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-        var leader = group.leader;
-        if (leader == user._id || !~group.members.indexOf(leader)) {
-          update['$set'] = update['$set'] || {};
-          update['$set'].leader = seniorMember;
-        }
-      }
-      update['$inc'] = {memberCount: -1};
-      Group.update({_id:group._id},update,cb);
-    }
-  ],function(err){
+  group.leave(user, keep, function(err){
     if (err) return next(err);
     user = group = keep = null;
     return res.send(204);
-  })
-}
+  });
+};
 
 var inviteByUUIDs = function(uuids, group, req, res, next){
   async.each(uuids, function(uuid, cb){
@@ -561,17 +527,17 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
          return cb({code:400,err:'User with id "' + uuid + '" not found'});
       if (group.type == 'guild') {
         if (_.contains(group.members,uuid))
-          return cb({code:400,err: "User already in that group"});
+          return cb({code:400, err: "User already in that group"});
         if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
-          return cb({code:400,err:"User already invited to that group"});
+          return cb({code:400, err:"User already invited to that group"});
         sendInvite();
       } else if (group.type == 'party') {
         if (invite.invitations && !_.isEmpty(invite.invitations.party))
-          return cb({code:400,err:"User already pending invitation."});
-        Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
+          return cb({code: 400,err:"User already pending invitation."});
+        Group.find({type: 'party', members: {$in: [uuid]}}, function(err, groups){
           if (err) return cb(err);
           if (!_.isEmpty(groups) && groups[0].members.length > 1) {
-            return cb({code:400, err:"User already in a party."})
+            return cb({code: 400, err: "User already in a party."})
           }
           sendInvite();
         });

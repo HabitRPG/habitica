@@ -6,6 +6,7 @@ var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');
 var request = require('request');
+var FirebaseTokenGenerator = require('firebase-token-generator');
 var User = require('../models/user').model;
 var EmailUnsubscription = require('../models/emailUnsubscription').model;
 var analytics = utils.analytics;
@@ -33,7 +34,7 @@ api.auth = function(req, res, next) {
   var uid = req.headers['x-api-user'];
   var token = req.headers['x-api-key'];
   if (!(uid && token)) return res.json(401, NO_TOKEN_OR_UID);
-  User.findOne({_id: uid,apiToken: token}, function(err, user) {
+  User.findOne({_id: uid, apiToken: token}, function(err, user) {
     if (err) return next(err);
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
     if (user.auth.blocked) return res.json(401, accountSuspended(user._id));
@@ -319,11 +320,32 @@ api.changePassword = function(req, res, next) {
     if (err) next(err);
     res.send(200);
   })
-}
+};
+
+var firebaseTokenGeneratorInstance = new FirebaseTokenGenerator(nconf.get('FIREBASE:SECRET'));
+api.getFirebaseToken = function(req, res, next) {
+  var user = res.locals.user;
+  // Expires 24 hours after now (60*60*24*1000) (in milliseconds)
+  var expires = new Date();
+  expires.setTime(expires.getTime() + 86400000);
+
+  var token = firebaseTokenGeneratorInstance
+    .createToken({
+      uid: user._id,
+      isHabiticaUser: true
+    }, {      
+      expires: expires
+    });
+
+  res.json(200, {
+    token: token,
+    expires: expires
+  });
+};
 
 /*
  Registers a new user. Only accepting username/password registrations, no Facebook
- */
+*/
 
 api.setupPassport = function(router) {
 
