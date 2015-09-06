@@ -91,11 +91,15 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 a(ng-click='showCustomDayStartInfo = !showCustomDayStartInfo') {{!showCustomDayStartInfo ? env.t('showMoreMore') : env.t('showMoreLess')}}
               h5(ng-if='showCustomDayStartInfo')!=env.t('customDayStartInfo4')
             .form-horizontal
+
               .form-group
                 .col-sm-7
-                  .input-group
-                    input.form-control(type='number', min='0', max='23', ng-model='dayStart')
-                    .input-group-addon= ':00 (' + env.t('24HrClock') + ')'
+                  select.form-control(ng-model='dayStart')
+                    - var number = 0
+                    while number < 24
+                      - var hour = number++ % 12
+                      - var meridian = number < 12 ? 'AM' : 'PM'
+                      option(value=number) #{hour ? hour : 12}:00 #{meridian}
 
                 .col-sm-5
                   br.visible-xs

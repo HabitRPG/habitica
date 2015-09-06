@@ -65,13 +65,13 @@ habitrpg.controller('SettingsCtrl',
     $scope.dayStart = User.user.preferences.dayStart;
 
     $scope.openDayStartModal = function(dayStart) {
-      var flooredDayStart = Math.floor(dayStart);
+      $scope.dayStart = +dayStart;
+      var flooredDayStart = Math.floor($scope.dayStart);
 
-      if (dayStart !== flooredDayStart || dayStart < 0 || dayStart > 24 ) {
+      if ($scope.dayStart !== flooredDayStart || $scope.dayStart < 0 || $scope.dayStart > 24 ) {
         return alert(window.env.t('enterNumber'));
       }
 
-      $scope.dayStart = dayStart;
       $scope.nextCron = _calculateNextCron();
 
       $rootScope.openModal('change-day-start', { scope: $scope });
