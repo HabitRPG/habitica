@@ -43,6 +43,7 @@
     "js2xmlparser": "~0.1.2",
     "lodash": "~2.4.1",
     "loggly": "~1.0.8",
+    "marked": "^0.3.5",
     "method-override": "~2.2.0",
     "moment": "~2.8.3",
     "mongoose": "~3.8.23",
