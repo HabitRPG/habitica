@@ -19,11 +19,9 @@ block content
         |&nbsp;4&comma; 2015
 
       - var headings = ['overview', 'set-up-tasks', 'sample-tasks', 'task-color', 'health', 'party-with-friends', 'pets-mounts', 'character-classes', 'blue-mana-bar', 'monsters-quests', 'gems', 'bugs-features']
-      - var questions = env.Content.faq.questions
-      - for (var h in headings)
-        - var faqNumber = 1 + +h
-        a.h2.accordion.collapsed(href='#' + headings[h], data-toggle='collapse')=env.t('faqQuestion' + faqNumber)
-        .clearfix.collapse(id=headings[h])
-          p!=env.t('webFaqAnswer' + faqNumber)
+      - for heading, index in headings
+        a.h2.accordion.collapsed(ng-href='#' + heading, data-toggle='collapse')=env.t('faqQuestion' + index)
+        .clearfix.collapse(id=heading)
+          !=marked(env.t('webFaqAnswer' + index))
 
-      h3!=env.t('webFaqStillNeedHelp')
+      h3!=marked(env.t('webFaqStillNeedHelp'))
