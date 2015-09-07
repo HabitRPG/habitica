@@ -16,6 +16,7 @@ var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 var qs = require('qs');
+var firebase = require('../libs/firebase');
 var webhook = require('../webhook');
 
 // api.purchase // Shared.ops
@@ -365,13 +366,33 @@ api.cron = function(req, res, next) {
 // api.reset // Shared.ops
 
 api['delete'] = function(req, res, next) {
-  var plan = res.locals.user.purchased.plan;
-  if (plan && plan.customerId && !plan.dateTerminated)
+  var user = res.locals.user;
+  var plan = user.purchased.plan;
+
+  if (plan && plan.customerId && !plan.dateTerminated){
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
-  res.locals.user.remove(function(err){
-    if (err) return next(err);
-    res.send(200);
-  })
+  }
+
+  Group.find({
+    members: {
+      '$in': [user._id]
+    }
+  }, function(err, groups){
+    if(err) return next(err);
+
+    async.each(groups, function(group, cb){
+      group.leave(user, 'remove-all', cb);
+    }, function(err){
+      if(err) return next(err);
+
+      user.remove(function(err){
+        if(err) return next(err);
+
+        firebase.deleteUser(user._id);
+        res.send(200);
+      });
+    });
+  });
 }
 
 /*

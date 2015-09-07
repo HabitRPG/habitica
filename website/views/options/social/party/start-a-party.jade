@@ -1,0 +1,23 @@
+.container.text-center(ng-hide='user.invitations.party.id')
+  .row.row-margin: .col-sm-6.col-sm-offset-3
+    a.btn.btn-primary.btn-lg.btn-block(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
+
+  .row.row-margin(ng-controller='UserCtrl')
+    span.inline-block.party_preview
+      span.figure.herobox.inline-block
+        .character-sprites(style='margin:0 0 0 4.2em')
+          +generatedAvatar
+
+  .row.row-margin
+    ul
+      li=env.t('partyExplanation1')
+      li=env.t('partyExplanation2')
+      li=env.t('partyExplanation3')
+
+  .row.row-margin
+    h4=env.t('wantToStartParty')
+
+  .row.row-margin
+    .btn.btn-primary(ng-click='inviteOrStartParty(group)')=env.t('inviteFriendsNow')
+    .btn.btn-default(ng-click='create(newGroup); group.loadingNewParty = true')=env.t('inviteFriendsLater')
+    .btn.btn-default(ng-click='openModal("user-id")')=env.t('joinExistingParty')

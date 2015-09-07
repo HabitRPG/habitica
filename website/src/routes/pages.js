@@ -24,7 +24,10 @@ var pages = ['front', 'privacy', 'terms', 'api', 'features', 'videos', 'contact'
 
 _.each(pages, function(name){
   router.get('/static/' + name, i18n.getUserLanguage, locals, function(req, res) {
-    res.render('static/' + name, {env: res.locals.habitrpg});
+    res.render( 'static/' + name, {
+      env: res.locals.habitrpg,
+      marked: require('marked')
+    });
   });
 })
 

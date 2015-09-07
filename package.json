@@ -18,6 +18,8 @@
     "domain-middleware": "~0.1.0",
     "express": "~3.17.5",
     "express-csv": "~0.6.0",
+    "firebase": "^2.2.9",
+    "firebase-token-generator": "^2.0.0",
     "grunt": "~0.4.1",
     "grunt-browserify": "^3.3.0",
     "grunt-cli": "~0.1.9",
@@ -33,6 +35,7 @@
     "grunt-nodemon": "~0.3.0",
     "grunt-spritesmith": "~3.5.0",
     "gulp": "^3.9.0",
+    "gulp-grunt": "^0.5.2",
     "icalendar": "lefnire/node-icalendar#e06da0e55901f0ba940dfadc42c158ed0b1fead9",
     "image-size": "~0.3.2",
     "in-app-purchase": "^0.2.0",
@@ -40,6 +43,7 @@
     "js2xmlparser": "~0.1.2",
     "lodash": "~2.4.1",
     "loggly": "~1.0.8",
+    "marked": "^0.3.5",
     "method-override": "~2.2.0",
     "moment": "~2.8.3",
     "mongoose": "~3.8.23",
@@ -80,7 +84,7 @@
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
     "start": "grunt run:dev",
-    "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/grunt;",
+    "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/gulp build;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
   "devDependencies": {

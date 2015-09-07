@@ -46,6 +46,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   });
   autoinc.init(db);
 
+  require('./libs/firebase');
+
   // load schemas & models
   require('./models/challenge');
   require('./models/group');

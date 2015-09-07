@@ -58,22 +58,25 @@ habitrpg.controller('SettingsCtrl',
       Guide.goto('intro', 0, true);
     }
 
-    $scope.showClassesTour = function(){
-      Guide.goto('classes', 0, true);
-    }
-
     $scope.showBailey = function(){
       User.set({'flags.newStuff':true});
     }
 
-    $scope.saveDayStart = function(){
-      var dayStart = +User.user.preferences.dayStart;
-      if (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
-        dayStart = 0;
-        return alert(window.env.t('enterNumber'));
-      }
-      User.set({'preferences.dayStart': dayStart});
-    }
+    $scope.dayStart = User.user.preferences.dayStart;
+
+    $scope.openDayStartModal = function(dayStart) {
+      $scope.dayStart = +dayStart;
+      $scope.nextCron = _calculateNextCron();
+
+      $rootScope.openModal('change-day-start', { scope: $scope });
+    };
+
+    $scope.saveDayStart = function() {
+      User.set({
+        'preferences.dayStart': Math.floor($scope.dayStart),
+        'lastCron': +new Date
+      });
+    };
 
     $scope.language = window.env.language;
     $scope.avalaibleLanguages = window.env.avalaibleLanguages;
@@ -195,6 +198,19 @@ habitrpg.controller('SettingsCtrl',
         subs["basic_6mo"].discount = true;
         subs["google_6mo"].discount = false;
       });
+    }
+
+    function _calculateNextCron() {
+      $scope.dayStart;
+
+      var nextCron = moment().hours($scope.dayStart).minutes(0).seconds(0).milliseconds(0);
+
+      var currentHour = moment().format('H');
+      if (currentHour >= $scope.dayStart) {
+        nextCron = nextCron.add(1, 'day');;
+      }
+
+      return +nextCron.format('x');
     }
   }
 ]);

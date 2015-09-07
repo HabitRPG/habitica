@@ -302,7 +302,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Casts a spell on a target."
         parameters: [
-          path 'spell',"The key of the spell to cast (see ../../common#content.coffee)",'string'
+          path 'spell',"The key of the spell to cast (see ../../common#content/index.coffee)",'string'
           query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
           query 'targetId',"The ID of the object you're targeting",'string'
 
@@ -526,6 +526,14 @@ module.exports = (swagger, v2) ->
         parameters: [path('gid','Group to abort quest in','string')]
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.questAbort
+
+    "/groups/{gid}/questLeave":
+      spec:
+        method: 'POST'
+        description: 'Leave an active quest (Quest leaders cannot leave active quests. They must abort the quest to leave)'
+        parameters: [path('gid','Group to leave quest in','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.questLeave
 
     #TODO PUT  /groups/:gid/chat/:messageId
 

@@ -1,95 +1,114 @@
 'use strict';
 
-/**
- * Services that persists and retrieves user from localStorage.
- */
+(function() {
+  angular
+    .module('habitrpg')
+    .factory('Groups', groupsFactory);
 
-angular.module('habitrpg').factory('Groups',
-['$rootScope','ApiUrl', '$resource', '$q', '$http', 'User', 'Challenges', 'Analytics', '$location',
-function($rootScope, ApiUrl, $resource, $q, $http, User, Challenges, Analytics, $location) {
-  var Group = $resource(ApiUrl.get() + '/api/v2/groups/:gid',
-    {gid:'@_id', messageId: '@_messageId'},
-    {
-      get: {
-        method: "GET",
-        isArray:false,
-        // Wrap challenges as ngResource so they have functions like $leave or $join
-        transformResponse: function(data, headers) {
-          data = angular.fromJson(data);
-          _.each(data && data.challenges, function(c) {
-            angular.extend(c, Challenges.Challenge.prototype);
-          });
-          return data;
-        }
-      },
+  groupsFactory.$inject = [
+    '$location',
+    '$resource',
+    '$rootScope',
+    'Analytics',
+    'ApiUrl',
+    'Challenges',
+    'User'
+  ];
 
-      syncParty: {method: "GET", url: '/api/v2/groups/party'},
-      join: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/join'},
-      leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
-      invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
-      removeMember: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/removeMember'},
-      questAccept: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAccept'},
-      questReject: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questReject'},
-      questCancel: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questCancel'},
-      questAbort: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAbort'}
-    });
+  function groupsFactory($location, $resource, $rootScope, Analytics, ApiUrl, Challenges, User) {
 
-  // Defer loading everything until they're requested
-  var data = {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined};
+    var data = {party: undefined, myGuilds: undefined, publicGuilds: undefined, tavern: undefined};
+    var Group = $resource(ApiUrl.get() + '/api/v2/groups/:gid',
+      {gid:'@_id', messageId: '@_messageId'},
+      {
+        get: {
+          method: "GET",
+          isArray:false,
+          // Wrap challenges as ngResource so they have functions like $leave or $join
+          transformResponse: function(data) {
+            data = angular.fromJson(data);
+            _.each(data && data.challenges, function(c) {
+              angular.extend(c, Challenges.Challenge.prototype);
+            });
+            return data;
+          }
+        },
 
-  var syncUser = function(res) {
-    User.sync();
-  }
-  var logError = function(err) {
-    console.log(err);
-  }
+        syncParty: {method: "GET", url: '/api/v2/groups/party'},
+        join: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/join'},
+        leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
+        invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
+        removeMember: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/removeMember'},
+        questAccept: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAccept'},
+        questReject: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questReject'},
+        questCancel: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questCancel'},
+        questAbort: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAbort'},
+        questLeave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questLeave'}
+      });
 
-  return {
-    party: function(cb){
+    function _syncUser() {
+      User.sync();
+    }
+
+    function _logError(err) {
+      console.log(err);
+    }
+
+    function party(cb) {
       if (!data.party) return (data.party = Group.get({gid: 'party'}, cb));
       return (cb) ? cb(party) : data.party;
-    },
-    publicGuilds: function(){
+    }
+
+    function publicGuilds() {
       //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
       if (!data.publicGuilds) data.publicGuilds = Group.query({type:'public'});
       return data.publicGuilds;
-    },
-    myGuilds: function(){
+    }
+
+    function myGuilds() {
       if (!data.myGuilds) data.myGuilds = Group.query({type:'guilds'});
       return data.myGuilds;
-    },
-    tavern: function(){
+    }
+
+    function tavern() {
       if (!data.tavern) data.tavern = Group.get({gid:'habitrpg'});
       return data.tavern;
-    },
+    }
 
-    questAccept: function(party){
+    function questAccept(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questAccept()
-        .then(syncUser, logError);
-    },
+      return party.$questAccept()
+        .then(_syncUser, _logError);
+    }
 
-    questReject: function(party){
+    function questReject(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questReject()
-        .then(syncUser, logError);
-    },
+      return party.$questReject()
+        .then(_syncUser, _logError);
+    }
 
-    questCancel: function(party){
+    function questCancel(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questCancel()
-        .then(syncUser, logError);
-    },
+      return party.$questCancel()
+        .then(_syncUser, _logError);
+    }
 
-    questAbort: function(party){
+    function questAbort(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      party.$questAbort()
-        .then(syncUser, logError);
-    },
+      return party.$questAbort()
+        .then(_syncUser, _logError);
+    }
 
-    inviteOrStartParty: function(group) {
-      if (group.type === "party") {
-        $rootScope.openModal('invite-friends', {
+    function questLeave(party) {
+      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
+      return party.$questLeave()
+        .then(_syncUser, _logError);
+    }
+
+    function inviteOrStartParty(group) {
+      if (group.type === "party" || $location.$$path === "/options/groups/party") {
+        group.type = 'party';
+        $rootScope.openModal('invite-party', {
           controller:'InviteToGroupCtrl',
           resolve: {
             injectedGroup: function(){ return group; }
@@ -99,12 +118,22 @@ function($rootScope, ApiUrl, $resource, $q, $http, User, Challenges, Analytics, 
         Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
         $location.path("/options/groups/party");
       }
-    },
+    }
 
-    // Pass reference to party, myGuilds, publicGuilds, tavern; inside data in order to
-    // be able to modify them directly (otherwise will be stick with cached version)
-    data: data,
+    return {
+      party: party,
+      publicGuilds: publicGuilds,
+      myGuilds: myGuilds,
+      tavern: tavern,
+      questAccept: questAccept,
+      questReject: questReject,
+      questAbort: questAbort,
+      questLeave: questLeave,
+      questCancel: questCancel,
+      inviteOrStartParty: inviteOrStartParty,
 
-    Group: Group
+      data: data,
+      Group: Group
+    }
   }
-}])
+})();
