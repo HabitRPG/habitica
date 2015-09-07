@@ -48,6 +48,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       // TODO: refactor guild and party clickLeave into one function
       $scope.clickLeave = function(group, $event){
+          Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
           $scope.selectedGroup = group;
           $scope.popoverEl = $($event.target);
           var html, title;
@@ -77,6 +78,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       };
 
       $scope.clickStartQuest = function(){
+        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
         var hasQuests = _.find(User.user.items.quests, function(quest) {
           return quest > 0;
         });

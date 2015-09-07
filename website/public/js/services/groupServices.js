@@ -106,6 +106,7 @@
     }
 
     function inviteOrStartParty(group) {
+      Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
       if (group.type === "party" || $location.$$path === "/options/groups/party") {
         group.type = 'party';
         $rootScope.openModal('invite-party', {
@@ -115,7 +116,6 @@
           }
         });
       } else {
-        Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
         $location.path("/options/groups/party");
       }
     }
