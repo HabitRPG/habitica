@@ -163,7 +163,8 @@ var UserSchema = new Schema({
     armoireEnabled: {type: Boolean, 'default': false},
     armoireOpened: {type: Boolean, 'default': false},
     armoireEmpty: {type: Boolean, 'default': false},
-    cardReceived: {type: Boolean, 'default': false}
+    cardReceived: {type: Boolean, 'default': false},
+    warnedLowHealth: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

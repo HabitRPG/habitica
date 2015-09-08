@@ -100,9 +100,16 @@
     "backgroundSunkenShipNotes": "Исследуйте затонувший корабль.",
     "backgrounds082015": "Набор 15: Выпущен в августе 2015",
     "backgroundPyramidsText": "Пирамиды",
-    "backgroundPyramidsNotes": "Admire the Pyramids.",
+    "backgroundPyramidsNotes": "Восхищайтесь пирамидами",
     "backgroundSunsetSavannahText": "Закат в саванне",
-    "backgroundSunsetSavannahNotes": "Stalk across the Sunset Savannah.",
-    "backgroundTwinklyPartyLightsText": "Twinkly Party Lights",
-    "backgroundTwinklyPartyLightsNotes": "Dance under Twinkly Party Lights!"
+    "backgroundSunsetSavannahNotes": "Выслеживайте по закатной саванне",
+    "backgroundTwinklyPartyLightsText": "Мигающее праздничное освещение",
+    "backgroundTwinklyPartyLightsNotes": "Танцуйте под мигающим праздничным освещением!",
+    "backgrounds092015": "Набор 16: Выпущен в сентябре 2015",
+    "backgroundMarketText": "Рынок Habitica",
+    "backgroundMarketNotes": "Покупайте на рынке Habitica",
+    "backgroundStableText": "Стайня Habitica",
+    "backgroundStableNotes": "Заботьтесь о скакунах в стайне Habitica.",
+    "backgroundTavernText": "Таверна Habitica",
+    "backgroundTavernNotes": "Посетите таверну Habitica."
 }

@@ -2,7 +2,7 @@ mixin participants(questStart)
   -var isMember = 'group.quest.members[member._id]'
   table.table.table-striped
     tr(ng-repeat='member in group.members track by member._id',
-      ng-if='::#{!questStart} || #{isMember}')
+      ng-if='#{!questStart} || #{isMember}')
       td
         span(ng-if=':: group.quest.leader && group.quest.leader==member._id') *&nbsp;
         a: span(ng-click='clickMember(member._id, true)') {{::member.profile.name}}

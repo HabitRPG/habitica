@@ -13,6 +13,7 @@ router.post('/api/v2/user/reset-password', i18n.getUserLanguage, auth.resetPassw
 router.post('/api/v2/user/change-password', i18n.getUserLanguage, auth.auth, auth.changePassword);
 router.post('/api/v2/user/change-username', i18n.getUserLanguage, auth.auth, auth.changeUsername);
 router.post('/api/v2/user/change-email', i18n.getUserLanguage, auth.auth, auth.changeEmail);
+router.post('/api/v2/user/auth/firebase', i18n.getUserLanguage, auth.auth, auth.getFirebaseToken);
 
 router.post('/api/v1/register', i18n.getUserLanguage, auth.registerUser);
 router.post('/api/v1/user/auth/local', i18n.getUserLanguage, auth.loginLocal);
