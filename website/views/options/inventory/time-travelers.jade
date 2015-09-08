@@ -20,14 +20,7 @@
 
   .row: .col-md-12
     li.customize-menu.inventory-gear
-      p(ng-if='Object.keys(Content.timeTravelerStore(user.items.gear.owned)).length == 0')=env.t('timeTravelersAlreadyOwned')
-      b {{Object.keys(Content.timeTravelerStore(user.items.gear.owned)).length}}
-      b {{Object.keys(user.items.gear.owned).length}}
-      b {{Object.keys(user.items.gear.owned)}}
-      b {{Object.getOwnPropertyNames(user.items.gear.owned).length}}
-      b {{Object.getOwnPropertyNames(user.items.gear.owned)}}
-      b {{user.items.gear.owned}}
-      b {{Content.timeTravelerStore(user.items.gear.owned)}}
+      p(ng-if='_.isEmpty(Content.timeTravelerStore(user.items.gear.owned))')=env.t('timeTravelersAlreadyOwned')
       menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
         div(ng-repeat='item in set.items')
           button.customize-option(class='shop_{{::item.key}}',
