@@ -20,11 +20,18 @@
 
   .row: .col-md-12
     li.customize-menu.inventory-gear
-      p!=env.t('timeTravelersAlreadyOwned', {linkStart: "<a href='https://habitica.com/#/options/settings/subscription' target='_blank'>", linkEnd: "</a>"})
+      p(ng-if='Object.keys(Content.timeTravelerStore(user.items.gear.owned)).length == 0')=env.t('timeTravelersAlreadyOwned')
+      b {{Object.keys(Content.timeTravelerStore(user.items.gear.owned)).length}}
+      b {{Object.keys(user.items.gear.owned).length}}
+      b {{Object.keys(user.items.gear.owned)}}
+      b {{Object.getOwnPropertyNames(user.items.gear.owned).length}}
+      b {{Object.getOwnPropertyNames(user.items.gear.owned)}}
+      b {{user.items.gear.owned}}
+      b {{Content.timeTravelerStore(user.items.gear.owned)}}
       menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
         div(ng-repeat='item in set.items')
           button.customize-option(class='shop_{{::item.key}}',
             popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
             popover-trigger='mouseenter', popover-placement='right',
             popover-append-to-body='true',
-            ng-click='user.ops.buyMysterySet({params:{key:set.key}})')
+            ng-click='user.ops.buyMysterySet({params:{key:set.key}})')         
