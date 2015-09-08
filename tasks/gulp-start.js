@@ -2,7 +2,6 @@ import gulp from 'gulp';
 import nodemon from 'gulp-nodemon';
 
 let pkg = require('../package.json');
-require('gulp-grunt')(gulp);
 
 gulp.task('run:dev', ['nodemon', 'build:dev:watch']);
 
