@@ -23,7 +23,6 @@
     "grunt": "~0.4.1",
     "grunt-browserify": "^3.3.0",
     "grunt-cli": "~0.1.9",
-    "grunt-concurrent": "~1.0.0",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-copy": "~0.6.0",
     "grunt-contrib-cssmin": "~0.10.0",
@@ -32,7 +31,6 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-hashres": "~0.4.1",
     "grunt-karma": "~0.6.2",
-    "grunt-nodemon": "~0.3.0",
     "grunt-spritesmith": "~3.5.0",
     "gulp": "^3.9.0",
     "gulp-grunt": "^0.5.2",
@@ -83,7 +81,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
-    "start": "grunt run:dev",
+    "start": "gulp run:dev",
     "postinstall": "./node_modules/bower/bin/bower --config.interactive=false install -f; ./node_modules/.bin/gulp build;",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
   },
@@ -97,6 +95,7 @@
     "expect.js": "~0.2.0",
     "glob": "^4.3.5",
     "grunt-contrib-imagemin": "^0.9.4",
+    "gulp-nodemon": "^2.0.4",
     "istanbul": "^0.3.14",
     "karma": "~0.10.2",
     "karma-chai-plugins": "~0.1.0",
