@@ -84,6 +84,27 @@ GroupSchema.pre('save', function(next){
   next();
 })
 
+GroupSchema.pre('remove', function(next) {
+  var group = this;
+  async.waterfall([
+    function(cb2) {
+      User.find({
+        'invitations.guilds.id': group._id
+      }, cb2);
+    },
+    function(users, cb2) {
+      if (users) {
+        users.forEach(function (user, index, array) {
+          var i = _.findIndex(user.invitations.guilds, {id: group._id});
+          user.invitations.guilds.splice(i, 1);
+          user.save();
+        });
+      }
+      cb2();
+    }
+  ], next);
+});
+
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
@@ -404,29 +425,12 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           group.type === 'party' ||
           (group.type === 'guild' && group.privacy === 'private')
       )){
-        async.waterfall([
-          function(cb2) {
-            User.find({
-              'invitations.guilds.id': group._id
-            }, cb2);
-          },
-          function(users, cb2) {
-            if (users) {
-              users.forEach(function (user, index, array) {
-                var i = _.findIndex(user.invitations.guilds, {id: group._id});
-                user.invitations.guilds.splice(i, 1);
-                user.save();
-              });
-            }
-            cb2();
-          },
-          function(cb2) {
-            groupWasRemoved = true;
-            Group.remove({
-              _id: group._id
-            }, cb2);
-          },
-        ], cb);
+        groupWasRemoved = true;
+        Group.findOne({
+          _id: group._id
+        }, function(err, groupDoc){
+            groupDoc.remove(cb)
+        });
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
 
