@@ -13,7 +13,7 @@
     "youReceived": "Has recibido",
     "dropQuestCongrats": "Congratulations on earning this quest scroll! You can invite your party to begin the quest now, or come back to it any time in your Inventory > Quests.",
     "questSend": "Cliqueando en \"Invitar\" enviara una invitación a los miembros de tu grupo. Cuando todos los miembros hayan aceptado o negado, la misión comenzara. Mira el progreso en Social > Grupo",
-    "inviteParty": "Invite Party to Quest",
+    "inviteParty": "Invitar grupo a la Misión",
     "questInvitation": "Invitación a una misión:",
     "questInvitationTitle": "Invitación a una misión",
     "questInvitationInfo": "Invitación para la misión  <%= quest %>",
