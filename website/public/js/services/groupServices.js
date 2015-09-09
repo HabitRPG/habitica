@@ -90,13 +90,19 @@
     function questCancel(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       return party.$questCancel()
-        .then(_syncUser, _logError);
+        .then(function() {
+          delete party.quest;
+          _syncUser();
+        }, _logError);
     }
 
     function questAbort(party) {
       Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
       return party.$questAbort()
-        .then(_syncUser, _logError);
+        .then(function() {
+          delete party.quest;
+          _syncUser();
+        }, _logError);
     }
 
     function questLeave(party) {

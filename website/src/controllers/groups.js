@@ -999,7 +999,7 @@ api.questCancel = function(req, res, next){
     }
   ], function(err){
     if (err) return next(err);
-    res.json(group);
+    res.send(204);
     group = null;
   })
 }
@@ -1028,17 +1028,11 @@ api.questAbort = function(req, res, next){
       group.quest = {key:null,progress:{},leader:null};
       group.markModified('quest');
       group.save(cb);
-    }, function(cb){
-      populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
     if (err) return next(err);
 
-    var groupClone = clone(group);
-
-    groupClone.members = results[2].members;
-
-    res.json(groupClone);
+    res.send(204);
     group = null;
   })
 }
