@@ -13,6 +13,10 @@ gulp.task('build:dev', ['prepare:staticNewStuff'], (done) => {
   gulp.start('grunt-build:dev', done);
 });
 
+gulp.task('build:dev:watch', ['build:dev'], () => {
+  gulp.watch(['website/public/**/*.styl', 'common/script/*']);
+});
+
 gulp.task('build:prod', ['prepare:staticNewStuff'], (done) => {
   gulp.start('grunt-build:prod', done);
 });
