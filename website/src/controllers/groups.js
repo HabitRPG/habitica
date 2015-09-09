@@ -505,7 +505,7 @@ api.leave = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
 
-  if (group.type === 'party' && user.party.quest && user.party.quest.key) {
+  if (group.type === 'party' && group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
     return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
   }
 
