@@ -29,7 +29,7 @@ dbGroups.findEach({}, {_id: 1, members: 1}, {batchSize: 500}, function(err, grou
     dbUsers.count({_id: member}, function(err, count){
       if(err) throw err;
 
-      if(count < 1 && (group._id !== 'habitrpg')) {
+      if(count < 1) {
         countUsers++;
         console.log('User: ', countUsers);
 
