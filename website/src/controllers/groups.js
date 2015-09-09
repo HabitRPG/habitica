@@ -784,9 +784,7 @@ function questStart(req, res, next) {
   var group = res.locals.group;
   var force = req.query.force;
 
-  // if (group.quest.active) return res.json(400,{err:'Quest already began.'});
-  // temporarily send error email, until we know more about this issue (then remove below, uncomment above).
-  if (group.quest.active) return next('Quest already began.');
+  if (group.quest.active) return res.json(400,{err:'Quest already began.'});
 
   group.markModified('quest');
 
