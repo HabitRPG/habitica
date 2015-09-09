@@ -197,6 +197,19 @@ describe('Groups Controller', function() {
         expect(res.json).to.be.calledWith(403, 'You cannot leave party during an active quest. Please leave the quest first');
       });
 
+      it('prevents quest leader from leaving a party if they have started a quest', function() {
+        group.quest = {
+          active: false,
+          leader: 'user-id'
+        };
+
+        groupsController.leave(req, res);
+
+        expect(group.leave).to.not.be.called;
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(403, 'You cannot leave when you have started a quest. Abort the quest first.');
+      });
+
       it('leaves party if quest is not active', function() {
         group.quest = {
           active: false,
