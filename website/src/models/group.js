@@ -87,12 +87,12 @@ GroupSchema.pre('save', function(next){
 GroupSchema.pre('remove', function(next) {
   var group = this;
   async.waterfall([
-    function(cb2) {
+    function(cb) {
       User.find({
         'invitations.guilds.id': group._id
-      }, cb2);
+      }, cb);
     },
-    function(users, cb2) {
+    function(users, cb) {
       if (users) {
         users.forEach(function (user, index, array) {
           var i = _.findIndex(user.invitations.guilds, {id: group._id});
@@ -100,7 +100,7 @@ GroupSchema.pre('remove', function(next) {
           user.save();
         });
       }
-      cb2();
+      cb();
     }
   ], next);
 });
@@ -426,11 +426,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           (group.type === 'guild' && group.privacy === 'private')
       )){
         groupWasRemoved = true;
-        Group.findOne({
-          _id: group._id
-        }, function(err, groupDoc){
-            groupDoc.remove(cb)
-        });
+        group.remove(cb)
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
 
