@@ -105,6 +105,10 @@ GroupSchema.pre('remove', function(next) {
   ], next);
 });
 
+GroupSchema.post('remove', function(group) {
+  firebase.deleteGroup(group._id);
+});
+
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
@@ -379,7 +383,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
   if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
 
   var group = this;
-  var groupWasRemoved = false;
 
   async.parallel([
     // Remove user from group challenges
@@ -425,7 +428,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           group.type === 'party' ||
           (group.type === 'guild' && group.privacy === 'private')
       )){
-        groupWasRemoved = true;
         group.remove(cb)
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
@@ -453,7 +455,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
     if(err) return mainCb(err);
 
     firebase.removeUserFromGroup(group._id, user._id);
-    if(groupWasRemoved) firebase.deleteGroup(group._id);
     return mainCb();
   });
 };
