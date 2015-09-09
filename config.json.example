@@ -69,5 +69,10 @@
           "KEY": "key.pem",
           "CERT": "cert.pem"
         }
+    },
+    "FIREBASE": {
+        "APP": "app-name",
+        "SECRET": "secret",
+        "ENABLED": "false"
     }
 }

@@ -1,0 +1,29 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title Habitica &VerticalLine;&nbsp;
+    =env.t('FAQ')
+
+block content
+  .row(ng-controller='AccordionCtrl')
+    .col-md-12
+      .page-header
+        h1=env.t('frequentlyAskedQuestions')
+      p.pagemeta
+        =env.t('lastUpdated')
+        |&nbsp;
+        =env.t('September')
+        |&nbsp;4&comma; 2015
+
+      - var headings = ['overview', 'set-up-tasks', 'sample-tasks', 'task-color', 'health', 'party-with-friends', 'pets-mounts', 'character-classes', 'blue-mana-bar', 'monsters-quests', 'gems', 'bugs-features']
+      - for heading, index in headings
+        a.h2.accordion.collapsed(ng-href='#' + heading, data-toggle='collapse')=env.t('faqQuestion' + index)
+        .clearfix.collapse(id=heading)
+          !=marked(env.t('webFaqAnswer' + index))
+
+      hr
+
+      h3!=marked(env.t('webFaqStillNeedHelp'))

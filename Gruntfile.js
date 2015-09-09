@@ -159,29 +159,6 @@ module.exports = function(grunt) {
         ],
         dest: 'website/build/*.css'
       }
-    },
-
-    nodemon: {
-      dev: {
-        script: '<%= pkg.main %>'
-      }
-    },
-
-    watch: {
-      dev: {
-        files: ['website/public/**/*.styl', 'common/script/**/*.coffee', 'common/script/**/*.js'], // 'public/**/*.js' Not needed because not in production
-        tasks:  [ 'build:dev' ],
-        options: {
-          nospawn: true
-        }
-      }
-    },
-
-    concurrent: {
-      dev: ['nodemon', 'watch'],
-      options: {
-        logConcurrentOutput: true
-      }
     }
   });
 
@@ -224,11 +201,9 @@ module.exports = function(grunt) {
 
   // Register tasks.
   grunt.registerTask('compile:sprites', ['clean:sprite', 'sprite', 'imagemin', 'cssmin']);
-  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres','prepare:staticNewStuff']);
-  grunt.registerTask('build:dev', ['browserify', 'stylus', 'prepare:staticNewStuff']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['browserify', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
-
-  grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
   grunt.registerTask('test:prepare:translations', function() {
     require('coffee-script');
@@ -239,20 +214,6 @@ module.exports = function(grunt) {
       "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
   });
 
-  grunt.registerTask('prepare:staticNewStuff', function() {
-    var jade  = require('jade'),
-        fs    = require('fs');
-    fs.writeFileSync(
-      './website/public/new-stuff.html',
-      jade.compileFile('./website/views/shared/new-stuff.jade')()
-    );
-  });
-
-  if(process.env.NODE_ENV == 'production')
-    grunt.registerTask('default', ['build:prod']);
-  else
-    grunt.registerTask('default', ['build:dev']);
-
   // Load tasks
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -260,8 +221,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-contrib-imagemin');

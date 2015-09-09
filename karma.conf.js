@@ -38,7 +38,6 @@ module.exports = function(config) {
       'test/spec/mocks/**/*.js',
 
       "website/public/js/env.js",
-
       "website/public/js/app.js",
       "common/script/public/config.js",
       "common/script/public/userServices.js",

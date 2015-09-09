@@ -43,6 +43,10 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       $scope._editing.profile = false;
     }
 
+    $scope.acknowledgeHealthWarning = function(){
+      User.user.ops.update && User.set({'flags.warnedLowHealth':true});
+    }
+
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
      * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.

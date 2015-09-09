@@ -124,7 +124,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // Otherwise use the proper $modal.open
     $rootScope.openModal = function(template, options){//controller, scope, keyboard, backdrop){
       if (!options) options = {};
-      if (options.track) Analytics.track(_.merge(options.track,{'hitType':'event','eventCategory':'button','eventAction':'click'}));
+      if (options.track) Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':options.track});
       if(template === 'newStuff') return forceLoadBailey(template, options);
       return $modal.open({
         templateUrl: 'modals/' + template + '.html',
