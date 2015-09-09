@@ -84,6 +84,31 @@ GroupSchema.pre('save', function(next){
   next();
 })
 
+GroupSchema.pre('remove', function(next) {
+  var group = this;
+  async.waterfall([
+    function(cb) {
+      User.find({
+        'invitations.guilds.id': group._id
+      }, cb);
+    },
+    function(users, cb) {
+      if (users) {
+        users.forEach(function (user, index, array) {
+          var i = _.findIndex(user.invitations.guilds, {id: group._id});
+          user.invitations.guilds.splice(i, 1);
+          user.save();
+        });
+      }
+      cb();
+    }
+  ], next);
+});
+
+GroupSchema.post('remove', function(group) {
+  firebase.deleteGroup(group._id);
+});
+
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
@@ -358,8 +383,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
   if(typeof keep !== 'string') keep = 'keep-all'; // can be also 'remove-all'
 
   var group = this;
-  var groupWasRemoved = false;
-  
+
   async.parallel([
     // Remove user from group challenges
     function(cb){
@@ -404,11 +428,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           group.type === 'party' ||
           (group.type === 'guild' && group.privacy === 'private')
       )){
-        // TODO remove invitations to this group
-        groupWasRemoved = true;
-        Group.remove({
-          _id: group._id
-        }, cb);
+        group.remove(cb)
       }else{ // otherwise just remove a member
         var update = {$pull: {members: user._id}};
 
@@ -435,7 +455,6 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
     if(err) return mainCb(err);
 
     firebase.removeUserFromGroup(group._id, user._id);
-    if(groupWasRemoved) firebase.deleteGroup(group._id);
     return mainCb();
   });
 };

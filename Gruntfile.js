@@ -159,29 +159,6 @@ module.exports = function(grunt) {
         ],
         dest: 'website/build/*.css'
       }
-    },
-
-    nodemon: {
-      dev: {
-        script: '<%= pkg.main %>'
-      }
-    },
-
-    watch: {
-      dev: {
-        files: ['website/public/**/*.styl', 'common/script/**/*.coffee', 'common/script/**/*.js'], // 'public/**/*.js' Not needed because not in production
-        tasks:  [ 'build:dev' ],
-        options: {
-          nospawn: true
-        }
-      }
-    },
-
-    concurrent: {
-      dev: ['nodemon', 'watch'],
-      options: {
-        logConcurrentOutput: true
-      }
     }
   });
 
@@ -228,8 +205,6 @@ module.exports = function(grunt) {
   grunt.registerTask('build:dev', ['browserify', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
-  grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
-
   grunt.registerTask('test:prepare:translations', function() {
     require('coffee-script');
     var i18n  = require('./website/src/i18n'),
@@ -246,8 +221,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
