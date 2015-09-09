@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var User = require('./user').model;
 var shared = require('../../../common');
 var _ = require('lodash');
 var async = require('async');
