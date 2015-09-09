@@ -151,6 +151,7 @@ describe('Groups Controller', function() {
           'another-user'
         ],
         save: sinon.stub().yields(),
+        leave: sinon.stub().yields(),
         markModified: sinon.spy()
       };
 
@@ -177,54 +178,54 @@ describe('Groups Controller', function() {
     context('party', function() {
       beforeEach(function() {
         group.type = 'party';
+      });
+
+      it('prevents user from leaving party if quest is active and part of the active members list', function() {
         group.quest = {
-          leader : 'another-user',
           active: true,
           members: {
-            'user-id': true,
-            'another-user': true
-          },
-          key : 'vice1',
-          progress : {
-              hp : 364,
-              collect : {}
+            another_user: true,
+            yet_another_user: null,
+            'user-id': true
           }
         };
 
-        sinon.spy(Group, 'update');
-      });
-
-      afterEach(function() {
-        Group.update.restore();
-      });
-
-      it('prevents user from leaving party if quest is active', function() {
-        user.party = {
-          quest : {
-              key : 'vice1',
-              progress : {
-                  up : 50,
-                  down : 0,
-                  collect : {}
-              },
-              completed : null,
-              RSVPNeeded : false
-          }
-        }
-
         groupsController.leave(req, res);
 
-        expect(Group.update).to.not.be.called;
+        expect(group.leave).to.not.be.called;
         expect(res.json).to.be.calledOnce;
         expect(res.json).to.be.calledWith(403, 'You cannot leave party during an active quest. Please leave the quest first');
       });
 
       it('leaves party if quest is not active', function() {
-        user.party = { quest: { key: null } };
+        group.quest = {
+          active: false,
+          members: {
+            another_user: true,
+            yet_another_user: null,
+            'user-id': null
+          }
+        };
 
         groupsController.leave(req, res);
 
-        expect(Group.update).to.be.calledOnce;
+        expect(group.leave).to.be.calledOnce;
+        expect(res.json).to.not.be.called;
+      });
+
+      it('leaves party if quest is active, but user is not part of quest', function() {
+        group.quest = {
+          active: true,
+          members: {
+            another_user: true,
+            yet_another_user: null,
+            'user-id': null
+          }
+        };
+
+        groupsController.leave(req, res);
+
+        expect(group.leave).to.be.calledOnce;
         expect(res.json).to.not.be.called;
       });
     });
