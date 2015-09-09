@@ -244,6 +244,14 @@ describe('Groups Controller', function() {
     });
   });
 
+  describe('#questCancel', function() {
+    it('cancels quest');
+  });
+
+  describe('#questAbort', function() {
+    it('aborts quest');
+  });
+
   describe('#questLeave', function() {
     var res, req, group, user, saveSpy;
 
