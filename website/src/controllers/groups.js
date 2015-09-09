@@ -793,7 +793,7 @@ function questStart(req, res, next) {
   if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
     return group.save(function(err,saved){
       if (err) return next(err);
-      res.json(saved);
+      res.send(204);
     })
   }
 
@@ -963,6 +963,7 @@ api.questReject = function(req, res, next) {
   var user = res.locals.user;
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+
   var analyticsData = {
     category: 'behavior',
     owner: false,
@@ -972,7 +973,9 @@ api.questReject = function(req, res, next) {
   };
   analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
+
   User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+
   questStart(req,res,next);
 }
 

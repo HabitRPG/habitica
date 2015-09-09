@@ -161,6 +161,7 @@ describe "Push-Notifications", ->
         }
         res = {
           locals: { group: group, user: user }
+          send: -> return true
           json: -> return true
         }
 

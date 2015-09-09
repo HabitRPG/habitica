@@ -264,7 +264,6 @@ describe "Party", ->
 
                 (_user, cb) ->
                   request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3").end (res) ->
-                    expectCode res, 200
                     Group.findById group._id, cb
 
                 (_group, cb) ->
