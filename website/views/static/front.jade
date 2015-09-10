@@ -2,26 +2,28 @@ doctype html
 html(ng-app='habitrpg', ng-controller='RootCtrl')
   head
     meta(charset='utf-8')
+    script(type='text/javascript').
+      window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
+    != env.getManifestFiles("tmp_static_front")
     link(href='//fonts.googleapis.com/css?family=Lato:400,700', rel='stylesheet', type='text/css')
     title Habitica | Your Life the Role Playing Game
     meta(name='description', content='')
     meta(name='keywords', content='')
     meta(name='author', content='')
     meta(name='geo.placename', content='')
-    //if IE
-      meta(http-equiv='imagetoolbar', content='no')
     meta(name='viewport', content='width=device-width, maximum-scale=1')
     meta(property='og:title', content='')
     meta(property='og:description', content='')
     meta(property='og:url', content='')
     meta(property='og:image', content='')
     meta(property='og:site_name', content='')
+    meta(name='twitter:card' content='summary')
+    meta(name='twitter:site' content='@habitica')
+    meta(name='twitter:title' content='Habitica: Your Life the Role Playing Game')
+    meta(name='twitter:description' content='Habitica is a free habit building and productivity app that treats your real life like a game! In-game rewards, social networking, and ever-growing content help motivate you toward your goals.')
+    meta(name='twitter:image' content='https://s3.amazonaws.com/habitica-assets/assets/gryphon_logo.png')
     link(rel='canonical', href='', type='text/html')
-    //-link(rel='sitemap', type='application/xml', title='Sitemap', href='/sitemap.xml')
     link(rel='shortcut icon', href='/favicon.ico')
-    //if lt IE 9
-      script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
-
 
     link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
 
