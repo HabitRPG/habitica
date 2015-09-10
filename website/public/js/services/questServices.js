@@ -27,28 +27,35 @@
       return (quest.previous);
     }
 
+    function _preventQuestModal(quest) {
+      if (!quest) {
+        return 'No quest with that key found';
+      }
+
+      if (quest.previous && (!user.achievements.quests || (user.achievements.quests && !user.achievements.quests[quest.previous]))){
+        alert(window.env.t('unlockByQuesting', {title: Content.quests[quest.previous].text()}));
+        return 'unlockByQuesting';
+      }
+
+      if (quest.lvl > user.stats.lvl) {
+        alert(window.env.t('mustLvlQuest', {level: quest.lvl}))
+        return 'mustLvlQuest';
+      }
+    }
+
     function buyQuest(quest) {
       return $q(function(resolve, reject) {
         var item = Content.quests[quest];
 
-        if (!item) {
-          return reject('No quest with that key found');
+        var preventQuestModal = _preventQuestModal(item);
+        if (preventQuestModal) {
+          return reject(preventQuestModal);
         }
 
         if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
           if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
           Groups.inviteOrStartParty(party)
           return reject('Invite or start party');
-        }
-
-        if (item.previous && (!user.achievements.quests || (user.achievements.quests && !user.achievements.quests[item.previous]))){
-          alert(window.env.t('unlockByQuesting', {title: Content.quests[item.previous].text()}));
-          return reject('unlockByQuesting');
-        }
-
-        if (item.lvl > user.stats.lvl) {
-          alert(window.env.t('mustLvlQuest', {level: item.lvl}))
-          return reject('mustLvlQuest');
         }
 
         resolve(item);
@@ -83,14 +90,16 @@
     }
 
     function showQuest(quest) {
-      var item =  Content.quests[quest];
-      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
-      if (!completedPrevious)
-        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text()}));
-      if (item.lvl && item.lvl > user.stats.lvl)
-        return alert(window.env.t('mustLevel', {level: item.lvl}));
-      $rootScope.selectedQuest = item;
-      $rootScope.openModal('showQuest', {controller:'InventoryCtrl'});
+      return $q(function(resolve, reject) {
+        var item =  Content.quests[quest];
+
+        var preventQuestModal = _preventQuestModal(item);
+        if (preventQuestModal) {
+          return reject(preventQuestModal);
+        }
+
+        resolve(item);
+      });
     }
 
     function closeQuest(){

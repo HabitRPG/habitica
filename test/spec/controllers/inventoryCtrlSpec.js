@@ -188,4 +188,37 @@ describe('Inventory Controller', function() {
       expect(rootScope.openModal).to.be.calledWith('buyQuest', {controller: 'InventoryCtrl'});
     });
   });
+
+  describe('#showQuest', function() {
+    var quests, questObject;
+
+    beforeEach(inject(function(Quests) {
+      quests = Quests;
+      questObject = { key: 'whale' };
+
+      sandbox.stub(quests, 'showQuest').returns({ then: function(res) { res(questObject); } });
+    }));
+
+    it('calls Quests.showQuest', function() {
+      scope.showQuest('foo');
+
+      expect(quests.showQuest).to.be.calledOnce;
+      expect(quests.showQuest).to.be.calledWith('foo');
+    });
+
+    it('sets selectedQuest to resolved quest object', function() {
+      scope.showQuest('whale');
+
+      expect(rootScope.selectedQuest).to.eql(questObject);
+    });
+
+    it('opens showQuest modal', function() {
+      sandbox.spy(rootScope, 'openModal');
+
+      scope.showQuest('whale');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('showQuest', {controller: 'InventoryCtrl'});
+    });
+  });
 });
