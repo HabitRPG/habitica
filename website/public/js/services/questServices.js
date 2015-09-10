@@ -6,7 +6,6 @@
     .factory('Quests', questsFactory);
 
   questsFactory.$inject = [
-    '$rootScope',
     '$state',
     '$q',
     'Content',
@@ -15,7 +14,7 @@
     'Analytics'
   ];
 
-  function questsFactory($rootScope, $state, $q, Content, Groups, User, Analytics) {
+  function questsFactory($state, $q, Content, Groups, User, Analytics) {
 
     var user = User.user;
     var party = Groups.party();
