@@ -7,6 +7,7 @@
 
   questsFactory.$inject = [
     '$rootScope',
+    '$state',
     '$q',
     'Content',
     'Groups',
@@ -14,7 +15,7 @@
     'Analytics'
   ];
 
-  function questsFactory($rootScope, $q, Content, Groups, User, Analytics) {
+  function questsFactory($rootScope, $state, $q, Content, Groups, User, Analytics) {
 
     var user = User.user;
     var party = Groups.party();
@@ -102,18 +103,16 @@
       });
     }
 
-    function closeQuest(){
-      $rootScope.selectedQuest = undefined;
-    }
-
-    function initQuest(){
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
-      Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
-      party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
-        party.$get();
-        $rootScope.$state.go('options.social.party');
+    function initQuest(key){
+      return $q(function(resolve, reject) {
+        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName': key});
+        Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
+        party.$questAccept({key:key}, function(){
+          party.$syncParty();
+          $state.go('options.social.party');
+          resolve();
+        });
       });
-      closeQuest();
     }
 
     return {
@@ -121,7 +120,6 @@
       buyQuest: buyQuest,
       questPopover: questPopover,
       showQuest: showQuest,
-      closeQuest: closeQuest,
       initQuest: initQuest
     }
   }

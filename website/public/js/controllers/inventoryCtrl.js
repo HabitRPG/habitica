@@ -32,8 +32,13 @@ habitrpg.controller("InventoryCtrl",
         });
     };
 
-    $scope.closeQuest = Quests.closeQuest;
-    $scope.questInit = Quests.initQuest;
+    $scope.questInit = function() {
+      var key = $rootScope.selectedQuest.key;
+      Quests.initQuest(key).then(function() {
+        $rootScope.selectedQuest = undefined;
+        $scope.$close();
+      });
+    };
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}

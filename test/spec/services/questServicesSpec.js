@@ -327,4 +327,12 @@ describe('Quests Service', function() {
       });
     });
   });
+
+  describe('#initQuest', function() {
+
+    it('returns a promise', function() {
+      var promise = questsService.initQuest('whale');
+      expect(promise).to.respondTo('then');
+    });
+  });
 });
