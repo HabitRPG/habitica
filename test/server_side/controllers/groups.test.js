@@ -244,12 +244,34 @@ describe('Groups Controller', function() {
     });
   });
 
+  describe('#questReject', function() {
+    it('rejects quest');
+
+    it('starts quest if last pending user rejects');
+
+    it('sends back group id and quest object');
+  });
+
+  describe('#questAccept', function() {
+    it('accepts quest');
+
+    it('allows leader to force quest to start');
+
+    it('starts quest if last pending user accepts');
+
+    it('sends back group id and quest object');
+  });
+
   describe('#questCancel', function() {
     it('cancels quest');
+
+    it('sends back group id and quest object');
   });
 
   describe('#questAbort', function() {
     it('aborts quest');
+
+    it('sends back group id and quest object');
   });
 
   describe('#questLeave', function() {
