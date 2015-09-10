@@ -131,6 +131,12 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.questReject = function(party){
         Groups.questReject(party);
-      }
+      };
+
+      $scope.canEditQuest = function(party) {
+        var isQuestLeader = party.quest && party.quest.leader === User.user._id;
+
+        return isQuestLeader;
+      };
     }
   ]);

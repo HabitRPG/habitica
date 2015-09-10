@@ -253,4 +253,28 @@ describe("Party Controller", function() {
       });
     });
   });
+
+  describe('#canEditQuest', function() {
+    var party;
+
+    beforeEach(function() {
+      party = specHelper.newGroup({
+        type: 'party',
+        leader: {},
+        quest: {}
+      });
+    });
+
+    it('returns false if user is not the quest leader', function() {
+      party.quest.leader = 'another-user';
+
+      expect(scope.canEditQuest(party)).to.eql(false);
+    });
+
+    it('returns true if user is quest leader', function() {
+      party.quest.leader = 'unique-user-id';
+
+      expect(scope.canEditQuest(party)).to.eql(true);
+    });
+  });
 });
