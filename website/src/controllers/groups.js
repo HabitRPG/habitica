@@ -1066,7 +1066,10 @@ api.questLeave = function(req, res, next) {
 
   Q.all([groupSavePromise(), userSavePromise()])
     .done(function(values) {
-      return res.send(204);
+      return res.json(201, {
+        _id: group._id,
+        quest: group.quest
+      });
     }, function(error) {
       return next(error);
     });

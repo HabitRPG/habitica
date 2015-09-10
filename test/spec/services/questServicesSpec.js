@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var scope, groupsService, quest, questsService, user, content, resolveSpy, rejectSpy;
+  var groupsService, quest, questsService, user, content, resolveSpy, rejectSpy;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -16,9 +16,7 @@ describe('Quests Service', function() {
       $provide.value('User', {user: user});
     });
 
-    inject(function(_$rootScope_, Quests, Groups, Content) {
-      scope = _$rootScope_.$new();
-
+    inject(function(Quests, Groups, Content) {
       questsService = Quests;
       groupsService = Groups;
       content = Content;
@@ -68,6 +66,12 @@ describe('Quests Service', function() {
   });
 
   describe('#buyQuest', function() {
+    var scope;
+
+    beforeEach(inject(function($rootScope) {
+      scope = $rootScope.$new();
+    }));
+
     it('returns a promise', function() {
       var promise = questsService.buyQuest('whale');
       expect(promise).to.respondTo('then');
@@ -215,6 +219,12 @@ describe('Quests Service', function() {
   });
 
   describe('#showQuest', function() {
+    var scope;
+
+    beforeEach(inject(function($rootScope) {
+      scope = $rootScope.$new();
+    }));
+
     it('returns a promise', function() {
       var promise = questsService.showQuest('whale');
       expect(promise).to.respondTo('then');
@@ -334,5 +344,37 @@ describe('Quests Service', function() {
     it('accepts quest');
 
     it('brings user to party page');
+  });
+
+  describe('#leaveQuest', function() {
+    var fakeBackend, scope;
+
+    beforeEach(inject(function($httpBackend, $rootScope) {
+      scope = $rootScope.$new();
+      fakeBackend = $httpBackend;
+
+      fakeBackend.when('GET', 'partials/main.html').respond({});
+      fakeBackend.when('GET', '/api/v2/groups/party').respond({_id: 'party-id'});
+      fakeBackend.when('POST', '/api/v2/groups/party-id/questLeave').respond({quest: { key: 'whale' } });
+      fakeBackend.flush();
+    }));
+
+    it('returns a promise', function() {
+      var promise = questsService.leaveQuest();
+      expect(promise).to.respondTo('then');
+    });
+
+    it('calls questLeave endpoint', function(done) {
+      fakeBackend.expectPOST('/api/v2/groups/party-id/questLeave');
+
+      questsService.leaveQuest()
+        .then(function(res) {
+          expect(res.key).to.eql('whale');
+          done();
+        });
+
+      fakeBackend.flush();
+      scope.$apply();
+    });
   });
 });

@@ -23,4 +23,4 @@ div(ng-if='group.quest.active==true')
     button.btn.btn-sm.btn-warning(ng-if=':: (group.quest.leader  && group.quest.leader==user._id && isMemberOfRunningQuest(group.quest.leader,group))',
       ng-click='questAbort(party)')=env.t('abort')
     button.btn.btn-sm.btn-warning(ng-if='!(group.quest.leader && group.quest.leader === user._id) && isMemberOfRunningQuest(user._id,group)',
-      ng-click='questLeave(party)')=env.t('leaveQuest')
+      ng-click='questLeave()')=env.t('leaveQuest')

@@ -6,15 +6,17 @@
     .factory('Quests', questsFactory);
 
   questsFactory.$inject = [
+    '$http',
     '$state',
     '$q',
+    'ApiUrl',
     'Content',
     'Groups',
     'User',
     'Analytics'
   ];
 
-  function questsFactory($state, $q, Content, Groups, User, Analytics) {
+  function questsFactory($http, $state, $q, ApiUrl, Content, Groups, User, Analytics) {
 
     var user = User.user;
     var party = Groups.party();
@@ -102,7 +104,7 @@
       });
     }
 
-    function initQuest(key){
+    function initQuest(key) {
       return $q(function(resolve, reject) {
         Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName': key});
         Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
@@ -114,7 +116,19 @@
       });
     }
 
+    function leaveQuest() {
+      return $q(function(resolve, reject) {
+
+        $http.post(ApiUrl.get() + '/api/v2/groups/' + party._id + '/questLeave')
+          .then(function(response) {
+            var quest = response.data.quest;
+            resolve(quest);
+          });;
+      });
+    }
+
     return {
+      leaveQuest: leaveQuest,
       lockQuest: lockQuest,
       buyQuest: buyQuest,
       questPopover: questPopover,

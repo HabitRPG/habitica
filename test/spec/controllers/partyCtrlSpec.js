@@ -1,7 +1,7 @@
 'use strict';
 
 describe("Party Controller", function() {
-  var scope, ctrl, user, User, groups, rootScope, $controller;
+  var scope, ctrl, user, User, questsService, groups, rootScope, $controller;
 
   beforeEach(function() {
     user = specHelper.newUser(),
@@ -15,7 +15,7 @@ describe("Party Controller", function() {
       $provide.value('User', User);
     });
 
-    inject(function(_$rootScope_, _$controller_, Groups){
+    inject(function(_$rootScope_, _$controller_, Groups, Quests){
 
       rootScope = _$rootScope_;
 
@@ -24,6 +24,7 @@ describe("Party Controller", function() {
       $controller = _$controller_;
 
       groups = Groups;
+      questsService = Quests;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: User});
@@ -136,12 +137,12 @@ describe("Party Controller", function() {
       scope.group = {
         quest: { members: { 'user-id': true } }
       };
-      leaveSpy = sandbox.stub(groups, 'questLeave').returns({
-        then: sandbox.stub().yields()
+      leaveSpy = sandbox.stub(questsService, 'leaveQuest').returns({
+        then: sandbox.stub().yields({members: {another: true}})
       });
     });
 
-    it('calls Groups.questLeave when alert box is confirmed', function() {
+    it('calls Quests.leaveQuest when alert box is confirmed', function() {
       windowSpy = sandbox.stub(window, "confirm").returns(true);
 
       scope.questLeave(party);
@@ -150,12 +151,23 @@ describe("Party Controller", function() {
       leaveSpy.should.have.been.calledOnce;
     });
 
-    it('does not call Groups.questLeave when alert box is not confirmed', function() {
+    it('does not call Quests.leaveQuest when alert box is not confirmed', function() {
       windowSpy = sandbox.stub(window, "confirm").returns(false);
 
       scope.questLeave(party);
       windowSpy.should.have.been.calledOnce;
       leaveSpy.should.not.have.been.calledOnce;
+    });
+
+    it('updates quest object with new participants list', function() {
+      scope.group.quest = {
+        members: { user: true, another: true }
+      };
+      windowSpy = sandbox.stub(window, "confirm").returns(true);
+
+      scope.questLeave(party);
+
+      expect(scope.group.quest).to.eql({members: { another: true }});
     });
   });
 

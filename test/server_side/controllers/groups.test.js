@@ -207,7 +207,7 @@ describe('Groups Controller', function() {
 
         expect(group.leave).to.not.be.called;
         expect(res.json).to.be.calledOnce;
-        expect(res.json).to.be.calledWith(403, 'You cannot leave when you have started a quest. Abort the quest first.');
+        expect(res.json).to.be.calledWith(403, 'You cannot leave party when you have started a quest. Abort the quest first.');
       });
 
       it('leaves party if quest is not active', function() {
@@ -393,11 +393,20 @@ describe('Groups Controller', function() {
         });
       });
 
-      it('sends back 204 on success', function() {
+      it('sends group id and quest object', function() {
         groupsController.questLeave(req, res);
 
-        expect(res.send).to.be.calledOnce;
-        expect(res.send).to.be.calledWith(204);
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(201, {
+          _id: 'group-id',
+          quest: {
+            active: true,
+            key: 'vice1',
+            leader: 'another-user',
+            members: { 'another-user': true },
+            progress: { collect: {  }, hp: 364 }
+          }
+        });
       });
     });
   });

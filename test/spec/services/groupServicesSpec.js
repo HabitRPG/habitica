@@ -64,8 +64,7 @@ describe('groupServices', function() {
       'questAccept',
       'questReject',
       'questCancel',
-      'questAbort',
-      'questLeave'
+      'questAbort'
     ];
 
     for (var i in questFunctions) {
