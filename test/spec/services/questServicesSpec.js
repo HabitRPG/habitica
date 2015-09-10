@@ -334,5 +334,9 @@ describe('Quests Service', function() {
       var promise = questsService.initQuest('whale');
       expect(promise).to.respondTo('then');
     });
+
+    it('accepts quest');
+
+    it('brings user to party page');
   });
 });
