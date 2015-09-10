@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Quests Service', function() {
-  var scope, rootScope, groupsService, quest, questsService, user, content, resolveSpy, rejectSpy;
+  var scope, groupsService, quest, questsService, user, content, resolveSpy, rejectSpy;
 
   beforeEach(function() {
     user = specHelper.newUser();
@@ -16,17 +16,15 @@ describe('Quests Service', function() {
       $provide.value('User', {user: user});
     });
 
-    inject(function($rootScope, $controller, Quests, Groups, Content) {
-      scope = $rootScope.$new();
-      rootScope = $rootScope;
-      $controller('RootCtrl', {$scope: scope, User: {user: user}});
+    inject(function(_$rootScope_, Quests, Groups, Content) {
+      scope = _$rootScope_.$new();
+
       questsService = Quests;
       groupsService = Groups;
       content = Content;
     });
 
     sandbox.stub(groupsService, 'inviteOrStartParty');
-    sandbox.stub(rootScope, 'openModal');
     sandbox.stub(window,'confirm');
     sandbox.stub(window,'alert');
     resolveSpy = sandbox.spy();
@@ -166,7 +164,6 @@ describe('Quests Service', function() {
           .then(resolveSpy, function(res) {
             expect(window.alert).to.have.been.calledOnce;
             expect(res).to.eql('mustLvlQuest');
-            expect(rootScope.openModal).to.have.been.notCalled;
             done();
           });
 
@@ -277,7 +274,6 @@ describe('Quests Service', function() {
           .then(resolveSpy, function(res) {
             expect(window.alert).to.have.been.calledOnce;
             expect(res).to.eql('mustLvlQuest');
-            expect(rootScope.openModal).to.have.been.notCalled;
             done();
           });
 
