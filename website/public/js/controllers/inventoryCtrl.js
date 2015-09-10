@@ -13,7 +13,13 @@ habitrpg.controller("InventoryCtrl",
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
-    $scope.buyQuest = Quests.buyQuest;
+    $scope.buyQuest = function(questScroll) {
+      Quests.buyQuest(questScroll)
+        .then(function(quest) {
+          $rootScope.selectedQuest = quest;
+          $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
+        });
+    };
     $scope.questPopover = Quests.questPopover;
     $scope.showQuest = Quests.showQuest;
     $scope.closeQuest = Quests.closeQuest;

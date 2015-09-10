@@ -7,13 +7,14 @@
 
   questsFactory.$inject = [
     '$rootScope',
+    '$q',
     'Content',
     'Groups',
     'User',
     'Analytics'
   ];
 
-  function questsFactory($rootScope,Content,Groups,User,Analytics) {
+  function questsFactory($rootScope, $q, Content, Groups, User, Analytics) {
 
     var user = User.user;
     var party = Groups.party();
@@ -27,20 +28,31 @@
     }
 
     function buyQuest(quest) {
-      var item = Content.quests[quest];
+      return $q(function(resolve, reject) {
+        var item = Content.quests[quest];
 
-      if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
-        if (!confirm(window.env.t('mustInviteFriend'))) return;
-        return Groups.inviteOrStartParty(party);
-      }
-      if (item.previous && (!User.user.achievements.quests || (User.user.achievements.quests && !User.user.achievements.quests[item.previous]))){
-        return alert(window.env.t('unlockByQuesting', {title: Content.quests[item.previous].text()}));
-      }
-      if (item.lvl && item.lvl > user.stats.lvl) {
-        return alert(window.env.t('mustLvlQuest', {level: item.lvl}));
-      }
-      $rootScope.selectedQuest = item;
-      $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
+        if (!item) {
+          return reject('No quest with that key found');
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
+          if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
+          Groups.inviteOrStartParty(party)
+          return reject('Invite or start party');
+        }
+
+        if (item.previous && (!user.achievements.quests || (user.achievements.quests && !user.achievements.quests[item.previous]))){
+          alert(window.env.t('unlockByQuesting', {title: Content.quests[item.previous].text()}));
+          return reject('unlockByQuesting');
+        }
+
+        if (item.lvl > user.stats.lvl) {
+          alert(window.env.t('mustLvlQuest', {level: item.lvl}))
+          return reject('mustLvlQuest');
+        }
+
+        resolve(item);
+      });
     }
 
     function questPopover(quest) {
