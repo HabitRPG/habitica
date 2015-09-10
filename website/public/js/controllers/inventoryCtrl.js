@@ -33,7 +33,7 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.closeQuest = Quests.closeQuest;
-    $scope.questInit = Quests.questInit;
+    $scope.questInit = Quests.initQuest;
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}

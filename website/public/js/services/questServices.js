@@ -106,7 +106,7 @@
       $rootScope.selectedQuest = undefined;
     }
 
-    function questInit(){
+    function initQuest(){
       Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
       Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
       party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
@@ -122,7 +122,7 @@
       questPopover: questPopover,
       showQuest: showQuest,
       closeQuest: closeQuest,
-      questInit: questInit
+      initQuest: initQuest
     }
   }
 }());
