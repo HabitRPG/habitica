@@ -34,6 +34,7 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.questInit = function() {
       var key = $rootScope.selectedQuest.key;
+
       Quests.initQuest(key).then(function() {
         $rootScope.selectedQuest = undefined;
         $scope.$close();
