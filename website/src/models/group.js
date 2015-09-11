@@ -87,23 +87,46 @@ GroupSchema.pre('save', function(next){
 
 GroupSchema.pre('remove', function(next) {
   var group = this;
-  async.waterfall([
-    function(cb) {
-      User.find({
-        'invitations.guilds.id': group._id
-      }, cb);
-    },
-    function(users, cb) {
-      if (users) {
-        users.forEach(function (user, index, array) {
-          var i = _.findIndex(user.invitations.guilds, {id: group._id});
-          user.invitations.guilds.splice(i, 1);
-          user.save();
-        });
+  if ( group.type == "guild" ) {
+    async.waterfall([
+      function(cb) {
+        User.find({
+          'invitations.guilds.id': group._id
+        }, cb);
+      },
+      function(users, cb) {
+        if (users) {
+          users.forEach(function (user, index, array) {
+            var i = _.findIndex(user.invitations.guilds, {id: group._id});
+            user.invitations.guilds.splice(i, 1);
+            user.save();
+          });
+        }
+        cb();
       }
-      cb();
-    }
-  ], next);
+    ], next);
+  } else if ( group.type == "party" ) {
+    async.waterfall([
+      function(cb) {
+        User.find({
+          'invitations.party.id': group._id
+        }, cb);
+      },
+      function(users, cb) {
+        if (users) {
+          users.forEach(function (user, index, array) {
+            if (user.invitations.party.id === group._id) {
+              user.invitations.party = {};
+            }
+            user.save();
+          });
+        }
+        cb();
+      }
+    ], next);
+  }
+
+
 });
 
 GroupSchema.post('remove', function(group) {

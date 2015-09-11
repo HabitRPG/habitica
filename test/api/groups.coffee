@@ -172,11 +172,11 @@ describe "Guilds", ->
               cb()
         ], done
 
-    it "deletes all invites to a group when the last member leaves", (done) ->
+    it "deletes all invites to a group (guild) when the last member leaves", (done) ->
       groupToDeleteAfterLeave = undefined
       userToRemoveInvite = undefined
       request.post(baseURL + "/groups").send(
-        name: "TestGroupToDeleteAfteLeave"
+        name: "TestGroupToDeleteAfterLeave"
         type: "guild"
         privacy: "private"
       ).end (res) ->
@@ -212,6 +212,53 @@ describe "Guilds", ->
 
           (cb) ->
             request.post(baseURL + "/groups/" + groupToDeleteAfterLeave._id)
+            .end (res) ->
+              expectCode res, 404
+              cb()
+        ], done
+
+    it "deletes all invites to a group (party) when the last member leaves", (done) ->
+      partyToDeleteAfterLeave = undefined
+      userToRemovePartyInvite = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestPartyToDeleteAfterLeave"
+        type: "party"
+      ).end (res) ->
+        partyToDeleteAfterLeave = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToRemovePartyInvite = _members[0]
+            inviteURL = baseURL + "/groups/" + partyToDeleteAfterLeave._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToRemovePartyInvite._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + partyToDeleteAfterLeave._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.get(baseURL + '/user')
+              .set("X-API-User", userToRemovePartyInvite._id)
+              .set("X-API-Key", userToRemovePartyInvite.apiToken)
+              .end (err, res) ->
+                expectCode res, 200
+                party = partyToDeleteAfterLeave
+                partyInvitation = _.find(res.body.invitations.party, (invite) ->
+                  return invite == party._id
+                )
+                expect(partyInvitation).to.not.exist
+                cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + partyToDeleteAfterLeave._id)
             .end (res) ->
               expectCode res, 404
               cb()
