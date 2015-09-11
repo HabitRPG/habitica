@@ -87,46 +87,30 @@ GroupSchema.pre('save', function(next){
 
 GroupSchema.pre('remove', function(next) {
   var group = this;
-  if ( group.type == "guild" ) {
-    async.waterfall([
-      function(cb) {
-        User.find({
-          'invitations.guilds.id': group._id
-        }, cb);
-      },
-      function(users, cb) {
-        if (users) {
-          users.forEach(function (user, index, array) {
+  async.waterfall([
+    function(cb) {
+      var invitationQuery = {};
+      var groupType = group.type;
+      //Add an 's' to group type guild because the model has the plural version
+      if (group.type == "guild") groupType += "s";
+      invitationQuery['invitations.' + groupType + '.id'] = group._id;
+      User.find(invitationQuery, cb);
+    },
+    function(users, cb) {
+      if (users) {
+        users.forEach(function (user, index, array) {
+          if ( group.type == "party" ) {
+            user.invitations.party = {};
+          } else {
             var i = _.findIndex(user.invitations.guilds, {id: group._id});
             user.invitations.guilds.splice(i, 1);
-            user.save();
-          });
-        }
-        cb();
+          }
+          user.save();
+        });
       }
-    ], next);
-  } else if ( group.type == "party" ) {
-    async.waterfall([
-      function(cb) {
-        User.find({
-          'invitations.party.id': group._id
-        }, cb);
-      },
-      function(users, cb) {
-        if (users) {
-          users.forEach(function (user, index, array) {
-            if (user.invitations.party.id === group._id) {
-              user.invitations.party = {};
-            }
-            user.save();
-          });
-        }
-        cb();
-      }
-    ], next);
-  }
-
-
+      cb();
+    }
+  ], next);
 });
 
 GroupSchema.post('remove', function(group) {
