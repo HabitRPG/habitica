@@ -71,8 +71,8 @@ apt-get install -qq nodejs
 
 cd /vagrant
 
-echo Installing grunt/bower...
-npm install -g grunt-cli bower phantomjs
+echo Installing gulp/bower...
+npm install -g gulp grunt-cli bower
 
 echo Installing Habitica
 npm install --no-bin-link
