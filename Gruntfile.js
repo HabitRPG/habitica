@@ -133,7 +133,7 @@ module.exports = function(grunt) {
 
   // Register tasks.
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'browserify', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['browserify', 'stylus']);
+  grunt.registerTask('build:dev', ['browserify', 'cssmin', 'stylus']);
   grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
 
   grunt.registerTask('test:prepare:translations', function() {
