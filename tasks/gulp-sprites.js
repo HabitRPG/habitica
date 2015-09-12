@@ -7,11 +7,10 @@ import merge from 'merge-stream';
 import {sync} from 'glob';
 import {times, each} from 'lodash';
 
-const SPRITES_SRC = sync('common/img/sprites/spritesmith/**/*.png');
-const DIST_PATH = 'common/dist/sprites/';
-
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
+const DIST_PATH = 'common/dist/sprites/';
+const SPRITES_SRC = sync('common/img/sprites/spritesmith/**/*.png');
 const SPRITESHEET_SLICE_INDICIES = _calculateSpritesheetsSrcIndicies(SPRITES_SRC);
 
 let spritesTasks = ['sprites:clean'];
@@ -59,7 +58,7 @@ gulp.task('sprites:checkCompiledDimensions', () => {
 
   let numberOfSheetsThatAreTooBig = 0;
 
-  let distSpritesheets = sync(`${DIST_PATH}spritesmith*.png`);
+  let distSpritesheets = sync(`${DIST_PATH}*.png`);
 
   each(distSpritesheets, (img, index) => {
     let spriteSize = _calculateImgDimensions(img);
