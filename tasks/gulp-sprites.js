@@ -4,6 +4,7 @@ import spritesmith from 'gulp.spritesmith';
 import clean from 'gulp-clean';
 import sizeOf from 'image-size';
 import merge from 'merge-stream';
+import {basename} from 'path';
 import {sync} from 'glob';
 import {times, each} from 'lodash';
 
@@ -11,40 +12,14 @@ import {times, each} from 'lodash';
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
 const DIST_PATH = 'common/dist/sprites/';
 const SPRITES_SRC = sync('common/img/sprites/spritesmith/**/*.png');
-const SPRITESHEET_SLICE_INDICIES = _calculateSpritesheetsSrcIndicies(SPRITES_SRC);
 
 let spritesTasks = ['sprites:clean'];
 
-each(SPRITESHEET_SLICE_INDICIES, (start, index) => {
-  let slicedSrc = SPRITES_SRC.slice(start, SPRITESHEET_SLICE_INDICIES[index + 1]);
-  let taskName = `sprites:${index}`;
-  spritesTasks.push(taskName);
+let mainSrc = sync('common/img/sprites/spritesmith/**/*.png');
+_generateSpritesTasks('main', mainSrc);
 
-  gulp.task(taskName, () => {
-    let spriteData = gulp.src(slicedSrc)
-      .pipe(spritesmith({
-        imgName: `spritesmith${index}.png`,
-        cssName: `spritesmith${index}.css`,
-        algorithm: 'binary-tree',
-        padding: 1,
-        cssTemplate: 'common/css/css.template.mustache',
-        cssVarMap: _cssVarMap
-      }));
-
-    let imgStream = spriteData.img
-      .pipe(imagemin())
-      .pipe(gulp.dest(DIST_PATH));
-
-    let cssStream = spriteData.css
-      .pipe(gulp.dest(DIST_PATH));
-
-    return merge(imgStream, cssStream);
-  });
-});
-
-gulp.task('sprites:largeFiles', () => {
-
-});
+let largeSrc = sync('common/img/sprites/spritesmith_large/**/*.png');
+_generateSpritesTasks('largeSprites', largeSrc);
 
 gulp.task('sprites:clean', (done) => {
   gulp.src(`${DIST_PATH}spritesmith*`)
@@ -64,8 +39,8 @@ gulp.task('sprites:checkCompiledDimensions', () => {
     let spriteSize = _calculateImgDimensions(img);
 
     if (spriteSize > MAX_SPRITESHEET_SIZE) {
-      let name = `spritesmith${index}.png`;
       numberOfSheetsThatAreTooBig++;
+      let name = basename(img, '.png');
       console.error(`WARNING: ${name} is too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`);
     }
   });
@@ -81,6 +56,37 @@ gulp.task('sprites:checkCompiledDimensions', () => {
 gulp.task('sprites:compile', spritesTasks, () => {
   gulp.run('sprites:checkCompiledDimensions');
 });
+
+function _generateSpritesTasks(name, src) {
+  let spritesheetSliceIndicies = _calculateSpritesheetsSrcIndicies(src);
+
+  each(spritesheetSliceIndicies, (start, index) => {
+    let slicedSrc = src.slice(start, spritesheetSliceIndicies[index + 1]);
+    let taskName = `sprites:${name}:${index}`;
+    spritesTasks.push(taskName);
+
+    gulp.task(taskName, () => {
+      let spriteData = gulp.src(slicedSrc)
+        .pipe(spritesmith({
+          imgName: `spritesmith-${name}-${index}.png`,
+          cssName: `spritesmith-${name}-${index}.css`,
+          algorithm: 'binary-tree',
+          padding: 1,
+          cssTemplate: 'common/css/css.template.mustache',
+          cssVarMap: _cssVarMap
+        }));
+
+      let imgStream = spriteData.img
+        .pipe(imagemin())
+        .pipe(gulp.dest(DIST_PATH));
+
+      let cssStream = spriteData.css
+        .pipe(gulp.dest(DIST_PATH));
+
+      return merge(imgStream, cssStream);
+    });
+  });
+}
 
 function _calculateSpritesheetsSrcIndicies(src) {
   let totalPixels = 0;
