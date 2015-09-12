@@ -57,15 +57,15 @@ gulp.task('sprites:checkCompiledDimensions', () => {
 
   let numberOfSheetsThatAreTooBig = 0;
 
-  times(SPRITESHEET_COUNT, (i) => {
-    let fileName = `spritesmith${i}.png`;
-    let spritesheetPath = `${DIST_PATH}${fileName}`
-    let spriteSize = _calculateImgDimensions(spritesheetPath);
+  let distSpritesheets = sync(`${DIST_PATH}spritesmith*.png`);
 
+  each(distSpritesheets, (img, index) => {
+    let spriteSize = _calculateImgDimensions(img);
 
     if (spriteSize > MAX_SPRITESHEET_SIZE) {
+      let name = `spritesmith${index}.png`;
       numberOfSheetsThatAreTooBig++;
-      console.error(`WARNING: ${fileName} is too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`);
+      console.error(`WARNING: ${name} is too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`);
     }
   });
 
