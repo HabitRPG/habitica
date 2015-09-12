@@ -12,7 +12,7 @@ const DIST_PATH = 'common/dist/sprites/';
 
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
-const SPRITESHEET_SLICE_INDICIES = _calculateSpritesheetsSrcIndicies();
+const SPRITESHEET_SLICE_INDICIES = _calculateSpritesheetsSrcIndicies(SPRITES_SRC);
 
 let spritesTasks = ['sprites:clean'];
 
@@ -41,6 +41,10 @@ each(SPRITESHEET_SLICE_INDICIES, (start, index) => {
 
     return merge(imgStream, cssStream);
   });
+});
+
+gulp.task('sprites:largeFiles', () => {
+
 });
 
 gulp.task('sprites:clean', (done) => {
@@ -79,11 +83,11 @@ gulp.task('sprites:compile', spritesTasks, () => {
   gulp.run('sprites:checkCompiledDimensions');
 });
 
-function _calculateSpritesheetsSrcIndicies() {
+function _calculateSpritesheetsSrcIndicies(src) {
   let totalPixels = 0;
   let slices = [0];
 
-  each(SPRITES_SRC, (img, index) => {
+  each(src, (img, index) => {
     let imageSize = _calculateImgDimensions(img, true);
     totalPixels += imageSize;
 
