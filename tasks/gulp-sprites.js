@@ -16,12 +16,12 @@ gulp.task('sprites:compile', ['sprites:clean', 'sprites:main', 'sprites:largeSpr
 
 gulp.task('sprites:main', () => {
   let mainSrc = sync('common/img/sprites/spritesmith/**/*.png');
-  return _createSpritesStream('main', mainSrc);
+  return createSpritesStream('main', mainSrc);
 });
 
 gulp.task('sprites:largeSprites', () => {
   let largeSrc = sync('common/img/sprites/spritesmith_large/**/*.png');
-  return _createSpritesStream('largeSprites', largeSrc);
+  return createSpritesStream('largeSprites', largeSrc);
 });
 
 gulp.task('sprites:clean', (done) => {
@@ -39,7 +39,7 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
   let distSpritesheets = sync(`${DIST_PATH}*.png`);
 
   each(distSpritesheets, (img, index) => {
-    let spriteSize = _calculateImgDimensions(img);
+    let spriteSize = calculateImgDimensions(img);
 
     if (spriteSize > MAX_SPRITESHEET_SIZE) {
       numberOfSheetsThatAreTooBig++;
@@ -56,8 +56,8 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
   }
 });
 
-function _createSpritesStream(name, src) {
-  let spritesheetSliceIndicies = _calculateSpritesheetsSrcIndicies(src);
+function createSpritesStream(name, src) {
+  let spritesheetSliceIndicies = calculateSpritesheetsSrcIndicies(src);
   let stream = mergeStream();
 
   each(spritesheetSliceIndicies, (start, index) => {
@@ -70,7 +70,7 @@ function _createSpritesStream(name, src) {
         algorithm: 'binary-tree',
         padding: 1,
         cssTemplate: 'common/css/css.template.mustache',
-        cssVarMap: _cssVarMap
+        cssVarMap: cssVarMap
       }));
 
     let imgStream = spriteData.img
@@ -87,12 +87,12 @@ function _createSpritesStream(name, src) {
   return stream;
 }
 
-function _calculateSpritesheetsSrcIndicies(src) {
+function calculateSpritesheetsSrcIndicies(src) {
   let totalPixels = 0;
   let slices = [0];
 
   each(src, (img, index) => {
-    let imageSize = _calculateImgDimensions(img, true);
+    let imageSize = calculateImgDimensions(img, true);
     totalPixels += imageSize;
 
     if (totalPixels > MAX_SPRITESHEET_SIZE) {
@@ -104,10 +104,10 @@ function _calculateSpritesheetsSrcIndicies(src) {
   return slices;
 }
 
-function _calculateImgDimensions(img, addPadding) {
+function calculateImgDimensions(img, addPadding) {
   let dims = sizeOf(img);
 
-  let requiresSpecialTreatment = _checkForSpecialTreatment(img);
+  let requiresSpecialTreatment = checkForSpecialTreatment(img);
   if (requiresSpecialTreatment) {
     let newWidth = dims.width < 90 ? 90 : dims.width;
     let newHeight = dims.height < 90 ? 90 : dims.height;
@@ -130,16 +130,16 @@ function _calculateImgDimensions(img, addPadding) {
   return totalPixelSize;
 }
 
-function _checkForSpecialTreatment(name) {
+function checkForSpecialTreatment(name) {
   let regex = /hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears/;
   return name.match(regex) || name === 'head_0';
 }
 
-function _cssVarMap(sprite) {
+function cssVarMap(sprite) {
   // For hair, skins, beards, etc. we want to output a '.customize-options.WHATEVER' class, which works as a
   // 60x60 image pointing at the proper part of the 90x90 sprite.
   // We set up the custom info here, and the template makes use of it.
-  let requiresSpecialTreatment = _checkForSpecialTreatment(sprite.name);
+  let requiresSpecialTreatment = checkForSpecialTreatment(sprite.name);
   if (requiresSpecialTreatment) {
     sprite.custom = {
       px: {
