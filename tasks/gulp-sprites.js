@@ -3,23 +3,26 @@ import imagemin from 'gulp-imagemin';
 import spritesmith from 'gulp.spritesmith';
 import clean from 'gulp-clean';
 import sizeOf from 'image-size';
-import merge from 'merge-stream';
+import mergeStream from 'merge-stream';
 import {basename} from 'path';
 import {sync} from 'glob';
-import {times, each} from 'lodash';
+import {each} from 'lodash';
 
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
 const DIST_PATH = 'common/dist/sprites/';
-const SPRITES_SRC = sync('common/img/sprites/spritesmith/**/*.png');
 
-let spritesTasks = ['sprites:clean'];
+gulp.task('sprites:compile', ['sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions']);
 
-let mainSrc = sync('common/img/sprites/spritesmith/**/*.png');
-_generateSpritesTasks('main', mainSrc);
+gulp.task('sprites:main', () => {
+  let mainSrc = sync('common/img/sprites/spritesmith/**/*.png');
+  return _createSpritesStream('main', mainSrc);
+});
 
-let largeSrc = sync('common/img/sprites/spritesmith_large/**/*.png');
-_generateSpritesTasks('largeSprites', largeSrc);
+gulp.task('sprites:largeSprites', () => {
+  let largeSrc = sync('common/img/sprites/spritesmith_large/**/*.png');
+  return _createSpritesStream('largeSprites', largeSrc);
+});
 
 gulp.task('sprites:clean', (done) => {
   gulp.src(`${DIST_PATH}spritesmith*`)
@@ -28,7 +31,7 @@ gulp.task('sprites:clean', (done) => {
   done();
 });
 
-gulp.task('sprites:checkCompiledDimensions', () => {
+gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSprites'], () => {
   console.log('Verifiying that images do not exceed max dimensions');
 
   let numberOfSheetsThatAreTooBig = 0;
@@ -53,39 +56,35 @@ gulp.task('sprites:checkCompiledDimensions', () => {
   }
 });
 
-gulp.task('sprites:compile', spritesTasks, () => {
-  gulp.run('sprites:checkCompiledDimensions');
-});
-
-function _generateSpritesTasks(name, src) {
+function _createSpritesStream(name, src) {
   let spritesheetSliceIndicies = _calculateSpritesheetsSrcIndicies(src);
+  let stream = mergeStream();
 
   each(spritesheetSliceIndicies, (start, index) => {
     let slicedSrc = src.slice(start, spritesheetSliceIndicies[index + 1]);
-    let taskName = `sprites:${name}:${index}`;
-    spritesTasks.push(taskName);
 
-    gulp.task(taskName, () => {
-      let spriteData = gulp.src(slicedSrc)
-        .pipe(spritesmith({
-          imgName: `spritesmith-${name}-${index}.png`,
-          cssName: `spritesmith-${name}-${index}.css`,
-          algorithm: 'binary-tree',
-          padding: 1,
-          cssTemplate: 'common/css/css.template.mustache',
-          cssVarMap: _cssVarMap
-        }));
+    let spriteData = gulp.src(slicedSrc)
+      .pipe(spritesmith({
+        imgName: `spritesmith-${name}-${index}.png`,
+        cssName: `spritesmith-${name}-${index}.css`,
+        algorithm: 'binary-tree',
+        padding: 1,
+        cssTemplate: 'common/css/css.template.mustache',
+        cssVarMap: _cssVarMap
+      }));
 
-      let imgStream = spriteData.img
-        .pipe(imagemin())
-        .pipe(gulp.dest(DIST_PATH));
+    let imgStream = spriteData.img
+      .pipe(imagemin())
+      .pipe(gulp.dest(DIST_PATH));
 
-      let cssStream = spriteData.css
-        .pipe(gulp.dest(DIST_PATH));
+    let cssStream = spriteData.css
+      .pipe(gulp.dest(DIST_PATH));
 
-      return merge(imgStream, cssStream);
-    });
+    stream.add(imgStream);
+    stream.add(cssStream);
   });
+
+  return stream;
 }
 
 function _calculateSpritesheetsSrcIndicies(src) {
