@@ -91,7 +91,7 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
       });
     }
     $scope.addGold = function(){
-      User.set({        
+      User.set({
         'stats.gp': User.user.stats.gp + 500,
       });
     }
