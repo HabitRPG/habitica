@@ -61,7 +61,8 @@
     "timeTravelersTitle": "謎のタイムトラベラーズ",
     "timeTravelersPopoverNoSub": "謎のタイムトラベラーズを召喚するには、神秘な砂時計が必要です！<%= linkStart %>購読者<%= linkEnd %>は三ヶ月継続購読予約するごとに神秘の砂時計を獲得します。あなたが神秘の砂時計を持っている時か、タイムトラベラーズが過去、あるいは未来のあなたから神秘の砂時計を取得した時に帰ります。",
     "timeTravelersPopover": "あなたが神秘の砂時計を持っているのを確認したので、あなたのために喜んで時間を戻します！あなたの希望するミステリーアイテムセットを選んでください。<%= linkStart %>ここ<%= linkEnd %>で過去のアイテムセットのリストを見ることができます！もし、その中に満足する物がないのであれば、私たちのおしゃれで未来的なスチームパンクアイテムセットに興味ありませんか？",
-    "mysticHourglassPopover": "神秘な砂時計はあなたを先月以前の購読者セットを購入可能にします。",
+    "timeTravelersAlreadyOwned": "Congratulations! You already own all of the Mystery Items. Thanks for supporting the site!",
+    "mysticHourglassPopover": "Mystic Hourglass allows you to purchase previous months' subscriber sets.",
     "subUpdateCard": "クレジットカード情報を変更する",
     "subUpdateTitle": "更新",
     "subUpdateDescription": "支払いに使用するクレジットカード情報を変更する"

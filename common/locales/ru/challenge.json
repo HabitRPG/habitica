@@ -33,8 +33,8 @@
     "challengeTagPop": "Испытания появляются в списке тегов и в описании заданий. Поэтому кроме содержательного названия, указанного выше, потребуется также «короткое имя». Например, «Сбросить 10 килограммов за 3 месяца» может стать «-10кг» (Нажмите здесь, чтобы узнать подробнее).",
     "challengeDescr": "Описание",
     "prize": "Приз",
-    "prizePop": "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. The maximum number you can award is the number of gems you own (plus the number of guild gems, if you created this challenge's guild). Note: This prize can't be changed later.",
-    "prizePopTavern": "If someone can 'win' your challenge, you can award that winner a Gem prize. Max = number of gems you own. Note: This prize can't be changed later and Tavern challenges will not be refunded if the challenge is cancelled.",
+    "prizePop": "Если кто-то сумеет «победить» в вашем испытании, вы в праве наградить победителя самоцветами. Максимальное количество — все самоцветы, что у вас есть (плюс количество самоцветов гильдии — в случае, если вы являетесь создателем гильдии, в которой проводится испытание). Обратите внимание: изменить награду позже будет невозможно.",
+    "prizePopTavern": "Если кто-то сумеет «победить» в вашем испытании, вы в праве наградить победителя самоцветами. Максимальное количество — все самоцветы, что у вас есть. Обратите внимание: изменить награду позже будет невозможно, а удалённые испытания в Таверне не возместят вам цену.",
     "publicChallenges": "Для <strong> общедоступных испытаний </strong> минимум составляет 1 самоцвет (действенная мера против спама).",
     "officialChallenge": "Официальное испытание Habitica",
     "by": "от",
@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Экспорт в CSV",
     "selectGroup": "Пожалуйста, выберите группу",
     "challengeCreated": "Испытание создано",
-    "sureDelCha": "Are you sure you want to delete this challenge?",
-    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
+    "sureDelCha": "Вы действительно хотите удалить это испытание?",
+    "sureDelChaTavern": "Вы уверены, что хотите удалить это испытание? Ваши самоцветы не будут возмещены.",
     "removeTasks": "Удалить задания",
     "keepTasks": "Оставить задания",
     "closeCha": "Закрыть испытание и...",
@@ -57,7 +57,7 @@
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> в награду",
     "clone": "Клонировать",
     "challengeNotEnoughGems": "У вас недостаточно самоцветов, чтобы разместить это испытание.",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "noPermissionEditChallenge": "У вас нет прав на редактирование этого испытания.",
+    "noPermissionDeleteChallenge": "У вас нет прав на удаление этого испытания.",
+    "noPermissionCloseChallenge": "У вас нет прав на закрытие этого испытания."
 }

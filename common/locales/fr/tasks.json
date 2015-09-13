@@ -98,7 +98,7 @@
     "newbieGuild": "Vous avez encore des questions ? Posez-les à la <%= linkStart %>Guilde des Newbies<%= linkEnd %> !",
     "dailyHelp1": "Les Quotidiennes se répètent <%= emphasisStart %>chaque jour<%= emphasisEnd %> où elles sont actives. Cliquez sur le <%= pencilIcon %> pour changer les jours d'activation de vos Quotidiennes.",
     "dailyHelp2": "Si vous n'accomplissez pas vos tâches Quotidiennes, vous perdez de la Santé lors du Cron (votre passage d'un jour à l'autre).",
-    "dailyHelp3": "Les tâches Quotidiennes deviennent <%= emphasisStart %>plus rouges<%= emphasisEnd %> lorsque vous les ratez, et <%= emphasisStart %>plus bleues<%= emphasisEnd %> lorsque vous les accomplissez. Plus une tâche Quotidienne est rouge, plus elle vous récompensera... ou vous blessera.",
+    "dailyHelp3": "Les tâches Quotidiennes deviennent <%= emphasisStart %>plus rouges<%= emphasisEnd %> lorsque vous les ratez, et <%= emphasisStart %>plus bleues<%= emphasisEnd %> lorsque vous les accomplissez. Plus une tâche Quotidienne est rouge, plus elle vous récompensera ... ou vous infligera des dégâts.",
     "dailyHelp4": "Pour changer votre Cron, c'est-à-dire le moment du passage d'un jour à l'autre, allez sur <%= linkStart %> Paramètres > Site<%= linkEnd %> > Heure personnalisée de début de journée.",
     "dailyHelp5": "Vous pouvez vous inspirer de ces <a href='http://habitica.wikia.com/wiki/Sample_Dailies' target='_blank'>exemples de Quotidiennes</a> !",
     "toDoHelp1": "Les tâches À Faire sont jaunes par défaut, et rougissent (en prenant de la valeur) au fil du temps que vous mettez à les accomplir.",

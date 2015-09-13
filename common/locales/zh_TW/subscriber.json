@@ -61,7 +61,8 @@
     "timeTravelersTitle": "神秘的時光旅行者",
     "timeTravelersPopoverNoSub": "你需要一個神秘的沙漏召喚神秘的時光旅行者！ <%= linkStart %>訂閱用戶<%= linkEnd %> 連續訂閱了每三個月可以獲得 1 個神秘的沙漏。當你有個神秘的沙漏再回來時，時光旅行者時間旅行者會給你從過去....或者甚至未來的訂閱戶專屬物品。",
     "timeTravelersPopover": "我們看到你有一個神秘的沙漏，所以我們會很樂意時光旅行過來為您服務！請選擇你想的神秘項目設定。你可以看到過去的物品集名單 <%= linkStart %>在這裡<%= linkEnd %>！如果這些都不能滿足你，也許你會有興趣在我們前衛時尚的蒸汽朋克物品集呢？",
-    "mysticHourglassPopover": "神秘的沙漏能讓您購買前幾個月的訂閱者物品。",
+    "timeTravelersAlreadyOwned": "Congratulations! You already own all of the Mystery Items. Thanks for supporting the site!",
+    "mysticHourglassPopover": "Mystic Hourglass allows you to purchase previous months' subscriber sets.",
     "subUpdateCard": "更新信用卡",
     "subUpdateTitle": "更新",
     "subUpdateDescription": "更新信用卡以便我們扣款"
