@@ -68,6 +68,8 @@
     "questEggWhaleAdjective": "плещущийся",
     "questEggCheetahText": "Cheetah",
     "questEggCheetahAdjective": "honest",
+    "questEggHorseText": "Horse",
+    "questEggHorseAdjective": "galloping",
     "eggNotes": "Найдите инкубационный эликсир, чтобы полить им яйцо и из него вылупится <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Обыкновенный",
     "hatchingPotionWhite": "Белый",

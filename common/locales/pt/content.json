@@ -68,6 +68,8 @@
     "questEggWhaleAdjective": "Espirro de Água",
     "questEggCheetahText": "Guepardo",
     "questEggCheetahAdjective": "honesto",
+    "questEggHorseText": "Horse",
+    "questEggHorseAdjective": "galloping",
     "eggNotes": "Ache uma poção de eclosão para usá-la nesse ovo, e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",
