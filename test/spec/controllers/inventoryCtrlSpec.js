@@ -12,6 +12,7 @@ describe('Inventory Controller', function() {
       user = specHelper.newUser({
         balance: 4,
         items: {
+          gear: { owned: {} },
           eggs: { Cactus: 1 },
           hatchingPotions: { Base: 1 },
           food: { Meat: 1 },
@@ -154,5 +155,17 @@ describe('Inventory Controller', function() {
 
       expect(possibleValues).to.contain(cardsModalScope.cardMessage);
     });
+  });
+
+  describe('#hasAllTimeTravelerItems', function() {
+    it('returns false if there are items left in the time traveler store', function() {
+      expect(scope.hasAllTimeTravelerItems()).to.eql(false);
+    });
+
+    it('returns true if there are no items left to purchase', inject(function(Content) {
+      sandbox.stub(Content, 'timeTravelerStore').returns({});
+
+      expect(scope.hasAllTimeTravelerItems()).to.eql(true);
+    }));
   });
 });

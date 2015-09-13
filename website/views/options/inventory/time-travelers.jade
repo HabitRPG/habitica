@@ -20,7 +20,7 @@
 
   .row: .col-md-12
     .row: .col-md-6
-      .alert.alert-info(ng-if='_.isEmpty(Content.timeTravelerStore(user.items.gear.owned))')=env.t('timeTravelersAlreadyOwned')
+      .alert.alert-info(ng-if='hasAllTimeTravelerItems()')=env.t('timeTravelersAlreadyOwned')
 
     li.customize-menu.inventory-gear
       menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
