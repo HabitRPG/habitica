@@ -90,9 +90,9 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     };
 
     $scope.addHourglass = function(){
-      User.set({
-        'purchased.plan.consecutive.trinkets': User.user.purchased.plan.consecutive.trinkets + 1,
-      });
+      $http.post(ApiUrl.get() + '/api/v2/user/addHourglass').success(function(){
+        User.log({});
+      })
     };
 
     $scope.addGold = function(){
