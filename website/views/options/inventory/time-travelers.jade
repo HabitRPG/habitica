@@ -19,12 +19,14 @@
         p!=env.t('timeTravelersPopover', {linkStart: "<a href='http://habitica.wikia.com/wiki/Mystery_Item' target='_blank'>", linkEnd: "</a>"})
 
   .row: .col-md-12
+    .row: .col-md-6
+      .alert.alert-info(ng-if='_.isEmpty(Content.timeTravelerStore(user.items.gear.owned))')=env.t('timeTravelersAlreadyOwned')
+
     li.customize-menu.inventory-gear
-      p(style='margin-top:1em', ng-if='_.isEmpty(Content.timeTravelerStore(user.items.gear.owned))')=env.t('timeTravelersAlreadyOwned')
       menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
         div(ng-repeat='item in set.items')
           button.customize-option(class='shop_{{::item.key}}',
             popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
             popover-trigger='mouseenter', popover-placement='right',
             popover-append-to-body='true',
-            ng-click='user.ops.buyMysterySet({params:{key:set.key}})')         
+            ng-click='user.ops.buyMysterySet({params:{key:set.key}})')
