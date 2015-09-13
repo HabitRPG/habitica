@@ -1,15 +1,25 @@
 'use strict';
 
-describe('Footer Controller', function() {
+describe.only('Footer Controller', function() {
   var scope, user;
 
   beforeEach(inject(function($rootScope, $controller) {
+    console.log(window.env.NODE_ENV);
     user = specHelper.newUser();
+    var User = {log: sandbox.stub(), set: sandbox.stub(), user: user};
     scope = $rootScope.$new();
-    $controller('FooterCtrl', {$scope: scope, User: {set: sandbox.stub(), user: user}});
+    $controller('FooterCtrl', {$scope: scope, User: User});
   }));
 
   context('Debug mode', function() {
+    before(function() {
+      window.env.NODE_ENV = 'test';
+    });
+
+    after(function() {
+      delete window.env.NODE_ENV;
+    });
+
     describe('#setHealthLow', function(){
       it('sets user health to 1');
     });
@@ -29,7 +39,13 @@ describe('Footer Controller', function() {
     });
 
     describe('#addTenGems', function() {
-      it('posts to /user/addTenGems');
+      it('posts to /user/addTenGems', inject(function($httpBackend) {
+        $httpBackend.expectPOST('/api/v2/user/addTenGems').respond({});
+
+        scope.addTenGems();
+
+        $httpBackend.flush();
+      }));
     });
 
     describe('#addHourglass', function() {
@@ -56,7 +72,7 @@ describe('Footer Controller', function() {
       it('adds one level to user');
     });
 
-    describe('#addBossQuestProgressUp', function() {
+    describe.only('#addBossQuestProgressUp', function() {
       it('adds 1000 progress to quest.progress.up');
     });
   });
