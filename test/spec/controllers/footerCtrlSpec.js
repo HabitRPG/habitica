@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('Footer Controller', function() {
+describe('Footer Controller', function() {
   var scope, user;
 
   beforeEach(inject(function($rootScope, $controller) {
@@ -78,7 +78,7 @@ describe.only('Footer Controller', function() {
       it('adds one level to user');
     });
 
-    describe.only('#addBossQuestProgressUp', function() {
+    describe('#addBossQuestProgressUp', function() {
       it('adds 1000 progress to quest.progress.up');
     });
   });
