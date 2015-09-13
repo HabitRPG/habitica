@@ -11,7 +11,7 @@
 
   "faqQuestion2": "What are some sample tasks?",
   "iosFaqAnswer2": "The wiki has four lists of sample tasks to use as inspiration:\n<br><br>\n * [Sample Habits](http://habitica.wikia.com/wiki/Sample_Habits)\n\n * [Sample Dailies](http://habitica.wikia.com/wiki/Sample_Dailies)\n\n * [Sample To-Dos](http://habitica.wikia.com/wiki/Sample_To-Dos)\n\n * [Sample Custom Rewards](http://habitica.wikia.com/wiki/Sample_Custom_Rewards)",
-  "webFaqAnswer2": "The wiki has four lists of sample tasks to use as inspiration:\n\n * [Sample Habits](http://habitica.wikia.com/wiki/Sample_Habits)\n\n * [Sample Dailies](http://habitica.wikia.com/wiki/Sample_Dailies)\n\n * [Sample To-Dos](http://habitica.wikia.com/wiki/Sample_To-Dos)\n\n * [Sample Custom Rewards](http://habitica.wikia.com/wiki/Sample_Custom_Rewards)",
+  "webFaqAnswer2": "The wiki has four lists of sample tasks to use as inspiration:\n\n * [Sample Habits](http://habitica.wikia.com/wiki/Sample_Habits)\n * [Sample Dailies](http://habitica.wikia.com/wiki/Sample_Dailies)\n * [Sample To-Dos](http://habitica.wikia.com/wiki/Sample_To-Dos)\n * [Sample Custom Rewards](http://habitica.wikia.com/wiki/Sample_Custom_Rewards)",
 
   "faqQuestion3": "Why do my tasks change color?",
   "iosFaqAnswer3": "Your tasks change color based on how well you are currently accomplishing them! Each new task starts out as a neutral yellow. Perform Dailies or positive Habits more frequently and they move toward blue. Miss a Daily or give in to a bad Habit and the task moves toward red. The redder a task, the more rewards it will give you, but if it's a Daily or bad Habit, the more it will hurt you! This helps motivate you to complete the tasks that are giving you trouble.",
