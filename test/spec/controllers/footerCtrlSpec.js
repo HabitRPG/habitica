@@ -49,7 +49,13 @@ describe.only('Footer Controller', function() {
     });
 
     describe('#addHourglass', function() {
-      it('posts to /user/addHourglass');
+      it('posts to /user/addHourglass', inject(function($httpBackend) {
+        $httpBackend.expectPOST('/api/v2/user/addHourglass').respond({});
+
+        scope.addHourglass();
+
+        $httpBackend.flush();
+      }));
     });
 
     describe('#addGold', function() {
