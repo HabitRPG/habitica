@@ -346,7 +346,7 @@ describe('Quests Service', function() {
     it('brings user to party page');
   });
 
-  describe('#leaveQuest', function() {
+  describe('#sendAction', function() {
     var fakeBackend, scope;
 
     beforeEach(inject(function($httpBackend, $rootScope) {
@@ -355,19 +355,19 @@ describe('Quests Service', function() {
 
       fakeBackend.when('GET', 'partials/main.html').respond({});
       fakeBackend.when('GET', '/api/v2/groups/party').respond({_id: 'party-id'});
-      fakeBackend.when('POST', '/api/v2/groups/party-id/questLeave').respond({quest: { key: 'whale' } });
+      fakeBackend.when('POST', '/api/v2/groups/party-id/questReject').respond({quest: { key: 'whale' } });
       fakeBackend.flush();
     }));
 
     it('returns a promise', function() {
-      var promise = questsService.leaveQuest();
+      var promise = questsService.sendAction('questReject');
       expect(promise).to.respondTo('then');
     });
 
-    it('calls questLeave endpoint', function(done) {
-      fakeBackend.expectPOST('/api/v2/groups/party-id/questLeave');
+    it('calls specified endpoint endpoint', function(done) {
+      fakeBackend.expectPOST('/api/v2/groups/party-id/questReject');
 
-      questsService.leaveQuest()
+      questsService.sendAction('questReject')
         .then(function(res) {
           expect(res.key).to.eql('whale');
           done();

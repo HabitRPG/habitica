@@ -39,18 +39,8 @@
         leave: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/leave'},
         invite: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/invite'},
         removeMember: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/removeMember'},
-        questAccept: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAccept'},
-        questReject: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questReject'},
-        questCancel: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questCancel'},
-        questAbort: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAbort'}      });
-
-    function _syncUser() {
-      User.sync();
-    }
-
-    function _logError(err) {
-      console.log(err);
-    }
+        startQuest: {method: "POST", url: ApiUrl.get() + '/api/v2/groups/:gid/questAccept'}
+      });
 
     function party(cb) {
       if (!data.party) return (data.party = Group.get({gid: 'party'}, cb));
@@ -73,36 +63,6 @@
       return data.tavern;
     }
 
-    function questAccept(party) {
-      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      return party.$questAccept()
-        .then(_syncUser, _logError);
-    }
-
-    function questReject(party) {
-      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      return party.$questReject()
-        .then(_syncUser, _logError);
-    }
-
-    function questCancel(party) {
-      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      return party.$questCancel()
-        .then(function() {
-          delete party.quest;
-          _syncUser();
-        }, _logError);
-    }
-
-    function questAbort(party) {
-      Analytics.updateUser({'partyID':party.id,'partySize':party.memberCount});
-      return party.$questAbort()
-        .then(function() {
-          delete party.quest;
-          _syncUser();
-        }, _logError);
-    }
-
     function inviteOrStartParty(group) {
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
       if (group.type === "party" || $location.$$path === "/options/groups/party") {
@@ -123,10 +83,6 @@
       publicGuilds: publicGuilds,
       myGuilds: myGuilds,
       tavern: tavern,
-      questAccept: questAccept,
-      questReject: questReject,
-      questAbort: questAbort,
-      questCancel: questCancel,
       inviteOrStartParty: inviteOrStartParty,
 
       data: data,

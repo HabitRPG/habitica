@@ -34,138 +34,178 @@ describe("Party Controller", function() {
   });
 
   describe('questAccept', function() {
-    it('calls Groups.questAccept', function() {
-      var party = {};
-      var groupSpy = sandbox.stub(groups, "questAccept", function(){return true;});
-      scope.questAccept(party);
-      groupSpy.should.have.been.calledOnce;
+    beforeEach(function() {
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
+      sandbox.stub(questsService, 'sendAction').returns({
+        then: sandbox.stub().yields({members: {another: true}})
+      });
+    });
+
+    it('calls Quests.sendAction', function() {
+      scope.questAccept();
+
+      expect(questsService.sendAction).to.be.calledOnce;
+      expect(questsService.sendAction).to.be.calledWith('questAccept');
+    });
+
+
+    it('updates quest object with new participants list', function() {
+      scope.group.quest = {
+        members: { user: true, another: true }
+      };
+
+      scope.questAccept();
+
+      expect(scope.group.quest).to.eql({members: { another: true }});
     });
   });
 
   describe('questReject', function() {
-    it('calls Groups.questReject', function() {
-      var party = {};
-      var groupSpy = sandbox.stub(groups, "questReject", function(){return true;});
-      scope.questReject(party);
-      groupSpy.should.have.been.calledOnce;
+    beforeEach(function() {
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
+      sandbox.stub(questsService, 'sendAction').returns({
+        then: sandbox.stub().yields({members: {another: true}})
+      });
+    });
+
+    it('calls Quests.sendAction', function() {
+      scope.questReject();
+
+      expect(questsService.sendAction).to.be.calledOnce;
+      expect(questsService.sendAction).to.be.calledWith('questReject');
+    });
+
+
+    it('updates quest object with new participants list', function() {
+      scope.group.quest = {
+        members: { user: true, another: true }
+      };
+
+      scope.questReject();
+
+      expect(scope.group.quest).to.eql({members: { another: true }});
     });
   });
 
   describe('questCancel', function() {
     var party, cancelSpy, windowSpy;
     beforeEach(function() {
-      party = {};
-      cancelSpy = sandbox.stub(groups, "questCancel", function(){return true;});
-    });
-
-    afterEach(function() {
-      windowSpy.restore();
-      cancelSpy.restore();
-    });
-
-    it('calls Groups.questCancel when alert box is confirmed', function() {
-      windowSpy = sandbox.stub(window, "confirm", function(){return true});
-
-      scope.questCancel(party);
-      windowSpy.should.have.been.calledOnce;
-      windowSpy.should.have.been.calledWith(window.env.t('sureCancel'));
-      cancelSpy.should.have.been.calledOnce;
-    });
-
-    it('does not call Groups.questCancel when alert box is not confirmed', function() {
-      windowSpy = sandbox.stub(window, "confirm", function(){return false});
-
-      scope.questCancel(party);
-      windowSpy.should.have.been.calledOnce;
-      cancelSpy.should.not.have.been.calledOnce;
-    });
-  });
-
-  describe('questAbort', function() {
-    var party, abortSpy, windowSpy;
-    beforeEach(function() {
-      party = {};
-      abortSpy = sandbox.stub(groups, "questAbort", function(){return true;});
-    });
-
-    afterEach(function() {
-      windowSpy.restore();
-      abortSpy.restore();
-    });
-
-    it('calls Groups.questAbort when two alert boxes are confirmed', function() {
-      windowSpy = sandbox.stub(window, "confirm", function(){return true});
-
-      scope.questAbort(party);
-      windowSpy.should.have.been.calledTwice;
-      windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
-      windowSpy.should.have.been.calledWith(window.env.t('doubleSureAbort'));
-      abortSpy.should.have.been.calledOnce;
-    });
-
-    it('does not call Groups.questAbort when first alert box is not confirmed', function() {
-      windowSpy = sandbox.stub(window, "confirm", function(){return false});
-
-      scope.questAbort(party);
-      windowSpy.should.have.been.calledOnce;
-      windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
-      windowSpy.should.not.have.been.calledWith(window.env.t('doubleSureAbort'));
-      abortSpy.should.not.have.been.calledOnce;
-    });
-
-    it('does not call Groups.questAbort when first alert box is confirmed but second one is not', function() {
-      // Hack to confirm first window, but not second
-      var shouldReturn = false;
-      windowSpy = sandbox.stub(window, "confirm", function(){
-        shouldReturn = !shouldReturn;
-        return shouldReturn;
-      });
-
-      scope.questAbort(party);
-      windowSpy.should.have.been.calledTwice;
-      windowSpy.should.have.been.calledWith(window.env.t('sureAbort'));
-      windowSpy.should.have.been.calledWith(window.env.t('doubleSureAbort'));
-      abortSpy.should.not.have.been.calledOnce;
-    });
-  });
-
-  describe('#questLeave', function() {
-    var party, leaveSpy, windowSpy;
-
-    beforeEach(function() {
-      party = {};
-      scope.group = {
-        quest: { members: { 'user-id': true } }
-      };
-      leaveSpy = sandbox.stub(questsService, 'leaveQuest').returns({
+      sandbox.stub(questsService, 'sendAction').returns({
         then: sandbox.stub().yields({members: {another: true}})
       });
     });
 
-    it('calls Quests.leaveQuest when alert box is confirmed', function() {
-      windowSpy = sandbox.stub(window, "confirm").returns(true);
+    it('calls Quests.sendAction when alert box is confirmed', function() {
+      sandbox.stub(window, "confirm").returns(true);
 
-      scope.questLeave(party);
-      windowSpy.should.have.been.calledOnce;
-      windowSpy.should.have.been.calledWith(window.env.t('sureLeave'));
-      leaveSpy.should.have.been.calledOnce;
+      scope.questCancel();
+
+      expect(window.confirm).to.be.calledOnce;
+      expect(window.confirm).to.be.calledWith(window.env.t('sureCancel'));
+      expect(questsService.sendAction).to.be.calledOnce;
+      expect(questsService.sendAction).to.be.calledWith('questCancel');
     });
 
-    it('does not call Quests.leaveQuest when alert box is not confirmed', function() {
-      windowSpy = sandbox.stub(window, "confirm").returns(false);
+    it('does not call Quests.sendAction when alert box is not confirmed', function() {
+      sandbox.stub(window, "confirm").returns(false);
 
-      scope.questLeave(party);
-      windowSpy.should.have.been.calledOnce;
-      leaveSpy.should.not.have.been.calledOnce;
+      scope.questCancel();
+
+      expect(window.confirm).to.be.calledOnce;
+      expect(questsService.sendAction).to.not.be.called;
+    });
+  });
+
+  describe('questAbort', function() {
+    beforeEach(function() {
+      sandbox.stub(questsService, 'sendAction').returns({
+        then: sandbox.stub().yields({members: {another: true}})
+      });
+    });
+
+    it('calls Quests.sendAction when two alert boxes are confirmed', function() {
+      sandbox.stub(window, "confirm", function(){return true});
+
+      scope.questAbort();
+      expect(window.confirm).to.be.calledTwice;
+      expect(window.confirm).to.be.calledWith(window.env.t('sureAbort'));
+      expect(window.confirm).to.be.calledWith(window.env.t('doubleSureAbort'));
+
+      expect(questsService.sendAction).to.be.calledOnce;
+      expect(questsService.sendAction).to.be.calledWith('questAbort');
+    });
+
+    it('does not call Quests.sendAction when first alert box is not confirmed', function() {
+      sandbox.stub(window, "confirm", function(){return false});
+
+      scope.questAbort();
+
+      expect(window.confirm).to.be.calledOnce;
+      expect(window.confirm).to.be.calledWith(window.env.t('sureAbort'));
+      expect(window.confirm).to.not.be.calledWith(window.env.t('doubleSureAbort'));
+
+      expect(questsService.sendAction).to.not.be.called;
+    });
+
+    it('does not call Quests.sendAction when first alert box is confirmed but second one is not', function() {
+      // Hack to confirm first window, but not second
+      // Should not be necessary when we upgrade sinon
+      var shouldReturn = false;
+      sandbox.stub(window, 'confirm', function(){
+        shouldReturn = !shouldReturn;
+        return shouldReturn;
+      });
+
+      scope.questAbort();
+
+      expect(window.confirm).to.be.calledTwice;
+      expect(window.confirm).to.be.calledWith(window.env.t('sureAbort'));
+      expect(window.confirm).to.be.calledWith(window.env.t('doubleSureAbort'));
+      expect(questsService.sendAction).to.not.be.called;
+    });
+  });
+
+  describe('#questLeave', function() {
+    beforeEach(function() {
+      scope.group = {
+        quest: { members: { 'user-id': true } }
+      };
+      sandbox.stub(questsService, 'sendAction').returns({
+        then: sandbox.stub().yields({members: {another: true}})
+      });
+    });
+
+    it('calls Quests.sendAction when alert box is confirmed', function() {
+      sandbox.stub(window, "confirm").returns(true);
+
+      scope.questLeave();
+
+      expect(window.confirm).to.be.calledOnce;
+      expect(window.confirm).to.be.calledWith(window.env.t('sureLeave'));
+      expect(questsService.sendAction).to.be.calledOnce;
+      expect(questsService.sendAction).to.be.calledWith('questLeave');
+    });
+
+    it('does not call Quests.sendAction when alert box is not confirmed', function() {
+      sandbox.stub(window, "confirm").returns(false);
+
+      scope.questLeave();
+
+      expect(window.confirm).to.be.calledOnce;
+      questsService.sendAction.should.not.have.been.calledOnce;
     });
 
     it('updates quest object with new participants list', function() {
       scope.group.quest = {
         members: { user: true, another: true }
       };
-      windowSpy = sandbox.stub(window, "confirm").returns(true);
+      sandbox.stub(window, "confirm").returns(true);
 
-      scope.questLeave(party);
+      scope.questLeave();
 
       expect(scope.group.quest).to.eql({members: { another: true }});
     });

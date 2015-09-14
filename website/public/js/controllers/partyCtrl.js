@@ -104,33 +104,46 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         User.set({'invitations.party':{}});
       }
 
-      $scope.questCancel = function(party){
+      $scope.questCancel = function(){
         if (!confirm(window.env.t('sureCancel'))) return;
-        Groups.questCancel(party);
+
+        Quests.sendAction('questCancel')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       }
 
-      $scope.questAbort = function(party){
+      $scope.questAbort = function(){
         if (!confirm(window.env.t('sureAbort'))) return;
         if (!confirm(window.env.t('doubleSureAbort'))) return;
-        Groups.questAbort(party);
+
+        Quests.sendAction('questAbort')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       }
 
       $scope.questLeave = function(){
         if (!confirm(window.env.t('sureLeave'))) return;
 
-        Quests.leaveQuest()
+        Quests.sendAction('questLeave')
           .then(function(quest) {
-            console.log(quest);
             $scope.group.quest = quest;
           });
       }
 
-      $scope.questAccept = function(party){
-        Groups.questAccept(party);
+      $scope.questAccept = function(){
+        Quests.sendAction('questAccept')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       };
 
-      $scope.questReject = function(party){
-        Groups.questReject(party);
+      $scope.questReject = function(){
+        Quests.sendAction('questReject')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       };
 
       $scope.canEditQuest = function(party) {

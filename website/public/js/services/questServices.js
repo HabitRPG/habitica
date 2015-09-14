@@ -108,7 +108,7 @@
       return $q(function(resolve, reject) {
         Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName': key});
         Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
-        party.$questAccept({key:key}, function(){
+        party.$startQuest({key:key}, function(){
           party.$syncParty();
           $state.go('options.social.party');
           resolve();
@@ -116,11 +116,15 @@
       });
     }
 
-    function leaveQuest() {
+    function sendAction(action) {
       return $q(function(resolve, reject) {
 
-        $http.post(ApiUrl.get() + '/api/v2/groups/' + party._id + '/questLeave')
+        $http.post(ApiUrl.get() + '/api/v2/groups/' + party._id + '/' + action)
           .then(function(response) {
+            Analytics.updateUser({
+              partyID: party._id,
+              partySize: party.memberCount
+            });
             var quest = response.data.quest;
             resolve(quest);
           });;
@@ -128,10 +132,10 @@
     }
 
     return {
-      leaveQuest: leaveQuest,
       lockQuest: lockQuest,
       buyQuest: buyQuest,
       questPopover: questPopover,
+      sendAction: sendAction,
       showQuest: showQuest,
       initQuest: initQuest
     }
