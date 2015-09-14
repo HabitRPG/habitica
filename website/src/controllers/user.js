@@ -414,6 +414,25 @@ api.addTenGems = function(req, res, next) {
 
 /*
  ------------------------------------------------------------------------
+ Hourglass
+ ------------------------------------------------------------------------
+ */
+
+// api.unlock // see Shared.ops
+
+api.addHourglass = function(req, res, next) {
+  var user = res.locals.user;
+
+  user.purchased.plan.consecutive.trinkets += 1;
+
+  user.save(function(err){
+    if (err) return next(err);
+    res.send(204);
+  })
+}
+
+/*
+ ------------------------------------------------------------------------
  Tags
  ------------------------------------------------------------------------
  */

@@ -61,7 +61,8 @@
     "timeTravelersTitle": "Titokzatos időutazók",
     "timeTravelersPopoverNoSub": "Szükséged lesz egy misztikus homokórára, hogy megidézd a Titokzatos Időutazókat! Az <%= linkStart %>előfizetők<%= linkEnd %> háromhavi folyamatos előfizetés után kapnak egyet. Térj vissza ide, ha már van misztikus homokórád és az időutazók megszereznek neked egy előfizetői tárgykészletet a múltból...vagy éppen a jövőből.",
     "timeTravelersPopover": "Mivel van misztikus homokórád, ezért szívesen visszamegyünk az időben érted! Válassz ki egy titokzatos tárgykészletet, amit szeretnél. <%= linkStart %>Itt<%= linkEnd %> láthatod a múltbéli tárgykészletek listáját. Ha ezek nem vonzanak, talán érdekelne téged az egyik divatosan futurisztikus Steampunk tárgykészletünk?",
-    "mysticHourglassPopover": "A misztikus homokóra lehetővé teszi, hogy megvásárold az elmúlt hónapok előfizetői készleteit.",
+    "timeTravelersAlreadyOwned": "Congratulations! You already own all of the Mystery Items. Thanks for supporting the site!",
+    "mysticHourglassPopover": "Mystic Hourglass allows you to purchase previous months' subscriber sets.",
     "subUpdateCard": "Kártya frissítése",
     "subUpdateTitle": "Frissítés",
     "subUpdateDescription": "Frissítsd a kártyát, hogy feltöltsd."

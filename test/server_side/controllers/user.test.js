@@ -552,4 +552,66 @@ describe('User Controller', function() {
       });
     });
   });
+
+  describe('#addTenGems', function() {
+    var req, res, user;
+
+    beforeEach(function() {
+      user = {
+        _id: 'user-id',
+        balance: 5,
+        save: sinon.stub().yields()
+      };
+      req = { };
+      res = {
+        locals: { user: user },
+        send: sinon.spy()
+      };
+    });
+
+    it('adds 2.5 to user balance', function() {
+      userController.addTenGems(req, res);
+
+      expect(user.balance).to.eql(7.5);
+      expect(user.save).to.be.calledOnce;
+    });
+
+    it('sends back 204', function() {
+      userController.addTenGems(req, res);
+
+      expect(res.send).to.be.calledOnce;
+      expect(res.send).to.be.calledWith(204);
+    });
+  });
+
+  describe('#addHourglass', function() {
+    var req, res, user;
+
+    beforeEach(function() {
+      user = {
+        _id: 'user-id',
+        purchased: { plan: { consecutive: { trinkets: 3 } } },
+        save: sinon.stub().yields()
+      };
+      req = { };
+      res = {
+        locals: { user: user },
+        send: sinon.spy()
+      };
+    });
+
+    it('adds an hourglass to user', function() {
+      userController.addHourglass(req, res);
+
+      expect(user.purchased.plan.consecutive.trinkets).to.eql(4);
+      expect(user.save).to.be.calledOnce;
+    });
+
+    it('sends back 204', function() {
+      userController.addHourglass(req, res);
+
+      expect(res.send).to.be.calledOnce;
+      expect(res.send).to.be.calledWith(204);
+    });
+  });
 });

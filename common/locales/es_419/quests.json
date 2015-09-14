@@ -37,7 +37,7 @@
     "bossColl1": "Para coleccionar artículos, haga tus tareas positivas. Objetos de misiones se ganan como objetos normales; sin embargo, no verá estos artículos hasta el próximo día cuando todo que encontró estará sumado y contribuido al total.",
     "bossColl2": "Solo los participantes pueden coleccionar artículos y compartir del botín de la misión.",
     "abort": "Abortar",
-    "leaveQuest": "Leave Quest",
+    "leaveQuest": "Abandonar misión",
     "sureLeave": "Are you sure you want to leave the active quest? All your quest progress will be lost.",
     "questOwner": "Organizador de la misión",
     "questOwnerNotInPendingQuest": "El organizador de la misión ha abandonado la misión y no puede iniciarla. Se recomienda cancelar también. El organizador se quedará con el pergamino de misión.",
@@ -54,7 +54,7 @@
     "alreadyEarnedQuestReward": "Tu haz ganado esta misión por completar <%= priorQuest %>.",
     "completedQuests": "Completó las siguientes misiones",
     "mustComplete": "Primero necesitas terminar <%= quest %>.",
-    "mustLevel": "You must be level <%= level %> to begin this quest.",
+    "mustLevel": "Deber ser al menos nivel <%= level %> para comenzar esta misión.",
     "mustLvlQuest": "¡Necesitas tener el nivel <%= level %> para poder comprar esta misión!",
     "mustInviteFriend": "To earn this quest, invite a friend to your Party. Invite someone now?",
     "unlockByQuesting": "To earn this quest, complete <%= title %>.",
@@ -64,8 +64,8 @@
     "questWarning": "Si nuevos miembros se unen al equipo antes de que comience la misión, también recibirán una invitación. Sin embargo, una vez que la misión ha comenzado, nuevos miembros no se pueden unir a la misión.",
     "bossRageTitle": "Ira",
     "bossRageDescription": "Cuando esta barra se llene, el jefe desencadenará un ataque especial!",
-    "startAQuest": "START A QUEST",
-    "startQuest": "Start Quest",
+    "startAQuest": "INICIAR UNA MISIÓN",
+    "startQuest": "Iniciar Misión",
     "whichQuestStart": "Which quest do you want to start?",
     "getMoreQuests": "Get more quests"
 }

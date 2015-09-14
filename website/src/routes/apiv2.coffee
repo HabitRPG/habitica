@@ -783,6 +783,10 @@ module.exports = (swagger, v2) ->
       spec: method:'POST'
       action: user.addTenGems
 
+    api["/user/addHourglass"] =
+      spec: method:'POST'
+      action: user.addHourglass
+
   _.each api, (route, path) ->
     ## Spec format is:
     #    spec:

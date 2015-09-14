@@ -61,7 +61,8 @@
     "timeTravelersTitle": "Mysterieuze tijdreizigers",
     "timeTravelersPopoverNoSub": "Je hebt een mystieke zandloper nodig om de mysterieuze tijdreizigers te roepen! <%= linkStart %>Abonnees<%= linkEnd %> ontvangen één mystieke zandloper voor iedere opeenvolgende drie maanden van hun abonnement. Kom terug als je een mystieke zandloper hebt gekregen, en de tijdreizigers halen een set abonnee-uitrusting voor je op uit het verleden... of misschien zelfs uit de toekomst.",
     "timeTravelersPopover": "We zien dat je een mystieke zandloper hebt, dus we gaan graag terug in de tijd voor jou! Kies hier de set verrassingsuitrusting die je wil hebben. Je kunt <%= linkStart %>hier<%= linkEnd %> een lijst van alle sets uit het verleden bekijken. Als je hier niets leuks tussen vindt, ben je dan misschien geïnteresseerd in één van onze modieus futuristische Steampunk-sets?",
-    "mysticHourglassPopover": "Mystieke zandloper waarmee je de abonnee-uitrustingssets uit voorgaande maanden kunt kopen.",
+    "timeTravelersAlreadyOwned": "Congratulations! You already own all of the Mystery Items. Thanks for supporting the site!",
+    "mysticHourglassPopover": "Mystic Hourglass allows you to purchase previous months' subscriber sets.",
     "subUpdateCard": "Creditcard aanpassen",
     "subUpdateTitle": "Aanpassen",
     "subUpdateDescription": "Verander welke creditcard gebruikt wordt"

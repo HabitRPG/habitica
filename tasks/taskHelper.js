@@ -1,7 +1,15 @@
 import { exec } from 'child_process';
 import psTree   from 'ps-tree';
+import nconf    from 'nconf';
 import net      from 'net';
 import Q        from 'q';
+import { post } from 'superagent';
+
+/*
+ * Get access to configruable values
+ */
+nconf.argv().env().file({ file: 'config.json' });
+export var conf = nconf;
 
 /*
  * Kill a child process and any sub-children that process may have spawned.
@@ -58,3 +66,28 @@ export function pipe(child) {
   child.stdout.on('data', (data) => { process.stdout.write(data) });
   child.stderr.on('data', (data) => { process.stderr.write(data) });
 };
+
+/*
+ * Post request to notify configured slack channel
+ */
+export function postToSlack(msg, config={}) {
+  let slackUrl = nconf.get('SLACK_URL');
+
+  if (!slackUrl) {
+    console.error('No slack post url specified. Your message was:');
+    console.log(msg);
+
+    return;
+  }
+
+  post(slackUrl)
+    .send({
+      channel: `#${config.channel || '#general'}`,
+      username: config.username || 'gulp task',
+      text: msg,
+      icon_emoji: `:${config.emoji || 'gulp'}:`
+    })
+    .end((err, res) => {
+      if (err) console.error('Unable to post to slack', err);
+    });
+}

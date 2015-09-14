@@ -250,6 +250,13 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
+    $scope.hasAllTimeTravelerItems = function(items) {
+      var itemsLeftInTimeTravlerStore = Content.timeTravelerStore(user.items.gear.owned);
+      var keys = Object.keys(itemsLeftInTimeTravlerStore);
+
+      return keys.length === 0;
+    };
+
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
       $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
