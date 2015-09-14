@@ -79,8 +79,8 @@ script(type='text/ng-template', id='modals/questInvitation.html')
     quest-rewards(key='{{::user.party.quest.key}}', header=env.t('rewards'))
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
-    button.btn.btn-default(ng-click='questReject(party); $close()')=env.t('reject')
-    button.btn.btn-primary(ng-click='questAccept(party); $close()')=env.t('accept')
+    button.btn.btn-default(ng-click='questReject(); $close()')=env.t('reject')
+    button.btn.btn-primary(ng-click='questAccept(); $close()')=env.t('accept')
 
 script(type='text/ng-template', id='modals/questDrop.html')
   .quest-icon.pull-right(class='inventory_quest_scroll_{{::selectedQuest.key}}')
