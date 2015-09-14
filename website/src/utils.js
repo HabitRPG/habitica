@@ -159,6 +159,11 @@ module.exports.makeSalt = function() {
   return crypto.randomBytes(Math.ceil(len / 2)).toString('hex').substring(0, len);
 }
 
+// Provide unintialized analytics for unit testing
+// Is overridden when setupConfig is called in prod
+var stubbedAnalytics = { track: function() { }, trackPurchase: function() { } }
+module.exports.analytics = stubbedAnalytics;
+
 /**
  * Load nconf and define default configuration values if config.json or ENV vars are not found
  */
@@ -182,9 +187,7 @@ module.exports.setupConfig = function(){
     googleAnalytics: nconf.get('GA_ID')
   }
 
-  module.exports.analytics = analytics
-    ? analytics(analyticsTokens)
-    : { track: function() { }, trackPurchase: function() { } };
+  module.exports.analytics = analytics ? analytics(analyticsTokens) : stubbedAnalytics;
 };
 
 var algorithm = 'aes-256-ctr';
