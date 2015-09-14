@@ -221,6 +221,7 @@ describe('Inventory Controller', function() {
       expect(rootScope.openModal).to.be.calledOnce;
       expect(rootScope.openModal).to.be.calledWith('showQuest', {controller: 'InventoryCtrl'});
     });
+  });
 
   describe('#hasAllTimeTravelerItems', function() {
     it('returns false if there are items left in the time traveler store', function() {
