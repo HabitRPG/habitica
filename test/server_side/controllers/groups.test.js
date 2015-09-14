@@ -245,33 +245,374 @@ describe('Groups Controller', function() {
   });
 
   describe('#questReject', function() {
-    it('rejects quest');
+    var res, req, group, user, saveSpy;
 
-    it('starts quest if last pending user rejects');
+    beforeEach(function() {
+      sinon.stub(User, 'update').returns({
+        exec: sinon.stub()
+      });
 
-    it('sends back group id and quest object');
+      group = {
+        _id: 'group-id',
+        type: 'party',
+        quest: {
+          leader : 'quest-leader',
+          active: false,
+          members: {
+            'user-id': null,
+            'another-user': null,
+            'quest-leader': true
+          },
+          key : 'vice1',
+          progress : {
+            hp : 364,
+            collect : {}
+          }
+        },
+        save: sinon.stub().yields(null, group),
+        markModified: sinon.spy()
+      };
+
+      user = {
+        _id: 'user-id',
+        party : {
+          quest : {
+              key : 'vice1',
+              progress : {
+                  up : 50,
+                  down : 0,
+                  collect : {}
+              },
+              completed : null,
+              RSVPNeeded : false
+          }
+        },
+        save: sinon.stub().yields(),
+        markModified: sinon.spy()
+      };
+
+      res = {
+        locals: {
+          group: group,
+          user: user
+        },
+        json: sinon.stub(),
+        send: sinon.stub()
+      };
+
+      req = {
+        query: { }
+      };
+    });
+
+    afterEach(function() {
+      User.update.restore();
+    });
+
+    it('returns error if no key provided', function() {
+      delete group.quest.key;
+
+      groupsController.questReject(req, res);
+
+      expect(res.json).to.be.calledOnce;
+      expect(res.json).to.be.calledWith(400, {
+        err: 'No quest invitation has been sent out yet.'
+      });
+    });
+
+    it('returns error if quest is already active', function() {
+      group.quest.active = true;
+
+      groupsController.questReject(req, res);
+
+      expect(res.json).to.be.calledOnce;
+      expect(res.json).to.be.calledWith(400, {
+        err: 'Quest already began.'
+      });
+    });
+
+    it('removes RSPVNeeded from user object', function() {
+      groupsController.questReject(req, res);
+
+      expect(User.update).to.be.calledOnce;
+      expect(User.update).to.be.calledWith(
+        { _id: 'user-id' },
+        { $set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}
+      );
+    });
+
+    it('rejects invitation', function() {
+      groupsController.questReject(req, res);
+
+      expect(group.quest.members['user-id']).to.eql(false);
+    });
+
+    it('starts quest if last pending user rejects', function() {
+      group.quest.members['another-user'] = true;
+
+      groupsController.questReject(req, res);
+
+      expect(group.quest.active).to.eql(true);
+    });
+
+    it('does not start quest if there is another user still pending', function() {
+      groupsController.questReject(req, res);
+
+      expect(group.quest.active).to.eql(false);
+    });
+
+    it('sends back group id and quest object', function() {
+      groupsController.questReject(req, res);
+
+      expect(res.json).to.be.calledOnce;
+      expect(res.json).to.be.calledWith(201, {
+        _id: 'group-id',
+        quest: {
+          leader : 'quest-leader',
+          active: false,
+          members: {
+            'user-id': false,
+            'another-user': null,
+            'quest-leader': true
+          },
+          key : 'vice1',
+          progress : {
+            hp : 364,
+            collect : {}
+          }
+        }
+      });
+    });
   });
 
   describe('#questAccept', function() {
-    it('accepts quest');
+    var res, req, group, user, saveSpy;
 
-    it('allows leader to force quest to start');
+    beforeEach(function() {
+      sinon.stub(User, 'update').returns({
+        exec: sinon.stub()
+      });
 
-    it('starts quest if last pending user accepts');
+      group = {
+        _id: 'group-id',
+        type: 'party',
+        quest: {
+          leader : 'quest-leader',
+          active: false,
+          members: {
+            'user-id': null,
+            'another-user': null,
+            'quest-leader': true
+          },
+          key : 'vice1',
+          progress : {
+            hp : 364,
+            collect : {}
+          }
+        },
+        save: sinon.stub(),
+        markModified: sinon.spy()
+      };
 
-    it('sends back group id and quest object');
+      user = {
+        _id: 'user-id',
+        party : {
+          quest : {
+              key : 'vice1',
+              progress : {
+                  up : 50,
+                  down : 0,
+                  collect : {}
+              },
+              completed : null,
+              RSVPNeeded : false
+          }
+        },
+        save: sinon.stub().yields(),
+        markModified: sinon.spy()
+      };
+
+      res = {
+        locals: {
+          group: group,
+          user: user
+        },
+        json: sinon.stub(),
+        send: sinon.stub()
+      };
+
+      req = {
+        query: { }
+      };
+    });
+
+    afterEach(function() {
+      User.update.restore();
+    });
+
+    it('errors if user is not in group', function() {
+      delete res.locals.group;
+
+      groupsController.questAccept(req, res);
+
+      expect(res.json).to.be.calledOnce;
+      expect(res.json).to.be.calledWith(400, {err: 'Must be in a party to start quests.'});
+    });
+
+    context('new quest', function() {
+      it('starts a new quest if a quest key is provided');
+
+      it('errors if quest does not exist');
+
+      it('errors if user is below required level for quest');
+
+      it('errors if user does not own quest scroll');
+
+      it('invites the other members of the group');
+
+      it('sets quest leader to user');
+
+      it('sets user as participating in quest');
+    });
+
+    context('existing quest', function() {
+      it('accepts quest');
+
+      it('allows leader to force quest to start');
+
+      it('starts quest if last pending user accepts');
+
+      it('sends back group id and quest object', function() {
+        group.save.yields(null, group);
+
+        groupsController.questAccept(req, res);
+
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(201, {
+          _id: 'group-id',
+          quest: {
+            leader : 'quest-leader',
+            active: false,
+            members: {
+              'user-id': true,
+              'another-user': null,
+              'quest-leader': true
+            },
+            key : 'vice1',
+            progress : {
+              hp : 364,
+              collect : {}
+            }
+          }
+        });
+      });
+    });
   });
 
   describe('#questCancel', function() {
-    it('cancels quest');
+    var req, res, user, group;
 
-    it('sends back group id and quest object');
+    beforeEach(function() {
+      group = {
+        _id: 'group-id',
+        quest: {
+          key: 'whale',
+          progress: { up: 500 },
+          leader: 'leader-id',
+          active: false
+        },
+        members: ['user-id', 'leader-id', 'another-user'],
+        markModified: sinon.stub(),
+        save: sinon.stub()
+      };
+      req = {};
+      res = {
+        locals: { group: group },
+        json: sinon.stub()
+      };
+    });
+
+    it('cancels quest', function() {
+      groupsController.questCancel(req, res);
+
+      expect(group.quest).to.eql({
+        key: null,
+        progress: {},
+        leader: null
+      });
+    });
+
+    it('removes quest invitation from each user');
+
+    it('sends back group id and quest object', function() {
+      group.save.yields();
+
+      groupsController.questCancel(req, res);
+
+      expect(res.json).to.be.calledOnce;
+      expect(res.json).to.be.calledWith(201, {
+        _id: 'group-id',
+        quest: {
+          key : null,
+          leader: null,
+          progress : { }
+        }
+      });
+    });
   });
 
   describe('#questAbort', function() {
+    var req, res, user, group;
+
+    beforeEach(function() {
+      sinon.stub(User, 'update').withArgs({_id: {$in: ['user-id', 'leader-id', 'another-user']}}).yields();
+      User.update.returns({exec: sinon.stub()});
+
+      group = {
+        _id: 'group-id',
+        quest: {
+          key: 'whale',
+          progress: { up: 500 },
+          members: {'user-id': true, 'leader-id': true, 'another-user': true},
+          leader: 'leader-id',
+          active: true
+        },
+        members: ['user-id', 'leader-id', 'another-user'],
+        markModified: sinon.stub(),
+        save: sinon.stub()
+      };
+      req = {};
+      res = {
+        locals: { group: group },
+        json: sinon.stub()
+      };
+    });
+
+    afterEach(function() {
+      User.update.restore();
+    });
+
     it('aborts quest');
 
-    it('sends back group id and quest object');
+    it('removes quet progress from users');
+
+    it('returns quest scroll to leader');
+
+    it('sends back group id and quest object', function() {
+      group.save.yields();
+
+      groupsController.questAbort(req, res);
+
+      expect(res.json).to.be.calledOnce;
+      expect(res.json).to.be.calledWith(201, {
+        _id: 'group-id',
+        quest: {
+          key : null,
+          leader: null,
+          progress : { }
+        }
+      });
+    });
   });
 
   describe('#questLeave', function() {

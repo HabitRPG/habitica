@@ -793,8 +793,8 @@ function questStart(req, res, next) {
   if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
     return group.save(function(err,saved){
       if (err) return next(err);
-      res.send(204);
-    })
+      res.json(201, {_id: saved._id, quest: saved.quest});
+    });
   }
 
   var parallel = [],
@@ -992,15 +992,17 @@ api.questCancel = function(req, res, next){
         // TODO: return an informative error when quest is active
         group.quest = {key:null,progress:{},leader:null};
         group.markModified('quest');
-        group.save(cb);
-        _.each(group.members, function(m){
-          User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+        group.save(function() {
+          _.each(group.members, function(m){
+            User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+          });
+          cb();
         });
       }
     }
   ], function(err){
     if (err) return next(err);
-    res.send(204);
+    res.json(201, {_id: group._id, quest: group.quest});
     group = null;
   })
 }
@@ -1033,7 +1035,7 @@ api.questAbort = function(req, res, next){
   ], function(err, results){
     if (err) return next(err);
 
-    res.send(204);
+    res.json(201, {_id: group._id, quest: group.quest});
     group = null;
   })
 }
