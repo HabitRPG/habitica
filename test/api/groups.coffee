@@ -321,7 +321,7 @@ describe "Guilds", ->
             .set("X-API-Key", userToRemove.apiToken)
             .send()
             .end (res) ->
-              expect(res.body.flags.bootedFromGroupNotifications[0].name).to.equal( 'TestGuildToRemoveMemberAndMessageThem' )
+              expect(res.body.flags.bootedFromGroupNotifications[guildToRemoveMember._id].name).to.equal( 'TestGuildToRemoveMemberAndMessageThem' )
               cb()
 
         ], done

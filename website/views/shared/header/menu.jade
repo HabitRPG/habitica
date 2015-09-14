@@ -206,8 +206,8 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
-              li(ng-if='user.flags.bootedFromGroupNotifications.length > 0', ng-repeat="group in user.flags.bootedFromGroupNotifications")
-                a(ng-click='seeBootedFromGroupNotification($index);')
+              li(ng-if='user.flags.bootedFromGroupNotifications', ng-repeat="(id, group) in user.flags.bootedFromGroupNotifications")
+                a(ng-click='seeBootedFromGroupNotification(id);')
                   span=env.t('bootedFromGroupHeader', {groupBootedFromName: '{{group.name}}'})
               // li(ng-if='user.items.special.valentineReceived[0] || user.items.special.nyeReceived[0]')
                 a(ng-click='$state.go("options.inventory.drops"); expandMenu(null)')

@@ -36,7 +36,7 @@ describe('Menu Controller', function() {
       beforeEach(function() {
         scope.user = User.user;
         scope.user.invitations = [];
-        scope.user.flags.bootedFromGroupNotifications = [];
+        scope.user.flags.bootedFromGroupNotifications = {};
       });
 
       it('should return comment inactive icon when there are no messages', function() {
@@ -44,9 +44,9 @@ describe('Menu Controller', function() {
       });
 
       it('should return comment icon when there is a group notification', function() {
-        scope.user.flags.bootedFromGroupNotifications = [
-          {"name": "GroupBootedFrom", "message": "You are inactive"}
-        ];
+        scope.user.flags.bootedFromGroupNotifications = {
+          "someGroupId": {"name": "GroupBootedFrom", "message": "You are inactive"}
+        };
         expect(scope.iconClasses()).to.eql("glyphicon-comment");
       });
     });
@@ -63,22 +63,22 @@ describe('Menu Controller', function() {
       });
 
       it('clears one booted from group notification', function() {
-        User.user.flags.bootedFromGroupNotifications = [
-          {"name": "GroupBootedFrom", "message": "You are inactive"}
-        ];
-        scope.seeBootedFromGroupNotification(0)
+        User.user.flags.bootedFromGroupNotifications = {
+          "someGroupId": {"name": "GroupBootedFrom", "message": "You are inactive"}
+        };
+        scope.seeBootedFromGroupNotification("someGroupId")
         expect(User.user.flags.bootedFromGroupNotifications).to.eql([]);
       });
 
       it('clears two booted from group notifications', function() {
-        User.user.flags.bootedFromGroupNotifications = [
-          {"name": "GroupBootedFrom", "message": "You are inactive"},
-          {"name": "GroupBootedFrom2", "message": "You are inactive again"}
-        ];
-        scope.seeBootedFromGroupNotification(1)
-        expect(User.user.flags.bootedFromGroupNotifications).to.eql([{"name": "GroupBootedFrom", "message": "You are inactive"}]);
-        scope.seeBootedFromGroupNotification(0)
-        expect(User.user.flags.bootedFromGroupNotifications).to.eql([]);
+        User.user.flags.bootedFromGroupNotifications = {
+          "someGroupId": {"name": "GroupBootedFrom", "message": "You are inactive"},
+          "someGroupId2": {"name": "GroupBootedFrom2", "message": "You are inactive again"}
+        };
+        scope.seeBootedFromGroupNotification("someGroupId")
+        expect(User.user.flags.bootedFromGroupNotifications).to.eql({"someGroupId2": {"name": "GroupBootedFrom2", "message": "You are inactive again"}});
+        scope.seeBootedFromGroupNotification("someGroupId2")
+        expect(User.user.flags.bootedFromGroupNotifications).to.eql({});
       });
     });
   });

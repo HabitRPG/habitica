@@ -164,8 +164,8 @@ var UserSchema = new Schema({
     armoireOpened: {type: Boolean, 'default': false},
     armoireEmpty: {type: Boolean, 'default': false},
     cardReceived: {type: Boolean, 'default': false},
-    warnedLowHealth: {type: Boolean, 'default': false}
-    kickedFromGroup: {type: Object, 'default': {}}
+    warnedLowHealth: {type: Boolean, 'default': false},
+    bootedFromGroupNotifications: {type: Object, 'default': {}}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

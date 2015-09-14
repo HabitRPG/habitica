@@ -725,9 +725,9 @@ api.removeMember = function(req, res, next){
         sendMessage(removedUser);
 
         //Mark removed users messages as seen
-        var update = {$unset:{}, $pushAll:{}};
+        var update = {$unset:{}, $set:{}};
         update.$unset['newMessages.' + group._id] = '';
-        update.$pushAll['flags.bootedFromGroupNotifications'] = [{"name":group.name, "message": message}];
+        update.$set['flags.bootedFromGroupNotifications.' + group._id] = {"name":group.name, "message": message};
         User.findOneAndUpdate({_id: removedUser._id, apiToken: removedUser.apiToken}, update).exec();
 
         // Sending an empty 204 because Group.update doesn't return the group

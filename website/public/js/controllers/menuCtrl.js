@@ -11,6 +11,7 @@ angular.module('habitrpg')
 
       function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
+        if(!user.flags.bootedFromGroupNotifications) console.log(user.flags.bootedFromGroupNotifications)
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
         } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
@@ -21,7 +22,7 @@ angular.module('habitrpg')
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
-        }  else if (user.flags.bootedFromGroupNotifications.length > 0) {
+        }  else if (Object.keys(user.flags.bootedFromGroupNotifications).length > 0) {
           return messageValue;
         } else {
           return noneValue;
@@ -58,7 +59,7 @@ angular.module('habitrpg')
               }
             }
         });
-        User.user.flags.bootedFromGroupNotifications.splice(index, 1);
+        delete User.user.flags.bootedFromGroupNotifications[index];
         User.set({
           'flags.bootedFromGroupNotifications': User.user.flags.bootedFromGroupNotifications
         });
