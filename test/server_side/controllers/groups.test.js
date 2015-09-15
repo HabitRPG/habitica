@@ -393,4 +393,105 @@ describe('Groups Controller', function() {
       });
     });
   });
+
+  describe('#removeMember', function() {
+    var req, res, group, user;
+
+    beforeEach(function() {
+      user = { _id: 'user-id' };
+      group = {
+        _id: 'group-id',
+        leader: 'user-id',
+        members: ['user-id', 'member-to-boot', 'another-user']
+      }
+      res = {
+        locals: {
+          user: user,
+          group: group
+        },
+        send: sinon.stub()
+      };
+      req = {
+        query: {
+          uuid: 'member-to-boot'
+        }
+      };
+
+      sinon.stub(Group, 'update');
+      sinon.stub(User, 'update');
+      sinon.stub(User, 'findById');
+    });
+
+    afterEach(function() {
+      Group.update.restore();
+      User.update.restore();
+      User.findById.restore();
+    });
+
+    context('quest behavior', function() {
+      it('removes quest from party if booted member was quest leader', function() {
+        group.quest = {
+          leader: 'member-to-boot',
+          active: true,
+          members: {
+            'user-id': true,
+            'leader-id': true,
+            'member-to-boot': true
+          },
+          key: 'whale'
+        }
+
+        groupsController.removeMember(req, res);
+
+        expect(Group.update).to.be.calledOnce;
+        expect(Group.update).to.be.calledWith(
+          { _id: 'group-id'},
+          {
+            '$inc': { memberCount: -1 },
+            '$pull': { members: 'member-to-boot' },
+            '$set': { quest: {key: null, leader: null} }
+          }
+        );
+      });
+
+      it('returns quest scroll to booted member if booted member was leader of quest', function() {
+        Group.update.yields();
+        var bootedMember = {
+          _id: 'member-to-boot',
+          apiToken: 'api',
+          preferences: {
+            emailNotifications: {
+              kickedGroup: false
+            }
+          }
+        };
+        User.findById.yields(null, bootedMember);
+        User.update.returns({
+          exec: sinon.stub()
+        });
+
+        group.quest = {
+          leader: 'member-to-boot',
+          active: true,
+          members: {
+            'user-id': true,
+            'leader-id': true,
+            'member-to-boot': true
+          },
+          key: 'whale'
+        }
+
+        groupsController.removeMember(req, res);
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWith(
+          { _id: 'member-to-boot', apiToken: 'api' },
+          {
+            '$unset': { 'newMessages.group-id': ''},
+            '$inc': { 'items.quests.whale': 1 }
+          }
+        );
+      });
+    });
+  });
 });
