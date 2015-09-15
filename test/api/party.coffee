@@ -264,7 +264,6 @@ describe "Party", ->
 
                 (_user, cb) ->
                   request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3").end (res) ->
-                    expectCode res, 200
                     Group.findById group._id, cb
 
                 (_group, cb) ->
@@ -318,10 +317,10 @@ describe "Party", ->
         .set("X-API-User", leavingMember._id)
         .set("X-API-Key", leavingMember.apiToken)
         .end (err, res) ->
-          expectCode res, 204
+          expectCode res, 201
           request.get(baseURL + '/groups/party')
             .end (err, res) ->
-              expect(res.body.quest.members[leavingMember._id]).to.not.be.ok
+              expect(res.body.quest.members[leavingMember._id]).to.not.be.exist
               done()
 
     xit "Hurts the boss", (done) ->

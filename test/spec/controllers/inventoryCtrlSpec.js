@@ -157,6 +157,72 @@ describe('Inventory Controller', function() {
     });
   });
 
+  describe('#buyQuest', function() {
+    var quests, questObject;
+
+    beforeEach(inject(function(Quests) {
+      quests = Quests;
+      questObject = { key: 'whale' };
+
+      sandbox.stub(quests, 'buyQuest').returns({ then: function(res) { res(questObject); } });
+    }));
+
+    it('calls Quests.buyQuest', function() {
+      scope.buyQuest('foo');
+
+      expect(quests.buyQuest).to.be.calledOnce;
+      expect(quests.buyQuest).to.be.calledWith('foo');
+    });
+
+    it('sets selectedQuest to resolved quest object', function() {
+      scope.buyQuest('whale');
+
+      expect(rootScope.selectedQuest).to.eql(questObject);
+    });
+
+    it('opens buyQuest modal', function() {
+      sandbox.spy(rootScope, 'openModal');
+
+      scope.buyQuest('whale');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('buyQuest', {controller: 'InventoryCtrl'});
+    });
+  });
+
+  describe('#showQuest', function() {
+    var quests, questObject;
+
+    beforeEach(inject(function(Quests) {
+      quests = Quests;
+      questObject = { key: 'whale' };
+
+      sandbox.stub(quests, 'showQuest').returns({ then: function(res) { res(questObject); } });
+    }));
+
+    it('calls Quests.showQuest', function() {
+      scope.showQuest('foo');
+
+      expect(quests.showQuest).to.be.calledOnce;
+      expect(quests.showQuest).to.be.calledWith('foo');
+    });
+
+    it('sets selectedQuest to resolved quest object', function() {
+      scope.showQuest('whale');
+
+      expect(rootScope.selectedQuest).to.eql(questObject);
+    });
+
+    it('opens showQuest modal', function() {
+      sandbox.spy(rootScope, 'openModal');
+
+      scope.showQuest('whale');
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith('showQuest', {controller: 'InventoryCtrl'});
+    });
+  });
+
   describe('#hasAllTimeTravelerItems', function() {
     it('returns false if there are items left in the time traveler store', function() {
       expect(scope.hasAllTimeTravelerItems()).to.eql(false);

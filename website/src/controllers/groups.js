@@ -505,8 +505,14 @@ api.leave = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
 
-  if (group.type === 'party' && user.party.quest && user.party.quest.key) {
-    return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+  if (group.type === 'party') {
+    if (group.quest && group.quest.leader === user._id) {
+      return res.json(403, 'You cannot leave party when you have started a quest. Abort the quest first.');
+    }
+
+    if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
+      return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+    }
   }
 
   // When removing the user from challenges, should we keep the tasks?
@@ -778,9 +784,7 @@ function questStart(req, res, next) {
   var group = res.locals.group;
   var force = req.query.force;
 
-  // if (group.quest.active) return res.json(400,{err:'Quest already began.'});
-  // temporarily send error email, until we know more about this issue (then remove below, uncomment above).
-  if (group.quest.active) return next('Quest already began.');
+  if (group.quest.active) return res.json(400,{err:'Quest already began.'});
 
   group.markModified('quest');
 
@@ -789,8 +793,8 @@ function questStart(req, res, next) {
   if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
     return group.save(function(err,saved){
       if (err) return next(err);
-      res.json(saved);
-    })
+      res.json(201, {_id: saved._id, quest: saved.quest});
+    });
   }
 
   var parallel = [],
@@ -959,6 +963,7 @@ api.questReject = function(req, res, next) {
   var user = res.locals.user;
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+
   var analyticsData = {
     category: 'behavior',
     owner: false,
@@ -968,7 +973,9 @@ api.questReject = function(req, res, next) {
   };
   analytics.track('quest',analyticsData);
   group.quest.members[user._id] = false;
+
   User.update({_id:user._id}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+
   questStart(req,res,next);
 }
 
@@ -985,15 +992,17 @@ api.questCancel = function(req, res, next){
         // TODO: return an informative error when quest is active
         group.quest = {key:null,progress:{},leader:null};
         group.markModified('quest');
-        group.save(cb);
-        _.each(group.members, function(m){
-          User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+        group.save(function() {
+          _.each(group.members, function(m){
+            User.update({_id:m}, {$set: {'party.quest.RSVPNeeded': false, 'party.quest.key': null}}).exec();
+          });
+          cb();
         });
       }
     }
   ], function(err){
     if (err) return next(err);
-    res.json(group);
+    res.json(201, {_id: group._id, quest: group.quest});
     group = null;
   })
 }
@@ -1022,17 +1031,11 @@ api.questAbort = function(req, res, next){
       group.quest = {key:null,progress:{},leader:null};
       group.markModified('quest');
       group.save(cb);
-    }, function(cb){
-      populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
     if (err) return next(err);
 
-    var groupClone = clone(group);
-
-    groupClone.members = results[2].members;
-
-    res.json(groupClone);
+    res.json(201, {_id: group._id, quest: group.quest});
     group = null;
   })
 }
@@ -1065,7 +1068,10 @@ api.questLeave = function(req, res, next) {
 
   Q.all([groupSavePromise(), userSavePromise()])
     .done(function(values) {
-      return res.send(204);
+      return res.json(201, {
+        _id: group._id,
+        quest: group.quest
+      });
     }, function(error) {
       return next(error);
     });
