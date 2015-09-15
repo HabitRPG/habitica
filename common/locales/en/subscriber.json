@@ -67,5 +67,10 @@
     "subUpdateTitle": "Update",
     "subUpdateDescription": "Update the card to be charged.",
     "notEnoughHourglasses": "You don't have enough Mystic Hourglasses.",
-    "hourglassBuyEquipSetConfirm": "Buy this full set of items for 1 Mystic Hourglass?"
+    "hourglassBuyEquipSetConfirm": "Buy this full set of items for 1 Mystic Hourglass?",
+    "petsAlreadyOwned": "Pet already owned.",
+    "mountsAlreadyOwned": "Mount already owned.",
+    "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types: ",
+    "petsNotAllowedHourglass": "Pet not available for purchase with Mystic Hourglass.",
+    "mountsNotAllowedHourglass": "Mount not available for purchase with Mystic Hourglass."
 }

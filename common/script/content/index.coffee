@@ -533,18 +533,12 @@ _.each gearTypes, (type) ->
   Time Traveler Store, mystery sets need their items mapped in
 ###
 _.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
-api.timeTravelerStore = (owned, category) ->
+api.timeTravelerStore = (owned) ->
   ownedKeys = _.keys owned.toObject?() or owned # mongoose workaround
-  if not category or category is "mystery"
-    _.reduce api.mystery, (m,v,k)->
-      return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
-      m[k] = v;m
-    , {}
-  else
-    _.reduce api.timeTravelStable[category], (m,v,i)->
-      returm m if ~ownedKeys.indexOf(v)
-      m[i] = v;m
-    , []
+  _.reduce api.mystery, (m,v,k)->
+    return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
+    m[k] = v;m
+  , {}
 
 ###
   ---------------------------------------------------------------
@@ -2052,7 +2046,7 @@ api.quests =
       ]
       gp: 0
       exp: 650
-  
+
   cheetah:
     text: t('questCheetahText')
     notes: t('questCheetahNotes')

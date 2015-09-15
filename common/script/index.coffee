@@ -1019,8 +1019,11 @@ api.wrap = (user, main=true) ->
         cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
 
       hourglassPurchase: (req, cb, analytics)->
-        return cb?({code:401, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
-        
+        {type, key} = req.params
+        return cb?({code:400, message:i18n.t('typeNotAllowedHourglass', req.language) + JSON.stringify(_.keys(content.timeTravelStable))}) unless content.timeTravelStable[type]
+        return cb?({code:400, message:i18n.t(type+'NotAllowedHourglass', req.language)}) if not _.includes(content.timeTravelStable[type], key)
+        return cb?({code:400, message:i18n.t(type+'AlreadyOwned', req.language)}) if user.items[type][key]
+        return cb?({code:400, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
 
       sell: (req, cb) ->
         {key, type} = req.params

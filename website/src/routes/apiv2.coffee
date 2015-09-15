@@ -180,13 +180,22 @@ module.exports = (swagger, v2) ->
     "/user/inventory/purchase/{type}/{key}":
       spec:
         method: 'POST'
-        description: "Purchase a gem-purchaseable item from Alexander"
+        description: "Purchase a Gem-purchasable item from Alexander"
         parameters:[
           path('type',"The type of object you're purchasing.",'string',['eggs','hatchingPotions','food','quests','special'])
           path('key',"The object key you're purchasing (call /content route for available keys)",'string')
         ]
       action: user.purchase
 
+    "/user/inventory/hourglass/{type}/{key}"
+      spec:
+        method: 'POST'
+        description: "Purchase a pet or mount using a Mystic Hourglass"
+        parameters:[
+          path('type',"The type of object you're purchasing.",'string',['pets','mounts'])
+          path('key',"The object key you're purchasing (call /content route for available keys)",'string')
+        ]
+      action: user.hourglassPurchase
 
     "/user/inventory/feed/{pet}/{food}":
       spec:
