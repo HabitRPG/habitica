@@ -7,5 +7,11 @@
  */
 
 require('babel/register');
-require('glob').sync('./tasks/gulp-*').forEach(require);
-require('gulp').task('default', ['test']);
+
+if (process.env.NODE_ENV === 'production') {
+  require('./tasks/gulp-newstuff');
+  require('./tasks/gulp-build');
+} else {
+  require('glob').sync('./tasks/gulp-*').forEach(require);
+  require('gulp').task('default', ['test']);
+}

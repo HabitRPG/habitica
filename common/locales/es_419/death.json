@@ -3,5 +3,14 @@
     "dontDespair": "¡No se desespere!",
     "deathPenaltyDetails": "Perdiste un nivel, tus monedas y una pieza de tu equipo, pero puedes recuperarlos con trabajo duro! Buena suerte -- lo harás muy bien.",
     "refillHealthTryAgain": "Rellena tu vida e intenta de nuevo",
-    "dyingOftenTips": "¿Te pasa seguido? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Aquí hay unos cuantos consejos!</a>"
+    "dyingOftenTips": "¿Te pasa seguido? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Aquí hay unos cuantos consejos!</a>",
+    "losingHealthWarning": "¡Cuidado - Estás perdiendo tus puntos de vida!",
+    "losingHealthWarning2": "¡No dejes que tus puntos de vida bajen a cero! Si sucede, perderás un nivel, todo tu oro y una pieza de equipo",
+    "toRegainHealth": "Para recuperar Puntos de Vida:",
+    "lowHealthTips1": "¡Sube de nivel para recuperar todos tus Puntos de Vida!",
+    "lowHealthTips2": "Compra una pócima de salud de la columna de Recompensas para recuperar 15 Puntos de Vida",
+    "losingHealthQuickly": "¿Perdiendo Puntos de Vida rápidamente?",
+    "lowHealthTips3": "Las tareas diarias te lastimarán por la noche, así que ¡sé cuidadoso de no añadir demasiadas al principio!",
+    "lowHealthTips4": "Si una tarea diaria no vence en un día en específico, puedes deshabilitarla dándole \"click\" en el ícono del lápiz",
+    "goodLuck": "¡Buena suerte!"
 }

@@ -61,7 +61,8 @@
     "timeTravelersTitle": "Mysteriöse Zeitreisende",
     "timeTravelersPopoverNoSub": "Du brauchst eine Mysteriöse Sanduhr, um die mysteriösen Zeitreisenden herbeizurufen!  <%= linkStart %>Abonnenten<%= linkEnd %> verdienen für alle drei Monate, in denen sie hintereinander abonniert haben, eine Mysteriöse Sanduhr. Komm wieder, wenn du eine Mysteriöse Sanduhr hast, und die Zeitreisenden werden dir ein Abonnenten-Set aus der Vergangenheit holen... oder sogar aus der Zukunft.",
     "timeTravelersPopover": "Wir sehen, dass du eine Mysteriöse Sanduhr hast, deshalb können wir gerne für dich durch die Zeit reisen! Bitte such dir aus, welches Abonnenten-Set du gerne hättest. <%= linkStart %>Hier<%= linkEnd %> ist eine Liste der Ausrüstungs-Sets der Vergangenheit. Wenn diese dir nicht gefallen, vielleicht hättest du Interesse an einem unserer modisch futuristischen Steampunk Ausrüstungs-Sets?",
-    "mysticHourglassPopover": "Die Mysteriöse Sanduhr erlaubt dir, Abonnenten-Sets früherer Monate zu kaufen.",
+    "timeTravelersAlreadyOwned": "Congratulations! You already own all of the Mystery Items. Thanks for supporting the site!",
+    "mysticHourglassPopover": "Mystic Hourglass allows you to purchase previous months' subscriber sets.",
     "subUpdateCard": "Aktualisiere deine Karte",
     "subUpdateTitle": "Aktualisiere",
     "subUpdateDescription": "Aktualisiere die Karte mit der Du zahlen möchtest."

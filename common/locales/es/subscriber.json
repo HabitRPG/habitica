@@ -1,9 +1,9 @@
 {
     "subscription": "Suscripción",
     "subscriptions": "Suscripciones",
-    "subDescription": "Buy gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "subDescription": "Compra gemas con oro, consigue objetos misteriosos cada mes, consulta tu historial de progreso, duplica la cantidad máxima de botines diarios y apoya a los desarrolladores. Para obtener más información, haz clic.",
     "buyGemsGold": "Comprar Gemas con oro",
-    "buyGemsGoldText": "Alexander the Merchant will sell you gems at a cost of <%= gemCost %> gold per gem. His monthly shipments are initially capped at <%= gemLimit %> gems per month, but this cap increases by 5 gems for every three months of consecutive subscription, up to a maximum of 50 gems per month!",
+    "buyGemsGoldText": "Alejandro el Mercader te vende gemas a <%= gemCost %> de oro cada una. Al principio, no puede recibir más de <%= gemLimit %> gemas al mes, pero ese límite aumenta 5 gemas por cada tres meses de suscripción consecutivos, hasta llegar al máximo de 50 gemas mensuales.",
     "retainHistory": "Conservación completa de historial de entradas",
     "retainHistoryText": "Hace que tu historial completo esté disponible en forma de gráficos y exportaciones. Los historiales de personas que no son suscriptores se consolidan para la optimización de la base de datos.",
     "doubleDrops": "Duplica la cantidad de botines diarios",
@@ -61,7 +61,8 @@
     "timeTravelersTitle": "Misteriosos Viajeros en el Tiempo",
     "timeTravelersPopoverNoSub": "¡Necesitarás un Reloj de Arena místico para invocar a los misteriosos Viajeros en el Tiempo! Los <%= linkStart %>suscriptores<%= linkEnd %> obtienen un Reloj de Arena Místico por cada tres meses de suscripción consecutivos. Vuelve cuando tengas un Reloj de Arena Místico , y los Viajeros en el Tiempo te traerán un Equipo de Objetos de Suscriptor del pasado... o quizás incluso del futuro.",
     "timeTravelersPopover": "Vemos que tienes un Reloj de Arena Místico, así que gustosamente viajaremos atrás en el tiempo para ti! Por favor, elije el Equipo de objetos Misterioso que te gustaría. ¡Puedes ver una lista de equipos de objetos del pasado <%= linkStart %>aquí<%= linkEnd %>! Si estos no son de tu agrado, ¿estarías quizás más interesado en uno de nuestros estilosos equipos de objetos futuristas Steampunk?",
-    "mysticHourglassPopover": "El Reloj de Arena Místico te permite comprar equipos de subscriptor del mes anterior",
+    "timeTravelersAlreadyOwned": "Congratulations! You already own all of the Mystery Items. Thanks for supporting the site!",
+    "mysticHourglassPopover": "Mystic Hourglass allows you to purchase previous months' subscriber sets.",
     "subUpdateCard": "Actualiza la tarjeta",
     "subUpdateTitle": "Actualización",
     "subUpdateDescription": "Actualiza la tarjeta para poder cobrar."

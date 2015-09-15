@@ -163,7 +163,8 @@ var UserSchema = new Schema({
     armoireEnabled: {type: Boolean, 'default': false},
     armoireOpened: {type: Boolean, 'default': false},
     armoireEmpty: {type: Boolean, 'default': false},
-    cardReceived: {type: Boolean, 'default': false}
+    cardReceived: {type: Boolean, 'default': false},
+    warnedLowHealth: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -318,7 +319,7 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'915533'},
     shirt: {type: String, 'default': 'blue'},
     timezoneOffset: Number,
-    sound: {type:String, 'default':'off', enum: ['off','danielTheBard', 'wattsTheme', 'gokulTheme']},
+    sound: {type:String, 'default':'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']},
     language: String,
     automaticAllocation: Boolean,
     allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},

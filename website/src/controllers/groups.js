@@ -8,6 +8,7 @@ function clone(a) {
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
+var Q = require('q');
 var utils = require('./../utils');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
@@ -18,6 +19,7 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var api = module.exports;
 var pushNotify = require('./pushNotifications');
 var analytics = utils.analytics;
+var firebase = require('../libs/firebase');
 
 /*
   ------------------------------------------------------------------------
@@ -190,7 +192,11 @@ api.create = function(req, res, next) {
     async.waterfall([
       function(cb){user.save(cb)},
       function(saved,ct,cb){group.save(cb)},
-      function(saved,ct,cb){saved.populate('members',nameFields,cb)}
+      function(saved,ct,cb){
+        firebase.updateGroupData(saved);
+        firebase.addUserToGroup(saved._id, user._id);
+        saved.populate('members', nameFields, cb);
+      }
     ],function(err,saved){
       if (err) return next(err);
       res.json(saved);
@@ -207,6 +213,8 @@ api.create = function(req, res, next) {
         group.save(cb);
       },
       function(saved, count, cb){
+        firebase.updateGroupData(saved);
+        firebase.addUserToGroup(saved._id, user._id);
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
@@ -231,10 +239,13 @@ api.update = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return next(err);
+
+    firebase.updateGroupData(saved);
     res.send(204);
   });
 }
 
+// TODO remove from api object?
 api.attachGroup = function(req, res, next) {
   var gid = req.params.gid;
   var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
@@ -243,7 +254,7 @@ api.attachGroup = function(req, res, next) {
     if(!group) return res.json(404, {err: "Group not found"});
     res.locals.group = group;
     next();
-  })
+  });
 }
 
 api.getChat = function(req, res, next) {
@@ -462,7 +473,12 @@ api.join = function(req, res, next) {
   if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
+    if (group.members.length === 0) {
+      group.leader = user._id;
+    }
+
     group.members.push(user._id);
+
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
     }
@@ -473,6 +489,8 @@ api.join = function(req, res, next) {
       group.save(cb);
     },
     function(cb){
+      firebase.addUserToGroup(group._id, user._id);
+      // TODO why query group once again?
       populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
@@ -484,81 +502,22 @@ api.join = function(req, res, next) {
 }
 
 api.leave = function(req, res, next) {
-  var user = res.locals.user,
-    group = res.locals.group;
+  var user = res.locals.user;
+  var group = res.locals.group;
+
+  if (group.type === 'party' && user.party.quest && user.party.quest.key) {
+    return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+  }
+
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
-  async.parallel([
-    // Remove active quest from user if they're leaving the party
-    function(cb){
-      if (group.type != 'party') return cb(null,{},1);
-      user.party.quest = Group.cleanQuestProgress();
-      user.save(cb);
-    },
-    // Remove user from group challenges
-    function(cb){
-      async.waterfall([
-        // Find relevant challenges
-        function(cb2) {
-          Challenge.find({
-            _id: {$in: user.challenges}, // Challenges I am in
-            group: group._id // that belong to the group I am leaving
-          }, cb2);
-        },
-        // Update each challenge
-        function(challenges, cb2) {
-          Challenge.update(
-            {_id:{$in: _.pluck(challenges, '_id')}},
-            {$pull:{members:user._id}},
-            {multi: true},
-            function(err) {
-             cb2(err, challenges); // pass `challenges` above to cb
-            }
-          );
-        },
-        // Unlink the challenge tasks from user
-        function(challenges, cb2) {
-          async.waterfall(challenges.map(function(chal) {
-            return function(cb3) {
-              var i = user.challenges.indexOf(chal._id)
-              if (~i) user.challenges.splice(i,1);
-              user.unlink({cid:chal._id, keep:keep}, cb3);
-            }
-          }), cb2);
-        }
-      ], cb);
-    },
-    // Update the group
-    function(cb){
-      var update = {$pull:{members:user._id}};
-      if (group.type == 'party' && group.quest.key){
-        update['$unset'] = {};
-        update['$unset']['quest.members.' + user._id] = 1;
-      }
-      // FIXME do we want to remove the group `if group.members.length == 0` ? (well, 1 since the update hasn't gone through yet)
-      if (group.members.length > 1) {
-        var seniorMember = _.find(group.members, function (m) {return m != user._id});
-        // If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-        var leader = group.leader;
-        if (leader == user._id || !~group.members.indexOf(leader)) {
-          update['$set'] = update['$set'] || {};
-          update['$set'].leader = seniorMember;
-        }
-        leader = group.quest && group.quest.leader;
-        if (leader && (leader == user._id || !~group.members.indexOf(leader))) {
-          update['$set'] = update['$set'] || {};
-          update['$set']['quest.leader'] = seniorMember;
-        }
-      }
-      update['$inc'] = {memberCount: -1};
-      Group.update({_id:group._id},update,cb);
-    }
-  ],function(err){
+
+  group.leave(user, keep, function(err){
     if (err) return next(err);
     user = group = keep = null;
     return res.send(204);
-  })
-}
+  });
+};
 
 var inviteByUUIDs = function(uuids, group, req, res, next){
   async.each(uuids, function(uuid, cb){
@@ -568,17 +527,18 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
          return cb({code:400,err:'User with id "' + uuid + '" not found'});
       if (group.type == 'guild') {
         if (_.contains(group.members,uuid))
-          return cb({code:400,err: "User already in that group"});
+          return cb({code:400, err: "User already in that group"});
         if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
-          return cb({code:400,err:"User already invited to that group"});
+          return cb({code:400, err:"User already invited to that group"});
         sendInvite();
       } else if (group.type == 'party') {
         if (invite.invitations && !_.isEmpty(invite.invitations.party))
-          return cb({code:400,err:"User already pending invitation."});
-        Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
+          return cb({code: 400,err:"User already pending invitation."});
+        Group.find({type: 'party', members: {$in: [uuid]}}, function(err, groups){
           if (err) return cb(err);
-          if (!_.isEmpty(groups))
-            return cb({code:400,err:"User already in a party."})
+          if (!_.isEmpty(groups) && groups[0].members.length > 1) {
+            return cb({code: 400, err: "User already in a party."})
+          }
           sendInvite();
         });
       }
@@ -600,9 +560,6 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
         async.series([
           function(cb){
             invite.save(cb);
-          },
-          function(cb){
-            group.save(cb);
           }
         ], function(err, results){
           if (err) return cb(err);
@@ -636,14 +593,20 @@ var inviteByUUIDs = function(uuids, group, req, res, next){
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
-    // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
-    populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
-      if(err) return next(err);
+    async.series([
+      function(cb) {
+        group.save(cb);
+      },
+      function(cb) {
+        // TODO pass group from save above don't find it again, or you have to find it again in order to run populate?
+        populateQuery(group.type, Group.findById(group._id)).exec(function(err, populatedGroup){
+          if(err) return next(err);
 
-      res.json(populatedGroup);
-    });
+          res.json(populatedGroup);
+        });
+      }
+    ]);
   });
-
 };
 
 var inviteByEmails = function(invites, group, req, res, next){
@@ -664,6 +627,7 @@ var inviteByEmails = function(invites, group, req, res, next){
           }
 
           // yeah, it supports guild too but for backward compatibility we'll use partyInvite as query
+
           var link = '?partyInvite='+ utils.encrypt(JSON.stringify({id:group._id, inviter:res.locals.user._id, name:group.name}));
 
           var inviterVars = utils.getUserInfo(res.locals.user, ['name', 'email']);
@@ -694,9 +658,9 @@ var inviteByEmails = function(invites, group, req, res, next){
   }, function(err){
     if(err) return err.code ? res.json(err.code, {err: err.err}) : next(err);
 
-    if(usersAlreadyRegistered.length > 0){
+    if (usersAlreadyRegistered.length > 0){
       inviteByUUIDs(usersAlreadyRegistered, group, req, res, next);
-    }else{
+    } else{
 
       // Send only status code down the line because it doesn't need
       // info on invited users since they are not yet registered
@@ -708,11 +672,11 @@ var inviteByEmails = function(invites, group, req, res, next){
 api.invite = function(req, res, next){
   var group = res.locals.group;
 
-  if(req.body.uuids){
+  if (req.body.uuids) {
     inviteByUUIDs(req.body.uuids, group, req, res, next);
-  }else if(req.body.emails){
+  } else if (req.body.emails) {
     inviteByEmails(req.body.emails, group, req, res, next)
-  }else{
+  } else {
     return res.json(400,{err: "Can invite only by email or uuid"});
   }
 }
@@ -737,6 +701,10 @@ api.removeMember = function(req, res, next){
 
   if(group.leader !== user._id){
     return res.json(401, {err: "Only group leader can remove a member!"});
+  }
+
+  if(user._id === uuid){
+    return res.json(401, {err: "You cannot remove yourself!"});
   }
 
   if(_.contains(group.members, uuid)){
@@ -1067,4 +1035,38 @@ api.questAbort = function(req, res, next){
     res.json(groupClone);
     group = null;
   })
+}
+
+api.questLeave = function(req, res, next) {
+  // Non-member leave quest while still in progress
+  var group = res.locals.group;
+  var user = res.locals.user;
+
+  if (!(group.quest && group.quest.active)) {
+    return res.json(404, { err: 'No active quest to leave' });
+  }
+
+  if (!(group.quest.members && group.quest.members[user._id])) {
+    return res.json(403, { err: 'You are not part of the quest' });
+  }
+
+  if (group.quest.leader === user._id) {
+    return res.json(403, { err: 'Quest leader cannot leave quest' });
+  }
+
+  delete group.quest.members[user._id];
+  group.markModified('quest.members');
+
+  user.party.quest = Group.cleanQuestProgress();
+  user.markModified('party.quest');
+
+  var groupSavePromise = Q.nbind(group.save, group);
+  var userSavePromise = Q.nbind(user.save, user);
+
+  Q.all([groupSavePromise(), userSavePromise()])
+    .done(function(values) {
+      return res.send(204);
+    }, function(error) {
+      return next(error);
+    });
 }

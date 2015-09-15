@@ -154,4 +154,23 @@ describe('count', function() {
       expect(dropPets).to.eql(2);
     });
   });
+
+  describe('questsOfCategory', function() {
+
+    it('counts user quest scrolls of a particular category', function() {
+      var quests = {
+        "atom1": 2,
+        "whale": 4,
+        "kraken": 2,
+        "sheep": 1,
+        "goldenknight2": 1
+      };
+      var petQuestCount = count.questsOfCategory(quests, 'pet');
+      var unlockableQuestCount = count.questsOfCategory(quests, 'unlockable');
+      var goldQuestCount = count.questsOfCategory(quests, 'gold');
+      expect(petQuestCount).to.eql(3);
+      expect(unlockableQuestCount).to.eql(2);
+      expect(goldQuestCount).to.eql(0);
+    });
+  });
 });

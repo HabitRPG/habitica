@@ -68,6 +68,8 @@
     "questEggWhaleAdjective": "משכשך",
     "questEggCheetahText": "Cheetah",
     "questEggCheetahAdjective": "honest",
+    "questEggHorseText": "Horse",
+    "questEggHorseAdjective": "galloping",
     "eggNotes": "מצא שיקוי בקיעה למזוג על ביצה זו, והיא תבקע כ: <%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",

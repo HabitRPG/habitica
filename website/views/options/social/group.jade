@@ -16,7 +16,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       .panel.panel-default
         .panel-heading(bindonce='group')
           h3.panel-title
-            | {{group.name}}
+            span {{group.name}}
             span.group-leave-join(ng-if='group')
               a.btn.btn-sm.btn-danger.pull-right(ng-if=":: isMemberOfGroup(User.user._id, group)", ng-click='clickLeave(group, $event)')
                 span.glyphicon.glyphicon-ban-circle
@@ -50,16 +50,18 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           div(ng-show='!group._editing')
             img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
             markdown(text='group.description')
-          hr
+          br
           p=env.t('groupLeader')
             |:
-            a(class='badge badge-info', ng-click='clickMember(group.leader._id, true)')
+            a.badge.badge-info(ng-click='clickMember(group.leader._id, true)')
               | {{group.leader.profile.name}}
-          .slight-vertical-padding
-            small.muted=env.t('groupID')
-              |: {{group._id}}
 
-      include ./challenge-box
+      .text-center(ng-if='group.type === "party"')
+        .row.row-margin: .col-sm-6.col-sm-offset-3
+          button.btn.btn-success.btn-block(
+            ng-if='!party.quest.key',
+            ng-click='clickStartQuest();'
+          )=env.t('startAQuest')
 
       // ------ Members -------
       .panel.panel-default
@@ -67,56 +69,68 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           h3.panel-title
             =env.t('members')
             button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
+
         .panel-body.modal-fixed-height
-          div.form-group(ng-if='::group.type=="party"')
-            p=env.t('partyList')
-            select.form-control#partyOrder(
-              ng-model='user.party.order',
-              ng-controller='ChatCtrl',
-              ng-options='k as v for (k , v) in partyOrderChoices',
-              ng-change='set({"party.order": user.party.order})'
-              )
-            |&nbsp;
-            select.form-control#partyOrderAscending(
-              ng-model='user.party.orderAscending',
-              ng-controller='ChatCtrl',
-              ng-options='k as v for (k , v) in partyOrderAscendingChoices',
-              ng-change='set({"party.orderAscending": user.party.orderAscending})'
-              )
-          table.table.table-striped(bindonce='group')
+          h4(ng-show='::group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
+          table.table.table-striped(ng-show='::group.memberCount > 1 || group.type !== "party"' bindonce='group')
             tr(ng-repeat='member in group.members track by member._id')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
+                .pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
                   a.media-object(ng-click='removeMember(group, member, true)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
                   span(ng-click='clickMember(member._id, true)')
                     | {{member.profile.name}}
-            tr(ng-if='group.memberCount > group.members.length')
+            tr(ng-if='::group.memberCount > group.members.length')
               td
-                |<span class='badge'>{{group.memberCount - group.members.length}}
+                span.badge {{group.memberCount - group.members.length}}
                 = ' ' + env.t('moreMembers')
-                |</span>
-
           h4(ng-show='group.invites.length > 0')=env.t('invited')
           table.table.table-striped
             tr(ng-repeat='invite in group.invites')
               td.media
                 // allow leaders to ban members
-                div.pull-left(ng-show='group.leader._id == user.id')
+                .pull-left(ng-show='group.leader._id == user.id')
                   a.media-object(ng-click='removeMember(group, invite, false)')
                     span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
                 a.media-body
                   span(ng-click='clickMember(invite._id, true)')
                     | {{invite.profile.name}}
 
+      .panel.panel-default(ng-if='::group.type=="party" && group.memberCount > 1')
+        .panel-heading
+          h3.panel-title=env.t('partyList')
+        .panel-body
+          .form-group
+            select.form-control#partyOrder(
+              ng-model='user.party.order',
+              ng-controller='ChatCtrl',
+              ng-options='k as v for (k , v) in partyOrderChoices',
+              ng-change='set({"party.order": user.party.order})'
+            )
+            | &nbsp;
+            select.form-control#partyOrderAscending(
+              ng-model='user.party.orderAscending',
+              ng-controller='ChatCtrl',
+              ng-options='k as v for (k , v) in partyOrderAscendingChoices',
+              ng-change='set({"party.orderAscending": user.party.orderAscending})'
+            )
+
+      include ./challenge-box
+
       div(ng-if="group")
-        a.btn.btn-danger(ng-if=':: isMemberOfGroup(User.user._id, group)', data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
         a.btn.btn-success(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
 
+      .slight-vertical-padding
+        small.muted=env.t('groupID')
+        | : {{group._id}}
+      .slight-vertical-padding(ng-if='group.type === "party" && group.memberCount === 1')
+        small.muted=env.t('userId')
+        | : {{user._id}}
+
     .col-md-8
-      div()
+      div
         textarea.form-control(ng-show='group._editing', rows=6, placeholder=env.t('leaderMsg'), ng-model='group.leaderMessage')
       table(ng-show='group.leaderMessage')
         tr
@@ -131,3 +145,5 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         include ./chat-box
 
         +chatMessages()
+        h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
+        h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')

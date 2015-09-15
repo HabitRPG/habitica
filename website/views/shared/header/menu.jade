@@ -56,6 +56,8 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.settings.export')=env.t('exportData')
             ul.toolbar-submenu
               li
+                a(target='_blank' href='https://habitica.com/static/faq/')=env.t('FAQ')
+              li
                 a(target='_blank' href='http://habitica.wikia.com/wiki/')=env.t('overview')
               li
                 a(target='_blank' href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportBug')
@@ -65,8 +67,6 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
               li
                 a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
-              li
-                a(target='_blank' href='http://habitica.wikia.com/wiki/FAQ')=env.t('FAQ')
           ul.toolbar-controls
             li.toolbar-subscribe-button
               button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
@@ -147,13 +147,15 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
       li.toolbar-button-dropdown.highlight
-        a(target='_blank' href='http://habitica.wikia.com/wiki/')
+        a(target='_blank' href='https://habitica.com/static/faq/')
           span.glyphicon.glyphicon-question-sign
           span=env.t('help')
         a(ng-class='{active: _expandedMenu.menu === "help"}',  data-expand-menu, menu='help')
           span  &#9776;
         div(ng-show='_expandedMenu.menu === "help"', data-close-menu)
           ul.toolbar-submenu
+            li
+              a(target='_blank' href='https://habitica.com/static/faq/')=env.t('FAQ')
             li
               a(target='_blank' href='http://habitica.wikia.com/wiki/')=env.t('overview')
             li
@@ -164,8 +166,6 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
             li
               a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
-            li
-              a(target='_blank' href='http://habitica.wikia.com/wiki/FAQ')=env.t('FAQ')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button.highlight(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
@@ -218,7 +218,7 @@ nav.toolbar(ng-controller='MenuCtrl')
           div
             ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off','danielTheBard', 'wattsTheme', 'gokulTheme']
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme']
                 li
                   a(ng-class="{'bg-primary':user.preferences.sound === '# {theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
@@ -252,7 +252,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.settings.notifications')=env.t('notifications')
             ul.toolbar-submenu
               li
-                a(href='http://habitica.wikia.com/wiki/FAQ', target='_blank')=env.t('FAQ')
+                a(href='https://habitica.com/static/faq', target='_blank')=env.t('FAQ')
               li
                 a(href='https://vimeo.com/57654086', target='_blank')=env.t('tutorials')
           ul.toolbar-controls
@@ -261,7 +261,6 @@ nav.toolbar(ng-controller='MenuCtrl')
     ul.toolbar-wallet
       li.toolbar-gems(popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
         a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})')
-          //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
           span.Pet_Currency_Gem2x.Gems
           span.gem-text {{user.balance * 4 | number:0}}
       li.toolbar-currency.gold(popover=env.t('gold') + ' ({{Shared.gold(user.stats.gp)}})', popover-placement='bottom',popover-trigger='mouseenter')

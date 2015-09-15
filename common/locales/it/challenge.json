@@ -43,8 +43,8 @@
     "exportChallengeCSV": "Esporta in CSV",
     "selectGroup": "Seleziona un gruppo",
     "challengeCreated": "Sfida creata",
-    "sureDelCha": "Are you sure you want to delete this challenge?",
-    "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
+    "sureDelCha": "Vuoi davvero eliminare questa sfida?",
+    "sureDelChaTavern": "Vuoi davvero eliminare questa sfida? Le tue gemme non verranno rimborsate.",
     "removeTasks": "Rimuovi attività",
     "keepTasks": "Tieni attività",
     "closeCha": "Chiudi sfida e...",
@@ -57,7 +57,7 @@
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> Premio",
     "clone": "Clona",
     "challengeNotEnoughGems": "Non hai abbastanza gemme per creare questa sfida.",
-    "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
-    "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
-    "noPermissionCloseChallenge": "You don't have permissions to close this challenge"
+    "noPermissionEditChallenge": "Non hai i permessi per modificare questa sfida",
+    "noPermissionDeleteChallenge": "Non hai i permessi per eliminare questa sfida",
+    "noPermissionCloseChallenge": "Non hai i permessi per concludere questa sfida"
 }

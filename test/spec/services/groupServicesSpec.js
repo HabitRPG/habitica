@@ -41,99 +41,65 @@ describe('groupServices', function() {
   });
 
   context('quest function wrappers', function() {
-    var successPromise = function() {
-      return {
-        then: function(success, failure) {
-          success();
-        }
-      }
-    }
-
-    var successParty = {
-      $questAccept: successPromise,
-      $questReject: successPromise,
-      $questCancel: successPromise,
-      $questAbort:  successPromise
-    }
-
-    var failPromise = function() {
-      return {
-        then: function(success, failure) {
-          failure('fail');
-        }
-      }
-    }
-
-    var failParty = {
-      $questAccept: failPromise,
-      $questReject: failPromise,
-      $questCancel: failPromise,
-      $questAbort:  failPromise
-    }
+    var successPromise, failPromise;
 
     beforeEach(function() {
-      sinon.spy(user, 'sync');
-      sinon.stub(console, 'log', function(arg) { return true; });
-    });
+      sandbox.spy(user, 'sync');
+      sandbox.stub(console, 'log');
 
-    afterEach(function() {
-      user.sync.restore();
-      console.log.restore();
-    });
-
-    describe('questAccept', function() {
-      it('syncs user if $questAccept succeeds', function() {
-        groups.questAccept(successParty);
-        user.sync.should.have.been.calledOnce;
+      successPromise = sandbox.stub().returns({
+        then: function(success, failure) {
+          return success();
+        }
       });
 
-      it('does not sync user if $questAccept fails', function() {
-        groups.questAccept(failParty);
-        user.sync.should.not.have.been.calledOnce;
-        console.log.should.have.been.calledWith('fail');
+      failPromise = sandbox.stub().returns({
+        then: function(success, failure) {
+          return failure('fail');
+        }
       });
     });
 
-    describe('questReject', function() {
-      it('syncs user if $questReject succeeds', function() {
-        groups.questReject(successParty);
-        user.sync.should.have.been.calledOnce;
-        console.log.should.not.have.been.called;
-      });
+    var questFunctions = [
+      'questAccept',
+      'questReject',
+      'questCancel',
+      'questAbort',
+      'questLeave'
+    ];
 
-      it('does not sync user if $questReject fails', function() {
-        groups.questReject(failParty);
-        user.sync.should.not.have.been.calledOnce;
-        console.log.should.have.been.calledWith('fail');
-      });
-    });
+    for (var i in questFunctions) {
+      var questFunc = questFunctions[i];
 
-    describe('questCancel', function() {
-      it('syncs user if $questCancel succeeds', function() {
-        groups.questCancel(successParty);
-        user.sync.should.have.been.calledOnce;
-        console.log.should.not.have.been.called;
-      });
+      describe('#' + questFunc, function() {
+        it('calls party.$' + questFunc, function() {
+          var party = { };
+          party['$' + questFunc] = successPromise;
 
-      it('does not sync user if $questCancel fails', function() {
-        groups.questCancel(failParty);
-        user.sync.should.not.have.been.calledOnce;
-        console.log.should.have.been.calledWith('fail');
-      });
-    });
+          groups[questFunc](party);
 
-    describe('questAbort', function() {
-      it('syncs user if $questAbort succeeds', function() {
-        groups.questAbort(successParty);
-        user.sync.should.have.been.calledOnce;
-        console.log.should.not.have.been.called;
-      });
+          expect(party['$' + questFunc]).to.be.calledOnce;
+        });
 
-      it('does not sync user if $questAbort fails', function() {
-        groups.questAbort(failParty);
-        user.sync.should.not.have.been.calledOnce;
-        console.log.should.have.been.calledWith('fail');
+        it('syncs user if $' + questFunc + ' succeeds', function() {
+          var successParty = { };
+          successParty['$' + questFunc] = successPromise;
+
+          groups[questFunc](successParty);
+
+          user.sync.should.have.been.calledOnce;
+        });
+
+        it('does not sync user if $' + questFunc + ' fails', function() {
+          var failParty = { };
+          failParty['$' + questFunc] = failPromise;
+
+          groups[questFunc](failParty);
+
+          user.sync.should.not.have.been.calledOnce;
+          console.log.should.have.been.calledWith('fail');
+        });
       });
-    });
+    }
   });
 });

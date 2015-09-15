@@ -3,5 +3,14 @@
     "dontDespair": "Nicht verzweifeln!",
     "deathPenaltyDetails": "Du hast einen Level, dein Gold und ein Stück Ausrüstung verloren, aber du kannst alles durch harte Arbeit wieder zurückbekommen! Viel Glück -- Du schaffst das.",
     "refillHealthTryAgain": "Leben wieder auffüllen & Nochmal versuchen",
-    "dyingOftenTips": "Passiert das öfters? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Hier gibt es einige Tipps!</a>"
+    "dyingOftenTips": "Passiert das öfters? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Hier gibt es einige Tipps!</a>",
+    "losingHealthWarning": "Vorsicht - Du verlierst Leben!",
+    "losingHealthWarning2": "Lass Deine Lebensenergie nicht auf null fallen! Sollte das passieren wirst Du ein Level, Dein Gold und einen Gegenstand Deiner Ausrüstung verlieren.",
+    "toRegainHealth": "Um Deine Lebensenergie aufzufüllen:",
+    "lowHealthTips1": "Steige ein Level auf um Dich voll zu heilen!",
+    "lowHealthTips2": "Kaufe Dir einen Heiltrank aus der Spalte Belohnungen um 15 Lebenspunkte zurück zu erhalten.",
+    "losingHealthQuickly": "Verlierst Du Deine Lebensenergie zu schnell?",
+    "lowHealthTips3": "Unnvollständige Tägliche Aufgaben schaden Dir über Nacht, sei vorsichtig und füge anfangs nicht zu viele hinzu!",
+    "lowHealthTips4": "Wenn eine Tägliche Aufgabe an einem gewissen Tag nicht erledigt werden muss, kannst Du sie deaktivieren, indem Du auf das Bleistiftsymbol klickst.",
+    "goodLuck": "Viel Glück!"
 }

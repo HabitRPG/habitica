@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Rafală de flăcări",
-    "spellWizardFireballNotes": "Flăcări ţâşnesc din mâinile tale. Obţii experienţă şi răneşti mai puternic Boşii. Apasă pe o sarcină pentru a o vrăji. (Bazat pe:INT)",
+    "spellWizardFireballNotes": "Flăcări țâșnesc din mâinile tale. Obții experiență și rănești mai puternic Boșii. Apasă pe o sarcină pentru a o vrăji. (Bazat pe:INT)",
     "spellWizardMPHealText": "Val eteric",
     "spellWizardMPHealNotes": "You sacrifice mana to help your friends. The rest of your party gains MP! (Based on: INT)",
     "spellWizardEarthText": "Cutremur",
@@ -37,7 +37,7 @@
     "spellSpecialSaltNotes": "Cineva te-a lovit cu un bulgăre de zăpadă. Ha ha, foarte amuzant. Acum dă zăpada asta jos de pe mine!",
     "spellSpecialSpookDustText": "Spooky Sparkles",
     "spellSpecialSpookDustNotes": "Turn a friend into a floating blanket with eyes!",
-    "spellSpecialOpaquePotionText": "Poţiune opacă",
+    "spellSpecialOpaquePotionText": "Poțiune opacă",
     "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
     "spellSpecialShinySeedText": "Shiny Seed",
     "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",

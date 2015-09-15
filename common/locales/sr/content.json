@@ -68,6 +68,8 @@
     "questEggWhaleAdjective": "splashy",
     "questEggCheetahText": "Cheetah",
     "questEggCheetahAdjective": "honest",
+    "questEggHorseText": "Horse",
+    "questEggHorseAdjective": "galloping",
     "eggNotes": "Nađite napitak, pospite ga po ovom jajetu, i iz njega će se izleći <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Običan",
     "hatchingPotionWhite": "Beli",
