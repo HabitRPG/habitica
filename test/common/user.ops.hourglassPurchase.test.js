@@ -6,7 +6,7 @@ var _ = require('lodash');
 
 require('coffee-script');
 var shared = require('../../common/script/index.coffee');
-var Content = require('../../common/script/content.coffee');
+var Content = require('../../common/script/content/index.coffee');
 
 describe('user.ops.hourglassPurchase', function() {
   var user;
@@ -36,7 +36,7 @@ describe('user.ops.hourglassPurchase', function() {
 
       it('does not allow purchase of unsupported item types', function(done) {
         user.ops.hourglassPurchase({params:{type: 'hatchingPotions', key: 'Base'}}, function(response) {
-          expect(response.message).to.eql("Item type not supported for purchase with Mystic Hourglass. Allowed types: [pets, mounts]");
+          expect(response.message).to.eql('Item type not supported for purchase with Mystic Hourglass. Allowed types: ["pets","mounts"]');
           expect(user.items.hatchingPotions).to.eql({});
           done();
         });
@@ -110,9 +110,10 @@ describe('user.ops.hourglassPurchase', function() {
       it('buys a pet', function(done) {
         user.purchased.plan.consecutive.trinkets = 2;
 
-        user.ops.hourglassPurchase({params: {type: 'pets', key: 'MantisShrimp-Base'}}, function() {
+        user.ops.hourglassPurchase({params: {type: 'pets', key: 'MantisShrimp-Base'}}, function(response) {
+          expect(response.message).to.eql('Purchased an item using a Mystic Hourglass!');
           expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
-          expect(user.items.pets).to.eql({'MantisShrimp-Base':true});
+          expect(user.items.pets).to.eql({'MantisShrimp-Base':5});
           done();
         });
       });
@@ -120,7 +121,8 @@ describe('user.ops.hourglassPurchase', function() {
       it('buys a mount', function(done) {
         user.purchased.plan.consecutive.trinkets = 2;
 
-        user.ops.hourglassPurchase({params: {type: 'mounts', key: 'MantisShrimp-Base'}}, function() {
+        user.ops.hourglassPurchase({params: {type: 'mounts', key: 'MantisShrimp-Base'}}, function(response) {
+          expect(response.message).to.eql('Purchased an item using a Mystic Hourglass!');
           expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
           expect(user.items.mounts).to.eql({'MantisShrimp-Base':true});
           done();

@@ -72,5 +72,6 @@
     "mountsAlreadyOwned": "Mount already owned.",
     "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types: ",
     "petsNotAllowedHourglass": "Pet not available for purchase with Mystic Hourglass.",
-    "mountsNotAllowedHourglass": "Mount not available for purchase with Mystic Hourglass."
+    "mountsNotAllowedHourglass": "Mount not available for purchase with Mystic Hourglass.",
+    "hourglassPurchase": "Purchased an item using a Mystic Hourglass!"
 }
