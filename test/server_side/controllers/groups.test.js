@@ -207,7 +207,7 @@ describe('Groups Controller', function() {
 
         expect(group.leave).to.not.be.called;
         expect(res.json).to.be.calledOnce;
-        expect(res.json).to.be.calledWith(403, 'You cannot leave when you have started a quest. Abort the quest first.');
+        expect(res.json).to.be.calledWith(403, 'You cannot leave your party when you have started a quest. Abort the quest first.');
       });
 
       it('leaves party if quest is not active', function() {

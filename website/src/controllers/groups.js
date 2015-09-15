@@ -507,7 +507,7 @@ api.leave = function(req, res, next) {
 
   if (group.type === 'party') {
     if (group.quest && group.quest.leader === user._id) {
-      return res.json(403, 'You cannot leave party when you have started a quest. Abort the quest first.');
+      return res.json(403, 'You cannot leave your party when you have started a quest. Abort the quest first.');
     }
 
     if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
