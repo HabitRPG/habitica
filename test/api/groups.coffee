@@ -271,6 +271,61 @@ describe "Guilds", ->
 
         ], done
 
+    it "sends member a message when they are booted", (done) ->
+      guildToRemoveMember = undefined
+      userToRemove = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGuildToRemoveMemberAndMessageThem"
+        type: "guild"
+      ).end (res) ->
+        guildToRemoveMember = res.body
+        #Add members to guild
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 1, cb
+
+          (_members, cb) ->
+            userToRemove = _members[0]
+            inviteURL = baseURL + "/groups/" + guildToRemoveMember._id + "/invite"
+            request.post(inviteURL).send(
+              uuids: [userToRemove._id]
+            )
+            .end ->
+              cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/join")
+              .set("X-API-User", userToRemove._id)
+              .set("X-API-Key", userToRemove.apiToken)
+              .end (res) ->
+                cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + guildToRemoveMember._id + "/removeMember?uuid=" + userToRemove._id)
+            .send().end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.get(baseURL + "/groups/" + guildToRemoveMember._id)
+            .send()
+            .end (res) ->
+              g = res.body
+              userInGroup = _.find g.members, (member) -> return member._id == userToRemove._id
+              expect(userInGroup).to.not.exist
+              cb()
+
+          (cb) ->
+            request.get(baseURL + "/user")
+            .set("X-API-User", userToRemove._id)
+            .set("X-API-Key", userToRemove.apiToken)
+            .send()
+            .end (res) ->
+              expect(res.body.flags.bootedFromGroupNotifications[guildToRemoveMember._id].name).to.equal( 'TestGuildToRemoveMemberAndMessageThem' )
+              cb()
+
+        ], done
+
   describe "Private Guilds", ->
     guild = undefined
     before (done) ->

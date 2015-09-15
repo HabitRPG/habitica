@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat',
-    function($scope, $rootScope, $http, Chat) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'User',
+    function($scope, $rootScope, $http, Chat, User) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -11,6 +11,7 @@ angular.module('habitrpg')
 
       function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
+        if(!user.flags.bootedFromGroupNotifications) console.log(user.flags.bootedFromGroupNotifications)
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
         } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
@@ -20,6 +21,8 @@ angular.module('habitrpg')
         } else if (user.flags.classSelected && !(user.preferences && user.preferences.disableClasses) && user.stats.points) {
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
+          return messageValue;
+        }  else if (Object.keys(user.flags.bootedFromGroupNotifications).length > 0) {
           return messageValue;
         } else {
           return noneValue;
@@ -43,5 +46,24 @@ angular.module('habitrpg')
       $scope.hasNoNotifications = function() {
         return selectNotificationValue(false, false, false, false, false, true);
       }
+
+      $scope.seeBootedFromGroupNotification = function(index) {
+        $rootScope.openModal("booted-from-group", {
+            controller: ['$scope', 'groupBootedFrom',
+              function($scope, groupBootedFrom){
+                $scope.groupBootedFrom = groupBootedFrom;
+            }],
+            resolve: {
+              groupBootedFrom: function () {
+                  return User.user.flags.bootedFromGroupNotifications[index];
+              }
+            }
+        });
+        delete User.user.flags.bootedFromGroupNotifications[index];
+        User.set({
+          'flags.bootedFromGroupNotifications': User.user.flags.bootedFromGroupNotifications
+        });
+      }
+
     }
 ]);
