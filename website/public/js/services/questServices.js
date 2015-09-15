@@ -6,14 +6,17 @@
     .factory('Quests', questsFactory);
 
   questsFactory.$inject = [
-    '$rootScope',
+    '$http',
+    '$state',
+    '$q',
+    'ApiUrl',
     'Content',
     'Groups',
     'User',
     'Analytics'
   ];
 
-  function questsFactory($rootScope,Content,Groups,User,Analytics) {
+  function questsFactory($http, $state, $q, ApiUrl, Content, Groups, User, Analytics) {
 
     var user = User.user;
     var party = Groups.party();
@@ -26,21 +29,39 @@
       return (quest.previous);
     }
 
-    function buyQuest(quest) {
-      var item = Content.quests[quest];
+    function _preventQuestModal(quest) {
+      if (!quest) {
+        return 'No quest with that key found';
+      }
 
-      if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
-        if (!confirm(window.env.t('mustInviteFriend'))) return;
-        return Groups.inviteOrStartParty(party);
+      if (quest.previous && (!user.achievements.quests || (user.achievements.quests && !user.achievements.quests[quest.previous]))){
+        alert(window.env.t('unlockByQuesting', {title: Content.quests[quest.previous].text()}));
+        return 'unlockByQuesting';
       }
-      if (item.previous && (!User.user.achievements.quests || (User.user.achievements.quests && !User.user.achievements.quests[item.previous]))){
-        return alert(window.env.t('unlockByQuesting', {title: Content.quests[item.previous].text()}));
+
+      if (quest.lvl > user.stats.lvl) {
+        alert(window.env.t('mustLvlQuest', {level: quest.lvl}))
+        return 'mustLvlQuest';
       }
-      if (item.lvl && item.lvl > user.stats.lvl) {
-        return alert(window.env.t('mustLvlQuest', {level: item.lvl}));
-      }
-      $rootScope.selectedQuest = item;
-      $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
+    }
+
+    function buyQuest(quest) {
+      return $q(function(resolve, reject) {
+        var item = Content.quests[quest];
+
+        var preventQuestModal = _preventQuestModal(item);
+        if (preventQuestModal) {
+          return reject(preventQuestModal);
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
+          if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
+          Groups.inviteOrStartParty(party)
+          return reject('Invite or start party');
+        }
+
+        resolve(item);
+      });
     }
 
     function questPopover(quest) {
@@ -71,37 +92,55 @@
     }
 
     function showQuest(quest) {
-      var item =  Content.quests[quest];
-      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
-      if (!completedPrevious)
-        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text()}));
-      if (item.lvl && item.lvl > user.stats.lvl)
-        return alert(window.env.t('mustLevel', {level: item.lvl}));
-      $rootScope.selectedQuest = item;
-      $rootScope.openModal('showQuest', {controller:'InventoryCtrl'});
-    }
+      return $q(function(resolve, reject) {
+        var item =  Content.quests[quest];
 
-    function closeQuest(){
-      $rootScope.selectedQuest = undefined;
-    }
+        var preventQuestModal = _preventQuestModal(item);
+        if (preventQuestModal) {
+          return reject(preventQuestModal);
+        }
 
-    function questInit(){
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName':$rootScope.selectedQuest.key});
-      Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
-      party.$questAccept({key:$rootScope.selectedQuest.key}, function(){
-        party.$get();
-        $rootScope.$state.go('options.social.party');
+        resolve(item);
       });
-      closeQuest();
+    }
+
+    function initQuest(key) {
+      return $q(function(resolve, reject) {
+        Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'quest','owner':true,'response':'accept','questName': key});
+        Analytics.updateUser({'partyID':party._id,'partySize':party.memberCount});
+        party.$startQuest({key:key}, function(){
+          party.$syncParty();
+          $state.go('options.social.party');
+          resolve();
+        });
+      });
+    }
+
+    function sendAction(action) {
+      return $q(function(resolve, reject) {
+
+        $http.post(ApiUrl.get() + '/api/v2/groups/' + party._id + '/' + action)
+          .then(function(response) {
+            User.sync();
+
+            Analytics.updateUser({
+              partyID: party._id,
+              partySize: party.memberCount
+            });
+
+            var quest = response.data.quest;
+            resolve(quest);
+          });;
+      });
     }
 
     return {
       lockQuest: lockQuest,
       buyQuest: buyQuest,
       questPopover: questPopover,
+      sendAction: sendAction,
       showQuest: showQuest,
-      closeQuest: closeQuest,
-      questInit: questInit
+      initQuest: initQuest
     }
   }
 }());

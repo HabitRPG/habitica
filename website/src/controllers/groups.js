@@ -505,8 +505,14 @@ api.leave = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
 
-  if (group.type === 'party' && user.party.quest && user.party.quest.key) {
-    return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+  if (group.type === 'party') {
+    if (group.quest && group.quest.leader === user._id) {
+      return res.json(403, 'You cannot leave your party when you have started a quest. Abort the quest first.');
+    }
+
+    if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
+      return res.json(403, 'You cannot leave party during an active quest. Please leave the quest first');
+    }
   }
 
   // When removing the user from challenges, should we keep the tasks?
@@ -709,11 +715,14 @@ api.removeMember = function(req, res, next){
 
   if(_.contains(group.members, uuid)){
     var update = {$pull:{members:uuid}};
-    if(group.quest && group.quest.members){
+    if (group.quest && group.quest.leader === uuid) {
+      update['$set'] = {
+        quest: { key: null, leader: null }
+      };
+    } else if(group.quest && group.quest.members){
       // remove member from quest
       update['$unset'] = {};
       update['$unset']['quest.members.' + uuid] = "";
-      // TODO: run cleanQuestProgress and return scroll to member if member was quest owner
     }
     update['$inc'] = {memberCount: -1};
     Group.update({_id:group._id},update, function(err, saved){
@@ -727,6 +736,10 @@ api.removeMember = function(req, res, next){
         //Mark removed users messages as seen
         var update = {$unset:{}};
         update.$unset['newMessages.' + group._id] = '';
+        if (group.quest && group.quest.active && group.quest.leader === uuid) {
+          update['$inc'] = {};
+          update['$inc']['items.quests.' + group.quest.key] = 1;
+        }
         User.update({_id: removedUser._id, apiToken: removedUser.apiToken}, update).exec();
 
         // Sending an empty 204 because Group.update doesn't return the group

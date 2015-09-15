@@ -151,6 +151,7 @@ describe('Groups Controller', function() {
           'another-user'
         ],
         save: sinon.stub().yields(),
+        leave: sinon.stub().yields(),
         markModified: sinon.spy()
       };
 
@@ -177,54 +178,67 @@ describe('Groups Controller', function() {
     context('party', function() {
       beforeEach(function() {
         group.type = 'party';
+      });
+
+      it('prevents user from leaving party if quest is active and part of the active members list', function() {
         group.quest = {
-          leader : 'another-user',
           active: true,
           members: {
-            'user-id': true,
-            'another-user': true
-          },
-          key : 'vice1',
-          progress : {
-              hp : 364,
-              collect : {}
+            another_user: true,
+            yet_another_user: null,
+            'user-id': true
           }
         };
 
-        sinon.spy(Group, 'update');
-      });
-
-      afterEach(function() {
-        Group.update.restore();
-      });
-
-      it('prevents user from leaving party if quest is active', function() {
-        user.party = {
-          quest : {
-              key : 'vice1',
-              progress : {
-                  up : 50,
-                  down : 0,
-                  collect : {}
-              },
-              completed : null,
-              RSVPNeeded : false
-          }
-        }
-
         groupsController.leave(req, res);
 
-        expect(Group.update).to.not.be.called;
+        expect(group.leave).to.not.be.called;
         expect(res.json).to.be.calledOnce;
         expect(res.json).to.be.calledWith(403, 'You cannot leave party during an active quest. Please leave the quest first');
       });
 
-      it('leaves party if quest is not active', function() {
-        user.party = { quest: { key: null } };
+      it('prevents quest leader from leaving a party if they have started a quest', function() {
+        group.quest = {
+          active: false,
+          leader: 'user-id'
+        };
 
         groupsController.leave(req, res);
 
-        expect(Group.update).to.be.calledOnce;
+        expect(group.leave).to.not.be.called;
+        expect(res.json).to.be.calledOnce;
+        expect(res.json).to.be.calledWith(403, 'You cannot leave your party when you have started a quest. Abort the quest first.');
+      });
+
+      it('leaves party if quest is not active', function() {
+        group.quest = {
+          active: false,
+          members: {
+            another_user: true,
+            yet_another_user: null,
+            'user-id': null
+          }
+        };
+
+        groupsController.leave(req, res);
+
+        expect(group.leave).to.be.calledOnce;
+        expect(res.json).to.not.be.called;
+      });
+
+      it('leaves party if quest is active, but user is not part of quest', function() {
+        group.quest = {
+          active: true,
+          members: {
+            another_user: true,
+            yet_another_user: null,
+            'user-id': null
+          }
+        };
+
+        groupsController.leave(req, res);
+
+        expect(group.leave).to.be.calledOnce;
         expect(res.json).to.not.be.called;
       });
     });
@@ -376,6 +390,107 @@ describe('Groups Controller', function() {
 
         expect(res.send).to.be.calledOnce;
         expect(res.send).to.be.calledWith(204);
+      });
+    });
+  });
+
+  describe('#removeMember', function() {
+    var req, res, group, user;
+
+    beforeEach(function() {
+      user = { _id: 'user-id' };
+      group = {
+        _id: 'group-id',
+        leader: 'user-id',
+        members: ['user-id', 'member-to-boot', 'another-user']
+      }
+      res = {
+        locals: {
+          user: user,
+          group: group
+        },
+        send: sinon.stub()
+      };
+      req = {
+        query: {
+          uuid: 'member-to-boot'
+        }
+      };
+
+      sinon.stub(Group, 'update');
+      sinon.stub(User, 'update');
+      sinon.stub(User, 'findById');
+    });
+
+    afterEach(function() {
+      Group.update.restore();
+      User.update.restore();
+      User.findById.restore();
+    });
+
+    context('quest behavior', function() {
+      it('removes quest from party if booted member was quest leader', function() {
+        group.quest = {
+          leader: 'member-to-boot',
+          active: true,
+          members: {
+            'user-id': true,
+            'leader-id': true,
+            'member-to-boot': true
+          },
+          key: 'whale'
+        }
+
+        groupsController.removeMember(req, res);
+
+        expect(Group.update).to.be.calledOnce;
+        expect(Group.update).to.be.calledWith(
+          { _id: 'group-id'},
+          {
+            '$inc': { memberCount: -1 },
+            '$pull': { members: 'member-to-boot' },
+            '$set': { quest: {key: null, leader: null} }
+          }
+        );
+      });
+
+      it('returns quest scroll to booted member if booted member was leader of quest', function() {
+        Group.update.yields();
+        var bootedMember = {
+          _id: 'member-to-boot',
+          apiToken: 'api',
+          preferences: {
+            emailNotifications: {
+              kickedGroup: false
+            }
+          }
+        };
+        User.findById.yields(null, bootedMember);
+        User.update.returns({
+          exec: sinon.stub()
+        });
+
+        group.quest = {
+          leader: 'member-to-boot',
+          active: true,
+          members: {
+            'user-id': true,
+            'leader-id': true,
+            'member-to-boot': true
+          },
+          key: 'whale'
+        }
+
+        groupsController.removeMember(req, res);
+
+        expect(User.update).to.be.calledOnce;
+        expect(User.update).to.be.calledWith(
+          { _id: 'member-to-boot', apiToken: 'api' },
+          {
+            '$unset': { 'newMessages.group-id': ''},
+            '$inc': { 'items.quests.whale': 1 }
+          }
+        );
       });
     });
   });
