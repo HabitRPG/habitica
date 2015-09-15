@@ -13,7 +13,7 @@ describe('Quests Service', function() {
     quest = {lvl:20};
 
     module(function($provide) {
-      $provide.value('User', {user: user});
+      $provide.value('User', {sync: sinon.stub(), user: user});
     });
 
     inject(function(Quests, Groups, Content) {
@@ -364,7 +364,7 @@ describe('Quests Service', function() {
       expect(promise).to.respondTo('then');
     });
 
-    it('calls specified endpoint endpoint', function(done) {
+    it('calls specified quest endpoint', function(done) {
       fakeBackend.expectPOST('/api/v2/groups/party-id/questReject');
 
       questsService.sendAction('questReject')
@@ -374,6 +374,16 @@ describe('Quests Service', function() {
         });
 
       fakeBackend.flush();
+      scope.$apply();
+    });
+
+    it('syncs User', function() {
+      questsService.sendAction('questReject')
+        .then(function(res) {
+          expect(User.sync).to.be.calledOnce;
+          done();
+        });
+
       scope.$apply();
     });
   });

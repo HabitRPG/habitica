@@ -121,10 +121,13 @@
 
         $http.post(ApiUrl.get() + '/api/v2/groups/' + party._id + '/' + action)
           .then(function(response) {
+            User.sync();
+
             Analytics.updateUser({
               partyID: party._id,
               partySize: party.memberCount
             });
+
             var quest = response.data.quest;
             resolve(quest);
           });;
