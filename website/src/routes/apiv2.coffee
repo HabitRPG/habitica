@@ -197,6 +197,15 @@ module.exports = (swagger, v2) ->
         ]
       action: user.hourglassPurchase
 
+    "/user/inventory/hourglass/mysterySet/{key}"
+      spec:
+        method: 'POST'
+        description: "Purchase a Mystery Item Set using a Mystic Hourglass"
+        parameters:[
+          path('key',"The key for the Mystery Set you're purchasing (call /content route for available keys)",'string')
+        ]
+      action: user.buyMysterySet
+
     "/user/inventory/feed/{pet}/{food}":
       spec:
         method: 'POST'

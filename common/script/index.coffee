@@ -1016,7 +1016,7 @@ api.wrap = (user, main=true) ->
           analytics?.track('acquire item', analyticsData)
 
         user.purchased.plan.consecutive.trinkets--
-        cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
+        cb? {code:200, message:i18n.t('hourglassPurchaseSet', req.language)}, _.pick(user,$w 'items purchased.plan.consecutive')
 
       hourglassPurchase: (req, cb, analytics)->
         {type, key} = req.params
@@ -1029,6 +1029,14 @@ api.wrap = (user, main=true) ->
           user.items.pets[key] = 5
         if type is 'mounts'
           user.items.mounts[key] = true
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          itemType: type,
+          acquireMethod: 'Hourglass',
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
         cb? {code:200, message:i18n.t('hourglassPurchase', req.language)}, _.pick(user,$w 'items purchased.plan.consecutive')
 
       sell: (req, cb) ->
