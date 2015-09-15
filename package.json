@@ -68,6 +68,7 @@
     "request": "~2.44.0",
     "s3-upload-stream": "^1.0.6",
     "stripe": "*",
+    "superagent": "~0.15.7",
     "swagger-node-express": "lefnire/swagger-node-express#habitrpg",
     "universal-analytics": "~0.3.2",
     "validator": "~3.19.0",
@@ -122,7 +123,6 @@
     "shelljs": "^0.4.0",
     "sinon": "1.15.4",
     "sinon-chai": "^2.7.0",
-    "superagent": "~0.15.7",
     "superagent-defaults": "~0.1.5",
     "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0"
