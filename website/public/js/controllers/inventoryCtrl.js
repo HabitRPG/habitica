@@ -272,6 +272,12 @@ habitrpg.controller("InventoryCtrl",
       else return Console.log('Time Traveler item type must be in ["pets","mounts","mystery"]');
     };
 
+    $scope.clickTimeTravelItem = function(type,key) {
+      if (user.purchased.plan.consecutive.trinkets < 1) return user.ops.hourglassPurchase({params:{type:type,key:key}});
+      if (!window.confirm(window.env.t('hourglassBuyItemConfirm'))) return;
+      user.ops.hourglassPurchase({params:{type:type,key:key}});
+    };
+
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
       $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
