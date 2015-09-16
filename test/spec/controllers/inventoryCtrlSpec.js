@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 describe('Inventory Controller', function() {
   var scope, ctrl, user, rootScope;
 
@@ -230,17 +228,17 @@ describe('Inventory Controller', function() {
       expect(scope.hasAllTimeTravelerItems).to.eql(false);
     });
 
-    it('returns true if no more items remain for purchase with Mystic Hourglasses', function() {
+    it('returns true if there are no items left to purchase', inject(function(Content) {
       sandbox.stub(Content, 'timeTravelerStore').returns({});
-      _.forEach(Content.timeTravelStable.pets, function(v,k) {
-        user.items.pets[k] = 5;
-      }); 
-      _.forEach(Content.timeTravelStable.mounts, function(v,k) {
-        user.items.mounts[k] = true;
-      }); 
+      for (var pet in Content.timeTravelStable.pets) {
+        user.items.pets[pet] = 5;
+      }
+      for (var mount in Content.timeTravelStable.mounts) {
+        user.items.mounts[mount] = true;
+      }
       
       expect(scope.hasAllTimeTravelerItems).to.eql(true);
-    });
+    }));
   });
 
   describe('#hasAllTimeTravelerItemsOfType', function() {
@@ -258,24 +256,24 @@ describe('Inventory Controller', function() {
       expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(false); 
     });
 
-    it('returns true for pets if user owns all pets in the Time Travel Stable', function() {
-      _.forEach(Content.timeTravelStable.pets, function(v,k) {
-        user.items.pets[k] = 5;
-      }); 
+    it('returns true for pets if user owns all pets in the Time Travel Stable', inject(function(Content) {
+      for (var pet in Content.timeTravelStable.pets) {
+        user.items.pets[pet] = 5;
+      }
 
       expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(true); 
-    });
+    }));
 
     it('returns false for mounts if user does not own all mounts in the Time Travel Stable', function() {
       expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(false); 
     });
 
-    it('returns true for mounts if user owns all mounts in the Time Travel Stable', function() {
-      _.forEach(Content.timeTravelStable.mounts, function(v,k) {
-        user.items.mounts[k] = true;
-      }); 
+    it('returns true for mounts if user owns all mounts in the Time Travel Stable', inject(function(Content) {
+      for (var mount in Content.timeTravelStable.mounts) {
+        user.items.mounts[mount] = true;
+      }
 
       expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(true); 
-    });
+    }));
   });
 });
