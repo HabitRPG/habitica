@@ -223,7 +223,7 @@ describe('Inventory Controller', function() {
     });
   });
 
-  describe.only('#hasAllTimeTravelerItems', function() {
+  describe('#hasAllTimeTravelerItems', function() {
     it('returns false if items remain for purchase with Mystic Hourglasses', function() {
       expect(scope.hasAllTimeTravelerItems()).to.eql(false);
     });
