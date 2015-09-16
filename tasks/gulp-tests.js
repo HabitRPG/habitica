@@ -19,7 +19,7 @@ let testCount = (stdout, regexp) => {
 }
 
 let testBin = (string) => {
-  return `NODE_ENV=testing ./node_modules/.bin/${string}`;
+  return `NODE_ENV=testing $(npm bin)/${string}`;
 };
 
 gulp.task('test:prepare:mongo', (cb) => {
@@ -106,7 +106,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
 
 gulp.task('test:api-legacy', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin("istanbul cover -i 'website/src/**' --dir coverage/api-legacy ./node_modules/.bin/_mocha -- test/api-legacy"),
+    testBin("istanbul cover -i 'website/src/**' --dir coverage/api-legacy $(npm bin)/mocha -- test/api-legacy"),
     (err, stdout, stderr) => {
       cb(err);
     }
@@ -116,7 +116,7 @@ gulp.task('test:api-legacy', ['test:prepare:mongo'], (cb) => {
 
 gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin("istanbul cover -i 'website/src/**' --dir coverage/api-legacy ./node_modules/.bin/_mocha -- test/api-legacy"),
+    testBin("istanbul cover -i 'website/src/**' --dir coverage/api-legacy $(npm bin)/mocha -- test/api-legacy"),
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'API (legacy) Specs',
