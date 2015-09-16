@@ -251,7 +251,9 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.hasAllTimeTravelerItems = function() {
-      return (hasAllTimeTravelerItemsOfType('mystery') && hasAllTimeTravelerItemsOfType('pets') && hasAllTimeTravelerItemsOfType('mounts'));
+      return ($scope.hasAllTimeTravelerItemsOfType('mystery') && 
+        $scope.hasAllTimeTravelerItemsOfType('pets') && 
+        $scope.hasAllTimeTravelerItemsOfType('mounts'));
     };
 
     $scope.hasAllTimeTravelerItemsOfType = function(type) {
