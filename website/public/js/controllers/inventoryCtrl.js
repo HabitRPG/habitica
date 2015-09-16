@@ -250,11 +250,24 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
-    $scope.hasAllTimeTravelerItems = function(items) {
-      var itemsLeftInTimeTravlerStore = Content.timeTravelerStore(user.items.gear.owned);
-      var keys = Object.keys(itemsLeftInTimeTravlerStore);
+    $scope.hasAllTimeTravelerItems = function() {
+      return (hasAllTimeTravelerItemsOfType('mystery') && hasAllTimeTravelerItemsOfType('pets') && hasAllTimeTravelerItemsOfType('mounts'));
+    };
 
-      return keys.length === 0;
+    $scope.hasAllTimeTravelerItemsOfType = function(type) {
+      if (type === 'mystery') {
+        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user.items.gear.owned);
+        var keys = Object.keys(itemsLeftInTimeTravelerStore);
+
+        return keys.length === 0;
+      } 
+      if (type === 'pets' || type === 'mounts') {
+        for (var key in Content.timeTravelStable[type]) {
+          if (!user.items[type][key]) return false;
+        }
+        return true;
+      }
+      else return Console.log('Time Traveler item type must be in ["pets","mounts","mystery"]');
     };
 
     function _updateDropAnimalCount(items) {

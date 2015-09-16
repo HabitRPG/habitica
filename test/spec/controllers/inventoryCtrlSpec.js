@@ -249,7 +249,7 @@ describe('Inventory Controller', function() {
     it('returns true for Mystery Sets if there are no sets left to purchase', inject(function(Content) {
       sandbox.stub(Content, 'timeTravelerStore').returns({});
 
-      expect(scope.hasAllTimeTravelerItems('mystery')).to.eql(true);
+      expect(scope.hasAllTimeTravelerItemsOfType('mystery')).to.eql(true);
     }));
 
     it('returns false for pets if user does not own all pets in the Time Travel Stable', function() {
