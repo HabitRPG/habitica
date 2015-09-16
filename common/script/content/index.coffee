@@ -1126,6 +1126,14 @@ api.specialMounts =
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
+api.timeTravelStable =
+  pets:
+    'Mammoth-Base': t('mammoth')
+    'MantisShrimp-Base': t('mantisShrimp')
+  mounts:
+    'Mammoth-Base': t('mammoth')
+    'MantisShrimp-Base': t('mantisShrimp')
+
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
   White:            value: 2, text: t('hatchingPotionWhite')
@@ -2042,7 +2050,7 @@ api.quests =
       ]
       gp: 0
       exp: 650
-  
+
   cheetah:
     text: t('questCheetahText')
     notes: t('questCheetahNotes')

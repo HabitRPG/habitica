@@ -999,10 +999,10 @@ api.wrap = (user, main=true) ->
         cb? {code:200, message}, user.items.quests
 
       buyMysterySet: (req, cb, analytics)->
-        return cb?({code:401, message:"You don't have enough Mystic Hourglasses"}) unless user.purchased.plan.consecutive.trinkets>0
+        return cb?({code:401, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
         mysterySet = content.timeTravelerStore(user.items.gear.owned)?[req.params.key]
         if window?.confirm?
-          return unless window.confirm("Buy this full set of items for 1 Mystic Hourglass?")
+          return unless window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))
         return cb?({code:404, message:"Mystery set not found, or set already owned"}) unless mysterySet
         _.each mysterySet.items, (i)->
           user.items.gear.owned[i.key]=true
@@ -1016,7 +1016,28 @@ api.wrap = (user, main=true) ->
           analytics?.track('acquire item', analyticsData)
 
         user.purchased.plan.consecutive.trinkets--
-        cb? null, _.pick(user,$w 'items purchased.plan.consecutive')
+        cb? {code:200, message:i18n.t('hourglassPurchaseSet', req.language)}, _.pick(user,$w 'items purchased.plan.consecutive')
+
+      hourglassPurchase: (req, cb, analytics)->
+        {type, key} = req.params
+        return cb?({code:403, message:i18n.t('typeNotAllowedHourglass', req.language) + JSON.stringify(_.keys(content.timeTravelStable))}) unless content.timeTravelStable[type]
+        return cb?({code:403, message:i18n.t(type+'NotAllowedHourglass', req.language)}) unless _.contains(_.keys(content.timeTravelStable[type]), key)
+        return cb?({code:403, message:i18n.t(type+'AlreadyOwned', req.language)}) if user.items[type][key]
+        return cb?({code:403, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
+        user.purchased.plan.consecutive.trinkets--
+        if type is 'pets'
+          user.items.pets[key] = 5
+        if type is 'mounts'
+          user.items.mounts[key] = true
+        analyticsData = {
+          uuid: user._id,
+          itemKey: key,
+          itemType: type,
+          acquireMethod: 'Hourglass',
+          category: 'behavior'
+        }
+        analytics?.track('acquire item', analyticsData)
+        cb? {code:200, message:i18n.t('hourglassPurchase', req.language)}, _.pick(user,$w 'items purchased.plan.consecutive')
 
       sell: (req, cb) ->
         {key, type} = req.params

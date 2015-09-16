@@ -250,11 +250,32 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
-    $scope.hasAllTimeTravelerItems = function(items) {
-      var itemsLeftInTimeTravlerStore = Content.timeTravelerStore(user.items.gear.owned);
-      var keys = Object.keys(itemsLeftInTimeTravlerStore);
+    $scope.hasAllTimeTravelerItems = function() {
+      return ($scope.hasAllTimeTravelerItemsOfType('mystery') && 
+        $scope.hasAllTimeTravelerItemsOfType('pets') && 
+        $scope.hasAllTimeTravelerItemsOfType('mounts'));
+    };
 
-      return keys.length === 0;
+    $scope.hasAllTimeTravelerItemsOfType = function(type) {
+      if (type === 'mystery') {
+        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user.items.gear.owned);
+        var keys = Object.keys(itemsLeftInTimeTravelerStore);
+
+        return keys.length === 0;
+      } 
+      if (type === 'pets' || type === 'mounts') {
+        for (var key in Content.timeTravelStable[type]) {
+          if (!user.items[type][key]) return false;
+        }
+        return true;
+      }
+      else return Console.log('Time Traveler item type must be in ["pets","mounts","mystery"]');
+    };
+
+    $scope.clickTimeTravelItem = function(type,key) {
+      if (user.purchased.plan.consecutive.trinkets < 1) return user.ops.hourglassPurchase({params:{type:type,key:key}});
+      if (!window.confirm(window.env.t('hourglassBuyItemConfirm'))) return;
+      user.ops.hourglassPurchase({params:{type:type,key:key}});
     };
 
     function _updateDropAnimalCount(items) {
