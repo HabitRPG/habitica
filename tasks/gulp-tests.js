@@ -104,9 +104,9 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
+gulp.task('test:api-legacy', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
+    testBin("istanbul cover -i 'website/src/**' --dir coverage/api-legacy ./node_modules/.bin/_mocha -- test/api-legacy"),
     (err, stdout, stderr) => {
       cb(err);
     }
@@ -114,12 +114,12 @@ gulp.task('test:api', ['test:prepare:mongo'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
+gulp.task('test:api-legacy:safe', ['test:prepare:mongo'], (cb) => {
   let runner = exec(
-    testBin("istanbul cover -i 'website/src/**' --dir coverage/api ./node_modules/.bin/_mocha -- test/api"),
+    testBin("istanbul cover -i 'website/src/**' --dir coverage/api-legacy ./node_modules/.bin/_mocha -- test/api-legacy"),
     (err, stdout, stderr) => {
       testResults.push({
-        suite: 'API Specs\t',
+        suite: 'API (legacy) Specs',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stderr, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/)
@@ -130,15 +130,15 @@ gulp.task('test:api:safe', ['test:prepare:mongo'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:api:clean', (cb) => {
-  pipe(exec(testBin("mocha test/api"), () => cb()));
+gulp.task('test:api-legacy:clean', (cb) => {
+  pipe(exec(testBin("mocha test/api-legacy"), () => cb()));
 });
 
-gulp.task('test:api:watch', [
+gulp.task('test:api-legacy:watch', [
   'test:prepare:mongo',
-  'test:api:clean'
+  'test:api-legacy:clean'
 ], () => {
-  gulp.watch(['website/src/**', 'test/api/**'], ['test:api:clean']);
+  gulp.watch(['website/src/**', 'test/api-legacy/**'], ['test:api-legacy:clean']);
 });
 
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
@@ -238,7 +238,7 @@ gulp.task('test', [
   'test:common:safe',
   'test:server_side:safe',
   'test:karma:safe',
-  'test:api:safe',
+  'test:api-legacy:safe',
   'test:e2e:safe'
 ], () => {
   let totals = [0,0,0];
