@@ -1127,8 +1127,12 @@ api.specialMounts =
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
 api.timeTravelStable =
-  pets: ['Mammoth-Base','MantisShrimp-Base']
-  mounts: ['Mammoth-Base','MantisShrimp-Base']
+  pets:
+    'Mammoth-Base': t('mammoth')
+    'MantisShrimp-Base': t('mantisShrimp')
+  mounts:
+    'Mammoth-Base': t('mammoth')
+    'MantisShrimp-Base': t('mantisShrimp')
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')

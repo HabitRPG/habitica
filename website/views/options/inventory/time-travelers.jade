@@ -17,12 +17,22 @@
   .row: .col-md-7
     .alert.alert-info(ng-if='hasAllTimeTravelerItems()')=env.t('timeTravelersAlreadyOwned')
 
-  .row: .col-md-12
-    li.customize-menu.inventory-gear
-      menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
-        div(ng-repeat='item in set.items')
-          button.customize-option(class='shop_{{::item.key}}',
-            popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
-            popover-trigger='mouseenter', popover-placement='right',
-            popover-append-to-body='true',
-            ng-click='user.ops.buyMysterySet({params:{key:set.key}})')
+  .row
+    .col-md-12
+      li.customize-menu.inventory-gear
+        each prepend, type in {pets:'Pet-', mounts:'Mount_Head_'}
+          menu.pets-menu(label=env.t('#{type}'))
+            div(ng-repeat='(item, text) in Content.timeTravelStable["#{type}"]', style='margin-top:0')
+              button.pet-button(class='#{prepend}{{::item}}', style='margin-top:0',
+                ng-if='!user.items["#{type}"][item]',
+                popover='{{::text()}}', popover-trigger='mouseenter', 
+                popover-placement='right', popover-append-to-body='true',
+                ng-click='user.ops.hourglassPurchase({params:{key:item,type:"#{type}"}})')
+      li.customize-menu.inventory-gear
+        menu.pets-menu(label='{{::set.text}}', ng-repeat='set in Content.timeTravelerStore(user.items.gear.owned)')
+          div(ng-repeat='item in set.items')
+            button.customize-option(class='shop_{{::item.key}}',
+              popover='{{::item.notes()}}', popover-title='{{::item.text()}}',
+              popover-trigger='mouseenter', popover-placement='right',
+              popover-append-to-body='true',
+              ng-click='user.ops.buyMysterySet({params:{key:set.key}})')

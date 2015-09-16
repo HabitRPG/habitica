@@ -1021,7 +1021,7 @@ api.wrap = (user, main=true) ->
       hourglassPurchase: (req, cb, analytics)->
         {type, key} = req.params
         return cb?({code:403, message:i18n.t('typeNotAllowedHourglass', req.language) + JSON.stringify(_.keys(content.timeTravelStable))}) unless content.timeTravelStable[type]
-        return cb?({code:403, message:i18n.t(type+'NotAllowedHourglass', req.language)}) unless _.contains(content.timeTravelStable[type], key)
+        return cb?({code:403, message:i18n.t(type+'NotAllowedHourglass', req.language)}) unless _.contains(_.keys(content.timeTravelStable[type]), key)
         return cb?({code:403, message:i18n.t(type+'AlreadyOwned', req.language)}) if user.items[type][key]
         return cb?({code:403, message:i18n.t('notEnoughHourglasses', req.language)}) unless user.purchased.plan.consecutive.trinkets > 0
         user.purchased.plan.consecutive.trinkets--
