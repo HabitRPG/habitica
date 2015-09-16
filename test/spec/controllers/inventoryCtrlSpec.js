@@ -225,7 +225,7 @@ describe('Inventory Controller', function() {
 
   describe('#hasAllTimeTravelerItems', function() {
     it('returns false if items remain for purchase with Mystic Hourglasses', function() {
-      expect(scope.hasAllTimeTravelerItems).to.eql(false);
+      expect(scope.hasAllTimeTravelerItems()).to.eql(false);
     });
 
     it('returns true if there are no items left to purchase', inject(function(Content) {
@@ -237,7 +237,7 @@ describe('Inventory Controller', function() {
         user.items.mounts[mount] = true;
       }
       
-      expect(scope.hasAllTimeTravelerItems).to.eql(true);
+      expect(scope.hasAllTimeTravelerItems()).to.eql(true);
     }));
   });
 

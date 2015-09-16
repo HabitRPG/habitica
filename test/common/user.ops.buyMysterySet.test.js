@@ -2,7 +2,6 @@ var sinon = require('sinon');
 var chai = require("chai")
 chai.use(require("sinon-chai"))
 var expect = chai.expect
-var _ = require('lodash');
 
 require('coffee-script');
 var shared = require('../../common/script/index.coffee');
