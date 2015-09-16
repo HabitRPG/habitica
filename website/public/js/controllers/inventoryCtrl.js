@@ -13,11 +13,33 @@ habitrpg.controller("InventoryCtrl",
 
     // Functions from Quests service
     $scope.lockQuest = Quests.lockQuest;
-    $scope.buyQuest = Quests.buyQuest;
+
+    $scope.buyQuest = function(questScroll) {
+      Quests.buyQuest(questScroll)
+        .then(function(quest) {
+          $rootScope.selectedQuest = quest;
+          $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
+        });
+    };
+
     $scope.questPopover = Quests.questPopover;
-    $scope.showQuest = Quests.showQuest;
-    $scope.closeQuest = Quests.closeQuest;
-    $scope.questInit = Quests.questInit;
+
+    $scope.showQuest = function(questScroll) {
+      Quests.showQuest(questScroll)
+        .then(function(quest) {
+          $rootScope.selectedQuest = quest;
+          $rootScope.openModal('showQuest', {controller:'InventoryCtrl'});
+        });
+    };
+
+    $scope.questInit = function() {
+      var key = $rootScope.selectedQuest.key;
+
+      Quests.initQuest(key).then(function() {
+        $rootScope.selectedQuest = undefined;
+        $scope.$close();
+      });
+    };
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
