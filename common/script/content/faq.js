@@ -1,4 +1,4 @@
-let t = require('./helpers/translator.js');
+let t = require('./helpers/translator');
 
 const NUMBER_OF_QUESTIONS = 12;
 

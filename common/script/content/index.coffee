@@ -2,7 +2,7 @@ api = module.exports
 
 _ = require 'lodash'
 moment = require 'moment'
-t = require './helpers/translator.js'
+t = require './helpers/translator'
 
 require('babel/register')
 
@@ -16,9 +16,9 @@ require('babel/register')
 classes = ['warrior', 'rogue', 'healer', 'wizard']
 gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear']
 
-events = require('./events.js')
+events = require('./events')
 
-api.mystery = require('./mystery-sets.js')
+api.mystery = require('./mystery-sets')
 
 api.itemList =
   'weapon': {localeKey: 'weapon', isEquipment: true}
@@ -547,7 +547,7 @@ api.classes = classes
 
 api.gearTypes = gearTypes
 
-api.spells = require('./spells/index.js')
+api.spells = require('./spells/index')
 
 api.cardTypes = require('./card-types')
 
@@ -644,7 +644,7 @@ api.specialMounts =
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
-api.timeTravelStable = require('./time-traveler-stable.js')
+api.timeTravelStable = require('./time-traveler-stable')
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1810,4 +1810,4 @@ api.userDefaults =
     {name: t('defaultTag3')}
   ]
 
-api.faq = require './faq.js'
+api.faq = require './faq'
