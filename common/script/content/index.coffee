@@ -549,21 +549,7 @@ api.gearTypes = gearTypes
 
 api.spells = require('./spells/index.js')
 
-api.cardTypes =
-  greeting:
-    key: 'greeting'
-    messageOptions: 4
-    yearRound: true
-  nye:
-    key: 'nye'
-    messageOptions: 5
-  thankyou:
-    key: 'thankyou'
-    messageOptions: 4
-    yearRound: true
-  valentine:
-    key: 'valentine'
-    messageOptions: 4
+api.cardTypes = require('./card-types')
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
