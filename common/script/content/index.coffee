@@ -2,7 +2,7 @@ api = module.exports
 
 _ = require 'lodash'
 moment = require 'moment'
-t = require './translation.js'
+t = require './helpers/translator.js'
 
 ###
   ---------------------------------------------------------------

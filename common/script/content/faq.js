@@ -1,7 +1,6 @@
 'use strict';
 
-require('coffee-script');
-var t = require('./translation.js');
+var t = require('./helpers/translator.js');
 
 var NUMBER_OF_QUESTIONS = 12;
 

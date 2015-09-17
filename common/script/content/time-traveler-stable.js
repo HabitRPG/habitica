@@ -1,6 +1,6 @@
 'use strict';
 
-var t = require('./translation.js');
+var t = require('./helpers/translator.js');
 
 var stable = {
   pets: {
