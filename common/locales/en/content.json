@@ -8,6 +8,7 @@
   "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
 
   "dropEggWolfText": "Wolf",
+  "dropEggWolfMountText": "Wolf",
   "dropEggWolfAdjective": "loyal",
 
   "dropEggTigerCubText": "Tiger Cub",
@@ -23,15 +24,19 @@
   "dropEggLionCubAdjective": "regal",
 
   "dropEggFoxText": "Fox",
+  "dropEggFoxMountText": "Fox",
   "dropEggFoxAdjective": "wily",
 
   "dropEggFlyingPigText": "Flying Pig",
+  "dropEggFlyingPigMountText": "Flying Pig",
   "dropEggFlyingPigAdjective": "whimsical",
 
   "dropEggDragonText": "Dragon",
+  "dropEggDragonMountText": "Dragon",
   "dropEggDragonAdjective": "mighty",
 
   "dropEggCactusText": "Cactus",
+  "dropEggCactusMountText": "Cactus",
   "dropEggCactusAdjective": "prickly",
 
   "dropEggBearCubText": "Bear Cub",
