@@ -251,8 +251,8 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.hasAllTimeTravelerItems = function() {
-      return ($scope.hasAllTimeTravelerItemsOfType('mystery') && 
-        $scope.hasAllTimeTravelerItemsOfType('pets') && 
+      return ($scope.hasAllTimeTravelerItemsOfType('mystery') &&
+        $scope.hasAllTimeTravelerItemsOfType('pets') &&
         $scope.hasAllTimeTravelerItemsOfType('mounts'));
     };
 
@@ -262,7 +262,8 @@ habitrpg.controller("InventoryCtrl",
         var keys = Object.keys(itemsLeftInTimeTravelerStore);
 
         return keys.length === 0;
-      } 
+      }
+
       if (type === 'pets' || type === 'mounts') {
         for (var key in Content.timeTravelStable[type]) {
           if (!user.items[type][key]) return false;

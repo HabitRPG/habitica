@@ -236,7 +236,7 @@ describe('Inventory Controller', function() {
       for (var mount in Content.timeTravelStable.mounts) {
         user.items.mounts[mount] = true;
       }
-      
+
       expect(scope.hasAllTimeTravelerItems()).to.eql(true);
     }));
   });
@@ -253,7 +253,7 @@ describe('Inventory Controller', function() {
     }));
 
     it('returns false for pets if user does not own all pets in the Time Travel Stable', function() {
-      expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(false); 
+      expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(false);
     });
 
     it('returns true for pets if user owns all pets in the Time Travel Stable', inject(function(Content) {
@@ -261,11 +261,11 @@ describe('Inventory Controller', function() {
         user.items.pets[pet] = 5;
       }
 
-      expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(true); 
+      expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(true);
     }));
 
     it('returns false for mounts if user does not own all mounts in the Time Travel Stable', function() {
-      expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(false); 
+      expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(false);
     });
 
     it('returns true for mounts if user owns all mounts in the Time Travel Stable', inject(function(Content) {
@@ -273,7 +273,7 @@ describe('Inventory Controller', function() {
         user.items.mounts[mount] = true;
       }
 
-      expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(true); 
+      expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(true);
     }));
   });
 });
