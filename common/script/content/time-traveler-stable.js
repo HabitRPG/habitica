@@ -1,8 +1,6 @@
-'use strict';
+let t = require('./helpers/translator.js');
 
-var t = require('./helpers/translator.js');
-
-var stable = {
+let stable = {
   pets: {
     'Mammoth-Base': t('mammoth'),
     'MantisShrimp-Base': t('mantisShrimp')

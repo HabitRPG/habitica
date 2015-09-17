@@ -1,8 +1,6 @@
-'use strict';
+let each = require('lodash').each;
 
-var each = require('lodash').each;
-
-var mysterySets = {
+let mysterySets = {
   201402: {
     start: '2014-02-22',
     end: '2014-02-28',
@@ -114,8 +112,8 @@ var mysterySets = {
   }
 };
 
-each(mysterySets, function(value, key) {
-  value.key = key;
+each(mysterySets, (objectSet, name) => {
+  objectSet.key = name;
 });
 
 module.exports = mysterySets;

@@ -4,6 +4,8 @@ _ = require 'lodash'
 moment = require 'moment'
 t = require './helpers/translator.js'
 
+require('babel/register')
+
 ###
   ---------------------------------------------------------------
   Gear (Weapons, Armor, Head, Shield)

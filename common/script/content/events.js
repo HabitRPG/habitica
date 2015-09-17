@@ -1,10 +1,8 @@
-'use strict';
-
 // IMPORTANT: The end date should be one to two days AFTER the actual end of
 // the event, to allow people in different timezones to still buy the
 // event gear up until at least the actual end of the event.
 
-var events = {
+let events = {
   winter: {start:'2013-12-31',end:'2014-02-01'},
   birthday: {start:'2013-01-30',end:'2014-02-01'},
   spring: {start:'2014-03-21',end:'2014-05-01'},
