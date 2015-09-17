@@ -2,7 +2,11 @@ api = module.exports
 
 _ = require 'lodash'
 moment = require 'moment'
-t = require './helpers/translator'
+
+DIST_LOCATION = '../../dist/scripts/content'
+
+t = require "#{DIST_LOCATION}/helpers/translator"
+
 
 require('babel/register')
 
@@ -16,9 +20,9 @@ require('babel/register')
 classes = ['warrior', 'rogue', 'healer', 'wizard']
 gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear']
 
-events = require('./events')
+events = require("#{DIST_LOCATION}/events")
 
-api.mystery = require('./mystery-sets')
+api.mystery = require("#{DIST_LOCATION}/mystery-sets")
 
 api.itemList =
   'weapon': {localeKey: 'weapon', isEquipment: true}
@@ -547,9 +551,9 @@ api.classes = classes
 
 api.gearTypes = gearTypes
 
-api.spells = require('./spells/index')
+api.spells = require("#{DIST_LOCATION}/spells/index")
 
-api.cardTypes = require('./card-types')
+api.cardTypes = require("#{DIST_LOCATION}/card-types")
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
@@ -569,7 +573,7 @@ api.special = api.spells.special
   ---------------------------------------------------------------
 ###
 
-eggs = require('./eggs/index')
+eggs = require("#{DIST_LOCATION}/eggs/index")
 
 api.dropEggs = eggs.dropEggs
 
@@ -628,7 +632,7 @@ api.specialMounts =
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
-api.timeTravelStable = require('./time-traveler-stable')
+api.timeTravelStable = require("#{DIST_LOCATION}/time-traveler-stable")
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1794,4 +1798,4 @@ api.userDefaults =
     {name: t('defaultTag3')}
   ]
 
-api.faq = require './faq'
+api.faq = require "#{DIST_LOCATION}/faq"
