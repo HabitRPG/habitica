@@ -1114,13 +1114,7 @@ api.specialMounts =
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
-api.timeTravelStable =
-  pets:
-    'Mammoth-Base': t('mammoth')
-    'MantisShrimp-Base': t('mantisShrimp')
-  mounts:
-    'Mammoth-Base': t('mammoth')
-    'MantisShrimp-Base': t('mantisShrimp')
+api.timeTravelStable = require('./time-traveler-stable.js')
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
