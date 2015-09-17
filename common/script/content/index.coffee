@@ -16,7 +16,7 @@ gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessor
 
 events = require('./events.js')
 
-api.mystery = require('./mystery.js')
+api.mystery = require('./mystery-sets.js')
 
 api.itemList =
   'weapon': {localeKey: 'weapon', isEquipment: true}
