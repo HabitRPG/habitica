@@ -89,15 +89,22 @@ GroupSchema.pre('remove', function(next) {
   var group = this;
   async.waterfall([
     function(cb) {
-      User.find({
-        'invitations.guilds.id': group._id
-      }, cb);
+      var invitationQuery = {};
+      var groupType = group.type;
+      //Add an 's' to group type guild because the model has the plural version
+      if (group.type == "guild") groupType += "s";
+      invitationQuery['invitations.' + groupType + '.id'] = group._id;
+      User.find(invitationQuery, cb);
     },
     function(users, cb) {
       if (users) {
         users.forEach(function (user, index, array) {
-          var i = _.findIndex(user.invitations.guilds, {id: group._id});
-          user.invitations.guilds.splice(i, 1);
+          if ( group.type == "party" ) {
+            user.invitations.party = {};
+          } else {
+            var i = _.findIndex(user.invitations.guilds, {id: group._id});
+            user.invitations.guilds.splice(i, 1);
+          }
           user.save();
         });
       }
