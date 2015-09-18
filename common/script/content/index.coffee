@@ -255,7 +255,7 @@ gear =
       rancherRobes: text: t('armorArmoireRancherRobesText'), notes: t('armorArmoireRancherRobesNotes', {str: 5, per: 5, int: 5}), value: 100, str: 5, per: 5, int: 5, set: 'rancher', canOwn: ((u)-> u.items.gear.owned.armor_armoire_rancherRobes?)
       goldenToga: text: t('armorArmoireGoldenTogaText'), notes: t('armorArmoireGoldenTogaNotes', {attrs: 8}), value: 100, str: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.armor_armoire_goldenToga?)
       hornedIronArmor: text: t('armorArmoireHornedIronArmorText'), notes: t('armorArmoireHornedIronArmorNotes', {con: 9, per: 7}), value: 100, con: 9, per: 7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.armor_armoire_hornedIronArmor?)
-      plagueDoctorOvercoat: text: t('armorArmoirePlagueDoctorOvercoatText'), notes: t('armorArmoirePlagueDoctorOvercoatNotes', {int: 6, str: 5, con: 6}), int: 6, str: 5, con: 6, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.armor_armoire_plagueDoctorOvercoat?)
+      plagueDoctorOvercoat: text: t('armorArmoirePlagueDoctorOvercoatText'), notes: t('armorArmoirePlagueDoctorOvercoatNotes', {int: 6, str: 5, con: 6}), value: 100, int: 6, str: 5, con: 6, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.armor_armoire_plagueDoctorOvercoat?)
 
   head:
     base:
@@ -352,9 +352,9 @@ gear =
       blueHairbow: text: t('headArmoireBlueHairbowText'), notes: t('headArmoireBlueHairbowNotes', {per: 5, int: 5, con: 5}), value: 100, per: 5, int: 5, con: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_blueHairbow?)
       goldenLaurels: text: t('headArmoireGoldenLaurelsText'), notes: t('headArmoireGoldenLaurelsNotes', {attrs: 8}), value: 100, per: 8, con: 8, set: 'goldenToga', canOwn: ((u)-> u.items.gear.owned.head_armoire_goldenLaurels?)
       hornedIronHelm: text: t('headArmoireHornedIronHelmText'), notes: t('headArmoireHornedIronHelmNotes', {con: 9, str: 7}), value: 100, con: 9, str:7, set: 'hornedIron', canOwn: ((u)-> u.items.gear.owned.head_armoire_hornedIronHelm?)
-      yellowHairbow: text: t('headArmoireYellowHairbowText'), notes: t('headArmoireYellowHairbowNotes', {attrs: 5}), int: 5, per: 5, str: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_yellowHairbow?)
-      redFloppyHat: text: t('headArmoireRedFloppyHatText'), notes: t('headArmoireRedFloppyHatNotes', {attrs: 6}), con: 6, int: 6, per: 6, canOwn: ((u)-> u.items.gear.owned.head_armoire_redFloppyHat?)
-      plagueDoctorHat: text: t('headArmoirePlagueDoctorHatText'), notes: t('headArmoirePlagueDoctorHatNotes', {int: 5, str: 6, con: 5}), int: 5, str: 6, con: 5, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.head_armoire_plagueDoctorHat?)
+      yellowHairbow: text: t('headArmoireYellowHairbowText'), notes: t('headArmoireYellowHairbowNotes', {attrs: 5}), value: 100, int: 5, per: 5, str: 5, canOwn: ((u)-> u.items.gear.owned.head_armoire_yellowHairbow?)
+      redFloppyHat: text: t('headArmoireRedFloppyHatText'), notes: t('headArmoireRedFloppyHatNotes', {attrs: 6}), value: 100, con: 6, int: 6, per: 6, canOwn: ((u)-> u.items.gear.owned.head_armoire_redFloppyHat?)
+      plagueDoctorHat: text: t('headArmoirePlagueDoctorHatText'), notes: t('headArmoirePlagueDoctorHatNotes', {int: 5, str: 6, con: 5}), value: 100, int: 5, str: 6, con: 5, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.head_armoire_plagueDoctorHat?)
 
   shield:
     base:
@@ -498,7 +498,7 @@ gear =
       301404: text: t('eyewearMystery301404Text'), notes: t('eyewearMystery301404Notes'), mystery:'301404', value: 0
       301405: text: t('eyewearMystery301405Text'), notes: t('eyewearMystery301405Notes'), mystery:'301405', value: 0
     armoire:
-      plagueDoctorMask: text: t('eyewearArmoirePlagueDoctorMaskText'), notes: t('eyewearArmoirePlagueDoctorMaskNotes'), set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.eyewear_armoire_plagueDoctorMask?)
+      plagueDoctorMask: text: t('eyewearArmoirePlagueDoctorMaskText'), notes: t('eyewearArmoirePlagueDoctorMaskNotes'), value: 100, set: 'plagueDoctor', canOwn: ((u)-> u.items.gear.owned.eyewear_armoire_plagueDoctorMask?)
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
