@@ -2,12 +2,12 @@
   margin-left: 1.25em;
 }*/
 
-/* Comment out for holiday events */
+/* Comment out for holiday events
 .npc_ian {
   background: url("/common/img/sprites/npc_ian.gif") no-repeat;
   width: 78px;
   height: 135px;
-}
+} */
 
 .Gems {
   display:inline-block;
