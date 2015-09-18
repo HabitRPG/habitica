@@ -518,12 +518,12 @@ describe 'User', ->
       expect(user.items.hatchingPotions).to.eql {}
       expect(user.items.food).to.eql {}
 
-    it 'gets honey', ->
+    it 'gets red candy', ->
       sinon.stub(user.fns, 'predictableRandom', cycle [0, 0, 0.9])
       user.ops.score {params: { id: @task_id, direction: 'up'}}
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {}
-      expect(user.items.food).to.eql {'Honey': 1}
+      expect(user.items.food).to.eql {'Candy_Red': 1}
 
     it 'does not get a drop', ->
       sinon.stub(user.fns, 'predictableRandom').returns 0.5
