@@ -7,7 +7,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
-      $scope.questInit = Quests.questInit;
 
       if ($state.is('options.social.party')) {
         $scope.group.$syncParty(); // Sync party automatically when navigating to party page
@@ -105,30 +104,52 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         User.set({'invitations.party':{}});
       }
 
-      $scope.questCancel = function(party){
+      $scope.questCancel = function(){
         if (!confirm(window.env.t('sureCancel'))) return;
-        Groups.questCancel(party);
+
+        Quests.sendAction('questCancel')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       }
 
-      $scope.questAbort = function(party){
+      $scope.questAbort = function(){
         if (!confirm(window.env.t('sureAbort'))) return;
         if (!confirm(window.env.t('doubleSureAbort'))) return;
-        Groups.questAbort(party);
+
+        Quests.sendAction('questAbort')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       }
 
-      $scope.questLeave = function(party){
+      $scope.questLeave = function(){
         if (!confirm(window.env.t('sureLeave'))) return;
 
-        delete $scope.group.quest.members[User.user._id];
-        Groups.questLeave(party);
+        Quests.sendAction('questLeave')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       }
 
-      $scope.questAccept = function(party){
-        Groups.questAccept(party);
+      $scope.questAccept = function(){
+        Quests.sendAction('questAccept')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
       };
 
-      $scope.questReject = function(party){
-        Groups.questReject(party);
-      }
+      $scope.questReject = function(){
+        Quests.sendAction('questReject')
+          .then(function(quest) {
+            $scope.group.quest = quest;
+          });
+      };
+
+      $scope.canEditQuest = function(party) {
+        var isQuestLeader = party.quest && party.quest.leader === User.user._id;
+
+        return isQuestLeader;
+      };
     }
   ]);
