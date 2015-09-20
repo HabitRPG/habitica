@@ -1,3 +1,5 @@
+import t from './helpers/translator';
+
 let habits = [
   {
     type: 'habit',
