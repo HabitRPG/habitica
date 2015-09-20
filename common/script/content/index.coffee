@@ -1768,30 +1768,7 @@ api.subscriptionBlocks =
   basic_12mo: months:12, price:48
 _.each api.subscriptionBlocks, (b,k)->b.key = k
 
-# repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
-api.userDefaults =
-  habits: [
-    {type: 'habit', text: t('defaultHabit1Text'), value: 0, up: true, down: false, attribute: 'per' }
-    {type: 'habit', text: t('defaultHabit2Text'), value: 0, up: false, down: true, attribute: 'str'}
-    {type: 'habit', text: t('defaultHabit3Text'), value: 0, up: true, down: true, attribute: 'str'}
-  ]
-
-  dailys: [
-  ]
-
-  todos: [
-    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodoNotes'), completed: false, attribute: 'int' }
-  ]
-
-  rewards: [
-    {type: 'reward', text: t('defaultReward1Text'), value: 10 }
-  ]
-
-  tags: [
-    {name: t('defaultTag1')}
-    {name: t('defaultTag2')}
-    {name: t('defaultTag3')}
-  ]
+api.userDefaults = require('../../dist/scripts/content/user-defaults')
 
 api.faq = require "../../dist/scripts/content/faq"
 
