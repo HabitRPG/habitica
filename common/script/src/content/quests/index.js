@@ -1,4 +1,4 @@
-import {each, defaults} from 'lodash';
+import {each, defaults, sortBy} from 'lodash';
 import t from '../helpers/translator';
 
 const QUEST_BOSS_DEFAULTS = { str: 1, def: 1 };
@@ -7,7 +7,7 @@ const QUEST_BOSS_RAGE_DEFAULTS = {
   description: t('bossRageDescription'),
 };
 
-let quests = {
+let scrolls = {
   dilatory: {
     text: t('questDilatoryText'),
     notes: t('questDilatoryNotes'),
@@ -1463,7 +1463,7 @@ let quests = {
   }
 };
 
-each(quests, function(quest, key) {
+each(scrolls, function(quest, key) {
   defaults(quest, {
     key: key,
     canBuy: true
@@ -1480,4 +1480,18 @@ each(quests, function(quest, key) {
   }
 });
 
-export default quests;
+let questsByLevel = sortBy(scrolls, (quest) => {
+  return quest.lvl || 0;
+});
+
+let canOwnCategories = [
+  'unlockable',
+  'gold',
+  'pet',
+];
+
+export default {
+  scrolls: scrolls,
+  byLevel: questsByLevel,
+  canOwnCategories: canOwnCategories,
+}

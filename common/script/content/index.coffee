@@ -702,17 +702,13 @@ api.food =
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: t('foodNotes')}
 
-api.userCanOwnQuestCategories = [
-  'unlockable'
-  'gold'
-  'pet'
-]
+quests = require('../../dist/scripts/content/quests/index')
 
-api.quests = require('../../dist/scripts/content/quests/index')
+api.userCanOwnQuestCategories = quests.canOwnCategories
 
-api.questsByLevel =
-  _.sortBy api.quests, (quest) ->
-    quest.lvl || 0
+api.quests = quests.scrolls
+
+api.questsByLevel = quests.byLevel
 
 api.backgrounds = require('../../dist/scripts/content/backgrounds')
 
