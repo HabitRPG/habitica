@@ -29,13 +29,21 @@ each(sets, (names, set) => {
   backgrounds[setName] = {};
 
   each(names, (name) => {
-    let capitalCamelName = capitalize(camelCase(name));
+    let envName = generateEnvName(name);
 
     backgrounds[setName][name] = {
-      text: t(`background${capitalCamelName}Text`),
-      notes: t(`background${capitalCamelName}Notes`),
+      text: t(`${envName}Text`),
+      notes: t(`${envName}Notes`),
     };
   });
 });
+
+function generateEnvName(name) {
+  let camelName = camelCase(name);
+  let capitalCamelName = capitalize(camelName);
+  let backgroundName = `background${capitalCamelName}`;
+
+  return backgroundName;
+}
 
 export default backgrounds;
