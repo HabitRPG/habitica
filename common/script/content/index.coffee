@@ -1760,13 +1760,7 @@ api.backgrounds =
       text: t('backgroundTavernText')
       notes: t('backgroundTavernNotes')
 
-api.subscriptionBlocks =
-  basic_earned: months:1, price:5
-  basic_3mo: months:3, price:15
-  basic_6mo: months:6, price:30
-  google_6mo: months:6, price:24, discount:true, original:30
-  basic_12mo: months:12, price:48
-_.each api.subscriptionBlocks, (b,k)->b.key = k
+api.subscriptionBlocks = require('../../dist/scripts/content/subscription-blocks')
 
 api.userDefaults = require('../../dist/scripts/content/user-defaults')
 
