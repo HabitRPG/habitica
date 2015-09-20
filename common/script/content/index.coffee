@@ -3,12 +3,7 @@ api = module.exports
 _ = require 'lodash'
 moment = require 'moment'
 
-DIST_LOCATION = '../../dist/scripts/content'
-
-t = require "#{DIST_LOCATION}/helpers/translator"
-
-
-require('babel/register')
+t = require "../../dist/scripts/content/helpers/translator"
 
 ###
   ---------------------------------------------------------------
@@ -20,9 +15,9 @@ require('babel/register')
 classes = ['warrior', 'rogue', 'healer', 'wizard']
 gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear']
 
-events = require("#{DIST_LOCATION}/events")
+events = require("../../dist/scripts/content/events")
 
-api.mystery = require("#{DIST_LOCATION}/mystery-sets")
+api.mystery = require("../../dist/scripts/content/mystery-sets")
 
 api.itemList =
   'weapon': {localeKey: 'weapon', isEquipment: true}
@@ -551,9 +546,9 @@ api.classes = classes
 
 api.gearTypes = gearTypes
 
-api.spells = require("#{DIST_LOCATION}/spells/index")
+api.spells = require("../../dist/scripts/content/spells/index")
 
-api.cardTypes = require("#{DIST_LOCATION}/card-types")
+api.cardTypes = require("../../dist/scripts/content/card-types")
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
@@ -573,7 +568,7 @@ api.special = api.spells.special
   ---------------------------------------------------------------
 ###
 
-eggs = require("#{DIST_LOCATION}/eggs/index")
+eggs = require("../../dist/scripts/content/eggs/index")
 
 api.dropEggs = eggs.dropEggs
 
@@ -632,7 +627,7 @@ api.specialMounts =
   'Orca-Base':           'orca'
   'Gryphon-RoyalPurple': 'royalPurpleGryphon'
 
-api.timeTravelStable = require("#{DIST_LOCATION}/time-traveler-stable")
+api.timeTravelStable = require("../../dist/scripts/content/time-traveler-stable")
 
 api.hatchingPotions =
   Base:             value: 2, text: t('hatchingPotionBase')
@@ -1798,4 +1793,5 @@ api.userDefaults =
     {name: t('defaultTag3')}
   ]
 
-api.faq = require "#{DIST_LOCATION}/faq"
+api.faq = require "../../dist/scripts/content/faq"
+
