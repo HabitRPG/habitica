@@ -1,5 +1,5 @@
-let each = require('lodash').each;
-let t = require('../helpers/translator');
+import {each} from 'lodash';
+import t from '../helpers/translator';
 
 const DROP_EGGS = [
   'Wolf',

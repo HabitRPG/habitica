@@ -1,7 +1,5 @@
-'use strict';
-
 require('coffee-script');
-var i18n = require('../../../../script/i18n.coffee');
+import i18n from '../../../../script/i18n.coffee';
 
 var t = function(string, vars) {
   var func = function(lang) {

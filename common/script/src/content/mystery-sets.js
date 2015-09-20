@@ -1,4 +1,4 @@
-let each = require('lodash').each;
+import {each} from 'lodash';
 
 let mysterySets = {
   201402: {

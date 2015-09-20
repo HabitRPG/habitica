@@ -1,6 +1,4 @@
-'use strict';
-
-var t = require('../helpers/translator.js');
+import t from '../helpers/translator';
 
 /*
   ---------------------------------------------------------------

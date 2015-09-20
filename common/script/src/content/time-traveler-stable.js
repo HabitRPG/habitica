@@ -1,4 +1,4 @@
-let t = require('./helpers/translator');
+import t from './helpers/translator';
 
 let stable = {
   pets: {
