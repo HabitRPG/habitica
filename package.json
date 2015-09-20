@@ -44,6 +44,8 @@
     "jade": "~1.11.0",
     "js2xmlparser": "~0.1.2",
     "lodash": "~2.4.1",
+    "lodash.camelcase": "^3.0.1",
+    "lodash.capitalize": "^3.0.0",
     "loggly": "~1.0.8",
     "marked": "^0.3.5",
     "merge-stream": "^1.0.0",
