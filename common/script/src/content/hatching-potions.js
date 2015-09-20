@@ -1,5 +1,5 @@
 import {each, defaults} from 'lodash';
-import t from '../helpers/translator';
+import t from './helpers/translator';
 
 let hatchingPotions = {
   Base: {
