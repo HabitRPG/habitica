@@ -5,6 +5,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     // challenge
     $scope.cid = $state.params.cid;
 
+    $scope.groupIdFilter = $stateParams.groupIdFilter;
+
     _getChallenges();
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
@@ -381,6 +383,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
             _isMember: "either",
             _isOwner: "either"
           };
+          //If we game from a group, then override the filter to that group
+          if ($scope.groupIdFilter) {
+            $scope.search.group = {};
+            $scope.search.group[$scope.groupIdFilter] = true ;
+          }
         });
       }
     };

@@ -10,7 +10,7 @@
       table.table.table-striped
         tr(ng-repeat='challenge in group.challenges')
           td
-            a(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
+            a(ui-sref='options.social.challenges.detail({cid:challenge._id, groupIdFilter: group._id})') {{challenge.name}}
     div(ng-if='group.challenges.length == 0')
       p
         |&nbsp;

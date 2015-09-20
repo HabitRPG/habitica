@@ -148,6 +148,7 @@ window.habitrpg = angular.module('habitrpg',
         // Options > Social > Challenges
         .state('options.social.challenges', {
           url: "/challenges",
+          params: { groupIdFilter: null },
           controller: 'ChallengesCtrl',
           templateUrl: "partials/options.social.challenges.html"
         })
@@ -156,7 +157,6 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: 'partials/options.social.challenges.detail.html',
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
-
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
                 $scope.challenge._locked = true;
               });
