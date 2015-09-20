@@ -1770,5 +1770,5 @@ _.each api.subscriptionBlocks, (b,k)->b.key = k
 
 api.userDefaults = require('../../dist/scripts/content/user-defaults')
 
-api.faq = require "../../dist/scripts/content/faq"
+api.faq = require('../../dist/scripts/content/faq')
 
