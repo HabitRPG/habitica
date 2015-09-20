@@ -23,4 +23,4 @@ each(DROP_EGGS, (pet) => {
   }
 });
 
-module.exports = eggs;
+export default eggs;

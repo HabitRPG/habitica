@@ -1,7 +1,7 @@
 'use strict';
 
 require('coffee-script');
-var i18n = require(__dirname + '/../../../../script/i18n.coffee');
+var i18n = require('../../../../script/i18n.coffee');
 
 var t = function(string, vars) {
   var func = function(lang) {
@@ -18,4 +18,4 @@ var t = function(string, vars) {
   return func;
 };
 
-module.exports = t;
+export default t;

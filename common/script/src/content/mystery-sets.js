@@ -116,4 +116,4 @@ each(mysterySets, (objectSet, name) => {
   objectSet.key = name;
 });
 
-module.exports = mysterySets;
+export default mysterySets;

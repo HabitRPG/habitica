@@ -14,4 +14,4 @@ let events = {
   summer2015: {start:'2015-06-20',end:'2015-08-02'}
 }
 
-module.exports = events;
+export default events;

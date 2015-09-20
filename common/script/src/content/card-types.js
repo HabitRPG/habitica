@@ -19,4 +19,4 @@ let cardTypes = {
   }
 };
 
-module.exports = cardTypes;
+export default cardTypes;

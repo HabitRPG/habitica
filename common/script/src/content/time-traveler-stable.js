@@ -11,4 +11,4 @@ let stable = {
   }
 };
 
-module.exports = stable;
+export default stable;

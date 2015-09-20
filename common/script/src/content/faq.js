@@ -21,4 +21,4 @@ faq.stillNeedHelp = {
   web: t('webFaqStillNeedHelp')
 };
 
-module.exports = faq;
+export default faq;

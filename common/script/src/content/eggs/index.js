@@ -18,6 +18,6 @@ each(dropEggs, (egg, key) => {
   });
 });
 
-module.exports = {
+export default {
   dropEggs: dropEggs
 }
