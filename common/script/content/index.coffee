@@ -629,19 +629,7 @@ api.specialMounts =
 
 api.timeTravelStable = require('../../dist/scripts/content/time-traveler-stable')
 
-api.hatchingPotions =
-  Base:             value: 2, text: t('hatchingPotionBase')
-  White:            value: 2, text: t('hatchingPotionWhite')
-  Desert:           value: 2, text: t('hatchingPotionDesert')
-  Red:              value: 3, text: t('hatchingPotionRed')
-  Shade:            value: 3, text: t('hatchingPotionShade')
-  Skeleton:         value: 3, text: t('hatchingPotionSkeleton')
-  Zombie:           value: 4, text: t('hatchingPotionZombie')
-  CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
-  CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
-  Golden:           value: 5, text: t('hatchingPotionGolden')
-_.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text})}
+api.hatchingPotions = require('../../dist/scripts/content/hatching-potions')
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
