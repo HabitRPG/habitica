@@ -1,5 +1,5 @@
 import {each} from 'lodash';
-import camelCase from 'lodash.camelCase';
+import camelCase from 'lodash.camelcase';
 import capitalize from 'lodash.capitalize';
 import t from './helpers/translator';
 

@@ -1,6 +1,6 @@
 import {each, assign, defaults, sortBy} from 'lodash';
 import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelCase';
+import camelCase from 'lodash.camelcase';
 import t from '../helpers/translator';
 
 import worldQuests from './world';

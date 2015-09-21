@@ -1,6 +1,6 @@
 import {each, defaults} from 'lodash';
 import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelCase';
+import camelCase from 'lodash.camelcase';
 import t from '../helpers/translator';
 
 let petQuests = {
