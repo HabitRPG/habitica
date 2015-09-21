@@ -1,6 +1,4 @@
 import {each, defaults, assign} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelCase';
 import t from '../helpers/translator';
 
 let inviteFriends = {
@@ -353,23 +351,11 @@ assign(unlockableQuests, moonstoneSeries);
 assign(unlockableQuests, goldenKnightSeries);
 
 each(unlockableQuests, (quest, name) => {
-  let camelName = camelCase(name);
-  let capitalizedName = capitalize(camelName);
-
   let questDefaults = {
-    text: t(`quest${capitalizedName}Text`),
-    notes: t(`quest${capitalizedName}Notes`),
     category: 'unlockable',
-    value: 4,
-  };
-
-  let bossDefaults = {
-    name: t(`quest${capitalizedName}Boss`),
   };
 
   defaults(quest, questDefaults);
-
-  if (quest.boss) defaults(quest.boss, bossDefaults);
 });
 
 export default unlockableQuests;

@@ -1,4 +1,6 @@
 import {each, assign, defaults, sortBy} from 'lodash';
+import capitalize from 'lodash.capitalize';
+import camelCase from 'lodash.camelCase';
 import t from '../helpers/translator';
 
 import worldQuests from './world';
@@ -6,12 +8,6 @@ import holidayQuests from './holiday';
 import petQuests from './pet';
 import unlockableQuests from './unlockable';
 import goldPurchasableQuests from './gold-purchasable';
-
-const QUEST_BOSS_DEFAULTS = { str: 1, def: 1 };
-const QUEST_BOSS_RAGE_DEFAULTS = {
-  title: t('bossRageTitle'),
-  description: t('bossRageDescription'),
-};
 
 let allQuests = { };
 
@@ -22,18 +18,37 @@ assign(allQuests, unlockableQuests);
 assign(allQuests, goldPurchasableQuests);
 
 each(allQuests, function(quest, key) {
-  defaults(quest, {
+  let camelName = camelCase(key);
+  let capitalizedName = capitalize(camelName);
+
+  let questDefaults = {
     key: key,
-    canBuy: true
-  });
+    text: t(`quest${capitalizedName}Text`),
+    notes: t(`quest${capitalizedName}Notes`),
+    canBuy: true,
+    value: 4,
+  };
+
+  let questBossDefaults = {
+    name: t(`quest${capitalizedName}Boss`),
+    str: 1,
+    def: 1,
+  };
+
+  let questBossRageDefaults = {
+    title: t('bossRageTitle'),
+    description: t('bossRageDescription'),
+  };
+
+  defaults(quest, questDefaults);
 
   let boss = quest.boss;
 
   if (boss) {
-    defaults(boss, QUEST_BOSS_DEFAULTS);
+    defaults(boss, questBossDefaults);
 
     if (boss.rage) {
-      defaults(boss.rage, QUEST_BOSS_RAGE_DEFAULTS);
+      defaults(boss.rage, questBossRageDefaults);
     }
   }
 });

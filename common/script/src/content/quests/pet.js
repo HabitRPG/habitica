@@ -333,15 +333,8 @@ each(petQuests, (quest, name) => {
   let capitalizedName = capitalize(camelName);
 
   let questDefaults = {
-    text: t(`quest${capitalizedName}Text`),
-    notes: t(`quest${capitalizedName}Notes`),
     completion: t(`quest${capitalizedName}Completion`),
     category: 'pet',
-    value: 4,
-  };
-
-  let bossDefaults = {
-    name: t(`quest${capitalizedName}Boss`),
   };
 
   let dropDefaults = {
@@ -365,7 +358,6 @@ each(petQuests, (quest, name) => {
 
   defaults(quest, questDefaults);
 
-  if (quest.boss) defaults(quest.boss, bossDefaults);
   if (quest.drop) defaults(quest.drop, dropDefaults);
 });
 

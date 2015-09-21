@@ -158,8 +158,6 @@ let worldQuests = {
 each(worldQuests, (quest, name) => {
   let capitalizedName = capitalize(name);
   let questDefaults = {
-    text: t(`quest${capitalizedName}Text`),
-    notes: t(`quest${capitalizedName}Notes`),
     completion: t(`quest${capitalizedName}Completion`),
     value: 0,
     canBuy: false,

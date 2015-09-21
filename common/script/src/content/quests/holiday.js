@@ -109,11 +109,8 @@ let holidayQuests = {
 each(holidayQuests, (quest, name) => {
   let capitalizedName = capitalize(name);
   let questDefaults = {
-    text: t(`quest${capitalizedName}Text`),
-    notes: t(`quest${capitalizedName}Notes`),
     completion: t(`quest${capitalizedName}Completion`),
     canBuy: false,
-    value: 4,
     category: 'pet',
   };
 
