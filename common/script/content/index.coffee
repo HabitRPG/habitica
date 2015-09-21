@@ -572,81 +572,27 @@ eggs = require('../../dist/scripts/content/eggs/index')
 
 api.dropEggs = eggs.dropEggs
 
-api.questEggs =
-  # value & other defaults set below
-  Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: false
-  Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: false
-  Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
-  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false, mountText: t('questEggEggMountText')
-  Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
-  Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
-  Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
-  Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
-  Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: false
-  Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
-  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
-  Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
-  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
-  Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
-  Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
-  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
-  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
-  Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
-  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
-  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: false
-  Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: false
+api.questEggs = eggs.questEggs
 
-_.each api.questEggs, (egg,key) ->
-  _.defaults egg,
-    canBuy:false
-    value: 3
-    key: key
-    notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
-    mountText: egg.text
+api.eggs = eggs.allEggs
 
-api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)
+pets_mounts = require('../../dist/scripts/content/pets-mounts/index')
 
-# special pets & mounts are {key:i18n}
-api.specialPets =
-  'Wolf-Veteran':       'veteranWolf'
-  'Wolf-Cerberus':      'cerberusPup'
-  'Dragon-Hydra':       'hydra'
-  'Turkey-Base':        'turkey'
-  'BearCub-Polar':      'polarBearPup'
-  'MantisShrimp-Base':  'mantisShrimp'
-  'JackOLantern-Base':  'jackolantern'
-  'Mammoth-Base':       'mammoth'
-  'Tiger-Veteran':      'veteranTiger'
+api.specialPets = pets_mounts.specialPets
 
-api.specialMounts =
-  'BearCub-Polar':       'polarBear'
-  'LionCub-Ethereal':    'etherealLion'
-  'MantisShrimp-Base':   'mantisShrimp'
-  'Turkey-Base':         'turkey'
-  'Mammoth-Base':        'mammoth'
-  'Orca-Base':           'orca'
-  'Gryphon-RoyalPurple': 'royalPurpleGryphon'
+api.specialMounts = pets_mounts.specialMounts
 
 api.timeTravelStable = require('../../dist/scripts/content/time-traveler-stable')
 
 api.hatchingPotions = require('../../dist/scripts/content/hatching-potions')
 
-api.pets = _.transform api.dropEggs, (m, egg) ->
-  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+api.pets = pets_mounts.dropPets
 
-api.questPets = _.transform api.questEggs, (m, egg) ->
-  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+api.questPets = pets_mounts.questPets
 
-## added for mountmaster -- yes, the transforms are correct, since the same strings are used for both pets and mounts
-api.mounts = _.transform api.dropEggs, (m, egg) ->
-  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+api.mounts = pets_mounts.dropMounts
 
-api.questMounts = _.transform api.questEggs, (m, egg) ->
-  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+api.questMounts = pets_mounts.questMounts
 
 api.food = require('../../dist/scripts/content/food/index')
 
