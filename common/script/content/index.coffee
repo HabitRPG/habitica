@@ -654,7 +654,7 @@ quests = require('../../dist/scripts/content/quests/index')
 
 api.userCanOwnQuestCategories = quests.canOwnCategories
 
-api.quests = quests.scrolls
+api.quests = quests.allQuests
 
 api.questsByLevel = quests.byLevel
 
