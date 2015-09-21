@@ -6,7 +6,7 @@ var expect = chai.expect
 require('coffee-script');
 var count = require('../../common/script/count');
 
-describe.only('count', function() {
+describe('count', function() {
   describe('beastMasterProgress', function() {
     it('returns 0 if no pets', function() {
       var pets = {};
