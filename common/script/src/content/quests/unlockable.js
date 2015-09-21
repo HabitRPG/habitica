@@ -1,5 +1,5 @@
 import {each, defaults, assign} from 'lodash';
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 
 let inviteFriends = {
   basilist: {

@@ -1,7 +1,7 @@
 require('coffee-script');
-import i18n from '../../../../script/i18n.coffee';
+import i18n from '../../../script/i18n.coffee';
 
-var t = function(string, vars) {
+export function translator(string, vars) {
   var func = function(lang) {
     if (vars == null) {
       vars = {
@@ -16,4 +16,3 @@ var t = function(string, vars) {
   return func;
 };
 
-export default t;

@@ -1,4 +1,4 @@
-import t from './helpers/translator';
+import {translator as t} from './helpers';
 
 const NUMBER_OF_QUESTIONS = 12;
 

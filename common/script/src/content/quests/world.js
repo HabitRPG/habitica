@@ -1,6 +1,6 @@
 import {each, defaults} from 'lodash';
 import capitalize from 'lodash.capitalize';
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 
 let worldQuests = {
   dilatory: {

@@ -1,7 +1,7 @@
 import {each, defaults} from 'lodash';
 import capitalize from 'lodash.capitalize';
 import camelCase from 'lodash.camelcase';
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 
 const CAN_BUY = false;
 const CAN_DROP = false;

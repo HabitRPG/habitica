@@ -1,4 +1,4 @@
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 import {diminishingReturns, calculateBonus, setSpellDefaults} from './spell-helper';
 import {each} from 'lodash';
 

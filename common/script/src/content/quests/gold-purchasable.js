@@ -1,7 +1,7 @@
 import {each, defaults, assign} from 'lodash';
 import capitalize from 'lodash.capitalize';
 import camelCase from 'lodash.camelcase';
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 
 let dilatoryDistressSeries = {
   dilatoryDistress1: {

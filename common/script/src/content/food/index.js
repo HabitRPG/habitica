@@ -1,5 +1,5 @@
 import {each, defaults, assign} from 'lodash';
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 
 import baseFood from './base';
 import saddle from './saddle';

@@ -1,4 +1,4 @@
-import t from '../helpers/translator';
+import {translator as t} from '../helpers';
 import events from '../events';
 
 let head = {

@@ -1,7 +1,7 @@
 import {each} from 'lodash';
 import camelCase from 'lodash.camelcase';
 import capitalize from 'lodash.capitalize';
-import t from './helpers/translator';
+import {translator as t} from './helpers';
 
 let sets = {
   '062014': ['beach', 'fairy_ring', 'forest'],

@@ -3,7 +3,7 @@ api = module.exports
 _ = require 'lodash'
 moment = require 'moment'
 
-t = require('../../dist/scripts/content/helpers/translator')
+t = require('../../dist/scripts/content/helpers').translator
 
 ###
   ---------------------------------------------------------------
