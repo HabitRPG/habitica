@@ -1,4 +1,4 @@
-mixin mountList(source)
+mixin mountList(source,showPremium)
   menu.pets(type='list')
     each egg in source
       -if(!egg.noMount) {
@@ -6,9 +6,8 @@ mixin mountList(source)
           menu
             each potion in env.Content.hatchingPotions
               - mount = egg.key+"-"+potion.key
-              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
+              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom', ng-hide='#{potion.premium} && #{!showPremium}')
                 button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
-                  //div(class='Mount_Head_{{mount}}')
                 button(class="pet-button mount-not-owned", ng-hide='user.items.mounts["#{mount}"]')
                   .PixelPaw
       -}
@@ -24,7 +23,7 @@ mixin mountList(source)
         p=env.t('mattShall', {name: "{{user.profile.name}}"})
         h4 {{:: env.t('stableMountMasterProgress', { number: mountMasterProgress }) }}
   .row: .col-md-12
-    +mountList(env.Content.dropEggs)
+    +mountList(env.Content.dropEggs,true)
   .row: .col-md-12
     h4=env.t('questMounts')
     +mountList(env.Content.questEggs)

@@ -24,7 +24,8 @@ describe('Stats Service', function() {
         "Deer-Golden" : 5,
         "Deer-Red" : 5,
         "Egg-Desert" : 5,
-        "MantisShrimp-Base" : 5
+        "MantisShrimp-Base" : 5,
+        "Wolf-Spooky": 5
       }
 
       var beastMasterDisplay = statCalc.beastMasterProgress(user.items.pets);
@@ -38,9 +39,10 @@ describe('Stats Service', function() {
         "BearCub-CottonCandyBlue" : -1,
         "Cactus-Zombie" : 5,
         "Deer-Golden" : 5,
-        "Deer-Red" : 5,
+        "Deer-Red" : -1,
         "Egg-Desert" : 5,
-        "MantisShrimp-Base" : 5
+        "MantisShrimp-Base" : 5,
+        "Wolf-Spooky": -1
       }
 
       var beastMasterDisplay = statCalc.beastMasterProgress(user.items.pets);
@@ -221,7 +223,8 @@ describe('Stats Service', function() {
         "Wolf-Golden" : true,
         "Owl-CottonCandyBlue" : true,
         "Mammoth-Base" : true,
-        "Bunny-Skeleton" : true
+        "Bunny-Skeleton" : true,
+        "Tiger-Spooky": true
       }
 
       var mountMasterDisplay = statCalc.mountMasterProgress(user.items.mounts);
@@ -237,7 +240,8 @@ describe('Stats Service', function() {
         "Wolf-Golden" : false,
         "Owl-CottonCandyBlue" : true,
         "Mammoth-Base" : true,
-        "Bunny-Skeleton" : true
+        "Bunny-Skeleton" : true,
+        "Tiger-Spooky": true
       }
 
       var mountMasterDisplay = statCalc.mountMasterProgress(user.items.mounts);

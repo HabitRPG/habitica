@@ -1165,25 +1165,30 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
   CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
   Golden:           value: 5, text: t('hatchingPotionGolden')
+  Spooky:           value: 3, text: t('hatchingPotionSpooky'), premium: true
+
 _.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text})}
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, canBuy: true}
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
 api.questPets = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
-## added for mountmaster -- yes, the transforms are correct, since the same strings are used for both pets and mounts
 api.mounts = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
 api.questMounts = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
-    m2[egg.key + "-" + pot.key] = true
+    if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
 
 api.food =
   # Base

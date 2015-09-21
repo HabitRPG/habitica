@@ -134,7 +134,7 @@
         li.customize-menu
           menu.pets-menu(label=env.t('hatchingPotions'))
             p.muted!=env.t('dropsExplanation')
-            div(ng-repeat='pot in Content.hatchingPotions')
+            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.canBuy')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),

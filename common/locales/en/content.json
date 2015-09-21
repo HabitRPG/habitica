@@ -114,6 +114,7 @@
   "hatchingPotionCottonCandyPink": "Cotton Candy Pink",
   "hatchingPotionCottonCandyBlue": "Cotton Candy Blue",
   "hatchingPotionGolden": "Golden",
+  "hatchingPotionSpooky": "Spooky",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
 

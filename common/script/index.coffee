@@ -766,7 +766,7 @@ api.wrap = (user, main=true) ->
         if food.key is 'Saddle'
           evolve()
         else
-          if food.target is potion
+          if food.target is potion or content.hatchingPotions[potion].premium
             userPets[pet] += 5
             message = i18n.t('messageLikesFood', {egg: petDisplayName, foodText: food.text(req.language)}, req.language)
           else

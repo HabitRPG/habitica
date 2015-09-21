@@ -1,11 +1,11 @@
-mixin petList(source)
+mixin petList(source,showPremium)
   menu.pets(type='list')
     each egg in source
       li.customize-menu
         menu
           each potion in env.Content.hatchingPotions
             - pet = egg.key+"-"+potion.key
-            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
+            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom', ng-hide='#{potion.premium} && #{!showPremium}')
               button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                 .progress(ng-show='!user.items.mounts["#{pet}"]')
                   .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
@@ -24,7 +24,7 @@ mixin petList(source)
         p=env.t('mattBochText1')
         h4 {{:: env.t('stableBeastMasterProgress', { number: beastMasterProgress }) }}
   .row: .col-md-12
-    +petList(env.Content.dropEggs)
+    +petList(env.Content.dropEggs,true)
   .row: .col-md-12
     h4=env.t('questPets')
     +petList(env.Content.questEggs)
