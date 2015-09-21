@@ -21,20 +21,11 @@ import t from '../helpers/translator';
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
  */
 
-function diminishingReturns(bonus, max, halfway) {
-  if (halfway == null) {
-    halfway = max / 2;
-  }
+function diminishingReturns(bonus, max, halfway=max/2) {
   return max * (bonus / (bonus + halfway));
 };
 
-function calculateBonus(value, stat, crit, stat_scale) {
-  if (crit == null) {
-    crit = 1;
-  }
-  if (stat_scale == null) {
-    stat_scale = 0.5;
-  }
+function calculateBonus(value, stat, crit=1, stat_scale=0.5) {
   return (value < 0 ? 1 : value + 1) + (stat * stat_scale * crit);
 };
 
