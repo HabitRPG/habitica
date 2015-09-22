@@ -58,7 +58,7 @@
     "merge-stream": "^1.0.0",
     "method-override": "~2.2.0",
     "moment": "~2.8.3",
-    "mongoose": "~3.8.23",
+    "mongoose": "~4.1.8",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "morgan": "^1.6.1",
     "nconf": "~0.6.9",
@@ -89,7 +89,7 @@
   },
   "private": true,
   "engines": {
-    "node": "0.10.x"
+    "node": "^4.1.1"
   },
   "scripts": {
     "test": "gulp test",

@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shared = require('../../../common');
 var _ = require('lodash');
-var TaskSchemas = require('./task');
+var Task = require('./task').model;
 
 var ChallengeSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
@@ -10,10 +10,6 @@ var ChallengeSchema = new Schema({
   shortName: String,
   description: String,
   official: {type: Boolean,'default':false},
-  habits:   [TaskSchemas.HabitSchema],
-  dailys:   [TaskSchemas.DailySchema],
-  todos:    [TaskSchemas.TodoSchema],
-  rewards:  [TaskSchemas.RewardSchema],
   leader: {type: String, ref: 'User'},
   group: {type: String, ref: 'Group'},
   timestamp: {type: Date, 'default': Date.now},
@@ -22,17 +18,36 @@ var ChallengeSchema = new Schema({
   prize: {type: Number, 'default': 0}
 });
 
-ChallengeSchema.virtual('tasks').get(function () {
-  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
-  var tasks = _.object(_.pluck(tasks,'id'), tasks);
-  return tasks;
-});
-
 ChallengeSchema.methods.toJSON = function(){
   var doc = this.toObject();
   doc._isMember = this._isMember;
   return doc;
-}
+};
+
+ChallengeSchema.methods.getTemplateTasks = function(cb) {
+
+};
+
+// Return the data maintaining backward compatibility
+ChallengeSchema.methods.getTransformedData = function(cb) {
+  var obj = this.toJSON();
+
+  this.getTasks(function(err, tasks) {
+    if(err) return cb(err);
+
+    obj.habits = [];
+    obj.dailys = [];
+    obj.todos = [];
+    obj.rewards = [];
+
+    tasks.forEach(function(task){
+      obj[task.type + 's'].push(task.toJSON());
+    });
+
+    cb(null, obj);
+  });
+};
+
 
 // --------------
 // Syncing logic

@@ -7,6 +7,7 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('../../../common');
 var User = require('./../models/user').model;
+var Task = require('./../models/task').model;
 var utils = require('./../utils');
 var analytics = utils.analytics;
 var Group = require('./../models/group').model;
@@ -50,16 +51,6 @@ api.getModelPaths = function(req,res,next){
   Tasks
   ------------------------------------------------------------------------
 */
-
-
-/*
-  Local Methods
-  ---------------
-*/
-
-var findTask = function(req, res) {
-  return res.locals.user.tasks[req.params.id];
-};
 
 /*
   API Routes
@@ -142,7 +133,6 @@ api.score = function(req, res, next) {
       if (t.type == 'habit' || t.type == 'daily')
         t.history.push({value: t.value, date: +new Date});
       chal.save();
-      clearMemory();
     });
   });
 };
@@ -152,20 +142,35 @@ api.score = function(req, res, next) {
  */
 api.getTasks = function(req, res, next) {
   var user = res.locals.user;
-  if (req.query.type) {
-    return res.json(user[req.query.type+'s']);
-  } else {
-    return res.json(_.toArray(user.tasks));
-  }
+
+  user.getTasks(function(err, tasks){
+    if(err) return next(err);
+
+    if (req.query.type) {
+      return tasks.filter(function(task){
+        return task.type === (req.query.type+'s');
+      });
+    } else {
+      return tasks;
+    }
+  });
 };
 
 /**
  * Get Task
  */
 api.getTask = function(req, res, next) {
-  var task = findTask(req,res);
-  if (!task) return res.json(404, {err: "No task found."});
-  return res.json(200, task);
+  var user = res.locals.user;
+
+  Task.findOne({
+    _id: req.params.id,
+    'parent.user': user._id
+  }, function(err, task){
+    if (err) return next(err); 
+    if (!task) return res.json(404, {err: 'No task found.'});
+
+    return res.json(200, task);
+  }); 
 };
 
 
@@ -364,7 +369,7 @@ api.cron = function(req, res, next) {
 // api.reroll // Shared.ops
 // api.reset // Shared.ops
 
-api.delete = function(req, res, next) {
+api['delete'] = function(req, res, next) {
   var user = res.locals.user;
   var plan = user.purchased.plan;
 

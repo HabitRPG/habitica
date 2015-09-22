@@ -1,5 +1,5 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
-var cluster = require('cluster');
+var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
@@ -21,10 +21,10 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
 
 } else {
   require('coffee-script'); // remove this once we've fully converted over
-  var express = require('express');
-  var http = require('http');
-  var path = require('path');
-  var swagger = require('swagger-node-express');
+  var express = require("express");
+  var http = require("http");
+  var path = require("path");
+  var swagger = require("swagger-node-express");
   var autoinc = require('mongoose-id-autoinc');
   var shared = require('../../common');
 
@@ -77,8 +77,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   // This auth strategy is no longer used. It's just kept around for auth.js#loginFacebook() (passport._strategies.facebook.userProfile)
   // The proper fix would be to move to a general OAuth module simply to verify accessTokens
   passport.use(new FacebookStrategy({
-    clientID: nconf.get('FACEBOOK_KEY'),
-    clientSecret: nconf.get('FACEBOOK_SECRET'),
+    clientID: nconf.get("FACEBOOK_KEY"),
+    clientSecret: nconf.get("FACEBOOK_SECRET"),
     //callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
   },
     function(accessToken, refreshToken, profile, done) {
@@ -87,15 +87,15 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
    ));
 
   // ------------  Server Configuration ------------
-  var publicDir = path.join(__dirname, '/../public');
+  var publicDir = path.join(__dirname, "/../public");
 
-  app.set('port', nconf.get('PORT'));
+  app.set("port", nconf.get('PORT'));
   require('./middlewares/apiThrottle')(app);
   app.use(require('./middlewares/domain')(server,mongoose));
   if (!isProd && !DISABLE_LOGGING) app.use(require('morgan')('dev'));
   app.use(require('compression')());
-  app.set('views', __dirname + '/../views');
-  app.set('view engine', 'jade');
+  app.set("views", __dirname + "/../views");
+  app.set("view engine", "jade");
   app.use(require('serve-favicon')(publicDir + '/favicon.ico'));
   app.use(require('./middlewares/cors'));
 
@@ -154,8 +154,8 @@ if (cores!==0 && cluster.isMaster && (isDev || isProd)) {
   app.use(require('./middlewares/errorHandler'));
 
   server.on('request', app);
-  server.listen(app.get('port'), function() {
-    return logging.info('Express server listening on port ' + app.get('port'));
+  server.listen(app.get("port"), function() {
+    return logging.info("Express server listening on port " + app.get("port"));
   });
 
   module.exports = server;

@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shared = require('../../../common');
 var _ = require('lodash');
-var TaskSchemas = require('./task');
+var Task = require('./task').model;
 var Challenge = require('./challenge').model;
 var moment = require('moment');
 
@@ -29,7 +29,7 @@ var UserSchema = new Schema({
   // ### Mongoose Update Object
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
-  _v: { type: Number, 'default': 0 },
+  _v: { type: Number, 'default': 0},
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
@@ -91,7 +91,7 @@ var UserSchema = new Schema({
   },
 
   balance: {type: Number, 'default':0},
-  filters: {type: Schema.Types.Mixed, 'default': {}},
+  filters: {type: Schema.Types.Mixed},
 
   purchased: {
     ads: {type: Boolean, 'default': false},
@@ -312,7 +312,7 @@ var UserSchema = new Schema({
   lastCron: {type: Date, 'default': Date.now},
 
   // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
-  newMessages: {type: Schema.Types.Mixed, 'default': {}},
+  newMessages: {type: Schema.Types.Mixed},
 
   party: {
     // id // FIXME can we use a populated doc instead of fetching party separate from user?
@@ -419,42 +419,43 @@ var UserSchema = new Schema({
     }
   },
 
-  tags: {type: [{
+  tags: [{
     _id: false,
-    id: { type: String, 'default': shared.uuid },
+    id: {type: String, default: shared.uuid},
     name: String,
     challenge: String
-  }]},
+  }],
 
-  challenges: [{type: 'String', ref:'Challenge'}],
+  challenges: [{
+    type: String, 
+    ref: 'Challenge'
+  }],
 
   inbox: {
     newMessages: {type:Number, 'default':0},
-    blocks: {type:Array, 'default':[]},
-    messages: {type:Schema.Types.Mixed, 'default':{}}, //reflist
+    blocks: {type: Array},
+    messages: {type: Schema.Types.Mixed}, //reflist
     optOut: {type:Boolean, 'default':false}
   },
 
-  habits:   {type:[TaskSchemas.HabitSchema]},
-  dailys:   {type:[TaskSchemas.DailySchema]},
-  todos:    {type:[TaskSchemas.TodoSchema]},
-  rewards:  {type:[TaskSchemas.RewardSchema]},
-
   extra: Schema.Types.Mixed,
 
-  pushDevices: {type: [{
+  pushDevices: [{
     regId: {type: String},
     type: {type: String}
-  }],'default': []}
+  }]
 
 }, {
   strict: true,
   minimize: false // So empty objects are returned
 });
 
-UserSchema.methods.deleteTask = function(tid) {
-  this.ops.deleteTask({params:{id:tid}},function(){}); // TODO remove this whole method, since it just proxies, and change all references to this method
-}
+// Get all the tasks belonging to an user
+UserSchema.methods.getTasks = function(cb) {
+  Task.find({
+    userId: this._id
+  }, cb);
+};
 
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
@@ -467,15 +468,25 @@ UserSchema.methods.toJSON = function() {
   return doc;
 };
 
-//UserSchema.virtual('tasks').get(function () {
-//  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
-//  var tasks = _.object(_.pluck(tasks,'id'), tasks);
-//  return tasks;
-//});
+// Return the data maintaining backward compatibility
+UserSchema.methods.getTransformedData = function(cb) {
+  var obj = this.toJSON();
 
-UserSchema.post('init', function(doc){
-  shared.wrap(doc);
-})
+  this.getTasks(function(err, tasks) {
+    if(err) return cb(err);
+
+    obj.habits = [];
+    obj.dailys = [];
+    obj.todos = [];
+    obj.rewards = [];
+
+    tasks.forEach(function(task){
+      obj[task.type + 's'].push(task.toJSON());
+    });
+
+    cb(null, obj);
+  });
+};
 
 UserSchema.pre('save', function(next) {
 
@@ -577,7 +588,7 @@ UserSchema.methods.unlink = function(options, cb) {
       self.tasks[tid].challenge = {};
       break;
     case 'remove':
-      self.deleteTask(tid);
+      self.ops.deleteTask({params: {id: tid}});
       break;
     case 'keep-all':
       _.each(self.tasks, function(t){
@@ -589,7 +600,7 @@ UserSchema.methods.unlink = function(options, cb) {
     case 'remove-all':
       _.each(self.tasks, function(t){
         if (t.challenge && t.challenge.id == cid) {
-          self.deleteTask(t.id);
+          self.ops.deleteTask({params: {id: t.id}});
         }
       })
       break;

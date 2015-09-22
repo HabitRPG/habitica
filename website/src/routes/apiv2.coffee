@@ -265,7 +265,7 @@ module.exports = (swagger, v2) ->
         method: 'DELETE'
         description: "Delete a user object entirely, USE WITH CAUTION!"
       middleware: [auth.auth, i18n.getUserLanguage]
-      action: user.delete
+      action: user["delete"]
 
     "/user/revive":
       spec:
@@ -756,7 +756,7 @@ module.exports = (swagger, v2) ->
         description: "Delete a challenge"
         parameters: [path('cid','Challenge id','string')]
       middleware: [auth.auth, i18n.getUserLanguage]
-      action: challenges.delete
+      action: challenges["delete"]
 
     "/challenges/{cid}/close":
       spec:

@@ -1,10 +1,10 @@
-var fs = require('fs');
-var path = require('path');
-var _ = require('lodash');
-var accepts = require('accepts');
-var User = require('./models/user').model;
-var shared = require('../../common');
-var translations = {};
+var fs = require('fs'),
+  path = require('path'),
+  _ = require('lodash'),
+  accepts = require('accepts'),
+  User = require('./models/user').model,
+  shared = require('../../common'),
+  translations = {};
 
 var localePath = path.join(__dirname, "/../../common/locales/")
 
