@@ -13,12 +13,4 @@ assign(allFood, saddle);
 assign(allFood, cake);
 assign(allFood, candy);
 
-each(allFood, (food, key) => {
-  defaults(food, {
-    value: 1,
-    key: key,
-    notes: t('foodNotes')
-  });
-});
-
 export default allFood;

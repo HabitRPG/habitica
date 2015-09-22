@@ -1,7 +1,7 @@
-import {each, defaults} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelcase';
-import {translator as t} from '../helpers';
+import {
+  translator as t,
+  setFoodDefaults
+} from '../helpers';
 
 const CAN_BUY = false;
 const CAN_DROP = false;
@@ -49,15 +49,6 @@ let candy = {
   }
 };
 
-each(candy, (food, name) => {
-  let camelName = camelCase(name);
-  let capitalizedName = capitalize(camelName);
-
-  defaults(food, {
-    canBuy: CAN_BUY,
-    canDrop: CAN_DROP,
-    text: t(`food${capitalizedName}`),
-  });
-});
+setFoodDefaults(candy, {canBuy: CAN_BUY, canDrop: CAN_DROP});
 
 export default candy;

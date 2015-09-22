@@ -54,3 +54,22 @@ export function setSpellDefaults (className, spells) {
     defaults(spell, spellDefaults);
   });
 };
+
+//----------------------------------------
+// Food Helpers
+//----------------------------------------
+
+export function setFoodDefaults(food, options={}) {
+  each(food, (item, name) => {
+    let formattedName = formatForTranslator(name);
+
+    defaults(item, {
+      canBuy: options.canBuy || false,
+      canDrop: options.canDrop || false,
+      text: translator(`food${formattedName}`),
+      value: 1,
+      key: name,
+      notes: translator('foodNotes'),
+    });
+  });
+};

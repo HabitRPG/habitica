@@ -1,13 +1,15 @@
-import {translator as t} from '../helpers';
+import {
+  translator as t,
+  setFoodDefaults
+} from '../helpers';
+
+const CAN_BUY = true;
+const CAN_DROP = false;
 
 let saddle = {
-  Saddle: {
-    canBuy: true,
-    canDrop: false,
-    text: t('foodSaddleText'),
-    value: 5,
-    notes: t('foodSaddleNotes'),
-  },
+  Saddle: { value: 5 },
 };
+
+setFoodDefaults(saddle, {canBuy: CAN_BUY, canDrop: CAN_DROP});
 
 export default saddle;

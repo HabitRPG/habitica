@@ -1,5 +1,7 @@
-import {each, defaults} from 'lodash';
-import {translator as t} from '../helpers';
+import {
+  translator as t,
+  setFoodDefaults
+} from '../helpers';
 
 const CAN_BUY = true;
 const CAN_DROP = true;
@@ -47,12 +49,6 @@ let baseFood = {
   },
 };
 
-each(baseFood, (food, name) => {
-  defaults(food, {
-    canBuy: CAN_BUY,
-    canDrop: CAN_DROP,
-    text: t(`food${name}`),
-  });
-});
+setFoodDefaults(baseFood, {canBuy: CAN_BUY, canDrop: CAN_DROP});
 
 export default baseFood;
