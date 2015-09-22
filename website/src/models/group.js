@@ -449,7 +449,7 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
           _.forEach(group.members, function (m) {
             if (!seniorMember) {
               seniorMember = m;
-            } else if (m._id != user._id && m.lastCron > seniorMember.lastCron) {
+            } else if (m._id != user._id && m.lastCron > seniorMember.lastCron && flags.chatRevoked === false && flags.blocked === false) {
               seniorMember = m;
             }
             return
