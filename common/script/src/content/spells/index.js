@@ -1,6 +1,3 @@
-import {translator as t} from '../helpers';
-import {diminishingReturns, calculateBonus} from './spell-helper';
-
 import wizard from './wizard';
 import warrior from './warrior';
 import healer from './healer';
@@ -27,7 +24,6 @@ import special from './special';
 
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
  */
-
 
 var spells = {
   wizard: wizard,

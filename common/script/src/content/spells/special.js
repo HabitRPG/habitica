@@ -1,5 +1,4 @@
-import {translator as t} from '../helpers';
-import {diminishingReturns, calculateBonus, setSpellDefaults} from './spell-helper';
+import { translator as t } from '../helpers';
 import {each} from 'lodash';
 
 let snowball = {
