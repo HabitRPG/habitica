@@ -444,13 +444,21 @@ GroupSchema.methods.leave = function(user, keep, mainCb){
         var leader = group.leader;
 
         if(leader == user._id || !~group.members.indexOf(leader)){
-          var seniorMember = _.find(group.members, function (m) {return m != user._id});
 
+          var seniorMember = undefined;
+          _.forEach(group.members, function (m) {
+            if (!seniorMember) {
+              seniorMember = m;
+            } else if (m._id != user._id && m.lastCron > seniorMember.lastCron) {
+              seniorMember = m;
+            }
+            return
+          });
           // could not exist in case of public guild with 1 member who is leaving
           if(seniorMember){
             if (leader == user._id || !~group.members.indexOf(leader)) {
               update['$set'] = update['$set'] || {};
-              update['$set'].leader = seniorMember;
+              update['$set'].leader = seniorMember._id;
             }
           }
         }

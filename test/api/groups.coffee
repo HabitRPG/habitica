@@ -183,7 +183,7 @@ describe "Guilds", ->
         groupToDeleteAfterLeave = res.body
         async.waterfall [
           (cb) ->
-            registerManyUsers 1, cb
+            registerManyUsers 2, cb
 
           (_members, cb) ->
             userToRemoveInvite = _members[0]
@@ -262,6 +262,65 @@ describe "Guilds", ->
             .end (res) ->
               expectCode res, 404
               cb()
+        ], done
+
+    it "makes the most senior member leader when the leader leaves", (done) ->
+      groupThatLeaderIsLeaving = undefined
+      userToBecomeLeader = undefined
+      membersToJoin = undefined
+      request.post(baseURL + "/groups").send(
+        name: "TestGroupThatLeaderIsLeaving"
+        type: "guild"
+        privacy: "public"
+      ).end (res) ->
+        groupThatLeaderIsLeaving = res.body
+        async.waterfall [
+          (cb) ->
+            registerManyUsers 2, cb
+
+          (_members, cb) ->
+            userToBecomeLeader = _members[1]
+            membersToJoin = _members
+
+            inviteURL = baseURL + "/groups/" + groupThatLeaderIsLeaving._id + "/invite"
+
+            inviteToGuild = (member, callback) ->
+              request.post(inviteURL).send(
+                uuids: [member._id]
+              ).end ->
+                expectCode res, 200
+                callback(null, null)
+            async.map membersToJoin, inviteToGuild, (err, results) -> cb()
+
+          (cb) ->
+            joinGuild = (member, callback) ->
+              request.post(baseURL + "/groups/" + groupThatLeaderIsLeaving._id + "/join")
+                .set("X-API-User", member._id)
+                .set("X-API-Key", member.apiToken)
+                .end ->
+                  expectCode res, 200
+                  callback(null, null)
+            async.mapSeries membersToJoin, joinGuild, (err, results) -> cb()
+
+          (cb) ->
+            request.post(baseURL + "/groups/" + groupThatLeaderIsLeaving._id + "/leave")
+            .end (res) ->
+              expectCode res, 204
+              cb()
+
+          (cb) ->
+            request.get(baseURL + "/groups/" + groupThatLeaderIsLeaving._id)
+            .set("X-API-User", userToBecomeLeader._id)
+            .set("X-API-Key", userToBecomeLeader.apiToken)
+            .end (res) ->
+              expectCode res, 200
+              g = res.body
+              #Check for which user was created at a later date because of the systems synchronous nature
+              if (membersToJoin[0].lastCron > membersToJoin[1].lastCron)
+                userToBecomeLeader = membersToJoin[0]
+              expect(g.leader._id).to.equal(userToBecomeLeader._id)
+              cb()
+
         ], done
 
   context "removing users groups", ->

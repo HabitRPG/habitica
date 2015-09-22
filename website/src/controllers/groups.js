@@ -473,12 +473,12 @@ api.join = function(req, res, next) {
   if(!isUserInvited) return res.json(401, {err: "Can't join a group you're not invited to."});
 
   if (!_.contains(group.members, user._id)){
+
     if (group.members.length === 0) {
       group.leader = user._id;
     }
 
     group.members.push(user._id);
-
     if (group.invites.length > 0) {
      group.invites.splice(_.indexOf(group.invites, user._id), 1);
     }
@@ -518,10 +518,12 @@ api.leave = function(req, res, next) {
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
 
-  group.leave(user, keep, function(err){
-    if (err) return next(err);
-    user = group = keep = null;
-    return res.send(204);
+  Group.findOne({"_id": group._id}).populate('members').exec(function (err, group) {
+    group.leave(user, keep, function(err){
+      if (err) return next(err);
+      user = group = keep = null;
+      return res.send(204);
+    });
   });
 };
 
