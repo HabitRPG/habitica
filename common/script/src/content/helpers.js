@@ -87,3 +87,35 @@ export function setFoodDefaults(food, options={}) {
     });
   });
 };
+
+//----------------------------------------
+// Gear Helpers
+//----------------------------------------
+
+export function generateGearSet(gear, options={}) {
+  let setName = formatForTranslator(options.setName);
+  let gearType = options.gearType;
+
+  each(gear, (item, number) => {
+    let text = `${gearType}${setName}${number}Text`;
+    let notes = `${gearType}${setName}${number}Notes`;
+    let attributes = _getGearAttributes(item);
+    let gearDefaults = {
+      text: translator(text),
+      notes: translator(notes, attributes),
+    }
+
+    defaults(item, gearDefaults);
+  });
+}
+
+function _getGearAttributes(gear) {
+  let attr = {};
+
+  if (gear.str) { attr.str = gear.str };
+  if (gear.con) { attr.con = gear.con };
+  if (gear.int) { attr.int = gear.int };
+  if (gear.per) { attr.per = gear.per };
+
+  return attr;
+}
