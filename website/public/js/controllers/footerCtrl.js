@@ -31,6 +31,9 @@ function($scope, $rootScope, User, $http, Notification, ApiUrl) {
     // Stripe
     $.getScript('//checkout.stripe.com/v2/checkout.js');
 
+    // Twitter
+    $.getScript('https://platform.twitter.com/widgets.js');
+
     /* Google Content Experiments
     if (window.env.NODE_ENV === 'production') {
       $.getScript('//www.google-analytics.com/cx/api.js?experiment=boVO4eEyRfysNE5D53nCMQ', function(){
