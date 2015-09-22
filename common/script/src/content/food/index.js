@@ -1,16 +1,14 @@
-import {each, defaults, assign} from 'lodash';
-import {translator as t} from '../helpers';
+import {each, defaults} from 'lodash';
+import {
+  translator as t,
+  merge
+} from '../helpers';
 
 import baseFood from './base';
 import saddle from './saddle';
 import cake from './birthday';
 import candy from './fall';
 
-let allFood = {};
-
-assign(allFood, baseFood);
-assign(allFood, saddle);
-assign(allFood, cake);
-assign(allFood, candy);
+let allFood = merge([baseFood, saddle, cake, candy]);
 
 export default allFood;

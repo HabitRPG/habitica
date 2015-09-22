@@ -1,7 +1,9 @@
-import {each, defaults, assign} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelcase';
-import {translator as t} from '../helpers';
+import {each, defaults} from 'lodash';
+import {
+  translator as t,
+  merge,
+  formatForTranslator
+} from '../helpers';
 
 let dilatoryDistressSeries = {
   dilatoryDistress1: {
@@ -95,16 +97,13 @@ let dilatoryDistressSeries = {
   },
 };
 
-let goldPurchasableQuests = { };
-
-assign(goldPurchasableQuests, dilatoryDistressSeries);
+let goldPurchasableQuests = merge([dilatoryDistressSeries]);
 
 each(goldPurchasableQuests, (quest, name) => {
-  let camelName = camelCase(name);
-  let capitalizedName = capitalize(camelName);
+  let formattedName = formatForTranslator(name);
 
   let questDefaults = {
-    completion: t(`quest${capitalizedName}Completion`),
+    completion: t(`quest${formattedName}Completion`),
     category: 'gold',
   };
 

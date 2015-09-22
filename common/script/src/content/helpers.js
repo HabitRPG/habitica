@@ -1,4 +1,4 @@
-import {each, defaults} from 'lodash';
+import {each, defaults, assign} from 'lodash';
 import capitalize from 'lodash.capitalize';
 import camelCase from 'lodash.camelcase';
 
@@ -27,6 +27,20 @@ export function formatForTranslator(name) {
   let capitalCamelCasedName = capitalize(camelCasedName);
 
   return capitalCamelCasedName;
+};
+
+//----------------------------------------
+// Object Merger
+//----------------------------------------
+
+export function merge(array=[]) {
+  let mergedObject = {};
+
+  each(array, (item) => {
+    assign(mergedObject, item);
+  });
+
+  return mergedObject;
 }
 
 //----------------------------------------

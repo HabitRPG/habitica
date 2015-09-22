@@ -1,5 +1,9 @@
-import {each, defaults, assign} from 'lodash';
-import {translator as t} from '../helpers';
+import {each, defaults} from 'lodash';
+import {
+  translator as t,
+  merge,
+  formatForTranslator
+} from '../helpers';
 
 let inviteFriends = {
   basilist: {
@@ -342,13 +346,13 @@ let goldenKnightSeries = {
   },
 };
 
-let unlockableQuests = { };
-
-assign(unlockableQuests, inviteFriends);
-assign(unlockableQuests, atomSeries);
-assign(unlockableQuests, viceSeries);
-assign(unlockableQuests, moonstoneSeries);
-assign(unlockableQuests, goldenKnightSeries);
+let unlockableQuests = merge([
+  inviteFriends,
+  atomSeries,
+  viceSeries,
+  moonstoneSeries,
+  goldenKnightSeries,
+]);
 
 each(unlockableQuests, (quest, name) => {
   let questDefaults = {

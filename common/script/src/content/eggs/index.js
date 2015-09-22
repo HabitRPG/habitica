@@ -1,12 +1,9 @@
-import {assign} from 'lodash';
+import {merge} from '../helpers';
 
 import dropEggs from './drops';
 import questEggs from './quest';
 
-let allEggs = {};
-
-assign(allEggs, dropEggs);
-assign(allEggs, questEggs);
+let allEggs = merge([dropEggs, questEggs]);
 
 export default {
   allEggs: allEggs,

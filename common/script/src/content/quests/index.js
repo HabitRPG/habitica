@@ -1,7 +1,9 @@
-import {each, assign, defaults, sortBy} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelcase';
-import {translator as t} from '../helpers';
+import {each, defaults, sortBy} from 'lodash';
+import {
+  translator as t,
+  merge,
+  formatForTranslator
+} from '../helpers';
 
 import worldQuests from './world';
 import holidayQuests from './holiday';
@@ -9,28 +11,27 @@ import petQuests from './pet';
 import unlockableQuests from './unlockable';
 import goldPurchasableQuests from './gold-purchasable';
 
-let allQuests = { };
-
-assign(allQuests, worldQuests);
-assign(allQuests, holidayQuests);
-assign(allQuests, petQuests);
-assign(allQuests, unlockableQuests);
-assign(allQuests, goldPurchasableQuests);
+let allQuests = merge([
+  worldQuests,
+  holidayQuests,
+  petQuests,
+  unlockableQuests,
+  goldPurchasableQuests
+]);
 
 each(allQuests, function(quest, key) {
-  let camelName = camelCase(key);
-  let capitalizedName = capitalize(camelName);
+  let formattedName = formatForTranslator(key);
 
   let questDefaults = {
     key: key,
-    text: t(`quest${capitalizedName}Text`),
-    notes: t(`quest${capitalizedName}Notes`),
+    text: t(`quest${formattedName}Text`),
+    notes: t(`quest${formattedName}Notes`),
     canBuy: true,
     value: 4,
   };
 
   let questBossDefaults = {
-    name: t(`quest${capitalizedName}Boss`),
+    name: t(`quest${formattedName}Boss`),
     str: 1,
     def: 1,
   };
