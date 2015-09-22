@@ -18,7 +18,7 @@
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
-          menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
+          menu.pets-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
             p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(class='Pet_HatchingPotion_{{::pot}}',
@@ -146,7 +146,7 @@
 
         li.customize-menu
           menu.pets-menu(label=env.t('magicHatchingPotions'))
-            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium')
+            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),

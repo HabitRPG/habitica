@@ -822,7 +822,8 @@ api.wrap = (user, main=true) ->
           item = content[type][key]
           price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:401, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
+        return cb?({code:403, message: i18n.t('messageNotAvailable', req.language)}) if type is 'hatchingPotions' and not item.canBuy
+        return cb?({code:403, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
         user.balance -= price
         if type is 'gear' then user.items.gear.owned[key] = true
         else
@@ -1070,10 +1071,11 @@ api.wrap = (user, main=true) ->
 
       hatch: (req, cb) ->
         {egg, hatchingPotion} = req.params
-        return cb?({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
-        return cb?({code:401,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:400,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
+        return cb?({code:403,message:i18n.t('messageMissingEggPotion', req.language)}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+        return cb?({code:403,message:i18n.t('messageInvalidEggPotionCombo', req.language)}) if content.hatchingPotions[hatchingPotion].premium and not content.dropEggs[egg]
         pet = "#{egg}-#{hatchingPotion}"
-        return cb?({code:401, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
+        return cb?({code:403, message:i18n.t('messageAlreadyPet', req.language)}) if user.items.pets[pet] and user.items.pets[pet] > 0
         user.items.pets[pet] = 5
         user.items.eggs[egg]--
         user.items.hatchingPotions[hatchingPotion]--
