@@ -518,12 +518,10 @@ api.leave = function(req, res, next) {
   // When removing the user from challenges, should we keep the tasks?
   var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
 
-  Group.findOne({"_id": group._id}).populate('members').exec(function (err, group) {
-    group.leave(user, keep, function(err){
-      if (err) return next(err);
-      user = group = keep = null;
-      return res.send(204);
-    });
+  group.leave(user, keep, function(err){
+    if (err) return next(err);
+    user = group = keep = null;
+    return res.send(204);
   });
 };
 
