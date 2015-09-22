@@ -1165,14 +1165,19 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
   CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
   Golden:           value: 5, text: t('hatchingPotionGolden')
-  Spooky:           value: 3, text: t('hatchingPotionSpooky'), premium: true
+  Spooky:           value: 3, text: t('hatchingPotionSpooky'), premium: true, limited: true
 
 _.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, canBuy: true}
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text}), premium: false, limited: false, canBuy: true}
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
     if not pot.premium
+      m2[egg.key + "-" + pot.key] = true
+
+api.premiumPets = _.transform api.dropEggs, (m, egg) ->
+  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
+    if pot.premium
       m2[egg.key + "-" + pot.key] = true
 
 api.questPets = _.transform api.questEggs, (m, egg) ->

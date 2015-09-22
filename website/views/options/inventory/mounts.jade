@@ -8,7 +8,7 @@ mixin mountList(source,showPremium)
               - mount = egg.key+"-"+potion.key
               div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom', ng-hide='#{potion.premium} && #{!showPremium}')
                 button(class="pet-button Mount_Head_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
-                button(class="pet-button mount-not-owned", ng-hide='user.items.mounts["#{mount}"]')
+                button(class="pet-button mount-not-owned", ng-if='!user.items.mounts["#{mount}"] && (#{potion.canBuy} || user.items.hatchingPotions["#{potion.key}"] || user.items.pets["#{mount}"])')
                   .PixelPaw
       -}
 
