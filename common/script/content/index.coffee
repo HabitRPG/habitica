@@ -12,8 +12,7 @@ t = require('../../dist/scripts/content/helpers').translator
   ---------------------------------------------------------------
 ###
 
-classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = [ 'weapon', 'armor', 'head', 'shield', 'body', 'back', 'headAccessory', 'eyewear']
+classes = require('../../dist/scripts/content/classes')
 
 events = require('../../dist/scripts/content/events')
 
@@ -29,28 +28,8 @@ gear = require('../../dist/scripts/content/gear/index')
 ###
 api.gear =
   tree: gear
-  flat: {}
+  flat: gear.flat
 
-_.each gearTypes, (type) ->
-  _.each classes.concat(['base', 'special', 'mystery', 'armoire']), (klass) ->
-    # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
-    _.each gear[type][klass], (item, i) ->
-      key = "#{type}_#{klass}_#{i}"
-      _.defaults item, {type, key, klass, index: i, str:0, int:0, per:0, con:0}
-
-      if item.event
-        #? indicates null/undefined. true means they own currently, false means they once owned - and false is what we're
-        # after (they can buy back if they bought it during the event's timeframe)
-        _canOwn = item.canOwn or (->true)
-        item.canOwn = (u)->
-          _canOwn(u) and
-            (u.items.gear.owned[key]? or (moment().isAfter(item.event.start) and moment().isBefore(item.event.end))) and
-            (if item.specialClass then (u.stats.class is item.specialClass) else true)
-
-      if item.mystery
-        item.canOwn = (u)-> u.items.gear.owned[key]?
-
-      api.gear.flat[key] = item
 
 ###
   Time Traveler Store, mystery sets need their items mapped in
@@ -101,7 +80,7 @@ api.classes = classes
    ---------------------------------------------------------------
 ###
 
-api.gearTypes = gearTypes
+api.gearTypes = gear.gearTypes
 
 api.spells = require('../../dist/scripts/content/spells/index')
 
