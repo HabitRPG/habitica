@@ -1,7 +1,6 @@
 api = module.exports
 
 _ = require 'lodash'
-moment = require 'moment'
 
 t = require('../../dist/scripts/content/helpers').translator
 
@@ -84,16 +83,6 @@ api.gearTypes = gear.gearTypes
 api.spells = require('../../dist/scripts/content/spells/index')
 
 api.cardTypes = require('../../dist/scripts/content/card-types')
-
-# Intercept all spells to reduce user.stats.mp after casting the spell
-_.each api.spells, (spellClass) ->
-  _.each spellClass, (spell, key) ->
-    spell.key = key
-    _cast = spell.cast
-    spell.cast = (user, target) ->
-      #return if spell.target and spell.target != (if target.type then 'task' else 'user')
-      _cast(user,target)
-      user.stats.mp -= spell.mana
 
 api.special = api.spells.special
 

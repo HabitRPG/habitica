@@ -1,3 +1,5 @@
+import {each} from 'lodash';
+
 import wizard from './wizard';
 import warrior from './warrior';
 import healer from './healer';
@@ -32,5 +34,18 @@ var spells = {
   healer: healer,
   special: special,
 };
+
+// Intercept all spells to reduce user.stats.mp after casting the spell
+each(spells, (spellClass) => {
+  each(spellClass, (spell, key) => {
+    spell.key = key;
+
+    let _cast = spell.cast;
+    spell.cast = (user, target) => {
+      _cast(user, target);
+      return user.stats.mp -= spell.mana;
+    };
+  });
+});
 
 export default spells;
