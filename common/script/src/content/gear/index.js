@@ -1,5 +1,7 @@
 import {translator as t} from '../helpers';
 import {each, defaults} from 'lodash';
+import moment from 'moment';
+
 import classes from '../classes';
 
 import weapon from './weapon';

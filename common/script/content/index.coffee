@@ -27,9 +27,8 @@ gear = require('../../dist/scripts/content/gear/index')
   they are needed in different forms at different points in the app
 ###
 api.gear =
-  tree: gear
+  tree: gear.tree
   flat: gear.flat
-
 
 ###
   Time Traveler Store, mystery sets need their items mapped in
