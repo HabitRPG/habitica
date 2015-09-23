@@ -1,4 +1,5 @@
-import {each} from 'lodash';
+import {each, where} from 'lodash';
+import {flat as flattenedGear} from './gear/index';
 
 let mysterySets = {
   201402: {
@@ -114,6 +115,9 @@ let mysterySets = {
 
 each(mysterySets, (objectSet, name) => {
   objectSet.key = name;
+  objectSet.items = where(flattenedGear, {
+    mystery: name
+  });
 });
 
 export default mysterySets;

@@ -30,7 +30,6 @@ api.gear =
 ###
   Time Traveler Store, mystery sets need their items mapped in
 ###
-_.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
 
 api.timeTravelerStore = require('../../dist/scripts/content/time-traveler-store')
 
