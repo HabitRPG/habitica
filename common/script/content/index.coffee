@@ -33,6 +33,7 @@ api.gear =
   Time Traveler Store, mystery sets need their items mapped in
 ###
 _.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
+
 api.timeTravelerStore = (owned) ->
   ownedKeys = _.keys owned.toObject?() or owned # mongoose workaround
   _.reduce api.mystery, (m,v,k)->
@@ -46,23 +47,9 @@ api.timeTravelerStore = (owned) ->
   ---------------------------------------------------------------
 ###
 
-api.potion =
-  type: 'potion',
-  text: t('potionText'),
-  notes: t('potionNotes'),
-  value: 25,
-  key: 'potion'
+api.potion = require('../../dist/scripts/content/health-potion')
 
-api.armoire =
-  type: 'armoire',
-  text: t('armoireText'),
-  notes: ((user, count)->
-    return t('armoireNotesEmpty')() if (user.flags.armoireEmpty)
-    return t('armoireNotesFull')() + count
-  ),
-  value: 100,
-  key: 'armoire',
-  canOwn: ((u)-> _.contains(u.achievements.ultimateGearSets, true))
+api.armoire = require('../../dist/scripts/content/armoire')
 
 ###
    ---------------------------------------------------------------
