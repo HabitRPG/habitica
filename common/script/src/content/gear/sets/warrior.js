@@ -1,46 +1,117 @@
-import {translator as t} from '../../helpers';
+import {generateGearSet} from '../../helpers';
 import events from '../../events';
 
-export var armor = {
+let armor = {
   1: {
-    text: t('armorWarrior1Text'),
-    notes: t('armorWarrior1Notes', {
-      con: 3
-    }),
     con: 3,
     value: 30
   },
   2: {
-    text: t('armorWarrior2Text'),
-    notes: t('armorWarrior2Notes', {
-      con: 5
-    }),
     con: 5,
     value: 45
   },
   3: {
-    text: t('armorWarrior3Text'),
-    notes: t('armorWarrior3Notes', {
-      con: 7
-    }),
     con: 7,
     value: 65
   },
   4: {
-    text: t('armorWarrior4Text'),
-    notes: t('armorWarrior4Notes', {
-      con: 9
-    }),
     con: 9,
     value: 90
   },
   5: {
-    text: t('armorWarrior5Text'),
-    notes: t('armorWarrior5Notes', {
-      con: 11
-    }),
     con: 11,
     value: 120,
     last: true
   }
+};
+
+let head = {
+  1: {
+    str: 2,
+    value: 15
+  },
+  2: {
+    str: 4,
+    value: 25
+  },
+  3: {
+    str: 6,
+    value: 40
+  },
+  4: {
+    str: 9,
+    value: 60
+  },
+  5: {
+    str: 12,
+    value: 80,
+    last: true
+  }
+};
+
+let shield = {
+  1: {
+    con: 2,
+    value: 20
+  },
+  2: {
+    con: 3,
+    value: 35
+  },
+  3: {
+    con: 5,
+    value: 50
+  },
+  4: {
+    con: 7,
+    value: 70
+  },
+  5: {
+    con: 9,
+    value: 90,
+    last: true
+  }
+};
+
+let weapon = {
+  0: {
+    value: 1
+  },
+  1: {
+    str: 3,
+    value: 20
+  },
+  2: {
+    str: 6,
+    value: 30
+  },
+  3: {
+    str: 9,
+    value: 45
+  },
+  4: {
+    str: 12,
+    value: 65
+  },
+  5: {
+    str: 15,
+    value: 90
+  },
+  6: {
+    str: 18,
+    value: 120,
+    last: true
+  }
+};
+
+generateGearSet(armor, {setName: 'warrior', gearType: 'armor'});
+generateGearSet(head, {setName: 'warrior', gearType: 'head'});
+generateGearSet(shield, {setName: 'warrior', gearType: 'shield'});
+generateGearSet(weapon, {setName: 'warrior', gearType: 'weapon'});
+
+export default {
+  armor: armor,
+  head: head,
+  shield: shield,
+  weapon: weapon,
 };

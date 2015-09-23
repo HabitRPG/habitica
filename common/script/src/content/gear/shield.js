@@ -1,6 +1,8 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {shield as warriorShield} from './sets/warrior';
+
 let shield = {
   base: {
     0: {
@@ -9,49 +11,7 @@ let shield = {
       value: 0
     }
   },
-  warrior: {
-    1: {
-      text: t('shieldWarrior1Text'),
-      notes: t('shieldWarrior1Notes', {
-        con: 2
-      }),
-      con: 2,
-      value: 20
-    },
-    2: {
-      text: t('shieldWarrior2Text'),
-      notes: t('shieldWarrior2Notes', {
-        con: 3
-      }),
-      con: 3,
-      value: 35
-    },
-    3: {
-      text: t('shieldWarrior3Text'),
-      notes: t('shieldWarrior3Notes', {
-        con: 5
-      }),
-      con: 5,
-      value: 50
-    },
-    4: {
-      text: t('shieldWarrior4Text'),
-      notes: t('shieldWarrior4Notes', {
-        con: 7
-      }),
-      con: 7,
-      value: 70
-    },
-    5: {
-      text: t('shieldWarrior5Text'),
-      notes: t('shieldWarrior5Notes', {
-        con: 9
-      }),
-      con: 9,
-      value: 90,
-      last: true
-    }
-  },
+  warrior: warriorShield,
   rogue: {
     0: {
       text: t('weaponRogue0Text'),

@@ -1,6 +1,8 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {head as warriorHead} from './sets/warrior';
+
 let head = {
   base: {
     0: {
@@ -9,49 +11,7 @@ let head = {
       value: 0
     }
   },
-  warrior: {
-    1: {
-      text: t('headWarrior1Text'),
-      notes: t('headWarrior1Notes', {
-        str: 2
-      }),
-      str: 2,
-      value: 15
-    },
-    2: {
-      text: t('headWarrior2Text'),
-      notes: t('headWarrior2Notes', {
-        str: 4
-      }),
-      str: 4,
-      value: 25
-    },
-    3: {
-      text: t('headWarrior3Text'),
-      notes: t('headWarrior3Notes', {
-        str: 6
-      }),
-      str: 6,
-      value: 40
-    },
-    4: {
-      text: t('headWarrior4Text'),
-      notes: t('headWarrior4Notes', {
-        str: 9
-      }),
-      str: 9,
-      value: 60
-    },
-    5: {
-      text: t('headWarrior5Text'),
-      notes: t('headWarrior5Notes', {
-        str: 12
-      }),
-      str: 12,
-      value: 80,
-      last: true
-    }
-  },
+  warrior: warriorHead,
   rogue: {
     1: {
       text: t('headRogue1Text'),
