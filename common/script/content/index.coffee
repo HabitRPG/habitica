@@ -1,7 +1,5 @@
 api = module.exports
 
-_ = require 'lodash'
-
 ###
   ---------------------------------------------------------------
   Gear (Weapons, Armor, Head, Shield)
