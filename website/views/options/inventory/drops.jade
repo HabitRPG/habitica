@@ -10,7 +10,7 @@
             p.muted(ng-show='eggCount < 1')=env.t('noEggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               button.customize-option(class='Pet_Egg_{{::egg}}',
-                ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0)}',
+                ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0) && (Content.dropEggs[egg] || !selectedPotion.premium)}',
                 popover='{{::Content.eggs[egg].notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"}),
                 popover-trigger='mouseenter', popover-placement='right',
@@ -22,8 +22,8 @@
             p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(class='Pet_HatchingPotion_{{::pot}}',
-                ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0)}',
-                popover='{{::Content.hatchingPotions[pot].notes()}}',
+                ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0) && (Content.dropEggs[selectedEgg.key] || !Content.hatchingPotions[pot].premium)}',
+                popover='{{::Content.hatchingPotions[pot].notes()}} {{::Content.hatchingPotions[pot].addlNotes()}}',
                 popover-title!=env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"}),
                 popover-trigger='mouseenter', popover-placement='right',
                 popover-append-to-body='true',
@@ -148,7 +148,7 @@
           menu.pets-menu(label=env.t('magicHatchingPotions'))
             div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
-                popover='{{::pot.notes()}}', popover-append-to-body='true',
+                popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
                 popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
                 popover-trigger='mouseenter', popover-placement='top',
                 ng-click='purchase("hatchingPotions", pot)')

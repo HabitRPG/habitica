@@ -15,7 +15,7 @@
   "messageEquipped": " <%= itemText %> equipped.",
   "messageUnEquipped": "<%= itemText %> un-equipped.",
   "messageMissingEggPotion": "You're missing either that egg or that potion",
-  "messageInvalidEggPotionCombo": "Invalid egg+potion combination. Try hatching a different egg!",
+  "messageInvalidEggPotionCombo": "You can't hatch that egg with this potion. Try a different egg!",
   "messageAlreadyPet": "You already have that pet. Try hatching a different combination!",
   "messageHatched": "Your egg hatched! Visit your stable to equip your pet.",
   "messageNotEnoughGold": "Not Enough Gold",
