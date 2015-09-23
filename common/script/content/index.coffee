@@ -32,12 +32,7 @@ api.gear =
 ###
 _.each api.mystery, (v,k)-> v.items = _.where api.gear.flat, {mystery:k}
 
-api.timeTravelerStore = (owned) ->
-  ownedKeys = _.keys owned.toObject?() or owned # mongoose workaround
-  _.reduce api.mystery, (m,v,k)->
-    return m if k=='wondercon' or ~ownedKeys.indexOf(v.items[0].key) # skip wondercon and already-owned sets
-    m[k] = v;m
-  , {}
+api.timeTravelerStore = require('../../dist/scripts/content/time-traveler-store')
 
 ###
   ---------------------------------------------------------------
