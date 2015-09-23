@@ -2,8 +2,6 @@ api = module.exports
 
 _ = require 'lodash'
 
-t = require('../../dist/scripts/content/helpers').translator
-
 ###
   ---------------------------------------------------------------
   Gear (Weapons, Armor, Head, Shield)
@@ -122,4 +120,3 @@ api.subscriptionBlocks = require('../../dist/scripts/content/subscription-blocks
 api.userDefaults = require('../../dist/scripts/content/user-defaults')
 
 api.faq = require('../../dist/scripts/content/faq')
-
