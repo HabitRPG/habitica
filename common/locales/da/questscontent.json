@@ -206,7 +206,7 @@
     "questKrakenText": "Ufærdigbugtens Kraken",
     "questKrakenNotes": "Det er en varm og solrig dag, og du krydser fredsommeligt Ufærdigbugten, men dine tanker kredser omkring alle de ting du stadig mangler at nå. Så snart du bliver færdig med én opgave, dukker der en ny op, og så endnu en og så endnu en...<br><br> Pludselig giver det et ryk i båden, og slimede tentakler bryder gennem vandoverfladen til alle sider! \"Vi bliver angrebet af Ufærdigbugtens Kraken!\" råber Wolvenhalo.<br><br>\"Skynd dig!\" kalder Lemoness, \"Nedkæmp så mange tentakler og opgaver som muligt, inden nye dukker op i deres sted!\"",
     "questKrakenBoss": "Ufærdigbugtens Kraken",
-    "questKrakenCompletion": "As the Kraken flees, several eggs float to the surface of the water. Lemoness examines them, and her suspicion turns to delight. \"Cuttlefish eggs!\" she says. \"Here, take them as a reward for everything you've completed.\"",
+    "questKrakenCompletion": "Som Kraken flygter flyder adskillelige æg til vandoverfladen. Lemoness undersøger dem og hendes mistanke bliver til glæde. \"Blæksprutte æg!\" siger hun. \"Her, tag dem som belønning for alt det du har gjort.\"",
     "questKrakenDropCuttlefishEgg": "Tiarmet blæksprutte (Æg)",
     "questKrakenUnlockText": "Åbner for køb at Tiarmet blæksprutteæg på Markedet",
     "questWhaleText": "Hvalens Sang",
@@ -244,10 +244,10 @@
     "questCheetahBoss": "Gepard",
     "questCheetahDropCheetahEgg": "Gepard (Æg)",
     "questCheetahUnlockText": "Åbner for køb af Gepardæg på Markedet",
-    "questHorseText": "Ride the Night-Mare",
+    "questHorseText": "Tag på Mare-Ridt",
     "questHorseNotes": "While relaxing in the Tavern with @beffymaroo and @JessicaChase, the talk turns to good-natured boasting about your adventuring accomplishments. Proud of your deeds, and perhaps getting a bit carried away, you brag that you can tame any task around. A nearby stranger turns toward you and smiles. One eye twinkles as he invites you to prove your claim by riding his horse.\nAs you all head for the stables, @UncommonCriminal whispers, \"You may have bitten off more than you can chew. That's no horse - that's a Night-Mare!\" Looking at its stamping hooves, you begin to regret your words...",
     "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
-    "questHorseBoss": "Night-Mare",
-    "questHorseDropHorseEgg": "Horse (Egg)",
+    "questHorseBoss": "Ride-Mare",
+    "questHorseDropHorseEgg": "Hest (Æg)",
     "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market"
 }

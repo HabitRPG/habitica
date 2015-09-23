@@ -244,10 +244,10 @@
     "questCheetahBoss": "gepard",
     "questCheetahDropCheetahEgg": "Gepard (vejce)",
     "questCheetahUnlockText": "Odemyká vejce geparda na Trhu",
-    "questHorseText": "Ride the Night-Mare",
-    "questHorseNotes": "While relaxing in the Tavern with @beffymaroo and @JessicaChase, the talk turns to good-natured boasting about your adventuring accomplishments. Proud of your deeds, and perhaps getting a bit carried away, you brag that you can tame any task around. A nearby stranger turns toward you and smiles. One eye twinkles as he invites you to prove your claim by riding his horse.\nAs you all head for the stables, @UncommonCriminal whispers, \"You may have bitten off more than you can chew. That's no horse - that's a Night-Mare!\" Looking at its stamping hooves, you begin to regret your words...",
-    "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
-    "questHorseBoss": "Night-Mare",
-    "questHorseDropHorseEgg": "Horse (Egg)",
-    "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market"
+    "questHorseText": "Vyjeď si na Noční Můře",
+    "questHorseNotes": "Při odpočinku v Krčmě s @beffymarroo a @JessicaChase stočilo se vyprávění k bodré chvále tvých dobrodružných zásluh. Pyšný na své skutky ses možná nechal trošku unést a vychloubáš se, že zkrotíš jakýkoliv úkol široko daleko. Ciyinec, sedící vedle, se k tobě náhle otočí a usměje se. Mrkne na tebe.\n\"Dokaž to. Projeď se na mém koni.\"\nCestou ke stájím ti @UncommonCriminal pošeptá: \"Možná sis ukousl víc než zvládneš spolknout. To není kůň - to je Noční Můra!\"\nPři pohledu na její bušící kopyta začínáš svých slov litovat...",
+    "questHorseCompletion": "Chce to všechny tvé dovednosti, ale nakonec kůň párkrát dupne, otře se ti o rameno a nechá tě nasednout. Krátce leč pyšně se za nadšeného povzbuzování přátel projedeš kolem Krčmy. Cizinec se široce zašklebí.\n\"Vidím, že to nebyly jen plané řeči! Tvé odhodlání je skutečně působivé. Vezmi si tyhle vejce, vychovej si vlastní koně a možná se jednoho dne opět setkáme.\"\nKdyž si od něj vezmeš vejce, dotkne se špičkami prstů svého klobouku... a zmizí.",
+    "questHorseBoss": "Noční Můra",
+    "questHorseDropHorseEgg": "Kůň (Vejce)",
+    "questHorseUnlockText": "Odemyká vejce koně na Trhu"
 }

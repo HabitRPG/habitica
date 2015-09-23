@@ -68,7 +68,7 @@
     "questEggWhaleAdjective": "chapoteante",
     "questEggCheetahText": "Cheetah",
     "questEggCheetahAdjective": "honesto",
-    "questEggHorseText": "Horse",
+    "questEggHorseText": "Caballo",
     "questEggHorseAdjective": "galloping",
     "eggNotes": "Encuentra una poción de eclosión para verter sobre este huevo y nacerá un <%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "Básico",

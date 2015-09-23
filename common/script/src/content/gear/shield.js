@@ -373,6 +373,36 @@ let shield = {
       }),
       value: 70,
       con: 9
+    },
+    fall2015Rogue: {
+      event: events.fall2015,
+      specialClass: 'rogue',
+      text: t('shieldSpecialFall2015RogueText'),
+      notes: t('shieldSpecialFall2015RogueNotes', {
+        str: 8
+      }),
+      value: 80,
+      str: 8
+    },
+    fall2015Warrior: {
+      event: events.fall2015,
+      specialClass: 'warrior',
+      text: t('shieldSpecialFall2015WarriorText'),
+      notes: t('shieldSpecialFall2015WarriorNotes', {
+        con: 7
+      }),
+      value: 70,
+      con: 7
+    },
+    fall2015Healer: {
+      event: events.fall2015,
+      specialClass: 'healer',
+      text: t('shieldSpecialFall2015HealerText'),
+      notes: t('shieldSpecialFall2015HealerNotes', {
+        con: 9
+      }),
+      value: 70,
+      con: 9
     }
   },
   mystery: {

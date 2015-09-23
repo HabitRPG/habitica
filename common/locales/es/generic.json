@@ -1,7 +1,7 @@
 {
     "languageName": "Español",
     "stringNotFound": "Cadena de caracteres '<%= string %>' no se ha encontrado.",
-    "titleIndex": "Habitica | Tu Vida El Juego de Rol",
+    "titleIndex": "Habitica | El juego de rol de tu vida",
     "habitica": "Habitica",
     "expandToolbar": "Abrir barra de herramientas",
     "collapseToolbar": "Cerrar barra de herramientas",

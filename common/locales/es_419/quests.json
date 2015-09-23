@@ -32,7 +32,7 @@
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Items to Collect",
     "bossDmg1": "Cada tarea diaria o tarea pendiente completada y cada hábito positivo lastima al Jefe. Dañalo aun mas con las tareas mas rojas o aplástalos brutalmente y hazlos estallar en llamas. El Jefe hará daño a cada participante de la misión por cada tarea diaria que dejes pasar (multiplicado por la fuerza del jefe) en adición al daño regular, ¡así que mantén a tu grupo saludable completando tus tareas diarias! <strong> Todo daño hacia y desde el jefe se anota en tu cron (el día de cambio) </strong>",
-    "bossDmg2": "Only participants will fight the boss and share in the quest loot.",
+    "bossDmg2": "Sólo los participantes lucharán contra el Jefe y se repartirán el botín.",
     "tavernBossInfo": "Para hacerle daño a un jefe mundial, completa tus Diarias y Pendientes. Mientras más alto sea el nivel de la tarea, más daño le harás al jefe (completando las rojas, hechizos de los Magos, ataques de los Guerreros, etc). Por cada Diaria que no completes (multiplicado por la Fuerza del jefe) aumentará la ira del jefe. Una vez que su ira llegue al máximo, algo malo pasará - ¡así que completa tus diarias! <strong>Todo el daño que ocasionen tu y el jefe es calculado durante el cron (al reinicio de tu día).</strong>",
     "bossColl1": "Para coleccionar artículos, haga tus tareas positivas. Objetos de misiones se ganan como objetos normales; sin embargo, no verá estos artículos hasta el próximo día cuando todo que encontró estará sumado y contribuido al total.",
     "bossColl2": "Solo los participantes pueden coleccionar artículos y compartir del botín de la misión.",
@@ -67,5 +67,5 @@
     "startAQuest": "INICIAR UNA MISIÓN",
     "startQuest": "Iniciar Misión",
     "whichQuestStart": "Which quest do you want to start?",
-    "getMoreQuests": "Get more quests"
+    "getMoreQuests": "Obtén más misiones"
 }

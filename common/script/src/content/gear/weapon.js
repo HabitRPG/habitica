@@ -579,6 +579,49 @@ let weapon = {
       }),
       value: 90,
       int: 9
+    },
+    fall2015Rogue: {
+      event: events.fall2015,
+      specialClass: 'rogue',
+      text: t('weaponSpecialFall2015RogueText'),
+      notes: t('weaponSpecialFall2015RogueNotes', {
+        str: 8
+      }),
+      value: 80,
+      str: 8
+    },
+    fall2015Warrior: {
+      event: events.fall2015,
+      specialClass: 'warrior',
+      text: t('weaponSpecialFall2015WarriorText'),
+      notes: t('weaponSpecialFall2015WarriorNotes', {
+        str: 15
+      }),
+      value: 90,
+      str: 15
+    },
+    fall2015Mage: {
+      event: events.fall2015,
+      specialClass: 'wizard',
+      twoHanded: true,
+      text: t('weaponSpecialFall2015MageText'),
+      notes: t('weaponSpecialFall2015MageNotes', {
+        int: 15,
+        per: 7
+      }),
+      value: 160,
+      int: 15,
+      per: 7
+    },
+    fall2015Healer: {
+      event: events.fall2015,
+      specialClass: 'healer',
+      text: t('weaponSpecialFall2015HealerText'),
+      notes: t('weaponSpecialFall2015HealerNotes', {
+        int: 9
+      }),
+      value: 90,
+      int: 9
     }
   },
   mystery: {

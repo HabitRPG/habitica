@@ -487,6 +487,46 @@ let head = {
       value: 60,
       int: 7
     },
+    fall2015Rogue: {
+      event: events.fall2015,
+      specialClass: 'rogue',
+      text: t('headSpecialFall2015RogueText'),
+      notes: t('headSpecialFall2015RogueNotes', {
+        per: 9
+      }),
+      value: 60,
+      per: 9
+    },
+    fall2015Warrior: {
+      event: events.fall2015,
+      specialClass: 'warrior',
+      text: t('headSpecialFall2015WarriorText'),
+      notes: t('headSpecialFall2015WarriorNotes', {
+        str: 9
+      }),
+      value: 60,
+      str: 9
+    },
+    fall2015Mage: {
+      event: events.fall2015,
+      specialClass: 'wizard',
+      text: t('headSpecialFall2015MageText'),
+      notes: t('headSpecialFall2015MageNotes', {
+        per: 7
+      }),
+      value: 60,
+      per: 7
+    },
+    fall2015Healer: {
+      event: events.fall2015,
+      specialClass: 'healer',
+      text: t('headSpecialFall2015HealerText'),
+      notes: t('headSpecialFall2015HealerNotes', {
+        int: 7
+      }),
+      value: 60,
+      int: 7
+    },
     gaymerx: {
       event: events.gaymerx,
       text: t('headSpecialGaymerxText'),
@@ -702,6 +742,7 @@ let head = {
       notes: t('headArmoireYellowHairbowNotes', {
         attrs: 5
       }),
+      value: 100,
       int: 5,
       per: 5,
       str: 5,
@@ -714,6 +755,7 @@ let head = {
       notes: t('headArmoireRedFloppyHatNotes', {
         attrs: 6
       }),
+      value: 100,
       con: 6,
       int: 6,
       per: 6,
@@ -728,6 +770,7 @@ let head = {
         str: 6,
         con: 5
       }),
+      value: 100,
       int: 5,
       str: 6,
       con: 5,

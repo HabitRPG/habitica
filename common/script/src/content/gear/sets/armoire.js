@@ -80,6 +80,7 @@ export var armor = {
       str: 5,
       con: 6
     }),
+    value: 100,
     int: 6,
     str: 5,
     con: 6,

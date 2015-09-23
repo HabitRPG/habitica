@@ -1517,8 +1517,6 @@ api.wrap = (user, main=true) ->
       return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0)))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
-        # current breakdown - 1% (adjustable) chance on drop
-        # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
         rarity = user.fns.predictableRandom(user.stats.gp)
 
         # Food: 40% chance

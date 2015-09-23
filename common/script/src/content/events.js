@@ -11,7 +11,8 @@ let events = {
   fall: {start:'2014-09-21',end:'2014-11-01'},
   winter2015: {start:'2014-12-21',end:'2015-02-02'},
   spring2015: {start:'2015-03-20',end:'2015-05-02'},
-  summer2015: {start:'2015-06-20',end:'2015-08-02'}
+  summer2015: {start:'2015-06-20',end:'2015-08-02'},
+  fall2015: {start:'2015-09-21',end:'2015-11-01'},
 }
 
 export default events;

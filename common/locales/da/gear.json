@@ -461,7 +461,7 @@
     "headArmoireRedFloppyHatText": "Rød Hængende Hat",
     "headArmoireRedFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a radiant red color. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Independent Item.",
     "headArmoirePlagueDoctorHatText": "Pestlægehat",
-    "headArmoirePlagueDoctorHatNotes": "En autentisk hat båret af doktorer der bekæmper plagen af udsættelse! Hæver Styrke med <%= str %>, Intelligens med <%= int %>, og Konstitution med <%= con %>. Fortryllet Klædeskab: Plage Doktor Sæt (Genstand 1 af 3)",
+    "headArmoirePlagueDoctorHatNotes": "En autentisk hat båret af de læger, der bekæmper udsættelsespesten! Øger Styrke med <%= str %>, Intelligens med <%= int %>, og Konstitution med <%= con %>. Fortryllet Klædeskab: Pestlægesæt (Genstand 1 af 3).",
     "offhand": "skjoldhånds-udstyr",
     "shieldBase0Text": "Intet Skjoldhånds-udstyr",
     "shieldBase0Notes": "Intet skjold eller andet våben.",
@@ -644,5 +644,5 @@
     "eyewearMystery301405Text": "Monokel",
     "eyewearMystery301405Notes": "Ingen øjenbeklædning er smartere end en monokel - måske bortset fra goggles. Giver ingen bonusser. Juli 3015 Abonnentting.",
     "eyewearArmoirePlagueDoctorMaskText": "Pestlægemaske",
-    "eyewearArmoirePlagueDoctorMaskNotes": "En autentisk maske båret af doktorer, der bekæmper plagen af udsættelse. Bringer ingen bonusser. Fortryllet klædeskab: Plage Doktor Sæt (genstand 2 af 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "En autentisk maske båret af de læger, der bekæmper udsættelsespesten. Giver ingen bonusser. Fortryllet Klædeskab: Pestlægesæt (Genstand 2 af 3)."
 }

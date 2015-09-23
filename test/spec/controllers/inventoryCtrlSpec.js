@@ -229,13 +229,17 @@ describe('Inventory Controller', function() {
     });
 
     it('returns true if there are no items left to purchase', inject(function(Content) {
-      sandbox.stub(Content, 'timeTravelerStore').returns({});
-      for (var pet in Content.timeTravelStable.pets) {
+      _.forEach(Content.gear.flat, function(v,item) {
+        if (item.indexOf('mystery') > -1) {
+          user.items.gear.owned[item] = true;
+        }
+      });
+      _.forEach(Content.timeTravelStable.pets, function(v,pet) {
         user.items.pets[pet] = 5;
-      }
-      for (var mount in Content.timeTravelStable.mounts) {
+      });
+      _.forEach(Content.timeTravelStable.mounts, function(v,mount) {
         user.items.mounts[mount] = true;
-      }
+      });
 
       expect(scope.hasAllTimeTravelerItems()).to.eql(true);
     }));
@@ -247,7 +251,11 @@ describe('Inventory Controller', function() {
     });
 
     it('returns true for Mystery Sets if there are no sets left to purchase', inject(function(Content) {
-      sandbox.stub(Content, 'timeTravelerStore').returns({});
+      _.forEach(Content.gear.flat, function(v,item) {
+        if (item.indexOf('mystery') > -1) {
+          user.items.gear.owned[item] = true;
+        }
+      });
 
       expect(scope.hasAllTimeTravelerItemsOfType('mystery')).to.eql(true);
     }));
@@ -257,9 +265,9 @@ describe('Inventory Controller', function() {
     });
 
     it('returns true for pets if user owns all pets in the Time Travel Stable', inject(function(Content) {
-      for (var pet in Content.timeTravelStable.pets) {
+      _.forEach(Content.timeTravelStable.pets, function(v,pet) {
         user.items.pets[pet] = 5;
-      }
+      });
 
       expect(scope.hasAllTimeTravelerItemsOfType('pets')).to.eql(true);
     }));
@@ -269,9 +277,9 @@ describe('Inventory Controller', function() {
     });
 
     it('returns true for mounts if user owns all mounts in the Time Travel Stable', inject(function(Content) {
-      for (var mount in Content.timeTravelStable.mounts) {
+      _.forEach(Content.timeTravelStable.mounts, function(v,mount) {
         user.items.mounts[mount] = true;
-      }
+      });
 
       expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(true);
     }));

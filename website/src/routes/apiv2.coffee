@@ -197,7 +197,7 @@ module.exports = (swagger, v2) ->
         ]
       action: user.hourglassPurchase
 
-    "/user/inventory/hourglass/mystery/{key}":
+    "/user/inventory/mystery/{key}":
       spec:
         method: 'POST'
         description: "Purchase a Mystery Item Set using a Mystic Hourglass"

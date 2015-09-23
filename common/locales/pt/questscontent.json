@@ -238,7 +238,7 @@
     "questDilatoryDistress3DropFish": "Peixe (Comida).",
     "questDilatoryDistress3DropWeapon": "Tridente da Maré Absoluta (Arma)",
     "questDilatoryDistress3DropShield": "Escudo de Pérola da Lua (Item para mão do escudo)",
-    "questCheetahText": "É tão Guepardo",
+    "questCheetahText": "Tão Guepardo",
     "questCheetahNotes": "Enquanto você caminha pela Savana Sloensteadi com seus amigos @PainterProphet, @tivaquinn, @Unruly Hyena, e @Crawford, você fica assustado ao ver um Guepardo correndo com um novo Habiticano na boca. Embaixo das patas ferozes do Guepardo, tarefas somem mesmo sem serem completadas -- antes de alguém sequer ter a chance de finalizá-las. O Habiticano vê você e grita \"Por favor, me ajude! Este Guepardo está me fazendo subir de nível muito rápido, mas não estou terminando tarefa nenhuma. Quero ir mais devagar e aproveitar o jogo. Faça ele parar!\" Você lembra com carinho dos seus dias de iniciante e sabe que precisa ajudar o novato parando o Guepardo!",
     "questCheetahCompletion": "O novo Habiticano está ofegante depois do ocorrido com o Guepardo, mas agradece a você e aos seus amigos pela ajuda. \"Estou feliz que o Guepardo não poderá mais abocanhar ninguém. Ele até deixou alguns ovos de Guepardo para a gente, então talvez possamos criá-los como mascotes mais confiáveis!\"",
     "questCheetahBoss": "Guepardo",
@@ -246,7 +246,7 @@
     "questCheetahUnlockText": "Desbloqueia ovos de guepardo para comprar no Mercado",
     "questHorseText": "Monte no Pesadelo",
     "questHorseNotes": "Enquanto relaxa na Taverna com @beffymaroo e @JessicaChase, a conversa acaba virando sobre as grandes conquistas que você teve em suas aventuras. Orgulhoso dos seus feitos, e talvez um pouco empolgado demais, você se vangloria dizendo que pode dominar qualquer tarefa. Um estranho que passava por perto vira pra você e sorri. Apenas um olho pisca e ele lhe desafia a andar no seu cavalo para provar o que você disse.\nEnquanto vocês todos vão para o estábulo, o @UncommonCriminal sussura: \"Talvez você tenha botado no prato mais do que pode comer. Esse não é um cavalo - é um Pesa-Delo!\". Olhando para as pegadas dele, você começa a se arrepender de ter dito aquilo...",
-    "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
+    "questHorseCompletion": "Foi necessaria toda sua habilidade, mas finalmente o cavalo bate com o casco no chão e se apoia no seu ombro antes de te deixar monta-lo. Você cavalga breve porém orgulhosamente ao redor da Taverna enquanto seus amigos vibram. O estranho sorri de ponta a ponta.\n\"Então não foi conversa fiada! Sua determinação é realmente impressionante. Pegue estes ovos para criar seus próprios cavalos, e talvez nos encontraremos novamente algum dia.\" Você pega os ovos, o estranho ajeita seu chapéu.... e desaparece.",
     "questHorseBoss": "Pesadelo",
     "questHorseDropHorseEgg": "Cavalo (Ovo)",
     "questHorseUnlockText": "Desbloqueie ovos de Cavalo no Mercado"

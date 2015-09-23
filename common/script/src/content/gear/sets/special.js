@@ -347,6 +347,46 @@ export var armor = {
     value: 90,
     con: 15
   },
+  fall2015Rogue: {
+    event: events.fall2015,
+    specialClass: 'rogue',
+    text: t('armorSpecialFall2015RogueText'),
+    notes: t('armorSpecialFall2015RogueNotes', {
+      per: 15
+    }),
+    value: 90,
+    per: 15
+  },
+  fall2015Warrior: {
+    event: events.fall2015,
+    specialClass: 'warrior',
+    text: t('armorSpecialFall2015WarriorText'),
+    notes: t('armorSpecialFall2015WarriorNotes', {
+      con: 9
+    }),
+    value: 90,
+    con: 9
+  },
+  fall2015Mage: {
+    event: events.fall2015,
+    specialClass: 'wizard',
+    text: t('armorSpecialFall2015MageText'),
+    notes: t('armorSpecialFall2015MageNotes', {
+      int: 9
+    }),
+    value: 90,
+    int: 9
+  },
+  fall2015Healer: {
+    event: events.fall2015,
+    specialClass: 'healer',
+    text: t('armorSpecialFall2015HealerText'),
+    notes: t('armorSpecialFall2015HealerNotes', {
+      con: 15
+    }),
+    value: 90,
+    con: 15
+  },
   gaymerx: {
     event: events.gaymerx,
     text: t('armorSpecialGaymerxText'),
