@@ -8,17 +8,17 @@ else
   .meter-label(tooltip=env.t('bossHP'))
     span.glyphicon.glyphicon-heart
   .meter.health
-    .bar(ng-style='{width: Shared.percent(progress.hp, boss.hp) + "%"}')
+    .bar(ng-style='{width: Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp) + "%"}')
     span.meter-text.value
-      | {{Math.ceil(progress.hp) | roundLargeNumbers}} 
-      | &nbsp;/ {{::boss.hp | roundLargeNumbers}}
-  div(ng-if='boss.rage')
-    .meter-label(tooltip='Rage')
+      | {{Math.ceil(group.quest.progress.hp) | roundLargeNumbers}} 
+      | &nbsp;/ {{::Content.quests[group.quest.key].boss.hp | roundLargeNumbers}}
+  div(ng-if='Content.quests[group.quest.key].boss.rage')
+    .meter-label(tooltip=env.t('rage'))
       span.glyphicon.glyphicon-fire
-    .meter.mana(popover="{{::boss.rage.description()}}",
-      popover-title="{{::boss.rage.title()}}",
+    .meter.mana(popover="{{::Content.quests[group.quest.key].boss.rage.description()}}",
+      popover-title="{{::Content.quests[group.quest.key].boss.rage.title()}}",
       popover-trigger='mouseenter', popover-placement='bottom')
-      .bar(ng-style='{width: Shared.percent(progress.rage, boss.rage.value) + "%"}')
+      .bar(ng-style='{width: Shared.percent(group.quest.progress.rage, Content.quests[group.quest.key].boss.rage.value) + "%"}')
       span.meter-text.value
-        | {{Math.ceil(progress.rage)  | roundLargeNumbers}} 
-        | &nbsp;/ {{::boss.rage.value | roundLargeNumbers}}
+        | {{Math.ceil(group.quest.progress.rage)  | roundLargeNumbers}} 
+        | &nbsp;/ {{::Content.quests[group.quest.key].boss.rage.value | roundLargeNumbers}}

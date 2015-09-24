@@ -291,5 +291,14 @@
   "questHorseCompletion": "It takes all your skill, but finally the horse stamps a couple of hooves and nuzzles you in the shoulder before allowing you to mount. You ride briefly but proudly around the Tavern grounds while your friends cheer. The stranger breaks into a broad grin.\n\"I can see that was no idle boast! Your determination is truly impressive. Take these eggs to raise horses of your own, and perhaps we'll meet again one day.\" You take the eggs, the stranger tips his hat... and vanishes.",
   "questHorseBoss": "Night-Mare",
   "questHorseDropHorseEgg": "Horse (Egg)",
-  "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market"
+  "questHorseUnlockText": "Unlocks purchasable Horse eggs in the Market",
+
+  "questBurnoutText": "Placeholder",
+  "questBurnoutNotes": "Placeholder",
+  "questBurnoutCompletion": "Placeholder",
+  "questBurnoutCompletionChat": "Placeholder",
+  "questBurnoutBoss": "Burnout",
+  "questBurnoutBossRageTitle": "Placeholder",
+  "questBurnoutBossRageDescription": "Placeholder",
+  "questBurnoutDesperation": "Placeholder"
 }

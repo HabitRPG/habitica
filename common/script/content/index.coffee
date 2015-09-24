@@ -1325,6 +1325,35 @@ api.quests =
       gp: 0
       exp: 0
 
+  burnout:
+    text: t("questBurnoutText")
+    notes: t("questBurnoutNotes")
+    completion: t("questBurnoutCompletion")
+    completionChat: t("questBurnoutCompletionChat")
+    value: 0
+    canBuy: false
+    category: 'world'
+    boss:
+      name: t("questBurnoutBoss")
+      hp: 5000000
+      str: 1
+      def: 1
+      rage:
+        title: t("questBurnoutBossRageTitle")
+        description: t("questBurnoutBossRageDescription")
+        value: 5000000
+        healing: .3
+      desperation:
+        threshold: 500000
+        str: 3.5
+        def: 2
+        text:t('questBurnoutDesperation')
+    drop:
+      items: [
+      ]
+      gp: 0
+      exp: 0
+
   evilsanta:
     canBuy:false
     text: t('questEvilSantaText') # title of the quest (eg, Deep into Vice's Layer)
