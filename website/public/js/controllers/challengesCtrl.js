@@ -327,6 +327,21 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       });
     };
 
+    $scope.filterInitialChallenges = function() {
+      $scope.groupsFilter = _.uniq(_.pluck($scope.challenges, 'group'), function(g){return g._id});
+      $scope.search = {
+        group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
+        _isMember: "either",
+        _isOwner: "either"
+      };
+      //If we game from a group, then override the filter to that group
+
+      if ($scope.groupIdFilter) {
+        $scope.search.group = {};
+        $scope.search.group[$scope.groupIdFilter] = true ;
+      }
+    }
+
     function _calculateMaxPrize(gid) {
 
       var userBalance = User.getBalanceInGems() || 0;
@@ -377,17 +392,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       } else {
         Challenges.Challenge.query(function(challenges){
           $scope.challenges = challenges;
-          $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
-          $scope.search = {
-            group: _.transform($scope.groups, function(m,g){m[g._id]=true;}),
-            _isMember: "either",
-            _isOwner: "either"
-          };
-          //If we game from a group, then override the filter to that group
-          if ($scope.groupIdFilter) {
-            $scope.search.group = {};
-            $scope.search.group[$scope.groupIdFilter] = true ;
-          }
+          $scope.filterInitialChallenges();
         });
       }
     };
