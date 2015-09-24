@@ -69,6 +69,7 @@ module.exports = function(grunt) {
           {expand: true, cwd: '', src: 'common/dist/sprites/spritesmith*.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/backer-only/*.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'common/img/sprites/npc_ian.gif', dest: 'website/build/'},
+          {expand: true, cwd: '', src: 'common/img/sprites/quest_burnout.gif', dest: 'website/build/'},
           {expand: true, cwd: 'website/public/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
         ]
       }
@@ -87,6 +88,7 @@ module.exports = function(grunt) {
           'website/build/common/dist/sprites/*.png',
           'website/build/common/img/sprites/backer-only/*.gif',
           'website/build/common/img/sprites/npc_ian.gif',
+          'website/build/common/img/sprites/quest_burnout.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
         dest: 'website/build/*.css'

@@ -9,11 +9,13 @@ div(ng-if='group.quest.active===true')
           include ./collectionStats
 
         div(ng-bind-html='::Content.quests[group.quest.key].notes()')
-        unless tavern
           quest-rewards(key='{{::group.quest.key}}')
 
       tab(heading=env.t('questParticipants'))
         +participants(true)
+
+  if tavern
+    include ./bossStats
 
   hr
 
