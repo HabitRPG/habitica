@@ -1088,7 +1088,7 @@ api.dropEggs =
 
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
-    canBuy:true
+    canBuy: (()->true)
     value: 3
     key: key
     notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
@@ -1096,27 +1096,27 @@ _.each api.dropEggs, (egg,key) ->
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: false
-  Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: false
-  Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: false
-  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: false, mountText: t('questEggEggMountText')
-  Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: false
-  Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: false
-  Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: false
-  Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: false
-  Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: false
-  Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: false
-  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: false
-  Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: false
-  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: false
-  Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: false
-  Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: false
-  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: false
-  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: false
-  Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: false
-  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: false
-  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: false
-  Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: false
+  Gryphon:          text: t('questEggGryphonText'),  adjective: t('questEggGryphonAdjective'), canBuy: ((q)-> q.gryphon? > 0)
+  Hedgehog:         text: t('questEggHedgehogText'), adjective: t('questEggHedgehogAdjective'), canBuy: ((q)-> q.hedgehog? > 0)
+  Deer:             text: t('questEggDeerText'), adjective: t('questEggDeerAdjective'), canBuy: ((q)-> q.ghost_stag? > 0)
+  Egg:              text: t('questEggEggText'), adjective: t('questEggEggAdjective'), canBuy: (()->false), mountText: t('questEggEggMountText')
+  Rat:              text: t('questEggRatText'), adjective: t('questEggRatAdjective'), canBuy: ((q)-> q.rat? > 0)
+  Octopus:          text: t('questEggOctopusText'), adjective: t('questEggOctopusAdjective'), canBuy: ((q)-> q.octopus? > 0)
+  Seahorse:         text: t('questEggSeahorseText'), adjective: t('questEggSeahorseAdjective'), canBuy: ((q)-> q.dilatory_derby? > 0)
+  Parrot:           text: t('questEggParrotText'), adjective: t('questEggParrotAdjective'), canBuy: ((q)-> q.harpy? > 0)
+  Rooster:          text: t('questEggRoosterText'), adjective: t('questEggRoosterAdjective'), canBuy: ((q)-> q.rooster? > 0)
+  Spider:           text: t('questEggSpiderText'), adjective: t('questEggSpiderAdjective'), canBuy: ((q)-> q.spider? > 0)
+  Owl:              text: t('questEggOwlText'), adjective: t('questEggOwlAdjective'), canBuy: ((q)-> q.owl? > 0)
+  Penguin:          text: t('questEggPenguinText'), adjective: t('questEggPenguinAdjective'), canBuy: ((q)-> q.penguin? > 0)
+  TRex:             text: t('questEggTRexText'), adjective: t('questEggTRexAdjective'), canBuy: ((q)-> (q.trex? > 0 or q.trex_undead? > 0))
+  Rock:             text: t('questEggRockText'), adjective: t('questEggRockAdjective'), canBuy: ((q)-> q.rock? > 0)
+  Bunny:            text: t('questEggBunnyText'), adjective: t('questEggBunnyAdjective'), canBuy: ((q)-> q.bunny? > 0)
+  Slime:            text: t('questEggSlimeText'), adjective: t('questEggSlimeAdjective'), canBuy: ((q)-> q.slime? > 0)
+  Sheep:            text: t('questEggSheepText'), adjective: t('questEggSheepAdjective'), canBuy: ((q)-> q.sheep? > 0)
+  Cuttlefish:       text: t('questEggCuttlefishText'), adjective: t('questEggCuttlefishAdjective'), canBuy: ((q)-> q.kraken? > 0)
+  Whale:            text: t('questEggWhaleText'), adjective: t('questEggWhaleAdjective'), canBuy: ((q)-> q.whale? > 0)
+  Cheetah:          text: t('questEggCheetahText'), adjective: t('questEggCheetahAdjective'), canBuy: ((q)-> q.cheetah? > 0)
+  Horse:            text: t('questEggHorseText'), adjective: t('questEggHorseAdjective'), canBuy: ((q)-> q.horse? > 0)
 
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
