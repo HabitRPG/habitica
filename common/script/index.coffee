@@ -822,7 +822,7 @@ api.wrap = (user, main=true) ->
           item = content[type][key]
           price = item.value / 4
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
-        return cb?({code:403, message: i18n.t('messageNotAvailable', req.language)}) if type is 'hatchingPotions' and not item.canBuy
+        return cb?({code:403, message: i18n.t('messageNotAvailable', req.language)}) if not item.canBuy(user)
         return cb?({code:403, message: i18n.t('notEnoughGems', req.language)}) if (user.balance < price) or !user.balance
         user.balance -= price
         if type is 'gear' then user.items.gear.owned[key] = true

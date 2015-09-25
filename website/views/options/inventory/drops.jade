@@ -102,7 +102,7 @@
           menu.pets-menu(label=env.t('eggs'))
             p.muted!=env.t('dropsExplanation')
 
-            div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy(user.achievements.quests)')
+            div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy(user)')
               button.customize-option(class='Pet_Egg_{{::egg.key}}',
                 popover='{{::egg.notes()}}', popover-append-to-body='true',
                 popover-title!=env.t("egg", {eggType: "{{::egg.text()}}"}),
@@ -126,7 +126,7 @@
 
         li.customize-menu
           menu.pets-menu(label=env.t('magicHatchingPotions'))
-            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy')
+            div(ng-repeat='pot in Content.hatchingPotions', ng-if='pot.premium && pot.canBuy(user)')
               button.customize-option(class='Pet_HatchingPotion_{{::pot.key}}',
                 popover='{{::pot.notes()}} {{::pot.addlNotes()}}', popover-append-to-body='true',
                 popover-title!=env.t("potion", {potionType: "{{::pot.text()}}"}),
@@ -139,7 +139,7 @@
         li.customize-menu
           menu.pets-menu(label=env.t('food'))
             p.muted!=env.t('dropsExplanation')
-            div(ng-repeat='food in Content.food', ng-if='food.canBuy')
+            div(ng-repeat='food in Content.food', ng-if='food.canBuy(user)')
               button.customize-option(class='Pet_Food_{{::food.key}}',
                 popover='{{::food.notes()}}', popover-title='{{::food.text()}}',
                 popover-trigger='mouseenter', popover-placement='top',
