@@ -65,7 +65,7 @@ let canOwnCategories = [
 ];
 
 export default {
-  allQuests: allQuests,
+  all: allQuests,
   byLevel: questsByLevel,
   canOwnCategories: canOwnCategories,
 };
