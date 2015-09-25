@@ -1834,6 +1834,11 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked)
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
+      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
+      progress = user.party.quest.progress; _progress = _.cloneDeep progress
+      _.merge progress, {down:0,up:0}
+      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
+
       # Analytics
       user.flags.cronCount?=0
       user.flags.cronCount++
@@ -1845,14 +1850,12 @@ api.wrap = (user, main=true) ->
         uuid: user._id,
         user: user,
         resting: user.preferences.sleep,
-        cronCount: user.flags.cronCount
+        cronCount: user.flags.cronCount,
+        progressUp: _progress.up,
+        progressDown: _progress.down
       }
       options.analytics?.track('Cron', analyticsData)
 
-      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
-      progress = user.party.quest.progress; _progress = _.cloneDeep progress
-      _.merge progress, {down:0,up:0}
-      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
       _progress
 
     # Registered users with some history
