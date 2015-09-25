@@ -1,6 +1,6 @@
 moment = require('moment')
 _ = require('lodash')
-content = require('./content/index.coffee')
+content = require('../dist/scripts/content/index')
 i18n = require('./i18n.coffee')
 api = module.exports = {}
 
