@@ -12,10 +12,10 @@ router.get('/paypal/subscribe/success', i18n.getUserLanguage, payments.paypalSub
 router.get('/paypal/subscribe/cancel', auth.authWithUrl, i18n.getUserLanguage, payments.paypalSubscribeCancel);
 router.post('/paypal/ipn', i18n.getUserLanguage, payments.paypalIPN); // misc ipn handling
 
-router.post("/stripe/checkout", auth.auth, i18n.getUserLanguage, payments.stripeCheckout);
-router.post("/stripe/subscribe/edit", auth.auth, i18n.getUserLanguage, payments.stripeSubscribeEdit)
-//router.get("/stripe/subscribe", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribe); // checkout route is used (above) with ?plan= instead
-router.get("/stripe/subscribe/cancel", auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribeCancel);
+router.post('/stripe/checkout', auth.auth, i18n.getUserLanguage, payments.stripeCheckout);
+router.post('/stripe/subscribe/edit', auth.auth, i18n.getUserLanguage, payments.stripeSubscribeEdit);
+//router.get('/stripe/subscribe', auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribe); // checkout route is used (above) with ?plan= instead
+router.get('/stripe/subscribe/cancel', auth.authWithUrl, i18n.getUserLanguage, payments.stripeSubscribeCancel);
 
 router.post('/amazon/verifyAccessToken', auth.auth, i18n.getUserLanguage, payments.amazonVerifyAccessToken);
 router.post('/amazon/createOrderReferenceId', auth.auth, i18n.getUserLanguage, payments.amazonCreateOrderReferenceId);
@@ -23,9 +23,9 @@ router.post('/amazon/checkout', auth.auth, i18n.getUserLanguage, payments.amazon
 router.post('/amazon/subscribe', auth.auth, i18n.getUserLanguage, payments.amazonSubscribe);
 router.get('/amazon/subscribe/cancel', auth.authWithUrl, i18n.getUserLanguage, payments.amazonSubscribeCancel);
 
-router.post("/iap/android/verify", auth.authWithUrl, /*i18n.getUserLanguage, */payments.iapAndroidVerify);
-router.post("/iap/ios/verify", auth.auth, /*i18n.getUserLanguage, */ payments.iapIosVerify);
+router.post('/iap/android/verify', auth.authWithUrl, /*i18n.getUserLanguage, */payments.iapAndroidVerify);
+router.post('/iap/ios/verify', auth.auth, /*i18n.getUserLanguage, */ payments.iapIosVerify);
 
-router.get("/api/v2/coupons/valid-discount/:code", /*auth.authWithUrl, i18n.getUserLanguage, */ payments.validCoupon);
+router.get('/api/v2/coupons/valid-discount/:code', /*auth.authWithUrl, i18n.getUserLanguage, */ payments.validCoupon);
 
 module.exports = router;

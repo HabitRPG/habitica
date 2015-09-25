@@ -593,8 +593,13 @@ let head = {
       text: t('headMystery201508Text'),
       notes: t('headMystery201508Notes'),
       mystery: '201508',
-      value: 0,
-      int: 0
+      value: 0
+    },
+    201509: {
+      text: t('headMystery201509Text'),
+      notes: t('headMystery201509Notes'),
+      mystery:'201509',
+      value: 0
     },
     301404: {
       text: t('headMystery301404Text'),

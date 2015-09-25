@@ -84,8 +84,13 @@ export var armor = {
     text: t('armorMystery201508Text'),
     notes: t('armorMystery201508Notes'),
     mystery: '201508',
-    value: 0,
-    int: 0
+    value: 0
+  },
+  201509: {
+    text: t('armorMystery201509Text'),
+    notes: t('armorMystery201509Notes'),
+    mystery: '201509',
+    value: 0
   },
   301404: {
     text: t('armorMystery301404Text'),
