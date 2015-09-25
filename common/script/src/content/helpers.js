@@ -171,3 +171,21 @@ export function generateEggs(set, options={}) {
 
   return eggs;
 }
+
+//----------------------------------------
+// Hatching Potion Helpers
+//----------------------------------------
+
+export function setHatchingPotionDefaults(hatchingPotions) {
+  each(hatchingPotions, (potion, key) => {
+    let text = translator(`hatchingPotion${key}`);
+    defaults(potion, {
+      key: key,
+      value: 2,
+      text: text,
+      notes: translator('hatchingPotionNotes', {
+        potText: text
+      }),
+    });
+  });
+}

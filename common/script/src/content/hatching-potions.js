@@ -1,5 +1,4 @@
-import {each, defaults} from 'lodash';
-import {translator as t} from './helpers';
+import {setHatchingPotionDefaults} from './helpers';
 
 let hatchingPotions = {
   Base: {
@@ -34,15 +33,6 @@ let hatchingPotions = {
   }
 };
 
-each(hatchingPotions, function(potion, key) {
-  defaults(potion, {
-    key: key,
-    value: 2,
-    text: t(`hatchingPotion${key}`),
-    notes: t('hatchingPotionNotes', {
-      potText: potion.text
-    }),
-  });
-});
+setHatchingPotionDefaults(hatchingPotions);
 
 export default hatchingPotions;
