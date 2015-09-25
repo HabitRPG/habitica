@@ -1,7 +1,8 @@
 import {each} from 'lodash';
-import camelCase from 'lodash.camelcase';
-import capitalize from 'lodash.capitalize';
-import {translator as t} from './helpers';
+import {
+  translator as t,
+  formatForTranslator
+} from './helpers';
 
 let sets = {
   '062014': ['beach', 'fairy_ring', 'forest'],
@@ -29,21 +30,13 @@ each(sets, (names, set) => {
   backgrounds[setName] = {};
 
   each(names, (name) => {
-    let envName = generateEnvName(name);
+    let formattedName = formatForTranslator(name);
 
     backgrounds[setName][name] = {
-      text: t(`${envName}Text`),
-      notes: t(`${envName}Notes`),
+      text: t(`background${formattedName}Text`),
+      notes: t(`background${formattedName}Notes`),
     };
   });
 });
-
-function generateEnvName(name) {
-  let camelName = camelCase(name);
-  let capitalCamelName = capitalize(camelName);
-  let backgroundName = `background${capitalCamelName}`;
-
-  return backgroundName;
-}
 
 export default backgrounds;
