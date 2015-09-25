@@ -154,19 +154,21 @@ export function generateEggs(set, options={}) {
   let canBuy = options.canBuy;
 
   each(set, (pet) => {
+    let text = translator(`${type}Egg${pet}Text`);
+    let adj = translator(`${type}Egg${pet}Adjective`);
+
     eggs[pet] = {
-      text: translator(`${type}Egg${pet}Text`),
+      text: text,
       mountText: translator(`${type}Egg${pet}MountText`),
-      adjective: translator(`${type}Egg${pet}Adjective`),
+      adjective: adj,
       canBuy: canBuy,
       value: 3,
       key: pet,
+      notes: translator('eggNotes', {
+        eggText: text,
+        eggAdjective: adj,
+      }),
     }
-
-    eggs[pet].notes = translator('eggNotes', {
-      eggText: eggs[pet].text,
-      eggAdjective: eggs[pet].adjective
-    });
   });
 
   return eggs;
