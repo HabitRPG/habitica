@@ -119,3 +119,27 @@ function _getGearAttributes(gear) {
 
   return attr;
 }
+
+//----------------------------------------
+// Background Helpers
+//----------------------------------------
+
+export function generateBackgrounds(sets) {
+  let backgrounds = {};
+
+  each(sets, (names, set) => {
+    let setName = `backgrounds${set}`;
+    backgrounds[setName] = {};
+
+    each(names, (name) => {
+      let formattedName = formatForTranslator(name);
+
+      backgrounds[setName][name] = {
+        text: translator(`background${formattedName}Text`),
+        notes: translator(`background${formattedName}Notes`),
+      };
+    });
+  });
+
+  return backgrounds;
+}

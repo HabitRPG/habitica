@@ -1,7 +1,7 @@
 import {each} from 'lodash';
 import {
   translator as t,
-  formatForTranslator
+  generateBackgrounds
 } from './helpers';
 
 let sets = {
@@ -23,20 +23,6 @@ let sets = {
   '092015': ['market', 'stable', 'tavern'],
 };
 
-let backgrounds = { };
-
-each(sets, (names, set) => {
-  let setName = `backgrounds${set}`;
-  backgrounds[setName] = {};
-
-  each(names, (name) => {
-    let formattedName = formatForTranslator(name);
-
-    backgrounds[setName][name] = {
-      text: t(`background${formattedName}Text`),
-      notes: t(`background${formattedName}Notes`),
-    };
-  });
-});
+let backgrounds = generateBackgrounds(sets);
 
 export default backgrounds;
