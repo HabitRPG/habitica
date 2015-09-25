@@ -143,3 +143,31 @@ export function generateBackgrounds(sets) {
 
   return backgrounds;
 }
+
+//----------------------------------------
+// Egg Helpers
+//----------------------------------------
+
+export function generateEggs(set, options={}) {
+  let eggs = {};
+  let type = options.type;
+  let canBuy = options.canBuy;
+
+  each(set, (pet) => {
+    eggs[pet] = {
+      text: translator(`${type}Egg${pet}Text`),
+      mountText: translator(`${type}Egg${pet}MountText`),
+      adjective: translator(`${type}Egg${pet}Adjective`),
+      canBuy: canBuy,
+      value: 3,
+      key: pet,
+    }
+
+    eggs[pet].notes = translator('eggNotes', {
+      eggText: eggs[pet].text,
+      eggAdjective: eggs[pet].adjective
+    });
+  });
+
+  return eggs;
+}

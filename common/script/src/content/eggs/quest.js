@@ -1,5 +1,4 @@
-import {each, defaults} from 'lodash';
-import {translator as t} from '../helpers';
+import {generateEggs} from '../helpers';
 
 const QUEST_EGGS = [
   'Gryphon',
@@ -25,26 +24,6 @@ const QUEST_EGGS = [
   'Horse',
 ];
 
-let eggs = { };
-
-each(QUEST_EGGS, (pet) => {
-  eggs[pet] = {
-    text: t(`questEgg${pet}Text`),
-    mountText: t(`questEgg${pet}MountText`),
-    adjective: t(`questEgg${pet}Adjective`),
-  }
-});
-
-each(eggs, (egg, key) => {
-  return defaults(egg, {
-    canBuy: false,
-    value: 3,
-    key: key,
-    notes: t('eggNotes', {
-      eggText: egg.text,
-      eggAdjective: egg.adjective
-    }),
-  });
-});
+let eggs = generateEggs(QUEST_EGGS, {type: 'quest', canBuy: false});
 
 export default eggs;
