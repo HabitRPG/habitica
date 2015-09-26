@@ -37,7 +37,7 @@ export function merge(array=[]) {
   });
 
   return mergedObject;
-}
+};
 
 //----------------------------------------
 // Set Defaults Helpers
@@ -84,7 +84,7 @@ export function setHatchingPotionDefaults(hatchingPotions) {
       }),
     });
   });
-}
+};
 
 //----------------------------------------
 // Generators
@@ -105,7 +105,7 @@ export function generateGearSet(gear, options={}) {
 
     defaults(item, gearDefaults);
   });
-}
+};
 
 export function generateBackgrounds(sets) {
   let backgrounds = {};
@@ -125,7 +125,7 @@ export function generateBackgrounds(sets) {
   });
 
   return backgrounds;
-}
+};
 
 export function generateEggs(set, options={}) {
   let eggs = {};
@@ -151,7 +151,7 @@ export function generateEggs(set, options={}) {
   });
 
   return eggs;
-}
+};
 
 //----------------------------------------
 // Spell Helpers
@@ -168,7 +168,6 @@ export function calculateBonus(value, stat, crit=1, stat_scale=0.5) {
 //----------------------------------------
 // Gear Helpers
 //----------------------------------------
-
 
 function _getGearAttributes(gear) {
   let attr = {};
