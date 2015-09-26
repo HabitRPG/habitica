@@ -1,5 +1,4 @@
-You may edit any files in this directory. Do not edit files in any
-other locales directory.
+Do not edit any files in this directory!
 
 For more information read:
 
