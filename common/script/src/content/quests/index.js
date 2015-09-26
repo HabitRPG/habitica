@@ -1,8 +1,7 @@
-import {each, defaults, sortBy} from 'lodash';
+import {sortBy} from 'lodash';
 import {
-  translator as t,
   merge,
-  formatForTranslator
+  setQuestDefaults,
 } from '../helpers';
 
 import worldQuests from './world';
@@ -19,40 +18,7 @@ let allQuests = merge([
   goldPurchasableQuests
 ]);
 
-each(allQuests, function(quest, key) {
-  let formattedName = formatForTranslator(key);
-
-  let questDefaults = {
-    key: key,
-    text: t(`quest${formattedName}Text`),
-    notes: t(`quest${formattedName}Notes`),
-    canBuy: true,
-    value: 4,
-  };
-
-  let questBossDefaults = {
-    name: t(`quest${formattedName}Boss`),
-    str: 1,
-    def: 1,
-  };
-
-  let questBossRageDefaults = {
-    title: t('bossRageTitle'),
-    description: t('bossRageDescription'),
-  };
-
-  defaults(quest, questDefaults);
-
-  let boss = quest.boss;
-
-  if (boss) {
-    defaults(boss, questBossDefaults);
-
-    if (boss.rage) {
-      defaults(boss.rage, questBossRageDefaults);
-    }
-  }
-});
+setQuestDefaults(allQuests);
 
 let questsByLevel = sortBy(allQuests, (quest) => {
   return quest.lvl || 0;

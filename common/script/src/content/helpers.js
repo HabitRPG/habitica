@@ -86,6 +86,43 @@ export function setHatchingPotionDefaults(hatchingPotions) {
   });
 };
 
+export function setQuestDefaults(quests) {
+  each(quests, function(quest, key) {
+    let formattedName = formatForTranslator(key);
+
+    let questDefaults = {
+      key: key,
+      text: translator(`quest${formattedName}Text`),
+      notes: translator(`quest${formattedName}Notes`),
+      canBuy: true,
+      value: 4,
+    };
+
+    let questBossDefaults = {
+      name: translator(`quest${formattedName}Boss`),
+      str: 1,
+      def: 1,
+    };
+
+    let questBossRageDefaults = {
+      title: translator('bossRageTitle'),
+      description: translator('bossRageDescription'),
+    };
+
+    defaults(quest, questDefaults);
+
+    let boss = quest.boss;
+
+    if (boss) {
+      defaults(boss, questBossDefaults);
+
+      if (boss.rage) {
+        defaults(boss.rage, questBossRageDefaults);
+      }
+    }
+  });
+};
+
 //----------------------------------------
 // Generators
 //----------------------------------------
