@@ -40,16 +40,8 @@ export function merge(array=[]) {
 }
 
 //----------------------------------------
-// Spell Helpers
+// Set Defaults Helpers
 //----------------------------------------
-
-export function diminishingReturns(bonus, max, halfway=max/2) {
-  return max * (bonus / (bonus + halfway));
-};
-
-export function calculateBonus(value, stat, crit=1, stat_scale=0.5) {
-  return (value < 0 ? 1 : value + 1) + (stat * stat_scale * crit);
-};
 
 export function setSpellDefaults (className, spells) {
   let capitalClassName = formatForTranslator(className);
@@ -64,10 +56,6 @@ export function setSpellDefaults (className, spells) {
     defaults(spell, spellDefaults);
   });
 };
-
-//----------------------------------------
-// Food Helpers
-//----------------------------------------
 
 export function setFoodDefaults(food, options={}) {
   each(food, (item, name) => {
@@ -84,8 +72,22 @@ export function setFoodDefaults(food, options={}) {
   });
 };
 
+export function setHatchingPotionDefaults(hatchingPotions) {
+  each(hatchingPotions, (potion, key) => {
+    let text = translator(`hatchingPotion${key}`);
+    defaults(potion, {
+      key: key,
+      value: 2,
+      text: text,
+      notes: translator('hatchingPotionNotes', {
+        potText: text
+      }),
+    });
+  });
+}
+
 //----------------------------------------
-// Gear Helpers
+// Generators
 //----------------------------------------
 
 export function generateGearSet(gear, options={}) {
@@ -104,21 +106,6 @@ export function generateGearSet(gear, options={}) {
     defaults(item, gearDefaults);
   });
 }
-
-function _getGearAttributes(gear) {
-  let attr = {};
-
-  if (gear.str) { attr.str = gear.str };
-  if (gear.con) { attr.con = gear.con };
-  if (gear.int) { attr.int = gear.int };
-  if (gear.per) { attr.per = gear.per };
-
-  return attr;
-}
-
-//----------------------------------------
-// Background Helpers
-//----------------------------------------
 
 export function generateBackgrounds(sets) {
   let backgrounds = {};
@@ -139,10 +126,6 @@ export function generateBackgrounds(sets) {
 
   return backgrounds;
 }
-
-//----------------------------------------
-// Egg Helpers
-//----------------------------------------
 
 export function generateEggs(set, options={}) {
   let eggs = {};
@@ -171,19 +154,29 @@ export function generateEggs(set, options={}) {
 }
 
 //----------------------------------------
-// Hatching Potion Helpers
+// Spell Helpers
 //----------------------------------------
 
-export function setHatchingPotionDefaults(hatchingPotions) {
-  each(hatchingPotions, (potion, key) => {
-    let text = translator(`hatchingPotion${key}`);
-    defaults(potion, {
-      key: key,
-      value: 2,
-      text: text,
-      notes: translator('hatchingPotionNotes', {
-        potText: text
-      }),
-    });
-  });
+export function diminishingReturns(bonus, max, halfway=max/2) {
+  return max * (bonus / (bonus + halfway));
+};
+
+export function calculateBonus(value, stat, crit=1, stat_scale=0.5) {
+  return (value < 0 ? 1 : value + 1) + (stat * stat_scale * crit);
+};
+
+//----------------------------------------
+// Gear Helpers
+//----------------------------------------
+
+
+function _getGearAttributes(gear) {
+  let attr = {};
+
+  if (gear.str) { attr.str = gear.str };
+  if (gear.con) { attr.con = gear.con };
+  if (gear.int) { attr.int = gear.int };
+  if (gear.per) { attr.per = gear.per };
+
+  return attr;
 }
