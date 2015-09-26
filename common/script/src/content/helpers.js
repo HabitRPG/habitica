@@ -6,7 +6,7 @@ require('coffee-script');
 import i18n from '../../../script/i18n.coffee';
 
 //----------------------------------------
-// Translator Helper
+// Translator Helpers
 //----------------------------------------
 export function translator(string, vars={a: 'a'}) {
   let func = (lang) => {
@@ -17,10 +17,6 @@ export function translator(string, vars={a: 'a'}) {
 
   return func;
 };
-
-//----------------------------------------
-// Formatting Helper
-//----------------------------------------
 
 export function formatForTranslator(name) {
   let camelCasedName = camelCase(name);
