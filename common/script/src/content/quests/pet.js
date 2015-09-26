@@ -1,7 +1,7 @@
-import {each, defaults} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import camelCase from 'lodash.camelcase';
-import {translator as t} from '../helpers';
+import {
+  translator as t,
+  setQuestSetDefaults,
+} from '../helpers';
 
 let petQuests = {
   gryphon: {
@@ -328,38 +328,30 @@ let petQuests = {
   }
 };
 
-each(petQuests, (quest, name) => {
-  let camelName = camelCase(name);
-  let capitalizedName = capitalize(camelName);
-
-  let questDefaults = {
-    completion: t(`quest${capitalizedName}Completion`),
+let questDefaults = (name) => {
+  return {
+    completion: t(`quest${name}Completion`),
     category: 'pet',
+  }
+};
+
+let dropDefaults = (name) => {
+  let eggReward = {
+    type: 'eggs',
+    key: name,
+    text: t(`quest${name}Drop${name}Egg`)
   };
 
-  let dropDefaults = {
-      items: [
-        {
-          type: 'eggs',
-          key: capitalizedName,
-          text: t(`quest${capitalizedName}Drop${capitalizedName}Egg`)
-        }, {
-          type: 'eggs',
-          key: capitalizedName,
-          text: t(`quest${capitalizedName}Drop${capitalizedName}Egg`)
-        }, {
-          type: 'eggs',
-          key: capitalizedName,
-          text: t(`quest${capitalizedName}Drop${capitalizedName}Egg`)
-        },
-      ],
-      unlock: t(`quest${capitalizedName}UnlockText`),
+  return {
+    items: [
+      eggReward,
+      eggReward,
+      eggReward
+    ],
+    unlock: t(`quest${name}UnlockText`),
   };
+};
 
-  defaults(quest, questDefaults);
-
-  if (quest.drop) defaults(quest.drop, dropDefaults);
-});
-
+setQuestSetDefaults(petQuests, questDefaults, dropDefaults);
 
 export default petQuests;

@@ -1,6 +1,7 @@
-import {each, defaults} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import {translator as t} from '../helpers';
+import {
+  translator as t,
+  setQuestSetDefaults,
+} from '../helpers';
 
 let worldQuests = {
   dilatory: {
@@ -155,16 +156,15 @@ let worldQuests = {
   },
 };
 
-each(worldQuests, (quest, name) => {
-  let capitalizedName = capitalize(name);
-  let questDefaults = {
-    completion: t(`quest${capitalizedName}Completion`),
+let questDefaults = (name) => {
+  return {
+    completion: t(`quest${name}Completion`),
     value: 0,
     canBuy: false,
     category: 'world',
-  };
+  }
+};
 
-  defaults(quest, questDefaults);
-});
+setQuestSetDefaults(worldQuests, questDefaults);
 
 export default worldQuests;

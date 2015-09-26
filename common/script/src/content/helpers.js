@@ -123,6 +123,20 @@ export function setQuestDefaults(quests) {
   });
 };
 
+export function setQuestSetDefaults(quests, mainDefaultsFunction, dropDefaultsFunction) {
+  each(quests, (quest, name) => {
+    let formattedName = formatForTranslator(name);
+    let mainDefaults = mainDefaultsFunction(formattedName);
+
+    defaults(quest, mainDefaults);
+
+    if (quest.drop && dropDefaultsFunction) {
+      let dropDefaults = dropDefaultsFunction(formattedName);
+      defaults(quest.drop, dropDefaults);
+    }
+  });
+};
+
 //----------------------------------------
 // Generators
 //----------------------------------------

@@ -1,8 +1,7 @@
-import {each, defaults} from 'lodash';
 import {
   translator as t,
   merge,
-  formatForTranslator
+  setQuestSetDefaults,
 } from '../helpers';
 
 let dilatoryDistressSeries = {
@@ -99,21 +98,19 @@ let dilatoryDistressSeries = {
 
 let goldPurchasableQuests = merge([dilatoryDistressSeries]);
 
-each(goldPurchasableQuests, (quest, name) => {
-  let formattedName = formatForTranslator(name);
-
-  let questDefaults = {
-    completion: t(`quest${formattedName}Completion`),
+let questDefaults = (name) => {
+  return {
+    completion: t(`quest${name}Completion`),
     category: 'gold',
-  };
+  }
+};
 
-  let dropDefaults = {
-    gold: 0
-  };
+let dropDefaults = () => {
+  return {
+    gold: 0,
+  }
+};
 
-  defaults(quest, questDefaults);
-
-  if (quest.drop) defaults(quest.drop, dropDefaults);
-});
+setQuestSetDefaults(goldPurchasableQuests, questDefaults, dropDefaults);
 
 export default goldPurchasableQuests;

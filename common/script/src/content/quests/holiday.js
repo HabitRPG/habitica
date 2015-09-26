@@ -1,6 +1,8 @@
 import {each, defaults} from 'lodash';
-import capitalize from 'lodash.capitalize';
-import {translator as t} from '../helpers';
+import {
+  translator as t,
+  setQuestSetDefaults,
+} from '../helpers';
 
 let holidayQuests = {
   evilsanta: {
@@ -106,16 +108,14 @@ let holidayQuests = {
   },
 };
 
-each(holidayQuests, (quest, name) => {
-  let capitalizedName = capitalize(name);
-  let questDefaults = {
-    completion: t(`quest${capitalizedName}Completion`),
+let questDefaults = (name) => {
+  return  {
+    completion: t(`quest${name}Completion`),
     canBuy: false,
     category: 'pet',
-  };
+  }
+};
 
-  defaults(quest, questDefaults);
-});
-
+setQuestSetDefaults(holidayQuests, questDefaults);
 
 export default holidayQuests;

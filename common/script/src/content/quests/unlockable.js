@@ -1,8 +1,7 @@
-import {each, defaults} from 'lodash';
 import {
   translator as t,
   merge,
-  formatForTranslator
+  setQuestSetDefaults,
 } from '../helpers';
 
 let inviteFriends = {
@@ -354,12 +353,10 @@ let unlockableQuests = merge([
   goldenKnightSeries,
 ]);
 
-each(unlockableQuests, (quest, name) => {
-  let questDefaults = {
-    category: 'unlockable',
-  };
+let questDefaults = () => {
+  return { category: 'unlockable' }
+};
 
-  defaults(quest, questDefaults);
-});
+setQuestSetDefaults(unlockableQuests, questDefaults);
 
 export default unlockableQuests;
