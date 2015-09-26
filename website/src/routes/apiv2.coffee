@@ -478,6 +478,15 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
       action: groups.join
 
+    "/groups/{gid}/reject":
+      spec:
+        method: 'POST'
+        description: 'Reject an invitation to a group'
+        parameters: [path('gid','Id of the group to join','string')]
+      middleware: [auth.auth, i18n.getUserLanguage, groups.attachGroup]
+      action: groups.reject
+
+
     "/groups/{gid}/leave":
       spec:
         method: 'POST'
