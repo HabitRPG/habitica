@@ -93,10 +93,13 @@
             a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
           .popover-content
             p=env.t('welcomeMarket')
-            p
-              button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
-              button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
-              button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
+            p              
+              button.btn.btn-primary(style='margin:1em 0', ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
+              button.btn.btn-primary(style='margin:1em 0', ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
+              button.btn.btn-primary(style='margin:1em 0', ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})              
+              button.btn.btn-primary(ng-show='selectedEgg && user.items.eggs[selectedEgg.key] > 1', ng-click='sellAllInventory()')=env.t('sellAllEggForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{user.items.eggs[selectedEgg.key] * selectedEgg.value}}"})
+              button.btn.btn-primary(ng-show='selectedPotion && user.items.hatchingPotions[selectedPotion.key] > 1', ng-click='sellAllInventory()')=env.t('sellAllPotionForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{user.items.hatchingPotions[selectedPotion.key] * selectedPotion.value}}"})
+              button.btn.btn-primary(ng-show='selectedFood && user.items.food[selectedFood.key] > 1', ng-click='sellAllInventory()')=env.t('sellAllForGold', {item: "{{selectedFood.text()}}", gold: "{{user.items.food[selectedFood.key] * selectedFood.value}}"})
       menu.inventory-list(type='list')
         li.customize-menu
           menu.pets-menu(label=env.t('eggs'))

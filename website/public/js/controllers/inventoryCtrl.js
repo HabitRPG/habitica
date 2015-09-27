@@ -81,6 +81,18 @@ habitrpg.controller("InventoryCtrl",
       }
     }
 
+    $scope.sellAllInventory = function() {
+      var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
+      if (selected) {
+        var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
+        var amount = user.items[type][$scope[selected].key]; // user.items changes with every iteration of sell, so need to store in a variable first
+        for (i = 0; i < amount; i++) {
+          user.ops.sell({params:{type:type, key: $scope[selected].key}});
+        }
+        $scope[selected] = null;
+      }
+    }
+
     $scope.ownedItems = function(inventory){
       return _.pick(inventory, function(v,k){return v>0;});
     }
