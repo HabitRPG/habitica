@@ -16,7 +16,7 @@ var TaskSchema = new Schema({
   notes: {type: String, default: ''},
   // TODO dictionary?
   tags: {type: Schema.Types.Mixed, default: {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
-  value: {type: Number, default: 0}, // redness
+  value: {type: Number, default: 0}, // redness or price for rewards
   priority: {type: Number, default: '1'},
   attribute: {type: String, default: 'str', enum: ['str','con','int','per']},
 
@@ -65,10 +65,7 @@ var TaskSchema = new Schema({
   // Todos' fields
   completed: {type: Boolean, default: false},
   dateCompleted: Date,
-  date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
-
-  // Rewards' fields
-
+  date: String // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
 }, {minimize: false});
 
 module.exports.schema = TaskSchema;

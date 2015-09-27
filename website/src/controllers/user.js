@@ -12,6 +12,8 @@ var utils = require('./../utils');
 var analytics = utils.analytics;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var Task = require('./../models/task').model;
+var TaskHistory = require('./../models/taskHistory').model;
 var moment = require('moment');
 var logging = require('./../logging');
 var acceptablePUTPaths;
@@ -205,89 +207,94 @@ api.getBuyList = function (req, res, next) {
  * Get User
  */
 api.getUser = function(req, res, next) {
-  var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = shared.maxHealth;
-  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
-  delete user.apiToken;
-  if (user.auth && user.auth.local) {
-    delete user.auth.local.hashed_password;
-    delete user.auth.local.salt;
-  }
-  return res.json(200, user);
+  res.locals.user.getTransformedData(function(err, user){
+    if(err) return next(err);
+
+    user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    user.stats.maxHealth = shared.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    delete user.apiToken;
+    if (user.auth && user.auth.local) {
+      delete user.auth.local.hashed_password;
+      delete user.auth.local.salt;
+    }
+
+    return res.json(200, user);
+  });
 };
 
 /**
  * Get anonymized User
  */
 api.getUserAnonymized = function(req, res, next) {
-  var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
-  user.stats.maxHealth = shared.maxHealth;
-  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+  res.locals.user.getTransformedData(function(err, user){
+    user.stats.toNextLevel = shared.tnl(user.stats.lvl);
+    user.stats.maxHealth = shared.maxHealth;
+    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
 
-  delete user.apiToken;
+    delete user.apiToken;
 
-  if (user.auth) {
-    delete user.auth.local;
-    delete user.auth.facebook;
-  }
+    if (user.auth) {
+      delete user.auth.local;
+      delete user.auth.facebook;
+    }
 
-  delete user.newMessages;
+    delete user.newMessages;
 
-  delete user.profile;
-  delete user.purchased.plan;
-  delete user.contributor;
-  delete user.invitations;
+    delete user.profile;
+    delete user.purchased.plan;
+    delete user.contributor;
+    delete user.invitations;
 
-  delete user.items.special.nyeReceived;
-  delete user.items.special.valentineReceived;
+    delete user.items.special.nyeReceived;
+    delete user.items.special.valentineReceived;
 
-  delete user.webhooks;
-  delete user.achievements.challenges;
+    delete user.webhooks;
+    delete user.achievements.challenges;
 
-  _.forEach(user.inbox.messages, function(msg){
-    msg.text = "inbox message text";
-  });
-
-  _.forEach(user.tags, function(tag){
-    tag.name = "tag";
-    tag.challenge = "challenge";
-  });
-
-  function cleanChecklist(task){
-    var checklistIndex = 0;
-
-    _.forEach(task.checklist, function(c){
-      c.text = "item" + checklistIndex++;
+    _.forEach(user.inbox.messages, function(msg){
+      msg.text = "inbox message text";
     });
-  }
 
-  _.forEach(user.habits, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
+    _.forEach(user.tags, function(tag){
+      tag.name = "tag";
+      tag.challenge = "challenge";
+    });
+
+    function cleanChecklist(task){
+      var checklistIndex = 0;
+
+      _.forEach(task.checklist, function(c){
+        c.text = "item" + checklistIndex++;
+      });
+    }
+
+    _.forEach(user.habits, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+    });
+
+    _.forEach(user.rewards, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+    });
+
+    _.forEach(user.dailys, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+
+      cleanChecklist(task);
+    });
+
+    _.forEach(user.todos, function(task){
+      task.text = "task text";
+      task.notes = "task notes";
+
+      cleanChecklist(task);
+    });
+
+    return res.json(200, user);
   });
-
-  _.forEach(user.rewards, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-  });
-
-  _.forEach(user.dailys, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-
-    cleanChecklist(task);
-  });
-
-  _.forEach(user.todos, function(task){
-    task.text = "task text";
-    task.notes = "task notes";
-
-    cleanChecklist(task);
-  });
-
-  return res.json(200, user);
 };
 
 /**
@@ -377,24 +384,44 @@ api['delete'] = function(req, res, next) {
     return res.json(400,{err:"You have an active subscription, cancel your plan before deleting your account."});
   }
 
-  Group.find({
-    members: {
-      '$in': [user._id]
+  async.parallel([
+    function(cb){
+      Group.find({
+        members: {
+          '$in': [user._id]
+        }
+      }, function(err, groups){
+        if(err) return cb(err);
+
+        async.each(groups, function(group, cb1){
+          group.leave(user, 'remove-all', cb1);
+        }, function(err){
+          if(err) return cb(err);
+
+          return cb();
+        });
+      })
+    },
+
+    function(cb){
+      Task.remove({
+        userId: user._id
+      });
+    },
+
+    function(cb){
+      TaskHistory.remove({
+        userId: user._id
+      });
     }
-  }, function(err, groups){
+  ], function(err, results){
     if(err) return next(err);
 
-    async.each(groups, function(group, cb){
-      group.leave(user, 'remove-all', cb);
-    }, function(err){
+    user.remove(function(err){
       if(err) return next(err);
 
-      user.remove(function(err){
-        if(err) return next(err);
-
-        firebase.deleteUser(user._id);
-        res.send(200);
-      });
+      firebase.deleteUser(user._id);
+      res.send(200);
     });
   });
 }

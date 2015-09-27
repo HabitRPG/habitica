@@ -135,7 +135,13 @@ api.registerUser = function(req, res, next) {
     }]
   }, function(err, data) {
     if (err) return err.code ? res.json(err.code, err) : next(err);
-    res.json(200, data.register[0]);
+
+    var user = data.register[0];
+    user.getTransformedData(function(err, user){
+      if(err) return next(err);
+
+      res.json(200, user);
+    });
   });
 };
 

@@ -8,7 +8,8 @@ var shared = require('../../../common');
 
 var TaskHistorySchema = new Schema({
   _id: {type: String, default: shared.uuid},
-  taskId: {type: String},
+  taskId: {type: String, ref: 'Task'},
+  userId: {type: String, ref: 'User'},
   date: Date,
   value: Number
 }, {minimize: false});
