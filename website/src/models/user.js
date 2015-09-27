@@ -521,41 +521,52 @@ UserSchema.methods.getTransformedData = function(cb) {
   });
 };
 
+// Populate new users with default content
 UserSchema.pre('save', function(next) {
-
-  // Populate new users with default content
   if (this.isNew){
     //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
     var self = this;
-    _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
-      self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
-        var newTask = _.cloneDeep(task);
 
-        // Render task's text and notes in user's language
-        if(taskType === 'tags'){
-          // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-          newTask.id = shared.uuid();
-          newTask.name = newTask.name(self.preferences.language);
-        }else{
-          newTask.text = newTask.text(self.preferences.language);
-          if(newTask.notes) {
-            newTask.notes = newTask.notes(self.preferences.language);
-          }
+    self.tags = _.map(shared.content.userDefaults.tags, function(tag){
+      var newTag = _.cloneDeep(tag);
 
-          if(newTask.checklist){
-            newTask.checklist = _.map(newTask.checklist, function(checklistItem){
-              checklistItem.text = checklistItem.text(self.preferences.language);
-              return checklistItem;
-            });
-          }
-        }
+      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+      newTag.id = shared.uuid();
+      // Render tag's name in user's language
+      newTag.name = newTask.name(self.preferences.language);
 
-        return newTask;
-      });
+      return newTag;
     });
-  }
 
-  //this.markModified('tasks');
+    var defaultTasks = shared.content.userDefaults.habits
+                  .concat(shared.content.userDefaults.dailys)
+                  .concat(shared.content.userDefaults.todos)
+                  .concat(shared.content.userDefaults.rewards);
+
+    async.each(defaultTasks, function(task, cb) {
+      var newTask = _.cloneDeep(task);
+      newTask.userId = self._id;
+
+      // Render task's text and notes in user's language
+
+      newTask.text = newTask.text(self.preferences.language);
+      if(newTask.notes) {
+        newTask.notes = newTask.notes(self.preferences.language);
+      }
+
+      if(newTask.checklist){
+        newTask.checklist = _.map(newTask.checklist, function(checklistItem){
+          checklistItem.text = checklistItem.text(self.preferences.language);
+          return checklistItem;
+        });
+      }
+
+      Task.create(newTask, cb);
+    }, next);
+  }
+});
+
+UserSchema.pre('save', function(next) {
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
