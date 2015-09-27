@@ -1,5 +1,4 @@
 import {setGearSetDefaults} from '../../helpers';
-import events from '../../events';
 
 let armor = {
   1: { con: 3, value: 30 },
