@@ -2,6 +2,7 @@ import {translator as t} from '../helpers';
 import events from '../events';
 
 import {shield as healerShield} from './sets/healer';
+import {shield as rogueShield} from './sets/rogue';
 import {shield as warriorShield} from './sets/warrior';
 import {shield as wizardShield} from './sets/wizard';
 
@@ -14,63 +15,7 @@ let shield = {
     }
   },
   warrior: warriorShield,
-  rogue: {
-    0: {
-      text: t('weaponRogue0Text'),
-      notes: t('weaponRogue0Notes'),
-      str: 0,
-      value: 0
-    },
-    1: {
-      text: t('weaponRogue1Text'),
-      notes: t('weaponRogue1Notes', {
-        str: 2
-      }),
-      str: 2,
-      value: 20
-    },
-    2: {
-      text: t('weaponRogue2Text'),
-      notes: t('weaponRogue2Notes', {
-        str: 3
-      }),
-      str: 3,
-      value: 35
-    },
-    3: {
-      text: t('weaponRogue3Text'),
-      notes: t('weaponRogue3Notes', {
-        str: 4
-      }),
-      str: 4,
-      value: 50
-    },
-    4: {
-      text: t('weaponRogue4Text'),
-      notes: t('weaponRogue4Notes', {
-        str: 6
-      }),
-      str: 6,
-      value: 70
-    },
-    5: {
-      text: t('weaponRogue5Text'),
-      notes: t('weaponRogue5Notes', {
-        str: 8
-      }),
-      str: 8,
-      value: 90
-    },
-    6: {
-      text: t('weaponRogue6Text'),
-      notes: t('weaponRogue6Notes', {
-        str: 10
-      }),
-      str: 10,
-      value: 120,
-      last: true
-    }
-  },
+  rogue: rogueShield,
   wizard: wizardShield,
   healer: healerShield,
   special: {
