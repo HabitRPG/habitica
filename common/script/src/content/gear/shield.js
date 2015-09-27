@@ -2,6 +2,7 @@ import {translator as t} from '../helpers';
 import events from '../events';
 
 import {shield as warriorShield} from './sets/warrior';
+import {shield as wizardShield} from './sets/wizard';
 
 let shield = {
   base: {
@@ -69,7 +70,7 @@ let shield = {
       last: true
     }
   },
-  wizard: {},
+  wizard: wizardShield,
   healer: {
     1: {
       text: t('shieldHealer1Text'),

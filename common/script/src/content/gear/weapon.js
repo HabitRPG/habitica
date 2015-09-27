@@ -2,6 +2,7 @@ import {translator as t} from '../helpers';
 import events from '../events';
 
 import {weapon as warriorWeapon} from './sets/warrior';
+import {weapon as wizardWeapon} from './sets/wizard';
 
 let weapon = {
   base: {
@@ -69,81 +70,7 @@ let weapon = {
       last: true
     }
   },
-  wizard: {
-    0: {
-      twoHanded: true,
-      text: t('weaponWizard0Text'),
-      notes: t('weaponWizard0Notes'),
-      value: 0
-    },
-    1: {
-      twoHanded: true,
-      text: t('weaponWizard1Text'),
-      notes: t('weaponWizard1Notes', {
-        int: 3,
-        per: 1
-      }),
-      int: 3,
-      per: 1,
-      value: 30
-    },
-    2: {
-      twoHanded: true,
-      text: t('weaponWizard2Text'),
-      notes: t('weaponWizard2Notes', {
-        int: 6,
-        per: 2
-      }),
-      int: 6,
-      per: 2,
-      value: 50
-    },
-    3: {
-      twoHanded: true,
-      text: t('weaponWizard3Text'),
-      notes: t('weaponWizard3Notes', {
-        int: 9,
-        per: 3
-      }),
-      int: 9,
-      per: 3,
-      value: 80
-    },
-    4: {
-      twoHanded: true,
-      text: t('weaponWizard4Text'),
-      notes: t('weaponWizard4Notes', {
-        int: 12,
-        per: 5
-      }),
-      int: 12,
-      per: 5,
-      value: 120
-    },
-    5: {
-      twoHanded: true,
-      text: t('weaponWizard5Text'),
-      notes: t('weaponWizard5Notes', {
-        int: 15,
-        per: 7
-      }),
-      int: 15,
-      per: 7,
-      value: 160
-    },
-    6: {
-      twoHanded: true,
-      text: t('weaponWizard6Text'),
-      notes: t('weaponWizard6Notes', {
-        int: 18,
-        per: 10
-      }),
-      int: 18,
-      per: 10,
-      value: 200,
-      last: true
-    }
-  },
+  wizard: wizardWeapon,
   healer: {
     0: {
       text: t('weaponHealer0Text'),
