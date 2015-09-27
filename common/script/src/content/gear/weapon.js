@@ -1,23 +1,21 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {base as baseWeapon} from './sets/base';
+
 import {weapon as healerWeapon} from './sets/healer';
 import {weapon as rogueWeapon} from './sets/rogue';
 import {weapon as warriorWeapon} from './sets/warrior';
 import {weapon as wizardWeapon} from './sets/wizard';
 
 let weapon = {
-  base: {
-    0: {
-      text: t('weaponBase0Text'),
-      notes: t('weaponBase0Notes'),
-      value: 0
-    }
-  },
+  base: baseWeapon,
+
   warrior: warriorWeapon,
   rogue: rogueWeapon,
   wizard: wizardWeapon,
   healer: healerWeapon,
+
   special: {
     0: {
       text: t('weaponSpecial0Text'),

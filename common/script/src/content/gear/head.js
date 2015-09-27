@@ -1,23 +1,21 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {base as baseHead} from './sets/base';
+
 import {head as healerHead} from './sets/healer';
 import {head as rogueHead} from './sets/rogue';
 import {head as warriorHead} from './sets/warrior';
 import {head as wizardHead} from './sets/wizard';
 
 let head = {
-  base: {
-    0: {
-      text: t('headBase0Text'),
-      notes: t('headBase0Notes'),
-      value: 0
-    }
-  },
+  base: baseHead,
+
   warrior: warriorHead,
   rogue: rogueHead,
   wizard: wizardHead,
   healer: healerHead,
+
   special: {
     0: {
       text: t('headSpecial0Text'),

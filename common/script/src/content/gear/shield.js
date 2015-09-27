@@ -1,23 +1,21 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {base as baseShield} from './sets/base';
+
 import {shield as healerShield} from './sets/healer';
 import {shield as rogueShield} from './sets/rogue';
 import {shield as warriorShield} from './sets/warrior';
 import {shield as wizardShield} from './sets/wizard';
 
 let shield = {
-  base: {
-    0: {
-      text: t('shieldBase0Text'),
-      notes: t('shieldBase0Notes'),
-      value: 0
-    }
-  },
+  base: baseShield,
+
   warrior: warriorShield,
   rogue: rogueShield,
   wizard: wizardShield,
   healer: healerShield,
+
   special: {
     0: {
       text: t('shieldSpecial0Text'),
