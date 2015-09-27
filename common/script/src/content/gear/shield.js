@@ -1,6 +1,7 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {shield as healerShield} from './sets/healer';
 import {shield as warriorShield} from './sets/warrior';
 import {shield as wizardShield} from './sets/wizard';
 
@@ -71,49 +72,7 @@ let shield = {
     }
   },
   wizard: wizardShield,
-  healer: {
-    1: {
-      text: t('shieldHealer1Text'),
-      notes: t('shieldHealer1Notes', {
-        con: 2
-      }),
-      con: 2,
-      value: 20
-    },
-    2: {
-      text: t('shieldHealer2Text'),
-      notes: t('shieldHealer2Notes', {
-        con: 4
-      }),
-      con: 4,
-      value: 35
-    },
-    3: {
-      text: t('shieldHealer3Text'),
-      notes: t('shieldHealer3Notes', {
-        con: 6
-      }),
-      con: 6,
-      value: 50
-    },
-    4: {
-      text: t('shieldHealer4Text'),
-      notes: t('shieldHealer4Notes', {
-        con: 9
-      }),
-      con: 9,
-      value: 70
-    },
-    5: {
-      text: t('shieldHealer5Text'),
-      notes: t('shieldHealer5Notes', {
-        con: 12
-      }),
-      con: 12,
-      value: 90,
-      last: true
-    }
-  },
+  healer: healerShield,
   special: {
     0: {
       text: t('shieldSpecial0Text'),

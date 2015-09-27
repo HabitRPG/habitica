@@ -1,6 +1,7 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {weapon as healerWeapon} from './sets/healer';
 import {weapon as warriorWeapon} from './sets/warrior';
 import {weapon as wizardWeapon} from './sets/wizard';
 
@@ -71,62 +72,7 @@ let weapon = {
     }
   },
   wizard: wizardWeapon,
-  healer: {
-    0: {
-      text: t('weaponHealer0Text'),
-      notes: t('weaponHealer0Notes'),
-      value: 0
-    },
-    1: {
-      text: t('weaponHealer1Text'),
-      notes: t('weaponHealer1Notes', {
-        int: 2
-      }),
-      int: 2,
-      value: 20
-    },
-    2: {
-      text: t('weaponHealer2Text'),
-      notes: t('weaponHealer2Notes', {
-        int: 3
-      }),
-      int: 3,
-      value: 30
-    },
-    3: {
-      text: t('weaponHealer3Text'),
-      notes: t('weaponHealer3Notes', {
-        int: 5
-      }),
-      int: 5,
-      value: 45
-    },
-    4: {
-      text: t('weaponHealer4Text'),
-      notes: t('weaponHealer4Notes', {
-        int: 7
-      }),
-      int: 7,
-      value: 65
-    },
-    5: {
-      text: t('weaponHealer5Text'),
-      notes: t('weaponHealer5Notes', {
-        int: 9
-      }),
-      int: 9,
-      value: 90
-    },
-    6: {
-      text: t('weaponHealer6Text'),
-      notes: t('weaponHealer6Notes', {
-        int: 11
-      }),
-      int: 11,
-      value: 120,
-      last: true
-    }
-  },
+  healer: healerWeapon,
   special: {
     0: {
       text: t('weaponSpecial0Text'),

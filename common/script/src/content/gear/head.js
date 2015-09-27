@@ -1,6 +1,7 @@
 import {translator as t} from '../helpers';
 import events from '../events';
 
+import {head as healerHead} from './sets/healer';
 import {head as warriorHead} from './sets/warrior';
 import {head as wizardHead} from './sets/wizard';
 
@@ -57,49 +58,7 @@ let head = {
     }
   },
   wizard: wizardHead,
-  healer: {
-    1: {
-      text: t('headHealer1Text'),
-      notes: t('headHealer1Notes', {
-        int: 2
-      }),
-      int: 2,
-      value: 15
-    },
-    2: {
-      text: t('headHealer2Text'),
-      notes: t('headHealer2Notes', {
-        int: 3
-      }),
-      int: 3,
-      value: 25
-    },
-    3: {
-      text: t('headHealer3Text'),
-      notes: t('headHealer3Notes', {
-        int: 5
-      }),
-      int: 5,
-      value: 40
-    },
-    4: {
-      text: t('headHealer4Text'),
-      notes: t('headHealer4Notes', {
-        int: 7
-      }),
-      int: 7,
-      value: 60
-    },
-    5: {
-      text: t('headHealer5Text'),
-      notes: t('headHealer5Notes', {
-        int: 9
-      }),
-      int: 9,
-      value: 80,
-      last: true
-    }
-  },
+  healer: healerHead,
   special: {
     0: {
       text: t('headSpecial0Text'),
