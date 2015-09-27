@@ -137,26 +137,27 @@ export function setQuestSetDefaults(quests, mainDefaultsFunction, dropDefaultsFu
   });
 };
 
+export function setGearSetDefaults(gearSet, options={}) {
+  let setName = formatForTranslator(options.setName);
+
+  each(gearSet, (gear, gearType) => {
+    each(gear, (item, number) => {
+      let text = `${gearType}${setName}${number}Text`;
+      let notes = `${gearType}${setName}${number}Notes`;
+      let attributes = _getGearAttributes(item);
+      let gearDefaults = {
+        text: translator(text),
+        notes: translator(notes, attributes),
+      }
+
+      defaults(item, gearDefaults);
+    });
+  });
+};
+
 //----------------------------------------
 // Generators
 //----------------------------------------
-
-export function generateGearSet(gear, options={}) {
-  let setName = formatForTranslator(options.setName);
-  let gearType = options.gearType;
-
-  each(gear, (item, number) => {
-    let text = `${gearType}${setName}${number}Text`;
-    let notes = `${gearType}${setName}${number}Notes`;
-    let attributes = _getGearAttributes(item);
-    let gearDefaults = {
-      text: translator(text),
-      notes: translator(notes, attributes),
-    }
-
-    defaults(item, gearDefaults);
-  });
-};
 
 export function generateBackgrounds(sets) {
   let backgrounds = {};

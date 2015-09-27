@@ -1,4 +1,4 @@
-import {generateGearSet} from '../../helpers';
+import {setGearSetDefaults} from '../../helpers';
 import events from '../../events';
 
 let armor = {
@@ -42,9 +42,6 @@ let warriorSet = {
   weapon: weapon,
 };
 
-generateGearSet(armor, {setName: 'warrior', gearType: 'armor'});
-generateGearSet(head, {setName: 'warrior', gearType: 'head'});
-generateGearSet(shield, {setName: 'warrior', gearType: 'shield'});
-generateGearSet(weapon, {setName: 'warrior', gearType: 'weapon'});
+setGearSetDefaults(warriorSet, {setName: 'warrior'});
 
 export default warriorSet;
